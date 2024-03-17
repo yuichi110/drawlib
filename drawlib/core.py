@@ -8,6 +8,7 @@ import matplotlib.patches as patches
 import matplotlib.offsetbox as offsetbox
 import PIL.Image
 import numpy
+import warnings
 
 
 class FontStyle:
@@ -35,7 +36,13 @@ class FontStyle:
 
 class LineStyle:
 
-    def __init__(self, width, color, style, alpha):
+    def __init__(
+        self,
+        width: Optional[float] = None,
+        color: Union[float, str, Tuple[float, float, float], None] = None,
+        style: Optional[Literal["solid", "dashed", "dotted", "dashdot"]] = None,
+        alpha: Optional[float] = None,
+    ):
         self.width = width
         self.color = color
         self.style = style
@@ -64,13 +71,15 @@ class __Drawer:
     class Title:
         def __init__(
             self,
-            s: str,
+            text: str,
             x: Optional[float] = None,
             y: Optional[float] = None,
+            fontproperties: Optional[matplotlib.font_manager.FontProperties] = None,
         ):
-            self.s = s
+            self.text = text
             self.x = x
             self.y = y
+            self.fontproperties = fontproperties
 
     def __init__(self):
         self.width = self.DEFAULT_WIDTH
@@ -79,7 +88,7 @@ class __Drawer:
         self.axis = self.DEFAULT_AXIS
         self.loglevel = self.DEFAULT_LOGLEVEL
 
-        self.title_: Optional[self.Title] = None
+        self._title: Optional[self.Title] = None
         self._logger = None
         self._artists: List[matplotlib.artist.Artist] = []
         self._image_cache: dict[Union[str, PIL.Image.Image], numpy.array] = {}
@@ -125,19 +134,20 @@ class __Drawer:
         ax.set_aspect(self.aspect)
         ax.axis("on" if self.axis else "off")
 
-        # draw
+        # draw artist (patches, line, text)
         for artist in self._artists:
             ax.add_artist(artist)
 
-        if self.title_ is not None:
-            t = self.title_
-            d = {}
-            if t.x:
-                d["x"] = t.x
-            if t.y:
-                d["y"] = t.y
-            ax.set_title(t.s, **d)
+        # draw title
+        if self._title is not None:
+            options = {
+                key: value
+                for key, value in vars(self._title).items()
+                if value is not None
+            }
+            ax.set_title(self._title.text, **options)
 
+        # magic for making good margin
         fig.tight_layout()
 
     ####################################
@@ -181,25 +191,30 @@ class __Drawer:
 
     def title(
         self,
-        s: str,
+        text: str,
         x: Optional[float] = None,
         y: Optional[float] = None,
         style: Optional[FontStyle] = None,
     ):
-        self.title_ = self.Title(s, x, y)
+        fp = self._get_font_properties(style)
+        self._title = self.Title(text, x, y, fp)
 
     def text(
         self,
         x: float,
         y: float,
-        s: str,
+        text_: str,
         style: Optional[FontStyle] = None,
     ):
-        options = {}
-        if style is not None:
-            options["fontproperties"] = style
 
-        self._artists.append(matplotlib.text.Text(x, y, s))
+        self._artists.append(
+            matplotlib.text.Text(
+                x,
+                y,
+                text_,
+                fontproperties=self._get_font_properties(style),
+            )
+        )
 
     def text_vertical(self, x: float, y: float, s: str): ...
 
@@ -233,14 +248,31 @@ class __Drawer:
         ab = offsetbox.AnnotationBbox(imagebox, (x, y), frameon=False)
         self._artists.append(ab)
 
-    def line(self, x1: float, y1: float, x2: float, y2: float):
-        line = matplotlib.lines.Line2D(xdata=[x1, x2], ydata=[y1, y2])
+    def line(
+        self,
+        x1: float,
+        y1: float,
+        x2: float,
+        y2: float,
+        style: Optional[LineStyle] = None,
+    ):
+        options = self._get_line_options(style)
+        line = matplotlib.lines.Line2D(
+            xdata=[x1, x2],
+            ydata=[y1, y2],
+            **options,
+        )
         self._artists.append(line)
 
-    def lines(self, xys: List[Tuple[float, float]]):
+    def lines(
+        self,
+        xys: List[Tuple[float, float]],
+        style: Optional[LineStyle] = None,
+    ):
         xs = [xy[0] for xy in xys]
         ys = [xy[1] for xy in xys]
-        line = matplotlib.lines.Line2D(xdata=xs, ydata=ys)
+        options = self._get_line_options(style)
+        line = matplotlib.lines.Line2D(xdata=xs, ydata=ys, **options)
         self._artists.append(line)
 
     def line_bezier(
@@ -254,6 +286,7 @@ class __Drawer:
             ]
         ],
         smooth_points: int = 100,
+        style: Optional[LineStyle] = None,
     ):
         def quadratic_bezier(x0, y0, x1, y1, x2, y2):
             points = []
@@ -277,20 +310,44 @@ class __Drawer:
             else:
                 raise ValueError()
 
-        line = matplotlib.lines.Line2D(xdata=xs, ydata=ys)
+        options = self._get_line_options(style)
+        line = matplotlib.lines.Line2D(xdata=xs, ydata=ys, **options)
         self._artists.append(line)
 
     ############
     ### util ###
     ############
 
-    def _get_font_option(self, font_style: FontStyle) -> Dict[str, Any]:
-        return {}
+    def _get_font_properties(
+        self,
+        style: Optional[FontStyle],
+    ) -> Optional[matplotlib.font_manager.FontProperties]:
+        if style is None:
+            return None
 
-    def _get_line_option(self, line_style: LineStyle) -> Dict[str, Any]:
-        return {}
+        return matplotlib.font_manager.FontProperties(
+            family=style.family,
+            style=style.style,
+            variant=style.variant,
+            weight=style.weight,
+            stretch=style.stretch,
+            size=style.size,
+            fname=style.file,
+            math_fontfamily=style.math_fontfamily,
+        )
 
-    def _get_shape_option(self, shape_style: ShapeStyle) -> Dict[str, Any]:
+    def _get_line_options(self, style: Optional[LineStyle] = None) -> Dict[str, Any]:
+        if style is None:
+            return {}
+
+        return {
+            "linewidth": style.width,
+            "linestyle": style.style,
+            "color": style.color,
+            "alpha": style.alpha,
+        }
+
+    def _get_shape_options(self, shape_style: ShapeStyle) -> Dict[str, Any]:
         return {}
 
 
@@ -315,3 +372,10 @@ image = __d.image
 line = __d.line
 lines = __d.lines
 line_bezier = __d.line_bezier
+
+
+def warning_suppress(module: Optional[str] = None):
+    if module is None:
+        warnings.filterwarnings("ignore")
+    else:
+        warnings.filterwarnings("ignore", module=module)
