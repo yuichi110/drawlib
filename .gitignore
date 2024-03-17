@@ -1,7 +1,8 @@
 poetry.lock
 .env
-test*.png
 sandbox/*
+test*.png
+test*.ttf
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
