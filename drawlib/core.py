@@ -1,13 +1,13 @@
 from typing import Final, Union, Optional, List, Tuple, Dict, Any, Literal
 import matplotlib.font_manager
+import matplotlib.artist
+import matplotlib.lines
+import matplotlib.text
 import matplotlib.pyplot as pyplot
 import matplotlib.patches as patches
 import matplotlib.offsetbox as offsetbox
 import PIL.Image
 import numpy
-
-
-matplotlib.font_manager.FontProperties()
 
 
 class FontStyle:
@@ -72,28 +72,6 @@ class __Drawer:
             self.x = x
             self.y = y
 
-    class Text:
-        def __init__(
-            self,
-            x: float,
-            y: float,
-            s: str,
-            options: Dict[str, Any],
-        ):
-            self.x = x
-            self.y = y
-            self.s = s
-            self.options = options
-
-    class Line:
-        def __init__(
-            self,
-            xs: List[float],
-            ys: List[float],
-        ):
-            self.xs = xs
-            self.ys = ys
-
     def __init__(self):
         self.width = self.DEFAULT_WIDTH
         self.height = self.DEFAULT_HEIGHT
@@ -103,14 +81,7 @@ class __Drawer:
 
         self.title_: Optional[self.Title] = None
         self._logger = None
-        self._shapes: List[
-            Union[
-                patches.Patch,
-                self.Text,
-                self.Line,
-                offsetbox.AnnotationBbox,
-            ]
-        ] = []
+        self._artists: List[matplotlib.artist.Artist] = []
         self._image_cache: dict[Union[str, PIL.Image.Image], numpy.array] = {}
 
     ##############
@@ -155,15 +126,8 @@ class __Drawer:
         ax.axis("on" if self.axis else "off")
 
         # draw
-        for shape in self._shapes:
-            if isinstance(shape, patches.Patch):
-                ax.add_patch(shape)
-            elif isinstance(shape, self.Text):
-                ax.text(shape.x, shape.y, shape.s)
-            elif isinstance(shape, self.Line):
-                ax.plot(shape.xs, shape.ys)
-            elif isinstance(shape, offsetbox.AnnotationBbox):
-                ax.add_artist(shape)
+        for artist in self._artists:
+            ax.add_artist(artist)
 
         if self.title_ is not None:
             t = self.title_
@@ -188,14 +152,14 @@ class __Drawer:
         height: float,
         angle: float = 0,
     ):
-        self._shapes.append(patches.Arc((x, y), width, height, angle))
+        self._artists.append(patches.Arc((x, y), width, height, angle))
 
     def arrow(self): ...
 
     def arrow_fancy(self): ...
 
     def circle(self, x: float, y: float, radius: float):
-        self._shapes.append(patches.Circle((x, y), radius))
+        self._artists.append(patches.Circle((x, y), radius))
 
     def ellipse(self): ...
 
@@ -235,7 +199,7 @@ class __Drawer:
         if style is not None:
             options["fontproperties"] = style
 
-        self._shapes.append(self.Text(x, y, s, options))
+        self._artists.append(matplotlib.text.Text(x, y, s))
 
     def text_vertical(self, x: float, y: float, s: str): ...
 
@@ -267,15 +231,17 @@ class __Drawer:
 
         imagebox = offsetbox.OffsetImage(im, zoom=zoom)
         ab = offsetbox.AnnotationBbox(imagebox, (x, y), frameon=False)
-        self._shapes.append(ab)
+        self._artists.append(ab)
 
     def line(self, x1: float, y1: float, x2: float, y2: float):
-        self._shapes.append(self.Line([x1, x2], [y1, y2]))
+        line = matplotlib.lines.Line2D(xdata=[x1, x2], ydata=[y1, y2])
+        self._artists.append(line)
 
     def lines(self, xys: List[Tuple[float, float]]):
         xs = [xy[0] for xy in xys]
         ys = [xy[1] for xy in xys]
-        self._shapes.append(self.Line(xs, ys))
+        line = matplotlib.lines.Line2D(xdata=xs, ydata=ys)
+        self._artists.append(line)
 
     def line_bezier(
         self,
@@ -311,7 +277,21 @@ class __Drawer:
             else:
                 raise ValueError()
 
-        self._shapes.append(self.Line(xs, ys))
+        line = matplotlib.lines.Line2D(xdata=xs, ydata=ys)
+        self._artists.append(line)
+
+    ############
+    ### util ###
+    ############
+
+    def _get_font_option(self, font_style: FontStyle) -> Dict[str, Any]:
+        return {}
+
+    def _get_line_option(self, line_style: LineStyle) -> Dict[str, Any]:
+        return {}
+
+    def _get_shape_option(self, shape_style: ShapeStyle) -> Dict[str, Any]:
+        return {}
 
 
 ################
