@@ -9,6 +9,9 @@ import matplotlib.offsetbox as offsetbox
 import PIL.Image
 import numpy
 import warnings
+import inspect
+import os
+import math
 
 
 class FontStyle:
@@ -51,13 +54,58 @@ class LineStyle:
 
 class ShapeStyle:
 
-    def __init__(self, lwidth, lcolor, lstyle, lalpha, fcolor, falpha):
+    def __init__(
+        self,
+        color: Union[float, str, Tuple[float, float, float], None] = None,
+        lwidth: Optional[float] = 0.1,
+        lcolor: Union[float, str, Tuple[float, float, float], None] = None,
+        lstyle: Optional[Literal["solid", "dashed", "dotted", "dashdot"]] = None,
+        fcolor: Union[float, str, Tuple[float, float, float], None] = None,
+        alpha: Optional[float] = None,
+    ):
+        self.color = color
         self.lwidth = lwidth
         self.lcolor = lcolor
         self.lstyle = lstyle
-        self.lalpha = lalpha
         self.fcolor = fcolor
-        self.falpha = falpha
+        self.alpha = alpha
+
+
+class TextBoxStyle:
+    BOXSTYLE_SQUARE = "square"
+
+    def __init__(
+        self,
+        boxstyle: Literal[
+            "square",
+            "circle",
+            "ellipse",
+            "larrow",
+            "rarrow",
+            "darrow",
+            "round",
+            "round4",
+            "sawtooth",
+            "roundtooth",
+        ],
+        lwidth: Optional[float] = 0.1,
+        lcolor: Union[float, str, Tuple[float, float, float], None] = None,
+        lstyle: Optional[Literal["solid", "dashed", "dotted", "dashdot"]] = None,
+        fcolor: Union[float, str, Tuple[float, float, float], None] = None,
+        alpha: Optional[float] = None,
+        pad: Optional[float] = 0.3,
+        rounding_size: Optional[float] = None,
+        tooth_size: Optional[float] = None,
+    ):
+        self.boxstyle = boxstyle
+        self.lwidth = lwidth
+        self.lcolor = lcolor
+        self.lstyle = lstyle
+        self.fcolor = fcolor
+        self.alpha = alpha
+        self.pad = pad
+        self.rounding_size = rounding_size
+        self.tooth_size = tooth_size
 
 
 class __Drawer:
@@ -120,7 +168,19 @@ class __Drawer:
         self._render()
         pyplot.show()
 
-    def save(self, file: str):
+    def save(self, file: Optional[str] = None):
+        if file is None:
+            # get caller module info
+            caller_frame = inspect.stack()[1]
+            caller_module = inspect.getmodule(caller_frame[0])
+            caller_module_file = caller_module.__file__
+            caller_module_name = caller_module.__name__
+
+            # create save file path
+            parent_dir = os.path.dirname(os.path.abspath(caller_module_file))
+            file_name = caller_module_name.split(".")[-1]
+            file = f"{os.path.join(parent_dir, file_name)}.png"
+
         self._render()
         pyplot.savefig(file, bbox_inches="tight", pad_inches=0)
 
@@ -168,8 +228,22 @@ class __Drawer:
 
     def arrow_fancy(self): ...
 
-    def circle(self, x: float, y: float, radius: float):
-        self._artists.append(patches.Circle((x, y), radius))
+    def circle(
+        self,
+        x: float,
+        y: float,
+        radius: float,
+        angle: Optional[float] = None,
+        text: Optional[str] = None,
+        font: Optional[FontStyle] = None,
+    ):
+        # draw shape
+        shape = patches.Circle((x, y), radius, color="red")
+        self._artists.append(shape)
+
+        # draw text
+        if text:
+            self._artists.append(self._get_shape_text(x, y, text, angle, font))
 
     def ellipse(self): ...
 
@@ -179,11 +253,91 @@ class __Drawer:
 
     def polygon_regular(self): ...
 
-    def rectangle(self): ...
+    def rectangle(
+        self,
+        x: float,
+        y: float,
+        width: float,
+        height: float,
+        angle: Optional[float] = None,
+        text: Optional[str] = None,
+        font: Optional[FontStyle] = None,
+    ):
+        if angle is None:
+            angle = 0
 
-    def rectangle_fancy(self): ...
+        # shape
+        shape = patches.Rectangle(
+            (x, y),
+            width,
+            height,
+            angle=angle,
+            rotation_point="center",
+            color="red",
+        )
+        self._artists.append(shape)
+
+        # draw text
+        if text:
+            center_x = x + width / 2
+            center_y = y + height / 2
+            t = self._get_shape_text(center_x, center_y, text, angle, font)
+            self._artists.append(t)
+
+    def rectangle_rounded(
+        self,
+        x: float,
+        y: float,
+        width: float,
+        height: float,
+        rtype: Optional[Literal["round", "round4", "sawtooth", "roundtooth"]] = None,
+        pad: Optional[float] = None,
+        text: Optional[str] = None,
+        font: Optional[FontStyle] = None,
+    ):
+        if rtype is None:
+            rtype = "round"
+        if pad is None:
+            pad = 0.3
+        boxstyle = f"{rtype},pad={pad}"
+
+        # shape
+        shape = patches.FancyBboxPatch(
+            (x + pad, y + pad),
+            width - pad * 2,
+            height - pad * 2,
+            boxstyle=boxstyle,
+            color="red",
+        )
+        self._artists.append(shape)
+
+        # draw text
+        if text:
+            center_x = x + width / 2
+            center_y = y + height / 2
+            t = self._get_shape_text(center_x, center_y, text, font=font)
+            self._artists.append(t)
 
     def wedge(self): ...
+
+    def _get_shape_text(
+        self,
+        x: float,
+        y: float,
+        text: str,
+        angle: Optional[float] = None,
+        font: Optional[FontStyle] = None,
+    ) -> matplotlib.text.Text:
+        return matplotlib.text.Text(
+            x,
+            y,
+            text,
+            rotation=angle,
+            rotation_mode="anchor",
+            horizontalalignment="center",
+            verticalalignment="center",
+            fontproperties=self._get_font_properties(font),
+        )
 
     ################
     ### original ###
@@ -204,17 +358,13 @@ class __Drawer:
         x: float,
         y: float,
         text_: str,
-        style: Optional[FontStyle] = None,
+        font: Optional[FontStyle] = None,
+        box: Optional[TextBoxStyle] = None,
     ):
-
-        self._artists.append(
-            matplotlib.text.Text(
-                x,
-                y,
-                text_,
-                fontproperties=self._get_font_properties(style),
-            )
-        )
+        fp = self._get_font_properties(font)
+        bx = self._get_bbox_dict(box)
+        t = matplotlib.text.Text(x, y, text_, fontproperties=fp, bbox=bx)
+        self._artists.append(t)
 
     def text_vertical(self, x: float, y: float, s: str): ...
 
@@ -347,7 +497,23 @@ class __Drawer:
             "alpha": style.alpha,
         }
 
-    def _get_shape_options(self, shape_style: ShapeStyle) -> Dict[str, Any]:
+    def _get_shape_options(self, style: Optional[ShapeStyle] = None) -> Dict[str, Any]:
+        if style is None:
+            return {}
+
+        options = {
+            "facecolor": style.fcolor if style.fcolor is not None else style.color,
+            "edgecolor": style.lcolor if style.lcolor is not None else style.color,
+            "linestyle": style.lstyle,
+            "linewidth": style.lwidth,
+            "alpha": style.alpha,
+        }
+        return {key: value for key, value in options.items() if value is not None}
+
+    def _get_bbox_dict(self, style: Optional[TextBoxStyle] = None) -> Dict[str, Any]:
+        if style is None:
+            return {}
+
         return {}
 
 
@@ -364,6 +530,8 @@ save = __d.save
 
 # patched shapes
 circle = __d.circle
+rectangle = __d.rectangle
+rectangle_rounded = __d.rectangle_rounded
 
 # original shapes
 title = __d.title
@@ -372,6 +540,14 @@ image = __d.image
 line = __d.line
 lines = __d.lines
 line_bezier = __d.line_bezier
+
+
+def get_angle(x1: float, y1: float, x2: float, y2: float) -> float:
+    dx = x2 - x1
+    dy = y2 - y1
+    angle_rad = math.atan2(dy, dx)
+    angle_deg = math.degrees(angle_rad)
+    return (angle_deg + 360) % 360
 
 
 def warning_suppress(module: Optional[str] = None):

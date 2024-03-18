@@ -2,11 +2,41 @@ from drawlib.core import *
 from PIL import Image, ImageFilter
 
 
+def test_save_without_filename():
+    clear()
+    config(width=10, height=10, axis=True)
+    circle(5, 5, 3)
+    # file name should be "<module-name-who-call-save>.png"
+    # save to module file directory
+    save()
+
+
 def test_circle():
     clear()
-    config(width=10, height=10, axis=False)
+    config(width=10, height=10, axis=True)
     circle(5, 5, 3)
     save("test_circle.png")
+
+
+def test_circle_text():
+    clear()
+    config(width=10, height=10, axis=True)
+    circle(5, 5, 3, text="Circle", angle=45)
+    save("test_circle_text.png")
+
+
+def test_rectangle():
+    clear()
+    config(width=10, height=10, axis=True)
+    rectangle(3, 3, 5, 2, angle=45, text="Rectangle")
+    save("test_rectangle.png")
+
+
+def test_rectangle_rounded():
+    clear()
+    config(width=10, height=10, axis=True)
+    rectangle_rounded(3, 3, 5, 2, text="Rounded\nRectangle")
+    save("test_rectangle_rounded.png")
 
 
 def test_title():
@@ -26,7 +56,7 @@ def test_title_font():
 
 def test_text():
     clear()
-    config(width=10, height=10, axis=False)
+    config(width=10, height=10, axis=True)
     text(3, 3, "Hello World")
     save("test_text.png")
 
@@ -34,10 +64,10 @@ def test_text():
 def test_text_font():
     warning_suppress()
     clear()
-    config(width=10, height=10, axis=False)
+    config(width=10, height=10, axis=True)
     text(3, 3, "あいうえお")
-    style = FontStyle(file="test-font.ttf")
-    text(6, 6, "あいうえお", style=style)
+    font = FontStyle(file="test-font.ttf")
+    text(6, 6, "あいうえお", font=font)
     save("test_text_font.png")
 
 
