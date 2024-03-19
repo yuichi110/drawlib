@@ -1,4 +1,4 @@
-from drawlib.core import *
+from drawlib import *
 from PIL import Image, ImageFilter
 
 
