@@ -4,8 +4,8 @@ import matplotlib.artist
 import matplotlib.lines
 import matplotlib.text
 import matplotlib.pyplot as pyplot
-import matplotlib.patches as patches
-import matplotlib.offsetbox as offsetbox
+from matplotlib.artist import Artist
+from matplotlib.axes import Axes
 import PIL.Image
 import numpy
 import inspect
@@ -42,8 +42,7 @@ from drawlib._core.util import (
 class __DrawingState:
     DEFAULT_WIDTH: Final[float] = 100
     DEFAULT_HEIGHT: Final[float] = 100
-    DEFUALT_ASPECT: Final[str] = "equal"
-    DEFAULT_AXIS: Final[bool] = False
+    DEFAULT_GRID: Final[bool] = False
     DEFAULT_LOGLEVEL: Final[str] = "info"
     SYSTEM_FONTS = ["serif", "sanserif"]
 
@@ -63,10 +62,11 @@ class __DrawingState:
     def __init__(self):
         self.width = self.DEFAULT_WIDTH
         self.height = self.DEFAULT_HEIGHT
-        self.aspect = self.DEFUALT_ASPECT
-        self.axis = self.DEFAULT_AXIS
+        self.grid = self.DEFAULT_GRID
         self.loglevel = self.DEFAULT_LOGLEVEL
 
+        self._fig = pyplot.figure()
+        self._ax = self._fig.add_subplot(1, 1, 1)
         self._title: Optional[self.Title] = None
         self._logger = None
         self._artists: List[matplotlib.artist.Artist] = []
@@ -82,17 +82,21 @@ class __DrawingState:
         self,
         width: int | None = None,
         height: int | None = None,
-        aspect: str | None = None,
-        axis: bool | None = None,
+        grid: bool | None = None,
+        grid_style: Optional[LineStyle] = None,
     ) -> None:
         if width is not None:
             self.width = width
         if height is not None:
             self.height = height
-        if aspect is not None:
-            self.aspect = aspect
-        if axis is not None:
-            self.axis = axis
+        if grid is not None:
+            self.grid = grid
+
+    def get_matplotlib_ax(self) -> Axes:
+        return self._ax
+
+    def add_matplotlib_artist(self, artist: Artist):
+        self._artists.append(artist)
 
     def plot(self):
         self._render()
@@ -115,14 +119,19 @@ class __DrawingState:
         pyplot.savefig(file, bbox_inches="tight", pad_inches=0)
 
     def _render(self):
-        fig = pyplot.figure()
-        ax = fig.add_subplot(1, 1, 1)
+        fig = self._fig
+        ax = self._ax
 
         # configure
         ax.set_xlim(0, self.width)
         ax.set_ylim(0, self.height)
-        ax.set_aspect(self.aspect)
-        ax.axis("on" if self.axis else "off")
+        ax.set_aspect("equal")
+        if self.grid:
+            ax.axis("on")
+            ax.grid(visible=True, which="both", axis="both")
+        else:
+            ax.axis("off")
+            ax.grid(visible=False)
 
         # draw artist (patches, line, text)
         for artist in self._artists:
@@ -196,10 +205,11 @@ class __DrawingState:
         width: float,
         height: float,
         angle: Optional[float] = None,
+        style: Optional[ShapeStyle] = None,
         text: Optional[str] = None,
         font: Optional[FontStyle] = None,
     ):
-        rectangle_, text_ = get_rectangle(x, y, width, height, angle, text, font)
+        rectangle_, text_ = get_rectangle(x, y, width, height, angle, style, text, font)
         self._artists.append(rectangle_)
         if text_ is not None:
             self._artists.append(text_)
@@ -212,11 +222,17 @@ class __DrawingState:
         height: float,
         rtype: Optional[Literal["round", "round4", "sawtooth", "roundtooth"]] = None,
         pad: Optional[float] = None,
+        style: Optional[ShapeStyle] = None,
+        angle: Optional[float] = None,
         text: Optional[str] = None,
         font: Optional[FontStyle] = None,
     ):
+        if angle is None:
+            ax_and_angle = None
+        else:
+            ax_and_angle = (self._ax, angle)
         rectangle_, text_ = get_rectangle_rounded(
-            x, y, width, height, rtype, pad, text, font
+            x, y, width, height, rtype, pad, style, ax_and_angle, text, font
         )
         self._artists.append(rectangle_)
         if text_ is not None:
@@ -303,6 +319,8 @@ config = __d.config
 plot = __d.plot
 save = __d.save
 title = __d.title
+get_matplotlib_ax = __d.get_matplotlib_ax
+add_matplotlib_artist = __d.add_matplotlib_artist
 
 # patched
 circle = __d.circle

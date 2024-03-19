@@ -48,12 +48,15 @@ def get_line_options(
     if style is None:
         return {}
 
-    return {
+    options = {
         "linewidth": style.width,
         "linestyle": style.style,
         "color": style.color,
         "alpha": style.alpha,
     }
+
+    # delete value None keys
+    return {key: value for key, value in options.items() if value is not None}
 
 
 def get_shape_options(
@@ -69,6 +72,8 @@ def get_shape_options(
         "linewidth": style.lwidth,
         "alpha": style.alpha,
     }
+
+    # delete value None keys
     return {key: value for key, value in options.items() if value is not None}
 
 

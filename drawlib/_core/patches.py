@@ -1,9 +1,12 @@
 from typing import Final, Union, Optional, List, Tuple, Dict, Any, Literal
 from matplotlib.text import Text
 from matplotlib.patches import Arc, Circle, Rectangle, FancyBboxPatch
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+from matplotlib.axes import Axes
 
-from drawlib._model import FontStyle
-from drawlib._core.util import get_shape_text
+from drawlib._model import FontStyle, ShapeStyle
+from drawlib._core.util import get_shape_options, get_shape_text
 
 
 def get_arc(
@@ -55,19 +58,20 @@ def get_rectangle(
     width: float,
     height: float,
     angle: Optional[float] = None,
+    style: Optional[ShapeStyle] = None,
     text: Optional[str] = None,
     font: Optional[FontStyle] = None,
 ) -> Tuple[Rectangle, Optional[Text]]:
     if angle is None:
         angle = 0
-
+    options = get_shape_options(style)
     rectangle = Rectangle(
         (x, y),
         width,
         height,
         angle=angle,
         rotation_point="center",
-        color="red",
+        **options,
     )
 
     if text:
@@ -86,27 +90,42 @@ def get_rectangle_rounded(
     height: float,
     rtype: Optional[Literal["round", "round4", "sawtooth", "roundtooth"]] = None,
     pad: Optional[float] = None,
+    style: Optional[ShapeStyle] = None,
+    ax_and_angle: Optional[Tuple[Axes, float]] = None,
     text: Optional[str] = None,
     font: Optional[FontStyle] = None,
 ) -> Tuple[FancyBboxPatch, Optional[Text]]:
+    # create boxstyle
     if rtype is None:
         rtype = "round"
     if pad is None:
         pad = 0.3
     boxstyle = f"{rtype},pad={pad}"
 
+    # create angle for text
+    if ax_and_angle is None:
+        angle = 0
+
+    options = get_shape_options(style)
     rectangle = FancyBboxPatch(
         (x + pad, y + pad),
         width - pad * 2,
         height - pad * 2,
         boxstyle=boxstyle,
-        color="red",
+        **options,
     )
+    if ax_and_angle is not None:
+        ax = ax_and_angle[0]
+        angle = ax_and_angle[1]
+        cx = x + width / 2
+        cy = y + height / 2
+        t2 = mpl.transforms.Affine2D().rotate_deg_around(cx, cy, angle) + ax.transData
+        rectangle.set_transform(t2)
 
-    if text:
+    if text is not None:
         center_x = x + width / 2
         center_y = y + height / 2
-        t = get_shape_text(center_x, center_y, text, font=font)
+        t = get_shape_text(center_x, center_y, text, angle, font)
         return rectangle, t
 
     return rectangle, None
