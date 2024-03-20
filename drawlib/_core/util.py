@@ -2,7 +2,12 @@ from typing import Optional, Dict, Any
 from matplotlib.font_manager import FontProperties
 from matplotlib.text import Text
 
-from drawlib._model import TextStyle, LineStyle, ShapeStyle, TextBoxStyle
+from drawlib._model import (
+    TextStyle,
+    LineStyle,
+    ShapeStyle,
+    TextBackgroundStyle,
+)
 
 
 def get_shape_text(
@@ -98,8 +103,37 @@ def get_shape_options(
     return {key: value for key, value in options.items() if value is not None}
 
 
-def get_bbox_dict(self, style: Optional[TextBoxStyle] = None) -> Dict[str, Any]:
+def get_bbox_dict(
+    style: Optional[TextBackgroundStyle] = None,
+) -> Dict[str, Any]:
     if style is None:
         return {}
 
-    return {}
+    def get_boxstyle():
+        boxstyle = style.boxstyle
+        if boxstyle is None:
+            boxstyle = "square"
+        if boxstyle in ["round", "round4", "sawtooth", "roundtooth"]:
+            pad = style.pad
+            if pad is None:
+                pad = 0.3
+            boxstyle += f",pad={pad}"
+        if boxstyle in ["round, round4"]:
+            if style.rounding_size is not None:
+                boxstyle += f",rounding_size={style.rounding_size}"
+        elif boxstyle in ["sawtooth", "roundtooth"]:
+            if style.tooth_size is not None:
+                boxstyle += f",tooth_size={style.tooth_size}"
+        return boxstyle
+
+    bbox_dict = {
+        "boxstyle": get_boxstyle(),
+        "facecolor": style.fcolor if style.fcolor is not None else style.color,
+        "edgecolor": style.lcolor if style.lcolor is not None else style.color,
+        "linestyle": style.lstyle,
+        "linewidth": style.lwidth,
+        "alpha": style.alpha,
+    }
+
+    # delete value None keys
+    return {key: value for key, value in bbox_dict.items() if value is not None}

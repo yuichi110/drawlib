@@ -113,6 +113,25 @@ def test_text_font():
     save("test_text_font.png")
 
 
+def test_text_background():
+    clear()
+    config(width=10, height=10, grid=True)
+    text(
+        3,
+        3,
+        "Hello World",
+        background=TextBackgroundStyle(
+            boxstyle="larrow",
+            lcolor="blue",
+            fcolor="yellow",
+            lstyle="dotted",
+            lwidth=3,
+        ),
+        angle=90,
+    )
+    save("test_text_background.png")
+
+
 def test_image_file():
     clear()
     config(width=10, height=10, grid=True)

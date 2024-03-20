@@ -64,7 +64,7 @@ class ShapeStyle:
         self.alpha = alpha
 
 
-class TextBoxStyle:
+class TextBackgroundStyle:
 
     def __init__(
         self,

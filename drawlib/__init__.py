@@ -18,7 +18,7 @@ from drawlib._model import (
     TextStyle,
     LineStyle,
     ShapeStyle,
-    TextBoxStyle,
+    TextBackgroundStyle,
 )
 from drawlib._state import (
     # basics

@@ -12,10 +12,10 @@ import inspect
 import os
 
 from drawlib._model import (
-    TextStyle,
     LineStyle,
     ShapeStyle,
-    TextBoxStyle,
+    TextStyle,
+    TextBackgroundStyle,
 )
 from drawlib._core.image import (
     get_image,
@@ -278,11 +278,19 @@ class __DrawingState:
         y: float,
         text_: str,
         style: Optional[TextStyle] = None,
-        box: Optional[TextBoxStyle] = None,
+        background: Optional[TextBackgroundStyle] = None,
         angle: Optional[float] = None,
     ):
-        t = get_text(x=x, y=y, text=text_, style=style, box=box, angle=angle)
-        self._artists.append(t)
+        self._artists.append(
+            get_text(
+                x=x,
+                y=y,
+                text=text_,
+                style=style,
+                background=background,
+                angle=angle,
+            )
+        )
 
     def text_vertical(self, x: float, y: float, s: str): ...
 

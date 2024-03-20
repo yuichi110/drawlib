@@ -1,7 +1,7 @@
 from typing import Literal, Optional
 from matplotlib.text import Text
 
-from drawlib._model import TextStyle, TextBoxStyle
+from drawlib._model import TextStyle, TextBackgroundStyle
 from drawlib._core.util import get_text_options, get_font_properties, get_bbox_dict
 
 
@@ -10,12 +10,12 @@ def get_text(
     y: float,
     text: str,
     style: Optional[TextStyle] = None,
-    box: Optional[TextBoxStyle] = None,
+    background: Optional[TextBackgroundStyle] = None,
     angle: Optional[float] = None,
 ) -> Text:
     options = get_text_options(style)
     fp = get_font_properties(style)
-    bx = get_bbox_dict(box)
+    bx = get_bbox_dict(background)
 
     # set default alignment
     if angle is None or angle == 0:
