@@ -91,7 +91,7 @@ def test_title():
 def test_title_font():
     clear()
     config(width=10, height=10, grid=True)
-    style = FontStyle(file="test-font.ttf")
+    style = TextStyle(font_file="test-font.ttf")
     title("タイトルのテスト", y=-0.1, style=style)
     save("test_title_font.png")
 
@@ -108,8 +108,8 @@ def test_text_font():
     clear()
     config(width=10, height=10, grid=True)
     text(3, 3, "あいうえお")
-    font = FontStyle(file="test-font.ttf")
-    text(6, 6, "あいうえお", font=font)
+    style = TextStyle(font_file="test-font.ttf")
+    text(6, 6, "あいうえお", style=style)
     save("test_text_font.png")
 
 

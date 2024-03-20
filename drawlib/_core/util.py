@@ -2,7 +2,7 @@ from typing import Optional, Dict, Any
 from matplotlib.font_manager import FontProperties
 from matplotlib.text import Text
 
-from drawlib._model import FontStyle, LineStyle, ShapeStyle, TextBoxStyle
+from drawlib._model import TextStyle, LineStyle, ShapeStyle, TextBoxStyle
 
 
 def get_shape_text(
@@ -10,8 +10,15 @@ def get_shape_text(
     y: float,
     text: str,
     angle: Optional[float] = None,
-    font: Optional[FontStyle] = None,
+    style: Optional[TextStyle] = None,
 ) -> Text:
+    # only check color. ignore alignment
+    options = get_text_options(style)
+    if "horizontalalignment" in options:
+        del options["horizontalalignment"]
+    if "verticalalignment" in options:
+        del options["verticalalignment"]
+
     return Text(
         x,
         y,
@@ -20,25 +27,41 @@ def get_shape_text(
         rotation_mode="anchor",
         horizontalalignment="center",
         verticalalignment="center",
-        fontproperties=get_font_properties(font),
+        fontproperties=get_font_properties(style),
+        **options,
     )
 
 
+def get_text_options(
+    style: Optional[TextStyle],
+) -> Dict[str, Any]:
+    if style is None:
+        return {}
+
+    options = {
+        "color": style.color,
+        "horizontalalignment": style.halign,
+        "verticalalignment": style.valign,
+    }
+    # delete value None keys
+    return {key: value for key, value in options.items() if value is not None}
+
+
 def get_font_properties(
-    style: Optional[FontStyle],
+    style: Optional[TextStyle],
 ) -> Optional[FontProperties]:
     if style is None:
         return None
 
     return FontProperties(
-        family=style.family,
-        style=style.style,
-        variant=style.variant,
-        weight=style.weight,
-        stretch=style.stretch,
         size=style.size,
-        fname=style.file,
-        math_fontfamily=style.math_fontfamily,
+        family=style.font_family,
+        style=style.font_style,
+        variant=style.font_variant,
+        weight=style.font_weight,
+        stretch=style.font_stretch,
+        fname=style.font_file,
+        math_fontfamily=style.font_math_fontfamily,
     )
 
 
@@ -54,7 +77,6 @@ def get_line_options(
         "color": style.color,
         "alpha": style.alpha,
     }
-
     # delete value None keys
     return {key: value for key, value in options.items() if value is not None}
 
@@ -72,7 +94,6 @@ def get_shape_options(
         "linewidth": style.lwidth,
         "alpha": style.alpha,
     }
-
     # delete value None keys
     return {key: value for key, value in options.items() if value is not None}
 

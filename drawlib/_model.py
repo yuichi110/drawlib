@@ -1,27 +1,33 @@
 from typing import Final, Union, Optional, List, Tuple, Dict, Any, Literal
 
 
-class FontStyle:
+class TextStyle:
 
     def __init__(
         self,
-        family: Optional[str] = None,
-        file: Optional[str] = None,
+        color: Union[float, str, Tuple[float, float, float], None] = None,
         size: Union[float, str, None] = None,
-        style: Optional[Literal["normal", "italic", "oblique"]] = None,
-        variant: Optional[Literal["normal", "small-caps"]] = None,
-        weight: Union[int, str, None] = None,
-        stretch: Union[int, str, None] = None,
-        math_fontfamily: Optional[str] = None,
+        halign: Optional[Literal["left", "center", "right"]] = None,
+        valign: Optional[Literal["bottom", "center", "top"]] = None,
+        font_family: Optional[str] = None,
+        font_file: Optional[str] = None,
+        font_style: Optional[Literal["normal", "italic", "oblique"]] = None,
+        font_variant: Optional[Literal["normal", "small-caps"]] = None,
+        font_weight: Union[int, str, None] = None,
+        font_stretch: Union[int, str, None] = None,
+        font_math_fontfamily: Optional[str] = None,
     ):
-        self.family = family
-        self.file = file
+        self.color = color
         self.size = size
-        self.style = style
-        self.variant = variant
-        self.weight = weight
-        self.stretch = stretch
-        self.math_fontfamily = math_fontfamily
+        self.halign = halign
+        self.valign = valign
+        self.font_family = font_family
+        self.font_file = font_file
+        self.font_style = font_style
+        self.font_variant = font_variant
+        self.font_weight = font_weight
+        self.font_stretch = font_stretch
+        self.font_math_fontfamily = font_math_fontfamily
 
 
 class LineStyle:
@@ -59,7 +65,6 @@ class ShapeStyle:
 
 
 class TextBoxStyle:
-    BOXSTYLE_SQUARE = "square"
 
     def __init__(
         self,

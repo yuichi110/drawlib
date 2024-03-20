@@ -12,7 +12,7 @@ import inspect
 import os
 
 from drawlib._model import (
-    FontStyle,
+    TextStyle,
     LineStyle,
     ShapeStyle,
     TextBoxStyle,
@@ -116,7 +116,7 @@ class __DrawingState:
             file = f"{os.path.join(parent_dir, file_name)}.png"
 
         self._render()
-        pyplot.savefig(file, bbox_inches="tight", pad_inches=0)
+        pyplot.savefig(file, bbox_inches="tight")
 
     def _render(self):
         fig = self._fig
@@ -154,7 +154,7 @@ class __DrawingState:
         text: str,
         x: Optional[float] = None,
         y: Optional[float] = None,
-        style: Optional[FontStyle] = None,
+        style: Optional[TextStyle] = None,
     ):
         fp = get_font_properties(style)
         self._title = self.Title(text, x, y, fp)
@@ -181,11 +181,20 @@ class __DrawingState:
         x: float,
         y: float,
         radius: float,
+        style: Optional[ShapeStyle] = None,
         angle: Optional[float] = None,
         text: Optional[str] = None,
-        font: Optional[FontStyle] = None,
+        textstyle: Optional[TextStyle] = None,
     ):
-        circle_, text_ = get_circle(x, y, radius, angle, text, font)
+        circle_, text_ = get_circle(
+            x=x,
+            y=y,
+            radius=radius,
+            style=style,
+            angle=angle,
+            text=text,
+            textstyle=textstyle,
+        )
         self._artists.append(circle_)
         if text_ is not None:
             self._artists.append(text_)
@@ -204,12 +213,21 @@ class __DrawingState:
         y: float,
         width: float,
         height: float,
-        angle: Optional[float] = None,
         style: Optional[ShapeStyle] = None,
+        angle: Optional[float] = None,
         text: Optional[str] = None,
-        font: Optional[FontStyle] = None,
+        textstyle: Optional[TextStyle] = None,
     ):
-        rectangle_, text_ = get_rectangle(x, y, width, height, angle, style, text, font)
+        rectangle_, text_ = get_rectangle(
+            x=x,
+            y=y,
+            width=width,
+            height=height,
+            style=style,
+            angle=angle,
+            text=text,
+            textstyle=textstyle,
+        )
         self._artists.append(rectangle_)
         if text_ is not None:
             self._artists.append(text_)
@@ -225,14 +243,24 @@ class __DrawingState:
         style: Optional[ShapeStyle] = None,
         angle: Optional[float] = None,
         text: Optional[str] = None,
-        font: Optional[FontStyle] = None,
+        textstyle: Optional[TextStyle] = None,
     ):
         if angle is None:
             ax_and_angle = None
         else:
             ax_and_angle = (self._ax, angle)
+
         rectangle_, text_ = get_rectangle_rounded(
-            x, y, width, height, rtype, pad, style, ax_and_angle, text, font
+            x=x,
+            y=y,
+            width=width,
+            height=height,
+            rtype=rtype,
+            pad=pad,
+            style=style,
+            ax_and_angle=ax_and_angle,
+            text=text,
+            textstyle=textstyle,
         )
         self._artists.append(rectangle_)
         if text_ is not None:
@@ -249,10 +277,11 @@ class __DrawingState:
         x: float,
         y: float,
         text_: str,
-        font: Optional[FontStyle] = None,
+        style: Optional[TextStyle] = None,
         box: Optional[TextBoxStyle] = None,
+        angle: Optional[float] = None,
     ):
-        t = get_text(x, y, text_, font, box)
+        t = get_text(x=x, y=y, text=text_, style=style, box=box, angle=angle)
         self._artists.append(t)
 
     def text_vertical(self, x: float, y: float, s: str): ...

@@ -15,7 +15,7 @@ from drawlib._core.text import (
     get_text,
 )
 from drawlib._model import (
-    FontStyle,
+    TextStyle,
     LineStyle,
     ShapeStyle,
     TextBoxStyle,

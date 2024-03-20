@@ -5,7 +5,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
 
-from drawlib._model import FontStyle, ShapeStyle
+from drawlib._model import TextStyle, ShapeStyle
 from drawlib._core.util import get_shape_options, get_shape_text
 
 
@@ -29,13 +29,14 @@ def get_circle(
     x: float,
     y: float,
     radius: float,
+    style: Optional[ShapeStyle] = None,
     angle: Optional[float] = None,
     text: Optional[str] = None,
-    font: Optional[FontStyle] = None,
+    textstyle: Optional[TextStyle] = None,
 ) -> Tuple[Circle, Optional[Text]]:
     circle = Circle((x, y), radius, color="red")
     if text:
-        return circle, get_shape_text(x, y, text, angle, font)
+        return circle, get_shape_text(x, y, text, angle, textstyle)
 
     return circle, None
 
@@ -57,10 +58,10 @@ def get_rectangle(
     y: float,
     width: float,
     height: float,
-    angle: Optional[float] = None,
     style: Optional[ShapeStyle] = None,
+    angle: Optional[float] = None,
     text: Optional[str] = None,
-    font: Optional[FontStyle] = None,
+    textstyle: Optional[TextStyle] = None,
 ) -> Tuple[Rectangle, Optional[Text]]:
     if angle is None:
         angle = 0
@@ -77,7 +78,7 @@ def get_rectangle(
     if text:
         center_x = x + width / 2
         center_y = y + height / 2
-        t = get_shape_text(center_x, center_y, text, angle, font)
+        t = get_shape_text(center_x, center_y, text, angle, textstyle)
         return rectangle, t
 
     return rectangle, None
@@ -93,7 +94,7 @@ def get_rectangle_rounded(
     style: Optional[ShapeStyle] = None,
     ax_and_angle: Optional[Tuple[Axes, float]] = None,
     text: Optional[str] = None,
-    font: Optional[FontStyle] = None,
+    textstyle: Optional[TextStyle] = None,
 ) -> Tuple[FancyBboxPatch, Optional[Text]]:
     # create boxstyle
     if rtype is None:
@@ -125,7 +126,7 @@ def get_rectangle_rounded(
     if text is not None:
         center_x = x + width / 2
         center_y = y + height / 2
-        t = get_shape_text(center_x, center_y, text, angle, font)
+        t = get_shape_text(center_x, center_y, text, angle, textstyle)
         return rectangle, t
 
     return rectangle, None
