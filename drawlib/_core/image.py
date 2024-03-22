@@ -5,10 +5,12 @@ import matplotlib.pyplot as pyplot
 import matplotlib.offsetbox as offsetbox
 from matplotlib.axes import Axes
 import matplotlib as mpl
+from drawlib._util import error_handler
 
 _image_cache: dict[Union[str, Image], numpy.array] = {}
 
 
+@error_handler
 def get_image(
     x: float,
     y: float,
@@ -17,9 +19,9 @@ def get_image(
     zoom: Optional[float] = 0.1,
 ):
     if file is None and pilimg is None:
-        raise ValueError()
+        raise ValueError('requires one of args "file" or "image".')
     if file and pilimg:
-        raise ValueError()
+        raise ValueError('suports only one args "file" or "image".')
 
     if file:
         if file not in _image_cache:

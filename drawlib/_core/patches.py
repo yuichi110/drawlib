@@ -6,8 +6,10 @@ from matplotlib.axes import Axes
 
 from drawlib._model import TextStyle, ShapeStyle
 from drawlib._core.util import get_shape_options, get_shape_text
+from drawlib._util import error_handler
 
 
+@error_handler
 def get_arc(
     x: float,
     y: float,
@@ -18,12 +20,15 @@ def get_arc(
     return Arc((x, y), width, height, angle)
 
 
+@error_handler
 def get_arrow(self): ...
 
 
+@error_handler
 def get_arrow_fancy(self): ...
 
 
+@error_handler
 def get_circle(
     x: float,
     y: float,
@@ -40,18 +45,23 @@ def get_circle(
     return circle, None
 
 
+@error_handler
 def get_ellipse(self): ...
 
 
+@error_handler
 def get_polygon(self): ...
 
 
+@error_handler
 def get_polygon_circle(self): ...
 
 
+@error_handler
 def get_polygon_regular(self): ...
 
 
+@error_handler
 def get_rectangle(
     x: float,
     y: float,
@@ -83,6 +93,7 @@ def get_rectangle(
     return rectangle, None
 
 
+@error_handler
 def get_rectangle_rounded(
     x: float,
     y: float,
@@ -131,4 +142,5 @@ def get_rectangle_rounded(
     return rectangle, None
 
 
+@error_handler
 def get_wedge(self): ...

@@ -1,5 +1,4 @@
 from drawlib import *
-import inspect
 
 OUTPUT_DIR = "tests_output/line/"
 
@@ -8,7 +7,7 @@ def test_line():
     clear()
     config(width=10, height=10, grid=True)
     line(2, 2, 5, 5)
-    save(f"{OUTPUT_DIR}{inspect.stack()[0][3]}.png")
+    save(f"{OUTPUT_DIR}{get_function_name()}.png")
 
 
 def test_line_style():
@@ -16,14 +15,14 @@ def test_line_style():
     config(width=10, height=10, grid=True)
     style = LineStyle(width=3, color="red", style="dotted", alpha=0.5)
     line(2, 2, 5, 5, style)
-    save(f"{OUTPUT_DIR}{inspect.stack()[0][3]}.png")
+    save(f"{OUTPUT_DIR}{get_function_name()}.png")
 
 
 def test_lines():
     clear()
     config(width=10, height=10, grid=True)
     lines([(1, 1), (2, 5), (3, 1)])
-    save(OUTPUT_DIR + "lines.png")
+    save(f"{OUTPUT_DIR}{get_function_name()}.png")
 
 
 def test_line_bezier():
@@ -31,4 +30,4 @@ def test_line_bezier():
     config(width=50, height=50, grid=True)
     points = [(0, 20, 10, 20), (20, 20), (30, 20, 30, 10), (30, 20, 40, 20)]
     line_bezier(0, 30, points)
-    save(f"{OUTPUT_DIR}{inspect.stack()[0][3]}.png")
+    save(f"{OUTPUT_DIR}{get_function_name()}.png")

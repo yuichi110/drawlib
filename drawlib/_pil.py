@@ -9,11 +9,13 @@ from PIL import (
     ImageEnhance,
     ImageChops,
 )
+from drawlib._util import error_handler
 
 
 class Pimage:
     """Simplified PIL.Image wrapper"""
 
+    @error_handler
     def __init__(self, image: Union[str, Image.Image, Pimage], copy: bool = False):
         # create new PIL.Image instance
         if isinstance(image, str):
@@ -36,14 +38,20 @@ class Pimage:
         else:
             raise ValueError(f'Pimage does not support type "{type(image)}".')
 
-    def get_pil_image(self):
+    @error_handler
+    def get_pil_image(self) -> Image.Image:
         return self._pilimg.copy()
 
-    def save(self, file: str):
+    @error_handler
+    def save(self, file: str) -> None:
+        if not isinstance(file, str):
+            raise ValueError('arg "file" must be str.')
+
         directory = os.path.dirname(file)
         os.makedirs(directory, exist_ok=True)
         self._pilimg.save(file, quality=95)
 
+    @error_handler
     def rotate(self, angle: float) -> Pimage:
         newimg = self._pilimg.rotate(
             angle,
@@ -52,18 +60,22 @@ class Pimage:
         )
         return Pimage(newimg)
 
+    @error_handler
     def resize(self, width: int, height: int) -> Pimage:
         newimg = self._pilimg.resize((width, height), resample=Image.LANCZOS)
         return Pimage(newimg)
 
+    @error_handler
     def flip(self) -> Pimage:
         newimg = ImageOps.flip(self._pilimg)
         return Pimage(newimg)
 
+    @error_handler
     def mirror(self) -> Pimage:
         newimg = ImageOps.mirror(self._pilimg)
         return Pimage(newimg)
 
+    @error_handler
     def invert(self) -> Pimage:
         if "A" not in self._pilimg.mode:
             # has no tranceparency. use function
@@ -80,15 +92,18 @@ class Pimage:
         inverted_image = Image.merge("RGBA", (r, g, b, a))
         return Pimage(inverted_image)
 
+    @error_handler
     def grayscale(self) -> Pimage:
         newimg = self._pilimg.convert("LA")
         return Pimage(newimg)
 
+    @error_handler
     def brightness(self, brightness_: float = 0.5) -> Pimage:
         enhancer = ImageEnhance.Brightness(self._pilimg)
         newimg = enhancer.enhance(brightness_)
         return Pimage(newimg)
 
+    @error_handler
     def sepia(self) -> Pimage:
         gray = self._pilimg.convert("L")
         sepia_image = Image.merge(
@@ -107,6 +122,7 @@ class Pimage:
         sepia_image.putalpha(alpha_mask)
         return Pimage(sepia_image)
 
+    @error_handler
     def colorize(
         self,
         black: Union[str, Tuple[int, int, int]],
@@ -122,20 +138,20 @@ class Pimage:
         colorized_image.putalpha(alpha_mask)
         return Pimage(colorized_image)
 
+    @error_handler
     def posterize(self, num_colors: int = 4) -> Pimage:
         if "A" not in self._pilimg.mode:
-            # has no tranceparency. use function
             newimg = ImageOps.posterize(self._pilimg, num_colors)
             return Pimage(newimg)
 
         r, g, b, a = self._pilimg.split()
         r = ImageOps.posterize(r, num_colors)
-        # print(f"posterize {r.mode}")
         g = ImageOps.posterize(g, num_colors)
         b = ImageOps.posterize(b, num_colors)
         newimg = Image.merge("RGBA", (r, g, b, a))
         return Pimage(newimg)
 
+    @error_handler
     def mosaic(self) -> Pimage:
         gimg = self._pilimg.filter(ImageFilter.GaussianBlur(4))
         newimg = gimg.resize(
@@ -143,13 +159,30 @@ class Pimage:
         ).resize(self._pilimg.size)
         return Pimage(newimg)
 
+    @error_handler
     def blur(self) -> Pimage:
         newimg = self._pilimg.filter(ImageFilter.BLUR)
         return Pimage(newimg)
 
-    def line_extraction(self) -> Image.Image:
+    @error_handler
+    def line_extraction(self) -> Pimage:
         gray = self._pilimg.convert("L")
         gray2 = gray.filter(ImageFilter.MaxFilter(5))
         senga_inv = ImageChops.difference(gray, gray2)
         newimg = ImageOps.invert(senga_inv)
         return Pimage(newimg)
+
+    @error_handler
+    def remove_margin(
+        self,
+        margin_color: Union[None, str, Tuple[int, int, int]],
+    ) -> Pimage:
+        if margin_color is None:
+            if "A" not in self._pilimg.mode:
+                message = "Can't remove transparent margin from RGB image."
+                raise ValueError(message)
+            crop = self._pilimg.split()[-1].getbbox()
+            new_image = self._pilimg.crop(crop)
+            return Pimage(new_image)
+
+        raise NotImplementedError("Implement later")

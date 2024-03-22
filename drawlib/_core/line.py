@@ -3,8 +3,10 @@ from matplotlib.lines import Line2D
 
 from drawlib._model import LineStyle
 from drawlib._core.util import get_line_options
+from drawlib._util import error_handler
 
 
+@error_handler
 def get_line(
     x1: float,
     y1: float,
@@ -20,6 +22,7 @@ def get_line(
     )
 
 
+@error_handler
 def get_lines(
     xys: List[Tuple[float, float]],
     style: Optional[LineStyle] = None,
@@ -30,6 +33,7 @@ def get_lines(
     return Line2D(xdata=xs, ydata=ys, **options)
 
 
+@error_handler
 def get_line_bezier(
     x: float,
     y: float,

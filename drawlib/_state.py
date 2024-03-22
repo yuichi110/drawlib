@@ -10,6 +10,7 @@ import PIL.Image
 import inspect
 import os
 
+from drawlib._util import error_handler
 from drawlib._model import (
     LineStyle,
     ShapeStyle,
@@ -58,6 +59,7 @@ class __DrawingState:
             self.y = y
             self.fontproperties = fontproperties
 
+    @error_handler
     def __init__(self):
         self.width = self.DEFAULT_WIDTH
         self.height = self.DEFAULT_HEIGHT
@@ -74,9 +76,11 @@ class __DrawingState:
     ### basics ###
     ##############
 
+    @error_handler
     def clear(self):
         self.__init__()
 
+    @error_handler
     def config(
         self,
         width: int | None = None,
@@ -91,16 +95,20 @@ class __DrawingState:
         if grid is not None:
             self.grid = grid
 
+    @error_handler
     def get_matplotlib_ax(self) -> Axes:
         return self._ax
 
+    @error_handler
     def add_matplotlib_artist(self, artist: Artist):
         self._artists.append(artist)
 
+    @error_handler
     def plot(self):
         self._render()
         pyplot.show()
 
+    @error_handler
     def save(self, file: Optional[str] = None):
         if file is None:
             # get caller module info
@@ -124,6 +132,7 @@ class __DrawingState:
         # save
         pyplot.savefig(file, bbox_inches="tight")
 
+    @error_handler
     def _render(self):
         fig = self._fig
         ax = self._ax
@@ -155,6 +164,7 @@ class __DrawingState:
         # magic for making good margin
         fig.tight_layout()
 
+    @error_handler
     def title(
         self,
         text: str,
@@ -169,6 +179,7 @@ class __DrawingState:
     ### _core.patchs ###
     ####################
 
+    @error_handler
     def arc(
         self,
         x: float,
@@ -178,10 +189,13 @@ class __DrawingState:
         angle: float = 0,
     ): ...
 
+    @error_handler
     def arrow(self): ...
 
+    @error_handler
     def arrow_fancy(self): ...
 
+    @error_handler
     def circle(
         self,
         x: float,
@@ -205,14 +219,19 @@ class __DrawingState:
         if text_ is not None:
             self._artists.append(text_)
 
+    @error_handler
     def ellipse(self): ...
 
+    @error_handler
     def polygon(self): ...
 
+    @error_handler
     def polygon_circle(self): ...
 
+    @error_handler
     def polygon_regular(self): ...
 
+    @error_handler
     def rectangle(
         self,
         x: float,
@@ -238,6 +257,7 @@ class __DrawingState:
         if text_ is not None:
             self._artists.append(text_)
 
+    @error_handler
     def rectangle_rounded(
         self,
         x: float,
@@ -272,12 +292,14 @@ class __DrawingState:
         if text_ is not None:
             self._artists.append(text_)
 
+    @error_handler
     def wedge(self): ...
 
     ##################
     ### _core.text ###
     ##################
 
+    @error_handler
     def text(
         self,
         x: float,
@@ -298,12 +320,14 @@ class __DrawingState:
             )
         )
 
+    @error_handler
     def text_vertical(self, x: float, y: float, s: str): ...
 
     ###################
     ### _core.image ###
     ###################
 
+    @error_handler
     def image(
         self,
         x: float,
@@ -325,6 +349,7 @@ class __DrawingState:
     ### _core.line ###
     ##################
 
+    @error_handler
     def line(
         self,
         x1: float,
@@ -336,6 +361,7 @@ class __DrawingState:
         line_ = get_line(x1, y1, x2, y2, style)
         self._artists.append(line_)
 
+    @error_handler
     def lines(
         self,
         xys: List[Tuple[float, float]],
@@ -344,6 +370,7 @@ class __DrawingState:
         line_ = get_lines(xys, style)
         self._artists.append(line_)
 
+    @error_handler
     def line_bezier(
         self,
         x: float,
@@ -357,6 +384,7 @@ class __DrawingState:
         smooth_points: int = 100,
         style: Optional[LineStyle] = None,
     ):
+        raise Exception("hello")
         line_ = get_line_bezier(x, y, bezier_points, smooth_points, style)
         self._artists.append(line_)
 

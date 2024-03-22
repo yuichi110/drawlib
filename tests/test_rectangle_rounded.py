@@ -9,7 +9,7 @@ def test_rectangle_rounded():
     clear()
     config(width=10, height=10, grid=True)
     rectangle_rounded(3, 3, 5, 2, text="Rounded\nRectangle")
-    save(f"{OUTPUT_DIR}{inspect.stack()[0][3]}.png")
+    save(f"{OUTPUT_DIR}{get_function_name()}.png")
 
 
 def test_rectangle_rounded_rotate():
@@ -30,4 +30,4 @@ def test_rectangle_rounded_rotate():
             lwidth=3,
         ),
     )
-    save(f"{OUTPUT_DIR}{inspect.stack()[0][3]}.png")
+    save(f"{OUTPUT_DIR}{get_function_name()}.png")

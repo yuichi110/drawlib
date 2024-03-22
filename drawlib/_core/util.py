@@ -8,8 +8,10 @@ from drawlib._model import (
     ShapeStyle,
     TextBackgroundStyle,
 )
+from drawlib._util import error_handler
 
 
+@error_handler
 def get_shape_text(
     x: float,
     y: float,
@@ -37,6 +39,7 @@ def get_shape_text(
     )
 
 
+@error_handler
 def get_text_options(
     style: Optional[TextStyle],
 ) -> Dict[str, Any]:
@@ -52,6 +55,7 @@ def get_text_options(
     return {key: value for key, value in options.items() if value is not None}
 
 
+@error_handler
 def get_font_properties(
     style: Optional[TextStyle],
 ) -> Optional[FontProperties]:
@@ -70,6 +74,7 @@ def get_font_properties(
     )
 
 
+@error_handler
 def get_line_options(
     style: Optional[LineStyle] = None,
 ) -> Dict[str, Any]:
@@ -86,6 +91,7 @@ def get_line_options(
     return {key: value for key, value in options.items() if value is not None}
 
 
+@error_handler
 def get_shape_options(
     style: Optional[ShapeStyle] = None,
 ) -> Dict[str, Any]:
@@ -103,6 +109,7 @@ def get_shape_options(
     return {key: value for key, value in options.items() if value is not None}
 
 
+@error_handler
 def get_bbox_dict(
     style: Optional[TextBackgroundStyle] = None,
 ) -> Dict[str, Any]:

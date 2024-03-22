@@ -8,7 +8,7 @@ def test_text():
     clear()
     config(width=10, height=10, grid=True)
     text(3, 3, "Hello World")
-    save(OUTPUT_DIR + "text.png")
+    save(f"{OUTPUT_DIR}{get_function_name()}.png")
 
 
 def test_text_font():
@@ -18,7 +18,7 @@ def test_text_font():
     text(3, 3, "あいうえお")
     style = TextStyle(font_file=FONT_FILE)
     text(6, 6, "あいうえお", style=style)
-    save(OUTPUT_DIR + "text_font.png")
+    save(f"{OUTPUT_DIR}{get_function_name()}.png")
 
 
 def test_text_background():
@@ -37,4 +37,4 @@ def test_text_background():
         ),
         angle=90,
     )
-    save(OUTPUT_DIR + "text_background.png")
+    save(f"{OUTPUT_DIR}{get_function_name()}.png")
