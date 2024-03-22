@@ -1,4 +1,4 @@
-import sys
+import sys as _sys
 from drawlib._core.image import (
     get_image,
 )
@@ -47,20 +47,48 @@ from drawlib._util import (
     warning_suppress,
     get_function_name,
 )
+import drawlib._util as _util
 
-VERSION = 0.1
-
-if "-v" in sys.argv or "--version" in sys.argv:
-    print(VERSION)
+if "-v" in _sys.argv or "--version" in _sys.argv:
+    print("0.1")
     exit(0)
 
-if "-h" in sys.argv or "--help" in sys.argv:
-    print("drawlib. illustration as code(python).")
+if "-h" in _sys.argv or "--help" in _sys.argv:
+    print("python drawlib. illustration as code.")
     print("options")
     print("  -h:         show help")
     print("  --help:     show help")
     print("  -v:         show version")
     print("  --version:  show version")
-    print("  --debug:    show verbose error message")
-    print("  --devdebug: disable error handler. show native error message")
+    print("  --debug:    show stacktrace(verbose error message)")
+    print("  --devdebug: show native error message")
     exit(0)
+
+# escape native help command
+__help = help
+
+
+@_util.error_handler
+def help(object, open_webdoc=True):
+    """getting help of drawlib
+    - function
+    - class
+    """
+
+    # get module objects
+    module_name = (lambda x: x).__module__
+    module = _sys.modules[module_name]
+    module_objects = set()
+    g = globals()
+    for object_name in dir(module):
+        if object_name.startswith("_"):
+            continue
+        if object_name == "help":
+            continue
+        module_objects.add(g[object_name])
+
+    # show document
+    if object in module_objects:
+        print(object.__doc__)
+    else:
+        __help(object)
