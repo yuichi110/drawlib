@@ -7,7 +7,6 @@ import matplotlib.pyplot as pyplot
 from matplotlib.artist import Artist
 from matplotlib.axes import Axes
 import PIL.Image
-import numpy
 import inspect
 import os
 
@@ -115,7 +114,14 @@ class __DrawingState:
             file_name = caller_module_name.split(".")[-1]
             file = f"{os.path.join(parent_dir, file_name)}.png"
 
+        # rendering
         self._render()
+
+        # prepare directory if not exist
+        directory = os.path.dirname(file)
+        os.makedirs(directory, exist_ok=True)
+
+        # save
         pyplot.savefig(file, bbox_inches="tight")
 
     def _render(self):
@@ -304,9 +310,15 @@ class __DrawingState:
         y: float,
         file: Optional[str] = None,
         pilimg: Optional[PIL.Image.Image] = None,
-        zoom=1,
+        zoom=0.1,
     ):
-        image_ = get_image(x, y, file, pilimg, zoom)
+        image_ = get_image(
+            x=x,
+            y=y,
+            file=file,
+            pilimg=pilimg,
+            zoom=zoom,
+        )
         self._artists.append(image_)
 
     ##################
@@ -361,8 +373,11 @@ add_matplotlib_artist = __d.add_matplotlib_artist
 
 # patched
 circle = __d.circle
+shape_circle = circle
 rectangle = __d.rectangle
+shape_rectangle = rectangle
 rectangle_rounded = __d.rectangle_rounded
+shape_rectangle_rounded = rectangle_rounded
 
 # text
 text = __d.text

@@ -1,8 +1,10 @@
-from typing import Optional, Union
+from typing import Optional, Union, Tuple
 from PIL.Image import Image
 import numpy
 import matplotlib.pyplot as pyplot
 import matplotlib.offsetbox as offsetbox
+from matplotlib.axes import Axes
+import matplotlib as mpl
 
 _image_cache: dict[Union[str, Image], numpy.array] = {}
 
@@ -12,7 +14,7 @@ def get_image(
     y: float,
     file: Optional[str] = None,
     pilimg: Optional[Image] = None,
-    zoom=1,
+    zoom: Optional[float] = 0.1,
 ):
     if file is None and pilimg is None:
         raise ValueError()

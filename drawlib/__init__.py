@@ -40,6 +40,7 @@ from drawlib._state import (
     # text
     text,
 )
+from drawlib._pil import Pimage
 from drawlib._util import (
     get_angle,
     warning_suppress,

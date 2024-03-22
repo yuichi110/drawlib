@@ -2,7 +2,6 @@ from typing import Final, Union, Optional, List, Tuple, Dict, Any, Literal
 from matplotlib.text import Text
 from matplotlib.patches import Arc, Circle, Rectangle, FancyBboxPatch
 import matplotlib as mpl
-import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
 
 from drawlib._model import TextStyle, ShapeStyle
