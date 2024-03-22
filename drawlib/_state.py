@@ -384,7 +384,6 @@ class __DrawingState:
         smooth_points: int = 100,
         style: Optional[LineStyle] = None,
     ):
-        raise Exception("hello")
         line_ = get_line_bezier(x, y, bezier_points, smooth_points, style)
         self._artists.append(line_)
 
