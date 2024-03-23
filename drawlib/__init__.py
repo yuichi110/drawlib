@@ -1,4 +1,6 @@
-import sys as _sys
+"""doc of drawlib"""
+
+import drawlib._args
 from drawlib._core.image import (
     get_image,
 )
@@ -21,7 +23,7 @@ from drawlib._model import (
     ShapeStyle,
     TextBackgroundStyle,
 )
-from drawlib._state import (
+from drawlib._drawing_state import (
     # basics
     clear,
     config,
@@ -41,54 +43,32 @@ from drawlib._state import (
     # text
     text,
 )
+from drawlib._cache import (
+    # line style
+    has_cache_linestyle,
+    set_cache_linestyle,
+    get_cache_linestyle,
+    # shape style
+    has_cache_shapestyle,
+    set_cache_shapestyle,
+    get_cache_shapestyle,
+    # text style
+    has_cache_textstyle,
+    set_cache_textstyle,
+    get_cache_textstyle,
+    # text background style
+    has_cache_textbackgroundstyle,
+    set_cache_textbackgroundstyle,
+    get_cache_textbackgroundstyle,
+    # pimage
+    has_cache_image,
+    set_cache_image,
+    get_cache_image,
+)
 from drawlib._pil import Pimage
 from drawlib._util import (
+    load,
     get_angle,
-    warning_suppress,
-    get_function_name,
+    get_script_relative_path,
 )
-import drawlib._util as _util
-
-if "-v" in _sys.argv or "--version" in _sys.argv:
-    print("0.1")
-    exit(0)
-
-if "-h" in _sys.argv or "--help" in _sys.argv:
-    print("python drawlib. illustration as code.")
-    print("options")
-    print("  -h:         show help")
-    print("  --help:     show help")
-    print("  -v:         show version")
-    print("  --version:  show version")
-    print("  --debug:    show stacktrace(verbose error message)")
-    print("  --devdebug: show native error message")
-    exit(0)
-
-# escape native help command
-__help = help
-
-
-@_util.error_handler
-def help(object, open_webdoc=True):
-    """getting help of drawlib
-    - function
-    - class
-    """
-
-    # get module objects
-    module_name = (lambda x: x).__module__
-    module = _sys.modules[module_name]
-    module_objects = set()
-    g = globals()
-    for object_name in dir(module):
-        if object_name.startswith("_"):
-            continue
-        if object_name == "help":
-            continue
-        module_objects.add(g[object_name])
-
-    # show document
-    if object in module_objects:
-        print(object.__doc__)
-    else:
-        __help(object)
+from drawlib import debug

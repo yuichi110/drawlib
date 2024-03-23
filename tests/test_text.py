@@ -1,4 +1,8 @@
 from drawlib import *
+from drawlib.debug import (
+    warning_suppress,
+    get_function_name,
+)
 
 FONT_FILE = "tests_input/font.ttf"
 OUTPUT_DIR = "tests_output/text/"

@@ -8,8 +8,12 @@ def test_all_doc_exist():
     for object_name in dir(drawlib):
         if object_name.startswith("_"):
             continue
+        """
         if "drawlib" in object_name:
             continue
+        if "debug" == object_name:
+            continue
+        """
         module_objects.add(g[object_name])
 
     all_drawlib_objects_have_doc = True

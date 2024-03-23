@@ -1,3 +1,5 @@
+"""write docstring later"""
+
 from typing import List, Optional, Tuple, Union
 from matplotlib.lines import Line2D
 
@@ -14,6 +16,8 @@ def get_line(
     y2: float,
     style: Optional[LineStyle] = None,
 ) -> Line2D:
+    """write docstring later"""
+
     options = get_line_options(style)
     return Line2D(
         xdata=[x1, x2],
@@ -27,6 +31,8 @@ def get_lines(
     xys: List[Tuple[float, float]],
     style: Optional[LineStyle] = None,
 ):
+    """write docstring later"""
+
     xs = [xy[0] for xy in xys]
     ys = [xy[1] for xy in xys]
     options = get_line_options(style)
@@ -46,6 +52,8 @@ def get_line_bezier(
     smooth_points: int = 100,
     style: Optional[LineStyle] = None,
 ):
+    """write docstring later"""
+
     def quadratic_bezier(x0, y0, x1, y1, x2, y2):
         points = []
         for i in range(smooth_points):

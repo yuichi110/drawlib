@@ -1,5 +1,5 @@
 from drawlib import *
-import inspect
+from drawlib.debug import get_function_name
 
 FONT_FILE = "tests_input/font.ttf"
 OUTPUT_DIR = "tests_output/rectangle/"

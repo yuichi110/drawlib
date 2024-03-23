@@ -1,8 +1,14 @@
+"""write docstring later"""
+
 from typing import Literal, Optional
 from matplotlib.text import Text
 
 from drawlib._model import TextStyle, TextBackgroundStyle
-from drawlib._core.util import get_text_options, get_font_properties, get_bbox_dict
+from drawlib._core.util import (
+    get_text_options,
+    get_font_properties,
+    get_bbox_dict,
+)
 from drawlib._util import error_handler
 
 
@@ -15,6 +21,8 @@ def get_text(
     background: Optional[TextBackgroundStyle] = None,
     angle: Optional[float] = None,
 ) -> Text:
+    """write docstring later"""
+
     options = get_text_options(style)
     fp = get_font_properties(style)
     bx = get_bbox_dict(background)
@@ -45,4 +53,6 @@ def get_text(
 
 
 @error_handler
-def get_text_vertical(x: float, y: float, s: str): ...
+def get_text_vertical(x: float, y: float, s: str):
+    """write docstring later"""
+    ...

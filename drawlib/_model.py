@@ -1,7 +1,18 @@
-from typing import Final, Union, Optional, List, Tuple, Dict, Any, Literal
+"""write docstring later"""
+
+from typing import (
+    Union,
+    Optional,
+    List,
+    Tuple,
+    Dict,
+    Any,
+    Literal,
+)
 
 
 class TextStyle:
+    """write docstring later"""
 
     def __init__(
         self,
@@ -31,6 +42,7 @@ class TextStyle:
 
 
 class LineStyle:
+    """write docstring later"""
 
     def __init__(
         self,
@@ -46,13 +58,16 @@ class LineStyle:
 
 
 class ShapeStyle:
+    """write docstring later"""
 
     def __init__(
         self,
         color: Union[float, str, Tuple[float, float, float], None] = None,
         lwidth: Optional[float] = 0.1,
         lcolor: Union[float, str, Tuple[float, float, float], None] = None,
-        lstyle: Optional[Literal["solid", "dashed", "dotted", "dashdot"]] = None,
+        lstyle: Optional[
+            Literal["solid", "dashed", "dotted", "dashdot"]
+        ] = None,
         fcolor: Union[float, str, Tuple[float, float, float], None] = None,
         alpha: Optional[float] = None,
     ):
@@ -65,6 +80,7 @@ class ShapeStyle:
 
 
 class TextBackgroundStyle:
+    """write docstring later"""
 
     def __init__(
         self,
@@ -82,7 +98,9 @@ class TextBackgroundStyle:
         ],
         lwidth: Optional[float] = 0.1,
         lcolor: Union[float, str, Tuple[float, float, float], None] = None,
-        lstyle: Optional[Literal["solid", "dashed", "dotted", "dashdot"]] = None,
+        lstyle: Optional[
+            Literal["solid", "dashed", "dotted", "dashdot"]
+        ] = None,
         fcolor: Union[float, str, Tuple[float, float, float], None] = None,
         alpha: Optional[float] = None,
         pad: Optional[float] = 0.3,

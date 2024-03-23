@@ -1,4 +1,6 @@
-from typing import Final, Union, Optional, List, Tuple, Dict, Any, Literal
+"""write docstring later"""
+
+from typing import Optional, List, Tuple, Dict, Any, Literal
 from matplotlib.text import Text
 from matplotlib.patches import Arc, Circle, Rectangle, FancyBboxPatch
 import matplotlib as mpl
@@ -17,15 +19,21 @@ def get_arc(
     height: float,
     angle: float = 0,
 ) -> Arc:
+    """write docstring later"""
+
     return Arc((x, y), width, height, angle)
 
 
 @error_handler
-def get_arrow(self): ...
+def get_arrow(self):
+    """write docstring later"""
+    ...
 
 
 @error_handler
-def get_arrow_fancy(self): ...
+def get_arrow_fancy(self):
+    """write docstring later"""
+    ...
 
 
 @error_handler
@@ -38,6 +46,8 @@ def get_circle(
     text: Optional[str] = None,
     textstyle: Optional[TextStyle] = None,
 ) -> Tuple[Circle, Optional[Text]]:
+    """write docstring later"""
+
     circle = Circle((x, y), radius, color="red")
     if text:
         return circle, get_shape_text(x, y, text, angle, textstyle)
@@ -46,19 +56,27 @@ def get_circle(
 
 
 @error_handler
-def get_ellipse(self): ...
+def get_ellipse(self):
+    """write docstring later"""
+    ...
 
 
 @error_handler
-def get_polygon(self): ...
+def get_polygon(self):
+    """write docstring later"""
+    ...
 
 
 @error_handler
-def get_polygon_circle(self): ...
+def get_polygon_circle(self):
+    """write docstring later"""
+    ...
 
 
 @error_handler
-def get_polygon_regular(self): ...
+def get_polygon_regular(self):
+    """write docstring later"""
+    ...
 
 
 @error_handler
@@ -72,6 +90,8 @@ def get_rectangle(
     text: Optional[str] = None,
     textstyle: Optional[TextStyle] = None,
 ) -> Tuple[Rectangle, Optional[Text]]:
+    """write docstring later"""
+
     if angle is None:
         angle = 0
     options = get_shape_options(style)
@@ -99,13 +119,17 @@ def get_rectangle_rounded(
     y: float,
     width: float,
     height: float,
-    rtype: Optional[Literal["round", "round4", "sawtooth", "roundtooth"]] = None,
+    rtype: Optional[
+        Literal["round", "round4", "sawtooth", "roundtooth"]
+    ] = None,
     pad: Optional[float] = None,
     style: Optional[ShapeStyle] = None,
     ax_and_angle: Optional[Tuple[Axes, float]] = None,
     text: Optional[str] = None,
     textstyle: Optional[TextStyle] = None,
 ) -> Tuple[FancyBboxPatch, Optional[Text]]:
+    """write docstring later"""
+
     # create boxstyle
     if rtype is None:
         rtype = "round"
@@ -130,7 +154,10 @@ def get_rectangle_rounded(
         angle = ax_and_angle[1]
         cx = x + width / 2
         cy = y + height / 2
-        t2 = mpl.transforms.Affine2D().rotate_deg_around(cx, cy, angle) + ax.transData
+        t2 = (
+            mpl.transforms.Affine2D().rotate_deg_around(cx, cy, angle)
+            + ax.transData
+        )
         rectangle.set_transform(t2)
 
     if text is not None:
@@ -143,4 +170,6 @@ def get_rectangle_rounded(
 
 
 @error_handler
-def get_wedge(self): ...
+def get_wedge(self):
+    """write docstring later"""
+    ...

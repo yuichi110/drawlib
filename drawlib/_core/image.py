@@ -1,3 +1,5 @@
+"""write docstring later"""
+
 from typing import Optional, Union, Tuple
 from PIL.Image import Image
 import numpy
@@ -18,6 +20,8 @@ def get_image(
     pilimg: Optional[Image] = None,
     zoom: Optional[float] = 0.1,
 ):
+    """write docstring later"""
+
     if file is None and pilimg is None:
         raise ValueError('requires one of args "file" or "image".')
     if file and pilimg:

@@ -1,3 +1,5 @@
+"""write docstring later"""
+
 from typing import Optional, Dict, Any
 from matplotlib.font_manager import FontProperties
 from matplotlib.text import Text
@@ -19,6 +21,8 @@ def get_shape_text(
     angle: Optional[float] = None,
     style: Optional[TextStyle] = None,
 ) -> Text:
+    """write docstring later"""
+
     # only check color. ignore alignment
     options = get_text_options(style)
     if "horizontalalignment" in options:
@@ -43,6 +47,8 @@ def get_shape_text(
 def get_text_options(
     style: Optional[TextStyle],
 ) -> Dict[str, Any]:
+    """write docstring later"""
+
     if style is None:
         return {}
 
@@ -59,6 +65,8 @@ def get_text_options(
 def get_font_properties(
     style: Optional[TextStyle],
 ) -> Optional[FontProperties]:
+    """write docstring later"""
+
     if style is None:
         return None
 
@@ -78,6 +86,8 @@ def get_font_properties(
 def get_line_options(
     style: Optional[LineStyle] = None,
 ) -> Dict[str, Any]:
+    """write docstring later"""
+
     if style is None:
         return {}
 
@@ -95,6 +105,8 @@ def get_line_options(
 def get_shape_options(
     style: Optional[ShapeStyle] = None,
 ) -> Dict[str, Any]:
+    """write docstring later"""
+
     if style is None:
         return {}
 
@@ -113,6 +125,8 @@ def get_shape_options(
 def get_bbox_dict(
     style: Optional[TextBackgroundStyle] = None,
 ) -> Dict[str, Any]:
+    """write docstring later"""
+
     if style is None:
         return {}
 

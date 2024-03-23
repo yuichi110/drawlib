@@ -1,4 +1,5 @@
 from drawlib import *
+from drawlib.debug import get_function_name
 
 OUTPUT_DIR = "tests_output/line/"
 

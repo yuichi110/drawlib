@@ -1,7 +1,9 @@
+"""write docstring later"""
+
 from __future__ import annotations
 
 import os
-from typing import Literal, Union, Tuple
+from typing import Union, Tuple
 from PIL import (
     Image,
     ImageFilter,
@@ -9,16 +11,19 @@ from PIL import (
     ImageEnhance,
     ImageChops,
 )
-from drawlib._util import error_handler
+from drawlib._util import error_handler, get_script_relative_path
 
 
 class Pimage:
     """Simplified PIL.Image wrapper"""
 
     @error_handler
-    def __init__(self, image: Union[str, Image.Image, Pimage], copy: bool = False):
+    def __init__(
+        self, image: Union[str, Image.Image, Pimage], copy: bool = False
+    ):
         # create new PIL.Image instance
         if isinstance(image, str):
+            image = get_script_relative_path(image)
             if not os.path.exists(image):
                 raise FileNotFoundError(f'file "{image}" does not exist.')
             self._pilimg = Image.open(image)
@@ -40,10 +45,20 @@ class Pimage:
 
     @error_handler
     def get_pil_image(self) -> Image.Image:
+        """write docstring later"""
+
         return self._pilimg.copy()
 
     @error_handler
+    def copy(self) -> Pimage:
+        """write docstring later"""
+
+        return Pimage(self)
+
+    @error_handler
     def save(self, file: str) -> None:
+        """write docstring later"""
+
         if not isinstance(file, str):
             raise ValueError('arg "file" must be str.')
 
@@ -53,6 +68,8 @@ class Pimage:
 
     @error_handler
     def rotate(self, angle: float) -> Pimage:
+        """write docstring later"""
+
         newimg = self._pilimg.rotate(
             angle,
             resample=Image.Resampling.BICUBIC,
@@ -62,21 +79,29 @@ class Pimage:
 
     @error_handler
     def resize(self, width: int, height: int) -> Pimage:
+        """write docstring later"""
+
         newimg = self._pilimg.resize((width, height), resample=Image.LANCZOS)
         return Pimage(newimg)
 
     @error_handler
     def flip(self) -> Pimage:
+        """write docstring later"""
+
         newimg = ImageOps.flip(self._pilimg)
         return Pimage(newimg)
 
     @error_handler
     def mirror(self) -> Pimage:
+        """write docstring later"""
+
         newimg = ImageOps.mirror(self._pilimg)
         return Pimage(newimg)
 
     @error_handler
     def invert(self) -> Pimage:
+        """write docstring later"""
+
         if "A" not in self._pilimg.mode:
             # has no tranceparency. use function
             newimg = ImageOps.invert(self._pilimg)
@@ -94,17 +119,23 @@ class Pimage:
 
     @error_handler
     def grayscale(self) -> Pimage:
+        """write docstring later"""
+
         newimg = self._pilimg.convert("LA")
         return Pimage(newimg)
 
     @error_handler
     def brightness(self, brightness_: float = 0.5) -> Pimage:
+        """write docstring later"""
+
         enhancer = ImageEnhance.Brightness(self._pilimg)
         newimg = enhancer.enhance(brightness_)
         return Pimage(newimg)
 
     @error_handler
     def sepia(self) -> Pimage:
+        """write docstring later"""
+
         gray = self._pilimg.convert("L")
         sepia_image = Image.merge(
             "RGB",
@@ -128,6 +159,8 @@ class Pimage:
         black: Union[str, Tuple[int, int, int]],
         white: Union[str, Tuple[int, int, int]],
     ) -> Pimage:
+        """write docstring later"""
+
         gray = self._pilimg.convert("L")
         colorized_image = ImageOps.colorize(gray, black=black, white=white)
         if "A" not in self._pilimg.mode:
@@ -140,6 +173,8 @@ class Pimage:
 
     @error_handler
     def posterize(self, num_colors: int = 4) -> Pimage:
+        """write docstring later"""
+
         if "A" not in self._pilimg.mode:
             newimg = ImageOps.posterize(self._pilimg, num_colors)
             return Pimage(newimg)
@@ -153,6 +188,8 @@ class Pimage:
 
     @error_handler
     def mosaic(self) -> Pimage:
+        """write docstring later"""
+
         gimg = self._pilimg.filter(ImageFilter.GaussianBlur(4))
         newimg = gimg.resize(
             [x // 8 for x in self._pilimg.size],
@@ -161,11 +198,15 @@ class Pimage:
 
     @error_handler
     def blur(self) -> Pimage:
+        """write docstring later"""
+
         newimg = self._pilimg.filter(ImageFilter.BLUR)
         return Pimage(newimg)
 
     @error_handler
     def line_extraction(self) -> Pimage:
+        """write docstring later"""
+
         gray = self._pilimg.convert("L")
         gray2 = gray.filter(ImageFilter.MaxFilter(5))
         senga_inv = ImageChops.difference(gray, gray2)
@@ -177,6 +218,8 @@ class Pimage:
         self,
         margin_color: Union[None, str, Tuple[int, int, int]],
     ) -> Pimage:
+        """write docstring later"""
+
         if margin_color is None:
             if "A" not in self._pilimg.mode:
                 message = "Can't remove transparent margin from RGB image."

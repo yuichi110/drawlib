@@ -1,0 +1,22 @@
+# IDE
+.venv
+
+# python
+__pycache__/
+*.py[cod]
+*$py.class
+
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+*.pyz
+*.pyzw
+
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/

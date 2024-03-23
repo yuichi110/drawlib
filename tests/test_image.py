@@ -1,5 +1,8 @@
-from drawlib import *
 from PIL import Image
+
+from drawlib import *
+from drawlib.debug import get_function_name
+
 
 IMAGE_FILE = "tests_input/image.png"
 OUTPUT_DIR = "tests_output/image/"

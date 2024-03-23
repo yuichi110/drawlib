@@ -1,9 +1,11 @@
+"""write docstring later"""
+
 from typing import Final, Union, Optional, List, Tuple, Dict, Any, Literal
 import matplotlib.font_manager
 import matplotlib.artist
 import matplotlib.lines
 import matplotlib.text
-import matplotlib.pyplot as pyplot
+from matplotlib import pyplot
 from matplotlib.artist import Artist
 from matplotlib.axes import Axes
 import PIL.Image
@@ -39,7 +41,9 @@ from drawlib._core.util import (
 )
 
 
-class __DrawingState:
+class DrawingState:
+    """write docstring later"""
+
     DEFAULT_WIDTH: Final[float] = 100
     DEFAULT_HEIGHT: Final[float] = 100
     DEFAULT_GRID: Final[bool] = False
@@ -47,12 +51,16 @@ class __DrawingState:
     SYSTEM_FONTS = ["serif", "sanserif"]
 
     class Title:
+        """write docstring later"""
+
         def __init__(
             self,
             text: str,
             x: Optional[float] = None,
             y: Optional[float] = None,
-            fontproperties: Optional[matplotlib.font_manager.FontProperties] = None,
+            fontproperties: Optional[
+                matplotlib.font_manager.FontProperties
+            ] = None,
         ):
             self.text = text
             self.x = x
@@ -78,6 +86,8 @@ class __DrawingState:
 
     @error_handler
     def clear(self):
+        """write docstring later"""
+
         self.__init__()
 
     @error_handler
@@ -88,6 +98,8 @@ class __DrawingState:
         grid: bool | None = None,
         grid_style: Optional[LineStyle] = None,
     ) -> None:
+        """write docstring later"""
+
         if width is not None:
             self.width = width
         if height is not None:
@@ -97,19 +109,27 @@ class __DrawingState:
 
     @error_handler
     def get_matplotlib_ax(self) -> Axes:
+        """write docstring later"""
+
         return self._ax
 
     @error_handler
     def add_matplotlib_artist(self, artist: Artist):
+        """write docstring later"""
+
         self._artists.append(artist)
 
     @error_handler
     def plot(self):
+        """write docstring later"""
+
         self._render()
         pyplot.show()
 
     @error_handler
     def save(self, file: Optional[str] = None):
+        """write docstring later"""
+
         if file is None:
             # get caller module info
             caller_frame = inspect.stack()[1]
@@ -130,6 +150,7 @@ class __DrawingState:
         os.makedirs(directory, exist_ok=True)
 
         # save
+        print(file)
         pyplot.savefig(file, bbox_inches="tight")
 
     @error_handler
@@ -172,6 +193,8 @@ class __DrawingState:
         y: Optional[float] = None,
         style: Optional[TextStyle] = None,
     ):
+        """write docstring later"""
+
         fp = get_font_properties(style)
         self._title = self.Title(text, x, y, fp)
 
@@ -187,13 +210,19 @@ class __DrawingState:
         width: float,
         height: float,
         angle: float = 0,
-    ): ...
+    ):
+        """write docstring later"""
+        ...
 
     @error_handler
-    def arrow(self): ...
+    def arrow(self):
+        """write docstring later"""
+        ...
 
     @error_handler
-    def arrow_fancy(self): ...
+    def arrow_fancy(self):
+        """write docstring later"""
+        ...
 
     @error_handler
     def circle(
@@ -206,6 +235,8 @@ class __DrawingState:
         text: Optional[str] = None,
         textstyle: Optional[TextStyle] = None,
     ):
+        """write docstring later"""
+
         circle_, text_ = get_circle(
             x=x,
             y=y,
@@ -220,16 +251,24 @@ class __DrawingState:
             self._artists.append(text_)
 
     @error_handler
-    def ellipse(self): ...
+    def ellipse(self):
+        """write docstring later"""
+        ...
 
     @error_handler
-    def polygon(self): ...
+    def polygon(self):
+        """write docstring later"""
+        ...
 
     @error_handler
-    def polygon_circle(self): ...
+    def polygon_circle(self):
+        """write docstring later"""
+        ...
 
     @error_handler
-    def polygon_regular(self): ...
+    def polygon_regular(self):
+        """write docstring later"""
+        ...
 
     @error_handler
     def rectangle(
@@ -243,6 +282,8 @@ class __DrawingState:
         text: Optional[str] = None,
         textstyle: Optional[TextStyle] = None,
     ):
+        """write docstring later"""
+
         rectangle_, text_ = get_rectangle(
             x=x,
             y=y,
@@ -264,13 +305,17 @@ class __DrawingState:
         y: float,
         width: float,
         height: float,
-        rtype: Optional[Literal["round", "round4", "sawtooth", "roundtooth"]] = None,
+        rtype: Optional[
+            Literal["round", "round4", "sawtooth", "roundtooth"]
+        ] = None,
         pad: Optional[float] = None,
         style: Optional[ShapeStyle] = None,
         angle: Optional[float] = None,
         text: Optional[str] = None,
         textstyle: Optional[TextStyle] = None,
     ):
+        """write docstring later"""
+
         if angle is None:
             ax_and_angle = None
         else:
@@ -293,7 +338,9 @@ class __DrawingState:
             self._artists.append(text_)
 
     @error_handler
-    def wedge(self): ...
+    def wedge(self):
+        """write docstring later"""
+        ...
 
     ##################
     ### _core.text ###
@@ -309,6 +356,8 @@ class __DrawingState:
         background: Optional[TextBackgroundStyle] = None,
         angle: Optional[float] = None,
     ):
+        """write docstring later"""
+
         self._artists.append(
             get_text(
                 x=x,
@@ -321,7 +370,9 @@ class __DrawingState:
         )
 
     @error_handler
-    def text_vertical(self, x: float, y: float, s: str): ...
+    def text_vertical(self, x: float, y: float, s: str):
+        """write docstring later"""
+        ...
 
     ###################
     ### _core.image ###
@@ -336,6 +387,8 @@ class __DrawingState:
         pilimg: Optional[PIL.Image.Image] = None,
         zoom=0.1,
     ):
+        """write docstring later"""
+
         image_ = get_image(
             x=x,
             y=y,
@@ -358,6 +411,8 @@ class __DrawingState:
         y2: float,
         style: Optional[LineStyle] = None,
     ):
+        """write docstring later"""
+
         line_ = get_line(x1, y1, x2, y2, style)
         self._artists.append(line_)
 
@@ -367,6 +422,8 @@ class __DrawingState:
         xys: List[Tuple[float, float]],
         style: Optional[LineStyle] = None,
     ):
+        """write docstring later"""
+
         line_ = get_lines(xys, style)
         self._artists.append(line_)
 
@@ -384,11 +441,13 @@ class __DrawingState:
         smooth_points: int = 100,
         style: Optional[LineStyle] = None,
     ):
+        """write docstring later"""
+
         line_ = get_line_bezier(x, y, bezier_points, smooth_points, style)
         self._artists.append(line_)
 
 
-__d = __DrawingState()
+__d = DrawingState()
 # basics
 clear = __d.clear
 config = __d.config
