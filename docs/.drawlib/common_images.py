@@ -1,4 +1,4 @@
-from drawlib import *
+from drawlib.advance import *
 
 IMAGE_PIKACHU = 'pikachu'
 

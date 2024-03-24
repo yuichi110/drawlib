@@ -9,7 +9,6 @@ from matplotlib import pyplot
 from matplotlib.artist import Artist
 from matplotlib.axes import Axes
 import PIL.Image
-import inspect
 import os
 
 from drawlib._util import error_handler
@@ -27,7 +26,7 @@ from drawlib._core.line import (
     get_lines,
     get_line_bezier,
 )
-from drawlib._core.patches import (
+from drawlib._core.shape import (
     get_circle,
     get_rectangle,
     get_rectangle_rounded,
@@ -45,7 +44,7 @@ from drawlib._util import (
 )
 
 
-class DrawingState:
+class Canvas:
     """write docstring later"""
 
     DEFAULT_WIDTH: Final[float] = 100
@@ -448,31 +447,29 @@ class DrawingState:
         self._artists.append(line_)
 
 
-__d = DrawingState()
-# basics
-clear = __d.clear
-config = __d.config
-plot = __d.plot
-save = __d.save
-title = __d.title
-get_matplotlib_ax = __d.get_matplotlib_ax
-add_matplotlib_artist = __d.add_matplotlib_artist
+__c = Canvas()
 
-# patched
-circle = __d.circle
-shape_circle = circle
-rectangle = __d.rectangle
-shape_rectangle = rectangle
-rectangle_rounded = __d.rectangle_rounded
-shape_rectangle_rounded = rectangle_rounded
+# basics
+clear = __c.clear
+config = __c.config
+plot = __c.plot
+save = __c.save
+title = __c.title
+get_matplotlib_ax = __c.get_matplotlib_ax
+add_matplotlib_artist = __c.add_matplotlib_artist
+
+# shape
+circle = __c.circle
+rectangle = __c.rectangle
+rectangle_rounded = __c.rectangle_rounded
 
 # text
-text = __d.text
+text = __c.text
 
 # image
-image = __d.image
+image = __c.image
 
 # line
-line = __d.line
-lines = __d.lines
-line_bezier = __d.line_bezier
+line = __c.line
+lines = __c.lines
+line_bezier = __c.line_bezier

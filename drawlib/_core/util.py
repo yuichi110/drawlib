@@ -124,11 +124,13 @@ def get_shape_options(
 @error_handler
 def get_bbox_dict(
     style: Optional[TextBackgroundStyle] = None,
-) -> Dict[str, Any]:
+) -> Optional[Dict[str, Any]]:
     """write docstring later"""
 
     if style is None:
-        return {}
+        # {} doesn't mean no style.
+        # requires returning None when no style.
+        return None
 
     def get_boxstyle():
         boxstyle = style.boxstyle

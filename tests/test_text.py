@@ -1,8 +1,7 @@
-from drawlib import *
-from drawlib.debug import (
-    warning_suppress,
-    get_function_name,
-)
+from drawlib._canvas import *
+from drawlib._model import *
+from drawlib._util import get_function_name
+from drawlib.params import warning_suppress
 
 FONT_FILE = "./assets/font.ttf"
 OUTPUT_DIR = "../tests_output/text/"

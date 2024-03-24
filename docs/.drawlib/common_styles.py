@@ -1,4 +1,4 @@
-from drawlib import *
+from drawlib.advance import *
 
 LINESTYLE_SOLID = "solid"
 LINESTYLE_DASH = "dash"

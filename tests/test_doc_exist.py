@@ -1,4 +1,4 @@
-from drawlib import *
+from drawlib.basic import *
 import drawlib
 
 

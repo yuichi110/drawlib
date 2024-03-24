@@ -4,17 +4,22 @@ import inspect
 from typing import Optional
 import warnings
 
-from drawlib._util import error_handler
+
+def set_logging_quiet(): ...
 
 
-@error_handler
-def get_function_name():
-    """write docstring later"""
-
-    return inspect.stack()[1][3]
+def set_logging_normal(): ...
 
 
-@error_handler
+def set_logging_verbose(): ...
+
+
+def set_logging_developer(): ...
+
+
+def is_logging_developer(): ...
+
+
 def warning_suppress(module: Optional[str] = None):
     """write docstring later"""
 

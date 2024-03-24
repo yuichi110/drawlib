@@ -1,7 +1,5 @@
 import os
-
-
-from drawlib import *
+from drawlib.advance import *
 
 
 def main():

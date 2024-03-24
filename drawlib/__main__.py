@@ -1,18 +1,19 @@
 """write docstring later"""
 
+import os
 import sys
 from typing import List
-from drawlib import *
+from drawlib.advance import run
+import drawlib._args as args
 
 
 def main(paths: List[str]):
     """write docstring later"""
 
-    for path in paths:
-        ...
+    def get_abspath(path):
+        abspath = os.path.abspath(path)
+        return os.path.realpath(abspath)
 
-
-if __name__ == "__main__":
     paths = []
     for arg in sys.argv:
         if arg in [
@@ -29,9 +30,15 @@ if __name__ == "__main__":
             continue
         paths.append(arg)
 
-    if len(paths):
+    if len(paths) == 0:
         print("no input files and directories")
         print("syntax: drawlib <files or directories> <options>")
         exit(1)
 
-    main(paths)
+    for path in paths:
+        abspath = get_abspath(path)
+        run(abspath)
+
+
+if __name__ == "__main__":
+    ...

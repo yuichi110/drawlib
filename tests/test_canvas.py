@@ -1,5 +1,6 @@
-from drawlib import *
-from drawlib.debug import get_function_name
+from drawlib._canvas import *
+from drawlib._model import *
+from drawlib._util import get_function_name
 
 
 FONT_FILE = "./assets/font.ttf"
