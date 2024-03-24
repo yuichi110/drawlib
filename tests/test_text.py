@@ -4,8 +4,8 @@ from drawlib.debug import (
     get_function_name,
 )
 
-FONT_FILE = "tests_input/font.ttf"
-OUTPUT_DIR = "tests_output/text/"
+FONT_FILE = "./assets/font.ttf"
+OUTPUT_DIR = "../tests_output/text/"
 
 
 def test_text():

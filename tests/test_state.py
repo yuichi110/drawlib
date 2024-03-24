@@ -2,8 +2,8 @@ from drawlib import *
 from drawlib.debug import get_function_name
 
 
-FONT_FILE = "tests_input/font.ttf"
-OUTPUT_DIR = "tests_output/state/"
+FONT_FILE = "./assets/font.ttf"
+OUTPUT_DIR = "../tests_output/state/"
 
 
 def test_save_without_filename():

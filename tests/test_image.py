@@ -4,8 +4,8 @@ from drawlib import *
 from drawlib.debug import get_function_name
 
 
-IMAGE_FILE = "tests_input/image.png"
-OUTPUT_DIR = "tests_output/image/"
+IMAGE_FILE = "./assets/image.png"
+OUTPUT_DIR = "../tests_output/image/"
 
 
 def test_image_file():
@@ -27,6 +27,7 @@ def test_image_file_not_exist():
 def test_image_pil():
     clear()
     config(width=10, height=10, grid=True)
-    im = Image.open(IMAGE_FILE)
+    path = get_script_relative_path(IMAGE_FILE)
+    im = Image.open(path)
     image(1, 1, pilimg=im, zoom=0.1)
     save(f"{OUTPUT_DIR}{get_function_name()}.png")

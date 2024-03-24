@@ -1,7 +1,7 @@
 from drawlib import *
 from drawlib.debug import get_function_name
 
-OUTPUT_DIR = "tests_output/line/"
+OUTPUT_DIR = "../tests_output/line/"
 
 
 def test_line():

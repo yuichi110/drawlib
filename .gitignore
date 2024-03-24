@@ -1,9 +1,9 @@
 .DS_Store
 poetry.lock
-.env
 sandbox/*
 tests_output/*
 tests/**/*.png
+!tests/assets/**/*.png
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

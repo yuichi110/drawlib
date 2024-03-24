@@ -1,13 +1,12 @@
 """write docstring later"""
 
-from typing import Optional, Union, Tuple
+from typing import Optional, Union
+import os
 from PIL.Image import Image
 import numpy
 import matplotlib.pyplot as pyplot
 import matplotlib.offsetbox as offsetbox
-from matplotlib.axes import Axes
-import matplotlib as mpl
-from drawlib._util import error_handler
+from drawlib._util import error_handler, get_script_relative_path
 
 _image_cache: dict[Union[str, Image], numpy.array] = {}
 
@@ -27,12 +26,16 @@ def get_image(
     if file and pilimg:
         raise ValueError('suports only one args "file" or "image".')
 
-    if file:
-        if file not in _image_cache:
-            im = pyplot.imread(file)
-            _image_cache[file] = im
+    if file is not None:
+        path = get_script_relative_path(file)
+        if not os.path.exists(path):
+            raise FileNotFoundError('image file "{path}" does not exist.')
+
+        if path not in _image_cache:
+            im = pyplot.imread(path)
+            _image_cache[path] = im
         else:
-            im = _image_cache[file]
+            im = _image_cache[path]
     else:
         key = str(pilimg)
         if key not in _image_cache:
@@ -41,4 +44,5 @@ def get_image(
         im = _image_cache[key]
 
     imagebox = offsetbox.OffsetImage(im, zoom=zoom)
-    return offsetbox.AnnotationBbox(imagebox, (x, y), frameon=False)
+    ab = offsetbox.AnnotationBbox(imagebox, (x, y), frameon=False)
+    return ab

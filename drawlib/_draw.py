@@ -39,6 +39,10 @@ from drawlib._core.text import (
 from drawlib._core.util import (
     get_font_properties,
 )
+from drawlib._util import (
+    get_user_script_path,
+    get_script_relative_path,
+)
 
 
 class DrawingState:
@@ -131,16 +135,14 @@ class DrawingState:
         """write docstring later"""
 
         if file is None:
-            # get caller module info
-            caller_frame = inspect.stack()[1]
-            caller_module = inspect.getmodule(caller_frame[0])
-            caller_module_file = caller_module.__file__
-            caller_module_name = caller_module.__name__
+            script_path = get_user_script_path()
+            parent_dir = os.path.dirname(script_path)
+            name = os.path.basename(script_path)
+            name_without_ext = os.path.splitext(name)[0]
+            file = f"{os.path.join(parent_dir, name_without_ext)}.png"
 
-            # create save file path
-            parent_dir = os.path.dirname(os.path.abspath(caller_module_file))
-            file_name = caller_module_name.split(".")[-1]
-            file = f"{os.path.join(parent_dir, file_name)}.png"
+        else:
+            file = get_script_relative_path(file)
 
         # rendering
         self._render()
@@ -150,7 +152,6 @@ class DrawingState:
         os.makedirs(directory, exist_ok=True)
 
         # save
-        print(file)
         pyplot.savefig(file, bbox_inches="tight")
 
     @error_handler

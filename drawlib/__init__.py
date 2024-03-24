@@ -23,7 +23,7 @@ from drawlib._model import (
     ShapeStyle,
     TextBackgroundStyle,
 )
-from drawlib._drawing_state import (
+from drawlib._draw import (
     # basics
     clear,
     config,
@@ -67,7 +67,8 @@ from drawlib._cache import (
 )
 from drawlib._pil import Pimage
 from drawlib._util import (
-    load,
+    run,
+    help,
     get_angle,
     get_script_relative_path,
 )
