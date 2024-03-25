@@ -84,7 +84,7 @@ if __ARG_DEBUG in sys.argv:
     set_logging_mode("quiet")
 
 # set logging mode developer if selected
-if sys.argv[0].endswith("pytest") or __ARG_DEVDEBUG in sys.argv:
+if "pytest" in sys.argv or __ARG_DEVDEBUG in sys.argv:
     if __ARG_QUIET in sys.argv:
         logger.critical(
             f"option {__ARG_QUIET} can not be used with option {__ARG_DEVDEBUG}"

@@ -3,7 +3,7 @@ set -e
 
 cd "$(dirname "$0")" || exit
 if command -v poetry &> /dev/null; then
-    poetry run mypy .
+    poetry run python -m drawlib ./docs
 else
-    mypy .
+    python -m drawlib ./docs
 fi
