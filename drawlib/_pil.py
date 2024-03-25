@@ -62,9 +62,12 @@ class Pimage:
         if not isinstance(file, str):
             raise ValueError('arg "file" must be str.')
 
-        directory = os.path.dirname(file)
+        print(file)
+        abspath = get_script_relative_path(file)
+        print(abspath)
+        directory = os.path.dirname(abspath)
         os.makedirs(directory, exist_ok=True)
-        self._pilimg.save(file, quality=95)
+        self._pilimg.save(abspath, quality=95)
 
     @error_handler
     def rotate(self, angle: float) -> Pimage:

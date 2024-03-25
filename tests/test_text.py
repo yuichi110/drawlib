@@ -1,7 +1,7 @@
 from drawlib._canvas import *
 from drawlib._model import *
 from drawlib._util import get_function_name
-from drawlib.params import warning_suppress
+from drawlib.settings import set_suppress_warning
 
 FONT_FILE = "./assets/font.ttf"
 OUTPUT_DIR = "../tests_output/text/"
@@ -15,7 +15,7 @@ def test_text():
 
 
 def test_text_font():
-    warning_suppress()
+    set_suppress_warning(True)
     clear()
     config(width=10, height=10, grid=True)
     text(3, 3, "あいうえお")
