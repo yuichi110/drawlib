@@ -1,5 +1,8 @@
 """write docstring later"""
 
+# pylint: disable=global-statement
+# pylint: disable=logging-fstring-interpolation
+
 import typing
 import warnings
 import sys
@@ -23,12 +26,16 @@ _suppress_warning: bool = False
 def get_logging_mode() -> (
     typing.Literal["normal", "quiet", "verbose", "developer"]
 ):
+    """write docstring later"""
     return _logging_mode
 
 
 def set_logging_mode(
     mode: typing.Literal["normal", "quiet", "verbose", "developer"]
 ):
+    """write docstring later"""
+
+    global _logging_mode
     _logging_mode = mode
     if mode == "normal":
         logger.setLevel(logging.INFO)
@@ -43,10 +50,15 @@ def set_logging_mode(
 
 
 def get_suppress_warning():
+    """write docstring later"""
+
     return _suppress_warning
 
 
 def set_suppress_warning(enable: bool):
+    """write docstring later"""
+
+    global _suppress_warning
     if enable:
         warnings.filterwarnings("ignore")
     else:
@@ -56,6 +68,8 @@ def set_suppress_warning(enable: bool):
 
 
 def is_debug_mode():
+    """write docstring later"""
+
     if _logging_mode == "debug":
         return True
     if _logging_mode == "developer":
@@ -64,6 +78,8 @@ def is_debug_mode():
 
 
 def is_developer_debug_mode():
+    """write docstring later"""
+
     return _logging_mode == "developer"
 
 

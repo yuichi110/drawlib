@@ -1,14 +1,13 @@
 """write docstring later"""
 
+# pylint: disable=too-many-instance-attributes
+
 from dataclasses import dataclass
 import os
 from typing import (
     Union,
     Optional,
-    List,
     Tuple,
-    Dict,
-    Any,
     Literal,
 )
 from drawlib._util import get_script_relative_path
@@ -32,10 +31,14 @@ class TextStyle:
 
     @property
     def font_file(self):
+        """write docstring later"""
+
         return self._font_file
 
     @font_file.setter
     def font_file(self, value):
+        """write docstring later"""
+
         path = get_script_relative_path(value)
         if not os.path.exists(path):
             raise FileNotFoundError('font file "{path}" does not exist.')

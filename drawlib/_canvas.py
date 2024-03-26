@@ -1,6 +1,17 @@
 """write docstring later"""
 
-from typing import Final, Union, Optional, List, Tuple, Dict, Any, Literal
+# pylint: disable=redefined-outer-name
+# pylint: disable=too-many-arguments
+# pylint: disable=too-many-instance-attributes
+# pylint: disable=too-many-public-methods
+
+# !!! Temporary Lint Escape !!!
+# pylint: disable=unnecessary-ellipsis
+# pylint: disable=unused-argument
+
+import os
+import dataclasses
+from typing import Final, Union, Optional, List, Tuple, Literal
 import matplotlib.font_manager
 import matplotlib.artist
 import matplotlib.lines
@@ -9,7 +20,7 @@ from matplotlib import pyplot
 from matplotlib.artist import Artist
 from matplotlib.axes import Axes
 import PIL.Image
-import os
+
 
 from drawlib._util import error_handler
 from drawlib._model import (
@@ -33,7 +44,7 @@ from drawlib._core.shape import (
 )
 from drawlib._core.text import (
     get_text,
-    get_text_vertical,
+    # get_text_vertical,
 )
 from drawlib._core.util import (
     get_font_properties,
@@ -53,22 +64,14 @@ class Canvas:
     DEFAULT_LOGLEVEL: Final[str] = "info"
     SYSTEM_FONTS = ["serif", "sanserif"]
 
-    class Title:
+    @dataclasses
+    class Title:  # pylint: disable=too-few-public-methods
         """write docstring later"""
 
-        def __init__(
-            self,
-            text: str,
-            x: Optional[float] = None,
-            y: Optional[float] = None,
-            fontproperties: Optional[
-                matplotlib.font_manager.FontProperties
-            ] = None,
-        ):
-            self.text = text
-            self.x = x
-            self.y = y
-            self.fontproperties = fontproperties
+        text: str
+        x: Optional[float] = None
+        y: Optional[float] = None
+        fontproperties: Optional[matplotlib.font_manager.FontProperties] = None
 
     @error_handler
     def __init__(self):
@@ -91,7 +94,8 @@ class Canvas:
     def clear(self):
         """write docstring later"""
 
-        self.__init__()
+        # initialize again without changing object itself
+        self.__init__()  # pylint: disable=unnecessary-dunder-call
 
     @error_handler
     def config(

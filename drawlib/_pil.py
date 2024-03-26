@@ -62,9 +62,7 @@ class Pimage:
         if not isinstance(file, str):
             raise ValueError('arg "file" must be str.')
 
-        print(file)
         abspath = get_script_relative_path(file)
-        print(abspath)
         directory = os.path.dirname(abspath)
         os.makedirs(directory, exist_ok=True)
         self._pilimg.save(abspath, quality=95)
@@ -84,7 +82,10 @@ class Pimage:
     def resize(self, width: int, height: int) -> Pimage:
         """write docstring later"""
 
-        newimg = self._pilimg.resize((width, height), resample=Image.LANCZOS)
+        newimg = self._pilimg.resize(
+            (width, height),
+            resample=Image.LANCZOS,  # pylint: disable=no-member
+        )
         return Pimage(newimg)
 
     @error_handler

@@ -2,7 +2,6 @@
 
 import os
 import sys
-from typing import List
 from drawlib.advance import run
 from drawlib._logging import logger
 from drawlib._cli import DrawlibArgParser

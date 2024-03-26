@@ -1,5 +1,10 @@
+"""write docstring later"""
+
+# pylint: disable=logging-fstring-interpolation
+# pylint: disable=global-statement
+
 import os
-from typing import Set, List
+from typing import Set, List, Final
 import importlib.util
 import traceback
 import sys
@@ -11,16 +16,15 @@ from drawlib._util import (
 )
 from drawlib._canvas import clear
 
-
-# escape original help
-__help = help
+__INDENT_SIZE: Final[int] = 4
 
 # store which dynamic modules are loaded
 # for avoiding execute twice
 __run_executed_files: Set[str] = set()
 
-__stack_of_run = 0
-__indent_size = 4
+# run method can be called recursively
+# on that time, 2nd has 4 indent, 3rd has 8 indent ...
+__stack_of_run: int = 0
 
 
 @error_handler
@@ -37,7 +41,7 @@ def run(file_or_directory: str, auto_clear: bool = True) -> None:
         if not path.endswith(".py"):
             raise ValueError(f'Unable to run "{path}"')
         __stack_of_run += 1
-        indent = ' ' * (__stack_of_run - 1) * __indent_size
+        indent = ' ' * (__stack_of_run - 1) * __INDENT_SIZE
         logger.info(f"{indent}---")
         logger.info(f"{indent}Execute file")
         _exec_module(path, auto_clear)
@@ -48,7 +52,7 @@ def run(file_or_directory: str, auto_clear: bool = True) -> None:
 
     # directory
     __stack_of_run += 1
-    indent = ' ' * (__stack_of_run - 1) * __indent_size
+    indent = ' ' * (__stack_of_run - 1) * __INDENT_SIZE
     logger.info(f"{indent}---")
     logger.info(f'{indent}Execute files under: {path}')
     file_paths = _get_python_files(path)
@@ -59,32 +63,6 @@ def run(file_or_directory: str, auto_clear: bool = True) -> None:
     __stack_of_run -= 1
 
 
-@error_handler
-def help(object, open_webdoc=True) -> None:
-    """getting help of drawlib
-    - function
-    - class
-    """
-
-    # get module objects
-    module_name = (lambda x: x).__module__
-    module = sys.modules[module_name]
-    module_objects = set()
-    g = globals()
-    for object_name in dir(module):
-        if object_name.startswith("_"):
-            continue
-        if object_name == "help":
-            continue
-        module_objects.add(g[object_name])
-
-    # show document
-    if object in module_objects:
-        print(object.__doc__)
-    else:
-        __help(object)
-
-
 ###############
 ### private ###
 ###############
@@ -92,14 +70,10 @@ def help(object, open_webdoc=True) -> None:
 
 def _get_python_files(directory: str) -> List[str]:
     python_files: List[str] = []
-    # Walk through the directory tree
-    for root, dirs, files in os.walk(directory):
+    for root, _, files in os.walk(directory):
         for file in files:
-            # Check if the file has a .py extension
             if file.endswith('.py'):
-                # Get the absolute path of the Python file
                 file_path = os.path.join(root, file)
-                # Append the file path to the list
                 python_files.append(file_path)
 
     return sorted(python_files, key=lambda path: path.count(os.sep))
@@ -107,16 +81,15 @@ def _get_python_files(directory: str) -> List[str]:
 
 def _exec_module(file_path: str, auto_clear: bool) -> None:
     """write docstring later"""
-    global __stack_of_run
 
     # run only 1 time.
-    # don't move add() to bottom for avoiding loop
+    # don't move .add() to bottom. It makes loop
     if file_path in __run_executed_files:
         return
     __run_executed_files.add(file_path)
 
     mspec = importlib.util.spec_from_file_location(
-        name="t",
+        name="dynamically_loaded_module",
         location=file_path,
     )
     module = importlib.util.module_from_spec(mspec)
@@ -127,10 +100,10 @@ def _exec_module(file_path: str, auto_clear: bool) -> None:
             clear()
 
         # call module for drawing
-        indent = ' ' * (__stack_of_run - 1) * __indent_size
+        indent = ' ' * (__stack_of_run - 1) * __INDENT_SIZE
         logger.info(f"{indent} - {file_path}")
         mspec.loader.exec_module(module)
-    except Exception as e:
+    except Exception as e:  # pylint: disable=broad-exception-caught
         file, line, _, _ = traceback.extract_tb(e.__traceback__)[-1]
         logger.critical(f'{type(e).__name__} at file:"{file}", line:"{line}"')
         logger.critical(str(e))

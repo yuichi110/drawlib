@@ -1,3 +1,8 @@
+"""write docstring later"""
+
+# pylint: disable=redefined-builtin
+# pylint: disable=unused-import
+
 from drawlib._pil import Pimage
 from drawlib._core.image import (
     get_image,
@@ -26,7 +31,6 @@ from drawlib._util import (
     get_script_relative_path,
 )
 from drawlib._tools import (
-    help,
     run,
 )
 from drawlib._canvas import (

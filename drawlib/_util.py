@@ -1,12 +1,14 @@
 """write docstring later"""
 
+# pylint: disable=logging-fstring-interpolation
+
 import inspect
 import math
 import functools
 import traceback
 import sys
 import os
-import drawlib.settings as settings
+from drawlib import settings
 from drawlib._logging import logger
 
 
@@ -21,30 +23,13 @@ def error_handler(caller):
     def wrapper(*args, **kwargs):
         try:
             return caller(*args, **kwargs)
-        except Exception as e:
-
-            def get_package_root_path():
-                error_module = inspect.stack()[0].filename
-                module_path = os.path.abspath(error_module)
-                package_root = module_path
-                while not os.path.exists(
-                    os.path.join(package_root, "__init__.py"),
-                ):
-                    package_root = os.path.dirname(package_root)
-                return package_root
-
-            def is_path_under(parent_path, child_path):
-                common_parent = os.path.commonpath([parent_path, child_path])
-                abs_parent_path = os.path.abspath(parent_path)
-                abs_common_path = os.path.abspath(common_parent)
-                return abs_parent_path == abs_common_path
-
-            package_root = get_package_root_path()
+        except Exception as e:  # pylint: disable=broad-exception-caught
+            package_root = _get_package_root_path()
             for frame in inspect.stack():
                 file = frame.filename
                 if not os.path.isfile(file):
                     continue
-                if is_path_under(package_root, file):
+                if _is_path_under(package_root, file):
                     continue
                 line = frame.lineno
                 logger.critical(

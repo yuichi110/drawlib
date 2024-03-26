@@ -4,13 +4,14 @@ from typing import Optional, List
 import argparse
 import sys
 import drawlib._const as const
-import drawlib.settings as settings
+from drawlib import settings
 from drawlib._logging import logger
 
 
 class DrawlibArgParser:
-    def __init__(self):
+    """write docstring later"""
 
+    def __init__(self):
         parser = argparse.ArgumentParser(
             description='Ilustration as code by python',
         )
@@ -38,18 +39,25 @@ class DrawlibArgParser:
         parser.add_argument(
             '--developer',
             action='store_true',
-            help='Enable verbose logging. Disable error handling for library users.',
+            help=(
+                'Enable verbose logging. '
+                'Disable error handling for library users.'
+            ),
         )
         self._parser = parser
         self._positional_args: Optional[List[str]] = None
         self._name_args: Optional[argparse.Namespace] = None
 
     def parse(self):
+        """write docstring later"""
+
         self._name_args, _ = self._parser.parse_known_args()
         args = self._parser.parse_args()
         self._positional_args = args.file_or_directory
 
     def get_positional_args(self):
+        """write docstring later"""
+
         if self._name_args is None:
             logger.critical(
                 "DrawlibArgParser must be parsed before getting optional args"
@@ -58,6 +66,8 @@ class DrawlibArgParser:
         return self._positional_args
 
     def apply_options(self):
+        """write docstring later"""
+
         if self._name_args is None:
             logger.critical(
                 "DrawlibArgParser must be parsed before apply options"
