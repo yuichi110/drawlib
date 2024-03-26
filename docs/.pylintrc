@@ -1,0 +1,11 @@
+[FORMAT]
+max-line-length=80
+
+[MASTER]
+disable=
+    invalid-name,
+    wildcard-import,
+    unused-wildcard-import,
+    missing-module-docstring,
+    missing-function-docstring,
+    duplicate-code

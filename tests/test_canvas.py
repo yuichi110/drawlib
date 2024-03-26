@@ -1,9 +1,3 @@
-# pylint: disable=wildcard-import
-# pylint: disable=unused-wildcard-import
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-function-docstring
-# pylint: disable=duplicate-code
-
 from drawlib._canvas import *
 from drawlib._model import *
 from drawlib._util import get_function_name
