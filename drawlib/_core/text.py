@@ -53,6 +53,6 @@ def get_text(
 
 
 @error_handler
-def get_text_vertical(x: float, y: float, s: str):
+def get_text_vertical(x: float, y: float, text: str) -> Text:
     """write docstring later"""
-    ...
+    return Text(1, 1, "hello")

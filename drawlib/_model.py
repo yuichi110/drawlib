@@ -29,14 +29,14 @@ class TextStyle:
     font_stretch: Union[int, str, None] = None
     font_math_fontfamily: Optional[str] = None
 
-    @property
-    def font_file(self):
+    @property  # type: ignore[no-redef]
+    def font_file(self) -> Optional[str]:
         """write docstring later"""
 
         return self._font_file
 
     @font_file.setter
-    def font_file(self, value):
+    def font_file(self, value: str) -> None:
         """write docstring later"""
 
         path = get_script_relative_path(value)
@@ -90,6 +90,7 @@ class TextBackgroundStyle:
         "sawtooth",
         "roundtooth",
     ]
+    color: Union[float, str, Tuple[float, float, float], None] = None
     lwidth: Optional[float] = 0.1
     lcolor: Union[float, str, Tuple[float, float, float], None] = None
     lstyle: Optional[

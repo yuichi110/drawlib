@@ -14,7 +14,7 @@ from drawlib._util import error_handler
 class Cache:
     """class for handling cache"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._line_styles: Dict[str, LineStyle] = {}
         self._shape_styles: Dict[str, ShapeStyle] = {}
         self._text_styles: Dict[str, TextStyle] = {}

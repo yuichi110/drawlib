@@ -11,7 +11,7 @@ from drawlib._logging import logger
 class DrawlibArgParser:
     """write docstring later"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         parser = argparse.ArgumentParser(
             description='Ilustration as code by python',
         )
@@ -48,24 +48,24 @@ class DrawlibArgParser:
         self._positional_args: Optional[List[str]] = None
         self._name_args: Optional[argparse.Namespace] = None
 
-    def parse(self):
+    def parse(self) -> None:
         """write docstring later"""
 
         self._name_args, _ = self._parser.parse_known_args()
         args = self._parser.parse_args()
         self._positional_args = args.file_or_directory
 
-    def get_positional_args(self):
+    def get_positional_args(self) -> List[str]:
         """write docstring later"""
 
-        if self._name_args is None:
+        if self._positional_args is None:
             logger.critical(
                 "DrawlibArgParser must be parsed before getting optional args"
             )
             sys.exit(1)
         return self._positional_args
 
-    def apply_options(self):
+    def apply_options(self) -> None:
         """write docstring later"""
 
         if self._name_args is None:

@@ -1,6 +1,6 @@
 """write docstring later"""
 
-from typing import Optional, Union
+from typing import Optional, Union, Any
 import os
 from PIL.Image import Image
 import numpy
@@ -8,7 +8,7 @@ import matplotlib.pyplot as pyplot
 import matplotlib.offsetbox as offsetbox
 from drawlib._util import error_handler, get_script_relative_path
 
-_image_cache: dict[Union[str, Image], numpy.array] = {}
+_image_cache: dict[Union[str, Image], Any] = {}
 
 
 @error_handler
@@ -17,8 +17,8 @@ def get_image(
     y: float,
     file: Optional[str] = None,
     pilimg: Optional[Image] = None,
-    zoom: Optional[float] = 0.1,
-):
+    zoom: float = 0.1,
+) -> offsetbox.AnnotationBbox:
     """write docstring later"""
 
     if file is None and pilimg is None:

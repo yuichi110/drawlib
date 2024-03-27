@@ -32,7 +32,7 @@ def get_logging_mode() -> (
 
 def set_logging_mode(
     mode: typing.Literal["normal", "quiet", "verbose", "developer"]
-):
+) -> None:
     """write docstring later"""
 
     global _logging_mode
@@ -49,13 +49,13 @@ def set_logging_mode(
     logger.debug(f'set_log_mode(): "{mode}"')
 
 
-def get_suppress_warning():
+def get_suppress_warning() -> bool:
     """write docstring later"""
 
     return _suppress_warning
 
 
-def set_suppress_warning(enable: bool):
+def set_suppress_warning(enable: bool) -> None:
     """write docstring later"""
 
     global _suppress_warning
@@ -67,7 +67,7 @@ def set_suppress_warning(enable: bool):
     logger.debug(f'set_suppress_warning(): "{enable}"')
 
 
-def is_debug_mode():
+def is_debug_mode() -> bool:
     """write docstring later"""
 
     if _logging_mode == "debug":
@@ -77,7 +77,7 @@ def is_debug_mode():
     return False
 
 
-def is_developer_debug_mode():
+def is_developer_debug_mode() -> bool:
     """write docstring later"""
 
     return _logging_mode == "developer"

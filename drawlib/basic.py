@@ -4,6 +4,7 @@
 # pylint: disable=unused-import
 
 import sys
+import typing
 from drawlib._pil import Pimage
 from drawlib._model import (
     TextStyle,
@@ -36,8 +37,8 @@ __help = help  # pylint: disable=used-before-assignment
 
 
 def help(  # pylint: disable=redefined-builtin
-    object,
-    open_webdoc=True,
+    object: typing.Any,
+    open_webdoc: bool = True,
 ) -> None:
     """getting help of drawlib
     - function

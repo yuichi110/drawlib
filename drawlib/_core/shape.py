@@ -21,17 +21,17 @@ def get_arc(
 ) -> Arc:
     """write docstring later"""
 
-    return Arc((x, y), width, height, angle)
+    return Arc((x, y), width=width, height=height, angle=angle)
 
 
 @error_handler
-def get_arrow(self):
+def get_arrow() -> None:
     """write docstring later"""
     ...
 
 
 @error_handler
-def get_arrow_fancy(self):
+def get_arrow_fancy() -> None:
     """write docstring later"""
     ...
 
@@ -56,25 +56,25 @@ def get_circle(
 
 
 @error_handler
-def get_ellipse(self):
+def get_ellipse() -> None:
     """write docstring later"""
     ...
 
 
 @error_handler
-def get_polygon(self):
+def get_polygon() -> None:
     """write docstring later"""
     ...
 
 
 @error_handler
-def get_polygon_circle(self):
+def get_polygon_circle() -> None:
     """write docstring later"""
     ...
 
 
 @error_handler
-def get_polygon_regular(self):
+def get_polygon_regular() -> None:
     """write docstring later"""
     ...
 
@@ -139,7 +139,7 @@ def get_rectangle_rounded(
 
     # create angle for text
     if ax_and_angle is None:
-        angle = 0
+        angle = 0.0
 
     options = get_shape_options(style)
     rectangle = FancyBboxPatch(
@@ -170,6 +170,6 @@ def get_rectangle_rounded(
 
 
 @error_handler
-def get_wedge(self):
+def get_wedge() -> None:
     """write docstring later"""
     ...

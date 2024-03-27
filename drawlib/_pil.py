@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Union, Tuple
+from typing import Union, Tuple, cast
 from PIL import (
     Image,
     ImageFilter,
@@ -23,10 +23,11 @@ class Pimage:
     ):
         # create new PIL.Image instance
         if isinstance(image, str):
-            image = get_script_relative_path(image)
-            if not os.path.exists(image):
-                raise FileNotFoundError(f'file "{image}" does not exist.')
-            self._pilimg = Image.open(image)
+            image_str = cast(str, image)  # for mypy check
+            image_str = get_script_relative_path(image_str)
+            if not os.path.exists(image_str):
+                raise FileNotFoundError(f'file "{image_str}" does not exist.')
+            self._pilimg = Image.open(image_str)
 
         elif isinstance(image, Image.Image):
             if copy:
@@ -160,8 +161,10 @@ class Pimage:
     @error_handler
     def colorize(
         self,
-        black: Union[str, Tuple[int, int, int]],
-        white: Union[str, Tuple[int, int, int]],
+        black: Union[str, int],
+        white: Union[str, int],
+        # black: Union[str, Tuple[int, int, int]],
+        # white: Union[str, Tuple[int, int, int]],
     ) -> Pimage:
         """write docstring later"""
 
@@ -196,7 +199,8 @@ class Pimage:
 
         gimg = self._pilimg.filter(ImageFilter.GaussianBlur(4))
         newimg = gimg.resize(
-            [x // 8 for x in self._pilimg.size],
+            (self._pilimg.size[0] // 8, self._pilimg.size[1] // 8),
+            # [x // 8 for x in self._pilimg.size],
         ).resize(self._pilimg.size)
         return Pimage(newimg)
 

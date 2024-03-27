@@ -33,6 +33,9 @@ from drawlib._util import (
 from drawlib._tools import (
     run,
 )
+from drawlib.basic import (
+    help,
+)
 from drawlib._canvas import (
     # basics
     clear,

@@ -1,6 +1,6 @@
 """write docstring later"""
 
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, cast
 from matplotlib.font_manager import FontProperties
 from matplotlib.text import Text
 
@@ -132,8 +132,8 @@ def get_bbox_dict(
         # requires returning None when no style.
         return None
 
-    def get_boxstyle():
-        boxstyle = style.boxstyle
+    def get_boxstyle() -> str:
+        boxstyle = cast(str, style.boxstyle)
         if boxstyle is None:
             boxstyle = "square"
         if boxstyle in ["round", "round4", "sawtooth", "roundtooth"]:

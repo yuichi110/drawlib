@@ -1,14 +1,13 @@
 [tool.poetry]
 name = "drawlib"
 version = "0.1.0"
-description = ""
-authors = ["Yuichi Ito <yuichiito@google.com>"]
+description = "Python drawing library. Illustration as Code."
+authors = ["Yuichi Ito <yuichi@yuichi.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
 matplotlib = "^3.8.3"
-
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.1.1"
@@ -16,6 +15,10 @@ black = "^24.2.0"
 mypy = "^1.9.0"
 pylint = "^3.1.0"
 types-pillow = "^10.2.0.20240311"
+radon = "^6.0.1"
+bandit = "^1.7.8"
+pytest-cov = "^5.0.0"
+pydocstyle = "^6.3.0"
 
 [tool.black]
 line-length = 80

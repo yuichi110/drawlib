@@ -92,6 +92,9 @@ def _exec_module(file_path: str, auto_clear: bool) -> None:
         name="dynamically_loaded_module",
         location=file_path,
     )
+    if mspec is None:
+        # need to investigate what situation
+        return
     module = importlib.util.module_from_spec(mspec)
 
     try:
@@ -102,7 +105,7 @@ def _exec_module(file_path: str, auto_clear: bool) -> None:
         # call module for drawing
         indent = ' ' * (__stack_of_run - 1) * __INDENT_SIZE
         logger.info(f"{indent} - {file_path}")
-        mspec.loader.exec_module(module)
+        mspec.loader.exec_module(module)  # type: ignore[union-attr]
     except Exception as e:  # pylint: disable=broad-exception-caught
         file, line, _, _ = traceback.extract_tb(e.__traceback__)[-1]
         logger.critical(f'{type(e).__name__} at file:"{file}", line:"{line}"')

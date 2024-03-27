@@ -7,7 +7,7 @@ from drawlib._logging import logger
 from drawlib._cli import DrawlibArgParser
 
 
-def main():
+def main() -> None:
     """write docstring later"""
 
     argparser = DrawlibArgParser()

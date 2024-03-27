@@ -8,11 +8,12 @@ import functools
 import traceback
 import sys
 import os
+from typing import Any, Callable
 from drawlib import settings
 from drawlib._logging import logger
 
 
-def error_handler(caller):
+def error_handler(caller: Callable) -> Callable:
     """write docstring later"""
 
     if settings.is_developer_debug_mode():
@@ -20,7 +21,7 @@ def error_handler(caller):
         return caller
 
     @functools.wraps(caller)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args: Any, **kwargs: Any) -> None:
         try:
             return caller(*args, **kwargs)
         except Exception as e:  # pylint: disable=broad-exception-caught
@@ -90,7 +91,7 @@ def get_script_relative_path(path: str) -> str:
 
 
 @error_handler
-def get_function_name():
+def get_function_name() -> str:
     """write docstring later"""
 
     package_root = _get_package_root_path()
@@ -111,16 +112,20 @@ def get_function_name():
 ###############
 
 
-def _get_package_root_path():
-    error_module = inspect.stack()[0].filename
-    module_path = os.path.abspath(error_module)
+def _get_package_root_path() -> str:
+    """write docstring later"""
+
+    first_module = inspect.stack()[0].filename
+    module_path = os.path.abspath(first_module)
     package_root = module_path
     while not os.path.exists(os.path.join(package_root, "__init__.py")):
         package_root = os.path.dirname(package_root)
     return package_root
 
 
-def _is_path_under(parent_path, child_path):
+def _is_path_under(parent_path: str, child_path: str) -> bool:
+    """write docstring later"""
+
     common_parent = os.path.commonpath([parent_path, child_path])
     abs_parent_path = os.path.abspath(parent_path)
     abs_common_path = os.path.abspath(common_parent)

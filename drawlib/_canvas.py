@@ -10,7 +10,7 @@
 # pylint: disable=unused-argument
 
 import os
-import dataclasses
+from dataclasses import dataclass
 from typing import Final, Union, Optional, List, Tuple, Literal
 import matplotlib.font_manager
 import matplotlib.artist
@@ -64,8 +64,8 @@ class Canvas:
     DEFAULT_LOGLEVEL: Final[str] = "info"
     SYSTEM_FONTS = ["serif", "sanserif"]
 
-    @dataclasses
-    class Title:  # pylint: disable=too-few-public-methods
+    @dataclass
+    class Title:
         """write docstring later"""
 
         text: str
@@ -74,7 +74,7 @@ class Canvas:
         fontproperties: Optional[matplotlib.font_manager.FontProperties] = None
 
     @error_handler
-    def __init__(self):
+    def __init__(self) -> None:
         self.width = self.DEFAULT_WIDTH
         self.height = self.DEFAULT_HEIGHT
         self.grid = self.DEFAULT_GRID
@@ -82,7 +82,7 @@ class Canvas:
 
         self._fig = pyplot.figure()
         self._ax = self._fig.add_subplot(1, 1, 1)
-        self._title: Optional[self.Title] = None
+        self._title: Optional[self.Title] = None  # type: ignore[name-defined]
         self._logger = None
         self._artists: List[matplotlib.artist.Artist] = []
 
@@ -91,11 +91,13 @@ class Canvas:
     ##############
 
     @error_handler
-    def clear(self):
+    def clear(self) -> None:
         """write docstring later"""
 
         # initialize again without changing object itself
-        self.__init__()  # pylint: disable=unnecessary-dunder-call
+        # pylint: disable=unnecessary-dunder-call
+        self.__init__()  # type: ignore[misc]
+        # pylint: enable=unnecessary-dunder-call
 
     @error_handler
     def config(
@@ -121,20 +123,20 @@ class Canvas:
         return self._ax
 
     @error_handler
-    def add_matplotlib_artist(self, artist: Artist):
+    def add_matplotlib_artist(self, artist: Artist) -> None:
         """write docstring later"""
 
         self._artists.append(artist)
 
     @error_handler
-    def plot(self):
+    def plot(self) -> None:
         """write docstring later"""
 
         self._render()
         pyplot.show()
 
     @error_handler
-    def save(self, file: Optional[str] = None):
+    def save(self, file: Optional[str] = None) -> None:
         """write docstring later"""
 
         if file is None:
@@ -142,23 +144,20 @@ class Canvas:
             parent_dir = os.path.dirname(script_path)
             name = os.path.basename(script_path)
             name_without_ext = os.path.splitext(name)[0]
-            file = f"{os.path.join(parent_dir, name_without_ext)}.png"
-
+            file_path = f"{os.path.join(parent_dir, name_without_ext)}.png"
         else:
-            file = get_script_relative_path(file)
+            file_path = get_script_relative_path(file)
 
         # rendering
         self._render()
 
-        # prepare directory if not exist
-        directory = os.path.dirname(file)
-        os.makedirs(directory, exist_ok=True)
-
         # save
-        pyplot.savefig(file, bbox_inches="tight")
+        directory = os.path.dirname(file_path)
+        os.makedirs(directory, exist_ok=True)
+        pyplot.savefig(file_path, bbox_inches="tight")
 
     @error_handler
-    def _render(self):
+    def _render(self) -> None:
         fig = self._fig
         ax = self._ax
 
@@ -196,11 +195,11 @@ class Canvas:
         x: Optional[float] = None,
         y: Optional[float] = None,
         style: Optional[TextStyle] = None,
-    ):
+    ) -> None:
         """write docstring later"""
 
         fp = get_font_properties(style)
-        self._title = self.Title(text, x, y, fp)
+        self._title = self.Title(text, x, y, fp)  # type: ignore[call-arg]
 
     ####################
     ### _core.patchs ###
@@ -214,17 +213,17 @@ class Canvas:
         width: float,
         height: float,
         angle: float = 0,
-    ):
+    ) -> None:
         """write docstring later"""
         ...
 
     @error_handler
-    def arrow(self):
+    def arrow(self) -> None:
         """write docstring later"""
         ...
 
     @error_handler
-    def arrow_fancy(self):
+    def arrow_fancy(self) -> None:
         """write docstring later"""
         ...
 
@@ -238,7 +237,7 @@ class Canvas:
         angle: Optional[float] = None,
         text: Optional[str] = None,
         textstyle: Optional[TextStyle] = None,
-    ):
+    ) -> None:
         """write docstring later"""
 
         circle_, text_ = get_circle(
@@ -255,22 +254,22 @@ class Canvas:
             self._artists.append(text_)
 
     @error_handler
-    def ellipse(self):
+    def ellipse(self) -> None:
         """write docstring later"""
         ...
 
     @error_handler
-    def polygon(self):
+    def polygon(self) -> None:
         """write docstring later"""
         ...
 
     @error_handler
-    def polygon_circle(self):
+    def polygon_circle(self) -> None:
         """write docstring later"""
         ...
 
     @error_handler
-    def polygon_regular(self):
+    def polygon_regular(self) -> None:
         """write docstring later"""
         ...
 
@@ -285,7 +284,7 @@ class Canvas:
         angle: Optional[float] = None,
         text: Optional[str] = None,
         textstyle: Optional[TextStyle] = None,
-    ):
+    ) -> None:
         """write docstring later"""
 
         rectangle_, text_ = get_rectangle(
@@ -317,7 +316,7 @@ class Canvas:
         angle: Optional[float] = None,
         text: Optional[str] = None,
         textstyle: Optional[TextStyle] = None,
-    ):
+    ) -> None:
         """write docstring later"""
 
         if angle is None:
@@ -342,7 +341,7 @@ class Canvas:
             self._artists.append(text_)
 
     @error_handler
-    def wedge(self):
+    def wedge(self) -> None:
         """write docstring later"""
         ...
 
@@ -359,7 +358,7 @@ class Canvas:
         style: Optional[TextStyle] = None,
         background: Optional[TextBackgroundStyle] = None,
         angle: Optional[float] = None,
-    ):
+    ) -> None:
         """write docstring later"""
 
         self._artists.append(
@@ -374,7 +373,7 @@ class Canvas:
         )
 
     @error_handler
-    def text_vertical(self, x: float, y: float, s: str):
+    def text_vertical(self, x: float, y: float, s: str) -> None:
         """write docstring later"""
         ...
 
@@ -389,8 +388,8 @@ class Canvas:
         y: float,
         file: Optional[str] = None,
         pilimg: Optional[PIL.Image.Image] = None,
-        zoom=0.1,
-    ):
+        zoom: float = 0.1,
+    ) -> None:
         """write docstring later"""
 
         image_ = get_image(
@@ -414,7 +413,7 @@ class Canvas:
         x2: float,
         y2: float,
         style: Optional[LineStyle] = None,
-    ):
+    ) -> None:
         """write docstring later"""
 
         line_ = get_line(x1, y1, x2, y2, style)
@@ -425,7 +424,7 @@ class Canvas:
         self,
         xys: List[Tuple[float, float]],
         style: Optional[LineStyle] = None,
-    ):
+    ) -> None:
         """write docstring later"""
 
         line_ = get_lines(xys, style)
@@ -444,7 +443,7 @@ class Canvas:
         ],
         smooth_points: int = 100,
         style: Optional[LineStyle] = None,
-    ):
+    ) -> None:
         """write docstring later"""
 
         line_ = get_line_bezier(x, y, bezier_points, smooth_points, style)

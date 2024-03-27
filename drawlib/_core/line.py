@@ -30,7 +30,7 @@ def get_line(
 def get_lines(
     xys: List[Tuple[float, float]],
     style: Optional[LineStyle] = None,
-):
+) -> Line2D:
     """write docstring later"""
 
     xs = [xy[0] for xy in xys]
@@ -51,17 +51,21 @@ def get_line_bezier(
     ],
     smooth_points: int = 100,
     style: Optional[LineStyle] = None,
-):
+) -> Line2D:
     """write docstring later"""
 
-    def quadratic_bezier(x0, y0, x1, y1, x2, y2):
-        points = []
+    def quadratic_bezier(
+        x0: float, y0: float, x1: float, y1: float, x2: float, y2: float
+    ) -> Tuple[List[float], List[float]]:
+        xs: List[float] = []
+        ys: List[float] = []
         for i in range(smooth_points):
             t = i / (smooth_points - 1)
-            x = (1 - t) ** 2 * x0 + 2 * (1 - t) * t * x1 + t**2 * x2
-            y = (1 - t) ** 2 * y0 + 2 * (1 - t) * t * y1 + t**2 * y2
-            points.append((x, y))
-        return zip(*points)
+            x: float = (1 - t) ** 2 * x0 + 2 * (1 - t) * t * x1 + t**2 * x2
+            y: float = (1 - t) ** 2 * y0 + 2 * (1 - t) * t * y1 + t**2 * y2
+            xs.append(x)
+            ys.append(y)
+        return (xs, ys)
 
     xs = [x]
     ys = [y]

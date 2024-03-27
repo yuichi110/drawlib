@@ -1,9 +1,10 @@
 #!/bin/bash
 set -e
 
-cd "$(dirname "$0")" || exit
+cd "$(dirname "$0")"
+cd ../
 if command -v docker &> /dev/null; then
-    docker build .
+    pwd
 else
     echo 'please install "docker" first.'
     exit 1

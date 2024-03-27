@@ -1,6 +1,10 @@
 #!/bin/bash
+set -e
 
-cd "$(dirname "$0")" || exit
+cd "$(dirname "$0")"
+cd ../
+echo "$ pwd"
+pwd
 if command -v poetry &> /dev/null; then
     echo "$ poetry run pylint ./drawlib --rcfile=./drawlib/.pylintrc"
     poetry run pylint ./drawlib --rcfile=./drawlib/.pylintrc
