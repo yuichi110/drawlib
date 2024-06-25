@@ -37,10 +37,10 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install pip-tools
-        pip-compile pyproject.toml
-        pip install -r requirements.txt
+        curl -sSL https://install.python-poetry.org | python -
+        echo "$HOME/.local/bin" >> $GITHUB_PATH  # Add poetry to PATH for the current session
+        poetry install
 
     - name: Run tests
       run: |
-        pytest -s --cov=drawlib tests/
+        poetry pytest -s --cov=drawlib tests/
