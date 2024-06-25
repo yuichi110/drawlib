@@ -1,0 +1,46 @@
+name: unit tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to run tests on'
+        required: true
+        default: 'main'
+        type: string
+      python_version:
+        description: 'Python version to use'
+        required: true
+        default: '3.9'
+        type: choice
+        options:
+          - '3.9'
+          - '3.10'
+          - '3.11'
+          - '3.12'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.inputs.branch }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ github.event.inputs.python_version }}
+
+    - name: Install dependencies
+      run: |
+        pip install pip-tools
+        pip-compile pyproject.toml
+        pip install -r requirements.txt
+
+    - name: Run tests
+      run: |
+        pytest -s --cov=drawlib tests/
