@@ -26,7 +26,7 @@ on:
           - '3.12'
           
       install_from:
-        description: 'Where you get the library'
+        description: 'Where you get the lib'
         required: true
         default: 'github'
         type: choice
@@ -42,7 +42,7 @@ on:
         type: string
         
       lib_version:
-        description: 'drawlib version. Ignored when install_from=github'
+        description: 'Lib version. Ignored when you get it from github'
         required: true
         default: 'latest'
         type: string
@@ -90,14 +90,10 @@ jobs:
                 C:/Users/runneradmin/AppData/Roaming/Python/Scripts/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes
                 
             elif [ "${{ github.event.inputs.os }}" == "macos-latest" ]; then
-                echo "ls -l"
-                ls -l
-
-                echo "pwd"
-                pwd
-                
-                echo '# echo "$HOME/.local/bin" >> $GITHUB_PATH'
-                echo "$HOME/.local/bin" >> $GITHUB_PATH
+                echo '/Users/runner/.local/bin/poetry self add poetry-plugin-export'
+                /Users/runner/.local/bin/poetry self add poetry-plugin-export
+                echo '/Users/runner/.local/bin/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes'
+                /Users/runner/.local/bin/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes
                 
             else
                 echo OS is not supported: "${{ github.event.inputs.install_from }}"
