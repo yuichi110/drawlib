@@ -1,0 +1,16 @@
+name: ut github lin/win/mac py3.9
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    
+    - name: Unit test on ubuntu-latest
+      uses: ./.github/workflows/unittest.yml
+      with:
+        os: 'ubuntu-latest'
+        branch: 'prototyping'
+        
