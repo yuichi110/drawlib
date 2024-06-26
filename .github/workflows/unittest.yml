@@ -1,11 +1,11 @@
 name: unit test
-run-name: unit test, os=${{ github.event.inputs.os }}, python_version=${{ github.event.inputs.python_version }}, install_from=${{ github.event.inputs.install_from }}, branch=${{ github.event.inputs.branch }}, lib_version=${{ github.event.inputs.lib_version }}
+run-name: os=${{ github.event.inputs.os }}, python=${{ github.event.inputs.python_version }}, from=${{ github.event.inputs.install_from }}, branch=${{ github.event.inputs.branch }}, version=${{ github.event.inputs.lib_version }}
 
 on:
   workflow_dispatch:
     inputs:
       os:
-        description: 'Runs on OS'
+        description: 'OS'
         required: true
         default: 'ubuntu-latest'
         type: choice
@@ -13,6 +13,18 @@ on:
           - 'ubuntu-latest'
           - 'windows-latest'
           - 'macos-latest'
+          
+      python_version:
+        description: 'Python version'
+        required: true
+        default: '3.9'
+        type: choice
+        options:
+          - '3.9'
+          - '3.10'
+          - '3.11'
+          - '3.12'
+          
       install_from:
         description: 'Where you get the library'
         required: true
@@ -22,26 +34,19 @@ on:
           - 'github'
           - 'pypi'
           - 'testpypi'
-      lib_version:
-        description: 'drawlib version. Ignored when install_from is github'
-        required: true
-        default: 'latest'
-        type: string
+          
       branch:
-        description: 'Branch to run tests on. Only tests code are used When install_from is pypi or testpypi'
+        description: 'Branch to run tests on'
         required: true
         default: 'main'
         type: string
-      python_version:
-        description: 'Python version to use'
+        
+      lib_version:
+        description: 'drawlib version. Ignored when install_from=github'
         required: true
-        default: '3.9'
-        type: choice
-        options:
-          - '3.9'
-          - '3.10'
-          - '3.11'
-          - '3.12'
+        default: 'latest'
+        type: string
+        
 
 jobs:
   build:
@@ -49,6 +54,14 @@ jobs:
     runs-on: ${{ github.event.inputs.os }}
 
     steps:
+    - name: Display Inputs
+      run: |
+        echo "Running on OS: ${{ github.event.inputs.os }}"
+        echo "Python version: ${{ github.event.inputs.python_version }}"
+        echo "Installing from: ${{ github.event.inputs.install_from }}"
+        echo "Library version: ${{ github.event.inputs.lib_version }}"
+        echo "Branch: ${{ github.event.inputs.branch }}"
+        
     - name: Check out repository code
       uses: actions/checkout@v2
       with:
