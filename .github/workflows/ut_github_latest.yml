@@ -1,32 +1,53 @@
-name: ut github lin/win/mac py3.9
+name: "ut from:github, os:all"
+run-name: python=${{ github.event.inputs.python_version }}, branch=${{ github.event.inputs.branch }}
 
 on:
   workflow_dispatch:
+    inputs:
+      python_version:
+        description: 'Python'
+        required: true
+        default: '3.9'
+        type: choice
+        options:
+          - '3.9'
+          - '3.10'
+          - '3.11'
+          - '3.12'
+
+      branch:
+        description: 'Branch'
+        required: true
+        default: 'main'
+        type: choice
+        options:
+          - 'main'
+          - 'prototyping'
   
 jobs:
   ubuntu-latest:      
     uses: ./.github/workflows/ut_template.yml
     with:
       os: 'ubuntu-latest'
-      python_version: '3.9'
+      python_version: ${{ github.event.inputs.python_version }}"
       install_from: 'github'
-      branch: 'prototyping'
+      branch: ${{ github.event.inputs.branch }}"
       lib_version: 'latest'
 
   windows-latest:      
     uses: ./.github/workflows/ut_template.yml
     with:
       os: 'windows-latest'
-      python_version: '3.9'
+      python_version: ${{ github.event.inputs.python_version }}"
       install_from: 'github'
-      branch: 'prototyping'
+      branch: ${{ github.event.inputs.branch }}"
       lib_version: 'latest'
 
   mac-latest:      
     uses: ./.github/workflows/ut_template.yml
     with:
       os: 'mac-latest'
-      python_version: '3.9'
+      python_version: ${{ github.event.inputs.python_version }}"
       install_from: 'github'
-      branch: 'prototyping'
+      branch: ${{ github.event.inputs.branch }}"
       lib_version: 'latest'
