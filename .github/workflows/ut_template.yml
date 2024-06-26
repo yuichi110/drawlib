@@ -1,39 +1,26 @@
-name: unit test
-run-name: version=${{ github.event.inputs.lib_version }}, from=${{ github.event.inputs.install_from }}, os=${{ github.event.inputs.os }}, python=${{ github.event.inputs.python_version }}, branch=${{ github.event.inputs.branch }}
+name: unit test template
+run-name: version=${{ inputs.lib_version }}, from=${{ inputs.install_from }}, os=${{ inputs.os }}, python=${{ inputs.python_version }}, branch=${{ inputs.branch }}
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       os:
         description: 'OS'
         required: true
         default: 'ubuntu-latest'
-        type: choice
-        options:
-          - 'ubuntu-latest'
-          - 'windows-latest'
-          - 'macos-latest'
+        type: string
           
       python_version:
         description: 'Python version'
         required: true
         default: '3.9'
-        type: choice
-        options:
-          - '3.9'
-          - '3.10'
-          - '3.11'
-          - '3.12'
+        type: string
           
       install_from:
         description: 'Where you get the lib'
         required: true
         default: 'github'
-        type: choice
-        options:
-          - 'github'
-          - 'pypi'
-          - 'testpypi'
+        type: string
           
       branch:
         description: 'Branch to run tests on'
@@ -51,56 +38,56 @@ on:
 jobs:
   build:
 
-    runs-on: ${{ github.event.inputs.os }}
+    runs-on: ${{ inputs.os }}
 
     steps:
     - name: Display Inputs
       shell: bash
       run: |
-        echo "Running on OS: ${{ github.event.inputs.os }}"
-        echo "Python version: ${{ github.event.inputs.python_version }}"
-        echo "Installing from: ${{ github.event.inputs.install_from }}"
-        echo "Library version: ${{ github.event.inputs.lib_version }}"
-        echo "Branch: ${{ github.event.inputs.branch }}"
+        echo "Running on OS: ${{ inputs.os }}"
+        echo "Python version: ${{ inputs.python_version }}"
+        echo "Installing from: ${{ inputs.install_from }}"
+        echo "Library version: ${{ inputs.lib_version }}"
+        echo "Branch: ${{ inputs.branch }}"
         
     - name: Check out repository code
       uses: actions/checkout@v2
       with:
-        ref: ${{ github.event.inputs.branch }}
+        ref: ${{ inputs.branch }}
 
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: ${{ github.event.inputs.python_version }}
+        python-version: ${{ inputs.python_version }}
 
     - name: Install dependencies
       shell: bash
       run: |
 
-        if [ "${{ github.event.inputs.install_from }}" == "github" ]; then
+        if [ "${{ inputs.install_from }}" == "github" ]; then
             echo '# curl -sSL https://install.python-poetry.org | python -'
             curl -sSL https://install.python-poetry.org | python -
             
-            if [ "${{ github.event.inputs.os }}" == "ubuntu-latest" ]; then
+            if [ "${{ inputs.os }}" == "ubuntu-latest" ]; then
                 echo '# /home/runner/.local/bin/poetry self add poetry-plugin-export'
                 /home/runner/.local/bin/poetry self add poetry-plugin-export
                 echo '# /home/runner/.local/bin/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes'
                 /home/runner/.local/bin/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes
                 
-            elif [ "${{ github.event.inputs.os }}" == "windows-latest" ]; then
+            elif [ "${{ inputs.os }}" == "windows-latest" ]; then
                 echo '# C:/Users/runneradmin/AppData/Roaming/Python/Scripts/poetry self add poetry-plugin-export'
                 C:/Users/runneradmin/AppData/Roaming/Python/Scripts/poetry self add poetry-plugin-export
                 echo '# C:/Users/runneradmin/AppData/Roaming/Python/Scripts/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes'
                 C:/Users/runneradmin/AppData/Roaming/Python/Scripts/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes
                 
-            elif [ "${{ github.event.inputs.os }}" == "macos-latest" ]; then
+            elif [ "${{ inputs.os }}" == "macos-latest" ]; then
                 echo '# /Users/runner/.local/bin/poetry self add poetry-plugin-export'
                 /Users/runner/.local/bin/poetry self add poetry-plugin-export
                 echo '/Users/runner/.local/bin/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes'
                 /Users/runner/.local/bin/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes
                 
             else
-                echo OS is not supported: "${{ github.event.inputs.install_from }}"
+                echo OS is not supported: "${{ inputs.install_from }}"
                 exit 1
             fi
 
@@ -114,28 +101,28 @@ jobs:
             echo '# pip install pytest pytest-cov'
             pip install pytest pytest-cov
           
-            if [ "${{ github.event.inputs.install_from }}" == "pypi" ]; then
-                if [ "${{ github.event.inputs.lib_version }}" == "latest" ]; then
+            if [ "${{ inputs.install_from }}" == "pypi" ]; then
+                if [ "${{ inputs.lib_version }}" == "latest" ]; then
                     echo '# pip install drawlib'
                     pip install drawlib
                     
                 else
-                    echo '# pip install drawlib=="${{ github.event.inputs.lib_version }}"'
-                    pip install drawlib=="${{ github.event.inputs.lib_version }}"
+                    echo '# pip install drawlib=="${{ inputs.lib_version }}"'
+                    pip install drawlib=="${{ inputs.lib_version }}"
                 fi
             
-            elif [ "${{ github.event.inputs.install_from }}" == "testpypi" ]; then
-                if [ "${{ github.event.inputs.lib_version }}" == "latest" ]; then
+            elif [ "${{ inputs.install_from }}" == "testpypi" ]; then
+                if [ "${{ inputs.lib_version }}" == "latest" ]; then
                     echo '# pip install --index-url https://test.pypi.org/simple/ drawlib'
                     pip install --index-url https://test.pypi.org/simple/ drawlib
                     
                 else
-                    echo '# pip install --index-url https://test.pypi.org/simple/ drawlib=="${{ github.event.inputs.lib_version }}"'
-                    pip install --index-url https://test.pypi.org/simple/ drawlib=="${{ github.event.inputs.lib_version }}"
+                    echo '# pip install --index-url https://test.pypi.org/simple/ drawlib=="${{ inputs.lib_version }}"'
+                    pip install --index-url https://test.pypi.org/simple/ drawlib=="${{ inputs.lib_version }}"
                 fi
                 
             else
-                echo install_from is not supported: "${{ github.event.inputs.install_from }}"
+                echo install_from is not supported: "${{ inputs.install_from }}"
                 exit 1
             fi
         fi
