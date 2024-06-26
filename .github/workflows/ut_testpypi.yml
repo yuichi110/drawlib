@@ -1,5 +1,5 @@
-name: "ut from:github, os:all"
-run-name: python=${{ github.event.inputs.python_version }}, branch=${{ github.event.inputs.branch }}
+name: "ut from:testpypi, os:all, python:all"
+run-name: version=${{ github.event.inputs.lib_version }}, branch=${{ github.event.inputs.branch }}
 
 on:
   workflow_dispatch:
