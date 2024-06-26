@@ -12,8 +12,22 @@ on:
           - 'ubuntu-latest'
           - 'windows-latest'
           - 'macos-latest'
+      install_from:
+        description: 'Where you get the library'
+        required: true
+        default: 'github'
+        type: choice
+        options:
+          - 'github'
+          - 'pypi'
+          - 'testpypi'
+      lib_version:
+        description: 'drawlib version. Ignored when install_from is github'
+        required: true
+        default: 'latest'
+        type: string
       branch:
-        description: 'Branch to run tests on'
+        description: 'Branch to run tests on. Only tests code are used When install_from is pypi or testpypi'
         required: true
         default: 'main'
         type: string
@@ -46,10 +60,38 @@ jobs:
 
     - name: Install dependencies
       run: |
-        curl -sSL https://install.python-poetry.org | python -
-        echo "$HOME/.local/bin" >> $GITHUB_PATH  # Add poetry to PATH for the current session
-        poetry install
+        if [ "${{ github.event.inputs.install_from }}" == "github" ]; then
+            curl -sSL https://install.python-poetry.org | python -
+            echo "$HOME/.local/bin" >> $GITHUB_PATH  # Add poetry to PATH for the current session
+            poetry install
+
+        else
+            rm -rf ./drawlib
+            pip install pytest pytest-cov
+          
+            if [ "${{ github.event.inputs.install_from }}" == "pypi" ]; then
+                if [ "${{ github.event.inputs.lib_version }}" == "latest" ]; then
+                    pip install drawlib
+                else
+                    pip install drawlib=="${{ github.event.inputs.lib_version }}"
+                fi
+            
+            elif [ "${{ github.event.inputs.install_from }}" == "testpypi" ]; then
+                if [ "${{ github.event.inputs.lib_version }}" == "latest" ]; then
+                    pip install --index-url https://test.pypi.org/simple/ drawlib
+                else
+                    pip install --index-url https://test.pypi.org/simple/ drawlib=="${{ github.event.inputs.lib_version }}"
+                fi
+            else
+                echo install_from is not supported "${{ github.event.inputs.install_from }}"
+                exit 1
+            fi
+        fi
 
     - name: Run tests
       run: |
-        poetry run pytest -s --cov=drawlib tests/
+        if [ "${{ github.event.inputs.install_from }}" == "github" ]; then
+            poetry run pytest -s --cov=drawlib tests/
+        else
+            pytest -s --cov=drawlib tests/
+        fi
