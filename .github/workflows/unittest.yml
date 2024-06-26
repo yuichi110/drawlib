@@ -1,5 +1,5 @@
 name: unit test
-run-name: os=${{ github.event.inputs.os }}, python=${{ github.event.inputs.python_version }}, from=${{ github.event.inputs.install_from }}, branch=${{ github.event.inputs.branch }}, version=${{ github.event.inputs.lib_version }}
+run-name: version=${{ github.event.inputs.lib_version }}, from=${{ github.event.inputs.install_from }}, os=${{ github.event.inputs.os }}, python=${{ github.event.inputs.python_version }}, branch=${{ github.event.inputs.branch }}
 
 on:
   workflow_dispatch:
@@ -55,6 +55,7 @@ jobs:
 
     steps:
     - name: Display Inputs
+      shell: bash
       run: |
         echo "Running on OS: ${{ github.event.inputs.os }}"
         echo "Python version: ${{ github.event.inputs.python_version }}"
@@ -73,6 +74,7 @@ jobs:
         python-version: ${{ github.event.inputs.python_version }}
 
     - name: Install dependencies
+      shell: bash
       run: |
         if [ "${{ github.event.inputs.install_from }}" == "github" ]; then
             curl -sSL https://install.python-poetry.org | python -
@@ -103,6 +105,7 @@ jobs:
         fi
 
     - name: Run tests
+      shell: bash
       run: |
         if [ "${{ github.event.inputs.install_from }}" == "github" ]; then
             poetry run pytest -s --cov=drawlib tests/
