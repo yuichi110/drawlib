@@ -4,10 +4,28 @@ on:
   workflow_dispatch:
   
 jobs:
-  call-workflow-passing-data:      
+  ubuntu-latest:      
     uses: ./.github/workflows/ut_template.yml
     with:
       os: 'ubuntu-latest'
+      python_version: '3.9'
+      install_from: 'github'
+      branch: 'prototyping'
+      lib_version: 'latest'
+
+  windows-latest:      
+    uses: ./.github/workflows/ut_template.yml
+    with:
+      os: 'windows-latest'
+      python_version: '3.9'
+      install_from: 'github'
+      branch: 'prototyping'
+      lib_version: 'latest'
+
+  mac-latest:      
+    uses: ./.github/workflows/ut_template.yml
+    with:
+      os: 'mac-latest'
       python_version: '3.9'
       install_from: 'github'
       branch: 'prototyping'
