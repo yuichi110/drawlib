@@ -94,7 +94,8 @@ jobs:
                 echo
                 echo "C:\\Users\\runneradmin\\AppData\\Roaming\\Python\\Scripts" >> $GITHUB_PATH
 
-                C:\Users\runneradmin\AppData\Roaming\Python\Scripts\poetry export --dev -f requirements.txt --output requirements.txt --without-hashes
+                ls -l
+                C:/Users/runneradmin/AppData/Roaming/Python/Scripts/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes
                 cat requirements.txt
                 
             elif [ "${{ github.event.inputs.os }}" == "macos-latest" ]; then
