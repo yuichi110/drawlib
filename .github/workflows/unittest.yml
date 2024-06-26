@@ -3,6 +3,15 @@ name: unit tests
 on:
   workflow_dispatch:
     inputs:
+      os:
+        description: 'Runs on OS'
+        required: true
+        default: 'ubuntu-latest'
+        type: choice
+        options:
+          - 'ubuntu-latest'
+          - 'windows-latest'
+          - 'macos-latest'
       branch:
         description: 'Branch to run tests on'
         required: true
@@ -22,7 +31,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ github.event.inputs.os }}
 
     steps:
     - name: Check out repository code
