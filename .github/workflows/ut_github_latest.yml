@@ -29,25 +29,25 @@ jobs:
     uses: ./.github/workflows/ut_template.yml
     with:
       os: 'ubuntu-latest'
-      python_version: ${{ github.event.inputs.python_version }}"
+      python_version: "${{ github.event.inputs.python_version }}"
       install_from: 'github'
-      branch: ${{ github.event.inputs.branch }}"
+      branch: "${{ github.event.inputs.branch }}"
       lib_version: 'latest'
 
   windows-latest:      
     uses: ./.github/workflows/ut_template.yml
     with:
       os: 'windows-latest'
-      python_version: ${{ github.event.inputs.python_version }}"
+      python_version: "${{ github.event.inputs.python_version }}"
       install_from: 'github'
-      branch: ${{ github.event.inputs.branch }}"
+      branch: "${{ github.event.inputs.branch }}"
       lib_version: 'latest'
 
   mac-latest:      
     uses: ./.github/workflows/ut_template.yml
     with:
       os: 'mac-latest'
-      python_version: ${{ github.event.inputs.python_version }}"
+      python_version: "${{ github.event.inputs.python_version }}"
       install_from: 'github'
-      branch: ${{ github.event.inputs.branch }}"
+      branch: "${{ github.event.inputs.branch }}"
       lib_version: 'latest'
