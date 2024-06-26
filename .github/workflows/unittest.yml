@@ -82,15 +82,19 @@ jobs:
             curl -sSL https://install.python-poetry.org | python -
             
             if [ "${{ github.event.inputs.os }}" == "ubuntu-latest" ]; then
-                echo '/home/runner/.local/bin/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes'
+                echo '# /home/runner/.local/bin/poetry self add poetry-plugin-export'
+                /home/runner/.local/bin/poetry self add poetry-plugin-export
+                echo '# /home/runner/.local/bin/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes'
                 /home/runner/.local/bin/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes
                 
             elif [ "${{ github.event.inputs.os }}" == "windows-latest" ]; then
+                echo '# C:/Users/runneradmin/AppData/Roaming/Python/Scripts/poetry self add poetry-plugin-export'
+                C:/Users/runneradmin/AppData/Roaming/Python/Scripts/poetry self add poetry-plugin-export
                 echo '# C:/Users/runneradmin/AppData/Roaming/Python/Scripts/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes'
                 C:/Users/runneradmin/AppData/Roaming/Python/Scripts/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes
                 
             elif [ "${{ github.event.inputs.os }}" == "macos-latest" ]; then
-                echo '/Users/runner/.local/bin/poetry self add poetry-plugin-export'
+                echo '# /Users/runner/.local/bin/poetry self add poetry-plugin-export'
                 /Users/runner/.local/bin/poetry self add poetry-plugin-export
                 echo '/Users/runner/.local/bin/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes'
                 /Users/runner/.local/bin/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes
