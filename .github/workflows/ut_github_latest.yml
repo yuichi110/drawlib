@@ -43,10 +43,10 @@ jobs:
       branch: "${{ github.event.inputs.branch }}"
       lib_version: 'latest'
 
-  mac-latest:      
+  macos-latest:      
     uses: ./.github/workflows/ut_template.yml
     with:
-      os: 'mac-latest'
+      os: 'macos-latest'
       python_version: "${{ github.event.inputs.python_version }}"
       install_from: 'github'
       branch: "${{ github.event.inputs.branch }}"
