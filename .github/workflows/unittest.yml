@@ -77,41 +77,84 @@ jobs:
       shell: bash
       run: |
         if [ "${{ github.event.inputs.install_from }}" == "github" ]; then
-            echo 'curl -sSL https://install.python-poetry.org | python -'
+            echo
+            echo '# curl -sSL https://install.python-poetry.org | python -'
+            echo 
             curl -sSL https://install.python-poetry.org | python -
             
             if [ "${{ github.event.inputs.os }}" == "ubuntu-latest" ]; then
-                echo 'echo "$HOME/.local/bin" >> $GITHUB_PATH'
+                echo
+                echo '# echo "$HOME/.local/bin" >> $GITHUB_PATH'
+                echo
                 echo "$HOME/.local/bin" >> $GITHUB_PATH
-            elif [ "${{ github.event.inputs.os }}" == "ubuntu-latest" ]; then
-                echo 'echo "C:\Users\runneradmin\AppData\Roaming\Python\Scripts" >> $GITHUB_PATH'
+                
+            elif [ "${{ github.event.inputs.os }}" == "windows-latest" ]; then
+                echo
+                echo '# echo "C:\Users\runneradmin\AppData\Roaming\Python\Scripts" >> $GITHUB_PATH'
+                echo
                 echo "C:\Users\runneradmin\AppData\Roaming\Python\Scripts" >> $GITHUB_PATH
-            else
+                
+            elif [ "${{ github.event.inputs.os }}" == "macos-latest" ]; then
+                echo
+                echo '# echo "$HOME/.local/bin" >> $GITHUB_PATH'
+                echo
                 echo "$HOME/.local/bin" >> $GITHUB_PATH
+                
+            else
+                echo
+                echo OS is not supported: "${{ github.event.inputs.install_from }}"
+                echo
+                exit 1
             fi
 
-            echo 'poetry install'
+            echo
+            echo '# poetry install'
+            echo
             poetry install
 
         else
+            echo
+            echo '# rm -rf ./drawlib'
+            echo
             rm -rf ./drawlib
+            
+            echo
+            echo '# pip install pytest pytest-cov'
+            echo
             pip install pytest pytest-cov
           
             if [ "${{ github.event.inputs.install_from }}" == "pypi" ]; then
                 if [ "${{ github.event.inputs.lib_version }}" == "latest" ]; then
+                    echo
+                    echo '# pip install drawlib'
+                    echo
                     pip install drawlib
+                    
                 else
+                    echo
+                    echo '# pip install drawlib=="${{ github.event.inputs.lib_version }}"'
+                    echo
                     pip install drawlib=="${{ github.event.inputs.lib_version }}"
                 fi
             
             elif [ "${{ github.event.inputs.install_from }}" == "testpypi" ]; then
                 if [ "${{ github.event.inputs.lib_version }}" == "latest" ]; then
+                    echo
+                    echo '# pip install --index-url https://test.pypi.org/simple/ drawlib'
+                    echo
                     pip install --index-url https://test.pypi.org/simple/ drawlib
+                    
                 else
+                    echo
+                    echo '# pip install --index-url https://test.pypi.org/simple/ drawlib=="${{ github.event.inputs.lib_version }}"'
+                    echo
                     pip install --index-url https://test.pypi.org/simple/ drawlib=="${{ github.event.inputs.lib_version }}"
                 fi
+                
             else
-                echo install_from is not supported "${{ github.event.inputs.install_from }}"
+                echo
+                echo install_from is not supported: "${{ github.event.inputs.install_from }}"
+                echo
                 exit 1
             fi
         fi
@@ -120,7 +163,14 @@ jobs:
       shell: bash
       run: |
         if [ "${{ github.event.inputs.install_from }}" == "github" ]; then
+            echo
+            echo '# poetry run pytest -s --cov=drawlib tests/'
+            echo
             poetry run pytest -s --cov=drawlib tests/
+            
         else
+            echo
+            echo '# pytest -s --cov=drawlib tests/'
+            echo
             pytest -s --cov=drawlib tests/
         fi
