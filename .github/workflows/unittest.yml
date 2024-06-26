@@ -77,8 +77,20 @@ jobs:
       shell: bash
       run: |
         if [ "${{ github.event.inputs.install_from }}" == "github" ]; then
+            echo 'curl -sSL https://install.python-poetry.org | python -'
             curl -sSL https://install.python-poetry.org | python -
-            echo "$HOME/.local/bin" >> $GITHUB_PATH  # Add poetry to PATH for the current session
+            
+            if [ "${{ github.event.inputs.os }}" == "ubuntu-latest" ]; then
+                echo 'echo "$HOME/.local/bin" >> $GITHUB_PATH'
+                echo "$HOME/.local/bin" >> $GITHUB_PATH
+            elif [ "${{ github.event.inputs.os }}" == "ubuntu-latest" ]; then
+                echo 'echo "C:\Users\runneradmin\AppData\Roaming\Python\Scripts" >> $GITHUB_PATH'
+                echo "C:\Users\runneradmin\AppData\Roaming\Python\Scripts" >> $GITHUB_PATH
+            else
+                echo "$HOME/.local/bin" >> $GITHUB_PATH
+            fi
+
+            echo 'poetry install'
             poetry install
 
         else
