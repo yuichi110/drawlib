@@ -36,11 +36,10 @@ on:
         
 
 jobs:
-  build:
-
+  unit-test:
     runs-on: ${{ inputs.os }}
-
     steps:
+    
     - name: Display Inputs
       shell: bash
       run: |
