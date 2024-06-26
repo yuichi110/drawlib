@@ -1,0 +1,33 @@
+name: "ut from:pypi, os:all, python:all"
+run-name: version=${{ github.event.inputs.lib_version }}, branch=${{ github.event.inputs.branch }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch'
+        required: true
+        default: 'main'
+        type: choice
+        options:
+          - 'main'
+          - 'prototyping'
+      lib_version:
+        description: 'Lib version'
+        required: true
+        default: 'latest'
+        type: string
+        
+jobs:
+  matrix-test:
+    strategy:
+      matrix:
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        python_version: ["3.9", "3.10", "3.11", "3.12"]
+    uses: ./.github/workflows/ut_template.yml
+    with:
+      os: "${{ matrix.os }}"
+      python_version: "${{ matrix.python_version }}"
+      install_from: 'pypi'
+      branch: "${{ github.event.inputs.branch }}"
+      lib_version: "${{ github.event.inputs.lib_version }}"
