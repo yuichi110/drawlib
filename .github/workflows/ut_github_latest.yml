@@ -5,7 +5,7 @@ on:
   
 jobs:
   call-workflow-passing-data:      
-    uses: ./.github/workflows/unittest.yml
+    uses: ./.github/workflows/ut_template.yml
     with:
       os: 'ubuntu-latest'
       branch: 'prototyping'
