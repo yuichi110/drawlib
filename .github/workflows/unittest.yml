@@ -90,9 +90,9 @@ jobs:
                 
             elif [ "${{ github.event.inputs.os }}" == "windows-latest" ]; then
                 echo
-                echo '# echo "C:\Users\runneradmin\AppData\Roaming\Python\Scripts" >> $GITHUB_PATH'
+                echo '# echo "C:/Users/runneradmin/AppData/Roaming/Python/Scripts" >> $GITHUB_PATH'
                 echo
-                echo "C:\Users\runneradmin\AppData\Roaming\Python\Scripts" >> $GITHUB_PATH
+                echo "C:/Users/runneradmin/AppData/Roaming/Python/Scripts" >> $GITHUB_PATH
                 
             elif [ "${{ github.event.inputs.os }}" == "macos-latest" ]; then
                 echo
