@@ -4,16 +4,8 @@ on:
   workflow_dispatch:
   
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    
-    - name: Checkout code
-      uses: actions/checkout@v2
-      
-    - name: Unit test on ubuntu-latest
-      uses: ./.github/workflows/unittest.yml
-      with:
-        os: 'ubuntu-latest'
-        branch: 'prototyping'
-        
+  call-workflow-passing-data:      
+    uses: ./.github/workflows/unittest.yml
+    with:
+      os: 'ubuntu-latest'
+      branch: 'prototyping'
