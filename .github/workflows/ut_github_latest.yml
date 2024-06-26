@@ -8,4 +8,7 @@ jobs:
     uses: ./.github/workflows/ut_template.yml
     with:
       os: 'ubuntu-latest'
+      python_version: '3.9'
+      install_from: 'github'
       branch: 'prototyping'
+      lib_version: 'latest'
