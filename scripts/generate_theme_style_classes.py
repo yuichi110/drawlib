@@ -1,7 +1,19 @@
+# Copyright (c) 2024 Yuichi Ito (yuichi@yuichi.com)
+#
+# This software is licensed under the Apache License, Version 2.0.
+# For more information, please visit: https://github.com/yuichi110/drawlib
+#
+# This software is provided "as is", without warranty of any kind,
+# express or implied, including but not limited to the warranties of
+# merchantability, fitness for a particular purpose and noninfringement.
+
+"""Helper script for generating theme_style_caches.py code."""
+
 import os
 
 
 def cd_to_project_root():
+    """Change directory to project root."""
     script_dir = os.path.dirname(os.path.abspath(__file__))
     os.chdir(script_dir)
     os.chdir("../")
@@ -644,7 +656,7 @@ class {class_name}(AbstractStyleCache):
     """
 
     def __init__(
-        self, 
+        self,
         shapetextstyles: ShapeTextStyleCache,
         callback_set:Callable[[str,], None],
         callback_delete:Callable[[str,], None],
@@ -766,6 +778,7 @@ class {class_name}(AbstractStyleCache):
 
 
 def get_text_basics():
+    """Fill basic template."""
     texts = []
     for class_name, style_class in [
         ("IconStyleCache", "IconStyle"),
@@ -785,6 +798,7 @@ def get_text_basics():
 
 
 def get_text_shape_types():
+    """Fill shape template."""
     texts = []
     for class_name, name in [
         # patchs
@@ -818,6 +832,7 @@ def get_text_shape_types():
 
 
 def get_text_shapetext_types():
+    """Fill shapetext template."""
     texts = []
     for class_name, name in [
         # patchs
@@ -851,6 +866,7 @@ def get_text_shapetext_types():
 
 
 def write():
+    """Write template to file."""
     texts = []
     texts.append(HEAD.strip())
     texts.append(get_text_basics().strip())
@@ -860,7 +876,7 @@ def write():
 
     # write to file
     os.makedirs("output_codes", exist_ok=True)
-    with open("output_codes/theme_style_caches.py", "w") as fout:
+    with open("output_codes/theme_style_caches.py", mode="w", encoding="utf8") as fout:
         fout.write(text)
         fout.write("\n")  # last new line
 

@@ -16,7 +16,7 @@ import urllib.request
 from packaging.version import parse
 
 
-def get_latest_version(package_name):
+def get_latest_version(package_name: str):
     """Fetches the latest version of a package from PyPI, including pre-releases.
 
     Latest rule follows PEP 440 Compliance.
