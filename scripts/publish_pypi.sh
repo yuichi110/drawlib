@@ -15,11 +15,18 @@ set -e
 cd "$(dirname "$0")"
 cd ../
 
+# check next version ok
+echo '$ python scripts/pypi_tools.py --check_new_version_ok'
+python scripts/pypi_tools.py --check_new_version_ok
+
 # update pyproject.toml
+echo '$ python scripts/update_pyprojecttoml.py'
 python scripts/update_pyprojecttoml.py
 
 # delete font cache
+echo '$ python -m drawlib --purge_font_cache'
 python -m drawlib --purge_font_cache
 
 # publish to pypi
+echo '$ poetry publish --build'
 poetry publish --build

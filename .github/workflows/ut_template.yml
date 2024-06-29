@@ -58,7 +58,7 @@ jobs:
         echo "Installing from: ${{ inputs.install_from }}"
         echo "Library version: ${{ inputs.lib_version }}"
         if [ "${{ inputs.lib_version }}" == "latest" ]; then
-            lib_version=`python scripts/get_pypi_latest_version.py`
+            lib_version=`python scripts/pypi_tools.py --get_latest_version`
             echo Resolved: "$lib_version"
         fi
         echo "Branch: ${{ inputs.branch }}"
@@ -105,7 +105,7 @@ jobs:
             pip install pytest pytest-cov ruff pyright
           
             if [ "${{ inputs.lib_version }}" == "latest" ]; then
-                lib_version=`python scripts/get_pypi_latest_version.py`
+                lib_version=`python scripts/pypi_tools.py --get_latest_version`
                 echo '# pip install drawlib=='"$lib_version"
                 pip install drawlib=="$lib_version"
                 
