@@ -1,3 +1,27 @@
+.DS_Store
+
+# package system
+poetry.lock
+.pypirc
+
+# assets
+drawlib/assets/v0_1/fonticons/*
+!drawlib/assets/v0_1/fonticons/__init__.py
+drawlib/assets/v0_1/fonts/*
+!drawlib/assets/v0_1/fonts/__init__.py
+
+# output of generators
+output_codes/*
+output_tests/*
+tests/**/*.png
+!tests/assets/**/*.png
+tests/**/*.webp
+
+# others
+sandbox/*
+test_build_target/**/*.png
+!test_build_target/docs/commons/images/*.png
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
