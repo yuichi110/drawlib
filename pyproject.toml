@@ -7,14 +7,14 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "drawlib"
-version = "0.1.33.dev1"
+version = "0.1.33.dev2"
 description = "Python drawing library. Illustration as Code."
 homepage = "https://www.drawlib.com"
 repository = "https://github.com/yuichi110/drawlib"
 authors = [
     "Yuichi Ito <yuichi@yuichi.com>",
 ]
-readme = "README.md"
+readme = "pypi.md"
 
 # GENERATED CODE: END
 
