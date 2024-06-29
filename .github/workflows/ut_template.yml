@@ -40,15 +40,6 @@ jobs:
     runs-on: ${{ inputs.os }}
     steps:
     
-    - name: Display Inputs
-      shell: bash
-      run: |
-        echo "Running on OS: ${{ inputs.os }}"
-        echo "Python version: ${{ inputs.python_version }}"
-        echo "Installing from: ${{ inputs.install_from }}"
-        echo "Library version: ${{ inputs.lib_version }}"
-        echo "Branch: ${{ inputs.branch }}"
-        
     - name: Check out repository code
       uses: actions/checkout@v2
       with:
@@ -59,6 +50,19 @@ jobs:
       with:
         python-version: ${{ inputs.python_version }}
 
+    - name: Display Inputs
+      shell: bash
+      run: |
+        echo "Running on OS: ${{ inputs.os }}"
+        echo "Python version: ${{ inputs.python_version }}"
+        echo "Installing from: ${{ inputs.install_from }}"
+        echo "Library version: ${{ inputs.lib_version }}"
+        if [ "${{ inputs.lib_version }}" == "latest" ]; then
+            lib_version=`python scripts/get_pypi_latest_version.py`
+            echo Resolved: "$lib_version"
+        fi
+        echo "Branch: ${{ inputs.branch }}"
+        
     - name: Install dependencies
       shell: bash
       run: |
@@ -93,42 +97,31 @@ jobs:
             echo '# pip install -r requirements.txt'
             pip install -r requirements.txt
 
-        else
+        elif [ "${{ inputs.install_from }}" == "pypi" ]; then
             echo '# rm -rf ./drawlib'
             rm -rf ./drawlib
             
-            echo '# pip install pytest pytest-cov'
-            pip install pytest pytest-cov
+            echo '# pip install pytest pytest-cov ruff pyright'
+            pip install pytest pytest-cov ruff pyright
           
-            if [ "${{ inputs.install_from }}" == "pypi" ]; then
-                if [ "${{ inputs.lib_version }}" == "latest" ]; then
-                    echo '# pip install drawlib'
-                    pip install drawlib
-                    
-                else
-                    echo '# pip install drawlib=="${{ inputs.lib_version }}"'
-                    pip install drawlib=="${{ inputs.lib_version }}"
-                fi
-            
-            elif [ "${{ inputs.install_from }}" == "testpypi" ]; then
-                if [ "${{ inputs.lib_version }}" == "latest" ]; then
-                    echo '# pip install --index-url https://test.pypi.org/simple/ drawlib'
-                    pip install --index-url https://test.pypi.org/simple/ drawlib
-                    
-                else
-                    echo '# pip install --index-url https://test.pypi.org/simple/ drawlib=="${{ inputs.lib_version }}"'
-                    pip install --index-url https://test.pypi.org/simple/ drawlib=="${{ inputs.lib_version }}"
-                fi
+            if [ "${{ inputs.lib_version }}" == "latest" ]; then
+                lib_version=`python scripts/get_pypi_latest_version.py`
+                echo '# pip install drawlib=='"$lib_version"
+                pip install drawlib=="$lib_version"
                 
             else
-                echo install_from is not supported: "${{ inputs.install_from }}"
-                exit 1
+                echo '# pip install drawlib=="${{ inputs.lib_version }}"'
+                pip install drawlib=="${{ inputs.lib_version }}"
             fi
+                
+        else
+            echo install_from is not supported: "${{ inputs.install_from }}"
+            exit 1
         fi
 
-    - name: Run tests
+
+    - name: Run unit test
       shell: bash
       run: |
         echo '# pytest -s --cov=drawlib tests/'
         pytest -s --cov=drawlib tests/
-      
