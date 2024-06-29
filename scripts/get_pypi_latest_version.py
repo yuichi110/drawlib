@@ -13,7 +13,11 @@ import json
 import sys
 import urllib.request
 
-from packaging.version import parse
+
+def parse_version(version: str):
+    """Parses a version string into a tuple of integers for comparison."""
+    parts = version.split(".")
+    return tuple(int(part) if part.isdigit() else part for part in parts)
 
 
 def get_latest_version(package_name: str):
@@ -40,7 +44,7 @@ def get_latest_version(package_name: str):
 
             data = json.load(response)
             all_versions = data["releases"].keys()
-            latest_version = max(all_versions, key=parse)
+            latest_version = max(all_versions, key=parse_version)
             return latest_version
 
     except Exception as e:
