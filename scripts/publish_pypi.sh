@@ -15,6 +15,10 @@ set -e
 cd "$(dirname "$0")"
 cd ../
 
+# create stub
+echo '$ ./scripts/create_stub.sh'
+./scripts/create_stub.sh
+
 # check next version ok
 echo '$ python scripts/pypi_tools.py --check_new_version_ok'
 python scripts/pypi_tools.py --check_new_version_ok
