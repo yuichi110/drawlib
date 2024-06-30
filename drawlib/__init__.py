@@ -14,7 +14,7 @@ import sys
 from typing import Final, List
 
 # please update here when you release new version
-LIB_VERSION = "0.1.34"
+LIB_VERSION = "0.1.36"
 
 # please list active main committers (1+ commits per month)
 AUTHORS: Final[List[str]] = [
@@ -81,7 +81,7 @@ def _check_version_syntax() -> None:  # noqa: C901
 try:
     _check_version_syntax()
 except ValueError as e:
-    print(f"But. Version syntax has problem. {str(e)}")
+    print(f"System Error. Version syntax has problem. {str(e)}")
     print("Please check drawlib.__init__.py")
     print("Abort.")
     sys.exit(1)

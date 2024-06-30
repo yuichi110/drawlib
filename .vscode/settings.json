@@ -11,7 +11,4 @@
     "--config=pyproject.toml"
   ],
   "python.analysis.typeCheckingMode": "standard",
-  "python.analysis.ignore": [
-    "**/*.pyi",
-  ],
 }

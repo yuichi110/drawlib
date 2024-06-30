@@ -15,21 +15,20 @@ set -e
 cd "$(dirname "$0")"
 cd ../
 
-# create stub
-echo '$ ./scripts/create_stub.sh'
-./scripts/create_stub.sh
-
 # check next version ok
 echo '$ python scripts/pypi_tools.py --check_new_version_ok'
 python scripts/pypi_tools.py --check_new_version_ok
+echo
 
 # update pyproject.toml
 echo '$ python scripts/update_pyprojecttoml.py'
 python scripts/update_pyprojecttoml.py
+echo
 
 # delete font cache
 echo '$ python -m drawlib --purge_font_cache'
 python -m drawlib --purge_font_cache
+echo
 
 # publish to pypi
 echo '$ poetry publish --build'
