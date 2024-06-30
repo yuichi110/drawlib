@@ -39,6 +39,7 @@ preview = true
 fix = true
 unsafe-fixes = false
 line-length = 120
+extend-exclude = ["*.pyi"]
 
 [tool.ruff.lint]
 select = [
@@ -96,3 +97,8 @@ ignore = [
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
+
+[tool.pylance]
+ignore = [
+    "**/*.pyi",
+]
