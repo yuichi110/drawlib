@@ -9,7 +9,7 @@
 
 """Entry point of drawlib command."""
 
-from drawlib.v0_1.private.command import call
+from drawlib.v0_2.private.command import call
 
 
 def main() -> None:

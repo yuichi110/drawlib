@@ -158,7 +158,7 @@ If you need to use older APIs, you can achieve this by importing them using the 
 from drawlib.v0_2.apis import *
 ```
 
-Here, `v0_1` corresponds to version `0.1.*`.
+Here, `v0_2` corresponds to version `0.2.*`.
 
 ## Configuring the Canvas Size and DPI
 
@@ -298,7 +298,7 @@ Drawing an icon is similar to drawing an image.
 However, while an image typically refers to a png/jpeg picture, drawlib's icon is a Font Icon. 
 If you're unfamiliar with Font Icons, I recommend checking out FontAwesome first.
 
-Drawlib version 0.1 offers two methods for drawing icons:
+Drawlib offers two methods for drawing icons:
 
 - Using the ``icon()`` function.
 - Utilizing the ``icon_phosphor`` module and its functions.

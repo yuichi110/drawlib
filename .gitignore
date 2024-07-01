@@ -5,10 +5,10 @@ poetry.lock
 .pypirc
 
 # assets
-drawlib/assets/v0_1/fonticons/*
-!drawlib/assets/v0_1/fonticons/__init__.py
-drawlib/assets/v0_1/fonts/*
-!drawlib/assets/v0_1/fonts/__init__.py
+drawlib/assets/**/fonticons/*
+!drawlib/assets/**/fonticons/__init__.py
+drawlib/assets/**/fonts/*
+!drawlib/assets/**/fonts/__init__.py
 
 # output of generators
 output_codes/*

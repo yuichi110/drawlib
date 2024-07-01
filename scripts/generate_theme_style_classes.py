@@ -29,16 +29,13 @@ HEAD = '''
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-# pylint: disable=too-many-lines, invalid-name
-
 """dtheme's cache objects implementations. Auto generated codes."""
-
 
 from abc import ABC, abstractmethod
 from typing import Dict, Tuple, List, Union, Any, Optional, Callable
 
-from drawlib.v0_1.private.util import error_handler
-from drawlib.v0_1.private.core.model import (
+from drawlib.v0_2.private.util import error_handler
+from drawlib.v0_2.private.core.model import (
     IconStyle,
     ImageStyle,
     LineStyle,
@@ -46,10 +43,10 @@ from drawlib.v0_1.private.core.model import (
     ShapeTextStyle,
     TextStyle,
 )
-from drawlib.v0_1.private.core.fonts import FontSourceCode
-import drawlib.v0_1.private.validators.color as color_validator
-import drawlib.v0_1.private.validators.style as style_validator
-import drawlib.v0_1.private.validators.types as type_validator
+from drawlib.v0_2.private.core.fonts import FontSourceCode
+import drawlib.v0_2.private.validators.color as color_validator
+import drawlib.v0_2.private.validators.style as style_validator
+import drawlib.v0_2.private.validators.types as type_validator
 
 list_ = list
 
@@ -336,7 +333,7 @@ class AbstractStyleCache(ABC):
         """
 
     @abstractmethod
-    def get(self, name: str = "") -> Any:
+    def get(self, name: str = "") -> Any: # noqa: ANN401
         """Retrieves a style by name.
 
         Args:
@@ -358,7 +355,7 @@ class AbstractStyleCache(ABC):
         """
 
     @abstractmethod
-    def set(self, style: Any, name: str = "") -> None:
+    def set(self, style: Any, name: str = "") -> None: # noqa: ANN401
         """Sets or updates a style with the given name.
 
         Args:
@@ -382,7 +379,7 @@ class AbstractStyleCache(ABC):
         """
 
     @abstractmethod
-    def merge(self, style: Any, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: Any, targets: Optional[List[str]] = None) -> None: # noqa: ANN401
         """Merges a style into existing styles.
 
         Args:

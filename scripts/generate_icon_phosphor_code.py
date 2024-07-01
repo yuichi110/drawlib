@@ -30,7 +30,7 @@ def cd_to_project_root() -> None:
 # Phosphor
 #
 
-PHOSPHOR_URL_BASE = "https://raw.githubusercontent.com/yuichi110/drawlib_assets/main/assets/v0_1/fonticons/phosphor/"
+PHOSPHOR_URL_BASE = "https://raw.githubusercontent.com/yuichi110/drawlib_assets/main/assets/v0_2/fonticons/phosphor/"
 
 PHOSPHOR_HEAD = '''
 # Copyright (c) 2024 Yuichi Ito (yuichi@yuichi.com)
@@ -48,12 +48,12 @@ import os
 import typing
 import urllib.parse
 
-import drawlib.assets.v0_1.fonticons
-import drawlib.v0_1.private.core.model
-import drawlib.v0_1.private.core.theme
-import drawlib.v0_1.private.download
-import drawlib.v0_1.private.icons.util
-import drawlib.v0_1.private.util
+import drawlib.assets.v0_2.fonticons
+import drawlib.v0_2.private.core.model
+import drawlib.v0_2.private.core.theme
+import drawlib.v0_2.private.download
+import drawlib.v0_2.private.icons.util
+import drawlib.v0_2.private.util
 
 
 def _get_fontfile_tuple(path: str, md5_hash: str) -> typing.Tuple[str, str, str]:
@@ -73,12 +73,12 @@ def _get_fontfile_tuple(path: str, md5_hash: str) -> typing.Tuple[str, str, str]
     paths = [p for p in path.split("/") if p]
 
     # font path
-    dir_path = os.path.dirname(drawlib.assets.v0_1.fonticons.__file__)
+    dir_path = os.path.dirname(drawlib.assets.v0_2.fonticons.__file__)
     font_path = os.path.join(dir_path, *paths)
 
     # url
     url = urllib.parse.urljoin(
-        "https://raw.githubusercontent.com/yuichi110/drawlib_assets/main/assets/v0_1/fonticons/",
+        "https://raw.githubusercontent.com/yuichi110/drawlib_assets/main/assets/v0_2/fonticons/",
         "/".join(paths),
     )
 
@@ -104,7 +104,7 @@ def _get_font_path(style: str) -> str:
     }[style]
 
     # download if local cache doesn't exist
-    drawlib.v0_1.private.download.download_if_not_exist(
+    drawlib.v0_2.private.download.download_if_not_exist(
         file_path=file_path,
         download_url=download_url,
         md5_hash=md5_hash,
@@ -118,7 +118,7 @@ def _write(
     width: float,
     code: str,
     angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_1.private.core.model.IconStyle, str, None] = None,
+    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
 ) -> None:
     """Draw a Phosphor icon at the specified position with given parameters.
 
@@ -138,10 +138,10 @@ def _write(
 
     # None, str -> IconStyle
     if style is None:
-        style = drawlib.v0_1.private.core.theme.dtheme.iconstyles.get()
+        style = drawlib.v0_2.private.core.theme.dtheme.iconstyles.get()
     elif isinstance(style, str):
-        style = drawlib.v0_1.private.core.theme.dtheme.iconstyles.get(style)
-    elif isinstance(style, drawlib.v0_1.private.core.model.IconStyle):
+        style = drawlib.v0_2.private.core.theme.dtheme.iconstyles.get(style)
+    elif isinstance(style, drawlib.v0_2.private.core.model.IconStyle):
         ...
     else:
         raise ValueError(
@@ -161,7 +161,7 @@ def _write(
     file = _get_font_path(style.style)
 
     # draw phosphor icon with generic function
-    drawlib.v0_1.private.icons.util.icon(
+    drawlib.v0_2.private.icons.util.icon(
         xy=xy,
         width=width,
         code=code,
@@ -177,12 +177,12 @@ def _write(
 '''
 
 PHOSPHOR_TEMPLATE = '''
-@drawlib.v0_1.private.util.error_handler
+@drawlib.v0_2.private.util.error_handler
 def {function_name}(
     xy: typing.Tuple[float, float],
     width: float,
     angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_1.private.core.model.IconStyle, str, None] = None,
+    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
 ) -> None:
     """Draws a Phosphor icon representing an {icon_name}.
 

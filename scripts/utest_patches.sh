@@ -13,4 +13,4 @@ set -e
 
 cd "$(dirname "$0")"
 cd ../
-pytest -s --cov=drawlib tests/v0_1/drawing_patches/
+pytest -s --cov=drawlib tests/v0_2/drawing_patches/

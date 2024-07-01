@@ -12,4 +12,4 @@
 """Latest API module."""
 
 # Purpose of this import is publishing APIs.
-from drawlib.v0_1.apis import *
+from drawlib.v0_2.apis import *
