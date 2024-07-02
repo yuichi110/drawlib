@@ -47,8 +47,8 @@ def call() -> None:
 
     # show version
     if argparser.is_show_version():
-        logger.critical(f"software={drawlib.VERSION}")
-        logger.critical(f"api={drawlib.v0_2.VERSION}")
+        logger.critical(f"software={drawlib.LIB_VERSION}")
+        logger.critical(f"api={drawlib.v0_2.LIB_VERSION}")
         sys.exit(0)
 
     # purge font cache
