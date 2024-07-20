@@ -7,11 +7,15 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-# ruff: noqa: F401
+from drawlib.v0_2.apis import *
 
-"""Smart art module."""
+OUTPUT_DIR = "../../../output_tests/v0_2/dsarts/pyramid/"
 
-from drawlib.v0_2.private.smartarts.bubblespeech import bubblespeech
-from drawlib.v0_2.private.smartarts.gridlayout import GridLayout
-from drawlib.v0_2.private.smartarts.pyramid import Pyramid
-from drawlib.v0_2.private.smartarts.sourcecode import SourceCode
+
+def test():
+    p = dsart.Pyramid(default_style="solid")
+    p.add(text="Hello")
+    p.add(text="World")
+    p.add(text="A")
+    p.draw((10, 10), 30, 30, 2)
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

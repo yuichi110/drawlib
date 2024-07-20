@@ -8,7 +8,7 @@
 # merchantability, fitness for a particular purpose and noninfringement.
 
 
-"""SourceCode implementation module."""
+"""GridLayout implementation module."""
 
 import dataclasses
 from typing import List, Optional, Tuple, Union
@@ -243,11 +243,11 @@ class GridLayout:
             if style is None:
                 style = self._default_style
             if style is None:
-                style = ShapeStyle(halign="left", valign="bottom")
+                style = dtheme.rectanglestyles.get()
             else:
                 style = style.copy()
-                style.halign = "left"
-                style.valign = "bottom"
+            style.halign = "left"
+            style.valign = "bottom"
 
             # apply default text style if specified text style is None
             if textstyle is None:
