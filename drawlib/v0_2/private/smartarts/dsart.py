@@ -12,4 +12,5 @@
 """Smart art module."""
 
 from drawlib.v0_2.private.smartarts.bubblespeech import bubblespeech
+from drawlib.v0_2.private.smartarts.gridlayout import GridLayout
 from drawlib.v0_2.private.smartarts.sourcecode import SourceCode
