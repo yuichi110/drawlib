@@ -15,3 +15,4 @@ from drawlib.v0_2.private.smartarts.bubblespeech import bubblespeech
 from drawlib.v0_2.private.smartarts.gridlayout import GridLayout
 from drawlib.v0_2.private.smartarts.pyramid import Pyramid
 from drawlib.v0_2.private.smartarts.sourcecode import SourceCode
+from drawlib.v0_2.private.smartarts.tree import TreeNode
