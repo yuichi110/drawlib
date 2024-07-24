@@ -13,7 +13,7 @@
 from __future__ import annotations
 
 import dataclasses
-from typing import Callable, List, Literal, Optional, Tuple, Union
+from typing import Callable, Dict, List, Literal, Optional, Tuple, Union
 
 from drawlib.v0_2.private.core.model import IconStyle, ImageStyle, LineStyle, ShapeStyle, TextStyle
 from drawlib.v0_2.private.core.theme import dtheme
@@ -22,6 +22,8 @@ from drawlib.v0_2.private.core_canvas.canvas import line, text
 
 class TreeNode:
     """Class for rendering smart art Tree."""
+
+    _drawing_item_map: Dict[str, _TreeNodeDrawingItem] = {}
 
     def __init__(
         self,
@@ -68,19 +70,22 @@ class TreeNode:
         self._default_line_horizontal_length: Optional[float] = default_line_horizontal_length
         self._default_line_vertical_margin: Optional[float] = default_line_vertical_margin
 
-        self._drawing_item: Optional[_TreeNodeDrawingItem] = None
+        self._drawing_item_name: Optional[str] = None
 
-    def set_drawing_item(
-        self,
+    @classmethod
+    def register_drawing_item(
+        cls,
+        name: str,
         location: Literal["before", "after"],
         padding_width: float,
         function: Callable,
         style: Union[IconStyle, ImageStyle, ShapeStyle, TextStyle],
         args: dict,
-    ) -> TreeNode:
-        """Set a drawing item for the tree node.
+    ) -> None:
+        """Register a drawing item for the tree node.
 
         Args:
+            name (str): Name of drawing item.
             location (Literal["before", "after"]): The location of the drawing item relative to the text.
             padding_width (float): The padding width for the drawing item.
             function (Callable): The function to render the drawing item.
@@ -100,7 +105,24 @@ class TreeNode:
             style=style,
             args=args,
         )
-        self._drawing_item = item
+
+        cls._drawing_item_map[name] = item
+
+    def set_drawing_item(
+        self,
+        name: str,
+    ) -> TreeNode:
+        """Set a drawing item for the tree node.
+
+        Args:
+            name (str): Name of drawing item.
+
+        Returns:
+            TreeNode: The current tree node instance.
+        """
+        if name not in self._drawing_item_map:
+            raise ValueError(f'Drawing item "{name}" is not registered.')
+        self._drawing_item_name = name
 
         return self
 
@@ -184,27 +206,30 @@ class TreeNode:
             line_vertical_margin = default_line_vertical_margin
 
         # draw text
-        if self._drawing_item is not None and self._drawing_item.location == "before":
-            args = self._drawing_item.args
-            args["xy"] = xy
-            args["style"] = self._drawing_item.style
-            self._drawing_item.function(**args)
-
-            textstyle.halign = "left"
-            text(xy=(xy[0] + self._drawing_item.padding_width, xy[1]), text=self._text, style=textstyle)
-
-        elif self._drawing_item is None:
+        if self._drawing_item_name is None:
             textstyle.halign = "left"
             text(xy=xy, text=self._text, style=textstyle)
 
         else:
-            textstyle.halign = "left"
-            text(xy=xy, text=self._text, style=textstyle)
+            drawing_item = self._drawing_item_map[self._drawing_item_name]
 
-            args = self._drawing_item.args
-            args["xy"] = (xy[0] + self._drawing_item.padding_width, xy[1])
-            args["style"] = self._drawing_item.style
-            self._drawing_item.function(**args)
+            if drawing_item.location == "before":
+                args = drawing_item.args
+                args["xy"] = xy
+                args["style"] = drawing_item.style
+                drawing_item.function(**args)
+
+                textstyle.halign = "left"
+                text(xy=(xy[0] + drawing_item.padding_width, xy[1]), text=self._text, style=textstyle)
+
+            else:
+                textstyle.halign = "left"
+                text(xy=xy, text=self._text, style=textstyle)
+
+                args = drawing_item.args
+                args["xy"] = (xy[0] + drawing_item.padding_width, xy[1])
+                args["style"] = drawing_item.style
+                drawing_item.function(**args)
 
         # draw children
         horizontal_line_x1 = xy[0] + line_horizontal_margin

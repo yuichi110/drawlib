@@ -52,6 +52,15 @@ def test():
 
 def test_icon():
     tn = dsart.TreeNode
+    tn.register_drawing_item(
+        name="py_file",
+        location="before",
+        padding_width=5,
+        function=icon_phosphor.file_py,
+        style=dtheme.iconstyles.get(),
+        args={"width": 4},
+    )
+
     t = tn(
         "Root",
         default_textstyle="",
@@ -65,26 +74,14 @@ def test_icon():
                 children=[
                     tn(
                         "Child1-1",
-                    ).set_drawing_item(
-                        location="before",
-                        padding_width=5,
-                        function=icon_phosphor.file_py,
-                        style=dtheme.iconstyles.get(),
-                        args={"width": 4},
-                    ),
+                    ).set_drawing_item("py_file"),
                     tn("Child1-2"),
                 ],
             ),
             tn(
                 "Child2",
                 children=[
-                    tn("Child2-1").set_drawing_item(
-                        location="after",
-                        padding_width=10,
-                        function=icon_phosphor.file_py,
-                        style=dtheme.iconstyles.get(),
-                        args={"width": 4},
-                    ),
+                    tn("Child2-1").set_drawing_item("py_file"),
                     tn("Child2-2"),
                 ],
             ),
