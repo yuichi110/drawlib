@@ -11,4 +11,7 @@
     "--config=pyproject.toml"
   ],
   "python.analysis.typeCheckingMode": "standard",
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportPrivateImportUsage":"none" 
+  },
 }

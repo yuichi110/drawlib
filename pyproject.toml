@@ -7,7 +7,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "drawlib"
-version = "0.2.2"
+version = "0.2.3.dev2"
 description = "Python drawing library. Illustration as Code."
 homepage = "https://www.drawlib.com"
 repository = "https://github.com/yuichi110/drawlib"
@@ -61,6 +61,7 @@ ignore = [
     "D415",    # First line should end with a period, question mark, or exclamation point
     "F401",    # imported but unused
     "ANN101",  # Missing type annotation for self in method
+    "PLC0414", # Import alias does not rename original package
     "PLC1901", # compare-to-empty-string
     "PLR0904", # Too many public methods
     "PLR0912", # Too many branches

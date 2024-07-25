@@ -11,8 +11,12 @@
 
 """Smart art module."""
 
-from drawlib.v0_2.private.smartarts.bubblespeech import bubblespeech
-from drawlib.v0_2.private.smartarts.gridlayout import GridLayout
-from drawlib.v0_2.private.smartarts.pyramid import Pyramid
-from drawlib.v0_2.private.smartarts.sourcecode import SourceCode
-from drawlib.v0_2.private.smartarts.tree import TreeNode
+# Using "bubblespeech as bubblespeech" for explisitly esposing contents.
+# It is good for type checker and IDE.
+# Warnings such as "reportPrivateImportUsage" might be appear if removing it.
+
+from drawlib.v0_2.private.smartarts.bubblespeech import bubblespeech as bubblespeech
+from drawlib.v0_2.private.smartarts.gridlayout import GridLayout as GridLayout
+from drawlib.v0_2.private.smartarts.pyramid import Pyramid as Pyramid
+from drawlib.v0_2.private.smartarts.sourcecode import SourceCode as SourceCode
+from drawlib.v0_2.private.smartarts.tree import TreeNode as TreeNode
