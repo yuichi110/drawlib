@@ -28,6 +28,7 @@ class GridLayout:
         default_r: int = 0,
         default_style: Union[str, ShapeStyle, None] = None,
         default_textstyle: Union[str, ShapeTextStyle, None] = None,
+        default_textangle: Optional[float] = None,
     ) -> None:
         """Initialize class."""
         self._num_column = num_column
@@ -39,6 +40,7 @@ class GridLayout:
         if isinstance(default_textstyle, str):
             default_textstyle = dtheme.rectangletextstyles.get(default_textstyle)
         self._default_textstyle = default_textstyle
+        self._default_textangle = default_textangle
 
         self._items: List[_GridLayoutItem] = []
 
@@ -50,6 +52,8 @@ class GridLayout:
         style: Union[str, ShapeStyle, None] = None,
         text: str = "",
         textstyle: Union[str, ShapeTextStyle, None] = None,
+        textangle: Optional[float] = None,
+        text_xy_shift: Optional[Tuple[float, float]] = None,
     ) -> None:
         """
         Add an item to the grid layout.
@@ -66,6 +70,10 @@ class GridLayout:
             textstyle (Union[str, ShapeTextStyle, None], optional):
                     The text style of the item. Can be a string key for a predefined text style,
                     a ShapeTextStyle object, or None to use the default text style.
+            textangle (Optional[float], optional):
+                    The angle of the text. Default is None, which is same to 0.
+            text_xy_shift (Optional[Tuple[float, float]], optional):
+                    The XY shift of the text. Default is None, which is same to (0, 0).
 
         Raises:
             ValueError: If the column or row ranges are invalid or out of bounds.
@@ -101,6 +109,26 @@ class GridLayout:
             style = self._default_style
         if textstyle is None:
             textstyle = self._default_textstyle
+        if textangle is None:
+            textangle = self._default_textangle
+
+        # set align left bottom
+        if style is None:
+            style = self._default_style
+        if style is None:
+            style = dtheme.rectanglestyles.get()
+        else:
+            style = style.copy()
+        style.halign = "left"
+        style.valign = "bottom"
+
+        # set text angle and xy_shift
+        if textstyle is None:
+            textstyle = dtheme.rectangletextstyles.get()
+        if textangle is not None:
+            textstyle.angle = textangle
+        if text_xy_shift is not None:
+            textstyle.xy_shift = text_xy_shift
 
         # push
         item = _GridLayoutItem(
@@ -239,20 +267,6 @@ class GridLayout:
             width = width - margin_left - margin_right
             height = height - margin_bottom - margin_top
 
-            # set align left bottom
-            if style is None:
-                style = self._default_style
-            if style is None:
-                style = dtheme.rectanglestyles.get()
-            else:
-                style = style.copy()
-            style.halign = "left"
-            style.valign = "bottom"
-
-            # apply default text style if specified text style is None
-            if textstyle is None:
-                textstyle = self._default_textstyle
-
             # draw
             rectangle(
                 xy=(xy[0] + lb_xy[0], xy[1] + lb_xy[1]),
@@ -270,6 +284,6 @@ class _GridLayoutItem:
     column_range: Tuple[int, int]
     row_range: Tuple[int, int]
     r: int
-    style: Optional[ShapeStyle]
+    style: ShapeStyle
     text: str
-    textstyle: Optional[ShapeTextStyle]
+    textstyle: ShapeTextStyle

@@ -1107,7 +1107,7 @@ class ShapeTextStyle:
 
     @xy_shift.setter
     @error_handler
-    def xy_shift(self, value: Optional[float]) -> None:
+    def xy_shift(self, value: Optional[Tuple[float, float]]) -> None:
         """Setter of xy_shift"""
         if isinstance(value, property) or value is None:
             self._xy_shift = None
