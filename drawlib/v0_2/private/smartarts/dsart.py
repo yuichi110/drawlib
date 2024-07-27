@@ -16,6 +16,7 @@
 # Warnings such as "reportPrivateImportUsage" might be appear if removing it.
 
 from drawlib.v0_2.private.smartarts.bubblespeech import bubblespeech as bubblespeech
+from drawlib.v0_2.private.smartarts.bulletpoints import BulletPoints as BulletPoints
 from drawlib.v0_2.private.smartarts.gridlayout import GridLayout as GridLayout
 from drawlib.v0_2.private.smartarts.pyramid import Pyramid as Pyramid
 from drawlib.v0_2.private.smartarts.sourcecode import SourceCode as SourceCode
