@@ -19,3 +19,30 @@ def test():
     p.add(text="A")
     p.draw((10, 10), 30, 30, 2)
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
+def test_top_to_bottom():
+    p = dsart.Pyramid(default_style="solid")
+    p.add(text="Hello")
+    p.add(text="World")
+    p.add(text="A")
+    p.draw((10, 10), 30, 30, 2, order="top_to_bottom")
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
+def test_left_to_right():
+    p = dsart.Pyramid(default_style="solid")
+    p.add(text="Hello")
+    p.add(text="World")
+    p.add(text="A")
+    p.draw((10, 10), 30, 30, 2, order="left_to_right")
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
+def test_right_to_left():
+    p = dsart.Pyramid(default_style="solid")
+    p.add(text="Hello")
+    p.add(text="World")
+    p.add(text="A")
+    p.draw((10, 10), 30, 30, 2, order="right_to_left")
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

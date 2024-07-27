@@ -11,7 +11,7 @@
 """Pyramid implementation module."""
 
 import dataclasses
-from typing import List, Optional, Tuple, Union
+from typing import List, Literal, Optional, Tuple, Union
 
 from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
@@ -25,6 +25,8 @@ class Pyramid:
         self,
         default_style: Union[str, ShapeStyle, None] = None,
         default_textstyle: Union[str, ShapeTextStyle, None] = None,
+        default_textangle: Optional[float] = None,
+        default_text_xy_shift: Optional[Tuple[float, float]] = None,
     ) -> None:
         """Initialize class."""
         if isinstance(default_style, str):
@@ -33,6 +35,8 @@ class Pyramid:
         if isinstance(default_textstyle, str):
             default_textstyle = dtheme.rectangletextstyles.get(default_textstyle)
         self._default_textstyle = default_textstyle
+        self._default_textangle = default_textangle
+        self._default_text_xy_shift = default_text_xy_shift
 
         self._items: List[_PyramidItem] = []
 
@@ -41,6 +45,8 @@ class Pyramid:
         style: Union[str, ShapeStyle, None] = None,
         text: str = "",
         textstyle: Union[str, ShapeTextStyle, None] = None,
+        textangle: Optional[float] = None,
+        text_xy_shift: Optional[Tuple[float, float]] = None,
     ) -> None:
         """
         Add an item to the pyramid.
@@ -54,6 +60,10 @@ class Pyramid:
             textstyle (Union[str, ShapeTextStyle, None], optional):
                     The text style of the item. Can be a string key for a predefined text style,
                     a ShapeTextStyle object, or None to use the default text style.
+            textangle (Optional[float], optional):
+                    The angle of the text. Default is None, which is same to 0.
+            text_xy_shift (Optional[Tuple[float, float]], optional):
+                    The XY shift of the text. Default is None, which is same to (0, 0).
         """
         # string style to Style class
         if isinstance(style, str):
@@ -66,6 +76,26 @@ class Pyramid:
             style = self._default_style
         if textstyle is None:
             textstyle = self._default_textstyle
+
+        # apply align to shape style
+        if style is None:
+            style = dtheme.rectanglestyles.get()
+        else:
+            style = style.copy()
+
+        # apply angle and shift to shape text style
+        if textstyle is None:
+            textstyle = dtheme.shapetextstyles.get()
+        else:
+            textstyle = textstyle.copy()
+        if textangle is None:
+            textangle = self._default_textangle
+        if textangle is not None:
+            textstyle.angle = textangle
+        if text_xy_shift is None:
+            text_xy_shift = self._default_text_xy_shift
+        if text_xy_shift is not None:
+            textstyle.xy_shift = text_xy_shift
 
         # push
         item = _PyramidItem(
@@ -81,6 +111,7 @@ class Pyramid:
         width: float,
         height: float,
         margin: float,
+        order: Literal["bottom_to_top", "top_to_bottom", "left_to_right", "right_to_left"] = "bottom_to_top",
     ) -> None:
         """Draw smart art pyramid.
 
@@ -89,6 +120,7 @@ class Pyramid:
             width (float): The width of the pyramid.
             height (float): The heifht of the pyramid.
             margin (float): The margin between pyramid items.
+            order (str): Order of a pyramid.
         """
         if len(self._items) == 0:
             raise ValueError()
@@ -102,14 +134,16 @@ class Pyramid:
             width=width,
             item_heights=item_heights,
             margins=margins,
+            order=order,
         )
 
-    def draw_flexible(  # noqa: C901
+    def draw_flexible(
         self,
         xy: Tuple[float, float],
         width: float,
         item_heights: List[float],
         margins: List[float],
+        order: Literal["bottom_to_top", "top_to_bottom", "left_to_right", "right_to_left"] = "bottom_to_top",
     ) -> None:
         """Draw smart art pyramid with flexible pyramid item heights.
 
@@ -118,6 +152,7 @@ class Pyramid:
             width (float): The width of the pyramid.
             item_heights (float): The height of the each pyramid items.
             margins (float): The margin between pyramid items.
+            order (str): Order of a pyramid.
 
         Raises:
             ValueError: If the lengths of column_widths, column_margins, row_heights, or row_margins are incorrect.
@@ -132,23 +167,33 @@ class Pyramid:
         if len(self._items) != len(margins) + 1:
             raise ValueError()
 
+        if order == "bottom_to_top":
+            self._draw_flexible_bottom_to_top(xy, width, item_heights, margins)
+        elif order == "top_to_bottom":
+            self._draw_flexible_top_to_bottom(xy, width, item_heights, margins)
+        elif order == "left_to_right":
+            self._draw_flexible_left_to_right(xy, width, item_heights, margins)
+        elif order == "right_to_left":
+            self._draw_flexible_right_to_left(xy, width, item_heights, margins)
+        else:
+            raise ValueError()
+
+    def _draw_flexible_bottom_to_top(
+        self,
+        xy: Tuple[float, float],
+        width: float,
+        item_heights: List[float],
+        margins: List[float],
+    ) -> None:
         x = xy[0] + width / 2
         height = sum(item_heights) + sum(margins)
         current_height = 0
         for i, item in enumerate(self._items):
             text = item.text
-            textstyle = item.textstyle
-            if textstyle is None:
-                textstyle = self._default_textstyle
             style = item.style
-            if style is None:
-                style = self._default_style
-            if style is None:
-                style = dtheme.rectanglestyles.get()
-            else:
-                style = style.copy()
             style.halign = "center"
             style.valign = "bottom"
+            textstyle = item.textstyle
 
             is_last = i == len(self._items) - 1
             if is_last:
@@ -181,9 +226,171 @@ class Pyramid:
             )
             current_height += item_height + margins[i]
 
+    def _draw_flexible_top_to_bottom(
+        self,
+        xy: Tuple[float, float],
+        width: float,
+        item_heights: List[float],
+        margins: List[float],
+    ) -> None:
+        x = xy[0] + width / 2
+        height = sum(item_heights) + sum(margins)
+        current_height = 0
+        for i, item in enumerate(self._items):
+            text = item.text
+            style = item.style
+            style.halign = "center"
+            style.valign = "bottom"
+            textstyle = item.textstyle
+
+            is_last = i == len(self._items) - 1
+            if is_last:
+                ratio = (height - current_height) / height
+                item_width = ratio * width
+                item_height = item_heights[i]
+                y = xy[1] + height - current_height - item_height
+                if textstyle.angle is None:
+                    textstyle.angle = 0
+                triangle(
+                    (x, y),
+                    width=item_width,
+                    height=item_height,
+                    style=style,
+                    text=text,
+                    textstyle=textstyle,
+                    angle=180,
+                )
+                continue
+
+            bottom_ratio = (height - current_height) / height
+            bottom_width = bottom_ratio * width
+            item_height = item_heights[i]
+            top_ratio = (height - current_height - item_height) / height
+            top_width = top_ratio * width
+            y = xy[1] + height - current_height - item_height
+            trapezoid(
+                (x, y),
+                item_height,
+                bottomedge_width=top_width,
+                topedge_width=bottom_width,
+                style=style,
+                text=text,
+                textstyle=textstyle,
+            )
+            current_height += item_height + margins[i]
+
+    def _draw_flexible_left_to_right(
+        self,
+        xy: Tuple[float, float],
+        width: float,
+        item_heights: List[float],
+        margins: List[float],
+    ) -> None:
+        y = xy[1] + width / 2
+        height = sum(item_heights) + sum(margins)
+        current_height = 0
+        for i, item in enumerate(self._items):
+            text = item.text
+            style = item.style
+            style.halign = "center"
+            style.valign = "center"
+            textstyle = item.textstyle
+
+            if textstyle.angle is None:
+                textstyle.angle = 0
+
+            is_last = i == len(self._items) - 1
+            if is_last:
+                ratio = (height - current_height) / height
+                item_width = ratio * width
+                item_height = item_heights[i]
+                x = xy[0] + current_height + item_height / 2
+                triangle(
+                    (x, y),
+                    width=item_width,
+                    height=item_height,
+                    style=style,
+                    text=text,
+                    textstyle=textstyle,
+                    angle=270,
+                )
+                continue
+
+            bottom_ratio = (height - current_height) / height
+            bottom_width = bottom_ratio * width
+            item_height = item_heights[i]
+            top_ratio = (height - current_height - item_height) / height
+            top_width = top_ratio * width
+            x = xy[0] + current_height + item_height / 2
+            trapezoid(
+                (x, y),
+                item_height,
+                bottomedge_width=bottom_width,
+                topedge_width=top_width,
+                style=style,
+                text=text,
+                textstyle=textstyle,
+                angle=270,
+            )
+            current_height += item_height + margins[i]
+
+    def _draw_flexible_right_to_left(
+        self,
+        xy: Tuple[float, float],
+        width: float,
+        item_heights: List[float],
+        margins: List[float],
+    ) -> None:
+        y = xy[1] + width / 2
+        height = sum(item_heights) + sum(margins)
+        current_height = 0
+        for i, item in enumerate(self._items):
+            text = item.text
+            style = item.style
+            style.halign = "center"
+            style.valign = "center"
+            textstyle = item.textstyle
+            if textstyle.angle is None:
+                textstyle.angle = 0
+
+            is_last = i == len(self._items) - 1
+            if is_last:
+                ratio = (height - current_height) / height
+                item_width = ratio * width
+                item_height = item_heights[i]
+                x = xy[0] + height - current_height - item_height / 2
+                triangle(
+                    (x, y),
+                    width=item_width,
+                    height=item_height,
+                    style=style,
+                    text=text,
+                    textstyle=textstyle,
+                    angle=90,
+                )
+                continue
+
+            bottom_ratio = (height - current_height) / height
+            bottom_width = bottom_ratio * width
+            item_height = item_heights[i]
+            top_ratio = (height - current_height - item_height) / height
+            top_width = top_ratio * width
+            x = xy[0] + height - current_height - item_height / 2
+            trapezoid(
+                (x, y),
+                item_height,
+                bottomedge_width=bottom_width,
+                topedge_width=top_width,
+                style=style,
+                text=text,
+                textstyle=textstyle,
+                angle=90,
+            )
+            current_height += item_height + margins[i]
+
 
 @dataclasses.dataclass
 class _PyramidItem:
-    style: Optional[ShapeStyle]
+    style: ShapeStyle
     text: str
-    textstyle: Optional[ShapeTextStyle]
+    textstyle: ShapeTextStyle
