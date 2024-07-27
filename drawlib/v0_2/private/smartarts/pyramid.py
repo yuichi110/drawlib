@@ -111,7 +111,7 @@ class Pyramid:
         width: float,
         height: float,
         margin: float,
-        order: Literal["bottom_to_top", "top_to_bottom", "left_to_right", "right_to_left"] = "bottom_to_top",
+        align: Literal["bottom", "top", "left", "right"] = "bottom",
     ) -> None:
         """Draw smart art pyramid.
 
@@ -120,7 +120,7 @@ class Pyramid:
             width (float): The width of the pyramid.
             height (float): The heifht of the pyramid.
             margin (float): The margin between pyramid items.
-            order (str): Order of a pyramid.
+            align (str): Alignment of a pyramid.
         """
         if len(self._items) == 0:
             raise ValueError()
@@ -134,7 +134,7 @@ class Pyramid:
             width=width,
             item_heights=item_heights,
             margins=margins,
-            order=order,
+            align=align,
         )
 
     def draw_flexible(
@@ -143,7 +143,7 @@ class Pyramid:
         width: float,
         item_heights: List[float],
         margins: List[float],
-        order: Literal["bottom_to_top", "top_to_bottom", "left_to_right", "right_to_left"] = "bottom_to_top",
+        align: Literal["bottom", "top", "left", "right"] = "bottom",
     ) -> None:
         """Draw smart art pyramid with flexible pyramid item heights.
 
@@ -152,7 +152,7 @@ class Pyramid:
             width (float): The width of the pyramid.
             item_heights (float): The height of the each pyramid items.
             margins (float): The margin between pyramid items.
-            order (str): Order of a pyramid.
+            align (str): Alignment of a pyramid.
 
         Raises:
             ValueError: If the lengths of column_widths, column_margins, row_heights, or row_margins are incorrect.
@@ -167,18 +167,18 @@ class Pyramid:
         if len(self._items) != len(margins) + 1:
             raise ValueError()
 
-        if order == "bottom_to_top":
-            self._draw_flexible_bottom_to_top(xy, width, item_heights, margins)
-        elif order == "top_to_bottom":
-            self._draw_flexible_top_to_bottom(xy, width, item_heights, margins)
-        elif order == "left_to_right":
-            self._draw_flexible_left_to_right(xy, width, item_heights, margins)
-        elif order == "right_to_left":
-            self._draw_flexible_right_to_left(xy, width, item_heights, margins)
+        if align == "bottom":
+            self._draw_flexible_bottom(xy, width, item_heights, margins)
+        elif align == "top":
+            self._draw_flexible_top(xy, width, item_heights, margins)
+        elif align == "left":
+            self._draw_flexible_left(xy, width, item_heights, margins)
+        elif align == "right":
+            self._draw_flexible_right(xy, width, item_heights, margins)
         else:
             raise ValueError()
 
-    def _draw_flexible_bottom_to_top(
+    def _draw_flexible_bottom(
         self,
         xy: Tuple[float, float],
         width: float,
@@ -226,7 +226,7 @@ class Pyramid:
             )
             current_height += item_height + margins[i]
 
-    def _draw_flexible_top_to_bottom(
+    def _draw_flexible_top(
         self,
         xy: Tuple[float, float],
         width: float,
@@ -279,7 +279,7 @@ class Pyramid:
             )
             current_height += item_height + margins[i]
 
-    def _draw_flexible_left_to_right(
+    def _draw_flexible_left(
         self,
         xy: Tuple[float, float],
         width: float,
@@ -334,7 +334,7 @@ class Pyramid:
             )
             current_height += item_height + margins[i]
 
-    def _draw_flexible_right_to_left(
+    def _draw_flexible_right(
         self,
         xy: Tuple[float, float],
         width: float,

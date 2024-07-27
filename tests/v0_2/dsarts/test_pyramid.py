@@ -21,28 +21,37 @@ def test():
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
-def test_top_to_bottom():
+def test_align_bottom():
     p = dsart.Pyramid(default_style="solid")
     p.add(text="Hello")
     p.add(text="World")
     p.add(text="A")
-    p.draw((10, 10), 30, 30, 2, order="top_to_bottom")
+    p.draw((10, 10), 30, 30, 2, align="bottom")
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
-def test_left_to_right():
+def test_align_top():
     p = dsart.Pyramid(default_style="solid")
     p.add(text="Hello")
     p.add(text="World")
     p.add(text="A")
-    p.draw((10, 10), 30, 30, 2, order="left_to_right")
+    p.draw((10, 10), 30, 30, 2, align="top")
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
-def test_right_to_left():
+def test_align_left():
     p = dsart.Pyramid(default_style="solid")
     p.add(text="Hello")
     p.add(text="World")
     p.add(text="A")
-    p.draw((10, 10), 30, 30, 2, order="right_to_left")
+    p.draw((10, 10), 30, 30, 2, align="left")
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
+def test_align_right():
+    p = dsart.Pyramid(default_style="solid")
+    p.add(text="Hello")
+    p.add(text="World")
+    p.add(text="A")
+    p.draw((10, 10), 30, 30, 2, align="right")
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

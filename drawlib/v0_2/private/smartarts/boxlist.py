@@ -62,7 +62,7 @@ class BoxList:
         items: List,
         highlight_indexs: Optional[List[int]] = None,
         length: Optional[int] = None,
-        orientation: Literal["left", "right", "bottom", "top"] = "left",
+        align: Literal["left", "right", "bottom", "top"] = "left",
     ):
         if highlight_indexs is None:
             highlight_indexs = []
@@ -89,7 +89,7 @@ class BoxList:
                 box_height=box_height,
                 box_style=self._box_style,
                 text_style=self._text_style,
-                orientation=orientation,
+                align=align,
             )
 
         for index in highlight_indexs:
@@ -106,7 +106,7 @@ class BoxList:
                 box_height=box_height,
                 box_style=self._box_highlight_style,
                 text_style=self._text_highlight_style,
-                orientation=orientation,
+                align=align,
             )
 
     def _draw_cell(
@@ -118,15 +118,15 @@ class BoxList:
         box_height: float,
         box_style: ShapeStyle,
         text_style: ShapeTextStyle,
-        orientation: Literal["left", "right", "bottom", "top"],
+        align: Literal["left", "right", "bottom", "top"],
     ) -> None:
-        if orientation == "left":
+        if align == "left":
             x = start_xy[0] + box_width * (index + 0.5)
             y = start_xy[1] + box_height / 2
-        elif orientation == "right":
+        elif align == "right":
             x = start_xy[0] - box_width * (index + 0.5)
             y = start_xy[1] + box_height / 2
-        elif orientation == "bottom":
+        elif align == "bottom":
             x = start_xy[0] + box_width / 2
             y = start_xy[1] + box_height * (index + 0.5)
         else:
