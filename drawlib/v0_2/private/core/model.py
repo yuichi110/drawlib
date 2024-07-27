@@ -883,6 +883,7 @@ class ShapeTextStyle:
     angle: Optional[float] = None
     flip: Optional[bool] = None
     xy_shift: Optional[Tuple[float, float]] = None
+    xy_abs_shift: Optional[Tuple[float, float]] = None
 
     @error_handler
     def copy(self) -> ShapeTextStyle:
@@ -1115,6 +1116,23 @@ class ShapeTextStyle:
 
         coordinate_validator.validate_xy("ShapeTextStyle.xy_shift", value)
         self._xy_shift = value
+
+    @property  # type: ignore[no-redef]
+    @error_handler
+    def xy_abs_shift(self) -> Optional[Tuple[float, float]]:
+        """Getter of xy_abs_shift"""
+        return self._xy_abs_shift
+
+    @xy_abs_shift.setter
+    @error_handler
+    def xy_abs_shift(self, value: Optional[Tuple[float, float]]) -> None:
+        """Setter of xy_abs_shift"""
+        if isinstance(value, property) or value is None:
+            self._xy_abs_shift = None
+            return
+
+        coordinate_validator.validate_xy("ShapeTextStyle.xy_abs_shift", value)
+        self._xy_abs_shift = value
 
 
 @dataclasses.dataclass

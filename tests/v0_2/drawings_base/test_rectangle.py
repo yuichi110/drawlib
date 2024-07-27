@@ -64,6 +64,18 @@ def test_angle135_shift():
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
+def test_angle135_abs_shift():
+    rectangle(
+        (50, 50),
+        40,
+        20,
+        angle=135,
+        text="Rectangle",
+        textstyle=ShapeTextStyle(xy_abs_shift=(10, 5), flip=True, color=Colors.Red),
+    )
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
 def test_style():
     rectangle(
         (50, 50),

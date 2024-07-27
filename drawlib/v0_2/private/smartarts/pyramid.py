@@ -95,7 +95,7 @@ class Pyramid:
         if text_xy_shift is None:
             text_xy_shift = self._default_text_xy_shift
         if text_xy_shift is not None:
-            textstyle.xy_shift = text_xy_shift
+            textstyle.xy_abs_shift = text_xy_shift
 
         # push
         item = _PyramidItem(

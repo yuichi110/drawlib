@@ -498,6 +498,7 @@ class ShapeUtil:
             text_angle = (text_angle + 180) % 360
 
         x, y = xy
+        # shift
         if style.xy_shift is not None:
             x_shift, y_shift = style.xy_shift
             if shape_angle == 0:
@@ -509,6 +510,11 @@ class ShapeUtil:
                 rotated_y_shift = x_shift * math.sin(angle_rad) + y_shift * math.cos(angle_rad)
                 x += rotated_x_shift
                 y += rotated_y_shift
+
+        # absolute shift
+        if style.xy_abs_shift is not None:
+            x += style.xy_abs_shift[0]
+            y += style.xy_abs_shift[1]
 
         # only check color. ignore alignment
         options = TextUtil.get_text_options(style)
