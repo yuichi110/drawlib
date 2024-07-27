@@ -15,6 +15,7 @@
 # It is good for type checker and IDE.
 # Warnings such as "reportPrivateImportUsage" might be appear if removing it.
 
+from drawlib.v0_2.private.smartarts.boxlist import BoxList as BoxList
 from drawlib.v0_2.private.smartarts.bubblespeech import bubblespeech as bubblespeech
 from drawlib.v0_2.private.smartarts.bulletpoints import BulletPoints as BulletPoints
 from drawlib.v0_2.private.smartarts.gridlayout import GridLayout as GridLayout
