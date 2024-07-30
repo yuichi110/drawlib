@@ -10,7 +10,7 @@
 
 """GridLayout implementation module."""
 
-from typing import Callable, List, Literal, Optional, Tuple, Union
+from typing import Any, List, Literal, Optional, Tuple, Union
 
 from drawlib.v0_2.private.core.colors import Colors
 from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
@@ -59,7 +59,7 @@ class BoxList:
         xy: Tuple[float, float],
         box_width: float,
         box_height: float,
-        items: List,
+        items: List[Any],
         highlight_indexs: Optional[List[int]] = None,
         length: Optional[int] = None,
         align: Literal["left", "right", "bottom", "top"] = "left",

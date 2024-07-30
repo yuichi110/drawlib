@@ -21,4 +21,5 @@ from drawlib.v0_2.private.smartarts.bulletpoints import BulletPoints as BulletPo
 from drawlib.v0_2.private.smartarts.gridlayout import GridLayout as GridLayout
 from drawlib.v0_2.private.smartarts.pyramid import Pyramid as Pyramid
 from drawlib.v0_2.private.smartarts.sourcecode import SourceCode as SourceCode
+from drawlib.v0_2.private.smartarts.table import Table as Table
 from drawlib.v0_2.private.smartarts.tree import TreeNode as TreeNode
