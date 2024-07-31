@@ -266,6 +266,7 @@ line = canvas.line
 line_curved = canvas.line_curved
 line_bezier1 = canvas.line_bezier1
 line_bezier2 = canvas.line_bezier2
+line_arc = canvas.line_arc
 lines = canvas.lines
 lines_curved = canvas.lines_curved
 lines_bezier = canvas.lines_bezier
@@ -276,6 +277,8 @@ trapezoid = canvas.trapezoid
 parallelogram = canvas.parallelogram
 triangle = canvas.triangle
 arrow = canvas.arrow
+arrows = canvas.arrows
+arrow_arc = canvas.arrow_arc
 star = canvas.star
 chevron = canvas.chevron
 

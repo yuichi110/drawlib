@@ -52,6 +52,14 @@ def test_line_bezier2():
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
+def test_line_arc():
+    line_arc(xy=(25, 25), radius=10, from_angle=45, to_angle=135, arrowhead="->")
+    line_arc(xy=(25, 75), radius=10, from_angle=10, to_angle=190, arrowhead="->")
+    line_arc(xy=(75, 25), radius=10, from_angle=270, to_angle=135, arrowhead="->")
+    line_arc(xy=(75, 75), radius=10, from_angle=0, to_angle=360, arrowhead="->")
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
 def test_line_curved():
     line_curved(
         (20, 20),

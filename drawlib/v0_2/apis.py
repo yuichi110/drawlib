@@ -54,6 +54,8 @@ from drawlib.v0_2.private.core_canvas.canvas import (
     arc,
     # shape original
     arrow,
+    arrow_arc,
+    arrows,
     chevron,
     circle,
     # base
@@ -66,6 +68,7 @@ from drawlib.v0_2.private.core_canvas.canvas import (
     image,
     # line
     line,
+    line_arc,
     line_bezier1,
     line_bezier2,
     line_curved,

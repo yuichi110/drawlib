@@ -324,6 +324,7 @@ def test_shapetext_style():
         "angle": None,
         "flip": None,
         "xy_shift": None,
+        "xy_abs_shift": None,
     }
     assert asdict(ShapeTextStyle(alpha=0.5)) == {
         "alpha": 0.5,
@@ -335,6 +336,7 @@ def test_shapetext_style():
         "angle": None,
         "flip": None,
         "xy_shift": None,
+        "xy_abs_shift": None,
     }
     assert asdict(ShapeTextStyle(color=Colors.Red)) == {
         "alpha": None,
@@ -346,6 +348,7 @@ def test_shapetext_style():
         "angle": None,
         "flip": None,
         "xy_shift": None,
+        "xy_abs_shift": None,
     }
     assert asdict(ShapeTextStyle(size=20)) == {
         "alpha": None,
@@ -357,6 +360,7 @@ def test_shapetext_style():
         "angle": None,
         "flip": None,
         "xy_shift": None,
+        "xy_abs_shift": None,
     }
     assert asdict(ShapeTextStyle(halign="left")) == {
         "alpha": None,
@@ -368,6 +372,7 @@ def test_shapetext_style():
         "angle": None,
         "flip": None,
         "xy_shift": None,
+        "xy_abs_shift": None,
     }
     assert asdict(ShapeTextStyle(valign="bottom")) == {
         "alpha": None,
@@ -379,6 +384,7 @@ def test_shapetext_style():
         "angle": None,
         "flip": None,
         "xy_shift": None,
+        "xy_abs_shift": None,
     }
     assert asdict(ShapeTextStyle(font=Font.SANSSERIF_BOLD)) == {
         "alpha": None,
@@ -390,6 +396,7 @@ def test_shapetext_style():
         "angle": None,
         "flip": None,
         "xy_shift": None,
+        "xy_abs_shift": None,
     }
     assert asdict(ShapeTextStyle(angle=90)) == {
         "alpha": None,
@@ -401,6 +408,7 @@ def test_shapetext_style():
         "angle": 90,
         "flip": None,
         "xy_shift": None,
+        "xy_abs_shift": None,
     }
     assert asdict(ShapeTextStyle(flip=True)) == {
         "alpha": None,
@@ -412,6 +420,7 @@ def test_shapetext_style():
         "angle": None,
         "flip": True,
         "xy_shift": None,
+        "xy_abs_shift": None,
     }
     assert asdict(ShapeTextStyle(xy_shift=(10, 10))) == {
         "alpha": None,
@@ -423,6 +432,19 @@ def test_shapetext_style():
         "angle": None,
         "flip": None,
         "xy_shift": (10, 10),
+        "xy_abs_shift": None,
+    }
+    assert asdict(ShapeTextStyle(xy_abs_shift=(10, 10))) == {
+        "alpha": None,
+        "color": None,
+        "size": None,
+        "halign": None,
+        "valign": None,
+        "font": None,
+        "angle": None,
+        "flip": None,
+        "xy_shift": None,
+        "xy_abs_shift": (10, 10),
     }
 
     with pytest.raises(ValueError):

@@ -192,6 +192,49 @@ class CanvasLineFeature(CanvasBase):
         )
 
     @error_handler
+    def line_arc(
+        self,
+        xy: Tuple[float, float],
+        radius: float,
+        from_angle: float = 0,
+        to_angle: float = 180,
+        width: Optional[float] = None,
+        arrowhead: Literal["", "->", "<-", "<->"] = "",
+        style: Union[LineStyle, str, None] = None,
+    ) -> None:
+        """Draw arc line.
+
+        Args:
+            xy: Tuple[float, float]: The center point of the circle from which the arc is drawn.
+            radius: float: The radius of the circle.
+            from_angle: float: The starting angle of the arc in degrees (default is 0).
+            to_angle: float: The ending angle of the arc in degrees (default is 180).
+            width: Optional[float]: Optional width of the line.
+            arrowhead: Literal["", "->", "<-", "<->"]: Optional arrowhead style ("", "->", "<-", "<->").
+            style: Union[LineStyle, str, None]: Optional line style.
+
+        Returns:
+            None
+        """
+        style = LineUtil.format_style(style)
+        # validator.validate_line_args(locals())
+
+        start_point, path_points = LineArcHelper.get_path_points(
+            xy,
+            radius,
+            from_angle,
+            to_angle,
+        )
+
+        self.lines_bezier(
+            start_point,
+            path_points=path_points,  # type: ignore
+            width=width,
+            arrowhead=arrowhead,
+            style=style,
+        )
+
+    @error_handler
     def lines(
         self,
         xys: List[Tuple[float, float]],
@@ -330,6 +373,71 @@ class CanvasLineFeature(CanvasBase):
         path = Path(vertices=vertices, codes=codes)
         options = LineUtil.get_fancyarrowpatch_options(arrowhead, style)
         self._artists.append(FancyArrowPatch(path=path, **options))
+
+
+class LineArcHelper:
+    """Internal class"""
+
+    @classmethod
+    def get_path_points(
+        cls,
+        xy: Tuple[float, float],
+        radius: float,
+        from_angle: float,
+        to_angle: float,
+    ) -> Tuple[
+        Tuple[float, float],
+        List[Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]]],
+    ]:
+        """Internal function"""
+        if abs(from_angle - to_angle) > 180:
+            mid_angle = int((from_angle + to_angle) / 2)
+            p1, p2, p3, p4 = cls.bezier_arc_approximation(xy, radius, from_angle, mid_angle)
+            _, p6, p7, p8 = cls.bezier_arc_approximation(xy, radius, mid_angle, to_angle)
+
+            return (p1, [(p2, p3, p4), (p6, p7, p8)])
+
+        p1, p2, p3, p4 = cls.bezier_arc_approximation(xy, radius, from_angle, to_angle)
+        return (p1, [(p2, p3, p4)])
+
+    @classmethod
+    def bezier_arc_approximation(
+        cls,
+        xy: Tuple[float, float],
+        radius: float,
+        from_angle: float,
+        to_angle: float,
+    ) -> Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float], Tuple[float, float]]:
+        """Internal function"""
+        x, y = xy
+
+        # Convert angles from degrees to radians
+        a1 = math.radians(from_angle)
+        a2 = math.radians(to_angle)
+
+        # Calculate the start and end points of the arc
+        start_point = (
+            x + radius * math.cos(a1),
+            y + radius * math.sin(a1),
+        )
+        end_point = (
+            x + radius * math.cos(a2),
+            y + radius * math.sin(a2),
+        )
+
+        phi = a2 - a1
+        alpha = (4 / 3) * math.tan(phi / 4)
+
+        control_point1 = (
+            start_point[0] - alpha * radius * math.sin(a1),
+            start_point[1] + alpha * radius * math.cos(a1),
+        )
+        control_point2 = (
+            end_point[0] + alpha * radius * math.sin(a2),
+            end_point[1] - alpha * radius * math.cos(a2),
+        )
+
+        return start_point, control_point1, control_point2, end_point
 
 
 def _get_mid_points(
