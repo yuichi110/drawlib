@@ -42,7 +42,10 @@ class _CellInfo:
 
 
 class Table:
-    def __init__(self):
+    """A class used to create and manage the style and drawing of a table."""
+
+    def __init__(self) -> None:
+        """Initialize instance"""
         self._bs_top: Optional[LineStyle] = None
         self._bs_top2: Optional[LineStyle] = None
         self._bs_bottom: Optional[LineStyle] = None
@@ -55,7 +58,8 @@ class Table:
 
         self.set_predefined_style("default")
 
-    def clear_styles(self):
+    def clear_styles(self) -> None:
+        """Clears all cell and border styles, resetting the table to have no styles."""
         self._bs_top = None
         self._bs_top2 = None
         self._bs_bottom = None
@@ -66,7 +70,18 @@ class Table:
         self._bs_between_rows = None
         self._cell_style_orders = []
 
-    def set_predefined_style(self, name: Literal["default", "monochrome", "white"]) -> None:
+    def set_predefined_style(
+        self,
+        name: Literal["default", "monochrome", "white"],
+    ) -> None:
+        """Sets a predefined style for the table based on the given name.
+
+        Args:
+            name (Literal["default", "monochrome", "white"]): The name of the predefined style.
+
+        Raises:
+            ValueError: If the provided style name is not recognized.
+        """
         self.clear_styles()
 
         if name == "default":
@@ -98,6 +113,7 @@ class Table:
             self.set_style_border(
                 bottom=LineStyle(color=ColorsThemeEssentials.Charcoal, width=1),
             )
+
         elif name == "white":
             self.set_style_cell(
                 background_color=ColorsThemeEssentials.White,
@@ -122,7 +138,15 @@ class Table:
         self,
         background_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
         textstyle: Union[str, ShapeTextStyle],
-    ):
+    ) -> None:
+        """Sets the style for both column and row headers.
+
+        Args:
+            background_color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
+                    The background color of the headers.
+            textstyle (Union[str, ShapeTextStyle]):
+                    The text style of the headers. Can be a string key for predefined styles or a ShapeTextStyle object.
+        """
         if isinstance(textstyle, str):
             textstyle = dtheme.shapetextstyles.get(textstyle)
 
@@ -133,7 +157,17 @@ class Table:
         self,
         background_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
         textstyle: Union[str, ShapeTextStyle],
-    ):
+    ) -> None:
+        """
+        Sets the style for the column header.
+
+        Args:
+            background_color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
+                    The background color of the column header.
+            textstyle (Union[str, ShapeTextStyle]):
+                    The text style of the column header.
+                    Can be a string key for predefined styles or a ShapeTextStyle object.
+        """
         if isinstance(textstyle, str):
             textstyle = dtheme.shapetextstyles.get(textstyle)
 
@@ -147,7 +181,17 @@ class Table:
         self,
         background_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
         textstyle: Union[str, ShapeTextStyle],
-    ):
+    ) -> None:
+        """
+        Sets the style for the row header.
+
+        Args:
+            background_color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
+                    The background color of the row header.
+            textstyle (Union[str, ShapeTextStyle]):
+                    The text style of the row header.
+                    Can be a string key for predefined styles or a ShapeTextStyle object.
+        """
         if isinstance(textstyle, str):
             textstyle = dtheme.shapetextstyles.get(textstyle)
 
@@ -163,7 +207,22 @@ class Table:
         even_textstyle: Union[str, ShapeTextStyle],
         odd_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
         odd_textstyle: Union[str, ShapeTextStyle],
-    ):
+    ) -> None:
+        """
+        Sets alternating styles for even and odd rows.
+
+        Args:
+            even_color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
+                    The background color for even rows.
+            even_textstyle (Union[str, ShapeTextStyle]):
+                    The text style for even rows.
+                    Can be a string key for predefined styles or a ShapeTextStyle object.
+            odd_color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
+                    The background color for odd rows.
+            odd_textstyle (Union[str, ShapeTextStyle]):
+                    The text style for odd rows.
+                    Can be a string key for predefined styles or a ShapeTextStyle object.
+        """
         if isinstance(even_textstyle, str):
             even_textstyle = dtheme.shapetextstyles.get(even_textstyle)
         if isinstance(odd_textstyle, str):
@@ -185,7 +244,21 @@ class Table:
         textstyle: Union[str, ShapeTextStyle],
         rows: Optional[List[int]] = None,
         columns: Optional[List[int]] = None,
-    ):
+    ) -> None:
+        """
+        Sets the style for specific cells.
+
+        Args:
+            background_color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
+                    The background color of the cells.
+            textstyle (Union[str, ShapeTextStyle]):
+                    The text style of the cells.
+                    Can be a string key for predefined styles or a ShapeTextStyle object.
+            rows (Optional[List[int]]):
+                    A list of row indices to apply the style to. If None, applies to all rows.
+            columns (Optional[List[int]]):
+                    A list of column indices to apply the style to. If None, applies to all columns.
+        """
         if isinstance(textstyle, str):
             textstyle = dtheme.shapetextstyles.get(textstyle)
 
@@ -201,7 +274,7 @@ class Table:
 
     # border style
 
-    def set_style_border(
+    def set_style_border(  # noqa: C901
         self,
         top: Union[str, LineStyle, None] = None,
         top2: Union[str, LineStyle, None] = None,
@@ -211,7 +284,35 @@ class Table:
         right: Union[str, LineStyle, None] = None,
         between_columns: Union[str, LineStyle, None] = None,
         between_rows: Union[str, LineStyle, None] = None,
-    ):
+    ) -> None:
+        """Sets the style for table borders.
+
+        Args:
+            top (Union[str, LineStyle, None]):
+                    Style for the top border.
+                    Can be a string key for predefined styles or a LineStyle object.
+            top2 (Union[str, LineStyle, None]):
+                    Style for the secondary top border.
+                    Can be a string key for predefined styles or a LineStyle object.
+            bottom (Union[str, LineStyle, None]):
+                    Style for the bottom border.
+                    Can be a string key for predefined styles or a LineStyle object.
+            left (Union[str, LineStyle, None]):
+                    Style for the left border.
+                    Can be a string key for predefined styles or a LineStyle object.
+            left2 (Union[str, LineStyle, None]):
+                    Style for the secondary left border.
+                    Can be a string key for predefined styles or a LineStyle object.
+            right (Union[str, LineStyle, None]):
+                    Style for the right border.
+                    Can be a string key for predefined styles or a LineStyle object.
+            between_columns (Union[str, LineStyle, None]):
+                    Style for borders between columns.
+                    Can be a string key for predefined styles or a LineStyle object.
+            between_rows (Union[str, LineStyle, None]):
+                    Style for borders between rows.
+                    Can be a string key for predefined styles or a LineStyle object.
+        """
         if isinstance(top, str):
             self._bs_top = dtheme.linestyles.get(top)
         elif isinstance(top, LineStyle):
@@ -260,7 +361,15 @@ class Table:
         width: float,
         height: float,
         data: List[List[Any]],
-    ):
+    ) -> None:
+        """Draws the table with equal-sized cells.
+
+        Args:
+            xy (Tuple[float, float]): The coordinates where the table should be drawn.
+            width (float): The total width of the table.
+            height (float): The total height of the table.
+            data (List[List[Any]]): The data to be displayed in the table.
+        """
         num_rows = len(data)
         num_cols = len(data[0])
 
@@ -279,7 +388,15 @@ class Table:
         column_widths: List[float],
         row_heights: List[float],
         data: List[List[Any]],
-    ):
+    ) -> None:
+        """Draws the table with flexible cell sizes.
+
+        Args:
+            xy (Tuple[float, float]): The coordinates where the table should be drawn.
+            column_widths (List[float]): A list of widths for each column.
+            row_heights (List[float]): A list of heights for each row.
+            data (List[List[Any]]): The data to be displayed in the table.
+        """
         # create blank matrix
         default_textstyle = dtheme.shapetextstyles.get()
         matrix: List[List[_CellInfo]] = []
@@ -318,8 +435,8 @@ class Table:
 
     # private
 
+    @staticmethod
     def _update_cell_xy_size(
-        self,
         xy: Tuple[float, float],
         column_widths: List[float],
         row_heights: List[float],
@@ -337,7 +454,7 @@ class Table:
             x = xy[0]
             y -= row_hight
 
-    def _update_cell_style(
+    def _update_cell_style(  # noqa: C901
         self,
         matrix: List[List[_CellInfo]],
     ) -> None:
@@ -399,8 +516,8 @@ class Table:
                     cso.columns,
                 )
 
+    @staticmethod
     def _draw_cells(
-        self,
         matrix: List[List[_CellInfo]],
     ) -> None:
         for row in matrix:
@@ -425,7 +542,7 @@ class Table:
                     textstyle=textstyle,
                 )
 
-    def _draw_border_lines(
+    def _draw_border_lines(  # noqa: C901
         self,
         xy: Tuple[float, float],
         column_widths: List[float],

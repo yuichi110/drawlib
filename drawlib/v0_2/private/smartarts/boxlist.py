@@ -8,7 +8,7 @@
 # merchantability, fitness for a particular purpose and noninfringement.
 
 
-"""GridLayout implementation module."""
+"""BoxList implementation module."""
 
 from typing import Any, List, Literal, Optional, Tuple, Union
 
@@ -19,6 +19,15 @@ from drawlib.v0_2.private.core_canvas.canvas import rectangle
 
 
 class BoxList:
+    """A class to draw a list of boxes with text, supporting highlighting of certain boxes.
+
+    Args:
+        box_style (Union[str, ShapeStyle, None]): The style for the boxes.
+        text_style (Union[str, ShapeTextStyle, None]): The style for the text inside the boxes.
+        box_highlight_style (Union[str, ShapeStyle, None]): The style for the highlighted boxes.
+        text_highlight_style (Union[str, ShapeTextStyle, None]): The style for the text inside the highlighted boxes.
+    """
+
     def __init__(
         self,
         box_style: Union[str, ShapeStyle, None] = None,
@@ -26,6 +35,15 @@ class BoxList:
         box_highlight_style: Union[str, ShapeStyle, None] = None,
         text_highlight_style: Union[str, ShapeTextStyle, None] = None,
     ) -> None:
+        """Initialize BoxList.
+
+        Args:
+            box_style (Union[str, ShapeStyle, None]): The style for the boxes.
+            text_style (Union[str, ShapeTextStyle, None]): The style for the text inside the boxes.
+            box_highlight_style (Union[str, ShapeStyle, None]): The style for the highlighted boxes.
+            text_highlight_style (Union[str, ShapeTextStyle, None]):
+                    The style for the text inside the highlighted boxes.
+        """
         if isinstance(box_style, str):
             box_style = dtheme.rectanglestyles.get(box_style)
         if box_style is None:
@@ -63,7 +81,21 @@ class BoxList:
         highlight_indexs: Optional[List[int]] = None,
         length: Optional[int] = None,
         align: Literal["left", "right", "bottom", "top"] = "left",
-    ):
+    ) -> None:
+        """Draws a list of boxes at the specified location.
+
+        Args:
+            xy (Tuple[float, float]): The starting point (x, y) to draw the list of boxes.
+            box_width (float): The width of each box.
+            box_height (float): The height of each box.
+            items (List[Any]): The list of items to be displayed inside the boxes.
+            highlight_indexs (Optional[List[int]]):
+                    The list of indices of the boxes to be highlighted.
+            length (Optional[int]): The total number of boxes to be drawn.
+            align (Literal["left", "right", "bottom", "top"]):
+                    The alignment of the boxes relative to the starting point.
+
+        """
         if highlight_indexs is None:
             highlight_indexs = []
 
@@ -109,8 +141,8 @@ class BoxList:
                 align=align,
             )
 
+    @staticmethod
     def _draw_cell(
-        self,
         start_xy: Tuple[float, float],
         index: int,
         text: str,

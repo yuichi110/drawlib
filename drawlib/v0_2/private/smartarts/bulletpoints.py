@@ -8,7 +8,7 @@
 # merchantability, fitness for a particular purpose and noninfringement.
 
 
-"""GridLayout implementation module."""
+"""BulletPoints implementation module."""
 
 import dataclasses
 from typing import Callable, List, Optional, Tuple, Union
@@ -20,12 +20,27 @@ from drawlib.v0_2.private.core_canvas.canvas import circle, text
 
 
 class BulletPoints:
+    """A class to draw a list of bullet points with customizable styles and indentation.
+
+    Args:
+        vertical_margin (float): The vertical space between bullet points.
+        indent_width (float): The width of the indentation for each level.
+        default_style (Union[str, TextStyle, None]): The default text style for the bullet points.
+    """
+
     def __init__(
         self,
         vertical_margin: float,
         indent_width: float,
         default_style: Union[str, TextStyle, None] = None,
     ) -> None:
+        """Initialize BulletPoints.
+
+        Args:
+            vertical_margin (float): The vertical space between bullet points.
+            indent_width (float): The width of the indentation for each level.
+            default_style (Union[str, TextStyle, None]): The default text style for the bullet points.
+        """
         self._vertical_margin = vertical_margin
         self._indent_width = indent_width
         if isinstance(default_style, str):
@@ -50,6 +65,11 @@ class BulletPoints:
         self.set_bullet_style(2, circle, style2, args={"radius": 0.5})
 
     def set_indent(self, level: int) -> None:
+        """Sets the indentation level for the next bullet point.
+
+        Args:
+            level (int): The indentation level.
+        """
         self._indent_level = level
 
     def set_bullet_style(
@@ -58,7 +78,15 @@ class BulletPoints:
         function: Callable,
         style: Union[str, ShapeStyle],
         args: dict,
-    ):
+    ) -> None:
+        """Sets the style and function for drawing bullets at a specific indentation level.
+
+        Args:
+            indent_level (int): The indentation level to apply the style to.
+            function (Callable): The function to draw the bullet shape.
+            style (Union[str, ShapeStyle]): The style to apply to the bullet shape.
+            args (dict): Additional arguments to pass to the drawing function.
+        """
         if isinstance(style, str):
             style = dtheme.shapestyles.get(style)
         style.halign = "center"
@@ -72,7 +100,17 @@ class BulletPoints:
 
         self._bullet_shape_map[indent_level] = item
 
-    def add(self, text: str, style: Union[str, TextStyle, None] = None) -> None:
+    def add(
+        self,
+        text: str,
+        style: Union[str, TextStyle, None] = None,
+    ) -> None:
+        """Adds a bullet point with the specified text and style.
+
+        Args:
+            text (str): The text for the bullet point.
+            style (Union[str, TextStyle, None]): The text style for the bullet point.
+        """
         if isinstance(style, str):
             style = dtheme.textstyles.get(style)
         elif style is None:
@@ -90,7 +128,15 @@ class BulletPoints:
             )
         )
 
-    def draw(self, xy: Tuple[float, float]) -> None:
+    def draw(
+        self,
+        xy: Tuple[float, float],
+    ) -> None:
+        """Draws the list of bullet points starting from the specified location.
+
+        Args:
+            xy (Tuple[float, float]): The starting point (x, y) to draw the bullet points.
+        """
         y = xy[1]
         for bullet_text in self._bullet_texts:
             indent = bullet_text.indent
