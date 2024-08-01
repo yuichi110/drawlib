@@ -182,7 +182,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
             dtheme.arrowstyles.get,
             dtheme.arrowtextstyles.get,
         )
-        # validator.validate_shape_args(locals())
+        validator.validate_shape_args(locals())
 
         parallel_xys1 = ArrowsHelper.get_parallel_lines_xys(xys, tail_width / 2)
         parallel_xys2 = ArrowsHelper.get_parallel_lines_xys(xys, tail_width / 2 * -1)
@@ -333,6 +333,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
             dtheme.arrowstyles.get,
             dtheme.arrowtextstyles.get,
         )
+        validator.validate_shape_args(locals())
 
         is_clock_wise = from_angle > to_angle
         if head == "->":

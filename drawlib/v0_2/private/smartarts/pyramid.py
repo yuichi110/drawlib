@@ -16,11 +16,13 @@ from typing import List, Literal, Optional, Tuple, Union
 from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core_canvas.canvas import trapezoid, triangle
+from drawlib.v0_2.private.util import error_handler
 
 
 class Pyramid:
     """Class for rendering smart art pyramid."""
 
+    @error_handler
     def __init__(
         self,
         default_style: Union[str, ShapeStyle, None] = None,
@@ -40,6 +42,7 @@ class Pyramid:
 
         self._items: List[_PyramidItem] = []
 
+    @error_handler
     def add(  # noqa: C901
         self,
         style: Union[str, ShapeStyle, None] = None,
@@ -105,6 +108,7 @@ class Pyramid:
         )
         self._items.append(item)
 
+    @error_handler
     def draw(
         self,
         xy: Tuple[float, float],
@@ -123,7 +127,7 @@ class Pyramid:
             align (str): Alignment of a pyramid.
         """
         if len(self._items) == 0:
-            raise ValueError()
+            raise ValueError("Number of pyramid item is 0.")
 
         margins = [margin] * (len(self._items) - 1)
         item_height = (height - sum(margins)) / len(self._items)
@@ -137,6 +141,7 @@ class Pyramid:
             align=align,
         )
 
+    @error_handler
     def draw_flexible(
         self,
         xy: Tuple[float, float],
@@ -159,13 +164,13 @@ class Pyramid:
         """
         # validate
         if len(self._items) == 0:
-            raise ValueError()
+            raise ValueError("Number of pyramid item is 0.")
 
         if len(self._items) != len(item_heights):
-            raise ValueError()
+            raise ValueError('Number of pyramid item and arg "items_heights" length are different.')
 
         if len(self._items) != len(margins) + 1:
-            raise ValueError()
+            raise ValueError('Number of pyramid item and arg "margins" length does not match.')
 
         if align == "bottom":
             self._draw_flexible_bottom(xy, width, item_heights, margins)
@@ -176,7 +181,7 @@ class Pyramid:
         elif align == "right":
             self._draw_flexible_right(xy, width, item_heights, margins)
         else:
-            raise ValueError()
+            raise ValueError("Drawlib internal error.")
 
     def _draw_flexible_bottom(
         self,

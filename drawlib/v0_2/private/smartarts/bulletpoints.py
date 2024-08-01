@@ -17,6 +17,7 @@ from drawlib.v0_2.private.core.colors import Colors
 from drawlib.v0_2.private.core.model import ShapeStyle, TextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core_canvas.canvas import circle, text
+from drawlib.v0_2.private.util import error_handler
 
 
 class BulletPoints:
@@ -28,6 +29,7 @@ class BulletPoints:
         default_style (Union[str, TextStyle, None]): The default text style for the bullet points.
     """
 
+    @error_handler
     def __init__(
         self,
         vertical_margin: float,
@@ -64,6 +66,7 @@ class BulletPoints:
         self.set_bullet_style(1, circle, style1, args={"radius": 0.5})
         self.set_bullet_style(2, circle, style2, args={"radius": 0.5})
 
+    @error_handler
     def set_indent(self, level: int) -> None:
         """Sets the indentation level for the next bullet point.
 
@@ -72,6 +75,7 @@ class BulletPoints:
         """
         self._indent_level = level
 
+    @error_handler
     def set_bullet_style(
         self,
         indent_level: int,
@@ -100,6 +104,7 @@ class BulletPoints:
 
         self._bullet_shape_map[indent_level] = item
 
+    @error_handler
     def add(
         self,
         text: str,
@@ -128,6 +133,7 @@ class BulletPoints:
             )
         )
 
+    @error_handler
     def draw(
         self,
         xy: Tuple[float, float],

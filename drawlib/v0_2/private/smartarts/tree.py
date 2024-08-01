@@ -18,6 +18,7 @@ from typing import Callable, Dict, List, Literal, Optional, Tuple, Union
 from drawlib.v0_2.private.core.model import IconStyle, ImageStyle, LineStyle, ShapeStyle, TextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core_canvas.canvas import line, text
+from drawlib.v0_2.private.util import error_handler
 
 
 class TreeNode:
@@ -25,6 +26,7 @@ class TreeNode:
 
     _drawing_item_map: Dict[str, _TreeNodeDrawingItem] = {}
 
+    @error_handler
     def __init__(
         self,
         text: str,
@@ -73,6 +75,7 @@ class TreeNode:
         self._drawing_item_name: Optional[str] = None
 
     @classmethod
+    @error_handler
     def register_drawing_item(
         cls,
         name: str,
@@ -108,6 +111,7 @@ class TreeNode:
 
         cls._drawing_item_map[name] = item
 
+    @error_handler
     def set_drawing_item(
         self,
         name: str,
@@ -126,6 +130,7 @@ class TreeNode:
 
         return self
 
+    @error_handler
     def draw(self, xy: Tuple[float, float]) -> None:
         """Draw the tree node and its children.
 
@@ -136,15 +141,15 @@ class TreeNode:
             ValueError: If any of the default styles or margins are None.
         """
         if self._default_textstyle is None:
-            raise ValueError()
+            raise ValueError('Root of TreeNode must be initialized with arg "default_textstyle".')
         if self._default_linestyle is None:
-            raise ValueError()
+            raise ValueError('Root of TreeNode must be initialized with arg "default_linestyle".')
         if self._default_line_horizontal_margin is None:
-            raise ValueError()
+            raise ValueError('Root of TreeNode must be initialized with arg "default_line_horizontal_margin".')
         if self._default_line_horizontal_length is None:
-            raise ValueError()
+            raise ValueError('Root of TreeNode must be initialized with arg "default_line_horizontal_length".')
         if self._default_line_vertical_margin is None:
-            raise ValueError()
+            raise ValueError('Root of TreeNode must be initialized with arg "default_line_vertical_margin".')
 
         self._draw(
             xy=xy,

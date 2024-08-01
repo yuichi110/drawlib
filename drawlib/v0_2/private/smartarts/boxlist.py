@@ -16,6 +16,7 @@ from drawlib.v0_2.private.core.colors import Colors
 from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core_canvas.canvas import rectangle
+from drawlib.v0_2.private.util import error_handler
 
 
 class BoxList:
@@ -28,6 +29,7 @@ class BoxList:
         text_highlight_style (Union[str, ShapeTextStyle, None]): The style for the text inside the highlighted boxes.
     """
 
+    @error_handler
     def __init__(
         self,
         box_style: Union[str, ShapeStyle, None] = None,
@@ -72,6 +74,7 @@ class BoxList:
             text_highlight_style = text_style
         self._text_highlight_style = text_highlight_style
 
+    @error_handler
     def draw(
         self,
         xy: Tuple[float, float],

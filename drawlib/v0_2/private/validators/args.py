@@ -226,6 +226,15 @@ def validate_line_args(args: Dict[str, Any]) -> None:  # noqa: C901
         elif "r" == arg_name:
             types_validator.validate_plus_float("r", value)
 
+        elif "radius" == arg_name:
+            types_validator.validate_plus_float("radius", value, is_0_ok=False)
+
+        elif "from_angle" == arg_name:
+            coordinate_validator.validate_angle("from_angle", value)
+
+        elif "to_angle" == arg_name:
+            coordinate_validator.validate_angle("to_angle", value)
+
         elif "style" == arg_name:
             style_validator.validate_linestyle("style", value)
 
@@ -253,6 +262,9 @@ def validate_shape_args(  # noqa: C901
                     continue
 
         if "self" == arg_name:
+            continue
+
+        if "_" == arg_name:
             continue
 
         # Check start from here
@@ -285,13 +297,13 @@ def validate_shape_args(  # noqa: C901
             types_validator.validate_plus_float("topedge_width", value, is_0_ok=False)
 
         elif "radius" == arg_name:
-            types_validator.validate_plus_float("bottomedge_width", value, is_0_ok=False)
+            types_validator.validate_plus_float("radius", value, is_0_ok=False)
 
         elif "radius_ext" == arg_name:
-            types_validator.validate_plus_float("bottomedge_width", value, is_0_ok=False)
+            types_validator.validate_plus_float("radius_ext", value, is_0_ok=False)
 
         elif "radius_int" == arg_name:
-            types_validator.validate_plus_float("bottomedge_width", value, is_0_ok=False)
+            types_validator.validate_plus_float("radius_int", value, is_0_ok=False)
 
         elif "num_vertex" == arg_name:
             shape_validator.validate_num_vertex("num_vertex", value)
@@ -325,6 +337,9 @@ def validate_shape_args(  # noqa: C901
 
         elif "head_length" == arg_name:
             types_validator.validate_plus_float("head_length", value, is_0_ok=False)
+
+        elif "head_angle" == arg_name:
+            coordinate_validator.validate_angle("from_angle", value)
 
         elif "head" == arg_name:
             shape_validator.validate_head_style("head", value)

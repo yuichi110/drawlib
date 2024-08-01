@@ -16,11 +16,13 @@ from typing import List, Optional, Tuple, Union
 from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core_canvas.canvas import rectangle
+from drawlib.v0_2.private.util import error_handler
 
 
 class GridLayout:
     """Class for rendering multiple rectangles which fit to grid."""
 
+    @error_handler
     def __init__(
         self,
         num_column: int,
@@ -44,6 +46,7 @@ class GridLayout:
 
         self._items: List[_GridLayoutItem] = []
 
+    @error_handler
     def add(  # noqa: C901
         self,
         column_range: Tuple[int, int],
@@ -81,20 +84,22 @@ class GridLayout:
         # validate column
         c1, c2 = column_range
         if c1 > c2:
-            raise ValueError()
+            column_range = (c2, c1)
+            c1, c2 = c2, c1
         if c1 < 0:
-            raise ValueError()
+            raise ValueError("Column range must be between 0 ~ last-index.")
         if c2 > self._num_column:
-            raise ValueError()
+            raise ValueError("Column range must be between 0 ~ last-index.")
 
         # validate row
         r1, r2 = row_range
         if r1 > r2:
-            raise ValueError()
+            row_range = (r2, r1)
+            r1, r2 = r2, r1
         if r1 < 0:
-            raise ValueError()
+            raise ValueError("Row range must be between 0 ~ last-index.")
         if r2 > self._num_column:
-            raise ValueError()
+            raise ValueError("Row range must be between 0 ~ last-index.")
 
         # string style to Style class
         if isinstance(style, str):
@@ -141,6 +146,7 @@ class GridLayout:
         )
         self._items.append(item)
 
+    @error_handler
     def draw(
         self,
         xy: Tuple[float, float],
@@ -182,6 +188,7 @@ class GridLayout:
             outer_style=outer_style,
         )
 
+    @error_handler
     def draw_flexible(  # noqa: C901
         self,
         xy: Tuple[float, float],
@@ -210,13 +217,13 @@ class GridLayout:
         """
         # validate
         if len(column_widths) != self._num_column:
-            raise ValueError()
+            raise ValueError('Length of arg "column_widths" does not match to num of columns')
         if len(column_margins) != self._num_column + 1:
-            raise ValueError()
+            raise ValueError('Length of arg "column_margins" does not match to num of columns + 1')
         if len(row_heights) != self._num_row:
-            raise ValueError()
+            raise ValueError('Length of arg "row_heights" does not match to num of rows')
         if len(row_margins) != self._num_row + 1:
-            raise ValueError()
+            raise ValueError('Length of arg "row_margins" does not match to num of rows + 1')
 
         # draw outer rectangle
         if outer_style is not None:
