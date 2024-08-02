@@ -316,7 +316,8 @@ class CanvasOriginalArrowFeature(CanvasBase):
 
         Args:
             xy: Tuple[float, float]: The center point of the circle from which the arc arrow is drawn.
-            radius: float: The radius of the circle.
+            width: float: The width of the ellipse.
+            height: float: The height of the ellipse
             tail_width: float: The width of the tail of the arrow.
             head_width: float: The width of the head of the arrow.
             head_angle: float: The angle of the arrowhead in degrees (default is 10).
@@ -633,70 +634,3 @@ class ArrowsHelper:
         y = m1 * x + b1
 
         return (x, y)
-
-
-'''
-class ArrowArcHelper:
-    """Internal class"""
-
-    @classmethod
-    def get_ellipse_path_points(
-        cls,
-        xy: Tuple[float, float],
-        width: float,
-        height: float,
-        from_angle: float,
-        to_angle: float,
-    ) -> List[
-        Union[
-            Tuple[float, float],
-            Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]],
-        ]
-    ]:
-        """Internal function"""
-        i = 0
-        start = None
-        path_points = []
-
-        diff = to_angle - from_angle
-        if diff > 270:
-            # having +2 for avoiding situation next_mid_angle == to_angle
-            step = int(diff / 3) + 2
-        elif diff > 135:
-            step = int(diff / 2) + 2
-        else:
-            step = 360
-
-        while True:
-            last_mid_angle = from_angle + step * i
-            next_mid_angle = from_angle + step * (i + 1)
-            if next_mid_angle > to_angle:
-                p1, p2, p3, p4 = LineArcHelper.bezier_ellipse_arc_approximation(
-                    xy,
-                    width,
-                    height,
-                    last_mid_angle,
-                    to_angle,
-                )
-                if start is None:
-                    start = p1
-                path_points.append((p2, p3, p4))
-                break
-
-            else:
-                p1, p2, p3, p4 = LineArcHelper.bezier_ellipse_arc_approximation(
-                    xy,
-                    width,
-                    height,
-                    last_mid_angle,
-                    next_mid_angle,
-                )
-                if start is None:
-                    start = p1
-                path_points.append((p2, p3, p4))
-
-            i += 1
-
-        path_points.insert(0, start)
-        return path_points
-'''

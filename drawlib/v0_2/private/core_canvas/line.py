@@ -207,7 +207,7 @@ class CanvasLineFeature(CanvasBase):
 
         Args:
             xy: Tuple[float, float]: The center point of the ellipse from which the arc is drawn.
-            width: float: The radius of the ellipse.
+            width: float: The width of the ellipse.
             height: float: The height of the ellipse
             from_angle: float: The starting angle of the arc in degrees (default is 0).
             to_angle: float: The ending angle of the arc in degrees (default is 180).
