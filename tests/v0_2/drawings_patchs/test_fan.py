@@ -9,19 +9,20 @@
 
 from drawlib.v0_2.apis import *
 
-OUTPUT_DIR = "../../../output_tests/v0_2/drawing_patches/wedge/"
+OUTPUT_DIR = "../../../output_tests/v0_2/drawings_patches/fan/"
 
 
 def test():
-    wedge((50, 50), radius=30, width=10, text="Hello")
+    fan((50, 50), radius=30, from_angle=45, to_angle=90)
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_style():
-    wedge(
+    fan(
         (50, 50),
         radius=30,
-        width=10,
+        from_angle=45,
+        to_angle=90,
         style=ShapeStyle(lwidth=3, lcolor=Colors.Red, lstyle="dashdot", fcolor=Colors.Green),
         text="Hello",
     )
@@ -29,10 +30,11 @@ def test_style():
 
 
 def test_align_leftbottom():
-    wedge(
+    fan(
         (50, 50),
         radius=30,
-        width=10,
+        from_angle=45,
+        to_angle=90,
         style=ShapeStyle(halign="left", valign="bottom"),
         text="Hello",
     )
@@ -40,10 +42,11 @@ def test_align_leftbottom():
 
 
 def test_align_center():
-    wedge(
+    fan(
         (50, 50),
         radius=30,
-        width=10,
+        from_angle=45,
+        to_angle=90,
         style=ShapeStyle(halign="center", valign="center"),
         text="Hello",
     )
@@ -51,10 +54,11 @@ def test_align_center():
 
 
 def test_align_righttop():
-    wedge(
+    fan(
         (50, 50),
         radius=30,
-        width=10,
+        from_angle=45,
+        to_angle=90,
         style=ShapeStyle(halign="right", valign="top"),
         text="Hello",
     )
@@ -62,13 +66,5 @@ def test_align_righttop():
 
 
 def test_angle120():
-    wedge(
-        (50, 50),
-        radius=30,
-        from_angle=45,
-        to_angle=270,
-        width=10,
-        angle=120,
-        text="Hello",
-    )
+    fan((50, 50), radius=30, from_angle=45, to_angle=270, angle=120, text="Hello")
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

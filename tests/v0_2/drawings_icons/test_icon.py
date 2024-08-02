@@ -9,16 +9,20 @@
 
 from drawlib.v0_2.apis import *
 
-OUTPUT_DIR = "../../../output_tests/v0_2/drawing_originals/arrows/"
+FONT_AWESOME_FREE = "../../assets/fontawesome-free/brands.ttf"
+OUTPUT_DIR = "../../../output_tests/v0_2/drawings_icons/icon/"
 
 
-def test():
-    arrows(
-        xys=[(10, 10), (20, 20), (30, 80), (80, 80), (60, 20)],
-        tail_width=2,
-        head_length=3,
-        head_width=5,
-        head="->",
-        r=5,
+def test_icon():
+    icon(
+        xy=(50, 50),
+        width=20,
+        code="\uf1a0",
+        file=FONT_AWESOME_FREE,
+        style=IconStyle(
+            color=Colors.Red,
+            halign="center",
+            valign="center",
+        ),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

@@ -9,7 +9,7 @@
 
 from drawlib.v0_2.apis import *
 
-OUTPUT_DIR = "../../../output_tests/v0_2/drawing_patches/polygon/"
+OUTPUT_DIR = "../../../output_tests/v0_2/drawings_patches/polygon/"
 
 
 def test():

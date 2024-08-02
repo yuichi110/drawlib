@@ -79,7 +79,7 @@ ignore = [
     "S101", # Use of assert detected
     "S310"  # Audit URL open for permitted schemes
 ]
-"tests/**.py" = [
+"tests*/**.py" = [
     "F403", # undefined-local-with-import-star
     "F405", # undefined-local-with-import-star-usage
     "D100", # undocumented-public-module

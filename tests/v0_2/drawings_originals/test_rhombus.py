@@ -9,58 +9,53 @@
 
 from drawlib.v0_2.apis import *
 
-OUTPUT_DIR = "../../../output_tests/v0_2/drawing_patches/donuts/"
+OUTPUT_DIR = "../../../output_tests/v0_2/drawings_originals/rhombus/"
 
 
 def test():
-    donuts((50, 50), radius=30, width=10)
+    rhombus((50, 50), 20, 40)
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_style():
-    donuts(
+    rhombus(
         (50, 50),
-        radius=30,
-        width=10,
-        style=ShapeStyle(lwidth=3, lcolor=Colors.Red, lstyle="dashdot", fcolor=Colors.Green),
-        text="Hello",
+        20,
+        40,
+        style=ShapeStyle(
+            lcolor=Colors.Red,
+            fcolor=Colors.Transparent,
+            lwidth=3,
+        ),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_align_leftbottom():
-    donuts(
-        (50, 50),
-        radius=30,
-        width=10,
-        style=ShapeStyle(halign="left", valign="bottom"),
-        text="Hello",
-    )
+    rhombus((50, 50), 20, 40, style=ShapeStyle(halign="left", valign="bottom"))
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_align_center():
-    donuts(
-        (50, 50),
-        radius=30,
-        width=10,
-        style=ShapeStyle(halign="center", valign="center"),
-        text="Hello",
-    )
+    rhombus((50, 50), 20, 40, style=ShapeStyle(halign="center", valign="center"))
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_align_righttop():
-    donuts(
-        (50, 50),
-        radius=30,
-        width=10,
-        style=ShapeStyle(halign="right", valign="top"),
-        text="Hello",
-    )
+    rhombus((50, 50), 20, 40, style=ShapeStyle(halign="right", valign="top"))
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
-def test_angle120():
-    donuts((50, 50), radius=30, width=10, angle=120, text="hungy")
+def test_text():
+    rhombus((50, 50), 20, 40, text="hello")
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
+def test_rotate45():
+    rhombus((50, 50), 20, 40, angle=45)
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
+def test_rotate45_text():
+    rhombus((50, 50), 20, 40, angle=45, text="hello")
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

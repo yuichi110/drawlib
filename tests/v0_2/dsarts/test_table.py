@@ -32,9 +32,16 @@ def test_predefined_style_monochrome():
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
-def test_predefined_style_white():
+def test_predefined_style_border_simple():
     t = dsart.Table()
-    t.set_predefined_style("white")
+    t.set_predefined_style("border_simple")
+    t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
+def test_predefined_style_none():
+    t = dsart.Table()
+    t.set_predefined_style("none")
     t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 

@@ -9,7 +9,7 @@
 
 from drawlib.v0_2.apis import *
 
-OUTPUT_DIR = "../../../output_tests/v0_2/drawings/line/"
+OUTPUT_DIR = "../../../output_tests/v0_2/drawings_line/line/"
 
 
 def test_line():
@@ -52,11 +52,19 @@ def test_line_bezier2():
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
-def test_line_arc():
-    line_arc(xy=(25, 25), radius=10, from_angle=45, to_angle=135, arrowhead="->")
-    line_arc(xy=(25, 75), radius=10, from_angle=10, to_angle=190, arrowhead="->")
-    line_arc(xy=(75, 25), radius=10, from_angle=270, to_angle=135, arrowhead="->")
-    line_arc(xy=(75, 75), radius=10, from_angle=0, to_angle=360, arrowhead="->")
+def test_line_arc_circle():
+    line_arc(xy=(25, 25), width=20, height=20, from_angle=45, to_angle=135, arrowhead="->")
+    line_arc(xy=(25, 75), width=20, height=20, from_angle=10, to_angle=190, arrowhead="->")
+    line_arc(xy=(75, 25), width=20, height=20, from_angle=270, to_angle=135, arrowhead="->")
+    line_arc(xy=(75, 75), width=20, height=20, from_angle=0, to_angle=360, arrowhead="->")
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
+def test_line_arc_ellipse():
+    line_arc(xy=(25, 25), width=30, height=15, from_angle=45, to_angle=135, arrowhead="->")
+    line_arc(xy=(25, 75), width=30, height=15, from_angle=10, to_angle=190, arrowhead="->")
+    line_arc(xy=(75, 25), width=30, height=15, from_angle=270, to_angle=135, arrowhead="->")
+    line_arc(xy=(75, 75), width=30, height=15, from_angle=0, to_angle=360, arrowhead="->")
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 

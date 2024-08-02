@@ -11,26 +11,21 @@ from drawlib.v0_2.apis import *
 
 FONT_AVENGER = "../../assets/avenger/regular.ttf"
 FONT_MPLUS1P = "../../assets/mplus1p/regular.ttf"
-OUTPUT_DIR = "../../../output_tests/v0_2/drawings/text/"
+OUTPUT_DIR = "../../../output_tests/v0_2/drawings_text/text_vertical/"
 
 
 def test():
-    text((30, 30), "Hello World")
+    text_vertical((30, 30), "Hello World. あいうえお")
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_size():
-    text((30, 30), "Hello World", style=TextStyle(size=12))
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
-
-
-def test_textsize():
-    text((30, 30), "Hello World", size=36, style=TextStyle(size=12))
+    text_vertical((30, 30), "Hello World", style=TextStyle(size=12))
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_background():
-    text(
+    text_vertical(
         (30, 30),
         "Hello World",
         angle=90,
@@ -45,13 +40,13 @@ def test_background():
 
 
 def test_myfont():
-    text(
+    text_vertical(
         (20, 30),
         "Hello World. あいうえお",
         style=TextStyle(font=FontFile(FONT_MPLUS1P)),
     )
-    text(
-        (20, 70),
+    text_vertical(
+        (50, 30),
         "Hello World. あいうえお",
         style=TextStyle(font=FontFile(FONT_AVENGER)),
     )

@@ -9,7 +9,7 @@
 
 from drawlib.v0_2.apis import *
 
-OUTPUT_DIR = "../../../output_tests/v0_2/drawing_icons/icon_phosphor/"
+OUTPUT_DIR = "../../../output_tests/v0_2/drawings_icons/icon_phosphor/"
 
 
 def test():

@@ -12,7 +12,7 @@ from PIL import Image
 from drawlib.v0_2.apis import *
 
 IMAGE_FILE = "../../assets/image.png"
-OUTPUT_DIR = "../../../output_tests/v0_2/drawings/image/"
+OUTPUT_DIR = "../../../output_tests/v0_2/drawings_image/image/"
 
 
 def test_file():

@@ -195,21 +195,23 @@ class CanvasLineFeature(CanvasBase):
     def line_arc(
         self,
         xy: Tuple[float, float],
-        radius: float,
+        width: float,
+        height: float,
         from_angle: float = 0,
         to_angle: float = 180,
-        width: Optional[float] = None,
+        lwidth: Optional[float] = None,
         arrowhead: Literal["", "->", "<-", "<->"] = "",
         style: Union[LineStyle, str, None] = None,
     ) -> None:
-        """Draw arc line.
+        """Draw arc line on ellipse.
 
         Args:
-            xy: Tuple[float, float]: The center point of the circle from which the arc is drawn.
-            radius: float: The radius of the circle.
+            xy: Tuple[float, float]: The center point of the ellipse from which the arc is drawn.
+            width: float: The radius of the ellipse.
+            height: float: The height of the ellipse
             from_angle: float: The starting angle of the arc in degrees (default is 0).
             to_angle: float: The ending angle of the arc in degrees (default is 180).
-            width: Optional[float]: Optional width of the line.
+            lwidth: Optional[float]: Optional width of the line.
             arrowhead: Literal["", "->", "<-", "<->"]: Optional arrowhead style ("", "->", "<-", "<->").
             style: Union[LineStyle, str, None]: Optional line style.
 
@@ -219,17 +221,22 @@ class CanvasLineFeature(CanvasBase):
         style = LineUtil.format_style(style)
         # validator.validate_line_args(locals())
 
-        start_point, path_points = LineArcHelper.get_path_points(
+        if from_angle > to_angle:
+            from_angle = -1 * (360 - from_angle)
+        path_points = LineArcHelper.get_ellipse_path_points(
             xy,
-            radius,
+            width,
+            height,
             from_angle,
             to_angle,
         )
+        start_point = path_points[0]
+        path_points = path_points[1:]
 
         self.lines_bezier(
-            start_point,
+            start_point,  # type: ignore
             path_points=path_points,  # type: ignore
-            width=width,
+            width=lwidth,
             arrowhead=arrowhead,
             style=style,
         )
@@ -379,62 +386,132 @@ class LineArcHelper:
     """Internal class"""
 
     @classmethod
-    def get_path_points(
+    def get_point_on_ellipse(
         cls,
         xy: Tuple[float, float],
-        radius: float,
-        from_angle: float,
-        to_angle: float,
-    ) -> Tuple[
-        Tuple[float, float],
-        List[Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]]],
-    ]:
+        width: float,
+        height: float,
+        angle: float,
+    ) -> Tuple[float, float]:
         """Internal function"""
-        if abs(from_angle - to_angle) > 180:
-            mid_angle = int((from_angle + to_angle) / 2)
-            p1, p2, p3, p4 = cls.bezier_arc_approximation(xy, radius, from_angle, mid_angle)
-            _, p6, p7, p8 = cls.bezier_arc_approximation(xy, radius, mid_angle, to_angle)
+        x, y = xy
+        # Convert angle from degrees to radians
+        angle = math.radians(angle)
 
-            return (p1, [(p2, p3, p4), (p6, p7, p8)])
+        # Calculate the coordinates of the point
+        point_x = x + width / 2 * math.cos(angle)
+        point_y = y + height / 2 * math.sin(angle)
 
-        p1, p2, p3, p4 = cls.bezier_arc_approximation(xy, radius, from_angle, to_angle)
-        return (p1, [(p2, p3, p4)])
+        return point_x, point_y
 
     @classmethod
-    def bezier_arc_approximation(
+    def get_ellipse_path_points(
         cls,
         xy: Tuple[float, float],
-        radius: float,
+        width: float,
+        height: float,
         from_angle: float,
         to_angle: float,
+    ) -> List[
+        Union[
+            Tuple[float, float],
+            Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]],
+        ]
+    ]:
+        """Internal function"""
+        diff = to_angle - from_angle
+        if abs(diff) > 270:
+            # having +2 for avoiding situation next_mid_angle == to_angle
+            step = int(diff / 3)
+        elif abs(diff) > 135:
+            step = int(diff / 2)
+        else:
+            p1, p2, p3, p4 = cls.bezier_ellipse_arc_approximation(
+                xy,
+                width,
+                height,
+                from_angle,
+                to_angle,
+            )
+            return [p1, (p2, p3, p4)]
+        if diff >= 0:
+            diff += 2
+        else:
+            diff -= 2
+
+        i = 0
+        start = None
+        path_points = []
+        while True:
+            last_mid_angle = from_angle + step * i
+            next_mid_angle = from_angle + step * (i + 1)
+
+            if from_angle < to_angle:
+                # anti clock wise
+                is_last = next_mid_angle > to_angle
+            else:
+                # clock wise
+                is_last = to_angle > next_mid_angle
+
+            if is_last:
+                p1, p2, p3, p4 = cls.bezier_ellipse_arc_approximation(
+                    xy,
+                    width,
+                    height,
+                    last_mid_angle,
+                    to_angle,
+                )
+                if start is None:
+                    start = p1
+                path_points.append((p2, p3, p4))
+                break
+
+            else:
+                p1, p2, p3, p4 = cls.bezier_ellipse_arc_approximation(
+                    xy,
+                    width,
+                    height,
+                    last_mid_angle,
+                    next_mid_angle,
+                )
+                if start is None:
+                    start = p1
+                path_points.append((p2, p3, p4))
+
+            i += 1
+
+        path_points.insert(0, start)
+        return path_points
+
+    @classmethod
+    def bezier_ellipse_arc_approximation(
+        cls,
+        xy: Tuple[float, float],
+        width: float,
+        height: float,
+        start_angle: float,
+        end_angle: float,
     ) -> Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float], Tuple[float, float]]:
         """Internal function"""
         x, y = xy
 
         # Convert angles from degrees to radians
-        a1 = math.radians(from_angle)
-        a2 = math.radians(to_angle)
+        start_angle = math.radians(start_angle)
+        end_angle = math.radians(end_angle)
 
-        # Calculate the start and end points of the arc
-        start_point = (
-            x + radius * math.cos(a1),
-            y + radius * math.sin(a1),
-        )
-        end_point = (
-            x + radius * math.cos(a2),
-            y + radius * math.sin(a2),
-        )
+        # Calculate the points on the ellipse at the start and end angles
+        start_point = (x + width / 2 * math.cos(start_angle), y + height / 2 * math.sin(start_angle))
+        end_point = (x + width / 2 * math.cos(end_angle), y + height / 2 * math.sin(end_angle))
 
-        phi = a2 - a1
-        alpha = (4 / 3) * math.tan(phi / 4)
-
+        # Calculate the control points for the Bezier curve
+        t = (4 / 3) * math.tan((end_angle - start_angle) / 4)
         control_point1 = (
-            start_point[0] - alpha * radius * math.sin(a1),
-            start_point[1] + alpha * radius * math.cos(a1),
+            start_point[0] - t * width / 2 * math.sin(start_angle),
+            start_point[1] + t * height / 2 * math.cos(start_angle),
         )
         control_point2 = (
-            end_point[0] + alpha * radius * math.sin(a2),
-            end_point[1] - alpha * radius * math.cos(a2),
+            end_point[0] + t * width / 2 * math.sin(end_angle),
+            end_point[1] - t * height / 2 * math.cos(end_angle),
         )
 
         return start_point, control_point1, control_point2, end_point

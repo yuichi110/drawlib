@@ -11,7 +11,7 @@ import pytest
 
 from drawlib.v0_2.apis import *
 
-OUTPUT_DIR = "../../../output_tests/v0_2/drawing_originals/chevron/"
+OUTPUT_DIR = "../../../output_tests/v0_2/drawings_originals/chevron/"
 
 
 def test_60():

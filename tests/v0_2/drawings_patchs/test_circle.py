@@ -9,79 +9,63 @@
 
 from drawlib.v0_2.apis import *
 
-OUTPUT_DIR = "../../../output_tests/v0_2/drawing_originals/triangle/"
+OUTPUT_DIR = "../../../output_tests/v0_2/drawings_patches/circle/"
 
 
 def test():
-    triangle((50, 50), 30, 40)
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
-
-
-def test_style():
-    triangle(
-        (50, 50),
-        30,
-        40,
-        style=ShapeStyle(lcolor=Colors.Red, lwidth=2, lstyle="dashdot", fcolor=Colors.Transparent),
-    )
+    circle(xy=(50, 50), radius=30)
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_align_leftbottom():
-    triangle(
-        (50, 50),
-        30,
-        40,
+    circle(
+        xy=(50, 50),
+        radius=30,
         style=ShapeStyle(halign="left", valign="bottom"),
+        text="Hello",
+        angle=45,
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_align_center():
-    triangle(
-        (50, 50),
-        30,
-        40,
+    circle(
+        xy=(50, 50),
+        radius=30,
         style=ShapeStyle(halign="center", valign="center"),
+        text="Hello",
+        angle=45,
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_align_righttop():
-    triangle(
-        (50, 50),
-        30,
-        40,
+    circle(
+        xy=(50, 50),
+        radius=30,
         style=ShapeStyle(halign="right", valign="top"),
+        text="Hello",
+        angle=45,
+    )
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
+def test_style():
+    circle(
+        xy=(50, 50),
+        radius=30,
+        style=ShapeStyle(lcolor=Colors.Red, lwidth=5, lstyle="dashdot", fcolor=Colors.Blue, alpha=0.7),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_text():
-    triangle((50, 50), 30, 40, text="Hello")
+    circle(xy=(50, 50), radius=30, text="Circle", angle=45)
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
-def test_start0():
-    triangle((50, 50), 30, 40, topvertex_x=0)
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
-
-
-def test_startminus10():
-    triangle((50, 50), 30, 40, topvertex_x=-10)
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
-
-
-def test_start40():
-    triangle((50, 50), 30, 40, topvertex_x=40)
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
-
-
-def test_rotate45():
-    triangle((50, 50), 30, 40, angle=45)
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
-
-
-def test_rotate45_text():
-    triangle((50, 50), 30, 40, angle=45, text="Hello")
+def test_theme():
+    circle(xy=(25, 25), radius=20, style="blue")
+    circle(xy=(25, 75), radius=20, style="green")
+    circle(xy=(75, 25), radius=20, style="red")
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

@@ -302,7 +302,8 @@ class CanvasOriginalArrowFeature(CanvasBase):
     def arrow_arc(
         self,
         xy: Tuple[float, float],
-        radius: float,
+        width: float,
+        height: float,
         tail_width: float,
         head_width: float,
         head_angle: float = 10,
@@ -335,78 +336,103 @@ class CanvasOriginalArrowFeature(CanvasBase):
         )
         validator.validate_shape_args(locals())
 
-        is_clock_wise = from_angle > to_angle
-        if head == "->":
-            from_angle2 = from_angle
-        elif is_clock_wise:
-            from_angle2 = from_angle - head_angle
-        else:
+        width_int = width - tail_width
+        width_ext = width + tail_width
+        height_int = height - tail_width
+        height_ext = height + tail_width
+
+        if head in {"<-", "<->"}:
             from_angle2 = from_angle + head_angle
-
-        if head == "<-":
-            to_angle2 = to_angle
-        elif is_clock_wise:
-            to_angle2 = to_angle + head_angle
+            from_angle2 %= 360
         else:
+            from_angle2 = from_angle
+
+        if head in {"->", "<->"}:
             to_angle2 = to_angle - head_angle
+            to_angle2 %= 360
+        else:
+            to_angle2 = to_angle
 
-        path_points1 = ArrowArcHelper.get_path_points(
+        if from_angle2 > to_angle2:
+            pp1_fa = -1 * (360 - from_angle2)
+            pp1_ta = to_angle2
+            pp2_fa = to_angle2
+            pp2_ta = pp1_fa
+        else:
+            pp1_fa = from_angle2
+            pp1_ta = to_angle2
+            pp2_fa = to_angle2
+            pp2_ta = from_angle2
+
+        path_points1 = LineArcHelper.get_ellipse_path_points(
             xy,
-            radius - tail_width / 2,
-            from_angle2,
-            to_angle2,
+            width_int,
+            height_int,
+            pp1_fa,
+            pp1_ta,
         )
-        path_points2 = ArrowArcHelper.get_path_points(
+        path_points2 = LineArcHelper.get_ellipse_path_points(
             xy,
-            radius + tail_width / 2,
-            to_angle2,
-            from_angle2,
+            width_ext,
+            height_ext,
+            pp2_fa,
+            pp2_ta,
         )
 
-        if head != "->":
+        if from_angle > to_angle:
+            from_angle = -1 * (360 - from_angle)
+
+        if head in {"<-", "<->"}:
             path_points1.insert(
                 0,
-                ArrowArcHelper.point_on_circle(
+                LineArcHelper.get_point_on_ellipse(
                     xy,
-                    radius,
+                    width,
+                    height,
                     from_angle,
                 ),
             )
             path_points1.insert(
                 1,
-                ArrowArcHelper.point_on_circle(
+                LineArcHelper.get_point_on_ellipse(
                     xy,
-                    radius - head_width / 2,
+                    width - head_width,
+                    height - head_width,
                     from_angle2,
                 ),
             )
             path_points2.append(
-                ArrowArcHelper.point_on_circle(
+                LineArcHelper.get_point_on_ellipse(
                     xy,
-                    radius + head_width / 2,
+                    width + head_width,
+                    height + head_width,
                     from_angle2,
                 )
             )
-        if head != "<-":
+
+        if head in {"->", "<->"}:
             path_points1.append(
-                ArrowArcHelper.point_on_circle(
+                LineArcHelper.get_point_on_ellipse(
                     xy,
-                    radius - head_width / 2,
+                    width - head_width,
+                    height - head_width,
                     to_angle2,
                 )
             )
             path_points1.append(
-                ArrowArcHelper.point_on_circle(
+                LineArcHelper.get_point_on_ellipse(
                     xy,
-                    radius,
+                    width,
+                    height,
                     to_angle,
                 )
             )
             path_points2.insert(
                 0,
-                ArrowArcHelper.point_on_circle(
+                LineArcHelper.get_point_on_ellipse(
                     xy,
-                    radius + head_width / 2,
+                    width + head_width,
+                    height + head_width,
                     to_angle2,
                 ),
             )
@@ -441,52 +467,6 @@ class CanvasOriginalArrowFeature(CanvasBase):
 
         options = ShapeUtil.get_shape_options(style)
         self._artists.append(PathPatch(path=path, **options))
-
-
-class ArrowArcHelper:
-    """Internal class"""
-
-    @classmethod
-    def point_on_circle(
-        cls,
-        xy: Tuple[float, float],
-        radius: float,
-        angle: float,
-    ) -> Tuple[float, float]:
-        """Internal function"""
-        x, y = xy
-        # Convert angle from degrees to radians
-        angle_rad = math.radians(angle)
-
-        # Calculate the coordinates of the point
-        point_x = x + radius * math.cos(angle_rad)
-        point_y = y + radius * math.sin(angle_rad)
-
-        return point_x, point_y
-
-    @classmethod
-    def get_path_points(
-        cls,
-        xy: Tuple[float, float],
-        radius: float,
-        from_angle: float,
-        to_angle: float,
-    ) -> List[
-        Union[
-            Tuple[float, float],
-            Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]],
-        ]
-    ]:
-        """Internal function"""
-        if abs(from_angle - to_angle) > 180:
-            mid_angle = int((from_angle + to_angle) / 2)
-            p1, p2, p3, p4 = LineArcHelper.bezier_arc_approximation(xy, radius, from_angle, mid_angle)
-            _, p6, p7, p8 = LineArcHelper.bezier_arc_approximation(xy, radius, mid_angle, to_angle)
-
-            return [p1, (p2, p3, p4), (p6, p7, p8)]
-
-        p1, p2, p3, p4 = LineArcHelper.bezier_arc_approximation(xy, radius, from_angle, to_angle)
-        return [p1, (p2, p3, p4)]
 
 
 class ArrowsHelper:
@@ -653,3 +633,70 @@ class ArrowsHelper:
         y = m1 * x + b1
 
         return (x, y)
+
+
+'''
+class ArrowArcHelper:
+    """Internal class"""
+
+    @classmethod
+    def get_ellipse_path_points(
+        cls,
+        xy: Tuple[float, float],
+        width: float,
+        height: float,
+        from_angle: float,
+        to_angle: float,
+    ) -> List[
+        Union[
+            Tuple[float, float],
+            Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]],
+        ]
+    ]:
+        """Internal function"""
+        i = 0
+        start = None
+        path_points = []
+
+        diff = to_angle - from_angle
+        if diff > 270:
+            # having +2 for avoiding situation next_mid_angle == to_angle
+            step = int(diff / 3) + 2
+        elif diff > 135:
+            step = int(diff / 2) + 2
+        else:
+            step = 360
+
+        while True:
+            last_mid_angle = from_angle + step * i
+            next_mid_angle = from_angle + step * (i + 1)
+            if next_mid_angle > to_angle:
+                p1, p2, p3, p4 = LineArcHelper.bezier_ellipse_arc_approximation(
+                    xy,
+                    width,
+                    height,
+                    last_mid_angle,
+                    to_angle,
+                )
+                if start is None:
+                    start = p1
+                path_points.append((p2, p3, p4))
+                break
+
+            else:
+                p1, p2, p3, p4 = LineArcHelper.bezier_ellipse_arc_approximation(
+                    xy,
+                    width,
+                    height,
+                    last_mid_angle,
+                    next_mid_angle,
+                )
+                if start is None:
+                    start = p1
+                path_points.append((p2, p3, p4))
+
+            i += 1
+
+        path_points.insert(0, start)
+        return path_points
+'''

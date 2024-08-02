@@ -9,72 +9,79 @@
 
 from drawlib.v0_2.apis import *
 
-OUTPUT_DIR = "../../../output_tests/v0_2/drawing_originals/parallelogram/"
+OUTPUT_DIR = "../../../output_tests/v0_2/drawings_originals/triangle/"
 
 
 def test():
-    parallelogram((50, 50), 30, 20, 60)
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
-
-
-def test_align_leftbottom():
-    parallelogram((50, 50), 30, 20, 60, style=ShapeStyle(halign="left", valign="bottom"))
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
-
-
-def test_align_center():
-    parallelogram((50, 50), 30, 20, 60, style=ShapeStyle(halign="center", valign="center"))
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
-
-
-def test_align_righttop():
-    parallelogram((50, 50), 30, 20, 60, style=ShapeStyle(halign="right", valign="top"))
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
-
-
-def test_text():
-    parallelogram((50, 50), 30, 20, 60, text="hello")
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
-
-
-def test_textstyle():
-    parallelogram(
-        (50, 50),
-        30,
-        20,
-        60,
-        text="hello",
-        textstyle=ShapeTextStyle(color=Colors.Red),
-    )
+    triangle((50, 50), 30, 40)
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_style():
-    parallelogram(
+    triangle(
         (50, 50),
         30,
-        20,
-        60,
-        style=ShapeStyle(lcolor=Colors.Red, fcolor=Colors.Transparent),
+        40,
+        style=ShapeStyle(lcolor=Colors.Red, lwidth=2, lstyle="dashdot", fcolor=Colors.Transparent),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
-def test_cangle45():
-    parallelogram((50, 50), 30, 20, 45)
+def test_align_leftbottom():
+    triangle(
+        (50, 50),
+        30,
+        40,
+        style=ShapeStyle(halign="left", valign="bottom"),
+    )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
-def test_cangle75():
-    parallelogram((50, 50), 30, 20, 75)
+def test_align_center():
+    triangle(
+        (50, 50),
+        30,
+        40,
+        style=ShapeStyle(halign="center", valign="center"),
+    )
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
+def test_align_righttop():
+    triangle(
+        (50, 50),
+        30,
+        40,
+        style=ShapeStyle(halign="right", valign="top"),
+    )
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
+def test_text():
+    triangle((50, 50), 30, 40, text="Hello")
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
+def test_start0():
+    triangle((50, 50), 30, 40, topvertex_x=0)
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
+def test_startminus10():
+    triangle((50, 50), 30, 40, topvertex_x=-10)
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
+def test_start40():
+    triangle((50, 50), 30, 40, topvertex_x=40)
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_rotate45():
-    parallelogram((50, 50), 30, 20, 60, 45)
+    triangle((50, 50), 30, 40, angle=45)
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_rotate45_text():
-    parallelogram((50, 50), 30, 20, 60, 45, text="hello", textstyle=ShapeTextStyle(color=Colors.Red))
+    triangle((50, 50), 30, 40, angle=45, text="Hello")
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
