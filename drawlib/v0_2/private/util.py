@@ -19,7 +19,7 @@ import os.path
 import shutil
 import sys
 import traceback
-from typing import Any, Tuple
+from typing import Any, List, Tuple
 
 import drawlib.assets.v0_2.fonticons
 import drawlib.assets.v0_2.fonts
@@ -79,6 +79,45 @@ def error_handler(caller):
             sys.exit(1)
 
     return wrapper
+
+
+@error_handler
+def get_rotated_points(
+    xys: List[Tuple[float, float]],
+    center: Tuple[float, float],
+    angle: float,
+) -> List[Tuple[float, float]]:
+    """
+    Rotate a list of points around a given center by a given angle.
+
+    Args:
+        xys (list of tuples): List of (x, y) points to rotate.
+        center (tuple): The (x, y) coordinates of the center point.
+        angle (float): The angle to rotate the points by, in degrees.
+
+    Returns:
+    list of tuples: The rotated points.
+    """
+    angle = math.radians(angle)
+    cos_theta = math.cos(angle)
+    sin_theta = math.sin(angle)
+
+    rotated_points = []
+    cx, cy = center
+
+    for x, y in xys:
+        # Translate point to origin
+        translated_x = x - cx
+        translated_y = y - cy
+        # Rotate point
+        rotated_x = translated_x * cos_theta - translated_y * sin_theta
+        rotated_y = translated_x * sin_theta + translated_y * cos_theta
+        # Translate point back
+        final_x = rotated_x + cx
+        final_y = rotated_y + cy
+        rotated_points.append((final_x, final_y))
+
+    return rotated_points
 
 
 @error_handler

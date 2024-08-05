@@ -3,45 +3,6 @@ from typing import List, Literal, Optional, Tuple, Union
 
 from drawlib.apis import *
 
-"""
-def test():
-    points = [(10, 10), (20, 20), (30, 80), (80, 80), (60, 20)]
-    parallel_points1 = ArrowsHelper.get_parallel_lines_xys(points, 5)
-    parallel_points2 = ArrowsHelper.get_parallel_lines_xys(points, -5)
-
-    lines(points)
-    lines(parallel_points1, style="blue")
-    lines(parallel_points2, style="red")
-
-    circle(
-        xy=ArrowsHelper.get_point_on_line(parallel_points1[0], parallel_points1[1], 5),
-        radius=1,
-        style="black_flat",
-    )
-
-    
-    
-    lines(points)
-
-    ls = []
-    for i in range(len(points) - 1):
-        xy1, xy2 = parallel_line_coordinates(points[i], points[i + 1], 5)
-        line(xy1, xy2, style="blue")
-        ls.append((xy1, xy2))
-
-        xy3, xy4 = parallel_line_coordinates(points[i], points[i + 1], -5)
-        line(xy3, xy4, style="red")
-
-    for i in range(len(ls) - 1):
-        xy1, xy2 = ls[i]
-        xy3, xy4 = ls[i + 1]
-        xy = find_intersection(xy1, xy2, xy3, xy4)
-        circle(xy, radius=1, style="black_flat")
-
-
-    save()
-"""
-
 
 def test():
     xys = [(10, 10), (20, 20), (30, 80), (80, 80), (60, 20)]
@@ -140,12 +101,22 @@ def test():
 
 
 class ArrowsHelper:
+    """Internal class"""
+
     @classmethod
-    def get_points_curved(
+    def get_path_points(
         cls,
-        xys: list[tuple[float, float]],
+        xys: List[Tuple[float, float]],
         r: float,
-    ):
+    ) -> List[
+        Union[
+            Tuple[float, float],
+            Tuple[Tuple[float, float], Tuple[float, float]],
+            Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]],
+        ]
+    ]:
+        """Internal function"""
+
         def _get_mid_points(
             a: Tuple[float, float],
             b: Tuple[float, float],
@@ -200,10 +171,11 @@ class ArrowsHelper:
     @classmethod
     def get_point_on_line(
         cls,
-        xy1: tuple[float, float],
-        xy2: tuple[float, float],
+        xy1: Tuple[float, float],
+        xy2: Tuple[float, float],
         distance: float,
-    ) -> tuple[float, float]:
+    ) -> Tuple[float, float]:
+        """Internal function"""
         x1, y1 = xy1
         x2, y2 = xy2
 
@@ -219,15 +191,16 @@ class ArrowsHelper:
     @classmethod
     def get_parallel_lines_xys(
         cls,
-        xys: list[tuple[float, float]],
+        xys: List[Tuple[float, float]],
         distance: float,
-    ) -> list[tuple[float, float]]:
-        parallel_lines: list[tuple[tuple[float, float], tuple[float, float]]] = []
+    ) -> List[Tuple[float, float]]:
+        """Internal function"""
+        parallel_lines: List[Tuple[Tuple[float, float], Tuple[float, float]]] = []
         for i in range(len(xys) - 1):
             xy1, xy2 = cls.get_parallel_line_xys(xys[i], xys[i + 1], distance)
             parallel_lines.append((xy1, xy2))
 
-        points: list[tuple[float, float]] = []
+        points: List[Tuple[float, float]] = []
         for i in range(len(parallel_lines) - 1):
             xy1, xy2 = parallel_lines[i]
             xy3, xy4 = parallel_lines[i + 1]
@@ -245,10 +218,11 @@ class ArrowsHelper:
     @classmethod
     def get_parallel_line_xys(
         cls,
-        xy1: tuple[float, float],
-        xy2: tuple[float, float],
+        xy1: Tuple[float, float],
+        xy2: Tuple[float, float],
         distance: float,
-    ):
+    ) -> Tuple[Tuple[float, float], Tuple[float, float]]:
+        """Internal function"""
         x1, y1 = xy1
         x2, y2 = xy2
 
@@ -270,11 +244,12 @@ class ArrowsHelper:
     @classmethod
     def find_lines_intersection(
         cls,
-        xy1: tuple[float, float],
-        xy2: tuple[float, float],
-        xy3: tuple[float, float],
-        xy4: tuple[float, float],
-    ):
+        xy1: Tuple[float, float],
+        xy2: Tuple[float, float],
+        xy3: Tuple[float, float],
+        xy4: Tuple[float, float],
+    ) -> Tuple[float, float]:
+        """Internal function"""
         x1, y1 = xy1
         x2, y2 = xy2
         x3, y3 = xy3

@@ -55,7 +55,9 @@ from drawlib.v0_2.private.core_canvas.canvas import (
     # shape original
     arrow,
     arrow_arc,
-    arrows,
+    arrow_l,
+    arrow_polyline,
+    arrow_u,
     chevron,
     circle,
     # base

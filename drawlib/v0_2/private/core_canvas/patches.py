@@ -16,7 +16,6 @@ from matplotlib.patches import (
     Arc,
     Circle,
     Ellipse,
-    Polygon,
     RegularPolygon,
     Wedge,
 )
@@ -223,55 +222,6 @@ class CanvasPatchesFeature(CanvasBase):
                 xy=xy,
                 text=text,
                 angle=angle,
-                style=textstyle,
-            ),
-        )
-
-    @error_handler
-    def polygon(
-        self,
-        xys: List[Tuple[float, float]],
-        style: Union[ShapeStyle, str, None] = None,
-        text: str = "",
-        textsize: Optional[float] = None,
-        textstyle: Union[ShapeTextStyle, str, None] = None,
-    ) -> None:
-        """Draw a polygon on the canvas.
-
-        Args:
-            xys: List of vertices [(x1, y1), ...(x_n, y_n)].
-            style (optional): Style of the polygon.
-            text (optional): Text shown at the center of the polygon.
-            textsize (optional): Font size of the text.
-            textstyle (optional): Style of the text.
-
-        Returns:
-            None
-        """
-        style, textstyle = ShapeUtil.format_styles(
-            style,
-            textstyle,
-            dtheme.polygonstyles.get,
-            dtheme.polygontextstyles.get,
-        )
-        validator.validate_shape_args(locals())
-
-        if textsize is not None:
-            textstyle.size = textsize
-
-        style.halign = None
-        style.valign = None
-        options = ShapeUtil.get_shape_options(style)
-        self._artists.append(Polygon(xy=xys, closed=True, **options))
-
-        if not text:
-            return
-        center, (_, _) = get_center_and_size(xys)
-        self._artists.append(
-            ShapeUtil.get_shape_text(
-                center,
-                text=text,
-                angle=0,
                 style=textstyle,
             ),
         )

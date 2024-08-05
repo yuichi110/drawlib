@@ -276,11 +276,15 @@ rhombus = canvas.rhombus
 trapezoid = canvas.trapezoid
 parallelogram = canvas.parallelogram
 triangle = canvas.triangle
-arrow = canvas.arrow
-arrows = canvas.arrows
-arrow_arc = canvas.arrow_arc
 star = canvas.star
 chevron = canvas.chevron
+
+# original arrow
+arrow = canvas.arrow
+arrow_polyline = canvas.arrow_polyline
+arrow_arc = canvas.arrow_arc
+arrow_l = canvas.arrow_l
+arrow_u = canvas.arrow_u
 
 # patches
 arc = canvas.arc

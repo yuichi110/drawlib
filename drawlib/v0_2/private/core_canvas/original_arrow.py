@@ -26,6 +26,7 @@ from drawlib.v0_2.private.util import (
     error_handler,
     get_angle,
     get_distance,
+    get_rotated_points,
 )
 
 
@@ -144,7 +145,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
         )
 
     @error_handler
-    def arrows(
+    def arrow_polyline(
         self,
         xys: List[Tuple[float, float]],
         tail_width: float,
@@ -184,119 +185,59 @@ class CanvasOriginalArrowFeature(CanvasBase):
         )
         validator.validate_shape_args(locals())
 
-        parallel_xys1 = ArrowsHelper.get_parallel_lines_xys(xys, tail_width / 2)
-        parallel_xys2 = ArrowsHelper.get_parallel_lines_xys(xys, tail_width / 2 * -1)
+        def point_on_line(a: Tuple[float, float], b: Tuple[float, float], n: float) -> Tuple[float, float]:
+            ab = (b[0] - a[0], b[1] - a[1])
+            ab_length = math.sqrt(ab[0] ** 2 + ab[1] ** 2)
+            ab_unit = (ab[0] / ab_length, ab[1] / ab_length)
+            scaled_vector = (ab_unit[0] * n, ab_unit[1] * n)
+            new_point = (a[0] + scaled_vector[0], a[1] + scaled_vector[1])
+            return new_point
 
-        arrowhead_start_tail_xy1 = ArrowsHelper.get_point_on_line(parallel_xys1[0], parallel_xys1[1], head_length)
-        arrowhead_start_tail_xy2 = ArrowsHelper.get_point_on_line(parallel_xys2[0], parallel_xys2[1], head_length)
-        arrowhead_end_tail_xy1 = ArrowsHelper.get_point_on_line(
-            parallel_xys1[len(parallel_xys1) - 1],
-            parallel_xys1[len(parallel_xys1) - 2],
-            head_length,
-        )
-        arrowhead_end_tail_xy2 = ArrowsHelper.get_point_on_line(
-            parallel_xys2[len(parallel_xys1) - 1],
-            parallel_xys2[len(parallel_xys1) - 2],
-            head_length,
-        )
+        def point_parallel_to_line(
+            a: Tuple[float, float], b: Tuple[float, float], distance: float
+        ) -> Tuple[float, float]:
+            ab = (b[0] - a[0], b[1] - a[1])
+            ab_length = math.sqrt(ab[0] ** 2 + ab[1] ** 2)
+            ab_unit = (ab[0] / ab_length, ab[1] / ab_length)
+            ab_perpendicular = (-ab_unit[1], ab_unit[0])
+            scaled_vector = (ab_perpendicular[0] * distance, ab_perpendicular[1] * distance)
+            new_point = (a[0] + scaled_vector[0], a[1] + scaled_vector[1])
+            return new_point
 
-        xy1, xy2 = ArrowsHelper.get_parallel_line_xys(xys[0], xys[1], head_width / 2)
-        arrowhead_start_head_xy1 = ArrowsHelper.get_point_on_line(xy1, xy2, head_length)
-        xy1, xy2 = ArrowsHelper.get_parallel_line_xys(xys[0], xys[1], head_width / 2 * -1)
-        arrowhead_start_head_xy2 = ArrowsHelper.get_point_on_line(xy1, xy2, head_length)
-        xy1, xy2 = ArrowsHelper.get_parallel_line_xys(
-            xys[len(xys) - 1], xys[len(xys) - 2], head_width / 2 * -1
-        )  # since poinrts are reversed, having * -1 here
-        arrowhead_end_head_xy1 = ArrowsHelper.get_point_on_line(xy1, xy2, head_length)
-        xy1, xy2 = ArrowsHelper.get_parallel_line_xys(xys[len(xys) - 1], xys[len(xys) - 2], head_width / 2)
-        arrowhead_end_head_xy2 = ArrowsHelper.get_point_on_line(xy1, xy2, head_length)
-
-        points1: List[Tuple[float, float]] = []
-        if head == "->":
-            points1.append(parallel_xys1[0])
+        if head in {"<-", "<->"}:
+            xys_start = point_on_line(xys[0], xys[1], head_length)
         else:
-            points1.append(arrowhead_start_tail_xy1)
-        points1.extend(parallel_xys1[1:-1])
-        if head == "<-":
-            points1.append(parallel_xys1[len(parallel_xys1) - 1])
+            xys_start = xys[0]
+
+        if head in {"->", "<->"}:
+            xys_end = point_on_line(xys[-1], xys[-2], head_length)
         else:
-            points1.append(arrowhead_end_tail_xy1)
+            xys_end = xys[-1]
 
-        points2: List[Tuple[float, float]] = []
-        if head == "<-":
-            points2.append(parallel_xys2[len(parallel_xys2) - 1])
-        else:
-            points2.append(arrowhead_end_tail_xy2)
-        temp = parallel_xys2[1:-1]
-        temp.reverse()
-        points2.extend(temp)
-        if head == "->":
-            points2.append(parallel_xys2[0])
-        else:
-            points2.append(arrowhead_start_tail_xy2)
+        new_xys = xys[1:-1]
+        new_xys.insert(0, xys_start)
+        new_xys.append(xys_end)
+        aph = ArrowPolylineHelper(new_xys, r, 100)
+        parallel_xys1 = aph.get_parallel_curve_points(tail_width / 2)
+        parallel_xys2 = aph.get_parallel_curve_points(tail_width / -2)
+        parallel_xys2.reverse()
 
-        # apply r here
-        if r != 0:
-            path_points1: List[
-                Union[
-                    Tuple[float, float],
-                    Tuple[Tuple[float, float], Tuple[float, float]],
-                    Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]],
-                ]
-            ] = ArrowsHelper.get_path_points(points1, r)
-            path_points2: List[
-                Union[
-                    Tuple[float, float],
-                    Tuple[Tuple[float, float], Tuple[float, float]],
-                    Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]],
-                ]
-            ] = ArrowsHelper.get_path_points(points2, r)
-        else:
-            path_points1 = points1  # type: ignore
-            path_points2 = points2  # type: ignore
+        if head in {"<-", "<->"}:
+            ahp1 = point_parallel_to_line(xys_start, xys[1], head_width / 2)
+            ahp2 = point_parallel_to_line(xys_start, xys[1], head_width / -2)
+            parallel_xys1.insert(0, xys[0])
+            parallel_xys1.insert(1, ahp1)
+            parallel_xys2.append(ahp2)
 
-        if head != "->":
-            path_points1.insert(0, xys[0])
-            path_points1.insert(1, arrowhead_start_head_xy1)
-        if head != "<-":
-            path_points1.append(arrowhead_end_head_xy1)
-            path_points1.append(xys[len(xys) - 1])
+        if head in {"->", "<->"}:
+            ahp3 = point_parallel_to_line(xys_end, xys[-2], head_width / -2)
+            ahp4 = point_parallel_to_line(xys_end, xys[-2], head_width / 2)
+            parallel_xys1.append(ahp3)
+            parallel_xys1.append(xys[-1])
+            parallel_xys1.append(ahp4)
 
-        if head != "<-":
-            path_points2.insert(0, arrowhead_end_head_xy2)
-        if head != "->":
-            path_points2.append(arrowhead_start_head_xy2)
-
-        path_points1.extend(path_points2)
-
-        # create Path
-        vertices = [path_points1[0]]
-        codes = [Path.MOVETO]
-        for p in path_points1[1:]:
-            length = len(p)
-            if length not in {2, 3}:
-                raise ValueError()
-
-            if not isinstance(p[0], tuple):
-                vertices.append(p)
-                codes.append(Path.LINETO)
-
-            elif length == 2:
-                vertices.extend([p[0], p[1]])  # type: ignore
-                codes.extend([Path.CURVE3] * 2)
-
-            else:
-                vertices.extend([p[0], p[1], p[2]])  # type: ignore
-                codes.extend([Path.CURVE4] * 3)
-
-        vertices.append(path_points1[0])
-        codes.append(Path.CLOSEPOLY)
-        path = Path(vertices=vertices, codes=codes)
-
-        # create PathPatch
-
-        options = ShapeUtil.get_shape_options(style)
-        self._artists.append(PathPatch(path=path, **options))
+        parallel_xys1.extend(parallel_xys2)
+        self.polygon(xys=parallel_xys1, style=style, text="", textstyle=None)
 
     @error_handler
     def arrow_arc(
@@ -469,168 +410,191 @@ class CanvasOriginalArrowFeature(CanvasBase):
         options = ShapeUtil.get_shape_options(style)
         self._artists.append(PathPatch(path=path, **options))
 
+    @error_handler
+    def arrow_l(
+        self,
+        xy: Tuple[float, float],
+        width: float,
+        height: float,
+        tail_width: float,
+        head_width: float,
+        head_length: float,
+        head: Literal["->", "<-", "<->"] = "->",
+        r: float = 0,
+        angle: float = 0,
+        style: Union[ShapeStyle, str, None] = None,
+    ) -> None:
+        """Draw "L" shape arrow.
 
-class ArrowsHelper:
-    """Internal class"""
+        Args:
+            xy: Tuple[float, float]: The center point of L arrow.
+            width: float: The width L arrow.
+            height: float: The height of L arrow.
+            tail_width: float: The width of the tail of the arrow.
+            head_width: float: The width of the head of the arrow.
+            head_length: float: Length of the arrow head.
+            head: Literal["->", "<-", "<->"]: Arrow head style ("->", "<-", "<->").
+            r (float, optional): Radius for rounded connections (default is 0.0).
+            angle: float: rotate angle.
+            style: Union[ShapeStyle, str, None]: Optional shape style.
 
-    @classmethod
-    def get_path_points(
-        cls,
-        xys: List[Tuple[float, float]],
-        r: float,
-    ) -> List[
-        Union[
-            Tuple[float, float],
-            Tuple[Tuple[float, float], Tuple[float, float]],
-            Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]],
-        ]
-    ]:
-        """Internal function"""
+        Returns:
+            None
+        """
+        style, _ = ShapeUtil.format_styles(
+            style,
+            None,
+            dtheme.arrowstyles.get,
+            dtheme.arrowtextstyles.get,
+        )
+        validator.validate_shape_args(locals())
 
-        def _get_mid_points(
+        p1 = (xy[0] - width / 2, xy[1] + height / 2)
+        p2 = (xy[0] - width / 2, xy[1] - height / 2)
+        p3 = (xy[0] + width / 2, xy[1] - height / 2)
+
+        xys = [p1, p2, p3]
+        if angle != 0:
+            xys = get_rotated_points(xys=xys, center=xy, angle=angle)
+
+        self.arrow_polyline(
+            xys=xys,
+            tail_width=tail_width,
+            head_width=head_width,
+            head_length=head_length,
+            head=head,
+            r=r,
+            style=style,
+        )
+
+    @error_handler
+    def arrow_u(
+        self,
+        xy: Tuple[float, float],
+        width: float,
+        height: float,
+        tail_width: float,
+        head_width: float,
+        head_length: float,
+        head: Literal["->", "<-", "<->"] = "->",
+        r: float = 0,
+        angle: float = 0,
+        style: Union[ShapeStyle, str, None] = None,
+    ) -> None:
+        """Draw "U" shape arrow.
+
+        Args:
+            xy: Tuple[float, float]: The center point U arrow.
+            width: float: The width of the U arrow.
+            height: float: The height of the U arrow.
+            tail_width: float: The width of the tail of the arrow.
+            head_width: float: The width of the head of the arrow.
+            head_length: float: Length of the arrow head.
+            head: Literal["->", "<-", "<->"]: Arrow head style ("->", "<-", "<->").
+            r (float, optional): Radius for rounded connections (default is 0.0).
+            angle: float: rotate angle.
+            style: Union[ShapeStyle, str, None]: Optional shape style.
+
+        Returns:
+            None
+        """
+        style, _ = ShapeUtil.format_styles(
+            style,
+            None,
+            dtheme.arrowstyles.get,
+            dtheme.arrowtextstyles.get,
+        )
+        validator.validate_shape_args(locals())
+
+        p1 = (xy[0] - width / 2, xy[1] + height / 2)
+        p2 = (xy[0] - width / 2, xy[1] - height / 2)
+        p3 = (xy[0] + width / 2, xy[1] - height / 2)
+        p4 = (xy[0] + width / 2, xy[1] + height / 2)
+
+        xys = [p1, p2, p3, p4]
+        if angle != 0:
+            xys = get_rotated_points(xys=xys, center=xy, angle=angle)
+
+        self.arrow_polyline(
+            xys=xys,
+            tail_width=tail_width,
+            head_width=head_width,
+            head_length=head_length,
+            head=head,
+            r=r,
+            style=style,
+        )
+
+
+class ArrowPolylineHelper:
+    def __init__(self, xys: List[Tuple[float, float]], r: float, num_points=100):
+        def get_mid_points(
             a: Tuple[float, float],
             b: Tuple[float, float],
-            r: float,
         ) -> Tuple[Tuple[float, float], Tuple[float, float]]:
-            # Calculate the vector from A to B
             ab = [b[0] - a[0], b[1] - a[1]]
-
-            # Calculate the distance from A to B
             ab_distance = math.sqrt(ab[0] ** 2 + ab[1] ** 2)
-
-            # Normalize the vector AB to get the unit vector
             ab_unit = [ab[0] / ab_distance, ab[1] / ab_distance]
-
-            # Calculate point C: A + X * unit vector AB
             c = (a[0] + r * ab_unit[0], a[1] + r * ab_unit[1])
-
-            # Calculate point D: B - X * unit vector AB
             d = (b[0] - r * ab_unit[0], b[1] - r * ab_unit[1])
-
             return c, d
 
-        path_points: List[
-            Union[
-                Tuple[float, float],
-                Tuple[Tuple[float, float], Tuple[float, float]],
-                Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]],
-            ]
-        ] = []
+        def bernstein_poly(i, n, t):
+            return math.comb(n, i) * (t**i) * ((1 - t) ** (n - i))
 
+        def get_points(
+            bezier_points: List[Tuple[float, float]],
+        ) -> List[Tuple[float, float]]:
+            n = len(bezier_points) - 1
+            curve = []
+            for t in [i / (num_points - 1) for i in range(num_points)]:
+                x = sum(bernstein_poly(i, n, t) * bezier_points[i][0] for i in range(n + 1))
+                y = sum(bernstein_poly(i, n, t) * bezier_points[i][1] for i in range(n + 1))
+                curve.append((x, y))
+            return curve
+
+        points = []
+        bezier_start: Tuple[float, float] = (0, 0)
         last_i = len(xys) - 2
         # last_xy = (0, 0)
-        for i, xy in enumerate(xys):
+        for i in range(len(xys)):
+            # first straight line
             if i == 0:
-                _, p = _get_mid_points(xy, xys[i + 1], r)
-                path_points.append(p)
+                _, bezier_start = get_mid_points(xys[0], xys[1])
+                points.append(xys[0])
                 continue
 
+            # last straight line
             if i == last_i:
-                p, _ = _get_mid_points(xy, xys[i + 1], r)
-                path_points.append((xy, p))
-                path_points.append(xys[i + 1])
+                p1, _ = get_mid_points(xys[i], xys[i + 1])
+                bezier_points = [bezier_start, xys[i], p1]
+                points.extend(get_points(bezier_points))
+                points.append(xys[i + 1])
                 break
 
-            p1, p2 = _get_mid_points(xy, xys[i + 1], r)
-            path_points.append((xy, p1))
-            path_points.append(p2)
+            p1, p2 = get_mid_points(xys[i], xys[i + 1])
+            bezier_points = [bezier_start, xys[i], p1]
+            points.extend(get_points(bezier_points))
+            bezier_start = p2
 
-        path_points.insert(0, xys[0])
-        return path_points
+        self._original_curve_points = points
 
-    @classmethod
-    def get_point_on_line(
-        cls,
-        xy1: Tuple[float, float],
-        xy2: Tuple[float, float],
-        distance: float,
-    ) -> Tuple[float, float]:
-        """Internal function"""
-        x1, y1 = xy1
-        x2, y2 = xy2
+    def get_parallel_curve_points(self, distance: float) -> List[Tuple[float, float]]:
+        """Internal class"""
 
-        v_length = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
-        u_x = (x2 - x1) / v_length
-        u_y = (y2 - y1) / v_length
+        def get_distance(p1: Tuple[float, float], p2: Tuple[float, float]) -> float:
+            return math.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
 
-        x = x1 + distance * u_x
-        y = y1 + distance * u_y
+        parallel_curve_points = []
+        for i in range(1, len(self._original_curve_points)):
+            p0, p1 = self._original_curve_points[i - 1], self._original_curve_points[i]
+            dx, dy = p1[0] - p0[0], p1[1] - p0[1]
+            length = get_distance(p0, p1)
+            nx, ny = -dy / length, dx / length
+            px0, py0 = p0[0] + distance * nx, p0[1] + distance * ny
+            px1, py1 = p1[0] + distance * nx, p1[1] + distance * ny
+            parallel_curve_points.append((px0, py0))
+            if i == len(self._original_curve_points) - 1:
+                parallel_curve_points.append((px1, py1))
 
-        return (x, y)
-
-    @classmethod
-    def get_parallel_lines_xys(
-        cls,
-        xys: List[Tuple[float, float]],
-        distance: float,
-    ) -> List[Tuple[float, float]]:
-        """Internal function"""
-        parallel_lines: List[Tuple[Tuple[float, float], Tuple[float, float]]] = []
-        for i in range(len(xys) - 1):
-            xy1, xy2 = cls.get_parallel_line_xys(xys[i], xys[i + 1], distance)
-            parallel_lines.append((xy1, xy2))
-
-        points: List[Tuple[float, float]] = []
-        for i in range(len(parallel_lines) - 1):
-            xy1, xy2 = parallel_lines[i]
-            xy3, xy4 = parallel_lines[i + 1]
-            xy = cls.find_lines_intersection(xy1, xy2, xy3, xy4)
-            points.append(xy)
-
-        first_point = parallel_lines[0][0]
-        last_point = parallel_lines[len(parallel_lines) - 1][1]
-
-        points.insert(0, first_point)
-        points.append(last_point)
-
-        return points
-
-    @classmethod
-    def get_parallel_line_xys(
-        cls,
-        xy1: Tuple[float, float],
-        xy2: Tuple[float, float],
-        distance: float,
-    ) -> Tuple[Tuple[float, float], Tuple[float, float]]:
-        """Internal function"""
-        x1, y1 = xy1
-        x2, y2 = xy2
-
-        # calc vector
-        vx = x2 - x1
-        vy = y2 - y1
-        length = math.sqrt(vx**2 + vy**2)
-        dx = -vy / length * distance
-        dy = vx / length * distance
-
-        # add vector
-        x1_prime = x1 + dx
-        y1_prime = y1 + dy
-        x2_prime = x2 + dx
-        y2_prime = y2 + dy
-
-        return (x1_prime, y1_prime), (x2_prime, y2_prime)
-
-    @classmethod
-    def find_lines_intersection(
-        cls,
-        xy1: Tuple[float, float],
-        xy2: Tuple[float, float],
-        xy3: Tuple[float, float],
-        xy4: Tuple[float, float],
-    ) -> Tuple[float, float]:
-        """Internal function"""
-        x1, y1 = xy1
-        x2, y2 = xy2
-        x3, y3 = xy3
-        x4, y4 = xy4
-
-        m1 = (y2 - y1) / (x2 - x1)
-        b1 = y1 - m1 * x1
-        m2 = (y4 - y3) / (x4 - x3)
-        b2 = y3 - m2 * x3
-
-        x = (b2 - b1) / (m1 - m2)
-        y = m1 * x + b1
-
-        return (x, y)
+        return parallel_curve_points
