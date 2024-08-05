@@ -9,9 +9,15 @@
 
 from drawlib.v0_2.apis import *
 
-OUTPUT_DIR = "../../../output_tests/v0_2/drawings_line/line/"
+OUTPUT_DIR = "../../../output_tests/v0_2/drawings_line/lines_bezier/"
 
 
-def test_line():
-    line((10, 10), (90, 90))
+def test_lines_bezier():
+    points = [
+        ((10, 20), (20, 20)),
+        (30, 20),
+        ((40, 20), (40, 10)),
+        ((40, 20), (50, 20)),
+    ]
+    lines_bezier(xy=(0, 30), path_points=points)
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

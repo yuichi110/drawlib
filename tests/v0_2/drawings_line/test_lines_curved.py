@@ -9,9 +9,9 @@
 
 from drawlib.v0_2.apis import *
 
-OUTPUT_DIR = "../../../output_tests/v0_2/drawings_line/line/"
+OUTPUT_DIR = "../../../output_tests/v0_2/drawings_line/lines_curved/"
 
 
-def test_line():
-    line((10, 10), (90, 90))
+def test_lines_curved():
+    lines_curved(xys=[(20, 20), (40, 80), (70, 30), (90, 50)], r=5)
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

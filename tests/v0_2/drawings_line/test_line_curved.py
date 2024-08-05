@@ -9,9 +9,22 @@
 
 from drawlib.v0_2.apis import *
 
-OUTPUT_DIR = "../../../output_tests/v0_2/drawings_line/line/"
+OUTPUT_DIR = "../../../output_tests/v0_2/drawings_line/curved/"
 
 
-def test_line():
-    line((10, 10), (90, 90))
+def test_line_curved():
+    line_curved(
+        (20, 20),
+        (80, 80),
+        bend=-0.5,
+        arrowhead="->",
+    )
+
+    line_curved(
+        (20, 80),
+        (80, 20),
+        bend=-0.5,
+        style=LineStyle(style="dashed", width=2, color=Colors.Red),
+    )
+
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

@@ -9,9 +9,16 @@
 
 from drawlib.v0_2.apis import *
 
-OUTPUT_DIR = "../../../output_tests/v0_2/drawings_line/line/"
+OUTPUT_DIR = "../../../output_tests/v0_2/drawings_line/bezier/"
 
 
-def test_line():
-    line((10, 10), (90, 90))
+def test_line_bezier1():
+    style = LineStyle(width=3, color=Colors.Red, style="dotted", alpha=1)
+    line_bezier1((20, 20), (50, 50), (80, 20), style=style)
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
+def test_line_bezier2():
+    style = LineStyle(width=3, color=Colors.Red, style="dotted", alpha=1)
+    line_bezier2((20, 20), (20, 50), (80, 50), (80, 20), style=style)
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
