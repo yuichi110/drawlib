@@ -18,9 +18,9 @@ def test_left():
         width=50,
         height=40,
         tail_edge="left",
-        tail_from_ratio=0.2,
+        tail_start_ratio=0.2,
         tail_vertex_xy=(10, 50),
-        tail_to_ratio=0.6,
+        tail_end_ratio=0.6,
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -31,9 +31,9 @@ def test_top():
         width=50,
         height=40,
         tail_edge="top",
-        tail_from_ratio=0.2,
+        tail_start_ratio=0.2,
         tail_vertex_xy=(50, 90),
-        tail_to_ratio=0.6,
+        tail_end_ratio=0.6,
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -44,9 +44,9 @@ def test_right():
         width=50,
         height=40,
         tail_edge="right",
-        tail_from_ratio=0.2,
+        tail_start_ratio=0.2,
         tail_vertex_xy=(95, 50),
-        tail_to_ratio=0.6,
+        tail_end_ratio=0.6,
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -57,9 +57,9 @@ def test_bottom():
         width=50,
         height=40,
         tail_edge="bottom",
-        tail_from_ratio=0.2,
+        tail_start_ratio=0.2,
         tail_vertex_xy=(50, 10),
-        tail_to_ratio=0.6,
+        tail_end_ratio=0.6,
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -70,9 +70,9 @@ def test_text():
         width=50,
         height=40,
         tail_edge="left",
-        tail_from_ratio=0.2,
+        tail_start_ratio=0.2,
         tail_vertex_xy=(10, 50),
-        tail_to_ratio=0.6,
+        tail_end_ratio=0.6,
         text="Hello Drawlib\nHello Python World!!",
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
@@ -84,9 +84,9 @@ def test_textstyle():
         width=50,
         height=40,
         tail_edge="left",
-        tail_from_ratio=0.2,
+        tail_start_ratio=0.2,
         tail_vertex_xy=(10, 50),
-        tail_to_ratio=0.6,
+        tail_end_ratio=0.6,
         text="Hello Drawlib\nHello Python World!!",
         textstyle=ShapeTextStyle(color=Colors.Red, size=28),
     )

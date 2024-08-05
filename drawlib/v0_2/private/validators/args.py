@@ -229,11 +229,11 @@ def validate_line_args(args: Dict[str, Any]) -> None:  # noqa: C901
         elif "radius" == arg_name:
             types_validator.validate_plus_float("radius", value, is_0_ok=False)
 
-        elif "from_angle" == arg_name:
-            coordinate_validator.validate_angle("from_angle", value)
+        elif "angle_start" == arg_name:
+            coordinate_validator.validate_angle("angle_start", value)
 
-        elif "to_angle" == arg_name:
-            coordinate_validator.validate_angle("to_angle", value)
+        elif "angle_end" == arg_name:
+            coordinate_validator.validate_angle("angle_end", value)
 
         elif "style" == arg_name:
             style_validator.validate_linestyle("style", value)
@@ -317,11 +317,11 @@ def validate_shape_args(  # noqa: C901
         elif "r" == arg_name:
             types_validator.validate_plus_float("r", value)
 
-        elif "from_angle" == arg_name:
-            coordinate_validator.validate_angle("from_angle", value)
+        elif "angle_start" == arg_name:
+            coordinate_validator.validate_angle("angle_start", value)
 
-        elif "to_angle" == arg_name:
-            coordinate_validator.validate_angle("to_angle", value)
+        elif "angle_end" == arg_name:
+            coordinate_validator.validate_angle("angle_end", value)
 
         elif "corner_angle" == arg_name:
             coordinate_validator.validate_angle_max90("corner_angle", value)
@@ -339,7 +339,7 @@ def validate_shape_args(  # noqa: C901
             types_validator.validate_plus_float("head_length", value, is_0_ok=False)
 
         elif "head_angle" == arg_name:
-            coordinate_validator.validate_angle("from_angle", value)
+            coordinate_validator.validate_angle("head_angle", value)
 
         elif "head" == arg_name:
             shape_validator.validate_head_style("head", value)
@@ -370,14 +370,14 @@ def validate_shape_args(  # noqa: C901
         elif "tail_edge" == arg_name:
             smartart_validator.validate_tail_edge("tail_edge", value)
 
-        elif "tail_from_ratio" == arg_name:
-            types_validator.validate_float_0_to_1("tail_from_ratio", value)
+        elif "tail_start_ratio" == arg_name:
+            types_validator.validate_float_0_to_1("tail_start_ratio", value)
 
         elif "tail_vertex_xy" == arg_name:
             coordinate_validator.validate_xy("tail_vertex_xy", value)
 
-        elif "tail_to_ratio" == arg_name:
-            types_validator.validate_float_0_to_1("tail_to_ratio", value)
+        elif "tail_end_ratio" == arg_name:
+            types_validator.validate_float_0_to_1("tail_end_ratio", value)
 
         else:
             raise ValueError(f'Drawlib internal bug. Argument "{arg_name}" is not validated at arg validator.')

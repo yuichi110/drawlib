@@ -197,8 +197,8 @@ class CanvasLineFeature(CanvasBase):
         xy: Tuple[float, float],
         width: float,
         height: float,
-        from_angle: float = 0,
-        to_angle: float = 180,
+        angle_start: float = 0,
+        angle_end: float = 180,
         angle: float = 0,
         arrowhead: Literal["", "->", "<-", "<->"] = "",
         lwidth: Optional[float] = None,
@@ -210,8 +210,8 @@ class CanvasLineFeature(CanvasBase):
             xy: Tuple[float, float]: The center point of the ellipse from which the arc is drawn.
             width: float: The width of the ellipse.
             height: float: The height of the ellipse
-            from_angle: float: The starting angle of the arc in degrees (default is 0).
-            to_angle: float: The ending angle of the arc in degrees (default is 180).
+            angle_start: float: The starting angle of the arc in degrees (default is 0).
+            angle_end: float: The ending angle of the arc in degrees (default is 180).
             angle (float): The angle of ellipse.
             arrowhead: Literal["", "->", "<-", "<->"]: Optional arrowhead style ("", "->", "<-", "<->").
             lwidth: Optional[float]: Optional width of the line.
@@ -223,14 +223,14 @@ class CanvasLineFeature(CanvasBase):
         style = LineUtil.format_style(style)
         # validator.validate_line_args(locals())
 
-        if from_angle > to_angle:
-            from_angle = -1 * (360 - from_angle)
+        if angle_start > angle_end:
+            angle_start = -1 * (360 - angle_start)
         path_points = LineArcHelper.get_ellipse_path_points(
             xy,
             width,
             height,
-            from_angle,
-            to_angle,
+            angle_start,
+            angle_end,
         )
 
         if angle != 0:
@@ -416,8 +416,8 @@ class LineArcHelper:
         xy: Tuple[float, float],
         width: float,
         height: float,
-        from_angle: float,
-        to_angle: float,
+        angle_start: float,
+        angle_end: float,
     ) -> List[
         Union[
             Tuple[float, float],
@@ -425,9 +425,9 @@ class LineArcHelper:
         ]
     ]:
         """Internal function"""
-        diff = to_angle - from_angle
+        diff = angle_end - angle_start
         if abs(diff) > 270:
-            # having +2 for avoiding situation next_mid_angle == to_angle
+            # having +2 for avoiding situation next_mid_angle == angle_end
             step = int(diff / 3)
         elif abs(diff) > 135:
             step = int(diff / 2)
@@ -436,8 +436,8 @@ class LineArcHelper:
                 xy,
                 width,
                 height,
-                from_angle,
-                to_angle,
+                angle_start,
+                angle_end,
             )
             return [p1, (p2, p3, p4)]
         if diff >= 0:
@@ -449,15 +449,15 @@ class LineArcHelper:
         start = None
         path_points = []
         while True:
-            last_mid_angle = from_angle + step * i
-            next_mid_angle = from_angle + step * (i + 1)
+            last_mid_angle = angle_start + step * i
+            next_mid_angle = angle_start + step * (i + 1)
 
-            if from_angle < to_angle:
+            if angle_start < angle_end:
                 # anti clock wise
-                is_last = next_mid_angle > to_angle
+                is_last = next_mid_angle > angle_end
             else:
                 # clock wise
-                is_last = to_angle > next_mid_angle
+                is_last = angle_end > next_mid_angle
 
             if is_last:
                 p1, p2, p3, p4 = cls.bezier_ellipse_arc_approximation(
@@ -465,7 +465,7 @@ class LineArcHelper:
                     width,
                     height,
                     last_mid_angle,
-                    to_angle,
+                    angle_end,
                 )
                 if start is None:
                     start = p1

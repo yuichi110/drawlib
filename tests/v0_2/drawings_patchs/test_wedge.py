@@ -65,8 +65,8 @@ def test_angle120():
     wedge(
         (50, 50),
         radius=30,
-        from_angle=45,
-        to_angle=270,
+        angle_start=45,
+        angle_end=270,
         width=10,
         angle=120,
         text="Hello",

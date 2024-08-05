@@ -250,8 +250,8 @@ class CanvasOriginalArrowFeature(CanvasBase):
         head_width: float,
         head_angle: float = 10,
         head: Literal["->", "<-", "<->"] = "->",
-        from_angle: float = 0,
-        to_angle: float = 180,
+        angle_start: float = 0,
+        angle_end: float = 180,
         angle: float = 0,
         style: Union[ShapeStyle, str, None] = None,
     ) -> None:
@@ -265,8 +265,8 @@ class CanvasOriginalArrowFeature(CanvasBase):
             head_width: float: The width of the head of the arrow.
             head_angle: float: The angle of the arrowhead in degrees (default is 10).
             head: Literal["->", "<-", "<->"]: The arrowhead style ("->", "<-", "<->").
-            from_angle: float: The starting angle of the arc in degrees (default is 0).
-            to_angle: float: The ending angle of the arc in degrees (default is 180).
+            angle_start: float: The starting angle of the arc in degrees (default is 0).
+            angle_end: float: The ending angle of the arc in degrees (default is 180).
             angle (float): The angle of ellipse.
             style: Union[ShapeStyle, str, None]: Optional shape style.
 
@@ -287,27 +287,27 @@ class CanvasOriginalArrowFeature(CanvasBase):
         height_ext = height + tail_width
 
         if head in {"<-", "<->"}:
-            from_angle2 = from_angle + head_angle
-            from_angle2 %= 360
+            angle_start2 = angle_start + head_angle
+            angle_start2 %= 360
         else:
-            from_angle2 = from_angle
+            angle_start2 = angle_start
 
         if head in {"->", "<->"}:
-            to_angle2 = to_angle - head_angle
-            to_angle2 %= 360
+            angle_end2 = angle_end - head_angle
+            angle_end2 %= 360
         else:
-            to_angle2 = to_angle
+            angle_end2 = angle_end
 
-        if from_angle2 > to_angle2:
-            pp1_fa = -1 * (360 - from_angle2)
-            pp1_ta = to_angle2
-            pp2_fa = to_angle2
+        if angle_start2 > angle_end2:
+            pp1_fa = -1 * (360 - angle_start2)
+            pp1_ta = angle_end2
+            pp2_fa = angle_end2
             pp2_ta = pp1_fa
         else:
-            pp1_fa = from_angle2
-            pp1_ta = to_angle2
-            pp2_fa = to_angle2
-            pp2_ta = from_angle2
+            pp1_fa = angle_start2
+            pp1_ta = angle_end2
+            pp2_fa = angle_end2
+            pp2_ta = angle_start2
 
         path_points1 = LineArcHelper.get_ellipse_path_points(
             xy,
@@ -324,8 +324,8 @@ class CanvasOriginalArrowFeature(CanvasBase):
             pp2_ta,
         )
 
-        if from_angle > to_angle:
-            from_angle = -1 * (360 - from_angle)
+        if angle_start > angle_end:
+            angle_start = -1 * (360 - angle_start)
 
         if head in {"<-", "<->"}:
             path_points1.insert(
@@ -334,7 +334,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
                     xy,
                     width,
                     height,
-                    from_angle,
+                    angle_start,
                 ),
             )
             path_points1.insert(
@@ -343,7 +343,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
                     xy,
                     width - head_width,
                     height - head_width,
-                    from_angle2,
+                    angle_start2,
                 ),
             )
             path_points2.append(
@@ -351,7 +351,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
                     xy,
                     width + head_width,
                     height + head_width,
-                    from_angle2,
+                    angle_start2,
                 )
             )
 
@@ -361,7 +361,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
                     xy,
                     width - head_width,
                     height - head_width,
-                    to_angle2,
+                    angle_end2,
                 )
             )
             path_points1.append(
@@ -369,7 +369,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
                     xy,
                     width,
                     height,
-                    to_angle,
+                    angle_end,
                 )
             )
             path_points2.insert(
@@ -378,7 +378,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
                     xy,
                     width + head_width,
                     height + head_width,
-                    to_angle2,
+                    angle_end2,
                 ),
             )
 
@@ -533,7 +533,16 @@ class CanvasOriginalArrowFeature(CanvasBase):
 
 
 class ArrowPolylineHelper:
-    def __init__(self, xys: List[Tuple[float, float]], r: float, num_points=100):
+    """Internal class"""
+
+    def __init__(
+        self,
+        xys: List[Tuple[float, float]],
+        r: float,
+        num_points: int = 100,
+    ) -> None:
+        """Internal function"""
+
         def get_mid_points(
             a: Tuple[float, float],
             b: Tuple[float, float],
@@ -545,7 +554,7 @@ class ArrowPolylineHelper:
             d = (b[0] - r * ab_unit[0], b[1] - r * ab_unit[1])
             return c, d
 
-        def bernstein_poly(i, n, t):
+        def bernstein_poly(i: int, n: int, t: float) -> float:
             return math.comb(n, i) * (t**i) * ((1 - t) ** (n - i))
 
         def get_points(
@@ -586,7 +595,7 @@ class ArrowPolylineHelper:
         self._original_curve_points = points
 
     def get_parallel_curve_points(self, distance: float) -> List[Tuple[float, float]]:
-        """Internal class"""
+        """Internal function"""
 
         def get_distance(p1: Tuple[float, float], p2: Tuple[float, float]) -> float:
             return math.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)

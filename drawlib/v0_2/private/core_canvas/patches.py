@@ -25,7 +25,7 @@ from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import ShapeUtil
 from drawlib.v0_2.private.core_canvas.base import CanvasBase
-from drawlib.v0_2.private.util import error_handler, get_center_and_size
+from drawlib.v0_2.private.util import error_handler
 
 
 class CanvasPatchesFeature(CanvasBase):
@@ -45,8 +45,8 @@ class CanvasPatchesFeature(CanvasBase):
         xy: Tuple[float, float],
         width: float,
         height: float,
-        from_angle: Union[int, float] = 0.0,
-        to_angle: Union[int, float] = 360.0,
+        angle_start: Union[int, float] = 0.0,
+        angle_end: Union[int, float] = 360.0,
         angle: Union[int, float] = 0.0,
         style: Union[ShapeStyle, str, None] = None,
         text: str = "",
@@ -59,8 +59,8 @@ class CanvasPatchesFeature(CanvasBase):
             xy: Center of the arc.
             width: Width of the arc.
             height: Height of the arc.
-            from_angle (optional): Starting angle of the arc (default is 0.0).
-            to_angle (optional): Ending angle of the arc (default is 360.0).
+            angle_start (optional): Starting angle of the arc (default is 0.0).
+            angle_end (optional): Ending angle of the arc (default is 360.0).
             angle (optional): Rotation angle of the arc.
             style (optional): Style of the arc.
             text (optional): Text shown at the center of the arc.
@@ -89,8 +89,8 @@ class CanvasPatchesFeature(CanvasBase):
                 width=width,
                 height=height,
                 angle=angle,
-                theta1=from_angle,
-                theta2=to_angle,
+                theta1=angle_start,
+                theta2=angle_end,
                 **options,
             )
         )
@@ -295,8 +295,8 @@ class CanvasPatchesFeature(CanvasBase):
         xy: Tuple[float, float],
         radius: float,
         width: Optional[float] = None,
-        from_angle: float = 0,
-        to_angle: float = 360,
+        angle_start: float = 0,
+        angle_end: float = 360,
         angle: Union[int, float] = 0.0,
         style: Union[ShapeStyle, str, None] = None,
         text: str = "",
@@ -310,8 +310,8 @@ class CanvasPatchesFeature(CanvasBase):
             radius: Radius of the wedge.
             width (optional): Length from outer to inner circumference.
                               Default is same as radius.
-            from_angle (optional): Starting angle of the wedge (default is 0).
-            to_angle (optional): Ending angle of the wedge (default is 360).
+            angle_start (optional): Starting angle of the wedge (default is 0).
+            angle_end (optional): Ending angle of the wedge (default is 360).
             angle (optional): Rotation angle of the wedge.
             style (optional): Style of the wedge.
             text (optional): Text shown at the center of the wedge.
@@ -341,8 +341,8 @@ class CanvasPatchesFeature(CanvasBase):
                 center=xy,
                 r=radius,
                 width=width,  # None makes no hole
-                theta1=from_angle + angle,
-                theta2=to_angle + angle,
+                theta1=angle_start + angle,
+                theta2=angle_end + angle,
                 **options,
             )
         )
@@ -409,8 +409,8 @@ class CanvasPatchesFeature(CanvasBase):
         self,
         xy: Tuple[float, float],
         radius: float,
-        from_angle: float = 0,
-        to_angle: float = 180,
+        angle_start: float = 0,
+        angle_end: float = 180,
         angle: Union[int, float] = 0.0,
         style: Union[ShapeStyle, str, None] = None,
         text: str = "",
@@ -422,8 +422,8 @@ class CanvasPatchesFeature(CanvasBase):
         Args:
             xy: Center of the fan.
             radius: Radius of the fan.
-            from_angle (optional): Starting angle of the fan (default is 0).
-            to_angle (optional): Ending angle of the fan (default is 180).
+            angle_start (optional): Starting angle of the fan (default is 0).
+            angle_end (optional): Ending angle of the fan (default is 180).
             angle (optional): Rotation angle of the fan.
             style (optional): Style of the fan.
             text (optional): Text shown at the center of the fan.
@@ -445,8 +445,8 @@ class CanvasPatchesFeature(CanvasBase):
             xy=xy,
             radius=radius,
             width=None,
-            from_angle=from_angle,
-            to_angle=to_angle,
+            angle_start=angle_start,
+            angle_end=angle_end,
             angle=angle,
             style=style,
             text=text,

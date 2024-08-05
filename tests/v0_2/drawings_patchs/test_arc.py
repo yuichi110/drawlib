@@ -53,5 +53,5 @@ def test_angle45_text():
 
 
 def test_angle45_theta():
-    arc((50, 50), 30, 50, angle=45, from_angle=90, to_angle=270)
+    arc((50, 50), 30, 50, angle=45, angle_start=90, angle_end=270)
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

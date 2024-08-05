@@ -28,9 +28,9 @@ def bubblespeech(
     width: float,
     height: float,
     tail_edge: Literal["left", "top", "right", "bottom"],
-    tail_from_ratio: float,
+    tail_start_ratio: float,
     tail_vertex_xy: Tuple[float, float],
-    tail_to_ratio: float,
+    tail_end_ratio: float,
     style: Union[ShapeStyle, str, None] = None,
     text: str = "",
     textsize: Optional[float] = None,
@@ -43,9 +43,9 @@ def bubblespeech(
         width (float): The width of the bubble.
         height (float): The height of the bubble.
         tail_edge (Literal["left", "top", "right", "bottom"]): The edge on which the tail will be positioned.
-        tail_from_ratio (float): The ratio along the edge where the tail starts.
+        tail_start_ratio (float): The ratio along the edge where the tail starts.
         tail_vertex_xy (Tuple[float, float]): The (x, y) coordinates of the tail's vertex.
-        tail_to_ratio (float): The ratio along the edge where the tail ends.
+        tail_end_ratio (float): The ratio along the edge where the tail ends.
         style (Union[ShapeStyle, str, None], optional): The style of the bubble. Defaults to None.
         text (str, optional): The text to display inside the bubble. Defaults to an empty string.
         textsize (Optional[float], optional): The size of the text. Defaults to None.
@@ -66,33 +66,33 @@ def bubblespeech(
     if textsize is not None:
         textstyle.size = textsize
 
-    if tail_from_ratio > tail_to_ratio:
-        raise ValueError("tail_from_ratio must be smaller than tail_to_ratio.")
-    if tail_to_ratio > 1.0:
-        raise ValueError("tail_from_ratio and tail_to_ratio must be smaller than 1.0")
+    if tail_start_ratio > tail_end_ratio:
+        raise ValueError("tail_start_ratio must be smaller than tail_end_ratio.")
+    if tail_end_ratio > 1.0:
+        raise ValueError("tail_start_ratio and tail_end_ratio must be smaller than 1.0")
 
     x, y = xy
     xys = []
     xys.append((x, y))  # left bottom
     if tail_edge == "left":
-        xys.append((x, y + height * tail_from_ratio))
+        xys.append((x, y + height * tail_start_ratio))
         xys.append(tail_vertex_xy)
-        xys.append((x, y + height * tail_to_ratio))
+        xys.append((x, y + height * tail_end_ratio))
     xys.append((x, y + height))  # left top
     if tail_edge == "top":
-        xys.append((x + width * tail_from_ratio, y + height))
+        xys.append((x + width * tail_start_ratio, y + height))
         xys.append(tail_vertex_xy)
-        xys.append((x + width * tail_to_ratio, y + height))
+        xys.append((x + width * tail_end_ratio, y + height))
     xys.append((x + width, y + height))  # right top
     if tail_edge == "right":
-        xys.append((x + width, y + height * tail_to_ratio))
+        xys.append((x + width, y + height * tail_end_ratio))
         xys.append(tail_vertex_xy)
-        xys.append((x + width, y + height * tail_from_ratio))
+        xys.append((x + width, y + height * tail_start_ratio))
     xys.append((x + width, y))  # right bottom
     if tail_edge == "bottom":
-        xys.append((x + width * tail_to_ratio, y))
+        xys.append((x + width * tail_end_ratio, y))
         xys.append(tail_vertex_xy)
-        xys.append((x + width * tail_from_ratio, y))
+        xys.append((x + width * tail_start_ratio, y))
 
     options = ShapeUtil.get_shape_options(style)
     canvas._artists.append(Polygon(xy=xys, closed=True, **options))

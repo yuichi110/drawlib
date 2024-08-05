@@ -22,8 +22,8 @@ def test_circle():
         head_angle=20,
         head_width=10,
         head="->",
-        from_angle=45,
-        to_angle=135,
+        angle_start=45,
+        angle_end=135,
     )
 
     ellipse(xy=(25, 75), width=30, height=30, style="dashed")
@@ -35,8 +35,8 @@ def test_circle():
         head_angle=20,
         head_width=10,
         head="<->",
-        from_angle=0,
-        to_angle=270,
+        angle_start=0,
+        angle_end=270,
     )
 
     ellipse(xy=(75, 25), width=30, height=30, style="dashed")
@@ -48,8 +48,8 @@ def test_circle():
         head_angle=20,
         head_width=10,
         head="->",
-        from_angle=270,
-        to_angle=90,
+        angle_start=270,
+        angle_end=90,
     )
 
     ellipse(xy=(75, 75), width=30, height=30, style="dashed")
@@ -61,8 +61,8 @@ def test_circle():
         head_angle=20,
         head_width=10,
         head="<-",
-        from_angle=270,
-        to_angle=180,
+        angle_start=270,
+        angle_end=180,
     )
 
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
@@ -78,8 +78,8 @@ def test_ellipse():
         head_angle=20,
         head_width=10,
         head="->",
-        from_angle=45,
-        to_angle=135,
+        angle_start=45,
+        angle_end=135,
     )
 
     ellipse(xy=(25, 75), width=40, height=20, style="dashed")
@@ -91,8 +91,8 @@ def test_ellipse():
         head_angle=20,
         head_width=10,
         head="<-",
-        from_angle=355,
-        to_angle=180,
+        angle_start=355,
+        angle_end=180,
     )
 
     ellipse(xy=(75, 25), width=40, height=20, style="dashed")
@@ -104,8 +104,8 @@ def test_ellipse():
         head_angle=20,
         head_width=10,
         head="->",
-        from_angle=270,
-        to_angle=90,
+        angle_start=270,
+        angle_end=90,
     )
 
     ellipse(xy=(75, 75), width=40, height=20, style="dashed")
@@ -117,8 +117,8 @@ def test_ellipse():
         head_angle=20,
         head_width=10,
         head="<-",
-        from_angle=270,
-        to_angle=180,
+        angle_start=270,
+        angle_end=180,
     )
 
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
@@ -134,8 +134,8 @@ def test_ellipse_angle45():
         head_angle=20,
         head_width=10,
         head="->",
-        from_angle=45,
-        to_angle=135,
+        angle_start=45,
+        angle_end=135,
         angle=45,
     )
 
@@ -148,8 +148,8 @@ def test_ellipse_angle45():
         head_angle=20,
         head_width=10,
         head="<-",
-        from_angle=355,
-        to_angle=180,
+        angle_start=355,
+        angle_end=180,
         angle=45,
     )
 
@@ -162,8 +162,8 @@ def test_ellipse_angle45():
         head_angle=20,
         head_width=10,
         head="->",
-        from_angle=270,
-        to_angle=90,
+        angle_start=270,
+        angle_end=90,
         angle=45,
     )
 
@@ -176,8 +176,8 @@ def test_ellipse_angle45():
         head_angle=20,
         head_width=10,
         head="<-",
-        from_angle=270,
-        to_angle=180,
+        angle_start=270,
+        angle_end=180,
         angle=45,
     )
 
