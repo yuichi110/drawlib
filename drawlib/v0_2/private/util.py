@@ -19,7 +19,7 @@ import os.path
 import shutil
 import sys
 import traceback
-from typing import Any, List, Tuple
+from typing import Any, List, Tuple, Union
 
 import drawlib.assets.v0_2.fonticons
 import drawlib.assets.v0_2.fonts
@@ -118,6 +118,82 @@ def get_rotated_points(
         rotated_points.append((final_x, final_y))
 
     return rotated_points
+
+
+@error_handler
+def get_rotated_path_points(
+    path_points: List[
+        Union[
+            Tuple[float, float],
+            Tuple[Tuple[float, float], Tuple[float, float]],
+            Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]],
+        ]
+    ],
+    center: Tuple[float, float],
+    angle: float,
+) -> List[
+    Union[
+        Tuple[float, float],
+        Tuple[Tuple[float, float], Tuple[float, float]],
+        Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]],
+    ]
+]:
+    """
+    Rotate a list of points around a given center by a given angle.
+
+    Args:
+        path_points (list of tuples): List of (x, y) points to rotate.
+        center (tuple): The (x, y) coordinates of the center point.
+        angle (float): The angle to rotate the points by, in degrees.
+
+    Returns:
+    list of tuples: The rotated points.
+    """
+    angle = math.radians(angle)
+    cos_theta = math.cos(angle)
+    sin_theta = math.sin(angle)
+
+    rotated_path_points: List[
+        Union[
+            Tuple[float, float],
+            Tuple[Tuple[float, float], Tuple[float, float]],
+            Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]],
+        ]
+    ] = []
+    cx, cy = center
+
+    for t in path_points:
+        # Translate point to origin
+        if not isinstance(t[0], tuple):
+            x: float = t[0]  # type: ignore
+            y: float = t[1]  # type: ignore
+            translated_x = x - cx
+            translated_y = y - cy
+            # Rotate point
+            rotated_x = translated_x * cos_theta - translated_y * sin_theta
+            rotated_y = translated_x * sin_theta + translated_y * cos_theta
+            # Translate point back
+            final_x = rotated_x + cx
+            final_y = rotated_y + cy
+            rotated_path_points.append((final_x, final_y))
+
+        else:
+            new_path_point = []
+            for xy in t:
+                x: float = xy[0]  # type: ignore
+                y: float = xy[1]  # type: ignore
+                translated_x = x - cx
+                translated_y = y - cy
+                # Rotate point
+                rotated_x = translated_x * cos_theta - translated_y * sin_theta
+                rotated_y = translated_x * sin_theta + translated_y * cos_theta
+                # Translate point back
+                final_x = rotated_x + cx
+                final_y = rotated_y + cy
+                new_path_point.append((final_x, final_y))
+            rotated_path_points.append(tuple(new_path_point))
+
+    return rotated_path_points
 
 
 @error_handler

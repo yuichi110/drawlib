@@ -68,6 +68,14 @@ def test_line_arc_ellipse():
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
+def test_line_arc_ellipse_angle45():
+    line_arc(xy=(25, 25), width=30, height=15, from_angle=45, to_angle=135, arrowhead="->", angle=45)
+    line_arc(xy=(25, 75), width=30, height=15, from_angle=10, to_angle=190, arrowhead="->", angle=45)
+    line_arc(xy=(75, 25), width=30, height=15, from_angle=270, to_angle=135, arrowhead="->", angle=45)
+    line_arc(xy=(75, 75), width=30, height=15, from_angle=0, to_angle=360, arrowhead="->", angle=45)
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
 def test_line_curved():
     line_curved(
         (20, 20),

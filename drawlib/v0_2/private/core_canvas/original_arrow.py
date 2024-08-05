@@ -26,6 +26,7 @@ from drawlib.v0_2.private.util import (
     error_handler,
     get_angle,
     get_distance,
+    get_rotated_path_points,
     get_rotated_points,
 )
 
@@ -251,6 +252,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
         head: Literal["->", "<-", "<->"] = "->",
         from_angle: float = 0,
         to_angle: float = 180,
+        angle: float = 0,
         style: Union[ShapeStyle, str, None] = None,
     ) -> None:
         """Draw arc arrow.
@@ -265,6 +267,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
             head: Literal["->", "<-", "<->"]: The arrowhead style ("->", "<-", "<->").
             from_angle: float: The starting angle of the arc in degrees (default is 0).
             to_angle: float: The ending angle of the arc in degrees (default is 180).
+            angle (float): The angle of ellipse.
             style: Union[ShapeStyle, str, None]: Optional shape style.
 
         Returns:
@@ -380,6 +383,9 @@ class CanvasOriginalArrowFeature(CanvasBase):
             )
 
         path_points1.extend(path_points2)
+
+        if angle != 0:
+            path_points1 = get_rotated_path_points(path_points1, xy, angle)  # type: ignore
 
         # create Path
         vertices = [path_points1[0]]

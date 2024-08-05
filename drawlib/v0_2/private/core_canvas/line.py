@@ -20,7 +20,7 @@ import drawlib.v0_2.private.validators.args as validator
 from drawlib.v0_2.private.core.model import LineStyle
 from drawlib.v0_2.private.core.util import LineUtil
 from drawlib.v0_2.private.core_canvas.base import CanvasBase
-from drawlib.v0_2.private.util import error_handler
+from drawlib.v0_2.private.util import error_handler, get_rotated_path_points
 
 
 class CanvasLineFeature(CanvasBase):
@@ -199,8 +199,9 @@ class CanvasLineFeature(CanvasBase):
         height: float,
         from_angle: float = 0,
         to_angle: float = 180,
-        lwidth: Optional[float] = None,
+        angle: float = 0,
         arrowhead: Literal["", "->", "<-", "<->"] = "",
+        lwidth: Optional[float] = None,
         style: Union[LineStyle, str, None] = None,
     ) -> None:
         """Draw arc line on ellipse.
@@ -211,8 +212,9 @@ class CanvasLineFeature(CanvasBase):
             height: float: The height of the ellipse
             from_angle: float: The starting angle of the arc in degrees (default is 0).
             to_angle: float: The ending angle of the arc in degrees (default is 180).
-            lwidth: Optional[float]: Optional width of the line.
+            angle (float): The angle of ellipse.
             arrowhead: Literal["", "->", "<-", "<->"]: Optional arrowhead style ("", "->", "<-", "<->").
+            lwidth: Optional[float]: Optional width of the line.
             style: Union[LineStyle, str, None]: Optional line style.
 
         Returns:
@@ -230,6 +232,10 @@ class CanvasLineFeature(CanvasBase):
             from_angle,
             to_angle,
         )
+
+        if angle != 0:
+            path_points = get_rotated_path_points(path_points, xy, angle)  # type: ignore
+
         start_point = path_points[0]
         path_points = path_points[1:]
 

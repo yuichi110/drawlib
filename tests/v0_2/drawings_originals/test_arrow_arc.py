@@ -122,3 +122,63 @@ def test_ellipse():
     )
 
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
+def test_ellipse_angle45():
+    ellipse(xy=(25, 25), width=40, height=20, style="dashed", angle=45)
+    arrow_arc(
+        xy=(25, 25),
+        width=40,
+        height=20,
+        tail_width=5,
+        head_angle=20,
+        head_width=10,
+        head="->",
+        from_angle=45,
+        to_angle=135,
+        angle=45,
+    )
+
+    ellipse(xy=(25, 75), width=40, height=20, style="dashed", angle=45)
+    arrow_arc(
+        xy=(25, 75),
+        width=40,
+        height=20,
+        tail_width=5,
+        head_angle=20,
+        head_width=10,
+        head="<-",
+        from_angle=355,
+        to_angle=180,
+        angle=45,
+    )
+
+    ellipse(xy=(75, 25), width=40, height=20, style="dashed", angle=45)
+    arrow_arc(
+        xy=(75, 25),
+        width=40,
+        height=20,
+        tail_width=5,
+        head_angle=20,
+        head_width=10,
+        head="->",
+        from_angle=270,
+        to_angle=90,
+        angle=45,
+    )
+
+    ellipse(xy=(75, 75), width=40, height=20, style="dashed", angle=45)
+    arrow_arc(
+        xy=(75, 75),
+        width=40,
+        height=20,
+        tail_width=5,
+        head_angle=20,
+        head_width=10,
+        head="<-",
+        from_angle=270,
+        to_angle=180,
+        angle=45,
+    )
+
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
