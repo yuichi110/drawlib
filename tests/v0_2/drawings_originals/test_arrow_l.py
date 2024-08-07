@@ -12,6 +12,18 @@ from drawlib.v0_2.apis import *
 OUTPUT_DIR = "../../../output_tests/v0_2/drawings_originals/arrow_l/"
 
 
+def test():
+    arrow_l(
+        (50, 25),
+        width=30,
+        height=20,
+        tail_width=5,
+        head_width=10,
+        head_length=10,
+    )
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
 def test_right():
     arrow_l(
         xy=(50, 50),

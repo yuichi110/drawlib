@@ -11,7 +11,7 @@
 """Canvas's original arrow feature implementation module."""
 
 import math
-from typing import List, Literal, Optional, Tuple, Union
+from typing import Any, List, Literal, Optional, Tuple, Union
 
 from matplotlib.patches import PathPatch
 from matplotlib.path import Path
@@ -19,7 +19,7 @@ from matplotlib.path import Path
 import drawlib.v0_2.private.validators.args as validator
 from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
-from drawlib.v0_2.private.core.util import ShapeUtil
+from drawlib.v0_2.private.core.util import LineUtil, ShapeUtil
 from drawlib.v0_2.private.core_canvas.base import CanvasBase
 from drawlib.v0_2.private.core_canvas.line import LineArcHelper
 from drawlib.v0_2.private.util import (
@@ -205,6 +205,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
             new_point = (a[0] + scaled_vector[0], a[1] + scaled_vector[1])
             return new_point
 
+        xys = LineUtil.sanitize_xys(xys)
         if head in {"<-", "<->"}:
             xys_start = point_on_line(xys[0], xys[1], head_length)
         else:
@@ -219,8 +220,8 @@ class CanvasOriginalArrowFeature(CanvasBase):
         new_xys.insert(0, xys_start)
         new_xys.append(xys_end)
         aph = ArrowPolylineHelper(new_xys, r, 100)
-        parallel_xys1 = aph.get_parallel_curve_points(tail_width / 2)
-        parallel_xys2 = aph.get_parallel_curve_points(tail_width / -2)
+        parallel_xys1 = aph.get_parallel_points(tail_width / 2)
+        parallel_xys2 = aph.get_parallel_points(tail_width / -2)
         parallel_xys2.reverse()
 
         if head in {"<-", "<->"}:
@@ -568,6 +569,11 @@ class ArrowPolylineHelper:
                 curve.append((x, y))
             return curve
 
+        self._r = r
+        if r == 0:
+            self._original_points = xys[:]
+            return
+
         points = []
         bezier_start: Tuple[float, float] = (0, 0)
         last_i = len(xys) - 2
@@ -592,24 +598,121 @@ class ArrowPolylineHelper:
             points.extend(get_points(bezier_points))
             bezier_start = p2
 
-        self._original_curve_points = points
+        self._original_points = points
 
-    def get_parallel_curve_points(self, distance: float) -> List[Tuple[float, float]]:
+    def get_parallel_points(self, distance: float) -> List[Tuple[float, float]]:
+        """Internal function"""
+        if self._r == 0:
+            return self._get_parallel_straight_points(distance)
+        return self._get_parallel_curved_points(distance)
+
+    def _get_parallel_curved_points(self, distance: float) -> List[Tuple[float, float]]:
         """Internal function"""
 
         def get_distance(p1: Tuple[float, float], p2: Tuple[float, float]) -> float:
             return math.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
 
         parallel_curve_points = []
-        for i in range(1, len(self._original_curve_points)):
-            p0, p1 = self._original_curve_points[i - 1], self._original_curve_points[i]
+        for i in range(1, len(self._original_points)):
+            p0, p1 = self._original_points[i - 1], self._original_points[i]
             dx, dy = p1[0] - p0[0], p1[1] - p0[1]
             length = get_distance(p0, p1)
             nx, ny = -dy / length, dx / length
             px0, py0 = p0[0] + distance * nx, p0[1] + distance * ny
             px1, py1 = p1[0] + distance * nx, p1[1] + distance * ny
             parallel_curve_points.append((px0, py0))
-            if i == len(self._original_curve_points) - 1:
+            if i == len(self._original_points) - 1:
                 parallel_curve_points.append((px1, py1))
 
         return parallel_curve_points
+
+    def _get_parallel_straight_points(self, distance: float) -> List[Tuple[float, float]]:
+        """Internal function"""
+
+        def get_parallel_line_xys(
+            xy1: Tuple[float, float],
+            xy2: Tuple[float, float],
+        ) -> Tuple[Tuple[float, float], Tuple[float, float]]:
+            """Internal function"""
+            x1, y1 = xy1
+            x2, y2 = xy2
+
+            # calc vector
+            vx = x2 - x1
+            vy = y2 - y1
+            length = math.sqrt(vx**2 + vy**2)
+            dx = -vy / length * distance
+            dy = vx / length * distance
+
+            # add vector
+            x1_prime = x1 + dx
+            y1_prime = y1 + dy
+            x2_prime = x2 + dx
+            y2_prime = y2 + dy
+
+            return (x1_prime, y1_prime), (x2_prime, y2_prime)
+
+        def find_lines_intersection(
+            xy1: Tuple[float, float],
+            xy2: Tuple[float, float],
+            xy3: Tuple[float, float],
+            xy4: Tuple[float, float],
+        ) -> Tuple[float, float]:
+            """Internal function"""
+            x1, y1 = xy1
+            x2, y2 = xy2
+            x3, y3 = xy3
+            x4, y4 = xy4
+
+            # Check if lines are vertical
+            if x1 == x2 and x3 == x4:
+                raise ValueError(f'line "{xy1}" -> "{xy2}" and "{xy3}" => "{xy4}" are parallel.')
+
+            # Handle vertical lines
+            if x1 == x2:
+                m2 = (y4 - y3) / (x4 - x3)
+                b2 = y3 - m2 * x3
+                x = x1
+                y = m2 * x + b2
+                return (x, y)
+
+            if x3 == x4:
+                m1 = (y2 - y1) / (x2 - x1)
+                b1 = y1 - m1 * x1
+                x = x3
+                y = m1 * x + b1
+                return (x, y)
+
+            m1 = (y2 - y1) / (x2 - x1)
+            b1 = y1 - m1 * x1
+            m2 = (y4 - y3) / (x4 - x3)
+            b2 = y3 - m2 * x3
+
+            if m1 == m2:
+                raise ValueError(f'line "{xy1}" -> "{xy2}" and "{xy3}" => "{xy4}" are parallel.')
+
+            x = (b2 - b1) / (m1 - m2)
+            y = m1 * x + b1
+
+            return (x, y)
+
+        xys = self._original_points
+        parallel_lines: List[Tuple[Tuple[float, float], Tuple[float, float]]] = []
+        for i in range(len(xys) - 1):
+            xy1, xy2 = get_parallel_line_xys(xys[i], xys[i + 1])
+            parallel_lines.append((xy1, xy2))
+
+        points: List[Tuple[float, float]] = []
+        for i in range(len(parallel_lines) - 1):
+            xy1, xy2 = parallel_lines[i]
+            xy3, xy4 = parallel_lines[i + 1]
+            xy = find_lines_intersection(xy1, xy2, xy3, xy4)
+            points.append(xy)
+
+        first_point = parallel_lines[0][0]
+        last_point = parallel_lines[len(parallel_lines) - 1][1]
+
+        points.insert(0, first_point)
+        points.append(last_point)
+
+        return points

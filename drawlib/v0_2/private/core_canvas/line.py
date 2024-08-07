@@ -268,7 +268,7 @@ class CanvasLineFeature(CanvasBase):
         """
         style = LineUtil.format_style(style)
         validator.validate_line_args(locals())
-
+        xys = LineUtil.sanitize_xys(xys)
         self.lines_bezier(
             xy=xys[0],
             path_points=xys[1:],  # type: ignore
@@ -300,10 +300,12 @@ class CanvasLineFeature(CanvasBase):
         """
         style = LineUtil.format_style(style)
         validator.validate_line_args(locals())
+
         if len(xys) == 2:
-            self.lines(xys, width=width, arrowhead=arrowhead, style=style)
+            self.line(xys[0], xys[1], width=width, arrowhead=arrowhead, style=style)
             return
 
+        xys = LineUtil.sanitize_xys(xys)
         path_points = []
         last_i = len(xys) - 2
         # last_xy = (0, 0)

@@ -24,6 +24,30 @@ def test():
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
+def test_dup_point():
+    arrow_polyline(
+        xys=[(10, 10), (10, 50), (10, 50), (50, 50), (50, 10)],
+        tail_width=2,
+        head_length=3,
+        head_width=5,
+        head="->",
+        r=5,
+    )
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
+def test_same_m():
+    arrow_polyline(
+        xys=[(10, 10), (10, 30), (10, 50), (10, 50), (50, 50), (50, 10)],
+        tail_width=2,
+        head_length=3,
+        head_width=5,
+        head="->",
+        r=5,
+    )
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+
+
 def test2():
     arrow_polyline(
         xys=[(10, 10), (10, 50), (50, 50), (50, 10)],
