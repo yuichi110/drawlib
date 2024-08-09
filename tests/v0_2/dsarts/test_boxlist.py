@@ -13,24 +13,36 @@ OUTPUT_DIR = "../../../output_tests/v0_2/dsarts/boxlist/"
 
 
 def test():
-    b = dsart.BoxList("solid", "", "red_solid_bold", "red_bold")
-    b.draw((10, 10), 8, 6, [1, 2, 3, 4], [2], 7)
+    b = dsart.BoxList("solid", "")
+    b.extend(["1", "2"])
+    b.append("3", "red_solid_bold", "red_bold")
+    b.append("4")
+    b.draw((10, 10), 8, 6)
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_right():
-    b = dsart.BoxList("solid", "", "red_solid_bold", "red_bold")
-    b.draw((90, 10), 8, 6, [1, 2, 3, 4], [2], 7, "right")
+    b = dsart.BoxList("solid", "")
+    b.extend(["1", "2"])
+    b.append("3", "red_solid_bold", "red_bold")
+    b.append("4")
+    b.draw((90, 10), 8, 6, "right")
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_bottom():
-    b = dsart.BoxList("solid", "", "red_solid_bold", "red_bold")
-    b.draw((10, 10), 8, 6, [1, 2, 3, 4], [2], 7, "bottom")
+    b = dsart.BoxList("solid", "")
+    b.extend(["1", "2"])
+    b.append("3", "red_solid_bold", "red_bold")
+    b.append("4")
+    b.draw((10, 10), 8, 6, "bottom")
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_top():
-    b = dsart.BoxList("solid", "", "red_solid_bold", "red_bold")
-    b.draw((10, 90), 8, 6, [1, 2, 3, 4], [2], 7, "top")
+    b = dsart.BoxList("solid", "")
+    b.extend(["1", "2"])
+    b.append("3", "red_solid_bold", "red_bold")
+    b.append("4")
+    b.draw((10, 90), 8, 6, "top")
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

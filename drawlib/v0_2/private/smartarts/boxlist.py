@@ -10,6 +10,7 @@
 
 """BoxList implementation module."""
 
+import dataclasses
 from typing import Any, List, Literal, Optional, Tuple, Union
 
 from drawlib.v0_2.private.core.colors import Colors
@@ -32,47 +33,135 @@ class BoxList:
     @error_handler
     def __init__(
         self,
-        box_style: Union[str, ShapeStyle, None] = None,
-        text_style: Union[str, ShapeTextStyle, None] = None,
-        box_highlight_style: Union[str, ShapeStyle, None] = None,
-        text_highlight_style: Union[str, ShapeTextStyle, None] = None,
+        default_box_style: Union[str, ShapeStyle, None] = None,
+        default_text_style: Union[str, ShapeTextStyle, None] = None,
     ) -> None:
         """Initialize BoxList.
 
         Args:
-            box_style (Union[str, ShapeStyle, None]): The style for the boxes.
-            text_style (Union[str, ShapeTextStyle, None]): The style for the text inside the boxes.
+            default_box_style (Union[str, ShapeStyle, None]): The style for the boxes.
+            default_text_style (Union[str, ShapeTextStyle, None]): The style for the text inside the boxes.
             box_highlight_style (Union[str, ShapeStyle, None]): The style for the highlighted boxes.
             text_highlight_style (Union[str, ShapeTextStyle, None]):
                     The style for the text inside the highlighted boxes.
         """
+        if isinstance(default_box_style, str):
+            default_box_style = dtheme.rectanglestyles.get(default_box_style)
+        if default_box_style is None:
+            default_box_style = dtheme.rectanglestyles.get()
+        default_box_style.halign = "center"
+        default_box_style.valign = "center"
+        self._default_box_style = default_box_style
+
+        if isinstance(default_text_style, str):
+            default_text_style = dtheme.rectangletextstyles.get(default_text_style)
+        if default_text_style is None:
+            default_text_style = dtheme.rectangletextstyles.get()
+        self._default_text_style = default_text_style
+
+        self._list: List[_Item] = []
+
+    @error_handler
+    def append(
+        self,
+        text: str,
+        box_style: Union[str, ShapeStyle, None] = None,
+        text_style: Union[str, ShapeTextStyle, None] = None,
+    ) -> None:
+        """
+        Appends a new box with text to the BoxList.
+
+        Args:
+            text (str): The text to be displayed inside the box.
+            box_style (Union[str, ShapeStyle, None], optional):
+                The style for the box. Can be a style name, a ShapeStyle object, or None.
+                If None, the default box style is used.
+            text_style (Union[str, ShapeTextStyle, None], optional):
+                The style for the text inside the box. Can be a style name, a ShapeTextStyle object, or None.
+                If None, the default text style is used.
+        """
+        self.extend([text], box_style=box_style, text_style=text_style)
+
+    @error_handler
+    def insert(
+        self,
+        index: int,
+        text: str,
+        box_style: Union[str, ShapeStyle, None] = None,
+        text_style: Union[str, ShapeTextStyle, None] = None,
+    ) -> None:
+        """
+        Inserts a new box with text at a specified position in the BoxList.
+
+        Args:
+            index (int): The position at which to insert the new box.
+            text (str): The text to be displayed inside the box.
+            box_style (Union[str, ShapeStyle, None], optional):
+                The style for the box. Can be a style name, a ShapeStyle object, or None.
+                If None, the default box style is used.
+            text_style (Union[str, ShapeTextStyle, None], optional):
+                The style for the text inside the box. Can be a style name, a ShapeTextStyle object, or None.
+                If None, the default text style is used.
+        """
+        is_custom_style = box_style is not None or text_style is not None
+
         if isinstance(box_style, str):
             box_style = dtheme.rectanglestyles.get(box_style)
-        if box_style is None:
-            box_style = dtheme.rectanglestyles.get()
-        box_style.halign = "center"
-        box_style.valign = "center"
-        self._box_style = box_style
+        elif box_style is None:
+            box_style = self._default_box_style
 
         if isinstance(text_style, str):
             text_style = dtheme.rectangletextstyles.get(text_style)
-        if text_style is None:
-            text_style = dtheme.rectangletextstyles.get()
-        self._text_style = text_style
+        elif text_style is None:
+            text_style = self._default_text_style
 
-        if isinstance(box_highlight_style, str):
-            box_highlight_style = dtheme.rectanglestyles.get(box_highlight_style)
-        if box_highlight_style is None:
-            box_highlight_style = box_style
-        box_highlight_style.halign = "center"
-        box_highlight_style.valign = "center"
-        self._box_highlight_style = box_highlight_style
+        item = _Item(
+            text=text,
+            box_style=box_style,
+            text_style=text_style,
+            is_custom_style=is_custom_style,
+        )
+        self._list.insert(index, item)
 
-        if isinstance(text_highlight_style, str):
-            text_highlight_style = dtheme.rectangletextstyles.get(text_highlight_style)
-        if text_highlight_style is None:
-            text_highlight_style = text_style
-        self._text_highlight_style = text_highlight_style
+    @error_handler
+    def extend(
+        self,
+        texts: List[str],
+        box_style: Union[str, ShapeStyle, None] = None,
+        text_style: Union[str, ShapeTextStyle, None] = None,
+    ) -> None:
+        """
+        Extends the BoxList by appending multiple boxes with text.
+
+        Args:
+            texts (List[str]): A list of texts to be displayed inside the boxes.
+            box_style (Union[str, ShapeStyle, None], optional):
+                The style for the boxes. Can be a style name, a ShapeStyle object, or None.
+                If None, the default box style is used.
+            text_style (Union[str, ShapeTextStyle, None], optional):
+                The style for the text inside the boxes. Can be a style name, a ShapeTextStyle object, or None.
+                If None, the default text style is used.
+        """
+        is_custom_style = box_style is not None or text_style is not None
+
+        if isinstance(box_style, str):
+            box_style = dtheme.rectanglestyles.get(box_style)
+        elif box_style is None:
+            box_style = self._default_box_style
+
+        if isinstance(text_style, str):
+            text_style = dtheme.rectangletextstyles.get(text_style)
+        elif text_style is None:
+            text_style = self._default_text_style
+
+        for text in texts:
+            item = _Item(
+                text=text,
+                box_style=box_style,
+                text_style=text_style,
+                is_custom_style=is_custom_style,
+            )
+            self._list.append(item)
 
     @error_handler
     def draw(
@@ -80,9 +169,6 @@ class BoxList:
         xy: Tuple[float, float],
         box_width: float,
         box_height: float,
-        items: List[Any],
-        highlight_indexs: Optional[List[int]] = None,
-        length: Optional[int] = None,
         align: Literal["left", "right", "bottom", "top"] = "left",
     ) -> None:
         """Draws a list of boxes at the specified location.
@@ -99,48 +185,33 @@ class BoxList:
                     The alignment of the boxes relative to the starting point.
 
         """
-        if highlight_indexs is None:
-            highlight_indexs = []
-
-        if length is not None:
-            indexs = range(length)
-        else:
-            indexs = range(len(items))
-
-        non_highlight_indexs = [item for item in indexs if item not in highlight_indexs]
-        highlight_indexs = [item for item in indexs if item in highlight_indexs]
-
-        for index in non_highlight_indexs:
-            if index <= len(items) - 1:
-                text = str(items[index])
-            else:
-                text = ""
+        for index, item in enumerate(self._list):
+            if item.is_custom_style:
+                continue
 
             self._draw_cell(
                 start_xy=xy,
                 index=index,
-                text=text,
+                text=item.text,
                 box_width=box_width,
                 box_height=box_height,
-                box_style=self._box_style,
-                text_style=self._text_style,
+                box_style=item.box_style,
+                text_style=item.text_style,
                 align=align,
             )
 
-        for index in highlight_indexs:
-            if index <= len(items) - 1:
-                text = str(items[index])
-            else:
-                text = ""
+        for index, item in enumerate(self._list):
+            if not item.is_custom_style:
+                continue
 
             self._draw_cell(
                 start_xy=xy,
                 index=index,
-                text=text,
+                text=item.text,
                 box_width=box_width,
                 box_height=box_height,
-                box_style=self._box_highlight_style,
-                text_style=self._text_highlight_style,
+                box_style=item.box_style,
+                text_style=item.text_style,
                 align=align,
             )
 
@@ -176,3 +247,11 @@ class BoxList:
             text=text,
             textstyle=text_style,
         )
+
+
+@dataclasses.dataclass
+class _Item:
+    text: str
+    box_style: ShapeStyle
+    text_style: ShapeTextStyle
+    is_custom_style: bool

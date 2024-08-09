@@ -49,8 +49,9 @@ class GridLayout:
     @error_handler
     def add(  # noqa: C901
         self,
-        column_range: Tuple[int, int],
-        row_range: Tuple[int, int],
+        position: Tuple[int, int],
+        width: int,
+        height: int,
         r: Optional[int] = None,
         style: Union[str, ShapeStyle, None] = None,
         text: str = "",
@@ -62,8 +63,9 @@ class GridLayout:
         Add an item to the grid layout.
 
         Args:
-            column_range (Tuple[int, int]): The range of columns the item will span.
-            row_range (Tuple[int, int]): The range of rows the item will span.
+            position (Tuple[int, int]): Cell start (column, row) point.
+            width (int): How many column cells.
+            height (int): How many row cells.
             r (Optional[int], optional): The radius of the item. Default is None, which uses the default radius.
             style (Union[str, ShapeStyle, None], optional):
                     The style of the item.
@@ -81,25 +83,24 @@ class GridLayout:
         Raises:
             ValueError: If the column or row ranges are invalid or out of bounds.
         """
-        # validate column
-        c1, c2 = column_range
-        if c1 > c2:
-            column_range = (c2, c1)
-            c1, c2 = c2, c1
-        if c1 < 0:
-            raise ValueError("Column range must be between 0 ~ last-index.")
-        if c2 > self._num_column:
-            raise ValueError("Column range must be between 0 ~ last-index.")
+        # validate
+        if width < 1:
+            raise ValueError("Grid cell must have 1+ columns")
+        if height < 1:
+            raise ValueError("Grid cell must have 1+ rows")
 
-        # validate row
-        r1, r2 = row_range
-        if r1 > r2:
-            row_range = (r2, r1)
-            r1, r2 = r2, r1
-        if r1 < 0:
-            raise ValueError("Row range must be between 0 ~ last-index.")
-        if r2 > self._num_column:
-            raise ValueError("Row range must be between 0 ~ last-index.")
+        column_start, row_start = position
+        if not 0 <= column_start < self._num_column:
+            raise ValueError("Grid cell's column start position must be between 0 ~ last-column.")
+        if not 0 <= row_start < self._num_row:
+            raise ValueError("Grid cell's row start position must be between 0 ~ last-column.")
+
+        column_end = column_start + width - 1
+        row_end = row_start + height - 1
+        if column_end >= self._num_column:
+            raise ValueError("Grid cell's column start position must be between 0 ~ last-column.")
+        if row_end >= self._num_row:
+            raise ValueError("Grid cell's row start position must be between 0 ~ last-column.")
 
         # string style to Style class
         if isinstance(style, str):
@@ -137,8 +138,8 @@ class GridLayout:
 
         # push
         item = _GridLayoutItem(
-            column_range=column_range,
-            row_range=row_range,
+            column_range=(column_start, column_end),
+            row_range=(row_start, row_end),
             r=r,
             text=text,
             style=style,
