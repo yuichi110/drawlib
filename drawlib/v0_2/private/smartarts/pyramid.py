@@ -19,6 +19,13 @@ from drawlib.v0_2.private.core_canvas.canvas import trapezoid, triangle
 from drawlib.v0_2.private.util import error_handler
 
 
+@dataclasses.dataclass
+class _PyramidItem:
+    style: ShapeStyle
+    text: str
+    textstyle: ShapeTextStyle
+
+
 class Pyramid:
     """Class for rendering smart art pyramid."""
 
@@ -116,6 +123,7 @@ class Pyramid:
         height: float,
         margin: float,
         align: Literal["bottom", "top", "left", "right"] = "bottom",
+        order: Literal["vertex_to_base", "base_to_vertex"] = "vertex_to_base",
     ) -> None:
         """Draw smart art pyramid.
 
@@ -125,6 +133,7 @@ class Pyramid:
             height (float): The heifht of the pyramid.
             margin (float): The margin between pyramid items.
             align (str): Alignment of a pyramid.
+            order (str): Item order. "vertex -> base" or "base -> vertex". default is "vertex -> base".
         """
         if len(self._items) == 0:
             raise ValueError("Number of pyramid item is 0.")
@@ -139,6 +148,7 @@ class Pyramid:
             item_heights=item_heights,
             margins=margins,
             align=align,
+            order=order,
         )
 
     @error_handler
@@ -149,6 +159,7 @@ class Pyramid:
         item_heights: List[float],
         margins: List[float],
         align: Literal["bottom", "top", "left", "right"] = "bottom",
+        order: Literal["vertex_to_base", "base_to_vertex"] = "vertex_to_base",
     ) -> None:
         """Draw smart art pyramid with flexible pyramid item heights.
 
@@ -158,6 +169,7 @@ class Pyramid:
             item_heights (float): The height of the each pyramid items.
             margins (float): The margin between pyramid items.
             align (str): Alignment of a pyramid.
+            order (str): Item order. "vertex -> base" or "base -> vertex". default is "vertex -> base".
 
         Raises:
             ValueError: If the lengths of column_widths, column_margins, row_heights, or row_margins are incorrect.
@@ -172,35 +184,38 @@ class Pyramid:
         if len(self._items) != len(margins) + 1:
             raise ValueError('Number of pyramid item and arg "margins" length does not match.')
 
+        items = self._items[::-1] if order == "vertex_to_base" else self._items[::]
+
         if align == "bottom":
-            self._draw_flexible_bottom(xy, width, item_heights, margins)
+            self._draw_flexible_bottom(xy, width, item_heights, margins, items)
         elif align == "top":
-            self._draw_flexible_top(xy, width, item_heights, margins)
+            self._draw_flexible_top(xy, width, item_heights, margins, items)
         elif align == "left":
-            self._draw_flexible_left(xy, width, item_heights, margins)
+            self._draw_flexible_left(xy, width, item_heights, margins, items)
         elif align == "right":
-            self._draw_flexible_right(xy, width, item_heights, margins)
+            self._draw_flexible_right(xy, width, item_heights, margins, items)
         else:
             raise ValueError("Drawlib internal error.")
 
+    @staticmethod
     def _draw_flexible_bottom(
-        self,
         xy: Tuple[float, float],
         width: float,
         item_heights: List[float],
         margins: List[float],
+        items: List[_PyramidItem],
     ) -> None:
         x = xy[0] + width / 2
         height = sum(item_heights) + sum(margins)
         current_height = 0
-        for i, item in enumerate(self._items):
+        for i, item in enumerate(items):
             text = item.text
             style = item.style
             style.halign = "center"
             style.valign = "bottom"
             textstyle = item.textstyle
 
-            is_last = i == len(self._items) - 1
+            is_last = i == len(items) - 1
             if is_last:
                 ratio = (height - current_height) / height
                 item_width = ratio * width
@@ -231,24 +246,25 @@ class Pyramid:
             )
             current_height += item_height + margins[i]
 
+    @staticmethod
     def _draw_flexible_top(
-        self,
         xy: Tuple[float, float],
         width: float,
         item_heights: List[float],
         margins: List[float],
+        items: List[_PyramidItem],
     ) -> None:
         x = xy[0] + width / 2
         height = sum(item_heights) + sum(margins)
         current_height = 0
-        for i, item in enumerate(self._items):
+        for i, item in enumerate(items):
             text = item.text
             style = item.style
             style.halign = "center"
             style.valign = "bottom"
             textstyle = item.textstyle
 
-            is_last = i == len(self._items) - 1
+            is_last = i == len(items) - 1
             if is_last:
                 ratio = (height - current_height) / height
                 item_width = ratio * width
@@ -284,17 +300,18 @@ class Pyramid:
             )
             current_height += item_height + margins[i]
 
+    @staticmethod
     def _draw_flexible_left(
-        self,
         xy: Tuple[float, float],
         width: float,
         item_heights: List[float],
         margins: List[float],
+        items: List[_PyramidItem],
     ) -> None:
         y = xy[1] + width / 2
         height = sum(item_heights) + sum(margins)
         current_height = 0
-        for i, item in enumerate(self._items):
+        for i, item in enumerate(items):
             text = item.text
             style = item.style
             style.halign = "center"
@@ -304,7 +321,7 @@ class Pyramid:
             if textstyle.angle is None:
                 textstyle.angle = 0
 
-            is_last = i == len(self._items) - 1
+            is_last = i == len(items) - 1
             if is_last:
                 ratio = (height - current_height) / height
                 item_width = ratio * width
@@ -339,17 +356,18 @@ class Pyramid:
             )
             current_height += item_height + margins[i]
 
+    @staticmethod
     def _draw_flexible_right(
-        self,
         xy: Tuple[float, float],
         width: float,
         item_heights: List[float],
         margins: List[float],
+        items: List[_PyramidItem],
     ) -> None:
         y = xy[1] + width / 2
         height = sum(item_heights) + sum(margins)
         current_height = 0
-        for i, item in enumerate(self._items):
+        for i, item in enumerate(items):
             text = item.text
             style = item.style
             style.halign = "center"
@@ -358,7 +376,7 @@ class Pyramid:
             if textstyle.angle is None:
                 textstyle.angle = 0
 
-            is_last = i == len(self._items) - 1
+            is_last = i == len(items) - 1
             if is_last:
                 ratio = (height - current_height) / height
                 item_width = ratio * width
@@ -392,10 +410,3 @@ class Pyramid:
                 angle=90,
             )
             current_height += item_height + margins[i]
-
-
-@dataclasses.dataclass
-class _PyramidItem:
-    style: ShapeStyle
-    text: str
-    textstyle: ShapeTextStyle

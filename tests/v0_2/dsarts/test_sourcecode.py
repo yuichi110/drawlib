@@ -58,7 +58,7 @@ def test_styles():
     ]:
         sc = dsart.SourceCode(
             language="python",
-            style=style,
+            style=style,  # type: ignore
             font=FontSourceCode.ROBOTO_MONO,
         )
         sc.draw(xy=(x, y), width=25, code=code_snippet)
@@ -73,7 +73,7 @@ def test_styles2():
     ]:
         sc = dsart.SourceCode(
             language="python",
-            style=style,
+            style=style,  # type: ignore
             font=FontSourceCode.ROBOTO_MONO,
         )
         sc.draw(xy=(x, y), width=25, code=code_snippet)
@@ -94,7 +94,7 @@ def test_font():
     ]:
         sc = dsart.SourceCode(
             language="python",
-            style=style,
+            style=style,  # type: ignore
             font=FontSourceCode.COURIER,
         )
         sc.draw(xy=(x, y), width=25, code=code_snippet)

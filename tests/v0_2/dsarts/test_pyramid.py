@@ -18,6 +18,7 @@ def test():
     p.add(text="World")
     p.add(text="A")
     p.draw((10, 10), 30, 30, 2)
+    p.draw((60, 10), 30, 30, 2, order="base_to_vertex")
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
@@ -27,6 +28,8 @@ def test_align_bottom():
     p.add(text="World")
     p.add(text="A")
     p.draw((10, 10), 30, 30, 2, align="bottom")
+    p.draw((60, 10), 30, 30, 2, align="bottom", order="base_to_vertex")
+
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
@@ -36,6 +39,7 @@ def test_align_top():
     p.add(text="World")
     p.add(text="A")
     p.draw((10, 10), 30, 30, 2, align="top")
+    p.draw((60, 10), 30, 30, 2, align="top", order="base_to_vertex")
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
@@ -45,6 +49,7 @@ def test_align_left():
     p.add(text="World")
     p.add(text="A")
     p.draw((10, 10), 30, 30, 2, align="left")
+    p.draw((60, 10), 30, 30, 2, align="left", order="base_to_vertex")
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
@@ -54,4 +59,5 @@ def test_align_right():
     p.add(text="World")
     p.add(text="A")
     p.draw((10, 10), 30, 30, 2, align="right")
+    p.draw((60, 10), 30, 30, 2, align="right", order="base_to_vertex")
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
