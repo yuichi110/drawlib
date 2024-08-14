@@ -154,7 +154,7 @@ class GridLayout:
         width: float,
         height: float,
         margin: float,
-        outer_r: int = 0,
+        outer_r: Optional[int] = None,
         outer_style: Union[str, ShapeStyle, None] = None,
     ) -> None:
         """Draw the grid layout.
@@ -169,15 +169,16 @@ class GridLayout:
                     The style for the outer grid border. Can be a string key for a predefined style,
                     a ShapeStyle object, or None.
         """
-        column_widths = [width / self._num_column] * self._num_column
-        row_heights = [height / self._num_row] * self._num_row
-
         if outer_style is None:
-            column_margins = [margin] + [margin * 2] * (self._num_column - 1) + [margin]
-            row_margins = [margin] + [margin * 2] * (self._num_row - 1) + [margin]
+            column_widths = [(width - margin * (self._num_column - 1)) / self._num_column] * self._num_column
+            row_heights = [(height - margin * (self._num_row - 1)) / self._num_row] * self._num_row
+            column_margins = [0] + [margin] * (self._num_column - 1) + [0]
+            row_margins = [0] + [margin] * (self._num_row - 1) + [0]
         else:
-            column_margins = [margin * 2] * (self._num_column + 1)
-            row_margins = [margin * 2] * (self._num_row + 1)
+            column_widths = [(width - margin * (self._num_column + 1)) / self._num_column] * self._num_column
+            row_heights = [(height - margin * (self._num_row + 1)) / self._num_row] * self._num_row
+            column_margins = [margin] * (self._num_column + 1)
+            row_margins = [margin] * (self._num_row + 1)
 
         self.draw_flexible(
             xy=xy,
@@ -197,7 +198,7 @@ class GridLayout:
         column_margins: List[float],
         row_heights: List[float],
         row_margins: List[float],
-        outer_r: int = 0,
+        outer_r: Optional[int] = None,
         outer_style: Union[str, ShapeStyle, None] = None,
     ) -> None:
         """Draw the grid layout with flexible column widths and row heights.
@@ -232,19 +233,31 @@ class GridLayout:
                 outer_style = dtheme.rectanglestyles.get(outer_style)
             outer_style.halign = "left"
             outer_style.valign = "bottom"
+            if outer_r is None:
+                outer_r = self._default_r
+
             rectangle(
                 xy=xy,
-                width=sum(column_widths),
-                height=sum(row_heights),
+                width=sum(column_widths) + sum(column_margins),
+                height=sum(row_heights) + sum(row_margins),
                 r=outer_r,
                 style=outer_style,
             )
 
         # utility
-        def sum_till_index(lst: List[float], index: int) -> float:
-            if index == 0:
-                return 0
-            return sum([lst[i] for i in range(index)])
+        def get_position(column_index: int, row_index: int) -> Tuple[float, float]:
+            x, y = xy
+            if column_index == 0:
+                new_x = x + column_margins[0]
+            else:
+                new_x = x + sum(column_margins[: column_index + 1]) + sum(column_widths[:column_index])
+
+            if row_index == 0:
+                new_y = y + row_margins[0]
+            else:
+                new_y = y + sum(row_margins[: row_index + 1]) + sum(row_heights[:row_index])
+
+            return (new_x, new_y)
 
         for item in self._items:
             column_range = item.column_range
@@ -259,25 +272,17 @@ class GridLayout:
             rr0 = row_range[0]
             rr1 = row_range[1]
 
-            # coordinate without margin
-            lb_xy = (sum_till_index(column_widths, cr0), sum_till_index(row_heights, rr0))
-            width = sum_till_index(column_widths, cr1 + 1) - lb_xy[0]
-            height = sum_till_index(row_heights, rr1 + 1) - lb_xy[1]
+            item_xy_left_bottom = get_position(cr0, rr0)
+            t = get_position(cr1, rr1)
+            item_xy_right_top = (t[0] + column_widths[cr1], t[1] + row_heights[rr1])
 
-            # get margins
-            margin_left = column_margins[cr0] if cr0 == 0 else column_margins[cr0] / 2
-            margin_right = column_margins[cr1 + 1] if cr1 + 1 == self._num_column else column_margins[cr1 + 1] / 2
-            margin_bottom = row_margins[rr0] if rr0 == 0 else row_margins[rr0] / 2
-            margin_top = row_margins[rr1 + 1] if rr1 + 1 == self._num_row else row_margins[rr1 + 1] / 2
+            width, height = (
+                item_xy_right_top[0] - item_xy_left_bottom[0],
+                item_xy_right_top[1] - item_xy_left_bottom[1],
+            )
 
-            # update coordinate
-            lb_xy = (lb_xy[0] + margin_left, lb_xy[1] + margin_bottom)
-            width = width - margin_left - margin_right
-            height = height - margin_bottom - margin_top
-
-            # draw
             rectangle(
-                xy=(xy[0] + lb_xy[0], xy[1] + lb_xy[1]),
+                xy=item_xy_left_bottom,
                 width=width,
                 height=height,
                 r=r,

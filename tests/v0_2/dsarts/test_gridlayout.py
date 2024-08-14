@@ -13,36 +13,45 @@ OUTPUT_DIR = "../../../output_tests/v0_2/dsarts/gridlayout/"
 
 
 def test():
-    gl = dsart.GridLayout(2, 2, 2, default_style="solid")
+    gl = dsart.GridLayout(3, 3, 2, default_style="solid")
     gl.add((0, 0), 1, 1, text="A")
     gl.add((0, 1), 1, 1, text="B")
-    gl.add((1, 0), 1, 2, text="C")
+    gl.add((0, 2), 1, 1, text="C")
+    gl.add((1, 0), 1, 3, text="D")
+    gl.add((2, 0), 1, 1, text="E")
     gl.draw((10, 10), 30, 30, 1)
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_angle():
-    gl = dsart.GridLayout(2, 2, 2, default_style="solid")
+    gl = dsart.GridLayout(3, 3, 2, default_style="solid")
     gl.add((0, 0), 1, 1, text="A", textangle=270)
     gl.add((0, 1), 1, 1, text="B", textangle=90)
-    gl.add((1, 0), 1, 2, text="C")
+    gl.add((0, 2), 1, 1, text="C")
+    gl.add((1, 0), 1, 3, text="D")
+    gl.add((2, 0), 1, 1, text="E")
     gl.draw((10, 10), 30, 30, 1)
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_shift():
-    gl = dsart.GridLayout(2, 2, 2, default_style="solid")
+    gl = dsart.GridLayout(3, 3, 2, default_style="solid")
     gl.add((0, 0), 1, 1, text="A", text_xy_shift=(3, 3))
     gl.add((0, 1), 1, 1, text="B", text_xy_shift=(-3, -3))
-    gl.add((1, 0), 1, 2, text="C")
+    gl.add((0, 2), 1, 1, text="C")
+    gl.add((1, 0), 1, 3, text="D")
+    gl.add((2, 0), 1, 1, text="E")
     gl.draw((10, 10), 30, 30, 1)
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
 
 def test_outerstyle():
-    gl = dsart.GridLayout(2, 2, 2, default_style="solid")
+    gl = dsart.GridLayout(3, 3, 2, default_style="solid")
     gl.add((0, 0), 1, 1, text="A")
     gl.add((0, 1), 1, 1, text="B")
-    gl.add((1, 0), 1, 2, text="C")
-    gl.draw((10, 10), 30, 30, 1, outer_r=2, outer_style="solid")
+    gl.add((0, 2), 1, 1, text="C")
+    gl.add((1, 0), 1, 3, text="D")
+    gl.add((2, 0), 1, 1, text="E")
+    gl.draw((10, 10), 30, 30, 1, outer_style="solid")
+    gl.draw((60, 10), 30, 30, 1, outer_r=0, outer_style="solid")
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
