@@ -20,7 +20,19 @@ from drawlib.v0_2.private.util import error_handler
 
 
 class GridLayout:
-    """Class for rendering multiple rectangles which fit to grid."""
+    """Class for rendering multiple rectangles which fit to grid.
+
+    Args:
+    num_column (int): The number of columns in the grid.
+    num_row (int): The number of rows in the grid.
+    default_r (int, optional): The default radius for the rectangles. Defaults to 0.
+    default_style (Union[str, ShapeStyle, None], optional): The default style for the rectangles.
+        Can be a string key, a ShapeStyle object, or None. Defaults to None.
+    default_textstyle (Union[str, ShapeTextStyle, None], optional): The default text style for the rectangles.
+        Can be a string key, a ShapeTextStyle object, or None. Defaults to None.
+    default_textangle (Optional[float], optional): The default angle for the text inside the rectangles.
+        If None, no angle is applied. Defaults to None.
+    """
 
     @error_handler
     def __init__(
@@ -32,7 +44,20 @@ class GridLayout:
         default_textstyle: Union[str, ShapeTextStyle, None] = None,
         default_textangle: Optional[float] = None,
     ) -> None:
-        """Initialize class."""
+        """Initializes a GridLayout instance.
+
+        Args:
+            num_column (int): The number of columns in the grid.
+            num_row (int): The number of rows in the grid.
+            default_r (int, optional): The default radius for the rectangles. Defaults to 0.
+            default_style (Union[str, ShapeStyle, None], optional): The default style for the rectangles.
+                Can be a string key, a ShapeStyle object, or None. Defaults to None.
+            default_textstyle (Union[str, ShapeTextStyle, None], optional): The default text style for the rectangles.
+                Can be a string key, a ShapeTextStyle object, or None. Defaults to None.
+            default_textangle (Optional[float], optional): The default angle for the text inside the rectangles.
+                If None, no angle is applied. Defaults to None.
+
+        """
         self._num_column = num_column
         self._num_row = num_row
         self._default_r = default_r

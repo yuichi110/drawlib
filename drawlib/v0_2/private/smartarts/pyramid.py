@@ -52,8 +52,8 @@ class Pyramid:
     @error_handler
     def add(  # noqa: C901
         self,
+        text: str,
         style: Union[str, ShapeStyle, None] = None,
-        text: str = "",
         textstyle: Union[str, ShapeTextStyle, None] = None,
         textangle: Optional[float] = None,
         text_xy_shift: Optional[Tuple[float, float]] = None,
@@ -62,11 +62,11 @@ class Pyramid:
         Add an item to the pyramid.
 
         Args:
+            text (str): The text associated with the item.
             style (Union[str, ShapeStyle, None], optional):
                     The style of the item.
                     Can be a string key for a predefined style, a ShapeStyle object,
                     or None to use the default style.
-            text (str, optional): The text associated with the item. Default is an empty string.
             textstyle (Union[str, ShapeTextStyle, None], optional):
                     The text style of the item. Can be a string key for a predefined text style,
                     a ShapeTextStyle object, or None to use the default text style.

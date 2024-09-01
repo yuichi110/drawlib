@@ -24,10 +24,9 @@ class BoxList:
     """A class to draw a list of boxes with text, supporting highlighting of certain boxes.
 
     Args:
-        box_style (Union[str, ShapeStyle, None]): The style for the boxes.
-        text_style (Union[str, ShapeTextStyle, None]): The style for the text inside the boxes.
-        box_highlight_style (Union[str, ShapeStyle, None]): The style for the highlighted boxes.
-        text_highlight_style (Union[str, ShapeTextStyle, None]): The style for the text inside the highlighted boxes.
+        default_box_style (Union[str, ShapeStyle, None]): The style for the boxes.
+        default_text_style (Union[str, ShapeTextStyle, None]): The style for the text inside the boxes.
+
     """
 
     @error_handler
@@ -41,9 +40,7 @@ class BoxList:
         Args:
             default_box_style (Union[str, ShapeStyle, None]): The style for the boxes.
             default_text_style (Union[str, ShapeTextStyle, None]): The style for the text inside the boxes.
-            box_highlight_style (Union[str, ShapeStyle, None]): The style for the highlighted boxes.
-            text_highlight_style (Union[str, ShapeTextStyle, None]):
-                    The style for the text inside the highlighted boxes.
+
         """
         if isinstance(default_box_style, str):
             default_box_style = dtheme.rectanglestyles.get(default_box_style)
@@ -79,6 +76,7 @@ class BoxList:
             text_style (Union[str, ShapeTextStyle, None], optional):
                 The style for the text inside the box. Can be a style name, a ShapeTextStyle object, or None.
                 If None, the default text style is used.
+
         """
         self.extend([text], box_style=box_style, text_style=text_style)
 
@@ -102,6 +100,7 @@ class BoxList:
             text_style (Union[str, ShapeTextStyle, None], optional):
                 The style for the text inside the box. Can be a style name, a ShapeTextStyle object, or None.
                 If None, the default text style is used.
+
         """
         is_custom_style = box_style is not None or text_style is not None
 
@@ -141,6 +140,7 @@ class BoxList:
             text_style (Union[str, ShapeTextStyle, None], optional):
                 The style for the text inside the boxes. Can be a style name, a ShapeTextStyle object, or None.
                 If None, the default text style is used.
+
         """
         is_custom_style = box_style is not None or text_style is not None
 
@@ -177,10 +177,6 @@ class BoxList:
             xy (Tuple[float, float]): The starting point (x, y) to draw the list of boxes.
             box_width (float): The width of each box.
             box_height (float): The height of each box.
-            items (List[Any]): The list of items to be displayed inside the boxes.
-            highlight_indexs (Optional[List[int]]):
-                    The list of indices of the boxes to be highlighted.
-            length (Optional[int]): The total number of boxes to be drawn.
             align (Literal["left", "right", "bottom", "top"]):
                     The alignment of the boxes relative to the starting point.
 
