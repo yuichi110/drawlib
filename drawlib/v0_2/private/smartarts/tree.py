@@ -22,7 +22,12 @@ from drawlib.v0_2.private.util import error_handler
 
 
 class TreeNode:
-    """Class for rendering smart art Tree."""
+    """Class for rendering smart art trees.
+
+    This class provides methods to create and manipulate tree-like smart art
+    diagrams, supporting custom text styles, line styles, and margins for
+    horizontal and vertical lines.
+    """
 
     _drawing_item_map: Dict[str, _TreeNodeDrawingItem] = {}
 
@@ -42,7 +47,32 @@ class TreeNode:
         default_line_horizontal_length: Optional[float] = None,
         default_line_vertical_margin: Optional[float] = None,
     ) -> None:
-        """Initialize class."""
+        """Initializes a TreeNode instance with specific text, styles, and optional children.
+
+        Styles are mandatory for root node. Optional for child nodes.
+
+        Args:
+            text (str): The text content for the tree node.
+            textstyle (Union[str, TextStyle, None], optional): The text style for the node.
+                It can be a string that maps to a `TextStyle` or a `TextStyle` instance. Defaults to None.
+            linestyle (Union[str, LineStyle, None], optional): The line style for the node.
+                It can be a string that maps to a `LineStyle` or a `LineStyle` instance. Defaults to None.
+            line_horizontal_margin (Optional[float], optional): The margin for horizontal lines. Defaults to None.
+            line_horizontal_length (Optional[float], optional): The length of horizontal lines. Defaults to None.
+            line_vertical_margin (Optional[float], optional): The margin for vertical lines. Defaults to None.
+            children (Optional[List[TreeNode]], optional):
+                A list of child nodes connected to this node. Defaults to None.
+            default_textstyle (Union[str, TextStyle, None], optional):
+                The default text style for child nodes. Defaults to None.
+            default_linestyle (Union[str, LineStyle, None], optional):
+                The default line style for child nodes. Defaults to None.
+            default_line_horizontal_margin (Optional[float], optional):
+                The default horizontal margin for lines of child nodes. Defaults to None.
+            default_line_horizontal_length (Optional[float], optional):
+                The default horizontal length for lines of child nodes. Defaults to None.
+            default_line_vertical_margin (Optional[float], optional):
+                The default vertical margin for lines of child nodes. Defaults to None.
+        """
         self._text = text
 
         if isinstance(textstyle, str):

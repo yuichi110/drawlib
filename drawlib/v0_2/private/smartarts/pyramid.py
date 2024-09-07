@@ -27,7 +27,12 @@ class _PyramidItem:
 
 
 class Pyramid:
-    """Class for rendering smart art pyramid."""
+    """Class for rendering smart art pyramids.
+
+    This class provides methods to create and manipulate pyramid-shaped smart art
+    diagrams. It supports custom styles, text styles, text angles, and text position
+    adjustments.
+    """
 
     @error_handler
     def __init__(
@@ -37,7 +42,21 @@ class Pyramid:
         default_textangle: Optional[float] = None,
         default_text_xy_shift: Optional[Tuple[float, float]] = None,
     ) -> None:
-        """Initialize class."""
+        """Initializes a Pyramid instance with optional default styles and settings.
+
+        Args:
+            default_style (Union[str, ShapeStyle, None], optional): The default
+                style for the pyramid shapes. It can be a string that maps to a
+                `ShapeStyle` or a `ShapeStyle` instance. Defaults to None.
+            default_textstyle (Union[str, ShapeTextStyle, None], optional): The
+                default text style for the pyramid shapes. It can be a string that
+                maps to a `ShapeTextStyle` or a `ShapeTextStyle` instance. Defaults to None.
+            default_textangle (Optional[float], optional): The default rotation
+                angle for the text within the pyramid shapes. Defaults to None.
+            default_text_xy_shift (Optional[Tuple[float, float]], optional): The
+                default x and y shift for the text within the pyramid shapes.
+                Defaults to None.
+        """
         if isinstance(default_style, str):
             default_style = dtheme.rectanglestyles.get(default_style)
         self._default_style = default_style
