@@ -166,11 +166,7 @@ class CanvasBase:
         validator.validate_canvas_args(locals())
 
         if len(self._artists) != 0:
-            raise RuntimeError(
-                "config() must be called before drawing. "
-                "Please call clear() first if you want to "
-                "initialize drawing configs and states."
-            )
+            self._artists = []
 
         def config_size_dpi() -> None:
             if width is not None:

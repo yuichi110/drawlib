@@ -85,6 +85,7 @@ from drawlib.v0_2.private.core_canvas.canvas import (
     # canvas
     save,
     shape,
+    show,
     star,
     # text
     text,

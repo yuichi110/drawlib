@@ -57,6 +57,25 @@ class Canvas(
         super().__init__()
 
     @error_handler
+    def show(self) -> None:
+        """Show canvas illustration."""
+        self._set_background()
+        zorder = self._draw_items()
+        self._remove_margin()
+
+        if not self._grid:
+            pyplot.show()
+            return
+
+        temp_artists = self._artists
+        self._artists = []
+        self._draw_grid(zorder)
+        pyplot.show()
+        self._remove_artists_from_ax()  # remove grid
+        self._artists = temp_artists
+        self._remove_artists_from_ax()  # remove drawing items
+
+    @error_handler
     def save(
         self,
         file: Optional[str] = None,
@@ -256,6 +275,7 @@ canvas = Canvas()
 clear = canvas.clear
 config = canvas.config
 save = canvas.save
+show = canvas.show
 shape = canvas.shape
 
 # image
