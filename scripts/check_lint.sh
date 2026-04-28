@@ -14,7 +14,6 @@ set -e
 cd "$(dirname "$0")"
 cd ../
 
-echo "$ ruff check --preview ./drawlib"
-ruff check --preview ./drawlib
+echo "$ uv run ruff check --preview src"
+uv run ruff check --preview src
 echo
-

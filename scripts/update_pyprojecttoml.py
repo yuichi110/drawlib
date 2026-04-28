@@ -9,36 +9,19 @@
 
 """Helper script for updating pyproject.toml
 
-Check drawlib.__init__.py and get
+Check src/drawlib/__init__.py and get
 - version
 - lib name
 - author
 - contact
 
-Then, updadate pyproject.toml
+Then, update pyproject.toml using tomlkit to preserve formatting.
 """
 
 import importlib.util
 import os
-
-TEMPLATE = """
-# GENERATED CODE: START
-# from drawlib.__init__.py
-
-[tool.poetry]
-name = "{lib_name}"
-version = "{lib_version}"
-description = "{description}"
-homepage = "{homepage}"
-repository = "{repository}"
-authors = {authors}
-readme = "{readme}"
-
-# GENERATED CODE: END
-""".strip()
-
-TEMPLATE_START_SEQUENCE = "# GENERATED CODE: START"
-TEMPLATE_END_SEQUENCE = "# GENERATED CODE: END"
+import re
+import tomlkit
 
 
 def cd_to_project_root():
@@ -49,10 +32,12 @@ def cd_to_project_root():
 
 
 def update_pyproject_toml():
-    """Update pyproject.toml from drawlib.__init__.py"""
-    spec = importlib.util.spec_from_file_location("init", "drawlib/__init__.py")
+    """Update pyproject.toml from src/drawlib/__init__.py"""
+    # Load metadata from src/drawlib/__init__.py
+    init_path = "src/drawlib/__init__.py"
+    spec = importlib.util.spec_from_file_location("init", init_path)
     if spec is None or spec.loader is None:
-        raise RuntimeError("Could not load module")
+        raise RuntimeError(f"Could not load module from {init_path}")
 
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -65,49 +50,51 @@ def update_pyproject_toml():
     authors = module.AUTHORS
     readme = module.README
 
-    # read
+    # Read pyproject.toml
     with open("pyproject.toml", mode="r", encoding="utf8") as fin:
-        read_text = fin.read()
+        doc = tomlkit.parse(fin.read())
 
-    # create template
-    authors_lines = ["["]
-    for author in authors:
-        authors_lines.append(f'    "{author}",')
-    authors_lines.append("]")
-    authors_text = "\n".join(authors_lines)
+    # Update [project] section
+    if "project" not in doc:
+        doc["project"] = tomlkit.table()
+    
+    project = doc["project"]
+    project["name"] = lib_name
+    project["version"] = lib_version
+    project["description"] = description
+    project["readme"] = readme
 
-    generated_code = TEMPLATE.format(
-        lib_name=lib_name,
-        lib_version=lib_version,
-        description=description,
-        homepage=homepage,
-        repository=repository,
-        authors=authors_text,
-        readme=readme,
-    )
+    # Format authors: [{name = "...", email = "..."}]
+    authors_list = tomlkit.array()
+    for author_str in authors:
+        match = re.match(r"(.*) <(.*)>", author_str)
+        if match:
+            name = match.group(1).strip()
+            email = match.group(2).strip()
+            author_dict = tomlkit.inline_table()
+            author_dict.update({"name": name, "email": email})
+            authors_list.append(author_dict)
+        else:
+            author_dict = tomlkit.inline_table()
+            author_dict.update({"name": author_str.strip()})
+            authors_list.append(author_dict)
+    
+    project["authors"] = authors_list
 
-    # create write text
-    is_template_line = False
-    write_lines = []
-    for line in read_text.splitlines():
-        if line == TEMPLATE_START_SEQUENCE:
-            is_template_line = True
-            write_lines.append(generated_code)
-            continue
-        if line == TEMPLATE_END_SEQUENCE:
-            is_template_line = False
-            continue
-        if is_template_line:
-            continue
-        write_lines.append(line)
+    # Update [project.urls] section
+    if "urls" not in project:
+        project["urls"] = tomlkit.table()
+    
+    urls = project["urls"]
+    urls["Homepage"] = homepage
+    urls["Repository"] = repository
 
-    write_text = "\n".join(write_lines)
-
-    # write
-    with open("pyproject.toml", mode="w", encoding="utf8") as fout:
-        fout.write(write_text)
+    # Write back
+    with open("pyproject.toml", mode="w", encoding="utf8", newline="") as fout:
+        fout.write(tomlkit.dumps(doc))
 
 
 if __name__ == "__main__":
     cd_to_project_root()
     update_pyproject_toml()
+    print("Successfully updated pyproject.toml metadata from src/drawlib/__init__.py")

@@ -1,14 +1,13 @@
 .DS_Store
 
 # package system
-poetry.lock
 .pypirc
 
 # assets
-drawlib/assets/**/fonticons/*
-!drawlib/assets/**/fonticons/__init__.py
-drawlib/assets/**/fonts/*
-!drawlib/assets/**/fonts/__init__.py
+src/drawlib/assets/**/fonticons/*
+!src/drawlib/assets/**/fonticons/__init__.py
+src/drawlib/assets/**/fonts/*
+!src/drawlib/assets/**/fonts/__init__.py
 
 # output of generators
 output_codes/*
