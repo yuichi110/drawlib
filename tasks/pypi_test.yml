@@ -1,0 +1,49 @@
+version: '3'
+
+includes:
+  pyproject: ./pyproject.yml
+
+tasks:
+  get-latest-version:
+    desc: Get the latest version of drawlib from TestPyPI
+    cmds:
+      - uv run python tasks/scripts/pypi_tools.py --get_latest_version --test_pypi
+
+  check-new-version:
+    desc: Check if the new version is valid compared to TestPyPI
+    cmds:
+      - uv run python tasks/scripts/pypi_tools.py --check_new_version_ok --test_pypi
+
+  check-new-version:allow_jump:
+    desc: Check if the new version is valid compared to TestPyPI
+    cmds:
+      - uv run python tasks/scripts/pypi_tools.py --check_new_version_ok --test_pypi --allow_jump
+
+  publish:
+    desc: Publish the package to TestPyPI
+    summary: |
+      Uploads the package to TestPyPI to verify the distribution settings 
+      before the actual production release. Requires API token configuration.
+    deps: [
+      pyproject:update,
+      check-new-version
+    ]
+    cmds:
+      - rm -rf dist/
+      - uv run python -m drawlib --purge_font_cache
+      - uv build
+      - uv publish --publish-url https://test.pypi.org/legacy/ --token $TEST_PYPI_TOKEN
+
+  publish:allow_jump:
+    desc: Publish the package to TestPyPI - Allow Version Jump
+    summary: |
+      Uploads the package to TestPyPI with version jump allowed.
+    deps: [
+      pyproject:update,
+      check-new-version:allow_jump
+    ]
+    cmds:
+      - rm -rf dist/
+      - uv run python -m drawlib --purge_font_cache
+      - uv build
+      - uv publish --publish-url https://test.pypi.org/legacy/ --token $TEST_PYPI_TOKEN

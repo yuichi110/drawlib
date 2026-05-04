@@ -22,22 +22,19 @@ import importlib.util
 import os
 import re
 import tomlkit
+from utils import cd_to_project_root
 
 
-def cd_to_project_root():
-    """Change directory to project root."""
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    os.chdir(script_dir)
-    os.chdir("../")
+INIT_PATH = "src/drawlib/__init__.py"
+PYPROJECT_TOML_PATH = "pyproject.toml"
 
 
 def update_pyproject_toml():
     """Update pyproject.toml from src/drawlib/__init__.py"""
     # Load metadata from src/drawlib/__init__.py
-    init_path = "src/drawlib/__init__.py"
-    spec = importlib.util.spec_from_file_location("init", init_path)
+    spec = importlib.util.spec_from_file_location("init", INIT_PATH)
     if spec is None or spec.loader is None:
-        raise RuntimeError(f"Could not load module from {init_path}")
+        raise RuntimeError(f"Could not load module from {INIT_PATH}")
 
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -51,7 +48,7 @@ def update_pyproject_toml():
     readme = module.README
 
     # Read pyproject.toml
-    with open("pyproject.toml", mode="r", encoding="utf8") as fin:
+    with open(PYPROJECT_TOML_PATH, mode="r", encoding="utf8") as fin:
         doc = tomlkit.parse(fin.read())
 
     # Update [project] section
@@ -90,7 +87,7 @@ def update_pyproject_toml():
     urls["Repository"] = repository
 
     # Write back
-    with open("pyproject.toml", mode="w", encoding="utf8", newline="") as fout:
+    with open(PYPROJECT_TOML_PATH, mode="w", encoding="utf8", newline="") as fout:
         fout.write(tomlkit.dumps(doc))
 
 

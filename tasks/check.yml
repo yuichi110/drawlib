@@ -1,0 +1,18 @@
+version: '3'
+
+tasks:
+  lint:
+    desc: Run linter (ruff)
+    cmds:
+      - uv run ruff check --preview src
+
+  type:
+    desc: Run type checker (pyright)
+    cmds:
+      - uv run pyright src/drawlib
+      - uv run pyright tests --project pyrightconfig.tests.json
+
+  lines:
+    desc: Count lines of code
+    cmds:
+      - uv run python tasks/scripts/count_lines.py

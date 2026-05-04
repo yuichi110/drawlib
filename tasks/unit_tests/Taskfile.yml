@@ -1,0 +1,10 @@
+version: '3'
+
+includes:
+  v0.2: ./v0_2.yml
+
+tasks:
+  all:
+    desc: Run all version tests
+    cmds:
+      - task: v0.2:all

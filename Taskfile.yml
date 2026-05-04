@@ -1,0 +1,18 @@
+version: '3'
+
+dotenv: ['.env']
+
+includes:
+  check: ./tasks/check.yml
+  utest: ./tasks/unit_tests/Taskfile.yml
+  gen: ./tasks/gen.yml
+  pypi: ./tasks/pypi.yml
+  pypi-test: ./tasks/pypi_test.yml
+  pyproject: ./tasks/pyproject.yml
+
+tasks:
+  default:
+    desc: Print available tasks
+    cmds:
+      - task --list
+    silent: true

@@ -7,26 +7,15 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Helper script for updating pyproject.toml
-
-Check drawlib.__init__.py and get
-- version
-- lib name
-- author
-- contact
-
-Then, updadate pyproject.toml
-"""
+"""Helper script for counting lines of code in the project."""
 
 import glob
 import os
+from utils import cd_to_project_root
 
 
-def cd_to_project_root():
-    """Change directory to project root."""
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    os.chdir(script_dir)
-    os.chdir("../")
+SRC_DIR = "./src/drawlib"
+TESTS_DIR = "./tests"
 
 
 def count_lines_in_file(file_path):
@@ -63,6 +52,6 @@ def main(project_root):
 
 if __name__ == "__main__":
     cd_to_project_root()
-    main("./drawlib")
+    main(SRC_DIR)
     print()
-    main("./tests")
+    main(TESTS_DIR)

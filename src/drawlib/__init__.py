@@ -14,7 +14,7 @@ import sys
 from typing import Final, List
 
 # please update here when you release new version
-LIB_VERSION: Final[str] = "0.2.4.dev1"
+LIB_VERSION: Final[str] = "0.2.4.dev3"
 
 # please list active main committers (1+ commits per month)
 AUTHORS: Final[List[str]] = [

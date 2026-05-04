@@ -17,13 +17,7 @@ Please move them to appropriate code location of drawlib package.
 import os
 import urllib.request
 from typing import Dict
-
-
-def cd_to_project_root() -> None:
-    """Change directory to project root."""
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    os.chdir(script_dir)
-    os.chdir("../")
+from utils import cd_to_project_root
 
 
 #
@@ -31,6 +25,9 @@ def cd_to_project_root() -> None:
 #
 
 PHOSPHOR_URL_BASE = "https://raw.githubusercontent.com/yuichi110/drawlib_assets/main/assets/v0_2/fonticons/phosphor/"
+ASSETS_URL_BASE = "https://raw.githubusercontent.com/yuichi110/drawlib_assets/main/assets/v0_2/fonticons/"
+OUTPUT_DIR = "output_codes"
+OUTPUT_FILE = "phosphor.py"
 
 PHOSPHOR_HEAD = '''
 # Copyright (c) 2024 Yuichi Ito (yuichi@yuichi.com)
@@ -55,6 +52,7 @@ import drawlib.v0_2.private.download
 import drawlib.v0_2.private.icons.util
 import drawlib.v0_2.private.util
 
+ASSETS_URL_BASE = "__ASSETS_URL_BASE__"
 
 def _get_fontfile_tuple(path: str, md5_hash: str) -> typing.Tuple[str, str, str]:
     """Retrieve font file information including local path, download URL, and MD5 hash.
@@ -78,7 +76,7 @@ def _get_fontfile_tuple(path: str, md5_hash: str) -> typing.Tuple[str, str, str]
 
     # url
     url = urllib.parse.urljoin(
-        "https://raw.githubusercontent.com/yuichi110/drawlib_assets/main/assets/v0_2/fonticons/",
+        ASSETS_URL_BASE,
         "/".join(paths),
     )
 
@@ -174,7 +172,7 @@ def _write(
 #
 # Auto generated code from here ###
 #
-'''
+'''.replace("__ASSETS_URL_BASE__", ASSETS_URL_BASE)
 
 PHOSPHOR_TEMPLATE = '''
 @drawlib.v0_2.private.util.error_handler
@@ -266,8 +264,8 @@ class IconCodeGeneratorPhosphor:
         code_text = "\n\n\n".join(code_chunks)
 
         # write to file
-        os.makedirs("output_codes", exist_ok=True)
-        with open("output_codes/phosphor.py", mode="w", encoding="utf8") as fout:
+        os.makedirs(OUTPUT_DIR, exist_ok=True)
+        with open(os.path.join(OUTPUT_DIR, OUTPUT_FILE), mode="w", encoding="utf8") as fout:
             fout.write(code_text)
             fout.write("\n")  # last new line
 

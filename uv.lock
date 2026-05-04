@@ -172,7 +172,7 @@ wheels = [
 
 [[package]]
 name = "drawlib"
-version = "0.2.4.dev1"
+version = "0.2.4.dev3"
 source = { editable = "." }
 dependencies = [
     { name = "matplotlib" },

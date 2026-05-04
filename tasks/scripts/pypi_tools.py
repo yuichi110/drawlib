@@ -16,43 +16,49 @@ import re
 import sys
 import urllib.request
 from typing import Tuple
+from utils import cd_to_project_root
+
+
+LIB_NAME = "drawlib"
+INIT_PATH = "src/drawlib/__init__.py"
+PYPI_JSON_URL_TEMPLATE = "https://pypi.org/pypi/{package_name}/json"
+TEST_PYPI_JSON_URL_TEMPLATE = "https://test.pypi.org/pypi/{package_name}/json"
 
 
 def main():
-    """A"""
+    """Main function."""
     cd_to_project_root()
-    if len(sys.argv) != 2:
-        print('Requires only one argument. "--get_latest_version" or "--check_new_version_ok".')
+    use_test_pypi = "--test_pypi" in sys.argv
+    allow_jump = "--allow_jump" in sys.argv
+    args = [arg for arg in sys.argv if arg not in {"--test_pypi", "--allow_jump"}]
+
+    if len(args) != 2:
+        print('Requires one command argument. "--get_latest_version" or "--check_new_version_ok".')
+        print('Optional arguments: "--test_pypi", "--allow_jump"')
         sys.exit(1)
 
-    command = sys.argv[1]
+    command = args[1]
     if command == "--get_latest_version":
-        print(get_latest_version("drawlib"))
+        print(get_latest_version(LIB_NAME, use_test_pypi))
 
     elif command == "--check_new_version_ok":
-        latest_version = get_latest_version("drawlib")
+        latest_version = get_latest_version(LIB_NAME, use_test_pypi)
         new_version = _get_new_version()
         try:
-            check_new_version_ok(latest_version, new_version)
+            check_new_version_ok(latest_version, new_version, allow_jump=allow_jump)
             print("Check success.")
         except Exception as e:
             print(f"Check failed. {e}")
             sys.exit(1)
 
     else:
-        print("Argument not supported.")
-        print('Requires only one argument. "--get_latest_version" or "--check_new_version_ok".')
+        print(f"Argument not supported: {command}")
+        print('Requires one command argument. "--get_latest_version" or "--check_new_version_ok".')
+        print('Optional arguments: "--test_pypi", "--allow_jump"')
         sys.exit(1)
 
 
-def cd_to_project_root():
-    """Change directory to project root."""
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    os.chdir(script_dir)
-    os.chdir("../")
-
-
-def get_latest_version(package_name: str) -> str:
+def get_latest_version(package_name: str, use_test_pypi: bool = False) -> str:
     """Fetches the latest version of a package from PyPI, including pre-releases.
 
     Latest rule follows PEP 440 Compliance.
@@ -62,12 +68,16 @@ def get_latest_version(package_name: str) -> str:
 
     Args:
         package_name (str): The name of the package for which to fetch the latest version.
+        use_test_pypi (bool): Whether to use TestPyPI instead of standard PyPI.
 
     Returns:
         str: The latest version of the package, including pre-releases, if successful.
 
     """
-    url = f"https://pypi.org/pypi/{package_name}/json"
+    if use_test_pypi:
+        url = TEST_PYPI_JSON_URL_TEMPLATE.format(package_name=package_name)
+    else:
+        url = PYPI_JSON_URL_TEMPLATE.format(package_name=package_name)
 
     try:
         with urllib.request.urlopen(url) as response:
@@ -85,22 +95,25 @@ def get_latest_version(package_name: str) -> str:
         sys.exit(1)
 
 
-def check_new_version_ok(latest_version: str, new_version: str) -> None:
+def check_new_version_ok(latest_version: str, new_version: str, allow_jump: bool = False) -> None:
     """Compare PyPI latest version and new_version."""
+    if _parse_version(new_version) <= _parse_version(latest_version):
+        raise ValueError(f"New version {new_version} must be greater than latest version {latest_version}.")
+
     latest_parts = tuple(int(part) if part.isdigit() else part for part in latest_version.split("."))
     new_parts = tuple(int(part) if part.isdigit() else part for part in new_version.split("."))
 
     if latest_parts[0] != new_parts[0]:
-        _check_new_major_version_ok(latest_parts, new_parts)
+        _check_new_major_version_ok(latest_parts, new_parts, latest_version, new_version, allow_jump)
 
     elif latest_parts[1] != new_parts[1]:
-        _check_new_minor_version_ok(latest_parts, new_parts)
+        _check_new_minor_version_ok(latest_parts, new_parts, latest_version, new_version, allow_jump)
 
     elif latest_parts[2] != new_parts[2]:
-        _check_new_patch_version_ok(latest_parts, new_parts)
+        _check_new_patch_version_ok(latest_parts, new_parts, latest_version, new_version, allow_jump)
 
     else:
-        _check_new_prerelease_version_ok(latest_parts, new_parts)
+        _check_new_prerelease_version_ok(latest_parts, new_parts, latest_version, new_version, allow_jump)
 
 
 #
@@ -140,10 +153,21 @@ def _test_parse_version() -> None:
 #
 
 
+def _handle_jump(message: str, latest_version: str, new_version: str, allow_jump: bool):
+    if allow_jump:
+        print(f"WARNING: {message} (Allowed by --allow_jump)")
+        return
+
+    print(f"ERROR: {message}")
+    print(f"Current latest: {latest_version}")
+    print(f"New version:    {new_version}")
+    raise ValueError("This is a version jump. Use --allow_jump if you want to skip version.")
+
+
 def _get_new_version() -> str:
-    spec = importlib.util.spec_from_file_location("init", "drawlib/__init__.py")
+    spec = importlib.util.spec_from_file_location("init", INIT_PATH)
     if spec is None or spec.loader is None:
-        raise RuntimeError("Could not load module")
+        raise RuntimeError(f"Could not load module from {INIT_PATH}")
 
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -151,10 +175,12 @@ def _get_new_version() -> str:
     return module.LIB_VERSION
 
 
-def _check_new_major_version_ok(latest_parts: Tuple, new_parts: Tuple):
+def _check_new_major_version_ok(
+    latest_parts: Tuple, new_parts: Tuple, latest_version: str, new_version: str, allow_jump: bool
+):
     """A"""
     if (latest_parts[0] + 1) != new_parts[0]:
-        raise ValueError("New major version must be current +1.")
+        _handle_jump("New major version is not current +1.", latest_version, new_version, allow_jump)
 
     if new_parts[1] != 0:
         raise ValueError("Minor version must be 0 when having new major version.")
@@ -170,10 +196,12 @@ def _check_new_major_version_ok(latest_parts: Tuple, new_parts: Tuple):
         raise ValueError('Pre-release version must be "dev1" or "rc1" when having new major version.')
 
 
-def _check_new_minor_version_ok(latest_parts: Tuple, new_parts: Tuple):
+def _check_new_minor_version_ok(
+    latest_parts: Tuple, new_parts: Tuple, latest_version: str, new_version: str, allow_jump: bool
+):
     """A"""
     if (latest_parts[1] + 1) != new_parts[1]:
-        raise ValueError("New minor version must be current +1.")
+        _handle_jump("New minor version is not current +1.", latest_version, new_version, allow_jump)
 
     if new_parts[2] != 0:
         raise ValueError("Patch version must be 0 when having new minor version.")
@@ -186,10 +214,12 @@ def _check_new_minor_version_ok(latest_parts: Tuple, new_parts: Tuple):
         raise ValueError('Pre-release version must be "dev1" or "rc1" when having new minor version.')
 
 
-def _check_new_patch_version_ok(latest_parts: Tuple, new_parts: Tuple):
+def _check_new_patch_version_ok(
+    latest_parts: Tuple, new_parts: Tuple, latest_version: str, new_version: str, allow_jump: bool
+):
     """A"""
     if (latest_parts[2] + 1) != new_parts[2]:
-        raise ValueError("New patch version must be current +1.")
+        _handle_jump("New patch version is not current +1.", latest_version, new_version, allow_jump)
 
     if len(new_parts) == 3:
         # patch version doesn't requires dev1 and rc1
@@ -202,11 +232,14 @@ def _check_new_patch_version_ok(latest_parts: Tuple, new_parts: Tuple):
         )
 
 
-def _check_new_prerelease_version_ok(latest_parts: Tuple, new_parts: Tuple):  # noqa: C901
+def _check_new_prerelease_version_ok(
+    latest_parts: Tuple, new_parts: Tuple, latest_version: str, new_version: str, allow_jump: bool
+):  # noqa: C901
     """A"""
     if len(latest_parts) == 3:
         if len(new_parts) == 3:
-            raise ValueError("New patch version must be current +1.")
+            _handle_jump("New patch version is not current +1.", latest_version, new_version, allow_jump)
+            return
 
         raise ValueError(
             "New patch release version l.m.n.X can't be released after standard version l.m.n was released.",
@@ -243,13 +276,25 @@ def _check_new_prerelease_version_ok(latest_parts: Tuple, new_parts: Tuple):  # 
         if new_rc_value == 1:
             return
 
-        raise ValueError(f"next pre-release version must be dev{latest_dev_value + 1} or rc1 or standard version.")
+        _handle_jump(
+            f"next pre-release version should be dev{latest_dev_value + 1} or rc1 or standard version.",
+            latest_version,
+            new_version,
+            allow_jump,
+        )
+        return
 
     if latest_rc_value != -1:
         if (latest_rc_value + 1) == new_rc_value:
             return
 
-        raise ValueError(f"next pre-release version must be rc{latest_rc_value + 1} or standard version.")
+        _handle_jump(
+            f"next pre-release version should be rc{latest_rc_value + 1} or standard version.",
+            latest_version,
+            new_version,
+            allow_jump,
+        )
+        return
 
     raise ValueError(f'Something went wrong. Current "{latest_parts}", New "{new_parts}".')
 
@@ -278,7 +323,7 @@ def _test_check_new_version_ok():
     ]:
         try:
             print(f"Test latest {latest}, new {new}.")
-            check_new_version_ok(latest, new)
+            check_new_version_ok(latest, new, allow_jump=True)
             print("OK.")
         except Exception as e:
             print(f"NG. {str(e)}")

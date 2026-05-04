@@ -1,0 +1,12 @@
+version: '3'
+
+tasks:
+  code:icon:
+    desc: Generate icon phosphor code
+    cmds:
+      - uv run python tasks/scripts/generate_icon_phosphor_code.py
+
+  code:theme-style:
+    desc: Generate theme style classes
+    cmds:
+      - uv run python tasks/scripts/generate_theme_style_classes.py

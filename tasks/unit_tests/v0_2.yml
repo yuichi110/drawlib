@@ -1,0 +1,66 @@
+version: '3'
+
+vars:
+  PROJECT_ROOT:
+    sh: git rev-parse --show-toplevel
+
+tasks:
+  all:
+    desc: Run all tests for v0.2
+    dir: '{{.PROJECT_ROOT}}'
+    cmds:
+      - uv run pytest -s --cov=drawlib tests/v0_2/
+
+  core:
+    desc: Run core tests for v0.2
+    dir: '{{.PROJECT_ROOT}}'
+    cmds:
+      - uv run pytest -s --cov=drawlib tests/v0_2/core/
+
+  dsarts:
+    desc: Run dsarts tests for v0.2
+    dir: '{{.PROJECT_ROOT}}'
+    cmds:
+      - uv run pytest -s --cov=drawlib tests/v0_2/dsarts/
+
+  fonts:
+    desc: Run fonts tests for v0.2
+    dir: '{{.PROJECT_ROOT}}'
+    cmds:
+      - uv run pytest -s --cov=drawlib tests/v0_2/fonts/
+
+  icons:
+    desc: Run icons tests for v0.2
+    dir: '{{.PROJECT_ROOT}}'
+    cmds:
+      - uv run pytest -s --cov=drawlib tests/v0_2/drawings_icons/
+
+  model:
+    desc: Run model tests for v0.2
+    dir: '{{.PROJECT_ROOT}}'
+    cmds:
+      - uv run pytest -s --cov=drawlib tests/v0_2/models/
+
+  original:
+    desc: Run original tests for v0.2
+    dir: '{{.PROJECT_ROOT}}'
+    cmds:
+      - uv run pytest -s --cov=drawlib tests/v0_2/drawings_originals/
+
+  others:
+    desc: Run other tests for v0.2
+    dir: '{{.PROJECT_ROOT}}'
+    cmds:
+      - uv run pytest -s --cov=drawlib tests/v0_2/others/
+
+  patches:
+    desc: Run patches tests for v0.2
+    dir: '{{.PROJECT_ROOT}}'
+    cmds:
+      - uv run pytest -s --cov=drawlib tests/v0_2/drawings_patchs/
+
+  theme:
+    desc: Run theme tests for v0.2
+    dir: '{{.PROJECT_ROOT}}'
+    cmds:
+      - uv run pytest -s --cov=drawlib tests/v0_2/theme/

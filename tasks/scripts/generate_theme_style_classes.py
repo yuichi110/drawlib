@@ -10,13 +10,11 @@
 """Helper script for generating theme_style_caches.py code."""
 
 import os
+from utils import cd_to_project_root
 
 
-def cd_to_project_root():
-    """Change directory to project root."""
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    os.chdir(script_dir)
-    os.chdir("../")
+OUTPUT_DIR = "output_codes"
+OUTPUT_FILE = "theme_style_caches.py"
 
 
 HEAD = '''
@@ -872,8 +870,8 @@ def write():
     text = "\n\n\n".join(texts)
 
     # write to file
-    os.makedirs("output_codes", exist_ok=True)
-    with open("output_codes/theme_style_caches.py", mode="w", encoding="utf8") as fout:
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    with open(os.path.join(OUTPUT_DIR, OUTPUT_FILE), mode="w", encoding="utf8") as fout:
         fout.write(text)
         fout.write("\n")  # last new line
 

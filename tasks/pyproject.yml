@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  update:
+    desc: Update pyproject.toml metadata from src/drawlib/__init__.py
+    cmds:
+      - uv run python tasks/scripts/update_pyprojecttoml.py

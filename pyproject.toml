@@ -1,10 +1,10 @@
 [build-system]
-requires = ["uv-build"]
+requires = ["uv-build<0.12"]
 build-backend = "uv_build"
 
 [project]
 name = "drawlib"
-version = "0.2.4.dev1"
+version = "0.2.4.dev3"
 description = "Python drawing library. Illustration as Code."
 readme = "pypi.md"
 requires-python = ">=3.12"
@@ -95,3 +95,13 @@ ignore = [
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
+
+[tool.pyright]
+include = ["src/drawlib", "tasks/scripts"]
+extraPaths = ["tasks/scripts"]
+typeCheckingMode = "basic"
+reportMissingTypeArgument = "warning"
+reportUnknownParameterType = "warning"
+reportUnknownVariableType = "warning"
+reportUnknownMemberType = "warning"
+reportUnknownArgumentType = "warning"
