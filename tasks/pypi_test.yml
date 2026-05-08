@@ -4,6 +4,11 @@ includes:
   pyproject: ./pyproject.yml
 
 tasks:
+  list-versions:
+    desc: List all versions of drawlib from TestPyPI
+    cmds:
+      - uv run python tasks/scripts/pypi_tools.py --list_versions --test_pypi
+
   get-latest-version:
     desc: Get the latest version of drawlib from TestPyPI
     cmds:

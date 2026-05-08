@@ -1,0 +1,54 @@
+# Use a configurable Python version
+ARG PYTHON_VERSION=3.12
+FROM python:${PYTHON_VERSION}-slim
+
+# ARGs for drawlib installation
+ARG PYPI_URL=https://pypi.org/simple/
+ARG DRAWLIB_VERSION
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Install system dependencies for matplotlib and other libraries
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1 \
+    libglx-mesa0 \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Install test dependencies from default PyPI first for better caching.
+RUN pip install --no-cache-dir \
+    pytest \
+    pytest-cov \
+    ruff \
+    pyright
+
+# Check if the specific version of drawlib exists in the designated repository.
+# The '--pre' flag is required to include development and pre-release versions.
+# This prevents pip from accidentally falling back to the official PyPI
+# when TestPyPI is specified but the package is missing there.
+# The regex ensures an exact version match (e.g., preventing '0.1.2' from matching '0.1.21').
+RUN pip index versions drawlib \
+    --pre \
+    --index-url ${PYPI_URL} \
+    | grep -E "Available versions:.*(\s|,)${DRAWLIB_VERSION}(,|$)"
+
+# Install drawlib from the specified PyPI repository.
+# NOTE: We include PyPI as an extra index to resolve dependencies(matplotlib etc.) if using TestPyPI.
+RUN pip install --no-cache-dir \
+    --index-url ${PYPI_URL} \
+    --extra-index-url https://pypi.org/simple/ \
+    drawlib==${DRAWLIB_VERSION}
+
+# Copy the entire tests directory to maintain relative paths for assets
+COPY tests/ ./tests/
+
+# Ensure the output directory exists
+RUN mkdir -p output_tests
+
+# Run pytest on the tests directory
+# The output will be written to /app/output_tests due to relative paths in tests
+CMD ["pytest", "tests/"]

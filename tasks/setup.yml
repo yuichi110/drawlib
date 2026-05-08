@@ -1,0 +1,42 @@
+version: '3'
+
+tasks:
+  uv:install:
+    desc: Install uv package manager
+    cmds:
+      - curl -LsSf https://astral.sh/uv/install.sh | sh
+
+  uv:sync:
+    desc: Sync project dependencies using uv
+    cmds:
+      - uv sync
+
+  uv:self-update:
+    desc: Update uv package manager to the latest version
+    cmds:
+      - uv self update
+
+  gemini-cli:install:
+    desc: Install gemini-cli (macOS only)
+    platforms: [darwin]
+    cmds:
+      - brew install gemini-cli
+
+  gemini-cli:update:
+    desc: Update gemini-cli (macOS only)
+    platforms: [darwin]
+    cmds:
+      - brew upgrade gemini-cli
+
+  docker:install:
+    desc: Install Docker (macOS only)
+    platforms: [darwin]
+    cmds:
+      - brew install --cask docker
+
+  docker:update:
+    desc: Update Docker (macOS only)
+    platforms: [darwin]
+    cmds:
+      - brew upgrade --cask docker
+

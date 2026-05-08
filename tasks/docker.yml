@@ -1,0 +1,99 @@
+version: '3'
+
+tasks:
+  daemon:status:
+    desc: Check Docker daemon status (macOS only)
+    platforms: [darwin]
+    cmds:
+      - |
+        if docker info --format '{{.ServerVersion}}' >/dev/null 2>&1; then
+          echo "Docker daemon is running."
+        elif pgrep -f "Docker.app" >/dev/null || pgrep -f "com.docker.backend" >/dev/null; then
+          echo "Docker daemon is in a ZOMBIE state (Process exists but not responding)."
+          echo "Recommended: task daemon:stop && task daemon:start"
+        else
+          echo "Docker daemon is NOT running."
+        fi
+
+  daemon:check:
+    desc: Ensure Docker daemon is ready (fails if not running or zombie)
+    platforms: [darwin]
+    internal: true
+    cmds:
+      - |
+        if ! docker info --format '{{.ServerVersion}}' >/dev/null 2>&1; then
+          echo "Error: Docker daemon is NOT responding correctly (it may be stopped or in a zombie state)."
+          echo "Please run 'task daemon:stop' then 'task daemon:start' to recover."
+          exit 1
+        fi
+        echo "Docker daemon is healthy."
+
+  daemon:start:
+    desc: Start Docker Desktop app (macOS only)
+    platforms: [darwin]
+    status:
+      - docker info >/dev/null 2>&1
+    cmds:
+      - echo "Starting Docker Desktop..."
+      - open -a Docker
+      - echo "Please wait until the whale icon stops bouncing."
+
+  daemon:stop:
+    desc: Quit Docker Desktop app (macOS only)
+    platforms: [darwin]
+    status:
+      - "! docker info --format '{{.ServerVersion}}' >/dev/null 2>&1"
+    cmds:
+      - echo "Stopping all running containers..."
+      - docker stop $(docker ps -q) >/dev/null 2>&1 || true
+      - echo "Sending SIGTERM to Docker Desktop and Backend..."
+      - pkill -SIGTERM -a Docker || true
+      - pkill -SIGTERM -f "com.docker.backend" || true
+      - echo "Docker Desktop shutdown process completed."
+
+  test-images:build:
+    desc: Build drawlib Docker image for testing
+    summary: |
+      Builds a Docker image from Dockerfile.pypi_test.
+      
+      Parameters:
+        PYTHON: Python version (default: 3.12)
+        REPO: PyPI repository, "pypi" or "test-pypi" (default: pypi)
+        VERSION: drawlib version (REQUIRED)
+        
+      Usage:
+        task docker:test-images:build VERSION=0.2.4.dev3
+        task docker:test-images:build PYTHON=3.11 REPO=test-pypi VERSION=0.2.4.dev3
+    deps: [daemon:check]
+    vars:
+      PYTHON: '{{.PYTHON | default "3.12"}}'
+      REPO: '{{.REPO | default "pypi"}}'
+      VERSION: '{{.VERSION}}'
+      PYPI_URL: '{{if eq .REPO "test-pypi"}}https://test.pypi.org/simple/{{else}}https://pypi.org/simple/{{end}}'
+      TAG: 'p{{.PYTHON}}_{{.REPO}}_d{{.VERSION}}'
+    cmds:
+      - |
+        if [ -z "{{.VERSION}}" ]; then
+          echo "Error: VERSION is required."
+          echo "Usage: task docker:test-images:build VERSION=0.2.4.dev3 [PYTHON=3.12] [REPO=pypi|test-pypi]"
+          exit 1
+        fi
+      - docker build -f Dockerfile.pypi_test --build-arg PYTHON_VERSION={{.PYTHON}} --build-arg PYPI_URL={{.PYPI_URL}} --build-arg DRAWLIB_VERSION={{.VERSION}} -t test-drawlib:{{.TAG}} .
+
+  test-images:list:
+    desc: List all drawlib test images
+    deps: [daemon:check]
+    cmds:
+      - docker images test-drawlib
+
+  test-images:prune:
+    desc: Remove all drawlib test images
+    deps: [daemon:check]
+    cmds:
+      - |
+        IMAGES=$(docker images test-drawlib -q)
+        if [ -n "$IMAGES" ]; then
+          docker rmi $IMAGES
+        else
+          echo "No test-drawlib images found."
+        fi

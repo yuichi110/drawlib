@@ -1,0 +1,13 @@
+**/__pycache__
+*.pyc
+*.pyo
+*.pyd
+.git
+.github
+.venv
+.pytest_cache
+.ruff_cache
+.pyright_cache
+output_tests
+output_tests_docker
+dist

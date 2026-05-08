@@ -15,7 +15,7 @@ import os
 import re
 import sys
 import urllib.request
-from typing import Tuple
+from typing import Tuple, List
 from utils import cd_to_project_root
 
 
@@ -33,13 +33,17 @@ def main():
     args = [arg for arg in sys.argv if arg not in {"--test_pypi", "--allow_jump"}]
 
     if len(args) != 2:
-        print('Requires one command argument. "--get_latest_version" or "--check_new_version_ok".')
+        print('Requires one command argument. "--get_latest_version", "--list_versions" or "--check_new_version_ok".')
         print('Optional arguments: "--test_pypi", "--allow_jump"')
         sys.exit(1)
 
     command = args[1]
     if command == "--get_latest_version":
         print(get_latest_version(LIB_NAME, use_test_pypi))
+
+    elif command == "--list_versions":
+        for v in list_versions(LIB_NAME, use_test_pypi):
+            print(v)
 
     elif command == "--check_new_version_ok":
         latest_version = get_latest_version(LIB_NAME, use_test_pypi)
@@ -53,27 +57,22 @@ def main():
 
     else:
         print(f"Argument not supported: {command}")
-        print('Requires one command argument. "--get_latest_version" or "--check_new_version_ok".')
+        print('Requires one command argument. "--get_latest_version", "--list_versions" or "--check_new_version_ok".')
         print('Optional arguments: "--test_pypi", "--allow_jump"')
         sys.exit(1)
 
 
 def get_latest_version(package_name: str, use_test_pypi: bool = False) -> str:
-    """Fetches the latest version of a package from PyPI, including pre-releases.
+    """Fetches the latest version of a package from PyPI, including pre-releases."""
+    versions = list_versions(package_name, use_test_pypi)
+    if not versions:
+        print(f"No versions found for package {package_name}")
+        sys.exit(1)
+    return versions[0]
 
-    Latest rule follows PEP 440 Compliance.
-    In Summary,
-    1. sort by major.minor.patch
-    2. rc release > dev release > normal release
 
-    Args:
-        package_name (str): The name of the package for which to fetch the latest version.
-        use_test_pypi (bool): Whether to use TestPyPI instead of standard PyPI.
-
-    Returns:
-        str: The latest version of the package, including pre-releases, if successful.
-
-    """
+def list_versions(package_name: str, use_test_pypi: bool = False) -> List[str]:
+    """Fetches all versions of a package from PyPI, sorted newest to oldest."""
     if use_test_pypi:
         url = TEST_PYPI_JSON_URL_TEMPLATE.format(package_name=package_name)
     else:
@@ -86,11 +85,11 @@ def get_latest_version(package_name: str, use_test_pypi: bool = False) -> str:
 
             data = json.load(response)
             all_versions = data["releases"].keys()
-            latest_version = max(all_versions, key=_parse_version)
-            return latest_version
+            sorted_versions = sorted(all_versions, key=_parse_version, reverse=True)
+            return sorted_versions
 
     except Exception as e:
-        print(f"Failed to fetch the latest version for package {package_name}")
+        print(f"Failed to fetch versions for package {package_name}")
         print(f"Error: {e}")
         sys.exit(1)
 

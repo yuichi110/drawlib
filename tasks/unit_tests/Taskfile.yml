@@ -2,6 +2,7 @@ version: '3'
 
 includes:
   v0.2: ./v0_2.yml
+  docker: ./docker.yml
 
 tasks:
   all:

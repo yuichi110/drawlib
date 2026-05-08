@@ -1,0 +1,35 @@
+version: '3'
+
+includes:
+  docker: ../docker.yml
+  
+vars:
+  OUTPUT_DIR: output_tests_docker
+
+tasks:
+  default:
+    desc: Run unit tests in a Docker container
+    summary: |
+      Runs unit tests in a container using the specified image and path.
+      
+      Parameters:
+        IMAGE: Docker image name and tag (REQUIRED)
+        PATH: Path to tests within the container (default: tests/)
+        
+      Usage:
+        task utest:docker IMAGE=test-drawlib:<tag>
+        task utest:docker IMAGE=test-drawlib:<tag> PATH=tests/v0_2/core
+#    deps:
+#      - :docker:daemon:check
+    vars:
+      IMAGE: '{{.IMAGE}}'
+      PATH: '{{.PATH | default "tests/"}}'
+    cmds:
+      - |
+        if [ -z "{{.IMAGE}}" ]; then
+          echo "Error: IMAGE is required."
+          echo "Usage: task utest:docker IMAGE=test-drawlib:<tag> [PATH=tests/]"
+          exit 1
+        fi
+      - mkdir -p {{.OUTPUT_DIR}}
+      - docker run --rm -v $(pwd)/{{.OUTPUT_DIR}}:/app/output_tests {{.IMAGE}} pytest {{.PATH}}

@@ -12,6 +12,8 @@ src/drawlib/assets/**/fonts/*
 # output of generators
 output_codes/*
 output_tests/*
+output_tests_docker/*
+
 tests/**/*.png
 !tests/assets/**/*.png
 tests/**/*.webp
