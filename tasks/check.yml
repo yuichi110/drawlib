@@ -5,14 +5,23 @@ tasks:
     desc: Run linter (ruff)
     cmds:
       - uv run ruff check --preview src
+      - uv run ruff check --preview tasks/scripts
+      - uv run ruff check --preview tests
 
   type:
     desc: Run type checker (pyright)
     cmds:
       - uv run pyright src/drawlib
+      - uv run pyright tasks/scripts
       - uv run pyright tests --project pyrightconfig.tests.json
 
   lines:
     desc: Count lines of code
     cmds:
       - uv run python tasks/scripts/count_lines.py
+
+  default:
+    desc: Run all checks (lint and type)
+    cmds:
+      - task: lint
+      - task: type
