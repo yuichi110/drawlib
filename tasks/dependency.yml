@@ -1,0 +1,31 @@
+version: '3'
+
+tasks:
+  list:
+    desc: List all dependencies in pyproject.toml
+    cmds:
+      - uv run python tasks/scripts/dependency_tool.py list
+
+  releases:
+    desc: List available releases for a package
+    summary: |
+      List all releases for a package.
+      
+      Parameters:
+        PACKAGE: Package name (REQUIRED)
+        YEAR_FROM: Start year (optional)
+        
+      Usage:
+        task dependency:releases PACKAGE=matplotlib
+        task dependency:releases PACKAGE=matplotlib YEAR_FROM=2024
+    vars:
+      PACKAGE: '{{.PACKAGE}}'
+      YEAR_FROM: '{{.YEAR_FROM}}'
+    cmds:
+      - |
+        if [ -z "{{.PACKAGE}}" ]; then
+          echo "Error: PACKAGE is required."
+          echo "Usage: task dependency:releases PACKAGE=<package_name> [YEAR_FROM=<year>]"
+          exit 1
+        fi
+      - uv run python tasks/scripts/dependency_tool.py releases {{.PACKAGE}} {{if .YEAR_FROM}}--from {{.YEAR_FROM}}{{end}}

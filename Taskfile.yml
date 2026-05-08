@@ -11,6 +11,7 @@ includes:
   pyproject: ./tasks/pyproject.yml
   setup: ./tasks/setup.yml
   utest: ./tasks/unit_tests/Taskfile.yml
+  dependency: ./tasks/dependency.yml
   
 tasks:
   default:

@@ -1,0 +1,62 @@
+version: '3'
+
+vars:
+  # Matrix dimensions
+  PYTHON_VERSIONS: ["3.10", "3.11", "3.12", "3.13"]
+  MATPLOTLIB_VERSIONS: ["3.8.4", "3.9.4", "3.10.9"]
+  PYGMENTS_VERSIONS: ["2.18.0", "2.19.2", "2.20.0"]
+
+  # Test Target
+  TEST_TARGET: "tests/v0_2/core"
+  SUMMARY_FILE: "output_tests/dependency/summary.txt"
+
+tasks:
+  matrix:
+    desc: "Run all combinations of the test matrix"
+    cmds:
+      - mkdir -p $(dirname {{.SUMMARY_FILE}})
+      - echo "Test Matrix Summary - $(date)" > {{.SUMMARY_FILE}}
+      - echo "----------------------------------------" >> {{.SUMMARY_FILE}}
+      - for: { var: PYTHON_VERSIONS }
+        task: matrix:mpl
+        vars:
+          PY_VER: "{{.ITEM}}"
+      - echo "----------------------------------------" >> {{.SUMMARY_FILE}}
+      - echo "Tests completed. See {{.SUMMARY_FILE}} for details."
+
+  matrix:mpl:
+    internal: true
+    cmds:
+      - for: { var: MATPLOTLIB_VERSIONS }
+        task: matrix:pyg
+        vars:
+          PY_VER: "{{.PY_VER}}"
+          MPL_VER: "{{.ITEM}}"
+
+  matrix:pyg:
+    internal: true
+    cmds:
+      - for: { var: PYGMENTS_VERSIONS }
+        task: run-test-combo
+        vars:
+          PY_VER: "{{.PY_VER}}"
+          MPL_VER: "{{.MPL_VER}}"
+          PYG_VER: "{{.ITEM}}"
+
+  run-test-combo:
+    internal: true
+    desc: "Execute a single test combination in an isolated environment"
+    ignore_error: true
+    cmds:
+      - echo ">>> Testing Python {{.PY_VER}} | Matplotlib {{.MPL_VER}} | Pygments {{.PYG_VER}}"
+      - |
+        uv run \
+          --isolated \
+          --python {{.PY_VER}} \
+          --with "." \
+          --with "matplotlib=={{.MPL_VER}}" \
+          --with "pygments=={{.PYG_VER}}" \
+          --with "pytest" \
+          pytest {{.TEST_TARGET}} \
+          && echo "[PASS] Python {{.PY_VER}} | Matplotlib {{.MPL_VER}} | Pygments {{.PYG_VER}}" >> {{.SUMMARY_FILE}} \
+          || (echo "[FAIL] Python {{.PY_VER}} | Matplotlib {{.MPL_VER}} | Pygments {{.PYG_VER}}" >> {{.SUMMARY_FILE}} && exit 1)
