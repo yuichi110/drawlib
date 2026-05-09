@@ -1,0 +1,27 @@
+version: '3'
+
+tasks:
+  "gen:GEMINI.md":
+    desc: Aggregate all agent rules into a single GEMINI.md file
+    cmds:
+      - |
+        # Initialize GEMINI.md with a formatted generator comment
+        echo '<!-- ' > GEMINI.md
+        echo '    Auto-generated configuration for Gemini CLI ' >> GEMINI.md
+        echo '    derived from Antigravity rules in "./agents/rules/" ' >> GEMINI.md
+        echo '-->' >> GEMINI.md
+        echo "" >> GEMINI.md
+
+        # Iterate through each rule file in .agents/rules/
+        for file in .agents/rules/*.md; do
+          filename=$(basename "$file")
+
+          # Add a file start marker for the external tool
+          echo "<!-- FILE_START: ./agents/rules/$filename -->" >> GEMINI.md
+          echo "" >> GEMINI.md
+
+          # Extract content starting from the first '#' heading to strip frontmatter
+          uv run python -c "import sys, re; c=sys.stdin.read(); m=re.search(r'^#', c, re.MULTILINE); print(c[m.start():].strip() if m else c.strip())" < "$file" >> GEMINI.md
+          echo "" >> GEMINI.md
+        done
+        echo "Successfully generated GEMINI.md from .agents/rules/*.md"
