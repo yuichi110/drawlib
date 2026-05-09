@@ -15,9 +15,9 @@ import os
 import re
 import sys
 import urllib.request
-from typing import Tuple, List
-from utils import cd_to_project_root
+from typing import List, Tuple
 
+from utils import cd_to_project_root
 
 LIB_NAME = "drawlib"
 INIT_PATH = "src/drawlib/__init__.py"
@@ -25,7 +25,7 @@ PYPI_JSON_URL_TEMPLATE = "https://pypi.org/pypi/{package_name}/json"
 TEST_PYPI_JSON_URL_TEMPLATE = "https://test.pypi.org/pypi/{package_name}/json"
 
 
-def main():
+def main() -> None:
     """Main function."""
     cd_to_project_root()
     use_test_pypi = "--test_pypi" in sys.argv
@@ -79,7 +79,7 @@ def list_versions(package_name: str, use_test_pypi: bool = False) -> List[str]:
         url = PYPI_JSON_URL_TEMPLATE.format(package_name=package_name)
 
     try:
-        with urllib.request.urlopen(url) as response:
+        with urllib.request.urlopen(url) as response:  # noqa: S310
             if response.status != 200:
                 raise Exception(f"PyPI returns status code: {response.status}")
 
@@ -152,7 +152,7 @@ def _test_parse_version() -> None:
 #
 
 
-def _handle_jump(message: str, latest_version: str, new_version: str, allow_jump: bool):
+def _handle_jump(message: str, latest_version: str, new_version: str, allow_jump: bool) -> None:
     if allow_jump:
         print(f"WARNING: {message} (Allowed by --allow_jump)")
         return
@@ -176,7 +176,7 @@ def _get_new_version() -> str:
 
 def _check_new_major_version_ok(
     latest_parts: Tuple, new_parts: Tuple, latest_version: str, new_version: str, allow_jump: bool
-):
+) -> None:
     """A"""
     if (latest_parts[0] + 1) != new_parts[0]:
         _handle_jump("New major version is not current +1.", latest_version, new_version, allow_jump)
@@ -197,7 +197,7 @@ def _check_new_major_version_ok(
 
 def _check_new_minor_version_ok(
     latest_parts: Tuple, new_parts: Tuple, latest_version: str, new_version: str, allow_jump: bool
-):
+) -> None:
     """A"""
     if (latest_parts[1] + 1) != new_parts[1]:
         _handle_jump("New minor version is not current +1.", latest_version, new_version, allow_jump)
@@ -215,7 +215,7 @@ def _check_new_minor_version_ok(
 
 def _check_new_patch_version_ok(
     latest_parts: Tuple, new_parts: Tuple, latest_version: str, new_version: str, allow_jump: bool
-):
+) -> None:
     """A"""
     if (latest_parts[2] + 1) != new_parts[2]:
         _handle_jump("New patch version is not current +1.", latest_version, new_version, allow_jump)
@@ -231,10 +231,26 @@ def _check_new_patch_version_ok(
         )
 
 
+def _get_dev_value(text: str) -> int:
+    matches = re.findall(r"dev(\d+)", text)
+    values = [int(match) for match in matches]
+    if not values:
+        return -1
+    return values[0]
+
+
+def _get_rc_value(text: str) -> int:
+    matches = re.findall(r"rc(\d+)", text)
+    values = [int(match) for match in matches]
+    if not values:
+        return -1
+    return values[0]
+
+
 def _check_new_prerelease_version_ok(
     latest_parts: Tuple, new_parts: Tuple, latest_version: str, new_version: str, allow_jump: bool
-):  # noqa: C901
-    """A"""
+) -> None:
+    """Check if the transition from one pre-release version to another is valid."""
     if len(latest_parts) == 3:
         if len(new_parts) == 3:
             _handle_jump("New patch version is not current +1.", latest_version, new_version, allow_jump)
@@ -248,57 +264,52 @@ def _check_new_prerelease_version_ok(
         # standard release version (l.m.n) can be released after pre-release version (l.m.n.X)
         return
 
-    def get_dev_value(text: str) -> int:
-        matches = re.findall(r"dev(\d+)", text)
-        values = [int(match) for match in matches]
-        if not values:
-            return -1
-        return values[0]
-
-    def get_rc_value(text: str) -> int:
-        matches = re.findall(r"rc(\d+)", text)
-        values = [int(match) for match in matches]
-        if not values:
-            return -1
-        return values[0]
-
     latest_pre: str = latest_parts[3]
     new_pre: str = new_parts[3]
-    latest_dev_value = get_dev_value(latest_pre)
-    latest_rc_value = get_rc_value(latest_pre)
-    new_dev_value = get_dev_value(new_pre)
-    new_rc_value = get_rc_value(new_pre)
+    latest_dev_value = _get_dev_value(latest_pre)
+    latest_rc_value = _get_rc_value(latest_pre)
+    new_dev_value = _get_dev_value(new_pre)
+    new_rc_value = _get_rc_value(new_pre)
 
     if latest_dev_value != -1:
-        if (latest_dev_value + 1) == new_dev_value:
-            return
-        if new_rc_value == 1:
-            return
+        _check_dev_transition(latest_dev_value, new_dev_value, new_rc_value, latest_version, new_version, allow_jump)
+    elif latest_rc_value != -1:
+        _check_rc_transition(latest_rc_value, new_rc_value, latest_version, new_version, allow_jump)
+    else:
+        raise ValueError(f'Something went wrong. Current "{latest_parts}", New "{new_parts}".')
 
-        _handle_jump(
-            f"next pre-release version should be dev{latest_dev_value + 1} or rc1 or standard version.",
-            latest_version,
-            new_version,
-            allow_jump,
-        )
+
+def _check_dev_transition(
+    latest_dev: int, new_dev: int, new_rc: int, latest_version: str, new_version: str, allow_jump: bool
+) -> None:
+    if (latest_dev + 1) == new_dev:
+        return
+    if new_rc == 1:
         return
 
-    if latest_rc_value != -1:
-        if (latest_rc_value + 1) == new_rc_value:
-            return
+    _handle_jump(
+        f"next pre-release version should be dev{latest_dev + 1} or rc1 or standard version.",
+        latest_version,
+        new_version,
+        allow_jump,
+    )
 
-        _handle_jump(
-            f"next pre-release version should be rc{latest_rc_value + 1} or standard version.",
-            latest_version,
-            new_version,
-            allow_jump,
-        )
+
+def _check_rc_transition(
+    latest_rc: int, new_rc: int, latest_version: str, new_version: str, allow_jump: bool
+) -> None:
+    if (latest_rc + 1) == new_rc:
         return
 
-    raise ValueError(f'Something went wrong. Current "{latest_parts}", New "{new_parts}".')
+    _handle_jump(
+        f"next pre-release version should be rc{latest_rc + 1} or standard version.",
+        latest_version,
+        new_version,
+        allow_jump,
+    )
 
 
-def _test_check_new_version_ok():
+def _test_check_new_version_ok() -> None:
     for latest, new in [
         ("0.1.1", "1.0.0.dev1"),
         ("0.1.1", "1.1.0"),

@@ -7,10 +7,13 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
+
+"""Utility functions for scripts."""
+
 import os
 
 
-def cd_to_project_root():
+def cd_to_project_root() -> None:
     """Change directory to project root by searching for .git directory."""
     current_dir = os.path.dirname(os.path.abspath(__file__))
     while True:

@@ -11,20 +11,21 @@
 
 import glob
 import os
-from utils import cd_to_project_root
+from typing import List, Tuple
 
+from utils import cd_to_project_root
 
 SRC_DIR = "./src/drawlib"
 TESTS_DIR = "./tests"
 
 
-def count_lines_in_file(file_path):
+def count_lines_in_file(file_path: str) -> int:
     """Counts the number of lines in a file."""
     with open(file_path, "r", encoding="utf-8") as file:
         return sum(1 for _ in file)
 
 
-def count_lines_in_directory(directory):
+def count_lines_in_directory(directory: str) -> List[Tuple[str, int]]:
     """Counts the number of lines in each Python file in the given directory and returns a sorted list."""
     file_lines = []
     for file_path in glob.glob(os.path.join(directory, "**", "*.py"), recursive=True):
@@ -36,7 +37,7 @@ def count_lines_in_directory(directory):
     return file_lines
 
 
-def main(project_root):
+def main(project_root: str) -> None:
     """Main function for counting lines."""
     print(f"==={project_root}===")
     lines_per_file = count_lines_in_directory(project_root)

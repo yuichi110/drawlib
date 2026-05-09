@@ -433,11 +433,11 @@ class Theme:
         Args:
             name (Literal['default', 'essentials', 'monochrome']): The name of the official theme to apply.
 
-        Raises:
-            ValueError: If the provided theme name is not supported.
-
         Returns:
             None
+
+        Raises:
+            ValueError: If the provided theme name is not supported.
         """
         if name == "default":
             t = theme_officials.get_default()
@@ -511,11 +511,11 @@ class Theme:
             sourcecodefont (Optional[FontSourceCode], optional): The source code font.
                 Defaults to FontSourceCode.SOURCECODEPRO.
 
-        Raises:
-            ValueError: If any of the style or color formats are incorrect.
-
         Returns:
             None
+
+        Raises:
+            ValueError: If any of the style or color formats are incorrect.
         """
         if named_styles is None:
             named_styles = []

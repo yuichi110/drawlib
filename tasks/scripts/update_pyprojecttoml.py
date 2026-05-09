@@ -21,15 +21,16 @@ Then, update pyproject.toml using tomlkit to preserve formatting.
 import importlib.util
 import os
 import re
+from typing import Any
+
 import tomlkit
 from utils import cd_to_project_root
-
 
 INIT_PATH = "src/drawlib/__init__.py"
 PYPROJECT_TOML_PATH = "pyproject.toml"
 
 
-def update_pyproject_toml():
+def update_pyproject_toml() -> None:
     """Update pyproject.toml from src/drawlib/__init__.py"""
     # Load metadata from src/drawlib/__init__.py
     spec = importlib.util.spec_from_file_location("init", INIT_PATH)
@@ -49,13 +50,13 @@ def update_pyproject_toml():
 
     # Read pyproject.toml
     with open(PYPROJECT_TOML_PATH, mode="r", encoding="utf8") as fin:
-        doc = tomlkit.parse(fin.read())
+        doc: Any = tomlkit.parse(fin.read())
 
     # Update [project] section
     if "project" not in doc:
         doc["project"] = tomlkit.table()
-    
-    project = doc["project"]
+
+    project: Any = doc["project"]
     project["name"] = lib_name
     project["version"] = lib_version
     project["description"] = description
@@ -75,14 +76,14 @@ def update_pyproject_toml():
             author_dict = tomlkit.inline_table()
             author_dict.update({"name": author_str.strip()})
             authors_list.append(author_dict)
-    
+
     project["authors"] = authors_list
 
     # Update [project.urls] section
     if "urls" not in project:
         project["urls"] = tomlkit.table()
-    
-    urls = project["urls"]
+
+    urls: Any = project["urls"]
     urls["Homepage"] = homepage
     urls["Repository"] = repository
 

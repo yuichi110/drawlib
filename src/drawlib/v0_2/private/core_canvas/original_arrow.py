@@ -388,29 +388,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
         if angle != 0:
             path_points1 = get_rotated_path_points(path_points1, xy, angle)  # type: ignore
 
-        # create Path
-        vertices = [path_points1[0]]
-        codes = [Path.MOVETO]
-        for p in path_points1[1:]:
-            length = len(p)
-            if length not in {2, 3}:
-                raise ValueError()
-
-            if not isinstance(p[0], tuple):
-                vertices.append(p)
-                codes.append(Path.LINETO)
-
-            elif length == 2:
-                vertices.extend([p[0], p[1]])  # type: ignore
-                codes.extend([Path.CURVE3] * 2)
-
-            else:
-                vertices.extend([p[0], p[1], p[2]])  # type: ignore
-                codes.extend([Path.CURVE4] * 3)
-
-        vertices.append(path_points1[0])
-        codes.append(Path.CLOSEPOLY)
-        path = Path(vertices=vertices, codes=codes)
+        path = self._get_path_from_points(path_points1)
 
         # create PathPatch
 
@@ -531,6 +509,42 @@ class CanvasOriginalArrowFeature(CanvasBase):
             r=r,
             style=style,
         )
+
+    @staticmethod
+    def _get_path_from_points(path_points: List[Any]) -> Path:
+        """Create a matplotlib Path object from a list of points and curve data.
+
+        Args:
+            path_points (List[Any]): List of points, where each point can be a coordinate
+                tuple or a list representing curve data.
+
+        Returns:
+            Path: The generated matplotlib Path object.
+        """
+        if not path_points:
+            return Path([])
+
+        vertices = [path_points[0]]
+        codes = [Path.MOVETO]
+
+        for p in path_points[1:]:
+            length = len(p)
+            if length not in {2, 3}:
+                raise ValueError(f"Invalid point data length: {length}")
+
+            if not isinstance(p[0], tuple):
+                vertices.append(p)
+                codes.append(Path.LINETO)
+            elif length == 2:
+                vertices.extend([p[0], p[1]])
+                codes.extend([Path.CURVE3] * 2)
+            else:
+                vertices.extend([p[0], p[1], p[2]])
+                codes.extend([Path.CURVE4] * 3)
+
+        vertices.append(path_points[0])
+        codes.append(Path.CLOSEPOLY)
+        return Path(vertices=vertices, codes=codes)
 
 
 class ArrowPolylineHelper:

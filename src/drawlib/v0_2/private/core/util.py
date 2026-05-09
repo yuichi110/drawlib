@@ -239,56 +239,88 @@ class LineUtil:
     """A utility class for handling line styles and options."""
 
     @staticmethod
-    def sanitize_xys(xys: List[Tuple[float, float]]) -> List[Tuple[float, float]]:
-        def remove_consecutive_duplicates(xys: List[Tuple[float, float]]) -> List[Tuple[float, float]]:
-            return [v for i, v in enumerate(xys) if i == 0 or v != xys[i - 1]]
+    def _remove_consecutive_duplicates(xys: List[Tuple[float, float]]) -> List[Tuple[float, float]]:
+        """Remove consecutive duplicate points from a list of coordinates.
 
-        def merge_straight_lines(xys: List[Tuple[float, float]]) -> List[Tuple[float, float]]:  # noqa: C901
-            points: List[Tuple[float, float]] = []
+        Args:
+            xys (List[Tuple[float, float]]): List of x, y coordinates.
 
-            skip_next = False
-            for i in range(len(xys) - 1):
-                if skip_next:
-                    skip_next = False
-                    continue
+        Returns:
+            List[Tuple[float, float]]: List with consecutive duplicates removed.
+        """
+        return [v for i, v in enumerate(xys) if i == 0 or v != xys[i - 1]]
 
-                if i == 0:
-                    points.append(xys[i])
-                    continue
+    @staticmethod
+    def _merge_straight_lines(xys: List[Tuple[float, float]]) -> List[Tuple[float, float]]:  # noqa: C901
+        """Merge consecutive points that form a straight line.
 
-                x0, y0 = points[-1]
-                x1, y1 = xys[i]
-                x2, y2 = xys[i + 1]
-                if x1 - x0 == 0:
-                    if x2 - x1 == 0:
-                        points.append(xys[i + 1])
-                        skip_next = True
-                        continue
-                    else:
-                        points.append(xys[i])
-                        if i == len(xys) - 2:
-                            points.append(xys[i + 1])
-                        continue
+        Args:
+            xys (List[Tuple[float, float]]): List of x, y coordinates.
 
+        Returns:
+            List[Tuple[float, float]]: List with redundant intermediate points removed.
+        """
+        if len(xys) < 3:
+            return xys
+
+        points: List[Tuple[float, float]] = []
+        skip_next = False
+        for i in range(len(xys) - 1):
+            if skip_next:
+                skip_next = False
+                continue
+
+            if i == 0:
+                points.append(xys[i])
+                continue
+
+            x0, y0 = points[-1]
+            x1, y1 = xys[i]
+            x2, y2 = xys[i + 1]
+
+            # vertical lines
+            if x1 - x0 == 0:
                 if x2 - x1 == 0:
-                    points.append(xys[i])
-                    if i == len(xys) - 2:
-                        points.append(xys[i + 1])
-                    continue
-
-                m1 = (y1 - y0) / (x1 - x0)
-                m2 = (y2 - y1) / (x2 - x1)
-                if m1 == m2:
-                    skip_next = True
                     points.append(xys[i + 1])
+                    skip_next = True
+                    continue
                 else:
                     points.append(xys[i])
                     if i == len(xys) - 2:
                         points.append(xys[i + 1])
+                    continue
 
-            return points
+            if x2 - x1 == 0:
+                points.append(xys[i])
+                if i == len(xys) - 2:
+                    points.append(xys[i + 1])
+                continue
 
-        return merge_straight_lines(remove_consecutive_duplicates(xys))
+            # calculate slopes
+            m1 = (y1 - y0) / (x1 - x0)
+            m2 = (y2 - y1) / (x2 - x1)
+            if m1 == m2:
+                skip_next = True
+                points.append(xys[i + 1])
+            else:
+                points.append(xys[i])
+                if i == len(xys) - 2:
+                    points.append(xys[i + 1])
+
+        return points
+
+    @staticmethod
+    def sanitize_xys(xys: List[Tuple[float, float]]) -> List[Tuple[float, float]]:
+        """Sanitize a list of coordinates by removing duplicates and merging straight lines.
+
+        Args:
+            xys (List[Tuple[float, float]]): List of x, y coordinates to sanitize.
+
+        Returns:
+            List[Tuple[float, float]]: Sanitized list of coordinates.
+        """
+        xys = LineUtil._remove_consecutive_duplicates(xys)
+        return LineUtil._merge_straight_lines(xys)
 
     @staticmethod
     def format_style(

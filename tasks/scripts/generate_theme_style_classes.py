@@ -10,8 +10,8 @@
 """Helper script for generating theme_style_caches.py code."""
 
 import os
-from utils import cd_to_project_root
 
+from utils import cd_to_project_root
 
 OUTPUT_DIR = "output_codes"
 OUTPUT_FILE = "theme_style_caches.py"
@@ -772,7 +772,7 @@ class {class_name}(AbstractStyleCache):
 '''
 
 
-def get_text_basics():
+def get_text_basics() -> str:
     """Fill basic template."""
     texts = []
     for class_name, style_class in [
@@ -792,7 +792,7 @@ def get_text_basics():
     return "\n\n\n".join(texts)
 
 
-def get_text_shape_types():
+def get_text_shape_types() -> str:
     """Fill shape template."""
     texts = []
     for class_name, name in [
@@ -826,7 +826,7 @@ def get_text_shape_types():
     return "\n\n\n".join(texts)
 
 
-def get_text_shapetext_types():
+def get_text_shapetext_types() -> str:
     """Fill shapetext template."""
     texts = []
     for class_name, name in [
@@ -860,7 +860,7 @@ def get_text_shapetext_types():
     return "\n\n\n".join(texts)
 
 
-def write():
+def write() -> None:
     """Write template to file."""
     texts = []
     texts.append(HEAD.strip())

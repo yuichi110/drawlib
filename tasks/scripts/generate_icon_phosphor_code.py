@@ -17,8 +17,8 @@ Please move them to appropriate code location of drawlib package.
 import os
 import urllib.request
 from typing import Dict
-from utils import cd_to_project_root
 
+from utils import cd_to_project_root
 
 #
 # Phosphor
@@ -218,16 +218,20 @@ class IconCodeGeneratorPhosphor:
 
         # check whether code points are exactly same
         # at version 2.1, all code points are same.
-        assert self._regular_dict == self._thin_dict
-        assert self._regular_dict == self._light_dict
-        assert self._regular_dict == self._bold_dict
-        assert self._regular_dict == self._fill_dict
+        if self._regular_dict != self._thin_dict:
+            raise ValueError("regular and thin dicts are not same.")
+        if self._regular_dict != self._light_dict:
+            raise ValueError("regular and light dicts are not same.")
+        if self._regular_dict != self._bold_dict:
+            raise ValueError("regular and bold dicts are not same.")
+        if self._regular_dict != self._fill_dict:
+            raise ValueError("regular and fill dicts are not same.")
 
         self._write()
 
     @staticmethod
     def _load(font_dict: Dict, font_css_url: str) -> None:
-        with urllib.request.urlopen(font_css_url) as response:
+        with urllib.request.urlopen(font_css_url) as response:  # noqa: S310
             text = response.read().decode("utf-8")
         lines = text.splitlines()
 

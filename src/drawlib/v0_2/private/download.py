@@ -31,14 +31,14 @@ def download_if_not_exist(file_path: str, download_url: str, md5_hash: str) -> N
             Expected MD5 checksum of the file. If the file already exists locally,
             its checksum is compared against this value to determine if a re-download is necessary.
 
+    Returns:
+        None
+
     Raises:
         RuntimeError: If any of the following conditions occur:
             - File download encounters an error.
             - Downloaded file is not saved properly.
             - Downloaded file's checksum does not match the expected MD5 hash.
-
-    Returns:
-        None
 
     Notes:
         - Creates the parent directory of file_path if it does not exist.

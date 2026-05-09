@@ -234,11 +234,11 @@ class DrawlibArgParser:
         - `--verbose` or `--debug`: Returns "verbose" logging mode.
         - `--developer`: Returns "developer" logging mode.
 
-        Raises:
-            ValueError: If conflicting logging options are specified.
-
         Returns:
             Literal["quiet", "normal", "verbose", "developer"]: Logging mode.
+
+        Raises:
+            ValueError: If conflicting logging options are specified.
         """
         if self._name_args is None:
             self.parse()

@@ -213,11 +213,11 @@ class Dimage:
         Args:
             file (str): The file path to save the image. This path is relative to the user script file.
 
-        Raises:
-            ValueError: If the file argument is not a string.
-
         Returns:
             None
+
+        Raises:
+            ValueError: If the file argument is not a string.
         """
         if not isinstance(file, str):
             raise ValueError('arg "file" must be str.')
