@@ -145,10 +145,8 @@ class Dimage:
             want to use the normal path behavior, convert the relative path to an
             absolute path before passing it to this class.
         """
-        # create a new PIL.Image instance
         if isinstance(image, str):
-            image_str = cast(str, image)  # for mypy check
-            image_str = get_script_relative_path(image_str)
+            image_str = get_script_relative_path(image)
             if not os.path.exists(image_str):
                 raise FileNotFoundError(f'file "{image_str}" does not exist.')
             self._pilimg = Image.open(image_str)

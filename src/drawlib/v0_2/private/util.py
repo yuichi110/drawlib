@@ -19,7 +19,7 @@ import os.path
 import shutil
 import sys
 import traceback
-from typing import Any, List, Tuple, Union
+from typing import List, Tuple, Union, TypeVar, Callable, ParamSpec
 
 import drawlib.assets.v0_2.fonticons
 import drawlib.assets.v0_2.fonts
@@ -27,10 +27,10 @@ import drawlib.v0_2.private.validators.coordinate as validator
 from drawlib.v0_2.private.dutil.settings import dutil_settings
 from drawlib.v0_2.private.logging import logger
 
+R = TypeVar("R")
+P = ParamSpec("P")
 
-# Please don't set type annotation for this decorator function.
-# It will break IDE's "arguments" and "return type" help suggestions.
-def error_handler(caller):
+def error_handler(caller: Callable[P, R]) -> Callable[P, R]:
     """Drawlib error handling decorator function.
 
     Decorates functions to handle errors gracefully. Depending on the logging mode:
@@ -54,7 +54,7 @@ def error_handler(caller):
     """
 
     @functools.wraps(caller)
-    def wrapper(*args: Any, **kwargs: Any) -> None:
+    def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
         # without error handling
         if dutil_settings.is_developer_debug_mode():
             return caller(*args, **kwargs)
