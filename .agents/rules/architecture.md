@@ -1,3 +1,7 @@
+---
+trigger: always_on
+---
+
 # Architecture Guidelines for drawlib
 
 This document describes the project structure and architectural principles of the `drawlib` project.

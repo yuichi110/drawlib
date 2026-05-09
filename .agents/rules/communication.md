@@ -1,3 +1,7 @@
+---
+trigger: always_on
+---
+
 # Communication Guidelines for drawlib Development
 
 This document defines the communication principles for AI assistants working on the `drawlib` project.

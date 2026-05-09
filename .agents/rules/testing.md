@@ -1,3 +1,7 @@
+---
+trigger: always_on
+---
+
 # Testing Guidelines for drawlib
 
 This document defines the standards and best practices for writing tests in the `drawlib` project.

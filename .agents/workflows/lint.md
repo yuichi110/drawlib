@@ -1,3 +1,7 @@
+---
+description: Lint and Type Check
+---
+
 # Lint and Type Check Workflow
 
 This document defines the workflow for ensuring code quality through linting and static type checking.

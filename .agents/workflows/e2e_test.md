@@ -1,3 +1,7 @@
+---
+description: End-to-End Test
+---
+
 # End-to-End (E2E) Test Workflow
 
 This document defines the End-to-End test workflow to verify the package distribution and its functionality in a clean Docker environment before a production release.
