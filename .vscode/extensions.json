@@ -2,7 +2,7 @@
     "recommendations": [
         "ms-python.python",
         "ms-python.debugpy",
-        "ms-python.vscode-pylance",
         "charliermarsh.ruff",
+        "astral-sh.ty",
     ]
 }

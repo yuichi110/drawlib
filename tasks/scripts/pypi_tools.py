@@ -296,7 +296,11 @@ def _check_dev_transition(
 
 
 def _check_rc_transition(
-    latest_rc: int, new_rc: int, latest_version: str, new_version: str, allow_jump: bool
+    latest_rc: int,
+    new_rc: int,
+    latest_version: str,
+    new_version: str,
+    allow_jump: bool,
 ) -> None:
     if (latest_rc + 1) == new_rc:
         return

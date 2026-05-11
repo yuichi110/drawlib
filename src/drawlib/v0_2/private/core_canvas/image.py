@@ -192,9 +192,9 @@ class CanvasImageFeature(CanvasBase):
             return
 
         shapestyle = ShapeStyle(
-            halign=style.halign,  # type: ignore
-            valign=style.valign,  # type: ignore
-            lstyle=style.lstyle,  # type: ignore
+            halign=style.halign,
+            valign=style.valign,
+            lstyle=style.lstyle,
             lwidth=style.lwidth,
             lcolor=style.lcolor,
             fcolor=Colors.Transparent,

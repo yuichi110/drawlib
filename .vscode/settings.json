@@ -14,4 +14,6 @@
   "python.analysis.diagnosticSeverityOverrides": {
     "reportPrivateImportUsage":"none" 
   },
+  "editor.defaultFormatter": "charliermarsh.ruff",
+  "python.analysis.showHoverGoToLinks": false,
 }

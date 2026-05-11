@@ -19,7 +19,7 @@ import os.path
 import shutil
 import sys
 import traceback
-from typing import List, Tuple, Union, TypeVar, Callable, ParamSpec
+from typing import Callable, List, ParamSpec, Tuple, TypeVar, Union
 
 import drawlib.assets.v0_2.fonticons
 import drawlib.assets.v0_2.fonts
@@ -29,6 +29,7 @@ from drawlib.v0_2.private.logging import logger
 
 R = TypeVar("R")
 P = ParamSpec("P")
+
 
 def error_handler(caller: Callable[P, R]) -> Callable[P, R]:
     """Drawlib error handling decorator function.

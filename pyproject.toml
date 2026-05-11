@@ -12,6 +12,7 @@ license = { text = "MIT" }
 authors = [{name = "Yuichi Ito", email = "yuichi@yuichi.com"}]
 dependencies = [
     "matplotlib>=3.8",
+    "pydantic>=2.8",
     "pygments>=2.18",
 ]
 
@@ -26,10 +27,11 @@ drawlib = "drawlib.__main__:main"
 dev = [
     "types-pillow>=10.2.0.20240311",
     "ruff>=0.9.0",
-    "pyright>=1.1.390",
     "pytest>=8.3.0",
     "pytest-cov>=6.0.0",
     "tomlkit>=0.14.0",
+    "ty>=0.0.35",
+    "pyright>=1.1.409",
 ]
 
 [tool.ruff]

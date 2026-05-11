@@ -7,16 +7,27 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-# ruff: noqa: F401, PLC0415
+# ruff: noqa: PLC0415
 
 """Canvas related utilities."""
 
 import drawlib.v0_2.private.util
 from drawlib.v0_2.private.util import (
-    get_angle,
-    get_center_and_size,
-    get_distance,
+    get_angle as get_angle,
 )
+from drawlib.v0_2.private.util import (
+    get_center_and_size as get_center_and_size,
+)
+from drawlib.v0_2.private.util import (
+    get_distance as get_distance,
+)
+
+__all__ = [
+    "get_angle",
+    "get_center_and_size",
+    "get_distance",
+    "initialize",
+]
 
 
 @drawlib.v0_2.private.util.error_handler

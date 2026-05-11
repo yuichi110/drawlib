@@ -15,6 +15,13 @@ tasks:
       - uv run pyright tasks/scripts
       - uv run pyright tests --project pyrightconfig.tests.json
 
+  type-ty:
+    desc: Run type checker (ty)
+    cmds:
+      - uv run ty check src/drawlib
+      - uv run ty check tasks/scripts
+      - uv run ty check tests
+
   lines:
     desc: Count lines of code
     cmds:

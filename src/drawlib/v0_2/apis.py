@@ -9,8 +9,6 @@
 
 """Latest API module."""
 
-# ruff: noqa: F401
-
 from drawlib.v0_2.private.core.colors import (
     Colors,
     Colors140,
@@ -23,7 +21,6 @@ from drawlib.v0_2.private.core.dimage import (
     Dimage,
 )
 from drawlib.v0_2.private.core.fonts import (
-    # fonts
     Font,
     FontArabic,
     FontBrahmic,
@@ -50,9 +47,7 @@ from drawlib.v0_2.private.core.theme import (
     dtheme,
 )
 from drawlib.v0_2.private.core_canvas.canvas import (
-    # shape patches
     arc,
-    # shape original
     arrow,
     arrow_arc,
     arrow_l,
@@ -60,15 +55,12 @@ from drawlib.v0_2.private.core_canvas.canvas import (
     arrow_u,
     chevron,
     circle,
-    # base
     clear,
     config,
     donuts,
     ellipse,
     fan,
-    # image
     image,
-    # line
     line,
     line_arc,
     line_bezier1,
@@ -82,12 +74,10 @@ from drawlib.v0_2.private.core_canvas.canvas import (
     rectangle,
     regularpolygon,
     rhombus,
-    # canvas
     save,
     shape,
     show,
     star,
-    # text
     text,
     text_vertical,
     trapezoid,
@@ -111,3 +101,85 @@ from drawlib.v0_2.private.icons.util import (
 from drawlib.v0_2.private.smartarts import (
     dsart,
 )
+
+__all__ = [
+    # Colors
+    "Colors",
+    "Colors140",
+    "ColorsBase",
+    "ColorsThemeDefault",
+    "ColorsThemeEssentials",
+    "ColorsThemeMonochrome",
+    # Dimage
+    "Dimage",
+    # Fonts
+    "Font",
+    "FontArabic",
+    "FontBrahmic",
+    "FontChinese",
+    "FontFile",
+    "FontJapanese",
+    "FontKorean",
+    "FontMonoSpace",
+    "FontRoboto",
+    "FontSansSerif",
+    "FontSerif",
+    "FontSourceCode",
+    "FontThai",
+    # Style models
+    "IconStyle",
+    "ImageStyle",
+    "LineStyle",
+    "ShapeStyle",
+    "ShapeTextStyle",
+    "TextStyle",
+    # Theme
+    "dtheme",
+    # Canvas and Shapes
+    "arc",
+    "arrow",
+    "arrow_arc",
+    "arrow_l",
+    "arrow_polyline",
+    "arrow_u",
+    "chevron",
+    "circle",
+    "clear",
+    "config",
+    "donuts",
+    "ellipse",
+    "fan",
+    "image",
+    "line",
+    "line_arc",
+    "line_bezier1",
+    "line_bezier2",
+    "line_curved",
+    "lines",
+    "lines_bezier",
+    "lines_curved",
+    "parallelogram",
+    "polygon",
+    "rectangle",
+    "regularpolygon",
+    "rhombus",
+    "save",
+    "shape",
+    "show",
+    "star",
+    "text",
+    "text_vertical",
+    "trapezoid",
+    "triangle",
+    "wedge",
+    # Utilities
+    "dutil_canvas",
+    "dutil_color",
+    "dutil_script",
+    "dutil_settings",
+    # Icons
+    "icon_phosphor",
+    "icon",
+    # Smartarts
+    "dsart",
+]

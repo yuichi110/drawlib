@@ -152,7 +152,7 @@ def get_releases(package_name: str, year_from: int | None, year_to: int | None) 
         url,
         headers={
             "Accept": "application/json",
-        }
+        },
     )
 
     try:

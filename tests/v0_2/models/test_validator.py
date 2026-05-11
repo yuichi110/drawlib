@@ -10,12 +10,14 @@
 # ruff: noqa
 # type: ignore
 
-from dataclasses import asdict
-
 import pytest
-
+from dataclasses import asdict as ds_asdict
 from drawlib.v0_2.apis import *
 
+def asdict(obj):
+    if hasattr(obj, "model_dump"):
+        return obj.model_dump()
+    return ds_asdict(obj)
 
 def test_icon_style():
     assert asdict(IconStyle()) == {
