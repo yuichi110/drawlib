@@ -21,7 +21,7 @@ from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import ShapeUtil
 from drawlib.v0_2.private.core_canvas.base import CanvasBase
-from drawlib.v0_2.private.util import error_handler
+from drawlib.v0_2.private.util import guarded
 
 
 class CanvasOriginalPolygonFeature(CanvasBase):
@@ -40,7 +40,7 @@ class CanvasOriginalPolygonFeature(CanvasBase):
         """
         super().__init__()
 
-    @error_handler
+    @guarded
     def triangle(
         self,
         xy: Tuple[float, float],
@@ -93,7 +93,7 @@ class CanvasOriginalPolygonFeature(CanvasBase):
             textstyle=textstyle,
         )
 
-    @error_handler
+    @guarded
     def parallelogram(
         self,
         xy: Tuple[float, float],
@@ -151,7 +151,7 @@ class CanvasOriginalPolygonFeature(CanvasBase):
             textstyle=textstyle,
         )
 
-    @error_handler
+    @guarded
     def trapezoid(
         self,
         xy: Tuple[float, float],
@@ -209,7 +209,7 @@ class CanvasOriginalPolygonFeature(CanvasBase):
             textstyle=textstyle,
         )
 
-    @error_handler
+    @guarded
     def rhombus(
         self,
         xy: Tuple[float, float],
@@ -261,7 +261,7 @@ class CanvasOriginalPolygonFeature(CanvasBase):
             textstyle=textstyle,
         )
 
-    @error_handler
+    @guarded
     def chevron(
         self,
         xy: Tuple[float, float],
@@ -331,7 +331,7 @@ class CanvasOriginalPolygonFeature(CanvasBase):
             textstyle=textstyle,
         )
 
-    @error_handler
+    @guarded
     def star(
         self,
         xy: Tuple[float, float],

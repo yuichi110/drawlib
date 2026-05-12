@@ -18,7 +18,7 @@ from drawlib.v0_2.private.core.fonts import Font
 from drawlib.v0_2.private.core.model import LineStyle, ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core_canvas.canvas import line, rectangle
-from drawlib.v0_2.private.util import error_handler
+from drawlib.v0_2.private.util import guarded
 
 
 @dataclasses.dataclass
@@ -45,7 +45,7 @@ class _CellInfo:
 class Table:
     """A class used to create and manage the style and drawing of a table."""
 
-    @error_handler
+    @guarded
     def __init__(self) -> None:
         """Initialize instance"""
         self._bs_top: Optional[LineStyle] = None
@@ -60,7 +60,7 @@ class Table:
 
         self.set_predefined_style("default")
 
-    @error_handler
+    @guarded
     def clear_styles(self) -> None:
         """Clears all cell and border styles, resetting the table to have no styles."""
         self._bs_top = None
@@ -73,7 +73,7 @@ class Table:
         self._bs_between_rows = None
         self._cell_style_orders = []
 
-    @error_handler
+    @guarded
     def set_predefined_style(
         self,
         name: Literal[
@@ -169,7 +169,7 @@ class Table:
 
     # cell styles
 
-    @error_handler
+    @guarded
     def set_style_cell_headers(
         self,
         background_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
@@ -189,7 +189,7 @@ class Table:
         self.set_style_cell_rowheader(background_color=background_color, textstyle=textstyle)
         self.set_style_cell_header(background_color=background_color, textstyle=textstyle)
 
-    @error_handler
+    @guarded
     def set_style_cell_header(
         self,
         background_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
@@ -214,7 +214,7 @@ class Table:
             rows=[0],
         )
 
-    @error_handler
+    @guarded
     def set_style_cell_rowheader(
         self,
         background_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
@@ -239,7 +239,7 @@ class Table:
             columns=[0],
         )
 
-    @error_handler
+    @guarded
     def set_style_cell_evenodd(
         self,
         even_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
@@ -277,7 +277,7 @@ class Table:
             )
         )
 
-    @error_handler
+    @guarded
     def set_style_cell(
         self,
         background_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
@@ -314,7 +314,7 @@ class Table:
 
     # border style
 
-    @error_handler
+    @guarded
     def set_style_border(  # noqa: C901
         self,
         top: Union[str, LineStyle, None] = None,
@@ -396,7 +396,7 @@ class Table:
 
     # draw
 
-    @error_handler
+    @guarded
     def draw(
         self,
         xy: Tuple[float, float],
@@ -424,7 +424,7 @@ class Table:
             data=data,
         )
 
-    @error_handler
+    @guarded
     def draw_flexible(
         self,
         xy: Tuple[float, float],

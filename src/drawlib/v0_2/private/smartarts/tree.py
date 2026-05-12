@@ -18,7 +18,7 @@ from typing import Callable, Dict, List, Literal, Optional, Tuple, Union
 from drawlib.v0_2.private.core.model import IconStyle, ImageStyle, LineStyle, ShapeStyle, TextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core_canvas.canvas import line, text
-from drawlib.v0_2.private.util import error_handler
+from drawlib.v0_2.private.util import guarded
 
 
 class TreeNode:
@@ -31,7 +31,7 @@ class TreeNode:
 
     _drawing_item_map: Dict[str, _TreeNodeDrawingItem] = {}
 
-    @error_handler
+    @guarded
     def __init__(
         self,
         text: str,
@@ -105,7 +105,7 @@ class TreeNode:
         self._drawing_item_name: Optional[str] = None
 
     @classmethod
-    @error_handler
+    @guarded
     def register_drawing_item(
         cls,
         name: str,
@@ -141,7 +141,7 @@ class TreeNode:
 
         cls._drawing_item_map[name] = item
 
-    @error_handler
+    @guarded
     def set_drawing_item(
         self,
         name: str,
@@ -160,7 +160,7 @@ class TreeNode:
 
         return self
 
-    @error_handler
+    @guarded
     def draw(self, xy: Tuple[float, float]) -> None:
         """Draw the tree node and its children.
 

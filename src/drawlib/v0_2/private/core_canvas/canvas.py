@@ -25,9 +25,9 @@ from drawlib.v0_2.private.core_canvas.original_polygon import CanvasOriginalPoly
 from drawlib.v0_2.private.core_canvas.patches import CanvasPatchesFeature
 from drawlib.v0_2.private.core_canvas.text import CanvasTextFeature
 from drawlib.v0_2.private.util import (
-    error_handler,
     get_script_path,
     get_script_relative_path,
+    guarded,
 )
 
 
@@ -56,7 +56,7 @@ class Canvas(
         """
         super().__init__()
 
-    @error_handler
+    @guarded
     def show(self) -> None:
         """Show canvas illustration."""
         self._set_background()
@@ -75,7 +75,7 @@ class Canvas(
         self._artists = temp_artists
         self._remove_artists_from_ax()  # remove drawing items
 
-    @error_handler
+    @guarded
     def save(
         self,
         file: Optional[str] = None,

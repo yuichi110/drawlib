@@ -23,11 +23,11 @@ from drawlib.v0_2.private.core.util import LineUtil, ShapeUtil
 from drawlib.v0_2.private.core_canvas.base import CanvasBase
 from drawlib.v0_2.private.core_canvas.line import LineArcHelper
 from drawlib.v0_2.private.util import (
-    error_handler,
     get_angle,
     get_distance,
     get_rotated_path_points,
     get_rotated_points,
+    guarded,
 )
 
 
@@ -48,7 +48,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
         """
         super().__init__()
 
-    @error_handler
+    @guarded
     def arrow(
         self,
         xy1: Tuple[float, float],
@@ -145,7 +145,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
             textstyle=textstyle,
         )
 
-    @error_handler
+    @guarded
     def arrow_polyline(
         self,
         xys: List[Tuple[float, float]],
@@ -241,7 +241,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
         parallel_xys1.extend(parallel_xys2)
         self.polygon(xys=parallel_xys1, style=style, text="", textstyle=None)
 
-    @error_handler
+    @guarded
     def arrow_arc(
         self,
         xy: Tuple[float, float],
@@ -395,7 +395,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
         options = ShapeUtil.get_shape_options(style)
         self._artists.append(PathPatch(path=path, **options))
 
-    @error_handler
+    @guarded
     def arrow_l(
         self,
         xy: Tuple[float, float],
@@ -452,7 +452,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
             style=style,
         )
 
-    @error_handler
+    @guarded
     def arrow_u(
         self,
         xy: Tuple[float, float],

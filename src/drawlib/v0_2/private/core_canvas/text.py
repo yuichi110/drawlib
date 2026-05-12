@@ -18,7 +18,7 @@ from drawlib.v0_2.private.core.model import TextStyle
 from drawlib.v0_2.private.core.util import TextUtil
 from drawlib.v0_2.private.core_canvas.base import CanvasBase
 from drawlib.v0_2.private.logging import logger
-from drawlib.v0_2.private.util import error_handler
+from drawlib.v0_2.private.util import guarded
 
 
 class CanvasTextFeature(CanvasBase):
@@ -33,7 +33,7 @@ class CanvasTextFeature(CanvasBase):
         """
         super().__init__()
 
-    @error_handler
+    @guarded
     def text(
         self,
         xy: Tuple[float, float],
@@ -79,7 +79,7 @@ class CanvasTextFeature(CanvasBase):
             )
         )
 
-    @error_handler
+    @guarded
     def text_vertical(
         self,
         xy: Tuple[float, float],

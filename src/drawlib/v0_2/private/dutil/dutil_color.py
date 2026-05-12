@@ -15,7 +15,7 @@ import drawlib.v0_2.private.util
 import drawlib.v0_2.private.validators.color as color_validator
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def get_rgba(
     rgb: typing.Tuple[int, int, int],
     alpha: float,
@@ -43,7 +43,7 @@ def get_rgba(
     return (rgb[0], rgb[1], rgb[2], alpha)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def get_rgba_from_hexcode(
     hexcode: str,
     alpha: typing.Optional[float] = None,
@@ -88,7 +88,7 @@ def get_rgba_from_hexcode(
     return (r, g, b, a)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def get_rgba_from_grayscale(
     grayscale: float,
     alpha: float = 1.0,

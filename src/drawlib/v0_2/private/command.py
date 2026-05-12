@@ -25,8 +25,8 @@ from drawlib.v0_2.private.dutil.dutil_canvas import initialize
 from drawlib.v0_2.private.dutil.settings import dutil_settings
 from drawlib.v0_2.private.logging import logger
 from drawlib.v0_2.private.util import (
-    error_handler,
     get_script_relative_path,
+    guarded,
     purge_font_cache,
 )
 
@@ -323,7 +323,7 @@ class DrawlibExecuter:
         self._mode = mode
         self._topdir_path: str = ""
 
-    @error_handler
+    @guarded
     def execute(self, file_or_directory: str) -> None:
         """Execute the specified Python file or all Python files in the specified directory.
 

@@ -29,7 +29,7 @@ from drawlib.v0_2.private.types import (
     TypeSize,
     TypeVAlign,
 )
-from drawlib.v0_2.private.util import error_handler
+from drawlib.v0_2.private.util import guarded
 
 T = TypeVar("T", bound="_StyleModel")
 
@@ -50,12 +50,12 @@ class _StyleModel(BaseModel):
         except ValidationError as e:
             raise ValueError(str(e)) from e
 
-    @error_handler
+    @guarded
     def copy(self: T) -> T:
         """Create and return a deep copy of the style object."""
         return self.model_copy(deep=True)
 
-    @error_handler
+    @guarded
     def merge(self: T, style: T) -> T:
         """Merge the provided style with this object's style.
 

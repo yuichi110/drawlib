@@ -92,7 +92,7 @@ from drawlib.v0_2.private.core.theme_style_caches import (
     WedgeStyleCache,
     WedgeTextStyleCache,
 )
-from drawlib.v0_2.private.util import error_handler
+from drawlib.v0_2.private.util import guarded
 
 
 class AllStyleModifier:
@@ -110,7 +110,7 @@ class AllStyleModifier:
         """
         self._theme = theme
 
-    @error_handler
+    @guarded
     def list(self) -> List[str]:
         """List all style names present in the theme.
 
@@ -119,7 +119,7 @@ class AllStyleModifier:
         """
         return self._theme._style_names.copy()
 
-    @error_handler
+    @guarded
     def copy(self, from_name: str, to_name: str) -> None:
         """Copy a style from `from_name` to `to_name`.
 
@@ -138,7 +138,7 @@ class AllStyleModifier:
                 continue
             style.set(style.get(from_name), to_name)
 
-    @error_handler
+    @guarded
     def delete(self, name: str) -> None:
         """Delete a style with the given `name`.
 
@@ -156,7 +156,7 @@ class AllStyleModifier:
                 continue
             style.delete(name)
 
-    @error_handler
+    @guarded
     def rename(self, from_name: str, to_name: str) -> None:
         """Rename a style from `from_name` to `to_name`.
 
@@ -178,7 +178,7 @@ class AllStyleModifier:
         self._theme._style_names.pop()
         self._theme._style_names.insert(index, to_name)
 
-    @error_handler
+    @guarded
     def merge(self, theme_styles: ThemeStyles, targets: Optional[List[str]] = None) -> None:  # noqa: C901
         """Merge styles from `theme_styles` into corresponding style collections in the theme.
 
@@ -288,7 +288,7 @@ class Theme:
 
     ThemeStyles = ThemeStyles
 
-    @error_handler
+    @guarded
     def __init__(self) -> None:
         """Initialize the Theme object.
 
@@ -297,7 +297,7 @@ class Theme:
         self.allstyles = AllStyleModifier(self)
         self.apply_official_theme("default")
 
-    @error_handler
+    @guarded
     def change_default_linearrow_fill(self, fill: bool) -> None:
         """Change the default fill setting for line arrows.
 
@@ -310,7 +310,7 @@ class Theme:
         types_validator.validate_bool("fill", fill)
         self.linestyles.merge(LineStyle(ahfill=fill))
 
-    @error_handler
+    @guarded
     def change_default_font_size(self, size: float) -> None:
         """Change the default font size for text and shape text.
 
@@ -324,7 +324,7 @@ class Theme:
         self.textstyles.merge(TextStyle(size=size))
         self.shapetextstyles.merge(ShapeTextStyle(size=size))
 
-    @error_handler
+    @guarded
     def change_default_fonts(
         self,
         light_font: Union[
@@ -406,7 +406,7 @@ class Theme:
         self.shapetextstyles.merge(ShapeTextStyle(font=bold_font), targets=bold_styles)
 
     @staticmethod
-    @error_handler
+    @guarded
     def list_official_themes() -> List[str]:
         """List all available official themes.
 
@@ -419,7 +419,7 @@ class Theme:
             "monochrome",
         ]
 
-    @error_handler
+    @guarded
     def apply_official_theme(
         self,
         name: Literal[
@@ -456,7 +456,7 @@ class Theme:
             sourcecodefont=t.sourcecodefont,
         )
 
-    @error_handler
+    @guarded
     def print_theme_colors(self) -> None:
         """Print the current theme colors.
 
@@ -465,7 +465,7 @@ class Theme:
         """
         print(self._get_theme_colors())
 
-    @error_handler
+    @guarded
     def print_style_table(self, max_columns: int = 11) -> None:
         """Print a table of styles with a specified maximum number of columns.
 
@@ -480,7 +480,7 @@ class Theme:
             raise ValueError("max_column must be bigger than 2.")
         print(self._get_style_table(max_columns))
 
-    @error_handler
+    @guarded
     def apply_custom_theme(  # noqa: C901
         self,
         default_style: Theme.ThemeStyles,
@@ -930,7 +930,7 @@ class Theme:
     # Private
     #
 
-    @error_handler
+    @guarded
     def _initialize(self) -> None:
         """Initialize the theme.
 

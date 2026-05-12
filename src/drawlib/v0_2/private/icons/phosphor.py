@@ -110,7 +110,7 @@ def _write(
         ...
     else:
         raise ValueError(
-            f'Unsupported type "{type(style)}" is passed to arg style. ' "Supports only IconStyle, str, None."
+            f'Unsupported type "{type(style)}" is passed to arg style. Supports only IconStyle, str, None.'
         )
 
     # set IconStyle.Style if it is None
@@ -140,7 +140,7 @@ def _write(
 #
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def acorn(
     xy: typing.Tuple[float, float],
     width: float,
@@ -160,7 +160,7 @@ def acorn(
     _write(xy=xy, width=width, code="\ueb9a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def address_book(
     xy: typing.Tuple[float, float],
     width: float,
@@ -180,7 +180,7 @@ def address_book(
     _write(xy=xy, width=width, code="\ue6f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def address_book_tabs(
     xy: typing.Tuple[float, float],
     width: float,
@@ -200,7 +200,7 @@ def address_book_tabs(
     _write(xy=xy, width=width, code="\uee4e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def air_traffic_control(
     xy: typing.Tuple[float, float],
     width: float,
@@ -220,7 +220,7 @@ def air_traffic_control(
     _write(xy=xy, width=width, code="\uecd8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def airplane(
     xy: typing.Tuple[float, float],
     width: float,
@@ -240,7 +240,7 @@ def airplane(
     _write(xy=xy, width=width, code="\ue002", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def airplane_in_flight(
     xy: typing.Tuple[float, float],
     width: float,
@@ -260,7 +260,7 @@ def airplane_in_flight(
     _write(xy=xy, width=width, code="\ue4fe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def airplane_landing(
     xy: typing.Tuple[float, float],
     width: float,
@@ -280,7 +280,7 @@ def airplane_landing(
     _write(xy=xy, width=width, code="\ue502", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def airplane_takeoff(
     xy: typing.Tuple[float, float],
     width: float,
@@ -300,7 +300,7 @@ def airplane_takeoff(
     _write(xy=xy, width=width, code="\ue504", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def airplane_taxiing(
     xy: typing.Tuple[float, float],
     width: float,
@@ -320,7 +320,7 @@ def airplane_taxiing(
     _write(xy=xy, width=width, code="\ue500", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def airplane_tilt(
     xy: typing.Tuple[float, float],
     width: float,
@@ -340,7 +340,7 @@ def airplane_tilt(
     _write(xy=xy, width=width, code="\ue5d6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def airplay(
     xy: typing.Tuple[float, float],
     width: float,
@@ -360,7 +360,7 @@ def airplay(
     _write(xy=xy, width=width, code="\ue004", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def alarm(
     xy: typing.Tuple[float, float],
     width: float,
@@ -380,7 +380,7 @@ def alarm(
     _write(xy=xy, width=width, code="\ue006", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def alien(
     xy: typing.Tuple[float, float],
     width: float,
@@ -400,7 +400,7 @@ def alien(
     _write(xy=xy, width=width, code="\ue8a6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def align_bottom(
     xy: typing.Tuple[float, float],
     width: float,
@@ -420,7 +420,7 @@ def align_bottom(
     _write(xy=xy, width=width, code="\ue506", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def align_bottom_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -440,7 +440,7 @@ def align_bottom_simple(
     _write(xy=xy, width=width, code="\ueb0c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def align_center_horizontal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -460,7 +460,7 @@ def align_center_horizontal(
     _write(xy=xy, width=width, code="\ue50a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def align_center_horizontal_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -480,7 +480,7 @@ def align_center_horizontal_simple(
     _write(xy=xy, width=width, code="\ueb0e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def align_center_vertical(
     xy: typing.Tuple[float, float],
     width: float,
@@ -500,7 +500,7 @@ def align_center_vertical(
     _write(xy=xy, width=width, code="\ue50c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def align_center_vertical_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -520,7 +520,7 @@ def align_center_vertical_simple(
     _write(xy=xy, width=width, code="\ueb10", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def align_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -540,7 +540,7 @@ def align_left(
     _write(xy=xy, width=width, code="\ue50e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def align_left_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -560,7 +560,7 @@ def align_left_simple(
     _write(xy=xy, width=width, code="\ueaee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def align_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -580,7 +580,7 @@ def align_right(
     _write(xy=xy, width=width, code="\ue510", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def align_right_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -600,7 +600,7 @@ def align_right_simple(
     _write(xy=xy, width=width, code="\ueb12", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def align_top(
     xy: typing.Tuple[float, float],
     width: float,
@@ -620,7 +620,7 @@ def align_top(
     _write(xy=xy, width=width, code="\ue512", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def align_top_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -640,7 +640,7 @@ def align_top_simple(
     _write(xy=xy, width=width, code="\ueb14", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def amazon_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -660,7 +660,7 @@ def amazon_logo(
     _write(xy=xy, width=width, code="\ue96c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def ambulance(
     xy: typing.Tuple[float, float],
     width: float,
@@ -680,7 +680,7 @@ def ambulance(
     _write(xy=xy, width=width, code="\ue572", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def anchor(
     xy: typing.Tuple[float, float],
     width: float,
@@ -700,7 +700,7 @@ def anchor(
     _write(xy=xy, width=width, code="\ue514", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def anchor_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -720,7 +720,7 @@ def anchor_simple(
     _write(xy=xy, width=width, code="\ue5d8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def android_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -740,7 +740,7 @@ def android_logo(
     _write(xy=xy, width=width, code="\ue008", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def angle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -760,7 +760,7 @@ def angle(
     _write(xy=xy, width=width, code="\ue7bc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def angular_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -780,7 +780,7 @@ def angular_logo(
     _write(xy=xy, width=width, code="\ueb80", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def aperture(
     xy: typing.Tuple[float, float],
     width: float,
@@ -800,7 +800,7 @@ def aperture(
     _write(xy=xy, width=width, code="\ue00a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def app_store_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -820,7 +820,7 @@ def app_store_logo(
     _write(xy=xy, width=width, code="\ue974", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def app_window(
     xy: typing.Tuple[float, float],
     width: float,
@@ -840,7 +840,7 @@ def app_window(
     _write(xy=xy, width=width, code="\ue5da", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def apple_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -860,7 +860,7 @@ def apple_logo(
     _write(xy=xy, width=width, code="\ue516", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def apple_podcasts_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -880,7 +880,7 @@ def apple_podcasts_logo(
     _write(xy=xy, width=width, code="\ueb96", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def approximate_equals(
     xy: typing.Tuple[float, float],
     width: float,
@@ -900,7 +900,7 @@ def approximate_equals(
     _write(xy=xy, width=width, code="\uedaa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def archive(
     xy: typing.Tuple[float, float],
     width: float,
@@ -920,7 +920,7 @@ def archive(
     _write(xy=xy, width=width, code="\ue00c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def armchair(
     xy: typing.Tuple[float, float],
     width: float,
@@ -940,7 +940,7 @@ def armchair(
     _write(xy=xy, width=width, code="\ue012", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_arc_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -960,7 +960,7 @@ def arrow_arc_left(
     _write(xy=xy, width=width, code="\ue014", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_arc_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -980,7 +980,7 @@ def arrow_arc_right(
     _write(xy=xy, width=width, code="\ue016", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_bend_double_up_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1000,7 +1000,7 @@ def arrow_bend_double_up_left(
     _write(xy=xy, width=width, code="\ue03a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_bend_double_up_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1020,7 +1020,7 @@ def arrow_bend_double_up_right(
     _write(xy=xy, width=width, code="\ue03c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_bend_down_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1040,7 +1040,7 @@ def arrow_bend_down_left(
     _write(xy=xy, width=width, code="\ue018", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_bend_down_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1060,7 +1060,7 @@ def arrow_bend_down_right(
     _write(xy=xy, width=width, code="\ue01a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_bend_left_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1080,7 +1080,7 @@ def arrow_bend_left_down(
     _write(xy=xy, width=width, code="\ue01c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_bend_left_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1100,7 +1100,7 @@ def arrow_bend_left_up(
     _write(xy=xy, width=width, code="\ue01e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_bend_right_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1120,7 +1120,7 @@ def arrow_bend_right_down(
     _write(xy=xy, width=width, code="\ue020", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_bend_right_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1140,7 +1140,7 @@ def arrow_bend_right_up(
     _write(xy=xy, width=width, code="\ue022", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_bend_up_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1160,7 +1160,7 @@ def arrow_bend_up_left(
     _write(xy=xy, width=width, code="\ue024", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_bend_up_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1180,7 +1180,7 @@ def arrow_bend_up_right(
     _write(xy=xy, width=width, code="\ue026", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_circle_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1200,7 +1200,7 @@ def arrow_circle_down(
     _write(xy=xy, width=width, code="\ue028", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_circle_down_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1220,7 +1220,7 @@ def arrow_circle_down_left(
     _write(xy=xy, width=width, code="\ue02a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_circle_down_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1240,7 +1240,7 @@ def arrow_circle_down_right(
     _write(xy=xy, width=width, code="\ue02c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_circle_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1260,7 +1260,7 @@ def arrow_circle_left(
     _write(xy=xy, width=width, code="\ue05a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_circle_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1280,7 +1280,7 @@ def arrow_circle_right(
     _write(xy=xy, width=width, code="\ue02e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_circle_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1300,7 +1300,7 @@ def arrow_circle_up(
     _write(xy=xy, width=width, code="\ue030", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_circle_up_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1320,7 +1320,7 @@ def arrow_circle_up_left(
     _write(xy=xy, width=width, code="\ue032", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_circle_up_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1340,7 +1340,7 @@ def arrow_circle_up_right(
     _write(xy=xy, width=width, code="\ue034", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_clockwise(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1360,7 +1360,7 @@ def arrow_clockwise(
     _write(xy=xy, width=width, code="\ue036", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_counter_clockwise(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1380,7 +1380,7 @@ def arrow_counter_clockwise(
     _write(xy=xy, width=width, code="\ue038", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1400,7 +1400,7 @@ def arrow_down(
     _write(xy=xy, width=width, code="\ue03e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_down_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1420,7 +1420,7 @@ def arrow_down_left(
     _write(xy=xy, width=width, code="\ue040", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_down_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1440,7 +1440,7 @@ def arrow_down_right(
     _write(xy=xy, width=width, code="\ue042", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_elbow_down_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1460,7 +1460,7 @@ def arrow_elbow_down_left(
     _write(xy=xy, width=width, code="\ue044", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_elbow_down_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1480,7 +1480,7 @@ def arrow_elbow_down_right(
     _write(xy=xy, width=width, code="\ue046", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_elbow_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1500,7 +1500,7 @@ def arrow_elbow_left(
     _write(xy=xy, width=width, code="\ue048", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_elbow_left_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1520,7 +1520,7 @@ def arrow_elbow_left_down(
     _write(xy=xy, width=width, code="\ue04a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_elbow_left_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1540,7 +1540,7 @@ def arrow_elbow_left_up(
     _write(xy=xy, width=width, code="\ue04c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_elbow_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1560,7 +1560,7 @@ def arrow_elbow_right(
     _write(xy=xy, width=width, code="\ue04e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_elbow_right_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1580,7 +1580,7 @@ def arrow_elbow_right_down(
     _write(xy=xy, width=width, code="\ue050", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_elbow_right_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1600,7 +1600,7 @@ def arrow_elbow_right_up(
     _write(xy=xy, width=width, code="\ue052", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_elbow_up_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1620,7 +1620,7 @@ def arrow_elbow_up_left(
     _write(xy=xy, width=width, code="\ue054", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_elbow_up_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1640,7 +1640,7 @@ def arrow_elbow_up_right(
     _write(xy=xy, width=width, code="\ue056", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_fat_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1660,7 +1660,7 @@ def arrow_fat_down(
     _write(xy=xy, width=width, code="\ue518", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_fat_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1680,7 +1680,7 @@ def arrow_fat_left(
     _write(xy=xy, width=width, code="\ue51a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_fat_line_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1700,7 +1700,7 @@ def arrow_fat_line_down(
     _write(xy=xy, width=width, code="\ue51c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_fat_line_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1720,7 +1720,7 @@ def arrow_fat_line_left(
     _write(xy=xy, width=width, code="\ue51e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_fat_line_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1740,7 +1740,7 @@ def arrow_fat_line_right(
     _write(xy=xy, width=width, code="\ue520", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_fat_line_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1760,7 +1760,7 @@ def arrow_fat_line_up(
     _write(xy=xy, width=width, code="\ue522", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_fat_lines_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1780,7 +1780,7 @@ def arrow_fat_lines_down(
     _write(xy=xy, width=width, code="\ue524", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_fat_lines_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1800,7 +1800,7 @@ def arrow_fat_lines_left(
     _write(xy=xy, width=width, code="\ue526", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_fat_lines_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1820,7 +1820,7 @@ def arrow_fat_lines_right(
     _write(xy=xy, width=width, code="\ue528", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_fat_lines_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1840,7 +1840,7 @@ def arrow_fat_lines_up(
     _write(xy=xy, width=width, code="\ue52a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_fat_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1860,7 +1860,7 @@ def arrow_fat_right(
     _write(xy=xy, width=width, code="\ue52c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_fat_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1880,7 +1880,7 @@ def arrow_fat_up(
     _write(xy=xy, width=width, code="\ue52e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1900,7 +1900,7 @@ def arrow_left(
     _write(xy=xy, width=width, code="\ue058", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_line_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1920,7 +1920,7 @@ def arrow_line_down(
     _write(xy=xy, width=width, code="\ue05c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_line_down_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1940,7 +1940,7 @@ def arrow_line_down_left(
     _write(xy=xy, width=width, code="\ue05e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_line_down_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1960,7 +1960,7 @@ def arrow_line_down_right(
     _write(xy=xy, width=width, code="\ue060", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_line_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -1980,7 +1980,7 @@ def arrow_line_left(
     _write(xy=xy, width=width, code="\ue062", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_line_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2000,7 +2000,7 @@ def arrow_line_right(
     _write(xy=xy, width=width, code="\ue064", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_line_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2020,7 +2020,7 @@ def arrow_line_up(
     _write(xy=xy, width=width, code="\ue066", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_line_up_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2040,7 +2040,7 @@ def arrow_line_up_left(
     _write(xy=xy, width=width, code="\ue068", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_line_up_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2060,7 +2060,7 @@ def arrow_line_up_right(
     _write(xy=xy, width=width, code="\ue06a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2080,7 +2080,7 @@ def arrow_right(
     _write(xy=xy, width=width, code="\ue06c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_square_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2100,7 +2100,7 @@ def arrow_square_down(
     _write(xy=xy, width=width, code="\ue06e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_square_down_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2120,7 +2120,7 @@ def arrow_square_down_left(
     _write(xy=xy, width=width, code="\ue070", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_square_down_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2140,7 +2140,7 @@ def arrow_square_down_right(
     _write(xy=xy, width=width, code="\ue072", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_square_in(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2160,7 +2160,7 @@ def arrow_square_in(
     _write(xy=xy, width=width, code="\ue5dc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_square_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2180,7 +2180,7 @@ def arrow_square_left(
     _write(xy=xy, width=width, code="\ue074", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_square_out(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2200,7 +2200,7 @@ def arrow_square_out(
     _write(xy=xy, width=width, code="\ue5de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_square_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2220,7 +2220,7 @@ def arrow_square_right(
     _write(xy=xy, width=width, code="\ue076", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_square_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2240,7 +2240,7 @@ def arrow_square_up(
     _write(xy=xy, width=width, code="\ue078", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_square_up_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2260,7 +2260,7 @@ def arrow_square_up_left(
     _write(xy=xy, width=width, code="\ue07a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_square_up_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2280,7 +2280,7 @@ def arrow_square_up_right(
     _write(xy=xy, width=width, code="\ue07c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_u_down_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2300,7 +2300,7 @@ def arrow_u_down_left(
     _write(xy=xy, width=width, code="\ue07e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_u_down_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2320,7 +2320,7 @@ def arrow_u_down_right(
     _write(xy=xy, width=width, code="\ue080", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_u_left_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2340,7 +2340,7 @@ def arrow_u_left_down(
     _write(xy=xy, width=width, code="\ue082", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_u_left_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2360,7 +2360,7 @@ def arrow_u_left_up(
     _write(xy=xy, width=width, code="\ue084", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_u_right_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2380,7 +2380,7 @@ def arrow_u_right_down(
     _write(xy=xy, width=width, code="\ue086", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_u_right_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2400,7 +2400,7 @@ def arrow_u_right_up(
     _write(xy=xy, width=width, code="\ue088", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_u_up_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2420,7 +2420,7 @@ def arrow_u_up_left(
     _write(xy=xy, width=width, code="\ue08a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_u_up_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2440,7 +2440,7 @@ def arrow_u_up_right(
     _write(xy=xy, width=width, code="\ue08c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2460,7 +2460,7 @@ def arrow_up(
     _write(xy=xy, width=width, code="\ue08e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_up_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2480,7 +2480,7 @@ def arrow_up_left(
     _write(xy=xy, width=width, code="\ue090", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrow_up_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2500,7 +2500,7 @@ def arrow_up_right(
     _write(xy=xy, width=width, code="\ue092", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrows_clockwise(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2520,7 +2520,7 @@ def arrows_clockwise(
     _write(xy=xy, width=width, code="\ue094", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrows_counter_clockwise(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2540,7 +2540,7 @@ def arrows_counter_clockwise(
     _write(xy=xy, width=width, code="\ue096", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrows_down_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2560,7 +2560,7 @@ def arrows_down_up(
     _write(xy=xy, width=width, code="\ue098", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrows_horizontal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2580,7 +2580,7 @@ def arrows_horizontal(
     _write(xy=xy, width=width, code="\ueb06", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrows_in(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2600,7 +2600,7 @@ def arrows_in(
     _write(xy=xy, width=width, code="\ue09a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrows_in_cardinal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2620,7 +2620,7 @@ def arrows_in_cardinal(
     _write(xy=xy, width=width, code="\ue09c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrows_in_line_horizontal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2640,7 +2640,7 @@ def arrows_in_line_horizontal(
     _write(xy=xy, width=width, code="\ue530", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrows_in_line_vertical(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2660,7 +2660,7 @@ def arrows_in_line_vertical(
     _write(xy=xy, width=width, code="\ue532", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrows_in_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2680,7 +2680,7 @@ def arrows_in_simple(
     _write(xy=xy, width=width, code="\ue09e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrows_left_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2700,7 +2700,7 @@ def arrows_left_right(
     _write(xy=xy, width=width, code="\ue0a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrows_merge(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2720,7 +2720,7 @@ def arrows_merge(
     _write(xy=xy, width=width, code="\ued3e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrows_out(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2740,7 +2740,7 @@ def arrows_out(
     _write(xy=xy, width=width, code="\ue0a2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrows_out_cardinal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2760,7 +2760,7 @@ def arrows_out_cardinal(
     _write(xy=xy, width=width, code="\ue0a4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrows_out_line_horizontal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2780,7 +2780,7 @@ def arrows_out_line_horizontal(
     _write(xy=xy, width=width, code="\ue534", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrows_out_line_vertical(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2800,7 +2800,7 @@ def arrows_out_line_vertical(
     _write(xy=xy, width=width, code="\ue536", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrows_out_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2820,7 +2820,7 @@ def arrows_out_simple(
     _write(xy=xy, width=width, code="\ue0a6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrows_split(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2840,7 +2840,7 @@ def arrows_split(
     _write(xy=xy, width=width, code="\ued3c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def arrows_vertical(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2860,7 +2860,7 @@ def arrows_vertical(
     _write(xy=xy, width=width, code="\ueb04", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def article(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2880,7 +2880,7 @@ def article(
     _write(xy=xy, width=width, code="\ue0a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def article_medium(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2900,7 +2900,7 @@ def article_medium(
     _write(xy=xy, width=width, code="\ue5e0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def article_ny_times(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2920,7 +2920,7 @@ def article_ny_times(
     _write(xy=xy, width=width, code="\ue5e2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def asclepius(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2940,7 +2940,7 @@ def asclepius(
     _write(xy=xy, width=width, code="\uee34", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caduceus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2960,7 +2960,7 @@ def caduceus(
     _write(xy=xy, width=width, code="\uee34", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def asterisk(
     xy: typing.Tuple[float, float],
     width: float,
@@ -2980,7 +2980,7 @@ def asterisk(
     _write(xy=xy, width=width, code="\ue0aa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def asterisk_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3000,7 +3000,7 @@ def asterisk_simple(
     _write(xy=xy, width=width, code="\ue832", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def at(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3020,7 +3020,7 @@ def at(
     _write(xy=xy, width=width, code="\ue0ac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def atom(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3040,7 +3040,7 @@ def atom(
     _write(xy=xy, width=width, code="\ue5e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def avocado(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3060,7 +3060,7 @@ def avocado(
     _write(xy=xy, width=width, code="\uee04", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def axe(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3080,7 +3080,7 @@ def axe(
     _write(xy=xy, width=width, code="\ue9fc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def baby(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3100,7 +3100,7 @@ def baby(
     _write(xy=xy, width=width, code="\ue774", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def baby_carriage(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3120,7 +3120,7 @@ def baby_carriage(
     _write(xy=xy, width=width, code="\ue818", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def backpack(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3140,7 +3140,7 @@ def backpack(
     _write(xy=xy, width=width, code="\ue922", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def backspace(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3160,7 +3160,7 @@ def backspace(
     _write(xy=xy, width=width, code="\ue0ae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bag(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3180,7 +3180,7 @@ def bag(
     _write(xy=xy, width=width, code="\ue0b0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bag_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3200,7 +3200,7 @@ def bag_simple(
     _write(xy=xy, width=width, code="\ue5e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def balloon(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3220,7 +3220,7 @@ def balloon(
     _write(xy=xy, width=width, code="\ue76c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bandaids(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3240,7 +3240,7 @@ def bandaids(
     _write(xy=xy, width=width, code="\ue0b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bank(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3260,7 +3260,7 @@ def bank(
     _write(xy=xy, width=width, code="\ue0b4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def barbell(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3280,7 +3280,7 @@ def barbell(
     _write(xy=xy, width=width, code="\ue0b6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def barcode(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3300,7 +3300,7 @@ def barcode(
     _write(xy=xy, width=width, code="\ue0b8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def barn(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3320,7 +3320,7 @@ def barn(
     _write(xy=xy, width=width, code="\uec72", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def barricade(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3340,7 +3340,7 @@ def barricade(
     _write(xy=xy, width=width, code="\ue948", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def baseball(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3360,7 +3360,7 @@ def baseball(
     _write(xy=xy, width=width, code="\ue71a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def baseball_cap(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3380,7 +3380,7 @@ def baseball_cap(
     _write(xy=xy, width=width, code="\uea28", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def baseball_helmet(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3400,7 +3400,7 @@ def baseball_helmet(
     _write(xy=xy, width=width, code="\uee4a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def basket(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3420,7 +3420,7 @@ def basket(
     _write(xy=xy, width=width, code="\ue964", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def basketball(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3440,7 +3440,7 @@ def basketball(
     _write(xy=xy, width=width, code="\ue724", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bathtub(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3460,7 +3460,7 @@ def bathtub(
     _write(xy=xy, width=width, code="\ue81e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def battery_charging(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3480,7 +3480,7 @@ def battery_charging(
     _write(xy=xy, width=width, code="\ue0ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def battery_charging_vertical(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3500,7 +3500,7 @@ def battery_charging_vertical(
     _write(xy=xy, width=width, code="\ue0bc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def battery_empty(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3520,7 +3520,7 @@ def battery_empty(
     _write(xy=xy, width=width, code="\ue0be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def battery_full(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3540,7 +3540,7 @@ def battery_full(
     _write(xy=xy, width=width, code="\ue0c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def battery_high(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3560,7 +3560,7 @@ def battery_high(
     _write(xy=xy, width=width, code="\ue0c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def battery_low(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3580,7 +3580,7 @@ def battery_low(
     _write(xy=xy, width=width, code="\ue0c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def battery_medium(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3600,7 +3600,7 @@ def battery_medium(
     _write(xy=xy, width=width, code="\ue0c6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def battery_plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3620,7 +3620,7 @@ def battery_plus(
     _write(xy=xy, width=width, code="\ue808", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def battery_plus_vertical(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3640,7 +3640,7 @@ def battery_plus_vertical(
     _write(xy=xy, width=width, code="\uec50", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def battery_vertical_empty(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3660,7 +3660,7 @@ def battery_vertical_empty(
     _write(xy=xy, width=width, code="\ue7c6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def battery_vertical_full(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3680,7 +3680,7 @@ def battery_vertical_full(
     _write(xy=xy, width=width, code="\ue7c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def battery_vertical_high(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3700,7 +3700,7 @@ def battery_vertical_high(
     _write(xy=xy, width=width, code="\ue7c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def battery_vertical_low(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3720,7 +3720,7 @@ def battery_vertical_low(
     _write(xy=xy, width=width, code="\ue7be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def battery_vertical_medium(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3740,7 +3740,7 @@ def battery_vertical_medium(
     _write(xy=xy, width=width, code="\ue7c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def battery_warning(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3760,7 +3760,7 @@ def battery_warning(
     _write(xy=xy, width=width, code="\ue0c8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def battery_warning_vertical(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3780,7 +3780,7 @@ def battery_warning_vertical(
     _write(xy=xy, width=width, code="\ue0ca", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def beach_ball(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3800,7 +3800,7 @@ def beach_ball(
     _write(xy=xy, width=width, code="\ued24", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def beanie(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3820,7 +3820,7 @@ def beanie(
     _write(xy=xy, width=width, code="\uea2a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bed(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3840,7 +3840,7 @@ def bed(
     _write(xy=xy, width=width, code="\ue0cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def beer_bottle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3860,7 +3860,7 @@ def beer_bottle(
     _write(xy=xy, width=width, code="\ue7b0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def beer_stein(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3880,7 +3880,7 @@ def beer_stein(
     _write(xy=xy, width=width, code="\ueb62", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def behance_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3900,7 +3900,7 @@ def behance_logo(
     _write(xy=xy, width=width, code="\ue7f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bell(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3920,7 +3920,7 @@ def bell(
     _write(xy=xy, width=width, code="\ue0ce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bell_ringing(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3940,7 +3940,7 @@ def bell_ringing(
     _write(xy=xy, width=width, code="\ue5e8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bell_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3960,7 +3960,7 @@ def bell_simple(
     _write(xy=xy, width=width, code="\ue0d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bell_simple_ringing(
     xy: typing.Tuple[float, float],
     width: float,
@@ -3980,7 +3980,7 @@ def bell_simple_ringing(
     _write(xy=xy, width=width, code="\ue5ea", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bell_simple_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4000,7 +4000,7 @@ def bell_simple_slash(
     _write(xy=xy, width=width, code="\ue0d2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bell_simple_z(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4020,7 +4020,7 @@ def bell_simple_z(
     _write(xy=xy, width=width, code="\ue5ec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bell_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4040,7 +4040,7 @@ def bell_slash(
     _write(xy=xy, width=width, code="\ue0d4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bell_z(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4060,7 +4060,7 @@ def bell_z(
     _write(xy=xy, width=width, code="\ue5ee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def belt(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4080,7 +4080,7 @@ def belt(
     _write(xy=xy, width=width, code="\uea2c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bezier_curve(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4100,7 +4100,7 @@ def bezier_curve(
     _write(xy=xy, width=width, code="\ueb00", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bicycle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4120,7 +4120,7 @@ def bicycle(
     _write(xy=xy, width=width, code="\ue0d6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def binary(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4140,7 +4140,7 @@ def binary(
     _write(xy=xy, width=width, code="\uee60", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def binoculars(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4160,7 +4160,7 @@ def binoculars(
     _write(xy=xy, width=width, code="\uea64", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def biohazard(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4180,7 +4180,7 @@ def biohazard(
     _write(xy=xy, width=width, code="\ue9e0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bird(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4200,7 +4200,7 @@ def bird(
     _write(xy=xy, width=width, code="\ue72c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def blueprint(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4220,7 +4220,7 @@ def blueprint(
     _write(xy=xy, width=width, code="\ueda0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bluetooth(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4240,7 +4240,7 @@ def bluetooth(
     _write(xy=xy, width=width, code="\ue0da", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bluetooth_connected(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4260,7 +4260,7 @@ def bluetooth_connected(
     _write(xy=xy, width=width, code="\ue0dc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bluetooth_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4280,7 +4280,7 @@ def bluetooth_slash(
     _write(xy=xy, width=width, code="\ue0de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bluetooth_x(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4300,7 +4300,7 @@ def bluetooth_x(
     _write(xy=xy, width=width, code="\ue0e0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def boat(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4320,7 +4320,7 @@ def boat(
     _write(xy=xy, width=width, code="\ue786", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bomb(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4340,7 +4340,7 @@ def bomb(
     _write(xy=xy, width=width, code="\uee0a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bone(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4360,7 +4360,7 @@ def bone(
     _write(xy=xy, width=width, code="\ue7f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def book(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4380,7 +4380,7 @@ def book(
     _write(xy=xy, width=width, code="\ue0e2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def book_bookmark(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4400,7 +4400,7 @@ def book_bookmark(
     _write(xy=xy, width=width, code="\ue0e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def book_open(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4420,7 +4420,7 @@ def book_open(
     _write(xy=xy, width=width, code="\ue0e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def book_open_text(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4440,7 +4440,7 @@ def book_open_text(
     _write(xy=xy, width=width, code="\ue8f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def book_open_user(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4460,7 +4460,7 @@ def book_open_user(
     _write(xy=xy, width=width, code="\uede0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bookmark(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4480,7 +4480,7 @@ def bookmark(
     _write(xy=xy, width=width, code="\ue0e8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bookmark_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4500,7 +4500,7 @@ def bookmark_simple(
     _write(xy=xy, width=width, code="\ue0ea", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bookmarks(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4520,7 +4520,7 @@ def bookmarks(
     _write(xy=xy, width=width, code="\ue0ec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bookmarks_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4540,7 +4540,7 @@ def bookmarks_simple(
     _write(xy=xy, width=width, code="\ue5f0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def books(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4560,7 +4560,7 @@ def books(
     _write(xy=xy, width=width, code="\ue758", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def boot(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4580,7 +4580,7 @@ def boot(
     _write(xy=xy, width=width, code="\uecca", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def boules(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4600,7 +4600,7 @@ def boules(
     _write(xy=xy, width=width, code="\ue722", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bounding_box(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4620,7 +4620,7 @@ def bounding_box(
     _write(xy=xy, width=width, code="\ue6ce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bowl_food(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4640,7 +4640,7 @@ def bowl_food(
     _write(xy=xy, width=width, code="\ueaa4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bowl_steam(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4660,7 +4660,7 @@ def bowl_steam(
     _write(xy=xy, width=width, code="\ue8e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bowling_ball(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4680,7 +4680,7 @@ def bowling_ball(
     _write(xy=xy, width=width, code="\uea34", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def box_arrow_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4700,7 +4700,7 @@ def box_arrow_down(
     _write(xy=xy, width=width, code="\ue00e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def archive_box(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4720,7 +4720,7 @@ def archive_box(
     _write(xy=xy, width=width, code="\ue00e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def box_arrow_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4740,7 +4740,7 @@ def box_arrow_up(
     _write(xy=xy, width=width, code="\uee54", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def boxing_glove(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4760,7 +4760,7 @@ def boxing_glove(
     _write(xy=xy, width=width, code="\uea36", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def brackets_angle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4780,7 +4780,7 @@ def brackets_angle(
     _write(xy=xy, width=width, code="\ue862", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def brackets_curly(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4800,7 +4800,7 @@ def brackets_curly(
     _write(xy=xy, width=width, code="\ue860", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def brackets_round(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4820,7 +4820,7 @@ def brackets_round(
     _write(xy=xy, width=width, code="\ue864", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def brackets_square(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4840,7 +4840,7 @@ def brackets_square(
     _write(xy=xy, width=width, code="\ue85e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def brain(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4860,7 +4860,7 @@ def brain(
     _write(xy=xy, width=width, code="\ue74e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def brandy(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4880,7 +4880,7 @@ def brandy(
     _write(xy=xy, width=width, code="\ue6b4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bread(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4900,7 +4900,7 @@ def bread(
     _write(xy=xy, width=width, code="\ue81c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bridge(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4920,7 +4920,7 @@ def bridge(
     _write(xy=xy, width=width, code="\uea68", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def briefcase(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4940,7 +4940,7 @@ def briefcase(
     _write(xy=xy, width=width, code="\ue0ee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def briefcase_metal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4960,7 +4960,7 @@ def briefcase_metal(
     _write(xy=xy, width=width, code="\ue5f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def broadcast(
     xy: typing.Tuple[float, float],
     width: float,
@@ -4980,7 +4980,7 @@ def broadcast(
     _write(xy=xy, width=width, code="\ue0f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def broom(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5000,7 +5000,7 @@ def broom(
     _write(xy=xy, width=width, code="\uec54", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def browser(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5020,7 +5020,7 @@ def browser(
     _write(xy=xy, width=width, code="\ue0f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def browsers(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5040,7 +5040,7 @@ def browsers(
     _write(xy=xy, width=width, code="\ue0f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bug(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5060,7 +5060,7 @@ def bug(
     _write(xy=xy, width=width, code="\ue5f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bug_beetle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5080,7 +5080,7 @@ def bug_beetle(
     _write(xy=xy, width=width, code="\ue5f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bug_droid(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5100,7 +5100,7 @@ def bug_droid(
     _write(xy=xy, width=width, code="\ue5f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def building(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5120,7 +5120,7 @@ def building(
     _write(xy=xy, width=width, code="\ue100", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def building_apartment(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5140,7 +5140,7 @@ def building_apartment(
     _write(xy=xy, width=width, code="\ue0fe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def building_office(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5160,7 +5160,7 @@ def building_office(
     _write(xy=xy, width=width, code="\ue0ff", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def buildings(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5180,7 +5180,7 @@ def buildings(
     _write(xy=xy, width=width, code="\ue102", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bulldozer(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5200,7 +5200,7 @@ def bulldozer(
     _write(xy=xy, width=width, code="\uec6c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def bus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5220,7 +5220,7 @@ def bus(
     _write(xy=xy, width=width, code="\ue106", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def butterfly(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5240,7 +5240,7 @@ def butterfly(
     _write(xy=xy, width=width, code="\uea6e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cable_car(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5260,7 +5260,7 @@ def cable_car(
     _write(xy=xy, width=width, code="\ue49c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cactus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5280,7 +5280,7 @@ def cactus(
     _write(xy=xy, width=width, code="\ue918", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cake(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5300,7 +5300,7 @@ def cake(
     _write(xy=xy, width=width, code="\ue780", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def calculator(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5320,7 +5320,7 @@ def calculator(
     _write(xy=xy, width=width, code="\ue538", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def calendar(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5340,7 +5340,7 @@ def calendar(
     _write(xy=xy, width=width, code="\ue108", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def calendar_blank(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5360,7 +5360,7 @@ def calendar_blank(
     _write(xy=xy, width=width, code="\ue10a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def calendar_check(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5380,7 +5380,7 @@ def calendar_check(
     _write(xy=xy, width=width, code="\ue712", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def calendar_dot(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5400,7 +5400,7 @@ def calendar_dot(
     _write(xy=xy, width=width, code="\ue7b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def calendar_dots(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5420,7 +5420,7 @@ def calendar_dots(
     _write(xy=xy, width=width, code="\ue7b4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def calendar_heart(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5440,7 +5440,7 @@ def calendar_heart(
     _write(xy=xy, width=width, code="\ue8b0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def calendar_minus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5460,7 +5460,7 @@ def calendar_minus(
     _write(xy=xy, width=width, code="\uea14", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def calendar_plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5480,7 +5480,7 @@ def calendar_plus(
     _write(xy=xy, width=width, code="\ue714", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def calendar_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5500,7 +5500,7 @@ def calendar_slash(
     _write(xy=xy, width=width, code="\uea12", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def calendar_star(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5520,7 +5520,7 @@ def calendar_star(
     _write(xy=xy, width=width, code="\ue8b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def calendar_x(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5540,7 +5540,7 @@ def calendar_x(
     _write(xy=xy, width=width, code="\ue10c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def call_bell(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5560,7 +5560,7 @@ def call_bell(
     _write(xy=xy, width=width, code="\ue7de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def camera(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5580,7 +5580,7 @@ def camera(
     _write(xy=xy, width=width, code="\ue10e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def camera_plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5600,7 +5600,7 @@ def camera_plus(
     _write(xy=xy, width=width, code="\uec58", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def camera_rotate(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5620,7 +5620,7 @@ def camera_rotate(
     _write(xy=xy, width=width, code="\ue7a4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def camera_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5640,7 +5640,7 @@ def camera_slash(
     _write(xy=xy, width=width, code="\ue110", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def campfire(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5660,7 +5660,7 @@ def campfire(
     _write(xy=xy, width=width, code="\ue9d8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def car(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5680,7 +5680,7 @@ def car(
     _write(xy=xy, width=width, code="\ue112", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def car_battery(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5700,7 +5700,7 @@ def car_battery(
     _write(xy=xy, width=width, code="\uee30", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def car_profile(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5720,7 +5720,7 @@ def car_profile(
     _write(xy=xy, width=width, code="\ue8cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def car_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5740,7 +5740,7 @@ def car_simple(
     _write(xy=xy, width=width, code="\ue114", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cardholder(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5760,7 +5760,7 @@ def cardholder(
     _write(xy=xy, width=width, code="\ue5fa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cards(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5780,7 +5780,7 @@ def cards(
     _write(xy=xy, width=width, code="\ue0f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cards_three(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5800,7 +5800,7 @@ def cards_three(
     _write(xy=xy, width=width, code="\uee50", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_circle_double_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5820,7 +5820,7 @@ def caret_circle_double_down(
     _write(xy=xy, width=width, code="\ue116", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_circle_double_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5840,7 +5840,7 @@ def caret_circle_double_left(
     _write(xy=xy, width=width, code="\ue118", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_circle_double_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5860,7 +5860,7 @@ def caret_circle_double_right(
     _write(xy=xy, width=width, code="\ue11a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_circle_double_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5880,7 +5880,7 @@ def caret_circle_double_up(
     _write(xy=xy, width=width, code="\ue11c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_circle_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5900,7 +5900,7 @@ def caret_circle_down(
     _write(xy=xy, width=width, code="\ue11e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_circle_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5920,7 +5920,7 @@ def caret_circle_left(
     _write(xy=xy, width=width, code="\ue120", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_circle_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5940,7 +5940,7 @@ def caret_circle_right(
     _write(xy=xy, width=width, code="\ue122", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_circle_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5960,7 +5960,7 @@ def caret_circle_up(
     _write(xy=xy, width=width, code="\ue124", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_circle_up_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -5980,7 +5980,7 @@ def caret_circle_up_down(
     _write(xy=xy, width=width, code="\ue13e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_double_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6000,7 +6000,7 @@ def caret_double_down(
     _write(xy=xy, width=width, code="\ue126", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_double_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6020,7 +6020,7 @@ def caret_double_left(
     _write(xy=xy, width=width, code="\ue128", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_double_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6040,7 +6040,7 @@ def caret_double_right(
     _write(xy=xy, width=width, code="\ue12a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_double_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6060,7 +6060,7 @@ def caret_double_up(
     _write(xy=xy, width=width, code="\ue12c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6080,7 +6080,7 @@ def caret_down(
     _write(xy=xy, width=width, code="\ue136", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6100,7 +6100,7 @@ def caret_left(
     _write(xy=xy, width=width, code="\ue138", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_line_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6120,7 +6120,7 @@ def caret_line_down(
     _write(xy=xy, width=width, code="\ue134", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_line_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6140,7 +6140,7 @@ def caret_line_left(
     _write(xy=xy, width=width, code="\ue132", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_line_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6160,7 +6160,7 @@ def caret_line_right(
     _write(xy=xy, width=width, code="\ue130", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_line_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6180,7 +6180,7 @@ def caret_line_up(
     _write(xy=xy, width=width, code="\ue12e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6200,7 +6200,7 @@ def caret_right(
     _write(xy=xy, width=width, code="\ue13a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6220,7 +6220,7 @@ def caret_up(
     _write(xy=xy, width=width, code="\ue13c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def caret_up_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6240,7 +6240,7 @@ def caret_up_down(
     _write(xy=xy, width=width, code="\ue140", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def carrot(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6260,7 +6260,7 @@ def carrot(
     _write(xy=xy, width=width, code="\ued38", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cash_register(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6280,7 +6280,7 @@ def cash_register(
     _write(xy=xy, width=width, code="\ued80", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cassette_tape(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6300,7 +6300,7 @@ def cassette_tape(
     _write(xy=xy, width=width, code="\ued2e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def castle_turret(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6320,7 +6320,7 @@ def castle_turret(
     _write(xy=xy, width=width, code="\ue9d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cat(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6340,7 +6340,7 @@ def cat(
     _write(xy=xy, width=width, code="\ue748", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cell_signal_full(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6360,7 +6360,7 @@ def cell_signal_full(
     _write(xy=xy, width=width, code="\ue142", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cell_signal_high(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6380,7 +6380,7 @@ def cell_signal_high(
     _write(xy=xy, width=width, code="\ue144", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cell_signal_low(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6400,7 +6400,7 @@ def cell_signal_low(
     _write(xy=xy, width=width, code="\ue146", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cell_signal_medium(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6420,7 +6420,7 @@ def cell_signal_medium(
     _write(xy=xy, width=width, code="\ue148", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cell_signal_none(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6440,7 +6440,7 @@ def cell_signal_none(
     _write(xy=xy, width=width, code="\ue14a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cell_signal_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6460,7 +6460,7 @@ def cell_signal_slash(
     _write(xy=xy, width=width, code="\ue14c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cell_signal_x(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6480,7 +6480,7 @@ def cell_signal_x(
     _write(xy=xy, width=width, code="\ue14e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cell_tower(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6500,7 +6500,7 @@ def cell_tower(
     _write(xy=xy, width=width, code="\uebaa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def certificate(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6520,7 +6520,7 @@ def certificate(
     _write(xy=xy, width=width, code="\ue766", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chair(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6540,7 +6540,7 @@ def chair(
     _write(xy=xy, width=width, code="\ue950", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chalkboard(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6560,7 +6560,7 @@ def chalkboard(
     _write(xy=xy, width=width, code="\ue5fc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chalkboard_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6580,7 +6580,7 @@ def chalkboard_simple(
     _write(xy=xy, width=width, code="\ue5fe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chalkboard_teacher(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6600,7 +6600,7 @@ def chalkboard_teacher(
     _write(xy=xy, width=width, code="\ue600", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def champagne(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6620,7 +6620,7 @@ def champagne(
     _write(xy=xy, width=width, code="\ueaca", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def charging_station(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6640,7 +6640,7 @@ def charging_station(
     _write(xy=xy, width=width, code="\ue8d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chart_bar(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6660,7 +6660,7 @@ def chart_bar(
     _write(xy=xy, width=width, code="\ue150", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chart_bar_horizontal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6680,7 +6680,7 @@ def chart_bar_horizontal(
     _write(xy=xy, width=width, code="\ue152", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chart_donut(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6700,7 +6700,7 @@ def chart_donut(
     _write(xy=xy, width=width, code="\ueaa6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chart_line(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6720,7 +6720,7 @@ def chart_line(
     _write(xy=xy, width=width, code="\ue154", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chart_line_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6740,7 +6740,7 @@ def chart_line_down(
     _write(xy=xy, width=width, code="\ue8b6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chart_line_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6760,7 +6760,7 @@ def chart_line_up(
     _write(xy=xy, width=width, code="\ue156", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chart_pie(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6780,7 +6780,7 @@ def chart_pie(
     _write(xy=xy, width=width, code="\ue158", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chart_pie_slice(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6800,7 +6800,7 @@ def chart_pie_slice(
     _write(xy=xy, width=width, code="\ue15a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chart_polar(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6820,7 +6820,7 @@ def chart_polar(
     _write(xy=xy, width=width, code="\ueaa8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chart_scatter(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6840,7 +6840,7 @@ def chart_scatter(
     _write(xy=xy, width=width, code="\ueaac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chat(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6860,7 +6860,7 @@ def chat(
     _write(xy=xy, width=width, code="\ue15c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chat_centered(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6880,7 +6880,7 @@ def chat_centered(
     _write(xy=xy, width=width, code="\ue160", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chat_centered_dots(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6900,7 +6900,7 @@ def chat_centered_dots(
     _write(xy=xy, width=width, code="\ue164", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chat_centered_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6920,7 +6920,7 @@ def chat_centered_slash(
     _write(xy=xy, width=width, code="\ue162", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chat_centered_text(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6940,7 +6940,7 @@ def chat_centered_text(
     _write(xy=xy, width=width, code="\ue166", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chat_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6960,7 +6960,7 @@ def chat_circle(
     _write(xy=xy, width=width, code="\ue168", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chat_circle_dots(
     xy: typing.Tuple[float, float],
     width: float,
@@ -6980,7 +6980,7 @@ def chat_circle_dots(
     _write(xy=xy, width=width, code="\ue16c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chat_circle_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7000,7 +7000,7 @@ def chat_circle_slash(
     _write(xy=xy, width=width, code="\ue16a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chat_circle_text(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7020,7 +7020,7 @@ def chat_circle_text(
     _write(xy=xy, width=width, code="\ue16e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chat_dots(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7040,7 +7040,7 @@ def chat_dots(
     _write(xy=xy, width=width, code="\ue170", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chat_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7060,7 +7060,7 @@ def chat_slash(
     _write(xy=xy, width=width, code="\ue15e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chat_teardrop(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7080,7 +7080,7 @@ def chat_teardrop(
     _write(xy=xy, width=width, code="\ue172", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chat_teardrop_dots(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7100,7 +7100,7 @@ def chat_teardrop_dots(
     _write(xy=xy, width=width, code="\ue176", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chat_teardrop_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7120,7 +7120,7 @@ def chat_teardrop_slash(
     _write(xy=xy, width=width, code="\ue174", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chat_teardrop_text(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7140,7 +7140,7 @@ def chat_teardrop_text(
     _write(xy=xy, width=width, code="\ue178", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chat_text(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7160,7 +7160,7 @@ def chat_text(
     _write(xy=xy, width=width, code="\ue17a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chats(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7180,7 +7180,7 @@ def chats(
     _write(xy=xy, width=width, code="\ue17c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chats_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7200,7 +7200,7 @@ def chats_circle(
     _write(xy=xy, width=width, code="\ue17e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chats_teardrop(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7220,7 +7220,7 @@ def chats_teardrop(
     _write(xy=xy, width=width, code="\ue180", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def check(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7240,7 +7240,7 @@ def check(
     _write(xy=xy, width=width, code="\ue182", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def check_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7260,7 +7260,7 @@ def check_circle(
     _write(xy=xy, width=width, code="\ue184", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def check_fat(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7280,7 +7280,7 @@ def check_fat(
     _write(xy=xy, width=width, code="\ueba6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def check_square(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7300,7 +7300,7 @@ def check_square(
     _write(xy=xy, width=width, code="\ue186", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def check_square_offset(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7320,7 +7320,7 @@ def check_square_offset(
     _write(xy=xy, width=width, code="\ue188", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def checkerboard(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7340,7 +7340,7 @@ def checkerboard(
     _write(xy=xy, width=width, code="\ue8c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def checks(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7360,7 +7360,7 @@ def checks(
     _write(xy=xy, width=width, code="\ue53a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cheers(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7380,7 +7380,7 @@ def cheers(
     _write(xy=xy, width=width, code="\uea4a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cheese(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7400,7 +7400,7 @@ def cheese(
     _write(xy=xy, width=width, code="\ue9fe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def chef_hat(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7420,7 +7420,7 @@ def chef_hat(
     _write(xy=xy, width=width, code="\ued8e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cherries(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7440,7 +7440,7 @@ def cherries(
     _write(xy=xy, width=width, code="\ue830", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def church(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7460,7 +7460,7 @@ def church(
     _write(xy=xy, width=width, code="\uecea", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cigarette(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7480,7 +7480,7 @@ def cigarette(
     _write(xy=xy, width=width, code="\ued90", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cigarette_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7500,7 +7500,7 @@ def cigarette_slash(
     _write(xy=xy, width=width, code="\ued92", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7520,7 +7520,7 @@ def circle(
     _write(xy=xy, width=width, code="\ue18a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def circle_dashed(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7540,7 +7540,7 @@ def circle_dashed(
     _write(xy=xy, width=width, code="\ue602", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def circle_half(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7560,7 +7560,7 @@ def circle_half(
     _write(xy=xy, width=width, code="\ue18c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def circle_half_tilt(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7580,7 +7580,7 @@ def circle_half_tilt(
     _write(xy=xy, width=width, code="\ue18e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def circle_notch(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7600,7 +7600,7 @@ def circle_notch(
     _write(xy=xy, width=width, code="\ueb44", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def circles_four(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7620,7 +7620,7 @@ def circles_four(
     _write(xy=xy, width=width, code="\ue190", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def circles_three(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7640,7 +7640,7 @@ def circles_three(
     _write(xy=xy, width=width, code="\ue192", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def circles_three_plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7660,7 +7660,7 @@ def circles_three_plus(
     _write(xy=xy, width=width, code="\ue194", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def circuitry(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7680,7 +7680,7 @@ def circuitry(
     _write(xy=xy, width=width, code="\ue9c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def city(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7700,7 +7700,7 @@ def city(
     _write(xy=xy, width=width, code="\uea6a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def clipboard(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7720,7 +7720,7 @@ def clipboard(
     _write(xy=xy, width=width, code="\ue196", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def clipboard_text(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7740,7 +7740,7 @@ def clipboard_text(
     _write(xy=xy, width=width, code="\ue198", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def clock(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7760,7 +7760,7 @@ def clock(
     _write(xy=xy, width=width, code="\ue19a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def clock_afternoon(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7780,7 +7780,7 @@ def clock_afternoon(
     _write(xy=xy, width=width, code="\ue19c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def clock_clockwise(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7800,7 +7800,7 @@ def clock_clockwise(
     _write(xy=xy, width=width, code="\ue19e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def clock_countdown(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7820,7 +7820,7 @@ def clock_countdown(
     _write(xy=xy, width=width, code="\ued2c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def clock_counter_clockwise(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7840,7 +7840,7 @@ def clock_counter_clockwise(
     _write(xy=xy, width=width, code="\ue1a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def clock_user(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7860,7 +7860,7 @@ def clock_user(
     _write(xy=xy, width=width, code="\uedec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def closed_captioning(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7880,7 +7880,7 @@ def closed_captioning(
     _write(xy=xy, width=width, code="\ue1a4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cloud(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7900,7 +7900,7 @@ def cloud(
     _write(xy=xy, width=width, code="\ue1aa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cloud_arrow_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7920,7 +7920,7 @@ def cloud_arrow_down(
     _write(xy=xy, width=width, code="\ue1ac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cloud_arrow_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7940,7 +7940,7 @@ def cloud_arrow_up(
     _write(xy=xy, width=width, code="\ue1ae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cloud_check(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7960,7 +7960,7 @@ def cloud_check(
     _write(xy=xy, width=width, code="\ue1b0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cloud_fog(
     xy: typing.Tuple[float, float],
     width: float,
@@ -7980,7 +7980,7 @@ def cloud_fog(
     _write(xy=xy, width=width, code="\ue53c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cloud_lightning(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8000,7 +8000,7 @@ def cloud_lightning(
     _write(xy=xy, width=width, code="\ue1b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cloud_moon(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8020,7 +8020,7 @@ def cloud_moon(
     _write(xy=xy, width=width, code="\ue53e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cloud_rain(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8040,7 +8040,7 @@ def cloud_rain(
     _write(xy=xy, width=width, code="\ue1b4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cloud_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8060,7 +8060,7 @@ def cloud_slash(
     _write(xy=xy, width=width, code="\ue1b6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cloud_snow(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8080,7 +8080,7 @@ def cloud_snow(
     _write(xy=xy, width=width, code="\ue1b8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cloud_sun(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8100,7 +8100,7 @@ def cloud_sun(
     _write(xy=xy, width=width, code="\ue540", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cloud_warning(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8120,7 +8120,7 @@ def cloud_warning(
     _write(xy=xy, width=width, code="\uea98", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cloud_x(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8140,7 +8140,7 @@ def cloud_x(
     _write(xy=xy, width=width, code="\uea96", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def clover(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8160,7 +8160,7 @@ def clover(
     _write(xy=xy, width=width, code="\uedc8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def club(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8180,7 +8180,7 @@ def club(
     _write(xy=xy, width=width, code="\ue1ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def coat_hanger(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8200,7 +8200,7 @@ def coat_hanger(
     _write(xy=xy, width=width, code="\ue7fe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def coda_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8220,7 +8220,7 @@ def coda_logo(
     _write(xy=xy, width=width, code="\ue7ce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def code(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8240,7 +8240,7 @@ def code(
     _write(xy=xy, width=width, code="\ue1bc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def code_block(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8260,7 +8260,7 @@ def code_block(
     _write(xy=xy, width=width, code="\ueafe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def code_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8280,7 +8280,7 @@ def code_simple(
     _write(xy=xy, width=width, code="\ue1be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def codepen_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8300,7 +8300,7 @@ def codepen_logo(
     _write(xy=xy, width=width, code="\ue978", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def codesandbox_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8320,7 +8320,7 @@ def codesandbox_logo(
     _write(xy=xy, width=width, code="\uea06", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def coffee(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8340,7 +8340,7 @@ def coffee(
     _write(xy=xy, width=width, code="\ue1c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def coffee_bean(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8360,7 +8360,7 @@ def coffee_bean(
     _write(xy=xy, width=width, code="\ue1c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def coin(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8380,7 +8380,7 @@ def coin(
     _write(xy=xy, width=width, code="\ue60e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def coin_vertical(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8400,7 +8400,7 @@ def coin_vertical(
     _write(xy=xy, width=width, code="\ueb48", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def coins(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8420,7 +8420,7 @@ def coins(
     _write(xy=xy, width=width, code="\ue78e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def columns(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8440,7 +8440,7 @@ def columns(
     _write(xy=xy, width=width, code="\ue546", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def columns_plus_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8460,7 +8460,7 @@ def columns_plus_left(
     _write(xy=xy, width=width, code="\ue544", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def columns_plus_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8480,7 +8480,7 @@ def columns_plus_right(
     _write(xy=xy, width=width, code="\ue542", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def command(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8500,7 +8500,7 @@ def command(
     _write(xy=xy, width=width, code="\ue1c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def compass(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8520,7 +8520,7 @@ def compass(
     _write(xy=xy, width=width, code="\ue1c8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def compass_rose(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8540,7 +8540,7 @@ def compass_rose(
     _write(xy=xy, width=width, code="\ue1c6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def compass_tool(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8560,7 +8560,7 @@ def compass_tool(
     _write(xy=xy, width=width, code="\uea0e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def computer_tower(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8580,7 +8580,7 @@ def computer_tower(
     _write(xy=xy, width=width, code="\ue548", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def confetti(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8600,7 +8600,7 @@ def confetti(
     _write(xy=xy, width=width, code="\ue81a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def contactless_payment(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8620,7 +8620,7 @@ def contactless_payment(
     _write(xy=xy, width=width, code="\ued42", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def control(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8640,7 +8640,7 @@ def control(
     _write(xy=xy, width=width, code="\ueca6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cookie(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8660,7 +8660,7 @@ def cookie(
     _write(xy=xy, width=width, code="\ue6ca", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cooking_pot(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8680,7 +8680,7 @@ def cooking_pot(
     _write(xy=xy, width=width, code="\ue764", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def copy(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8700,7 +8700,7 @@ def copy(
     _write(xy=xy, width=width, code="\ue1ca", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def copy_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8720,7 +8720,7 @@ def copy_simple(
     _write(xy=xy, width=width, code="\ue1cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def copyleft(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8740,7 +8740,7 @@ def copyleft(
     _write(xy=xy, width=width, code="\ue86a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def copyright(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8760,7 +8760,7 @@ def copyright(
     _write(xy=xy, width=width, code="\ue54a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def corners_in(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8780,7 +8780,7 @@ def corners_in(
     _write(xy=xy, width=width, code="\ue1ce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def corners_out(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8800,7 +8800,7 @@ def corners_out(
     _write(xy=xy, width=width, code="\ue1d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def couch(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8820,7 +8820,7 @@ def couch(
     _write(xy=xy, width=width, code="\ue7f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def court_basketball(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8840,7 +8840,7 @@ def court_basketball(
     _write(xy=xy, width=width, code="\uee36", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cow(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8860,7 +8860,7 @@ def cow(
     _write(xy=xy, width=width, code="\ueabe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cowboy_hat(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8880,7 +8880,7 @@ def cowboy_hat(
     _write(xy=xy, width=width, code="\ued12", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cpu(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8900,7 +8900,7 @@ def cpu(
     _write(xy=xy, width=width, code="\ue610", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def crane(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8920,7 +8920,7 @@ def crane(
     _write(xy=xy, width=width, code="\ued48", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def crane_tower(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8940,7 +8940,7 @@ def crane_tower(
     _write(xy=xy, width=width, code="\ued49", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def credit_card(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8960,7 +8960,7 @@ def credit_card(
     _write(xy=xy, width=width, code="\ue1d2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cricket(
     xy: typing.Tuple[float, float],
     width: float,
@@ -8980,7 +8980,7 @@ def cricket(
     _write(xy=xy, width=width, code="\uee12", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def crop(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9000,7 +9000,7 @@ def crop(
     _write(xy=xy, width=width, code="\ue1d4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cross(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9020,7 +9020,7 @@ def cross(
     _write(xy=xy, width=width, code="\ue8a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def crosshair(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9040,7 +9040,7 @@ def crosshair(
     _write(xy=xy, width=width, code="\ue1d6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def crosshair_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9060,7 +9060,7 @@ def crosshair_simple(
     _write(xy=xy, width=width, code="\ue1d8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def crown(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9080,7 +9080,7 @@ def crown(
     _write(xy=xy, width=width, code="\ue614", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def crown_cross(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9100,7 +9100,7 @@ def crown_cross(
     _write(xy=xy, width=width, code="\uee5e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def crown_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9120,7 +9120,7 @@ def crown_simple(
     _write(xy=xy, width=width, code="\ue616", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cube(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9140,7 +9140,7 @@ def cube(
     _write(xy=xy, width=width, code="\ue1da", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cube_focus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9160,7 +9160,7 @@ def cube_focus(
     _write(xy=xy, width=width, code="\ued0a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cube_transparent(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9180,7 +9180,7 @@ def cube_transparent(
     _write(xy=xy, width=width, code="\uec7c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def currency_btc(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9200,7 +9200,7 @@ def currency_btc(
     _write(xy=xy, width=width, code="\ue618", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def currency_circle_dollar(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9220,7 +9220,7 @@ def currency_circle_dollar(
     _write(xy=xy, width=width, code="\ue54c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def currency_cny(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9240,7 +9240,7 @@ def currency_cny(
     _write(xy=xy, width=width, code="\ue54e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def currency_dollar(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9260,7 +9260,7 @@ def currency_dollar(
     _write(xy=xy, width=width, code="\ue550", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def currency_dollar_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9280,7 +9280,7 @@ def currency_dollar_simple(
     _write(xy=xy, width=width, code="\ue552", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def currency_eth(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9300,7 +9300,7 @@ def currency_eth(
     _write(xy=xy, width=width, code="\ueada", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def currency_eur(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9320,7 +9320,7 @@ def currency_eur(
     _write(xy=xy, width=width, code="\ue554", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def currency_gbp(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9340,7 +9340,7 @@ def currency_gbp(
     _write(xy=xy, width=width, code="\ue556", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def currency_inr(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9360,7 +9360,7 @@ def currency_inr(
     _write(xy=xy, width=width, code="\ue558", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def currency_jpy(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9380,7 +9380,7 @@ def currency_jpy(
     _write(xy=xy, width=width, code="\ue55a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def currency_krw(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9400,7 +9400,7 @@ def currency_krw(
     _write(xy=xy, width=width, code="\ue55c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def currency_kzt(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9420,7 +9420,7 @@ def currency_kzt(
     _write(xy=xy, width=width, code="\uec4c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def currency_ngn(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9440,7 +9440,7 @@ def currency_ngn(
     _write(xy=xy, width=width, code="\ueb52", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def currency_rub(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9460,7 +9460,7 @@ def currency_rub(
     _write(xy=xy, width=width, code="\ue55e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cursor(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9480,7 +9480,7 @@ def cursor(
     _write(xy=xy, width=width, code="\ue1dc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cursor_click(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9500,7 +9500,7 @@ def cursor_click(
     _write(xy=xy, width=width, code="\ue7c8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cursor_text(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9520,7 +9520,7 @@ def cursor_text(
     _write(xy=xy, width=width, code="\ue7d8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def cylinder(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9540,7 +9540,7 @@ def cylinder(
     _write(xy=xy, width=width, code="\ue8fc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def database(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9560,7 +9560,7 @@ def database(
     _write(xy=xy, width=width, code="\ue1de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def desk(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9580,7 +9580,7 @@ def desk(
     _write(xy=xy, width=width, code="\ued16", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def desktop(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9600,7 +9600,7 @@ def desktop(
     _write(xy=xy, width=width, code="\ue560", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def desktop_tower(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9620,7 +9620,7 @@ def desktop_tower(
     _write(xy=xy, width=width, code="\ue562", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def detective(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9640,7 +9640,7 @@ def detective(
     _write(xy=xy, width=width, code="\ue83e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dev_to_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9660,7 +9660,7 @@ def dev_to_logo(
     _write(xy=xy, width=width, code="\ued0e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def device_mobile(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9680,7 +9680,7 @@ def device_mobile(
     _write(xy=xy, width=width, code="\ue1e0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def device_mobile_camera(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9700,7 +9700,7 @@ def device_mobile_camera(
     _write(xy=xy, width=width, code="\ue1e2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def device_mobile_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9720,7 +9720,7 @@ def device_mobile_slash(
     _write(xy=xy, width=width, code="\uee46", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def device_mobile_speaker(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9740,7 +9740,7 @@ def device_mobile_speaker(
     _write(xy=xy, width=width, code="\ue1e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def device_rotate(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9760,7 +9760,7 @@ def device_rotate(
     _write(xy=xy, width=width, code="\uedf2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def device_tablet(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9780,7 +9780,7 @@ def device_tablet(
     _write(xy=xy, width=width, code="\ue1e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def device_tablet_camera(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9800,7 +9800,7 @@ def device_tablet_camera(
     _write(xy=xy, width=width, code="\ue1e8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def device_tablet_speaker(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9820,7 +9820,7 @@ def device_tablet_speaker(
     _write(xy=xy, width=width, code="\ue1ea", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def devices(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9840,7 +9840,7 @@ def devices(
     _write(xy=xy, width=width, code="\ueba4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def diamond(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9860,7 +9860,7 @@ def diamond(
     _write(xy=xy, width=width, code="\ue1ec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def diamonds_four(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9880,7 +9880,7 @@ def diamonds_four(
     _write(xy=xy, width=width, code="\ue8f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dice_five(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9900,7 +9900,7 @@ def dice_five(
     _write(xy=xy, width=width, code="\ue1ee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dice_four(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9920,7 +9920,7 @@ def dice_four(
     _write(xy=xy, width=width, code="\ue1f0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dice_one(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9940,7 +9940,7 @@ def dice_one(
     _write(xy=xy, width=width, code="\ue1f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dice_six(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9960,7 +9960,7 @@ def dice_six(
     _write(xy=xy, width=width, code="\ue1f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dice_three(
     xy: typing.Tuple[float, float],
     width: float,
@@ -9980,7 +9980,7 @@ def dice_three(
     _write(xy=xy, width=width, code="\ue1f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dice_two(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10000,7 +10000,7 @@ def dice_two(
     _write(xy=xy, width=width, code="\ue1f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def disc(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10020,7 +10020,7 @@ def disc(
     _write(xy=xy, width=width, code="\ue564", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def disco_ball(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10040,7 +10040,7 @@ def disco_ball(
     _write(xy=xy, width=width, code="\ued98", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def discord_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10060,7 +10060,7 @@ def discord_logo(
     _write(xy=xy, width=width, code="\ue61a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def divide(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10080,7 +10080,7 @@ def divide(
     _write(xy=xy, width=width, code="\ue1fa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dna(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10100,7 +10100,7 @@ def dna(
     _write(xy=xy, width=width, code="\ue924", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dog(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10120,7 +10120,7 @@ def dog(
     _write(xy=xy, width=width, code="\ue74a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def door(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10140,7 +10140,7 @@ def door(
     _write(xy=xy, width=width, code="\ue61c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def door_open(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10160,7 +10160,7 @@ def door_open(
     _write(xy=xy, width=width, code="\ue7e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dot(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10180,7 +10180,7 @@ def dot(
     _write(xy=xy, width=width, code="\uecde", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dot_outline(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10200,7 +10200,7 @@ def dot_outline(
     _write(xy=xy, width=width, code="\uece0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dots_nine(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10220,7 +10220,7 @@ def dots_nine(
     _write(xy=xy, width=width, code="\ue1fc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dots_six(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10240,7 +10240,7 @@ def dots_six(
     _write(xy=xy, width=width, code="\ue794", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dots_six_vertical(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10260,7 +10260,7 @@ def dots_six_vertical(
     _write(xy=xy, width=width, code="\ueae2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dots_three(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10280,7 +10280,7 @@ def dots_three(
     _write(xy=xy, width=width, code="\ue1fe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dots_three_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10300,7 +10300,7 @@ def dots_three_circle(
     _write(xy=xy, width=width, code="\ue200", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dots_three_circle_vertical(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10320,7 +10320,7 @@ def dots_three_circle_vertical(
     _write(xy=xy, width=width, code="\ue202", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dots_three_outline(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10340,7 +10340,7 @@ def dots_three_outline(
     _write(xy=xy, width=width, code="\ue204", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dots_three_outline_vertical(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10360,7 +10360,7 @@ def dots_three_outline_vertical(
     _write(xy=xy, width=width, code="\ue206", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dots_three_vertical(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10380,7 +10380,7 @@ def dots_three_vertical(
     _write(xy=xy, width=width, code="\ue208", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def download(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10400,7 +10400,7 @@ def download(
     _write(xy=xy, width=width, code="\ue20a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def download_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10420,7 +10420,7 @@ def download_simple(
     _write(xy=xy, width=width, code="\ue20c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dress(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10440,7 +10440,7 @@ def dress(
     _write(xy=xy, width=width, code="\uea7e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dresser(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10460,7 +10460,7 @@ def dresser(
     _write(xy=xy, width=width, code="\ue94e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dribbble_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10480,7 +10480,7 @@ def dribbble_logo(
     _write(xy=xy, width=width, code="\ue20e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def drone(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10500,7 +10500,7 @@ def drone(
     _write(xy=xy, width=width, code="\ued74", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def drop(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10520,7 +10520,7 @@ def drop(
     _write(xy=xy, width=width, code="\ue210", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def drop_half(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10540,7 +10540,7 @@ def drop_half(
     _write(xy=xy, width=width, code="\ue566", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def drop_half_bottom(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10560,7 +10560,7 @@ def drop_half_bottom(
     _write(xy=xy, width=width, code="\ueb40", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def drop_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10580,7 +10580,7 @@ def drop_simple(
     _write(xy=xy, width=width, code="\uee32", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def drop_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10600,7 +10600,7 @@ def drop_slash(
     _write(xy=xy, width=width, code="\ue954", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def dropbox_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10620,7 +10620,7 @@ def dropbox_logo(
     _write(xy=xy, width=width, code="\ue7d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def ear(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10640,7 +10640,7 @@ def ear(
     _write(xy=xy, width=width, code="\ue70c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def ear_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10660,7 +10660,7 @@ def ear_slash(
     _write(xy=xy, width=width, code="\ue70e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def egg(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10680,7 +10680,7 @@ def egg(
     _write(xy=xy, width=width, code="\ue812", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def egg_crack(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10700,7 +10700,7 @@ def egg_crack(
     _write(xy=xy, width=width, code="\ueb64", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def eject(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10720,7 +10720,7 @@ def eject(
     _write(xy=xy, width=width, code="\ue212", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def eject_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10740,7 +10740,7 @@ def eject_simple(
     _write(xy=xy, width=width, code="\ue6ae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def elevator(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10760,7 +10760,7 @@ def elevator(
     _write(xy=xy, width=width, code="\uecc0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def empty(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10780,7 +10780,7 @@ def empty(
     _write(xy=xy, width=width, code="\uedbc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def engine(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10800,7 +10800,7 @@ def engine(
     _write(xy=xy, width=width, code="\uea80", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def envelope(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10820,7 +10820,7 @@ def envelope(
     _write(xy=xy, width=width, code="\ue214", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def envelope_open(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10840,7 +10840,7 @@ def envelope_open(
     _write(xy=xy, width=width, code="\ue216", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def envelope_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10860,7 +10860,7 @@ def envelope_simple(
     _write(xy=xy, width=width, code="\ue218", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def envelope_simple_open(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10880,7 +10880,7 @@ def envelope_simple_open(
     _write(xy=xy, width=width, code="\ue21a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def equalizer(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10900,7 +10900,7 @@ def equalizer(
     _write(xy=xy, width=width, code="\uebbc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def equals(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10920,7 +10920,7 @@ def equals(
     _write(xy=xy, width=width, code="\ue21c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def eraser(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10940,7 +10940,7 @@ def eraser(
     _write(xy=xy, width=width, code="\ue21e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def escalator_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10960,7 +10960,7 @@ def escalator_down(
     _write(xy=xy, width=width, code="\uecba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def escalator_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -10980,7 +10980,7 @@ def escalator_up(
     _write(xy=xy, width=width, code="\uecbc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def exam(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11000,7 +11000,7 @@ def exam(
     _write(xy=xy, width=width, code="\ue742", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def exclamation_mark(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11020,7 +11020,7 @@ def exclamation_mark(
     _write(xy=xy, width=width, code="\uee44", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def exclude(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11040,7 +11040,7 @@ def exclude(
     _write(xy=xy, width=width, code="\ue882", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def exclude_square(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11060,7 +11060,7 @@ def exclude_square(
     _write(xy=xy, width=width, code="\ue880", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def export(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11080,7 +11080,7 @@ def export(
     _write(xy=xy, width=width, code="\ueaf0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def eye(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11100,7 +11100,7 @@ def eye(
     _write(xy=xy, width=width, code="\ue220", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def eye_closed(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11120,7 +11120,7 @@ def eye_closed(
     _write(xy=xy, width=width, code="\ue222", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def eye_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11140,7 +11140,7 @@ def eye_slash(
     _write(xy=xy, width=width, code="\ue224", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def eyedropper(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11160,7 +11160,7 @@ def eyedropper(
     _write(xy=xy, width=width, code="\ue568", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def eyedropper_sample(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11180,7 +11180,7 @@ def eyedropper_sample(
     _write(xy=xy, width=width, code="\ueac4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def eyeglasses(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11200,7 +11200,7 @@ def eyeglasses(
     _write(xy=xy, width=width, code="\ue7ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def eyes(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11220,7 +11220,7 @@ def eyes(
     _write(xy=xy, width=width, code="\uee5c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def face_mask(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11240,7 +11240,7 @@ def face_mask(
     _write(xy=xy, width=width, code="\ue56a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def facebook_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11260,7 +11260,7 @@ def facebook_logo(
     _write(xy=xy, width=width, code="\ue226", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def factory(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11280,7 +11280,7 @@ def factory(
     _write(xy=xy, width=width, code="\ue760", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def faders(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11300,7 +11300,7 @@ def faders(
     _write(xy=xy, width=width, code="\ue228", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def faders_horizontal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11320,7 +11320,7 @@ def faders_horizontal(
     _write(xy=xy, width=width, code="\ue22a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def fallout_shelter(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11340,7 +11340,7 @@ def fallout_shelter(
     _write(xy=xy, width=width, code="\ue9de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def fan(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11360,7 +11360,7 @@ def fan(
     _write(xy=xy, width=width, code="\ue9f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def farm(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11380,7 +11380,7 @@ def farm(
     _write(xy=xy, width=width, code="\uec70", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def fast_forward(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11400,7 +11400,7 @@ def fast_forward(
     _write(xy=xy, width=width, code="\ue6a6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def fast_forward_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11420,7 +11420,7 @@ def fast_forward_circle(
     _write(xy=xy, width=width, code="\ue22c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def feather(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11440,7 +11440,7 @@ def feather(
     _write(xy=xy, width=width, code="\ue9c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def fediverse_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11460,7 +11460,7 @@ def fediverse_logo(
     _write(xy=xy, width=width, code="\ued66", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def figma_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11480,7 +11480,7 @@ def figma_logo(
     _write(xy=xy, width=width, code="\ue22e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11500,7 +11500,7 @@ def file(
     _write(xy=xy, width=width, code="\ue230", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_archive(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11520,7 +11520,7 @@ def file_archive(
     _write(xy=xy, width=width, code="\ueb2a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_arrow_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11540,7 +11540,7 @@ def file_arrow_down(
     _write(xy=xy, width=width, code="\ue232", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_arrow_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11560,7 +11560,7 @@ def file_arrow_up(
     _write(xy=xy, width=width, code="\ue61e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_audio(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11580,7 +11580,7 @@ def file_audio(
     _write(xy=xy, width=width, code="\uea20", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_c(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11600,7 +11600,7 @@ def file_c(
     _write(xy=xy, width=width, code="\ueb32", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_c_sharp(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11620,7 +11620,7 @@ def file_c_sharp(
     _write(xy=xy, width=width, code="\ueb30", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_cloud(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11640,7 +11640,7 @@ def file_cloud(
     _write(xy=xy, width=width, code="\ue95e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_code(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11660,7 +11660,7 @@ def file_code(
     _write(xy=xy, width=width, code="\ue914", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_cpp(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11680,7 +11680,7 @@ def file_cpp(
     _write(xy=xy, width=width, code="\ueb2e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_css(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11700,7 +11700,7 @@ def file_css(
     _write(xy=xy, width=width, code="\ueb34", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_csv(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11720,7 +11720,7 @@ def file_csv(
     _write(xy=xy, width=width, code="\ueb1c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_dashed(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11740,7 +11740,7 @@ def file_dashed(
     _write(xy=xy, width=width, code="\ue704", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_dotted(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11760,7 +11760,7 @@ def file_dotted(
     _write(xy=xy, width=width, code="\ue704", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_doc(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11780,7 +11780,7 @@ def file_doc(
     _write(xy=xy, width=width, code="\ueb1e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_html(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11800,7 +11800,7 @@ def file_html(
     _write(xy=xy, width=width, code="\ueb38", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_image(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11820,7 +11820,7 @@ def file_image(
     _write(xy=xy, width=width, code="\uea24", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_ini(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11840,7 +11840,7 @@ def file_ini(
     _write(xy=xy, width=width, code="\ueb33", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_jpg(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11860,7 +11860,7 @@ def file_jpg(
     _write(xy=xy, width=width, code="\ueb1a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_js(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11880,7 +11880,7 @@ def file_js(
     _write(xy=xy, width=width, code="\ueb24", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_jsx(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11900,7 +11900,7 @@ def file_jsx(
     _write(xy=xy, width=width, code="\ueb3a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_lock(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11920,7 +11920,7 @@ def file_lock(
     _write(xy=xy, width=width, code="\ue95c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_magnifying_glass(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11940,7 +11940,7 @@ def file_magnifying_glass(
     _write(xy=xy, width=width, code="\ue238", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_search(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11960,7 +11960,7 @@ def file_search(
     _write(xy=xy, width=width, code="\ue238", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_md(
     xy: typing.Tuple[float, float],
     width: float,
@@ -11980,7 +11980,7 @@ def file_md(
     _write(xy=xy, width=width, code="\ued50", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_minus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12000,7 +12000,7 @@ def file_minus(
     _write(xy=xy, width=width, code="\ue234", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_pdf(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12020,7 +12020,7 @@ def file_pdf(
     _write(xy=xy, width=width, code="\ue702", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12040,7 +12040,7 @@ def file_plus(
     _write(xy=xy, width=width, code="\ue236", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_png(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12060,7 +12060,7 @@ def file_png(
     _write(xy=xy, width=width, code="\ueb18", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_ppt(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12080,7 +12080,7 @@ def file_ppt(
     _write(xy=xy, width=width, code="\ueb20", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_py(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12100,7 +12100,7 @@ def file_py(
     _write(xy=xy, width=width, code="\ueb2c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_rs(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12120,7 +12120,7 @@ def file_rs(
     _write(xy=xy, width=width, code="\ueb28", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_sql(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12140,7 +12140,7 @@ def file_sql(
     _write(xy=xy, width=width, code="\ued4e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_svg(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12160,7 +12160,7 @@ def file_svg(
     _write(xy=xy, width=width, code="\ued08", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_text(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12180,7 +12180,7 @@ def file_text(
     _write(xy=xy, width=width, code="\ue23a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_ts(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12200,7 +12200,7 @@ def file_ts(
     _write(xy=xy, width=width, code="\ueb26", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_tsx(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12220,7 +12220,7 @@ def file_tsx(
     _write(xy=xy, width=width, code="\ueb3c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_txt(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12240,7 +12240,7 @@ def file_txt(
     _write(xy=xy, width=width, code="\ueb35", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_video(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12260,7 +12260,7 @@ def file_video(
     _write(xy=xy, width=width, code="\uea22", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_vue(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12280,7 +12280,7 @@ def file_vue(
     _write(xy=xy, width=width, code="\ueb3e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_x(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12300,7 +12300,7 @@ def file_x(
     _write(xy=xy, width=width, code="\ue23c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_xls(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12320,7 +12320,7 @@ def file_xls(
     _write(xy=xy, width=width, code="\ueb22", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def file_zip(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12340,7 +12340,7 @@ def file_zip(
     _write(xy=xy, width=width, code="\ue958", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def files(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12360,7 +12360,7 @@ def files(
     _write(xy=xy, width=width, code="\ue710", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def film_reel(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12380,7 +12380,7 @@ def film_reel(
     _write(xy=xy, width=width, code="\ue8c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def film_script(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12400,7 +12400,7 @@ def film_script(
     _write(xy=xy, width=width, code="\ueb50", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def film_slate(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12420,7 +12420,7 @@ def film_slate(
     _write(xy=xy, width=width, code="\ue8c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def film_strip(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12440,7 +12440,7 @@ def film_strip(
     _write(xy=xy, width=width, code="\ue792", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def fingerprint(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12460,7 +12460,7 @@ def fingerprint(
     _write(xy=xy, width=width, code="\ue23e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def fingerprint_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12480,7 +12480,7 @@ def fingerprint_simple(
     _write(xy=xy, width=width, code="\ue240", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def finn_the_human(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12500,7 +12500,7 @@ def finn_the_human(
     _write(xy=xy, width=width, code="\ue56c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def fire(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12520,7 +12520,7 @@ def fire(
     _write(xy=xy, width=width, code="\ue242", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def fire_extinguisher(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12540,7 +12540,7 @@ def fire_extinguisher(
     _write(xy=xy, width=width, code="\ue9e8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def fire_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12560,7 +12560,7 @@ def fire_simple(
     _write(xy=xy, width=width, code="\ue620", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def fire_truck(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12580,7 +12580,7 @@ def fire_truck(
     _write(xy=xy, width=width, code="\ue574", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def first_aid(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12600,7 +12600,7 @@ def first_aid(
     _write(xy=xy, width=width, code="\ue56e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def first_aid_kit(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12620,7 +12620,7 @@ def first_aid_kit(
     _write(xy=xy, width=width, code="\ue570", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def fish(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12640,7 +12640,7 @@ def fish(
     _write(xy=xy, width=width, code="\ue728", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def fish_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12660,7 +12660,7 @@ def fish_simple(
     _write(xy=xy, width=width, code="\ue72a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def flag(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12680,7 +12680,7 @@ def flag(
     _write(xy=xy, width=width, code="\ue244", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def flag_banner(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12700,7 +12700,7 @@ def flag_banner(
     _write(xy=xy, width=width, code="\ue622", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def flag_banner_fold(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12720,7 +12720,7 @@ def flag_banner_fold(
     _write(xy=xy, width=width, code="\uecf2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def flag_checkered(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12740,7 +12740,7 @@ def flag_checkered(
     _write(xy=xy, width=width, code="\uea38", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def flag_pennant(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12760,7 +12760,7 @@ def flag_pennant(
     _write(xy=xy, width=width, code="\uecf0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def flame(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12780,7 +12780,7 @@ def flame(
     _write(xy=xy, width=width, code="\ue624", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def flashlight(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12800,7 +12800,7 @@ def flashlight(
     _write(xy=xy, width=width, code="\ue246", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def flask(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12820,7 +12820,7 @@ def flask(
     _write(xy=xy, width=width, code="\ue79e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def flip_horizontal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12840,7 +12840,7 @@ def flip_horizontal(
     _write(xy=xy, width=width, code="\ued6a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def flip_vertical(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12860,7 +12860,7 @@ def flip_vertical(
     _write(xy=xy, width=width, code="\ued6c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def floppy_disk(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12880,7 +12880,7 @@ def floppy_disk(
     _write(xy=xy, width=width, code="\ue248", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def floppy_disk_back(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12900,7 +12900,7 @@ def floppy_disk_back(
     _write(xy=xy, width=width, code="\ueaf4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def flow_arrow(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12920,7 +12920,7 @@ def flow_arrow(
     _write(xy=xy, width=width, code="\ue6ec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def flower(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12940,7 +12940,7 @@ def flower(
     _write(xy=xy, width=width, code="\ue75e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def flower_lotus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12960,7 +12960,7 @@ def flower_lotus(
     _write(xy=xy, width=width, code="\ue6cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def flower_tulip(
     xy: typing.Tuple[float, float],
     width: float,
@@ -12980,7 +12980,7 @@ def flower_tulip(
     _write(xy=xy, width=width, code="\ueacc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def flying_saucer(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13000,7 +13000,7 @@ def flying_saucer(
     _write(xy=xy, width=width, code="\ueb4a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13020,7 +13020,7 @@ def folder(
     _write(xy=xy, width=width, code="\ue24a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_notch(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13040,7 +13040,7 @@ def folder_notch(
     _write(xy=xy, width=width, code="\ue24a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_dashed(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13060,7 +13060,7 @@ def folder_dashed(
     _write(xy=xy, width=width, code="\ue8f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_dotted(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13080,7 +13080,7 @@ def folder_dotted(
     _write(xy=xy, width=width, code="\ue8f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_lock(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13100,7 +13100,7 @@ def folder_lock(
     _write(xy=xy, width=width, code="\uea3c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_minus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13120,7 +13120,7 @@ def folder_minus(
     _write(xy=xy, width=width, code="\ue254", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_notch_minus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13140,7 +13140,7 @@ def folder_notch_minus(
     _write(xy=xy, width=width, code="\ue254", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_open(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13160,7 +13160,7 @@ def folder_open(
     _write(xy=xy, width=width, code="\ue256", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_notch_open(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13180,7 +13180,7 @@ def folder_notch_open(
     _write(xy=xy, width=width, code="\ue256", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13200,7 +13200,7 @@ def folder_plus(
     _write(xy=xy, width=width, code="\ue258", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_notch_plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13220,7 +13220,7 @@ def folder_notch_plus(
     _write(xy=xy, width=width, code="\ue258", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13240,7 +13240,7 @@ def folder_simple(
     _write(xy=xy, width=width, code="\ue25a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_simple_dashed(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13260,7 +13260,7 @@ def folder_simple_dashed(
     _write(xy=xy, width=width, code="\uec2a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_simple_dotted(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13280,7 +13280,7 @@ def folder_simple_dotted(
     _write(xy=xy, width=width, code="\uec2a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_simple_lock(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13300,7 +13300,7 @@ def folder_simple_lock(
     _write(xy=xy, width=width, code="\ueb5e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_simple_minus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13320,7 +13320,7 @@ def folder_simple_minus(
     _write(xy=xy, width=width, code="\ue25c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_simple_plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13340,7 +13340,7 @@ def folder_simple_plus(
     _write(xy=xy, width=width, code="\ue25e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_simple_star(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13360,7 +13360,7 @@ def folder_simple_star(
     _write(xy=xy, width=width, code="\uec2e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_simple_user(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13380,7 +13380,7 @@ def folder_simple_user(
     _write(xy=xy, width=width, code="\ueb60", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_star(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13400,7 +13400,7 @@ def folder_star(
     _write(xy=xy, width=width, code="\uea86", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folder_user(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13420,7 +13420,7 @@ def folder_user(
     _write(xy=xy, width=width, code="\ueb46", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def folders(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13440,7 +13440,7 @@ def folders(
     _write(xy=xy, width=width, code="\ue260", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def football(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13460,7 +13460,7 @@ def football(
     _write(xy=xy, width=width, code="\ue718", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def football_helmet(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13480,7 +13480,7 @@ def football_helmet(
     _write(xy=xy, width=width, code="\uee4c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def footprints(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13500,7 +13500,7 @@ def footprints(
     _write(xy=xy, width=width, code="\uea88", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def fork_knife(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13520,7 +13520,7 @@ def fork_knife(
     _write(xy=xy, width=width, code="\ue262", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def four_k(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13540,7 +13540,7 @@ def four_k(
     _write(xy=xy, width=width, code="\uea5c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def frame_corners(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13560,7 +13560,7 @@ def frame_corners(
     _write(xy=xy, width=width, code="\ue626", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def framer_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13580,7 +13580,7 @@ def framer_logo(
     _write(xy=xy, width=width, code="\ue264", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def function(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13600,7 +13600,7 @@ def function(
     _write(xy=xy, width=width, code="\uebe4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def funnel(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13620,7 +13620,7 @@ def funnel(
     _write(xy=xy, width=width, code="\ue266", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def funnel_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13640,7 +13640,7 @@ def funnel_simple(
     _write(xy=xy, width=width, code="\ue268", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def funnel_simple_x(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13660,7 +13660,7 @@ def funnel_simple_x(
     _write(xy=xy, width=width, code="\ue26a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def funnel_x(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13680,7 +13680,7 @@ def funnel_x(
     _write(xy=xy, width=width, code="\ue26c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def game_controller(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13700,7 +13700,7 @@ def game_controller(
     _write(xy=xy, width=width, code="\ue26e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def garage(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13720,7 +13720,7 @@ def garage(
     _write(xy=xy, width=width, code="\uecd6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gas_can(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13740,7 +13740,7 @@ def gas_can(
     _write(xy=xy, width=width, code="\ue8ce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gas_pump(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13760,7 +13760,7 @@ def gas_pump(
     _write(xy=xy, width=width, code="\ue768", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gauge(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13780,7 +13780,7 @@ def gauge(
     _write(xy=xy, width=width, code="\ue628", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gavel(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13800,7 +13800,7 @@ def gavel(
     _write(xy=xy, width=width, code="\uea32", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gear(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13820,7 +13820,7 @@ def gear(
     _write(xy=xy, width=width, code="\ue270", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gear_fine(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13840,7 +13840,7 @@ def gear_fine(
     _write(xy=xy, width=width, code="\ue87c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gear_six(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13860,7 +13860,7 @@ def gear_six(
     _write(xy=xy, width=width, code="\ue272", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gender_female(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13880,7 +13880,7 @@ def gender_female(
     _write(xy=xy, width=width, code="\ue6e0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gender_intersex(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13900,7 +13900,7 @@ def gender_intersex(
     _write(xy=xy, width=width, code="\ue6e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gender_male(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13920,7 +13920,7 @@ def gender_male(
     _write(xy=xy, width=width, code="\ue6e2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gender_neuter(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13940,7 +13940,7 @@ def gender_neuter(
     _write(xy=xy, width=width, code="\ue6ea", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gender_nonbinary(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13960,7 +13960,7 @@ def gender_nonbinary(
     _write(xy=xy, width=width, code="\ue6e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gender_transgender(
     xy: typing.Tuple[float, float],
     width: float,
@@ -13980,7 +13980,7 @@ def gender_transgender(
     _write(xy=xy, width=width, code="\ue6e8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def ghost(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14000,7 +14000,7 @@ def ghost(
     _write(xy=xy, width=width, code="\ue62a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gif(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14020,7 +14020,7 @@ def gif(
     _write(xy=xy, width=width, code="\ue274", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gift(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14040,7 +14040,7 @@ def gift(
     _write(xy=xy, width=width, code="\ue276", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def git_branch(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14060,7 +14060,7 @@ def git_branch(
     _write(xy=xy, width=width, code="\ue278", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def git_commit(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14080,7 +14080,7 @@ def git_commit(
     _write(xy=xy, width=width, code="\ue27a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def git_diff(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14100,7 +14100,7 @@ def git_diff(
     _write(xy=xy, width=width, code="\ue27c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def git_fork(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14120,7 +14120,7 @@ def git_fork(
     _write(xy=xy, width=width, code="\ue27e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def git_merge(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14140,7 +14140,7 @@ def git_merge(
     _write(xy=xy, width=width, code="\ue280", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def git_pull_request(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14160,7 +14160,7 @@ def git_pull_request(
     _write(xy=xy, width=width, code="\ue282", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def github_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14180,7 +14180,7 @@ def github_logo(
     _write(xy=xy, width=width, code="\ue576", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gitlab_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14200,7 +14200,7 @@ def gitlab_logo(
     _write(xy=xy, width=width, code="\ue694", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gitlab_logo_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14220,7 +14220,7 @@ def gitlab_logo_simple(
     _write(xy=xy, width=width, code="\ue696", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def globe(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14240,7 +14240,7 @@ def globe(
     _write(xy=xy, width=width, code="\ue288", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def globe_hemisphere_east(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14260,7 +14260,7 @@ def globe_hemisphere_east(
     _write(xy=xy, width=width, code="\ue28a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def globe_hemisphere_west(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14280,7 +14280,7 @@ def globe_hemisphere_west(
     _write(xy=xy, width=width, code="\ue28c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def globe_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14300,7 +14300,7 @@ def globe_simple(
     _write(xy=xy, width=width, code="\ue28e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def globe_simple_x(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14320,7 +14320,7 @@ def globe_simple_x(
     _write(xy=xy, width=width, code="\ue284", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def globe_stand(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14340,7 +14340,7 @@ def globe_stand(
     _write(xy=xy, width=width, code="\ue290", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def globe_x(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14360,7 +14360,7 @@ def globe_x(
     _write(xy=xy, width=width, code="\ue286", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def goggles(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14380,7 +14380,7 @@ def goggles(
     _write(xy=xy, width=width, code="\uecb4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def golf(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14400,7 +14400,7 @@ def golf(
     _write(xy=xy, width=width, code="\uea3e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def goodreads_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14420,7 +14420,7 @@ def goodreads_logo(
     _write(xy=xy, width=width, code="\ued10", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def google_cardboard_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14440,7 +14440,7 @@ def google_cardboard_logo(
     _write(xy=xy, width=width, code="\ue7b6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def google_chrome_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14460,7 +14460,7 @@ def google_chrome_logo(
     _write(xy=xy, width=width, code="\ue976", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def google_drive_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14480,7 +14480,7 @@ def google_drive_logo(
     _write(xy=xy, width=width, code="\ue8f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def google_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14500,7 +14500,7 @@ def google_logo(
     _write(xy=xy, width=width, code="\ue292", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def google_photos_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14520,7 +14520,7 @@ def google_photos_logo(
     _write(xy=xy, width=width, code="\ueb92", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def google_play_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14540,7 +14540,7 @@ def google_play_logo(
     _write(xy=xy, width=width, code="\ue294", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def google_podcasts_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14560,7 +14560,7 @@ def google_podcasts_logo(
     _write(xy=xy, width=width, code="\ueb94", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gps(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14580,7 +14580,7 @@ def gps(
     _write(xy=xy, width=width, code="\uedd8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gps_fix(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14600,7 +14600,7 @@ def gps_fix(
     _write(xy=xy, width=width, code="\uedd6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gps_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14620,7 +14620,7 @@ def gps_slash(
     _write(xy=xy, width=width, code="\uedd4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def gradient(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14640,7 +14640,7 @@ def gradient(
     _write(xy=xy, width=width, code="\ueb42", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def graduation_cap(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14660,7 +14660,7 @@ def graduation_cap(
     _write(xy=xy, width=width, code="\ue62c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def grains(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14680,7 +14680,7 @@ def grains(
     _write(xy=xy, width=width, code="\uec68", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def grains_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14700,7 +14700,7 @@ def grains_slash(
     _write(xy=xy, width=width, code="\uec6a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def graph(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14720,7 +14720,7 @@ def graph(
     _write(xy=xy, width=width, code="\ueb58", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def graphics_card(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14740,7 +14740,7 @@ def graphics_card(
     _write(xy=xy, width=width, code="\ue612", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def greater_than(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14760,7 +14760,7 @@ def greater_than(
     _write(xy=xy, width=width, code="\uedc4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def greater_than_or_equal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14780,7 +14780,7 @@ def greater_than_or_equal(
     _write(xy=xy, width=width, code="\ueda2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def grid_four(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14800,7 +14800,7 @@ def grid_four(
     _write(xy=xy, width=width, code="\ue296", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def grid_nine(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14820,7 +14820,7 @@ def grid_nine(
     _write(xy=xy, width=width, code="\uec8c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def guitar(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14840,7 +14840,7 @@ def guitar(
     _write(xy=xy, width=width, code="\uea8a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hair_dryer(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14860,7 +14860,7 @@ def hair_dryer(
     _write(xy=xy, width=width, code="\uea66", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hamburger(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14880,7 +14880,7 @@ def hamburger(
     _write(xy=xy, width=width, code="\ue790", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hammer(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14900,7 +14900,7 @@ def hammer(
     _write(xy=xy, width=width, code="\ue80e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hand(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14920,7 +14920,7 @@ def hand(
     _write(xy=xy, width=width, code="\ue298", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hand_arrow_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14940,7 +14940,7 @@ def hand_arrow_down(
     _write(xy=xy, width=width, code="\uea4e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hand_arrow_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14960,7 +14960,7 @@ def hand_arrow_up(
     _write(xy=xy, width=width, code="\uee5a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hand_coins(
     xy: typing.Tuple[float, float],
     width: float,
@@ -14980,7 +14980,7 @@ def hand_coins(
     _write(xy=xy, width=width, code="\uea8c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hand_deposit(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15000,7 +15000,7 @@ def hand_deposit(
     _write(xy=xy, width=width, code="\uee82", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hand_eye(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15020,7 +15020,7 @@ def hand_eye(
     _write(xy=xy, width=width, code="\uea4c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hand_fist(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15040,7 +15040,7 @@ def hand_fist(
     _write(xy=xy, width=width, code="\ue57a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hand_grabbing(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15060,7 +15060,7 @@ def hand_grabbing(
     _write(xy=xy, width=width, code="\ue57c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hand_heart(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15080,7 +15080,7 @@ def hand_heart(
     _write(xy=xy, width=width, code="\ue810", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hand_palm(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15100,7 +15100,7 @@ def hand_palm(
     _write(xy=xy, width=width, code="\ue57e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hand_peace(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15120,7 +15120,7 @@ def hand_peace(
     _write(xy=xy, width=width, code="\ue7cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hand_pointing(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15140,7 +15140,7 @@ def hand_pointing(
     _write(xy=xy, width=width, code="\ue29a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hand_soap(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15160,7 +15160,7 @@ def hand_soap(
     _write(xy=xy, width=width, code="\ue630", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hand_swipe_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15180,7 +15180,7 @@ def hand_swipe_left(
     _write(xy=xy, width=width, code="\uec94", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hand_swipe_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15200,7 +15200,7 @@ def hand_swipe_right(
     _write(xy=xy, width=width, code="\uec92", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hand_tap(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15220,7 +15220,7 @@ def hand_tap(
     _write(xy=xy, width=width, code="\uec90", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hand_waving(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15240,7 +15240,7 @@ def hand_waving(
     _write(xy=xy, width=width, code="\ue580", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hand_withdraw(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15260,7 +15260,7 @@ def hand_withdraw(
     _write(xy=xy, width=width, code="\uee80", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def handbag(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15280,7 +15280,7 @@ def handbag(
     _write(xy=xy, width=width, code="\ue29c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def handbag_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15300,7 +15300,7 @@ def handbag_simple(
     _write(xy=xy, width=width, code="\ue62e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hands_clapping(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15320,7 +15320,7 @@ def hands_clapping(
     _write(xy=xy, width=width, code="\ue6a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hands_praying(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15340,7 +15340,7 @@ def hands_praying(
     _write(xy=xy, width=width, code="\uecc8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def handshake(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15360,7 +15360,7 @@ def handshake(
     _write(xy=xy, width=width, code="\ue582", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hard_drive(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15380,7 +15380,7 @@ def hard_drive(
     _write(xy=xy, width=width, code="\ue29e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hard_drives(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15400,7 +15400,7 @@ def hard_drives(
     _write(xy=xy, width=width, code="\ue2a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hard_hat(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15420,7 +15420,7 @@ def hard_hat(
     _write(xy=xy, width=width, code="\ued46", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15440,7 +15440,7 @@ def hash(
     _write(xy=xy, width=width, code="\ue2a2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hash_straight(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15460,7 +15460,7 @@ def hash_straight(
     _write(xy=xy, width=width, code="\ue2a4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def head_circuit(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15480,7 +15480,7 @@ def head_circuit(
     _write(xy=xy, width=width, code="\ue7d4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def headlights(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15500,7 +15500,7 @@ def headlights(
     _write(xy=xy, width=width, code="\ue6fe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def headphones(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15520,7 +15520,7 @@ def headphones(
     _write(xy=xy, width=width, code="\ue2a6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def headset(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15540,7 +15540,7 @@ def headset(
     _write(xy=xy, width=width, code="\ue584", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def heart(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15560,7 +15560,7 @@ def heart(
     _write(xy=xy, width=width, code="\ue2a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def heart_break(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15580,7 +15580,7 @@ def heart_break(
     _write(xy=xy, width=width, code="\uebe8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def heart_half(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15600,7 +15600,7 @@ def heart_half(
     _write(xy=xy, width=width, code="\uec48", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def heart_straight(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15620,7 +15620,7 @@ def heart_straight(
     _write(xy=xy, width=width, code="\ue2aa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def heart_straight_break(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15640,7 +15640,7 @@ def heart_straight_break(
     _write(xy=xy, width=width, code="\ueb98", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def heartbeat(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15660,7 +15660,7 @@ def heartbeat(
     _write(xy=xy, width=width, code="\ue2ac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hexagon(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15680,7 +15680,7 @@ def hexagon(
     _write(xy=xy, width=width, code="\ue2ae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def high_definition(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15700,7 +15700,7 @@ def high_definition(
     _write(xy=xy, width=width, code="\uea8e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def high_heel(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15720,7 +15720,7 @@ def high_heel(
     _write(xy=xy, width=width, code="\ue8e8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def highlighter(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15740,7 +15740,7 @@ def highlighter(
     _write(xy=xy, width=width, code="\uec76", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def highlighter_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15760,7 +15760,7 @@ def highlighter_circle(
     _write(xy=xy, width=width, code="\ue632", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hockey(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15780,7 +15780,7 @@ def hockey(
     _write(xy=xy, width=width, code="\uec86", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hoodie(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15800,7 +15800,7 @@ def hoodie(
     _write(xy=xy, width=width, code="\uecd0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def horse(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15820,7 +15820,7 @@ def horse(
     _write(xy=xy, width=width, code="\ue2b0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hospital(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15840,7 +15840,7 @@ def hospital(
     _write(xy=xy, width=width, code="\ue844", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hourglass(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15860,7 +15860,7 @@ def hourglass(
     _write(xy=xy, width=width, code="\ue2b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hourglass_high(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15880,7 +15880,7 @@ def hourglass_high(
     _write(xy=xy, width=width, code="\ue2b4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hourglass_low(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15900,7 +15900,7 @@ def hourglass_low(
     _write(xy=xy, width=width, code="\ue2b6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hourglass_medium(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15920,7 +15920,7 @@ def hourglass_medium(
     _write(xy=xy, width=width, code="\ue2b8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hourglass_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15940,7 +15940,7 @@ def hourglass_simple(
     _write(xy=xy, width=width, code="\ue2ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hourglass_simple_high(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15960,7 +15960,7 @@ def hourglass_simple_high(
     _write(xy=xy, width=width, code="\ue2bc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hourglass_simple_low(
     xy: typing.Tuple[float, float],
     width: float,
@@ -15980,7 +15980,7 @@ def hourglass_simple_low(
     _write(xy=xy, width=width, code="\ue2be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hourglass_simple_medium(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16000,7 +16000,7 @@ def hourglass_simple_medium(
     _write(xy=xy, width=width, code="\ue2c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def house(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16020,7 +16020,7 @@ def house(
     _write(xy=xy, width=width, code="\ue2c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def house_line(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16040,7 +16040,7 @@ def house_line(
     _write(xy=xy, width=width, code="\ue2c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def house_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16060,7 +16060,7 @@ def house_simple(
     _write(xy=xy, width=width, code="\ue2c6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def hurricane(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16080,7 +16080,7 @@ def hurricane(
     _write(xy=xy, width=width, code="\ue88e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def ice_cream(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16100,7 +16100,7 @@ def ice_cream(
     _write(xy=xy, width=width, code="\ue804", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def identification_badge(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16120,7 +16120,7 @@ def identification_badge(
     _write(xy=xy, width=width, code="\ue6f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def identification_card(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16140,7 +16140,7 @@ def identification_card(
     _write(xy=xy, width=width, code="\ue2c8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def image(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16160,7 +16160,7 @@ def image(
     _write(xy=xy, width=width, code="\ue2ca", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def image_broken(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16180,7 +16180,7 @@ def image_broken(
     _write(xy=xy, width=width, code="\ue7a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def image_square(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16200,7 +16200,7 @@ def image_square(
     _write(xy=xy, width=width, code="\ue2cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def images(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16220,7 +16220,7 @@ def images(
     _write(xy=xy, width=width, code="\ue836", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def images_square(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16240,7 +16240,7 @@ def images_square(
     _write(xy=xy, width=width, code="\ue834", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def infinity(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16260,7 +16260,7 @@ def infinity(
     _write(xy=xy, width=width, code="\ue634", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lemniscate(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16280,7 +16280,7 @@ def lemniscate(
     _write(xy=xy, width=width, code="\ue634", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def info(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16300,7 +16300,7 @@ def info(
     _write(xy=xy, width=width, code="\ue2ce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def instagram_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16320,7 +16320,7 @@ def instagram_logo(
     _write(xy=xy, width=width, code="\ue2d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def intersect(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16340,7 +16340,7 @@ def intersect(
     _write(xy=xy, width=width, code="\ue2d2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def intersect_square(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16360,7 +16360,7 @@ def intersect_square(
     _write(xy=xy, width=width, code="\ue87a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def intersect_three(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16380,7 +16380,7 @@ def intersect_three(
     _write(xy=xy, width=width, code="\uecc4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def intersection(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16400,7 +16400,7 @@ def intersection(
     _write(xy=xy, width=width, code="\uedba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def invoice(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16420,7 +16420,7 @@ def invoice(
     _write(xy=xy, width=width, code="\uee42", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def island(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16440,7 +16440,7 @@ def island(
     _write(xy=xy, width=width, code="\uee06", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def jar(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16460,7 +16460,7 @@ def jar(
     _write(xy=xy, width=width, code="\ue7e0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def jar_label(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16480,7 +16480,7 @@ def jar_label(
     _write(xy=xy, width=width, code="\ue7e1", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def jeep(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16500,7 +16500,7 @@ def jeep(
     _write(xy=xy, width=width, code="\ue2d4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def joystick(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16520,7 +16520,7 @@ def joystick(
     _write(xy=xy, width=width, code="\uea5e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def kanban(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16540,7 +16540,7 @@ def kanban(
     _write(xy=xy, width=width, code="\ueb54", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def key(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16560,7 +16560,7 @@ def key(
     _write(xy=xy, width=width, code="\ue2d6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def key_return(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16580,7 +16580,7 @@ def key_return(
     _write(xy=xy, width=width, code="\ue782", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def keyboard(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16600,7 +16600,7 @@ def keyboard(
     _write(xy=xy, width=width, code="\ue2d8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def keyhole(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16620,7 +16620,7 @@ def keyhole(
     _write(xy=xy, width=width, code="\uea78", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def knife(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16640,7 +16640,7 @@ def knife(
     _write(xy=xy, width=width, code="\ue636", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def ladder(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16660,7 +16660,7 @@ def ladder(
     _write(xy=xy, width=width, code="\ue9e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def ladder_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16680,7 +16680,7 @@ def ladder_simple(
     _write(xy=xy, width=width, code="\uec26", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lamp(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16700,7 +16700,7 @@ def lamp(
     _write(xy=xy, width=width, code="\ue638", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lamp_pendant(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16720,7 +16720,7 @@ def lamp_pendant(
     _write(xy=xy, width=width, code="\uee2e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def laptop(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16740,7 +16740,7 @@ def laptop(
     _write(xy=xy, width=width, code="\ue586", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lasso(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16760,7 +16760,7 @@ def lasso(
     _write(xy=xy, width=width, code="\uedc6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lastfm_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16780,7 +16780,7 @@ def lastfm_logo(
     _write(xy=xy, width=width, code="\ue842", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def layout(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16800,7 +16800,7 @@ def layout(
     _write(xy=xy, width=width, code="\ue6d6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def leaf(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16820,7 +16820,7 @@ def leaf(
     _write(xy=xy, width=width, code="\ue2da", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lectern(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16840,7 +16840,7 @@ def lectern(
     _write(xy=xy, width=width, code="\ue95a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lego(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16860,7 +16860,7 @@ def lego(
     _write(xy=xy, width=width, code="\ue8c6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lego_smiley(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16880,7 +16880,7 @@ def lego_smiley(
     _write(xy=xy, width=width, code="\ue8c7", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def less_than(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16900,7 +16900,7 @@ def less_than(
     _write(xy=xy, width=width, code="\uedac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def less_than_or_equal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16920,7 +16920,7 @@ def less_than_or_equal(
     _write(xy=xy, width=width, code="\ueda4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def letter_circle_h(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16940,7 +16940,7 @@ def letter_circle_h(
     _write(xy=xy, width=width, code="\uebf8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def letter_circle_p(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16960,7 +16960,7 @@ def letter_circle_p(
     _write(xy=xy, width=width, code="\uec08", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def letter_circle_v(
     xy: typing.Tuple[float, float],
     width: float,
@@ -16980,7 +16980,7 @@ def letter_circle_v(
     _write(xy=xy, width=width, code="\uec14", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lifebuoy(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17000,7 +17000,7 @@ def lifebuoy(
     _write(xy=xy, width=width, code="\ue63a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lightbulb(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17020,7 +17020,7 @@ def lightbulb(
     _write(xy=xy, width=width, code="\ue2dc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lightbulb_filament(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17040,7 +17040,7 @@ def lightbulb_filament(
     _write(xy=xy, width=width, code="\ue63c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lighthouse(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17060,7 +17060,7 @@ def lighthouse(
     _write(xy=xy, width=width, code="\ue9f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lightning(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17080,7 +17080,7 @@ def lightning(
     _write(xy=xy, width=width, code="\ue2de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lightning_a(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17100,7 +17100,7 @@ def lightning_a(
     _write(xy=xy, width=width, code="\uea84", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lightning_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17120,7 +17120,7 @@ def lightning_slash(
     _write(xy=xy, width=width, code="\ue2e0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def line_segment(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17140,7 +17140,7 @@ def line_segment(
     _write(xy=xy, width=width, code="\ue6d2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def line_segments(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17160,7 +17160,7 @@ def line_segments(
     _write(xy=xy, width=width, code="\ue6d4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def line_vertical(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17180,7 +17180,7 @@ def line_vertical(
     _write(xy=xy, width=width, code="\ued70", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def link(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17200,7 +17200,7 @@ def link(
     _write(xy=xy, width=width, code="\ue2e2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def link_break(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17220,7 +17220,7 @@ def link_break(
     _write(xy=xy, width=width, code="\ue2e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def link_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17240,7 +17240,7 @@ def link_simple(
     _write(xy=xy, width=width, code="\ue2e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def link_simple_break(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17260,7 +17260,7 @@ def link_simple_break(
     _write(xy=xy, width=width, code="\ue2e8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def link_simple_horizontal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17280,7 +17280,7 @@ def link_simple_horizontal(
     _write(xy=xy, width=width, code="\ue2ea", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def link_simple_horizontal_break(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17300,7 +17300,7 @@ def link_simple_horizontal_break(
     _write(xy=xy, width=width, code="\ue2ec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def linkedin_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17320,7 +17320,7 @@ def linkedin_logo(
     _write(xy=xy, width=width, code="\ue2ee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def linktree_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17340,7 +17340,7 @@ def linktree_logo(
     _write(xy=xy, width=width, code="\uedee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def linux_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17360,7 +17360,7 @@ def linux_logo(
     _write(xy=xy, width=width, code="\ueb02", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def list(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17380,7 +17380,7 @@ def list(
     _write(xy=xy, width=width, code="\ue2f0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def list_bullets(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17400,7 +17400,7 @@ def list_bullets(
     _write(xy=xy, width=width, code="\ue2f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def list_checks(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17420,7 +17420,7 @@ def list_checks(
     _write(xy=xy, width=width, code="\ueadc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def list_dashes(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17440,7 +17440,7 @@ def list_dashes(
     _write(xy=xy, width=width, code="\ue2f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def list_heart(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17460,7 +17460,7 @@ def list_heart(
     _write(xy=xy, width=width, code="\uebde", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def list_magnifying_glass(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17480,7 +17480,7 @@ def list_magnifying_glass(
     _write(xy=xy, width=width, code="\uebe0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def list_numbers(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17500,7 +17500,7 @@ def list_numbers(
     _write(xy=xy, width=width, code="\ue2f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def list_plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17520,7 +17520,7 @@ def list_plus(
     _write(xy=xy, width=width, code="\ue2f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def list_star(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17540,7 +17540,7 @@ def list_star(
     _write(xy=xy, width=width, code="\uebdc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lock(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17560,7 +17560,7 @@ def lock(
     _write(xy=xy, width=width, code="\ue2fa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lock_key(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17580,7 +17580,7 @@ def lock_key(
     _write(xy=xy, width=width, code="\ue2fe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lock_key_open(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17600,7 +17600,7 @@ def lock_key_open(
     _write(xy=xy, width=width, code="\ue300", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lock_laminated(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17620,7 +17620,7 @@ def lock_laminated(
     _write(xy=xy, width=width, code="\ue302", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lock_laminated_open(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17640,7 +17640,7 @@ def lock_laminated_open(
     _write(xy=xy, width=width, code="\ue304", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lock_open(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17660,7 +17660,7 @@ def lock_open(
     _write(xy=xy, width=width, code="\ue306", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lock_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17680,7 +17680,7 @@ def lock_simple(
     _write(xy=xy, width=width, code="\ue308", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lock_simple_open(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17700,7 +17700,7 @@ def lock_simple_open(
     _write(xy=xy, width=width, code="\ue30a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def lockers(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17720,7 +17720,7 @@ def lockers(
     _write(xy=xy, width=width, code="\uecb8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def log(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17740,7 +17740,7 @@ def log(
     _write(xy=xy, width=width, code="\ued82", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def magic_wand(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17760,7 +17760,7 @@ def magic_wand(
     _write(xy=xy, width=width, code="\ue6b6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def magnet(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17780,7 +17780,7 @@ def magnet(
     _write(xy=xy, width=width, code="\ue680", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def magnet_straight(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17800,7 +17800,7 @@ def magnet_straight(
     _write(xy=xy, width=width, code="\ue682", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def magnifying_glass(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17820,7 +17820,7 @@ def magnifying_glass(
     _write(xy=xy, width=width, code="\ue30c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def magnifying_glass_minus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17840,7 +17840,7 @@ def magnifying_glass_minus(
     _write(xy=xy, width=width, code="\ue30e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def magnifying_glass_plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17860,7 +17860,7 @@ def magnifying_glass_plus(
     _write(xy=xy, width=width, code="\ue310", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def mailbox(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17880,7 +17880,7 @@ def mailbox(
     _write(xy=xy, width=width, code="\uec1e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def map_pin(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17900,7 +17900,7 @@ def map_pin(
     _write(xy=xy, width=width, code="\ue316", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def map_pin_area(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17920,7 +17920,7 @@ def map_pin_area(
     _write(xy=xy, width=width, code="\uee3a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def map_pin_line(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17940,7 +17940,7 @@ def map_pin_line(
     _write(xy=xy, width=width, code="\ue318", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def map_pin_plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17960,7 +17960,7 @@ def map_pin_plus(
     _write(xy=xy, width=width, code="\ue314", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def map_pin_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -17980,7 +17980,7 @@ def map_pin_simple(
     _write(xy=xy, width=width, code="\uee3e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def map_pin_simple_area(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18000,7 +18000,7 @@ def map_pin_simple_area(
     _write(xy=xy, width=width, code="\uee3c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def map_pin_simple_line(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18020,7 +18020,7 @@ def map_pin_simple_line(
     _write(xy=xy, width=width, code="\uee38", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def map_trifold(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18040,7 +18040,7 @@ def map_trifold(
     _write(xy=xy, width=width, code="\ue31a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def markdown_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18060,7 +18060,7 @@ def markdown_logo(
     _write(xy=xy, width=width, code="\ue508", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def marker_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18080,7 +18080,7 @@ def marker_circle(
     _write(xy=xy, width=width, code="\ue640", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def martini(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18100,7 +18100,7 @@ def martini(
     _write(xy=xy, width=width, code="\ue31c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def mask_happy(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18120,7 +18120,7 @@ def mask_happy(
     _write(xy=xy, width=width, code="\ue9f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def mask_sad(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18140,7 +18140,7 @@ def mask_sad(
     _write(xy=xy, width=width, code="\ueb9e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def mastodon_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18160,7 +18160,7 @@ def mastodon_logo(
     _write(xy=xy, width=width, code="\ued68", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def math_operations(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18180,7 +18180,7 @@ def math_operations(
     _write(xy=xy, width=width, code="\ue31e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def matrix_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18200,7 +18200,7 @@ def matrix_logo(
     _write(xy=xy, width=width, code="\ued64", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def medal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18220,7 +18220,7 @@ def medal(
     _write(xy=xy, width=width, code="\ue320", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def medal_military(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18240,7 +18240,7 @@ def medal_military(
     _write(xy=xy, width=width, code="\uecfc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def medium_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18260,7 +18260,7 @@ def medium_logo(
     _write(xy=xy, width=width, code="\ue322", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def megaphone(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18280,7 +18280,7 @@ def megaphone(
     _write(xy=xy, width=width, code="\ue324", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def megaphone_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18300,7 +18300,7 @@ def megaphone_simple(
     _write(xy=xy, width=width, code="\ue642", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def member_of(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18320,7 +18320,7 @@ def member_of(
     _write(xy=xy, width=width, code="\uedc2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def memory(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18340,7 +18340,7 @@ def memory(
     _write(xy=xy, width=width, code="\ue9c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def messenger_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18360,7 +18360,7 @@ def messenger_logo(
     _write(xy=xy, width=width, code="\ue6d8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def meta_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18380,7 +18380,7 @@ def meta_logo(
     _write(xy=xy, width=width, code="\ued02", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def meteor(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18400,7 +18400,7 @@ def meteor(
     _write(xy=xy, width=width, code="\ue9ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def metronome(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18420,7 +18420,7 @@ def metronome(
     _write(xy=xy, width=width, code="\uec8e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def microphone(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18440,7 +18440,7 @@ def microphone(
     _write(xy=xy, width=width, code="\ue326", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def microphone_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18460,7 +18460,7 @@ def microphone_slash(
     _write(xy=xy, width=width, code="\ue328", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def microphone_stage(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18480,7 +18480,7 @@ def microphone_stage(
     _write(xy=xy, width=width, code="\ue75c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def microscope(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18500,7 +18500,7 @@ def microscope(
     _write(xy=xy, width=width, code="\uec7a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def microsoft_excel_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18520,7 +18520,7 @@ def microsoft_excel_logo(
     _write(xy=xy, width=width, code="\ueb6c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def microsoft_outlook_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18540,7 +18540,7 @@ def microsoft_outlook_logo(
     _write(xy=xy, width=width, code="\ueb70", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def microsoft_powerpoint_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18560,7 +18560,7 @@ def microsoft_powerpoint_logo(
     _write(xy=xy, width=width, code="\ueace", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def microsoft_teams_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18580,7 +18580,7 @@ def microsoft_teams_logo(
     _write(xy=xy, width=width, code="\ueb66", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def microsoft_word_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18600,7 +18600,7 @@ def microsoft_word_logo(
     _write(xy=xy, width=width, code="\ueb6a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def minus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18620,7 +18620,7 @@ def minus(
     _write(xy=xy, width=width, code="\ue32a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def minus_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18640,7 +18640,7 @@ def minus_circle(
     _write(xy=xy, width=width, code="\ue32c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def minus_square(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18660,7 +18660,7 @@ def minus_square(
     _write(xy=xy, width=width, code="\ued4c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def money(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18680,7 +18680,7 @@ def money(
     _write(xy=xy, width=width, code="\ue588", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def money_wavy(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18700,7 +18700,7 @@ def money_wavy(
     _write(xy=xy, width=width, code="\uee68", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def monitor(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18720,7 +18720,7 @@ def monitor(
     _write(xy=xy, width=width, code="\ue32e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def monitor_arrow_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18740,7 +18740,7 @@ def monitor_arrow_up(
     _write(xy=xy, width=width, code="\ue58a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def monitor_play(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18760,7 +18760,7 @@ def monitor_play(
     _write(xy=xy, width=width, code="\ue58c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def moon(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18780,7 +18780,7 @@ def moon(
     _write(xy=xy, width=width, code="\ue330", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def moon_stars(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18800,7 +18800,7 @@ def moon_stars(
     _write(xy=xy, width=width, code="\ue58e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def moped(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18820,7 +18820,7 @@ def moped(
     _write(xy=xy, width=width, code="\ue824", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def moped_front(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18840,7 +18840,7 @@ def moped_front(
     _write(xy=xy, width=width, code="\ue822", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def mosque(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18860,7 +18860,7 @@ def mosque(
     _write(xy=xy, width=width, code="\uecee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def motorcycle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18880,7 +18880,7 @@ def motorcycle(
     _write(xy=xy, width=width, code="\ue80a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def mountains(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18900,7 +18900,7 @@ def mountains(
     _write(xy=xy, width=width, code="\ue7ae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def mouse(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18920,7 +18920,7 @@ def mouse(
     _write(xy=xy, width=width, code="\ue33a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def mouse_left_click(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18940,7 +18940,7 @@ def mouse_left_click(
     _write(xy=xy, width=width, code="\ue334", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def mouse_middle_click(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18960,7 +18960,7 @@ def mouse_middle_click(
     _write(xy=xy, width=width, code="\ue338", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def mouse_right_click(
     xy: typing.Tuple[float, float],
     width: float,
@@ -18980,7 +18980,7 @@ def mouse_right_click(
     _write(xy=xy, width=width, code="\ue336", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def mouse_scroll(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19000,7 +19000,7 @@ def mouse_scroll(
     _write(xy=xy, width=width, code="\ue332", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def mouse_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19020,7 +19020,7 @@ def mouse_simple(
     _write(xy=xy, width=width, code="\ue644", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def music_note(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19040,7 +19040,7 @@ def music_note(
     _write(xy=xy, width=width, code="\ue33c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def music_note_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19060,7 +19060,7 @@ def music_note_simple(
     _write(xy=xy, width=width, code="\ue33e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def music_notes(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19080,7 +19080,7 @@ def music_notes(
     _write(xy=xy, width=width, code="\ue340", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def music_notes_minus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19100,7 +19100,7 @@ def music_notes_minus(
     _write(xy=xy, width=width, code="\uee0c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def music_notes_plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19120,7 +19120,7 @@ def music_notes_plus(
     _write(xy=xy, width=width, code="\ueb7c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def music_notes_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19140,7 +19140,7 @@ def music_notes_simple(
     _write(xy=xy, width=width, code="\ue342", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def navigation_arrow(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19160,7 +19160,7 @@ def navigation_arrow(
     _write(xy=xy, width=width, code="\ueade", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def needle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19180,7 +19180,7 @@ def needle(
     _write(xy=xy, width=width, code="\ue82e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def network(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19200,7 +19200,7 @@ def network(
     _write(xy=xy, width=width, code="\uedde", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def network_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19220,7 +19220,7 @@ def network_slash(
     _write(xy=xy, width=width, code="\ueddc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def network_x(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19240,7 +19240,7 @@ def network_x(
     _write(xy=xy, width=width, code="\uedda", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def newspaper(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19260,7 +19260,7 @@ def newspaper(
     _write(xy=xy, width=width, code="\ue344", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def newspaper_clipping(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19280,7 +19280,7 @@ def newspaper_clipping(
     _write(xy=xy, width=width, code="\ue346", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def not_equals(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19300,7 +19300,7 @@ def not_equals(
     _write(xy=xy, width=width, code="\ueda6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def not_member_of(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19320,7 +19320,7 @@ def not_member_of(
     _write(xy=xy, width=width, code="\uedae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def not_subset_of(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19340,7 +19340,7 @@ def not_subset_of(
     _write(xy=xy, width=width, code="\uedb0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def not_superset_of(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19360,7 +19360,7 @@ def not_superset_of(
     _write(xy=xy, width=width, code="\uedb2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def notches(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19380,7 +19380,7 @@ def notches(
     _write(xy=xy, width=width, code="\ued3a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def note(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19400,7 +19400,7 @@ def note(
     _write(xy=xy, width=width, code="\ue348", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def note_blank(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19420,7 +19420,7 @@ def note_blank(
     _write(xy=xy, width=width, code="\ue34a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def note_pencil(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19440,7 +19440,7 @@ def note_pencil(
     _write(xy=xy, width=width, code="\ue34c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def notebook(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19460,7 +19460,7 @@ def notebook(
     _write(xy=xy, width=width, code="\ue34e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def notepad(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19480,7 +19480,7 @@ def notepad(
     _write(xy=xy, width=width, code="\ue63e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def notification(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19500,7 +19500,7 @@ def notification(
     _write(xy=xy, width=width, code="\ue6fa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def notion_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19520,7 +19520,7 @@ def notion_logo(
     _write(xy=xy, width=width, code="\ue9a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def nuclear_plant(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19540,7 +19540,7 @@ def nuclear_plant(
     _write(xy=xy, width=width, code="\ued7c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_circle_eight(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19560,7 +19560,7 @@ def number_circle_eight(
     _write(xy=xy, width=width, code="\ue352", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_circle_five(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19580,7 +19580,7 @@ def number_circle_five(
     _write(xy=xy, width=width, code="\ue358", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_circle_four(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19600,7 +19600,7 @@ def number_circle_four(
     _write(xy=xy, width=width, code="\ue35e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_circle_nine(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19620,7 +19620,7 @@ def number_circle_nine(
     _write(xy=xy, width=width, code="\ue364", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_circle_one(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19640,7 +19640,7 @@ def number_circle_one(
     _write(xy=xy, width=width, code="\ue36a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_circle_seven(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19660,7 +19660,7 @@ def number_circle_seven(
     _write(xy=xy, width=width, code="\ue370", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_circle_six(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19680,7 +19680,7 @@ def number_circle_six(
     _write(xy=xy, width=width, code="\ue376", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_circle_three(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19700,7 +19700,7 @@ def number_circle_three(
     _write(xy=xy, width=width, code="\ue37c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_circle_two(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19720,7 +19720,7 @@ def number_circle_two(
     _write(xy=xy, width=width, code="\ue382", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_circle_zero(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19740,7 +19740,7 @@ def number_circle_zero(
     _write(xy=xy, width=width, code="\ue388", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_eight(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19760,7 +19760,7 @@ def number_eight(
     _write(xy=xy, width=width, code="\ue350", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_five(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19780,7 +19780,7 @@ def number_five(
     _write(xy=xy, width=width, code="\ue356", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_four(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19800,7 +19800,7 @@ def number_four(
     _write(xy=xy, width=width, code="\ue35c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_nine(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19820,7 +19820,7 @@ def number_nine(
     _write(xy=xy, width=width, code="\ue362", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_one(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19840,7 +19840,7 @@ def number_one(
     _write(xy=xy, width=width, code="\ue368", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_seven(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19860,7 +19860,7 @@ def number_seven(
     _write(xy=xy, width=width, code="\ue36e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_six(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19880,7 +19880,7 @@ def number_six(
     _write(xy=xy, width=width, code="\ue374", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_square_eight(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19900,7 +19900,7 @@ def number_square_eight(
     _write(xy=xy, width=width, code="\ue354", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_square_five(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19920,7 +19920,7 @@ def number_square_five(
     _write(xy=xy, width=width, code="\ue35a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_square_four(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19940,7 +19940,7 @@ def number_square_four(
     _write(xy=xy, width=width, code="\ue360", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_square_nine(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19960,7 +19960,7 @@ def number_square_nine(
     _write(xy=xy, width=width, code="\ue366", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_square_one(
     xy: typing.Tuple[float, float],
     width: float,
@@ -19980,7 +19980,7 @@ def number_square_one(
     _write(xy=xy, width=width, code="\ue36c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_square_seven(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20000,7 +20000,7 @@ def number_square_seven(
     _write(xy=xy, width=width, code="\ue372", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_square_six(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20020,7 +20020,7 @@ def number_square_six(
     _write(xy=xy, width=width, code="\ue378", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_square_three(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20040,7 +20040,7 @@ def number_square_three(
     _write(xy=xy, width=width, code="\ue37e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_square_two(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20060,7 +20060,7 @@ def number_square_two(
     _write(xy=xy, width=width, code="\ue384", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_square_zero(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20080,7 +20080,7 @@ def number_square_zero(
     _write(xy=xy, width=width, code="\ue38a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_three(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20100,7 +20100,7 @@ def number_three(
     _write(xy=xy, width=width, code="\ue37a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_two(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20120,7 +20120,7 @@ def number_two(
     _write(xy=xy, width=width, code="\ue380", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def number_zero(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20140,7 +20140,7 @@ def number_zero(
     _write(xy=xy, width=width, code="\ue386", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def numpad(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20160,7 +20160,7 @@ def numpad(
     _write(xy=xy, width=width, code="\ue3c8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def nut(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20180,7 +20180,7 @@ def nut(
     _write(xy=xy, width=width, code="\ue38c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def ny_times_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20200,7 +20200,7 @@ def ny_times_logo(
     _write(xy=xy, width=width, code="\ue646", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def octagon(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20220,7 +20220,7 @@ def octagon(
     _write(xy=xy, width=width, code="\ue38e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def office_chair(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20240,7 +20240,7 @@ def office_chair(
     _write(xy=xy, width=width, code="\uea46", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def onigiri(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20260,7 +20260,7 @@ def onigiri(
     _write(xy=xy, width=width, code="\uee2c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def open_ai_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20280,7 +20280,7 @@ def open_ai_logo(
     _write(xy=xy, width=width, code="\ue7d2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def option(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20300,7 +20300,7 @@ def option(
     _write(xy=xy, width=width, code="\ue8a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def orange(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20320,7 +20320,7 @@ def orange(
     _write(xy=xy, width=width, code="\uee40", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def orange_slice(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20340,7 +20340,7 @@ def orange_slice(
     _write(xy=xy, width=width, code="\ued36", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def oven(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20360,7 +20360,7 @@ def oven(
     _write(xy=xy, width=width, code="\ued8c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def package(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20380,7 +20380,7 @@ def package(
     _write(xy=xy, width=width, code="\ue390", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def paint_brush(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20400,7 +20400,7 @@ def paint_brush(
     _write(xy=xy, width=width, code="\ue6f0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def paint_brush_broad(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20420,7 +20420,7 @@ def paint_brush_broad(
     _write(xy=xy, width=width, code="\ue590", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def paint_brush_household(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20440,7 +20440,7 @@ def paint_brush_household(
     _write(xy=xy, width=width, code="\ue6f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def paint_bucket(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20460,7 +20460,7 @@ def paint_bucket(
     _write(xy=xy, width=width, code="\ue392", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def paint_roller(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20480,7 +20480,7 @@ def paint_roller(
     _write(xy=xy, width=width, code="\ue6f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def palette(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20500,7 +20500,7 @@ def palette(
     _write(xy=xy, width=width, code="\ue6c8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def panorama(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20520,7 +20520,7 @@ def panorama(
     _write(xy=xy, width=width, code="\ueaa2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pants(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20540,7 +20540,7 @@ def pants(
     _write(xy=xy, width=width, code="\uec88", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def paper_plane(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20560,7 +20560,7 @@ def paper_plane(
     _write(xy=xy, width=width, code="\ue394", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def paper_plane_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20580,7 +20580,7 @@ def paper_plane_right(
     _write(xy=xy, width=width, code="\ue396", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def paper_plane_tilt(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20600,7 +20600,7 @@ def paper_plane_tilt(
     _write(xy=xy, width=width, code="\ue398", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def paperclip(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20620,7 +20620,7 @@ def paperclip(
     _write(xy=xy, width=width, code="\ue39a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def paperclip_horizontal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20640,7 +20640,7 @@ def paperclip_horizontal(
     _write(xy=xy, width=width, code="\ue592", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def parachute(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20660,7 +20660,7 @@ def parachute(
     _write(xy=xy, width=width, code="\uea7c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def paragraph(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20680,7 +20680,7 @@ def paragraph(
     _write(xy=xy, width=width, code="\ue960", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def parallelogram(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20700,7 +20700,7 @@ def parallelogram(
     _write(xy=xy, width=width, code="\uecc6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def park(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20720,7 +20720,7 @@ def park(
     _write(xy=xy, width=width, code="\uecb2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def password(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20740,7 +20740,7 @@ def password(
     _write(xy=xy, width=width, code="\ue752", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def path(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20760,7 +20760,7 @@ def path(
     _write(xy=xy, width=width, code="\ue39c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def patreon_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20780,7 +20780,7 @@ def patreon_logo(
     _write(xy=xy, width=width, code="\ue98a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pause(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20800,7 +20800,7 @@ def pause(
     _write(xy=xy, width=width, code="\ue39e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pause_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20820,7 +20820,7 @@ def pause_circle(
     _write(xy=xy, width=width, code="\ue3a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def paw_print(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20840,7 +20840,7 @@ def paw_print(
     _write(xy=xy, width=width, code="\ue648", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def paypal_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20860,7 +20860,7 @@ def paypal_logo(
     _write(xy=xy, width=width, code="\ue98c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def peace(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20880,7 +20880,7 @@ def peace(
     _write(xy=xy, width=width, code="\ue3a2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pen(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20900,7 +20900,7 @@ def pen(
     _write(xy=xy, width=width, code="\ue3aa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pen_nib(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20920,7 +20920,7 @@ def pen_nib(
     _write(xy=xy, width=width, code="\ue3ac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pen_nib_straight(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20940,7 +20940,7 @@ def pen_nib_straight(
     _write(xy=xy, width=width, code="\ue64a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pencil(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20960,7 +20960,7 @@ def pencil(
     _write(xy=xy, width=width, code="\ue3ae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pencil_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -20980,7 +20980,7 @@ def pencil_circle(
     _write(xy=xy, width=width, code="\ue3b0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pencil_line(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21000,7 +21000,7 @@ def pencil_line(
     _write(xy=xy, width=width, code="\ue3b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pencil_ruler(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21020,7 +21020,7 @@ def pencil_ruler(
     _write(xy=xy, width=width, code="\ue906", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pencil_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21040,7 +21040,7 @@ def pencil_simple(
     _write(xy=xy, width=width, code="\ue3b4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pencil_simple_line(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21060,7 +21060,7 @@ def pencil_simple_line(
     _write(xy=xy, width=width, code="\uebc6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pencil_simple_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21080,7 +21080,7 @@ def pencil_simple_slash(
     _write(xy=xy, width=width, code="\uecf6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pencil_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21100,7 +21100,7 @@ def pencil_slash(
     _write(xy=xy, width=width, code="\uecf8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pentagon(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21120,7 +21120,7 @@ def pentagon(
     _write(xy=xy, width=width, code="\uec7e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pentagram(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21140,7 +21140,7 @@ def pentagram(
     _write(xy=xy, width=width, code="\uec5c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pepper(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21160,7 +21160,7 @@ def pepper(
     _write(xy=xy, width=width, code="\ue94a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def percent(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21180,7 +21180,7 @@ def percent(
     _write(xy=xy, width=width, code="\ue3b6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def person(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21200,7 +21200,7 @@ def person(
     _write(xy=xy, width=width, code="\ue3a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def person_arms_spread(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21220,7 +21220,7 @@ def person_arms_spread(
     _write(xy=xy, width=width, code="\uecfe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def person_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21240,7 +21240,7 @@ def person_simple(
     _write(xy=xy, width=width, code="\ue72e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def person_simple_bike(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21260,7 +21260,7 @@ def person_simple_bike(
     _write(xy=xy, width=width, code="\ue734", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def person_simple_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21280,7 +21280,7 @@ def person_simple_circle(
     _write(xy=xy, width=width, code="\uee58", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def person_simple_hike(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21300,7 +21300,7 @@ def person_simple_hike(
     _write(xy=xy, width=width, code="\ued54", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def person_simple_run(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21320,7 +21320,7 @@ def person_simple_run(
     _write(xy=xy, width=width, code="\ue730", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def person_simple_ski(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21340,7 +21340,7 @@ def person_simple_ski(
     _write(xy=xy, width=width, code="\ue71c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def person_simple_snowboard(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21360,7 +21360,7 @@ def person_simple_snowboard(
     _write(xy=xy, width=width, code="\ue71e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def person_simple_swim(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21380,7 +21380,7 @@ def person_simple_swim(
     _write(xy=xy, width=width, code="\ue736", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def person_simple_tai_chi(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21400,7 +21400,7 @@ def person_simple_tai_chi(
     _write(xy=xy, width=width, code="\ued5c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def person_simple_throw(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21420,7 +21420,7 @@ def person_simple_throw(
     _write(xy=xy, width=width, code="\ue732", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def person_simple_walk(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21440,7 +21440,7 @@ def person_simple_walk(
     _write(xy=xy, width=width, code="\ue73a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def perspective(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21460,7 +21460,7 @@ def perspective(
     _write(xy=xy, width=width, code="\uebe6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def phone(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21480,7 +21480,7 @@ def phone(
     _write(xy=xy, width=width, code="\ue3b8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def phone_call(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21500,7 +21500,7 @@ def phone_call(
     _write(xy=xy, width=width, code="\ue3ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def phone_disconnect(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21520,7 +21520,7 @@ def phone_disconnect(
     _write(xy=xy, width=width, code="\ue3bc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def phone_incoming(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21540,7 +21540,7 @@ def phone_incoming(
     _write(xy=xy, width=width, code="\ue3be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def phone_list(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21560,7 +21560,7 @@ def phone_list(
     _write(xy=xy, width=width, code="\ue3cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def phone_outgoing(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21580,7 +21580,7 @@ def phone_outgoing(
     _write(xy=xy, width=width, code="\ue3c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def phone_pause(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21600,7 +21600,7 @@ def phone_pause(
     _write(xy=xy, width=width, code="\ue3ca", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def phone_plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21620,7 +21620,7 @@ def phone_plus(
     _write(xy=xy, width=width, code="\uec56", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def phone_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21640,7 +21640,7 @@ def phone_slash(
     _write(xy=xy, width=width, code="\ue3c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def phone_transfer(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21660,7 +21660,7 @@ def phone_transfer(
     _write(xy=xy, width=width, code="\ue3c6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def phone_x(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21680,7 +21680,7 @@ def phone_x(
     _write(xy=xy, width=width, code="\ue3c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def phosphor_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21700,7 +21700,7 @@ def phosphor_logo(
     _write(xy=xy, width=width, code="\ue3ce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pi(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21720,7 +21720,7 @@ def pi(
     _write(xy=xy, width=width, code="\uec80", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def piano_keys(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21740,7 +21740,7 @@ def piano_keys(
     _write(xy=xy, width=width, code="\ue9c8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def picnic_table(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21760,7 +21760,7 @@ def picnic_table(
     _write(xy=xy, width=width, code="\uee26", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def picture_in_picture(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21780,7 +21780,7 @@ def picture_in_picture(
     _write(xy=xy, width=width, code="\ue64c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def piggy_bank(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21800,7 +21800,7 @@ def piggy_bank(
     _write(xy=xy, width=width, code="\uea04", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pill(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21820,7 +21820,7 @@ def pill(
     _write(xy=xy, width=width, code="\ue700", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def ping_pong(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21840,7 +21840,7 @@ def ping_pong(
     _write(xy=xy, width=width, code="\uea42", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pint_glass(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21860,7 +21860,7 @@ def pint_glass(
     _write(xy=xy, width=width, code="\uedd0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pinterest_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21880,7 +21880,7 @@ def pinterest_logo(
     _write(xy=xy, width=width, code="\ue64e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pinwheel(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21900,7 +21900,7 @@ def pinwheel(
     _write(xy=xy, width=width, code="\ueb9c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pipe(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21920,7 +21920,7 @@ def pipe(
     _write(xy=xy, width=width, code="\ued86", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pipe_wrench(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21940,7 +21940,7 @@ def pipe_wrench(
     _write(xy=xy, width=width, code="\ued88", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pix_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21960,7 +21960,7 @@ def pix_logo(
     _write(xy=xy, width=width, code="\uecc2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pizza(
     xy: typing.Tuple[float, float],
     width: float,
@@ -21980,7 +21980,7 @@ def pizza(
     _write(xy=xy, width=width, code="\ue796", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def placeholder(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22000,7 +22000,7 @@ def placeholder(
     _write(xy=xy, width=width, code="\ue650", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def planet(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22020,7 +22020,7 @@ def planet(
     _write(xy=xy, width=width, code="\ue652", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def plant(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22040,7 +22040,7 @@ def plant(
     _write(xy=xy, width=width, code="\uebae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def play(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22060,7 +22060,7 @@ def play(
     _write(xy=xy, width=width, code="\ue3d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def play_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22080,7 +22080,7 @@ def play_circle(
     _write(xy=xy, width=width, code="\ue3d2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def play_pause(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22100,7 +22100,7 @@ def play_pause(
     _write(xy=xy, width=width, code="\ue8be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def playlist(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22120,7 +22120,7 @@ def playlist(
     _write(xy=xy, width=width, code="\ue6aa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def plug(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22140,7 +22140,7 @@ def plug(
     _write(xy=xy, width=width, code="\ue946", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def plug_charging(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22160,7 +22160,7 @@ def plug_charging(
     _write(xy=xy, width=width, code="\ueb5c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def plugs(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22180,7 +22180,7 @@ def plugs(
     _write(xy=xy, width=width, code="\ueb56", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def plugs_connected(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22200,7 +22200,7 @@ def plugs_connected(
     _write(xy=xy, width=width, code="\ueb5a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22220,7 +22220,7 @@ def plus(
     _write(xy=xy, width=width, code="\ue3d4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def plus_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22240,7 +22240,7 @@ def plus_circle(
     _write(xy=xy, width=width, code="\ue3d6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def plus_minus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22260,7 +22260,7 @@ def plus_minus(
     _write(xy=xy, width=width, code="\ue3d8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def plus_square(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22280,7 +22280,7 @@ def plus_square(
     _write(xy=xy, width=width, code="\ued4a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def poker_chip(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22300,7 +22300,7 @@ def poker_chip(
     _write(xy=xy, width=width, code="\ue594", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def police_car(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22320,7 +22320,7 @@ def police_car(
     _write(xy=xy, width=width, code="\uec4a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def polygon(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22340,7 +22340,7 @@ def polygon(
     _write(xy=xy, width=width, code="\ue6d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def popcorn(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22360,7 +22360,7 @@ def popcorn(
     _write(xy=xy, width=width, code="\ueb4e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def popsicle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22380,7 +22380,7 @@ def popsicle(
     _write(xy=xy, width=width, code="\uebbe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def potted_plant(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22400,7 +22400,7 @@ def potted_plant(
     _write(xy=xy, width=width, code="\uec22", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def power(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22420,7 +22420,7 @@ def power(
     _write(xy=xy, width=width, code="\ue3da", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def prescription(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22440,7 +22440,7 @@ def prescription(
     _write(xy=xy, width=width, code="\ue7a2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def presentation(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22460,7 +22460,7 @@ def presentation(
     _write(xy=xy, width=width, code="\ue654", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def presentation_chart(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22480,7 +22480,7 @@ def presentation_chart(
     _write(xy=xy, width=width, code="\ue656", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def printer(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22500,7 +22500,7 @@ def printer(
     _write(xy=xy, width=width, code="\ue3dc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def prohibit(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22520,7 +22520,7 @@ def prohibit(
     _write(xy=xy, width=width, code="\ue3de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def prohibit_inset(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22540,7 +22540,7 @@ def prohibit_inset(
     _write(xy=xy, width=width, code="\ue3e0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def projector_screen(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22560,7 +22560,7 @@ def projector_screen(
     _write(xy=xy, width=width, code="\ue658", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def projector_screen_chart(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22580,7 +22580,7 @@ def projector_screen_chart(
     _write(xy=xy, width=width, code="\ue65a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def pulse(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22600,7 +22600,7 @@ def pulse(
     _write(xy=xy, width=width, code="\ue000", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def activity(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22620,7 +22620,7 @@ def activity(
     _write(xy=xy, width=width, code="\ue000", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def push_pin(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22640,7 +22640,7 @@ def push_pin(
     _write(xy=xy, width=width, code="\ue3e2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def push_pin_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22660,7 +22660,7 @@ def push_pin_simple(
     _write(xy=xy, width=width, code="\ue65c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def push_pin_simple_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22680,7 +22680,7 @@ def push_pin_simple_slash(
     _write(xy=xy, width=width, code="\ue65e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def push_pin_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22700,7 +22700,7 @@ def push_pin_slash(
     _write(xy=xy, width=width, code="\ue3e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def puzzle_piece(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22720,7 +22720,7 @@ def puzzle_piece(
     _write(xy=xy, width=width, code="\ue596", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def qr_code(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22740,7 +22740,7 @@ def qr_code(
     _write(xy=xy, width=width, code="\ue3e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def question(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22760,7 +22760,7 @@ def question(
     _write(xy=xy, width=width, code="\ue3e8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def question_mark(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22780,7 +22780,7 @@ def question_mark(
     _write(xy=xy, width=width, code="\ue3e9", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def queue(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22800,7 +22800,7 @@ def queue(
     _write(xy=xy, width=width, code="\ue6ac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def quotes(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22820,7 +22820,7 @@ def quotes(
     _write(xy=xy, width=width, code="\ue660", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def rabbit(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22840,7 +22840,7 @@ def rabbit(
     _write(xy=xy, width=width, code="\ueac2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def racquet(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22860,7 +22860,7 @@ def racquet(
     _write(xy=xy, width=width, code="\uee02", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def radical(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22880,7 +22880,7 @@ def radical(
     _write(xy=xy, width=width, code="\ue3ea", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def radio(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22900,7 +22900,7 @@ def radio(
     _write(xy=xy, width=width, code="\ue77e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def radio_button(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22920,7 +22920,7 @@ def radio_button(
     _write(xy=xy, width=width, code="\ueb08", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def radioactive(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22940,7 +22940,7 @@ def radioactive(
     _write(xy=xy, width=width, code="\ue9dc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def rainbow(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22960,7 +22960,7 @@ def rainbow(
     _write(xy=xy, width=width, code="\ue598", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def rainbow_cloud(
     xy: typing.Tuple[float, float],
     width: float,
@@ -22980,7 +22980,7 @@ def rainbow_cloud(
     _write(xy=xy, width=width, code="\ue59a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def ranking(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23000,7 +23000,7 @@ def ranking(
     _write(xy=xy, width=width, code="\ued62", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def read_cv_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23020,7 +23020,7 @@ def read_cv_logo(
     _write(xy=xy, width=width, code="\ued0c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def receipt(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23040,7 +23040,7 @@ def receipt(
     _write(xy=xy, width=width, code="\ue3ec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def receipt_x(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23060,7 +23060,7 @@ def receipt_x(
     _write(xy=xy, width=width, code="\ued40", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def record(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23080,7 +23080,7 @@ def record(
     _write(xy=xy, width=width, code="\ue3ee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def rectangle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23100,7 +23100,7 @@ def rectangle(
     _write(xy=xy, width=width, code="\ue3f0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def rectangle_dashed(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23120,7 +23120,7 @@ def rectangle_dashed(
     _write(xy=xy, width=width, code="\ue3f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def recycle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23140,7 +23140,7 @@ def recycle(
     _write(xy=xy, width=width, code="\ue75a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def reddit_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23160,7 +23160,7 @@ def reddit_logo(
     _write(xy=xy, width=width, code="\ue59c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def repeat(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23180,7 +23180,7 @@ def repeat(
     _write(xy=xy, width=width, code="\ue3f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def repeat_once(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23200,7 +23200,7 @@ def repeat_once(
     _write(xy=xy, width=width, code="\ue3f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def replit_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23220,7 +23220,7 @@ def replit_logo(
     _write(xy=xy, width=width, code="\ueb8a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def resize(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23240,7 +23240,7 @@ def resize(
     _write(xy=xy, width=width, code="\ued6e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def rewind(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23260,7 +23260,7 @@ def rewind(
     _write(xy=xy, width=width, code="\ue6a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def rewind_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23280,7 +23280,7 @@ def rewind_circle(
     _write(xy=xy, width=width, code="\ue3fa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def road_horizon(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23300,7 +23300,7 @@ def road_horizon(
     _write(xy=xy, width=width, code="\ue838", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def robot(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23320,7 +23320,7 @@ def robot(
     _write(xy=xy, width=width, code="\ue762", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def rocket(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23340,7 +23340,7 @@ def rocket(
     _write(xy=xy, width=width, code="\ue3fc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def rocket_launch(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23360,7 +23360,7 @@ def rocket_launch(
     _write(xy=xy, width=width, code="\ue3fe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def rows(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23380,7 +23380,7 @@ def rows(
     _write(xy=xy, width=width, code="\ue5a2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def rows_plus_bottom(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23400,7 +23400,7 @@ def rows_plus_bottom(
     _write(xy=xy, width=width, code="\ue59e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def rows_plus_top(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23420,7 +23420,7 @@ def rows_plus_top(
     _write(xy=xy, width=width, code="\ue5a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def rss(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23440,7 +23440,7 @@ def rss(
     _write(xy=xy, width=width, code="\ue400", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def rss_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23460,7 +23460,7 @@ def rss_simple(
     _write(xy=xy, width=width, code="\ue402", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def rug(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23480,7 +23480,7 @@ def rug(
     _write(xy=xy, width=width, code="\uea1a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def ruler(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23500,7 +23500,7 @@ def ruler(
     _write(xy=xy, width=width, code="\ue6b8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sailboat(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23520,7 +23520,7 @@ def sailboat(
     _write(xy=xy, width=width, code="\ue78a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def scales(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23540,7 +23540,7 @@ def scales(
     _write(xy=xy, width=width, code="\ue750", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def scan(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23560,7 +23560,7 @@ def scan(
     _write(xy=xy, width=width, code="\uebb6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def scan_smiley(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23580,7 +23580,7 @@ def scan_smiley(
     _write(xy=xy, width=width, code="\uebb4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def scissors(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23600,7 +23600,7 @@ def scissors(
     _write(xy=xy, width=width, code="\ueae0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def scooter(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23620,7 +23620,7 @@ def scooter(
     _write(xy=xy, width=width, code="\ue820", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def screencast(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23640,7 +23640,7 @@ def screencast(
     _write(xy=xy, width=width, code="\ue404", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def screwdriver(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23660,7 +23660,7 @@ def screwdriver(
     _write(xy=xy, width=width, code="\ue86e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def scribble(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23680,7 +23680,7 @@ def scribble(
     _write(xy=xy, width=width, code="\ue806", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def scribble_loop(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23700,7 +23700,7 @@ def scribble_loop(
     _write(xy=xy, width=width, code="\ue662", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def scroll(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23720,7 +23720,7 @@ def scroll(
     _write(xy=xy, width=width, code="\ueb7a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def seal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23740,7 +23740,7 @@ def seal(
     _write(xy=xy, width=width, code="\ue604", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def circle_wavy(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23760,7 +23760,7 @@ def circle_wavy(
     _write(xy=xy, width=width, code="\ue604", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def seal_check(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23780,7 +23780,7 @@ def seal_check(
     _write(xy=xy, width=width, code="\ue606", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def circle_wavy_check(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23800,7 +23800,7 @@ def circle_wavy_check(
     _write(xy=xy, width=width, code="\ue606", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def seal_percent(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23820,7 +23820,7 @@ def seal_percent(
     _write(xy=xy, width=width, code="\ue60a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def seal_question(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23840,7 +23840,7 @@ def seal_question(
     _write(xy=xy, width=width, code="\ue608", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def circle_wavy_question(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23860,7 +23860,7 @@ def circle_wavy_question(
     _write(xy=xy, width=width, code="\ue608", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def seal_warning(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23880,7 +23880,7 @@ def seal_warning(
     _write(xy=xy, width=width, code="\ue60c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def circle_wavy_warning(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23900,7 +23900,7 @@ def circle_wavy_warning(
     _write(xy=xy, width=width, code="\ue60c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def seat(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23920,7 +23920,7 @@ def seat(
     _write(xy=xy, width=width, code="\ueb8e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def seatbelt(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23940,7 +23940,7 @@ def seatbelt(
     _write(xy=xy, width=width, code="\uedfe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def security_camera(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23960,7 +23960,7 @@ def security_camera(
     _write(xy=xy, width=width, code="\ueca4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def selection(
     xy: typing.Tuple[float, float],
     width: float,
@@ -23980,7 +23980,7 @@ def selection(
     _write(xy=xy, width=width, code="\ue69a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def selection_all(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24000,7 +24000,7 @@ def selection_all(
     _write(xy=xy, width=width, code="\ue746", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def selection_background(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24020,7 +24020,7 @@ def selection_background(
     _write(xy=xy, width=width, code="\ueaf8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def selection_foreground(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24040,7 +24040,7 @@ def selection_foreground(
     _write(xy=xy, width=width, code="\ueaf6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def selection_inverse(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24060,7 +24060,7 @@ def selection_inverse(
     _write(xy=xy, width=width, code="\ue744", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def selection_plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24080,7 +24080,7 @@ def selection_plus(
     _write(xy=xy, width=width, code="\ue69c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def selection_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24100,7 +24100,7 @@ def selection_slash(
     _write(xy=xy, width=width, code="\ue69e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shapes(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24120,7 +24120,7 @@ def shapes(
     _write(xy=xy, width=width, code="\uec5e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def share(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24140,7 +24140,7 @@ def share(
     _write(xy=xy, width=width, code="\ue406", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def share_fat(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24160,7 +24160,7 @@ def share_fat(
     _write(xy=xy, width=width, code="\ued52", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def share_network(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24180,7 +24180,7 @@ def share_network(
     _write(xy=xy, width=width, code="\ue408", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shield(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24200,7 +24200,7 @@ def shield(
     _write(xy=xy, width=width, code="\ue40a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shield_check(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24220,7 +24220,7 @@ def shield_check(
     _write(xy=xy, width=width, code="\ue40c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shield_checkered(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24240,7 +24240,7 @@ def shield_checkered(
     _write(xy=xy, width=width, code="\ue708", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shield_chevron(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24260,7 +24260,7 @@ def shield_chevron(
     _write(xy=xy, width=width, code="\ue40e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shield_plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24280,7 +24280,7 @@ def shield_plus(
     _write(xy=xy, width=width, code="\ue706", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shield_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24300,7 +24300,7 @@ def shield_slash(
     _write(xy=xy, width=width, code="\ue410", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shield_star(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24320,7 +24320,7 @@ def shield_star(
     _write(xy=xy, width=width, code="\uec34", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shield_warning(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24340,7 +24340,7 @@ def shield_warning(
     _write(xy=xy, width=width, code="\ue412", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shipping_container(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24360,7 +24360,7 @@ def shipping_container(
     _write(xy=xy, width=width, code="\ue78c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shirt_folded(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24380,7 +24380,7 @@ def shirt_folded(
     _write(xy=xy, width=width, code="\uea92", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shooting_star(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24400,7 +24400,7 @@ def shooting_star(
     _write(xy=xy, width=width, code="\uecfa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shopping_bag(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24420,7 +24420,7 @@ def shopping_bag(
     _write(xy=xy, width=width, code="\ue416", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shopping_bag_open(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24440,7 +24440,7 @@ def shopping_bag_open(
     _write(xy=xy, width=width, code="\ue418", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shopping_cart(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24460,7 +24460,7 @@ def shopping_cart(
     _write(xy=xy, width=width, code="\ue41e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shopping_cart_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24480,7 +24480,7 @@ def shopping_cart_simple(
     _write(xy=xy, width=width, code="\ue420", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shovel(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24500,7 +24500,7 @@ def shovel(
     _write(xy=xy, width=width, code="\ue9e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shower(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24520,7 +24520,7 @@ def shower(
     _write(xy=xy, width=width, code="\ue776", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shrimp(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24540,7 +24540,7 @@ def shrimp(
     _write(xy=xy, width=width, code="\ueab4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shuffle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24560,7 +24560,7 @@ def shuffle(
     _write(xy=xy, width=width, code="\ue422", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shuffle_angular(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24580,7 +24580,7 @@ def shuffle_angular(
     _write(xy=xy, width=width, code="\ue424", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def shuffle_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24600,7 +24600,7 @@ def shuffle_simple(
     _write(xy=xy, width=width, code="\ue426", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sidebar(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24620,7 +24620,7 @@ def sidebar(
     _write(xy=xy, width=width, code="\ueab6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sidebar_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24640,7 +24640,7 @@ def sidebar_simple(
     _write(xy=xy, width=width, code="\uec24", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sigma(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24660,7 +24660,7 @@ def sigma(
     _write(xy=xy, width=width, code="\ueab8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sign_in(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24680,7 +24680,7 @@ def sign_in(
     _write(xy=xy, width=width, code="\ue428", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sign_out(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24700,7 +24700,7 @@ def sign_out(
     _write(xy=xy, width=width, code="\ue42a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def signature(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24720,7 +24720,7 @@ def signature(
     _write(xy=xy, width=width, code="\uebac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def signpost(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24740,7 +24740,7 @@ def signpost(
     _write(xy=xy, width=width, code="\ue89c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sim_card(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24760,7 +24760,7 @@ def sim_card(
     _write(xy=xy, width=width, code="\ue664", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def siren(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24780,7 +24780,7 @@ def siren(
     _write(xy=xy, width=width, code="\ue9b8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sketch_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24800,7 +24800,7 @@ def sketch_logo(
     _write(xy=xy, width=width, code="\ue42c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def skip_back(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24820,7 +24820,7 @@ def skip_back(
     _write(xy=xy, width=width, code="\ue5a4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def skip_back_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24840,7 +24840,7 @@ def skip_back_circle(
     _write(xy=xy, width=width, code="\ue42e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def skip_forward(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24860,7 +24860,7 @@ def skip_forward(
     _write(xy=xy, width=width, code="\ue5a6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def skip_forward_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24880,7 +24880,7 @@ def skip_forward_circle(
     _write(xy=xy, width=width, code="\ue430", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def skull(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24900,7 +24900,7 @@ def skull(
     _write(xy=xy, width=width, code="\ue916", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def skype_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24920,7 +24920,7 @@ def skype_logo(
     _write(xy=xy, width=width, code="\ue8dc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def slack_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24940,7 +24940,7 @@ def slack_logo(
     _write(xy=xy, width=width, code="\ue5a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sliders(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24960,7 +24960,7 @@ def sliders(
     _write(xy=xy, width=width, code="\ue432", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sliders_horizontal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -24980,7 +24980,7 @@ def sliders_horizontal(
     _write(xy=xy, width=width, code="\ue434", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def slideshow(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25000,7 +25000,7 @@ def slideshow(
     _write(xy=xy, width=width, code="\ued32", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def smiley(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25020,7 +25020,7 @@ def smiley(
     _write(xy=xy, width=width, code="\ue436", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def smiley_angry(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25040,7 +25040,7 @@ def smiley_angry(
     _write(xy=xy, width=width, code="\uec62", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def smiley_blank(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25060,7 +25060,7 @@ def smiley_blank(
     _write(xy=xy, width=width, code="\ue438", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def smiley_meh(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25080,7 +25080,7 @@ def smiley_meh(
     _write(xy=xy, width=width, code="\ue43a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def smiley_melting(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25100,7 +25100,7 @@ def smiley_melting(
     _write(xy=xy, width=width, code="\uee56", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def smiley_nervous(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25120,7 +25120,7 @@ def smiley_nervous(
     _write(xy=xy, width=width, code="\ue43c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def smiley_sad(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25140,7 +25140,7 @@ def smiley_sad(
     _write(xy=xy, width=width, code="\ue43e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def smiley_sticker(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25160,7 +25160,7 @@ def smiley_sticker(
     _write(xy=xy, width=width, code="\ue440", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def smiley_wink(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25180,7 +25180,7 @@ def smiley_wink(
     _write(xy=xy, width=width, code="\ue666", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def smiley_x_eyes(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25200,7 +25200,7 @@ def smiley_x_eyes(
     _write(xy=xy, width=width, code="\ue442", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def snapchat_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25220,7 +25220,7 @@ def snapchat_logo(
     _write(xy=xy, width=width, code="\ue668", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sneaker(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25240,7 +25240,7 @@ def sneaker(
     _write(xy=xy, width=width, code="\ue80c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sneaker_move(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25260,7 +25260,7 @@ def sneaker_move(
     _write(xy=xy, width=width, code="\ued60", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def snowflake(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25280,7 +25280,7 @@ def snowflake(
     _write(xy=xy, width=width, code="\ue5aa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def soccer_ball(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25300,7 +25300,7 @@ def soccer_ball(
     _write(xy=xy, width=width, code="\ue716", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sock(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25320,7 +25320,7 @@ def sock(
     _write(xy=xy, width=width, code="\uecce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def solar_panel(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25340,7 +25340,7 @@ def solar_panel(
     _write(xy=xy, width=width, code="\ued7a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def solar_roof(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25360,7 +25360,7 @@ def solar_roof(
     _write(xy=xy, width=width, code="\ued7b", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sort_ascending(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25380,7 +25380,7 @@ def sort_ascending(
     _write(xy=xy, width=width, code="\ue444", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sort_descending(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25400,7 +25400,7 @@ def sort_descending(
     _write(xy=xy, width=width, code="\ue446", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def soundcloud_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25420,7 +25420,7 @@ def soundcloud_logo(
     _write(xy=xy, width=width, code="\ue8de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def spade(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25440,7 +25440,7 @@ def spade(
     _write(xy=xy, width=width, code="\ue448", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sparkle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25460,7 +25460,7 @@ def sparkle(
     _write(xy=xy, width=width, code="\ue6a2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def speaker_hifi(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25480,7 +25480,7 @@ def speaker_hifi(
     _write(xy=xy, width=width, code="\uea08", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def speaker_high(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25500,7 +25500,7 @@ def speaker_high(
     _write(xy=xy, width=width, code="\ue44a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def speaker_low(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25520,7 +25520,7 @@ def speaker_low(
     _write(xy=xy, width=width, code="\ue44c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def speaker_none(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25540,7 +25540,7 @@ def speaker_none(
     _write(xy=xy, width=width, code="\ue44e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def speaker_simple_high(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25560,7 +25560,7 @@ def speaker_simple_high(
     _write(xy=xy, width=width, code="\ue450", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def speaker_simple_low(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25580,7 +25580,7 @@ def speaker_simple_low(
     _write(xy=xy, width=width, code="\ue452", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def speaker_simple_none(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25600,7 +25600,7 @@ def speaker_simple_none(
     _write(xy=xy, width=width, code="\ue454", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def speaker_simple_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25620,7 +25620,7 @@ def speaker_simple_slash(
     _write(xy=xy, width=width, code="\ue456", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def speaker_simple_x(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25640,7 +25640,7 @@ def speaker_simple_x(
     _write(xy=xy, width=width, code="\ue458", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def speaker_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25660,7 +25660,7 @@ def speaker_slash(
     _write(xy=xy, width=width, code="\ue45a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def speaker_x(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25680,7 +25680,7 @@ def speaker_x(
     _write(xy=xy, width=width, code="\ue45c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def speedometer(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25700,7 +25700,7 @@ def speedometer(
     _write(xy=xy, width=width, code="\uee74", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sphere(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25720,7 +25720,7 @@ def sphere(
     _write(xy=xy, width=width, code="\uee66", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def spinner(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25740,7 +25740,7 @@ def spinner(
     _write(xy=xy, width=width, code="\ue66a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def spinner_ball(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25760,7 +25760,7 @@ def spinner_ball(
     _write(xy=xy, width=width, code="\uee28", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def spinner_gap(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25780,7 +25780,7 @@ def spinner_gap(
     _write(xy=xy, width=width, code="\ue66c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def spiral(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25800,7 +25800,7 @@ def spiral(
     _write(xy=xy, width=width, code="\ue9fa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def split_horizontal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25820,7 +25820,7 @@ def split_horizontal(
     _write(xy=xy, width=width, code="\ue872", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def split_vertical(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25840,7 +25840,7 @@ def split_vertical(
     _write(xy=xy, width=width, code="\ue876", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def spotify_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25860,7 +25860,7 @@ def spotify_logo(
     _write(xy=xy, width=width, code="\ue66e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def spray_bottle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25880,7 +25880,7 @@ def spray_bottle(
     _write(xy=xy, width=width, code="\ue7e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def square(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25900,7 +25900,7 @@ def square(
     _write(xy=xy, width=width, code="\ue45e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def square_half(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25920,7 +25920,7 @@ def square_half(
     _write(xy=xy, width=width, code="\ue462", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def square_half_bottom(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25940,7 +25940,7 @@ def square_half_bottom(
     _write(xy=xy, width=width, code="\ueb16", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def square_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25960,7 +25960,7 @@ def square_logo(
     _write(xy=xy, width=width, code="\ue690", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def square_split_horizontal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -25980,7 +25980,7 @@ def square_split_horizontal(
     _write(xy=xy, width=width, code="\ue870", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def square_split_vertical(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26000,7 +26000,7 @@ def square_split_vertical(
     _write(xy=xy, width=width, code="\ue874", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def squares_four(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26020,7 +26020,7 @@ def squares_four(
     _write(xy=xy, width=width, code="\ue464", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def stack(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26040,7 +26040,7 @@ def stack(
     _write(xy=xy, width=width, code="\ue466", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def stack_minus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26060,7 +26060,7 @@ def stack_minus(
     _write(xy=xy, width=width, code="\uedf4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def stack_overflow_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26080,7 +26080,7 @@ def stack_overflow_logo(
     _write(xy=xy, width=width, code="\ueb78", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def stack_plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26100,7 +26100,7 @@ def stack_plus(
     _write(xy=xy, width=width, code="\uedf6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def stack_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26120,7 +26120,7 @@ def stack_simple(
     _write(xy=xy, width=width, code="\ue468", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def stairs(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26140,7 +26140,7 @@ def stairs(
     _write(xy=xy, width=width, code="\ue8ec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def stamp(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26160,7 +26160,7 @@ def stamp(
     _write(xy=xy, width=width, code="\uea48", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def standard_definition(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26180,7 +26180,7 @@ def standard_definition(
     _write(xy=xy, width=width, code="\uea90", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def star(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26200,7 +26200,7 @@ def star(
     _write(xy=xy, width=width, code="\ue46a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def star_and_crescent(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26220,7 +26220,7 @@ def star_and_crescent(
     _write(xy=xy, width=width, code="\uecf4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def star_four(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26240,7 +26240,7 @@ def star_four(
     _write(xy=xy, width=width, code="\ue6a4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def star_half(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26260,7 +26260,7 @@ def star_half(
     _write(xy=xy, width=width, code="\ue70a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def star_of_david(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26280,7 +26280,7 @@ def star_of_david(
     _write(xy=xy, width=width, code="\ue89e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def steam_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26300,7 +26300,7 @@ def steam_logo(
     _write(xy=xy, width=width, code="\uead4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def steering_wheel(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26320,7 +26320,7 @@ def steering_wheel(
     _write(xy=xy, width=width, code="\ue9ac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def steps(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26340,7 +26340,7 @@ def steps(
     _write(xy=xy, width=width, code="\uecbe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def stethoscope(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26360,7 +26360,7 @@ def stethoscope(
     _write(xy=xy, width=width, code="\ue7ea", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sticker(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26380,7 +26380,7 @@ def sticker(
     _write(xy=xy, width=width, code="\ue5ac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def stool(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26400,7 +26400,7 @@ def stool(
     _write(xy=xy, width=width, code="\uea44", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def stop(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26420,7 +26420,7 @@ def stop(
     _write(xy=xy, width=width, code="\ue46c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def stop_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26440,7 +26440,7 @@ def stop_circle(
     _write(xy=xy, width=width, code="\ue46e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def storefront(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26460,7 +26460,7 @@ def storefront(
     _write(xy=xy, width=width, code="\ue470", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def strategy(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26480,7 +26480,7 @@ def strategy(
     _write(xy=xy, width=width, code="\uea3a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def stripe_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26500,7 +26500,7 @@ def stripe_logo(
     _write(xy=xy, width=width, code="\ue698", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def student(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26520,7 +26520,7 @@ def student(
     _write(xy=xy, width=width, code="\ue73e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def subset_of(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26540,7 +26540,7 @@ def subset_of(
     _write(xy=xy, width=width, code="\uedc0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def subset_proper_of(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26560,7 +26560,7 @@ def subset_proper_of(
     _write(xy=xy, width=width, code="\uedb6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def subtitles(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26580,7 +26580,7 @@ def subtitles(
     _write(xy=xy, width=width, code="\ue1a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def subtitles_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26600,7 +26600,7 @@ def subtitles_slash(
     _write(xy=xy, width=width, code="\ue1a6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def subtract(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26620,7 +26620,7 @@ def subtract(
     _write(xy=xy, width=width, code="\uebd6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def subtract_square(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26640,7 +26640,7 @@ def subtract_square(
     _write(xy=xy, width=width, code="\uebd4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def subway(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26660,7 +26660,7 @@ def subway(
     _write(xy=xy, width=width, code="\ue498", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def suitcase(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26680,7 +26680,7 @@ def suitcase(
     _write(xy=xy, width=width, code="\ue5ae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def suitcase_rolling(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26700,7 +26700,7 @@ def suitcase_rolling(
     _write(xy=xy, width=width, code="\ue9b0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def suitcase_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26720,7 +26720,7 @@ def suitcase_simple(
     _write(xy=xy, width=width, code="\ue5b0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sun(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26740,7 +26740,7 @@ def sun(
     _write(xy=xy, width=width, code="\ue472", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sun_dim(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26760,7 +26760,7 @@ def sun_dim(
     _write(xy=xy, width=width, code="\ue474", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sun_horizon(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26780,7 +26780,7 @@ def sun_horizon(
     _write(xy=xy, width=width, code="\ue5b6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sunglasses(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26800,7 +26800,7 @@ def sunglasses(
     _write(xy=xy, width=width, code="\ue816", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def superset_of(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26820,7 +26820,7 @@ def superset_of(
     _write(xy=xy, width=width, code="\uedb8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def superset_proper_of(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26840,7 +26840,7 @@ def superset_proper_of(
     _write(xy=xy, width=width, code="\uedb4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def swap(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26860,7 +26860,7 @@ def swap(
     _write(xy=xy, width=width, code="\ue83c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def swatches(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26880,7 +26880,7 @@ def swatches(
     _write(xy=xy, width=width, code="\ue5b8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def swimming_pool(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26900,7 +26900,7 @@ def swimming_pool(
     _write(xy=xy, width=width, code="\uecb6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def sword(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26920,7 +26920,7 @@ def sword(
     _write(xy=xy, width=width, code="\ue5ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def synagogue(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26940,7 +26940,7 @@ def synagogue(
     _write(xy=xy, width=width, code="\uecec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def syringe(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26960,7 +26960,7 @@ def syringe(
     _write(xy=xy, width=width, code="\ue968", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def t_shirt(
     xy: typing.Tuple[float, float],
     width: float,
@@ -26980,7 +26980,7 @@ def t_shirt(
     _write(xy=xy, width=width, code="\ue670", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def table(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27000,7 +27000,7 @@ def table(
     _write(xy=xy, width=width, code="\ue476", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tabs(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27020,7 +27020,7 @@ def tabs(
     _write(xy=xy, width=width, code="\ue778", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tag(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27040,7 +27040,7 @@ def tag(
     _write(xy=xy, width=width, code="\ue478", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tag_chevron(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27060,7 +27060,7 @@ def tag_chevron(
     _write(xy=xy, width=width, code="\ue672", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tag_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27080,7 +27080,7 @@ def tag_simple(
     _write(xy=xy, width=width, code="\ue47a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def target(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27100,7 +27100,7 @@ def target(
     _write(xy=xy, width=width, code="\ue47c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def taxi(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27120,7 +27120,7 @@ def taxi(
     _write(xy=xy, width=width, code="\ue902", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tea_bag(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27140,7 +27140,7 @@ def tea_bag(
     _write(xy=xy, width=width, code="\ue8e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def telegram_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27160,7 +27160,7 @@ def telegram_logo(
     _write(xy=xy, width=width, code="\ue5bc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def television(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27180,7 +27180,7 @@ def television(
     _write(xy=xy, width=width, code="\ue754", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def television_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27200,7 +27200,7 @@ def television_simple(
     _write(xy=xy, width=width, code="\ueae6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tennis_ball(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27220,7 +27220,7 @@ def tennis_ball(
     _write(xy=xy, width=width, code="\ue720", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tent(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27240,7 +27240,7 @@ def tent(
     _write(xy=xy, width=width, code="\ue8ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def terminal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27260,7 +27260,7 @@ def terminal(
     _write(xy=xy, width=width, code="\ue47e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def terminal_window(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27280,7 +27280,7 @@ def terminal_window(
     _write(xy=xy, width=width, code="\ueae8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def test_tube(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27300,7 +27300,7 @@ def test_tube(
     _write(xy=xy, width=width, code="\ue7a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_a_underline(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27320,7 +27320,7 @@ def text_a_underline(
     _write(xy=xy, width=width, code="\ued34", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_aa(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27340,7 +27340,7 @@ def text_aa(
     _write(xy=xy, width=width, code="\ue6ee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_align_center(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27360,7 +27360,7 @@ def text_align_center(
     _write(xy=xy, width=width, code="\ue480", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_align_justify(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27380,7 +27380,7 @@ def text_align_justify(
     _write(xy=xy, width=width, code="\ue482", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_align_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27400,7 +27400,7 @@ def text_align_left(
     _write(xy=xy, width=width, code="\ue484", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_align_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27420,7 +27420,7 @@ def text_align_right(
     _write(xy=xy, width=width, code="\ue486", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_b(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27440,7 +27440,7 @@ def text_b(
     _write(xy=xy, width=width, code="\ue5be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_bolder(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27460,7 +27460,7 @@ def text_bolder(
     _write(xy=xy, width=width, code="\ue5be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_columns(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27480,7 +27480,7 @@ def text_columns(
     _write(xy=xy, width=width, code="\uec96", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_h(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27500,7 +27500,7 @@ def text_h(
     _write(xy=xy, width=width, code="\ue6ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_h_five(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27520,7 +27520,7 @@ def text_h_five(
     _write(xy=xy, width=width, code="\ue6c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_h_four(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27540,7 +27540,7 @@ def text_h_four(
     _write(xy=xy, width=width, code="\ue6c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_h_one(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27560,7 +27560,7 @@ def text_h_one(
     _write(xy=xy, width=width, code="\ue6bc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_h_six(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27580,7 +27580,7 @@ def text_h_six(
     _write(xy=xy, width=width, code="\ue6c6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_h_three(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27600,7 +27600,7 @@ def text_h_three(
     _write(xy=xy, width=width, code="\ue6c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_h_two(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27620,7 +27620,7 @@ def text_h_two(
     _write(xy=xy, width=width, code="\ue6be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_indent(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27640,7 +27640,7 @@ def text_indent(
     _write(xy=xy, width=width, code="\uea1e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_italic(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27660,7 +27660,7 @@ def text_italic(
     _write(xy=xy, width=width, code="\ue5c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_outdent(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27680,7 +27680,7 @@ def text_outdent(
     _write(xy=xy, width=width, code="\uea1c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_strikethrough(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27700,7 +27700,7 @@ def text_strikethrough(
     _write(xy=xy, width=width, code="\ue5c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_subscript(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27720,7 +27720,7 @@ def text_subscript(
     _write(xy=xy, width=width, code="\uec98", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_superscript(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27740,7 +27740,7 @@ def text_superscript(
     _write(xy=xy, width=width, code="\uec9a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_t(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27760,7 +27760,7 @@ def text_t(
     _write(xy=xy, width=width, code="\ue48a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_t_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27780,7 +27780,7 @@ def text_t_slash(
     _write(xy=xy, width=width, code="\ue488", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def text_underline(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27800,7 +27800,7 @@ def text_underline(
     _write(xy=xy, width=width, code="\ue5c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def textbox(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27820,7 +27820,7 @@ def textbox(
     _write(xy=xy, width=width, code="\ueb0a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def thermometer(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27840,7 +27840,7 @@ def thermometer(
     _write(xy=xy, width=width, code="\ue5c6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def thermometer_cold(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27860,7 +27860,7 @@ def thermometer_cold(
     _write(xy=xy, width=width, code="\ue5c8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def thermometer_hot(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27880,7 +27880,7 @@ def thermometer_hot(
     _write(xy=xy, width=width, code="\ue5ca", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def thermometer_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27900,7 +27900,7 @@ def thermometer_simple(
     _write(xy=xy, width=width, code="\ue5cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def threads_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27920,7 +27920,7 @@ def threads_logo(
     _write(xy=xy, width=width, code="\ued9e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def three_d(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27940,7 +27940,7 @@ def three_d(
     _write(xy=xy, width=width, code="\uea5a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def thumbs_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27960,7 +27960,7 @@ def thumbs_down(
     _write(xy=xy, width=width, code="\ue48c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def thumbs_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -27980,7 +27980,7 @@ def thumbs_up(
     _write(xy=xy, width=width, code="\ue48e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def ticket(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28000,7 +28000,7 @@ def ticket(
     _write(xy=xy, width=width, code="\ue490", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tidal_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28020,7 +28020,7 @@ def tidal_logo(
     _write(xy=xy, width=width, code="\ued1c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tiktok_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28040,7 +28040,7 @@ def tiktok_logo(
     _write(xy=xy, width=width, code="\ueaf2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tilde(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28060,7 +28060,7 @@ def tilde(
     _write(xy=xy, width=width, code="\ueda8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def timer(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28080,7 +28080,7 @@ def timer(
     _write(xy=xy, width=width, code="\ue492", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tip_jar(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28100,7 +28100,7 @@ def tip_jar(
     _write(xy=xy, width=width, code="\ue7e2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tipi(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28120,7 +28120,7 @@ def tipi(
     _write(xy=xy, width=width, code="\ued30", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tire(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28140,7 +28140,7 @@ def tire(
     _write(xy=xy, width=width, code="\uedd2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def toggle_left(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28160,7 +28160,7 @@ def toggle_left(
     _write(xy=xy, width=width, code="\ue674", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def toggle_right(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28180,7 +28180,7 @@ def toggle_right(
     _write(xy=xy, width=width, code="\ue676", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def toilet(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28200,7 +28200,7 @@ def toilet(
     _write(xy=xy, width=width, code="\ue79a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def toilet_paper(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28220,7 +28220,7 @@ def toilet_paper(
     _write(xy=xy, width=width, code="\ue79c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def toolbox(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28240,7 +28240,7 @@ def toolbox(
     _write(xy=xy, width=width, code="\ueca0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tooth(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28260,7 +28260,7 @@ def tooth(
     _write(xy=xy, width=width, code="\ue9cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tornado(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28280,7 +28280,7 @@ def tornado(
     _write(xy=xy, width=width, code="\ue88c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tote(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28300,7 +28300,7 @@ def tote(
     _write(xy=xy, width=width, code="\ue494", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tote_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28320,7 +28320,7 @@ def tote_simple(
     _write(xy=xy, width=width, code="\ue678", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def towel(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28340,7 +28340,7 @@ def towel(
     _write(xy=xy, width=width, code="\uede6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tractor(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28360,7 +28360,7 @@ def tractor(
     _write(xy=xy, width=width, code="\uec6e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def trademark(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28380,7 +28380,7 @@ def trademark(
     _write(xy=xy, width=width, code="\ue9f0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def trademark_registered(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28400,7 +28400,7 @@ def trademark_registered(
     _write(xy=xy, width=width, code="\ue3f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def traffic_cone(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28420,7 +28420,7 @@ def traffic_cone(
     _write(xy=xy, width=width, code="\ue9a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def traffic_sign(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28440,7 +28440,7 @@ def traffic_sign(
     _write(xy=xy, width=width, code="\ue67a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def traffic_signal(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28460,7 +28460,7 @@ def traffic_signal(
     _write(xy=xy, width=width, code="\ue9aa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def train(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28480,7 +28480,7 @@ def train(
     _write(xy=xy, width=width, code="\ue496", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def train_regional(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28500,7 +28500,7 @@ def train_regional(
     _write(xy=xy, width=width, code="\ue49e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def train_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28520,7 +28520,7 @@ def train_simple(
     _write(xy=xy, width=width, code="\ue4a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tram(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28540,7 +28540,7 @@ def tram(
     _write(xy=xy, width=width, code="\ue9ec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def translate(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28560,7 +28560,7 @@ def translate(
     _write(xy=xy, width=width, code="\ue4a2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def trash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28580,7 +28580,7 @@ def trash(
     _write(xy=xy, width=width, code="\ue4a6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def trash_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28600,7 +28600,7 @@ def trash_simple(
     _write(xy=xy, width=width, code="\ue4a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tray(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28620,7 +28620,7 @@ def tray(
     _write(xy=xy, width=width, code="\ue4aa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tray_arrow_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28640,7 +28640,7 @@ def tray_arrow_down(
     _write(xy=xy, width=width, code="\ue010", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def archive_tray(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28660,7 +28660,7 @@ def archive_tray(
     _write(xy=xy, width=width, code="\ue010", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tray_arrow_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28680,7 +28680,7 @@ def tray_arrow_up(
     _write(xy=xy, width=width, code="\uee52", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def treasure_chest(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28700,7 +28700,7 @@ def treasure_chest(
     _write(xy=xy, width=width, code="\uede2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tree(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28720,7 +28720,7 @@ def tree(
     _write(xy=xy, width=width, code="\ue6da", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tree_evergreen(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28740,7 +28740,7 @@ def tree_evergreen(
     _write(xy=xy, width=width, code="\ue6dc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tree_palm(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28760,7 +28760,7 @@ def tree_palm(
     _write(xy=xy, width=width, code="\ue91a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tree_structure(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28780,7 +28780,7 @@ def tree_structure(
     _write(xy=xy, width=width, code="\ue67c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tree_view(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28800,7 +28800,7 @@ def tree_view(
     _write(xy=xy, width=width, code="\uee48", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def trend_down(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28820,7 +28820,7 @@ def trend_down(
     _write(xy=xy, width=width, code="\ue4ac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def trend_up(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28840,7 +28840,7 @@ def trend_up(
     _write(xy=xy, width=width, code="\ue4ae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def triangle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28860,7 +28860,7 @@ def triangle(
     _write(xy=xy, width=width, code="\ue4b0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def triangle_dashed(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28880,7 +28880,7 @@ def triangle_dashed(
     _write(xy=xy, width=width, code="\ue4b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def trolley(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28900,7 +28900,7 @@ def trolley(
     _write(xy=xy, width=width, code="\ue5b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def trolley_suitcase(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28920,7 +28920,7 @@ def trolley_suitcase(
     _write(xy=xy, width=width, code="\ue5b4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def trophy(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28940,7 +28940,7 @@ def trophy(
     _write(xy=xy, width=width, code="\ue67e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def truck(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28960,7 +28960,7 @@ def truck(
     _write(xy=xy, width=width, code="\ue4b4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def truck_trailer(
     xy: typing.Tuple[float, float],
     width: float,
@@ -28980,7 +28980,7 @@ def truck_trailer(
     _write(xy=xy, width=width, code="\ue4b6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def tumblr_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29000,7 +29000,7 @@ def tumblr_logo(
     _write(xy=xy, width=width, code="\ue8d4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def twitch_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29020,7 +29020,7 @@ def twitch_logo(
     _write(xy=xy, width=width, code="\ue5ce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def twitter_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29040,7 +29040,7 @@ def twitter_logo(
     _write(xy=xy, width=width, code="\ue4ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def umbrella(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29060,7 +29060,7 @@ def umbrella(
     _write(xy=xy, width=width, code="\ue684", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def umbrella_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29080,7 +29080,7 @@ def umbrella_simple(
     _write(xy=xy, width=width, code="\ue686", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def union(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29100,7 +29100,7 @@ def union(
     _write(xy=xy, width=width, code="\uedbe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def unite(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29120,7 +29120,7 @@ def unite(
     _write(xy=xy, width=width, code="\ue87e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def unite_square(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29140,7 +29140,7 @@ def unite_square(
     _write(xy=xy, width=width, code="\ue878", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def upload(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29160,7 +29160,7 @@ def upload(
     _write(xy=xy, width=width, code="\ue4be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def upload_simple(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29180,7 +29180,7 @@ def upload_simple(
     _write(xy=xy, width=width, code="\ue4c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def usb(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29200,7 +29200,7 @@ def usb(
     _write(xy=xy, width=width, code="\ue956", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def user(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29220,7 +29220,7 @@ def user(
     _write(xy=xy, width=width, code="\ue4c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def user_check(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29240,7 +29240,7 @@ def user_check(
     _write(xy=xy, width=width, code="\ueafa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def user_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29260,7 +29260,7 @@ def user_circle(
     _write(xy=xy, width=width, code="\ue4c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def user_circle_check(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29280,7 +29280,7 @@ def user_circle_check(
     _write(xy=xy, width=width, code="\uec38", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def user_circle_dashed(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29300,7 +29300,7 @@ def user_circle_dashed(
     _write(xy=xy, width=width, code="\uec36", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def user_circle_gear(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29320,7 +29320,7 @@ def user_circle_gear(
     _write(xy=xy, width=width, code="\ue4c6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def user_circle_minus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29340,7 +29340,7 @@ def user_circle_minus(
     _write(xy=xy, width=width, code="\ue4c8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def user_circle_plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29360,7 +29360,7 @@ def user_circle_plus(
     _write(xy=xy, width=width, code="\ue4ca", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def user_focus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29380,7 +29380,7 @@ def user_focus(
     _write(xy=xy, width=width, code="\ue6fc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def user_gear(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29400,7 +29400,7 @@ def user_gear(
     _write(xy=xy, width=width, code="\ue4cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def user_list(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29420,7 +29420,7 @@ def user_list(
     _write(xy=xy, width=width, code="\ue73c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def user_minus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29440,7 +29440,7 @@ def user_minus(
     _write(xy=xy, width=width, code="\ue4ce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def user_plus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29460,7 +29460,7 @@ def user_plus(
     _write(xy=xy, width=width, code="\ue4d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def user_rectangle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29480,7 +29480,7 @@ def user_rectangle(
     _write(xy=xy, width=width, code="\ue4d2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def user_sound(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29500,7 +29500,7 @@ def user_sound(
     _write(xy=xy, width=width, code="\ueca8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def user_square(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29520,7 +29520,7 @@ def user_square(
     _write(xy=xy, width=width, code="\ue4d4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def user_switch(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29540,7 +29540,7 @@ def user_switch(
     _write(xy=xy, width=width, code="\ue756", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def users(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29560,7 +29560,7 @@ def users(
     _write(xy=xy, width=width, code="\ue4d6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def users_four(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29580,7 +29580,7 @@ def users_four(
     _write(xy=xy, width=width, code="\ue68c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def users_three(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29600,7 +29600,7 @@ def users_three(
     _write(xy=xy, width=width, code="\ue68e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def van(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29620,7 +29620,7 @@ def van(
     _write(xy=xy, width=width, code="\ue826", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def vault(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29640,7 +29640,7 @@ def vault(
     _write(xy=xy, width=width, code="\ue76e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def vector_three(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29660,7 +29660,7 @@ def vector_three(
     _write(xy=xy, width=width, code="\uee62", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def vector_two(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29680,7 +29680,7 @@ def vector_two(
     _write(xy=xy, width=width, code="\uee64", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def vibrate(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29700,7 +29700,7 @@ def vibrate(
     _write(xy=xy, width=width, code="\ue4d8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def video(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29720,7 +29720,7 @@ def video(
     _write(xy=xy, width=width, code="\ue740", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def video_camera(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29740,7 +29740,7 @@ def video_camera(
     _write(xy=xy, width=width, code="\ue4da", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def video_camera_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29760,7 +29760,7 @@ def video_camera_slash(
     _write(xy=xy, width=width, code="\ue4dc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def video_conference(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29780,7 +29780,7 @@ def video_conference(
     _write(xy=xy, width=width, code="\uedce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def vignette(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29800,7 +29800,7 @@ def vignette(
     _write(xy=xy, width=width, code="\ueba2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def vinyl_record(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29820,7 +29820,7 @@ def vinyl_record(
     _write(xy=xy, width=width, code="\uecac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def virtual_reality(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29840,7 +29840,7 @@ def virtual_reality(
     _write(xy=xy, width=width, code="\ue7b8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def virus(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29860,7 +29860,7 @@ def virus(
     _write(xy=xy, width=width, code="\ue7d6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def visor(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29880,7 +29880,7 @@ def visor(
     _write(xy=xy, width=width, code="\uee2a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def voicemail(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29900,7 +29900,7 @@ def voicemail(
     _write(xy=xy, width=width, code="\ue4de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def volleyball(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29920,7 +29920,7 @@ def volleyball(
     _write(xy=xy, width=width, code="\ue726", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def wall(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29940,7 +29940,7 @@ def wall(
     _write(xy=xy, width=width, code="\ue688", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def wallet(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29960,7 +29960,7 @@ def wallet(
     _write(xy=xy, width=width, code="\ue68a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def warehouse(
     xy: typing.Tuple[float, float],
     width: float,
@@ -29980,7 +29980,7 @@ def warehouse(
     _write(xy=xy, width=width, code="\uecd4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def warning(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30000,7 +30000,7 @@ def warning(
     _write(xy=xy, width=width, code="\ue4e0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def warning_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30020,7 +30020,7 @@ def warning_circle(
     _write(xy=xy, width=width, code="\ue4e2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def warning_diamond(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30040,7 +30040,7 @@ def warning_diamond(
     _write(xy=xy, width=width, code="\ue7fc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def warning_octagon(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30060,7 +30060,7 @@ def warning_octagon(
     _write(xy=xy, width=width, code="\ue4e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def washing_machine(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30080,7 +30080,7 @@ def washing_machine(
     _write(xy=xy, width=width, code="\uede8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def watch(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30100,7 +30100,7 @@ def watch(
     _write(xy=xy, width=width, code="\ue4e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def wave_sawtooth(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30120,7 +30120,7 @@ def wave_sawtooth(
     _write(xy=xy, width=width, code="\uea9c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def wave_sine(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30140,7 +30140,7 @@ def wave_sine(
     _write(xy=xy, width=width, code="\uea9a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def wave_square(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30160,7 +30160,7 @@ def wave_square(
     _write(xy=xy, width=width, code="\uea9e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def wave_triangle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30180,7 +30180,7 @@ def wave_triangle(
     _write(xy=xy, width=width, code="\ueaa0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def waveform(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30200,7 +30200,7 @@ def waveform(
     _write(xy=xy, width=width, code="\ue802", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def waveform_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30220,7 +30220,7 @@ def waveform_slash(
     _write(xy=xy, width=width, code="\ue800", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def waves(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30240,7 +30240,7 @@ def waves(
     _write(xy=xy, width=width, code="\ue6de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def webcam(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30260,7 +30260,7 @@ def webcam(
     _write(xy=xy, width=width, code="\ue9b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def webcam_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30280,7 +30280,7 @@ def webcam_slash(
     _write(xy=xy, width=width, code="\uecdc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def webhooks_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30300,7 +30300,7 @@ def webhooks_logo(
     _write(xy=xy, width=width, code="\uecae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def wechat_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30320,7 +30320,7 @@ def wechat_logo(
     _write(xy=xy, width=width, code="\ue8d2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def whatsapp_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30340,7 +30340,7 @@ def whatsapp_logo(
     _write(xy=xy, width=width, code="\ue5d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def wheelchair(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30360,7 +30360,7 @@ def wheelchair(
     _write(xy=xy, width=width, code="\ue4e8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def wheelchair_motion(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30380,7 +30380,7 @@ def wheelchair_motion(
     _write(xy=xy, width=width, code="\ue89a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def wifi_high(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30400,7 +30400,7 @@ def wifi_high(
     _write(xy=xy, width=width, code="\ue4ea", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def wifi_low(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30420,7 +30420,7 @@ def wifi_low(
     _write(xy=xy, width=width, code="\ue4ec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def wifi_medium(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30440,7 +30440,7 @@ def wifi_medium(
     _write(xy=xy, width=width, code="\ue4ee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def wifi_none(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30460,7 +30460,7 @@ def wifi_none(
     _write(xy=xy, width=width, code="\ue4f0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def wifi_slash(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30480,7 +30480,7 @@ def wifi_slash(
     _write(xy=xy, width=width, code="\ue4f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def wifi_x(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30500,7 +30500,7 @@ def wifi_x(
     _write(xy=xy, width=width, code="\ue4f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def wind(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30520,7 +30520,7 @@ def wind(
     _write(xy=xy, width=width, code="\ue5d2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def windmill(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30540,7 +30540,7 @@ def windmill(
     _write(xy=xy, width=width, code="\ue9f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def windows_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30560,7 +30560,7 @@ def windows_logo(
     _write(xy=xy, width=width, code="\ue692", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def wine(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30580,7 +30580,7 @@ def wine(
     _write(xy=xy, width=width, code="\ue6b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def wrench(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30600,7 +30600,7 @@ def wrench(
     _write(xy=xy, width=width, code="\ue5d4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def x(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30620,7 +30620,7 @@ def x(
     _write(xy=xy, width=width, code="\ue4f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def x_circle(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30640,7 +30640,7 @@ def x_circle(
     _write(xy=xy, width=width, code="\ue4f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def x_logo(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30660,7 +30660,7 @@ def x_logo(
     _write(xy=xy, width=width, code="\ue4bc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def x_square(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30680,7 +30680,7 @@ def x_square(
     _write(xy=xy, width=width, code="\ue4fa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def yarn(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30700,7 +30700,7 @@ def yarn(
     _write(xy=xy, width=width, code="\ued9a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def yin_yang(
     xy: typing.Tuple[float, float],
     width: float,
@@ -30720,7 +30720,7 @@ def yin_yang(
     _write(xy=xy, width=width, code="\ue92a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def youtube_logo(
     xy: typing.Tuple[float, float],
     width: float,

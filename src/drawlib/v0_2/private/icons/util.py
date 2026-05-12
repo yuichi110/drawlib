@@ -20,7 +20,7 @@ from drawlib.v0_2.private.core.util import IconUtil
 from drawlib.v0_2.private.core_canvas.canvas import get_fontsize_from_charwidth, text
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def icon(
     xy: typing.Tuple[float, float],
     width: float,

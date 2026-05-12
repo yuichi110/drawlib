@@ -25,7 +25,7 @@ from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import ShapeUtil
 from drawlib.v0_2.private.core_canvas.base import CanvasBase
-from drawlib.v0_2.private.util import error_handler
+from drawlib.v0_2.private.util import guarded
 
 
 class CanvasPatchesFeature(CanvasBase):
@@ -39,7 +39,7 @@ class CanvasPatchesFeature(CanvasBase):
         """
         super().__init__()
 
-    @error_handler
+    @guarded
     def arc(
         self,
         xy: Tuple[float, float],
@@ -106,7 +106,7 @@ class CanvasPatchesFeature(CanvasBase):
             ),
         )
 
-    @error_handler
+    @guarded
     def circle(
         self,
         xy: Tuple[float, float],
@@ -165,7 +165,7 @@ class CanvasPatchesFeature(CanvasBase):
             ),
         )
 
-    @error_handler
+    @guarded
     def ellipse(
         self,
         xy: Tuple[float, float],
@@ -226,7 +226,7 @@ class CanvasPatchesFeature(CanvasBase):
             ),
         )
 
-    @error_handler
+    @guarded
     def regularpolygon(
         self,
         xy: Tuple[float, float],
@@ -289,7 +289,7 @@ class CanvasPatchesFeature(CanvasBase):
             ),
         )
 
-    @error_handler
+    @guarded
     def wedge(
         self,
         xy: Tuple[float, float],
@@ -358,7 +358,7 @@ class CanvasPatchesFeature(CanvasBase):
             ),
         )
 
-    @error_handler
+    @guarded
     def donuts(
         self,
         xy: Tuple[float, float],
@@ -404,7 +404,7 @@ class CanvasPatchesFeature(CanvasBase):
             textstyle=textstyle,
         )
 
-    @error_handler
+    @guarded
     def fan(
         self,
         xy: Tuple[float, float],

@@ -20,7 +20,7 @@ import drawlib.v0_2.private.validators.args as validator
 from drawlib.v0_2.private.core.model import LineStyle
 from drawlib.v0_2.private.core.util import LineUtil
 from drawlib.v0_2.private.core_canvas.base import CanvasBase
-from drawlib.v0_2.private.util import error_handler, get_rotated_path_points
+from drawlib.v0_2.private.util import get_rotated_path_points, guarded
 
 
 class CanvasLineFeature(CanvasBase):
@@ -47,7 +47,7 @@ class CanvasLineFeature(CanvasBase):
         """
         super().__init__()
 
-    @error_handler
+    @guarded
     def line(
         self,
         xy1: Tuple[float, float],
@@ -83,7 +83,7 @@ class CanvasLineFeature(CanvasBase):
             style=style,
         )
 
-    @error_handler
+    @guarded
     def line_curved(
         self,
         xy1: Tuple[float, float],
@@ -121,7 +121,7 @@ class CanvasLineFeature(CanvasBase):
             )
         )
 
-    @error_handler
+    @guarded
     def line_bezier1(
         self,
         xy1: Tuple[float, float],
@@ -155,7 +155,7 @@ class CanvasLineFeature(CanvasBase):
             style=style,
         )
 
-    @error_handler
+    @guarded
     def line_bezier2(
         self,
         xy1: Tuple[float, float],
@@ -191,7 +191,7 @@ class CanvasLineFeature(CanvasBase):
             style=style,
         )
 
-    @error_handler
+    @guarded
     def line_arc(
         self,
         xy: Tuple[float, float],
@@ -247,7 +247,7 @@ class CanvasLineFeature(CanvasBase):
             style=style,
         )
 
-    @error_handler
+    @guarded
     def lines(
         self,
         xys: List[Tuple[float, float]],
@@ -277,7 +277,7 @@ class CanvasLineFeature(CanvasBase):
             style=style,
         )
 
-    @error_handler
+    @guarded
     def lines_curved(
         self,
         xys: List[Tuple[float, float]],
@@ -333,7 +333,7 @@ class CanvasLineFeature(CanvasBase):
             style=style,
         )
 
-    @error_handler
+    @guarded
     def lines_bezier(
         self,
         xy: Tuple[float, float],

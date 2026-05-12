@@ -32,7 +32,7 @@ from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import ColorUtil
 from drawlib.v0_2.private.core_canvas.canvas import image
 from drawlib.v0_2.private.download import download_if_not_exist
-from drawlib.v0_2.private.util import error_handler, get_script_relative_path
+from drawlib.v0_2.private.util import get_script_relative_path, guarded
 
 PYGMENTS_LINENUM_TEXT_COLOR: Final[Tuple[int, int, int]] = (136, 136, 102)
 PYGMENTS_LINENUM_BACKGROUND_COLOR: Final[Tuple[int, int, int]] = (238, 238, 221)
@@ -46,7 +46,7 @@ class SourceCode:
     directly with the `get_image()` method.
     """
 
-    @error_handler
+    @guarded
     def __init__(
         self,
         language: Optional[
@@ -147,7 +147,7 @@ class SourceCode:
         self._lexer: Optional[Lexer] = self._get_lexer(language)
         self._formatter = self._get_formatter(style, font, show_linenum, linenum_textcolor, linenum_bgcolor)
 
-    @error_handler
+    @guarded
     def get_image(self, code: str) -> Dimage:
         """Generate an image of the source code.
 
@@ -169,7 +169,7 @@ class SourceCode:
         image_buffer.seek(0)
         return Dimage(Image.open(image_buffer))
 
-    @error_handler
+    @guarded
     def draw(
         self,
         xy: Tuple[float, float],
@@ -190,7 +190,7 @@ class SourceCode:
         image(xy=xy, width=width, image=image_, style=style)
 
     @staticmethod
-    @error_handler
+    @guarded
     def get_text(file: str, strip: bool = True) -> str:
         """Retrieve the text from a file.
 

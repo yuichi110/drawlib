@@ -24,7 +24,7 @@ from drawlib.v0_2.private.core.model import ImageStyle, ShapeStyle
 from drawlib.v0_2.private.core.util import ImageUtil
 from drawlib.v0_2.private.core_canvas.base import CanvasBase
 from drawlib.v0_2.private.logging import logger
-from drawlib.v0_2.private.util import error_handler
+from drawlib.v0_2.private.util import guarded
 
 
 class CanvasImageFeature(CanvasBase):
@@ -48,7 +48,7 @@ class CanvasImageFeature(CanvasBase):
         """
         super().__init__()
 
-    @error_handler
+    @guarded
     def image(
         self,
         xy: Tuple[float, float],

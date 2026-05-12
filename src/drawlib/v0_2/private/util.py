@@ -21,6 +21,8 @@ import sys
 import traceback
 from typing import Callable, List, ParamSpec, Tuple, TypeVar, Union
 
+from pydantic import ConfigDict, validate_call
+
 import drawlib.assets.v0_2.fonticons
 import drawlib.assets.v0_2.fonts
 import drawlib.v0_2.private.validators.coordinate as validator
@@ -31,7 +33,7 @@ R = TypeVar("R")
 P = ParamSpec("P")
 
 
-def error_handler(caller: Callable[P, R]) -> Callable[P, R]:
+def guarded(caller: Callable[P, R]) -> Callable[P, R]:
     """Drawlib error handling decorator function.
 
     Decorates functions to handle errors gracefully. Depending on the logging mode:
@@ -53,16 +55,23 @@ def error_handler(caller: Callable[P, R]) -> Callable[P, R]:
         or to the 'settings' module due to potential circular imports.
 
     """
+    validated_caller = None
+    pydantic_config = ConfigDict(arbitrary_types_allowed=True)
 
-    @functools.wraps(caller)
+    @functools.wraps(caller)  # inherit name and docstring from caller
     def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
+        # cache validate_call first time
+        nonlocal validated_caller
+        if validated_caller is None:
+            validated_caller = validate_call(config=pydantic_config)(caller)
+
         # without error handling
         if dutil_settings.is_developer_debug_mode():
-            return caller(*args, **kwargs)
+            return validated_caller(*args, **kwargs)
 
         # with error handling
         try:
-            return caller(*args, **kwargs)
+            return validated_caller(*args, **kwargs)
         except Exception as e:
             package_root = _get_package_root_path()
             for frame in inspect.stack():
@@ -82,7 +91,7 @@ def error_handler(caller: Callable[P, R]) -> Callable[P, R]:
     return wrapper
 
 
-@error_handler
+@guarded
 def get_rotated_points(
     xys: List[Tuple[float, float]],
     center: Tuple[float, float],
@@ -121,7 +130,7 @@ def get_rotated_points(
     return rotated_points
 
 
-@error_handler
+@guarded
 def get_rotated_path_points(
     path_points: List[
         Union[
@@ -197,7 +206,7 @@ def get_rotated_path_points(
     return rotated_path_points
 
 
-@error_handler
+@guarded
 def get_angle(xy1: Tuple[float, float], xy2: Tuple[float, float]) -> float:
     """Calculate the angle in degrees between two points.
 
@@ -221,7 +230,7 @@ def get_angle(xy1: Tuple[float, float], xy2: Tuple[float, float]) -> float:
     return (angle_deg + 360) % 360
 
 
-@error_handler
+@guarded
 def get_distance(xy1: Tuple[float, float], xy2: Tuple[float, float]) -> float:
     """Calculate the Euclidean distance between two points.
 
@@ -241,7 +250,7 @@ def get_distance(xy1: Tuple[float, float], xy2: Tuple[float, float]) -> float:
     return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
 
-@error_handler
+@guarded
 def get_center_and_size(
     xys: list[Tuple[float, float]],
 ) -> Tuple[Tuple[float, float], Tuple[float, float]]:
@@ -273,7 +282,7 @@ def get_center_and_size(
     return ((center_x, center_y), (maxx - minx, maxy - miny))
 
 
-@error_handler
+@guarded
 def plus_2points(xy1: Tuple[float, float], xy2: Tuple[float, float]) -> Tuple[float, float]:
     """Add two points (vectors).
 
@@ -290,7 +299,7 @@ def plus_2points(xy1: Tuple[float, float], xy2: Tuple[float, float]) -> Tuple[fl
     return (xy1[0] + xy2[0], xy1[1] + xy2[1])
 
 
-@error_handler
+@guarded
 def minus_2points(xy1: Tuple[float, float], xy2: Tuple[float, float]) -> Tuple[float, float]:
     """Subtract one point (vector) from another.
 
@@ -307,7 +316,7 @@ def minus_2points(xy1: Tuple[float, float], xy2: Tuple[float, float]) -> Tuple[f
     return (xy1[0] - xy2[0], xy1[1] - xy2[1])
 
 
-@error_handler
+@guarded
 def get_script_path() -> str:
     """Retrieve the absolute path of the user script that calls this function.
 
@@ -324,6 +333,8 @@ def get_script_path() -> str:
         file = frame.filename
         if not os.path.isfile(file):
             continue
+        if "site-packages" in file:
+            continue
         if _is_path_under(package_root, file):
             continue
         script_path = file
@@ -336,7 +347,7 @@ def get_script_path() -> str:
     return script_path
 
 
-@error_handler
+@guarded
 def get_script_relative_path(path: str) -> str:
     """Construct the absolute file path from a script file path.
 
@@ -362,7 +373,7 @@ def get_script_relative_path(path: str) -> str:
     return os.path.realpath(merged_path)
 
 
-@error_handler
+@guarded
 def get_script_function_name() -> str:
     """Retrieve the name of the function in the user script that calls this function.
 
@@ -386,7 +397,7 @@ def get_script_function_name() -> str:
     raise RuntimeError(msg)
 
 
-@error_handler
+@guarded
 def purge_font_cache() -> None:
     """Delete downloaded font file cache."""
     fonts_dir_path = os.path.dirname(drawlib.assets.v0_2.fonts.__file__)

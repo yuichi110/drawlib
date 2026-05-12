@@ -24,8 +24,8 @@ from PIL import (
 )
 
 from drawlib.v0_2.private.util import (
-    error_handler,
     get_script_relative_path,
+    guarded,
 )
 from drawlib.v0_2.private.validators.color import validate_color
 
@@ -119,7 +119,7 @@ class Dimage:
 
     cache = DimageCache()
 
-    @error_handler
+    @guarded
     def __init__(
         self,
         image: Union[str, Dimage, Image.Image],
@@ -166,7 +166,7 @@ class Dimage:
         else:
             raise ValueError(f'Dimage does not support type "{type(image)}".')
 
-    @error_handler
+    @guarded
     def get_pil_image(self) -> Image.Image:
         """Get a copied PIL Image.
 
@@ -178,7 +178,7 @@ class Dimage:
         """
         return self._pilimg.copy()
 
-    @error_handler
+    @guarded
     def get_image_size(self) -> Tuple[int, int]:
         """Get the size of the image.
 
@@ -190,7 +190,7 @@ class Dimage:
         width, height = self._pilimg.size
         return (width, height)
 
-    @error_handler
+    @guarded
     def copy(self) -> Dimage:
         """Get a copied Dimage.
 
@@ -201,7 +201,7 @@ class Dimage:
         """
         return Dimage(self)
 
-    @error_handler
+    @guarded
     def save(self, file: str) -> None:
         """Save the Dimage data to a file.
 
@@ -225,7 +225,7 @@ class Dimage:
         os.makedirs(directory, exist_ok=True)
         self._pilimg.save(abspath, quality=95)
 
-    @error_handler
+    @guarded
     def _rotate(self, angle: float) -> Dimage:
         """Get a new Dimage that is rotated. The original Dimage is kept unchanged.
 
@@ -245,7 +245,7 @@ class Dimage:
         )
         return Dimage(newimg)
 
-    @error_handler
+    @guarded
     def resize(self, width: int, height: int) -> Dimage:
         """Get a new Dimage that is resized. The original Dimage is kept unchanged.
 
@@ -264,7 +264,7 @@ class Dimage:
         )
         return Dimage(newimg)
 
-    @error_handler
+    @guarded
     def crop(self, x: int, y: int, width: int, height: int) -> Dimage:
         """Get a new Dimage that is cropped. The original Dimage is kept unchanged.
 
@@ -291,7 +291,7 @@ class Dimage:
         new_image = self._pilimg.crop((left, top, right, bottom))
         return Dimage(new_image)
 
-    @error_handler
+    @guarded
     def flip(self) -> Dimage:
         """Get a new Dimage that is flipped vertically. The original Dimage is kept unchanged.
 
@@ -301,7 +301,7 @@ class Dimage:
         newimg = ImageOps.flip(self._pilimg)
         return Dimage(newimg)
 
-    @error_handler
+    @guarded
     def mirror(self) -> Dimage:
         """Get a new Dimage that is mirrored horizontally. The original Dimage is kept unchanged.
 
@@ -311,7 +311,7 @@ class Dimage:
         newimg = ImageOps.mirror(self._pilimg)
         return Dimage(newimg)
 
-    @error_handler
+    @guarded
     def fill(self, color: Union[Tuple[int, int, int], Tuple[int, int, int, float]]) -> Dimage:
         """Get a new Dimage with the specified color filling the transparent areas.
 
@@ -361,7 +361,7 @@ class Dimage:
 
         return Dimage(new_image)
 
-    @error_handler
+    @guarded
     def alpha(self, alpha: float) -> Dimage:
         """Get a new Dimage with the specified alpha transparency while keeping the original Dimage unchanged.
 
@@ -394,7 +394,7 @@ class Dimage:
 
         return Dimage(new_image)
 
-    @error_handler
+    @guarded
     def invert(self) -> Dimage:
         """Get a new Dimage with inverted colors while keeping the original Dimage unchanged.
 
@@ -416,7 +416,7 @@ class Dimage:
         inverted_image = Image.merge("RGBA", (r, g, b, a))
         return Dimage(inverted_image)
 
-    @error_handler
+    @guarded
     def grayscale(self) -> Dimage:
         """Get a new Dimage with a grayscale effect while keeping the original Dimage unchanged.
 
@@ -426,7 +426,7 @@ class Dimage:
         newimg = self._pilimg.convert("LA")
         return Dimage(newimg)
 
-    @error_handler
+    @guarded
     def brightness(self, brightness: float = 0.5) -> Dimage:
         """Get a new Dimage with changed brightness while keeping the original Dimage unchanged.
 
@@ -441,7 +441,7 @@ class Dimage:
         newimg = enhancer.enhance(brightness)
         return Dimage(newimg)
 
-    @error_handler
+    @guarded
     def sepia(self) -> Dimage:
         """Get a new Dimage with a sepia effect while keeping the original Dimage unchanged.
 
@@ -465,7 +465,7 @@ class Dimage:
         sepia_image.putalpha(alpha_mask)
         return Dimage(sepia_image)
 
-    @error_handler
+    @guarded
     def colorize(
         self,
         from_black_to: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
@@ -510,7 +510,7 @@ class Dimage:
         colorized_image.putalpha(alpha_mask)
         return Dimage(colorized_image)
 
-    @error_handler
+    @guarded
     def posterize(self, num_colors: int = 4) -> Dimage:
         """Get a new Dimage with a posterize effect while keeping the original Dimage unchanged.
 
@@ -531,7 +531,7 @@ class Dimage:
         newimg = Image.merge("RGBA", (r, g, b, a))
         return Dimage(newimg)
 
-    @error_handler
+    @guarded
     def mosaic(self, block_size: int = 8) -> Dimage:
         """Get a new Dimage with a mosaic effect while keeping the original Dimage unchanged.
 
@@ -574,7 +574,7 @@ class Dimage:
         # change pil image to Dimage.
         return Dimage(image)
 
-    @error_handler
+    @guarded
     def blur(self) -> Dimage:
         """Get a new Dimage with a blur effect while keeping the original Dimage unchanged.
 
@@ -584,7 +584,7 @@ class Dimage:
         newimg = self._pilimg.filter(ImageFilter.BLUR)
         return Dimage(newimg)
 
-    @error_handler
+    @guarded
     def line_extraction(self) -> Dimage:
         """Get a new Dimage with a line extraction effect while keeping the original Dimage unchanged.
 
@@ -597,7 +597,7 @@ class Dimage:
         newimg = ImageOps.invert(senga_inv)
         return Dimage(newimg)
 
-    @error_handler
+    @guarded
     def remove_margin(
         self,
         margin_color: Union[None, str, Tuple[int, int, int]],

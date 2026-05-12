@@ -16,7 +16,7 @@ from typing import List, Optional, Tuple, Union
 from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core_canvas.canvas import rectangle
-from drawlib.v0_2.private.util import error_handler
+from drawlib.v0_2.private.util import guarded
 
 
 class GridLayout:
@@ -34,7 +34,7 @@ class GridLayout:
         If None, no angle is applied. Defaults to None.
     """
 
-    @error_handler
+    @guarded
     def __init__(
         self,
         num_column: int,
@@ -71,7 +71,7 @@ class GridLayout:
 
         self._items: List[_GridLayoutItem] = []
 
-    @error_handler
+    @guarded
     def add(  # noqa: C901
         self,
         position: Tuple[int, int],
@@ -172,7 +172,7 @@ class GridLayout:
         )
         self._items.append(item)
 
-    @error_handler
+    @guarded
     def draw(
         self,
         xy: Tuple[float, float],
@@ -215,7 +215,7 @@ class GridLayout:
             outer_style=outer_style,
         )
 
-    @error_handler
+    @guarded
     def draw_flexible(  # noqa: C901
         self,
         xy: Tuple[float, float],

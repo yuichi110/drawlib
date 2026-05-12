@@ -30,7 +30,7 @@ __all__ = [
 ]
 
 
-@drawlib.v0_2.private.util.error_handler
+@drawlib.v0_2.private.util.guarded
 def initialize() -> None:
     """Initialize the drawing environment by applying the official theme and clearing the image cache.
 

@@ -17,7 +17,7 @@ from drawlib.v0_2.private.core.colors import Colors
 from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core_canvas.canvas import rectangle
-from drawlib.v0_2.private.util import error_handler
+from drawlib.v0_2.private.util import guarded
 
 
 class BoxList:
@@ -29,7 +29,7 @@ class BoxList:
 
     """
 
-    @error_handler
+    @guarded
     def __init__(
         self,
         default_box_style: Union[str, ShapeStyle, None] = None,
@@ -58,7 +58,7 @@ class BoxList:
 
         self._list: List[_Item] = []
 
-    @error_handler
+    @guarded
     def append(
         self,
         text: str,
@@ -80,7 +80,7 @@ class BoxList:
         """
         self.extend([text], box_style=box_style, text_style=text_style)
 
-    @error_handler
+    @guarded
     def insert(
         self,
         index: int,
@@ -122,7 +122,7 @@ class BoxList:
         )
         self._list.insert(index, item)
 
-    @error_handler
+    @guarded
     def extend(
         self,
         texts: List[str],
@@ -163,7 +163,7 @@ class BoxList:
             )
             self._list.append(item)
 
-    @error_handler
+    @guarded
     def draw(
         self,
         xy: Tuple[float, float],

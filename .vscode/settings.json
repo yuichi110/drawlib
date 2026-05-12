@@ -7,13 +7,9 @@
     },
     "editor.defaultFormatter": "charliermarsh.ruff"
   },
-  "ruff.format.args": [
-    "--config=pyproject.toml"
-  ],
-  "python.analysis.typeCheckingMode": "standard",
+  "ruff.configuration": "pyproject.toml",
+  "python.analysis.typeCheckingMode": "basic",
   "python.analysis.diagnosticSeverityOverrides": {
-    "reportPrivateImportUsage":"none" 
-  },
-  "editor.defaultFormatter": "charliermarsh.ruff",
-  "python.analysis.showHoverGoToLinks": false,
+    "reportPrivateImportUsage": "none"
+  }
 }

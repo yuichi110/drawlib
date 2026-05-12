@@ -16,7 +16,7 @@ from typing import List, Literal, Optional, Tuple, Union
 from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core_canvas.canvas import trapezoid, triangle
-from drawlib.v0_2.private.util import error_handler
+from drawlib.v0_2.private.util import guarded
 
 
 @dataclasses.dataclass
@@ -34,7 +34,7 @@ class Pyramid:
     adjustments.
     """
 
-    @error_handler
+    @guarded
     def __init__(
         self,
         default_style: Union[str, ShapeStyle, None] = None,
@@ -68,7 +68,7 @@ class Pyramid:
 
         self._items: List[_PyramidItem] = []
 
-    @error_handler
+    @guarded
     def add(  # noqa: C901
         self,
         text: str,
@@ -134,7 +134,7 @@ class Pyramid:
         )
         self._items.append(item)
 
-    @error_handler
+    @guarded
     def draw(
         self,
         xy: Tuple[float, float],
@@ -170,7 +170,7 @@ class Pyramid:
             order=order,
         )
 
-    @error_handler
+    @guarded
     def draw_flexible(
         self,
         xy: Tuple[float, float],

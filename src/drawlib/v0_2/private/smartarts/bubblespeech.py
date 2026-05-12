@@ -19,10 +19,10 @@ from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import ShapeUtil
 from drawlib.v0_2.private.core_canvas.canvas import canvas
-from drawlib.v0_2.private.util import error_handler
+from drawlib.v0_2.private.util import guarded
 
 
-@error_handler
+@guarded
 def bubblespeech(
     xy: Tuple[float, float],
     width: float,

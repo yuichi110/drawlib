@@ -35,8 +35,8 @@ from drawlib.v0_2.private.core.model import (
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import ShapeUtil
 from drawlib.v0_2.private.util import (
-    error_handler,
     get_center_and_size,
+    guarded,
     minus_2points,
 )
 
@@ -56,7 +56,7 @@ class CanvasBase:
     DEFAULT_GRID_STYLE: Final[LineStyle] = LineStyle(width=1, color=Colors.Gray, style="dashed")
     DEFAULT_GRID_CENTERSTYLE: Final[LineStyle] = LineStyle(width=2, color=Colors.Gray, style="dashed")
 
-    @error_handler
+    @guarded
     def __init__(self) -> None:
         """Initialize Canvas instance with default parameters.
 
@@ -91,7 +91,7 @@ class CanvasBase:
         # initialize fig and ax
         self.config()
 
-    @error_handler
+    @guarded
     def clear(self) -> None:
         """Initialize drawlib Canvas state and configuration.
 
@@ -109,7 +109,7 @@ class CanvasBase:
         pyplot.close()
         CanvasBase.__init__(self)  # noqa: PLC2801
 
-    @error_handler
+    @guarded
     def config(  # noqa: C901
         self,
         width: Optional[int] = None,
@@ -234,7 +234,7 @@ class CanvasBase:
     # Shape
     #
 
-    @error_handler
+    @guarded
     def polygon(
         self,
         xys: List[Tuple[float, float]],
@@ -283,7 +283,7 @@ class CanvasBase:
             ),
         )
 
-    @error_handler
+    @guarded
     def shape(  # noqa: C901
         self,
         xy: Tuple[float, float],
@@ -445,7 +445,7 @@ class CanvasBase:
                 )
             )
 
-    @error_handler
+    @guarded
     def rectangle(
         self,
         xy: Tuple[float, float],
@@ -528,7 +528,7 @@ class CanvasBase:
             textstyle=textstyle,
         )
 
-    @error_handler
+    @guarded
     def get_image_zoom_original(
         self,
     ) -> float:
@@ -545,7 +545,7 @@ class CanvasBase:
         zoom = 72 / self._dpi
         return zoom
 
-    @error_handler
+    @guarded
     def get_image_zoom_from_width(
         self,
         image: Union[str, PIL.Image.Image, Dimage],
@@ -572,7 +572,7 @@ class CanvasBase:
         zoom = 720 * width / self._width / image_width
         return zoom
 
-    @error_handler
+    @guarded
     def get_charwidth_from_fontsize(
         self,
         size: float,
@@ -601,7 +601,7 @@ class CanvasBase:
         width = size * 0.72 * self._width / magic_number
         return width
 
-    @error_handler
+    @guarded
     def get_fontsize_from_charwidth(
         self,
         width: float,
