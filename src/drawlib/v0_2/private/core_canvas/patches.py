@@ -9,8 +9,11 @@
 
 """Canvas's matplotlib base shape feature implementation module."""
 
+from drawlib.v0_2.private.types import (
+    TypeCoordinate,
+)
+
 import math
-from typing import List, Optional, Tuple, Union
 
 from matplotlib.patches import (
     Arc,
@@ -42,16 +45,16 @@ class CanvasPatchesFeature(CanvasBase):
     @guarded
     def arc(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         width: float,
         height: float,
-        angle_start: Union[int, float] = 0.0,
-        angle_end: Union[int, float] = 360.0,
-        angle: Union[int, float] = 0.0,
-        style: Union[ShapeStyle, str, None] = None,
+        angle_start: int | float = 0.0,
+        angle_end: int | float = 360.0,
+        angle: int | float = 0.0,
+        style: ShapeStyle | str | None = None,
         text: str = "",
-        textsize: Optional[float] = None,
-        textstyle: Union[ShapeTextStyle, str, None] = None,
+        textsize: float | None = None,
+        textstyle: ShapeTextStyle | str | None = None,
     ) -> None:
         """Draw an arc on the canvas.
 
@@ -109,13 +112,13 @@ class CanvasPatchesFeature(CanvasBase):
     @guarded
     def circle(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         radius: float,
-        angle: Union[int, float] = 0.0,
-        style: Union[ShapeStyle, str, None] = None,
+        angle: int | float = 0.0,
+        style: ShapeStyle | str | None = None,
         text: str = "",
-        textsize: Optional[float] = None,
-        textstyle: Union[ShapeTextStyle, str, None] = None,
+        textsize: float | None = None,
+        textstyle: ShapeTextStyle | str | None = None,
     ) -> None:
         """Draw a circle on the canvas.
 
@@ -168,14 +171,14 @@ class CanvasPatchesFeature(CanvasBase):
     @guarded
     def ellipse(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         width: float,
         height: float,
-        angle: Union[int, float] = 0.0,
-        style: Union[ShapeStyle, str, None] = None,
+        angle: int | float = 0.0,
+        style: ShapeStyle | str | None = None,
         text: str = "",
-        textsize: Optional[float] = None,
-        textstyle: Union[ShapeTextStyle, str, None] = None,
+        textsize: float | None = None,
+        textstyle: ShapeTextStyle | str | None = None,
     ) -> None:
         """Draw an ellipse on the canvas.
 
@@ -229,14 +232,14 @@ class CanvasPatchesFeature(CanvasBase):
     @guarded
     def regularpolygon(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         radius: float,
         num_vertex: int,
-        angle: Union[int, float] = 0.0,
-        style: Union[ShapeStyle, str, None] = None,
+        angle: int | float = 0.0,
+        style: ShapeStyle | str | None = None,
         text: str = "",
-        textsize: Optional[float] = None,
-        textstyle: Union[ShapeTextStyle, str, None] = None,
+        textsize: float | None = None,
+        textstyle: ShapeTextStyle | str | None = None,
     ) -> None:
         """Draw a regular polygon on the canvas.
 
@@ -292,16 +295,16 @@ class CanvasPatchesFeature(CanvasBase):
     @guarded
     def wedge(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         radius: float,
-        width: Optional[float] = None,
+        width: float | None = None,
         angle_start: float = 0,
         angle_end: float = 360,
-        angle: Union[int, float] = 0.0,
-        style: Union[ShapeStyle, str, None] = None,
+        angle: int | float = 0.0,
+        style: ShapeStyle | str | None = None,
         text: str = "",
-        textsize: Optional[float] = None,
-        textstyle: Union[ShapeTextStyle, str, None] = None,
+        textsize: float | None = None,
+        textstyle: ShapeTextStyle | str | None = None,
     ) -> None:
         """Draw a wedge on the canvas.
 
@@ -361,14 +364,14 @@ class CanvasPatchesFeature(CanvasBase):
     @guarded
     def donuts(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         radius: float,
-        width: Optional[float] = None,
-        angle: Union[int, float] = 0.0,
-        style: Union[ShapeStyle, str, None] = None,
+        width: float | None = None,
+        angle: int | float = 0.0,
+        style: ShapeStyle | str | None = None,
         text: str = "",
-        textsize: Optional[float] = None,
-        textstyle: Union[ShapeTextStyle, str, None] = None,
+        textsize: float | None = None,
+        textstyle: ShapeTextStyle | str | None = None,
     ) -> None:
         """Draw a donut shape on the canvas.
 
@@ -407,15 +410,15 @@ class CanvasPatchesFeature(CanvasBase):
     @guarded
     def fan(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         radius: float,
         angle_start: float = 0,
         angle_end: float = 180,
-        angle: Union[int, float] = 0.0,
-        style: Union[ShapeStyle, str, None] = None,
+        angle: int | float = 0.0,
+        style: ShapeStyle | str | None = None,
         text: str = "",
-        textsize: Optional[float] = None,
-        textstyle: Union[ShapeTextStyle, str, None] = None,
+        textsize: float | None = None,
+        textstyle: ShapeTextStyle | str | None = None,
     ) -> None:
         """Draw a fan shape on the canvas.
 

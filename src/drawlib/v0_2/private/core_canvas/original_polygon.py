@@ -10,8 +10,11 @@
 
 """Canvas's original shape feature implementation module."""
 
+from drawlib.v0_2.private.types import (
+    TypeCoordinate,
+)
+
 import math
-from typing import Optional, Tuple, Union
 
 from matplotlib.patches import PathPatch
 from matplotlib.path import Path
@@ -43,15 +46,15 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     @guarded
     def triangle(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         width: float,
         height: float,
-        topvertex_x: Optional[float] = None,
-        angle: Union[int, float] = 0.0,
-        style: Union[ShapeStyle, str, None] = None,
+        topvertex_x: float | None = None,
+        angle: int | float = 0.0,
+        style: ShapeStyle | str | None = None,
         text: str = "",
-        textsize: Optional[float] = None,
-        textstyle: Union[ShapeTextStyle, str, None] = None,
+        textsize: float | None = None,
+        textstyle: ShapeTextStyle | str | None = None,
     ) -> None:
         """Draw a triangle on the canvas.
 
@@ -96,15 +99,15 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     @guarded
     def parallelogram(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         width: float,
         height: float,
-        corner_angle: Union[int, float],
-        angle: Union[int, float] = 0.0,
-        style: Union[ShapeStyle, str, None] = None,
+        corner_angle: int | float,
+        angle: int | float = 0.0,
+        style: ShapeStyle | str | None = None,
         text: str = "",
-        textsize: Optional[float] = None,
-        textstyle: Union[ShapeTextStyle, str, None] = None,
+        textsize: float | None = None,
+        textstyle: ShapeTextStyle | str | None = None,
     ) -> None:
         """Draw a parallelogram on the canvas.
 
@@ -131,7 +134,7 @@ class CanvasOriginalPolygonFeature(CanvasBase):
         )
         validator.validate_shape_args(locals())
 
-        def calculate_parallelogram_lefttop_coordinate() -> Tuple[float, float]:
+        def calculate_parallelogram_lefttop_coordinate() -> TypeCoordinate:
             angle_rad = math.radians(corner_angle)
             x = height / math.tan(angle_rad)
             return x, height
@@ -154,16 +157,16 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     @guarded
     def trapezoid(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         height: float,
         bottomedge_width: float,
         topedge_width: float,
-        topedge_x: Optional[float] = None,
+        topedge_x: float | None = None,
         angle: float = 0.0,
-        style: Union[ShapeStyle, str, None] = None,
+        style: ShapeStyle | str | None = None,
         text: str = "",
-        textsize: Optional[float] = None,
-        textstyle: Union[ShapeTextStyle, str, None] = None,
+        textsize: float | None = None,
+        textstyle: ShapeTextStyle | str | None = None,
     ) -> None:
         """Draw a trapezoid on the canvas.
 
@@ -212,14 +215,14 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     @guarded
     def rhombus(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         width: float,
         height: float,
-        angle: Union[int, float] = 0.0,
-        style: Union[ShapeStyle, str, None] = None,
+        angle: int | float = 0.0,
+        style: ShapeStyle | str | None = None,
         text: str = "",
-        textsize: Optional[float] = None,
-        textstyle: Union[ShapeTextStyle, str, None] = None,
+        textsize: float | None = None,
+        textstyle: ShapeTextStyle | str | None = None,
     ) -> None:
         """Draw a chevron on the canvas.
 
@@ -264,16 +267,16 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     @guarded
     def chevron(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         width: float,
         height: float,
         corner_angle: float,
         mirror: bool = False,
-        angle: Union[int, float] = 0.0,
-        style: Union[ShapeStyle, str, None] = None,
+        angle: int | float = 0.0,
+        style: ShapeStyle | str | None = None,
         text: str = "",
-        textsize: Optional[float] = None,
-        textstyle: Union[ShapeTextStyle, str, None] = None,
+        textsize: float | None = None,
+        textstyle: ShapeTextStyle | str | None = None,
     ) -> None:
         """Draw chevron.
 
@@ -302,7 +305,7 @@ class CanvasOriginalPolygonFeature(CanvasBase):
         )
         validator.validate_shape_args(locals())
 
-        def calculate_p2_coordinate(h: float) -> Tuple[float, float]:
+        def calculate_p2_coordinate(h: float) -> TypeCoordinate:
             h /= 2
             angle_rad = math.radians(corner_angle)
             x = h / math.tan(angle_rad)
@@ -334,15 +337,15 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     @guarded
     def star(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         num_vertex: int,
         radius_ext: float,
         radius_int: float,
-        angle: Union[int, float] = 0.0,
-        style: Union[ShapeStyle, str, None] = None,
+        angle: int | float = 0.0,
+        style: ShapeStyle | str | None = None,
         text: str = "",
-        textsize: Optional[float] = None,
-        textstyle: Union[ShapeTextStyle, str, None] = None,
+        textsize: float | None = None,
+        textstyle: ShapeTextStyle | str | None = None,
     ) -> None:
         """Draw a star on the canvas.
 
@@ -381,10 +384,10 @@ class CanvasOriginalPolygonFeature(CanvasBase):
         def get_rotate_point(
             x: float,
             y: float,
-            angle: Optional[float],
+            angle: float | None,
             move_x: float,
             move_y: float,
-        ) -> Tuple[float, float]:
+        ) -> TypeCoordinate:
             if angle is None:
                 angle = 0.0
             angle_rad = math.radians(angle)

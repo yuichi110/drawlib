@@ -16,6 +16,17 @@ from pydantic import AfterValidator, BeforeValidator, Field, InstanceOf, SkipVal
 from drawlib.v0_2.private.core.fonts import FontBase, FontFile
 
 #
+# Basic Types
+#
+
+TypeCoordinate = tuple[float, float]
+TypePathPoint = (
+    tuple[float, float]
+    | tuple[tuple[float, float], tuple[float, float]]
+    | tuple[tuple[float, float], tuple[float, float], tuple[float, float]]
+)
+
+#
 # Validators
 #
 
@@ -89,18 +100,22 @@ TypePosIntEx = Annotated[int, Field(gt=0)]
 TypeNumVertex = Annotated[int, Field(ge=3)]
 
 # Complex structures
-TypeCoordinate = tuple[float, float]
 TypeCoordinates = list[TypeCoordinate]
-TypeColorTuple = Annotated[
-    tuple[int, int, int] | tuple[int, int, int, float],
+
+TypeColorRGB = Annotated[
+    tuple[int, int, int],
+    AfterValidator(validate_color_tuple),
+]
+TypeColorRGBA = Annotated[
+    tuple[int, int, int, float],
+    AfterValidator(validate_color_tuple),
+]
+TypeColor = Annotated[
+    TypeColorRGB | TypeColorRGBA,
     AfterValidator(validate_color_tuple),
 ]
 
-TypePathPoint = (
-    tuple[float, float]
-    | tuple[tuple[float, float], tuple[float, float]]
-    | tuple[tuple[float, float], tuple[float, float], tuple[float, float]]
-)
+
 TypePathPoints = list[TypePathPoint]
 
 # Literal choices
@@ -153,7 +168,9 @@ __all__ = [
     "TypeNumVertex",
     "TypeCoordinate",
     "TypeCoordinates",
-    "TypeColorTuple",
+    "TypeColor",
+    "TypeColorRGB",
+    "TypeColorRGBA",
     "TypePathPoint",
     "TypePathPoints",
     "TypeIconStyle",

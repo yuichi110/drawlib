@@ -398,6 +398,12 @@ def get_script_function_name() -> str:
 
 
 @guarded
+def download_all_fonts() -> None:
+    """Download all fonts."""
+    raise NotImplementedError("Not implemented yet")
+
+
+@guarded
 def purge_font_cache() -> None:
     """Delete downloaded font file cache."""
     fonts_dir_path = os.path.dirname(drawlib.assets.v0_2.fonts.__file__)

@@ -11,7 +11,7 @@
 """Canvas implementation module."""
 
 import os
-from typing import Literal, Optional
+from typing import Literal
 
 from matplotlib import pyplot
 
@@ -24,6 +24,7 @@ from drawlib.v0_2.private.core_canvas.original_arrow import CanvasOriginalArrowF
 from drawlib.v0_2.private.core_canvas.original_polygon import CanvasOriginalPolygonFeature
 from drawlib.v0_2.private.core_canvas.patches import CanvasPatchesFeature
 from drawlib.v0_2.private.core_canvas.text import CanvasTextFeature
+from drawlib.v0_2.private.types import TypeImageFormat
 from drawlib.v0_2.private.util import (
     get_script_path,
     get_script_relative_path,
@@ -78,8 +79,8 @@ class Canvas(
     @guarded
     def save(
         self,
-        file: Optional[str] = None,
-        format: Optional[Literal["jpg", "png", "webp", "pdf"]] = None,
+        file: str | None = None,
+        format: TypeImageFormat | None = None,
     ) -> None:
         """Save canvas illustration to file.
 
@@ -144,7 +145,7 @@ class Canvas(
             artist.remove()
 
     @staticmethod
-    def _get_save_file_path(file: Optional[str], format: Optional[str]) -> str:
+    def _get_save_file_path(file: str | None, format: str | None) -> str:
         """Get the file path for saving the canvas.
 
         Args:

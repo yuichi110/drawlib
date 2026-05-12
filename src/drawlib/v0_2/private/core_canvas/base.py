@@ -10,7 +10,7 @@
 """Canvas's base class implementation module."""
 
 import math
-from typing import Final, List, Optional, Tuple, Union
+from typing import Final
 
 import matplotlib.artist
 import matplotlib.font_manager
@@ -34,6 +34,11 @@ from drawlib.v0_2.private.core.model import (
 )
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import ShapeUtil
+from drawlib.v0_2.private.types import (
+    TypeColor,
+    TypeCoordinate,
+    TypeCoordinates,
+)
 from drawlib.v0_2.private.util import (
     get_center_and_size,
     guarded,
@@ -70,19 +75,15 @@ class CanvasBase:
         self._width = self.DEFAULT_WIDTH
         self._height = self.DEFAULT_HEIGHT
         self._dpi = self.DEFAULT_DPI
-        self._background_color: Union[
-            Tuple[int, int, int],
-            Tuple[int, int, int, float],
-            None,
-        ] = None  # apply theme default later if no update
-        self._background_alpha: Optional[float] = None  # apply theme default later if no update
+        self._background_color: TypeColor | None = None  # apply theme default later if no update
+        self._background_alpha: float | None = None  # apply theme default later if no update
         self._grid = self.DEFAULT_GRID
         self._grid_only = self.DEFAULT_GRID_ONLY
         self._grid_style = self.DEFAULT_GRID_STYLE
         self._grid_centerstyle = self.DEFAULT_GRID_CENTERSTYLE
-        self._grid_xpitch: Optional[int] = None
-        self._grid_ypitch: Optional[int] = None
-        self._artists: List[matplotlib.artist.Artist] = []
+        self._grid_xpitch: int | None = None
+        self._grid_ypitch: int | None = None
+        self._artists: list[matplotlib.artist.Artist] = []
 
         # it is decleared only for typing system
         self._fig = pyplot.figure()
@@ -112,21 +113,17 @@ class CanvasBase:
     @guarded
     def config(  # noqa: C901
         self,
-        width: Optional[int] = None,
-        height: Optional[int] = None,
-        dpi: Optional[int] = None,
-        background_color: Union[
-            Tuple[int, int, int],
-            Tuple[int, int, int, float],
-            None,
-        ] = None,
-        background_alpha: Optional[float] = None,
-        grid: Optional[bool] = None,
-        grid_only: Optional[bool] = None,
-        grid_style: Optional[LineStyle] = None,
-        grid_centerstyle: Optional[LineStyle] = None,
-        grid_xpitch: Optional[int] = None,
-        grid_ypitch: Optional[int] = None,
+        width: int | None = None,
+        height: int | None = None,
+        dpi: int | None = None,
+        background_color: TypeColor | None = None,
+        background_alpha: float | None = None,
+        grid: bool | None = None,
+        grid_only: bool | None = None,
+        grid_style: LineStyle | None = None,
+        grid_centerstyle: LineStyle | None = None,
+        grid_xpitch: int | None = None,
+        grid_ypitch: int | None = None,
     ) -> None:
         """Configure drawlib Canvas parameters.
 
@@ -135,18 +132,18 @@ class CanvasBase:
         This method can be called multiple times to update configuration.
 
         Args:
-            width (Optional[int]): Width of the canvas.
-            height (Optional[int]): Height of the canvas.
-            dpi (Optional[int]): Output image resolution.
-            background_color (Optional[Union[Tuple[int, int, int], Tuple[int, int, int, float]]]):
+            width (int | None): Width of the canvas.
+            height (int | None): Height of the canvas.
+            dpi (int | None): Output image resolution.
+            background_color (Union[tuple[int, int, int | None, tuple[int, int, int, float]]]):
                 Background color.
-            background_alpha (Optional[float]): Background alpha (opacity).
-            grid (Optional[bool]): Show grid for checking coordinates.
-            grid_only (Optional[bool]): Show grid only.
-            grid_style (Optional[LineStyle]): Style of grid lines.
-            grid_centerstyle (Optional[LineStyle]): Style of center grid lines.
-            grid_xpitch (Optional[int]): X-axis grid pitch.
-            grid_ypitch (Optional[int]): Y-axis grid pitch.
+            background_alpha (float | None): Background alpha (opacity).
+            grid (bool | None): Show grid for checking coordinates.
+            grid_only (bool | None): Show grid only.
+            grid_style (LineStyle | None): Style of grid lines.
+            grid_centerstyle (LineStyle | None): Style of center grid lines.
+            grid_xpitch (int | None): X-axis grid pitch.
+            grid_ypitch (int | None): Y-axis grid pitch.
 
         Returns:
             None
@@ -237,11 +234,11 @@ class CanvasBase:
     @guarded
     def polygon(
         self,
-        xys: List[Tuple[float, float]],
-        style: Union[ShapeStyle, str, None] = None,
+        xys: TypeCoordinates,
+        style: ShapeStyle | str | None = None,
         text: str = "",
-        textsize: Optional[float] = None,
-        textstyle: Union[ShapeTextStyle, str, None] = None,
+        textsize: float | None = None,
+        textstyle: ShapeTextStyle | str | None = None,
     ) -> None:
         """Draw a polygon on the canvas.
 
@@ -286,19 +283,15 @@ class CanvasBase:
     @guarded
     def shape(  # noqa: C901
         self,
-        xy: Tuple[float, float],
-        path_points: List[
-            Union[
-                Tuple[float, float],
-                Tuple[Tuple[float, float], Tuple[float, float]],
-                Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]],
-            ]
+        xy: TypeCoordinate,
+        path_points: list[
+            TypeCoordinate | tuple[TypeCoordinate, TypeCoordinate] | tuple[TypeCoordinate, TypeCoordinate, TypeCoordinate]
         ],
         angle: float = 0.0,
-        style: Union[ShapeStyle, str, None] = None,
+        style: ShapeStyle | str | None = None,
         text: str = "",
-        textsize: Optional[float] = None,
-        textstyle: Optional[ShapeTextStyle] = None,
+        textsize: float | None = None,
+        textstyle: ShapeTextStyle | None = None,
         is_default_center: bool = False,
     ) -> None:
         """Draw basic shape on the canvas.
@@ -307,10 +300,10 @@ class CanvasBase:
             xy: Starting point of the shape.
             path_points: List of path points including control points for Bezier curves.
             angle (float, optional): Rotation angle of the shape.
-            style (Union[ShapeStyle, str, None], optional): Style of the shape.
+            style (ShapeStyle | str | None, optional): Style of the shape.
             text (str, optional): Text to display along with the shape.
-            textsize (Optional[float], optional): Size of the text.
-            textstyle (Optional[ShapeTextStyle], optional): Style of the text.
+            textsize (float | None, optional): Size of the text.
+            textstyle (ShapeTextStyle | None, optional): Style of the text.
             is_default_center (bool, optional): Whether to place (xy) at the center of the shape.
 
         Raises:
@@ -328,9 +321,7 @@ class CanvasBase:
 
         # helper
 
-        def get_rotate_point(
-            xy: Tuple[float, float], angle: float, move_x: float, move_y: float
-        ) -> Tuple[float, float]:
+        def get_rotate_point(xy: TypeCoordinate, angle: float, move_x: float, move_y: float) -> TypeCoordinate:
             x = xy[0]
             y = xy[1]
             angle_rad = math.radians(angle)
@@ -356,14 +347,14 @@ class CanvasBase:
                 continue
 
             # ((x1, y1), (x2, y2))
-            xy1 = minus_2points(pp[0], center)  # type: ignore
+            xy1 = minus_2points(pp[0], center)
             xy2 = minus_2points(pp[1], center)  # type: ignore
             if len(pp) == 2:
                 path_points2.append((xy1, xy2))
                 continue
 
             # ((x1, y1), (x2, y2), (x3, y3))
-            xy3 = minus_2points(pp[2], center)
+            xy3 = minus_2points(pp[2], center)  # type: ignore
             path_points2.append((xy1, xy2, xy3))
 
         # alignment
@@ -448,15 +439,15 @@ class CanvasBase:
     @guarded
     def rectangle(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         width: float,
         height: float,
         r: float = 0.0,
-        angle: Union[int, float] = 0.0,
-        style: Union[ShapeStyle, str, None] = None,
+        angle: int | float = 0.0,
+        style: ShapeStyle | str | None = None,
         text: str = "",
-        textsize: Optional[float] = None,
-        textstyle: Union[ShapeTextStyle, str, None] = None,
+        textsize: float | None = None,
+        textstyle: ShapeTextStyle | str | None = None,
     ) -> None:
         """Draw a rectangle on the canvas.
 
@@ -465,11 +456,11 @@ class CanvasBase:
             width: Width of the rectangle.
             height: Height of the rectangle.
             r (float, optional): Radius for rounded corners (default is 0.0).
-            angle (Union[int, float], optional): Rotation angle of the rectangle.
-            style (Union[ShapeStyle, str, None], optional): Style of the rectangle.
+            angle (int | float, optional): Rotation angle of the rectangle.
+            style (ShapeStyle | str | None, optional): Style of the rectangle.
             text (str, optional): Text to display within the rectangle.
-            textsize (Optional[float], optional): Size of the text.
-            textstyle (Union[ShapeTextStyle, str, None], optional): Style of the text.
+            textsize (float | None, optional): Size of the text.
+            textstyle (ShapeTextStyle | str | None, optional): Style of the text.
 
         Raises:
             ValueError: If invalid path points are provided.
@@ -548,13 +539,13 @@ class CanvasBase:
     @guarded
     def get_image_zoom_from_width(
         self,
-        image: Union[str, PIL.Image.Image, Dimage],
+        image: str | PIL.Image.Image | Dimage,
         width: float,
     ) -> float:
         """Get the zoom factor to fit the image width on the canvas.
 
         Args:
-            image (Union[str, PIL.Image.Image, Dimage]): Image data.
+            image (str | PIL.Image.Image | Dimage): Image data.
             width (float): Target width.
 
         Returns:

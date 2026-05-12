@@ -9,10 +9,15 @@
 
 
 """Canvas's original arrow feature implementation module."""
+from drawlib.v0_2.private.types import (
+    TypeArrowHead,
+    TypeCoordinate,
+    TypeCoordinates,
+    TypePathPoints,
+)
 
 import math
-from typing import Any, List, Literal, Optional, Tuple, Union
-
+from typing import Any, Literal
 from matplotlib.patches import PathPatch
 from matplotlib.path import Path
 
@@ -51,34 +56,30 @@ class CanvasOriginalArrowFeature(CanvasBase):
     @guarded
     def arrow(
         self,
-        xy1: Tuple[float, float],
-        xy2: Tuple[float, float],
+        xy1: TypeCoordinate,
+        xy2: TypeCoordinate,
         tail_width: float,
         head_width: float,
         head_length: float,
-        head: Literal[
-            "->",
-            "<-",
-            "<->",
-        ] = "->",
-        style: Union[ShapeStyle, str, None] = None,
+        head: TypeArrowHead = "->",
+        style: ShapeStyle | str | None = None,
         text: str = "",
-        textsize: Optional[float] = None,
-        textstyle: Union[ShapeTextStyle, str, None] = None,
+        textsize: float | None = None,
+        textstyle: ShapeTextStyle | str | None = None,
     ) -> None:
         """Draw single and double-headed arrow.
 
         Args:
-            xy1: Tuple[float, float]: Arrow start point.
-            xy2: Tuple[float, float]: Arrow end point.
+            xy1: TypeCoordinate: Arrow start point.
+            xy2: TypeCoordinate: Arrow end point.
             tail_width: float: Width of the arrow tail.
             head_width: float: Width of the arrow head.
             head_length: float: Length of the arrow head.
-            head: Literal["->", "<-", "<->"]: Arrow head style ("->", "<-", "<->").
-            style: Union[ShapeStyle, str, None]: Optional style of the arrow.
-            text: str: Optional text to display at the center of the arrow.
-            textsize: Optional[float]: Optional size of the text.
-            textstyle: Union[ShapeTextStyle, str, None]: Optional style of the text.
+            head: TypeArrowHead: Arrow head style ("->", "<-", "<->").
+            style: ShapeStyle | str | None:style of the arrow.
+            text: str:text to display at the center of the arrow.
+            textsize: float | None:size of the text.
+            textstyle: ShapeTextStyle | str | None:style of the text.
 
         Returns:
             None
@@ -126,6 +127,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
         p41 = (0, head_width / 2)
         p42 = (distance, head_width / 2)
 
+        points: TypePathPoints
         if head == "->":
             points = [p11, p12, p33, p23, p42, p24, p34]
         elif head == "<-":
@@ -148,28 +150,24 @@ class CanvasOriginalArrowFeature(CanvasBase):
     @guarded
     def arrow_polyline(
         self,
-        xys: List[Tuple[float, float]],
+        xys: TypeCoordinates,
         tail_width: float,
         head_width: float,
         head_length: float,
-        head: Literal[
-            "->",
-            "<-",
-            "<->",
-        ] = "->",
+        head: TypeArrowHead = "->",
         r: float = 0,
-        style: Union[ShapeStyle, str, None] = None,
+        style: ShapeStyle | str | None = None,
     ) -> None:
         """Draw single and double-headed arrow.
 
         Args:
-            xys: List[Tuple[float, float]]: Arrow points.
+            xys: TypeCoordinates: Arrow points.
             tail_width: float: Width of the arrow tail.
             head_width: float: Width of the arrow head.
             head_length: float: Length of the arrow head.
-            head: Literal["->", "<-", "<->"]: Arrow head style ("->", "<-", "<->").
+            head: TypeArrowHead: Arrow head style ("->", "<-", "<->").
             r (float, optional): Radius for rounded connections (default is 0.0).
-            style: Union[ShapeStyle, str, None]: Optional style of the arrow.
+            style: ShapeStyle | str | None:style of the arrow.
 
         Returns:
             None
@@ -186,7 +184,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
         )
         validator.validate_shape_args(locals())
 
-        def point_on_line(a: Tuple[float, float], b: Tuple[float, float], n: float) -> Tuple[float, float]:
+        def point_on_line(a: TypeCoordinate, b: TypeCoordinate, n: float) -> TypeCoordinate:
             ab = (b[0] - a[0], b[1] - a[1])
             ab_length = math.sqrt(ab[0] ** 2 + ab[1] ** 2)
             ab_unit = (ab[0] / ab_length, ab[1] / ab_length)
@@ -195,8 +193,8 @@ class CanvasOriginalArrowFeature(CanvasBase):
             return new_point
 
         def point_parallel_to_line(
-            a: Tuple[float, float], b: Tuple[float, float], distance: float
-        ) -> Tuple[float, float]:
+            a: TypeCoordinate, b: TypeCoordinate, distance: float
+        ) -> TypeCoordinate:
             ab = (b[0] - a[0], b[1] - a[1])
             ab_length = math.sqrt(ab[0] ** 2 + ab[1] ** 2)
             ab_unit = (ab[0] / ab_length, ab[1] / ab_length)
@@ -244,32 +242,32 @@ class CanvasOriginalArrowFeature(CanvasBase):
     @guarded
     def arrow_arc(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         width: float,
         height: float,
         tail_width: float,
         head_width: float,
         head_angle: float = 10,
-        head: Literal["->", "<-", "<->"] = "->",
+        head: TypeArrowHead = "->",
         angle_start: float = 0,
         angle_end: float = 180,
         angle: float = 0,
-        style: Union[ShapeStyle, str, None] = None,
+        style: ShapeStyle | str | None = None,
     ) -> None:
         """Draw arc arrow.
 
         Args:
-            xy: Tuple[float, float]: The center point of the circle from which the arc arrow is drawn.
+            xy: TypeCoordinate: The center point of the circle from which the arc arrow is drawn.
             width: float: The width of the ellipse.
             height: float: The height of the ellipse
             tail_width: float: The width of the tail of the arrow.
             head_width: float: The width of the head of the arrow.
             head_angle: float: The angle of the arrowhead in degrees (default is 10).
-            head: Literal["->", "<-", "<->"]: The arrowhead style ("->", "<-", "<->").
+            head: TypeArrowHead: The arrowhead style ("->", "<-", "<->").
             angle_start: float: The starting angle of the arc in degrees (default is 0).
             angle_end: float: The ending angle of the arc in degrees (default is 180).
             angle (float): The angle of ellipse.
-            style: Union[ShapeStyle, str, None]: Optional shape style.
+            style: ShapeStyle | str | None:shape style.
 
         Returns:
             None
@@ -398,30 +396,30 @@ class CanvasOriginalArrowFeature(CanvasBase):
     @guarded
     def arrow_l(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         width: float,
         height: float,
         tail_width: float,
         head_width: float,
         head_length: float,
-        head: Literal["->", "<-", "<->"] = "->",
+        head: TypeArrowHead = "->",
         r: float = 0,
         angle: float = 0,
-        style: Union[ShapeStyle, str, None] = None,
+        style: ShapeStyle | str | None = None,
     ) -> None:
         """Draw "L" shape arrow.
 
         Args:
-            xy: Tuple[float, float]: The center point of L arrow.
+            xy: TypeCoordinate: The center point of L arrow.
             width: float: The width L arrow.
             height: float: The height of L arrow.
             tail_width: float: The width of the tail of the arrow.
             head_width: float: The width of the head of the arrow.
             head_length: float: Length of the arrow head.
-            head: Literal["->", "<-", "<->"]: Arrow head style ("->", "<-", "<->").
+            head: TypeArrowHead: Arrow head style ("->", "<-", "<->").
             r (float, optional): Radius for rounded connections (default is 0.0).
             angle: float: rotate angle.
-            style: Union[ShapeStyle, str, None]: Optional shape style.
+            style: ShapeStyle | str | None:shape style.
 
         Returns:
             None
@@ -455,30 +453,30 @@ class CanvasOriginalArrowFeature(CanvasBase):
     @guarded
     def arrow_u(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         width: float,
         height: float,
         tail_width: float,
         head_width: float,
         head_length: float,
-        head: Literal["->", "<-", "<->"] = "->",
+        head: TypeArrowHead = "->",
         r: float = 0,
         angle: float = 0,
-        style: Union[ShapeStyle, str, None] = None,
+        style: ShapeStyle | str | None = None,
     ) -> None:
         """Draw "U" shape arrow.
 
         Args:
-            xy: Tuple[float, float]: The center point U arrow.
+            xy: TypeCoordinate: The center point U arrow.
             width: float: The width of the U arrow.
             height: float: The height of the U arrow.
             tail_width: float: The width of the tail of the arrow.
             head_width: float: The width of the head of the arrow.
             head_length: float: Length of the arrow head.
-            head: Literal["->", "<-", "<->"]: Arrow head style ("->", "<-", "<->").
+            head: TypeArrowHead: Arrow head style ("->", "<-", "<->").
             r (float, optional): Radius for rounded connections (default is 0.0).
             angle: float: rotate angle.
-            style: Union[ShapeStyle, str, None]: Optional shape style.
+            style: ShapeStyle | str | None:shape style.
 
         Returns:
             None
@@ -511,11 +509,11 @@ class CanvasOriginalArrowFeature(CanvasBase):
         )
 
     @staticmethod
-    def _get_path_from_points(path_points: List[Any]) -> Path:
+    def _get_path_from_points(path_points: list[Any]) -> Path:
         """Create a matplotlib Path object from a list of points and curve data.
 
         Args:
-            path_points (List[Any]): List of points, where each point can be a coordinate
+            path_points (list[Any]):of points, where each point can be a coordinate
                 tuple or a list representing curve data.
 
         Returns:
@@ -552,16 +550,16 @@ class ArrowPolylineHelper:
 
     def __init__(
         self,
-        xys: List[Tuple[float, float]],
+        xys: TypeCoordinates,
         r: float,
         num_points: int = 100,
     ) -> None:
         """Internal function"""
 
         def get_mid_points(
-            a: Tuple[float, float],
-            b: Tuple[float, float],
-        ) -> Tuple[Tuple[float, float], Tuple[float, float]]:
+            a: TypeCoordinate,
+            b: TypeCoordinate,
+        ) -> tuple[TypeCoordinate, TypeCoordinate]:
             ab = [b[0] - a[0], b[1] - a[1]]
             ab_distance = math.sqrt(ab[0] ** 2 + ab[1] ** 2)
             ab_unit = [ab[0] / ab_distance, ab[1] / ab_distance]
@@ -573,8 +571,8 @@ class ArrowPolylineHelper:
             return math.comb(n, i) * (t**i) * ((1 - t) ** (n - i))
 
         def get_points(
-            bezier_points: List[Tuple[float, float]],
-        ) -> List[Tuple[float, float]]:
+            bezier_points: TypeCoordinates,
+        ) -> TypeCoordinates:
             n = len(bezier_points) - 1
             curve = []
             for t in [i / (num_points - 1) for i in range(num_points)]:
@@ -589,7 +587,7 @@ class ArrowPolylineHelper:
             return
 
         points = []
-        bezier_start: Tuple[float, float] = (0, 0)
+        bezier_start: TypeCoordinate = (0, 0)
         last_i = len(xys) - 2
         # last_xy = (0, 0)
         for i in range(len(xys)):
@@ -614,16 +612,16 @@ class ArrowPolylineHelper:
 
         self._original_points = points
 
-    def get_parallel_points(self, distance: float) -> List[Tuple[float, float]]:
+    def get_parallel_points(self, distance: float) -> TypeCoordinates:
         """Internal function"""
         if self._r == 0:
             return self._get_parallel_straight_points(distance)
         return self._get_parallel_curved_points(distance)
 
-    def _get_parallel_curved_points(self, distance: float) -> List[Tuple[float, float]]:
+    def _get_parallel_curved_points(self, distance: float) -> TypeCoordinates:
         """Internal function"""
 
-        def get_distance(p1: Tuple[float, float], p2: Tuple[float, float]) -> float:
+        def get_distance(p1: TypeCoordinate, p2: TypeCoordinate) -> float:
             return math.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
 
         parallel_curve_points = []
@@ -640,13 +638,13 @@ class ArrowPolylineHelper:
 
         return parallel_curve_points
 
-    def _get_parallel_straight_points(self, distance: float) -> List[Tuple[float, float]]:
+    def _get_parallel_straight_points(self, distance: float) -> TypeCoordinates:
         """Internal function"""
 
         def get_parallel_line_xys(
-            xy1: Tuple[float, float],
-            xy2: Tuple[float, float],
-        ) -> Tuple[Tuple[float, float], Tuple[float, float]]:
+            xy1: TypeCoordinate,
+            xy2: TypeCoordinate,
+        ) -> tuple[TypeCoordinate, TypeCoordinate]:
             """Internal function"""
             x1, y1 = xy1
             x2, y2 = xy2
@@ -667,11 +665,11 @@ class ArrowPolylineHelper:
             return (x1_prime, y1_prime), (x2_prime, y2_prime)
 
         def find_lines_intersection(
-            xy1: Tuple[float, float],
-            xy2: Tuple[float, float],
-            xy3: Tuple[float, float],
-            xy4: Tuple[float, float],
-        ) -> Tuple[float, float]:
+            xy1: TypeCoordinate,
+            xy2: TypeCoordinate,
+            xy3: TypeCoordinate,
+            xy4: TypeCoordinate,
+        ) -> TypeCoordinate:
             """Internal function"""
             x1, y1 = xy1
             x2, y2 = xy2
@@ -711,12 +709,12 @@ class ArrowPolylineHelper:
             return (x, y)
 
         xys = self._original_points
-        parallel_lines: List[Tuple[Tuple[float, float], Tuple[float, float]]] = []
+        parallel_lines: list[tuple[TypeCoordinate, TypeCoordinate]] = []
         for i in range(len(xys) - 1):
             xy1, xy2 = get_parallel_line_xys(xys[i], xys[i + 1])
             parallel_lines.append((xy1, xy2))
 
-        points: List[Tuple[float, float]] = []
+        points: TypeCoordinates = []
         for i in range(len(parallel_lines) - 1):
             xy1, xy2 = parallel_lines[i]
             xy3, xy4 = parallel_lines[i + 1]

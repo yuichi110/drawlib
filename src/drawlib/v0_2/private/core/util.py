@@ -11,7 +11,7 @@
 """Utility module for converting drawlib data to matplotlib data."""
 
 import math
-from typing import Any, Callable, Dict, List, Literal, Optional, Tuple, Union
+from typing import Any, Callable, Literal
 
 from matplotlib.font_manager import FontProperties
 from matplotlib.text import Text
@@ -21,6 +21,7 @@ from drawlib.v0_2.private.core.fonts import (
     FontBase,
     FontFile,
 )
+from drawlib.v0_2.private.types import TypeArrowHead, TypeColor, TypeColorRGBA
 from drawlib.v0_2.private.core.model import (
     IconStyle,
     ImageStyle,
@@ -39,6 +40,7 @@ from drawlib.v0_2.private.core.model_system_default import (
 )
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.download import download_if_not_exist
+from drawlib.v0_2.private.types import TypeColor, TypeColorRGBA
 
 
 class ColorUtil:
@@ -46,9 +48,9 @@ class ColorUtil:
 
     @staticmethod
     def get_mplot_rgba(
-        rgb_or_rgba: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
-        alpha: Optional[float] = None,
-    ) -> Tuple[float, float, float, float]:
+        rgb_or_rgba: TypeColor,
+        alpha: float | None = None,
+    ) -> tuple[float, float, float, float]:
         """Convert 0~255 RGB/RGBA to 0.0 ~ 1.0 RGBA for matplotlib.
 
         drawlib prefers 0~255 RGB/RGBA.
@@ -62,13 +64,13 @@ class ColorUtil:
         3. Set alpha to 1.0 if not provided.
 
         Args:
-            rgb_or_rgba (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
+            rgb_or_rgba (Color):
                 RGB or RGBA color tuple where components are in the range 0 to 255.
                 If RGBA, the alpha component should be in the range 0.0 to 1.0.
-            alpha (Optional[float]): Optional alpha value to override the input alpha.
+            alpha (float | None): Optional alpha value to override the input alpha.
 
         Returns:
-            Tuple[float, float, float, float]: Tuple representing matplotlib's RGBA format.
+            tuple[float, float, float, float]: Tuple representing matplotlib's RGBA format.
         """
         r = round(rgb_or_rgba[0] / 255, 5)
         g = round(rgb_or_rgba[1] / 255, 5)
@@ -79,18 +81,18 @@ class ColorUtil:
         elif len(rgb_or_rgba) == 3:
             a = 1.0
         else:
-            a = rgb_or_rgba[3]
+            a = rgb_or_rgba[3]  # type: ignore
 
         return (r, g, b, a)
 
     @staticmethod
     def get_hexrgb(
-        rgb_or_rgba: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
+        rgb_or_rgba: TypeColor,
     ) -> str:
         """Convert RGB or RGBA tuple to hexadecimal color code.
 
         Args:
-            rgb_or_rgba (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
+            rgb_or_rgba (Color):
                 RGB or RGBA color tuple where components are in the range 0 to 255.
                 If RGBA, the alpha component should be in the range 0.0 to 1.0.
 
@@ -109,14 +111,14 @@ class ColorUtil:
         return hex_color
 
     @staticmethod
-    def get_rgba_from_hex(hex_color: str) -> Tuple[int, int, int, float]:
+    def get_rgba_from_hex(hex_color: str) -> TypeColorRGBA:
         """Convert a hexadecimal color code to RGBA values.
 
         Args:
             hex_color (str): The hexadecimal color code (e.g., "#FF5733" or "#FFF").
 
         Returns:
-            tuple[int, int, int, float]: A tuple containing the RGBA values (0-255 for R, G, B and 0.0-1.0 for A).
+            ColorRGBA: A tuple containing the RGBA values (0-255 for R, G, B and 0.0-1.0 for A).
 
         Raises:
             ValueError: If the hex_color format is invalid.
@@ -152,16 +154,16 @@ class IconUtil:
 
     @staticmethod
     def format_style(
-        style: Union[IconStyle, str, None],
-        default_icon_style: Optional[str] = None,
+        style: IconStyle | str | None,
+        default_icon_style: str | None = None,
     ) -> IconStyle:
         """Format and retrieve an IconStyle object based on input parameters.
 
         Args:
-            style (Union[IconStyle, str, None]):
+            style (IconStyle | str | None):
                 The style to format. Can be an IconStyle object, a style name (str),
                 or None. If None, the default icon style from dtheme.iconstyles is used.
-            default_icon_style (Optional[str]):
+            default_icon_style (str | None):
                 Default style name to use if style is None or a string.
 
         Returns:
@@ -200,11 +202,11 @@ class ImageUtil:
     """A utility class for handling image styles."""
 
     @staticmethod
-    def format_style(style: Union[ImageStyle, str, None]) -> ImageStyle:
+    def format_style(style: ImageStyle | str | None) -> ImageStyle:
         """Format and retrieve an ImageStyle object based on input parameters.
 
         Args:
-            style (Union[ImageStyle, str, None]):
+            style (ImageStyle | str | None):
                 The style to format. Can be an ImageStyle object, a style name (str),
                 or None. If None, the default image style from dtheme.imagestyles is used.
 
@@ -239,31 +241,31 @@ class LineUtil:
     """A utility class for handling line styles and options."""
 
     @staticmethod
-    def _remove_consecutive_duplicates(xys: List[Tuple[float, float]]) -> List[Tuple[float, float]]:
+    def _remove_consecutive_duplicates(xys: list[tuple[float, float]]) -> list[tuple[float, float]]:
         """Remove consecutive duplicate points from a list of coordinates.
 
         Args:
-            xys (List[Tuple[float, float]]): List of x, y coordinates.
+            xys (list[tuple[float, float]]): List of x, y coordinates.
 
         Returns:
-            List[Tuple[float, float]]: List with consecutive duplicates removed.
+            list[tuple[float, float]]: List with consecutive duplicates removed.
         """
         return [v for i, v in enumerate(xys) if i == 0 or v != xys[i - 1]]
 
     @staticmethod
-    def _merge_straight_lines(xys: List[Tuple[float, float]]) -> List[Tuple[float, float]]:  # noqa: C901
+    def _merge_straight_lines(xys: list[tuple[float, float]]) -> list[tuple[float, float]]:  # noqa: C901
         """Merge consecutive points that form a straight line.
 
         Args:
-            xys (List[Tuple[float, float]]): List of x, y coordinates.
+            xys (list[tuple[float, float]]): List of x, y coordinates.
 
         Returns:
-            List[Tuple[float, float]]: List with redundant intermediate points removed.
+            list[tuple[float, float]]: List with redundant intermediate points removed.
         """
         if len(xys) < 3:
             return xys
 
-        points: List[Tuple[float, float]] = []
+        points: list[tuple[float, float]] = []
         skip_next = False
         for i in range(len(xys) - 1):
             if skip_next:
@@ -310,26 +312,26 @@ class LineUtil:
         return points
 
     @staticmethod
-    def sanitize_xys(xys: List[Tuple[float, float]]) -> List[Tuple[float, float]]:
+    def sanitize_xys(xys: list[tuple[float, float]]) -> list[tuple[float, float]]:
         """Sanitize a list of coordinates by removing duplicates and merging straight lines.
 
         Args:
-            xys (List[Tuple[float, float]]): List of x, y coordinates to sanitize.
+            xys (list[tuple[float, float]]): List of x, y coordinates to sanitize.
 
         Returns:
-            List[Tuple[float, float]]: Sanitized list of coordinates.
+            list[tuple[float, float]]: Sanitized list of coordinates.
         """
         xys = LineUtil._remove_consecutive_duplicates(xys)
         return LineUtil._merge_straight_lines(xys)
 
     @staticmethod
     def format_style(
-        style: Union[LineStyle, str, None],
+        style: LineStyle | str | None,
     ) -> LineStyle:
         """Format and retrieve a LineStyle object based on input parameters.
 
         Args:
-            style (Union[LineStyle, str, None]):
+            style (LineStyle | str | None):
                 The style to format. Can be a LineStyle object, a style name (str),
                 or None. If None, the default line style from dtheme.linestyles is used.
 
@@ -350,7 +352,7 @@ class LineUtil:
         elif isinstance(style, LineStyle):
             ...
         else:
-            raise ValueError('Arg "style" type must be one of LineStyle, str, None.' f' But "{type(style)}" is given.')
+            raise ValueError(f'Arg "style" type must be one of LineStyle, str, None. But "{type(style)}" is given.')
 
         style = dtheme.linestyles.get().merge(style)
         style = SYSTEM_DEFAULT_LINE_STYLE.merge(style)
@@ -358,9 +360,9 @@ class LineUtil:
 
     @staticmethod
     def get_fancyarrowpatch_options(
-        arrowhead: Literal["", "->", "<-", "<->"],
+        arrowhead: TypeArrowHead,
         style: LineStyle,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Convert drawlib's LineStyle to matplotlib's line options for fancy arrow patches.
 
         Matplotlib handles line style arguments in its function calls.
@@ -368,21 +370,21 @@ class LineUtil:
         matplotlib's function parameters.
 
         Args:
-            arrowhead (Literal["", "->", "<-", "<->"]):
+            arrowhead (TypeArrowHead):
                 The arrowhead style to apply. "" for no arrow, "->" for one-way arrow,
                 "<-" for opposite one-way arrow, "<->" for two-way arrow.
             style (LineStyle):
                 The LineStyle object containing line properties.
 
         Returns:
-            Dict[str, Any]: A dictionary containing matplotlib's line options.
+            dict[str, Any]: A dictionary containing matplotlib's line options.
 
         Notes:
             - Apply the returned options dictionary to matplotlib's function calls,
               e.g., `Line2D(arg1, ..., **options)`, to apply LineStyle's style.
         """
         color = None if style.color is None else ColorUtil.get_mplot_rgba(style.color)
-        options = {
+        options: dict[str, Any] = {
             "linewidth": style.width,
             "linestyle": style.style,
             "color": color,
@@ -412,18 +414,18 @@ class ShapeUtil:
 
     @staticmethod
     def format_styles(
-        style: Union[ShapeStyle, str, None],  # type: ignore
-        textstyle: Union[ShapeTextStyle, str, None],  # type: ignore
+        style: ShapeStyle | str | None,
+        textstyle: ShapeTextStyle | str | None,
         get_style: Callable,
         get_textstyle: Callable,
-    ) -> Tuple[ShapeStyle, ShapeTextStyle]:
+    ) -> tuple[ShapeStyle, ShapeTextStyle]:
         """Format and retrieve ShapeStyle and ShapeTextStyle objects based on input parameters.
 
         Args:
-            style (Union[ShapeStyle, str, None]):
+            style (ShapeStyle | str | None):
                 The style for the shape. Can be a ShapeStyle object, a style name (str),
                 or None. If None, the default shape style from get_style() is used.
-            textstyle (Union[ShapeStyle, str, None]):
+            textstyle (ShapeTextStyle | str | None):
                 The style for the shape's text. Can be a ShapeTextStyle object, a style name (str),
                 or None. If None, the default shape text style from get_textstyle() is used.
             get_style (Callable):
@@ -432,7 +434,7 @@ class ShapeUtil:
                 A function to retrieve a ShapeTextStyle object by name or default.
 
         Returns:
-            Tuple[ShapeStyle, ShapeTextStyle]: The formatted ShapeStyle and ShapeTextStyle objects.
+            tuple[ShapeStyle, ShapeTextStyle]: The formatted ShapeStyle and ShapeTextStyle objects.
 
         Raises:
             ValueError: If the input style parameters are invalid or cannot be formatted.
@@ -473,23 +475,23 @@ class ShapeUtil:
 
     @staticmethod
     def apply_alignment(  # noqa: C901
-        xy: Tuple[float, float],
+        xy: tuple[float, float],
         width: float,
         height: float,
-        angle: Optional[float],
+        angle: float | None,
         style: ShapeStyle,
         is_default_center: bool = False,
-    ) -> Tuple[Tuple[float, float], ShapeStyle]:
+    ) -> tuple[tuple[float, float], ShapeStyle]:
         """Apply alignment adjustments to coordinates based on ShapeStyle alignment settings.
 
         Args:
-            xy (Tuple[float, float]):
+            xy (tuple[float, float]):
                 The x, y coordinates to be adjusted.
             width (float):
                 The width of the shape.
             height (float):
                 The height of the shape.
-            angle (Optional[float]):
+            angle (float | None):
                 The angle of rotation for the shape.
             style (ShapeStyle):
                 The ShapeStyle object containing alignment properties.
@@ -498,7 +500,7 @@ class ShapeUtil:
                 Defaults to False.
 
         Returns:
-            Tuple[Tuple[float, float], ShapeStyle]: Adjusted coordinates and updated ShapeStyle object.
+            tuple[tuple[float, float], ShapeStyle]: Adjusted coordinates and updated ShapeStyle object.
 
         """
         x, y = xy
@@ -542,10 +544,10 @@ class ShapeUtil:
 
     @staticmethod
     def get_shape_text(
-        xy: Tuple[float, float],
-        angle: Optional[float],
+        xy: tuple[float, float],
+        angle: float | None,
         text: str,
-        style: Optional[ShapeTextStyle] = None,
+        style: ShapeTextStyle | None = None,
     ) -> Text:
         """Get text object which is drawn inside shape.
 
@@ -554,13 +556,13 @@ class ShapeUtil:
         Specifically, try to align to center of shapes.
 
         Args:
-            xy (Tuple[float, float]):
+            xy (tuple[float, float]):
                 The x, y coordinates of the shape's center.
-            angle (Optional[float]):
+            angle (float | None):
                 The angle of rotation for the shape.
             text (str):
                 The text content to be displayed.
-            style (Optional[ShapeTextStyle], optional):
+            style (ShapeTextStyle | None, optional):
                 The ShapeTextStyle object containing text style properties.
                 Defaults to None.
 
@@ -621,13 +623,13 @@ class ShapeUtil:
 
     @staticmethod
     def get_shape_options(
-        style: Optional[ShapeStyle] = None,
+        style: ShapeStyle | None = None,
         default_no_line: bool = True,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Convert drawlib's ShapeStyle to matplotlib's patches(shape) options.
 
         Args:
-            style (Optional[ShapeStyle], optional):
+            style (ShapeStyle | None, optional):
                 The ShapeStyle object containing shape style properties.
                 Defaults to None.
             default_no_line (bool, optional):
@@ -635,7 +637,7 @@ class ShapeUtil:
                 Defaults to True.
 
         Returns:
-            Dict[str, Any]: Dictionary of options suitable for matplotlib patches.
+            dict[str, Any]: Dictionary of options suitable for matplotlib patches.
 
         Notes:
             - If style is None and default_no_line is True, returns {"linewidth": 0}.
@@ -652,7 +654,7 @@ class ShapeUtil:
         fcolor = None if style.fcolor is None else ColorUtil.get_mplot_rgba(style.fcolor)
 
         # halign, valign will be used on shape. They are not in options.
-        options = {
+        options: dict[str, Any] = {
             "facecolor": fcolor,
             "edgecolor": lcolor,
             "linestyle": style.lstyle,
@@ -671,11 +673,11 @@ class TextUtil:
     """A utility class for handling text styles and options."""
 
     @staticmethod
-    def format_style(style: Union[TextStyle, str, None]) -> TextStyle:
+    def format_style(style: TextStyle | str | None) -> TextStyle:
         """Format and retrieve TextStyle object based on input parameters.
 
         Args:
-            style (Union[TextStyle, str, None]):
+            style (TextStyle | str | None):
                 The style for the text. Can be a TextStyle object, a style name (str),
                 or None. If None, the default text style from dtheme.textstyles.get() is used.
 
@@ -713,16 +715,16 @@ class TextUtil:
 
     @staticmethod
     def get_text_options(
-        style: Union[TextStyle, ShapeTextStyle, None],
-    ) -> Dict[str, Any]:
+        style: TextStyle | ShapeTextStyle | None,
+    ) -> dict[str, Any]:
         """Convert drawlib's TextStyle or ShapeTextStyle to matplotlib's text options.
 
         Args:
-            style (Union[TextStyle, ShapeTextStyle, None]):
+            style (TextStyle | ShapeTextStyle | None):
                 The TextStyle or ShapeTextStyle object containing text style properties.
 
         Returns:
-            Dict[str, Any]: Dictionary of options suitable for matplotlib text handling.
+            dict[str, Any]: Dictionary of options suitable for matplotlib text handling.
 
         Notes:
             - If style is None, returns an empty dictionary.
@@ -735,7 +737,7 @@ class TextUtil:
         # convert rgb -> matplot rgb
         color = None if style.color is None else ColorUtil.get_mplot_rgba(style.color)
 
-        options = {
+        options: dict[str, Any] = {
             "color": color,
             "horizontalalignment": style.halign,
             "verticalalignment": style.valign,
@@ -745,16 +747,16 @@ class TextUtil:
 
     @staticmethod
     def get_font_properties(  # noqa: C901
-        style: Union[TextStyle, ShapeTextStyle],
-    ) -> Optional[FontProperties]:
+        style: TextStyle | ShapeTextStyle,
+    ) -> FontProperties | None:
         """Create matplotlib's FontProperties object from TextStyle or ShapeTextStyle.
 
         Args:
-            style (Union[TextStyle, ShapeTextStyle, None]):
+            style (TextStyle | ShapeTextStyle | None):
                 The TextStyle or ShapeTextStyle object containing font properties.
 
         Returns:
-            Optional[FontProperties]: FontProperties object or None if style is None.
+            FontProperties | None: FontProperties object or None if style is None.
 
         Notes:
             - Returns FontProperties object based on TextStyle's font and size properties.
@@ -810,16 +812,16 @@ class TextUtil:
 
     @staticmethod
     def get_bbox_dict(
-        style: Optional[TextStyle] = None,
-    ) -> Optional[Dict[str, Any]]:
+        style: TextStyle | None = None,
+    ) -> dict[str, Any] | None:
         """Convert drawlib's TextStyle to matplotlib's text background options.
 
         Args:
-            style (Optional[TextStyle]):
+            style (TextStyle | None):
                 The TextStyle object containing text background style properties.
 
         Returns:
-            Optional[Dict[str, Any]]: Dictionary of options suitable for matplotlib's text background.
+            dict[str, Any] | None: Dictionary of options suitable for matplotlib's text background.
 
         Notes:
             - Returns None if style is None or if all background properties are None.
@@ -849,7 +851,7 @@ class TextUtil:
         if fcolor is None:
             fcolor = Colors.Transparent
 
-        bbox_dict = {
+        bbox_dict: dict[str, Any] = {
             "boxstyle": "square",
             "facecolor": fcolor,
             "edgecolor": lcolor,
@@ -863,5 +865,5 @@ class TextUtil:
         return _get_dict_value_none_keys_removed(bbox_dict)
 
 
-def _get_dict_value_none_keys_removed(options: Dict[str, Any]) -> Dict[str, Any]:
+def _get_dict_value_none_keys_removed(options: dict[str, Any]) -> dict[str, Any]:
     return {key: value for key, value in options.items() if value is not None}

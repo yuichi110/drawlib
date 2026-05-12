@@ -9,11 +9,11 @@ tasks:
       - uv run ruff check --preview tests
 
   type:
-    desc: Run type checker (pyright)
+    desc: Run type checker (ty)
     cmds:
-      - uv run pyright src/drawlib
-      - uv run pyright tasks/scripts
-      - uv run pyright tests --project pyrightconfig.tests.json
+      - uv run ty check src/drawlib
+      - uv run ty check tasks/scripts
+      - uv run ty check tests
 
   type-ty:
     desc: Run type checker (ty)

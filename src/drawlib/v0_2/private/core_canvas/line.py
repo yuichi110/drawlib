@@ -11,7 +11,7 @@
 """Canvas's line feature implementation module."""
 
 import math
-from typing import List, Literal, Optional, Tuple, Union
+from typing import Literal
 
 from matplotlib.patches import ConnectionStyle, FancyArrowPatch
 from matplotlib.path import Path
@@ -20,6 +20,11 @@ import drawlib.v0_2.private.validators.args as validator
 from drawlib.v0_2.private.core.model import LineStyle
 from drawlib.v0_2.private.core.util import LineUtil
 from drawlib.v0_2.private.core_canvas.base import CanvasBase
+from drawlib.v0_2.private.types import (
+    TypeArrowHead,
+    TypeCoordinate,
+    TypeCoordinates,
+)
 from drawlib.v0_2.private.util import get_rotated_path_points, guarded
 
 
@@ -50,21 +55,21 @@ class CanvasLineFeature(CanvasBase):
     @guarded
     def line(
         self,
-        xy1: Tuple[float, float],
-        xy2: Tuple[float, float],
-        width: Optional[float] = None,
-        arrowhead: Literal["", "->", "<-", "<->"] = "",
-        style: Union[LineStyle, str, None] = None,
+        xy1: TypeCoordinate,
+        xy2: TypeCoordinate,
+        width: float | None = None,
+        arrowhead: TypeArrowHead = "",
+        style: LineStyle | str | None = None,
     ) -> None:
         """Draw straight line from xy1 to xy2.
 
         Args:
-            xy1 (Tuple[float, float]): Starting point of the line.
-            xy2 (Tuple[float, float]): Ending point of the line.
-            width (Optional[float]): Optional width of the line.
-            arrowhead (Literal["", "->", "<-", "<->"]):
+            xy1 (TypeCoordinate): Starting point of the line.
+            xy2 (TypeCoordinate): Ending point of the line.
+            width (float | None): Optional width of the line.
+            arrowhead (TypeArrowHead):
                     Optional arrowhead style ("", "->", "<-", "<->").
-            style (Union[LineStyle, str, None]): Optional line style.
+            style (LineStyle | str | None): Optional line style.
 
         Returns:
             None
@@ -86,22 +91,22 @@ class CanvasLineFeature(CanvasBase):
     @guarded
     def line_curved(
         self,
-        xy1: Tuple[float, float],
-        xy2: Tuple[float, float],
+        xy1: TypeCoordinate,
+        xy2: TypeCoordinate,
         bend: float,
-        width: Optional[float] = None,
-        arrowhead: Literal["", "->", "<-", "<->"] = "",
-        style: Union[LineStyle, str, None] = None,
+        width: float | None = None,
+        arrowhead: TypeArrowHead = "",
+        style: LineStyle | str | None = None,
     ) -> None:
         """Draw curved line from xy1 to xy2.
 
         Args:
-            xy1: Tuple[float, float]: Starting point of the line.
-            xy2: Tuple[float, float]: Ending point of the line.
+            xy1: TypeCoordinate: Starting point of the line.
+            xy2: TypeCoordinate: Ending point of the line.
             bend: float: Additional line length between xy1 and xy2. 0 is straight.
-            width: Optional[float]: Optional width of the line.
-            arrowhead: Literal["", "->", "<-", "<->"]: Optional arrowhead style ("", "->", "<-", "<->").
-            style: Union[LineStyle, str, None]: Optional line style.
+            width: float | None: Optional width of the line.
+            arrowhead: TypeArrowHead: Optional arrowhead style ("", "->", "<-", "<->").
+            style: LineStyle | str | None: Optional line style.
 
         Returns:
             None
@@ -124,22 +129,22 @@ class CanvasLineFeature(CanvasBase):
     @guarded
     def line_bezier1(
         self,
-        xy1: Tuple[float, float],
-        cp: Tuple[float, float],
-        xy2: Tuple[float, float],
-        width: Optional[float] = None,
-        arrowhead: Literal["", "->", "<-", "<->"] = "",
-        style: Union[LineStyle, str, None] = None,
+        xy1: TypeCoordinate,
+        cp: TypeCoordinate,
+        xy2: TypeCoordinate,
+        width: float | None = None,
+        arrowhead: TypeArrowHead = "",
+        style: LineStyle | str | None = None,
     ) -> None:
         """Draw Bezier line from xy1 to xy2 with 1 control point.
 
         Args:
-            xy1: Tuple[float, float]: Starting point of the line.
-            cp: Tuple[float, float]: Control point for the curve.
-            xy2: Tuple[float, float]: Ending point of the line.
-            width: Optional[float]: Optional width of the line.
-            arrowhead: Literal["", "->", "<-", "<->"]: Optional arrowhead style ("", "->", "<-", "<->").
-            style: Union[LineStyle, str, None]: Optional line style.
+            xy1: TypeCoordinate: Starting point of the line.
+            cp: TypeCoordinate: Control point for the curve.
+            xy2: TypeCoordinate: Ending point of the line.
+            width: float | None: Optional width of the line.
+            arrowhead: TypeArrowHead: Optional arrowhead style ("", "->", "<-", "<->").
+            style: LineStyle | str | None: Optional line style.
 
         Returns:
             None
@@ -158,24 +163,24 @@ class CanvasLineFeature(CanvasBase):
     @guarded
     def line_bezier2(
         self,
-        xy1: Tuple[float, float],
-        cp1: Tuple[float, float],
-        cp2: Tuple[float, float],
-        xy2: Tuple[float, float],
-        width: Optional[float] = None,
-        arrowhead: Literal["", "->", "<-", "<->"] = "",
-        style: Union[LineStyle, str, None] = None,
+        xy1: TypeCoordinate,
+        cp1: TypeCoordinate,
+        cp2: TypeCoordinate,
+        xy2: TypeCoordinate,
+        width: float | None = None,
+        arrowhead: TypeArrowHead = "",
+        style: LineStyle | str | None = None,
     ) -> None:
         """Draw Bezier line from xy1 to xy2 with 2 control points.
 
         Args:
-            xy1: Tuple[float, float]: Starting point of the line.
-            cp1: Tuple[float, float]: First control point for the curve.
-            cp2: Tuple[float, float]: Second control point for the curve.
-            xy2: Tuple[float, float]: Ending point of the line.
-            width: Optional[float]: Optional width of the line.
-            arrowhead: Literal["", "->", "<-", "<->"]: Optional arrowhead style ("", "->", "<-", "<->").
-            style: Union[LineStyle, str, None]: Optional line style.
+            xy1: TypeCoordinate: Starting point of the line.
+            cp1: TypeCoordinate: First control point for the curve.
+            cp2: TypeCoordinate: Second control point for the curve.
+            xy2: TypeCoordinate: Ending point of the line.
+            width: float | None: Optional width of the line.
+            arrowhead: TypeArrowHead: Optional arrowhead style ("", "->", "<-", "<->").
+            style: LineStyle | str | None: Optional line style.
 
         Returns:
             None
@@ -194,28 +199,28 @@ class CanvasLineFeature(CanvasBase):
     @guarded
     def line_arc(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         width: float,
         height: float,
         angle_start: float = 0,
         angle_end: float = 180,
         angle: float = 0,
-        arrowhead: Literal["", "->", "<-", "<->"] = "",
-        lwidth: Optional[float] = None,
-        style: Union[LineStyle, str, None] = None,
+        arrowhead: TypeArrowHead = "",
+        lwidth: float | None = None,
+        style: LineStyle | str | None = None,
     ) -> None:
         """Draw arc line on ellipse.
 
         Args:
-            xy: Tuple[float, float]: The center point of the ellipse from which the arc is drawn.
+            xy: TypeCoordinate: The center point of the ellipse from which the arc is drawn.
             width: float: The width of the ellipse.
             height: float: The height of the ellipse
             angle_start: float: The starting angle of the arc in degrees (default is 0).
             angle_end: float: The ending angle of the arc in degrees (default is 180).
             angle (float): The angle of ellipse.
-            arrowhead: Literal["", "->", "<-", "<->"]: Optional arrowhead style ("", "->", "<-", "<->").
-            lwidth: Optional[float]: Optional width of the line.
-            style: Union[LineStyle, str, None]: Optional line style.
+            arrowhead: TypeArrowHead: Optional arrowhead style ("", "->", "<-", "<->").
+            lwidth: float | None: Optional width of the line.
+            style: LineStyle | str | None: Optional line style.
 
         Returns:
             None
@@ -250,18 +255,18 @@ class CanvasLineFeature(CanvasBase):
     @guarded
     def lines(
         self,
-        xys: List[Tuple[float, float]],
-        width: Optional[float] = None,
-        arrowhead: Literal["", "->", "<-", "<->"] = "",
-        style: Union[LineStyle, str, None] = None,
+        xys: TypeCoordinates,
+        width: float | None = None,
+        arrowhead: TypeArrowHead = "",
+        style: LineStyle | str | None = None,
     ) -> None:
         """Draw multiple connected lines.
 
         Args:
-            xys: List[Tuple[float, float]]: List of points defining the lines.
-            width: Optional[float]: Optional width of the lines.
-            arrowhead: Literal["", "->", "<-", "<->"]: Optional arrowhead style ("", "->", "<-", "<->").
-            style: Union[LineStyle, str, None]: Optional line style.
+            xys: TypeCoordinates: List of points defining the lines.
+            width: float | None: Optional width of the lines.
+            arrowhead: TypeArrowHead: Optional arrowhead style ("", "->", "<-", "<->").
+            style: LineStyle | str | None: Optional line style.
 
         Returns:
             None
@@ -280,20 +285,20 @@ class CanvasLineFeature(CanvasBase):
     @guarded
     def lines_curved(
         self,
-        xys: List[Tuple[float, float]],
+        xys: TypeCoordinates,
         r: float,
-        width: Optional[float] = None,
-        arrowhead: Literal["", "->", "<-", "<->"] = "",
-        style: Union[LineStyle, str, None] = None,
+        width: float | None = None,
+        arrowhead: TypeArrowHead = "",
+        style: LineStyle | str | None = None,
     ) -> None:
         """Draw curved lines connecting multiple points.
 
         Args:
-            xys: List[Tuple[float, float]]: List of points defining the lines.
+            xys: TypeCoordinates: List of points defining the lines.
             r: float: Radius of curvature for the lines.
-            width: Optional[float]: Optional width of the lines.
-            arrowhead: Literal["", "->", "<-", "<->"]: Optional arrowhead style ("", "->", "<-", "<->").
-            style: Union[LineStyle, str, None]: Optional line style.
+            width: float | None: Optional width of the lines.
+            arrowhead: TypeArrowHead: Optional arrowhead style ("", "->", "<-", "<->").
+            style: LineStyle | str | None: Optional line style.
 
         Returns:
             None
@@ -336,26 +341,22 @@ class CanvasLineFeature(CanvasBase):
     @guarded
     def lines_bezier(
         self,
-        xy: Tuple[float, float],
-        path_points: List[
-            Union[
-                Tuple[float, float],
-                Tuple[Tuple[float, float], Tuple[float, float]],
-                Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]],
-            ]
+        xy: TypeCoordinate,
+        path_points: list[
+            TypeCoordinate | tuple[TypeCoordinate, TypeCoordinate] | tuple[TypeCoordinate, TypeCoordinate, TypeCoordinate]
         ],
-        width: Optional[float] = None,
-        arrowhead: Literal["", "->", "<-", "<->"] = "",
-        style: Union[LineStyle, str, None] = None,
+        width: float | None = None,
+        arrowhead: TypeArrowHead = "",
+        style: LineStyle | str | None = None,
     ) -> None:
         """Draw Bezier lines based on given path points.
 
         Args:
-            xy: Tuple[float, float]: Starting point of the line.
+            xy: TypeCoordinate: Starting point of the line.
             path_points: List of path points and control points.
-            width: Optional[float]: Optional width of the lines.
-            arrowhead: Literal["", "->", "<-", "<->"]: Optional arrowhead style ("", "->", "<-", "<->").
-            style: Union[LineStyle, str, None]: Optional line style.
+            width: float | None: Optional width of the lines.
+            arrowhead: TypeArrowHead: Optional arrowhead style ("", "->", "<-", "<->").
+            style: LineStyle | str | None: Optional line style.
 
         Returns:
             None
@@ -396,11 +397,11 @@ class LineArcHelper:
     @classmethod
     def get_point_on_ellipse(
         cls,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         width: float,
         height: float,
         angle: float,
-    ) -> Tuple[float, float]:
+    ) -> TypeCoordinate:
         """Internal function"""
         x, y = xy
         # Convert angle from degrees to radians
@@ -415,16 +416,13 @@ class LineArcHelper:
     @classmethod
     def get_ellipse_path_points(
         cls,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         width: float,
         height: float,
         angle_start: float,
         angle_end: float,
-    ) -> List[
-        Union[
-            Tuple[float, float],
-            Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]],
-        ]
+    ) -> list[
+        TypeCoordinate | tuple[TypeCoordinate, TypeCoordinate, TypeCoordinate]
     ]:
         """Internal function"""
         diff = angle_end - angle_start
@@ -494,12 +492,12 @@ class LineArcHelper:
     @classmethod
     def bezier_ellipse_arc_approximation(
         cls,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         width: float,
         height: float,
         start_angle: float,
         end_angle: float,
-    ) -> Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float], Tuple[float, float]]:
+    ) -> tuple[TypeCoordinate, TypeCoordinate, TypeCoordinate, TypeCoordinate]:
         """Internal function"""
         x, y = xy
 
@@ -526,10 +524,10 @@ class LineArcHelper:
 
 
 def _get_mid_points(
-    a: Tuple[float, float],
-    b: Tuple[float, float],
+    a: TypeCoordinate,
+    b: TypeCoordinate,
     r: float,
-) -> Tuple[Tuple[float, float], Tuple[float, float]]:
+) -> tuple[TypeCoordinate, TypeCoordinate]:
     # Calculate the vector from A to B
     ab = [b[0] - a[0], b[1] - a[1]]
 

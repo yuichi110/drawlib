@@ -19,7 +19,9 @@ from drawlib.v0_2.private.core.fonts import FontBase, FontFile, FontSourceCode
 from drawlib.v0_2.private.types import (
     TypeAlpha,
     TypeAngle,
-    TypeColorTuple,
+    TypeAngle90,
+    TypeColor,
+    TypeColorRGB,
     TypeCoordinate,
     TypeFont,
     TypeHAlign,
@@ -102,7 +104,7 @@ class IconStyle(_StyleModel):
     """
 
     style: TypeIconStyle | None = None
-    color: TypeColorTuple | None = None
+    color: TypeColor | None = None
     alpha: TypeAlpha | None = None
     halign: TypeHAlign | None = None
     valign: TypeVAlign | None = None
@@ -138,8 +140,8 @@ class ImageStyle(_StyleModel):
     valign: TypeVAlign | None = None
     lwidth: TypePosFloat | None = None
     lstyle: TypeLineStyle | None = None
-    lcolor: TypeColorTuple | None = None
-    fcolor: TypeColorTuple | None = None
+    lcolor: TypeColor | None = None
+    fcolor: TypeColor | None = None
     alpha: TypeAlpha | None = None
 
 
@@ -168,7 +170,7 @@ class LineStyle(_StyleModel):
     """
 
     width: TypePosFloat | None = None
-    color: TypeColorTuple | None = None
+    color: TypeColor | None = None
     alpha: TypeAlpha | None = None
     style: TypeLineStyle | None = None
     ahfill: bool | None = None
@@ -205,9 +207,9 @@ class ShapeStyle(_StyleModel):
     valign: TypeVAlign | None = None
     alpha: TypeAlpha | None = None
     lwidth: TypePosFloat | None = None
-    lcolor: TypeColorTuple | None = None
+    lcolor: TypeColor | None = None
     lstyle: TypeLineStyle | None = None
-    fcolor: TypeColorTuple | None = None
+    fcolor: TypeColor | None = None
 
 
 class ShapeTextStyle(_StyleModel):
@@ -243,7 +245,7 @@ class ShapeTextStyle(_StyleModel):
     """
 
     alpha: TypeAlpha | None = None
-    color: TypeColorTuple | None = None
+    color: TypeColor | None = None
     size: TypeSize | None = None
     halign: TypeHAlign | None = None
     valign: TypeVAlign | None = None
@@ -289,7 +291,7 @@ class TextStyle(_StyleModel):
     """
 
     alpha: TypeAlpha | None = None
-    color: TypeColorTuple | None = None
+    color: TypeColor | None = None
     size: TypeSize | None = None
     halign: TypeHAlign | None = None
     valign: TypeVAlign | None = None
@@ -297,10 +299,10 @@ class TextStyle(_StyleModel):
 
     # background
     bgalpha: TypeAlpha | None = None
-    bglcolor: TypeColorTuple | None = None
+    bglcolor: TypeColor | None = None
     bglstyle: TypeLineStyle | None = None
     bglwidth: TypePosFloat | None = None
-    bgfcolor: TypeColorTuple | None = None
+    bgfcolor: TypeColor | None = None
 
 
 class ThemeStyles(BaseModel):
@@ -370,6 +372,6 @@ class OfficialThemeStyle(BaseModel):
 
     default_style: ThemeStyles
     named_styles: list[tuple[str, ThemeStyles]]
-    theme_colors: list[tuple[str, tuple[int, int, int]]]
-    backgroundcolor: TypeColorTuple
+    theme_colors: list[tuple[str, TypeColorRGB]]
+    backgroundcolor: TypeColor
     sourcecodefont: InstanceOf[FontSourceCode] | None

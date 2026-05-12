@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import dataclasses
 from copy import deepcopy
-from typing import List, Literal, Tuple, Union
+from typing import Literal
 
 from drawlib.v0_2.private.core.colors import (
     Colors,
@@ -37,6 +37,7 @@ from drawlib.v0_2.private.core.model import (
     TextStyle,
     ThemeStyles,
 )
+from drawlib.v0_2.private.types import TypeColor, TypeColorRGB
 
 #######################
 # Official Themes ###
@@ -406,48 +407,30 @@ class OfficialThemeTemplate:
 
     # icon
     icon_style: Literal["thin", "light", "regular", "bold", "fill"]
-    icon_color: Union[
-        Tuple[int, int, int],
-        Tuple[int, int, int, float],
-    ]
+    icon_color: TypeColor
     image_line_width: float
 
     # line
     line_style: Literal["solid", "dashed", "dotted", "dashdot"]
     line_width: float
-    line_color: Union[
-        Tuple[int, int, int],
-        Tuple[int, int, int, float],
-    ]
+    line_color: TypeColor
     arrowhead_scale: int
 
     # shape
     shape_line_style: Literal["solid", "dashed", "dotted", "dashdot"]
     shape_line_width: float
-    shape_line_color: Union[
-        Tuple[int, int, int],
-        Tuple[int, int, int, float],
-    ]
-    shape_fill_color: Union[
-        Tuple[int, int, int],
-        Tuple[int, int, int, float],
-    ]
+    shape_line_color: TypeColor
+    shape_fill_color: TypeColor
 
     # shapetext
     shapetext_font: FontBase
     shapetext_size: int
-    shapetext_color: Union[
-        Tuple[int, int, int],
-        Tuple[int, int, int, float],
-    ]
+    shapetext_color: TypeColor
 
     # text
     text_font: FontBase
     text_size: int
-    text_color: Union[
-        Tuple[int, int, int],
-        Tuple[int, int, int, float],
-    ]
+    text_color: TypeColor
 
 
 #
@@ -459,10 +442,10 @@ def get_named_styles(
     default_template: OfficialThemeTemplate,
     light_template: OfficialThemeTemplate,
     bold_template: OfficialThemeTemplate,
-    colors: List[Tuple[str, Tuple[int, int, int]]],
-    default_shapeline_color: Tuple[int, int, int],
-    default_shapefill_color: Tuple[int, int, int],
-) -> List[Tuple[str, ThemeStyles]]:
+    colors: list[tuple[str, TypeColorRGB]],
+    default_shapeline_color: TypeColorRGB,
+    default_shapefill_color: TypeColorRGB,
+) -> list[tuple[str, ThemeStyles]]:
     """Generates a list of named styles based on the provided templates and colors.
 
     This function creates a variety of styles using the given templates and colors,
@@ -473,13 +456,13 @@ def get_named_styles(
         default_template (OfficialThemeTemplate): The default theme template.
         light_template (OfficialThemeTemplate): The light theme template.
         bold_template (OfficialThemeTemplate): The bold theme template.
-        colors (Tuple[str, Union[Tuple[int, int, int], Tuple[int, int, int, float]]]):
+        colors (tuple[str, Color]):
             A tuple containing color names and their corresponding RGB or RGBA values.
-        default_shapeline_color (Tuple[int, int, int]): The default shape line color as an RGB tuple.
-        default_shapefill_color (Tuple[int, int, int]): The default shape fill color as an RGB tuple.
+        default_shapeline_color (ColorRGB): The default shape line color as an RGB tuple.
+        default_shapefill_color (ColorRGB): The default shape fill color as an RGB tuple.
 
     Returns:
-        List[Tuple[str, ThemeStyles]]: A list of tuples where each tuple contains a style name and
+        list[tuple[str, ThemeStyles]]: A list of tuples where each tuple contains a style name and
                                          its corresponding ThemeStyles object.
 
     """
@@ -519,15 +502,8 @@ def get_named_styles(
 
 def _get_default_style(
     template: OfficialThemeTemplate,
-    color: Union[
-        Tuple[int, int, int],
-        Tuple[int, int, int, float],
-    ],
-    shape_line_color: Union[
-        Tuple[int, int, int],
-        Tuple[int, int, int, float],
-        None,
-    ] = None,
+    color: TypeColor,
+    shape_line_color: TypeColor | None = None,
 ) -> ThemeStyles:
     t = template.copy()
     t.icon_color = color
@@ -543,15 +519,8 @@ def _get_default_style(
 
 def _get_flat_style(
     template: OfficialThemeTemplate,
-    color: Union[
-        Tuple[int, int, int],
-        Tuple[int, int, int, float],
-    ],
-    shape_line_color: Union[
-        Tuple[int, int, int],
-        Tuple[int, int, int, float],
-        None,
-    ] = None,
+    color: TypeColor,
+    shape_line_color: TypeColor | None = None,
 ) -> ThemeStyles:
     # image doesn't have border
     # shape has white border with white background
@@ -577,10 +546,7 @@ def _get_flat_style(
 
 def _get_solid_style(
     template: OfficialThemeTemplate,
-    color: Union[
-        Tuple[int, int, int],
-        Tuple[int, int, int, float],
-    ],
+    color: TypeColor,
 ) -> ThemeStyles:
     t = template.copy()
     t.image_line_width = t.shape_line_width
@@ -596,10 +562,7 @@ def _get_solid_style(
 
 def _get_dashed_style(
     template: OfficialThemeTemplate,
-    color: Union[
-        Tuple[int, int, int],
-        Tuple[int, int, int, float],
-    ],
+    color: TypeColor,
 ) -> ThemeStyles:
     t = template.copy()
     t.image_line_width = t.shape_line_width

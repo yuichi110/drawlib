@@ -10,7 +10,11 @@
 
 """Canvas's image feature implementation module."""
 
-from typing import Any, Tuple, Union
+from drawlib.v0_2.private.types import (
+    TypeCoordinate,
+)
+
+from typing import Any
 
 import numpy
 from matplotlib import offsetbox
@@ -51,20 +55,20 @@ class CanvasImageFeature(CanvasBase):
     @guarded
     def image(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         width: float,
-        image: Union[str, Image, Dimage],
-        angle: Union[int, float] = 0.0,
-        style: Union[ImageStyle, str, None] = None,
+        image: str | Image | Dimage,
+        angle: int | float = 0.0,
+        style: ImageStyle | str | None = None,
     ) -> None:
         """Draw an image on the canvas.
 
         Args:
-            xy (Tuple[float, float]): Coordinates of the left bottom corner of the image.
+            xy (TypeCoordinate): Coordinates of the left bottom corner of the image.
             width (float): Width of the image. Height is calculated automatically based on image aspect ratio.
-            image (Union[str, Image, Dimage]): Path to the image file or PIL Image object or Dimage object.
-            angle (Union[int, float], optional): Rotation angle of the image in degrees (default is 0.0).
-            style (Union[ImageStyle, str, None], optional): Style of the image (default is None).
+            image (str | Image | Dimage): Path to the image file or PIL Image object or Dimage object.
+            angle (int | float, optional): Rotation angle of the image in degrees (default is 0.0).
+            style (ImageStyle | str | None, optional): Style of the image (default is None).
 
         Returns:
             None
@@ -111,7 +115,7 @@ class CanvasImageFeature(CanvasBase):
         self._draw_border(xy, width, height, angle, style)
 
     @staticmethod
-    def _rotate_image(dimg: Dimage, angle: float, style: ImageStyle) -> Tuple[Dimage, ImageStyle]:
+    def _rotate_image(dimg: Dimage, angle: float, style: ImageStyle) -> tuple[Dimage, ImageStyle]:
         # rotate image
         if angle == 0:
             return dimg, style
@@ -128,7 +132,7 @@ class CanvasImageFeature(CanvasBase):
 
         return dimg._rotate(angle), style
 
-    def _shift_xy(self, x: float, y: float, dimg: Dimage, zoom: float, style: ImageStyle) -> Tuple[float, float]:
+    def _shift_xy(self, x: float, y: float, dimg: Dimage, zoom: float, style: ImageStyle) -> TypeCoordinate:
         if style.halign == "center" and style.valign == "center":
             return (x, y)
 
@@ -179,7 +183,7 @@ class CanvasImageFeature(CanvasBase):
 
     def _draw_border(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         width: float,
         height: float,
         angle: float,

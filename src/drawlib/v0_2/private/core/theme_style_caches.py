@@ -9,8 +9,10 @@
 
 """dtheme's cache objects implementations. Auto generated codes."""
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
-from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+from typing import Any, Callable, List, Literal
 
 import drawlib.v0_2.private.validators.color as color_validator
 import drawlib.v0_2.private.validators.style as style_validator
@@ -24,6 +26,7 @@ from drawlib.v0_2.private.core.model import (
     ShapeTextStyle,
     TextStyle,
 )
+from drawlib.v0_2.private.types import TypeColor, TypeColorRGBA
 from drawlib.v0_2.private.util import guarded
 
 list_ = list
@@ -34,7 +37,7 @@ class ThemeColorCache:
 
     def __init__(self) -> None:
         """Initializes an instance of ThemeColorCache."""
-        self._colors: Dict[str, Tuple[int, int, int, float]] = {}
+        self._colors: dict[str, TypeColorRGBA] = {}
 
     @guarded
     def has(self, name: str) -> bool:
@@ -49,14 +52,14 @@ class ThemeColorCache:
         return name in self._colors
 
     @guarded
-    def get(self, name: str = "") -> Tuple[int, int, int, float]:
+    def get(self, name: str = "") -> TypeColorRGBA:
         """Retrieves a theme color by name.
 
         Args:
             name (str, optional): Name of the theme color. Defaults to "".
 
         Returns:
-            Tuple[int, int, int, float]: RGBA components of the theme color.
+            ColorRGBA: RGBA components of the theme color.
 
         Raises:
             ValueError: If the specified theme color name does not exist.
@@ -70,20 +73,20 @@ class ThemeColorCache:
         """Lists all existing theme color names.
 
         Returns:
-            List[str]: List of theme color names.
+            list[str]: List of theme color names.
         """
         return list_(self._colors.keys())
 
     @guarded
     def set(
         self,
-        color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
+        color: TypeColor,
         name: str = "",
     ) -> None:
         """Sets or updates a theme color with the given name.
 
         Args:
-            color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
+            color (Color):
                 RGB or RGBA components of the theme color.
             name (str, optional): Name of the theme color. Defaults to "".
 
@@ -94,7 +97,8 @@ class ThemeColorCache:
         type_validator.validate_str("name", name)
         if len(color) == 3:
             color = (color[0], color[1], color[2], 1.0)
-        self._colors[name] = color
+        from typing import cast
+        self._colors[name] = cast(TypeColorRGBA, color)
 
     @guarded
     def delete(self, name: str) -> None:
@@ -116,7 +120,7 @@ class BackgroundColorCache:
 
     def __init__(self) -> None:
         """Initializes an instance of BackgroundColorCache."""
-        self._colors: Dict[str, Tuple[int, int, int, float]] = {}
+        self._colors: dict[str, TypeColorRGBA] = {}
 
     @guarded
     def has(self, name: str) -> bool:
@@ -131,14 +135,14 @@ class BackgroundColorCache:
         return name in self._colors
 
     @guarded
-    def get(self, name: str = "") -> Tuple[int, int, int, float]:
+    def get(self, name: str = "") -> TypeColorRGBA:
         """Retrieves a background color by name.
 
         Args:
             name (str, optional): Name of the background color. Defaults to "".
 
         Returns:
-            Tuple[int, int, int, float]: RGBA components of the background color.
+            ColorRGBA: RGBA components of the background color.
 
         Raises:
             ValueError: If the specified background color name does not exist.
@@ -152,20 +156,20 @@ class BackgroundColorCache:
         """Lists all existing background color names.
 
         Returns:
-            List[str]: List of background color names.
+            list[str]: List of background color names.
         """
         return list_(self._colors.keys())
 
     @guarded
     def set(
         self,
-        color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
+        color: TypeColor,
         name: str = "",
     ) -> None:
         """Sets or updates a background color with the given name.
 
         Args:
-            color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
+            color (Color):
                 RGB or RGBA components of the background color.
             name (str, optional): Name of the background color. Defaults to "".
 
@@ -176,7 +180,8 @@ class BackgroundColorCache:
         type_validator.validate_str("name", name)
         if len(color) == 3:
             color = (color[0], color[1], color[2], 1.0)
-        self._colors[name] = color
+        from typing import cast
+        self._colors[name] = cast(TypeColorRGBA, color)
 
     @guarded
     def delete(self, name: str) -> None:
@@ -198,7 +203,7 @@ class SourceCodeFontCache:
 
     def __init__(self) -> None:
         """Initializes an instance of SourceCodeFontCache."""
-        self._fonts: Dict[str, FontSourceCode] = {}
+        self._fonts: dict[str, FontSourceCode] = {}
 
     @guarded
     def has(self, name: str) -> bool:
@@ -234,7 +239,7 @@ class SourceCodeFontCache:
         """Lists all existing source code font names.
 
         Returns:
-            List[str]: List of source code font names.
+            list[str]: List of source code font names.
         """
         return list_(self._fonts.keys())
 
@@ -311,7 +316,7 @@ class AbstractStyleCache(ABC):
         """Lists all existing style names.
 
         Returns:
-            List[str]: List of style names.
+            list[str]: List of style names.
         """
 
     @abstractmethod
@@ -339,12 +344,12 @@ class AbstractStyleCache(ABC):
         """
 
     @abstractmethod
-    def merge(self, style: Any, targets: Optional[List[str]] = None) -> None:  # noqa: ANN401
+    def merge(self, style: Any, targets: List[str] | None = None) -> None:  # noqa: ANN401
         """Merges a style into existing styles.
 
         Args:
             style (Any): The style object to merge.
-            targets (Optional[List[str]], optional): List of target style names to merge into.
+            targets (list[str] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
@@ -382,7 +387,7 @@ class IconStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, IconStyle] = {}
+        self._styles: dict[str, IconStyle] = {}
 
     @guarded
     def has(self, name: str) -> bool:
@@ -418,7 +423,7 @@ class IconStyleCache(AbstractStyleCache):
         """List all existing style names.
 
         Returns:
-            List[str]: List of style names.
+            list[str]: List of style names.
         """
         return list_(self._styles.keys())
 
@@ -454,12 +459,12 @@ class IconStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: IconStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: IconStyle, targets: List[str] | None = None) -> None:
         """Merge a style into existing styles.
 
         Args:
             style (IconStyle): The IconStyle object to merge.
-            targets (Optional[List[str]], optional): List of target style names to merge into.
+            targets (list[str] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
@@ -505,7 +510,7 @@ class ImageStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ImageStyle] = {}
+        self._styles: dict[str, ImageStyle] = {}
 
     @guarded
     def has(self, name: str) -> bool:
@@ -541,7 +546,7 @@ class ImageStyleCache(AbstractStyleCache):
         """List all existing style names.
 
         Returns:
-            List[str]: List of style names.
+            list[str]: List of style names.
         """
         return list_(self._styles.keys())
 
@@ -577,12 +582,12 @@ class ImageStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ImageStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ImageStyle, targets: List[str] | None = None) -> None:
         """Merge a style into existing styles.
 
         Args:
             style (ImageStyle): The ImageStyle object to merge.
-            targets (Optional[List[str]], optional): List of target style names to merge into.
+            targets (list[str] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
@@ -628,7 +633,7 @@ class LineStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, LineStyle] = {}
+        self._styles: dict[str, LineStyle] = {}
 
     @guarded
     def has(self, name: str) -> bool:
@@ -664,7 +669,7 @@ class LineStyleCache(AbstractStyleCache):
         """List all existing style names.
 
         Returns:
-            List[str]: List of style names.
+            list[str]: List of style names.
         """
         return list_(self._styles.keys())
 
@@ -700,12 +705,12 @@ class LineStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: LineStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: LineStyle, targets: List[str] | None = None) -> None:
         """Merge a style into existing styles.
 
         Args:
             style (LineStyle): The LineStyle object to merge.
-            targets (Optional[List[str]], optional): List of target style names to merge into.
+            targets (list[str] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
@@ -751,7 +756,7 @@ class ShapeStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {}
+        self._styles: dict[str, ShapeStyle] = {}
 
     @guarded
     def has(self, name: str) -> bool:
@@ -787,7 +792,7 @@ class ShapeStyleCache(AbstractStyleCache):
         """List all existing style names.
 
         Returns:
-            List[str]: List of style names.
+            list[str]: List of style names.
         """
         return list_(self._styles.keys())
 
@@ -823,12 +828,12 @@ class ShapeStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
         """Merge a style into existing styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target style names to merge into.
+            targets (list[str] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
@@ -874,7 +879,7 @@ class ShapeTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {}
+        self._styles: dict[str, ShapeTextStyle] = {}
 
     @guarded
     def has(self, name: str) -> bool:
@@ -910,7 +915,7 @@ class ShapeTextStyleCache(AbstractStyleCache):
         """List all existing style names.
 
         Returns:
-            List[str]: List of style names.
+            list[str]: List of style names.
         """
         return list_(self._styles.keys())
 
@@ -946,12 +951,12 @@ class ShapeTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
         """Merge a style into existing styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target style names to merge into.
+            targets (list[str] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
@@ -997,7 +1002,7 @@ class TextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, TextStyle] = {}
+        self._styles: dict[str, TextStyle] = {}
 
     @guarded
     def has(self, name: str) -> bool:
@@ -1033,7 +1038,7 @@ class TextStyleCache(AbstractStyleCache):
         """List all existing style names.
 
         Returns:
-            List[str]: List of style names.
+            list[str]: List of style names.
         """
         return list_(self._styles.keys())
 
@@ -1069,12 +1074,12 @@ class TextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: TextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: TextStyle, targets: List[str] | None = None) -> None:
         """Merge a style into existing styles.
 
         Args:
             style (TextStyle): The TextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target style names to merge into.
+            targets (list[str] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
@@ -1122,7 +1127,7 @@ class ArcStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {}
+        self._styles: dict[str, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
@@ -1166,7 +1171,7 @@ class ArcStyleCache(AbstractStyleCache):
         """List all existing arc style names.
 
         Returns:
-            List[str]: List of arc style names.
+            list[str]: List of arc style names.
         """
         return list_(self._styles.keys())
 
@@ -1202,12 +1207,12 @@ class ArcStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
         """Merge an arc style into existing arc styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target arc style names to merge into.
+            targets (list[str] | None, optional): List of target arc style names to merge into.
                 If None, merge into all existing arc styles. Defaults to None.
 
         Raises:
@@ -1255,7 +1260,7 @@ class CircleStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {}
+        self._styles: dict[str, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
@@ -1299,7 +1304,7 @@ class CircleStyleCache(AbstractStyleCache):
         """List all existing circle style names.
 
         Returns:
-            List[str]: List of circle style names.
+            list[str]: List of circle style names.
         """
         return list_(self._styles.keys())
 
@@ -1335,12 +1340,12 @@ class CircleStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
         """Merge an circle style into existing circle styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target circle style names to merge into.
+            targets (list[str] | None, optional): List of target circle style names to merge into.
                 If None, merge into all existing circle styles. Defaults to None.
 
         Raises:
@@ -1388,7 +1393,7 @@ class DonutsStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {}
+        self._styles: dict[str, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
@@ -1432,7 +1437,7 @@ class DonutsStyleCache(AbstractStyleCache):
         """List all existing donuts style names.
 
         Returns:
-            List[str]: List of donuts style names.
+            list[str]: List of donuts style names.
         """
         return list_(self._styles.keys())
 
@@ -1468,12 +1473,12 @@ class DonutsStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
         """Merge an donuts style into existing donuts styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target donuts style names to merge into.
+            targets (list[str] | None, optional): List of target donuts style names to merge into.
                 If None, merge into all existing donuts styles. Defaults to None.
 
         Raises:
@@ -1521,7 +1526,7 @@ class EllipseStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {}
+        self._styles: dict[str, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
@@ -1565,7 +1570,7 @@ class EllipseStyleCache(AbstractStyleCache):
         """List all existing ellipse style names.
 
         Returns:
-            List[str]: List of ellipse style names.
+            list[str]: List of ellipse style names.
         """
         return list_(self._styles.keys())
 
@@ -1601,12 +1606,12 @@ class EllipseStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
         """Merge an ellipse style into existing ellipse styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target ellipse style names to merge into.
+            targets (list[str] | None, optional): List of target ellipse style names to merge into.
                 If None, merge into all existing ellipse styles. Defaults to None.
 
         Raises:
@@ -1654,7 +1659,7 @@ class FanStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {}
+        self._styles: dict[str, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
@@ -1698,7 +1703,7 @@ class FanStyleCache(AbstractStyleCache):
         """List all existing fan style names.
 
         Returns:
-            List[str]: List of fan style names.
+            list[str]: List of fan style names.
         """
         return list_(self._styles.keys())
 
@@ -1734,12 +1739,12 @@ class FanStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
         """Merge an fan style into existing fan styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target fan style names to merge into.
+            targets (list[str] | None, optional): List of target fan style names to merge into.
                 If None, merge into all existing fan styles. Defaults to None.
 
         Raises:
@@ -1787,7 +1792,7 @@ class PolygonStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {}
+        self._styles: dict[str, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
@@ -1831,7 +1836,7 @@ class PolygonStyleCache(AbstractStyleCache):
         """List all existing polygon style names.
 
         Returns:
-            List[str]: List of polygon style names.
+            list[str]: List of polygon style names.
         """
         return list_(self._styles.keys())
 
@@ -1867,12 +1872,12 @@ class PolygonStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
         """Merge an polygon style into existing polygon styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target polygon style names to merge into.
+            targets (list[str] | None, optional): List of target polygon style names to merge into.
                 If None, merge into all existing polygon styles. Defaults to None.
 
         Raises:
@@ -1920,7 +1925,7 @@ class RectangleStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {}
+        self._styles: dict[str, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
@@ -1964,7 +1969,7 @@ class RectangleStyleCache(AbstractStyleCache):
         """List all existing rectangle style names.
 
         Returns:
-            List[str]: List of rectangle style names.
+            list[str]: List of rectangle style names.
         """
         return list_(self._styles.keys())
 
@@ -2000,12 +2005,12 @@ class RectangleStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
         """Merge an rectangle style into existing rectangle styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target rectangle style names to merge into.
+            targets (list[str] | None, optional): List of target rectangle style names to merge into.
                 If None, merge into all existing rectangle styles. Defaults to None.
 
         Raises:
@@ -2053,7 +2058,7 @@ class RegularpolygonStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {}
+        self._styles: dict[str, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
@@ -2097,7 +2102,7 @@ class RegularpolygonStyleCache(AbstractStyleCache):
         """List all existing regular polygon style names.
 
         Returns:
-            List[str]: List of regular polygon style names.
+            list[str]: List of regular polygon style names.
         """
         return list_(self._styles.keys())
 
@@ -2133,12 +2138,12 @@ class RegularpolygonStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
         """Merge an regular polygon style into existing regular polygon styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target regular polygon style names to merge into.
+            targets (list[str] | None, optional): List of target regular polygon style names to merge into.
                 If None, merge into all existing regular polygon styles. Defaults to None.
 
         Raises:
@@ -2186,7 +2191,7 @@ class WedgeStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {}
+        self._styles: dict[str, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
@@ -2230,7 +2235,7 @@ class WedgeStyleCache(AbstractStyleCache):
         """List all existing wedge style names.
 
         Returns:
-            List[str]: List of wedge style names.
+            list[str]: List of wedge style names.
         """
         return list_(self._styles.keys())
 
@@ -2266,12 +2271,12 @@ class WedgeStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
         """Merge an wedge style into existing wedge styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target wedge style names to merge into.
+            targets (list[str] | None, optional): List of target wedge style names to merge into.
                 If None, merge into all existing wedge styles. Defaults to None.
 
         Raises:
@@ -2319,7 +2324,7 @@ class ArrowStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {}
+        self._styles: dict[str, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
@@ -2363,7 +2368,7 @@ class ArrowStyleCache(AbstractStyleCache):
         """List all existing arrow style names.
 
         Returns:
-            List[str]: List of arrow style names.
+            list[str]: List of arrow style names.
         """
         return list_(self._styles.keys())
 
@@ -2399,12 +2404,12 @@ class ArrowStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
         """Merge an arrow style into existing arrow styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target arrow style names to merge into.
+            targets (list[str] | None, optional): List of target arrow style names to merge into.
                 If None, merge into all existing arrow styles. Defaults to None.
 
         Raises:
@@ -2452,7 +2457,7 @@ class ChevronStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {}
+        self._styles: dict[str, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
@@ -2496,7 +2501,7 @@ class ChevronStyleCache(AbstractStyleCache):
         """List all existing chevron style names.
 
         Returns:
-            List[str]: List of chevron style names.
+            list[str]: List of chevron style names.
         """
         return list_(self._styles.keys())
 
@@ -2532,12 +2537,12 @@ class ChevronStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
         """Merge an chevron style into existing chevron styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target chevron style names to merge into.
+            targets (list[str] | None, optional): List of target chevron style names to merge into.
                 If None, merge into all existing chevron styles. Defaults to None.
 
         Raises:
@@ -2585,7 +2590,7 @@ class ParallelogramStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {}
+        self._styles: dict[str, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
@@ -2629,7 +2634,7 @@ class ParallelogramStyleCache(AbstractStyleCache):
         """List all existing parallelogram style names.
 
         Returns:
-            List[str]: List of parallelogram style names.
+            list[str]: List of parallelogram style names.
         """
         return list_(self._styles.keys())
 
@@ -2665,12 +2670,12 @@ class ParallelogramStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
         """Merge an parallelogram style into existing parallelogram styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target parallelogram style names to merge into.
+            targets (list[str] | None, optional): List of target parallelogram style names to merge into.
                 If None, merge into all existing parallelogram styles. Defaults to None.
 
         Raises:
@@ -2718,7 +2723,7 @@ class RhombusStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {}
+        self._styles: dict[str, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
@@ -2762,7 +2767,7 @@ class RhombusStyleCache(AbstractStyleCache):
         """List all existing rhombus style names.
 
         Returns:
-            List[str]: List of rhombus style names.
+            list[str]: List of rhombus style names.
         """
         return list_(self._styles.keys())
 
@@ -2798,12 +2803,12 @@ class RhombusStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
         """Merge an rhombus style into existing rhombus styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target rhombus style names to merge into.
+            targets (list[str] | None, optional): List of target rhombus style names to merge into.
                 If None, merge into all existing rhombus styles. Defaults to None.
 
         Raises:
@@ -2851,7 +2856,7 @@ class StarStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {}
+        self._styles: dict[str, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
@@ -2895,7 +2900,7 @@ class StarStyleCache(AbstractStyleCache):
         """List all existing star style names.
 
         Returns:
-            List[str]: List of star style names.
+            list[str]: List of star style names.
         """
         return list_(self._styles.keys())
 
@@ -2931,12 +2936,12 @@ class StarStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
         """Merge an star style into existing star styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target star style names to merge into.
+            targets (list[str] | None, optional): List of target star style names to merge into.
                 If None, merge into all existing star styles. Defaults to None.
 
         Raises:
@@ -2984,7 +2989,7 @@ class TrapezoidStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {}
+        self._styles: dict[str, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
@@ -3028,7 +3033,7 @@ class TrapezoidStyleCache(AbstractStyleCache):
         """List all existing trapezoid style names.
 
         Returns:
-            List[str]: List of trapezoid style names.
+            list[str]: List of trapezoid style names.
         """
         return list_(self._styles.keys())
 
@@ -3064,12 +3069,12 @@ class TrapezoidStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
         """Merge an trapezoid style into existing trapezoid styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target trapezoid style names to merge into.
+            targets (list[str] | None, optional): List of target trapezoid style names to merge into.
                 If None, merge into all existing trapezoid styles. Defaults to None.
 
         Raises:
@@ -3117,7 +3122,7 @@ class TriangleStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {}
+        self._styles: dict[str, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
@@ -3161,7 +3166,7 @@ class TriangleStyleCache(AbstractStyleCache):
         """List all existing triangle style names.
 
         Returns:
-            List[str]: List of triangle style names.
+            list[str]: List of triangle style names.
         """
         return list_(self._styles.keys())
 
@@ -3197,12 +3202,12 @@ class TriangleStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
         """Merge an triangle style into existing triangle styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target triangle style names to merge into.
+            targets (list[str] | None, optional): List of target triangle style names to merge into.
                 If None, merge into all existing triangle styles. Defaults to None.
 
         Raises:
@@ -3250,7 +3255,7 @@ class BubblespeechStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {}
+        self._styles: dict[str, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
@@ -3294,7 +3299,7 @@ class BubblespeechStyleCache(AbstractStyleCache):
         """List all existing bubble speech style names.
 
         Returns:
-            List[str]: List of bubble speech style names.
+            list[str]: List of bubble speech style names.
         """
         return list_(self._styles.keys())
 
@@ -3330,12 +3335,12 @@ class BubblespeechStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
         """Merge an bubble speech style into existing bubble speech styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target bubble speech style names to merge into.
+            targets (list[str] | None, optional): List of target bubble speech style names to merge into.
                 If None, merge into all existing bubble speech styles. Defaults to None.
 
         Raises:
@@ -3383,7 +3388,7 @@ class ArcTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {}
+        self._styles: dict[str, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
@@ -3425,7 +3430,7 @@ class ArcTextStyleCache(AbstractStyleCache):
         """List all existing arc text style names.
 
         Returns:
-            List[str]: List of arc text style names.
+            list[str]: List of arc text style names.
         """
         return list_(self._styles.keys())
 
@@ -3461,12 +3466,12 @@ class ArcTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
         """Merge an arc text style into existing arc text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target arc text style names to merge into.
+            targets (list[str] | None, optional): List of target arc text style names to merge into.
                 If None, merge into all existing arc text styles. Defaults to None.
 
         Raises:
@@ -3514,7 +3519,7 @@ class CircleTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {}
+        self._styles: dict[str, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
@@ -3556,7 +3561,7 @@ class CircleTextStyleCache(AbstractStyleCache):
         """List all existing circle text style names.
 
         Returns:
-            List[str]: List of circle text style names.
+            list[str]: List of circle text style names.
         """
         return list_(self._styles.keys())
 
@@ -3592,12 +3597,12 @@ class CircleTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
         """Merge an circle text style into existing circle text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target circle text style names to merge into.
+            targets (list[str] | None, optional): List of target circle text style names to merge into.
                 If None, merge into all existing circle text styles. Defaults to None.
 
         Raises:
@@ -3645,7 +3650,7 @@ class DonutsTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {}
+        self._styles: dict[str, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
@@ -3687,7 +3692,7 @@ class DonutsTextStyleCache(AbstractStyleCache):
         """List all existing donuts text style names.
 
         Returns:
-            List[str]: List of donuts text style names.
+            list[str]: List of donuts text style names.
         """
         return list_(self._styles.keys())
 
@@ -3723,12 +3728,12 @@ class DonutsTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
         """Merge an donuts text style into existing donuts text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target donuts text style names to merge into.
+            targets (list[str] | None, optional): List of target donuts text style names to merge into.
                 If None, merge into all existing donuts text styles. Defaults to None.
 
         Raises:
@@ -3776,7 +3781,7 @@ class EllipseTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {}
+        self._styles: dict[str, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
@@ -3818,7 +3823,7 @@ class EllipseTextStyleCache(AbstractStyleCache):
         """List all existing ellipse text style names.
 
         Returns:
-            List[str]: List of ellipse text style names.
+            list[str]: List of ellipse text style names.
         """
         return list_(self._styles.keys())
 
@@ -3854,12 +3859,12 @@ class EllipseTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
         """Merge an ellipse text style into existing ellipse text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target ellipse text style names to merge into.
+            targets (list[str] | None, optional): List of target ellipse text style names to merge into.
                 If None, merge into all existing ellipse text styles. Defaults to None.
 
         Raises:
@@ -3907,7 +3912,7 @@ class FanTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {}
+        self._styles: dict[str, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
@@ -3949,7 +3954,7 @@ class FanTextStyleCache(AbstractStyleCache):
         """List all existing fan text style names.
 
         Returns:
-            List[str]: List of fan text style names.
+            list[str]: List of fan text style names.
         """
         return list_(self._styles.keys())
 
@@ -3985,12 +3990,12 @@ class FanTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
         """Merge an fan text style into existing fan text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target fan text style names to merge into.
+            targets (list[str] | None, optional): List of target fan text style names to merge into.
                 If None, merge into all existing fan text styles. Defaults to None.
 
         Raises:
@@ -4038,7 +4043,7 @@ class PolygonTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {}
+        self._styles: dict[str, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
@@ -4080,7 +4085,7 @@ class PolygonTextStyleCache(AbstractStyleCache):
         """List all existing polygon text style names.
 
         Returns:
-            List[str]: List of polygon text style names.
+            list[str]: List of polygon text style names.
         """
         return list_(self._styles.keys())
 
@@ -4116,12 +4121,12 @@ class PolygonTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
         """Merge an polygon text style into existing polygon text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target polygon text style names to merge into.
+            targets (list[str] | None, optional): List of target polygon text style names to merge into.
                 If None, merge into all existing polygon text styles. Defaults to None.
 
         Raises:
@@ -4169,7 +4174,7 @@ class RectangleTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {}
+        self._styles: dict[str, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
@@ -4211,7 +4216,7 @@ class RectangleTextStyleCache(AbstractStyleCache):
         """List all existing rectangle text style names.
 
         Returns:
-            List[str]: List of rectangle text style names.
+            list[str]: List of rectangle text style names.
         """
         return list_(self._styles.keys())
 
@@ -4247,12 +4252,12 @@ class RectangleTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
         """Merge an rectangle text style into existing rectangle text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target rectangle text style names to merge into.
+            targets (list[str] | None, optional): List of target rectangle text style names to merge into.
                 If None, merge into all existing rectangle text styles. Defaults to None.
 
         Raises:
@@ -4300,7 +4305,7 @@ class RegularpolygonTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {}
+        self._styles: dict[str, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
@@ -4342,7 +4347,7 @@ class RegularpolygonTextStyleCache(AbstractStyleCache):
         """List all existing regular polygon text style names.
 
         Returns:
-            List[str]: List of regular polygon text style names.
+            list[str]: List of regular polygon text style names.
         """
         return list_(self._styles.keys())
 
@@ -4378,12 +4383,12 @@ class RegularpolygonTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
         """Merge an regular polygon text style into existing regular polygon text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target regular polygon text style names to merge into.
+            targets (list[str] | None, optional): List of target regular polygon text style names to merge into.
                 If None, merge into all existing regular polygon text styles. Defaults to None.
 
         Raises:
@@ -4431,7 +4436,7 @@ class WedgeTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {}
+        self._styles: dict[str, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
@@ -4473,7 +4478,7 @@ class WedgeTextStyleCache(AbstractStyleCache):
         """List all existing wedge text style names.
 
         Returns:
-            List[str]: List of wedge text style names.
+            list[str]: List of wedge text style names.
         """
         return list_(self._styles.keys())
 
@@ -4509,12 +4514,12 @@ class WedgeTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
         """Merge an wedge text style into existing wedge text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target wedge text style names to merge into.
+            targets (list[str] | None, optional): List of target wedge text style names to merge into.
                 If None, merge into all existing wedge text styles. Defaults to None.
 
         Raises:
@@ -4562,7 +4567,7 @@ class ArrowTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {}
+        self._styles: dict[str, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
@@ -4604,7 +4609,7 @@ class ArrowTextStyleCache(AbstractStyleCache):
         """List all existing arrow text style names.
 
         Returns:
-            List[str]: List of arrow text style names.
+            list[str]: List of arrow text style names.
         """
         return list_(self._styles.keys())
 
@@ -4640,12 +4645,12 @@ class ArrowTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
         """Merge an arrow text style into existing arrow text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target arrow text style names to merge into.
+            targets (list[str] | None, optional): List of target arrow text style names to merge into.
                 If None, merge into all existing arrow text styles. Defaults to None.
 
         Raises:
@@ -4693,7 +4698,7 @@ class ChevronTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {}
+        self._styles: dict[str, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
@@ -4735,7 +4740,7 @@ class ChevronTextStyleCache(AbstractStyleCache):
         """List all existing chevron text style names.
 
         Returns:
-            List[str]: List of chevron text style names.
+            list[str]: List of chevron text style names.
         """
         return list_(self._styles.keys())
 
@@ -4771,12 +4776,12 @@ class ChevronTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
         """Merge an chevron text style into existing chevron text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target chevron text style names to merge into.
+            targets (list[str] | None, optional): List of target chevron text style names to merge into.
                 If None, merge into all existing chevron text styles. Defaults to None.
 
         Raises:
@@ -4824,7 +4829,7 @@ class ParallelogramTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {}
+        self._styles: dict[str, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
@@ -4866,7 +4871,7 @@ class ParallelogramTextStyleCache(AbstractStyleCache):
         """List all existing parallelogram text style names.
 
         Returns:
-            List[str]: List of parallelogram text style names.
+            list[str]: List of parallelogram text style names.
         """
         return list_(self._styles.keys())
 
@@ -4902,12 +4907,12 @@ class ParallelogramTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
         """Merge an parallelogram text style into existing parallelogram text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target parallelogram text style names to merge into.
+            targets (list[str] | None, optional): List of target parallelogram text style names to merge into.
                 If None, merge into all existing parallelogram text styles. Defaults to None.
 
         Raises:
@@ -4955,7 +4960,7 @@ class RhombusTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {}
+        self._styles: dict[str, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
@@ -4997,7 +5002,7 @@ class RhombusTextStyleCache(AbstractStyleCache):
         """List all existing rhombus text style names.
 
         Returns:
-            List[str]: List of rhombus text style names.
+            list[str]: List of rhombus text style names.
         """
         return list_(self._styles.keys())
 
@@ -5033,12 +5038,12 @@ class RhombusTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
         """Merge an rhombus text style into existing rhombus text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target rhombus text style names to merge into.
+            targets (list[str] | None, optional): List of target rhombus text style names to merge into.
                 If None, merge into all existing rhombus text styles. Defaults to None.
 
         Raises:
@@ -5086,7 +5091,7 @@ class StarTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {}
+        self._styles: dict[str, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
@@ -5128,7 +5133,7 @@ class StarTextStyleCache(AbstractStyleCache):
         """List all existing star text style names.
 
         Returns:
-            List[str]: List of star text style names.
+            list[str]: List of star text style names.
         """
         return list_(self._styles.keys())
 
@@ -5164,12 +5169,12 @@ class StarTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
         """Merge an star text style into existing star text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target star text style names to merge into.
+            targets (list[str] | None, optional): List of target star text style names to merge into.
                 If None, merge into all existing star text styles. Defaults to None.
 
         Raises:
@@ -5217,7 +5222,7 @@ class TrapezoidTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {}
+        self._styles: dict[str, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
@@ -5259,7 +5264,7 @@ class TrapezoidTextStyleCache(AbstractStyleCache):
         """List all existing trapezoid text style names.
 
         Returns:
-            List[str]: List of trapezoid text style names.
+            list[str]: List of trapezoid text style names.
         """
         return list_(self._styles.keys())
 
@@ -5295,12 +5300,12 @@ class TrapezoidTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
         """Merge an trapezoid text style into existing trapezoid text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target trapezoid text style names to merge into.
+            targets (list[str] | None, optional): List of target trapezoid text style names to merge into.
                 If None, merge into all existing trapezoid text styles. Defaults to None.
 
         Raises:
@@ -5348,7 +5353,7 @@ class TriangleTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {}
+        self._styles: dict[str, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
@@ -5390,7 +5395,7 @@ class TriangleTextStyleCache(AbstractStyleCache):
         """List all existing triangle text style names.
 
         Returns:
-            List[str]: List of triangle text style names.
+            list[str]: List of triangle text style names.
         """
         return list_(self._styles.keys())
 
@@ -5426,12 +5431,12 @@ class TriangleTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
         """Merge an triangle text style into existing triangle text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target triangle text style names to merge into.
+            targets (list[str] | None, optional): List of target triangle text style names to merge into.
                 If None, merge into all existing triangle text styles. Defaults to None.
 
         Raises:
@@ -5479,7 +5484,7 @@ class BubblespeechTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {}
+        self._styles: dict[str, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
@@ -5521,7 +5526,7 @@ class BubblespeechTextStyleCache(AbstractStyleCache):
         """List all existing bubble speech text style names.
 
         Returns:
-            List[str]: List of bubble speech text style names.
+            list[str]: List of bubble speech text style names.
         """
         return list_(self._styles.keys())
 
@@ -5557,12 +5562,12 @@ class BubblespeechTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
         """Merge an bubble speech text style into existing bubble speech text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target bubble speech text style names to merge into.
+            targets (list[str] | None, optional): List of target bubble speech text style names to merge into.
                 If None, merge into all existing bubble speech text styles. Defaults to None.
 
         Raises:

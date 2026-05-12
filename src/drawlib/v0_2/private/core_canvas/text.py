@@ -9,7 +9,10 @@
 
 """Canvas's text feature implementation module."""
 
-from typing import Optional, Tuple, Union
+from drawlib.v0_2.private.types import (
+    TypeCoordinate,
+)
+
 
 from matplotlib.text import Text
 
@@ -36,11 +39,11 @@ class CanvasTextFeature(CanvasBase):
     @guarded
     def text(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         text: str,
-        size: Optional[float] = None,
-        angle: Union[int, float] = 0.0,
-        style: Union[TextStyle, str, None] = None,
+        size: float | None = None,
+        angle: int | float = 0.0,
+        style: TextStyle | str | None = None,
     ) -> None:
         """Draw text on the canvas.
 
@@ -82,11 +85,11 @@ class CanvasTextFeature(CanvasBase):
     @guarded
     def text_vertical(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         text: str,
-        size: Optional[float] = None,
-        angle: Union[int, float] = 0.0,
-        style: Optional[TextStyle] = None,
+        size: float | None = None,
+        angle: int | float = 0.0,
+        style: TextStyle | None = None,
     ) -> None:
         """Draw vertical text on the canvas.
 

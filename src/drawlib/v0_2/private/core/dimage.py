@@ -13,7 +13,7 @@
 from __future__ import annotations
 
 import os
-from typing import Dict, List, Tuple, Union, cast
+from typing import List, cast
 
 from PIL import (
     Image,
@@ -23,6 +23,7 @@ from PIL import (
     ImageOps,
 )
 
+from drawlib.v0_2.private.types import TypeColor, TypeColorRGB
 from drawlib.v0_2.private.util import (
     get_script_relative_path,
     guarded,
@@ -37,7 +38,7 @@ class DimageCache:
 
     def __init__(self) -> None:
         """Initialize an empty Dimage cache."""
-        self._cache: Dict[str, Dimage] = {}
+        self._cache: dict[str, Dimage] = {}
 
     def has(self, name: str) -> bool:
         """Check whether a Dimage cache with the given name exists.
@@ -50,7 +51,7 @@ class DimageCache:
         """
         return name in self._cache
 
-    def set(self, name: str, image: Union[str, Dimage, Image.Image]) -> None:
+    def set(self, name: str, image: str | Dimage | Image.Image) -> None:
         """Set a copied Dimage cache with the provided name key.
 
         This method creates a copy of the original object and sets the copied one in the cache.
@@ -58,7 +59,7 @@ class DimageCache:
 
         Args:
             name (str): The key under which to cache the Dimage.
-            image (Union[str, Dimage, Image.Image]): The image to cache, either as a file path,
+            image (str | Dimage | Image.Image): The image to cache, either as a file path,
                 a Dimage object, or a PIL Image.
 
         Returns:
@@ -122,7 +123,7 @@ class Dimage:
     @guarded
     def __init__(
         self,
-        image: Union[str, Dimage, Image.Image],
+        image: str | Dimage | Image.Image,
         copy: bool = False,
     ) -> None:
         """Initialize a Dimage instance from a file path, PIL Image, or another Dimage.
@@ -179,7 +180,7 @@ class Dimage:
         return self._pilimg.copy()
 
     @guarded
-    def get_image_size(self) -> Tuple[int, int]:
+    def get_image_size(self) -> tuple[int, int]:
         """Get the size of the image.
 
         This method returns the width and height of the image as a tuple.
@@ -312,11 +313,11 @@ class Dimage:
         return Dimage(newimg)
 
     @guarded
-    def fill(self, color: Union[Tuple[int, int, int], Tuple[int, int, int, float]]) -> Dimage:
+    def fill(self, color: TypeColor) -> Dimage:
         """Get a new Dimage with the specified color filling the transparent areas.
 
         Args:
-            color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
+            color (Color):
                    The color to fill the transparent areas with. It can be an RGB or RGBA tuple.
 
         Returns:
@@ -468,18 +469,18 @@ class Dimage:
     @guarded
     def colorize(
         self,
-        from_black_to: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
-        from_white_to: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
-        from_mid_to: Union[Tuple[int, int, int], Tuple[int, int, int, float], None] = None,
+        from_black_to: TypeColor,
+        from_white_to: TypeColor,
+        from_mid_to: TypeColor | None = None,
     ) -> Dimage:
         """Get a new Dimage with a colorize effect while keeping the original Dimage unchanged.
 
         Args:
-            from_black_to (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
+            from_black_to (Color):
                     The color to map black to.
-            from_white_to (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
+            from_white_to (Color):
                     The color to map white to.
-            from_mid_to (Union[Tuple[int, int, int], Tuple[int, int, int, float], None]):
+            from_mid_to (Color | None):
                     The color to map mid-tone to. If None, mid-tones are mapped automatically.
 
         Returns:
@@ -600,12 +601,12 @@ class Dimage:
     @guarded
     def remove_margin(
         self,
-        margin_color: Union[None, str, Tuple[int, int, int]],
+        margin_color: str | TypeColorRGB | None,
     ) -> Dimage:
         """Get a new Dimage with the margins removed while keeping the original Dimage unchanged.
 
         Args:
-            margin_color (Union[None, str, Tuple[int, int, int]]):
+            margin_color (str | ColorRGB | None):
                     The color of the margin to remove. If None, removes transparent margins.
 
         Returns:

@@ -12,7 +12,7 @@
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional, Tuple, Union
+from typing import List, Literal
 
 import drawlib.v0_2.private.validators.color as color_validator
 import drawlib.v0_2.private.validators.text as text_validator
@@ -92,6 +92,7 @@ from drawlib.v0_2.private.core.theme_style_caches import (
     WedgeStyleCache,
     WedgeTextStyleCache,
 )
+from drawlib.v0_2.private.types import TypeColor, TypeColorRGB
 from drawlib.v0_2.private.util import guarded
 
 
@@ -115,7 +116,7 @@ class AllStyleModifier:
         """List all style names present in the theme.
 
         Returns:
-            List[str]: A list of style names.
+            list[str]: A list of style names.
         """
         return self._theme._style_names.copy()
 
@@ -179,12 +180,12 @@ class AllStyleModifier:
         self._theme._style_names.insert(index, to_name)
 
     @guarded
-    def merge(self, theme_styles: ThemeStyles, targets: Optional[List[str]] = None) -> None:  # noqa: C901
+    def merge(self, theme_styles: ThemeStyles, targets: List[str] | None = None) -> None:  # noqa: C901
         """Merge styles from `theme_styles` into corresponding style collections in the theme.
 
         Args:
             theme_styles (ThemeStyles): The dtheme.ThemeStyles object containing styles to merge.
-            targets (Optional[List[str]], optional): List of specific style names to target for merging.
+            targets (list[str] | None, optional): List of specific style names to target for merging.
 
         Notes:
             This method merges styles from `theme_styles` into corresponding style collections
@@ -327,48 +328,48 @@ class Theme:
     @guarded
     def change_default_fonts(
         self,
-        light_font: Union[
-            Font,
-            FontArabic,
-            FontBase,
-            FontSerif,
-            FontSansSerif,
-            FontChinese,
-            FontJapanese,
-            FontKorean,
-            FontMonoSpace,
-            FontRoboto,
-            FontSourceCode,
-            FontFile,
-        ],
-        regular_font: Union[
-            Font,
-            FontArabic,
-            FontBase,
-            FontSerif,
-            FontSansSerif,
-            FontChinese,
-            FontJapanese,
-            FontKorean,
-            FontMonoSpace,
-            FontRoboto,
-            FontSourceCode,
-            FontFile,
-        ],
-        bold_font: Union[
-            Font,
-            FontArabic,
-            FontBase,
-            FontSerif,
-            FontSansSerif,
-            FontChinese,
-            FontJapanese,
-            FontKorean,
-            FontMonoSpace,
-            FontRoboto,
-            FontSourceCode,
-            FontFile,
-        ],
+        light_font: (
+            Font
+            | FontArabic
+            | FontBase
+            | FontSerif
+            | FontSansSerif
+            | FontChinese
+            | FontJapanese
+            | FontKorean
+            | FontMonoSpace
+            | FontRoboto
+            | FontSourceCode
+            | FontFile
+        ),
+        regular_font: (
+            Font
+            | FontArabic
+            | FontBase
+            | FontSerif
+            | FontSansSerif
+            | FontChinese
+            | FontJapanese
+            | FontKorean
+            | FontMonoSpace
+            | FontRoboto
+            | FontSourceCode
+            | FontFile
+        ),
+        bold_font: (
+            Font
+            | FontArabic
+            | FontBase
+            | FontSerif
+            | FontSansSerif
+            | FontChinese
+            | FontJapanese
+            | FontKorean
+            | FontMonoSpace
+            | FontRoboto
+            | FontSourceCode
+            | FontFile
+        ),
     ) -> None:
         """Change the default fonts for light, regular, and bold text styles.
 
@@ -411,7 +412,7 @@ class Theme:
         """List all available official themes.
 
         Returns:
-            List[str]: A list of names of official themes.
+            list[str]: A list of names of official themes.
         """
         return [
             "default",
@@ -484,31 +485,30 @@ class Theme:
     def apply_custom_theme(  # noqa: C901
         self,
         default_style: Theme.ThemeStyles,
-        named_styles: Optional[
-            List[
-                Tuple[
-                    str,
-                    Theme.ThemeStyles,
-                ]
+        named_styles: list[
+            tuple[
+                str,
+                Theme.ThemeStyles,
             ]
-        ] = None,
-        theme_colors: Optional[List[Tuple[str, Tuple[int, int, int]]]] = None,
-        backgroundcolor: Union[Tuple[int, int, int], Tuple[int, int, int, float]] = Colors.White,
-        sourcecodefont: Optional[FontSourceCode] = FontSourceCode.SOURCECODEPRO,
+        ]
+        | None = None,
+        theme_colors: list[tuple[str, TypeColorRGB]] | None = None,
+        backgroundcolor: TypeColor = Colors.White,
+        sourcecodefont: FontSourceCode | None = FontSourceCode.SOURCECODEPRO,
     ) -> None:
         """Apply a custom theme.
 
         Args:
             default_style (dtheme.ThemeStyles): The default theme styles to be applied.
-            named_styles (List[Tuple[str, Theme.ThemeStyles]], optional):
+            named_styles (list[tuple[str, Theme.ThemeStyles]], optional):
                 A list of named theme styles.
                 Each tuple contains a name and a `ThemeStyles` object. Defaults to [].
-            theme_colors (List[Tuple[str, Union[Tuple[int, int, int], Tuple[int, int, int, float]]]], optional):
+            theme_colors (list[tuple[str, Color]], optional):
                 A list of theme colors. Each tuple contains a name and a color
                 in the format (R, G, B) or (R, G, B, A). Defaults to [].
-            backgroundcolor (Union[Tuple[int, int, int], Tuple[int, int, int, float]], optional):
+            backgroundcolor (Color, optional):
                 The background color in the format (R, G, B) or (R, G, B, A). Defaults to Colors.White.
-            sourcecodefont (Optional[FontSourceCode], optional): The source code font.
+            sourcecodefont (FontSourceCode | None, optional): The source code font.
                 Defaults to FontSourceCode.SOURCECODEPRO.
 
         Returns:
@@ -939,7 +939,7 @@ class Theme:
         Returns:
             None
         """
-        self._style_names: List[str] = []
+        self._style_names: list[str] = []
 
         self.colors = ThemeColorCache()
         self.backgroundcolors = BackgroundColorCache()
@@ -1007,13 +1007,13 @@ class Theme:
             self.shapetextstyles, self._callback_set, self._callback_delete
         )
 
-    def _get_style_caches(self) -> List[AbstractStyleCache]:
+    def _get_style_caches(self) -> list[AbstractStyleCache]:
         """Retrieve all style caches.
 
         Returns:
-            List[AbstractStyleCache]: A list containing all style caches.
+            list[AbstractStyleCache]: A list containing all style caches.
         """
-        styles: List[AbstractStyleCache] = [
+        styles: list[AbstractStyleCache] = [
             self.iconstyles,
             self.imagestyles,
             self.linestyles,
@@ -1099,7 +1099,7 @@ class Theme:
         if max_columns < 2:
             raise ValueError("Arg max_columns must be int 2+")
 
-        col1: List[str] = [
+        col1: list[str] = [
             "class \\ name",
             "IconStyle",
             "ImageStyle",
@@ -1118,13 +1118,13 @@ class Theme:
             self.textstyles,
         ]
 
-        def get_text(style_names: List[str]) -> str:  # noqa: C901
-            lines: List[str] = []
+        def get_text(style_names: list[str]) -> str:  # noqa: C901
+            lines: list[str] = []
 
             # create columns
-            cols: List[List[str]] = [col1]
+            cols: list[list[str]] = [col1]
             for style_name in style_names:
-                col: List[str] = [style_name]
+                col: list[str] = [style_name]
                 for row_object in row_objects:
                     if row_object.has(style_name):
                         col.append("x")
@@ -1163,7 +1163,7 @@ class Theme:
 
             return "\n".join(lines).strip()
 
-        def split_list(input_list: List[str], chunk_size: int) -> List[List[str]]:
+        def split_list(input_list: list[str], chunk_size: int) -> list[list[str]]:
             result = []
             for i in range(0, len(input_list), chunk_size):
                 chunk = input_list[i : i + chunk_size]

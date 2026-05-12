@@ -12,7 +12,6 @@
 import dataclasses
 import os
 from enum import Enum
-from typing import Tuple
 from urllib.parse import urljoin
 
 import drawlib.assets.v0_2.fonts
@@ -21,7 +20,7 @@ from drawlib.v0_2.private.util import get_script_relative_path
 ASSET_VERSION: str = "v0_2"
 
 
-def get_fontfile_tuple(path: str, md5_hash: str) -> Tuple[str, str, str]:
+def get_fontfile_tuple(path: str, md5_hash: str) -> tuple[str, str, str]:
     """Convert provided path to local absolute path and download URL with MD5 info.
 
     This function takes a relative path to a font file and its MD5 hash, then constructs
@@ -33,7 +32,7 @@ def get_fontfile_tuple(path: str, md5_hash: str) -> Tuple[str, str, str]:
         md5_hash (str): The MD5 hash of the font file.
 
     Returns:
-        Tuple[str, str, str]: A tuple containing:
+        tuple[str, str, str]: A tuple containing:
             - font_path (str): The local absolute path to the font file.
             - url (str): The download URL for the font file.
             - md5_hash (str): The MD5 hash of the font file.
@@ -57,7 +56,7 @@ def get_fontfile_tuple(path: str, md5_hash: str) -> Tuple[str, str, str]:
 class FontFile:
     """A class representing a font file"""
 
-    file: str  # type: ignore
+    file: str
 
     @property
     def file(self) -> str:
