@@ -11,7 +11,7 @@
 
 from typing import Union
 
-from drawlib.v0_2.private.core.fonts import FontBase, FontFile
+from drawlib.v0_2.private.types import FontBase, FontFile
 
 
 def validate_font(name: str, value: Union[FontBase, FontFile]) -> None:

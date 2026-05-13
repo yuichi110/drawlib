@@ -22,9 +22,8 @@ from drawlib.v0_2.private.core.colors import (
     ColorsThemeEssentials,
     ColorsThemeMonochrome,
 )
-from drawlib.v0_2.private.core.fonts import (
+from drawlib.v0_2.private.core.fonts_enum import (
     Font,
-    FontBase,
     FontSourceCode,
 )
 from drawlib.v0_2.private.core.model import (
@@ -37,7 +36,7 @@ from drawlib.v0_2.private.core.model import (
     TextStyle,
     ThemeStyles,
 )
-from drawlib.v0_2.private.types import TypeColor, TypeColorRGB
+from drawlib.v0_2.private.types import FontBase, TypeColor, TypeColorRGB
 
 #######################
 # Official Themes ###

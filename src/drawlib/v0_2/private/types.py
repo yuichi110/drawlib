@@ -9,11 +9,22 @@
 
 """Type definitions for drawlib."""
 
+import os
+from enum import Enum
 from typing import Annotated, Any, Literal
 
-from pydantic import AfterValidator, BeforeValidator, Field, InstanceOf, SkipValidation
+from pydantic import (
+    AfterValidator,
+    BaseModel,
+    BeforeValidator,
+    ConfigDict,
+    Field,
+    InstanceOf,
+    SkipValidation,
+    field_validator,
+)
 
-from drawlib.v0_2.private.core.fonts import FontBase, FontFile
+from drawlib.v0_2.private.util import get_script_relative_path
 
 #
 # Basic Types
@@ -154,6 +165,46 @@ TypeSize = (
         BeforeValidator(lambda v: _validate_literal(v, {"small", "medium", "large"}, "Size")),
     ]
 )
+
+
+class FontBase(str, Enum):
+    """Base class of all font classes."""
+
+
+class FontFile(BaseModel):
+    """A class representing a font file"""
+
+    model_config = ConfigDict(validate_assignment=True)
+
+    file: str
+
+    def __init__(self, file: str) -> None:
+        """Initialize the font file."""
+        super().__init__(file=file)
+
+    @field_validator("file")
+    @classmethod
+    def validate_file(cls, value: str) -> str:
+        """Validate the font file path.
+
+        Validates that the provided path exists and is a valid file path. If not,
+        raises an appropriate exception.
+
+        Args:
+            value (str): The path to the font file.
+
+        Returns:
+            str: The absolute path to the font file.
+
+        Raises:
+            FileNotFoundError: If the file does not exist at the specified path.
+        """
+        path = get_script_relative_path(value)
+        if not os.path.exists(path):
+            raise FileNotFoundError(f'font file "{path}" does not exist.')
+        return path
+
+
 TypeFont = InstanceOf[FontBase] | InstanceOf[FontFile]
 
 __all__ = [
@@ -182,4 +233,6 @@ __all__ = [
     "TypeTailEdge",
     "TypeSize",
     "TypeFont",
+    "FontBase",
+    "FontFile",
 ]

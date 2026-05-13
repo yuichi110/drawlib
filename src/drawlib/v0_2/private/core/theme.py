@@ -19,12 +19,10 @@ import drawlib.v0_2.private.validators.text as text_validator
 import drawlib.v0_2.private.validators.types as types_validator
 from drawlib.v0_2.private.core import theme_officials
 from drawlib.v0_2.private.core.colors import Colors
-from drawlib.v0_2.private.core.fonts import (
+from drawlib.v0_2.private.core.fonts_enum import (
     Font,
     FontArabic,
-    FontBase,
     FontChinese,
-    FontFile,
     FontJapanese,
     FontKorean,
     FontMonoSpace,
@@ -32,6 +30,10 @@ from drawlib.v0_2.private.core.fonts import (
     FontSansSerif,
     FontSerif,
     FontSourceCode,
+)
+from drawlib.v0_2.private.types import (
+    FontBase,
+    FontFile,
 )
 from drawlib.v0_2.private.core.model import (
     IconStyle,

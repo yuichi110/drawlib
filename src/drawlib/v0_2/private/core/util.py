@@ -17,10 +17,8 @@ from matplotlib.font_manager import FontProperties
 from matplotlib.text import Text
 
 from drawlib.v0_2.private.core.colors import Colors
-from drawlib.v0_2.private.core.fonts import (
-    FontBase,
-    FontFile,
-)
+from drawlib.v0_2.private.core.fonts import get_font_metadata
+from drawlib.v0_2.private.types import FontBase, FontFile
 from drawlib.v0_2.private.core.model import (
     IconStyle,
     ImageStyle,
@@ -785,7 +783,8 @@ class TextUtil:
             return FontProperties(size=style.size, fname=style.font.file)
 
         # use default font
-        file_path, download_url, md5_hash = default.font.value  # type: ignore
+        meta = get_font_metadata(default.font)
+        file_path, download_url, md5_hash = meta.abs_path, meta.url, meta.md5
         download_if_not_exist(file_path=file_path, download_url=download_url, md5_hash=md5_hash)
 
         if style is None:
@@ -803,7 +802,8 @@ class TextUtil:
             if style.size is None:
                 style.size = default.size
 
-            file_path, download_url, md5_hash = style.font.value
+            meta = get_font_metadata(style.font)
+            file_path, download_url, md5_hash = meta.abs_path, meta.url, meta.md5
             download_if_not_exist(file_path=file_path, download_url=download_url, md5_hash=md5_hash)
             return FontProperties(size=style.size, fname=file_path)
 

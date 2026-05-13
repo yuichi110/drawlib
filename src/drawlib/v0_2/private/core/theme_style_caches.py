@@ -17,7 +17,7 @@ from typing import Any, Callable, List, Literal
 import drawlib.v0_2.private.validators.color as color_validator
 import drawlib.v0_2.private.validators.style as style_validator
 import drawlib.v0_2.private.validators.types as type_validator
-from drawlib.v0_2.private.core.fonts import FontSourceCode
+from drawlib.v0_2.private.core.fonts_enum import FontSourceCode
 from drawlib.v0_2.private.core.model import (
     IconStyle,
     ImageStyle,

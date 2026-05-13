@@ -26,7 +26,9 @@ from pygments.lexers.special import TextLexer
 from pygments.styles import get_style_by_name
 
 from drawlib.v0_2.private.core.dimage import Dimage
-from drawlib.v0_2.private.core.fonts import FontFile, FontSourceCode
+from drawlib.v0_2.private.core.fonts import get_font_metadata
+from drawlib.v0_2.private.core.fonts_enum import FontSourceCode
+from drawlib.v0_2.private.types import FontFile
 from drawlib.v0_2.private.core.model import ImageStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import ColorUtil
@@ -249,7 +251,8 @@ class SourceCode:
         pygments_style = get_style_by_name(style)
 
         if font is None:
-            file_path, download_url, md5_hash = dtheme.sourcecodefonts.get().value
+            meta = get_font_metadata(dtheme.sourcecodefonts.get())
+            file_path, download_url, md5_hash = meta.abs_path, meta.url, meta.md5
             download_if_not_exist(
                 file_path=file_path,
                 download_url=download_url,
@@ -258,7 +261,8 @@ class SourceCode:
         elif isinstance(font, FontFile):
             file_path = font.file
         elif isinstance(font, FontSourceCode):
-            file_path, download_url, md5_hash = font.value
+            meta = get_font_metadata(font)
+            file_path, download_url, md5_hash = meta.abs_path, meta.url, meta.md5
             download_if_not_exist(
                 file_path=file_path,
                 download_url=download_url,

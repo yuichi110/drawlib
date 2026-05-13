@@ -14,7 +14,7 @@ import dataclasses
 from typing import Any, List, Literal, Optional, Tuple, Union
 
 from drawlib.v0_2.private.core.colors import Colors, ColorsThemeEssentials
-from drawlib.v0_2.private.core.fonts import Font
+from drawlib.v0_2.private.core.fonts_enum import Font
 from drawlib.v0_2.private.core.model import LineStyle, ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core_canvas.canvas import line, rectangle

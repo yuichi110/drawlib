@@ -15,7 +15,7 @@ from typing import Annotated, Any, TypeVar
 
 from pydantic import BaseModel, ConfigDict, InstanceOf, ValidationError, model_validator
 
-from drawlib.v0_2.private.core.fonts import FontBase, FontFile, FontSourceCode
+from drawlib.v0_2.private.core.fonts_enum import FontSourceCode
 from drawlib.v0_2.private.types import (
     TypeAlpha,
     TypeAngle,
@@ -24,6 +24,8 @@ from drawlib.v0_2.private.types import (
     TypeColorRGB,
     TypeCoordinate,
     TypeFont,
+    FontBase,
+    FontFile,
     TypeHAlign,
     TypeIconStyle,
     TypeLineStyle,
@@ -42,8 +44,6 @@ class _StyleModel(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
         validate_assignment=True,
-        arbitrary_types_allowed=True,
-        ignored_types=(FontBase, FontFile),
     )
 
     def __init__(self, **data: Any) -> None:
@@ -366,8 +366,6 @@ class OfficialThemeStyle(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
         validate_assignment=True,
-        arbitrary_types_allowed=True,
-        ignored_types=(FontBase, FontFile),
     )
 
     default_style: ThemeStyles

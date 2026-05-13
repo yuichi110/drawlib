@@ -20,12 +20,11 @@ from drawlib.v0_2.private.core.colors import (
 from drawlib.v0_2.private.core.dimage import (
     Dimage,
 )
-from drawlib.v0_2.private.core.fonts import (
+from drawlib.v0_2.private.core.fonts_enum import (
     Font,
     FontArabic,
     FontBrahmic,
     FontChinese,
-    FontFile,
     FontJapanese,
     FontKorean,
     FontMonoSpace,
@@ -100,6 +99,9 @@ from drawlib.v0_2.private.icons.util import (
 )
 from drawlib.v0_2.private.smartarts import (
     dsart,
+)
+from drawlib.v0_2.private.types import (
+    FontFile,
 )
 
 __all__ = [

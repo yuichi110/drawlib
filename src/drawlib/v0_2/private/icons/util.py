@@ -14,7 +14,7 @@ import typing
 
 import drawlib.v0_2.private.util
 import drawlib.v0_2.private.validators.args as validator
-from drawlib.v0_2.private.core.fonts import FontFile
+from drawlib.v0_2.private.types import FontFile
 from drawlib.v0_2.private.core.model import IconStyle, TextStyle
 from drawlib.v0_2.private.core.util import IconUtil
 from drawlib.v0_2.private.core_canvas.canvas import get_fontsize_from_charwidth, text

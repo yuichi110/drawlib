@@ -10,7 +10,7 @@
 """Module for defining default parameter of styling models."""
 
 from drawlib.v0_2.private.core.colors import Colors
-from drawlib.v0_2.private.core.fonts import Font
+from drawlib.v0_2.private.core.fonts_enum import Font
 from drawlib.v0_2.private.core.model import (
     IconStyle,
     ImageStyle,
