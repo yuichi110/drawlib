@@ -16,7 +16,7 @@ from typing import Final, Literal, Optional, Tuple, Union
 
 from PIL import Image
 from pygments import highlight
-from pygments.formatters import ImageFormatter
+from pygments.formatters import ImageFormatter  # type: ignore
 from pygments.lexer import Lexer
 from pygments.lexers import (
     get_lexer_by_name,

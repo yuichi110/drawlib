@@ -46,7 +46,7 @@ class _StyleModel(BaseModel):
         validate_assignment=True,
     )
 
-    def __init__(self, **data: Any) -> None:
+    def __init__(self, **data: Any) -> None:  # noqa: ANN401
         try:
             super().__init__(**data)
         except ValidationError as e:

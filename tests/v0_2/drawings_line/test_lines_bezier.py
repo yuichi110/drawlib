@@ -19,5 +19,5 @@ def test_lines_bezier():
         ((40, 20), (40, 10)),
         ((40, 20), (50, 20)),
     ]
-    lines_bezier(xy=(0, 30), path_points=points)
+    lines_bezier(xy=(0, 30), path_points=points)  # type: ignore
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

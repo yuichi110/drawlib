@@ -21,7 +21,7 @@ import sys
 import traceback
 from typing import Callable, List, ParamSpec, Tuple, TypeVar, Union
 
-from pydantic import ConfigDict, validate_call
+from pydantic import ConfigDict, InstanceOf, validate_call
 
 import drawlib.assets.v0_2.fonticons
 import drawlib.assets.v0_2.fonts
@@ -173,7 +173,7 @@ def get_rotated_path_points(
     for t in path_points:
         # Translate point to origin
         if not isinstance(t[0], tuple):
-            x: float = t[0]  # type: ignore
+            x: float = t[0]
             y: float = t[1]  # type: ignore
             translated_x = x - cx
             translated_y = y - cy

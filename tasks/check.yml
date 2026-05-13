@@ -10,6 +10,8 @@ tasks:
 
   type:
     desc: Run type checker (ty)
+    env:
+      PYTHONPATH: tasks/scripts
     cmds:
       - uv run ty check src/drawlib
       - uv run ty check tasks/scripts
@@ -17,6 +19,8 @@ tasks:
 
   type-ty:
     desc: Run type checker (ty)
+    env:
+      PYTHONPATH: tasks/scripts
     cmds:
       - uv run ty check src/drawlib
       - uv run ty check tasks/scripts

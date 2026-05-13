@@ -274,7 +274,7 @@ class IconCodeGeneratorPhosphor:
 
     def _write(self) -> None:
         # add head
-        code_chunks = [PHOSPHOR_HEAD.strip()]
+        code_chunks: list[str] = [PHOSPHOR_HEAD.strip()]
 
         # add functions
         for icon_name, icon_code in self._regular_dict.items():

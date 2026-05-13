@@ -789,6 +789,9 @@ class TextUtil(StaticContainer):
             return FontProperties(size=style.size, fname=style.font.file)
 
         # use default font
+        if not isinstance(default.font, FontBase):
+            raise ValueError(f"default font {default.font} must be FontBase")
+
         meta = get_font_metadata(default.font)
         file_path, download_url, md5_hash = meta.abs_path, meta.url, meta.md5
         download_if_not_exist(file_path=file_path, download_url=download_url, md5_hash=md5_hash)
