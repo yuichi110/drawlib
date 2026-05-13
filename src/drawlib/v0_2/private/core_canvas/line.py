@@ -27,7 +27,6 @@ from drawlib.v0_2.private.types import (
     TypeCoordinates,
     TypePathPoints,
     TypePosFloat,
-    TypePosFloatEx,
     TypeStr,
 )
 from drawlib.v0_2.private.util import get_rotated_path_points, guarded
@@ -62,7 +61,7 @@ class CanvasLineFeature(CanvasBase):
         self,
         xy1: TypeCoordinate,
         xy2: TypeCoordinate,
-        width: TypePosFloatEx | None = None,
+        width: TypePosFloat | None = None,
         arrowhead: TypeArrowHead = "",
         style: LineStyle | str | None = None,
     ) -> None:
@@ -98,7 +97,7 @@ class CanvasLineFeature(CanvasBase):
         xy1: TypeCoordinate,
         xy2: TypeCoordinate,
         bend: TypeBend = 0,
-        width: TypePosFloatEx | None = None,
+        width: TypePosFloat | None = None,
         arrowhead: TypeArrowHead = "",
         style: LineStyle | str | None = None,
     ) -> None:
@@ -135,7 +134,7 @@ class CanvasLineFeature(CanvasBase):
         xy1: TypeCoordinate,
         xy2: TypeCoordinate,
         cp: TypeCoordinate,
-        width: TypePosFloatEx | None = None,
+        width: TypePosFloat | None = None,
         arrowhead: TypeArrowHead = "",
         style: LineStyle | TypeStr | None = None,
     ) -> None:
@@ -169,7 +168,7 @@ class CanvasLineFeature(CanvasBase):
         xy2: TypeCoordinate,
         cp1: TypeCoordinate,
         cp2: TypeCoordinate,
-        width: TypePosFloatEx | None = None,
+        width: TypePosFloat | None = None,
         arrowhead: TypeArrowHead = "",
         style: LineStyle | TypeStr | None = None,
     ) -> None:
@@ -201,12 +200,12 @@ class CanvasLineFeature(CanvasBase):
     def line_arc(
         self,
         xy: TypeCoordinate,
-        width: TypePosFloatEx,
-        height: TypePosFloatEx,
+        width: TypePosFloat,
+        height: TypePosFloat,
         angle_start: TypeAngle = 0,
         angle_end: TypeAngle = 180,
         angle: TypeAngle = 0,
-        linewidth: TypePosFloatEx | None = None,
+        linewidth: TypePosFloat | None = None,
         arrowhead: TypeArrowHead = "",
         style: LineStyle | TypeStr | None = None,
     ) -> None:
@@ -256,7 +255,7 @@ class CanvasLineFeature(CanvasBase):
     def lines(
         self,
         xys: TypeCoordinates,
-        width: TypePosFloatEx | None = None,
+        width: TypePosFloat | None = None,
         arrowhead: TypeArrowHead = "",
         style: LineStyle | TypeStr | None = None,
     ) -> None:
@@ -341,7 +340,7 @@ class CanvasLineFeature(CanvasBase):
         self,
         xy: TypeCoordinate,
         path_points: TypePathPoints,
-        width: TypePosFloatEx | None = None,
+        width: TypePosFloat | None = None,
         arrowhead: TypeArrowHead = "",
         style: LineStyle | TypeStr | None = None,
     ) -> None:

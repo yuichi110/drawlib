@@ -93,8 +93,8 @@ from drawlib.v0_2.private.types import (
     TypeBool,
     TypeColor,
     TypeColorRGB,
-    TypePosFloatEx,
-    TypePosIntEx,
+    TypePosFloat,
+    TypePosInt,
     TypeStr,
 )
 from drawlib.v0_2.private.util import guarded
@@ -315,7 +315,7 @@ class Theme:
         self.linestyles.merge(LineStyle(ahfill=fill))
 
     @guarded
-    def change_default_font_size(self, size: TypePosFloatEx) -> None:
+    def change_default_font_size(self, size: TypePosFloat) -> None:
         """Change the default font size for text and shape text.
 
         Args:
@@ -465,7 +465,7 @@ class Theme:
         print(self._get_theme_colors())
 
     @guarded
-    def print_style_table(self, max_columns: TypePosIntEx = 11) -> None:
+    def print_style_table(self, max_columns: TypePosInt = 11) -> None:
         """Print a table of styles with a specified maximum number of columns.
 
         Args:

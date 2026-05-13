@@ -22,7 +22,6 @@ from drawlib.v0_2.private.types import (
     TypeFloat,
     TypeInt,
     TypePosFloat,
-    TypePosFloatEx,
     TypeStr,
 )
 from drawlib.v0_2.private.util import guarded
@@ -40,8 +39,8 @@ class BulletPoints:
     @guarded
     def __init__(
         self,
-        vertical_margin: TypePosFloatEx,
-        indent_width: TypePosFloatEx,
+        vertical_margin: TypePosFloat,
+        indent_width: TypePosFloat,
         default_style: TypeStr | TextStyle | None = None,
     ) -> None:
         """Initialize BulletPoints.

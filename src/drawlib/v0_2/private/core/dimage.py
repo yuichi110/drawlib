@@ -32,7 +32,6 @@ from drawlib.v0_2.private.types import (
     TypeImageResample,
     TypePosFloat,
     TypePosInt,
-    TypePosIntEx,
 )
 from drawlib.v0_2.private.util import (
     get_script_relative_path,
@@ -266,14 +265,14 @@ class Dimage:
         return Dimage(newimg)
 
     @guarded
-    def resize(self, width: TypePosIntEx, height: TypePosIntEx, resample: TypeImageResample = "lanczos") -> Dimage:
+    def resize(self, width: TypePosInt, height: TypePosInt, resample: TypeImageResample = "lanczos") -> Dimage:
         """Get a new Dimage that is resized. The original Dimage is kept unchanged.
 
         This method returns a new Dimage that is resized to the specified width and height.
 
         Args:
-            width (TypePosIntEx): The new width of the image.
-            height (TypePosIntEx): The new height of the image.
+            width (TypePosInt): The new width of the image.
+            height (TypePosInt): The new height of the image.
             resample (TypeImageResample, optional): The resampling method to use. Defaults to "lanczos".
 
         Returns:
@@ -294,7 +293,7 @@ class Dimage:
         return Dimage(newimg)
 
     @guarded
-    def crop(self, x: TypePosInt, y: TypePosInt, width: TypePosIntEx, height: TypePosIntEx) -> Dimage:
+    def crop(self, x: TypePosInt, y: TypePosInt, width: TypePosInt, height: TypePosInt) -> Dimage:
         """Get a new Dimage that is cropped. The original Dimage is kept unchanged.
 
         This method returns a new Dimage that is cropped to the specified dimensions.
@@ -536,7 +535,7 @@ class Dimage:
         return Dimage(colorized_image)
 
     @guarded
-    def posterize(self, num_colors: TypePosIntEx = 4) -> Dimage:
+    def posterize(self, num_colors: TypePosInt = 4) -> Dimage:
         """Get a new Dimage with a posterize effect while keeping the original Dimage unchanged.
 
         Args:
@@ -557,7 +556,7 @@ class Dimage:
         return Dimage(newimg)
 
     @guarded
-    def mosaic(self, block_size: TypePosIntEx = 8) -> Dimage:
+    def mosaic(self, block_size: TypePosInt = 8) -> Dimage:
         """Get a new Dimage with a mosaic effect while keeping the original Dimage unchanged.
 
         Args:

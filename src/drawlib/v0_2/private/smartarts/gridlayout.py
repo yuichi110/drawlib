@@ -20,9 +20,7 @@ from drawlib.v0_2.private.types import (
     TypeAngle,
     TypeCoordinate,
     TypePosFloat,
-    TypePosFloatEx,
     TypePosInt,
-    TypePosIntEx,
     TypeStr,
 )
 from drawlib.v0_2.private.util import guarded
@@ -46,8 +44,8 @@ class GridLayout:
     @guarded
     def __init__(
         self,
-        num_column: TypePosIntEx,
-        num_row: TypePosIntEx,
+        num_column: TypePosInt,
+        num_row: TypePosInt,
         default_r: TypePosFloat = 0,
         default_style: TypeStr | ShapeStyle | None = None,
         default_textstyle: TypeStr | ShapeTextStyle | None = None,
@@ -84,8 +82,8 @@ class GridLayout:
     def add(  # noqa: C901
         self,
         position: Tuple[TypePosInt, TypePosInt],
-        width: TypePosIntEx,
-        height: TypePosIntEx,
+        width: TypePosInt,
+        height: TypePosInt,
         r: TypePosFloat | None = None,
         style: TypeStr | ShapeStyle | None = None,
         text: TypeStr = "",

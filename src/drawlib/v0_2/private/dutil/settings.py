@@ -17,7 +17,7 @@ import warnings
 from pydantic import validate_call
 
 from drawlib.v0_2.private.logging import logger
-from drawlib.v0_2.private.types import TypeBool
+from drawlib.v0_2.private.types.primitive import TypeBool
 
 __ARG_QUIET = "--drawlib_quiet"
 __ARG_DEBUG = "--drawlib_debug"

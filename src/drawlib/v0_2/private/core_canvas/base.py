@@ -42,9 +42,7 @@ from drawlib.v0_2.private.types import (
     TypeImageZoom,
     TypePathPoints,
     TypePosFloat,
-    TypePosFloatEx,
     TypePosInt,
-    TypePosIntEx,
     TypeSize,
     TypeStr,
 )
@@ -122,9 +120,9 @@ class CanvasBase:
     @guarded
     def config(  # noqa: C901
         self,
-        width: TypePosIntEx | None = None,
-        height: TypePosIntEx | None = None,
-        dpi: TypePosIntEx | None = None,
+        width: TypePosInt | None = None,
+        height: TypePosInt | None = None,
+        dpi: TypePosInt | None = None,
         background_color: TypeColor | None = None,
         background_alpha: TypeAlpha | None = None,
         grid: bool | None = None,
@@ -443,8 +441,8 @@ class CanvasBase:
     def rectangle(
         self,
         xy: TypeCoordinate,
-        width: TypePosFloatEx,
-        height: TypePosFloatEx,
+        width: TypePosFloat,
+        height: TypePosFloat,
         r: TypePosFloat = 0.0,
         angle: TypeAngle = 0.0,
         style: ShapeStyle | TypeStr | None = None,
@@ -541,7 +539,7 @@ class CanvasBase:
     def get_image_zoom_from_width(
         self,
         image: str | PIL.Image.Image | Dimage,
-        width: TypePosFloatEx,
+        width: TypePosFloat,
     ) -> TypeImageZoom:
         """Get the zoom factor to fit the image width on the canvas.
 

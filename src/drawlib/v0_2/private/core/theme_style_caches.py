@@ -295,7 +295,7 @@ class AbstractStyleCache(ABC):
         """
 
     @abstractmethod
-    def get(self, name: TypeStr = "") -> Any: # noqa: ANN401
+    def get(self, name: TypeStr = "") -> Any:  # noqa: ANN401
         """Retrieves a style by name.
 
         Args:
@@ -317,7 +317,7 @@ class AbstractStyleCache(ABC):
         """
 
     @abstractmethod
-    def set(self, style: Any, name: TypeStr = "") -> None: # noqa: ANN401
+    def set(self, style: Any, name: TypeStr = "") -> None:  # noqa: ANN401
         """Sets or updates a style with the given name.
 
         Args:
@@ -341,7 +341,7 @@ class AbstractStyleCache(ABC):
         """
 
     @abstractmethod
-    def merge(self, style: Any, targets: list_[TypeStr] | None = None) -> None: # noqa: ANN401
+    def merge(self, style: Any, targets: list_[TypeStr] | None = None) -> None:  # noqa: ANN401
         """Merges a style into existing styles.
 
         Args:

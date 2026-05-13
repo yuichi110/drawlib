@@ -19,7 +19,7 @@ from drawlib.v0_2.private.types import (
     FontFile,
     TypeAngle,
     TypeCoordinate,
-    TypePosFloatEx,
+    TypePosFloat,
     TypeStr,
 )
 from drawlib.v0_2.private.util import guarded
@@ -28,7 +28,7 @@ from drawlib.v0_2.private.util import guarded
 @guarded
 def icon(
     xy: TypeCoordinate,
-    width: TypePosFloatEx,
+    width: TypePosFloat,
     code: TypeStr,
     file: TypeStr,
     angle: TypeAngle = 0.0,

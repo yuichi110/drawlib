@@ -20,7 +20,6 @@ from drawlib.v0_2.private.core_canvas.canvas import rectangle
 from drawlib.v0_2.private.types import (
     TypeCoordinate,
     TypePosFloat,
-    TypePosFloatEx,
     TypeStr,
 )
 from drawlib.v0_2.private.util import guarded
@@ -173,8 +172,8 @@ class BoxList:
     def draw(
         self,
         xy: TypeCoordinate,
-        box_width: TypePosFloatEx,
-        box_height: TypePosFloatEx,
+        box_width: TypePosFloat,
+        box_height: TypePosFloat,
         align: Literal["left", "right", "bottom", "top"] = "left",
     ) -> None:
         """Draws a list of boxes at the specified location.

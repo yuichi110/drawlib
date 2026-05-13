@@ -14,6 +14,8 @@ from enum import Enum
 
 from pydantic import BaseModel, ConfigDict, InstanceOf, field_validator
 
+from drawlib.v0_2.private.util import get_script_relative_path
+
 
 class FontBase(str, Enum):
     """Base class of all font classes."""
@@ -47,8 +49,6 @@ class FontFile(BaseModel):
         Raises:
             FileNotFoundError: If the file does not exist at the specified path.
         """
-        from drawlib.v0_2.private.util import get_script_relative_path
-
         path = get_script_relative_path(value)
         if not os.path.exists(path):
             raise FileNotFoundError(f'font file "{path}" does not exist.')

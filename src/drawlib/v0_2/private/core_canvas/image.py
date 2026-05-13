@@ -29,7 +29,6 @@ from drawlib.v0_2.private.types import (
     TypeFloat,
     TypeImageZoom,
     TypePosFloat,
-    TypePosFloatEx,
     TypeStr,
 )
 from drawlib.v0_2.private.util import guarded
@@ -60,7 +59,7 @@ class CanvasImageFeature(CanvasBase):
     def image(
         self,
         xy: TypeCoordinate,
-        width: TypePosFloatEx,
+        width: TypePosFloat,
         image: TypeStr | Image | Dimage,
         angle: TypeAngle = 0.0,
         style: ImageStyle | TypeStr | None = None,

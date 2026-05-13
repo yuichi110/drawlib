@@ -22,7 +22,6 @@ from drawlib.v0_2.private.types import (
     TypeAlpha,
     TypeCoordinate,
     TypePosFloat,
-    TypePosFloatEx,
     TypeSize,
     TypeStr,
 )
@@ -32,8 +31,8 @@ from drawlib.v0_2.private.util import guarded
 @guarded
 def bubblespeech(
     xy: TypeCoordinate,
-    width: TypePosFloatEx,
-    height: TypePosFloatEx,
+    width: TypePosFloat,
+    height: TypePosFloat,
     tail_edge: Literal["left", "top", "right", "bottom"],
     tail_start_ratio: TypeAlpha,
     tail_vertex_xy: TypeCoordinate,

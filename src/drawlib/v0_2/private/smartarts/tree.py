@@ -22,7 +22,6 @@ from drawlib.v0_2.private.types import (
     TypeCoordinate,
     TypeFloat,
     TypePosFloat,
-    TypePosFloatEx,
     TypeStr,
 )
 from drawlib.v0_2.private.util import guarded

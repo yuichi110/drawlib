@@ -14,7 +14,35 @@ from typing import Annotated, Any, Literal
 from pydantic import AfterValidator, BeforeValidator
 
 from drawlib.v0_2.private.types.base import validate_literal
-from drawlib.v0_2.private.types.primitive import TypePosFloatEx
+from drawlib.v0_2.private.types.primitive import TypePosFloat
+
+
+def validate_alpha(v: float) -> float:
+    """Validate alpha value."""
+    if not (0.0 <= v <= 1.0):
+        raise ValueError(f"Value must be between 0.0 and 1.0. But {v} is given.")
+    return v
+
+
+def validate_angle(v: float) -> float:
+    """Validate angle value."""
+    if not (0.0 <= v <= 360.0):
+        raise ValueError(f"Angle must be between 0.0 and 360.0. But {v} is given.")
+    return float(v)
+
+
+def validate_angle_90(v: float) -> float:
+    """Validate angle value max 90."""
+    if not (0.0 <= v <= 90.0):
+        raise ValueError(f"Value must be between 0.0 and 90.0. But {v} is given.")
+    return v
+
+
+def validate_bend(v: float) -> float:
+    """Validate bend value."""
+    if not (-2.0 < v < 2.0):
+        raise ValueError(f"Value must be between -2.0 and 2.0 (exclusive). But {v} is given.")
+    return v
 
 
 def validate_color_tuple(v: tuple[Any, ...]) -> tuple[Any, ...]:  # noqa: ANN401
@@ -32,6 +60,23 @@ def validate_color_tuple(v: tuple[Any, ...]) -> tuple[Any, ...]:  # noqa: ANN401
 
     return v
 
+
+TypeAlpha = Annotated[
+    float,
+    AfterValidator(validate_alpha),
+]
+TypeAngle = Annotated[
+    float,
+    AfterValidator(validate_angle),
+]
+TypeAngle90 = Annotated[
+    float,
+    AfterValidator(validate_angle_90),
+]
+TypeBend = Annotated[
+    float,
+    AfterValidator(validate_bend),
+]
 
 TypeColorRGB = Annotated[
     tuple[int, int, int],
@@ -71,7 +116,7 @@ TypeTailEdge = Annotated[
     BeforeValidator(lambda v: validate_literal(v, {"left", "top", "right", "bottom"}, "TailEdge")),
 ]
 TypeSize = (
-    TypePosFloatEx
+    TypePosFloat
     | Annotated[
         Literal["small", "medium", "large"],
         BeforeValidator(lambda v: validate_literal(v, {"small", "medium", "large"}, "Size")),

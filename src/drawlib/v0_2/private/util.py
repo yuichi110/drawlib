@@ -27,15 +27,17 @@ import drawlib.assets.v0_2.fonticons
 import drawlib.assets.v0_2.fonts
 from drawlib.v0_2.private.dutil.settings import dutil_settings
 from drawlib.v0_2.private.logging import logger
-from drawlib.v0_2.private.types import (
-    TypeAngle,
+from drawlib.v0_2.private.types.geometry import (
     TypeCoordinate,
     TypeCoordinates,
+    TypePathPoints,
+)
+from drawlib.v0_2.private.types.primitive import (
     TypeFloat,
     TypeInt,
-    TypePathPoints,
     TypeStr,
 )
+from drawlib.v0_2.private.types.style import TypeAngle
 
 R = TypeVar("R")
 P = ParamSpec("P")

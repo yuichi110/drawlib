@@ -22,7 +22,6 @@ from drawlib.v0_2.private.types import (
     TypeColor,
     TypeCoordinate,
     TypePosFloat,
-    TypePosFloatEx,
     TypeStr,
 )
 from drawlib.v0_2.private.util import guarded
@@ -407,8 +406,8 @@ class Table:
     def draw(
         self,
         xy: TypeCoordinate,
-        width: TypePosFloatEx,
-        height: TypePosFloatEx,
+        width: TypePosFloat,
+        height: TypePosFloat,
         data: List[List[Any]],
     ) -> None:
         """Draws the table with equal-sized cells.
@@ -435,8 +434,8 @@ class Table:
     def draw_flexible(
         self,
         xy: TypeCoordinate,
-        column_widths: List[TypePosFloatEx],
-        row_heights: List[TypePosFloatEx],
+        column_widths: List[TypePosFloat],
+        row_heights: List[TypePosFloat],
         data: List[List[Any]],
     ) -> None:
         """Draws the table with flexible cell sizes.
