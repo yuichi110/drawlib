@@ -15,7 +15,6 @@ from typing import Any, Literal
 from matplotlib.patches import PathPatch
 from matplotlib.path import Path
 
-
 from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import LineUtil, ShapeUtil

@@ -15,8 +15,6 @@ from enum import Enum
 from pydantic import BaseModel, ConfigDict, InstanceOf, field_validator
 
 
-
-
 class FontBase(str, Enum):
     """Base class of all font classes."""
 

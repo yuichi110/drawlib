@@ -25,8 +25,8 @@ from pydantic import ConfigDict, validate_call
 
 import drawlib.assets.v0_2.fonticons
 import drawlib.assets.v0_2.fonts
-
 from drawlib.v0_2.private.dutil.settings import dutil_settings
+from drawlib.v0_2.private.logging import logger
 from drawlib.v0_2.private.types import (
     TypeAngle,
     TypeCoordinate,
@@ -36,7 +36,6 @@ from drawlib.v0_2.private.types import (
     TypePathPoints,
     TypeStr,
 )
-from drawlib.v0_2.private.logging import logger
 
 R = TypeVar("R")
 P = ParamSpec("P")
@@ -215,7 +214,6 @@ def get_angle(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeAngle:
         float: Angle in degrees between the points (xy1 to xy2).
 
     """
-
     x1, y1 = xy1
     x2, y2 = xy2
     dx = x2 - x1
@@ -237,7 +235,6 @@ def get_distance(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeFloat:
         float: Euclidean distance between the points (xy1 to xy2).
 
     """
-
     x1, y1 = xy1
     x2, y2 = xy2
     return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
@@ -258,7 +255,6 @@ def get_center_and_size(
             - Size as width and height (maxx - minx, maxy - miny).
 
     """
-
     minx = xys[0][0]
     maxx = xys[0][0]
     miny = xys[0][1]

@@ -15,7 +15,6 @@ from typing import Literal
 
 from matplotlib import pyplot
 
-
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import ColorUtil
 from drawlib.v0_2.private.core_canvas.image import CanvasImageFeature
@@ -99,7 +98,6 @@ class Canvas(
             in the script's directory. For example, calling save() in a script "mydir/image1.py"
             will generate "mydir/image1.png".
         """
-
         file_path = self._get_save_file_path(file, format)
         self._set_background()
         zorder = self._draw_items()

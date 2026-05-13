@@ -383,7 +383,6 @@ class Theme:
         Returns:
             None
         """
-
         # create target lists
         light_styles = ["light"]
         regular_styles = [""]

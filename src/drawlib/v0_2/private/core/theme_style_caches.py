@@ -12,11 +12,8 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Any, Callable, List, Literal
+from typing import Any, Callable, Literal, cast
 
-import drawlib.v0_2.private.validators.color as color_validator
-import drawlib.v0_2.private.validators.style as style_validator
-import drawlib.v0_2.private.validators.types as type_validator
 from drawlib.v0_2.private.core.fonts_enum import FontSourceCode
 from drawlib.v0_2.private.core.model import (
     IconStyle,
@@ -26,7 +23,12 @@ from drawlib.v0_2.private.core.model import (
     ShapeTextStyle,
     TextStyle,
 )
-from drawlib.v0_2.private.types import TypeColor, TypeColorRGBA
+from drawlib.v0_2.private.types import (
+    TypeBool,
+    TypeColor,
+    TypeColorRGBA,
+    TypeStr,
+)
 from drawlib.v0_2.private.util import guarded
 
 list_ = list
@@ -37,29 +39,29 @@ class ThemeColorCache:
 
     def __init__(self) -> None:
         """Initializes an instance of ThemeColorCache."""
-        self._colors: dict[str, TypeColorRGBA] = {}
+        self._colors: dict[TypeStr, TypeColorRGBA] = {}
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Checks if a theme color exists by name.
 
         Args:
-            name (str): Name of the theme color.
+            name (TypeStr): Name of the theme color.
 
         Returns:
-            bool: True if the theme color exists, False otherwise.
+            TypeBool: True if the theme color exists, False otherwise.
         """
         return name in self._colors
 
     @guarded
-    def get(self, name: str = "") -> TypeColorRGBA:
+    def get(self, name: TypeStr = "") -> TypeColorRGBA:
         """Retrieves a theme color by name.
 
         Args:
-            name (str, optional): Name of the theme color. Defaults to "".
+            name (TypeStr, optional): Name of the theme color. Defaults to "".
 
         Returns:
-            ColorRGBA: RGBA components of the theme color.
+            TypeColorRGBA: RGBA components of the theme color.
 
         Raises:
             ValueError: If the specified theme color name does not exist.
@@ -69,11 +71,11 @@ class ThemeColorCache:
         return self._colors[name]
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """Lists all existing theme color names.
 
         Returns:
-            list[str]: List of theme color names.
+            list[TypeStr]: List of theme color names.
         """
         return list_(self._colors.keys())
 
@@ -81,32 +83,29 @@ class ThemeColorCache:
     def set(
         self,
         color: TypeColor,
-        name: str = "",
+        name: TypeStr = "",
     ) -> None:
         """Sets or updates a theme color with the given name.
 
         Args:
-            color (Color):
+            color (TypeColor):
                 RGB or RGBA components of the theme color.
-            name (str, optional): Name of the theme color. Defaults to "".
+            name (TypeStr, optional): Name of the theme color. Defaults to "".
 
         Raises:
             ValueError: If the color format is invalid or if the name format is invalid.
         """
-        color_validator.validate_color("color", color)
-        type_validator.validate_str("name", name)
         if len(color) == 3:
             color = (color[0], color[1], color[2], 1.0)
-        from typing import cast
 
         self._colors[name] = cast(TypeColorRGBA, color)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Deletes a theme color by name.
 
         Args:
-            name (str): Name of the theme color to delete.
+            name (TypeStr): Name of the theme color to delete.
 
         Raises:
             ValueError: If the specified theme color name does not exist.
@@ -121,29 +120,29 @@ class BackgroundColorCache:
 
     def __init__(self) -> None:
         """Initializes an instance of BackgroundColorCache."""
-        self._colors: dict[str, TypeColorRGBA] = {}
+        self._colors: dict[TypeStr, TypeColorRGBA] = {}
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Checks if a background color exists by name.
 
         Args:
-            name (str): Name of the background color.
+            name (TypeStr): Name of the background color.
 
         Returns:
-            bool: True if the background color exists, False otherwise.
+            TypeBool: True if the background color exists, False otherwise.
         """
         return name in self._colors
 
     @guarded
-    def get(self, name: str = "") -> TypeColorRGBA:
+    def get(self, name: TypeStr = "") -> TypeColorRGBA:
         """Retrieves a background color by name.
 
         Args:
-            name (str, optional): Name of the background color. Defaults to "".
+            name (TypeStr, optional): Name of the background color. Defaults to "".
 
         Returns:
-            ColorRGBA: RGBA components of the background color.
+            TypeColorRGBA: RGBA components of the background color.
 
         Raises:
             ValueError: If the specified background color name does not exist.
@@ -153,11 +152,11 @@ class BackgroundColorCache:
         return self._colors[name]
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """Lists all existing background color names.
 
         Returns:
-            list[str]: List of background color names.
+            list[TypeStr]: List of background color names.
         """
         return list_(self._colors.keys())
 
@@ -165,32 +164,29 @@ class BackgroundColorCache:
     def set(
         self,
         color: TypeColor,
-        name: str = "",
+        name: TypeStr = "",
     ) -> None:
         """Sets or updates a background color with the given name.
 
         Args:
-            color (Color):
-                RGB or RGBA components of the background color.
-            name (str, optional): Name of the background color. Defaults to "".
+            color (TypeColor):
+                RGB or RGBA components of the theme color.
+            name (TypeStr, optional): Name of the background color. Defaults to "".
 
         Raises:
             ValueError: If the color format is invalid or if the name format is invalid.
         """
-        color_validator.validate_color("color", color)
-        type_validator.validate_str("name", name)
         if len(color) == 3:
             color = (color[0], color[1], color[2], 1.0)
-        from typing import cast
 
         self._colors[name] = cast(TypeColorRGBA, color)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Deletes a background color by name.
 
         Args:
-            name (str): Name of the background color to delete.
+            name (TypeStr): Name of the background color to delete.
 
         Raises:
             ValueError: If the specified background color name does not exist.
@@ -205,26 +201,26 @@ class SourceCodeFontCache:
 
     def __init__(self) -> None:
         """Initializes an instance of SourceCodeFontCache."""
-        self._fonts: dict[str, FontSourceCode] = {}
+        self._fonts: dict[TypeStr, FontSourceCode] = {}
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Checks if a source code font exists by name.
 
         Args:
-            name (str): Name of the source code font.
+            name (TypeStr): Name of the source code font.
 
         Returns:
-            bool: True if the source code font exists, False otherwise.
+            TypeBool: True if the source code font exists, False otherwise.
         """
         return name in self._fonts
 
     @guarded
-    def get(self, name: str = "") -> FontSourceCode:
+    def get(self, name: TypeStr = "") -> FontSourceCode:
         """Retrieves a source code font by name.
 
         Args:
-            name (str, optional): Name of the source code font. Defaults to "".
+            name (TypeStr, optional): Name of the source code font. Defaults to "".
 
         Returns:
             FontSourceCode: Source code font object.
@@ -237,11 +233,11 @@ class SourceCodeFontCache:
         return self._fonts[name]
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """Lists all existing source code font names.
 
         Returns:
-            list[str]: List of source code font names.
+            list[TypeStr]: List of theme color names.
         """
         return list_(self._fonts.keys())
 
@@ -249,29 +245,28 @@ class SourceCodeFontCache:
     def set(
         self,
         font: FontSourceCode,
-        name: str = "",
+        name: TypeStr = "",
     ) -> None:
         """Sets or updates a source code font with the given name.
 
         Args:
             font (FontSourceCode): Source code font object.
-            name (str, optional): Name of the source code font. Defaults to "".
+            name (TypeStr, optional): Name of the source code font. Defaults to "".
 
         Raises:
             ValueError: If the font is not an instance of FontSourceCode or if the name format is invalid.
         """
         if not isinstance(font, FontSourceCode):
             raise ValueError("Arg font must be FontSourceCode.")
-        type_validator.validate_str("name", name)
 
         self._fonts[name] = font
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Deletes a source code font by name.
 
         Args:
-            name (str): Name of the source code font to delete.
+            name (TypeStr): Name of the source code font to delete.
 
         Raises:
             ValueError: If the specified source code font name does not exist.
@@ -289,22 +284,22 @@ class AbstractStyleCache(ABC):
     """
 
     @abstractmethod
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Checks if a style exists by name.
 
         Args:
-            name (str): Name of the style.
+            name (TypeStr): Name of the style.
 
         Returns:
-            bool: True if the style exists, False otherwise.
+            TypeBool: True if the style exists, False otherwise.
         """
 
     @abstractmethod
-    def get(self, name: str = "") -> Any:  # noqa: ANN401
+    def get(self, name: TypeStr = "") -> Any: # noqa: ANN401
         """Retrieves a style by name.
 
         Args:
-            name (str, optional): Name of the style. Defaults to "".
+            name (TypeStr, optional): Name of the style. Defaults to "".
 
         Returns:
             Any: The retrieved style object.
@@ -314,31 +309,31 @@ class AbstractStyleCache(ABC):
         """
 
     @abstractmethod
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """Lists all existing style names.
 
         Returns:
-            list[str]: List of style names.
+            list[TypeStr]: List of style names.
         """
 
     @abstractmethod
-    def set(self, style: Any, name: str = "") -> None:  # noqa: ANN401
+    def set(self, style: Any, name: TypeStr = "") -> None: # noqa: ANN401
         """Sets or updates a style with the given name.
 
         Args:
             style (Any): The style object to cache.
-            name (str, optional): Name of the style. Defaults to "".
+            name (TypeStr, optional): Name of the style. Defaults to "".
 
         Raises:
             NotImplementedError: If the method is not implemented in a subclass.
         """
 
     @abstractmethod
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Deletes a style by name.
 
         Args:
-            name (str): Name of the style to delete.
+            name (TypeStr): Name of the style to delete.
 
         Raises:
             NotImplementedError: If the method is not implemented in a subclass.
@@ -346,12 +341,12 @@ class AbstractStyleCache(ABC):
         """
 
     @abstractmethod
-    def merge(self, style: Any, targets: List[str] | None = None) -> None:  # noqa: ANN401
+    def merge(self, style: Any, targets: list_[TypeStr] | None = None) -> None: # noqa: ANN401
         """Merges a style into existing styles.
 
         Args:
             style (Any): The style object to merge.
-            targets (list[str] | None, optional): List of target style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
@@ -368,18 +363,8 @@ class IconStyleCache(AbstractStyleCache):
 
     def __init__(
         self,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize IconStyleCache with callbacks for set and delete operations.
 
@@ -389,26 +374,26 @@ class IconStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, IconStyle] = {}
+        self._styles: dict[TypeStr, IconStyle] = {}
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if a style exists by name.
 
         Args:
-            name (str): Name of the style.
+            name (TypeStr): Name of the style.
 
         Returns:
-            bool: True if the style exists, False otherwise.
+            TypeBool: True if the style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "") -> IconStyle:
+    def get(self, name: TypeStr = "") -> IconStyle:
         """Retrieve a style by name.
 
         Args:
-            name (str, optional): Name of the style to retrieve. Defaults to "".
+            name (TypeStr, optional): Name of the style to retrieve. Defaults to "".
 
         Returns:
             IconStyle: The retrieved IconStyle object.
@@ -421,36 +406,34 @@ class IconStyleCache(AbstractStyleCache):
         return self._styles[name].copy()
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing style names.
 
         Returns:
-            list[str]: List of style names.
+            list[TypeStr]: List of style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: IconStyle, name: str = "") -> None:
+    def set(self, style: IconStyle, name: TypeStr = "") -> None:
         """Set or update a style with the given name.
 
         Args:
             style (IconStyle): The IconStyle object to cache.
-            name (str, optional): Name of the style. Defaults to "".
+            name (TypeStr, optional): Name of the style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_iconstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete a style by name.
 
         Args:
-            name (str): Name of the style to delete.
+            name (TypeStr): Name of the style to delete.
 
         Raises:
             ValueError: If the style with the specified name does not exist.
@@ -461,18 +444,17 @@ class IconStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: IconStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: IconStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge a style into existing styles.
 
         Args:
             style (IconStyle): The IconStyle object to merge.
-            targets (list[str] | None, optional): List of target style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_iconstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -491,18 +473,8 @@ class ImageStyleCache(AbstractStyleCache):
 
     def __init__(
         self,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize ImageStyleCache with callbacks for set and delete operations.
 
@@ -512,26 +484,26 @@ class ImageStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ImageStyle] = {}
+        self._styles: dict[TypeStr, ImageStyle] = {}
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if a style exists by name.
 
         Args:
-            name (str): Name of the style.
+            name (TypeStr): Name of the style.
 
         Returns:
-            bool: True if the style exists, False otherwise.
+            TypeBool: True if the style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "") -> ImageStyle:
+    def get(self, name: TypeStr = "") -> ImageStyle:
         """Retrieve a style by name.
 
         Args:
-            name (str, optional): Name of the style to retrieve. Defaults to "".
+            name (TypeStr, optional): Name of the style to retrieve. Defaults to "".
 
         Returns:
             ImageStyle: The retrieved IconStyle object.
@@ -544,36 +516,34 @@ class ImageStyleCache(AbstractStyleCache):
         return self._styles[name].copy()
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing style names.
 
         Returns:
-            list[str]: List of style names.
+            list[TypeStr]: List of style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ImageStyle, name: str = "") -> None:
+    def set(self, style: ImageStyle, name: TypeStr = "") -> None:
         """Set or update a style with the given name.
 
         Args:
             style (ImageStyle): The ImageStyle object to cache.
-            name (str, optional): Name of the style. Defaults to "".
+            name (TypeStr, optional): Name of the style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_imagestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete a style by name.
 
         Args:
-            name (str): Name of the style to delete.
+            name (TypeStr): Name of the style to delete.
 
         Raises:
             ValueError: If the style with the specified name does not exist.
@@ -584,18 +554,17 @@ class ImageStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ImageStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ImageStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge a style into existing styles.
 
         Args:
             style (ImageStyle): The ImageStyle object to merge.
-            targets (list[str] | None, optional): List of target style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_imagestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -614,18 +583,8 @@ class LineStyleCache(AbstractStyleCache):
 
     def __init__(
         self,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize LineStyleCache with callbacks for set and delete operations.
 
@@ -635,26 +594,26 @@ class LineStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, LineStyle] = {}
+        self._styles: dict[TypeStr, LineStyle] = {}
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if a style exists by name.
 
         Args:
-            name (str): Name of the style.
+            name (TypeStr): Name of the style.
 
         Returns:
-            bool: True if the style exists, False otherwise.
+            TypeBool: True if the style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "") -> LineStyle:
+    def get(self, name: TypeStr = "") -> LineStyle:
         """Retrieve a style by name.
 
         Args:
-            name (str, optional): Name of the style to retrieve. Defaults to "".
+            name (TypeStr, optional): Name of the style to retrieve. Defaults to "".
 
         Returns:
             LineStyle: The retrieved IconStyle object.
@@ -667,36 +626,34 @@ class LineStyleCache(AbstractStyleCache):
         return self._styles[name].copy()
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing style names.
 
         Returns:
-            list[str]: List of style names.
+            list[TypeStr]: List of style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: LineStyle, name: str = "") -> None:
+    def set(self, style: LineStyle, name: TypeStr = "") -> None:
         """Set or update a style with the given name.
 
         Args:
             style (LineStyle): The LineStyle object to cache.
-            name (str, optional): Name of the style. Defaults to "".
+            name (TypeStr, optional): Name of the style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_linestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete a style by name.
 
         Args:
-            name (str): Name of the style to delete.
+            name (TypeStr): Name of the style to delete.
 
         Raises:
             ValueError: If the style with the specified name does not exist.
@@ -707,18 +664,17 @@ class LineStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: LineStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: LineStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge a style into existing styles.
 
         Args:
             style (LineStyle): The LineStyle object to merge.
-            targets (list[str] | None, optional): List of target style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_linestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -737,18 +693,8 @@ class ShapeStyleCache(AbstractStyleCache):
 
     def __init__(
         self,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize ShapeStyleCache with callbacks for set and delete operations.
 
@@ -758,26 +704,26 @@ class ShapeStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeStyle] = {}
+        self._styles: dict[TypeStr, ShapeStyle] = {}
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if a style exists by name.
 
         Args:
-            name (str): Name of the style.
+            name (TypeStr): Name of the style.
 
         Returns:
-            bool: True if the style exists, False otherwise.
+            TypeBool: True if the style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "") -> ShapeStyle:
+    def get(self, name: TypeStr = "") -> ShapeStyle:
         """Retrieve a style by name.
 
         Args:
-            name (str, optional): Name of the style to retrieve. Defaults to "".
+            name (TypeStr, optional): Name of the style to retrieve. Defaults to "".
 
         Returns:
             ShapeStyle: The retrieved IconStyle object.
@@ -790,36 +736,34 @@ class ShapeStyleCache(AbstractStyleCache):
         return self._styles[name].copy()
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing style names.
 
         Returns:
-            list[str]: List of style names.
+            list[TypeStr]: List of style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update a style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the style. Defaults to "".
+            name (TypeStr, optional): Name of the style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete a style by name.
 
         Args:
-            name (str): Name of the style to delete.
+            name (TypeStr): Name of the style to delete.
 
         Raises:
             ValueError: If the style with the specified name does not exist.
@@ -830,18 +774,17 @@ class ShapeStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge a style into existing styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[str] | None, optional): List of target style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -860,18 +803,8 @@ class ShapeTextStyleCache(AbstractStyleCache):
 
     def __init__(
         self,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize ShapeTextStyleCache with callbacks for set and delete operations.
 
@@ -881,26 +814,26 @@ class ShapeTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeTextStyle] = {}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {}
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if a style exists by name.
 
         Args:
-            name (str): Name of the style.
+            name (TypeStr): Name of the style.
 
         Returns:
-            bool: True if the style exists, False otherwise.
+            TypeBool: True if the style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "") -> ShapeTextStyle:
+    def get(self, name: TypeStr = "") -> ShapeTextStyle:
         """Retrieve a style by name.
 
         Args:
-            name (str, optional): Name of the style to retrieve. Defaults to "".
+            name (TypeStr, optional): Name of the style to retrieve. Defaults to "".
 
         Returns:
             ShapeTextStyle: The retrieved IconStyle object.
@@ -913,36 +846,34 @@ class ShapeTextStyleCache(AbstractStyleCache):
         return self._styles[name].copy()
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing style names.
 
         Returns:
-            list[str]: List of style names.
+            list[TypeStr]: List of style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update a style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the style. Defaults to "".
+            name (TypeStr, optional): Name of the style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete a style by name.
 
         Args:
-            name (str): Name of the style to delete.
+            name (TypeStr): Name of the style to delete.
 
         Raises:
             ValueError: If the style with the specified name does not exist.
@@ -953,18 +884,17 @@ class ShapeTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge a style into existing styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[str] | None, optional): List of target style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -983,18 +913,8 @@ class TextStyleCache(AbstractStyleCache):
 
     def __init__(
         self,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize TextStyleCache with callbacks for set and delete operations.
 
@@ -1004,26 +924,26 @@ class TextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, TextStyle] = {}
+        self._styles: dict[TypeStr, TextStyle] = {}
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if a style exists by name.
 
         Args:
-            name (str): Name of the style.
+            name (TypeStr): Name of the style.
 
         Returns:
-            bool: True if the style exists, False otherwise.
+            TypeBool: True if the style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "") -> TextStyle:
+    def get(self, name: TypeStr = "") -> TextStyle:
         """Retrieve a style by name.
 
         Args:
-            name (str, optional): Name of the style to retrieve. Defaults to "".
+            name (TypeStr, optional): Name of the style to retrieve. Defaults to "".
 
         Returns:
             TextStyle: The retrieved IconStyle object.
@@ -1036,36 +956,34 @@ class TextStyleCache(AbstractStyleCache):
         return self._styles[name].copy()
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing style names.
 
         Returns:
-            list[str]: List of style names.
+            list[TypeStr]: List of style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: TextStyle, name: str = "") -> None:
+    def set(self, style: TextStyle, name: TypeStr = "") -> None:
         """Set or update a style with the given name.
 
         Args:
             style (TextStyle): The TextStyle object to cache.
-            name (str, optional): Name of the style. Defaults to "".
+            name (TypeStr, optional): Name of the style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_textstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete a style by name.
 
         Args:
-            name (str): Name of the style to delete.
+            name (TypeStr): Name of the style to delete.
 
         Raises:
             ValueError: If the style with the specified name does not exist.
@@ -1076,18 +994,17 @@ class TextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: TextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: TextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge a style into existing styles.
 
         Args:
             style (TextStyle): The TextStyle object to merge.
-            targets (list[str] | None, optional): List of target style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_textstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -1107,18 +1024,8 @@ class ArcStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapestyles: ShapeStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize ArcStyleCache.
 
@@ -1129,28 +1036,28 @@ class ArcStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeStyle] = {}
+        self._styles: dict[TypeStr, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an arc style exists by name.
 
         Args:
-            name (str): Name of the arc style.
+            name (TypeStr): Name of the arc style.
 
         Returns:
-            bool: True if the arc style exists, False otherwise.
+            TypeBool: True if the arc style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapestyles_if_not_exist: bool = True) -> ShapeStyle:
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
         """Retrieve an arc style by name.
 
         Args:
-            name (str, optional): Name of the arc style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
+            name (TypeStr, optional): Name of the arc style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -1169,36 +1076,34 @@ class ArcStyleCache(AbstractStyleCache):
         return style
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing arc style names.
 
         Returns:
-            list[str]: List of arc style names.
+            list[TypeStr]: List of arc style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update an arc style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the arc style. Defaults to "".
+            name (TypeStr, optional): Name of the arc style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an arc style by name.
 
         Args:
-            name (str): Name of the arc style to delete.
+            name (TypeStr): Name of the arc style to delete.
 
         Raises:
             ValueError: If the arc style with the specified name does not exist.
@@ -1209,18 +1114,17 @@ class ArcStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an arc style into existing arc styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[str] | None, optional): List of target arc style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target arc style names to merge into.
                 If None, merge into all existing arc styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -1240,18 +1144,8 @@ class CircleStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapestyles: ShapeStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize CircleStyleCache.
 
@@ -1262,28 +1156,28 @@ class CircleStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeStyle] = {}
+        self._styles: dict[TypeStr, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an circle style exists by name.
 
         Args:
-            name (str): Name of the circle style.
+            name (TypeStr): Name of the circle style.
 
         Returns:
-            bool: True if the circle style exists, False otherwise.
+            TypeBool: True if the circle style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapestyles_if_not_exist: bool = True) -> ShapeStyle:
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
         """Retrieve an circle style by name.
 
         Args:
-            name (str, optional): Name of the circle style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
+            name (TypeStr, optional): Name of the circle style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -1302,36 +1196,34 @@ class CircleStyleCache(AbstractStyleCache):
         return style
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing circle style names.
 
         Returns:
-            list[str]: List of circle style names.
+            list[TypeStr]: List of circle style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update an circle style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the circle style. Defaults to "".
+            name (TypeStr, optional): Name of the circle style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an circle style by name.
 
         Args:
-            name (str): Name of the circle style to delete.
+            name (TypeStr): Name of the circle style to delete.
 
         Raises:
             ValueError: If the circle style with the specified name does not exist.
@@ -1342,18 +1234,17 @@ class CircleStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an circle style into existing circle styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[str] | None, optional): List of target circle style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target circle style names to merge into.
                 If None, merge into all existing circle styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -1373,18 +1264,8 @@ class DonutsStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapestyles: ShapeStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize DonutsStyleCache.
 
@@ -1395,28 +1276,28 @@ class DonutsStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeStyle] = {}
+        self._styles: dict[TypeStr, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an donuts style exists by name.
 
         Args:
-            name (str): Name of the donuts style.
+            name (TypeStr): Name of the donuts style.
 
         Returns:
-            bool: True if the donuts style exists, False otherwise.
+            TypeBool: True if the donuts style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapestyles_if_not_exist: bool = True) -> ShapeStyle:
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
         """Retrieve an donuts style by name.
 
         Args:
-            name (str, optional): Name of the donuts style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
+            name (TypeStr, optional): Name of the donuts style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -1435,36 +1316,34 @@ class DonutsStyleCache(AbstractStyleCache):
         return style
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing donuts style names.
 
         Returns:
-            list[str]: List of donuts style names.
+            list[TypeStr]: List of donuts style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update an donuts style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the donuts style. Defaults to "".
+            name (TypeStr, optional): Name of the donuts style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an donuts style by name.
 
         Args:
-            name (str): Name of the donuts style to delete.
+            name (TypeStr): Name of the donuts style to delete.
 
         Raises:
             ValueError: If the donuts style with the specified name does not exist.
@@ -1475,18 +1354,17 @@ class DonutsStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an donuts style into existing donuts styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[str] | None, optional): List of target donuts style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target donuts style names to merge into.
                 If None, merge into all existing donuts styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -1506,18 +1384,8 @@ class EllipseStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapestyles: ShapeStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize EllipseStyleCache.
 
@@ -1528,28 +1396,28 @@ class EllipseStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeStyle] = {}
+        self._styles: dict[TypeStr, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an ellipse style exists by name.
 
         Args:
-            name (str): Name of the ellipse style.
+            name (TypeStr): Name of the ellipse style.
 
         Returns:
-            bool: True if the ellipse style exists, False otherwise.
+            TypeBool: True if the ellipse style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapestyles_if_not_exist: bool = True) -> ShapeStyle:
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
         """Retrieve an ellipse style by name.
 
         Args:
-            name (str, optional): Name of the ellipse style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
+            name (TypeStr, optional): Name of the ellipse style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -1568,36 +1436,34 @@ class EllipseStyleCache(AbstractStyleCache):
         return style
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing ellipse style names.
 
         Returns:
-            list[str]: List of ellipse style names.
+            list[TypeStr]: List of ellipse style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update an ellipse style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the ellipse style. Defaults to "".
+            name (TypeStr, optional): Name of the ellipse style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an ellipse style by name.
 
         Args:
-            name (str): Name of the ellipse style to delete.
+            name (TypeStr): Name of the ellipse style to delete.
 
         Raises:
             ValueError: If the ellipse style with the specified name does not exist.
@@ -1608,18 +1474,17 @@ class EllipseStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an ellipse style into existing ellipse styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[str] | None, optional): List of target ellipse style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target ellipse style names to merge into.
                 If None, merge into all existing ellipse styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -1639,18 +1504,8 @@ class FanStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapestyles: ShapeStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize FanStyleCache.
 
@@ -1661,28 +1516,28 @@ class FanStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeStyle] = {}
+        self._styles: dict[TypeStr, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an fan style exists by name.
 
         Args:
-            name (str): Name of the fan style.
+            name (TypeStr): Name of the fan style.
 
         Returns:
-            bool: True if the fan style exists, False otherwise.
+            TypeBool: True if the fan style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapestyles_if_not_exist: bool = True) -> ShapeStyle:
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
         """Retrieve an fan style by name.
 
         Args:
-            name (str, optional): Name of the fan style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
+            name (TypeStr, optional): Name of the fan style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -1701,36 +1556,34 @@ class FanStyleCache(AbstractStyleCache):
         return style
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing fan style names.
 
         Returns:
-            list[str]: List of fan style names.
+            list[TypeStr]: List of fan style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update an fan style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the fan style. Defaults to "".
+            name (TypeStr, optional): Name of the fan style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an fan style by name.
 
         Args:
-            name (str): Name of the fan style to delete.
+            name (TypeStr): Name of the fan style to delete.
 
         Raises:
             ValueError: If the fan style with the specified name does not exist.
@@ -1741,18 +1594,17 @@ class FanStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an fan style into existing fan styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[str] | None, optional): List of target fan style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target fan style names to merge into.
                 If None, merge into all existing fan styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -1772,18 +1624,8 @@ class PolygonStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapestyles: ShapeStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize PolygonStyleCache.
 
@@ -1794,28 +1636,28 @@ class PolygonStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeStyle] = {}
+        self._styles: dict[TypeStr, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an polygon style exists by name.
 
         Args:
-            name (str): Name of the polygon style.
+            name (TypeStr): Name of the polygon style.
 
         Returns:
-            bool: True if the polygon style exists, False otherwise.
+            TypeBool: True if the polygon style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapestyles_if_not_exist: bool = True) -> ShapeStyle:
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
         """Retrieve an polygon style by name.
 
         Args:
-            name (str, optional): Name of the polygon style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
+            name (TypeStr, optional): Name of the polygon style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -1834,36 +1676,34 @@ class PolygonStyleCache(AbstractStyleCache):
         return style
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing polygon style names.
 
         Returns:
-            list[str]: List of polygon style names.
+            list[TypeStr]: List of polygon style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update an polygon style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the polygon style. Defaults to "".
+            name (TypeStr, optional): Name of the polygon style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an polygon style by name.
 
         Args:
-            name (str): Name of the polygon style to delete.
+            name (TypeStr): Name of the polygon style to delete.
 
         Raises:
             ValueError: If the polygon style with the specified name does not exist.
@@ -1874,18 +1714,17 @@ class PolygonStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an polygon style into existing polygon styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[str] | None, optional): List of target polygon style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target polygon style names to merge into.
                 If None, merge into all existing polygon styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -1905,18 +1744,8 @@ class RectangleStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapestyles: ShapeStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize RectangleStyleCache.
 
@@ -1927,28 +1756,28 @@ class RectangleStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeStyle] = {}
+        self._styles: dict[TypeStr, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an rectangle style exists by name.
 
         Args:
-            name (str): Name of the rectangle style.
+            name (TypeStr): Name of the rectangle style.
 
         Returns:
-            bool: True if the rectangle style exists, False otherwise.
+            TypeBool: True if the rectangle style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapestyles_if_not_exist: bool = True) -> ShapeStyle:
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
         """Retrieve an rectangle style by name.
 
         Args:
-            name (str, optional): Name of the rectangle style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
+            name (TypeStr, optional): Name of the rectangle style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -1967,36 +1796,34 @@ class RectangleStyleCache(AbstractStyleCache):
         return style
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing rectangle style names.
 
         Returns:
-            list[str]: List of rectangle style names.
+            list[TypeStr]: List of rectangle style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update an rectangle style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the rectangle style. Defaults to "".
+            name (TypeStr, optional): Name of the rectangle style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an rectangle style by name.
 
         Args:
-            name (str): Name of the rectangle style to delete.
+            name (TypeStr): Name of the rectangle style to delete.
 
         Raises:
             ValueError: If the rectangle style with the specified name does not exist.
@@ -2007,18 +1834,17 @@ class RectangleStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an rectangle style into existing rectangle styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[str] | None, optional): List of target rectangle style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target rectangle style names to merge into.
                 If None, merge into all existing rectangle styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -2038,18 +1864,8 @@ class RegularpolygonStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapestyles: ShapeStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize RegularpolygonStyleCache.
 
@@ -2060,28 +1876,28 @@ class RegularpolygonStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeStyle] = {}
+        self._styles: dict[TypeStr, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an regular polygon style exists by name.
 
         Args:
-            name (str): Name of the regular polygon style.
+            name (TypeStr): Name of the regular polygon style.
 
         Returns:
-            bool: True if the regular polygon style exists, False otherwise.
+            TypeBool: True if the regular polygon style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapestyles_if_not_exist: bool = True) -> ShapeStyle:
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
         """Retrieve an regular polygon style by name.
 
         Args:
-            name (str, optional): Name of the regular polygon style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
+            name (TypeStr, optional): Name of the regular polygon style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -2100,36 +1916,34 @@ class RegularpolygonStyleCache(AbstractStyleCache):
         return style
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing regular polygon style names.
 
         Returns:
-            list[str]: List of regular polygon style names.
+            list[TypeStr]: List of regular polygon style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update an regular polygon style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the regular polygon style. Defaults to "".
+            name (TypeStr, optional): Name of the regular polygon style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an regular polygon style by name.
 
         Args:
-            name (str): Name of the regular polygon style to delete.
+            name (TypeStr): Name of the regular polygon style to delete.
 
         Raises:
             ValueError: If the regular polygon style with the specified name does not exist.
@@ -2140,18 +1954,17 @@ class RegularpolygonStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an regular polygon style into existing regular polygon styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[str] | None, optional): List of target regular polygon style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target regular polygon style names to merge into.
                 If None, merge into all existing regular polygon styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -2171,18 +1984,8 @@ class WedgeStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapestyles: ShapeStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize WedgeStyleCache.
 
@@ -2193,28 +1996,28 @@ class WedgeStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeStyle] = {}
+        self._styles: dict[TypeStr, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an wedge style exists by name.
 
         Args:
-            name (str): Name of the wedge style.
+            name (TypeStr): Name of the wedge style.
 
         Returns:
-            bool: True if the wedge style exists, False otherwise.
+            TypeBool: True if the wedge style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapestyles_if_not_exist: bool = True) -> ShapeStyle:
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
         """Retrieve an wedge style by name.
 
         Args:
-            name (str, optional): Name of the wedge style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
+            name (TypeStr, optional): Name of the wedge style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -2233,36 +2036,34 @@ class WedgeStyleCache(AbstractStyleCache):
         return style
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing wedge style names.
 
         Returns:
-            list[str]: List of wedge style names.
+            list[TypeStr]: List of wedge style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update an wedge style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the wedge style. Defaults to "".
+            name (TypeStr, optional): Name of the wedge style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an wedge style by name.
 
         Args:
-            name (str): Name of the wedge style to delete.
+            name (TypeStr): Name of the wedge style to delete.
 
         Raises:
             ValueError: If the wedge style with the specified name does not exist.
@@ -2273,18 +2074,17 @@ class WedgeStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an wedge style into existing wedge styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[str] | None, optional): List of target wedge style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target wedge style names to merge into.
                 If None, merge into all existing wedge styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -2304,18 +2104,8 @@ class ArrowStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapestyles: ShapeStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize ArrowStyleCache.
 
@@ -2326,28 +2116,28 @@ class ArrowStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeStyle] = {}
+        self._styles: dict[TypeStr, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an arrow style exists by name.
 
         Args:
-            name (str): Name of the arrow style.
+            name (TypeStr): Name of the arrow style.
 
         Returns:
-            bool: True if the arrow style exists, False otherwise.
+            TypeBool: True if the arrow style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapestyles_if_not_exist: bool = True) -> ShapeStyle:
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
         """Retrieve an arrow style by name.
 
         Args:
-            name (str, optional): Name of the arrow style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
+            name (TypeStr, optional): Name of the arrow style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -2366,36 +2156,34 @@ class ArrowStyleCache(AbstractStyleCache):
         return style
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing arrow style names.
 
         Returns:
-            list[str]: List of arrow style names.
+            list[TypeStr]: List of arrow style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update an arrow style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the arrow style. Defaults to "".
+            name (TypeStr, optional): Name of the arrow style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an arrow style by name.
 
         Args:
-            name (str): Name of the arrow style to delete.
+            name (TypeStr): Name of the arrow style to delete.
 
         Raises:
             ValueError: If the arrow style with the specified name does not exist.
@@ -2406,18 +2194,17 @@ class ArrowStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an arrow style into existing arrow styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[str] | None, optional): List of target arrow style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target arrow style names to merge into.
                 If None, merge into all existing arrow styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -2437,18 +2224,8 @@ class ChevronStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapestyles: ShapeStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize ChevronStyleCache.
 
@@ -2459,28 +2236,28 @@ class ChevronStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeStyle] = {}
+        self._styles: dict[TypeStr, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an chevron style exists by name.
 
         Args:
-            name (str): Name of the chevron style.
+            name (TypeStr): Name of the chevron style.
 
         Returns:
-            bool: True if the chevron style exists, False otherwise.
+            TypeBool: True if the chevron style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapestyles_if_not_exist: bool = True) -> ShapeStyle:
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
         """Retrieve an chevron style by name.
 
         Args:
-            name (str, optional): Name of the chevron style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
+            name (TypeStr, optional): Name of the chevron style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -2499,36 +2276,34 @@ class ChevronStyleCache(AbstractStyleCache):
         return style
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing chevron style names.
 
         Returns:
-            list[str]: List of chevron style names.
+            list[TypeStr]: List of chevron style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update an chevron style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the chevron style. Defaults to "".
+            name (TypeStr, optional): Name of the chevron style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an chevron style by name.
 
         Args:
-            name (str): Name of the chevron style to delete.
+            name (TypeStr): Name of the chevron style to delete.
 
         Raises:
             ValueError: If the chevron style with the specified name does not exist.
@@ -2539,18 +2314,17 @@ class ChevronStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an chevron style into existing chevron styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[str] | None, optional): List of target chevron style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target chevron style names to merge into.
                 If None, merge into all existing chevron styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -2570,18 +2344,8 @@ class ParallelogramStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapestyles: ShapeStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize ParallelogramStyleCache.
 
@@ -2592,28 +2356,28 @@ class ParallelogramStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeStyle] = {}
+        self._styles: dict[TypeStr, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an parallelogram style exists by name.
 
         Args:
-            name (str): Name of the parallelogram style.
+            name (TypeStr): Name of the parallelogram style.
 
         Returns:
-            bool: True if the parallelogram style exists, False otherwise.
+            TypeBool: True if the parallelogram style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapestyles_if_not_exist: bool = True) -> ShapeStyle:
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
         """Retrieve an parallelogram style by name.
 
         Args:
-            name (str, optional): Name of the parallelogram style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
+            name (TypeStr, optional): Name of the parallelogram style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -2632,36 +2396,34 @@ class ParallelogramStyleCache(AbstractStyleCache):
         return style
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing parallelogram style names.
 
         Returns:
-            list[str]: List of parallelogram style names.
+            list[TypeStr]: List of parallelogram style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update an parallelogram style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the parallelogram style. Defaults to "".
+            name (TypeStr, optional): Name of the parallelogram style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an parallelogram style by name.
 
         Args:
-            name (str): Name of the parallelogram style to delete.
+            name (TypeStr): Name of the parallelogram style to delete.
 
         Raises:
             ValueError: If the parallelogram style with the specified name does not exist.
@@ -2672,18 +2434,17 @@ class ParallelogramStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an parallelogram style into existing parallelogram styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[str] | None, optional): List of target parallelogram style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target parallelogram style names to merge into.
                 If None, merge into all existing parallelogram styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -2703,18 +2464,8 @@ class RhombusStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapestyles: ShapeStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize RhombusStyleCache.
 
@@ -2725,28 +2476,28 @@ class RhombusStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeStyle] = {}
+        self._styles: dict[TypeStr, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an rhombus style exists by name.
 
         Args:
-            name (str): Name of the rhombus style.
+            name (TypeStr): Name of the rhombus style.
 
         Returns:
-            bool: True if the rhombus style exists, False otherwise.
+            TypeBool: True if the rhombus style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapestyles_if_not_exist: bool = True) -> ShapeStyle:
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
         """Retrieve an rhombus style by name.
 
         Args:
-            name (str, optional): Name of the rhombus style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
+            name (TypeStr, optional): Name of the rhombus style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -2765,36 +2516,34 @@ class RhombusStyleCache(AbstractStyleCache):
         return style
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing rhombus style names.
 
         Returns:
-            list[str]: List of rhombus style names.
+            list[TypeStr]: List of rhombus style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update an rhombus style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the rhombus style. Defaults to "".
+            name (TypeStr, optional): Name of the rhombus style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an rhombus style by name.
 
         Args:
-            name (str): Name of the rhombus style to delete.
+            name (TypeStr): Name of the rhombus style to delete.
 
         Raises:
             ValueError: If the rhombus style with the specified name does not exist.
@@ -2805,18 +2554,17 @@ class RhombusStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an rhombus style into existing rhombus styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[str] | None, optional): List of target rhombus style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target rhombus style names to merge into.
                 If None, merge into all existing rhombus styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -2836,18 +2584,8 @@ class StarStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapestyles: ShapeStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize StarStyleCache.
 
@@ -2858,28 +2596,28 @@ class StarStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeStyle] = {}
+        self._styles: dict[TypeStr, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an star style exists by name.
 
         Args:
-            name (str): Name of the star style.
+            name (TypeStr): Name of the star style.
 
         Returns:
-            bool: True if the star style exists, False otherwise.
+            TypeBool: True if the star style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapestyles_if_not_exist: bool = True) -> ShapeStyle:
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
         """Retrieve an star style by name.
 
         Args:
-            name (str, optional): Name of the star style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
+            name (TypeStr, optional): Name of the star style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -2898,36 +2636,34 @@ class StarStyleCache(AbstractStyleCache):
         return style
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing star style names.
 
         Returns:
-            list[str]: List of star style names.
+            list[TypeStr]: List of star style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update an star style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the star style. Defaults to "".
+            name (TypeStr, optional): Name of the star style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an star style by name.
 
         Args:
-            name (str): Name of the star style to delete.
+            name (TypeStr): Name of the star style to delete.
 
         Raises:
             ValueError: If the star style with the specified name does not exist.
@@ -2938,18 +2674,17 @@ class StarStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an star style into existing star styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[str] | None, optional): List of target star style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target star style names to merge into.
                 If None, merge into all existing star styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -2969,18 +2704,8 @@ class TrapezoidStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapestyles: ShapeStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize TrapezoidStyleCache.
 
@@ -2991,28 +2716,28 @@ class TrapezoidStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeStyle] = {}
+        self._styles: dict[TypeStr, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an trapezoid style exists by name.
 
         Args:
-            name (str): Name of the trapezoid style.
+            name (TypeStr): Name of the trapezoid style.
 
         Returns:
-            bool: True if the trapezoid style exists, False otherwise.
+            TypeBool: True if the trapezoid style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapestyles_if_not_exist: bool = True) -> ShapeStyle:
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
         """Retrieve an trapezoid style by name.
 
         Args:
-            name (str, optional): Name of the trapezoid style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
+            name (TypeStr, optional): Name of the trapezoid style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -3031,36 +2756,34 @@ class TrapezoidStyleCache(AbstractStyleCache):
         return style
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing trapezoid style names.
 
         Returns:
-            list[str]: List of trapezoid style names.
+            list[TypeStr]: List of trapezoid style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update an trapezoid style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the trapezoid style. Defaults to "".
+            name (TypeStr, optional): Name of the trapezoid style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an trapezoid style by name.
 
         Args:
-            name (str): Name of the trapezoid style to delete.
+            name (TypeStr): Name of the trapezoid style to delete.
 
         Raises:
             ValueError: If the trapezoid style with the specified name does not exist.
@@ -3071,18 +2794,17 @@ class TrapezoidStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an trapezoid style into existing trapezoid styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[str] | None, optional): List of target trapezoid style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target trapezoid style names to merge into.
                 If None, merge into all existing trapezoid styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -3102,18 +2824,8 @@ class TriangleStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapestyles: ShapeStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize TriangleStyleCache.
 
@@ -3124,28 +2836,28 @@ class TriangleStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeStyle] = {}
+        self._styles: dict[TypeStr, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an triangle style exists by name.
 
         Args:
-            name (str): Name of the triangle style.
+            name (TypeStr): Name of the triangle style.
 
         Returns:
-            bool: True if the triangle style exists, False otherwise.
+            TypeBool: True if the triangle style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapestyles_if_not_exist: bool = True) -> ShapeStyle:
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
         """Retrieve an triangle style by name.
 
         Args:
-            name (str, optional): Name of the triangle style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
+            name (TypeStr, optional): Name of the triangle style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -3164,36 +2876,34 @@ class TriangleStyleCache(AbstractStyleCache):
         return style
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing triangle style names.
 
         Returns:
-            list[str]: List of triangle style names.
+            list[TypeStr]: List of triangle style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update an triangle style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the triangle style. Defaults to "".
+            name (TypeStr, optional): Name of the triangle style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an triangle style by name.
 
         Args:
-            name (str): Name of the triangle style to delete.
+            name (TypeStr): Name of the triangle style to delete.
 
         Raises:
             ValueError: If the triangle style with the specified name does not exist.
@@ -3204,18 +2914,17 @@ class TriangleStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an triangle style into existing triangle styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[str] | None, optional): List of target triangle style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target triangle style names to merge into.
                 If None, merge into all existing triangle styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -3235,18 +2944,8 @@ class BubblespeechStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapestyles: ShapeStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize BubblespeechStyleCache.
 
@@ -3257,28 +2956,28 @@ class BubblespeechStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeStyle] = {}
+        self._styles: dict[TypeStr, ShapeStyle] = {}
         self._shapestyles = shapestyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an bubble speech style exists by name.
 
         Args:
-            name (str): Name of the bubble speech style.
+            name (TypeStr): Name of the bubble speech style.
 
         Returns:
-            bool: True if the bubble speech style exists, False otherwise.
+            TypeBool: True if the bubble speech style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapestyles_if_not_exist: bool = True) -> ShapeStyle:
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
         """Retrieve an bubble speech style by name.
 
         Args:
-            name (str, optional): Name of the bubble speech style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
+            name (TypeStr, optional): Name of the bubble speech style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -3297,36 +2996,34 @@ class BubblespeechStyleCache(AbstractStyleCache):
         return style
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing bubble speech style names.
 
         Returns:
-            list[str]: List of bubble speech style names.
+            list[TypeStr]: List of bubble speech style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update an bubble speech style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the bubble speech style. Defaults to "".
+            name (TypeStr, optional): Name of the bubble speech style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an bubble speech style by name.
 
         Args:
-            name (str): Name of the bubble speech style to delete.
+            name (TypeStr): Name of the bubble speech style to delete.
 
         Raises:
             ValueError: If the bubble speech style with the specified name does not exist.
@@ -3337,18 +3034,17 @@ class BubblespeechStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an bubble speech style into existing bubble speech styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[str] | None, optional): List of target bubble speech style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target bubble speech style names to merge into.
                 If None, merge into all existing bubble speech styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -3368,18 +3064,8 @@ class ArcTextStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapetextstyles: ShapeTextStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize ArcTextStyleCache.
 
@@ -3390,28 +3076,28 @@ class ArcTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeTextStyle] = {}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an arc text style exists by name.
 
         Args:
-            name (str): Name of the arc text style.
+            name (TypeStr): Name of the arc text style.
 
         Returns:
-            bool: True if the arc text style exists, False otherwise.
+            TypeBool: True if the arc text style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapetextstyles_if_not_exist: bool = True) -> ShapeTextStyle:
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
         """Retrieve an arc text style by name.
 
         Args:
-            name (str, optional): Name of the arc text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (TypeStr, optional): Name of the arc text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -3428,36 +3114,34 @@ class ArcTextStyleCache(AbstractStyleCache):
         return self._shapetextstyles.get(name)
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing arc text style names.
 
         Returns:
-            list[str]: List of arc text style names.
+            list[TypeStr]: List of arc text style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update an arc text style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the arc text style. Defaults to "".
+            name (TypeStr, optional): Name of the arc text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an arc text style by name.
 
         Args:
-            name (str): Name of the arc text style to delete.
+            name (TypeStr): Name of the arc text style to delete.
 
         Raises:
             ValueError: If the arc text style with the specified name does not exist.
@@ -3468,18 +3152,17 @@ class ArcTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an arc text style into existing arc text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[str] | None, optional): List of target arc text style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target arc text style names to merge into.
                 If None, merge into all existing arc text styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -3499,18 +3182,8 @@ class CircleTextStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapetextstyles: ShapeTextStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize CircleTextStyleCache.
 
@@ -3521,28 +3194,28 @@ class CircleTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeTextStyle] = {}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an circle text style exists by name.
 
         Args:
-            name (str): Name of the circle text style.
+            name (TypeStr): Name of the circle text style.
 
         Returns:
-            bool: True if the circle text style exists, False otherwise.
+            TypeBool: True if the circle text style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapetextstyles_if_not_exist: bool = True) -> ShapeTextStyle:
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
         """Retrieve an circle text style by name.
 
         Args:
-            name (str, optional): Name of the circle text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (TypeStr, optional): Name of the circle text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -3559,36 +3232,34 @@ class CircleTextStyleCache(AbstractStyleCache):
         return self._shapetextstyles.get(name)
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing circle text style names.
 
         Returns:
-            list[str]: List of circle text style names.
+            list[TypeStr]: List of circle text style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update an circle text style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the circle text style. Defaults to "".
+            name (TypeStr, optional): Name of the circle text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an circle text style by name.
 
         Args:
-            name (str): Name of the circle text style to delete.
+            name (TypeStr): Name of the circle text style to delete.
 
         Raises:
             ValueError: If the circle text style with the specified name does not exist.
@@ -3599,18 +3270,17 @@ class CircleTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an circle text style into existing circle text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[str] | None, optional): List of target circle text style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target circle text style names to merge into.
                 If None, merge into all existing circle text styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -3630,18 +3300,8 @@ class DonutsTextStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapetextstyles: ShapeTextStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize DonutsTextStyleCache.
 
@@ -3652,28 +3312,28 @@ class DonutsTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeTextStyle] = {}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an donuts text style exists by name.
 
         Args:
-            name (str): Name of the donuts text style.
+            name (TypeStr): Name of the donuts text style.
 
         Returns:
-            bool: True if the donuts text style exists, False otherwise.
+            TypeBool: True if the donuts text style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapetextstyles_if_not_exist: bool = True) -> ShapeTextStyle:
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
         """Retrieve an donuts text style by name.
 
         Args:
-            name (str, optional): Name of the donuts text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (TypeStr, optional): Name of the donuts text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -3690,36 +3350,34 @@ class DonutsTextStyleCache(AbstractStyleCache):
         return self._shapetextstyles.get(name)
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing donuts text style names.
 
         Returns:
-            list[str]: List of donuts text style names.
+            list[TypeStr]: List of donuts text style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update an donuts text style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the donuts text style. Defaults to "".
+            name (TypeStr, optional): Name of the donuts text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an donuts text style by name.
 
         Args:
-            name (str): Name of the donuts text style to delete.
+            name (TypeStr): Name of the donuts text style to delete.
 
         Raises:
             ValueError: If the donuts text style with the specified name does not exist.
@@ -3730,18 +3388,17 @@ class DonutsTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an donuts text style into existing donuts text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[str] | None, optional): List of target donuts text style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target donuts text style names to merge into.
                 If None, merge into all existing donuts text styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -3761,18 +3418,8 @@ class EllipseTextStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapetextstyles: ShapeTextStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize EllipseTextStyleCache.
 
@@ -3783,28 +3430,28 @@ class EllipseTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeTextStyle] = {}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an ellipse text style exists by name.
 
         Args:
-            name (str): Name of the ellipse text style.
+            name (TypeStr): Name of the ellipse text style.
 
         Returns:
-            bool: True if the ellipse text style exists, False otherwise.
+            TypeBool: True if the ellipse text style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapetextstyles_if_not_exist: bool = True) -> ShapeTextStyle:
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
         """Retrieve an ellipse text style by name.
 
         Args:
-            name (str, optional): Name of the ellipse text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (TypeStr, optional): Name of the ellipse text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -3821,36 +3468,34 @@ class EllipseTextStyleCache(AbstractStyleCache):
         return self._shapetextstyles.get(name)
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing ellipse text style names.
 
         Returns:
-            list[str]: List of ellipse text style names.
+            list[TypeStr]: List of ellipse text style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update an ellipse text style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the ellipse text style. Defaults to "".
+            name (TypeStr, optional): Name of the ellipse text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an ellipse text style by name.
 
         Args:
-            name (str): Name of the ellipse text style to delete.
+            name (TypeStr): Name of the ellipse text style to delete.
 
         Raises:
             ValueError: If the ellipse text style with the specified name does not exist.
@@ -3861,18 +3506,17 @@ class EllipseTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an ellipse text style into existing ellipse text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[str] | None, optional): List of target ellipse text style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target ellipse text style names to merge into.
                 If None, merge into all existing ellipse text styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -3892,18 +3536,8 @@ class FanTextStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapetextstyles: ShapeTextStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize FanTextStyleCache.
 
@@ -3914,28 +3548,28 @@ class FanTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeTextStyle] = {}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an fan text style exists by name.
 
         Args:
-            name (str): Name of the fan text style.
+            name (TypeStr): Name of the fan text style.
 
         Returns:
-            bool: True if the fan text style exists, False otherwise.
+            TypeBool: True if the fan text style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapetextstyles_if_not_exist: bool = True) -> ShapeTextStyle:
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
         """Retrieve an fan text style by name.
 
         Args:
-            name (str, optional): Name of the fan text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (TypeStr, optional): Name of the fan text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -3952,36 +3586,34 @@ class FanTextStyleCache(AbstractStyleCache):
         return self._shapetextstyles.get(name)
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing fan text style names.
 
         Returns:
-            list[str]: List of fan text style names.
+            list[TypeStr]: List of fan text style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update an fan text style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the fan text style. Defaults to "".
+            name (TypeStr, optional): Name of the fan text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an fan text style by name.
 
         Args:
-            name (str): Name of the fan text style to delete.
+            name (TypeStr): Name of the fan text style to delete.
 
         Raises:
             ValueError: If the fan text style with the specified name does not exist.
@@ -3992,18 +3624,17 @@ class FanTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an fan text style into existing fan text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[str] | None, optional): List of target fan text style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target fan text style names to merge into.
                 If None, merge into all existing fan text styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -4023,18 +3654,8 @@ class PolygonTextStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapetextstyles: ShapeTextStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize PolygonTextStyleCache.
 
@@ -4045,28 +3666,28 @@ class PolygonTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeTextStyle] = {}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an polygon text style exists by name.
 
         Args:
-            name (str): Name of the polygon text style.
+            name (TypeStr): Name of the polygon text style.
 
         Returns:
-            bool: True if the polygon text style exists, False otherwise.
+            TypeBool: True if the polygon text style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapetextstyles_if_not_exist: bool = True) -> ShapeTextStyle:
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
         """Retrieve an polygon text style by name.
 
         Args:
-            name (str, optional): Name of the polygon text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (TypeStr, optional): Name of the polygon text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -4083,36 +3704,34 @@ class PolygonTextStyleCache(AbstractStyleCache):
         return self._shapetextstyles.get(name)
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing polygon text style names.
 
         Returns:
-            list[str]: List of polygon text style names.
+            list[TypeStr]: List of polygon text style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update an polygon text style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the polygon text style. Defaults to "".
+            name (TypeStr, optional): Name of the polygon text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an polygon text style by name.
 
         Args:
-            name (str): Name of the polygon text style to delete.
+            name (TypeStr): Name of the polygon text style to delete.
 
         Raises:
             ValueError: If the polygon text style with the specified name does not exist.
@@ -4123,18 +3742,17 @@ class PolygonTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an polygon text style into existing polygon text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[str] | None, optional): List of target polygon text style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target polygon text style names to merge into.
                 If None, merge into all existing polygon text styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -4154,18 +3772,8 @@ class RectangleTextStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapetextstyles: ShapeTextStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize RectangleTextStyleCache.
 
@@ -4176,28 +3784,28 @@ class RectangleTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeTextStyle] = {}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an rectangle text style exists by name.
 
         Args:
-            name (str): Name of the rectangle text style.
+            name (TypeStr): Name of the rectangle text style.
 
         Returns:
-            bool: True if the rectangle text style exists, False otherwise.
+            TypeBool: True if the rectangle text style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapetextstyles_if_not_exist: bool = True) -> ShapeTextStyle:
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
         """Retrieve an rectangle text style by name.
 
         Args:
-            name (str, optional): Name of the rectangle text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (TypeStr, optional): Name of the rectangle text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -4214,36 +3822,34 @@ class RectangleTextStyleCache(AbstractStyleCache):
         return self._shapetextstyles.get(name)
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing rectangle text style names.
 
         Returns:
-            list[str]: List of rectangle text style names.
+            list[TypeStr]: List of rectangle text style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update an rectangle text style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the rectangle text style. Defaults to "".
+            name (TypeStr, optional): Name of the rectangle text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an rectangle text style by name.
 
         Args:
-            name (str): Name of the rectangle text style to delete.
+            name (TypeStr): Name of the rectangle text style to delete.
 
         Raises:
             ValueError: If the rectangle text style with the specified name does not exist.
@@ -4254,18 +3860,17 @@ class RectangleTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an rectangle text style into existing rectangle text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[str] | None, optional): List of target rectangle text style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target rectangle text style names to merge into.
                 If None, merge into all existing rectangle text styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -4285,18 +3890,8 @@ class RegularpolygonTextStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapetextstyles: ShapeTextStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize RegularpolygonTextStyleCache.
 
@@ -4307,28 +3902,28 @@ class RegularpolygonTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeTextStyle] = {}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an regular polygon text style exists by name.
 
         Args:
-            name (str): Name of the regular polygon text style.
+            name (TypeStr): Name of the regular polygon text style.
 
         Returns:
-            bool: True if the regular polygon text style exists, False otherwise.
+            TypeBool: True if the regular polygon text style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapetextstyles_if_not_exist: bool = True) -> ShapeTextStyle:
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
         """Retrieve an regular polygon text style by name.
 
         Args:
-            name (str, optional): Name of the regular polygon text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (TypeStr, optional): Name of the regular polygon text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -4345,36 +3940,34 @@ class RegularpolygonTextStyleCache(AbstractStyleCache):
         return self._shapetextstyles.get(name)
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing regular polygon text style names.
 
         Returns:
-            list[str]: List of regular polygon text style names.
+            list[TypeStr]: List of regular polygon text style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update an regular polygon text style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the regular polygon text style. Defaults to "".
+            name (TypeStr, optional): Name of the regular polygon text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an regular polygon text style by name.
 
         Args:
-            name (str): Name of the regular polygon text style to delete.
+            name (TypeStr): Name of the regular polygon text style to delete.
 
         Raises:
             ValueError: If the regular polygon text style with the specified name does not exist.
@@ -4385,18 +3978,17 @@ class RegularpolygonTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an regular polygon text style into existing regular polygon text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[str] | None, optional): List of target regular polygon text style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target regular polygon text style names to merge into.
                 If None, merge into all existing regular polygon text styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -4416,18 +4008,8 @@ class WedgeTextStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapetextstyles: ShapeTextStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize WedgeTextStyleCache.
 
@@ -4438,28 +4020,28 @@ class WedgeTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeTextStyle] = {}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an wedge text style exists by name.
 
         Args:
-            name (str): Name of the wedge text style.
+            name (TypeStr): Name of the wedge text style.
 
         Returns:
-            bool: True if the wedge text style exists, False otherwise.
+            TypeBool: True if the wedge text style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapetextstyles_if_not_exist: bool = True) -> ShapeTextStyle:
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
         """Retrieve an wedge text style by name.
 
         Args:
-            name (str, optional): Name of the wedge text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (TypeStr, optional): Name of the wedge text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -4476,36 +4058,34 @@ class WedgeTextStyleCache(AbstractStyleCache):
         return self._shapetextstyles.get(name)
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing wedge text style names.
 
         Returns:
-            list[str]: List of wedge text style names.
+            list[TypeStr]: List of wedge text style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update an wedge text style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the wedge text style. Defaults to "".
+            name (TypeStr, optional): Name of the wedge text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an wedge text style by name.
 
         Args:
-            name (str): Name of the wedge text style to delete.
+            name (TypeStr): Name of the wedge text style to delete.
 
         Raises:
             ValueError: If the wedge text style with the specified name does not exist.
@@ -4516,18 +4096,17 @@ class WedgeTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an wedge text style into existing wedge text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[str] | None, optional): List of target wedge text style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target wedge text style names to merge into.
                 If None, merge into all existing wedge text styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -4547,18 +4126,8 @@ class ArrowTextStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapetextstyles: ShapeTextStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize ArrowTextStyleCache.
 
@@ -4569,28 +4138,28 @@ class ArrowTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeTextStyle] = {}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an arrow text style exists by name.
 
         Args:
-            name (str): Name of the arrow text style.
+            name (TypeStr): Name of the arrow text style.
 
         Returns:
-            bool: True if the arrow text style exists, False otherwise.
+            TypeBool: True if the arrow text style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapetextstyles_if_not_exist: bool = True) -> ShapeTextStyle:
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
         """Retrieve an arrow text style by name.
 
         Args:
-            name (str, optional): Name of the arrow text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (TypeStr, optional): Name of the arrow text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -4607,36 +4176,34 @@ class ArrowTextStyleCache(AbstractStyleCache):
         return self._shapetextstyles.get(name)
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing arrow text style names.
 
         Returns:
-            list[str]: List of arrow text style names.
+            list[TypeStr]: List of arrow text style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update an arrow text style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the arrow text style. Defaults to "".
+            name (TypeStr, optional): Name of the arrow text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an arrow text style by name.
 
         Args:
-            name (str): Name of the arrow text style to delete.
+            name (TypeStr): Name of the arrow text style to delete.
 
         Raises:
             ValueError: If the arrow text style with the specified name does not exist.
@@ -4647,18 +4214,17 @@ class ArrowTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an arrow text style into existing arrow text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[str] | None, optional): List of target arrow text style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target arrow text style names to merge into.
                 If None, merge into all existing arrow text styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -4678,18 +4244,8 @@ class ChevronTextStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapetextstyles: ShapeTextStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize ChevronTextStyleCache.
 
@@ -4700,28 +4256,28 @@ class ChevronTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeTextStyle] = {}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an chevron text style exists by name.
 
         Args:
-            name (str): Name of the chevron text style.
+            name (TypeStr): Name of the chevron text style.
 
         Returns:
-            bool: True if the chevron text style exists, False otherwise.
+            TypeBool: True if the chevron text style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapetextstyles_if_not_exist: bool = True) -> ShapeTextStyle:
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
         """Retrieve an chevron text style by name.
 
         Args:
-            name (str, optional): Name of the chevron text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (TypeStr, optional): Name of the chevron text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -4738,36 +4294,34 @@ class ChevronTextStyleCache(AbstractStyleCache):
         return self._shapetextstyles.get(name)
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing chevron text style names.
 
         Returns:
-            list[str]: List of chevron text style names.
+            list[TypeStr]: List of chevron text style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update an chevron text style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the chevron text style. Defaults to "".
+            name (TypeStr, optional): Name of the chevron text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an chevron text style by name.
 
         Args:
-            name (str): Name of the chevron text style to delete.
+            name (TypeStr): Name of the chevron text style to delete.
 
         Raises:
             ValueError: If the chevron text style with the specified name does not exist.
@@ -4778,18 +4332,17 @@ class ChevronTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an chevron text style into existing chevron text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[str] | None, optional): List of target chevron text style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target chevron text style names to merge into.
                 If None, merge into all existing chevron text styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -4809,18 +4362,8 @@ class ParallelogramTextStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapetextstyles: ShapeTextStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize ParallelogramTextStyleCache.
 
@@ -4831,28 +4374,28 @@ class ParallelogramTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeTextStyle] = {}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an parallelogram text style exists by name.
 
         Args:
-            name (str): Name of the parallelogram text style.
+            name (TypeStr): Name of the parallelogram text style.
 
         Returns:
-            bool: True if the parallelogram text style exists, False otherwise.
+            TypeBool: True if the parallelogram text style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapetextstyles_if_not_exist: bool = True) -> ShapeTextStyle:
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
         """Retrieve an parallelogram text style by name.
 
         Args:
-            name (str, optional): Name of the parallelogram text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (TypeStr, optional): Name of the parallelogram text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -4869,36 +4412,34 @@ class ParallelogramTextStyleCache(AbstractStyleCache):
         return self._shapetextstyles.get(name)
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing parallelogram text style names.
 
         Returns:
-            list[str]: List of parallelogram text style names.
+            list[TypeStr]: List of parallelogram text style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update an parallelogram text style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the parallelogram text style. Defaults to "".
+            name (TypeStr, optional): Name of the parallelogram text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an parallelogram text style by name.
 
         Args:
-            name (str): Name of the parallelogram text style to delete.
+            name (TypeStr): Name of the parallelogram text style to delete.
 
         Raises:
             ValueError: If the parallelogram text style with the specified name does not exist.
@@ -4909,18 +4450,17 @@ class ParallelogramTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an parallelogram text style into existing parallelogram text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[str] | None, optional): List of target parallelogram text style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target parallelogram text style names to merge into.
                 If None, merge into all existing parallelogram text styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -4940,18 +4480,8 @@ class RhombusTextStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapetextstyles: ShapeTextStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize RhombusTextStyleCache.
 
@@ -4962,28 +4492,28 @@ class RhombusTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeTextStyle] = {}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an rhombus text style exists by name.
 
         Args:
-            name (str): Name of the rhombus text style.
+            name (TypeStr): Name of the rhombus text style.
 
         Returns:
-            bool: True if the rhombus text style exists, False otherwise.
+            TypeBool: True if the rhombus text style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapetextstyles_if_not_exist: bool = True) -> ShapeTextStyle:
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
         """Retrieve an rhombus text style by name.
 
         Args:
-            name (str, optional): Name of the rhombus text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (TypeStr, optional): Name of the rhombus text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -5000,36 +4530,34 @@ class RhombusTextStyleCache(AbstractStyleCache):
         return self._shapetextstyles.get(name)
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing rhombus text style names.
 
         Returns:
-            list[str]: List of rhombus text style names.
+            list[TypeStr]: List of rhombus text style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update an rhombus text style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the rhombus text style. Defaults to "".
+            name (TypeStr, optional): Name of the rhombus text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an rhombus text style by name.
 
         Args:
-            name (str): Name of the rhombus text style to delete.
+            name (TypeStr): Name of the rhombus text style to delete.
 
         Raises:
             ValueError: If the rhombus text style with the specified name does not exist.
@@ -5040,18 +4568,17 @@ class RhombusTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an rhombus text style into existing rhombus text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[str] | None, optional): List of target rhombus text style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target rhombus text style names to merge into.
                 If None, merge into all existing rhombus text styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -5071,18 +4598,8 @@ class StarTextStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapetextstyles: ShapeTextStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize StarTextStyleCache.
 
@@ -5093,28 +4610,28 @@ class StarTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeTextStyle] = {}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an star text style exists by name.
 
         Args:
-            name (str): Name of the star text style.
+            name (TypeStr): Name of the star text style.
 
         Returns:
-            bool: True if the star text style exists, False otherwise.
+            TypeBool: True if the star text style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapetextstyles_if_not_exist: bool = True) -> ShapeTextStyle:
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
         """Retrieve an star text style by name.
 
         Args:
-            name (str, optional): Name of the star text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (TypeStr, optional): Name of the star text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -5131,36 +4648,34 @@ class StarTextStyleCache(AbstractStyleCache):
         return self._shapetextstyles.get(name)
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing star text style names.
 
         Returns:
-            list[str]: List of star text style names.
+            list[TypeStr]: List of star text style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update an star text style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the star text style. Defaults to "".
+            name (TypeStr, optional): Name of the star text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an star text style by name.
 
         Args:
-            name (str): Name of the star text style to delete.
+            name (TypeStr): Name of the star text style to delete.
 
         Raises:
             ValueError: If the star text style with the specified name does not exist.
@@ -5171,18 +4686,17 @@ class StarTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an star text style into existing star text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[str] | None, optional): List of target star text style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target star text style names to merge into.
                 If None, merge into all existing star text styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -5202,18 +4716,8 @@ class TrapezoidTextStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapetextstyles: ShapeTextStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize TrapezoidTextStyleCache.
 
@@ -5224,28 +4728,28 @@ class TrapezoidTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeTextStyle] = {}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an trapezoid text style exists by name.
 
         Args:
-            name (str): Name of the trapezoid text style.
+            name (TypeStr): Name of the trapezoid text style.
 
         Returns:
-            bool: True if the trapezoid text style exists, False otherwise.
+            TypeBool: True if the trapezoid text style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapetextstyles_if_not_exist: bool = True) -> ShapeTextStyle:
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
         """Retrieve an trapezoid text style by name.
 
         Args:
-            name (str, optional): Name of the trapezoid text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (TypeStr, optional): Name of the trapezoid text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -5262,36 +4766,34 @@ class TrapezoidTextStyleCache(AbstractStyleCache):
         return self._shapetextstyles.get(name)
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing trapezoid text style names.
 
         Returns:
-            list[str]: List of trapezoid text style names.
+            list[TypeStr]: List of trapezoid text style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update an trapezoid text style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the trapezoid text style. Defaults to "".
+            name (TypeStr, optional): Name of the trapezoid text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an trapezoid text style by name.
 
         Args:
-            name (str): Name of the trapezoid text style to delete.
+            name (TypeStr): Name of the trapezoid text style to delete.
 
         Raises:
             ValueError: If the trapezoid text style with the specified name does not exist.
@@ -5302,18 +4804,17 @@ class TrapezoidTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an trapezoid text style into existing trapezoid text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[str] | None, optional): List of target trapezoid text style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target trapezoid text style names to merge into.
                 If None, merge into all existing trapezoid text styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -5333,18 +4834,8 @@ class TriangleTextStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapetextstyles: ShapeTextStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize TriangleTextStyleCache.
 
@@ -5355,28 +4846,28 @@ class TriangleTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeTextStyle] = {}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an triangle text style exists by name.
 
         Args:
-            name (str): Name of the triangle text style.
+            name (TypeStr): Name of the triangle text style.
 
         Returns:
-            bool: True if the triangle text style exists, False otherwise.
+            TypeBool: True if the triangle text style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapetextstyles_if_not_exist: bool = True) -> ShapeTextStyle:
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
         """Retrieve an triangle text style by name.
 
         Args:
-            name (str, optional): Name of the triangle text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (TypeStr, optional): Name of the triangle text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -5393,36 +4884,34 @@ class TriangleTextStyleCache(AbstractStyleCache):
         return self._shapetextstyles.get(name)
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing triangle text style names.
 
         Returns:
-            list[str]: List of triangle text style names.
+            list[TypeStr]: List of triangle text style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update an triangle text style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the triangle text style. Defaults to "".
+            name (TypeStr, optional): Name of the triangle text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an triangle text style by name.
 
         Args:
-            name (str): Name of the triangle text style to delete.
+            name (TypeStr): Name of the triangle text style to delete.
 
         Raises:
             ValueError: If the triangle text style with the specified name does not exist.
@@ -5433,18 +4922,17 @@ class TriangleTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an triangle text style into existing triangle text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[str] | None, optional): List of target triangle text style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target triangle text style names to merge into.
                 If None, merge into all existing triangle text styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -5464,18 +4952,8 @@ class BubblespeechTextStyleCache(AbstractStyleCache):
     def __init__(
         self,
         shapetextstyles: ShapeTextStyleCache,
-        callback_set: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
-        callback_delete: Callable[
-            [
-                str,
-            ],
-            None,
-        ],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize BubblespeechTextStyleCache.
 
@@ -5486,28 +4964,28 @@ class BubblespeechTextStyleCache(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[str, ShapeTextStyle] = {}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {}
         self._shapetextstyles = shapetextstyles
 
     @guarded
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an bubble speech text style exists by name.
 
         Args:
-            name (str): Name of the bubble speech text style.
+            name (TypeStr): Name of the bubble speech text style.
 
         Returns:
-            bool: True if the bubble speech text style exists, False otherwise.
+            TypeBool: True if the bubble speech text style exists, False otherwise.
         """
         return name in self._styles
 
     @guarded
-    def get(self, name: str = "", use_shapetextstyles_if_not_exist: bool = True) -> ShapeTextStyle:
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
         """Retrieve an bubble speech text style by name.
 
         Args:
-            name (str, optional): Name of the bubble speech text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (TypeStr, optional): Name of the bubble speech text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -5524,36 +5002,34 @@ class BubblespeechTextStyleCache(AbstractStyleCache):
         return self._shapetextstyles.get(name)
 
     @guarded
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """List all existing bubble speech text style names.
 
         Returns:
-            list[str]: List of bubble speech text style names.
+            list[TypeStr]: List of bubble speech text style names.
         """
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update an bubble speech text style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the bubble speech text style. Defaults to "".
+            name (TypeStr, optional): Name of the bubble speech text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
     @guarded
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Delete an bubble speech text style by name.
 
         Args:
-            name (str): Name of the bubble speech text style to delete.
+            name (TypeStr): Name of the bubble speech text style to delete.
 
         Raises:
             ValueError: If the bubble speech text style with the specified name does not exist.
@@ -5564,18 +5040,17 @@ class BubblespeechTextStyleCache(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: List[str] | None = None) -> None:
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an bubble speech text style into existing bubble speech text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[str] | None, optional): List of target bubble speech text style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target bubble speech text style names to merge into.
                 If None, merge into all existing bubble speech text styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:

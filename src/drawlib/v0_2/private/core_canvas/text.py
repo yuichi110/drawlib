@@ -11,7 +11,6 @@
 
 from matplotlib.text import Text
 
-
 from drawlib.v0_2.private.core.model import TextStyle
 from drawlib.v0_2.private.core.util import TextUtil
 from drawlib.v0_2.private.core_canvas.base import CanvasBase

@@ -36,14 +36,14 @@ from drawlib.v0_2.private.types.primitive import (
     TypeAngle,
     TypeAngle90,
     TypeBend,
+    TypeBool,
+    TypeFloat,
+    TypeInt,
     TypeNumVertex,
     TypePosFloat,
     TypePosFloatEx,
     TypePosInt,
     TypePosIntEx,
-    TypeBool,
-    TypeFloat,
-    TypeInt,
     TypeStr,
 )
 from drawlib.v0_2.private.types.style import (

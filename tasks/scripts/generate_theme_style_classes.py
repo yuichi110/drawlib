@@ -29,10 +29,12 @@ HEAD = '''
 
 """dtheme's cache objects implementations. Auto generated codes."""
 
-from abc import ABC, abstractmethod
-from typing import Dict, Tuple, List, Union, Any, Optional, Callable
+from __future__ import annotations
 
-from drawlib.v0_2.private.util import error_handler
+from abc import ABC, abstractmethod
+from typing import Any, Callable, Literal, cast
+
+from drawlib.v0_2.private.core.fonts_enum import FontSourceCode
 from drawlib.v0_2.private.core.model import (
     IconStyle,
     ImageStyle,
@@ -41,10 +43,13 @@ from drawlib.v0_2.private.core.model import (
     ShapeTextStyle,
     TextStyle,
 )
-from drawlib.v0_2.private.core.fonts import FontSourceCode
-import drawlib.v0_2.private.validators.color as color_validator
-import drawlib.v0_2.private.validators.style as style_validator
-import drawlib.v0_2.private.validators.types as type_validator
+from drawlib.v0_2.private.types import (
+    TypeBool,
+    TypeColor,
+    TypeColorRGBA,
+    TypeStr,
+)
+from drawlib.v0_2.private.util import guarded
 
 list_ = list
 
@@ -54,84 +59,77 @@ class ThemeColorCache:
 
     def __init__(self) -> None:
         """Initializes an instance of ThemeColorCache."""
+        self._colors: dict[TypeStr, TypeColorRGBA] = {}
 
-        self._colors: Dict[str, Tuple[int, int, int, float]] = {}
-
-    @error_handler
-    def has(self, name: str) -> bool:
+    @guarded
+    def has(self, name: TypeStr) -> TypeBool:
         """Checks if a theme color exists by name.
 
         Args:
-            name (str): Name of the theme color.
+            name (TypeStr): Name of the theme color.
 
         Returns:
-            bool: True if the theme color exists, False otherwise.
+            TypeBool: True if the theme color exists, False otherwise.
         """
-
         return name in self._colors
 
-    @error_handler
-    def get(self, name: str = "") -> Tuple[int, int, int, float]:
+    @guarded
+    def get(self, name: TypeStr = "") -> TypeColorRGBA:
         """Retrieves a theme color by name.
 
         Args:
-            name (str, optional): Name of the theme color. Defaults to "".
+            name (TypeStr, optional): Name of the theme color. Defaults to "".
 
         Returns:
-            Tuple[int, int, int, float]: RGBA components of the theme color.
+            TypeColorRGBA: RGBA components of the theme color.
 
         Raises:
             ValueError: If the specified theme color name does not exist.
         """
-
         if not self.has(name):
             raise ValueError('Theme colors name "' + name + '" does not exist.')
         return self._colors[name]
 
-    @error_handler
-    def list(self) -> List[str]:
+    @guarded
+    def list(self) -> list_[TypeStr]:
         """Lists all existing theme color names.
 
         Returns:
-            List[str]: List of theme color names.
+            list[TypeStr]: List of theme color names.
         """
-
         return list_(self._colors.keys())
 
-    @error_handler
+    @guarded
     def set(
         self,
-        color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
-        name: str = "",
+        color: TypeColor,
+        name: TypeStr = "",
     ) -> None:
         """Sets or updates a theme color with the given name.
 
         Args:
-            color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
+            color (TypeColor):
                 RGB or RGBA components of the theme color.
-            name (str, optional): Name of the theme color. Defaults to "".
+            name (TypeStr, optional): Name of the theme color. Defaults to "".
 
         Raises:
             ValueError: If the color format is invalid or if the name format is invalid.
         """
-
-        color_validator.validate_color("color", color)
-        type_validator.validate_str("name", name)
         if len(color) == 3:
             color = (color[0], color[1], color[2], 1.0)
-        self._colors[name] = color
 
-    @error_handler
-    def delete(self, name: str) -> None:
+        self._colors[name] = cast(TypeColorRGBA, color)
+
+    @guarded
+    def delete(self, name: TypeStr) -> None:
         """Deletes a theme color by name.
 
         Args:
-            name (str): Name of the theme color to delete.
+            name (TypeStr): Name of the theme color to delete.
 
         Raises:
             ValueError: If the specified theme color name does not exist.
         """
-
         if not self.has(name):
             raise ValueError('Theme colors name "' + name + '" does not exist.')
         del self._colors[name]
@@ -142,84 +140,77 @@ class BackgroundColorCache:
 
     def __init__(self) -> None:
         """Initializes an instance of BackgroundColorCache."""
+        self._colors: dict[TypeStr, TypeColorRGBA] = {}
 
-        self._colors: Dict[str, Tuple[int, int, int, float]] = {}
-
-    @error_handler
-    def has(self, name: str) -> bool:
+    @guarded
+    def has(self, name: TypeStr) -> TypeBool:
         """Checks if a background color exists by name.
 
         Args:
-            name (str): Name of the background color.
+            name (TypeStr): Name of the background color.
 
         Returns:
-            bool: True if the background color exists, False otherwise.
+            TypeBool: True if the background color exists, False otherwise.
         """
-
         return name in self._colors
 
-    @error_handler
-    def get(self, name: str = "") -> Tuple[int, int, int, float]:
+    @guarded
+    def get(self, name: TypeStr = "") -> TypeColorRGBA:
         """Retrieves a background color by name.
 
         Args:
-            name (str, optional): Name of the background color. Defaults to "".
+            name (TypeStr, optional): Name of the background color. Defaults to "".
 
         Returns:
-            Tuple[int, int, int, float]: RGBA components of the background color.
+            TypeColorRGBA: RGBA components of the background color.
 
         Raises:
             ValueError: If the specified background color name does not exist.
         """
-
         if not self.has(name):
             raise ValueError('Theme background-color name "' + name + '" does not exist.')
         return self._colors[name]
 
-    @error_handler
-    def list(self) -> List[str]:
+    @guarded
+    def list(self) -> list_[TypeStr]:
         """Lists all existing background color names.
 
         Returns:
-            List[str]: List of background color names.
+            list[TypeStr]: List of background color names.
         """
-
         return list_(self._colors.keys())
 
-    @error_handler
+    @guarded
     def set(
         self,
-        color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
-        name: str = "",
+        color: TypeColor,
+        name: TypeStr = "",
     ) -> None:
         """Sets or updates a background color with the given name.
 
         Args:
-            color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
-                RGB or RGBA components of the background color.
-            name (str, optional): Name of the background color. Defaults to "".
+            color (TypeColor):
+                RGB or RGBA components of the theme color.
+            name (TypeStr, optional): Name of the background color. Defaults to "".
 
         Raises:
             ValueError: If the color format is invalid or if the name format is invalid.
         """
-
-        color_validator.validate_color("color", color)
-        type_validator.validate_str("name", name)
         if len(color) == 3:
             color = (color[0], color[1], color[2], 1.0)
-        self._colors[name] = color
 
-    @error_handler
-    def delete(self, name: str) -> None:
+        self._colors[name] = cast(TypeColorRGBA, color)
+
+    @guarded
+    def delete(self, name: TypeStr) -> None:
         """Deletes a background color by name.
 
         Args:
-            name (str): Name of the background color to delete.
+            name (TypeStr): Name of the background color to delete.
 
         Raises:
             ValueError: If the specified background color name does not exist.
         """
-
         if not self.has(name):
             raise ValueError('Theme background-color name "' + name + '" does not exist.')
         del self._colors[name]
@@ -230,28 +221,26 @@ class SourceCodeFontCache:
 
     def __init__(self) -> None:
         """Initializes an instance of SourceCodeFontCache."""
+        self._fonts: dict[TypeStr, FontSourceCode] = {}
 
-        self._fonts: Dict[str, FontSourceCode] = {}
-
-    @error_handler
-    def has(self, name: str) -> bool:
+    @guarded
+    def has(self, name: TypeStr) -> TypeBool:
         """Checks if a source code font exists by name.
 
         Args:
-            name (str): Name of the source code font.
+            name (TypeStr): Name of the source code font.
 
         Returns:
-            bool: True if the source code font exists, False otherwise.
+            TypeBool: True if the source code font exists, False otherwise.
         """
-
         return name in self._fonts
 
-    @error_handler
-    def get(self, name: str = "") -> FontSourceCode:
+    @guarded
+    def get(self, name: TypeStr = "") -> FontSourceCode:
         """Retrieves a source code font by name.
 
         Args:
-            name (str, optional): Name of the source code font. Defaults to "".
+            name (TypeStr, optional): Name of the source code font. Defaults to "".
 
         Returns:
             FontSourceCode: Source code font object.
@@ -259,54 +248,49 @@ class SourceCodeFontCache:
         Raises:
             ValueError: If the specified source code font name does not exist.
         """
-
         if not self.has(name):
             raise ValueError('Theme sourcecode-font name "' + name + '" does not exist.')
         return self._fonts[name]
 
-    @error_handler
-    def list(self) -> List[str]:
+    @guarded
+    def list(self) -> list_[TypeStr]:
         """Lists all existing source code font names.
 
         Returns:
-            List[str]: List of source code font names.
+            list[TypeStr]: List of theme color names.
         """
-
         return list_(self._fonts.keys())
 
-    @error_handler
+    @guarded
     def set(
         self,
         font: FontSourceCode,
-        name: str = "",
+        name: TypeStr = "",
     ) -> None:
         """Sets or updates a source code font with the given name.
 
         Args:
             font (FontSourceCode): Source code font object.
-            name (str, optional): Name of the source code font. Defaults to "".
+            name (TypeStr, optional): Name of the source code font. Defaults to "".
 
         Raises:
             ValueError: If the font is not an instance of FontSourceCode or if the name format is invalid.
         """
-
         if not isinstance(font, FontSourceCode):
             raise ValueError("Arg font must be FontSourceCode.")
-        type_validator.validate_str("name", name)
 
         self._fonts[name] = font
 
-    @error_handler
-    def delete(self, name: str) -> None:
+    @guarded
+    def delete(self, name: TypeStr) -> None:
         """Deletes a source code font by name.
 
         Args:
-            name (str): Name of the source code font to delete.
+            name (TypeStr): Name of the source code font to delete.
 
         Raises:
             ValueError: If the specified source code font name does not exist.
         """
-
         if not self.has(name):
             raise ValueError('Theme sourcecode-font name "' + name + '" does not exist.')
         del self._fonts[name]
@@ -320,22 +304,22 @@ class AbstractStyleCache(ABC):
     """
 
     @abstractmethod
-    def has(self, name: str) -> bool:
+    def has(self, name: TypeStr) -> TypeBool:
         """Checks if a style exists by name.
 
         Args:
-            name (str): Name of the style.
+            name (TypeStr): Name of the style.
 
         Returns:
-            bool: True if the style exists, False otherwise.
+            TypeBool: True if the style exists, False otherwise.
         """
 
     @abstractmethod
-    def get(self, name: str = "") -> Any: # noqa: ANN401
+    def get(self, name: TypeStr = "") -> Any: # noqa: ANN401
         """Retrieves a style by name.
 
         Args:
-            name (str, optional): Name of the style. Defaults to "".
+            name (TypeStr, optional): Name of the style. Defaults to "".
 
         Returns:
             Any: The retrieved style object.
@@ -345,31 +329,31 @@ class AbstractStyleCache(ABC):
         """
 
     @abstractmethod
-    def list(self) -> List[str]:
+    def list(self) -> list_[TypeStr]:
         """Lists all existing style names.
 
         Returns:
-            List[str]: List of style names.
+            list[TypeStr]: List of style names.
         """
 
     @abstractmethod
-    def set(self, style: Any, name: str = "") -> None: # noqa: ANN401
+    def set(self, style: Any, name: TypeStr = "") -> None: # noqa: ANN401
         """Sets or updates a style with the given name.
 
         Args:
             style (Any): The style object to cache.
-            name (str, optional): Name of the style. Defaults to "".
+            name (TypeStr, optional): Name of the style. Defaults to "".
 
         Raises:
             NotImplementedError: If the method is not implemented in a subclass.
         """
 
     @abstractmethod
-    def delete(self, name: str) -> None:
+    def delete(self, name: TypeStr) -> None:
         """Deletes a style by name.
 
         Args:
-            name (str): Name of the style to delete.
+            name (TypeStr): Name of the style to delete.
 
         Raises:
             NotImplementedError: If the method is not implemented in a subclass.
@@ -377,12 +361,12 @@ class AbstractStyleCache(ABC):
         """
 
     @abstractmethod
-    def merge(self, style: Any, targets: Optional[List[str]] = None) -> None: # noqa: ANN401
+    def merge(self, style: Any, targets: list_[TypeStr] | None = None) -> None: # noqa: ANN401
         """Merges a style into existing styles.
 
         Args:
             style (Any): The style object to merge.
-            targets (Optional[List[str]], optional): List of target style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
@@ -400,8 +384,8 @@ class {class_name}(AbstractStyleCache):
 
     def __init__(
         self,
-        callback_set:Callable[[str,], None],
-        callback_delete:Callable[[str,], None],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize {class_name} with callbacks for set and delete operations.
 
@@ -409,30 +393,28 @@ class {class_name}(AbstractStyleCache):
             callback_set: Callback function for set operation.
             callback_delete: Callback function for delete operation.
         """
-
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, {style_class}] = {{}}
+        self._styles: dict[TypeStr, {style_class}] = {{}}
 
-    @error_handler
-    def has(self, name: str) -> bool:
+    @guarded
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if a style exists by name.
 
         Args:
-            name (str): Name of the style.
+            name (TypeStr): Name of the style.
 
         Returns:
-            bool: True if the style exists, False otherwise.
+            TypeBool: True if the style exists, False otherwise.
         """
-
         return name in self._styles
 
-    @error_handler
-    def get(self, name: str = "") -> {style_class}:
+    @guarded
+    def get(self, name: TypeStr = "") -> {style_class}:
         """Retrieve a style by name.
 
         Args:
-            name (str, optional): Name of the style to retrieve. Defaults to "".
+            name (TypeStr, optional): Name of the style to retrieve. Defaults to "".
 
         Returns:
             {style_class}: The retrieved IconStyle object.
@@ -440,68 +422,60 @@ class {class_name}(AbstractStyleCache):
         Raises:
             ValueError: If the style with the specified name does not exist.
         """
-
         if not self.has(name):
             raise ValueError('Theme style name "' + name + '" does not exist.')
         return self._styles[name].copy()
 
-    @error_handler
-    def list(self) -> List[str]:
+    @guarded
+    def list(self) -> list_[TypeStr]:
         """List all existing style names.
 
         Returns:
-            List[str]: List of style names.
+            list[TypeStr]: List of style names.
         """
-
         return list_(self._styles.keys())
 
-    @error_handler
-    def set(self, style: {style_class}, name: str = "") -> None:
+    @guarded
+    def set(self, style: {style_class}, name: TypeStr = "") -> None:
         """Set or update a style with the given name.
 
         Args:
             style ({style_class}): The {style_class} object to cache.
-            name (str, optional): Name of the style. Defaults to "".
+            name (TypeStr, optional): Name of the style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-
-        style_validator.validate_{validate_class_name}("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
-    @error_handler
-    def delete(self, name: str) -> None:
+    @guarded
+    def delete(self, name: TypeStr) -> None:
         """Delete a style by name.
 
         Args:
-            name (str): Name of the style to delete.
+            name (TypeStr): Name of the style to delete.
 
         Raises:
             ValueError: If the style with the specified name does not exist.
         """
-
         if not self.has(name):
             raise ValueError('Theme style name "' + name + '" does not exist.')
         del self._styles[name]
         self._callback_delete(name)
 
-    @error_handler
-    def merge(self, style: {style_class}, targets: Optional[List[str]] = None) -> None:
+    @guarded
+    def merge(self, style: {style_class}, targets: list_[TypeStr] | None = None) -> None:
         """Merge a style into existing styles.
 
         Args:
             style ({style_class}): The {style_class} object to merge.
-            targets (Optional[List[str]], optional): List of target style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-
-        style_validator.validate_{validate_class_name}("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -522,8 +496,8 @@ class {class_name}(AbstractStyleCache):
     def __init__(
         self,
         shapestyles: ShapeStyleCache,
-        callback_set:Callable[[str,], None],
-        callback_delete:Callable[[str,], None],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize {class_name}.
 
@@ -532,32 +506,30 @@ class {class_name}(AbstractStyleCache):
             callback_set: Callback function for set operation.
             callback_delete: Callback function for delete operation.
         """
-
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeStyle] = {{}}
+        self._styles: dict[TypeStr, ShapeStyle] = {{}}
         self._shapestyles = shapestyles
 
-    @error_handler
-    def has(self, name: str) -> bool:
+    @guarded
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an {name} style exists by name.
 
         Args:
-            name (str): Name of the {name} style.
+            name (TypeStr): Name of the {name} style.
 
         Returns:
-            bool: True if the {name} style exists, False otherwise.
+            TypeBool: True if the {name} style exists, False otherwise.
         """
-
         return name in self._styles
 
-    @error_handler
-    def get(self, name: str = "", use_shapestyles_if_not_exist: bool = True) -> ShapeStyle:
+    @guarded
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
         """Retrieve an {name} style by name.
 
         Args:
-            name (str, optional): Name of the {name} style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
+            name (TypeStr, optional): Name of the {name} style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -567,7 +539,6 @@ class {class_name}(AbstractStyleCache):
             ValueError: If the {name} style with the specified name does not exist and
                 use_shapestyles_if_not_exist is False.
         """
-
         if self.has(name):
             style = self._styles[name].copy()
         elif use_shapestyles_if_not_exist:
@@ -576,63 +547,56 @@ class {class_name}(AbstractStyleCache):
             raise ValueError('Theme style name "' + name + '" does not exist.')
         return style
 
-    @error_handler
-    def list(self) -> List[str]:
+    @guarded
+    def list(self) -> list_[TypeStr]:
         """List all existing {name} style names.
 
         Returns:
-            List[str]: List of {name} style names.
+            list[TypeStr]: List of {name} style names.
         """
-
         return list_(self._styles.keys())
 
-    @error_handler
-    def set(self, style: ShapeStyle, name: str = "") -> None:
+    @guarded
+    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
         """Set or update an {name} style with the given name.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (str, optional): Name of the {name} style. Defaults to "".
+            name (TypeStr, optional): Name of the {name} style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-
-        style_validator.validate_shapestyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
-    @error_handler
-    def delete(self, name: str) -> None:
+    @guarded
+    def delete(self, name: TypeStr) -> None:
         """Delete an {name} style by name.
 
         Args:
-            name (str): Name of the {name} style to delete.
+            name (TypeStr): Name of the {name} style to delete.
 
         Raises:
             ValueError: If the {name} style with the specified name does not exist.
         """
-
         if not self.has(name):
             raise ValueError('Theme style name "' + name + '" does not exist.')
         del self._styles[name]
         self._callback_delete(name)
 
-    @error_handler
-    def merge(self, style: ShapeStyle, targets: Optional[List[str]] = None) -> None:
+    @guarded
+    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an {name} style into existing {name} styles.
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (Optional[List[str]], optional): List of target {name} style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target {name} style names to merge into.
                 If None, merge into all existing {name} styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-
-        style_validator.validate_shapestyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:
@@ -653,8 +617,8 @@ class {class_name}(AbstractStyleCache):
     def __init__(
         self,
         shapetextstyles: ShapeTextStyleCache,
-        callback_set:Callable[[str,], None],
-        callback_delete:Callable[[str,], None],
+        callback_set: Callable[[TypeStr], None],
+        callback_delete: Callable[[TypeStr], None],
     ) -> None:
         """Initialize {class_name}.
 
@@ -663,32 +627,30 @@ class {class_name}(AbstractStyleCache):
             callback_set: Callback function for set operation.
             callback_delete: Callback function for delete operation.
         """
-
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: Dict[str, ShapeTextStyle] = {{}}
+        self._styles: dict[TypeStr, ShapeTextStyle] = {{}}
         self._shapetextstyles = shapetextstyles
 
-    @error_handler
-    def has(self, name: str) -> bool:
+    @guarded
+    def has(self, name: TypeStr) -> TypeBool:
         """Check if an {name} text style exists by name.
 
         Args:
-            name (str): Name of the {name} text style.
+            name (TypeStr): Name of the {name} text style.
 
         Returns:
-            bool: True if the {name} text style exists, False otherwise.
+            TypeBool: True if the {name} text style exists, False otherwise.
         """
-
         return name in self._styles
 
-    @error_handler
-    def get(self, name: str = "", use_shapetextstyles_if_not_exist: bool = True) -> ShapeTextStyle:
+    @guarded
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
         """Retrieve an {name} text style by name.
 
         Args:
-            name (str, optional): Name of the {name} text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (TypeStr, optional): Name of the {name} text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -698,70 +660,62 @@ class {class_name}(AbstractStyleCache):
             ValueError: If the {name} text style with the specified name does not exist and
                 use_shapetextstyles_if_not_exist is False.
         """
-
         if self.has(name):
             return self._styles[name].copy()
         if not use_shapetextstyles_if_not_exist:
             raise ValueError('Theme style name "' + name + '" does not exist.')
         return self._shapetextstyles.get(name)
 
-    @error_handler
-    def list(self) -> List[str]:
+    @guarded
+    def list(self) -> list_[TypeStr]:
         """List all existing {name} text style names.
 
         Returns:
-            List[str]: List of {name} text style names.
+            list[TypeStr]: List of {name} text style names.
         """
-
         return list_(self._styles.keys())
 
-    @error_handler
-    def set(self, style: ShapeTextStyle, name: str = "") -> None:
+    @guarded
+    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
         """Set or update an {name} text style with the given name.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (str, optional): Name of the {name} text style. Defaults to "".
+            name (TypeStr, optional): Name of the {name} text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
         """
-
-        style_validator.validate_shapetextstyle("style", style)
-        type_validator.validate_str("name", name)
         self._styles[name] = style.copy()
         self._callback_set(name)
 
-    @error_handler
-    def delete(self, name: str) -> None:
+    @guarded
+    def delete(self, name: TypeStr) -> None:
         """Delete an {name} text style by name.
 
         Args:
-            name (str): Name of the {name} text style to delete.
+            name (TypeStr): Name of the {name} text style to delete.
 
         Raises:
             ValueError: If the {name} text style with the specified name does not exist.
         """
-
         if not self.has(name):
             raise ValueError('Theme style name "' + name + '" does not exist.')
         del self._styles[name]
         self._callback_delete(name)
 
-    @error_handler
-    def merge(self, style: ShapeTextStyle, targets: Optional[List[str]] = None) -> None:
+    @guarded
+    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
         """Merge an {name} text style into existing {name} text styles.
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (Optional[List[str]], optional): List of target {name} text style names to merge into.
+            targets (list[TypeStr] | None, optional): List of target {name} text style names to merge into.
                 If None, merge into all existing {name} text styles. Defaults to None.
 
         Raises:
             ValueError: If the style is invalid or merging fails.
         """
-
-        style_validator.validate_shapetextstyle("style", style)
         if targets is None:
             targets = self.list()
         for target in targets:

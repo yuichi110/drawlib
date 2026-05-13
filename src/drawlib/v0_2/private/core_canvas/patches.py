@@ -19,7 +19,6 @@ from matplotlib.patches import (
     Wedge,
 )
 
-
 from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import ShapeUtil
