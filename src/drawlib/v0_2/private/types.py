@@ -11,7 +11,7 @@
 
 import os
 from enum import Enum
-from typing import Annotated, Any, Literal
+from typing import Annotated, Any, Literal, NoReturn
 
 from pydantic import (
     AfterValidator,
@@ -26,9 +26,33 @@ from pydantic import (
 
 from drawlib.v0_2.private.util import get_script_relative_path
 
+
+class StaticContainer:
+    """Base class to prevent instantiation for static constant containers.
+
+    Inherit from this class to create a namespace that only holds constants
+    and static data, ensuring it cannot be initialized as an object.
+    """
+
+    def __new__(cls) -> NoReturn:
+        """Raise TypeError upon any attempt to instantiate the class.
+
+        Returns:
+            NoReturn: This method never returns normally.
+
+        Raises:
+            TypeError: Always raised to prevent instantiation.
+        """
+        raise TypeError(
+            f"'{cls.__name__}' is a static container (namespace) and cannot be instantiated. "
+            f"Access its attributes directly, e.g., {cls.__name__}.AttributeName"
+        )
+
+
 #
 # Basic Types
 #
+
 
 TypeCoordinate = tuple[float, float]
 TypePathPoint = (

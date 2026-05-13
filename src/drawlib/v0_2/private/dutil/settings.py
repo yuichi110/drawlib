@@ -25,7 +25,7 @@ __ARG_SUPPRESS_WARNING = "--drawlib_suppress_warning"
 class DrawlibSettings:
     """Class for managing drawlib settings.
 
-    This class should not be used directly. Use its singleton instance ``dsettings`` instead.
+    This class should not be used directly. Use its singleton instance ``dutil_settings`` instead.
     """
 
     def __init__(self) -> None:

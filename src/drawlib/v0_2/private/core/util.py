@@ -36,10 +36,17 @@ from drawlib.v0_2.private.core.model_system_default import (
 )
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.download import download_if_not_exist
-from drawlib.v0_2.private.types import FontBase, FontFile, TypeArrowHead, TypeColor, TypeColorRGBA
+from drawlib.v0_2.private.types import (
+    FontBase,
+    FontFile,
+    StaticContainer,
+    TypeArrowHead,
+    TypeColor,
+    TypeColorRGBA,
+)
 
 
-class ColorUtil:
+class ColorUtil(StaticContainer):
     """A utility class for color conversion operations."""
 
     @staticmethod
@@ -145,7 +152,7 @@ class ColorUtil:
         return (r, g, b, a)
 
 
-class IconUtil:
+class IconUtil(StaticContainer):
     """A utility class for handling icon styles."""
 
     @staticmethod
@@ -194,7 +201,7 @@ class IconUtil:
         return style
 
 
-class ImageUtil:
+class ImageUtil(StaticContainer):
     """A utility class for handling image styles."""
 
     @staticmethod
@@ -233,7 +240,7 @@ class ImageUtil:
         return style
 
 
-class LineUtil:
+class LineUtil(StaticContainer):
     """A utility class for handling line styles and options."""
 
     @staticmethod
@@ -405,7 +412,7 @@ class LineUtil:
         return _get_dict_value_none_keys_removed(options)
 
 
-class ShapeUtil:
+class ShapeUtil(StaticContainer):
     """A utility class for handling shape styles and options."""
 
     @staticmethod
@@ -665,7 +672,7 @@ class ShapeUtil:
         return _get_dict_value_none_keys_removed(options)
 
 
-class TextUtil:
+class TextUtil(StaticContainer):
     """A utility class for handling text styles and options."""
 
     @staticmethod

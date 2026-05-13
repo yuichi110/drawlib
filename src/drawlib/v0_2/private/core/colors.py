@@ -11,10 +11,10 @@
 
 from typing import Final
 
-from drawlib.v0_2.private.types import TypeColorRGB, TypeColorRGBA
+from drawlib.v0_2.private.types import StaticContainer, TypeColorRGB, TypeColorRGBA
 
 
-class ColorsBase:
+class ColorsBase(StaticContainer):
     """Base class for color-related classes, providing common attributes."""
 
     Transparent: Final[TypeColorRGBA] = (0, 0, 0, 0.0)
