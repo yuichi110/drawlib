@@ -12,22 +12,28 @@
 
 import typing
 
-import drawlib.v0_2.private.util
-import drawlib.v0_2.private.validators.args as validator
+
 from drawlib.v0_2.private.core.model import IconStyle, TextStyle
 from drawlib.v0_2.private.core.util import IconUtil
 from drawlib.v0_2.private.core_canvas.canvas import get_fontsize_from_charwidth, text
-from drawlib.v0_2.private.types import FontFile
+from drawlib.v0_2.private.types import (
+    FontFile,
+    TypeAngle,
+    TypeCoordinate,
+    TypePosFloatEx,
+    TypeStr,
+)
+from drawlib.v0_2.private.util import guarded
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def icon(
-    xy: typing.Tuple[float, float],
-    width: float,
-    code: str,
-    file: str,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloatEx,
+    code: TypeStr,
+    file: TypeStr,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draw an icon from the provided icon font.
 
@@ -48,7 +54,6 @@ def icon(
 
     """
     style = IconUtil.format_style(style)
-    validator.validate_icon_args(locals())
     font_size = get_fontsize_from_charwidth(width)
 
     # convert IconStyle to TextStyle

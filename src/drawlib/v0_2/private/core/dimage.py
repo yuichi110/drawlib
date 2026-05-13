@@ -38,7 +38,6 @@ from drawlib.v0_2.private.util import (
     get_script_relative_path,
     guarded,
 )
-from drawlib.v0_2.private.validators.color import validate_color
 
 list_ = list
 
@@ -357,7 +356,6 @@ class Dimage:
         alpha_transparent = 0
         alpha_opaque = 255
 
-        validate_color("from_black_to", color)
         pil_color = (color[0], color[1], color[2], 255)
 
         pil_image = self._pilimg
@@ -517,14 +515,11 @@ class Dimage:
 
         """
         # validate and convert
-        validate_color("from_black_to", from_black_to)
-        validate_color("from_white_to", from_white_to)
         b = from_black_to
         black = (b[0], b[1], b[2])
         w = from_white_to
         white = (w[0], w[1], w[2])
         if from_mid_to is not None:
-            validate_color("from_mid_to", from_mid_to)
             m = from_mid_to
             mid = (m[0], m[1], m[2])
         else:

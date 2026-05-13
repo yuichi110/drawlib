@@ -19,13 +19,20 @@ from matplotlib.patches import (
     Wedge,
 )
 
-import drawlib.v0_2.private.validators.args as validator
+
 from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import ShapeUtil
 from drawlib.v0_2.private.core_canvas.base import CanvasBase
 from drawlib.v0_2.private.types import (
+    TypeAngle,
     TypeCoordinate,
+    TypeFloat,
+    TypeNumVertex,
+    TypePosFloat,
+    TypePosFloatEx,
+    TypeSize,
+    TypeStr,
 )
 from drawlib.v0_2.private.util import guarded
 
@@ -45,15 +52,15 @@ class CanvasPatchesFeature(CanvasBase):
     def arc(
         self,
         xy: TypeCoordinate,
-        width: float,
-        height: float,
-        angle_start: int | float = 0.0,
-        angle_end: int | float = 360.0,
-        angle: int | float = 0.0,
-        style: ShapeStyle | str | None = None,
-        text: str = "",
-        textsize: float | None = None,
-        textstyle: ShapeTextStyle | str | None = None,
+        width: TypePosFloatEx,
+        height: TypePosFloatEx,
+        angle_start: TypeAngle = 0.0,
+        angle_end: TypeAngle = 360.0,
+        angle: TypeAngle = 0.0,
+        style: ShapeStyle | TypeStr | None = None,
+        text: TypeStr = "",
+        textsize: TypeSize | None = None,
+        textstyle: ShapeTextStyle | TypeStr | None = None,
     ) -> None:
         """Draw an arc on the canvas.
 
@@ -78,7 +85,6 @@ class CanvasPatchesFeature(CanvasBase):
             dtheme.arcstyles.get,
             dtheme.arctextstyles.get,
         )
-        validator.validate_shape_args(locals())
 
         if textsize is not None:
             textstyle.size = textsize
@@ -112,12 +118,12 @@ class CanvasPatchesFeature(CanvasBase):
     def circle(
         self,
         xy: TypeCoordinate,
-        radius: float,
-        angle: int | float = 0.0,
-        style: ShapeStyle | str | None = None,
-        text: str = "",
-        textsize: float | None = None,
-        textstyle: ShapeTextStyle | str | None = None,
+        radius: TypePosFloat,
+        angle: TypeAngle = 0.0,
+        style: ShapeStyle | TypeStr | None = None,
+        text: TypeStr = "",
+        textsize: TypeSize | None = None,
+        textstyle: ShapeTextStyle | TypeStr | None = None,
     ) -> None:
         """Draw a circle on the canvas.
 
@@ -139,7 +145,6 @@ class CanvasPatchesFeature(CanvasBase):
             dtheme.circlestyles.get,
             dtheme.circletextstyles.get,
         )
-        validator.validate_shape_args(locals())
 
         if textsize is not None:
             textstyle.size = textsize
@@ -171,13 +176,13 @@ class CanvasPatchesFeature(CanvasBase):
     def ellipse(
         self,
         xy: TypeCoordinate,
-        width: float,
-        height: float,
-        angle: int | float = 0.0,
-        style: ShapeStyle | str | None = None,
-        text: str = "",
-        textsize: float | None = None,
-        textstyle: ShapeTextStyle | str | None = None,
+        width: TypePosFloatEx,
+        height: TypePosFloatEx,
+        angle: TypeAngle = 0.0,
+        style: ShapeStyle | TypeStr | None = None,
+        text: TypeStr = "",
+        textsize: TypeSize | None = None,
+        textstyle: ShapeTextStyle | TypeStr | None = None,
     ) -> None:
         """Draw an ellipse on the canvas.
 
@@ -200,7 +205,6 @@ class CanvasPatchesFeature(CanvasBase):
             dtheme.ellipsestyles.get,
             dtheme.ellipsetextstyles.get,
         )
-        validator.validate_shape_args(locals())
 
         if textsize is not None:
             textstyle.size = textsize
@@ -232,13 +236,13 @@ class CanvasPatchesFeature(CanvasBase):
     def regularpolygon(
         self,
         xy: TypeCoordinate,
-        radius: float,
-        num_vertex: int,
-        angle: int | float = 0.0,
-        style: ShapeStyle | str | None = None,
-        text: str = "",
-        textsize: float | None = None,
-        textstyle: ShapeTextStyle | str | None = None,
+        num_vertex: TypeNumVertex,
+        radius: TypePosFloatEx,
+        angle: TypeAngle = 0.0,
+        style: ShapeStyle | TypeStr | None = None,
+        text: TypeStr = "",
+        textsize: TypeSize | None = None,
+        textstyle: ShapeTextStyle | TypeStr | None = None,
     ) -> None:
         """Draw a regular polygon on the canvas.
 
@@ -261,7 +265,6 @@ class CanvasPatchesFeature(CanvasBase):
             dtheme.regularpolygonstyles.get,
             dtheme.regularpolygontextstyles.get,
         )
-        validator.validate_shape_args(locals())
 
         if textsize is not None:
             textstyle.size = textsize
@@ -295,15 +298,15 @@ class CanvasPatchesFeature(CanvasBase):
     def wedge(
         self,
         xy: TypeCoordinate,
-        radius: float,
-        width: float | None = None,
-        angle_start: float = 0,
-        angle_end: float = 360,
-        angle: int | float = 0.0,
-        style: ShapeStyle | str | None = None,
-        text: str = "",
-        textsize: float | None = None,
-        textstyle: ShapeTextStyle | str | None = None,
+        radius: TypePosFloatEx,
+        width: TypePosFloatEx | None = None,
+        angle_start: TypeAngle = 0,
+        angle_end: TypeAngle = 360,
+        angle: TypeAngle = 0.0,
+        style: ShapeStyle | TypeStr | None = None,
+        text: TypeStr = "",
+        textsize: TypeSize | None = None,
+        textstyle: ShapeTextStyle | TypeStr | None = None,
     ) -> None:
         """Draw a wedge on the canvas.
 
@@ -329,7 +332,6 @@ class CanvasPatchesFeature(CanvasBase):
             dtheme.wedgestyles.get,
             dtheme.wedgetextstyles.get,
         )
-        validator.validate_shape_args(locals(), argnames_accept_none=["width"])
 
         if textsize is not None:
             textstyle.size = textsize
@@ -364,13 +366,13 @@ class CanvasPatchesFeature(CanvasBase):
     def donuts(
         self,
         xy: TypeCoordinate,
-        radius: float,
-        width: float | None = None,
-        angle: int | float = 0.0,
-        style: ShapeStyle | str | None = None,
-        text: str = "",
-        textsize: float | None = None,
-        textstyle: ShapeTextStyle | str | None = None,
+        radius: TypePosFloatEx,
+        width: TypePosFloatEx | None = None,
+        angle: TypeAngle = 0.0,
+        style: ShapeStyle | TypeStr | None = None,
+        text: TypeStr = "",
+        textsize: TypeSize | None = None,
+        textstyle: ShapeTextStyle | TypeStr | None = None,
     ) -> None:
         """Draw a donut shape on the canvas.
 
@@ -393,7 +395,6 @@ class CanvasPatchesFeature(CanvasBase):
             dtheme.donutsstyles.get,
             dtheme.donutstextstyles.get,
         )
-        validator.validate_shape_args(locals(), argnames_accept_none=["width"])
 
         self.wedge(
             xy=xy,
@@ -410,14 +411,14 @@ class CanvasPatchesFeature(CanvasBase):
     def fan(
         self,
         xy: TypeCoordinate,
-        radius: float,
-        angle_start: float = 0,
-        angle_end: float = 180,
-        angle: int | float = 0.0,
-        style: ShapeStyle | str | None = None,
-        text: str = "",
-        textsize: float | None = None,
-        textstyle: ShapeTextStyle | str | None = None,
+        radius: TypePosFloatEx,
+        angle_start: TypeAngle = 0,
+        angle_end: TypeAngle = 180,
+        angle: TypeAngle = 0.0,
+        style: ShapeStyle | TypeStr | None = None,
+        text: TypeStr = "",
+        textsize: TypeSize | None = None,
+        textstyle: ShapeTextStyle | TypeStr | None = None,
     ) -> None:
         """Draw a fan shape on the canvas.
 
@@ -441,7 +442,6 @@ class CanvasPatchesFeature(CanvasBase):
             dtheme.fanstyles.get,
             dtheme.fantextstyles.get,
         )
-        validator.validate_shape_args(locals())
 
         self.wedge(
             xy=xy,

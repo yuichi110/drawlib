@@ -33,7 +33,15 @@ from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import ColorUtil
 from drawlib.v0_2.private.core_canvas.canvas import image
 from drawlib.v0_2.private.download import download_if_not_exist
-from drawlib.v0_2.private.types import FontFile
+from drawlib.v0_2.private.types import (
+    FontFile,
+    TypeBool,
+    TypeColor,
+    TypeCoordinate,
+    TypePosFloat,
+    TypePosFloatEx,
+    TypeStr,
+)
 from drawlib.v0_2.private.util import get_script_relative_path, guarded
 
 PYGMENTS_LINENUM_TEXT_COLOR: Final[Tuple[int, int, int]] = (136, 136, 102)
@@ -117,14 +125,8 @@ class SourceCode:
             None,
         ] = None,
         show_linenum: bool = False,
-        linenum_textcolor: Union[
-            Tuple[int, int, int],
-            Tuple[int, int, int, float],
-        ] = PYGMENTS_LINENUM_TEXT_COLOR,
-        linenum_bgcolor: Union[
-            Tuple[int, int, int],
-            Tuple[int, int, int, float],
-        ] = PYGMENTS_LINENUM_BACKGROUND_COLOR,
+        linenum_textcolor: TypeColor = PYGMENTS_LINENUM_TEXT_COLOR,
+        linenum_bgcolor: TypeColor = PYGMENTS_LINENUM_BACKGROUND_COLOR,
     ) -> None:
         """Initialize the SourceCode renderer.
 
@@ -150,7 +152,7 @@ class SourceCode:
         self._formatter = self._get_formatter(style, font, show_linenum, linenum_textcolor, linenum_bgcolor)
 
     @guarded
-    def get_image(self, code: str) -> Dimage:
+    def get_image(self, code: TypeStr) -> Dimage:
         """Generate an image of the source code.
 
         Args:
@@ -174,9 +176,9 @@ class SourceCode:
     @guarded
     def draw(
         self,
-        xy: Tuple[float, float],
-        width: float,
-        code: str,
+        xy: TypeCoordinate,
+        width: TypePosFloatEx,
+        code: TypeStr,
         style: Optional[ImageStyle] = None,
     ) -> None:
         """Draw the source code image on a canvas.
@@ -193,7 +195,7 @@ class SourceCode:
 
     @staticmethod
     @guarded
-    def get_text(file: str, strip: bool = True) -> str:
+    def get_text(file: TypeStr, strip: TypeBool = True) -> TypeStr:
         """Retrieve the text from a file.
 
         Args:
@@ -204,9 +206,6 @@ class SourceCode:
             str: The contents of the file.
 
         """
-        if not isinstance(file, str):
-            raise ValueError('arg "file" must be str.')
-
         abspath = get_script_relative_path(file)
         if not os.path.isfile(abspath):
             raise ValueError(f'File "{file}" : "{abspath}" does not exist.')
@@ -224,7 +223,7 @@ class SourceCode:
     #
 
     @staticmethod
-    def _get_lexer(language: Optional[str]) -> Optional[Lexer]:
+    def _get_lexer(language: Optional[TypeStr]) -> Optional[Lexer]:
         if language is None:
             # guess lexer at method draw()
             return None
@@ -239,14 +238,8 @@ class SourceCode:
         style: str,
         font: Union[FontFile, FontSourceCode, None],
         show_linenum: bool,
-        linenum_textcolor: Union[
-            Tuple[int, int, int],
-            Tuple[int, int, int, float],
-        ],
-        linenum_bgcolor: Union[
-            Tuple[int, int, int],
-            Tuple[int, int, int, float],
-        ],
+        linenum_textcolor: TypeColor,
+        linenum_bgcolor: TypeColor,
     ) -> ImageFormatter:
         pygments_style = get_style_by_name(style)
 

@@ -11,15 +11,21 @@
 
 import typing
 
-import drawlib.v0_2.private.util
-import drawlib.v0_2.private.validators.color as color_validator
+import drawlib
+from drawlib.v0_2.private.types import (
+    TypeAlpha,
+    TypeColorRGB,
+    TypeColorRGBA,
+    TypeStr,
+)
+from drawlib.v0_2.private.util import guarded
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def get_rgba(
-    rgb: typing.Tuple[int, int, int],
-    alpha: float,
-) -> typing.Tuple[int, int, int, float]:
+    rgb: TypeColorRGB,
+    alpha: TypeAlpha,
+) -> TypeColorRGBA:
     """
     Convert an RGB color to an RGBA color by adding an alpha (transparency) channel.
 
@@ -37,17 +43,14 @@ def get_rgba(
         respectively.
 
     """
-    color_validator.validate_color("rgb", rgb)
-    color_validator.validate_alpha("alpha", alpha)
-
     return (rgb[0], rgb[1], rgb[2], alpha)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def get_rgba_from_hexcode(
-    hexcode: str,
-    alpha: typing.Optional[float] = None,
-) -> typing.Tuple[int, int, int, float]:
+    hexcode: TypeStr,
+    alpha: TypeAlpha | None = None,
+) -> TypeColorRGBA:
     """
     Convert a hexadecimal color code to an RGBA color tuple.
 
@@ -88,11 +91,11 @@ def get_rgba_from_hexcode(
     return (r, g, b, a)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def get_rgba_from_grayscale(
-    grayscale: float,
-    alpha: float = 1.0,
-) -> typing.Tuple[int, int, int, float]:
+    grayscale: TypeAlpha,
+    alpha: TypeAlpha = 1.0,
+) -> TypeColorRGBA:
     """
     Convert a grayscale value to an RGBA color tuple.
 

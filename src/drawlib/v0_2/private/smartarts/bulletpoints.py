@@ -17,6 +17,14 @@ from drawlib.v0_2.private.core.colors import Colors
 from drawlib.v0_2.private.core.model import ShapeStyle, TextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core_canvas.canvas import circle, text
+from drawlib.v0_2.private.types import (
+    TypeCoordinate,
+    TypeFloat,
+    TypeInt,
+    TypePosFloat,
+    TypePosFloatEx,
+    TypeStr,
+)
 from drawlib.v0_2.private.util import guarded
 
 
@@ -32,9 +40,9 @@ class BulletPoints:
     @guarded
     def __init__(
         self,
-        vertical_margin: float,
-        indent_width: float,
-        default_style: Union[str, TextStyle, None] = None,
+        vertical_margin: TypePosFloatEx,
+        indent_width: TypePosFloatEx,
+        default_style: TypeStr | TextStyle | None = None,
     ) -> None:
         """Initialize BulletPoints.
 
@@ -67,7 +75,7 @@ class BulletPoints:
         self.set_bullet_style(2, circle, style2, args={"radius": 0.5})
 
     @guarded
-    def set_indent(self, level: int) -> None:
+    def set_indent(self, level: TypeInt) -> None:
         """Sets the indentation level for the next bullet point.
 
         Args:
@@ -78,9 +86,9 @@ class BulletPoints:
     @guarded
     def set_bullet_style(
         self,
-        indent_level: int,
+        indent_level: TypeInt,
         function: Callable,
-        style: Union[str, ShapeStyle],
+        style: TypeStr | ShapeStyle,
         args: dict,
     ) -> None:
         """Sets the style and function for drawing bullets at a specific indentation level.
@@ -107,8 +115,8 @@ class BulletPoints:
     @guarded
     def add(
         self,
-        text: str,
-        style: Union[str, TextStyle, None] = None,
+        text: TypeStr,
+        style: TypeStr | TextStyle | None = None,
     ) -> None:
         """Adds a bullet point with the specified text and style.
 
@@ -136,7 +144,7 @@ class BulletPoints:
     @guarded
     def draw(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
     ) -> None:
         """Draws the list of bullet points starting from the specified location.
 
@@ -183,6 +191,6 @@ class _BulletPointsShape:
 
 @dataclasses.dataclass
 class _BulletPointsText:
-    indent: int
-    text: str
+    indent: TypeInt
+    text: TypeStr
     style: TextStyle

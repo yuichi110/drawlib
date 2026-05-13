@@ -16,6 +16,15 @@ from typing import List, Optional, Tuple, Union
 from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core_canvas.canvas import rectangle
+from drawlib.v0_2.private.types import (
+    TypeAngle,
+    TypeCoordinate,
+    TypePosFloat,
+    TypePosFloatEx,
+    TypePosInt,
+    TypePosIntEx,
+    TypeStr,
+)
 from drawlib.v0_2.private.util import guarded
 
 
@@ -37,12 +46,12 @@ class GridLayout:
     @guarded
     def __init__(
         self,
-        num_column: int,
-        num_row: int,
-        default_r: int = 0,
-        default_style: Union[str, ShapeStyle, None] = None,
-        default_textstyle: Union[str, ShapeTextStyle, None] = None,
-        default_textangle: Optional[float] = None,
+        num_column: TypePosIntEx,
+        num_row: TypePosIntEx,
+        default_r: TypePosFloat = 0,
+        default_style: TypeStr | ShapeStyle | None = None,
+        default_textstyle: TypeStr | ShapeTextStyle | None = None,
+        default_textangle: TypeAngle | None = None,
     ) -> None:
         """Initializes a GridLayout instance.
 
@@ -74,15 +83,15 @@ class GridLayout:
     @guarded
     def add(  # noqa: C901
         self,
-        position: Tuple[int, int],
-        width: int,
-        height: int,
-        r: Optional[int] = None,
-        style: Union[str, ShapeStyle, None] = None,
-        text: str = "",
-        textstyle: Union[str, ShapeTextStyle, None] = None,
-        textangle: Optional[float] = None,
-        text_xy_shift: Optional[Tuple[float, float]] = None,
+        position: Tuple[TypePosInt, TypePosInt],
+        width: TypePosIntEx,
+        height: TypePosIntEx,
+        r: TypePosFloat | None = None,
+        style: TypeStr | ShapeStyle | None = None,
+        text: TypeStr = "",
+        textstyle: TypeStr | ShapeTextStyle | None = None,
+        textangle: TypeAngle | None = None,
+        text_xy_shift: TypeCoordinate | None = None,
     ) -> None:
         """
         Add an item to the grid layout.
@@ -175,11 +184,11 @@ class GridLayout:
     @guarded
     def draw(
         self,
-        xy: Tuple[float, float],
-        width: float,
-        height: float,
-        margin: float,
-        outer_r: Optional[int] = None,
+        xy: TypeCoordinate,
+        width: TypePosFloat,
+        height: TypePosFloat,
+        margin: TypePosFloat,
+        outer_r: TypePosFloat | None = None,
         outer_style: Union[str, ShapeStyle, None] = None,
     ) -> None:
         """Draw the grid layout.
@@ -218,12 +227,12 @@ class GridLayout:
     @guarded
     def draw_flexible(  # noqa: C901
         self,
-        xy: Tuple[float, float],
-        column_widths: List[float],
-        column_margins: List[float],
-        row_heights: List[float],
-        row_margins: List[float],
-        outer_r: Optional[int] = None,
+        xy: TypeCoordinate,
+        column_widths: List[TypePosFloat],
+        column_margins: List[TypePosFloat],
+        row_heights: List[TypePosFloat],
+        row_margins: List[TypePosFloat],
+        outer_r: TypePosFloat | None = None,
         outer_style: Union[str, ShapeStyle, None] = None,
     ) -> None:
         """Draw the grid layout with flexible column widths and row heights.
@@ -270,7 +279,7 @@ class GridLayout:
             )
 
         # utility
-        def get_position(column_index: int, row_index: int) -> Tuple[float, float]:
+        def get_position(column_index: int, row_index: int) -> TypeCoordinate:
             x, y = xy
             if column_index == 0:
                 new_x = x + column_margins[0]
@@ -321,7 +330,7 @@ class GridLayout:
 class _GridLayoutItem:
     column_range: Tuple[int, int]
     row_range: Tuple[int, int]
-    r: int
+    r: TypePosFloat
     style: ShapeStyle
     text: str
     textstyle: ShapeTextStyle

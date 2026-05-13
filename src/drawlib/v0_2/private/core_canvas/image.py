@@ -17,7 +17,6 @@ from matplotlib import offsetbox
 from numpy.typing import NDArray
 from PIL.Image import Image
 
-import drawlib.v0_2.private.validators.args as validator
 from drawlib.v0_2.private.core.colors import Colors
 from drawlib.v0_2.private.core.dimage import Dimage
 from drawlib.v0_2.private.core.model import ImageStyle, ShapeStyle
@@ -27,8 +26,11 @@ from drawlib.v0_2.private.logging import logger
 from drawlib.v0_2.private.types import (
     TypeAngle,
     TypeCoordinate,
+    TypeFloat,
     TypeImageZoom,
+    TypePosFloat,
     TypePosFloatEx,
+    TypeStr,
 )
 from drawlib.v0_2.private.util import guarded
 
@@ -59,9 +61,9 @@ class CanvasImageFeature(CanvasBase):
         self,
         xy: TypeCoordinate,
         width: TypePosFloatEx,
-        image: str | Image | Dimage,
+        image: TypeStr | Image | Dimage,
         angle: TypeAngle = 0.0,
-        style: ImageStyle | str | None = None,
+        style: ImageStyle | TypeStr | None = None,
     ) -> None:
         """Draw an image on the canvas.
 
@@ -85,7 +87,6 @@ class CanvasImageFeature(CanvasBase):
               annotation.
         """
         style = ImageUtil.format_style(style)
-        validator.validate_image_args(locals())
 
         # standadize
 
@@ -117,7 +118,7 @@ class CanvasImageFeature(CanvasBase):
         self._draw_border(xy, width, height, angle, style)
 
     @staticmethod
-    def _rotate_image(dimg: Dimage, angle: float, style: ImageStyle) -> tuple[Dimage, ImageStyle]:
+    def _rotate_image(dimg: Dimage, angle: TypeAngle, style: ImageStyle) -> tuple[Dimage, ImageStyle]:
         # rotate image
         if angle == 0:
             return dimg, style
@@ -186,9 +187,9 @@ class CanvasImageFeature(CanvasBase):
     def _draw_border(
         self,
         xy: TypeCoordinate,
-        width: float,
-        height: float,
-        angle: float,
+        width: TypePosFloat,
+        height: TypePosFloat,
+        angle: TypeAngle,
         style: ImageStyle,
     ) -> None:
         # border

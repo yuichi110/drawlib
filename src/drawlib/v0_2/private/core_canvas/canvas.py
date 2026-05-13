@@ -15,7 +15,7 @@ from typing import Literal
 
 from matplotlib import pyplot
 
-import drawlib.v0_2.private.validators.args as validator
+
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import ColorUtil
 from drawlib.v0_2.private.core_canvas.image import CanvasImageFeature
@@ -24,7 +24,10 @@ from drawlib.v0_2.private.core_canvas.original_arrow import CanvasOriginalArrowF
 from drawlib.v0_2.private.core_canvas.original_polygon import CanvasOriginalPolygonFeature
 from drawlib.v0_2.private.core_canvas.patches import CanvasPatchesFeature
 from drawlib.v0_2.private.core_canvas.text import CanvasTextFeature
-from drawlib.v0_2.private.types import TypeImageFormat
+from drawlib.v0_2.private.types import (
+    TypeImageFormat,
+    TypeStr,
+)
 from drawlib.v0_2.private.util import (
     get_script_path,
     get_script_relative_path,
@@ -79,7 +82,7 @@ class Canvas(
     @guarded
     def save(
         self,
-        file: str | None = None,
+        file: TypeStr | None = None,
         format: TypeImageFormat | None = None,
     ) -> None:
         """Save canvas illustration to file.
@@ -96,7 +99,6 @@ class Canvas(
             in the script's directory. For example, calling save() in a script "mydir/image1.py"
             will generate "mydir/image1.png".
         """
-        validator.validate_canvas_args(locals())
 
         file_path = self._get_save_file_path(file, format)
         self._set_background()

@@ -11,13 +11,18 @@
 
 from matplotlib.text import Text
 
-import drawlib.v0_2.private.validators.args as validator
+
 from drawlib.v0_2.private.core.model import TextStyle
 from drawlib.v0_2.private.core.util import TextUtil
 from drawlib.v0_2.private.core_canvas.base import CanvasBase
 from drawlib.v0_2.private.logging import logger
 from drawlib.v0_2.private.types import (
+    TypeAngle,
     TypeCoordinate,
+    TypeFloat,
+    TypePosFloat,
+    TypeSize,
+    TypeStr,
 )
 from drawlib.v0_2.private.util import guarded
 
@@ -38,10 +43,10 @@ class CanvasTextFeature(CanvasBase):
     def text(
         self,
         xy: TypeCoordinate,
-        text: str,
-        size: float | None = None,
-        angle: int | float = 0.0,
-        style: TextStyle | str | None = None,
+        text: TypeStr,
+        size: TypeSize | None = None,
+        angle: TypeAngle = 0.0,
+        style: TextStyle | TypeStr | None = None,
     ) -> None:
         """Draw text on the canvas.
 
@@ -59,7 +64,6 @@ class CanvasTextFeature(CanvasBase):
         # validate args
 
         style = TextUtil.format_style(style)
-        validator.validate_text_args(locals())
         if size is not None:
             style.size = size
 
@@ -84,9 +88,9 @@ class CanvasTextFeature(CanvasBase):
     def text_vertical(
         self,
         xy: TypeCoordinate,
-        text: str,
-        size: float | None = None,
-        angle: int | float = 0.0,
+        text: TypeStr,
+        size: TypeSize | None = None,
+        angle: TypeAngle = 0.0,
         style: TextStyle | None = None,
     ) -> None:
         """Draw vertical text on the canvas.
@@ -104,7 +108,6 @@ class CanvasTextFeature(CanvasBase):
         """
         # validate args
         style = TextUtil.format_style(style)
-        validator.validate_text_args(locals())
 
         if style.halign != "center":
             logger.warning("TextStyle.halign must be center on text_vertical(). Fix halign.")

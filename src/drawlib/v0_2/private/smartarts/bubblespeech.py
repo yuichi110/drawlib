@@ -14,27 +14,34 @@ from typing import Literal, Optional, Tuple, Union
 
 from matplotlib.patches import Polygon
 
-import drawlib.v0_2.private.validators.args as validator
 from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import ShapeUtil
 from drawlib.v0_2.private.core_canvas.canvas import canvas
+from drawlib.v0_2.private.types import (
+    TypeAlpha,
+    TypeCoordinate,
+    TypePosFloat,
+    TypePosFloatEx,
+    TypeSize,
+    TypeStr,
+)
 from drawlib.v0_2.private.util import guarded
 
 
 @guarded
 def bubblespeech(
-    xy: Tuple[float, float],
-    width: float,
-    height: float,
+    xy: TypeCoordinate,
+    width: TypePosFloatEx,
+    height: TypePosFloatEx,
     tail_edge: Literal["left", "top", "right", "bottom"],
-    tail_start_ratio: float,
-    tail_vertex_xy: Tuple[float, float],
-    tail_end_ratio: float,
-    style: Union[ShapeStyle, str, None] = None,
-    text: str = "",
-    textsize: Optional[float] = None,
-    textstyle: Union[ShapeTextStyle, str, None] = None,
+    tail_start_ratio: TypeAlpha,
+    tail_vertex_xy: TypeCoordinate,
+    tail_end_ratio: TypeAlpha,
+    style: Union[ShapeStyle, TypeStr, None] = None,
+    text: TypeStr = "",
+    textsize: TypeSize | None = None,
+    textstyle: Union[ShapeTextStyle, TypeStr, None] = None,
 ) -> None:
     """Draw a bubble speech on the canvas.
 
@@ -61,7 +68,6 @@ def bubblespeech(
         dtheme.bubblespeechstyles.get,
         dtheme.bubblespeechtextstyles.get,
     )
-    validator.validate_shape_args(locals())
 
     if textsize is not None:
         textstyle.size = textsize

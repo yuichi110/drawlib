@@ -15,13 +15,23 @@ import math
 from matplotlib.patches import PathPatch
 from matplotlib.path import Path
 
-import drawlib.v0_2.private.validators.args as validator
+
 from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import ShapeUtil
 from drawlib.v0_2.private.core_canvas.base import CanvasBase
 from drawlib.v0_2.private.types import (
+    TypeAngle,
+    TypeAngle90,
+    TypeBool,
     TypeCoordinate,
+    TypeFloat,
+    TypeNumVertex,
+    TypePosFloat,
+    TypePosFloatEx,
+    TypePosInt,
+    TypeSize,
+    TypeStr,
 )
 from drawlib.v0_2.private.util import guarded
 
@@ -46,14 +56,14 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     def triangle(
         self,
         xy: TypeCoordinate,
-        width: float,
-        height: float,
-        topvertex_x: float | None = None,
-        angle: int | float = 0.0,
-        style: ShapeStyle | str | None = None,
-        text: str = "",
-        textsize: float | None = None,
-        textstyle: ShapeTextStyle | str | None = None,
+        width: TypePosFloatEx,
+        height: TypePosFloatEx,
+        topvertex_x: TypeFloat | None = None,
+        angle: TypeAngle = 0.0,
+        style: ShapeStyle | TypeStr | None = None,
+        text: TypeStr = "",
+        textsize: TypeSize | None = None,
+        textstyle: ShapeTextStyle | TypeStr | None = None,
     ) -> None:
         """Draw a triangle on the canvas.
 
@@ -78,7 +88,6 @@ class CanvasOriginalPolygonFeature(CanvasBase):
             dtheme.trianglestyles.get,
             dtheme.triangletextstyles.get,
         )
-        validator.validate_shape_args(locals())
 
         if topvertex_x is None:
             topvertex_x = width / 2
@@ -99,14 +108,14 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     def parallelogram(
         self,
         xy: TypeCoordinate,
-        width: float,
-        height: float,
-        corner_angle: int | float,
-        angle: int | float = 0.0,
-        style: ShapeStyle | str | None = None,
-        text: str = "",
-        textsize: float | None = None,
-        textstyle: ShapeTextStyle | str | None = None,
+        width: TypePosFloatEx,
+        height: TypePosFloatEx,
+        corner_angle: TypeAngle90,
+        angle: TypeAngle = 0.0,
+        style: ShapeStyle | TypeStr | None = None,
+        text: TypeStr = "",
+        textsize: TypeSize | None = None,
+        textstyle: ShapeTextStyle | TypeStr | None = None,
     ) -> None:
         """Draw a parallelogram on the canvas.
 
@@ -131,7 +140,6 @@ class CanvasOriginalPolygonFeature(CanvasBase):
             dtheme.parallelogramstyles.get,
             dtheme.parallelogramtextstyles.get,
         )
-        validator.validate_shape_args(locals())
 
         def calculate_parallelogram_lefttop_coordinate() -> TypeCoordinate:
             angle_rad = math.radians(corner_angle)
@@ -157,15 +165,15 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     def trapezoid(
         self,
         xy: TypeCoordinate,
-        height: float,
-        bottomedge_width: float,
-        topedge_width: float,
-        topedge_x: float | None = None,
-        angle: float = 0.0,
-        style: ShapeStyle | str | None = None,
-        text: str = "",
-        textsize: float | None = None,
-        textstyle: ShapeTextStyle | str | None = None,
+        height: TypePosFloatEx,
+        bottomedge_width: TypePosFloatEx,
+        topedge_width: TypePosFloatEx,
+        topedge_x: TypeFloat | None = None,
+        angle: TypeAngle = 0.0,
+        style: ShapeStyle | TypeStr | None = None,
+        text: TypeStr = "",
+        textsize: TypeSize | None = None,
+        textstyle: ShapeTextStyle | TypeStr | None = None,
     ) -> None:
         """Draw a trapezoid on the canvas.
 
@@ -192,7 +200,6 @@ class CanvasOriginalPolygonFeature(CanvasBase):
             dtheme.trapezoidstyles.get,
             dtheme.trapezoidtextstyles.get,
         )
-        validator.validate_shape_args(locals())
 
         if topedge_x is None:
             topedge_x = (bottomedge_width - topedge_width) / 2
@@ -215,13 +222,13 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     def rhombus(
         self,
         xy: TypeCoordinate,
-        width: float,
-        height: float,
-        angle: int | float = 0.0,
-        style: ShapeStyle | str | None = None,
-        text: str = "",
-        textsize: float | None = None,
-        textstyle: ShapeTextStyle | str | None = None,
+        width: TypePosFloatEx,
+        height: TypePosFloatEx,
+        angle: TypeAngle = 0.0,
+        style: ShapeStyle | TypeStr | None = None,
+        text: TypeStr = "",
+        textsize: TypeSize | None = None,
+        textstyle: ShapeTextStyle | TypeStr | None = None,
     ) -> None:
         """Draw a chevron on the canvas.
 
@@ -246,7 +253,6 @@ class CanvasOriginalPolygonFeature(CanvasBase):
             dtheme.rhombusstyles.get,
             dtheme.rhombustextstyles.get,
         )
-        validator.validate_shape_args(locals())
 
         p1 = (0, height / 2)
         p2 = (width / 2, height)
@@ -267,15 +273,15 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     def chevron(
         self,
         xy: TypeCoordinate,
-        width: float,
-        height: float,
-        corner_angle: float,
-        mirror: bool = False,
-        angle: int | float = 0.0,
-        style: ShapeStyle | str | None = None,
-        text: str = "",
-        textsize: float | None = None,
-        textstyle: ShapeTextStyle | str | None = None,
+        width: TypePosFloatEx,
+        height: TypePosFloatEx,
+        corner_angle: TypeAngle90,
+        mirror: TypeBool = False,
+        angle: TypeAngle = 0.0,
+        style: ShapeStyle | TypeStr | None = None,
+        text: TypeStr = "",
+        textsize: TypeSize | None = None,
+        textstyle: ShapeTextStyle | TypeStr | None = None,
     ) -> None:
         """Draw chevron.
 
@@ -302,7 +308,6 @@ class CanvasOriginalPolygonFeature(CanvasBase):
             dtheme.chevronstyles.get,
             dtheme.chevrontextstyles.get,
         )
-        validator.validate_shape_args(locals())
 
         def calculate_p2_coordinate(h: float) -> TypeCoordinate:
             h /= 2
@@ -337,14 +342,14 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     def star(
         self,
         xy: TypeCoordinate,
-        num_vertex: int,
-        radius_ext: float,
-        radius_int: float,
-        angle: int | float = 0.0,
-        style: ShapeStyle | str | None = None,
-        text: str = "",
-        textsize: float | None = None,
-        textstyle: ShapeTextStyle | str | None = None,
+        num_vertex: TypeNumVertex,
+        radius_ext: TypePosFloatEx,
+        radius_int: TypePosFloatEx,
+        angle: TypeAngle = 0.0,
+        style: ShapeStyle | TypeStr | None = None,
+        text: TypeStr = "",
+        textsize: TypeSize | None = None,
+        textstyle: ShapeTextStyle | TypeStr | None = None,
     ) -> None:
         """Draw a star on the canvas.
 
@@ -371,7 +376,6 @@ class CanvasOriginalPolygonFeature(CanvasBase):
             dtheme.starstyles.get,
             dtheme.startextstyles.get,
         )
-        validator.validate_shape_args(locals())
 
         if textsize is not None:
             textstyle.size = textsize
@@ -381,11 +385,11 @@ class CanvasOriginalPolygonFeature(CanvasBase):
         # helper
 
         def get_rotate_point(
-            x: float,
-            y: float,
-            angle: float | None,
-            move_x: float,
-            move_y: float,
+            x: TypeFloat,
+            y: TypeFloat,
+            angle: TypeFloat | None,
+            move_x: TypeFloat,
+            move_y: TypeFloat,
         ) -> TypeCoordinate:
             if angle is None:
                 angle = 0.0

@@ -16,13 +16,19 @@ from typing import List, Literal, Optional, Tuple, Union
 from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core_canvas.canvas import trapezoid, triangle
+from drawlib.v0_2.private.types import (
+    TypeAngle,
+    TypeCoordinate,
+    TypePosFloat,
+    TypeStr,
+)
 from drawlib.v0_2.private.util import guarded
 
 
 @dataclasses.dataclass
 class _PyramidItem:
     style: ShapeStyle
-    text: str
+    text: TypeStr
     textstyle: ShapeTextStyle
 
 
@@ -37,10 +43,10 @@ class Pyramid:
     @guarded
     def __init__(
         self,
-        default_style: Union[str, ShapeStyle, None] = None,
-        default_textstyle: Union[str, ShapeTextStyle, None] = None,
-        default_textangle: Optional[float] = None,
-        default_text_xy_shift: Optional[Tuple[float, float]] = None,
+        default_style: TypeStr | ShapeStyle | None = None,
+        default_textstyle: TypeStr | ShapeTextStyle | None = None,
+        default_textangle: TypeAngle | None = None,
+        default_text_xy_shift: TypeCoordinate | None = None,
     ) -> None:
         """Initializes a Pyramid instance with optional default styles and settings.
 
@@ -71,11 +77,11 @@ class Pyramid:
     @guarded
     def add(  # noqa: C901
         self,
-        text: str,
-        style: Union[str, ShapeStyle, None] = None,
-        textstyle: Union[str, ShapeTextStyle, None] = None,
-        textangle: Optional[float] = None,
-        text_xy_shift: Optional[Tuple[float, float]] = None,
+        text: TypeStr,
+        style: TypeStr | ShapeStyle | None = None,
+        textstyle: TypeStr | ShapeTextStyle | None = None,
+        textangle: TypeAngle | None = None,
+        text_xy_shift: TypeCoordinate | None = None,
     ) -> None:
         """
         Add an item to the pyramid.
@@ -137,10 +143,10 @@ class Pyramid:
     @guarded
     def draw(
         self,
-        xy: Tuple[float, float],
-        width: float,
-        height: float,
-        margin: float,
+        xy: TypeCoordinate,
+        width: TypePosFloat,
+        height: TypePosFloat,
+        margin: TypePosFloat,
         align: Literal["bottom", "top", "left", "right"] = "bottom",
         order: Literal["vertex_to_base", "base_to_vertex"] = "vertex_to_base",
     ) -> None:
@@ -173,10 +179,10 @@ class Pyramid:
     @guarded
     def draw_flexible(
         self,
-        xy: Tuple[float, float],
-        width: float,
-        item_heights: List[float],
-        margins: List[float],
+        xy: TypeCoordinate,
+        width: TypePosFloat,
+        item_heights: List[TypePosFloat],
+        margins: List[TypePosFloat],
         align: Literal["bottom", "top", "left", "right"] = "bottom",
         order: Literal["vertex_to_base", "base_to_vertex"] = "vertex_to_base",
     ) -> None:
@@ -218,10 +224,10 @@ class Pyramid:
 
     @staticmethod
     def _draw_flexible_bottom(
-        xy: Tuple[float, float],
-        width: float,
-        item_heights: List[float],
-        margins: List[float],
+        xy: TypeCoordinate,
+        width: TypePosFloat,
+        item_heights: List[TypePosFloat],
+        margins: List[TypePosFloat],
         items: List[_PyramidItem],
     ) -> None:
         x = xy[0] + width / 2
@@ -267,10 +273,10 @@ class Pyramid:
 
     @staticmethod
     def _draw_flexible_top(
-        xy: Tuple[float, float],
-        width: float,
-        item_heights: List[float],
-        margins: List[float],
+        xy: TypeCoordinate,
+        width: TypePosFloat,
+        item_heights: List[TypePosFloat],
+        margins: List[TypePosFloat],
         items: List[_PyramidItem],
     ) -> None:
         x = xy[0] + width / 2
@@ -321,10 +327,10 @@ class Pyramid:
 
     @staticmethod
     def _draw_flexible_left(
-        xy: Tuple[float, float],
-        width: float,
-        item_heights: List[float],
-        margins: List[float],
+        xy: TypeCoordinate,
+        width: TypePosFloat,
+        item_heights: List[TypePosFloat],
+        margins: List[TypePosFloat],
         items: List[_PyramidItem],
     ) -> None:
         y = xy[1] + width / 2
@@ -377,10 +383,10 @@ class Pyramid:
 
     @staticmethod
     def _draw_flexible_right(
-        xy: Tuple[float, float],
-        width: float,
-        item_heights: List[float],
-        margins: List[float],
+        xy: TypeCoordinate,
+        width: TypePosFloat,
+        item_heights: List[TypePosFloat],
+        margins: List[TypePosFloat],
         items: List[_PyramidItem],
     ) -> None:
         y = xy[1] + width / 2

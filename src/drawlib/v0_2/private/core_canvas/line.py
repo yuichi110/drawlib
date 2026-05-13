@@ -16,14 +16,19 @@ from typing import Literal
 from matplotlib.patches import ConnectionStyle, FancyArrowPatch
 from matplotlib.path import Path
 
-import drawlib.v0_2.private.validators.args as validator
 from drawlib.v0_2.private.core.model import LineStyle
 from drawlib.v0_2.private.core.util import LineUtil
 from drawlib.v0_2.private.core_canvas.base import CanvasBase
 from drawlib.v0_2.private.types import (
+    TypeAngle,
     TypeArrowHead,
+    TypeBend,
     TypeCoordinate,
     TypeCoordinates,
+    TypePathPoints,
+    TypePosFloat,
+    TypePosFloatEx,
+    TypeStr,
 )
 from drawlib.v0_2.private.util import get_rotated_path_points, guarded
 
@@ -57,7 +62,7 @@ class CanvasLineFeature(CanvasBase):
         self,
         xy1: TypeCoordinate,
         xy2: TypeCoordinate,
-        width: float | None = None,
+        width: TypePosFloatEx | None = None,
         arrowhead: TypeArrowHead = "",
         style: LineStyle | str | None = None,
     ) -> None:
@@ -78,7 +83,6 @@ class CanvasLineFeature(CanvasBase):
         # validated again at lines_bezier().
 
         style = LineUtil.format_style(style)
-        validator.validate_line_args(locals())
 
         self.lines_bezier(
             xy1,
@@ -93,8 +97,8 @@ class CanvasLineFeature(CanvasBase):
         self,
         xy1: TypeCoordinate,
         xy2: TypeCoordinate,
-        bend: float,
-        width: float | None = None,
+        bend: TypeBend = 0,
+        width: TypePosFloatEx | None = None,
         arrowhead: TypeArrowHead = "",
         style: LineStyle | str | None = None,
     ) -> None:
@@ -112,7 +116,6 @@ class CanvasLineFeature(CanvasBase):
             None
         """
         style = LineUtil.format_style(style)
-        validator.validate_line_args(locals())
         if width is not None:
             style.width = width
 
@@ -130,11 +133,11 @@ class CanvasLineFeature(CanvasBase):
     def line_bezier1(
         self,
         xy1: TypeCoordinate,
-        cp: TypeCoordinate,
         xy2: TypeCoordinate,
-        width: float | None = None,
+        cp: TypeCoordinate,
+        width: TypePosFloatEx | None = None,
         arrowhead: TypeArrowHead = "",
-        style: LineStyle | str | None = None,
+        style: LineStyle | TypeStr | None = None,
     ) -> None:
         """Draw Bezier line from xy1 to xy2 with 1 control point.
 
@@ -150,7 +153,6 @@ class CanvasLineFeature(CanvasBase):
             None
         """
         style = LineUtil.format_style(style)
-        validator.validate_line_args(locals())
 
         self.lines_bezier(
             xy1,
@@ -164,12 +166,12 @@ class CanvasLineFeature(CanvasBase):
     def line_bezier2(
         self,
         xy1: TypeCoordinate,
+        xy2: TypeCoordinate,
         cp1: TypeCoordinate,
         cp2: TypeCoordinate,
-        xy2: TypeCoordinate,
-        width: float | None = None,
+        width: TypePosFloatEx | None = None,
         arrowhead: TypeArrowHead = "",
-        style: LineStyle | str | None = None,
+        style: LineStyle | TypeStr | None = None,
     ) -> None:
         """Draw Bezier line from xy1 to xy2 with 2 control points.
 
@@ -186,7 +188,6 @@ class CanvasLineFeature(CanvasBase):
             None
         """
         style = LineUtil.format_style(style)
-        validator.validate_line_args(locals())
 
         self.lines_bezier(
             xy1,
@@ -200,14 +201,14 @@ class CanvasLineFeature(CanvasBase):
     def line_arc(
         self,
         xy: TypeCoordinate,
-        width: float,
-        height: float,
-        angle_start: float = 0,
-        angle_end: float = 180,
-        angle: float = 0,
+        width: TypePosFloatEx,
+        height: TypePosFloatEx,
+        angle_start: TypeAngle = 0,
+        angle_end: TypeAngle = 180,
+        angle: TypeAngle = 0,
+        linewidth: TypePosFloatEx | None = None,
         arrowhead: TypeArrowHead = "",
-        lwidth: float | None = None,
-        style: LineStyle | str | None = None,
+        style: LineStyle | TypeStr | None = None,
     ) -> None:
         """Draw arc line on ellipse.
 
@@ -219,14 +220,13 @@ class CanvasLineFeature(CanvasBase):
             angle_end: float: The ending angle of the arc in degrees (default is 180).
             angle (float): The angle of ellipse.
             arrowhead: TypeArrowHead: Optional arrowhead style ("", "->", "<-", "<->").
-            lwidth: float | None: Optional width of the line.
+            linewidth: float | None: Optional width of the line.
             style: LineStyle | str | None: Optional line style.
 
         Returns:
             None
         """
         style = LineUtil.format_style(style)
-        # validator.validate_line_args(locals())
 
         if angle_start > angle_end:
             angle_start = -1 * (360 - angle_start)
@@ -247,7 +247,7 @@ class CanvasLineFeature(CanvasBase):
         self.lines_bezier(
             start_point,  # type: ignore
             path_points=path_points,  # type: ignore
-            width=lwidth,
+            width=linewidth,
             arrowhead=arrowhead,
             style=style,
         )
@@ -256,9 +256,9 @@ class CanvasLineFeature(CanvasBase):
     def lines(
         self,
         xys: TypeCoordinates,
-        width: float | None = None,
+        width: TypePosFloatEx | None = None,
         arrowhead: TypeArrowHead = "",
-        style: LineStyle | str | None = None,
+        style: LineStyle | TypeStr | None = None,
     ) -> None:
         """Draw multiple connected lines.
 
@@ -272,7 +272,6 @@ class CanvasLineFeature(CanvasBase):
             None
         """
         style = LineUtil.format_style(style)
-        validator.validate_line_args(locals())
         xys = LineUtil.sanitize_xys(xys)
         self.lines_bezier(
             xy=xys[0],
@@ -286,8 +285,8 @@ class CanvasLineFeature(CanvasBase):
     def lines_curved(
         self,
         xys: TypeCoordinates,
-        r: float,
-        width: float | None = None,
+        r: TypePosFloat,
+        width: TypePosFloat | None = None,
         arrowhead: TypeArrowHead = "",
         style: LineStyle | str | None = None,
     ) -> None:
@@ -304,7 +303,6 @@ class CanvasLineFeature(CanvasBase):
             None
         """
         style = LineUtil.format_style(style)
-        validator.validate_line_args(locals())
 
         if len(xys) == 2:
             self.line(xys[0], xys[1], width=width, arrowhead=arrowhead, style=style)
@@ -342,12 +340,10 @@ class CanvasLineFeature(CanvasBase):
     def lines_bezier(
         self,
         xy: TypeCoordinate,
-        path_points: list[
-            TypeCoordinate | tuple[TypeCoordinate, TypeCoordinate] | tuple[TypeCoordinate, TypeCoordinate, TypeCoordinate]
-        ],
-        width: float | None = None,
+        path_points: TypePathPoints,
+        width: TypePosFloatEx | None = None,
         arrowhead: TypeArrowHead = "",
-        style: LineStyle | str | None = None,
+        style: LineStyle | TypeStr | None = None,
     ) -> None:
         """Draw Bezier lines based on given path points.
 
@@ -362,7 +358,6 @@ class CanvasLineFeature(CanvasBase):
             None
         """
         style = LineUtil.format_style(style)
-        validator.validate_line_args(locals())
 
         if width is not None:
             style.width = width
@@ -398,9 +393,9 @@ class LineArcHelper:
     def get_point_on_ellipse(
         cls,
         xy: TypeCoordinate,
-        width: float,
-        height: float,
-        angle: float,
+        width: TypePosFloat,
+        height: TypePosFloat,
+        angle: TypeAngle,
     ) -> TypeCoordinate:
         """Internal function"""
         x, y = xy
@@ -417,13 +412,11 @@ class LineArcHelper:
     def get_ellipse_path_points(
         cls,
         xy: TypeCoordinate,
-        width: float,
-        height: float,
-        angle_start: float,
-        angle_end: float,
-    ) -> list[
-        TypeCoordinate | tuple[TypeCoordinate, TypeCoordinate, TypeCoordinate]
-    ]:
+        width: TypePosFloat,
+        height: TypePosFloat,
+        angle_start: TypeAngle,
+        angle_end: TypeAngle,
+    ) -> list[TypeCoordinate | tuple[TypeCoordinate, TypeCoordinate, TypeCoordinate]]:
         """Internal function"""
         diff = angle_end - angle_start
         if abs(diff) > 270:
@@ -493,10 +486,10 @@ class LineArcHelper:
     def bezier_ellipse_arc_approximation(
         cls,
         xy: TypeCoordinate,
-        width: float,
-        height: float,
-        start_angle: float,
-        end_angle: float,
+        width: TypePosFloat,
+        height: TypePosFloat,
+        start_angle: TypeAngle,
+        end_angle: TypeAngle,
     ) -> tuple[TypeCoordinate, TypeCoordinate, TypeCoordinate, TypeCoordinate]:
         """Internal function"""
         x, y = xy
@@ -526,7 +519,7 @@ class LineArcHelper:
 def _get_mid_points(
     a: TypeCoordinate,
     b: TypeCoordinate,
-    r: float,
+    r: TypePosFloat,
 ) -> tuple[TypeCoordinate, TypeCoordinate]:
     # Calculate the vector from A to B
     ab = [b[0] - a[0], b[1] - a[1]]

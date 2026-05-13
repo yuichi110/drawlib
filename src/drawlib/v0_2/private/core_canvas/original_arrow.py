@@ -15,17 +15,22 @@ from typing import Any, Literal
 from matplotlib.patches import PathPatch
 from matplotlib.path import Path
 
-import drawlib.v0_2.private.validators.args as validator
+
 from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import LineUtil, ShapeUtil
 from drawlib.v0_2.private.core_canvas.base import CanvasBase
 from drawlib.v0_2.private.core_canvas.line import LineArcHelper
 from drawlib.v0_2.private.types import (
+    TypeAngle,
     TypeArrowHead,
     TypeCoordinate,
     TypeCoordinates,
     TypePathPoints,
+    TypePosFloat,
+    TypePosFloatEx,
+    TypeSize,
+    TypeStr,
 )
 from drawlib.v0_2.private.util import (
     get_angle,
@@ -58,14 +63,14 @@ class CanvasOriginalArrowFeature(CanvasBase):
         self,
         xy1: TypeCoordinate,
         xy2: TypeCoordinate,
-        tail_width: float,
-        head_width: float,
-        head_length: float,
+        tail_width: TypePosFloatEx,
+        head_width: TypePosFloatEx,
+        head_length: TypePosFloatEx,
         head: TypeArrowHead = "->",
-        style: ShapeStyle | str | None = None,
-        text: str = "",
-        textsize: float | None = None,
-        textstyle: ShapeTextStyle | str | None = None,
+        style: ShapeStyle | TypeStr | None = None,
+        text: TypeStr = "",
+        textsize: TypeSize | None = None,
+        textstyle: ShapeTextStyle | TypeStr | None = None,
     ) -> None:
         """Draw single and double-headed arrow.
 
@@ -86,15 +91,12 @@ class CanvasOriginalArrowFeature(CanvasBase):
         """
         # matplotlib FancyArrow, FancyArrowPatch seems not good
         # for implement this function.
-        # Calculate arrow points pass it to shape().
-
         style, textstyle = ShapeUtil.format_styles(
             style,
             textstyle,
             dtheme.arrowstyles.get,
             dtheme.arrowtextstyles.get,
         )
-        validator.validate_shape_args(locals())
 
         x1, y1 = xy1
         x2, y2 = xy2
@@ -151,12 +153,12 @@ class CanvasOriginalArrowFeature(CanvasBase):
     def arrow_polyline(
         self,
         xys: TypeCoordinates,
-        tail_width: float,
-        head_width: float,
-        head_length: float,
+        tail_width: TypePosFloatEx,
+        head_width: TypePosFloatEx,
+        head_length: TypePosFloatEx,
         head: TypeArrowHead = "->",
-        r: float = 0,
-        style: ShapeStyle | str | None = None,
+        r: TypePosFloat = 0,
+        style: ShapeStyle | TypeStr | None = None,
     ) -> None:
         """Draw single and double-headed arrow.
 
@@ -182,7 +184,6 @@ class CanvasOriginalArrowFeature(CanvasBase):
             dtheme.arrowstyles.get,
             dtheme.arrowtextstyles.get,
         )
-        validator.validate_shape_args(locals())
 
         def point_on_line(a: TypeCoordinate, b: TypeCoordinate, n: float) -> TypeCoordinate:
             ab = (b[0] - a[0], b[1] - a[1])
@@ -243,16 +244,16 @@ class CanvasOriginalArrowFeature(CanvasBase):
     def arrow_arc(
         self,
         xy: TypeCoordinate,
-        width: float,
-        height: float,
-        tail_width: float,
-        head_width: float,
-        head_angle: float = 10,
+        width: TypePosFloatEx,
+        height: TypePosFloatEx,
+        tail_width: TypePosFloatEx,
+        head_width: TypePosFloatEx,
+        head_angle: TypeAngle = 10,
         head: TypeArrowHead = "->",
-        angle_start: float = 0,
-        angle_end: float = 180,
-        angle: float = 0,
-        style: ShapeStyle | str | None = None,
+        angle_start: TypeAngle = 0,
+        angle_end: TypeAngle = 180,
+        angle: TypeAngle = 0,
+        style: ShapeStyle | TypeStr | None = None,
     ) -> None:
         """Draw arc arrow.
 
@@ -278,7 +279,6 @@ class CanvasOriginalArrowFeature(CanvasBase):
             dtheme.arrowstyles.get,
             dtheme.arrowtextstyles.get,
         )
-        validator.validate_shape_args(locals())
 
         width_int = width - tail_width
         width_ext = width + tail_width
@@ -397,15 +397,15 @@ class CanvasOriginalArrowFeature(CanvasBase):
     def arrow_l(
         self,
         xy: TypeCoordinate,
-        width: float,
-        height: float,
-        tail_width: float,
-        head_width: float,
-        head_length: float,
+        width: TypePosFloatEx,
+        height: TypePosFloatEx,
+        tail_width: TypePosFloatEx,
+        head_width: TypePosFloatEx,
+        head_length: TypePosFloatEx,
         head: TypeArrowHead = "->",
-        r: float = 0,
-        angle: float = 0,
-        style: ShapeStyle | str | None = None,
+        r: TypePosFloat = 0,
+        angle: TypeAngle = 0,
+        style: ShapeStyle | TypeStr | None = None,
     ) -> None:
         """Draw "L" shape arrow.
 
@@ -430,7 +430,6 @@ class CanvasOriginalArrowFeature(CanvasBase):
             dtheme.arrowstyles.get,
             dtheme.arrowtextstyles.get,
         )
-        validator.validate_shape_args(locals())
 
         p1 = (xy[0] - width / 2, xy[1] + height / 2)
         p2 = (xy[0] - width / 2, xy[1] - height / 2)
@@ -454,15 +453,15 @@ class CanvasOriginalArrowFeature(CanvasBase):
     def arrow_u(
         self,
         xy: TypeCoordinate,
-        width: float,
-        height: float,
-        tail_width: float,
-        head_width: float,
-        head_length: float,
+        width: TypePosFloatEx,
+        height: TypePosFloatEx,
+        tail_width: TypePosFloatEx,
+        head_width: TypePosFloatEx,
+        head_length: TypePosFloatEx,
         head: TypeArrowHead = "->",
-        r: float = 0,
-        angle: float = 0,
-        style: ShapeStyle | str | None = None,
+        r: TypePosFloat = 0,
+        angle: TypeAngle = 0,
+        style: ShapeStyle | TypeStr | None = None,
     ) -> None:
         """Draw "U" shape arrow.
 
@@ -487,7 +486,6 @@ class CanvasOriginalArrowFeature(CanvasBase):
             dtheme.arrowstyles.get,
             dtheme.arrowtextstyles.get,
         )
-        validator.validate_shape_args(locals())
 
         p1 = (xy[0] - width / 2, xy[1] + height / 2)
         p2 = (xy[0] - width / 2, xy[1] - height / 2)

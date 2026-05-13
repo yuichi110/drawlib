@@ -41,6 +41,10 @@ from drawlib.v0_2.private.types.primitive import (
     TypePosFloatEx,
     TypePosInt,
     TypePosIntEx,
+    TypeBool,
+    TypeFloat,
+    TypeInt,
+    TypeStr,
 )
 from drawlib.v0_2.private.types.style import (
     TypeArrowHead,
@@ -66,6 +70,10 @@ __all__ = [
     "TypePosInt",
     "TypePosIntEx",
     "TypeNumVertex",
+    "TypeFloat",
+    "TypeInt",
+    "TypeStr",
+    "TypeBool",
     "TypeCoordinate",
     "TypeCoordinates",
     "TypeBezier2",

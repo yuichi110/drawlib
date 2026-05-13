@@ -24,7 +24,6 @@ from matplotlib.patches import (
 )
 from matplotlib.path import Path
 
-import drawlib.v0_2.private.validators.args as validator
 from drawlib.v0_2.private.core.colors import Colors
 from drawlib.v0_2.private.core.dimage import Dimage
 from drawlib.v0_2.private.core.model import (
@@ -35,11 +34,19 @@ from drawlib.v0_2.private.core.model import (
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import ShapeUtil
 from drawlib.v0_2.private.types import (
+    TypeAlpha,
+    TypeAngle,
     TypeColor,
     TypeCoordinate,
     TypeCoordinates,
     TypeImageZoom,
+    TypePathPoints,
+    TypePosFloat,
     TypePosFloatEx,
+    TypePosInt,
+    TypePosIntEx,
+    TypeSize,
+    TypeStr,
 )
 from drawlib.v0_2.private.util import (
     get_center_and_size,
@@ -78,13 +85,13 @@ class CanvasBase:
         self._height = self.DEFAULT_HEIGHT
         self._dpi = self.DEFAULT_DPI
         self._background_color: TypeColor | None = None  # apply theme default later if no update
-        self._background_alpha: float | None = None  # apply theme default later if no update
+        self._background_alpha: TypeAlpha | None = None  # apply theme default later if no update
         self._grid = self.DEFAULT_GRID
         self._grid_only = self.DEFAULT_GRID_ONLY
         self._grid_style = self.DEFAULT_GRID_STYLE
         self._grid_centerstyle = self.DEFAULT_GRID_CENTERSTYLE
-        self._grid_xpitch: int | None = None
-        self._grid_ypitch: int | None = None
+        self._grid_xpitch: TypePosInt | None = None
+        self._grid_ypitch: TypePosInt | None = None
         self._artists: list[matplotlib.artist.Artist] = []
 
         # it is decleared only for typing system
@@ -115,17 +122,17 @@ class CanvasBase:
     @guarded
     def config(  # noqa: C901
         self,
-        width: int | None = None,
-        height: int | None = None,
-        dpi: int | None = None,
+        width: TypePosIntEx | None = None,
+        height: TypePosIntEx | None = None,
+        dpi: TypePosIntEx | None = None,
         background_color: TypeColor | None = None,
-        background_alpha: float | None = None,
+        background_alpha: TypeAlpha | None = None,
         grid: bool | None = None,
         grid_only: bool | None = None,
         grid_style: LineStyle | None = None,
         grid_centerstyle: LineStyle | None = None,
-        grid_xpitch: int | None = None,
-        grid_ypitch: int | None = None,
+        grid_xpitch: TypePosInt | None = None,
+        grid_ypitch: TypePosInt | None = None,
     ) -> None:
         """Configure drawlib Canvas parameters.
 
@@ -161,8 +168,6 @@ class CanvasBase:
         # This method config() can be called repeatedly.
         # Please don't set default value in args
         # Default values should be set at __init__() and load them via calling clear().
-
-        validator.validate_canvas_args(locals())
 
         if len(self._artists) != 0:
             self._artists = []
@@ -237,10 +242,10 @@ class CanvasBase:
     def polygon(
         self,
         xys: TypeCoordinates,
-        style: ShapeStyle | str | None = None,
-        text: str = "",
-        textsize: float | None = None,
-        textstyle: ShapeTextStyle | str | None = None,
+        style: ShapeStyle | TypeStr | None = None,
+        text: TypeStr = "",
+        textsize: TypeSize | None = None,
+        textstyle: ShapeTextStyle | TypeStr | None = None,
     ) -> None:
         """Draw a polygon on the canvas.
 
@@ -260,7 +265,6 @@ class CanvasBase:
             dtheme.polygonstyles.get,
             dtheme.polygontextstyles.get,
         )
-        validator.validate_shape_args(locals())
 
         if textsize is not None:
             textstyle.size = textsize
@@ -286,16 +290,12 @@ class CanvasBase:
     def shape(  # noqa: C901
         self,
         xy: TypeCoordinate,
-        path_points: list[
-            TypeCoordinate
-            | tuple[TypeCoordinate, TypeCoordinate]
-            | tuple[TypeCoordinate, TypeCoordinate, TypeCoordinate]
-        ],
-        angle: float = 0.0,
-        style: ShapeStyle | str | None = None,
-        text: str = "",
-        textsize: float | None = None,
-        textstyle: ShapeTextStyle | None = None,
+        path_points: TypePathPoints,
+        angle: TypeAngle = 0.0,
+        style: ShapeStyle | TypeStr | None = None,
+        text: TypeStr = "",
+        textsize: TypeSize | None = None,
+        textstyle: ShapeTextStyle | TypeStr | None = None,
         is_default_center: bool = False,
     ) -> None:
         """Draw basic shape on the canvas.
@@ -319,7 +319,6 @@ class CanvasBase:
             dtheme.shapestyles.get,
             dtheme.shapetextstyles.get,
         )
-        validator.validate_shape_args(locals())
         if textsize is not None:
             textstyle.size = textsize
 
@@ -444,14 +443,14 @@ class CanvasBase:
     def rectangle(
         self,
         xy: TypeCoordinate,
-        width: float,
-        height: float,
-        r: float = 0.0,
-        angle: int | float = 0.0,
-        style: ShapeStyle | str | None = None,
-        text: str = "",
-        textsize: float | None = None,
-        textstyle: ShapeTextStyle | str | None = None,
+        width: TypePosFloatEx,
+        height: TypePosFloatEx,
+        r: TypePosFloat = 0.0,
+        angle: TypeAngle = 0.0,
+        style: ShapeStyle | TypeStr | None = None,
+        text: TypeStr = "",
+        textsize: TypeSize | None = None,
+        textstyle: ShapeTextStyle | TypeStr | None = None,
     ) -> None:
         """Draw a rectangle on the canvas.
 
@@ -476,7 +475,6 @@ class CanvasBase:
             dtheme.rectanglestyles.get,
             dtheme.rectangletextstyles.get,
         )
-        validator.validate_shape_args(locals())
 
         if r == 0:
             p1 = (0, 0)
@@ -523,14 +521,13 @@ class CanvasBase:
             textstyle=textstyle,
         )
 
-    @guarded
     def get_image_zoom_original(
         self,
-    ) -> float:
+    ) -> TypeImageZoom:
         """Get the zoom factor for displaying the original image.
 
         Returns:
-            float: Zoom factor.
+            TypeImageZoom: Zoom factor.
         """
         #
         # calcuration
@@ -570,7 +567,7 @@ class CanvasBase:
     @guarded
     def get_charwidth_from_fontsize(
         self,
-        size: float,
+        size: TypePosFloat,
     ) -> float:
         """Calculate the character width based on the font size.
 
@@ -579,19 +576,18 @@ class CanvasBase:
         adjusted for better accuracy in the future.
 
         Args:
-            size (float): The font size for which to calculate the character width.
+            size (TypePosFloat): The font size for which to calculate the character width.
 
         Returns:
             float: The calculated character width.
-
-        Notes:
-            The `magic_number` used in the calculation is currently set to 460, but
-            this is a placeholder and may require a more accurate calculation.
-
-        Todo:
-            - Improve the calculation of the `magic_number` for more accurate results.
-
         """
+        # Notes:
+        #     The `magic_number` used in the calculation is currently set to 460, but
+        #     this is a placeholder and may require a more accurate calculation.
+        #
+        # Todo:
+        #     - Improve the calculation of the `magic_number` for more accurate results.
+
         magic_number = 460  # todo: requires better calcuration
         width = size * 0.72 * self._width / magic_number
         return width
@@ -599,7 +595,7 @@ class CanvasBase:
     @guarded
     def get_fontsize_from_charwidth(
         self,
-        width: float,
+        width: TypePosFloat,
     ) -> float:
         """Calculate the font size based on the character width.
 
@@ -608,18 +604,17 @@ class CanvasBase:
         for better accuracy in the future.
 
         Args:
-            width (float): The character width for which to calculate the font size.
+            width (TypePosFloat): The character width for which to calculate the font size.
 
         Returns:
             float: The calculated font size.
-
-        Notes:
-            The `magic_number` used in the calculation is currently set to 540, but
-            this is a placeholder and may require a more accurate calculation.
-
-        Todo:
-            - Improve the calculation of the `magic_number` for more accurate results.
         """
+        # Notes:
+        #     The `magic_number` used in the calculation is currently set to 540, but
+        #     this is a placeholder and may require a more accurate calculation.
+        #
+        # Todo:
+        #     - Improve the calculation of the `magic_number` for more accurate results.
         magic_number = 540  # todo: requires better calcuration
         size = magic_number * width / 0.72 / self._width
         return int(size)

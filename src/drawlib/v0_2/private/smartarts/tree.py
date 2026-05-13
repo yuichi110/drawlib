@@ -18,6 +18,13 @@ from typing import Callable, Dict, List, Literal, Optional, Tuple, Union
 from drawlib.v0_2.private.core.model import IconStyle, ImageStyle, LineStyle, ShapeStyle, TextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core_canvas.canvas import line, text
+from drawlib.v0_2.private.types import (
+    TypeCoordinate,
+    TypeFloat,
+    TypePosFloat,
+    TypePosFloatEx,
+    TypeStr,
+)
 from drawlib.v0_2.private.util import guarded
 
 
@@ -34,18 +41,18 @@ class TreeNode:
     @guarded
     def __init__(
         self,
-        text: str,
-        textstyle: Union[str, TextStyle, None] = None,
-        linestyle: Union[str, LineStyle, None] = None,
-        line_horizontal_margin: Optional[float] = None,
-        line_horizontal_length: Optional[float] = None,
-        line_vertical_margin: Optional[float] = None,
+        text: TypeStr,
+        textstyle: TypeStr | TextStyle | None = None,
+        linestyle: TypeStr | LineStyle | None = None,
+        line_horizontal_margin: TypePosFloat | None = None,
+        line_horizontal_length: TypePosFloat | None = None,
+        line_vertical_margin: TypePosFloat | None = None,
         children: Optional[List[TreeNode]] = None,
-        default_textstyle: Union[str, TextStyle, None] = None,
-        default_linestyle: Union[str, LineStyle, None] = None,
-        default_line_horizontal_margin: Optional[float] = None,
-        default_line_horizontal_length: Optional[float] = None,
-        default_line_vertical_margin: Optional[float] = None,
+        default_textstyle: TypeStr | TextStyle | None = None,
+        default_linestyle: TypeStr | LineStyle | None = None,
+        default_line_horizontal_margin: TypePosFloat | None = None,
+        default_line_horizontal_length: TypePosFloat | None = None,
+        default_line_vertical_margin: TypePosFloat | None = None,
     ) -> None:
         """Initializes a TreeNode instance with specific text, styles, and optional children.
 
@@ -161,7 +168,7 @@ class TreeNode:
         return self
 
     @guarded
-    def draw(self, xy: Tuple[float, float]) -> None:
+    def draw(self, xy: TypeCoordinate) -> None:
         """Draw the tree node and its children.
 
         Args:
@@ -192,12 +199,12 @@ class TreeNode:
 
     def _draw(  # noqa: C901
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         default_textstyle: TextStyle,
         default_linestyle: LineStyle,
-        default_line_horizontal_margin: float,
-        default_line_horizontal_length: float,
-        default_line_vertical_margin: float,
+        default_line_horizontal_margin: TypePosFloat,
+        default_line_horizontal_length: TypePosFloat,
+        default_line_vertical_margin: TypePosFloat,
     ) -> float:
         """Draw the tree node and its children (internal method).
 

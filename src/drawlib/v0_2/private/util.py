@@ -25,8 +25,17 @@ from pydantic import ConfigDict, validate_call
 
 import drawlib.assets.v0_2.fonticons
 import drawlib.assets.v0_2.fonts
-import drawlib.v0_2.private.validators.coordinate as validator
+
 from drawlib.v0_2.private.dutil.settings import dutil_settings
+from drawlib.v0_2.private.types import (
+    TypeAngle,
+    TypeCoordinate,
+    TypeCoordinates,
+    TypeFloat,
+    TypeInt,
+    TypePathPoints,
+    TypeStr,
+)
 from drawlib.v0_2.private.logging import logger
 
 R = TypeVar("R")
@@ -93,10 +102,10 @@ def guarded(caller: Callable[P, R]) -> Callable[P, R]:
 
 @guarded
 def get_rotated_points(
-    xys: List[Tuple[float, float]],
-    center: Tuple[float, float],
-    angle: float,
-) -> List[Tuple[float, float]]:
+    xys: TypeCoordinates,
+    center: TypeCoordinate,
+    angle: TypeAngle,
+) -> TypeCoordinates:
     """
     Rotate a list of points around a given center by a given angle.
 
@@ -132,22 +141,10 @@ def get_rotated_points(
 
 @guarded
 def get_rotated_path_points(
-    path_points: List[
-        Union[
-            Tuple[float, float],
-            Tuple[Tuple[float, float], Tuple[float, float]],
-            Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]],
-        ]
-    ],
-    center: Tuple[float, float],
-    angle: float,
-) -> List[
-    Union[
-        Tuple[float, float],
-        Tuple[Tuple[float, float], Tuple[float, float]],
-        Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]],
-    ]
-]:
+    path_points: TypePathPoints,
+    center: TypeCoordinate,
+    angle: TypeAngle,
+) -> TypePathPoints:
     """
     Rotate a list of points around a given center by a given angle.
 
@@ -207,7 +204,7 @@ def get_rotated_path_points(
 
 
 @guarded
-def get_angle(xy1: Tuple[float, float], xy2: Tuple[float, float]) -> float:
+def get_angle(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeAngle:
     """Calculate the angle in degrees between two points.
 
     Args:
@@ -218,8 +215,6 @@ def get_angle(xy1: Tuple[float, float], xy2: Tuple[float, float]) -> float:
         float: Angle in degrees between the points (xy1 to xy2).
 
     """
-    validator.validate_xy("xy1", xy1)
-    validator.validate_xy("xy2", xy2)
 
     x1, y1 = xy1
     x2, y2 = xy2
@@ -231,7 +226,7 @@ def get_angle(xy1: Tuple[float, float], xy2: Tuple[float, float]) -> float:
 
 
 @guarded
-def get_distance(xy1: Tuple[float, float], xy2: Tuple[float, float]) -> float:
+def get_distance(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeFloat:
     """Calculate the Euclidean distance between two points.
 
     Args:
@@ -242,8 +237,6 @@ def get_distance(xy1: Tuple[float, float], xy2: Tuple[float, float]) -> float:
         float: Euclidean distance between the points (xy1 to xy2).
 
     """
-    validator.validate_xy("xy1", xy1)
-    validator.validate_xy("xy2", xy2)
 
     x1, y1 = xy1
     x2, y2 = xy2
@@ -252,8 +245,8 @@ def get_distance(xy1: Tuple[float, float], xy2: Tuple[float, float]) -> float:
 
 @guarded
 def get_center_and_size(
-    xys: list[Tuple[float, float]],
-) -> Tuple[Tuple[float, float], Tuple[float, float]]:
+    xys: TypeCoordinates,
+) -> Tuple[TypeCoordinate, TypeCoordinate]:
     """Calculate the center coordinates and size of a group of points.
 
     Args:
@@ -265,7 +258,6 @@ def get_center_and_size(
             - Size as width and height (maxx - minx, maxy - miny).
 
     """
-    validator.validate_xys("xys", xys)
 
     minx = xys[0][0]
     maxx = xys[0][0]
@@ -283,7 +275,7 @@ def get_center_and_size(
 
 
 @guarded
-def plus_2points(xy1: Tuple[float, float], xy2: Tuple[float, float]) -> Tuple[float, float]:
+def plus_2points(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeCoordinate:
     """Add two points (vectors).
 
     Args:
@@ -294,13 +286,11 @@ def plus_2points(xy1: Tuple[float, float], xy2: Tuple[float, float]) -> Tuple[fl
         Tuple[float, float]: Resultant point coordinates (x1 + x2, y1 + y2).
 
     """
-    validator.validate_xy("xy1", xy1)
-    validator.validate_xy("xy2", xy2)
     return (xy1[0] + xy2[0], xy1[1] + xy2[1])
 
 
 @guarded
-def minus_2points(xy1: Tuple[float, float], xy2: Tuple[float, float]) -> Tuple[float, float]:
+def minus_2points(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeCoordinate:
     """Subtract one point (vector) from another.
 
     Args:
@@ -311,13 +301,11 @@ def minus_2points(xy1: Tuple[float, float], xy2: Tuple[float, float]) -> Tuple[f
         Tuple[float, float]: Resultant point coordinates (x1 - x2, y1 - y2).
 
     """
-    validator.validate_xy("xy1", xy1)
-    validator.validate_xy("xy2", xy2)
     return (xy1[0] - xy2[0], xy1[1] - xy2[1])
 
 
 @guarded
-def get_script_path() -> str:
+def get_script_path() -> TypeStr:
     """Retrieve the absolute path of the user script that calls this function.
 
     Returns:
@@ -348,7 +336,7 @@ def get_script_path() -> str:
 
 
 @guarded
-def get_script_relative_path(path: str) -> str:
+def get_script_relative_path(path: TypeStr) -> TypeStr:
     """Construct the absolute file path from a script file path.
 
     Args:
@@ -374,7 +362,7 @@ def get_script_relative_path(path: str) -> str:
 
 
 @guarded
-def get_script_function_name() -> str:
+def get_script_function_name() -> TypeStr:
     """Retrieve the name of the function in the user script that calls this function.
 
     Returns:

@@ -18,33 +18,41 @@ from typing import Callable, Dict, List, Literal, Optional, Tuple, Union
 from drawlib.v0_2.private.core.model import LineStyle, ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core_canvas.canvas import line, rectangle
+from drawlib.v0_2.private.types import (
+    TypeCoordinate,
+    TypeFloat,
+    TypePosFloat,
+    TypeStr,
+)
+from drawlib.v0_2.private.util import guarded
 
 
 class BoxTreeNode:
     """Class for rendering smart art Tree."""
 
+    @guarded
     def __init__(
         self,
-        text: str,
-        boxsize: Optional[Tuple[float, float]] = None,
-        boxstyle: Union[str, ShapeStyle, None] = None,
-        box_r: Optional[float] = None,
-        box_horizontal_margin: Optional[float] = None,
-        box_vertical_margin: Optional[float] = None,
-        textstyle: Union[str, ShapeTextStyle, None] = None,
-        linestyle: Union[str, LineStyle, None] = None,
-        line_horizontal_length: Optional[float] = None,
-        line_vertical_length: Optional[float] = None,
+        text: TypeStr,
+        boxsize: Optional[Tuple[TypeFloat, TypeFloat]] = None,
+        boxstyle: TypeStr | ShapeStyle | None = None,
+        box_r: Optional[TypeFloat] = None,
+        box_horizontal_margin: Optional[TypeFloat] = None,
+        box_vertical_margin: Optional[TypeFloat] = None,
+        textstyle: TypeStr | ShapeTextStyle | None = None,
+        linestyle: TypeStr | LineStyle | None = None,
+        line_horizontal_length: Optional[TypeFloat] = None,
+        line_vertical_length: Optional[TypeFloat] = None,
         children: Optional[List[BoxTreeNode]] = None,
-        default_boxsize: Optional[Tuple[float, float]] = None,
-        default_boxstyle: Union[str, ShapeStyle, None] = None,
-        default_box_r: Optional[float] = None,
-        default_box_horizontal_margin: Optional[float] = None,
-        default_box_vertical_margin: Optional[float] = None,
-        default_textstyle: Union[str, ShapeTextStyle, None] = None,
-        default_linestyle: Union[str, LineStyle, None] = None,
-        default_line_horizontal_length: Optional[float] = None,
-        default_line_vertical_length: Optional[float] = None,
+        default_boxsize: Optional[Tuple[TypeFloat, TypeFloat]] = None,
+        default_boxstyle: TypeStr | ShapeStyle | None = None,
+        default_box_r: Optional[TypeFloat] = None,
+        default_box_horizontal_margin: Optional[TypeFloat] = None,
+        default_box_vertical_margin: Optional[TypeFloat] = None,
+        default_textstyle: TypeStr | ShapeTextStyle | None = None,
+        default_linestyle: TypeStr | LineStyle | None = None,
+        default_line_horizontal_length: Optional[TypeFloat] = None,
+        default_line_vertical_length: Optional[TypeFloat] = None,
     ) -> None:
         """Initialize class."""
         self._text = text
@@ -92,6 +100,7 @@ class BoxTreeNode:
 
         self._drawing_item_name: Optional[str] = None
 
+    @guarded
     def draw(
         self,
         xy: Tuple[float, float],

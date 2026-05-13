@@ -18,6 +18,13 @@ from drawlib.v0_2.private.core.fonts_enum import Font
 from drawlib.v0_2.private.core.model import LineStyle, ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core_canvas.canvas import line, rectangle
+from drawlib.v0_2.private.types import (
+    TypeColor,
+    TypeCoordinate,
+    TypePosFloat,
+    TypePosFloatEx,
+    TypeStr,
+)
 from drawlib.v0_2.private.util import guarded
 
 
@@ -25,21 +32,21 @@ from drawlib.v0_2.private.util import guarded
 class _CellStyleOrder:
     order: Literal["range", "even_odd"]
     textstyle1: ShapeTextStyle
-    background_color1: Union[Tuple[int, int, int], Tuple[int, int, int, float]]
+    background_color1: TypeColor
     textstyle2: Optional[ShapeTextStyle] = None
-    background_color2: Union[Tuple[int, int, int], Tuple[int, int, int, float], None] = None
+    background_color2: TypeColor | None = None
     rows: Optional[List[int]] = None
     columns: Optional[List[int]] = None
 
 
 @dataclasses.dataclass
 class _CellInfo:
-    xy: Tuple[float, float]
-    width: float
-    height: float
-    background_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]]
+    xy: TypeCoordinate
+    width: TypePosFloat
+    height: TypePosFloat
+    background_color: TypeColor
     textstyle: ShapeTextStyle
-    text: str
+    text: TypeStr
 
 
 class Table:
@@ -399,17 +406,17 @@ class Table:
     @guarded
     def draw(
         self,
-        xy: Tuple[float, float],
-        width: float,
-        height: float,
+        xy: TypeCoordinate,
+        width: TypePosFloatEx,
+        height: TypePosFloatEx,
         data: List[List[Any]],
     ) -> None:
         """Draws the table with equal-sized cells.
 
         Args:
-            xy (Tuple[float, float]): The coordinates where the table should be drawn.
-            width (float): The total width of the table.
-            height (float): The total height of the table.
+            xy (TypeCoordinate): The coordinates where the table should be drawn.
+            width (TypePosFloat): The total width of the table.
+            height (TypePosFloat): The total height of the table.
             data (List[List[Any]]): The data to be displayed in the table.
         """
         num_rows = len(data)
@@ -427,17 +434,17 @@ class Table:
     @guarded
     def draw_flexible(
         self,
-        xy: Tuple[float, float],
-        column_widths: List[float],
-        row_heights: List[float],
+        xy: TypeCoordinate,
+        column_widths: List[TypePosFloatEx],
+        row_heights: List[TypePosFloatEx],
         data: List[List[Any]],
     ) -> None:
         """Draws the table with flexible cell sizes.
 
         Args:
-            xy (Tuple[float, float]): The coordinates where the table should be drawn.
-            column_widths (List[float]): A list of widths for each column.
-            row_heights (List[float]): A list of heights for each row.
+            xy (TypeCoordinate): The coordinates where the table should be drawn.
+            column_widths (List[TypePosFloat]): A list of widths for each column.
+            row_heights (List[TypePosFloat]): A list of heights for each row.
             data (List[List[Any]]): The data to be displayed in the table.
         """
         # create blank matrix
@@ -587,9 +594,9 @@ class Table:
 
     def _draw_border_lines(  # noqa: C901
         self,
-        xy: Tuple[float, float],
-        column_widths: List[float],
-        row_heights: List[float],
+        xy: TypeCoordinate,
+        column_widths: List[TypePosFloat],
+        row_heights: List[TypePosFloat],
     ) -> None:
         bs_top1: Optional[LineStyle] = None
         if self._bs_top is not None:

@@ -24,8 +24,8 @@ def validate_alpha(v: float) -> float:
 def validate_angle(v: float) -> float:
     """Validate angle value."""
     if not (0.0 <= v <= 360.0):
-        raise ValueError(f"Value must be between 0.0 and 360.0. But {v} is given.")
-    return v
+        raise ValueError(f"Angle must be between 0.0 and 360.0. But {v} is given.")
+    return float(v)
 
 
 def validate_angle_90(v: float) -> float:
@@ -52,3 +52,8 @@ TypePosFloatEx = Annotated[float, Field(gt=0.0)]
 TypePosInt = Annotated[int, Field(ge=0)]
 TypePosIntEx = Annotated[int, Field(gt=0)]
 TypeNumVertex = Annotated[int, Field(ge=3)]
+
+TypeFloat = Annotated[float, Field()]
+TypeInt = Annotated[int, Field()]
+TypeStr = Annotated[str, Field()]
+TypeBool = Annotated[bool, Field()]

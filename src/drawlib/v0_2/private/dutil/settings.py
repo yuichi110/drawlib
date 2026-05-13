@@ -14,7 +14,10 @@ import sys
 import typing
 import warnings
 
+from pydantic import validate_call
+
 from drawlib.v0_2.private.logging import logger
+from drawlib.v0_2.private.types import TypeBool
 
 __ARG_QUIET = "--drawlib_quiet"
 __ARG_DEBUG = "--drawlib_debug"
@@ -43,6 +46,7 @@ class DrawlibSettings:
         ] = "normal"
         self._suppress_warning: bool = False
 
+    @validate_call
     def get_logging_mode(
         self,
     ) -> typing.Literal[
@@ -65,6 +69,7 @@ class DrawlibSettings:
         """
         return self._logging_mode
 
+    @validate_call
     def set_logging_mode(
         self,
         mode: typing.Literal["normal", "quiet", "verbose", "debug", "developer"],
@@ -111,6 +116,7 @@ class DrawlibSettings:
 
         self._logging_mode = mode
 
+    @validate_call
     def get_suppress_warning(self) -> bool:
         """
         Get whether suppressing warnings is enabled.
@@ -124,7 +130,8 @@ class DrawlibSettings:
         """
         return self._suppress_warning
 
-    def set_suppress_warning(self, enable: bool) -> None:
+    @validate_call
+    def set_suppress_warning(self, enable: TypeBool) -> None:
         """
         Enable or disable suppressing warnings.
 
@@ -163,6 +170,7 @@ class DrawlibSettings:
 
         self._suppress_warning = enable
 
+    @validate_call
     def is_debug_mode(self) -> bool:
         """
         Check if debug mode is enabled.
@@ -181,6 +189,7 @@ class DrawlibSettings:
 
         return False
 
+    @validate_call
     def is_developer_debug_mode(self) -> bool:
         """
         Check if developer debug mode is enabled.
@@ -229,7 +238,7 @@ for arg in sys.argv:
     # command pytest can be abspath
     if arg.endswith("pytest"):
         if __ARG_QUIET in sys.argv:
-            logger.critical(f"option {__ARG_QUIET} can not be used " f"with option {__ARG_DEVDEBUG}")
+            logger.critical(f"option {__ARG_QUIET} can not be used with option {__ARG_DEVDEBUG}")
             sys.exit(1)
         dutil_settings.set_logging_mode("developer")
         break

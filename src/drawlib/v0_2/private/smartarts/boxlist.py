@@ -17,6 +17,12 @@ from drawlib.v0_2.private.core.colors import Colors
 from drawlib.v0_2.private.core.model import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core_canvas.canvas import rectangle
+from drawlib.v0_2.private.types import (
+    TypeCoordinate,
+    TypePosFloat,
+    TypePosFloatEx,
+    TypeStr,
+)
 from drawlib.v0_2.private.util import guarded
 
 
@@ -32,8 +38,8 @@ class BoxList:
     @guarded
     def __init__(
         self,
-        default_box_style: Union[str, ShapeStyle, None] = None,
-        default_text_style: Union[str, ShapeTextStyle, None] = None,
+        default_box_style: TypeStr | ShapeStyle | None = None,
+        default_text_style: TypeStr | ShapeTextStyle | None = None,
     ) -> None:
         """Initialize BoxList.
 
@@ -61,9 +67,9 @@ class BoxList:
     @guarded
     def append(
         self,
-        text: str,
-        box_style: Union[str, ShapeStyle, None] = None,
-        text_style: Union[str, ShapeTextStyle, None] = None,
+        text: TypeStr,
+        box_style: TypeStr | ShapeStyle | None = None,
+        text_style: TypeStr | ShapeTextStyle | None = None,
     ) -> None:
         """
         Appends a new box with text to the BoxList.
@@ -84,9 +90,9 @@ class BoxList:
     def insert(
         self,
         index: int,
-        text: str,
-        box_style: Union[str, ShapeStyle, None] = None,
-        text_style: Union[str, ShapeTextStyle, None] = None,
+        text: TypeStr,
+        box_style: TypeStr | ShapeStyle | None = None,
+        text_style: TypeStr | ShapeTextStyle | None = None,
     ) -> None:
         """
         Inserts a new box with text at a specified position in the BoxList.
@@ -125,9 +131,9 @@ class BoxList:
     @guarded
     def extend(
         self,
-        texts: List[str],
-        box_style: Union[str, ShapeStyle, None] = None,
-        text_style: Union[str, ShapeTextStyle, None] = None,
+        texts: List[TypeStr],
+        box_style: TypeStr | ShapeStyle | None = None,
+        text_style: TypeStr | ShapeTextStyle | None = None,
     ) -> None:
         """
         Extends the BoxList by appending multiple boxes with text.
@@ -166,9 +172,9 @@ class BoxList:
     @guarded
     def draw(
         self,
-        xy: Tuple[float, float],
-        box_width: float,
-        box_height: float,
+        xy: TypeCoordinate,
+        box_width: TypePosFloatEx,
+        box_height: TypePosFloatEx,
         align: Literal["left", "right", "bottom", "top"] = "left",
     ) -> None:
         """Draws a list of boxes at the specified location.
@@ -213,11 +219,11 @@ class BoxList:
 
     @staticmethod
     def _draw_cell(
-        start_xy: Tuple[float, float],
+        start_xy: TypeCoordinate,
         index: int,
         text: str,
-        box_width: float,
-        box_height: float,
+        box_width: TypePosFloat,
+        box_height: TypePosFloat,
         box_style: ShapeStyle,
         text_style: ShapeTextStyle,
         align: Literal["left", "right", "bottom", "top"],
@@ -247,7 +253,7 @@ class BoxList:
 
 @dataclasses.dataclass
 class _Item:
-    text: str
+    text: TypeStr
     box_style: ShapeStyle
     text_style: ShapeTextStyle
     is_custom_style: bool

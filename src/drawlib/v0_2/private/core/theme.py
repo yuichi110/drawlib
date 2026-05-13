@@ -14,9 +14,6 @@ from __future__ import annotations
 
 from typing import List, Literal
 
-import drawlib.v0_2.private.validators.color as color_validator
-import drawlib.v0_2.private.validators.text as text_validator
-import drawlib.v0_2.private.validators.types as types_validator
 from drawlib.v0_2.private.core import theme_officials
 from drawlib.v0_2.private.core.colors import Colors
 from drawlib.v0_2.private.core.fonts_enum import (
@@ -93,8 +90,12 @@ from drawlib.v0_2.private.core.theme_style_caches import (
 from drawlib.v0_2.private.types import (
     FontBase,
     FontFile,
+    TypeBool,
     TypeColor,
     TypeColorRGB,
+    TypePosFloatEx,
+    TypePosIntEx,
+    TypeStr,
 )
 from drawlib.v0_2.private.util import guarded
 
@@ -302,7 +303,7 @@ class Theme:
         self.apply_official_theme("default")
 
     @guarded
-    def change_default_linearrow_fill(self, fill: bool) -> None:
+    def change_default_linearrow_fill(self, fill: TypeBool) -> None:
         """Change the default fill setting for line arrows.
 
         Args:
@@ -311,11 +312,10 @@ class Theme:
         Returns:
             None
         """
-        types_validator.validate_bool("fill", fill)
         self.linestyles.merge(LineStyle(ahfill=fill))
 
     @guarded
-    def change_default_font_size(self, size: float) -> None:
+    def change_default_font_size(self, size: TypePosFloatEx) -> None:
         """Change the default font size for text and shape text.
 
         Args:
@@ -324,7 +324,6 @@ class Theme:
         Returns:
             None
         """
-        types_validator.validate_plus_float("size", size, is_0_ok=False)
         self.textstyles.merge(TextStyle(size=size))
         self.shapetextstyles.merge(ShapeTextStyle(size=size))
 
@@ -384,9 +383,6 @@ class Theme:
         Returns:
             None
         """
-        text_validator.validate_font("light_font", light_font)
-        text_validator.validate_font("regular_font", regular_font)
-        text_validator.validate_font("bold_font", bold_font)
 
         # create target lists
         light_styles = ["light"]
@@ -470,7 +466,7 @@ class Theme:
         print(self._get_theme_colors())
 
     @guarded
-    def print_style_table(self, max_columns: int = 11) -> None:
+    def print_style_table(self, max_columns: TypePosIntEx = 11) -> None:
         """Print a table of styles with a specified maximum number of columns.
 
         Args:
@@ -479,7 +475,6 @@ class Theme:
         Returns:
             None
         """
-        types_validator.validate_plus_int("max_columns", max_columns)
         if max_columns <= 1:
             raise ValueError("max_column must be bigger than 2.")
         print(self._get_style_table(max_columns))
@@ -490,12 +485,12 @@ class Theme:
         default_style: Theme.ThemeStyles,
         named_styles: list[
             tuple[
-                str,
+                TypeStr,
                 Theme.ThemeStyles,
             ]
         ]
         | None = None,
-        theme_colors: list[tuple[str, TypeColorRGB]] | None = None,
+        theme_colors: list[tuple[TypeStr, TypeColorRGB]] | None = None,
         backgroundcolor: TypeColor = Colors.White,
         sourcecodefont: FontSourceCode | None = FontSourceCode.SOURCECODEPRO,
     ) -> None:
@@ -529,10 +524,6 @@ class Theme:
         self._initialize()
 
         # set default background color
-        color_validator.validate_color(
-            "backgroundcolor",
-            backgroundcolor,
-        )
         self.backgroundcolors.set(backgroundcolor)
 
         # set default soucecode font
@@ -920,13 +911,6 @@ class Theme:
                 raise ValueError()
 
             name, theme_color = t
-            if not isinstance(name, str):
-                raise ValueError()
-            color_validator.validate_color(
-                "theme_color(elem of theme_colors)",
-                theme_color,
-            )
-
             self.colors.set(theme_color, name)
 
     #
