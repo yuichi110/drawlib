@@ -23,7 +23,17 @@ from PIL import (
     ImageOps,
 )
 
-from drawlib.v0_2.private.types import TypeColor, TypeColorRGB
+from drawlib.v0_2.private.types import (
+    TypeAlpha,
+    TypeAngle,
+    TypeColor,
+    TypeColorRGB,
+    TypeImageQuality,
+    TypeImageResample,
+    TypePosFloat,
+    TypePosInt,
+    TypePosIntEx,
+)
 from drawlib.v0_2.private.util import (
     get_script_relative_path,
     guarded,
@@ -203,7 +213,7 @@ class Dimage:
         return Dimage(self)
 
     @guarded
-    def save(self, file: str) -> None:
+    def save(self, file: str, quality: TypeImageQuality = 95) -> None:
         """Save the Dimage data to a file.
 
         This method saves the image to the specified file path. The path is
@@ -211,6 +221,7 @@ class Dimage:
 
         Args:
             file (str): The file path to save the image. This path is relative to the user script file.
+            quality (TypeImageQuality, optional): The quality of the saved image (0-100). Defaults to 95.
 
         Returns:
             None
@@ -224,49 +235,67 @@ class Dimage:
         abspath = get_script_relative_path(file)
         directory = os.path.dirname(abspath)
         os.makedirs(directory, exist_ok=True)
-        self._pilimg.save(abspath, quality=95)
+        self._pilimg.save(abspath, quality=quality)
 
     @guarded
-    def _rotate(self, angle: float) -> Dimage:
+    def _rotate(self, angle: TypeAngle, resample: TypeImageResample = "bicubic") -> Dimage:
         """Get a new Dimage that is rotated. The original Dimage is kept unchanged.
 
         This method returns a new Dimage that is rotated by the specified angle.
 
         Args:
-            angle (float): The angle to rotate the image by, between 0.0 and 360.0 degrees.
+            angle (TypeAngle): The angle to rotate the image by, between 0.0 and 360.0 degrees.
                            The pixel size can change, and new areas become transparent.
+            resample (TypeImageResample, optional): The resampling method to use. Defaults to "bicubic".
 
         Returns:
             Dimage: A new rotated image.
         """
+        resample_map = {
+            "nearest": Image.Resampling.NEAREST,
+            "box": Image.Resampling.BOX,
+            "bilinear": Image.Resampling.BILINEAR,
+            "hamming": Image.Resampling.HAMMING,
+            "bicubic": Image.Resampling.BICUBIC,
+            "lanczos": Image.Resampling.LANCZOS,
+        }
         newimg = self._pilimg.rotate(
             angle,
-            resample=Image.Resampling.BICUBIC,
+            resample=resample_map[resample],
             expand=True,
         )
         return Dimage(newimg)
 
     @guarded
-    def resize(self, width: int, height: int) -> Dimage:
+    def resize(self, width: TypePosIntEx, height: TypePosIntEx, resample: TypeImageResample = "lanczos") -> Dimage:
         """Get a new Dimage that is resized. The original Dimage is kept unchanged.
 
         This method returns a new Dimage that is resized to the specified width and height.
 
         Args:
-            width (int): The new width of the image.
-            height (int): The new height of the image.
+            width (TypePosIntEx): The new width of the image.
+            height (TypePosIntEx): The new height of the image.
+            resample (TypeImageResample, optional): The resampling method to use. Defaults to "lanczos".
 
         Returns:
             Dimage: A new resized image.
         """
+        resample_map = {
+            "nearest": Image.Resampling.NEAREST,
+            "box": Image.Resampling.BOX,
+            "bilinear": Image.Resampling.BILINEAR,
+            "hamming": Image.Resampling.HAMMING,
+            "bicubic": Image.Resampling.BICUBIC,
+            "lanczos": Image.Resampling.LANCZOS,
+        }
         newimg = self._pilimg.resize(
             (width, height),
-            resample=Image.LANCZOS,
+            resample=resample_map[resample],
         )
         return Dimage(newimg)
 
     @guarded
-    def crop(self, x: int, y: int, width: int, height: int) -> Dimage:
+    def crop(self, x: TypePosInt, y: TypePosInt, width: TypePosIntEx, height: TypePosIntEx) -> Dimage:
         """Get a new Dimage that is cropped. The original Dimage is kept unchanged.
 
         This method returns a new Dimage that is cropped to the specified dimensions.
@@ -363,7 +392,7 @@ class Dimage:
         return Dimage(new_image)
 
     @guarded
-    def alpha(self, alpha: float) -> Dimage:
+    def alpha(self, alpha: TypeAlpha) -> Dimage:
         """Get a new Dimage with the specified alpha transparency while keeping the original Dimage unchanged.
 
         This method returns a new Dimage with modified alpha transparency.
@@ -428,7 +457,7 @@ class Dimage:
         return Dimage(newimg)
 
     @guarded
-    def brightness(self, brightness: float = 0.5) -> Dimage:
+    def brightness(self, brightness: TypePosFloat = 0.5) -> Dimage:
         """Get a new Dimage with changed brightness while keeping the original Dimage unchanged.
 
         Args:
@@ -512,7 +541,7 @@ class Dimage:
         return Dimage(colorized_image)
 
     @guarded
-    def posterize(self, num_colors: int = 4) -> Dimage:
+    def posterize(self, num_colors: TypePosIntEx = 4) -> Dimage:
         """Get a new Dimage with a posterize effect while keeping the original Dimage unchanged.
 
         Args:
@@ -533,7 +562,7 @@ class Dimage:
         return Dimage(newimg)
 
     @guarded
-    def mosaic(self, block_size: int = 8) -> Dimage:
+    def mosaic(self, block_size: TypePosIntEx = 8) -> Dimage:
         """Get a new Dimage with a mosaic effect while keeping the original Dimage unchanged.
 
         Args:

@@ -25,7 +25,10 @@ from drawlib.v0_2.private.core.util import ImageUtil
 from drawlib.v0_2.private.core_canvas.base import CanvasBase
 from drawlib.v0_2.private.logging import logger
 from drawlib.v0_2.private.types import (
+    TypeAngle,
     TypeCoordinate,
+    TypeImageZoom,
+    TypePosFloatEx,
 )
 from drawlib.v0_2.private.util import guarded
 
@@ -55,9 +58,9 @@ class CanvasImageFeature(CanvasBase):
     def image(
         self,
         xy: TypeCoordinate,
-        width: float,
+        width: TypePosFloatEx,
         image: str | Image | Dimage,
-        angle: int | float = 0.0,
+        angle: TypeAngle = 0.0,
         style: ImageStyle | str | None = None,
     ) -> None:
         """Draw an image on the canvas.
@@ -131,7 +134,7 @@ class CanvasImageFeature(CanvasBase):
 
         return dimg._rotate(angle), style
 
-    def _shift_xy(self, x: float, y: float, dimg: Dimage, zoom: float, style: ImageStyle) -> TypeCoordinate:
+    def _shift_xy(self, x: float, y: float, dimg: Dimage, zoom: TypeImageZoom, style: ImageStyle) -> TypeCoordinate:
         if style.halign == "center" and style.valign == "center":
             return (x, y)
 

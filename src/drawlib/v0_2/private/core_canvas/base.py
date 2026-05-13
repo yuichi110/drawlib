@@ -38,6 +38,8 @@ from drawlib.v0_2.private.types import (
     TypeColor,
     TypeCoordinate,
     TypeCoordinates,
+    TypeImageZoom,
+    TypePosFloatEx,
 )
 from drawlib.v0_2.private.util import (
     get_center_and_size,
@@ -285,7 +287,9 @@ class CanvasBase:
         self,
         xy: TypeCoordinate,
         path_points: list[
-            TypeCoordinate | tuple[TypeCoordinate, TypeCoordinate] | tuple[TypeCoordinate, TypeCoordinate, TypeCoordinate]
+            TypeCoordinate
+            | tuple[TypeCoordinate, TypeCoordinate]
+            | tuple[TypeCoordinate, TypeCoordinate, TypeCoordinate]
         ],
         angle: float = 0.0,
         style: ShapeStyle | str | None = None,
@@ -540,8 +544,8 @@ class CanvasBase:
     def get_image_zoom_from_width(
         self,
         image: str | PIL.Image.Image | Dimage,
-        width: float,
-    ) -> float:
+        width: TypePosFloatEx,
+    ) -> TypeImageZoom:
         """Get the zoom factor to fit the image width on the canvas.
 
         Args:
