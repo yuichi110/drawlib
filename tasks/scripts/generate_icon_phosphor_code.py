@@ -41,82 +41,102 @@ PHOSPHOR_HEAD = '''
 
 """Phosphor icon functions."""
 
+from __future__ import annotations
+
 import os
-import typing
-import urllib.parse
+from enum import Enum
+from typing import Optional, Tuple, Union
+from urllib.parse import urljoin
 
 import drawlib.assets.v0_2.fonticons
-import drawlib.v0_2.private.core.model
-import drawlib.v0_2.private.core.theme
-import drawlib.v0_2.private.download
-import drawlib.v0_2.private.icons.util
-import drawlib.v0_2.private.util
+from drawlib.v0_2 import ASSET_VERSION
+from drawlib.v0_2.private.core.fonts import FontMetadata
+from drawlib.v0_2.private.core.fonts_resource import FontResource
+from drawlib.v0_2.private.core.model import IconStyle
+from drawlib.v0_2.private.core.theme import dtheme
+from drawlib.v0_2.private.download import download_if_not_exist
+from drawlib.v0_2.private.icons.util import icon
+from drawlib.v0_2.private.types import TypeAngle, TypeCoordinate, TypePosFloat, TypeStr
+from drawlib.v0_2.private.util import guarded
 
-ASSETS_URL_BASE = "__ASSETS_URL_BASE__"
 
-def _get_fontfile_tuple(path: str, md5_hash: str) -> typing.Tuple[str, str, str]:
-    """Retrieve font file information including local path, download URL, and MD5 hash.
+class _Fonts(str, Enum):
+    THIN = "thin"
+    LIGHT = "light"
+    REGULAR = "regular"
+    BOLD = "bold"
+    FILL = "fill"
+
+
+_DEFAULT_STYLE = _Fonts.THIN.value
+
+_FONT_RESOURCE: dict[str, FontResource] = {
+    _Fonts.THIN: FontResource(
+        path="phosphor/thin.ttf",
+        md5="9ca0acf8bc84ec2421f96f835017f321",
+    ),
+    _Fonts.LIGHT: FontResource(
+        path="phosphor/light.ttf",
+        md5="6c53da4ecc310dd5dbcfafe3d916a346",
+    ),
+    _Fonts.REGULAR: FontResource(
+        path="phosphor/regular.ttf",
+        md5="c2ecd49d10b76c3f9b9c072966cc0c3c",
+    ),
+    _Fonts.BOLD: FontResource(
+        path="phosphor/bold.ttf",
+        md5="4f59e81563e413635c57d78338d33b92",
+    ),
+    _Fonts.FILL: FontResource(
+        path="phosphor/fill.ttf",
+        md5="612af00267f5e8a429531399700db66e",
+    ),
+}
+
+
+def _get_font_metadata(font: _Fonts | str) -> FontMetadata:
+    """Resolve full metadata for a given Phosphor font style.
 
     Args:
-        path: Relative path of the font file within the package.
-        md5_hash: MD5 hash of the font file for integrity verification.
+        font (_Fonts | str): The font style (e.g., 'thin', 'light', 'regular', 'bold', 'fill').
 
     Returns:
-        Tuple[str, str, str]: Tuple containing:
-            - Local file path of the font.
-            - Download URL of the font.
-            - MD5 hash of the font.
+        FontMetadata: Resolved metadata including absolute path and URL.
+
+    Raises:
+        ValueError: If the font style is not found in _FONT_RESOURCE.
 
     """
-    paths = [p for p in path.split("/") if p]
+    resource = _FONT_RESOURCE.get(font)
+    if not resource:
+        raise ValueError(f"Font {font} not found in _FONT_RESOURCE.")
 
-    # font path
+    paths = [p for p in resource.path.split("/") if p]
+
+    # Construct the local font path
     dir_path = os.path.dirname(drawlib.assets.v0_2.fonticons.__file__)
-    font_path = os.path.join(dir_path, *paths)
+    abs_path = os.path.join(dir_path, *paths)
 
-    # url
-    url = urllib.parse.urljoin(
-        ASSETS_URL_BASE,
+    # Construct the URL
+    url = urljoin(
+        f"https://raw.githubusercontent.com/yuichi110/drawlib_assets/main/assets/{ASSET_VERSION}/fonticons/",
         "/".join(paths),
     )
 
-    return (font_path, url, md5_hash)
-
-
-def _get_font_path(style: str) -> str:
-    """Retrieve the local path of the specified font style.
-
-    Args:
-        style: Style of the font ('thin', 'light', 'regular', 'bold', 'fill').
-
-    Returns:
-        str: Local file path of the font.
-
-    """
-    file_path, download_url, md5_hash = {
-        "thin": _get_fontfile_tuple("phosphor/thin.ttf", "9ca0acf8bc84ec2421f96f835017f321"),
-        "light": _get_fontfile_tuple("phosphor/light.ttf", "6c53da4ecc310dd5dbcfafe3d916a346"),
-        "regular": _get_fontfile_tuple("phosphor/regular.ttf", "c2ecd49d10b76c3f9b9c072966cc0c3c"),
-        "bold": _get_fontfile_tuple("phosphor/bold.ttf", "4f59e81563e413635c57d78338d33b92"),
-        "fill": _get_fontfile_tuple("phosphor/fill.ttf", "612af00267f5e8a429531399700db66e"),
-    }[style]
-
-    # download if local cache doesn't exist
-    drawlib.v0_2.private.download.download_if_not_exist(
-        file_path=file_path,
-        download_url=download_url,
-        md5_hash=md5_hash,
+    return FontMetadata(
+        path=resource.path,
+        abs_path=abs_path,
+        url=url,
+        md5=resource.md5,
     )
-
-    return file_path
 
 
 def _write(
-    xy: typing.Tuple[float, float],
-    width: float,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
     code: str,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draw a Phosphor icon at the specified position with given parameters.
 
@@ -132,55 +152,57 @@ def _write(
         ValueError: If an unsupported style type is passed to 'style'.
 
     """
-    default_style = "thin"
-
-    # None, str -> IconStyle
+    # None -> IconStyle
     if style is None:
-        style = drawlib.v0_2.private.core.theme.dtheme.iconstyles.get()
+        style_obj = dtheme.iconstyles.get().copy()
+    # str -> IconStyle
     elif isinstance(style, str):
-        style = drawlib.v0_2.private.core.theme.dtheme.iconstyles.get(style)
-    elif isinstance(style, drawlib.v0_2.private.core.model.IconStyle):
-        ...
+        style_obj = dtheme.iconstyles.get(style).copy()
+    # IconStyle
     else:
-        raise ValueError(
-            f'Unsupported type "{type(style)}" is passed to arg style. '
-            'Supports only IconStyle, str, None.'
-        )
+        style_obj = style.copy()
 
-    # set IconStyle.Style if it is None
-    if style.style is None:
-        style.style = default_style
+    # set IconStyle.style if it is None
+    if style_obj.style is None:
+        style_obj.style = _DEFAULT_STYLE
 
-    # validate IconStyle.Style
-    if style.style not in {"thin", "light", "regular", "bold", "fill"}:
-        raise ValueError(f'icon_phosphor does not support style "{style.style}".')
+    # validate IconStyle.style
+    if style_obj.style not in _Fonts:
+        raise ValueError(f'icon_phosphor does not support style "{style_obj.style}".')
 
     # set icon file path
-    file = _get_font_path(style.style)
+    font_metadata = _get_font_metadata(style_obj.style)
+
+    # download if not exist
+    download_if_not_exist(
+        file_path=font_metadata.abs_path,
+        download_url=font_metadata.url,
+        md5_hash=font_metadata.md5,
+    )
 
     # draw phosphor icon with generic function
-    drawlib.v0_2.private.icons.util.icon(
+    icon(
         xy=xy,
         width=width,
         code=code,
-        file=file,
+        file=font_metadata.abs_path,
         angle=angle,
-        style=style,
+        style=style_obj,
     )
 
 
 #
 # Auto generated code from here ###
 #
-'''.replace("__ASSETS_URL_BASE__", ASSETS_URL_BASE)
+'''
 
 PHOSPHOR_TEMPLATE = '''
-@drawlib.v0_2.private.util.error_handler
+@guarded
 def {function_name}(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an {icon_name}.
 

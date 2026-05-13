@@ -12,7 +12,6 @@
 
 import typing
 
-
 from drawlib.v0_2.private.core.model import IconStyle, TextStyle
 from drawlib.v0_2.private.core.util import IconUtil
 from drawlib.v0_2.private.core_canvas.canvas import get_fontsize_from_charwidth, text

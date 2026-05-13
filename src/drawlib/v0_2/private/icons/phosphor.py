@@ -9,81 +9,102 @@
 
 """Phosphor icon functions."""
 
+from __future__ import annotations
+
 import os
-import typing
-import urllib.parse
+from enum import Enum
+from typing import Optional, Tuple, Union
+from urllib.parse import urljoin
 
 import drawlib.assets.v0_2.fonticons
-import drawlib.v0_2.private.core.model
-import drawlib.v0_2.private.core.theme
-import drawlib.v0_2.private.download
-import drawlib.v0_2.private.icons.util
-import drawlib.v0_2.private.util
+from drawlib.v0_2 import ASSET_VERSION
+from drawlib.v0_2.private.core.fonts import FontMetadata
+from drawlib.v0_2.private.core.fonts_resource import FontResource
+from drawlib.v0_2.private.core.model import IconStyle
+from drawlib.v0_2.private.core.theme import dtheme
+from drawlib.v0_2.private.download import download_if_not_exist
+from drawlib.v0_2.private.icons.util import icon
+from drawlib.v0_2.private.types import TypeAngle, TypeCoordinate, TypePosFloat, TypeStr
+from drawlib.v0_2.private.util import guarded
 
 
-def _get_fontfile_tuple(path: str, md5_hash: str) -> typing.Tuple[str, str, str]:
-    """Retrieve font file information including local path, download URL, and MD5 hash.
+class _Fonts(str, Enum):
+    THIN = "thin"
+    LIGHT = "light"
+    REGULAR = "regular"
+    BOLD = "bold"
+    FILL = "fill"
+
+
+_DEFAULT_STYLE = _Fonts.THIN.value
+
+_FONT_RESOURCE: dict[str, FontResource] = {
+    _Fonts.THIN: FontResource(
+        path="phosphor/thin.ttf",
+        md5="9ca0acf8bc84ec2421f96f835017f321",
+    ),
+    _Fonts.LIGHT: FontResource(
+        path="phosphor/light.ttf",
+        md5="6c53da4ecc310dd5dbcfafe3d916a346",
+    ),
+    _Fonts.REGULAR: FontResource(
+        path="phosphor/regular.ttf",
+        md5="c2ecd49d10b76c3f9b9c072966cc0c3c",
+    ),
+    _Fonts.BOLD: FontResource(
+        path="phosphor/bold.ttf",
+        md5="4f59e81563e413635c57d78338d33b92",
+    ),
+    _Fonts.FILL: FontResource(
+        path="phosphor/fill.ttf",
+        md5="612af00267f5e8a429531399700db66e",
+    ),
+}
+
+
+def _get_font_metadata(font: _Fonts | str) -> FontMetadata:
+    """Resolve full metadata for a given Phosphor font style.
 
     Args:
-        path: Relative path of the font file within the package.
-        md5_hash: MD5 hash of the font file for integrity verification.
+        font (_Fonts | str): The font style (e.g., 'thin', 'light', 'regular', 'bold', 'fill').
 
     Returns:
-        Tuple[str, str, str]: Tuple containing:
-            - Local file path of the font.
-            - Download URL of the font.
-            - MD5 hash of the font.
+        FontMetadata: Resolved metadata including absolute path and URL.
+
+    Raises:
+        ValueError: If the font style is not found in _FONT_RESOURCE.
 
     """
-    paths = [p for p in path.split("/") if p]
+    resource = _FONT_RESOURCE.get(font)
+    if not resource:
+        raise ValueError(f"Font {font} not found in _FONT_RESOURCE.")
 
-    # font path
+    paths = [p for p in resource.path.split("/") if p]
+
+    # Construct the local font path
     dir_path = os.path.dirname(drawlib.assets.v0_2.fonticons.__file__)
-    font_path = os.path.join(dir_path, *paths)
+    abs_path = os.path.join(dir_path, *paths)
 
-    # url
-    url = urllib.parse.urljoin(
-        "https://raw.githubusercontent.com/yuichi110/drawlib_assets/main/assets/v0_2/fonticons/",
+    # Construct the URL
+    url = urljoin(
+        f"https://raw.githubusercontent.com/yuichi110/drawlib_assets/main/assets/{ASSET_VERSION}/fonticons/",
         "/".join(paths),
     )
 
-    return (font_path, url, md5_hash)
-
-
-def _get_font_path(style: str) -> str:
-    """Retrieve the local path of the specified font style.
-
-    Args:
-        style: Style of the font ('thin', 'light', 'regular', 'bold', 'fill').
-
-    Returns:
-        str: Local file path of the font.
-
-    """
-    file_path, download_url, md5_hash = {
-        "thin": _get_fontfile_tuple("phosphor/thin.ttf", "9ca0acf8bc84ec2421f96f835017f321"),
-        "light": _get_fontfile_tuple("phosphor/light.ttf", "6c53da4ecc310dd5dbcfafe3d916a346"),
-        "regular": _get_fontfile_tuple("phosphor/regular.ttf", "c2ecd49d10b76c3f9b9c072966cc0c3c"),
-        "bold": _get_fontfile_tuple("phosphor/bold.ttf", "4f59e81563e413635c57d78338d33b92"),
-        "fill": _get_fontfile_tuple("phosphor/fill.ttf", "612af00267f5e8a429531399700db66e"),
-    }[style]
-
-    # download if local cache doesn't exist
-    drawlib.v0_2.private.download.download_if_not_exist(
-        file_path=file_path,
-        download_url=download_url,
-        md5_hash=md5_hash,
+    return FontMetadata(
+        path=resource.path,
+        abs_path=abs_path,
+        url=url,
+        md5=resource.md5,
     )
-
-    return file_path
 
 
 def _write(
-    xy: typing.Tuple[float, float],
-    width: float,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
     code: str,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draw a Phosphor icon at the specified position with given parameters.
 
@@ -99,39 +120,42 @@ def _write(
         ValueError: If an unsupported style type is passed to 'style'.
 
     """
-    default_style = "thin"
-
-    # None, str -> IconStyle
+    # None -> IconStyle
     if style is None:
-        style = drawlib.v0_2.private.core.theme.dtheme.iconstyles.get()
+        style_obj = dtheme.iconstyles.get().copy()
+    # str -> IconStyle
     elif isinstance(style, str):
-        style = drawlib.v0_2.private.core.theme.dtheme.iconstyles.get(style)
-    elif isinstance(style, drawlib.v0_2.private.core.model.IconStyle):
-        ...
+        style_obj = dtheme.iconstyles.get(style).copy()
+    # IconStyle
     else:
-        raise ValueError(
-            f'Unsupported type "{type(style)}" is passed to arg style. Supports only IconStyle, str, None.'
-        )
+        style_obj = style.copy()
 
-    # set IconStyle.Style if it is None
-    if style.style is None:
-        style.style = default_style
+    # set IconStyle.style if it is None
+    if style_obj.style is None:
+        style_obj.style = _DEFAULT_STYLE
 
-    # validate IconStyle.Style
-    if style.style not in {"thin", "light", "regular", "bold", "fill"}:
-        raise ValueError(f'icon_phosphor does not support style "{style.style}".')
+    # validate IconStyle.style
+    if style_obj.style not in _Fonts:
+        raise ValueError(f'icon_phosphor does not support style "{style_obj.style}".')
 
     # set icon file path
-    file = _get_font_path(style.style)
+    font_metadata = _get_font_metadata(style_obj.style)
+
+    # download if not exist
+    download_if_not_exist(
+        file_path=font_metadata.abs_path,
+        download_url=font_metadata.url,
+        md5_hash=font_metadata.md5,
+    )
 
     # draw phosphor icon with generic function
-    drawlib.v0_2.private.icons.util.icon(
+    icon(
         xy=xy,
         width=width,
         code=code,
-        file=file,
+        file=font_metadata.abs_path,
         angle=angle,
-        style=style,
+        style=style_obj,
     )
 
 
@@ -140,12 +164,12 @@ def _write(
 #
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def acorn(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an acorn.
 
@@ -160,12 +184,12 @@ def acorn(
     _write(xy=xy, width=width, code="\ueb9a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def address_book(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an address-book.
 
@@ -180,12 +204,12 @@ def address_book(
     _write(xy=xy, width=width, code="\ue6f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def address_book_tabs(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an address-book-tabs.
 
@@ -200,12 +224,12 @@ def address_book_tabs(
     _write(xy=xy, width=width, code="\uee4e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def air_traffic_control(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an air-traffic-control.
 
@@ -220,12 +244,12 @@ def air_traffic_control(
     _write(xy=xy, width=width, code="\uecd8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def airplane(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an airplane.
 
@@ -240,12 +264,12 @@ def airplane(
     _write(xy=xy, width=width, code="\ue002", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def airplane_in_flight(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an airplane-in-flight.
 
@@ -260,12 +284,12 @@ def airplane_in_flight(
     _write(xy=xy, width=width, code="\ue4fe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def airplane_landing(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an airplane-landing.
 
@@ -280,12 +304,12 @@ def airplane_landing(
     _write(xy=xy, width=width, code="\ue502", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def airplane_takeoff(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an airplane-takeoff.
 
@@ -300,12 +324,12 @@ def airplane_takeoff(
     _write(xy=xy, width=width, code="\ue504", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def airplane_taxiing(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an airplane-taxiing.
 
@@ -320,12 +344,12 @@ def airplane_taxiing(
     _write(xy=xy, width=width, code="\ue500", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def airplane_tilt(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an airplane-tilt.
 
@@ -340,12 +364,12 @@ def airplane_tilt(
     _write(xy=xy, width=width, code="\ue5d6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def airplay(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an airplay.
 
@@ -360,12 +384,12 @@ def airplay(
     _write(xy=xy, width=width, code="\ue004", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def alarm(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an alarm.
 
@@ -380,12 +404,12 @@ def alarm(
     _write(xy=xy, width=width, code="\ue006", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def alien(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an alien.
 
@@ -400,12 +424,12 @@ def alien(
     _write(xy=xy, width=width, code="\ue8a6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def align_bottom(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an align-bottom.
 
@@ -420,12 +444,12 @@ def align_bottom(
     _write(xy=xy, width=width, code="\ue506", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def align_bottom_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an align-bottom-simple.
 
@@ -440,12 +464,12 @@ def align_bottom_simple(
     _write(xy=xy, width=width, code="\ueb0c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def align_center_horizontal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an align-center-horizontal.
 
@@ -460,12 +484,12 @@ def align_center_horizontal(
     _write(xy=xy, width=width, code="\ue50a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def align_center_horizontal_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an align-center-horizontal-simple.
 
@@ -480,12 +504,12 @@ def align_center_horizontal_simple(
     _write(xy=xy, width=width, code="\ueb0e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def align_center_vertical(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an align-center-vertical.
 
@@ -500,12 +524,12 @@ def align_center_vertical(
     _write(xy=xy, width=width, code="\ue50c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def align_center_vertical_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an align-center-vertical-simple.
 
@@ -520,12 +544,12 @@ def align_center_vertical_simple(
     _write(xy=xy, width=width, code="\ueb10", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def align_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an align-left.
 
@@ -540,12 +564,12 @@ def align_left(
     _write(xy=xy, width=width, code="\ue50e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def align_left_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an align-left-simple.
 
@@ -560,12 +584,12 @@ def align_left_simple(
     _write(xy=xy, width=width, code="\ueaee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def align_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an align-right.
 
@@ -580,12 +604,12 @@ def align_right(
     _write(xy=xy, width=width, code="\ue510", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def align_right_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an align-right-simple.
 
@@ -600,12 +624,12 @@ def align_right_simple(
     _write(xy=xy, width=width, code="\ueb12", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def align_top(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an align-top.
 
@@ -620,12 +644,12 @@ def align_top(
     _write(xy=xy, width=width, code="\ue512", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def align_top_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an align-top-simple.
 
@@ -640,12 +664,12 @@ def align_top_simple(
     _write(xy=xy, width=width, code="\ueb14", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def amazon_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an amazon-logo.
 
@@ -660,12 +684,12 @@ def amazon_logo(
     _write(xy=xy, width=width, code="\ue96c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def ambulance(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an ambulance.
 
@@ -680,12 +704,12 @@ def ambulance(
     _write(xy=xy, width=width, code="\ue572", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def anchor(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an anchor.
 
@@ -700,12 +724,12 @@ def anchor(
     _write(xy=xy, width=width, code="\ue514", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def anchor_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an anchor-simple.
 
@@ -720,12 +744,12 @@ def anchor_simple(
     _write(xy=xy, width=width, code="\ue5d8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def android_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an android-logo.
 
@@ -740,12 +764,12 @@ def android_logo(
     _write(xy=xy, width=width, code="\ue008", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def angle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an angle.
 
@@ -760,12 +784,12 @@ def angle(
     _write(xy=xy, width=width, code="\ue7bc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def angular_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an angular-logo.
 
@@ -780,12 +804,12 @@ def angular_logo(
     _write(xy=xy, width=width, code="\ueb80", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def aperture(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an aperture.
 
@@ -800,12 +824,12 @@ def aperture(
     _write(xy=xy, width=width, code="\ue00a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def app_store_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an app-store-logo.
 
@@ -820,12 +844,12 @@ def app_store_logo(
     _write(xy=xy, width=width, code="\ue974", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def app_window(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an app-window.
 
@@ -840,12 +864,12 @@ def app_window(
     _write(xy=xy, width=width, code="\ue5da", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def apple_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an apple-logo.
 
@@ -860,12 +884,12 @@ def apple_logo(
     _write(xy=xy, width=width, code="\ue516", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def apple_podcasts_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an apple-podcasts-logo.
 
@@ -880,12 +904,12 @@ def apple_podcasts_logo(
     _write(xy=xy, width=width, code="\ueb96", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def approximate_equals(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an approximate-equals.
 
@@ -900,12 +924,12 @@ def approximate_equals(
     _write(xy=xy, width=width, code="\uedaa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def archive(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an archive.
 
@@ -920,12 +944,12 @@ def archive(
     _write(xy=xy, width=width, code="\ue00c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def armchair(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an armchair.
 
@@ -940,12 +964,12 @@ def armchair(
     _write(xy=xy, width=width, code="\ue012", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_arc_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-arc-left.
 
@@ -960,12 +984,12 @@ def arrow_arc_left(
     _write(xy=xy, width=width, code="\ue014", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_arc_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-arc-right.
 
@@ -980,12 +1004,12 @@ def arrow_arc_right(
     _write(xy=xy, width=width, code="\ue016", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_bend_double_up_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-bend-double-up-left.
 
@@ -1000,12 +1024,12 @@ def arrow_bend_double_up_left(
     _write(xy=xy, width=width, code="\ue03a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_bend_double_up_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-bend-double-up-right.
 
@@ -1020,12 +1044,12 @@ def arrow_bend_double_up_right(
     _write(xy=xy, width=width, code="\ue03c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_bend_down_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-bend-down-left.
 
@@ -1040,12 +1064,12 @@ def arrow_bend_down_left(
     _write(xy=xy, width=width, code="\ue018", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_bend_down_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-bend-down-right.
 
@@ -1060,12 +1084,12 @@ def arrow_bend_down_right(
     _write(xy=xy, width=width, code="\ue01a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_bend_left_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-bend-left-down.
 
@@ -1080,12 +1104,12 @@ def arrow_bend_left_down(
     _write(xy=xy, width=width, code="\ue01c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_bend_left_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-bend-left-up.
 
@@ -1100,12 +1124,12 @@ def arrow_bend_left_up(
     _write(xy=xy, width=width, code="\ue01e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_bend_right_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-bend-right-down.
 
@@ -1120,12 +1144,12 @@ def arrow_bend_right_down(
     _write(xy=xy, width=width, code="\ue020", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_bend_right_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-bend-right-up.
 
@@ -1140,12 +1164,12 @@ def arrow_bend_right_up(
     _write(xy=xy, width=width, code="\ue022", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_bend_up_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-bend-up-left.
 
@@ -1160,12 +1184,12 @@ def arrow_bend_up_left(
     _write(xy=xy, width=width, code="\ue024", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_bend_up_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-bend-up-right.
 
@@ -1180,12 +1204,12 @@ def arrow_bend_up_right(
     _write(xy=xy, width=width, code="\ue026", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_circle_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-circle-down.
 
@@ -1200,12 +1224,12 @@ def arrow_circle_down(
     _write(xy=xy, width=width, code="\ue028", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_circle_down_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-circle-down-left.
 
@@ -1220,12 +1244,12 @@ def arrow_circle_down_left(
     _write(xy=xy, width=width, code="\ue02a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_circle_down_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-circle-down-right.
 
@@ -1240,12 +1264,12 @@ def arrow_circle_down_right(
     _write(xy=xy, width=width, code="\ue02c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_circle_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-circle-left.
 
@@ -1260,12 +1284,12 @@ def arrow_circle_left(
     _write(xy=xy, width=width, code="\ue05a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_circle_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-circle-right.
 
@@ -1280,12 +1304,12 @@ def arrow_circle_right(
     _write(xy=xy, width=width, code="\ue02e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_circle_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-circle-up.
 
@@ -1300,12 +1324,12 @@ def arrow_circle_up(
     _write(xy=xy, width=width, code="\ue030", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_circle_up_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-circle-up-left.
 
@@ -1320,12 +1344,12 @@ def arrow_circle_up_left(
     _write(xy=xy, width=width, code="\ue032", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_circle_up_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-circle-up-right.
 
@@ -1340,12 +1364,12 @@ def arrow_circle_up_right(
     _write(xy=xy, width=width, code="\ue034", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_clockwise(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-clockwise.
 
@@ -1360,12 +1384,12 @@ def arrow_clockwise(
     _write(xy=xy, width=width, code="\ue036", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_counter_clockwise(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-counter-clockwise.
 
@@ -1380,12 +1404,12 @@ def arrow_counter_clockwise(
     _write(xy=xy, width=width, code="\ue038", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-down.
 
@@ -1400,12 +1424,12 @@ def arrow_down(
     _write(xy=xy, width=width, code="\ue03e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_down_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-down-left.
 
@@ -1420,12 +1444,12 @@ def arrow_down_left(
     _write(xy=xy, width=width, code="\ue040", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_down_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-down-right.
 
@@ -1440,12 +1464,12 @@ def arrow_down_right(
     _write(xy=xy, width=width, code="\ue042", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_elbow_down_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-elbow-down-left.
 
@@ -1460,12 +1484,12 @@ def arrow_elbow_down_left(
     _write(xy=xy, width=width, code="\ue044", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_elbow_down_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-elbow-down-right.
 
@@ -1480,12 +1504,12 @@ def arrow_elbow_down_right(
     _write(xy=xy, width=width, code="\ue046", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_elbow_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-elbow-left.
 
@@ -1500,12 +1524,12 @@ def arrow_elbow_left(
     _write(xy=xy, width=width, code="\ue048", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_elbow_left_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-elbow-left-down.
 
@@ -1520,12 +1544,12 @@ def arrow_elbow_left_down(
     _write(xy=xy, width=width, code="\ue04a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_elbow_left_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-elbow-left-up.
 
@@ -1540,12 +1564,12 @@ def arrow_elbow_left_up(
     _write(xy=xy, width=width, code="\ue04c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_elbow_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-elbow-right.
 
@@ -1560,12 +1584,12 @@ def arrow_elbow_right(
     _write(xy=xy, width=width, code="\ue04e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_elbow_right_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-elbow-right-down.
 
@@ -1580,12 +1604,12 @@ def arrow_elbow_right_down(
     _write(xy=xy, width=width, code="\ue050", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_elbow_right_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-elbow-right-up.
 
@@ -1600,12 +1624,12 @@ def arrow_elbow_right_up(
     _write(xy=xy, width=width, code="\ue052", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_elbow_up_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-elbow-up-left.
 
@@ -1620,12 +1644,12 @@ def arrow_elbow_up_left(
     _write(xy=xy, width=width, code="\ue054", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_elbow_up_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-elbow-up-right.
 
@@ -1640,12 +1664,12 @@ def arrow_elbow_up_right(
     _write(xy=xy, width=width, code="\ue056", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_fat_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-fat-down.
 
@@ -1660,12 +1684,12 @@ def arrow_fat_down(
     _write(xy=xy, width=width, code="\ue518", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_fat_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-fat-left.
 
@@ -1680,12 +1704,12 @@ def arrow_fat_left(
     _write(xy=xy, width=width, code="\ue51a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_fat_line_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-fat-line-down.
 
@@ -1700,12 +1724,12 @@ def arrow_fat_line_down(
     _write(xy=xy, width=width, code="\ue51c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_fat_line_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-fat-line-left.
 
@@ -1720,12 +1744,12 @@ def arrow_fat_line_left(
     _write(xy=xy, width=width, code="\ue51e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_fat_line_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-fat-line-right.
 
@@ -1740,12 +1764,12 @@ def arrow_fat_line_right(
     _write(xy=xy, width=width, code="\ue520", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_fat_line_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-fat-line-up.
 
@@ -1760,12 +1784,12 @@ def arrow_fat_line_up(
     _write(xy=xy, width=width, code="\ue522", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_fat_lines_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-fat-lines-down.
 
@@ -1780,12 +1804,12 @@ def arrow_fat_lines_down(
     _write(xy=xy, width=width, code="\ue524", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_fat_lines_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-fat-lines-left.
 
@@ -1800,12 +1824,12 @@ def arrow_fat_lines_left(
     _write(xy=xy, width=width, code="\ue526", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_fat_lines_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-fat-lines-right.
 
@@ -1820,12 +1844,12 @@ def arrow_fat_lines_right(
     _write(xy=xy, width=width, code="\ue528", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_fat_lines_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-fat-lines-up.
 
@@ -1840,12 +1864,12 @@ def arrow_fat_lines_up(
     _write(xy=xy, width=width, code="\ue52a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_fat_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-fat-right.
 
@@ -1860,12 +1884,12 @@ def arrow_fat_right(
     _write(xy=xy, width=width, code="\ue52c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_fat_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-fat-up.
 
@@ -1880,12 +1904,12 @@ def arrow_fat_up(
     _write(xy=xy, width=width, code="\ue52e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-left.
 
@@ -1900,12 +1924,12 @@ def arrow_left(
     _write(xy=xy, width=width, code="\ue058", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_line_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-line-down.
 
@@ -1920,12 +1944,12 @@ def arrow_line_down(
     _write(xy=xy, width=width, code="\ue05c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_line_down_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-line-down-left.
 
@@ -1940,12 +1964,12 @@ def arrow_line_down_left(
     _write(xy=xy, width=width, code="\ue05e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_line_down_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-line-down-right.
 
@@ -1960,12 +1984,12 @@ def arrow_line_down_right(
     _write(xy=xy, width=width, code="\ue060", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_line_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-line-left.
 
@@ -1980,12 +2004,12 @@ def arrow_line_left(
     _write(xy=xy, width=width, code="\ue062", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_line_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-line-right.
 
@@ -2000,12 +2024,12 @@ def arrow_line_right(
     _write(xy=xy, width=width, code="\ue064", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_line_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-line-up.
 
@@ -2020,12 +2044,12 @@ def arrow_line_up(
     _write(xy=xy, width=width, code="\ue066", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_line_up_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-line-up-left.
 
@@ -2040,12 +2064,12 @@ def arrow_line_up_left(
     _write(xy=xy, width=width, code="\ue068", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_line_up_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-line-up-right.
 
@@ -2060,12 +2084,12 @@ def arrow_line_up_right(
     _write(xy=xy, width=width, code="\ue06a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-right.
 
@@ -2080,12 +2104,12 @@ def arrow_right(
     _write(xy=xy, width=width, code="\ue06c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_square_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-square-down.
 
@@ -2100,12 +2124,12 @@ def arrow_square_down(
     _write(xy=xy, width=width, code="\ue06e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_square_down_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-square-down-left.
 
@@ -2120,12 +2144,12 @@ def arrow_square_down_left(
     _write(xy=xy, width=width, code="\ue070", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_square_down_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-square-down-right.
 
@@ -2140,12 +2164,12 @@ def arrow_square_down_right(
     _write(xy=xy, width=width, code="\ue072", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_square_in(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-square-in.
 
@@ -2160,12 +2184,12 @@ def arrow_square_in(
     _write(xy=xy, width=width, code="\ue5dc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_square_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-square-left.
 
@@ -2180,12 +2204,12 @@ def arrow_square_left(
     _write(xy=xy, width=width, code="\ue074", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_square_out(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-square-out.
 
@@ -2200,12 +2224,12 @@ def arrow_square_out(
     _write(xy=xy, width=width, code="\ue5de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_square_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-square-right.
 
@@ -2220,12 +2244,12 @@ def arrow_square_right(
     _write(xy=xy, width=width, code="\ue076", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_square_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-square-up.
 
@@ -2240,12 +2264,12 @@ def arrow_square_up(
     _write(xy=xy, width=width, code="\ue078", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_square_up_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-square-up-left.
 
@@ -2260,12 +2284,12 @@ def arrow_square_up_left(
     _write(xy=xy, width=width, code="\ue07a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_square_up_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-square-up-right.
 
@@ -2280,12 +2304,12 @@ def arrow_square_up_right(
     _write(xy=xy, width=width, code="\ue07c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_u_down_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-u-down-left.
 
@@ -2300,12 +2324,12 @@ def arrow_u_down_left(
     _write(xy=xy, width=width, code="\ue07e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_u_down_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-u-down-right.
 
@@ -2320,12 +2344,12 @@ def arrow_u_down_right(
     _write(xy=xy, width=width, code="\ue080", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_u_left_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-u-left-down.
 
@@ -2340,12 +2364,12 @@ def arrow_u_left_down(
     _write(xy=xy, width=width, code="\ue082", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_u_left_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-u-left-up.
 
@@ -2360,12 +2384,12 @@ def arrow_u_left_up(
     _write(xy=xy, width=width, code="\ue084", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_u_right_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-u-right-down.
 
@@ -2380,12 +2404,12 @@ def arrow_u_right_down(
     _write(xy=xy, width=width, code="\ue086", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_u_right_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-u-right-up.
 
@@ -2400,12 +2424,12 @@ def arrow_u_right_up(
     _write(xy=xy, width=width, code="\ue088", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_u_up_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-u-up-left.
 
@@ -2420,12 +2444,12 @@ def arrow_u_up_left(
     _write(xy=xy, width=width, code="\ue08a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_u_up_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-u-up-right.
 
@@ -2440,12 +2464,12 @@ def arrow_u_up_right(
     _write(xy=xy, width=width, code="\ue08c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-up.
 
@@ -2460,12 +2484,12 @@ def arrow_up(
     _write(xy=xy, width=width, code="\ue08e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_up_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-up-left.
 
@@ -2480,12 +2504,12 @@ def arrow_up_left(
     _write(xy=xy, width=width, code="\ue090", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrow_up_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrow-up-right.
 
@@ -2500,12 +2524,12 @@ def arrow_up_right(
     _write(xy=xy, width=width, code="\ue092", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrows_clockwise(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrows-clockwise.
 
@@ -2520,12 +2544,12 @@ def arrows_clockwise(
     _write(xy=xy, width=width, code="\ue094", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrows_counter_clockwise(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrows-counter-clockwise.
 
@@ -2540,12 +2564,12 @@ def arrows_counter_clockwise(
     _write(xy=xy, width=width, code="\ue096", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrows_down_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrows-down-up.
 
@@ -2560,12 +2584,12 @@ def arrows_down_up(
     _write(xy=xy, width=width, code="\ue098", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrows_horizontal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrows-horizontal.
 
@@ -2580,12 +2604,12 @@ def arrows_horizontal(
     _write(xy=xy, width=width, code="\ueb06", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrows_in(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrows-in.
 
@@ -2600,12 +2624,12 @@ def arrows_in(
     _write(xy=xy, width=width, code="\ue09a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrows_in_cardinal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrows-in-cardinal.
 
@@ -2620,12 +2644,12 @@ def arrows_in_cardinal(
     _write(xy=xy, width=width, code="\ue09c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrows_in_line_horizontal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrows-in-line-horizontal.
 
@@ -2640,12 +2664,12 @@ def arrows_in_line_horizontal(
     _write(xy=xy, width=width, code="\ue530", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrows_in_line_vertical(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrows-in-line-vertical.
 
@@ -2660,12 +2684,12 @@ def arrows_in_line_vertical(
     _write(xy=xy, width=width, code="\ue532", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrows_in_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrows-in-simple.
 
@@ -2680,12 +2704,12 @@ def arrows_in_simple(
     _write(xy=xy, width=width, code="\ue09e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrows_left_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrows-left-right.
 
@@ -2700,12 +2724,12 @@ def arrows_left_right(
     _write(xy=xy, width=width, code="\ue0a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrows_merge(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrows-merge.
 
@@ -2720,12 +2744,12 @@ def arrows_merge(
     _write(xy=xy, width=width, code="\ued3e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrows_out(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrows-out.
 
@@ -2740,12 +2764,12 @@ def arrows_out(
     _write(xy=xy, width=width, code="\ue0a2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrows_out_cardinal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrows-out-cardinal.
 
@@ -2760,12 +2784,12 @@ def arrows_out_cardinal(
     _write(xy=xy, width=width, code="\ue0a4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrows_out_line_horizontal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrows-out-line-horizontal.
 
@@ -2780,12 +2804,12 @@ def arrows_out_line_horizontal(
     _write(xy=xy, width=width, code="\ue534", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrows_out_line_vertical(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrows-out-line-vertical.
 
@@ -2800,12 +2824,12 @@ def arrows_out_line_vertical(
     _write(xy=xy, width=width, code="\ue536", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrows_out_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrows-out-simple.
 
@@ -2820,12 +2844,12 @@ def arrows_out_simple(
     _write(xy=xy, width=width, code="\ue0a6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrows_split(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrows-split.
 
@@ -2840,12 +2864,12 @@ def arrows_split(
     _write(xy=xy, width=width, code="\ued3c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def arrows_vertical(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an arrows-vertical.
 
@@ -2860,12 +2884,12 @@ def arrows_vertical(
     _write(xy=xy, width=width, code="\ueb04", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def article(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an article.
 
@@ -2880,12 +2904,12 @@ def article(
     _write(xy=xy, width=width, code="\ue0a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def article_medium(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an article-medium.
 
@@ -2900,12 +2924,12 @@ def article_medium(
     _write(xy=xy, width=width, code="\ue5e0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def article_ny_times(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an article-ny-times.
 
@@ -2920,12 +2944,12 @@ def article_ny_times(
     _write(xy=xy, width=width, code="\ue5e2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def asclepius(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an asclepius.
 
@@ -2940,12 +2964,12 @@ def asclepius(
     _write(xy=xy, width=width, code="\uee34", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caduceus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caduceus.
 
@@ -2960,12 +2984,12 @@ def caduceus(
     _write(xy=xy, width=width, code="\uee34", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def asterisk(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an asterisk.
 
@@ -2980,12 +3004,12 @@ def asterisk(
     _write(xy=xy, width=width, code="\ue0aa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def asterisk_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an asterisk-simple.
 
@@ -3000,12 +3024,12 @@ def asterisk_simple(
     _write(xy=xy, width=width, code="\ue832", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def at(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an at.
 
@@ -3020,12 +3044,12 @@ def at(
     _write(xy=xy, width=width, code="\ue0ac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def atom(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an atom.
 
@@ -3040,12 +3064,12 @@ def atom(
     _write(xy=xy, width=width, code="\ue5e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def avocado(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an avocado.
 
@@ -3060,12 +3084,12 @@ def avocado(
     _write(xy=xy, width=width, code="\uee04", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def axe(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an axe.
 
@@ -3080,12 +3104,12 @@ def axe(
     _write(xy=xy, width=width, code="\ue9fc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def baby(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an baby.
 
@@ -3100,12 +3124,12 @@ def baby(
     _write(xy=xy, width=width, code="\ue774", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def baby_carriage(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an baby-carriage.
 
@@ -3120,12 +3144,12 @@ def baby_carriage(
     _write(xy=xy, width=width, code="\ue818", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def backpack(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an backpack.
 
@@ -3140,12 +3164,12 @@ def backpack(
     _write(xy=xy, width=width, code="\ue922", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def backspace(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an backspace.
 
@@ -3160,12 +3184,12 @@ def backspace(
     _write(xy=xy, width=width, code="\ue0ae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bag(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bag.
 
@@ -3180,12 +3204,12 @@ def bag(
     _write(xy=xy, width=width, code="\ue0b0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bag_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bag-simple.
 
@@ -3200,12 +3224,12 @@ def bag_simple(
     _write(xy=xy, width=width, code="\ue5e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def balloon(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an balloon.
 
@@ -3220,12 +3244,12 @@ def balloon(
     _write(xy=xy, width=width, code="\ue76c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bandaids(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bandaids.
 
@@ -3240,12 +3264,12 @@ def bandaids(
     _write(xy=xy, width=width, code="\ue0b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bank(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bank.
 
@@ -3260,12 +3284,12 @@ def bank(
     _write(xy=xy, width=width, code="\ue0b4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def barbell(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an barbell.
 
@@ -3280,12 +3304,12 @@ def barbell(
     _write(xy=xy, width=width, code="\ue0b6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def barcode(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an barcode.
 
@@ -3300,12 +3324,12 @@ def barcode(
     _write(xy=xy, width=width, code="\ue0b8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def barn(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an barn.
 
@@ -3320,12 +3344,12 @@ def barn(
     _write(xy=xy, width=width, code="\uec72", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def barricade(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an barricade.
 
@@ -3340,12 +3364,12 @@ def barricade(
     _write(xy=xy, width=width, code="\ue948", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def baseball(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an baseball.
 
@@ -3360,12 +3384,12 @@ def baseball(
     _write(xy=xy, width=width, code="\ue71a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def baseball_cap(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an baseball-cap.
 
@@ -3380,12 +3404,12 @@ def baseball_cap(
     _write(xy=xy, width=width, code="\uea28", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def baseball_helmet(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an baseball-helmet.
 
@@ -3400,12 +3424,12 @@ def baseball_helmet(
     _write(xy=xy, width=width, code="\uee4a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def basket(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an basket.
 
@@ -3420,12 +3444,12 @@ def basket(
     _write(xy=xy, width=width, code="\ue964", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def basketball(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an basketball.
 
@@ -3440,12 +3464,12 @@ def basketball(
     _write(xy=xy, width=width, code="\ue724", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bathtub(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bathtub.
 
@@ -3460,12 +3484,12 @@ def bathtub(
     _write(xy=xy, width=width, code="\ue81e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def battery_charging(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an battery-charging.
 
@@ -3480,12 +3504,12 @@ def battery_charging(
     _write(xy=xy, width=width, code="\ue0ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def battery_charging_vertical(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an battery-charging-vertical.
 
@@ -3500,12 +3524,12 @@ def battery_charging_vertical(
     _write(xy=xy, width=width, code="\ue0bc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def battery_empty(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an battery-empty.
 
@@ -3520,12 +3544,12 @@ def battery_empty(
     _write(xy=xy, width=width, code="\ue0be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def battery_full(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an battery-full.
 
@@ -3540,12 +3564,12 @@ def battery_full(
     _write(xy=xy, width=width, code="\ue0c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def battery_high(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an battery-high.
 
@@ -3560,12 +3584,12 @@ def battery_high(
     _write(xy=xy, width=width, code="\ue0c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def battery_low(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an battery-low.
 
@@ -3580,12 +3604,12 @@ def battery_low(
     _write(xy=xy, width=width, code="\ue0c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def battery_medium(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an battery-medium.
 
@@ -3600,12 +3624,12 @@ def battery_medium(
     _write(xy=xy, width=width, code="\ue0c6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def battery_plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an battery-plus.
 
@@ -3620,12 +3644,12 @@ def battery_plus(
     _write(xy=xy, width=width, code="\ue808", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def battery_plus_vertical(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an battery-plus-vertical.
 
@@ -3640,12 +3664,12 @@ def battery_plus_vertical(
     _write(xy=xy, width=width, code="\uec50", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def battery_vertical_empty(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an battery-vertical-empty.
 
@@ -3660,12 +3684,12 @@ def battery_vertical_empty(
     _write(xy=xy, width=width, code="\ue7c6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def battery_vertical_full(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an battery-vertical-full.
 
@@ -3680,12 +3704,12 @@ def battery_vertical_full(
     _write(xy=xy, width=width, code="\ue7c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def battery_vertical_high(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an battery-vertical-high.
 
@@ -3700,12 +3724,12 @@ def battery_vertical_high(
     _write(xy=xy, width=width, code="\ue7c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def battery_vertical_low(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an battery-vertical-low.
 
@@ -3720,12 +3744,12 @@ def battery_vertical_low(
     _write(xy=xy, width=width, code="\ue7be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def battery_vertical_medium(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an battery-vertical-medium.
 
@@ -3740,12 +3764,12 @@ def battery_vertical_medium(
     _write(xy=xy, width=width, code="\ue7c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def battery_warning(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an battery-warning.
 
@@ -3760,12 +3784,12 @@ def battery_warning(
     _write(xy=xy, width=width, code="\ue0c8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def battery_warning_vertical(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an battery-warning-vertical.
 
@@ -3780,12 +3804,12 @@ def battery_warning_vertical(
     _write(xy=xy, width=width, code="\ue0ca", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def beach_ball(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an beach-ball.
 
@@ -3800,12 +3824,12 @@ def beach_ball(
     _write(xy=xy, width=width, code="\ued24", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def beanie(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an beanie.
 
@@ -3820,12 +3844,12 @@ def beanie(
     _write(xy=xy, width=width, code="\uea2a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bed(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bed.
 
@@ -3840,12 +3864,12 @@ def bed(
     _write(xy=xy, width=width, code="\ue0cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def beer_bottle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an beer-bottle.
 
@@ -3860,12 +3884,12 @@ def beer_bottle(
     _write(xy=xy, width=width, code="\ue7b0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def beer_stein(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an beer-stein.
 
@@ -3880,12 +3904,12 @@ def beer_stein(
     _write(xy=xy, width=width, code="\ueb62", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def behance_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an behance-logo.
 
@@ -3900,12 +3924,12 @@ def behance_logo(
     _write(xy=xy, width=width, code="\ue7f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bell(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bell.
 
@@ -3920,12 +3944,12 @@ def bell(
     _write(xy=xy, width=width, code="\ue0ce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bell_ringing(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bell-ringing.
 
@@ -3940,12 +3964,12 @@ def bell_ringing(
     _write(xy=xy, width=width, code="\ue5e8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bell_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bell-simple.
 
@@ -3960,12 +3984,12 @@ def bell_simple(
     _write(xy=xy, width=width, code="\ue0d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bell_simple_ringing(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bell-simple-ringing.
 
@@ -3980,12 +4004,12 @@ def bell_simple_ringing(
     _write(xy=xy, width=width, code="\ue5ea", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bell_simple_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bell-simple-slash.
 
@@ -4000,12 +4024,12 @@ def bell_simple_slash(
     _write(xy=xy, width=width, code="\ue0d2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bell_simple_z(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bell-simple-z.
 
@@ -4020,12 +4044,12 @@ def bell_simple_z(
     _write(xy=xy, width=width, code="\ue5ec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bell_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bell-slash.
 
@@ -4040,12 +4064,12 @@ def bell_slash(
     _write(xy=xy, width=width, code="\ue0d4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bell_z(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bell-z.
 
@@ -4060,12 +4084,12 @@ def bell_z(
     _write(xy=xy, width=width, code="\ue5ee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def belt(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an belt.
 
@@ -4080,12 +4104,12 @@ def belt(
     _write(xy=xy, width=width, code="\uea2c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bezier_curve(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bezier-curve.
 
@@ -4100,12 +4124,12 @@ def bezier_curve(
     _write(xy=xy, width=width, code="\ueb00", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bicycle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bicycle.
 
@@ -4120,12 +4144,12 @@ def bicycle(
     _write(xy=xy, width=width, code="\ue0d6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def binary(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an binary.
 
@@ -4140,12 +4164,12 @@ def binary(
     _write(xy=xy, width=width, code="\uee60", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def binoculars(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an binoculars.
 
@@ -4160,12 +4184,12 @@ def binoculars(
     _write(xy=xy, width=width, code="\uea64", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def biohazard(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an biohazard.
 
@@ -4180,12 +4204,12 @@ def biohazard(
     _write(xy=xy, width=width, code="\ue9e0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bird(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bird.
 
@@ -4200,12 +4224,12 @@ def bird(
     _write(xy=xy, width=width, code="\ue72c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def blueprint(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an blueprint.
 
@@ -4220,12 +4244,12 @@ def blueprint(
     _write(xy=xy, width=width, code="\ueda0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bluetooth(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bluetooth.
 
@@ -4240,12 +4264,12 @@ def bluetooth(
     _write(xy=xy, width=width, code="\ue0da", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bluetooth_connected(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bluetooth-connected.
 
@@ -4260,12 +4284,12 @@ def bluetooth_connected(
     _write(xy=xy, width=width, code="\ue0dc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bluetooth_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bluetooth-slash.
 
@@ -4280,12 +4304,12 @@ def bluetooth_slash(
     _write(xy=xy, width=width, code="\ue0de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bluetooth_x(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bluetooth-x.
 
@@ -4300,12 +4324,12 @@ def bluetooth_x(
     _write(xy=xy, width=width, code="\ue0e0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def boat(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an boat.
 
@@ -4320,12 +4344,12 @@ def boat(
     _write(xy=xy, width=width, code="\ue786", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bomb(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bomb.
 
@@ -4340,12 +4364,12 @@ def bomb(
     _write(xy=xy, width=width, code="\uee0a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bone(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bone.
 
@@ -4360,12 +4384,12 @@ def bone(
     _write(xy=xy, width=width, code="\ue7f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def book(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an book.
 
@@ -4380,12 +4404,12 @@ def book(
     _write(xy=xy, width=width, code="\ue0e2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def book_bookmark(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an book-bookmark.
 
@@ -4400,12 +4424,12 @@ def book_bookmark(
     _write(xy=xy, width=width, code="\ue0e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def book_open(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an book-open.
 
@@ -4420,12 +4444,12 @@ def book_open(
     _write(xy=xy, width=width, code="\ue0e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def book_open_text(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an book-open-text.
 
@@ -4440,12 +4464,12 @@ def book_open_text(
     _write(xy=xy, width=width, code="\ue8f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def book_open_user(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an book-open-user.
 
@@ -4460,12 +4484,12 @@ def book_open_user(
     _write(xy=xy, width=width, code="\uede0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bookmark(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bookmark.
 
@@ -4480,12 +4504,12 @@ def bookmark(
     _write(xy=xy, width=width, code="\ue0e8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bookmark_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bookmark-simple.
 
@@ -4500,12 +4524,12 @@ def bookmark_simple(
     _write(xy=xy, width=width, code="\ue0ea", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bookmarks(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bookmarks.
 
@@ -4520,12 +4544,12 @@ def bookmarks(
     _write(xy=xy, width=width, code="\ue0ec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bookmarks_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bookmarks-simple.
 
@@ -4540,12 +4564,12 @@ def bookmarks_simple(
     _write(xy=xy, width=width, code="\ue5f0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def books(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an books.
 
@@ -4560,12 +4584,12 @@ def books(
     _write(xy=xy, width=width, code="\ue758", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def boot(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an boot.
 
@@ -4580,12 +4604,12 @@ def boot(
     _write(xy=xy, width=width, code="\uecca", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def boules(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an boules.
 
@@ -4600,12 +4624,12 @@ def boules(
     _write(xy=xy, width=width, code="\ue722", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bounding_box(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bounding-box.
 
@@ -4620,12 +4644,12 @@ def bounding_box(
     _write(xy=xy, width=width, code="\ue6ce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bowl_food(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bowl-food.
 
@@ -4640,12 +4664,12 @@ def bowl_food(
     _write(xy=xy, width=width, code="\ueaa4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bowl_steam(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bowl-steam.
 
@@ -4660,12 +4684,12 @@ def bowl_steam(
     _write(xy=xy, width=width, code="\ue8e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bowling_ball(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bowling-ball.
 
@@ -4680,12 +4704,12 @@ def bowling_ball(
     _write(xy=xy, width=width, code="\uea34", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def box_arrow_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an box-arrow-down.
 
@@ -4700,12 +4724,12 @@ def box_arrow_down(
     _write(xy=xy, width=width, code="\ue00e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def archive_box(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an archive-box.
 
@@ -4720,12 +4744,12 @@ def archive_box(
     _write(xy=xy, width=width, code="\ue00e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def box_arrow_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an box-arrow-up.
 
@@ -4740,12 +4764,12 @@ def box_arrow_up(
     _write(xy=xy, width=width, code="\uee54", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def boxing_glove(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an boxing-glove.
 
@@ -4760,12 +4784,12 @@ def boxing_glove(
     _write(xy=xy, width=width, code="\uea36", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def brackets_angle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an brackets-angle.
 
@@ -4780,12 +4804,12 @@ def brackets_angle(
     _write(xy=xy, width=width, code="\ue862", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def brackets_curly(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an brackets-curly.
 
@@ -4800,12 +4824,12 @@ def brackets_curly(
     _write(xy=xy, width=width, code="\ue860", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def brackets_round(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an brackets-round.
 
@@ -4820,12 +4844,12 @@ def brackets_round(
     _write(xy=xy, width=width, code="\ue864", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def brackets_square(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an brackets-square.
 
@@ -4840,12 +4864,12 @@ def brackets_square(
     _write(xy=xy, width=width, code="\ue85e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def brain(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an brain.
 
@@ -4860,12 +4884,12 @@ def brain(
     _write(xy=xy, width=width, code="\ue74e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def brandy(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an brandy.
 
@@ -4880,12 +4904,12 @@ def brandy(
     _write(xy=xy, width=width, code="\ue6b4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bread(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bread.
 
@@ -4900,12 +4924,12 @@ def bread(
     _write(xy=xy, width=width, code="\ue81c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bridge(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bridge.
 
@@ -4920,12 +4944,12 @@ def bridge(
     _write(xy=xy, width=width, code="\uea68", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def briefcase(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an briefcase.
 
@@ -4940,12 +4964,12 @@ def briefcase(
     _write(xy=xy, width=width, code="\ue0ee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def briefcase_metal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an briefcase-metal.
 
@@ -4960,12 +4984,12 @@ def briefcase_metal(
     _write(xy=xy, width=width, code="\ue5f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def broadcast(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an broadcast.
 
@@ -4980,12 +5004,12 @@ def broadcast(
     _write(xy=xy, width=width, code="\ue0f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def broom(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an broom.
 
@@ -5000,12 +5024,12 @@ def broom(
     _write(xy=xy, width=width, code="\uec54", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def browser(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an browser.
 
@@ -5020,12 +5044,12 @@ def browser(
     _write(xy=xy, width=width, code="\ue0f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def browsers(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an browsers.
 
@@ -5040,12 +5064,12 @@ def browsers(
     _write(xy=xy, width=width, code="\ue0f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bug(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bug.
 
@@ -5060,12 +5084,12 @@ def bug(
     _write(xy=xy, width=width, code="\ue5f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bug_beetle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bug-beetle.
 
@@ -5080,12 +5104,12 @@ def bug_beetle(
     _write(xy=xy, width=width, code="\ue5f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bug_droid(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bug-droid.
 
@@ -5100,12 +5124,12 @@ def bug_droid(
     _write(xy=xy, width=width, code="\ue5f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def building(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an building.
 
@@ -5120,12 +5144,12 @@ def building(
     _write(xy=xy, width=width, code="\ue100", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def building_apartment(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an building-apartment.
 
@@ -5140,12 +5164,12 @@ def building_apartment(
     _write(xy=xy, width=width, code="\ue0fe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def building_office(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an building-office.
 
@@ -5160,12 +5184,12 @@ def building_office(
     _write(xy=xy, width=width, code="\ue0ff", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def buildings(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an buildings.
 
@@ -5180,12 +5204,12 @@ def buildings(
     _write(xy=xy, width=width, code="\ue102", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bulldozer(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bulldozer.
 
@@ -5200,12 +5224,12 @@ def bulldozer(
     _write(xy=xy, width=width, code="\uec6c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def bus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an bus.
 
@@ -5220,12 +5244,12 @@ def bus(
     _write(xy=xy, width=width, code="\ue106", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def butterfly(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an butterfly.
 
@@ -5240,12 +5264,12 @@ def butterfly(
     _write(xy=xy, width=width, code="\uea6e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cable_car(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cable-car.
 
@@ -5260,12 +5284,12 @@ def cable_car(
     _write(xy=xy, width=width, code="\ue49c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cactus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cactus.
 
@@ -5280,12 +5304,12 @@ def cactus(
     _write(xy=xy, width=width, code="\ue918", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cake(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cake.
 
@@ -5300,12 +5324,12 @@ def cake(
     _write(xy=xy, width=width, code="\ue780", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def calculator(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an calculator.
 
@@ -5320,12 +5344,12 @@ def calculator(
     _write(xy=xy, width=width, code="\ue538", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def calendar(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an calendar.
 
@@ -5340,12 +5364,12 @@ def calendar(
     _write(xy=xy, width=width, code="\ue108", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def calendar_blank(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an calendar-blank.
 
@@ -5360,12 +5384,12 @@ def calendar_blank(
     _write(xy=xy, width=width, code="\ue10a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def calendar_check(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an calendar-check.
 
@@ -5380,12 +5404,12 @@ def calendar_check(
     _write(xy=xy, width=width, code="\ue712", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def calendar_dot(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an calendar-dot.
 
@@ -5400,12 +5424,12 @@ def calendar_dot(
     _write(xy=xy, width=width, code="\ue7b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def calendar_dots(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an calendar-dots.
 
@@ -5420,12 +5444,12 @@ def calendar_dots(
     _write(xy=xy, width=width, code="\ue7b4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def calendar_heart(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an calendar-heart.
 
@@ -5440,12 +5464,12 @@ def calendar_heart(
     _write(xy=xy, width=width, code="\ue8b0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def calendar_minus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an calendar-minus.
 
@@ -5460,12 +5484,12 @@ def calendar_minus(
     _write(xy=xy, width=width, code="\uea14", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def calendar_plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an calendar-plus.
 
@@ -5480,12 +5504,12 @@ def calendar_plus(
     _write(xy=xy, width=width, code="\ue714", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def calendar_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an calendar-slash.
 
@@ -5500,12 +5524,12 @@ def calendar_slash(
     _write(xy=xy, width=width, code="\uea12", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def calendar_star(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an calendar-star.
 
@@ -5520,12 +5544,12 @@ def calendar_star(
     _write(xy=xy, width=width, code="\ue8b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def calendar_x(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an calendar-x.
 
@@ -5540,12 +5564,12 @@ def calendar_x(
     _write(xy=xy, width=width, code="\ue10c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def call_bell(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an call-bell.
 
@@ -5560,12 +5584,12 @@ def call_bell(
     _write(xy=xy, width=width, code="\ue7de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def camera(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an camera.
 
@@ -5580,12 +5604,12 @@ def camera(
     _write(xy=xy, width=width, code="\ue10e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def camera_plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an camera-plus.
 
@@ -5600,12 +5624,12 @@ def camera_plus(
     _write(xy=xy, width=width, code="\uec58", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def camera_rotate(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an camera-rotate.
 
@@ -5620,12 +5644,12 @@ def camera_rotate(
     _write(xy=xy, width=width, code="\ue7a4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def camera_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an camera-slash.
 
@@ -5640,12 +5664,12 @@ def camera_slash(
     _write(xy=xy, width=width, code="\ue110", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def campfire(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an campfire.
 
@@ -5660,12 +5684,12 @@ def campfire(
     _write(xy=xy, width=width, code="\ue9d8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def car(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an car.
 
@@ -5680,12 +5704,12 @@ def car(
     _write(xy=xy, width=width, code="\ue112", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def car_battery(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an car-battery.
 
@@ -5700,12 +5724,12 @@ def car_battery(
     _write(xy=xy, width=width, code="\uee30", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def car_profile(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an car-profile.
 
@@ -5720,12 +5744,12 @@ def car_profile(
     _write(xy=xy, width=width, code="\ue8cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def car_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an car-simple.
 
@@ -5740,12 +5764,12 @@ def car_simple(
     _write(xy=xy, width=width, code="\ue114", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cardholder(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cardholder.
 
@@ -5760,12 +5784,12 @@ def cardholder(
     _write(xy=xy, width=width, code="\ue5fa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cards(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cards.
 
@@ -5780,12 +5804,12 @@ def cards(
     _write(xy=xy, width=width, code="\ue0f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cards_three(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cards-three.
 
@@ -5800,12 +5824,12 @@ def cards_three(
     _write(xy=xy, width=width, code="\uee50", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_circle_double_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-circle-double-down.
 
@@ -5820,12 +5844,12 @@ def caret_circle_double_down(
     _write(xy=xy, width=width, code="\ue116", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_circle_double_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-circle-double-left.
 
@@ -5840,12 +5864,12 @@ def caret_circle_double_left(
     _write(xy=xy, width=width, code="\ue118", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_circle_double_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-circle-double-right.
 
@@ -5860,12 +5884,12 @@ def caret_circle_double_right(
     _write(xy=xy, width=width, code="\ue11a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_circle_double_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-circle-double-up.
 
@@ -5880,12 +5904,12 @@ def caret_circle_double_up(
     _write(xy=xy, width=width, code="\ue11c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_circle_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-circle-down.
 
@@ -5900,12 +5924,12 @@ def caret_circle_down(
     _write(xy=xy, width=width, code="\ue11e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_circle_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-circle-left.
 
@@ -5920,12 +5944,12 @@ def caret_circle_left(
     _write(xy=xy, width=width, code="\ue120", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_circle_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-circle-right.
 
@@ -5940,12 +5964,12 @@ def caret_circle_right(
     _write(xy=xy, width=width, code="\ue122", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_circle_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-circle-up.
 
@@ -5960,12 +5984,12 @@ def caret_circle_up(
     _write(xy=xy, width=width, code="\ue124", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_circle_up_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-circle-up-down.
 
@@ -5980,12 +6004,12 @@ def caret_circle_up_down(
     _write(xy=xy, width=width, code="\ue13e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_double_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-double-down.
 
@@ -6000,12 +6024,12 @@ def caret_double_down(
     _write(xy=xy, width=width, code="\ue126", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_double_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-double-left.
 
@@ -6020,12 +6044,12 @@ def caret_double_left(
     _write(xy=xy, width=width, code="\ue128", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_double_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-double-right.
 
@@ -6040,12 +6064,12 @@ def caret_double_right(
     _write(xy=xy, width=width, code="\ue12a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_double_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-double-up.
 
@@ -6060,12 +6084,12 @@ def caret_double_up(
     _write(xy=xy, width=width, code="\ue12c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-down.
 
@@ -6080,12 +6104,12 @@ def caret_down(
     _write(xy=xy, width=width, code="\ue136", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-left.
 
@@ -6100,12 +6124,12 @@ def caret_left(
     _write(xy=xy, width=width, code="\ue138", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_line_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-line-down.
 
@@ -6120,12 +6144,12 @@ def caret_line_down(
     _write(xy=xy, width=width, code="\ue134", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_line_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-line-left.
 
@@ -6140,12 +6164,12 @@ def caret_line_left(
     _write(xy=xy, width=width, code="\ue132", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_line_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-line-right.
 
@@ -6160,12 +6184,12 @@ def caret_line_right(
     _write(xy=xy, width=width, code="\ue130", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_line_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-line-up.
 
@@ -6180,12 +6204,12 @@ def caret_line_up(
     _write(xy=xy, width=width, code="\ue12e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-right.
 
@@ -6200,12 +6224,12 @@ def caret_right(
     _write(xy=xy, width=width, code="\ue13a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-up.
 
@@ -6220,12 +6244,12 @@ def caret_up(
     _write(xy=xy, width=width, code="\ue13c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def caret_up_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an caret-up-down.
 
@@ -6240,12 +6264,12 @@ def caret_up_down(
     _write(xy=xy, width=width, code="\ue140", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def carrot(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an carrot.
 
@@ -6260,12 +6284,12 @@ def carrot(
     _write(xy=xy, width=width, code="\ued38", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cash_register(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cash-register.
 
@@ -6280,12 +6304,12 @@ def cash_register(
     _write(xy=xy, width=width, code="\ued80", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cassette_tape(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cassette-tape.
 
@@ -6300,12 +6324,12 @@ def cassette_tape(
     _write(xy=xy, width=width, code="\ued2e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def castle_turret(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an castle-turret.
 
@@ -6320,12 +6344,12 @@ def castle_turret(
     _write(xy=xy, width=width, code="\ue9d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cat(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cat.
 
@@ -6340,12 +6364,12 @@ def cat(
     _write(xy=xy, width=width, code="\ue748", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cell_signal_full(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cell-signal-full.
 
@@ -6360,12 +6384,12 @@ def cell_signal_full(
     _write(xy=xy, width=width, code="\ue142", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cell_signal_high(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cell-signal-high.
 
@@ -6380,12 +6404,12 @@ def cell_signal_high(
     _write(xy=xy, width=width, code="\ue144", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cell_signal_low(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cell-signal-low.
 
@@ -6400,12 +6424,12 @@ def cell_signal_low(
     _write(xy=xy, width=width, code="\ue146", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cell_signal_medium(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cell-signal-medium.
 
@@ -6420,12 +6444,12 @@ def cell_signal_medium(
     _write(xy=xy, width=width, code="\ue148", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cell_signal_none(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cell-signal-none.
 
@@ -6440,12 +6464,12 @@ def cell_signal_none(
     _write(xy=xy, width=width, code="\ue14a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cell_signal_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cell-signal-slash.
 
@@ -6460,12 +6484,12 @@ def cell_signal_slash(
     _write(xy=xy, width=width, code="\ue14c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cell_signal_x(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cell-signal-x.
 
@@ -6480,12 +6504,12 @@ def cell_signal_x(
     _write(xy=xy, width=width, code="\ue14e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cell_tower(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cell-tower.
 
@@ -6500,12 +6524,12 @@ def cell_tower(
     _write(xy=xy, width=width, code="\uebaa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def certificate(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an certificate.
 
@@ -6520,12 +6544,12 @@ def certificate(
     _write(xy=xy, width=width, code="\ue766", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chair(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chair.
 
@@ -6540,12 +6564,12 @@ def chair(
     _write(xy=xy, width=width, code="\ue950", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chalkboard(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chalkboard.
 
@@ -6560,12 +6584,12 @@ def chalkboard(
     _write(xy=xy, width=width, code="\ue5fc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chalkboard_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chalkboard-simple.
 
@@ -6580,12 +6604,12 @@ def chalkboard_simple(
     _write(xy=xy, width=width, code="\ue5fe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chalkboard_teacher(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chalkboard-teacher.
 
@@ -6600,12 +6624,12 @@ def chalkboard_teacher(
     _write(xy=xy, width=width, code="\ue600", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def champagne(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an champagne.
 
@@ -6620,12 +6644,12 @@ def champagne(
     _write(xy=xy, width=width, code="\ueaca", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def charging_station(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an charging-station.
 
@@ -6640,12 +6664,12 @@ def charging_station(
     _write(xy=xy, width=width, code="\ue8d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chart_bar(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chart-bar.
 
@@ -6660,12 +6684,12 @@ def chart_bar(
     _write(xy=xy, width=width, code="\ue150", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chart_bar_horizontal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chart-bar-horizontal.
 
@@ -6680,12 +6704,12 @@ def chart_bar_horizontal(
     _write(xy=xy, width=width, code="\ue152", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chart_donut(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chart-donut.
 
@@ -6700,12 +6724,12 @@ def chart_donut(
     _write(xy=xy, width=width, code="\ueaa6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chart_line(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chart-line.
 
@@ -6720,12 +6744,12 @@ def chart_line(
     _write(xy=xy, width=width, code="\ue154", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chart_line_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chart-line-down.
 
@@ -6740,12 +6764,12 @@ def chart_line_down(
     _write(xy=xy, width=width, code="\ue8b6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chart_line_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chart-line-up.
 
@@ -6760,12 +6784,12 @@ def chart_line_up(
     _write(xy=xy, width=width, code="\ue156", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chart_pie(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chart-pie.
 
@@ -6780,12 +6804,12 @@ def chart_pie(
     _write(xy=xy, width=width, code="\ue158", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chart_pie_slice(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chart-pie-slice.
 
@@ -6800,12 +6824,12 @@ def chart_pie_slice(
     _write(xy=xy, width=width, code="\ue15a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chart_polar(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chart-polar.
 
@@ -6820,12 +6844,12 @@ def chart_polar(
     _write(xy=xy, width=width, code="\ueaa8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chart_scatter(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chart-scatter.
 
@@ -6840,12 +6864,12 @@ def chart_scatter(
     _write(xy=xy, width=width, code="\ueaac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chat(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chat.
 
@@ -6860,12 +6884,12 @@ def chat(
     _write(xy=xy, width=width, code="\ue15c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chat_centered(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chat-centered.
 
@@ -6880,12 +6904,12 @@ def chat_centered(
     _write(xy=xy, width=width, code="\ue160", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chat_centered_dots(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chat-centered-dots.
 
@@ -6900,12 +6924,12 @@ def chat_centered_dots(
     _write(xy=xy, width=width, code="\ue164", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chat_centered_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chat-centered-slash.
 
@@ -6920,12 +6944,12 @@ def chat_centered_slash(
     _write(xy=xy, width=width, code="\ue162", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chat_centered_text(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chat-centered-text.
 
@@ -6940,12 +6964,12 @@ def chat_centered_text(
     _write(xy=xy, width=width, code="\ue166", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chat_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chat-circle.
 
@@ -6960,12 +6984,12 @@ def chat_circle(
     _write(xy=xy, width=width, code="\ue168", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chat_circle_dots(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chat-circle-dots.
 
@@ -6980,12 +7004,12 @@ def chat_circle_dots(
     _write(xy=xy, width=width, code="\ue16c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chat_circle_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chat-circle-slash.
 
@@ -7000,12 +7024,12 @@ def chat_circle_slash(
     _write(xy=xy, width=width, code="\ue16a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chat_circle_text(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chat-circle-text.
 
@@ -7020,12 +7044,12 @@ def chat_circle_text(
     _write(xy=xy, width=width, code="\ue16e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chat_dots(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chat-dots.
 
@@ -7040,12 +7064,12 @@ def chat_dots(
     _write(xy=xy, width=width, code="\ue170", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chat_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chat-slash.
 
@@ -7060,12 +7084,12 @@ def chat_slash(
     _write(xy=xy, width=width, code="\ue15e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chat_teardrop(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chat-teardrop.
 
@@ -7080,12 +7104,12 @@ def chat_teardrop(
     _write(xy=xy, width=width, code="\ue172", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chat_teardrop_dots(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chat-teardrop-dots.
 
@@ -7100,12 +7124,12 @@ def chat_teardrop_dots(
     _write(xy=xy, width=width, code="\ue176", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chat_teardrop_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chat-teardrop-slash.
 
@@ -7120,12 +7144,12 @@ def chat_teardrop_slash(
     _write(xy=xy, width=width, code="\ue174", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chat_teardrop_text(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chat-teardrop-text.
 
@@ -7140,12 +7164,12 @@ def chat_teardrop_text(
     _write(xy=xy, width=width, code="\ue178", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chat_text(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chat-text.
 
@@ -7160,12 +7184,12 @@ def chat_text(
     _write(xy=xy, width=width, code="\ue17a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chats(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chats.
 
@@ -7180,12 +7204,12 @@ def chats(
     _write(xy=xy, width=width, code="\ue17c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chats_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chats-circle.
 
@@ -7200,12 +7224,12 @@ def chats_circle(
     _write(xy=xy, width=width, code="\ue17e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chats_teardrop(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chats-teardrop.
 
@@ -7220,12 +7244,12 @@ def chats_teardrop(
     _write(xy=xy, width=width, code="\ue180", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def check(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an check.
 
@@ -7240,12 +7264,12 @@ def check(
     _write(xy=xy, width=width, code="\ue182", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def check_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an check-circle.
 
@@ -7260,12 +7284,12 @@ def check_circle(
     _write(xy=xy, width=width, code="\ue184", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def check_fat(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an check-fat.
 
@@ -7280,12 +7304,12 @@ def check_fat(
     _write(xy=xy, width=width, code="\ueba6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def check_square(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an check-square.
 
@@ -7300,12 +7324,12 @@ def check_square(
     _write(xy=xy, width=width, code="\ue186", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def check_square_offset(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an check-square-offset.
 
@@ -7320,12 +7344,12 @@ def check_square_offset(
     _write(xy=xy, width=width, code="\ue188", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def checkerboard(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an checkerboard.
 
@@ -7340,12 +7364,12 @@ def checkerboard(
     _write(xy=xy, width=width, code="\ue8c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def checks(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an checks.
 
@@ -7360,12 +7384,12 @@ def checks(
     _write(xy=xy, width=width, code="\ue53a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cheers(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cheers.
 
@@ -7380,12 +7404,12 @@ def cheers(
     _write(xy=xy, width=width, code="\uea4a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cheese(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cheese.
 
@@ -7400,12 +7424,12 @@ def cheese(
     _write(xy=xy, width=width, code="\ue9fe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def chef_hat(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an chef-hat.
 
@@ -7420,12 +7444,12 @@ def chef_hat(
     _write(xy=xy, width=width, code="\ued8e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cherries(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cherries.
 
@@ -7440,12 +7464,12 @@ def cherries(
     _write(xy=xy, width=width, code="\ue830", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def church(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an church.
 
@@ -7460,12 +7484,12 @@ def church(
     _write(xy=xy, width=width, code="\uecea", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cigarette(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cigarette.
 
@@ -7480,12 +7504,12 @@ def cigarette(
     _write(xy=xy, width=width, code="\ued90", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cigarette_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cigarette-slash.
 
@@ -7500,12 +7524,12 @@ def cigarette_slash(
     _write(xy=xy, width=width, code="\ued92", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an circle.
 
@@ -7520,12 +7544,12 @@ def circle(
     _write(xy=xy, width=width, code="\ue18a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def circle_dashed(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an circle-dashed.
 
@@ -7540,12 +7564,12 @@ def circle_dashed(
     _write(xy=xy, width=width, code="\ue602", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def circle_half(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an circle-half.
 
@@ -7560,12 +7584,12 @@ def circle_half(
     _write(xy=xy, width=width, code="\ue18c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def circle_half_tilt(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an circle-half-tilt.
 
@@ -7580,12 +7604,12 @@ def circle_half_tilt(
     _write(xy=xy, width=width, code="\ue18e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def circle_notch(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an circle-notch.
 
@@ -7600,12 +7624,12 @@ def circle_notch(
     _write(xy=xy, width=width, code="\ueb44", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def circles_four(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an circles-four.
 
@@ -7620,12 +7644,12 @@ def circles_four(
     _write(xy=xy, width=width, code="\ue190", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def circles_three(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an circles-three.
 
@@ -7640,12 +7664,12 @@ def circles_three(
     _write(xy=xy, width=width, code="\ue192", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def circles_three_plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an circles-three-plus.
 
@@ -7660,12 +7684,12 @@ def circles_three_plus(
     _write(xy=xy, width=width, code="\ue194", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def circuitry(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an circuitry.
 
@@ -7680,12 +7704,12 @@ def circuitry(
     _write(xy=xy, width=width, code="\ue9c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def city(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an city.
 
@@ -7700,12 +7724,12 @@ def city(
     _write(xy=xy, width=width, code="\uea6a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def clipboard(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an clipboard.
 
@@ -7720,12 +7744,12 @@ def clipboard(
     _write(xy=xy, width=width, code="\ue196", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def clipboard_text(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an clipboard-text.
 
@@ -7740,12 +7764,12 @@ def clipboard_text(
     _write(xy=xy, width=width, code="\ue198", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def clock(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an clock.
 
@@ -7760,12 +7784,12 @@ def clock(
     _write(xy=xy, width=width, code="\ue19a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def clock_afternoon(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an clock-afternoon.
 
@@ -7780,12 +7804,12 @@ def clock_afternoon(
     _write(xy=xy, width=width, code="\ue19c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def clock_clockwise(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an clock-clockwise.
 
@@ -7800,12 +7824,12 @@ def clock_clockwise(
     _write(xy=xy, width=width, code="\ue19e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def clock_countdown(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an clock-countdown.
 
@@ -7820,12 +7844,12 @@ def clock_countdown(
     _write(xy=xy, width=width, code="\ued2c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def clock_counter_clockwise(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an clock-counter-clockwise.
 
@@ -7840,12 +7864,12 @@ def clock_counter_clockwise(
     _write(xy=xy, width=width, code="\ue1a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def clock_user(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an clock-user.
 
@@ -7860,12 +7884,12 @@ def clock_user(
     _write(xy=xy, width=width, code="\uedec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def closed_captioning(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an closed-captioning.
 
@@ -7880,12 +7904,12 @@ def closed_captioning(
     _write(xy=xy, width=width, code="\ue1a4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cloud(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cloud.
 
@@ -7900,12 +7924,12 @@ def cloud(
     _write(xy=xy, width=width, code="\ue1aa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cloud_arrow_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cloud-arrow-down.
 
@@ -7920,12 +7944,12 @@ def cloud_arrow_down(
     _write(xy=xy, width=width, code="\ue1ac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cloud_arrow_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cloud-arrow-up.
 
@@ -7940,12 +7964,12 @@ def cloud_arrow_up(
     _write(xy=xy, width=width, code="\ue1ae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cloud_check(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cloud-check.
 
@@ -7960,12 +7984,12 @@ def cloud_check(
     _write(xy=xy, width=width, code="\ue1b0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cloud_fog(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cloud-fog.
 
@@ -7980,12 +8004,12 @@ def cloud_fog(
     _write(xy=xy, width=width, code="\ue53c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cloud_lightning(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cloud-lightning.
 
@@ -8000,12 +8024,12 @@ def cloud_lightning(
     _write(xy=xy, width=width, code="\ue1b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cloud_moon(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cloud-moon.
 
@@ -8020,12 +8044,12 @@ def cloud_moon(
     _write(xy=xy, width=width, code="\ue53e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cloud_rain(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cloud-rain.
 
@@ -8040,12 +8064,12 @@ def cloud_rain(
     _write(xy=xy, width=width, code="\ue1b4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cloud_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cloud-slash.
 
@@ -8060,12 +8084,12 @@ def cloud_slash(
     _write(xy=xy, width=width, code="\ue1b6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cloud_snow(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cloud-snow.
 
@@ -8080,12 +8104,12 @@ def cloud_snow(
     _write(xy=xy, width=width, code="\ue1b8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cloud_sun(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cloud-sun.
 
@@ -8100,12 +8124,12 @@ def cloud_sun(
     _write(xy=xy, width=width, code="\ue540", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cloud_warning(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cloud-warning.
 
@@ -8120,12 +8144,12 @@ def cloud_warning(
     _write(xy=xy, width=width, code="\uea98", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cloud_x(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cloud-x.
 
@@ -8140,12 +8164,12 @@ def cloud_x(
     _write(xy=xy, width=width, code="\uea96", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def clover(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an clover.
 
@@ -8160,12 +8184,12 @@ def clover(
     _write(xy=xy, width=width, code="\uedc8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def club(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an club.
 
@@ -8180,12 +8204,12 @@ def club(
     _write(xy=xy, width=width, code="\ue1ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def coat_hanger(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an coat-hanger.
 
@@ -8200,12 +8224,12 @@ def coat_hanger(
     _write(xy=xy, width=width, code="\ue7fe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def coda_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an coda-logo.
 
@@ -8220,12 +8244,12 @@ def coda_logo(
     _write(xy=xy, width=width, code="\ue7ce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def code(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an code.
 
@@ -8240,12 +8264,12 @@ def code(
     _write(xy=xy, width=width, code="\ue1bc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def code_block(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an code-block.
 
@@ -8260,12 +8284,12 @@ def code_block(
     _write(xy=xy, width=width, code="\ueafe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def code_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an code-simple.
 
@@ -8280,12 +8304,12 @@ def code_simple(
     _write(xy=xy, width=width, code="\ue1be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def codepen_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an codepen-logo.
 
@@ -8300,12 +8324,12 @@ def codepen_logo(
     _write(xy=xy, width=width, code="\ue978", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def codesandbox_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an codesandbox-logo.
 
@@ -8320,12 +8344,12 @@ def codesandbox_logo(
     _write(xy=xy, width=width, code="\uea06", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def coffee(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an coffee.
 
@@ -8340,12 +8364,12 @@ def coffee(
     _write(xy=xy, width=width, code="\ue1c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def coffee_bean(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an coffee-bean.
 
@@ -8360,12 +8384,12 @@ def coffee_bean(
     _write(xy=xy, width=width, code="\ue1c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def coin(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an coin.
 
@@ -8380,12 +8404,12 @@ def coin(
     _write(xy=xy, width=width, code="\ue60e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def coin_vertical(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an coin-vertical.
 
@@ -8400,12 +8424,12 @@ def coin_vertical(
     _write(xy=xy, width=width, code="\ueb48", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def coins(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an coins.
 
@@ -8420,12 +8444,12 @@ def coins(
     _write(xy=xy, width=width, code="\ue78e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def columns(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an columns.
 
@@ -8440,12 +8464,12 @@ def columns(
     _write(xy=xy, width=width, code="\ue546", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def columns_plus_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an columns-plus-left.
 
@@ -8460,12 +8484,12 @@ def columns_plus_left(
     _write(xy=xy, width=width, code="\ue544", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def columns_plus_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an columns-plus-right.
 
@@ -8480,12 +8504,12 @@ def columns_plus_right(
     _write(xy=xy, width=width, code="\ue542", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def command(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an command.
 
@@ -8500,12 +8524,12 @@ def command(
     _write(xy=xy, width=width, code="\ue1c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def compass(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an compass.
 
@@ -8520,12 +8544,12 @@ def compass(
     _write(xy=xy, width=width, code="\ue1c8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def compass_rose(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an compass-rose.
 
@@ -8540,12 +8564,12 @@ def compass_rose(
     _write(xy=xy, width=width, code="\ue1c6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def compass_tool(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an compass-tool.
 
@@ -8560,12 +8584,12 @@ def compass_tool(
     _write(xy=xy, width=width, code="\uea0e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def computer_tower(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an computer-tower.
 
@@ -8580,12 +8604,12 @@ def computer_tower(
     _write(xy=xy, width=width, code="\ue548", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def confetti(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an confetti.
 
@@ -8600,12 +8624,12 @@ def confetti(
     _write(xy=xy, width=width, code="\ue81a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def contactless_payment(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an contactless-payment.
 
@@ -8620,12 +8644,12 @@ def contactless_payment(
     _write(xy=xy, width=width, code="\ued42", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def control(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an control.
 
@@ -8640,12 +8664,12 @@ def control(
     _write(xy=xy, width=width, code="\ueca6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cookie(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cookie.
 
@@ -8660,12 +8684,12 @@ def cookie(
     _write(xy=xy, width=width, code="\ue6ca", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cooking_pot(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cooking-pot.
 
@@ -8680,12 +8704,12 @@ def cooking_pot(
     _write(xy=xy, width=width, code="\ue764", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def copy(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an copy.
 
@@ -8700,12 +8724,12 @@ def copy(
     _write(xy=xy, width=width, code="\ue1ca", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def copy_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an copy-simple.
 
@@ -8720,12 +8744,12 @@ def copy_simple(
     _write(xy=xy, width=width, code="\ue1cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def copyleft(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an copyleft.
 
@@ -8740,12 +8764,12 @@ def copyleft(
     _write(xy=xy, width=width, code="\ue86a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def copyright(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an copyright.
 
@@ -8760,12 +8784,12 @@ def copyright(
     _write(xy=xy, width=width, code="\ue54a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def corners_in(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an corners-in.
 
@@ -8780,12 +8804,12 @@ def corners_in(
     _write(xy=xy, width=width, code="\ue1ce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def corners_out(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an corners-out.
 
@@ -8800,12 +8824,12 @@ def corners_out(
     _write(xy=xy, width=width, code="\ue1d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def couch(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an couch.
 
@@ -8820,12 +8844,12 @@ def couch(
     _write(xy=xy, width=width, code="\ue7f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def court_basketball(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an court-basketball.
 
@@ -8840,12 +8864,12 @@ def court_basketball(
     _write(xy=xy, width=width, code="\uee36", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cow(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cow.
 
@@ -8860,12 +8884,12 @@ def cow(
     _write(xy=xy, width=width, code="\ueabe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cowboy_hat(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cowboy-hat.
 
@@ -8880,12 +8904,12 @@ def cowboy_hat(
     _write(xy=xy, width=width, code="\ued12", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cpu(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cpu.
 
@@ -8900,12 +8924,12 @@ def cpu(
     _write(xy=xy, width=width, code="\ue610", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def crane(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an crane.
 
@@ -8920,12 +8944,12 @@ def crane(
     _write(xy=xy, width=width, code="\ued48", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def crane_tower(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an crane-tower.
 
@@ -8940,12 +8964,12 @@ def crane_tower(
     _write(xy=xy, width=width, code="\ued49", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def credit_card(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an credit-card.
 
@@ -8960,12 +8984,12 @@ def credit_card(
     _write(xy=xy, width=width, code="\ue1d2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cricket(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cricket.
 
@@ -8980,12 +9004,12 @@ def cricket(
     _write(xy=xy, width=width, code="\uee12", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def crop(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an crop.
 
@@ -9000,12 +9024,12 @@ def crop(
     _write(xy=xy, width=width, code="\ue1d4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cross(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cross.
 
@@ -9020,12 +9044,12 @@ def cross(
     _write(xy=xy, width=width, code="\ue8a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def crosshair(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an crosshair.
 
@@ -9040,12 +9064,12 @@ def crosshair(
     _write(xy=xy, width=width, code="\ue1d6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def crosshair_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an crosshair-simple.
 
@@ -9060,12 +9084,12 @@ def crosshair_simple(
     _write(xy=xy, width=width, code="\ue1d8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def crown(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an crown.
 
@@ -9080,12 +9104,12 @@ def crown(
     _write(xy=xy, width=width, code="\ue614", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def crown_cross(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an crown-cross.
 
@@ -9100,12 +9124,12 @@ def crown_cross(
     _write(xy=xy, width=width, code="\uee5e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def crown_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an crown-simple.
 
@@ -9120,12 +9144,12 @@ def crown_simple(
     _write(xy=xy, width=width, code="\ue616", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cube(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cube.
 
@@ -9140,12 +9164,12 @@ def cube(
     _write(xy=xy, width=width, code="\ue1da", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cube_focus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cube-focus.
 
@@ -9160,12 +9184,12 @@ def cube_focus(
     _write(xy=xy, width=width, code="\ued0a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cube_transparent(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cube-transparent.
 
@@ -9180,12 +9204,12 @@ def cube_transparent(
     _write(xy=xy, width=width, code="\uec7c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def currency_btc(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an currency-btc.
 
@@ -9200,12 +9224,12 @@ def currency_btc(
     _write(xy=xy, width=width, code="\ue618", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def currency_circle_dollar(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an currency-circle-dollar.
 
@@ -9220,12 +9244,12 @@ def currency_circle_dollar(
     _write(xy=xy, width=width, code="\ue54c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def currency_cny(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an currency-cny.
 
@@ -9240,12 +9264,12 @@ def currency_cny(
     _write(xy=xy, width=width, code="\ue54e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def currency_dollar(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an currency-dollar.
 
@@ -9260,12 +9284,12 @@ def currency_dollar(
     _write(xy=xy, width=width, code="\ue550", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def currency_dollar_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an currency-dollar-simple.
 
@@ -9280,12 +9304,12 @@ def currency_dollar_simple(
     _write(xy=xy, width=width, code="\ue552", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def currency_eth(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an currency-eth.
 
@@ -9300,12 +9324,12 @@ def currency_eth(
     _write(xy=xy, width=width, code="\ueada", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def currency_eur(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an currency-eur.
 
@@ -9320,12 +9344,12 @@ def currency_eur(
     _write(xy=xy, width=width, code="\ue554", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def currency_gbp(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an currency-gbp.
 
@@ -9340,12 +9364,12 @@ def currency_gbp(
     _write(xy=xy, width=width, code="\ue556", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def currency_inr(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an currency-inr.
 
@@ -9360,12 +9384,12 @@ def currency_inr(
     _write(xy=xy, width=width, code="\ue558", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def currency_jpy(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an currency-jpy.
 
@@ -9380,12 +9404,12 @@ def currency_jpy(
     _write(xy=xy, width=width, code="\ue55a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def currency_krw(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an currency-krw.
 
@@ -9400,12 +9424,12 @@ def currency_krw(
     _write(xy=xy, width=width, code="\ue55c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def currency_kzt(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an currency-kzt.
 
@@ -9420,12 +9444,12 @@ def currency_kzt(
     _write(xy=xy, width=width, code="\uec4c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def currency_ngn(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an currency-ngn.
 
@@ -9440,12 +9464,12 @@ def currency_ngn(
     _write(xy=xy, width=width, code="\ueb52", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def currency_rub(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an currency-rub.
 
@@ -9460,12 +9484,12 @@ def currency_rub(
     _write(xy=xy, width=width, code="\ue55e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cursor(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cursor.
 
@@ -9480,12 +9504,12 @@ def cursor(
     _write(xy=xy, width=width, code="\ue1dc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cursor_click(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cursor-click.
 
@@ -9500,12 +9524,12 @@ def cursor_click(
     _write(xy=xy, width=width, code="\ue7c8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cursor_text(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cursor-text.
 
@@ -9520,12 +9544,12 @@ def cursor_text(
     _write(xy=xy, width=width, code="\ue7d8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def cylinder(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an cylinder.
 
@@ -9540,12 +9564,12 @@ def cylinder(
     _write(xy=xy, width=width, code="\ue8fc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def database(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an database.
 
@@ -9560,12 +9584,12 @@ def database(
     _write(xy=xy, width=width, code="\ue1de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def desk(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an desk.
 
@@ -9580,12 +9604,12 @@ def desk(
     _write(xy=xy, width=width, code="\ued16", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def desktop(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an desktop.
 
@@ -9600,12 +9624,12 @@ def desktop(
     _write(xy=xy, width=width, code="\ue560", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def desktop_tower(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an desktop-tower.
 
@@ -9620,12 +9644,12 @@ def desktop_tower(
     _write(xy=xy, width=width, code="\ue562", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def detective(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an detective.
 
@@ -9640,12 +9664,12 @@ def detective(
     _write(xy=xy, width=width, code="\ue83e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dev_to_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dev-to-logo.
 
@@ -9660,12 +9684,12 @@ def dev_to_logo(
     _write(xy=xy, width=width, code="\ued0e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def device_mobile(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an device-mobile.
 
@@ -9680,12 +9704,12 @@ def device_mobile(
     _write(xy=xy, width=width, code="\ue1e0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def device_mobile_camera(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an device-mobile-camera.
 
@@ -9700,12 +9724,12 @@ def device_mobile_camera(
     _write(xy=xy, width=width, code="\ue1e2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def device_mobile_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an device-mobile-slash.
 
@@ -9720,12 +9744,12 @@ def device_mobile_slash(
     _write(xy=xy, width=width, code="\uee46", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def device_mobile_speaker(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an device-mobile-speaker.
 
@@ -9740,12 +9764,12 @@ def device_mobile_speaker(
     _write(xy=xy, width=width, code="\ue1e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def device_rotate(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an device-rotate.
 
@@ -9760,12 +9784,12 @@ def device_rotate(
     _write(xy=xy, width=width, code="\uedf2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def device_tablet(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an device-tablet.
 
@@ -9780,12 +9804,12 @@ def device_tablet(
     _write(xy=xy, width=width, code="\ue1e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def device_tablet_camera(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an device-tablet-camera.
 
@@ -9800,12 +9824,12 @@ def device_tablet_camera(
     _write(xy=xy, width=width, code="\ue1e8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def device_tablet_speaker(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an device-tablet-speaker.
 
@@ -9820,12 +9844,12 @@ def device_tablet_speaker(
     _write(xy=xy, width=width, code="\ue1ea", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def devices(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an devices.
 
@@ -9840,12 +9864,12 @@ def devices(
     _write(xy=xy, width=width, code="\ueba4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def diamond(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an diamond.
 
@@ -9860,12 +9884,12 @@ def diamond(
     _write(xy=xy, width=width, code="\ue1ec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def diamonds_four(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an diamonds-four.
 
@@ -9880,12 +9904,12 @@ def diamonds_four(
     _write(xy=xy, width=width, code="\ue8f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dice_five(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dice-five.
 
@@ -9900,12 +9924,12 @@ def dice_five(
     _write(xy=xy, width=width, code="\ue1ee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dice_four(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dice-four.
 
@@ -9920,12 +9944,12 @@ def dice_four(
     _write(xy=xy, width=width, code="\ue1f0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dice_one(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dice-one.
 
@@ -9940,12 +9964,12 @@ def dice_one(
     _write(xy=xy, width=width, code="\ue1f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dice_six(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dice-six.
 
@@ -9960,12 +9984,12 @@ def dice_six(
     _write(xy=xy, width=width, code="\ue1f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dice_three(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dice-three.
 
@@ -9980,12 +10004,12 @@ def dice_three(
     _write(xy=xy, width=width, code="\ue1f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dice_two(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dice-two.
 
@@ -10000,12 +10024,12 @@ def dice_two(
     _write(xy=xy, width=width, code="\ue1f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def disc(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an disc.
 
@@ -10020,12 +10044,12 @@ def disc(
     _write(xy=xy, width=width, code="\ue564", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def disco_ball(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an disco-ball.
 
@@ -10040,12 +10064,12 @@ def disco_ball(
     _write(xy=xy, width=width, code="\ued98", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def discord_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an discord-logo.
 
@@ -10060,12 +10084,12 @@ def discord_logo(
     _write(xy=xy, width=width, code="\ue61a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def divide(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an divide.
 
@@ -10080,12 +10104,12 @@ def divide(
     _write(xy=xy, width=width, code="\ue1fa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dna(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dna.
 
@@ -10100,12 +10124,12 @@ def dna(
     _write(xy=xy, width=width, code="\ue924", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dog(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dog.
 
@@ -10120,12 +10144,12 @@ def dog(
     _write(xy=xy, width=width, code="\ue74a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def door(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an door.
 
@@ -10140,12 +10164,12 @@ def door(
     _write(xy=xy, width=width, code="\ue61c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def door_open(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an door-open.
 
@@ -10160,12 +10184,12 @@ def door_open(
     _write(xy=xy, width=width, code="\ue7e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dot(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dot.
 
@@ -10180,12 +10204,12 @@ def dot(
     _write(xy=xy, width=width, code="\uecde", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dot_outline(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dot-outline.
 
@@ -10200,12 +10224,12 @@ def dot_outline(
     _write(xy=xy, width=width, code="\uece0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dots_nine(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dots-nine.
 
@@ -10220,12 +10244,12 @@ def dots_nine(
     _write(xy=xy, width=width, code="\ue1fc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dots_six(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dots-six.
 
@@ -10240,12 +10264,12 @@ def dots_six(
     _write(xy=xy, width=width, code="\ue794", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dots_six_vertical(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dots-six-vertical.
 
@@ -10260,12 +10284,12 @@ def dots_six_vertical(
     _write(xy=xy, width=width, code="\ueae2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dots_three(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dots-three.
 
@@ -10280,12 +10304,12 @@ def dots_three(
     _write(xy=xy, width=width, code="\ue1fe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dots_three_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dots-three-circle.
 
@@ -10300,12 +10324,12 @@ def dots_three_circle(
     _write(xy=xy, width=width, code="\ue200", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dots_three_circle_vertical(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dots-three-circle-vertical.
 
@@ -10320,12 +10344,12 @@ def dots_three_circle_vertical(
     _write(xy=xy, width=width, code="\ue202", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dots_three_outline(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dots-three-outline.
 
@@ -10340,12 +10364,12 @@ def dots_three_outline(
     _write(xy=xy, width=width, code="\ue204", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dots_three_outline_vertical(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dots-three-outline-vertical.
 
@@ -10360,12 +10384,12 @@ def dots_three_outline_vertical(
     _write(xy=xy, width=width, code="\ue206", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dots_three_vertical(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dots-three-vertical.
 
@@ -10380,12 +10404,12 @@ def dots_three_vertical(
     _write(xy=xy, width=width, code="\ue208", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def download(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an download.
 
@@ -10400,12 +10424,12 @@ def download(
     _write(xy=xy, width=width, code="\ue20a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def download_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an download-simple.
 
@@ -10420,12 +10444,12 @@ def download_simple(
     _write(xy=xy, width=width, code="\ue20c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dress(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dress.
 
@@ -10440,12 +10464,12 @@ def dress(
     _write(xy=xy, width=width, code="\uea7e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dresser(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dresser.
 
@@ -10460,12 +10484,12 @@ def dresser(
     _write(xy=xy, width=width, code="\ue94e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dribbble_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dribbble-logo.
 
@@ -10480,12 +10504,12 @@ def dribbble_logo(
     _write(xy=xy, width=width, code="\ue20e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def drone(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an drone.
 
@@ -10500,12 +10524,12 @@ def drone(
     _write(xy=xy, width=width, code="\ued74", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def drop(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an drop.
 
@@ -10520,12 +10544,12 @@ def drop(
     _write(xy=xy, width=width, code="\ue210", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def drop_half(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an drop-half.
 
@@ -10540,12 +10564,12 @@ def drop_half(
     _write(xy=xy, width=width, code="\ue566", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def drop_half_bottom(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an drop-half-bottom.
 
@@ -10560,12 +10584,12 @@ def drop_half_bottom(
     _write(xy=xy, width=width, code="\ueb40", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def drop_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an drop-simple.
 
@@ -10580,12 +10604,12 @@ def drop_simple(
     _write(xy=xy, width=width, code="\uee32", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def drop_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an drop-slash.
 
@@ -10600,12 +10624,12 @@ def drop_slash(
     _write(xy=xy, width=width, code="\ue954", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def dropbox_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an dropbox-logo.
 
@@ -10620,12 +10644,12 @@ def dropbox_logo(
     _write(xy=xy, width=width, code="\ue7d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def ear(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an ear.
 
@@ -10640,12 +10664,12 @@ def ear(
     _write(xy=xy, width=width, code="\ue70c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def ear_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an ear-slash.
 
@@ -10660,12 +10684,12 @@ def ear_slash(
     _write(xy=xy, width=width, code="\ue70e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def egg(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an egg.
 
@@ -10680,12 +10704,12 @@ def egg(
     _write(xy=xy, width=width, code="\ue812", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def egg_crack(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an egg-crack.
 
@@ -10700,12 +10724,12 @@ def egg_crack(
     _write(xy=xy, width=width, code="\ueb64", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def eject(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an eject.
 
@@ -10720,12 +10744,12 @@ def eject(
     _write(xy=xy, width=width, code="\ue212", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def eject_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an eject-simple.
 
@@ -10740,12 +10764,12 @@ def eject_simple(
     _write(xy=xy, width=width, code="\ue6ae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def elevator(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an elevator.
 
@@ -10760,12 +10784,12 @@ def elevator(
     _write(xy=xy, width=width, code="\uecc0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def empty(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an empty.
 
@@ -10780,12 +10804,12 @@ def empty(
     _write(xy=xy, width=width, code="\uedbc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def engine(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an engine.
 
@@ -10800,12 +10824,12 @@ def engine(
     _write(xy=xy, width=width, code="\uea80", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def envelope(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an envelope.
 
@@ -10820,12 +10844,12 @@ def envelope(
     _write(xy=xy, width=width, code="\ue214", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def envelope_open(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an envelope-open.
 
@@ -10840,12 +10864,12 @@ def envelope_open(
     _write(xy=xy, width=width, code="\ue216", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def envelope_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an envelope-simple.
 
@@ -10860,12 +10884,12 @@ def envelope_simple(
     _write(xy=xy, width=width, code="\ue218", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def envelope_simple_open(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an envelope-simple-open.
 
@@ -10880,12 +10904,12 @@ def envelope_simple_open(
     _write(xy=xy, width=width, code="\ue21a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def equalizer(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an equalizer.
 
@@ -10900,12 +10924,12 @@ def equalizer(
     _write(xy=xy, width=width, code="\uebbc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def equals(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an equals.
 
@@ -10920,12 +10944,12 @@ def equals(
     _write(xy=xy, width=width, code="\ue21c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def eraser(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an eraser.
 
@@ -10940,12 +10964,12 @@ def eraser(
     _write(xy=xy, width=width, code="\ue21e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def escalator_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an escalator-down.
 
@@ -10960,12 +10984,12 @@ def escalator_down(
     _write(xy=xy, width=width, code="\uecba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def escalator_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an escalator-up.
 
@@ -10980,12 +11004,12 @@ def escalator_up(
     _write(xy=xy, width=width, code="\uecbc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def exam(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an exam.
 
@@ -11000,12 +11024,12 @@ def exam(
     _write(xy=xy, width=width, code="\ue742", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def exclamation_mark(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an exclamation-mark.
 
@@ -11020,12 +11044,12 @@ def exclamation_mark(
     _write(xy=xy, width=width, code="\uee44", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def exclude(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an exclude.
 
@@ -11040,12 +11064,12 @@ def exclude(
     _write(xy=xy, width=width, code="\ue882", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def exclude_square(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an exclude-square.
 
@@ -11060,12 +11084,12 @@ def exclude_square(
     _write(xy=xy, width=width, code="\ue880", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def export(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an export.
 
@@ -11080,12 +11104,12 @@ def export(
     _write(xy=xy, width=width, code="\ueaf0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def eye(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an eye.
 
@@ -11100,12 +11124,12 @@ def eye(
     _write(xy=xy, width=width, code="\ue220", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def eye_closed(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an eye-closed.
 
@@ -11120,12 +11144,12 @@ def eye_closed(
     _write(xy=xy, width=width, code="\ue222", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def eye_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an eye-slash.
 
@@ -11140,12 +11164,12 @@ def eye_slash(
     _write(xy=xy, width=width, code="\ue224", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def eyedropper(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an eyedropper.
 
@@ -11160,12 +11184,12 @@ def eyedropper(
     _write(xy=xy, width=width, code="\ue568", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def eyedropper_sample(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an eyedropper-sample.
 
@@ -11180,12 +11204,12 @@ def eyedropper_sample(
     _write(xy=xy, width=width, code="\ueac4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def eyeglasses(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an eyeglasses.
 
@@ -11200,12 +11224,12 @@ def eyeglasses(
     _write(xy=xy, width=width, code="\ue7ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def eyes(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an eyes.
 
@@ -11220,12 +11244,12 @@ def eyes(
     _write(xy=xy, width=width, code="\uee5c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def face_mask(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an face-mask.
 
@@ -11240,12 +11264,12 @@ def face_mask(
     _write(xy=xy, width=width, code="\ue56a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def facebook_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an facebook-logo.
 
@@ -11260,12 +11284,12 @@ def facebook_logo(
     _write(xy=xy, width=width, code="\ue226", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def factory(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an factory.
 
@@ -11280,12 +11304,12 @@ def factory(
     _write(xy=xy, width=width, code="\ue760", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def faders(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an faders.
 
@@ -11300,12 +11324,12 @@ def faders(
     _write(xy=xy, width=width, code="\ue228", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def faders_horizontal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an faders-horizontal.
 
@@ -11320,12 +11344,12 @@ def faders_horizontal(
     _write(xy=xy, width=width, code="\ue22a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def fallout_shelter(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an fallout-shelter.
 
@@ -11340,12 +11364,12 @@ def fallout_shelter(
     _write(xy=xy, width=width, code="\ue9de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def fan(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an fan.
 
@@ -11360,12 +11384,12 @@ def fan(
     _write(xy=xy, width=width, code="\ue9f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def farm(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an farm.
 
@@ -11380,12 +11404,12 @@ def farm(
     _write(xy=xy, width=width, code="\uec70", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def fast_forward(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an fast-forward.
 
@@ -11400,12 +11424,12 @@ def fast_forward(
     _write(xy=xy, width=width, code="\ue6a6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def fast_forward_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an fast-forward-circle.
 
@@ -11420,12 +11444,12 @@ def fast_forward_circle(
     _write(xy=xy, width=width, code="\ue22c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def feather(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an feather.
 
@@ -11440,12 +11464,12 @@ def feather(
     _write(xy=xy, width=width, code="\ue9c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def fediverse_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an fediverse-logo.
 
@@ -11460,12 +11484,12 @@ def fediverse_logo(
     _write(xy=xy, width=width, code="\ued66", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def figma_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an figma-logo.
 
@@ -11480,12 +11504,12 @@ def figma_logo(
     _write(xy=xy, width=width, code="\ue22e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file.
 
@@ -11500,12 +11524,12 @@ def file(
     _write(xy=xy, width=width, code="\ue230", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_archive(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-archive.
 
@@ -11520,12 +11544,12 @@ def file_archive(
     _write(xy=xy, width=width, code="\ueb2a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_arrow_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-arrow-down.
 
@@ -11540,12 +11564,12 @@ def file_arrow_down(
     _write(xy=xy, width=width, code="\ue232", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_arrow_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-arrow-up.
 
@@ -11560,12 +11584,12 @@ def file_arrow_up(
     _write(xy=xy, width=width, code="\ue61e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_audio(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-audio.
 
@@ -11580,12 +11604,12 @@ def file_audio(
     _write(xy=xy, width=width, code="\uea20", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_c(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-c.
 
@@ -11600,12 +11624,12 @@ def file_c(
     _write(xy=xy, width=width, code="\ueb32", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_c_sharp(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-c-sharp.
 
@@ -11620,12 +11644,12 @@ def file_c_sharp(
     _write(xy=xy, width=width, code="\ueb30", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_cloud(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-cloud.
 
@@ -11640,12 +11664,12 @@ def file_cloud(
     _write(xy=xy, width=width, code="\ue95e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_code(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-code.
 
@@ -11660,12 +11684,12 @@ def file_code(
     _write(xy=xy, width=width, code="\ue914", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_cpp(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-cpp.
 
@@ -11680,12 +11704,12 @@ def file_cpp(
     _write(xy=xy, width=width, code="\ueb2e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_css(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-css.
 
@@ -11700,12 +11724,12 @@ def file_css(
     _write(xy=xy, width=width, code="\ueb34", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_csv(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-csv.
 
@@ -11720,12 +11744,12 @@ def file_csv(
     _write(xy=xy, width=width, code="\ueb1c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_dashed(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-dashed.
 
@@ -11740,12 +11764,12 @@ def file_dashed(
     _write(xy=xy, width=width, code="\ue704", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_dotted(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-dotted.
 
@@ -11760,12 +11784,12 @@ def file_dotted(
     _write(xy=xy, width=width, code="\ue704", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_doc(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-doc.
 
@@ -11780,12 +11804,12 @@ def file_doc(
     _write(xy=xy, width=width, code="\ueb1e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_html(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-html.
 
@@ -11800,12 +11824,12 @@ def file_html(
     _write(xy=xy, width=width, code="\ueb38", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_image(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-image.
 
@@ -11820,12 +11844,12 @@ def file_image(
     _write(xy=xy, width=width, code="\uea24", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_ini(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-ini.
 
@@ -11840,12 +11864,12 @@ def file_ini(
     _write(xy=xy, width=width, code="\ueb33", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_jpg(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-jpg.
 
@@ -11860,12 +11884,12 @@ def file_jpg(
     _write(xy=xy, width=width, code="\ueb1a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_js(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-js.
 
@@ -11880,12 +11904,12 @@ def file_js(
     _write(xy=xy, width=width, code="\ueb24", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_jsx(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-jsx.
 
@@ -11900,12 +11924,12 @@ def file_jsx(
     _write(xy=xy, width=width, code="\ueb3a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_lock(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-lock.
 
@@ -11920,12 +11944,12 @@ def file_lock(
     _write(xy=xy, width=width, code="\ue95c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_magnifying_glass(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-magnifying-glass.
 
@@ -11940,12 +11964,12 @@ def file_magnifying_glass(
     _write(xy=xy, width=width, code="\ue238", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_search(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-search.
 
@@ -11960,12 +11984,12 @@ def file_search(
     _write(xy=xy, width=width, code="\ue238", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_md(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-md.
 
@@ -11980,12 +12004,12 @@ def file_md(
     _write(xy=xy, width=width, code="\ued50", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_minus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-minus.
 
@@ -12000,12 +12024,12 @@ def file_minus(
     _write(xy=xy, width=width, code="\ue234", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_pdf(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-pdf.
 
@@ -12020,12 +12044,12 @@ def file_pdf(
     _write(xy=xy, width=width, code="\ue702", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-plus.
 
@@ -12040,12 +12064,12 @@ def file_plus(
     _write(xy=xy, width=width, code="\ue236", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_png(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-png.
 
@@ -12060,12 +12084,12 @@ def file_png(
     _write(xy=xy, width=width, code="\ueb18", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_ppt(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-ppt.
 
@@ -12080,12 +12104,12 @@ def file_ppt(
     _write(xy=xy, width=width, code="\ueb20", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_py(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-py.
 
@@ -12100,12 +12124,12 @@ def file_py(
     _write(xy=xy, width=width, code="\ueb2c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_rs(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-rs.
 
@@ -12120,12 +12144,12 @@ def file_rs(
     _write(xy=xy, width=width, code="\ueb28", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_sql(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-sql.
 
@@ -12140,12 +12164,12 @@ def file_sql(
     _write(xy=xy, width=width, code="\ued4e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_svg(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-svg.
 
@@ -12160,12 +12184,12 @@ def file_svg(
     _write(xy=xy, width=width, code="\ued08", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_text(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-text.
 
@@ -12180,12 +12204,12 @@ def file_text(
     _write(xy=xy, width=width, code="\ue23a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_ts(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-ts.
 
@@ -12200,12 +12224,12 @@ def file_ts(
     _write(xy=xy, width=width, code="\ueb26", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_tsx(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-tsx.
 
@@ -12220,12 +12244,12 @@ def file_tsx(
     _write(xy=xy, width=width, code="\ueb3c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_txt(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-txt.
 
@@ -12240,12 +12264,12 @@ def file_txt(
     _write(xy=xy, width=width, code="\ueb35", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_video(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-video.
 
@@ -12260,12 +12284,12 @@ def file_video(
     _write(xy=xy, width=width, code="\uea22", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_vue(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-vue.
 
@@ -12280,12 +12304,12 @@ def file_vue(
     _write(xy=xy, width=width, code="\ueb3e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_x(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-x.
 
@@ -12300,12 +12324,12 @@ def file_x(
     _write(xy=xy, width=width, code="\ue23c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_xls(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-xls.
 
@@ -12320,12 +12344,12 @@ def file_xls(
     _write(xy=xy, width=width, code="\ueb22", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def file_zip(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-zip.
 
@@ -12340,12 +12364,12 @@ def file_zip(
     _write(xy=xy, width=width, code="\ue958", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def files(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an files.
 
@@ -12360,12 +12384,12 @@ def files(
     _write(xy=xy, width=width, code="\ue710", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def film_reel(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an film-reel.
 
@@ -12380,12 +12404,12 @@ def film_reel(
     _write(xy=xy, width=width, code="\ue8c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def film_script(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an film-script.
 
@@ -12400,12 +12424,12 @@ def film_script(
     _write(xy=xy, width=width, code="\ueb50", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def film_slate(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an film-slate.
 
@@ -12420,12 +12444,12 @@ def film_slate(
     _write(xy=xy, width=width, code="\ue8c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def film_strip(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an film-strip.
 
@@ -12440,12 +12464,12 @@ def film_strip(
     _write(xy=xy, width=width, code="\ue792", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def fingerprint(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an fingerprint.
 
@@ -12460,12 +12484,12 @@ def fingerprint(
     _write(xy=xy, width=width, code="\ue23e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def fingerprint_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an fingerprint-simple.
 
@@ -12480,12 +12504,12 @@ def fingerprint_simple(
     _write(xy=xy, width=width, code="\ue240", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def finn_the_human(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an finn-the-human.
 
@@ -12500,12 +12524,12 @@ def finn_the_human(
     _write(xy=xy, width=width, code="\ue56c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def fire(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an fire.
 
@@ -12520,12 +12544,12 @@ def fire(
     _write(xy=xy, width=width, code="\ue242", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def fire_extinguisher(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an fire-extinguisher.
 
@@ -12540,12 +12564,12 @@ def fire_extinguisher(
     _write(xy=xy, width=width, code="\ue9e8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def fire_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an fire-simple.
 
@@ -12560,12 +12584,12 @@ def fire_simple(
     _write(xy=xy, width=width, code="\ue620", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def fire_truck(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an fire-truck.
 
@@ -12580,12 +12604,12 @@ def fire_truck(
     _write(xy=xy, width=width, code="\ue574", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def first_aid(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an first-aid.
 
@@ -12600,12 +12624,12 @@ def first_aid(
     _write(xy=xy, width=width, code="\ue56e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def first_aid_kit(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an first-aid-kit.
 
@@ -12620,12 +12644,12 @@ def first_aid_kit(
     _write(xy=xy, width=width, code="\ue570", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def fish(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an fish.
 
@@ -12640,12 +12664,12 @@ def fish(
     _write(xy=xy, width=width, code="\ue728", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def fish_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an fish-simple.
 
@@ -12660,12 +12684,12 @@ def fish_simple(
     _write(xy=xy, width=width, code="\ue72a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def flag(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an flag.
 
@@ -12680,12 +12704,12 @@ def flag(
     _write(xy=xy, width=width, code="\ue244", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def flag_banner(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an flag-banner.
 
@@ -12700,12 +12724,12 @@ def flag_banner(
     _write(xy=xy, width=width, code="\ue622", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def flag_banner_fold(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an flag-banner-fold.
 
@@ -12720,12 +12744,12 @@ def flag_banner_fold(
     _write(xy=xy, width=width, code="\uecf2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def flag_checkered(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an flag-checkered.
 
@@ -12740,12 +12764,12 @@ def flag_checkered(
     _write(xy=xy, width=width, code="\uea38", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def flag_pennant(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an flag-pennant.
 
@@ -12760,12 +12784,12 @@ def flag_pennant(
     _write(xy=xy, width=width, code="\uecf0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def flame(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an flame.
 
@@ -12780,12 +12804,12 @@ def flame(
     _write(xy=xy, width=width, code="\ue624", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def flashlight(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an flashlight.
 
@@ -12800,12 +12824,12 @@ def flashlight(
     _write(xy=xy, width=width, code="\ue246", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def flask(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an flask.
 
@@ -12820,12 +12844,12 @@ def flask(
     _write(xy=xy, width=width, code="\ue79e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def flip_horizontal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an flip-horizontal.
 
@@ -12840,12 +12864,12 @@ def flip_horizontal(
     _write(xy=xy, width=width, code="\ued6a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def flip_vertical(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an flip-vertical.
 
@@ -12860,12 +12884,12 @@ def flip_vertical(
     _write(xy=xy, width=width, code="\ued6c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def floppy_disk(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an floppy-disk.
 
@@ -12880,12 +12904,12 @@ def floppy_disk(
     _write(xy=xy, width=width, code="\ue248", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def floppy_disk_back(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an floppy-disk-back.
 
@@ -12900,12 +12924,12 @@ def floppy_disk_back(
     _write(xy=xy, width=width, code="\ueaf4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def flow_arrow(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an flow-arrow.
 
@@ -12920,12 +12944,12 @@ def flow_arrow(
     _write(xy=xy, width=width, code="\ue6ec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def flower(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an flower.
 
@@ -12940,12 +12964,12 @@ def flower(
     _write(xy=xy, width=width, code="\ue75e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def flower_lotus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an flower-lotus.
 
@@ -12960,12 +12984,12 @@ def flower_lotus(
     _write(xy=xy, width=width, code="\ue6cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def flower_tulip(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an flower-tulip.
 
@@ -12980,12 +13004,12 @@ def flower_tulip(
     _write(xy=xy, width=width, code="\ueacc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def flying_saucer(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an flying-saucer.
 
@@ -13000,12 +13024,12 @@ def flying_saucer(
     _write(xy=xy, width=width, code="\ueb4a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder.
 
@@ -13020,12 +13044,12 @@ def folder(
     _write(xy=xy, width=width, code="\ue24a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_notch(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-notch.
 
@@ -13040,12 +13064,12 @@ def folder_notch(
     _write(xy=xy, width=width, code="\ue24a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_dashed(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-dashed.
 
@@ -13060,12 +13084,12 @@ def folder_dashed(
     _write(xy=xy, width=width, code="\ue8f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_dotted(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-dotted.
 
@@ -13080,12 +13104,12 @@ def folder_dotted(
     _write(xy=xy, width=width, code="\ue8f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_lock(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-lock.
 
@@ -13100,12 +13124,12 @@ def folder_lock(
     _write(xy=xy, width=width, code="\uea3c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_minus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-minus.
 
@@ -13120,12 +13144,12 @@ def folder_minus(
     _write(xy=xy, width=width, code="\ue254", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_notch_minus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-notch-minus.
 
@@ -13140,12 +13164,12 @@ def folder_notch_minus(
     _write(xy=xy, width=width, code="\ue254", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_open(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-open.
 
@@ -13160,12 +13184,12 @@ def folder_open(
     _write(xy=xy, width=width, code="\ue256", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_notch_open(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-notch-open.
 
@@ -13180,12 +13204,12 @@ def folder_notch_open(
     _write(xy=xy, width=width, code="\ue256", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-plus.
 
@@ -13200,12 +13224,12 @@ def folder_plus(
     _write(xy=xy, width=width, code="\ue258", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_notch_plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-notch-plus.
 
@@ -13220,12 +13244,12 @@ def folder_notch_plus(
     _write(xy=xy, width=width, code="\ue258", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-simple.
 
@@ -13240,12 +13264,12 @@ def folder_simple(
     _write(xy=xy, width=width, code="\ue25a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_simple_dashed(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-simple-dashed.
 
@@ -13260,12 +13284,12 @@ def folder_simple_dashed(
     _write(xy=xy, width=width, code="\uec2a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_simple_dotted(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-simple-dotted.
 
@@ -13280,12 +13304,12 @@ def folder_simple_dotted(
     _write(xy=xy, width=width, code="\uec2a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_simple_lock(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-simple-lock.
 
@@ -13300,12 +13324,12 @@ def folder_simple_lock(
     _write(xy=xy, width=width, code="\ueb5e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_simple_minus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-simple-minus.
 
@@ -13320,12 +13344,12 @@ def folder_simple_minus(
     _write(xy=xy, width=width, code="\ue25c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_simple_plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-simple-plus.
 
@@ -13340,12 +13364,12 @@ def folder_simple_plus(
     _write(xy=xy, width=width, code="\ue25e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_simple_star(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-simple-star.
 
@@ -13360,12 +13384,12 @@ def folder_simple_star(
     _write(xy=xy, width=width, code="\uec2e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_simple_user(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-simple-user.
 
@@ -13380,12 +13404,12 @@ def folder_simple_user(
     _write(xy=xy, width=width, code="\ueb60", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_star(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-star.
 
@@ -13400,12 +13424,12 @@ def folder_star(
     _write(xy=xy, width=width, code="\uea86", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folder_user(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folder-user.
 
@@ -13420,12 +13444,12 @@ def folder_user(
     _write(xy=xy, width=width, code="\ueb46", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def folders(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an folders.
 
@@ -13440,12 +13464,12 @@ def folders(
     _write(xy=xy, width=width, code="\ue260", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def football(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an football.
 
@@ -13460,12 +13484,12 @@ def football(
     _write(xy=xy, width=width, code="\ue718", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def football_helmet(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an football-helmet.
 
@@ -13480,12 +13504,12 @@ def football_helmet(
     _write(xy=xy, width=width, code="\uee4c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def footprints(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an footprints.
 
@@ -13500,12 +13524,12 @@ def footprints(
     _write(xy=xy, width=width, code="\uea88", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def fork_knife(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an fork-knife.
 
@@ -13520,12 +13544,12 @@ def fork_knife(
     _write(xy=xy, width=width, code="\ue262", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def four_k(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an four-k.
 
@@ -13540,12 +13564,12 @@ def four_k(
     _write(xy=xy, width=width, code="\uea5c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def frame_corners(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an frame-corners.
 
@@ -13560,12 +13584,12 @@ def frame_corners(
     _write(xy=xy, width=width, code="\ue626", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def framer_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an framer-logo.
 
@@ -13580,12 +13604,12 @@ def framer_logo(
     _write(xy=xy, width=width, code="\ue264", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def function(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an function.
 
@@ -13600,12 +13624,12 @@ def function(
     _write(xy=xy, width=width, code="\uebe4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def funnel(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an funnel.
 
@@ -13620,12 +13644,12 @@ def funnel(
     _write(xy=xy, width=width, code="\ue266", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def funnel_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an funnel-simple.
 
@@ -13640,12 +13664,12 @@ def funnel_simple(
     _write(xy=xy, width=width, code="\ue268", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def funnel_simple_x(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an funnel-simple-x.
 
@@ -13660,12 +13684,12 @@ def funnel_simple_x(
     _write(xy=xy, width=width, code="\ue26a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def funnel_x(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an funnel-x.
 
@@ -13680,12 +13704,12 @@ def funnel_x(
     _write(xy=xy, width=width, code="\ue26c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def game_controller(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an game-controller.
 
@@ -13700,12 +13724,12 @@ def game_controller(
     _write(xy=xy, width=width, code="\ue26e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def garage(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an garage.
 
@@ -13720,12 +13744,12 @@ def garage(
     _write(xy=xy, width=width, code="\uecd6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gas_can(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gas-can.
 
@@ -13740,12 +13764,12 @@ def gas_can(
     _write(xy=xy, width=width, code="\ue8ce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gas_pump(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gas-pump.
 
@@ -13760,12 +13784,12 @@ def gas_pump(
     _write(xy=xy, width=width, code="\ue768", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gauge(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gauge.
 
@@ -13780,12 +13804,12 @@ def gauge(
     _write(xy=xy, width=width, code="\ue628", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gavel(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gavel.
 
@@ -13800,12 +13824,12 @@ def gavel(
     _write(xy=xy, width=width, code="\uea32", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gear(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gear.
 
@@ -13820,12 +13844,12 @@ def gear(
     _write(xy=xy, width=width, code="\ue270", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gear_fine(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gear-fine.
 
@@ -13840,12 +13864,12 @@ def gear_fine(
     _write(xy=xy, width=width, code="\ue87c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gear_six(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gear-six.
 
@@ -13860,12 +13884,12 @@ def gear_six(
     _write(xy=xy, width=width, code="\ue272", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gender_female(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gender-female.
 
@@ -13880,12 +13904,12 @@ def gender_female(
     _write(xy=xy, width=width, code="\ue6e0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gender_intersex(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gender-intersex.
 
@@ -13900,12 +13924,12 @@ def gender_intersex(
     _write(xy=xy, width=width, code="\ue6e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gender_male(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gender-male.
 
@@ -13920,12 +13944,12 @@ def gender_male(
     _write(xy=xy, width=width, code="\ue6e2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gender_neuter(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gender-neuter.
 
@@ -13940,12 +13964,12 @@ def gender_neuter(
     _write(xy=xy, width=width, code="\ue6ea", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gender_nonbinary(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gender-nonbinary.
 
@@ -13960,12 +13984,12 @@ def gender_nonbinary(
     _write(xy=xy, width=width, code="\ue6e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gender_transgender(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gender-transgender.
 
@@ -13980,12 +14004,12 @@ def gender_transgender(
     _write(xy=xy, width=width, code="\ue6e8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def ghost(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an ghost.
 
@@ -14000,12 +14024,12 @@ def ghost(
     _write(xy=xy, width=width, code="\ue62a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gif(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gif.
 
@@ -14020,12 +14044,12 @@ def gif(
     _write(xy=xy, width=width, code="\ue274", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gift(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gift.
 
@@ -14040,12 +14064,12 @@ def gift(
     _write(xy=xy, width=width, code="\ue276", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def git_branch(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an git-branch.
 
@@ -14060,12 +14084,12 @@ def git_branch(
     _write(xy=xy, width=width, code="\ue278", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def git_commit(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an git-commit.
 
@@ -14080,12 +14104,12 @@ def git_commit(
     _write(xy=xy, width=width, code="\ue27a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def git_diff(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an git-diff.
 
@@ -14100,12 +14124,12 @@ def git_diff(
     _write(xy=xy, width=width, code="\ue27c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def git_fork(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an git-fork.
 
@@ -14120,12 +14144,12 @@ def git_fork(
     _write(xy=xy, width=width, code="\ue27e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def git_merge(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an git-merge.
 
@@ -14140,12 +14164,12 @@ def git_merge(
     _write(xy=xy, width=width, code="\ue280", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def git_pull_request(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an git-pull-request.
 
@@ -14160,12 +14184,12 @@ def git_pull_request(
     _write(xy=xy, width=width, code="\ue282", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def github_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an github-logo.
 
@@ -14180,12 +14204,12 @@ def github_logo(
     _write(xy=xy, width=width, code="\ue576", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gitlab_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gitlab-logo.
 
@@ -14200,12 +14224,12 @@ def gitlab_logo(
     _write(xy=xy, width=width, code="\ue694", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gitlab_logo_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gitlab-logo-simple.
 
@@ -14220,12 +14244,12 @@ def gitlab_logo_simple(
     _write(xy=xy, width=width, code="\ue696", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def globe(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an globe.
 
@@ -14240,12 +14264,12 @@ def globe(
     _write(xy=xy, width=width, code="\ue288", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def globe_hemisphere_east(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an globe-hemisphere-east.
 
@@ -14260,12 +14284,12 @@ def globe_hemisphere_east(
     _write(xy=xy, width=width, code="\ue28a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def globe_hemisphere_west(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an globe-hemisphere-west.
 
@@ -14280,12 +14304,12 @@ def globe_hemisphere_west(
     _write(xy=xy, width=width, code="\ue28c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def globe_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an globe-simple.
 
@@ -14300,12 +14324,12 @@ def globe_simple(
     _write(xy=xy, width=width, code="\ue28e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def globe_simple_x(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an globe-simple-x.
 
@@ -14320,12 +14344,12 @@ def globe_simple_x(
     _write(xy=xy, width=width, code="\ue284", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def globe_stand(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an globe-stand.
 
@@ -14340,12 +14364,12 @@ def globe_stand(
     _write(xy=xy, width=width, code="\ue290", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def globe_x(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an globe-x.
 
@@ -14360,12 +14384,12 @@ def globe_x(
     _write(xy=xy, width=width, code="\ue286", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def goggles(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an goggles.
 
@@ -14380,12 +14404,12 @@ def goggles(
     _write(xy=xy, width=width, code="\uecb4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def golf(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an golf.
 
@@ -14400,12 +14424,12 @@ def golf(
     _write(xy=xy, width=width, code="\uea3e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def goodreads_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an goodreads-logo.
 
@@ -14420,12 +14444,12 @@ def goodreads_logo(
     _write(xy=xy, width=width, code="\ued10", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def google_cardboard_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an google-cardboard-logo.
 
@@ -14440,12 +14464,12 @@ def google_cardboard_logo(
     _write(xy=xy, width=width, code="\ue7b6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def google_chrome_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an google-chrome-logo.
 
@@ -14460,12 +14484,12 @@ def google_chrome_logo(
     _write(xy=xy, width=width, code="\ue976", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def google_drive_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an google-drive-logo.
 
@@ -14480,12 +14504,12 @@ def google_drive_logo(
     _write(xy=xy, width=width, code="\ue8f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def google_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an google-logo.
 
@@ -14500,12 +14524,12 @@ def google_logo(
     _write(xy=xy, width=width, code="\ue292", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def google_photos_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an google-photos-logo.
 
@@ -14520,12 +14544,12 @@ def google_photos_logo(
     _write(xy=xy, width=width, code="\ueb92", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def google_play_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an google-play-logo.
 
@@ -14540,12 +14564,12 @@ def google_play_logo(
     _write(xy=xy, width=width, code="\ue294", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def google_podcasts_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an google-podcasts-logo.
 
@@ -14560,12 +14584,12 @@ def google_podcasts_logo(
     _write(xy=xy, width=width, code="\ueb94", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gps(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gps.
 
@@ -14580,12 +14604,12 @@ def gps(
     _write(xy=xy, width=width, code="\uedd8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gps_fix(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gps-fix.
 
@@ -14600,12 +14624,12 @@ def gps_fix(
     _write(xy=xy, width=width, code="\uedd6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gps_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gps-slash.
 
@@ -14620,12 +14644,12 @@ def gps_slash(
     _write(xy=xy, width=width, code="\uedd4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def gradient(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an gradient.
 
@@ -14640,12 +14664,12 @@ def gradient(
     _write(xy=xy, width=width, code="\ueb42", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def graduation_cap(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an graduation-cap.
 
@@ -14660,12 +14684,12 @@ def graduation_cap(
     _write(xy=xy, width=width, code="\ue62c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def grains(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an grains.
 
@@ -14680,12 +14704,12 @@ def grains(
     _write(xy=xy, width=width, code="\uec68", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def grains_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an grains-slash.
 
@@ -14700,12 +14724,12 @@ def grains_slash(
     _write(xy=xy, width=width, code="\uec6a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def graph(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an graph.
 
@@ -14720,12 +14744,12 @@ def graph(
     _write(xy=xy, width=width, code="\ueb58", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def graphics_card(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an graphics-card.
 
@@ -14740,12 +14764,12 @@ def graphics_card(
     _write(xy=xy, width=width, code="\ue612", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def greater_than(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an greater-than.
 
@@ -14760,12 +14784,12 @@ def greater_than(
     _write(xy=xy, width=width, code="\uedc4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def greater_than_or_equal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an greater-than-or-equal.
 
@@ -14780,12 +14804,12 @@ def greater_than_or_equal(
     _write(xy=xy, width=width, code="\ueda2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def grid_four(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an grid-four.
 
@@ -14800,12 +14824,12 @@ def grid_four(
     _write(xy=xy, width=width, code="\ue296", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def grid_nine(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an grid-nine.
 
@@ -14820,12 +14844,12 @@ def grid_nine(
     _write(xy=xy, width=width, code="\uec8c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def guitar(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an guitar.
 
@@ -14840,12 +14864,12 @@ def guitar(
     _write(xy=xy, width=width, code="\uea8a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hair_dryer(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hair-dryer.
 
@@ -14860,12 +14884,12 @@ def hair_dryer(
     _write(xy=xy, width=width, code="\uea66", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hamburger(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hamburger.
 
@@ -14880,12 +14904,12 @@ def hamburger(
     _write(xy=xy, width=width, code="\ue790", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hammer(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hammer.
 
@@ -14900,12 +14924,12 @@ def hammer(
     _write(xy=xy, width=width, code="\ue80e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hand(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hand.
 
@@ -14920,12 +14944,12 @@ def hand(
     _write(xy=xy, width=width, code="\ue298", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hand_arrow_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hand-arrow-down.
 
@@ -14940,12 +14964,12 @@ def hand_arrow_down(
     _write(xy=xy, width=width, code="\uea4e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hand_arrow_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hand-arrow-up.
 
@@ -14960,12 +14984,12 @@ def hand_arrow_up(
     _write(xy=xy, width=width, code="\uee5a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hand_coins(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hand-coins.
 
@@ -14980,12 +15004,12 @@ def hand_coins(
     _write(xy=xy, width=width, code="\uea8c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hand_deposit(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hand-deposit.
 
@@ -15000,12 +15024,12 @@ def hand_deposit(
     _write(xy=xy, width=width, code="\uee82", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hand_eye(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hand-eye.
 
@@ -15020,12 +15044,12 @@ def hand_eye(
     _write(xy=xy, width=width, code="\uea4c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hand_fist(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hand-fist.
 
@@ -15040,12 +15064,12 @@ def hand_fist(
     _write(xy=xy, width=width, code="\ue57a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hand_grabbing(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hand-grabbing.
 
@@ -15060,12 +15084,12 @@ def hand_grabbing(
     _write(xy=xy, width=width, code="\ue57c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hand_heart(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hand-heart.
 
@@ -15080,12 +15104,12 @@ def hand_heart(
     _write(xy=xy, width=width, code="\ue810", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hand_palm(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hand-palm.
 
@@ -15100,12 +15124,12 @@ def hand_palm(
     _write(xy=xy, width=width, code="\ue57e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hand_peace(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hand-peace.
 
@@ -15120,12 +15144,12 @@ def hand_peace(
     _write(xy=xy, width=width, code="\ue7cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hand_pointing(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hand-pointing.
 
@@ -15140,12 +15164,12 @@ def hand_pointing(
     _write(xy=xy, width=width, code="\ue29a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hand_soap(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hand-soap.
 
@@ -15160,12 +15184,12 @@ def hand_soap(
     _write(xy=xy, width=width, code="\ue630", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hand_swipe_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hand-swipe-left.
 
@@ -15180,12 +15204,12 @@ def hand_swipe_left(
     _write(xy=xy, width=width, code="\uec94", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hand_swipe_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hand-swipe-right.
 
@@ -15200,12 +15224,12 @@ def hand_swipe_right(
     _write(xy=xy, width=width, code="\uec92", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hand_tap(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hand-tap.
 
@@ -15220,12 +15244,12 @@ def hand_tap(
     _write(xy=xy, width=width, code="\uec90", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hand_waving(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hand-waving.
 
@@ -15240,12 +15264,12 @@ def hand_waving(
     _write(xy=xy, width=width, code="\ue580", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hand_withdraw(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hand-withdraw.
 
@@ -15260,12 +15284,12 @@ def hand_withdraw(
     _write(xy=xy, width=width, code="\uee80", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def handbag(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an handbag.
 
@@ -15280,12 +15304,12 @@ def handbag(
     _write(xy=xy, width=width, code="\ue29c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def handbag_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an handbag-simple.
 
@@ -15300,12 +15324,12 @@ def handbag_simple(
     _write(xy=xy, width=width, code="\ue62e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hands_clapping(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hands-clapping.
 
@@ -15320,12 +15344,12 @@ def hands_clapping(
     _write(xy=xy, width=width, code="\ue6a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hands_praying(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hands-praying.
 
@@ -15340,12 +15364,12 @@ def hands_praying(
     _write(xy=xy, width=width, code="\uecc8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def handshake(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an handshake.
 
@@ -15360,12 +15384,12 @@ def handshake(
     _write(xy=xy, width=width, code="\ue582", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hard_drive(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hard-drive.
 
@@ -15380,12 +15404,12 @@ def hard_drive(
     _write(xy=xy, width=width, code="\ue29e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hard_drives(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hard-drives.
 
@@ -15400,12 +15424,12 @@ def hard_drives(
     _write(xy=xy, width=width, code="\ue2a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hard_hat(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hard-hat.
 
@@ -15420,12 +15444,12 @@ def hard_hat(
     _write(xy=xy, width=width, code="\ued46", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hash.
 
@@ -15440,12 +15464,12 @@ def hash(
     _write(xy=xy, width=width, code="\ue2a2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hash_straight(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hash-straight.
 
@@ -15460,12 +15484,12 @@ def hash_straight(
     _write(xy=xy, width=width, code="\ue2a4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def head_circuit(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an head-circuit.
 
@@ -15480,12 +15504,12 @@ def head_circuit(
     _write(xy=xy, width=width, code="\ue7d4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def headlights(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an headlights.
 
@@ -15500,12 +15524,12 @@ def headlights(
     _write(xy=xy, width=width, code="\ue6fe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def headphones(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an headphones.
 
@@ -15520,12 +15544,12 @@ def headphones(
     _write(xy=xy, width=width, code="\ue2a6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def headset(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an headset.
 
@@ -15540,12 +15564,12 @@ def headset(
     _write(xy=xy, width=width, code="\ue584", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def heart(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an heart.
 
@@ -15560,12 +15584,12 @@ def heart(
     _write(xy=xy, width=width, code="\ue2a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def heart_break(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an heart-break.
 
@@ -15580,12 +15604,12 @@ def heart_break(
     _write(xy=xy, width=width, code="\uebe8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def heart_half(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an heart-half.
 
@@ -15600,12 +15624,12 @@ def heart_half(
     _write(xy=xy, width=width, code="\uec48", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def heart_straight(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an heart-straight.
 
@@ -15620,12 +15644,12 @@ def heart_straight(
     _write(xy=xy, width=width, code="\ue2aa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def heart_straight_break(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an heart-straight-break.
 
@@ -15640,12 +15664,12 @@ def heart_straight_break(
     _write(xy=xy, width=width, code="\ueb98", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def heartbeat(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an heartbeat.
 
@@ -15660,12 +15684,12 @@ def heartbeat(
     _write(xy=xy, width=width, code="\ue2ac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hexagon(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hexagon.
 
@@ -15680,12 +15704,12 @@ def hexagon(
     _write(xy=xy, width=width, code="\ue2ae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def high_definition(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an high-definition.
 
@@ -15700,12 +15724,12 @@ def high_definition(
     _write(xy=xy, width=width, code="\uea8e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def high_heel(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an high-heel.
 
@@ -15720,12 +15744,12 @@ def high_heel(
     _write(xy=xy, width=width, code="\ue8e8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def highlighter(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an highlighter.
 
@@ -15740,12 +15764,12 @@ def highlighter(
     _write(xy=xy, width=width, code="\uec76", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def highlighter_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an highlighter-circle.
 
@@ -15760,12 +15784,12 @@ def highlighter_circle(
     _write(xy=xy, width=width, code="\ue632", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hockey(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hockey.
 
@@ -15780,12 +15804,12 @@ def hockey(
     _write(xy=xy, width=width, code="\uec86", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hoodie(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hoodie.
 
@@ -15800,12 +15824,12 @@ def hoodie(
     _write(xy=xy, width=width, code="\uecd0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def horse(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an horse.
 
@@ -15820,12 +15844,12 @@ def horse(
     _write(xy=xy, width=width, code="\ue2b0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hospital(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hospital.
 
@@ -15840,12 +15864,12 @@ def hospital(
     _write(xy=xy, width=width, code="\ue844", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hourglass(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hourglass.
 
@@ -15860,12 +15884,12 @@ def hourglass(
     _write(xy=xy, width=width, code="\ue2b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hourglass_high(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hourglass-high.
 
@@ -15880,12 +15904,12 @@ def hourglass_high(
     _write(xy=xy, width=width, code="\ue2b4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hourglass_low(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hourglass-low.
 
@@ -15900,12 +15924,12 @@ def hourglass_low(
     _write(xy=xy, width=width, code="\ue2b6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hourglass_medium(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hourglass-medium.
 
@@ -15920,12 +15944,12 @@ def hourglass_medium(
     _write(xy=xy, width=width, code="\ue2b8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hourglass_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hourglass-simple.
 
@@ -15940,12 +15964,12 @@ def hourglass_simple(
     _write(xy=xy, width=width, code="\ue2ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hourglass_simple_high(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hourglass-simple-high.
 
@@ -15960,12 +15984,12 @@ def hourglass_simple_high(
     _write(xy=xy, width=width, code="\ue2bc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hourglass_simple_low(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hourglass-simple-low.
 
@@ -15980,12 +16004,12 @@ def hourglass_simple_low(
     _write(xy=xy, width=width, code="\ue2be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hourglass_simple_medium(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hourglass-simple-medium.
 
@@ -16000,12 +16024,12 @@ def hourglass_simple_medium(
     _write(xy=xy, width=width, code="\ue2c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def house(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an house.
 
@@ -16020,12 +16044,12 @@ def house(
     _write(xy=xy, width=width, code="\ue2c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def house_line(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an house-line.
 
@@ -16040,12 +16064,12 @@ def house_line(
     _write(xy=xy, width=width, code="\ue2c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def house_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an house-simple.
 
@@ -16060,12 +16084,12 @@ def house_simple(
     _write(xy=xy, width=width, code="\ue2c6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def hurricane(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an hurricane.
 
@@ -16080,12 +16104,12 @@ def hurricane(
     _write(xy=xy, width=width, code="\ue88e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def ice_cream(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an ice-cream.
 
@@ -16100,12 +16124,12 @@ def ice_cream(
     _write(xy=xy, width=width, code="\ue804", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def identification_badge(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an identification-badge.
 
@@ -16120,12 +16144,12 @@ def identification_badge(
     _write(xy=xy, width=width, code="\ue6f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def identification_card(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an identification-card.
 
@@ -16140,12 +16164,12 @@ def identification_card(
     _write(xy=xy, width=width, code="\ue2c8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def image(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an image.
 
@@ -16160,12 +16184,12 @@ def image(
     _write(xy=xy, width=width, code="\ue2ca", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def image_broken(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an image-broken.
 
@@ -16180,12 +16204,12 @@ def image_broken(
     _write(xy=xy, width=width, code="\ue7a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def image_square(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an image-square.
 
@@ -16200,12 +16224,12 @@ def image_square(
     _write(xy=xy, width=width, code="\ue2cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def images(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an images.
 
@@ -16220,12 +16244,12 @@ def images(
     _write(xy=xy, width=width, code="\ue836", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def images_square(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an images-square.
 
@@ -16240,12 +16264,12 @@ def images_square(
     _write(xy=xy, width=width, code="\ue834", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def infinity(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an infinity.
 
@@ -16260,12 +16284,12 @@ def infinity(
     _write(xy=xy, width=width, code="\ue634", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lemniscate(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lemniscate.
 
@@ -16280,12 +16304,12 @@ def lemniscate(
     _write(xy=xy, width=width, code="\ue634", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def info(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an info.
 
@@ -16300,12 +16324,12 @@ def info(
     _write(xy=xy, width=width, code="\ue2ce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def instagram_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an instagram-logo.
 
@@ -16320,12 +16344,12 @@ def instagram_logo(
     _write(xy=xy, width=width, code="\ue2d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def intersect(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an intersect.
 
@@ -16340,12 +16364,12 @@ def intersect(
     _write(xy=xy, width=width, code="\ue2d2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def intersect_square(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an intersect-square.
 
@@ -16360,12 +16384,12 @@ def intersect_square(
     _write(xy=xy, width=width, code="\ue87a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def intersect_three(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an intersect-three.
 
@@ -16380,12 +16404,12 @@ def intersect_three(
     _write(xy=xy, width=width, code="\uecc4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def intersection(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an intersection.
 
@@ -16400,12 +16424,12 @@ def intersection(
     _write(xy=xy, width=width, code="\uedba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def invoice(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an invoice.
 
@@ -16420,12 +16444,12 @@ def invoice(
     _write(xy=xy, width=width, code="\uee42", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def island(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an island.
 
@@ -16440,12 +16464,12 @@ def island(
     _write(xy=xy, width=width, code="\uee06", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def jar(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an jar.
 
@@ -16460,12 +16484,12 @@ def jar(
     _write(xy=xy, width=width, code="\ue7e0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def jar_label(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an jar-label.
 
@@ -16480,12 +16504,12 @@ def jar_label(
     _write(xy=xy, width=width, code="\ue7e1", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def jeep(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an jeep.
 
@@ -16500,12 +16524,12 @@ def jeep(
     _write(xy=xy, width=width, code="\ue2d4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def joystick(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an joystick.
 
@@ -16520,12 +16544,12 @@ def joystick(
     _write(xy=xy, width=width, code="\uea5e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def kanban(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an kanban.
 
@@ -16540,12 +16564,12 @@ def kanban(
     _write(xy=xy, width=width, code="\ueb54", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def key(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an key.
 
@@ -16560,12 +16584,12 @@ def key(
     _write(xy=xy, width=width, code="\ue2d6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def key_return(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an key-return.
 
@@ -16580,12 +16604,12 @@ def key_return(
     _write(xy=xy, width=width, code="\ue782", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def keyboard(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an keyboard.
 
@@ -16600,12 +16624,12 @@ def keyboard(
     _write(xy=xy, width=width, code="\ue2d8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def keyhole(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an keyhole.
 
@@ -16620,12 +16644,12 @@ def keyhole(
     _write(xy=xy, width=width, code="\uea78", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def knife(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an knife.
 
@@ -16640,12 +16664,12 @@ def knife(
     _write(xy=xy, width=width, code="\ue636", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def ladder(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an ladder.
 
@@ -16660,12 +16684,12 @@ def ladder(
     _write(xy=xy, width=width, code="\ue9e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def ladder_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an ladder-simple.
 
@@ -16680,12 +16704,12 @@ def ladder_simple(
     _write(xy=xy, width=width, code="\uec26", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lamp(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lamp.
 
@@ -16700,12 +16724,12 @@ def lamp(
     _write(xy=xy, width=width, code="\ue638", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lamp_pendant(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lamp-pendant.
 
@@ -16720,12 +16744,12 @@ def lamp_pendant(
     _write(xy=xy, width=width, code="\uee2e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def laptop(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an laptop.
 
@@ -16740,12 +16764,12 @@ def laptop(
     _write(xy=xy, width=width, code="\ue586", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lasso(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lasso.
 
@@ -16760,12 +16784,12 @@ def lasso(
     _write(xy=xy, width=width, code="\uedc6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lastfm_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lastfm-logo.
 
@@ -16780,12 +16804,12 @@ def lastfm_logo(
     _write(xy=xy, width=width, code="\ue842", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def layout(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an layout.
 
@@ -16800,12 +16824,12 @@ def layout(
     _write(xy=xy, width=width, code="\ue6d6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def leaf(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an leaf.
 
@@ -16820,12 +16844,12 @@ def leaf(
     _write(xy=xy, width=width, code="\ue2da", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lectern(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lectern.
 
@@ -16840,12 +16864,12 @@ def lectern(
     _write(xy=xy, width=width, code="\ue95a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lego(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lego.
 
@@ -16860,12 +16884,12 @@ def lego(
     _write(xy=xy, width=width, code="\ue8c6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lego_smiley(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lego-smiley.
 
@@ -16880,12 +16904,12 @@ def lego_smiley(
     _write(xy=xy, width=width, code="\ue8c7", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def less_than(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an less-than.
 
@@ -16900,12 +16924,12 @@ def less_than(
     _write(xy=xy, width=width, code="\uedac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def less_than_or_equal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an less-than-or-equal.
 
@@ -16920,12 +16944,12 @@ def less_than_or_equal(
     _write(xy=xy, width=width, code="\ueda4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def letter_circle_h(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an letter-circle-h.
 
@@ -16940,12 +16964,12 @@ def letter_circle_h(
     _write(xy=xy, width=width, code="\uebf8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def letter_circle_p(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an letter-circle-p.
 
@@ -16960,12 +16984,12 @@ def letter_circle_p(
     _write(xy=xy, width=width, code="\uec08", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def letter_circle_v(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an letter-circle-v.
 
@@ -16980,12 +17004,12 @@ def letter_circle_v(
     _write(xy=xy, width=width, code="\uec14", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lifebuoy(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lifebuoy.
 
@@ -17000,12 +17024,12 @@ def lifebuoy(
     _write(xy=xy, width=width, code="\ue63a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lightbulb(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lightbulb.
 
@@ -17020,12 +17044,12 @@ def lightbulb(
     _write(xy=xy, width=width, code="\ue2dc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lightbulb_filament(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lightbulb-filament.
 
@@ -17040,12 +17064,12 @@ def lightbulb_filament(
     _write(xy=xy, width=width, code="\ue63c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lighthouse(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lighthouse.
 
@@ -17060,12 +17084,12 @@ def lighthouse(
     _write(xy=xy, width=width, code="\ue9f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lightning(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lightning.
 
@@ -17080,12 +17104,12 @@ def lightning(
     _write(xy=xy, width=width, code="\ue2de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lightning_a(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lightning-a.
 
@@ -17100,12 +17124,12 @@ def lightning_a(
     _write(xy=xy, width=width, code="\uea84", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lightning_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lightning-slash.
 
@@ -17120,12 +17144,12 @@ def lightning_slash(
     _write(xy=xy, width=width, code="\ue2e0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def line_segment(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an line-segment.
 
@@ -17140,12 +17164,12 @@ def line_segment(
     _write(xy=xy, width=width, code="\ue6d2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def line_segments(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an line-segments.
 
@@ -17160,12 +17184,12 @@ def line_segments(
     _write(xy=xy, width=width, code="\ue6d4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def line_vertical(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an line-vertical.
 
@@ -17180,12 +17204,12 @@ def line_vertical(
     _write(xy=xy, width=width, code="\ued70", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def link(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an link.
 
@@ -17200,12 +17224,12 @@ def link(
     _write(xy=xy, width=width, code="\ue2e2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def link_break(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an link-break.
 
@@ -17220,12 +17244,12 @@ def link_break(
     _write(xy=xy, width=width, code="\ue2e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def link_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an link-simple.
 
@@ -17240,12 +17264,12 @@ def link_simple(
     _write(xy=xy, width=width, code="\ue2e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def link_simple_break(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an link-simple-break.
 
@@ -17260,12 +17284,12 @@ def link_simple_break(
     _write(xy=xy, width=width, code="\ue2e8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def link_simple_horizontal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an link-simple-horizontal.
 
@@ -17280,12 +17304,12 @@ def link_simple_horizontal(
     _write(xy=xy, width=width, code="\ue2ea", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def link_simple_horizontal_break(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an link-simple-horizontal-break.
 
@@ -17300,12 +17324,12 @@ def link_simple_horizontal_break(
     _write(xy=xy, width=width, code="\ue2ec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def linkedin_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an linkedin-logo.
 
@@ -17320,12 +17344,12 @@ def linkedin_logo(
     _write(xy=xy, width=width, code="\ue2ee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def linktree_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an linktree-logo.
 
@@ -17340,12 +17364,12 @@ def linktree_logo(
     _write(xy=xy, width=width, code="\uedee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def linux_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an linux-logo.
 
@@ -17360,12 +17384,12 @@ def linux_logo(
     _write(xy=xy, width=width, code="\ueb02", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def list(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an list.
 
@@ -17380,12 +17404,12 @@ def list(
     _write(xy=xy, width=width, code="\ue2f0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def list_bullets(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an list-bullets.
 
@@ -17400,12 +17424,12 @@ def list_bullets(
     _write(xy=xy, width=width, code="\ue2f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def list_checks(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an list-checks.
 
@@ -17420,12 +17444,12 @@ def list_checks(
     _write(xy=xy, width=width, code="\ueadc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def list_dashes(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an list-dashes.
 
@@ -17440,12 +17464,12 @@ def list_dashes(
     _write(xy=xy, width=width, code="\ue2f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def list_heart(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an list-heart.
 
@@ -17460,12 +17484,12 @@ def list_heart(
     _write(xy=xy, width=width, code="\uebde", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def list_magnifying_glass(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an list-magnifying-glass.
 
@@ -17480,12 +17504,12 @@ def list_magnifying_glass(
     _write(xy=xy, width=width, code="\uebe0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def list_numbers(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an list-numbers.
 
@@ -17500,12 +17524,12 @@ def list_numbers(
     _write(xy=xy, width=width, code="\ue2f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def list_plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an list-plus.
 
@@ -17520,12 +17544,12 @@ def list_plus(
     _write(xy=xy, width=width, code="\ue2f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def list_star(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an list-star.
 
@@ -17540,12 +17564,12 @@ def list_star(
     _write(xy=xy, width=width, code="\uebdc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lock(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lock.
 
@@ -17560,12 +17584,12 @@ def lock(
     _write(xy=xy, width=width, code="\ue2fa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lock_key(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lock-key.
 
@@ -17580,12 +17604,12 @@ def lock_key(
     _write(xy=xy, width=width, code="\ue2fe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lock_key_open(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lock-key-open.
 
@@ -17600,12 +17624,12 @@ def lock_key_open(
     _write(xy=xy, width=width, code="\ue300", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lock_laminated(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lock-laminated.
 
@@ -17620,12 +17644,12 @@ def lock_laminated(
     _write(xy=xy, width=width, code="\ue302", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lock_laminated_open(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lock-laminated-open.
 
@@ -17640,12 +17664,12 @@ def lock_laminated_open(
     _write(xy=xy, width=width, code="\ue304", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lock_open(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lock-open.
 
@@ -17660,12 +17684,12 @@ def lock_open(
     _write(xy=xy, width=width, code="\ue306", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lock_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lock-simple.
 
@@ -17680,12 +17704,12 @@ def lock_simple(
     _write(xy=xy, width=width, code="\ue308", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lock_simple_open(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lock-simple-open.
 
@@ -17700,12 +17724,12 @@ def lock_simple_open(
     _write(xy=xy, width=width, code="\ue30a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def lockers(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an lockers.
 
@@ -17720,12 +17744,12 @@ def lockers(
     _write(xy=xy, width=width, code="\uecb8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def log(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an log.
 
@@ -17740,12 +17764,12 @@ def log(
     _write(xy=xy, width=width, code="\ued82", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def magic_wand(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an magic-wand.
 
@@ -17760,12 +17784,12 @@ def magic_wand(
     _write(xy=xy, width=width, code="\ue6b6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def magnet(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an magnet.
 
@@ -17780,12 +17804,12 @@ def magnet(
     _write(xy=xy, width=width, code="\ue680", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def magnet_straight(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an magnet-straight.
 
@@ -17800,12 +17824,12 @@ def magnet_straight(
     _write(xy=xy, width=width, code="\ue682", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def magnifying_glass(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an magnifying-glass.
 
@@ -17820,12 +17844,12 @@ def magnifying_glass(
     _write(xy=xy, width=width, code="\ue30c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def magnifying_glass_minus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an magnifying-glass-minus.
 
@@ -17840,12 +17864,12 @@ def magnifying_glass_minus(
     _write(xy=xy, width=width, code="\ue30e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def magnifying_glass_plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an magnifying-glass-plus.
 
@@ -17860,12 +17884,12 @@ def magnifying_glass_plus(
     _write(xy=xy, width=width, code="\ue310", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def mailbox(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an mailbox.
 
@@ -17880,12 +17904,12 @@ def mailbox(
     _write(xy=xy, width=width, code="\uec1e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def map_pin(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an map-pin.
 
@@ -17900,12 +17924,12 @@ def map_pin(
     _write(xy=xy, width=width, code="\ue316", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def map_pin_area(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an map-pin-area.
 
@@ -17920,12 +17944,12 @@ def map_pin_area(
     _write(xy=xy, width=width, code="\uee3a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def map_pin_line(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an map-pin-line.
 
@@ -17940,12 +17964,12 @@ def map_pin_line(
     _write(xy=xy, width=width, code="\ue318", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def map_pin_plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an map-pin-plus.
 
@@ -17960,12 +17984,12 @@ def map_pin_plus(
     _write(xy=xy, width=width, code="\ue314", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def map_pin_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an map-pin-simple.
 
@@ -17980,12 +18004,12 @@ def map_pin_simple(
     _write(xy=xy, width=width, code="\uee3e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def map_pin_simple_area(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an map-pin-simple-area.
 
@@ -18000,12 +18024,12 @@ def map_pin_simple_area(
     _write(xy=xy, width=width, code="\uee3c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def map_pin_simple_line(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an map-pin-simple-line.
 
@@ -18020,12 +18044,12 @@ def map_pin_simple_line(
     _write(xy=xy, width=width, code="\uee38", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def map_trifold(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an map-trifold.
 
@@ -18040,12 +18064,12 @@ def map_trifold(
     _write(xy=xy, width=width, code="\ue31a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def markdown_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an markdown-logo.
 
@@ -18060,12 +18084,12 @@ def markdown_logo(
     _write(xy=xy, width=width, code="\ue508", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def marker_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an marker-circle.
 
@@ -18080,12 +18104,12 @@ def marker_circle(
     _write(xy=xy, width=width, code="\ue640", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def martini(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an martini.
 
@@ -18100,12 +18124,12 @@ def martini(
     _write(xy=xy, width=width, code="\ue31c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def mask_happy(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an mask-happy.
 
@@ -18120,12 +18144,12 @@ def mask_happy(
     _write(xy=xy, width=width, code="\ue9f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def mask_sad(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an mask-sad.
 
@@ -18140,12 +18164,12 @@ def mask_sad(
     _write(xy=xy, width=width, code="\ueb9e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def mastodon_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an mastodon-logo.
 
@@ -18160,12 +18184,12 @@ def mastodon_logo(
     _write(xy=xy, width=width, code="\ued68", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def math_operations(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an math-operations.
 
@@ -18180,12 +18204,12 @@ def math_operations(
     _write(xy=xy, width=width, code="\ue31e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def matrix_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an matrix-logo.
 
@@ -18200,12 +18224,12 @@ def matrix_logo(
     _write(xy=xy, width=width, code="\ued64", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def medal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an medal.
 
@@ -18220,12 +18244,12 @@ def medal(
     _write(xy=xy, width=width, code="\ue320", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def medal_military(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an medal-military.
 
@@ -18240,12 +18264,12 @@ def medal_military(
     _write(xy=xy, width=width, code="\uecfc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def medium_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an medium-logo.
 
@@ -18260,12 +18284,12 @@ def medium_logo(
     _write(xy=xy, width=width, code="\ue322", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def megaphone(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an megaphone.
 
@@ -18280,12 +18304,12 @@ def megaphone(
     _write(xy=xy, width=width, code="\ue324", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def megaphone_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an megaphone-simple.
 
@@ -18300,12 +18324,12 @@ def megaphone_simple(
     _write(xy=xy, width=width, code="\ue642", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def member_of(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an member-of.
 
@@ -18320,12 +18344,12 @@ def member_of(
     _write(xy=xy, width=width, code="\uedc2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def memory(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an memory.
 
@@ -18340,12 +18364,12 @@ def memory(
     _write(xy=xy, width=width, code="\ue9c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def messenger_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an messenger-logo.
 
@@ -18360,12 +18384,12 @@ def messenger_logo(
     _write(xy=xy, width=width, code="\ue6d8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def meta_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an meta-logo.
 
@@ -18380,12 +18404,12 @@ def meta_logo(
     _write(xy=xy, width=width, code="\ued02", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def meteor(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an meteor.
 
@@ -18400,12 +18424,12 @@ def meteor(
     _write(xy=xy, width=width, code="\ue9ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def metronome(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an metronome.
 
@@ -18420,12 +18444,12 @@ def metronome(
     _write(xy=xy, width=width, code="\uec8e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def microphone(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an microphone.
 
@@ -18440,12 +18464,12 @@ def microphone(
     _write(xy=xy, width=width, code="\ue326", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def microphone_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an microphone-slash.
 
@@ -18460,12 +18484,12 @@ def microphone_slash(
     _write(xy=xy, width=width, code="\ue328", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def microphone_stage(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an microphone-stage.
 
@@ -18480,12 +18504,12 @@ def microphone_stage(
     _write(xy=xy, width=width, code="\ue75c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def microscope(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an microscope.
 
@@ -18500,12 +18524,12 @@ def microscope(
     _write(xy=xy, width=width, code="\uec7a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def microsoft_excel_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an microsoft-excel-logo.
 
@@ -18520,12 +18544,12 @@ def microsoft_excel_logo(
     _write(xy=xy, width=width, code="\ueb6c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def microsoft_outlook_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an microsoft-outlook-logo.
 
@@ -18540,12 +18564,12 @@ def microsoft_outlook_logo(
     _write(xy=xy, width=width, code="\ueb70", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def microsoft_powerpoint_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an microsoft-powerpoint-logo.
 
@@ -18560,12 +18584,12 @@ def microsoft_powerpoint_logo(
     _write(xy=xy, width=width, code="\ueace", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def microsoft_teams_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an microsoft-teams-logo.
 
@@ -18580,12 +18604,12 @@ def microsoft_teams_logo(
     _write(xy=xy, width=width, code="\ueb66", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def microsoft_word_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an microsoft-word-logo.
 
@@ -18600,12 +18624,12 @@ def microsoft_word_logo(
     _write(xy=xy, width=width, code="\ueb6a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def minus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an minus.
 
@@ -18620,12 +18644,12 @@ def minus(
     _write(xy=xy, width=width, code="\ue32a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def minus_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an minus-circle.
 
@@ -18640,12 +18664,12 @@ def minus_circle(
     _write(xy=xy, width=width, code="\ue32c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def minus_square(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an minus-square.
 
@@ -18660,12 +18684,12 @@ def minus_square(
     _write(xy=xy, width=width, code="\ued4c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def money(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an money.
 
@@ -18680,12 +18704,12 @@ def money(
     _write(xy=xy, width=width, code="\ue588", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def money_wavy(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an money-wavy.
 
@@ -18700,12 +18724,12 @@ def money_wavy(
     _write(xy=xy, width=width, code="\uee68", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def monitor(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an monitor.
 
@@ -18720,12 +18744,12 @@ def monitor(
     _write(xy=xy, width=width, code="\ue32e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def monitor_arrow_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an monitor-arrow-up.
 
@@ -18740,12 +18764,12 @@ def monitor_arrow_up(
     _write(xy=xy, width=width, code="\ue58a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def monitor_play(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an monitor-play.
 
@@ -18760,12 +18784,12 @@ def monitor_play(
     _write(xy=xy, width=width, code="\ue58c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def moon(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an moon.
 
@@ -18780,12 +18804,12 @@ def moon(
     _write(xy=xy, width=width, code="\ue330", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def moon_stars(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an moon-stars.
 
@@ -18800,12 +18824,12 @@ def moon_stars(
     _write(xy=xy, width=width, code="\ue58e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def moped(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an moped.
 
@@ -18820,12 +18844,12 @@ def moped(
     _write(xy=xy, width=width, code="\ue824", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def moped_front(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an moped-front.
 
@@ -18840,12 +18864,12 @@ def moped_front(
     _write(xy=xy, width=width, code="\ue822", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def mosque(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an mosque.
 
@@ -18860,12 +18884,12 @@ def mosque(
     _write(xy=xy, width=width, code="\uecee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def motorcycle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an motorcycle.
 
@@ -18880,12 +18904,12 @@ def motorcycle(
     _write(xy=xy, width=width, code="\ue80a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def mountains(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an mountains.
 
@@ -18900,12 +18924,12 @@ def mountains(
     _write(xy=xy, width=width, code="\ue7ae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def mouse(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an mouse.
 
@@ -18920,12 +18944,12 @@ def mouse(
     _write(xy=xy, width=width, code="\ue33a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def mouse_left_click(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an mouse-left-click.
 
@@ -18940,12 +18964,12 @@ def mouse_left_click(
     _write(xy=xy, width=width, code="\ue334", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def mouse_middle_click(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an mouse-middle-click.
 
@@ -18960,12 +18984,12 @@ def mouse_middle_click(
     _write(xy=xy, width=width, code="\ue338", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def mouse_right_click(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an mouse-right-click.
 
@@ -18980,12 +19004,12 @@ def mouse_right_click(
     _write(xy=xy, width=width, code="\ue336", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def mouse_scroll(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an mouse-scroll.
 
@@ -19000,12 +19024,12 @@ def mouse_scroll(
     _write(xy=xy, width=width, code="\ue332", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def mouse_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an mouse-simple.
 
@@ -19020,12 +19044,12 @@ def mouse_simple(
     _write(xy=xy, width=width, code="\ue644", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def music_note(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an music-note.
 
@@ -19040,12 +19064,12 @@ def music_note(
     _write(xy=xy, width=width, code="\ue33c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def music_note_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an music-note-simple.
 
@@ -19060,12 +19084,12 @@ def music_note_simple(
     _write(xy=xy, width=width, code="\ue33e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def music_notes(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an music-notes.
 
@@ -19080,12 +19104,12 @@ def music_notes(
     _write(xy=xy, width=width, code="\ue340", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def music_notes_minus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an music-notes-minus.
 
@@ -19100,12 +19124,12 @@ def music_notes_minus(
     _write(xy=xy, width=width, code="\uee0c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def music_notes_plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an music-notes-plus.
 
@@ -19120,12 +19144,12 @@ def music_notes_plus(
     _write(xy=xy, width=width, code="\ueb7c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def music_notes_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an music-notes-simple.
 
@@ -19140,12 +19164,12 @@ def music_notes_simple(
     _write(xy=xy, width=width, code="\ue342", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def navigation_arrow(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an navigation-arrow.
 
@@ -19160,12 +19184,12 @@ def navigation_arrow(
     _write(xy=xy, width=width, code="\ueade", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def needle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an needle.
 
@@ -19180,12 +19204,12 @@ def needle(
     _write(xy=xy, width=width, code="\ue82e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def network(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an network.
 
@@ -19200,12 +19224,12 @@ def network(
     _write(xy=xy, width=width, code="\uedde", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def network_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an network-slash.
 
@@ -19220,12 +19244,12 @@ def network_slash(
     _write(xy=xy, width=width, code="\ueddc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def network_x(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an network-x.
 
@@ -19240,12 +19264,12 @@ def network_x(
     _write(xy=xy, width=width, code="\uedda", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def newspaper(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an newspaper.
 
@@ -19260,12 +19284,12 @@ def newspaper(
     _write(xy=xy, width=width, code="\ue344", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def newspaper_clipping(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an newspaper-clipping.
 
@@ -19280,12 +19304,12 @@ def newspaper_clipping(
     _write(xy=xy, width=width, code="\ue346", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def not_equals(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an not-equals.
 
@@ -19300,12 +19324,12 @@ def not_equals(
     _write(xy=xy, width=width, code="\ueda6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def not_member_of(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an not-member-of.
 
@@ -19320,12 +19344,12 @@ def not_member_of(
     _write(xy=xy, width=width, code="\uedae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def not_subset_of(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an not-subset-of.
 
@@ -19340,12 +19364,12 @@ def not_subset_of(
     _write(xy=xy, width=width, code="\uedb0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def not_superset_of(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an not-superset-of.
 
@@ -19360,12 +19384,12 @@ def not_superset_of(
     _write(xy=xy, width=width, code="\uedb2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def notches(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an notches.
 
@@ -19380,12 +19404,12 @@ def notches(
     _write(xy=xy, width=width, code="\ued3a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def note(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an note.
 
@@ -19400,12 +19424,12 @@ def note(
     _write(xy=xy, width=width, code="\ue348", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def note_blank(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an note-blank.
 
@@ -19420,12 +19444,12 @@ def note_blank(
     _write(xy=xy, width=width, code="\ue34a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def note_pencil(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an note-pencil.
 
@@ -19440,12 +19464,12 @@ def note_pencil(
     _write(xy=xy, width=width, code="\ue34c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def notebook(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an notebook.
 
@@ -19460,12 +19484,12 @@ def notebook(
     _write(xy=xy, width=width, code="\ue34e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def notepad(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an notepad.
 
@@ -19480,12 +19504,12 @@ def notepad(
     _write(xy=xy, width=width, code="\ue63e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def notification(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an notification.
 
@@ -19500,12 +19524,12 @@ def notification(
     _write(xy=xy, width=width, code="\ue6fa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def notion_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an notion-logo.
 
@@ -19520,12 +19544,12 @@ def notion_logo(
     _write(xy=xy, width=width, code="\ue9a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def nuclear_plant(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an nuclear-plant.
 
@@ -19540,12 +19564,12 @@ def nuclear_plant(
     _write(xy=xy, width=width, code="\ued7c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_circle_eight(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-circle-eight.
 
@@ -19560,12 +19584,12 @@ def number_circle_eight(
     _write(xy=xy, width=width, code="\ue352", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_circle_five(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-circle-five.
 
@@ -19580,12 +19604,12 @@ def number_circle_five(
     _write(xy=xy, width=width, code="\ue358", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_circle_four(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-circle-four.
 
@@ -19600,12 +19624,12 @@ def number_circle_four(
     _write(xy=xy, width=width, code="\ue35e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_circle_nine(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-circle-nine.
 
@@ -19620,12 +19644,12 @@ def number_circle_nine(
     _write(xy=xy, width=width, code="\ue364", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_circle_one(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-circle-one.
 
@@ -19640,12 +19664,12 @@ def number_circle_one(
     _write(xy=xy, width=width, code="\ue36a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_circle_seven(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-circle-seven.
 
@@ -19660,12 +19684,12 @@ def number_circle_seven(
     _write(xy=xy, width=width, code="\ue370", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_circle_six(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-circle-six.
 
@@ -19680,12 +19704,12 @@ def number_circle_six(
     _write(xy=xy, width=width, code="\ue376", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_circle_three(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-circle-three.
 
@@ -19700,12 +19724,12 @@ def number_circle_three(
     _write(xy=xy, width=width, code="\ue37c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_circle_two(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-circle-two.
 
@@ -19720,12 +19744,12 @@ def number_circle_two(
     _write(xy=xy, width=width, code="\ue382", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_circle_zero(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-circle-zero.
 
@@ -19740,12 +19764,12 @@ def number_circle_zero(
     _write(xy=xy, width=width, code="\ue388", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_eight(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-eight.
 
@@ -19760,12 +19784,12 @@ def number_eight(
     _write(xy=xy, width=width, code="\ue350", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_five(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-five.
 
@@ -19780,12 +19804,12 @@ def number_five(
     _write(xy=xy, width=width, code="\ue356", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_four(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-four.
 
@@ -19800,12 +19824,12 @@ def number_four(
     _write(xy=xy, width=width, code="\ue35c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_nine(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-nine.
 
@@ -19820,12 +19844,12 @@ def number_nine(
     _write(xy=xy, width=width, code="\ue362", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_one(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-one.
 
@@ -19840,12 +19864,12 @@ def number_one(
     _write(xy=xy, width=width, code="\ue368", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_seven(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-seven.
 
@@ -19860,12 +19884,12 @@ def number_seven(
     _write(xy=xy, width=width, code="\ue36e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_six(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-six.
 
@@ -19880,12 +19904,12 @@ def number_six(
     _write(xy=xy, width=width, code="\ue374", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_square_eight(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-square-eight.
 
@@ -19900,12 +19924,12 @@ def number_square_eight(
     _write(xy=xy, width=width, code="\ue354", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_square_five(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-square-five.
 
@@ -19920,12 +19944,12 @@ def number_square_five(
     _write(xy=xy, width=width, code="\ue35a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_square_four(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-square-four.
 
@@ -19940,12 +19964,12 @@ def number_square_four(
     _write(xy=xy, width=width, code="\ue360", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_square_nine(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-square-nine.
 
@@ -19960,12 +19984,12 @@ def number_square_nine(
     _write(xy=xy, width=width, code="\ue366", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_square_one(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-square-one.
 
@@ -19980,12 +20004,12 @@ def number_square_one(
     _write(xy=xy, width=width, code="\ue36c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_square_seven(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-square-seven.
 
@@ -20000,12 +20024,12 @@ def number_square_seven(
     _write(xy=xy, width=width, code="\ue372", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_square_six(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-square-six.
 
@@ -20020,12 +20044,12 @@ def number_square_six(
     _write(xy=xy, width=width, code="\ue378", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_square_three(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-square-three.
 
@@ -20040,12 +20064,12 @@ def number_square_three(
     _write(xy=xy, width=width, code="\ue37e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_square_two(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-square-two.
 
@@ -20060,12 +20084,12 @@ def number_square_two(
     _write(xy=xy, width=width, code="\ue384", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_square_zero(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-square-zero.
 
@@ -20080,12 +20104,12 @@ def number_square_zero(
     _write(xy=xy, width=width, code="\ue38a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_three(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-three.
 
@@ -20100,12 +20124,12 @@ def number_three(
     _write(xy=xy, width=width, code="\ue37a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_two(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-two.
 
@@ -20120,12 +20144,12 @@ def number_two(
     _write(xy=xy, width=width, code="\ue380", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def number_zero(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an number-zero.
 
@@ -20140,12 +20164,12 @@ def number_zero(
     _write(xy=xy, width=width, code="\ue386", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def numpad(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an numpad.
 
@@ -20160,12 +20184,12 @@ def numpad(
     _write(xy=xy, width=width, code="\ue3c8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def nut(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an nut.
 
@@ -20180,12 +20204,12 @@ def nut(
     _write(xy=xy, width=width, code="\ue38c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def ny_times_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an ny-times-logo.
 
@@ -20200,12 +20224,12 @@ def ny_times_logo(
     _write(xy=xy, width=width, code="\ue646", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def octagon(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an octagon.
 
@@ -20220,12 +20244,12 @@ def octagon(
     _write(xy=xy, width=width, code="\ue38e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def office_chair(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an office-chair.
 
@@ -20240,12 +20264,12 @@ def office_chair(
     _write(xy=xy, width=width, code="\uea46", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def onigiri(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an onigiri.
 
@@ -20260,12 +20284,12 @@ def onigiri(
     _write(xy=xy, width=width, code="\uee2c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def open_ai_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an open-ai-logo.
 
@@ -20280,12 +20304,12 @@ def open_ai_logo(
     _write(xy=xy, width=width, code="\ue7d2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def option(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an option.
 
@@ -20300,12 +20324,12 @@ def option(
     _write(xy=xy, width=width, code="\ue8a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def orange(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an orange.
 
@@ -20320,12 +20344,12 @@ def orange(
     _write(xy=xy, width=width, code="\uee40", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def orange_slice(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an orange-slice.
 
@@ -20340,12 +20364,12 @@ def orange_slice(
     _write(xy=xy, width=width, code="\ued36", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def oven(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an oven.
 
@@ -20360,12 +20384,12 @@ def oven(
     _write(xy=xy, width=width, code="\ued8c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def package(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an package.
 
@@ -20380,12 +20404,12 @@ def package(
     _write(xy=xy, width=width, code="\ue390", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def paint_brush(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an paint-brush.
 
@@ -20400,12 +20424,12 @@ def paint_brush(
     _write(xy=xy, width=width, code="\ue6f0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def paint_brush_broad(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an paint-brush-broad.
 
@@ -20420,12 +20444,12 @@ def paint_brush_broad(
     _write(xy=xy, width=width, code="\ue590", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def paint_brush_household(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an paint-brush-household.
 
@@ -20440,12 +20464,12 @@ def paint_brush_household(
     _write(xy=xy, width=width, code="\ue6f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def paint_bucket(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an paint-bucket.
 
@@ -20460,12 +20484,12 @@ def paint_bucket(
     _write(xy=xy, width=width, code="\ue392", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def paint_roller(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an paint-roller.
 
@@ -20480,12 +20504,12 @@ def paint_roller(
     _write(xy=xy, width=width, code="\ue6f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def palette(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an palette.
 
@@ -20500,12 +20524,12 @@ def palette(
     _write(xy=xy, width=width, code="\ue6c8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def panorama(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an panorama.
 
@@ -20520,12 +20544,12 @@ def panorama(
     _write(xy=xy, width=width, code="\ueaa2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pants(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pants.
 
@@ -20540,12 +20564,12 @@ def pants(
     _write(xy=xy, width=width, code="\uec88", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def paper_plane(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an paper-plane.
 
@@ -20560,12 +20584,12 @@ def paper_plane(
     _write(xy=xy, width=width, code="\ue394", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def paper_plane_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an paper-plane-right.
 
@@ -20580,12 +20604,12 @@ def paper_plane_right(
     _write(xy=xy, width=width, code="\ue396", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def paper_plane_tilt(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an paper-plane-tilt.
 
@@ -20600,12 +20624,12 @@ def paper_plane_tilt(
     _write(xy=xy, width=width, code="\ue398", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def paperclip(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an paperclip.
 
@@ -20620,12 +20644,12 @@ def paperclip(
     _write(xy=xy, width=width, code="\ue39a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def paperclip_horizontal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an paperclip-horizontal.
 
@@ -20640,12 +20664,12 @@ def paperclip_horizontal(
     _write(xy=xy, width=width, code="\ue592", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def parachute(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an parachute.
 
@@ -20660,12 +20684,12 @@ def parachute(
     _write(xy=xy, width=width, code="\uea7c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def paragraph(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an paragraph.
 
@@ -20680,12 +20704,12 @@ def paragraph(
     _write(xy=xy, width=width, code="\ue960", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def parallelogram(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an parallelogram.
 
@@ -20700,12 +20724,12 @@ def parallelogram(
     _write(xy=xy, width=width, code="\uecc6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def park(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an park.
 
@@ -20720,12 +20744,12 @@ def park(
     _write(xy=xy, width=width, code="\uecb2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def password(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an password.
 
@@ -20740,12 +20764,12 @@ def password(
     _write(xy=xy, width=width, code="\ue752", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def path(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an path.
 
@@ -20760,12 +20784,12 @@ def path(
     _write(xy=xy, width=width, code="\ue39c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def patreon_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an patreon-logo.
 
@@ -20780,12 +20804,12 @@ def patreon_logo(
     _write(xy=xy, width=width, code="\ue98a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pause(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pause.
 
@@ -20800,12 +20824,12 @@ def pause(
     _write(xy=xy, width=width, code="\ue39e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pause_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pause-circle.
 
@@ -20820,12 +20844,12 @@ def pause_circle(
     _write(xy=xy, width=width, code="\ue3a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def paw_print(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an paw-print.
 
@@ -20840,12 +20864,12 @@ def paw_print(
     _write(xy=xy, width=width, code="\ue648", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def paypal_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an paypal-logo.
 
@@ -20860,12 +20884,12 @@ def paypal_logo(
     _write(xy=xy, width=width, code="\ue98c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def peace(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an peace.
 
@@ -20880,12 +20904,12 @@ def peace(
     _write(xy=xy, width=width, code="\ue3a2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pen(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pen.
 
@@ -20900,12 +20924,12 @@ def pen(
     _write(xy=xy, width=width, code="\ue3aa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pen_nib(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pen-nib.
 
@@ -20920,12 +20944,12 @@ def pen_nib(
     _write(xy=xy, width=width, code="\ue3ac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pen_nib_straight(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pen-nib-straight.
 
@@ -20940,12 +20964,12 @@ def pen_nib_straight(
     _write(xy=xy, width=width, code="\ue64a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pencil(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pencil.
 
@@ -20960,12 +20984,12 @@ def pencil(
     _write(xy=xy, width=width, code="\ue3ae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pencil_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pencil-circle.
 
@@ -20980,12 +21004,12 @@ def pencil_circle(
     _write(xy=xy, width=width, code="\ue3b0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pencil_line(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pencil-line.
 
@@ -21000,12 +21024,12 @@ def pencil_line(
     _write(xy=xy, width=width, code="\ue3b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pencil_ruler(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pencil-ruler.
 
@@ -21020,12 +21044,12 @@ def pencil_ruler(
     _write(xy=xy, width=width, code="\ue906", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pencil_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pencil-simple.
 
@@ -21040,12 +21064,12 @@ def pencil_simple(
     _write(xy=xy, width=width, code="\ue3b4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pencil_simple_line(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pencil-simple-line.
 
@@ -21060,12 +21084,12 @@ def pencil_simple_line(
     _write(xy=xy, width=width, code="\uebc6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pencil_simple_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pencil-simple-slash.
 
@@ -21080,12 +21104,12 @@ def pencil_simple_slash(
     _write(xy=xy, width=width, code="\uecf6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pencil_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pencil-slash.
 
@@ -21100,12 +21124,12 @@ def pencil_slash(
     _write(xy=xy, width=width, code="\uecf8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pentagon(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pentagon.
 
@@ -21120,12 +21144,12 @@ def pentagon(
     _write(xy=xy, width=width, code="\uec7e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pentagram(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pentagram.
 
@@ -21140,12 +21164,12 @@ def pentagram(
     _write(xy=xy, width=width, code="\uec5c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pepper(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pepper.
 
@@ -21160,12 +21184,12 @@ def pepper(
     _write(xy=xy, width=width, code="\ue94a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def percent(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an percent.
 
@@ -21180,12 +21204,12 @@ def percent(
     _write(xy=xy, width=width, code="\ue3b6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def person(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an person.
 
@@ -21200,12 +21224,12 @@ def person(
     _write(xy=xy, width=width, code="\ue3a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def person_arms_spread(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an person-arms-spread.
 
@@ -21220,12 +21244,12 @@ def person_arms_spread(
     _write(xy=xy, width=width, code="\uecfe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def person_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an person-simple.
 
@@ -21240,12 +21264,12 @@ def person_simple(
     _write(xy=xy, width=width, code="\ue72e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def person_simple_bike(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an person-simple-bike.
 
@@ -21260,12 +21284,12 @@ def person_simple_bike(
     _write(xy=xy, width=width, code="\ue734", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def person_simple_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an person-simple-circle.
 
@@ -21280,12 +21304,12 @@ def person_simple_circle(
     _write(xy=xy, width=width, code="\uee58", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def person_simple_hike(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an person-simple-hike.
 
@@ -21300,12 +21324,12 @@ def person_simple_hike(
     _write(xy=xy, width=width, code="\ued54", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def person_simple_run(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an person-simple-run.
 
@@ -21320,12 +21344,12 @@ def person_simple_run(
     _write(xy=xy, width=width, code="\ue730", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def person_simple_ski(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an person-simple-ski.
 
@@ -21340,12 +21364,12 @@ def person_simple_ski(
     _write(xy=xy, width=width, code="\ue71c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def person_simple_snowboard(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an person-simple-snowboard.
 
@@ -21360,12 +21384,12 @@ def person_simple_snowboard(
     _write(xy=xy, width=width, code="\ue71e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def person_simple_swim(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an person-simple-swim.
 
@@ -21380,12 +21404,12 @@ def person_simple_swim(
     _write(xy=xy, width=width, code="\ue736", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def person_simple_tai_chi(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an person-simple-tai-chi.
 
@@ -21400,12 +21424,12 @@ def person_simple_tai_chi(
     _write(xy=xy, width=width, code="\ued5c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def person_simple_throw(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an person-simple-throw.
 
@@ -21420,12 +21444,12 @@ def person_simple_throw(
     _write(xy=xy, width=width, code="\ue732", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def person_simple_walk(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an person-simple-walk.
 
@@ -21440,12 +21464,12 @@ def person_simple_walk(
     _write(xy=xy, width=width, code="\ue73a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def perspective(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an perspective.
 
@@ -21460,12 +21484,12 @@ def perspective(
     _write(xy=xy, width=width, code="\uebe6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def phone(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an phone.
 
@@ -21480,12 +21504,12 @@ def phone(
     _write(xy=xy, width=width, code="\ue3b8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def phone_call(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an phone-call.
 
@@ -21500,12 +21524,12 @@ def phone_call(
     _write(xy=xy, width=width, code="\ue3ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def phone_disconnect(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an phone-disconnect.
 
@@ -21520,12 +21544,12 @@ def phone_disconnect(
     _write(xy=xy, width=width, code="\ue3bc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def phone_incoming(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an phone-incoming.
 
@@ -21540,12 +21564,12 @@ def phone_incoming(
     _write(xy=xy, width=width, code="\ue3be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def phone_list(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an phone-list.
 
@@ -21560,12 +21584,12 @@ def phone_list(
     _write(xy=xy, width=width, code="\ue3cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def phone_outgoing(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an phone-outgoing.
 
@@ -21580,12 +21604,12 @@ def phone_outgoing(
     _write(xy=xy, width=width, code="\ue3c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def phone_pause(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an phone-pause.
 
@@ -21600,12 +21624,12 @@ def phone_pause(
     _write(xy=xy, width=width, code="\ue3ca", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def phone_plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an phone-plus.
 
@@ -21620,12 +21644,12 @@ def phone_plus(
     _write(xy=xy, width=width, code="\uec56", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def phone_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an phone-slash.
 
@@ -21640,12 +21664,12 @@ def phone_slash(
     _write(xy=xy, width=width, code="\ue3c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def phone_transfer(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an phone-transfer.
 
@@ -21660,12 +21684,12 @@ def phone_transfer(
     _write(xy=xy, width=width, code="\ue3c6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def phone_x(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an phone-x.
 
@@ -21680,12 +21704,12 @@ def phone_x(
     _write(xy=xy, width=width, code="\ue3c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def phosphor_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an phosphor-logo.
 
@@ -21700,12 +21724,12 @@ def phosphor_logo(
     _write(xy=xy, width=width, code="\ue3ce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pi(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pi.
 
@@ -21720,12 +21744,12 @@ def pi(
     _write(xy=xy, width=width, code="\uec80", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def piano_keys(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an piano-keys.
 
@@ -21740,12 +21764,12 @@ def piano_keys(
     _write(xy=xy, width=width, code="\ue9c8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def picnic_table(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an picnic-table.
 
@@ -21760,12 +21784,12 @@ def picnic_table(
     _write(xy=xy, width=width, code="\uee26", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def picture_in_picture(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an picture-in-picture.
 
@@ -21780,12 +21804,12 @@ def picture_in_picture(
     _write(xy=xy, width=width, code="\ue64c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def piggy_bank(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an piggy-bank.
 
@@ -21800,12 +21824,12 @@ def piggy_bank(
     _write(xy=xy, width=width, code="\uea04", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pill(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pill.
 
@@ -21820,12 +21844,12 @@ def pill(
     _write(xy=xy, width=width, code="\ue700", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def ping_pong(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an ping-pong.
 
@@ -21840,12 +21864,12 @@ def ping_pong(
     _write(xy=xy, width=width, code="\uea42", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pint_glass(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pint-glass.
 
@@ -21860,12 +21884,12 @@ def pint_glass(
     _write(xy=xy, width=width, code="\uedd0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pinterest_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pinterest-logo.
 
@@ -21880,12 +21904,12 @@ def pinterest_logo(
     _write(xy=xy, width=width, code="\ue64e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pinwheel(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pinwheel.
 
@@ -21900,12 +21924,12 @@ def pinwheel(
     _write(xy=xy, width=width, code="\ueb9c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pipe(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pipe.
 
@@ -21920,12 +21944,12 @@ def pipe(
     _write(xy=xy, width=width, code="\ued86", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pipe_wrench(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pipe-wrench.
 
@@ -21940,12 +21964,12 @@ def pipe_wrench(
     _write(xy=xy, width=width, code="\ued88", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pix_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pix-logo.
 
@@ -21960,12 +21984,12 @@ def pix_logo(
     _write(xy=xy, width=width, code="\uecc2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pizza(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pizza.
 
@@ -21980,12 +22004,12 @@ def pizza(
     _write(xy=xy, width=width, code="\ue796", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def placeholder(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an placeholder.
 
@@ -22000,12 +22024,12 @@ def placeholder(
     _write(xy=xy, width=width, code="\ue650", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def planet(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an planet.
 
@@ -22020,12 +22044,12 @@ def planet(
     _write(xy=xy, width=width, code="\ue652", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def plant(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an plant.
 
@@ -22040,12 +22064,12 @@ def plant(
     _write(xy=xy, width=width, code="\uebae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def play(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an play.
 
@@ -22060,12 +22084,12 @@ def play(
     _write(xy=xy, width=width, code="\ue3d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def play_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an play-circle.
 
@@ -22080,12 +22104,12 @@ def play_circle(
     _write(xy=xy, width=width, code="\ue3d2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def play_pause(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an play-pause.
 
@@ -22100,12 +22124,12 @@ def play_pause(
     _write(xy=xy, width=width, code="\ue8be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def playlist(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an playlist.
 
@@ -22120,12 +22144,12 @@ def playlist(
     _write(xy=xy, width=width, code="\ue6aa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def plug(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an plug.
 
@@ -22140,12 +22164,12 @@ def plug(
     _write(xy=xy, width=width, code="\ue946", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def plug_charging(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an plug-charging.
 
@@ -22160,12 +22184,12 @@ def plug_charging(
     _write(xy=xy, width=width, code="\ueb5c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def plugs(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an plugs.
 
@@ -22180,12 +22204,12 @@ def plugs(
     _write(xy=xy, width=width, code="\ueb56", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def plugs_connected(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an plugs-connected.
 
@@ -22200,12 +22224,12 @@ def plugs_connected(
     _write(xy=xy, width=width, code="\ueb5a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an plus.
 
@@ -22220,12 +22244,12 @@ def plus(
     _write(xy=xy, width=width, code="\ue3d4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def plus_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an plus-circle.
 
@@ -22240,12 +22264,12 @@ def plus_circle(
     _write(xy=xy, width=width, code="\ue3d6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def plus_minus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an plus-minus.
 
@@ -22260,12 +22284,12 @@ def plus_minus(
     _write(xy=xy, width=width, code="\ue3d8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def plus_square(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an plus-square.
 
@@ -22280,12 +22304,12 @@ def plus_square(
     _write(xy=xy, width=width, code="\ued4a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def poker_chip(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an poker-chip.
 
@@ -22300,12 +22324,12 @@ def poker_chip(
     _write(xy=xy, width=width, code="\ue594", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def police_car(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an police-car.
 
@@ -22320,12 +22344,12 @@ def police_car(
     _write(xy=xy, width=width, code="\uec4a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def polygon(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an polygon.
 
@@ -22340,12 +22364,12 @@ def polygon(
     _write(xy=xy, width=width, code="\ue6d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def popcorn(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an popcorn.
 
@@ -22360,12 +22384,12 @@ def popcorn(
     _write(xy=xy, width=width, code="\ueb4e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def popsicle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an popsicle.
 
@@ -22380,12 +22404,12 @@ def popsicle(
     _write(xy=xy, width=width, code="\uebbe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def potted_plant(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an potted-plant.
 
@@ -22400,12 +22424,12 @@ def potted_plant(
     _write(xy=xy, width=width, code="\uec22", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def power(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an power.
 
@@ -22420,12 +22444,12 @@ def power(
     _write(xy=xy, width=width, code="\ue3da", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def prescription(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an prescription.
 
@@ -22440,12 +22464,12 @@ def prescription(
     _write(xy=xy, width=width, code="\ue7a2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def presentation(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an presentation.
 
@@ -22460,12 +22484,12 @@ def presentation(
     _write(xy=xy, width=width, code="\ue654", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def presentation_chart(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an presentation-chart.
 
@@ -22480,12 +22504,12 @@ def presentation_chart(
     _write(xy=xy, width=width, code="\ue656", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def printer(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an printer.
 
@@ -22500,12 +22524,12 @@ def printer(
     _write(xy=xy, width=width, code="\ue3dc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def prohibit(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an prohibit.
 
@@ -22520,12 +22544,12 @@ def prohibit(
     _write(xy=xy, width=width, code="\ue3de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def prohibit_inset(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an prohibit-inset.
 
@@ -22540,12 +22564,12 @@ def prohibit_inset(
     _write(xy=xy, width=width, code="\ue3e0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def projector_screen(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an projector-screen.
 
@@ -22560,12 +22584,12 @@ def projector_screen(
     _write(xy=xy, width=width, code="\ue658", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def projector_screen_chart(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an projector-screen-chart.
 
@@ -22580,12 +22604,12 @@ def projector_screen_chart(
     _write(xy=xy, width=width, code="\ue65a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def pulse(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an pulse.
 
@@ -22600,12 +22624,12 @@ def pulse(
     _write(xy=xy, width=width, code="\ue000", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def activity(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an activity.
 
@@ -22620,12 +22644,12 @@ def activity(
     _write(xy=xy, width=width, code="\ue000", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def push_pin(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an push-pin.
 
@@ -22640,12 +22664,12 @@ def push_pin(
     _write(xy=xy, width=width, code="\ue3e2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def push_pin_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an push-pin-simple.
 
@@ -22660,12 +22684,12 @@ def push_pin_simple(
     _write(xy=xy, width=width, code="\ue65c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def push_pin_simple_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an push-pin-simple-slash.
 
@@ -22680,12 +22704,12 @@ def push_pin_simple_slash(
     _write(xy=xy, width=width, code="\ue65e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def push_pin_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an push-pin-slash.
 
@@ -22700,12 +22724,12 @@ def push_pin_slash(
     _write(xy=xy, width=width, code="\ue3e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def puzzle_piece(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an puzzle-piece.
 
@@ -22720,12 +22744,12 @@ def puzzle_piece(
     _write(xy=xy, width=width, code="\ue596", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def qr_code(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an qr-code.
 
@@ -22740,12 +22764,12 @@ def qr_code(
     _write(xy=xy, width=width, code="\ue3e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def question(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an question.
 
@@ -22760,12 +22784,12 @@ def question(
     _write(xy=xy, width=width, code="\ue3e8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def question_mark(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an question-mark.
 
@@ -22780,12 +22804,12 @@ def question_mark(
     _write(xy=xy, width=width, code="\ue3e9", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def queue(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an queue.
 
@@ -22800,12 +22824,12 @@ def queue(
     _write(xy=xy, width=width, code="\ue6ac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def quotes(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an quotes.
 
@@ -22820,12 +22844,12 @@ def quotes(
     _write(xy=xy, width=width, code="\ue660", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def rabbit(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an rabbit.
 
@@ -22840,12 +22864,12 @@ def rabbit(
     _write(xy=xy, width=width, code="\ueac2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def racquet(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an racquet.
 
@@ -22860,12 +22884,12 @@ def racquet(
     _write(xy=xy, width=width, code="\uee02", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def radical(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an radical.
 
@@ -22880,12 +22904,12 @@ def radical(
     _write(xy=xy, width=width, code="\ue3ea", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def radio(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an radio.
 
@@ -22900,12 +22924,12 @@ def radio(
     _write(xy=xy, width=width, code="\ue77e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def radio_button(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an radio-button.
 
@@ -22920,12 +22944,12 @@ def radio_button(
     _write(xy=xy, width=width, code="\ueb08", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def radioactive(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an radioactive.
 
@@ -22940,12 +22964,12 @@ def radioactive(
     _write(xy=xy, width=width, code="\ue9dc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def rainbow(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an rainbow.
 
@@ -22960,12 +22984,12 @@ def rainbow(
     _write(xy=xy, width=width, code="\ue598", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def rainbow_cloud(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an rainbow-cloud.
 
@@ -22980,12 +23004,12 @@ def rainbow_cloud(
     _write(xy=xy, width=width, code="\ue59a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def ranking(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an ranking.
 
@@ -23000,12 +23024,12 @@ def ranking(
     _write(xy=xy, width=width, code="\ued62", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def read_cv_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an read-cv-logo.
 
@@ -23020,12 +23044,12 @@ def read_cv_logo(
     _write(xy=xy, width=width, code="\ued0c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def receipt(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an receipt.
 
@@ -23040,12 +23064,12 @@ def receipt(
     _write(xy=xy, width=width, code="\ue3ec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def receipt_x(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an receipt-x.
 
@@ -23060,12 +23084,12 @@ def receipt_x(
     _write(xy=xy, width=width, code="\ued40", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def record(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an record.
 
@@ -23080,12 +23104,12 @@ def record(
     _write(xy=xy, width=width, code="\ue3ee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def rectangle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an rectangle.
 
@@ -23100,12 +23124,12 @@ def rectangle(
     _write(xy=xy, width=width, code="\ue3f0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def rectangle_dashed(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an rectangle-dashed.
 
@@ -23120,12 +23144,12 @@ def rectangle_dashed(
     _write(xy=xy, width=width, code="\ue3f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def recycle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an recycle.
 
@@ -23140,12 +23164,12 @@ def recycle(
     _write(xy=xy, width=width, code="\ue75a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def reddit_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an reddit-logo.
 
@@ -23160,12 +23184,12 @@ def reddit_logo(
     _write(xy=xy, width=width, code="\ue59c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def repeat(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an repeat.
 
@@ -23180,12 +23204,12 @@ def repeat(
     _write(xy=xy, width=width, code="\ue3f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def repeat_once(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an repeat-once.
 
@@ -23200,12 +23224,12 @@ def repeat_once(
     _write(xy=xy, width=width, code="\ue3f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def replit_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an replit-logo.
 
@@ -23220,12 +23244,12 @@ def replit_logo(
     _write(xy=xy, width=width, code="\ueb8a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def resize(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an resize.
 
@@ -23240,12 +23264,12 @@ def resize(
     _write(xy=xy, width=width, code="\ued6e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def rewind(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an rewind.
 
@@ -23260,12 +23284,12 @@ def rewind(
     _write(xy=xy, width=width, code="\ue6a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def rewind_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an rewind-circle.
 
@@ -23280,12 +23304,12 @@ def rewind_circle(
     _write(xy=xy, width=width, code="\ue3fa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def road_horizon(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an road-horizon.
 
@@ -23300,12 +23324,12 @@ def road_horizon(
     _write(xy=xy, width=width, code="\ue838", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def robot(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an robot.
 
@@ -23320,12 +23344,12 @@ def robot(
     _write(xy=xy, width=width, code="\ue762", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def rocket(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an rocket.
 
@@ -23340,12 +23364,12 @@ def rocket(
     _write(xy=xy, width=width, code="\ue3fc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def rocket_launch(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an rocket-launch.
 
@@ -23360,12 +23384,12 @@ def rocket_launch(
     _write(xy=xy, width=width, code="\ue3fe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def rows(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an rows.
 
@@ -23380,12 +23404,12 @@ def rows(
     _write(xy=xy, width=width, code="\ue5a2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def rows_plus_bottom(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an rows-plus-bottom.
 
@@ -23400,12 +23424,12 @@ def rows_plus_bottom(
     _write(xy=xy, width=width, code="\ue59e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def rows_plus_top(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an rows-plus-top.
 
@@ -23420,12 +23444,12 @@ def rows_plus_top(
     _write(xy=xy, width=width, code="\ue5a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def rss(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an rss.
 
@@ -23440,12 +23464,12 @@ def rss(
     _write(xy=xy, width=width, code="\ue400", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def rss_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an rss-simple.
 
@@ -23460,12 +23484,12 @@ def rss_simple(
     _write(xy=xy, width=width, code="\ue402", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def rug(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an rug.
 
@@ -23480,12 +23504,12 @@ def rug(
     _write(xy=xy, width=width, code="\uea1a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def ruler(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an ruler.
 
@@ -23500,12 +23524,12 @@ def ruler(
     _write(xy=xy, width=width, code="\ue6b8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sailboat(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sailboat.
 
@@ -23520,12 +23544,12 @@ def sailboat(
     _write(xy=xy, width=width, code="\ue78a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def scales(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an scales.
 
@@ -23540,12 +23564,12 @@ def scales(
     _write(xy=xy, width=width, code="\ue750", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def scan(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an scan.
 
@@ -23560,12 +23584,12 @@ def scan(
     _write(xy=xy, width=width, code="\uebb6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def scan_smiley(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an scan-smiley.
 
@@ -23580,12 +23604,12 @@ def scan_smiley(
     _write(xy=xy, width=width, code="\uebb4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def scissors(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an scissors.
 
@@ -23600,12 +23624,12 @@ def scissors(
     _write(xy=xy, width=width, code="\ueae0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def scooter(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an scooter.
 
@@ -23620,12 +23644,12 @@ def scooter(
     _write(xy=xy, width=width, code="\ue820", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def screencast(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an screencast.
 
@@ -23640,12 +23664,12 @@ def screencast(
     _write(xy=xy, width=width, code="\ue404", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def screwdriver(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an screwdriver.
 
@@ -23660,12 +23684,12 @@ def screwdriver(
     _write(xy=xy, width=width, code="\ue86e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def scribble(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an scribble.
 
@@ -23680,12 +23704,12 @@ def scribble(
     _write(xy=xy, width=width, code="\ue806", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def scribble_loop(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an scribble-loop.
 
@@ -23700,12 +23724,12 @@ def scribble_loop(
     _write(xy=xy, width=width, code="\ue662", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def scroll(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an scroll.
 
@@ -23720,12 +23744,12 @@ def scroll(
     _write(xy=xy, width=width, code="\ueb7a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def seal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an seal.
 
@@ -23740,12 +23764,12 @@ def seal(
     _write(xy=xy, width=width, code="\ue604", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def circle_wavy(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an circle-wavy.
 
@@ -23760,12 +23784,12 @@ def circle_wavy(
     _write(xy=xy, width=width, code="\ue604", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def seal_check(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an seal-check.
 
@@ -23780,12 +23804,12 @@ def seal_check(
     _write(xy=xy, width=width, code="\ue606", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def circle_wavy_check(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an circle-wavy-check.
 
@@ -23800,12 +23824,12 @@ def circle_wavy_check(
     _write(xy=xy, width=width, code="\ue606", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def seal_percent(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an seal-percent.
 
@@ -23820,12 +23844,12 @@ def seal_percent(
     _write(xy=xy, width=width, code="\ue60a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def seal_question(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an seal-question.
 
@@ -23840,12 +23864,12 @@ def seal_question(
     _write(xy=xy, width=width, code="\ue608", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def circle_wavy_question(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an circle-wavy-question.
 
@@ -23860,12 +23884,12 @@ def circle_wavy_question(
     _write(xy=xy, width=width, code="\ue608", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def seal_warning(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an seal-warning.
 
@@ -23880,12 +23904,12 @@ def seal_warning(
     _write(xy=xy, width=width, code="\ue60c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def circle_wavy_warning(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an circle-wavy-warning.
 
@@ -23900,12 +23924,12 @@ def circle_wavy_warning(
     _write(xy=xy, width=width, code="\ue60c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def seat(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an seat.
 
@@ -23920,12 +23944,12 @@ def seat(
     _write(xy=xy, width=width, code="\ueb8e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def seatbelt(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an seatbelt.
 
@@ -23940,12 +23964,12 @@ def seatbelt(
     _write(xy=xy, width=width, code="\uedfe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def security_camera(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an security-camera.
 
@@ -23960,12 +23984,12 @@ def security_camera(
     _write(xy=xy, width=width, code="\ueca4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def selection(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an selection.
 
@@ -23980,12 +24004,12 @@ def selection(
     _write(xy=xy, width=width, code="\ue69a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def selection_all(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an selection-all.
 
@@ -24000,12 +24024,12 @@ def selection_all(
     _write(xy=xy, width=width, code="\ue746", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def selection_background(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an selection-background.
 
@@ -24020,12 +24044,12 @@ def selection_background(
     _write(xy=xy, width=width, code="\ueaf8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def selection_foreground(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an selection-foreground.
 
@@ -24040,12 +24064,12 @@ def selection_foreground(
     _write(xy=xy, width=width, code="\ueaf6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def selection_inverse(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an selection-inverse.
 
@@ -24060,12 +24084,12 @@ def selection_inverse(
     _write(xy=xy, width=width, code="\ue744", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def selection_plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an selection-plus.
 
@@ -24080,12 +24104,12 @@ def selection_plus(
     _write(xy=xy, width=width, code="\ue69c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def selection_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an selection-slash.
 
@@ -24100,12 +24124,12 @@ def selection_slash(
     _write(xy=xy, width=width, code="\ue69e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shapes(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shapes.
 
@@ -24120,12 +24144,12 @@ def shapes(
     _write(xy=xy, width=width, code="\uec5e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def share(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an share.
 
@@ -24140,12 +24164,12 @@ def share(
     _write(xy=xy, width=width, code="\ue406", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def share_fat(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an share-fat.
 
@@ -24160,12 +24184,12 @@ def share_fat(
     _write(xy=xy, width=width, code="\ued52", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def share_network(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an share-network.
 
@@ -24180,12 +24204,12 @@ def share_network(
     _write(xy=xy, width=width, code="\ue408", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shield(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shield.
 
@@ -24200,12 +24224,12 @@ def shield(
     _write(xy=xy, width=width, code="\ue40a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shield_check(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shield-check.
 
@@ -24220,12 +24244,12 @@ def shield_check(
     _write(xy=xy, width=width, code="\ue40c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shield_checkered(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shield-checkered.
 
@@ -24240,12 +24264,12 @@ def shield_checkered(
     _write(xy=xy, width=width, code="\ue708", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shield_chevron(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shield-chevron.
 
@@ -24260,12 +24284,12 @@ def shield_chevron(
     _write(xy=xy, width=width, code="\ue40e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shield_plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shield-plus.
 
@@ -24280,12 +24304,12 @@ def shield_plus(
     _write(xy=xy, width=width, code="\ue706", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shield_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shield-slash.
 
@@ -24300,12 +24324,12 @@ def shield_slash(
     _write(xy=xy, width=width, code="\ue410", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shield_star(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shield-star.
 
@@ -24320,12 +24344,12 @@ def shield_star(
     _write(xy=xy, width=width, code="\uec34", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shield_warning(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shield-warning.
 
@@ -24340,12 +24364,12 @@ def shield_warning(
     _write(xy=xy, width=width, code="\ue412", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shipping_container(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shipping-container.
 
@@ -24360,12 +24384,12 @@ def shipping_container(
     _write(xy=xy, width=width, code="\ue78c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shirt_folded(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shirt-folded.
 
@@ -24380,12 +24404,12 @@ def shirt_folded(
     _write(xy=xy, width=width, code="\uea92", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shooting_star(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shooting-star.
 
@@ -24400,12 +24424,12 @@ def shooting_star(
     _write(xy=xy, width=width, code="\uecfa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shopping_bag(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shopping-bag.
 
@@ -24420,12 +24444,12 @@ def shopping_bag(
     _write(xy=xy, width=width, code="\ue416", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shopping_bag_open(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shopping-bag-open.
 
@@ -24440,12 +24464,12 @@ def shopping_bag_open(
     _write(xy=xy, width=width, code="\ue418", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shopping_cart(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shopping-cart.
 
@@ -24460,12 +24484,12 @@ def shopping_cart(
     _write(xy=xy, width=width, code="\ue41e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shopping_cart_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shopping-cart-simple.
 
@@ -24480,12 +24504,12 @@ def shopping_cart_simple(
     _write(xy=xy, width=width, code="\ue420", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shovel(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shovel.
 
@@ -24500,12 +24524,12 @@ def shovel(
     _write(xy=xy, width=width, code="\ue9e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shower(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shower.
 
@@ -24520,12 +24544,12 @@ def shower(
     _write(xy=xy, width=width, code="\ue776", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shrimp(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shrimp.
 
@@ -24540,12 +24564,12 @@ def shrimp(
     _write(xy=xy, width=width, code="\ueab4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shuffle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shuffle.
 
@@ -24560,12 +24584,12 @@ def shuffle(
     _write(xy=xy, width=width, code="\ue422", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shuffle_angular(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shuffle-angular.
 
@@ -24580,12 +24604,12 @@ def shuffle_angular(
     _write(xy=xy, width=width, code="\ue424", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def shuffle_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an shuffle-simple.
 
@@ -24600,12 +24624,12 @@ def shuffle_simple(
     _write(xy=xy, width=width, code="\ue426", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sidebar(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sidebar.
 
@@ -24620,12 +24644,12 @@ def sidebar(
     _write(xy=xy, width=width, code="\ueab6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sidebar_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sidebar-simple.
 
@@ -24640,12 +24664,12 @@ def sidebar_simple(
     _write(xy=xy, width=width, code="\uec24", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sigma(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sigma.
 
@@ -24660,12 +24684,12 @@ def sigma(
     _write(xy=xy, width=width, code="\ueab8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sign_in(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sign-in.
 
@@ -24680,12 +24704,12 @@ def sign_in(
     _write(xy=xy, width=width, code="\ue428", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sign_out(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sign-out.
 
@@ -24700,12 +24724,12 @@ def sign_out(
     _write(xy=xy, width=width, code="\ue42a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def signature(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an signature.
 
@@ -24720,12 +24744,12 @@ def signature(
     _write(xy=xy, width=width, code="\uebac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def signpost(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an signpost.
 
@@ -24740,12 +24764,12 @@ def signpost(
     _write(xy=xy, width=width, code="\ue89c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sim_card(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sim-card.
 
@@ -24760,12 +24784,12 @@ def sim_card(
     _write(xy=xy, width=width, code="\ue664", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def siren(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an siren.
 
@@ -24780,12 +24804,12 @@ def siren(
     _write(xy=xy, width=width, code="\ue9b8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sketch_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sketch-logo.
 
@@ -24800,12 +24824,12 @@ def sketch_logo(
     _write(xy=xy, width=width, code="\ue42c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def skip_back(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an skip-back.
 
@@ -24820,12 +24844,12 @@ def skip_back(
     _write(xy=xy, width=width, code="\ue5a4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def skip_back_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an skip-back-circle.
 
@@ -24840,12 +24864,12 @@ def skip_back_circle(
     _write(xy=xy, width=width, code="\ue42e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def skip_forward(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an skip-forward.
 
@@ -24860,12 +24884,12 @@ def skip_forward(
     _write(xy=xy, width=width, code="\ue5a6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def skip_forward_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an skip-forward-circle.
 
@@ -24880,12 +24904,12 @@ def skip_forward_circle(
     _write(xy=xy, width=width, code="\ue430", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def skull(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an skull.
 
@@ -24900,12 +24924,12 @@ def skull(
     _write(xy=xy, width=width, code="\ue916", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def skype_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an skype-logo.
 
@@ -24920,12 +24944,12 @@ def skype_logo(
     _write(xy=xy, width=width, code="\ue8dc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def slack_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an slack-logo.
 
@@ -24940,12 +24964,12 @@ def slack_logo(
     _write(xy=xy, width=width, code="\ue5a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sliders(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sliders.
 
@@ -24960,12 +24984,12 @@ def sliders(
     _write(xy=xy, width=width, code="\ue432", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sliders_horizontal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sliders-horizontal.
 
@@ -24980,12 +25004,12 @@ def sliders_horizontal(
     _write(xy=xy, width=width, code="\ue434", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def slideshow(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an slideshow.
 
@@ -25000,12 +25024,12 @@ def slideshow(
     _write(xy=xy, width=width, code="\ued32", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def smiley(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an smiley.
 
@@ -25020,12 +25044,12 @@ def smiley(
     _write(xy=xy, width=width, code="\ue436", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def smiley_angry(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an smiley-angry.
 
@@ -25040,12 +25064,12 @@ def smiley_angry(
     _write(xy=xy, width=width, code="\uec62", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def smiley_blank(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an smiley-blank.
 
@@ -25060,12 +25084,12 @@ def smiley_blank(
     _write(xy=xy, width=width, code="\ue438", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def smiley_meh(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an smiley-meh.
 
@@ -25080,12 +25104,12 @@ def smiley_meh(
     _write(xy=xy, width=width, code="\ue43a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def smiley_melting(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an smiley-melting.
 
@@ -25100,12 +25124,12 @@ def smiley_melting(
     _write(xy=xy, width=width, code="\uee56", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def smiley_nervous(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an smiley-nervous.
 
@@ -25120,12 +25144,12 @@ def smiley_nervous(
     _write(xy=xy, width=width, code="\ue43c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def smiley_sad(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an smiley-sad.
 
@@ -25140,12 +25164,12 @@ def smiley_sad(
     _write(xy=xy, width=width, code="\ue43e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def smiley_sticker(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an smiley-sticker.
 
@@ -25160,12 +25184,12 @@ def smiley_sticker(
     _write(xy=xy, width=width, code="\ue440", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def smiley_wink(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an smiley-wink.
 
@@ -25180,12 +25204,12 @@ def smiley_wink(
     _write(xy=xy, width=width, code="\ue666", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def smiley_x_eyes(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an smiley-x-eyes.
 
@@ -25200,12 +25224,12 @@ def smiley_x_eyes(
     _write(xy=xy, width=width, code="\ue442", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def snapchat_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an snapchat-logo.
 
@@ -25220,12 +25244,12 @@ def snapchat_logo(
     _write(xy=xy, width=width, code="\ue668", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sneaker(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sneaker.
 
@@ -25240,12 +25264,12 @@ def sneaker(
     _write(xy=xy, width=width, code="\ue80c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sneaker_move(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sneaker-move.
 
@@ -25260,12 +25284,12 @@ def sneaker_move(
     _write(xy=xy, width=width, code="\ued60", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def snowflake(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an snowflake.
 
@@ -25280,12 +25304,12 @@ def snowflake(
     _write(xy=xy, width=width, code="\ue5aa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def soccer_ball(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an soccer-ball.
 
@@ -25300,12 +25324,12 @@ def soccer_ball(
     _write(xy=xy, width=width, code="\ue716", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sock(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sock.
 
@@ -25320,12 +25344,12 @@ def sock(
     _write(xy=xy, width=width, code="\uecce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def solar_panel(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an solar-panel.
 
@@ -25340,12 +25364,12 @@ def solar_panel(
     _write(xy=xy, width=width, code="\ued7a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def solar_roof(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an solar-roof.
 
@@ -25360,12 +25384,12 @@ def solar_roof(
     _write(xy=xy, width=width, code="\ued7b", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sort_ascending(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sort-ascending.
 
@@ -25380,12 +25404,12 @@ def sort_ascending(
     _write(xy=xy, width=width, code="\ue444", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sort_descending(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sort-descending.
 
@@ -25400,12 +25424,12 @@ def sort_descending(
     _write(xy=xy, width=width, code="\ue446", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def soundcloud_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an soundcloud-logo.
 
@@ -25420,12 +25444,12 @@ def soundcloud_logo(
     _write(xy=xy, width=width, code="\ue8de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def spade(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an spade.
 
@@ -25440,12 +25464,12 @@ def spade(
     _write(xy=xy, width=width, code="\ue448", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sparkle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sparkle.
 
@@ -25460,12 +25484,12 @@ def sparkle(
     _write(xy=xy, width=width, code="\ue6a2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def speaker_hifi(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an speaker-hifi.
 
@@ -25480,12 +25504,12 @@ def speaker_hifi(
     _write(xy=xy, width=width, code="\uea08", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def speaker_high(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an speaker-high.
 
@@ -25500,12 +25524,12 @@ def speaker_high(
     _write(xy=xy, width=width, code="\ue44a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def speaker_low(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an speaker-low.
 
@@ -25520,12 +25544,12 @@ def speaker_low(
     _write(xy=xy, width=width, code="\ue44c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def speaker_none(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an speaker-none.
 
@@ -25540,12 +25564,12 @@ def speaker_none(
     _write(xy=xy, width=width, code="\ue44e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def speaker_simple_high(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an speaker-simple-high.
 
@@ -25560,12 +25584,12 @@ def speaker_simple_high(
     _write(xy=xy, width=width, code="\ue450", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def speaker_simple_low(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an speaker-simple-low.
 
@@ -25580,12 +25604,12 @@ def speaker_simple_low(
     _write(xy=xy, width=width, code="\ue452", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def speaker_simple_none(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an speaker-simple-none.
 
@@ -25600,12 +25624,12 @@ def speaker_simple_none(
     _write(xy=xy, width=width, code="\ue454", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def speaker_simple_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an speaker-simple-slash.
 
@@ -25620,12 +25644,12 @@ def speaker_simple_slash(
     _write(xy=xy, width=width, code="\ue456", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def speaker_simple_x(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an speaker-simple-x.
 
@@ -25640,12 +25664,12 @@ def speaker_simple_x(
     _write(xy=xy, width=width, code="\ue458", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def speaker_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an speaker-slash.
 
@@ -25660,12 +25684,12 @@ def speaker_slash(
     _write(xy=xy, width=width, code="\ue45a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def speaker_x(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an speaker-x.
 
@@ -25680,12 +25704,12 @@ def speaker_x(
     _write(xy=xy, width=width, code="\ue45c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def speedometer(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an speedometer.
 
@@ -25700,12 +25724,12 @@ def speedometer(
     _write(xy=xy, width=width, code="\uee74", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sphere(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sphere.
 
@@ -25720,12 +25744,12 @@ def sphere(
     _write(xy=xy, width=width, code="\uee66", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def spinner(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an spinner.
 
@@ -25740,12 +25764,12 @@ def spinner(
     _write(xy=xy, width=width, code="\ue66a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def spinner_ball(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an spinner-ball.
 
@@ -25760,12 +25784,12 @@ def spinner_ball(
     _write(xy=xy, width=width, code="\uee28", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def spinner_gap(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an spinner-gap.
 
@@ -25780,12 +25804,12 @@ def spinner_gap(
     _write(xy=xy, width=width, code="\ue66c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def spiral(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an spiral.
 
@@ -25800,12 +25824,12 @@ def spiral(
     _write(xy=xy, width=width, code="\ue9fa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def split_horizontal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an split-horizontal.
 
@@ -25820,12 +25844,12 @@ def split_horizontal(
     _write(xy=xy, width=width, code="\ue872", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def split_vertical(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an split-vertical.
 
@@ -25840,12 +25864,12 @@ def split_vertical(
     _write(xy=xy, width=width, code="\ue876", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def spotify_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an spotify-logo.
 
@@ -25860,12 +25884,12 @@ def spotify_logo(
     _write(xy=xy, width=width, code="\ue66e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def spray_bottle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an spray-bottle.
 
@@ -25880,12 +25904,12 @@ def spray_bottle(
     _write(xy=xy, width=width, code="\ue7e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def square(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an square.
 
@@ -25900,12 +25924,12 @@ def square(
     _write(xy=xy, width=width, code="\ue45e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def square_half(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an square-half.
 
@@ -25920,12 +25944,12 @@ def square_half(
     _write(xy=xy, width=width, code="\ue462", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def square_half_bottom(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an square-half-bottom.
 
@@ -25940,12 +25964,12 @@ def square_half_bottom(
     _write(xy=xy, width=width, code="\ueb16", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def square_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an square-logo.
 
@@ -25960,12 +25984,12 @@ def square_logo(
     _write(xy=xy, width=width, code="\ue690", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def square_split_horizontal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an square-split-horizontal.
 
@@ -25980,12 +26004,12 @@ def square_split_horizontal(
     _write(xy=xy, width=width, code="\ue870", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def square_split_vertical(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an square-split-vertical.
 
@@ -26000,12 +26024,12 @@ def square_split_vertical(
     _write(xy=xy, width=width, code="\ue874", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def squares_four(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an squares-four.
 
@@ -26020,12 +26044,12 @@ def squares_four(
     _write(xy=xy, width=width, code="\ue464", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def stack(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an stack.
 
@@ -26040,12 +26064,12 @@ def stack(
     _write(xy=xy, width=width, code="\ue466", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def stack_minus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an stack-minus.
 
@@ -26060,12 +26084,12 @@ def stack_minus(
     _write(xy=xy, width=width, code="\uedf4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def stack_overflow_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an stack-overflow-logo.
 
@@ -26080,12 +26104,12 @@ def stack_overflow_logo(
     _write(xy=xy, width=width, code="\ueb78", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def stack_plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an stack-plus.
 
@@ -26100,12 +26124,12 @@ def stack_plus(
     _write(xy=xy, width=width, code="\uedf6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def stack_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an stack-simple.
 
@@ -26120,12 +26144,12 @@ def stack_simple(
     _write(xy=xy, width=width, code="\ue468", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def stairs(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an stairs.
 
@@ -26140,12 +26164,12 @@ def stairs(
     _write(xy=xy, width=width, code="\ue8ec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def stamp(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an stamp.
 
@@ -26160,12 +26184,12 @@ def stamp(
     _write(xy=xy, width=width, code="\uea48", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def standard_definition(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an standard-definition.
 
@@ -26180,12 +26204,12 @@ def standard_definition(
     _write(xy=xy, width=width, code="\uea90", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def star(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an star.
 
@@ -26200,12 +26224,12 @@ def star(
     _write(xy=xy, width=width, code="\ue46a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def star_and_crescent(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an star-and-crescent.
 
@@ -26220,12 +26244,12 @@ def star_and_crescent(
     _write(xy=xy, width=width, code="\uecf4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def star_four(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an star-four.
 
@@ -26240,12 +26264,12 @@ def star_four(
     _write(xy=xy, width=width, code="\ue6a4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def star_half(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an star-half.
 
@@ -26260,12 +26284,12 @@ def star_half(
     _write(xy=xy, width=width, code="\ue70a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def star_of_david(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an star-of-david.
 
@@ -26280,12 +26304,12 @@ def star_of_david(
     _write(xy=xy, width=width, code="\ue89e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def steam_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an steam-logo.
 
@@ -26300,12 +26324,12 @@ def steam_logo(
     _write(xy=xy, width=width, code="\uead4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def steering_wheel(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an steering-wheel.
 
@@ -26320,12 +26344,12 @@ def steering_wheel(
     _write(xy=xy, width=width, code="\ue9ac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def steps(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an steps.
 
@@ -26340,12 +26364,12 @@ def steps(
     _write(xy=xy, width=width, code="\uecbe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def stethoscope(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an stethoscope.
 
@@ -26360,12 +26384,12 @@ def stethoscope(
     _write(xy=xy, width=width, code="\ue7ea", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sticker(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sticker.
 
@@ -26380,12 +26404,12 @@ def sticker(
     _write(xy=xy, width=width, code="\ue5ac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def stool(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an stool.
 
@@ -26400,12 +26424,12 @@ def stool(
     _write(xy=xy, width=width, code="\uea44", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def stop(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an stop.
 
@@ -26420,12 +26444,12 @@ def stop(
     _write(xy=xy, width=width, code="\ue46c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def stop_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an stop-circle.
 
@@ -26440,12 +26464,12 @@ def stop_circle(
     _write(xy=xy, width=width, code="\ue46e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def storefront(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an storefront.
 
@@ -26460,12 +26484,12 @@ def storefront(
     _write(xy=xy, width=width, code="\ue470", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def strategy(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an strategy.
 
@@ -26480,12 +26504,12 @@ def strategy(
     _write(xy=xy, width=width, code="\uea3a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def stripe_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an stripe-logo.
 
@@ -26500,12 +26524,12 @@ def stripe_logo(
     _write(xy=xy, width=width, code="\ue698", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def student(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an student.
 
@@ -26520,12 +26544,12 @@ def student(
     _write(xy=xy, width=width, code="\ue73e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def subset_of(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an subset-of.
 
@@ -26540,12 +26564,12 @@ def subset_of(
     _write(xy=xy, width=width, code="\uedc0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def subset_proper_of(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an subset-proper-of.
 
@@ -26560,12 +26584,12 @@ def subset_proper_of(
     _write(xy=xy, width=width, code="\uedb6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def subtitles(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an subtitles.
 
@@ -26580,12 +26604,12 @@ def subtitles(
     _write(xy=xy, width=width, code="\ue1a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def subtitles_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an subtitles-slash.
 
@@ -26600,12 +26624,12 @@ def subtitles_slash(
     _write(xy=xy, width=width, code="\ue1a6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def subtract(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an subtract.
 
@@ -26620,12 +26644,12 @@ def subtract(
     _write(xy=xy, width=width, code="\uebd6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def subtract_square(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an subtract-square.
 
@@ -26640,12 +26664,12 @@ def subtract_square(
     _write(xy=xy, width=width, code="\uebd4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def subway(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an subway.
 
@@ -26660,12 +26684,12 @@ def subway(
     _write(xy=xy, width=width, code="\ue498", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def suitcase(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an suitcase.
 
@@ -26680,12 +26704,12 @@ def suitcase(
     _write(xy=xy, width=width, code="\ue5ae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def suitcase_rolling(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an suitcase-rolling.
 
@@ -26700,12 +26724,12 @@ def suitcase_rolling(
     _write(xy=xy, width=width, code="\ue9b0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def suitcase_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an suitcase-simple.
 
@@ -26720,12 +26744,12 @@ def suitcase_simple(
     _write(xy=xy, width=width, code="\ue5b0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sun(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sun.
 
@@ -26740,12 +26764,12 @@ def sun(
     _write(xy=xy, width=width, code="\ue472", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sun_dim(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sun-dim.
 
@@ -26760,12 +26784,12 @@ def sun_dim(
     _write(xy=xy, width=width, code="\ue474", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sun_horizon(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sun-horizon.
 
@@ -26780,12 +26804,12 @@ def sun_horizon(
     _write(xy=xy, width=width, code="\ue5b6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sunglasses(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sunglasses.
 
@@ -26800,12 +26824,12 @@ def sunglasses(
     _write(xy=xy, width=width, code="\ue816", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def superset_of(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an superset-of.
 
@@ -26820,12 +26844,12 @@ def superset_of(
     _write(xy=xy, width=width, code="\uedb8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def superset_proper_of(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an superset-proper-of.
 
@@ -26840,12 +26864,12 @@ def superset_proper_of(
     _write(xy=xy, width=width, code="\uedb4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def swap(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an swap.
 
@@ -26860,12 +26884,12 @@ def swap(
     _write(xy=xy, width=width, code="\ue83c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def swatches(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an swatches.
 
@@ -26880,12 +26904,12 @@ def swatches(
     _write(xy=xy, width=width, code="\ue5b8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def swimming_pool(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an swimming-pool.
 
@@ -26900,12 +26924,12 @@ def swimming_pool(
     _write(xy=xy, width=width, code="\uecb6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def sword(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an sword.
 
@@ -26920,12 +26944,12 @@ def sword(
     _write(xy=xy, width=width, code="\ue5ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def synagogue(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an synagogue.
 
@@ -26940,12 +26964,12 @@ def synagogue(
     _write(xy=xy, width=width, code="\uecec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def syringe(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an syringe.
 
@@ -26960,12 +26984,12 @@ def syringe(
     _write(xy=xy, width=width, code="\ue968", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def t_shirt(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an t-shirt.
 
@@ -26980,12 +27004,12 @@ def t_shirt(
     _write(xy=xy, width=width, code="\ue670", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def table(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an table.
 
@@ -27000,12 +27024,12 @@ def table(
     _write(xy=xy, width=width, code="\ue476", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tabs(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tabs.
 
@@ -27020,12 +27044,12 @@ def tabs(
     _write(xy=xy, width=width, code="\ue778", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tag(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tag.
 
@@ -27040,12 +27064,12 @@ def tag(
     _write(xy=xy, width=width, code="\ue478", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tag_chevron(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tag-chevron.
 
@@ -27060,12 +27084,12 @@ def tag_chevron(
     _write(xy=xy, width=width, code="\ue672", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tag_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tag-simple.
 
@@ -27080,12 +27104,12 @@ def tag_simple(
     _write(xy=xy, width=width, code="\ue47a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def target(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an target.
 
@@ -27100,12 +27124,12 @@ def target(
     _write(xy=xy, width=width, code="\ue47c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def taxi(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an taxi.
 
@@ -27120,12 +27144,12 @@ def taxi(
     _write(xy=xy, width=width, code="\ue902", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tea_bag(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tea-bag.
 
@@ -27140,12 +27164,12 @@ def tea_bag(
     _write(xy=xy, width=width, code="\ue8e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def telegram_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an telegram-logo.
 
@@ -27160,12 +27184,12 @@ def telegram_logo(
     _write(xy=xy, width=width, code="\ue5bc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def television(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an television.
 
@@ -27180,12 +27204,12 @@ def television(
     _write(xy=xy, width=width, code="\ue754", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def television_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an television-simple.
 
@@ -27200,12 +27224,12 @@ def television_simple(
     _write(xy=xy, width=width, code="\ueae6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tennis_ball(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tennis-ball.
 
@@ -27220,12 +27244,12 @@ def tennis_ball(
     _write(xy=xy, width=width, code="\ue720", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tent(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tent.
 
@@ -27240,12 +27264,12 @@ def tent(
     _write(xy=xy, width=width, code="\ue8ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def terminal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an terminal.
 
@@ -27260,12 +27284,12 @@ def terminal(
     _write(xy=xy, width=width, code="\ue47e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def terminal_window(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an terminal-window.
 
@@ -27280,12 +27304,12 @@ def terminal_window(
     _write(xy=xy, width=width, code="\ueae8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def test_tube(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an test-tube.
 
@@ -27300,12 +27324,12 @@ def test_tube(
     _write(xy=xy, width=width, code="\ue7a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_a_underline(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-a-underline.
 
@@ -27320,12 +27344,12 @@ def text_a_underline(
     _write(xy=xy, width=width, code="\ued34", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_aa(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-aa.
 
@@ -27340,12 +27364,12 @@ def text_aa(
     _write(xy=xy, width=width, code="\ue6ee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_align_center(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-align-center.
 
@@ -27360,12 +27384,12 @@ def text_align_center(
     _write(xy=xy, width=width, code="\ue480", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_align_justify(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-align-justify.
 
@@ -27380,12 +27404,12 @@ def text_align_justify(
     _write(xy=xy, width=width, code="\ue482", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_align_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-align-left.
 
@@ -27400,12 +27424,12 @@ def text_align_left(
     _write(xy=xy, width=width, code="\ue484", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_align_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-align-right.
 
@@ -27420,12 +27444,12 @@ def text_align_right(
     _write(xy=xy, width=width, code="\ue486", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_b(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-b.
 
@@ -27440,12 +27464,12 @@ def text_b(
     _write(xy=xy, width=width, code="\ue5be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_bolder(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-bolder.
 
@@ -27460,12 +27484,12 @@ def text_bolder(
     _write(xy=xy, width=width, code="\ue5be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_columns(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-columns.
 
@@ -27480,12 +27504,12 @@ def text_columns(
     _write(xy=xy, width=width, code="\uec96", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_h(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-h.
 
@@ -27500,12 +27524,12 @@ def text_h(
     _write(xy=xy, width=width, code="\ue6ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_h_five(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-h-five.
 
@@ -27520,12 +27544,12 @@ def text_h_five(
     _write(xy=xy, width=width, code="\ue6c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_h_four(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-h-four.
 
@@ -27540,12 +27564,12 @@ def text_h_four(
     _write(xy=xy, width=width, code="\ue6c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_h_one(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-h-one.
 
@@ -27560,12 +27584,12 @@ def text_h_one(
     _write(xy=xy, width=width, code="\ue6bc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_h_six(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-h-six.
 
@@ -27580,12 +27604,12 @@ def text_h_six(
     _write(xy=xy, width=width, code="\ue6c6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_h_three(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-h-three.
 
@@ -27600,12 +27624,12 @@ def text_h_three(
     _write(xy=xy, width=width, code="\ue6c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_h_two(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-h-two.
 
@@ -27620,12 +27644,12 @@ def text_h_two(
     _write(xy=xy, width=width, code="\ue6be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_indent(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-indent.
 
@@ -27640,12 +27664,12 @@ def text_indent(
     _write(xy=xy, width=width, code="\uea1e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_italic(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-italic.
 
@@ -27660,12 +27684,12 @@ def text_italic(
     _write(xy=xy, width=width, code="\ue5c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_outdent(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-outdent.
 
@@ -27680,12 +27704,12 @@ def text_outdent(
     _write(xy=xy, width=width, code="\uea1c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_strikethrough(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-strikethrough.
 
@@ -27700,12 +27724,12 @@ def text_strikethrough(
     _write(xy=xy, width=width, code="\ue5c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_subscript(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-subscript.
 
@@ -27720,12 +27744,12 @@ def text_subscript(
     _write(xy=xy, width=width, code="\uec98", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_superscript(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-superscript.
 
@@ -27740,12 +27764,12 @@ def text_superscript(
     _write(xy=xy, width=width, code="\uec9a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_t(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-t.
 
@@ -27760,12 +27784,12 @@ def text_t(
     _write(xy=xy, width=width, code="\ue48a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_t_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-t-slash.
 
@@ -27780,12 +27804,12 @@ def text_t_slash(
     _write(xy=xy, width=width, code="\ue488", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def text_underline(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an text-underline.
 
@@ -27800,12 +27824,12 @@ def text_underline(
     _write(xy=xy, width=width, code="\ue5c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def textbox(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an textbox.
 
@@ -27820,12 +27844,12 @@ def textbox(
     _write(xy=xy, width=width, code="\ueb0a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def thermometer(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an thermometer.
 
@@ -27840,12 +27864,12 @@ def thermometer(
     _write(xy=xy, width=width, code="\ue5c6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def thermometer_cold(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an thermometer-cold.
 
@@ -27860,12 +27884,12 @@ def thermometer_cold(
     _write(xy=xy, width=width, code="\ue5c8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def thermometer_hot(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an thermometer-hot.
 
@@ -27880,12 +27904,12 @@ def thermometer_hot(
     _write(xy=xy, width=width, code="\ue5ca", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def thermometer_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an thermometer-simple.
 
@@ -27900,12 +27924,12 @@ def thermometer_simple(
     _write(xy=xy, width=width, code="\ue5cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def threads_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an threads-logo.
 
@@ -27920,12 +27944,12 @@ def threads_logo(
     _write(xy=xy, width=width, code="\ued9e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def three_d(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an three-d.
 
@@ -27940,12 +27964,12 @@ def three_d(
     _write(xy=xy, width=width, code="\uea5a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def thumbs_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an thumbs-down.
 
@@ -27960,12 +27984,12 @@ def thumbs_down(
     _write(xy=xy, width=width, code="\ue48c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def thumbs_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an thumbs-up.
 
@@ -27980,12 +28004,12 @@ def thumbs_up(
     _write(xy=xy, width=width, code="\ue48e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def ticket(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an ticket.
 
@@ -28000,12 +28024,12 @@ def ticket(
     _write(xy=xy, width=width, code="\ue490", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tidal_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tidal-logo.
 
@@ -28020,12 +28044,12 @@ def tidal_logo(
     _write(xy=xy, width=width, code="\ued1c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tiktok_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tiktok-logo.
 
@@ -28040,12 +28064,12 @@ def tiktok_logo(
     _write(xy=xy, width=width, code="\ueaf2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tilde(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tilde.
 
@@ -28060,12 +28084,12 @@ def tilde(
     _write(xy=xy, width=width, code="\ueda8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def timer(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an timer.
 
@@ -28080,12 +28104,12 @@ def timer(
     _write(xy=xy, width=width, code="\ue492", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tip_jar(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tip-jar.
 
@@ -28100,12 +28124,12 @@ def tip_jar(
     _write(xy=xy, width=width, code="\ue7e2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tipi(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tipi.
 
@@ -28120,12 +28144,12 @@ def tipi(
     _write(xy=xy, width=width, code="\ued30", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tire(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tire.
 
@@ -28140,12 +28164,12 @@ def tire(
     _write(xy=xy, width=width, code="\uedd2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def toggle_left(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an toggle-left.
 
@@ -28160,12 +28184,12 @@ def toggle_left(
     _write(xy=xy, width=width, code="\ue674", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def toggle_right(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an toggle-right.
 
@@ -28180,12 +28204,12 @@ def toggle_right(
     _write(xy=xy, width=width, code="\ue676", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def toilet(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an toilet.
 
@@ -28200,12 +28224,12 @@ def toilet(
     _write(xy=xy, width=width, code="\ue79a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def toilet_paper(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an toilet-paper.
 
@@ -28220,12 +28244,12 @@ def toilet_paper(
     _write(xy=xy, width=width, code="\ue79c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def toolbox(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an toolbox.
 
@@ -28240,12 +28264,12 @@ def toolbox(
     _write(xy=xy, width=width, code="\ueca0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tooth(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tooth.
 
@@ -28260,12 +28284,12 @@ def tooth(
     _write(xy=xy, width=width, code="\ue9cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tornado(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tornado.
 
@@ -28280,12 +28304,12 @@ def tornado(
     _write(xy=xy, width=width, code="\ue88c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tote(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tote.
 
@@ -28300,12 +28324,12 @@ def tote(
     _write(xy=xy, width=width, code="\ue494", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tote_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tote-simple.
 
@@ -28320,12 +28344,12 @@ def tote_simple(
     _write(xy=xy, width=width, code="\ue678", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def towel(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an towel.
 
@@ -28340,12 +28364,12 @@ def towel(
     _write(xy=xy, width=width, code="\uede6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tractor(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tractor.
 
@@ -28360,12 +28384,12 @@ def tractor(
     _write(xy=xy, width=width, code="\uec6e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def trademark(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an trademark.
 
@@ -28380,12 +28404,12 @@ def trademark(
     _write(xy=xy, width=width, code="\ue9f0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def trademark_registered(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an trademark-registered.
 
@@ -28400,12 +28424,12 @@ def trademark_registered(
     _write(xy=xy, width=width, code="\ue3f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def traffic_cone(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an traffic-cone.
 
@@ -28420,12 +28444,12 @@ def traffic_cone(
     _write(xy=xy, width=width, code="\ue9a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def traffic_sign(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an traffic-sign.
 
@@ -28440,12 +28464,12 @@ def traffic_sign(
     _write(xy=xy, width=width, code="\ue67a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def traffic_signal(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an traffic-signal.
 
@@ -28460,12 +28484,12 @@ def traffic_signal(
     _write(xy=xy, width=width, code="\ue9aa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def train(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an train.
 
@@ -28480,12 +28504,12 @@ def train(
     _write(xy=xy, width=width, code="\ue496", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def train_regional(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an train-regional.
 
@@ -28500,12 +28524,12 @@ def train_regional(
     _write(xy=xy, width=width, code="\ue49e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def train_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an train-simple.
 
@@ -28520,12 +28544,12 @@ def train_simple(
     _write(xy=xy, width=width, code="\ue4a0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tram(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tram.
 
@@ -28540,12 +28564,12 @@ def tram(
     _write(xy=xy, width=width, code="\ue9ec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def translate(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an translate.
 
@@ -28560,12 +28584,12 @@ def translate(
     _write(xy=xy, width=width, code="\ue4a2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def trash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an trash.
 
@@ -28580,12 +28604,12 @@ def trash(
     _write(xy=xy, width=width, code="\ue4a6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def trash_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an trash-simple.
 
@@ -28600,12 +28624,12 @@ def trash_simple(
     _write(xy=xy, width=width, code="\ue4a8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tray(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tray.
 
@@ -28620,12 +28644,12 @@ def tray(
     _write(xy=xy, width=width, code="\ue4aa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tray_arrow_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tray-arrow-down.
 
@@ -28640,12 +28664,12 @@ def tray_arrow_down(
     _write(xy=xy, width=width, code="\ue010", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def archive_tray(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an archive-tray.
 
@@ -28660,12 +28684,12 @@ def archive_tray(
     _write(xy=xy, width=width, code="\ue010", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tray_arrow_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tray-arrow-up.
 
@@ -28680,12 +28704,12 @@ def tray_arrow_up(
     _write(xy=xy, width=width, code="\uee52", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def treasure_chest(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an treasure-chest.
 
@@ -28700,12 +28724,12 @@ def treasure_chest(
     _write(xy=xy, width=width, code="\uede2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tree(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tree.
 
@@ -28720,12 +28744,12 @@ def tree(
     _write(xy=xy, width=width, code="\ue6da", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tree_evergreen(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tree-evergreen.
 
@@ -28740,12 +28764,12 @@ def tree_evergreen(
     _write(xy=xy, width=width, code="\ue6dc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tree_palm(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tree-palm.
 
@@ -28760,12 +28784,12 @@ def tree_palm(
     _write(xy=xy, width=width, code="\ue91a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tree_structure(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tree-structure.
 
@@ -28780,12 +28804,12 @@ def tree_structure(
     _write(xy=xy, width=width, code="\ue67c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tree_view(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tree-view.
 
@@ -28800,12 +28824,12 @@ def tree_view(
     _write(xy=xy, width=width, code="\uee48", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def trend_down(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an trend-down.
 
@@ -28820,12 +28844,12 @@ def trend_down(
     _write(xy=xy, width=width, code="\ue4ac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def trend_up(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an trend-up.
 
@@ -28840,12 +28864,12 @@ def trend_up(
     _write(xy=xy, width=width, code="\ue4ae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def triangle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an triangle.
 
@@ -28860,12 +28884,12 @@ def triangle(
     _write(xy=xy, width=width, code="\ue4b0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def triangle_dashed(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an triangle-dashed.
 
@@ -28880,12 +28904,12 @@ def triangle_dashed(
     _write(xy=xy, width=width, code="\ue4b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def trolley(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an trolley.
 
@@ -28900,12 +28924,12 @@ def trolley(
     _write(xy=xy, width=width, code="\ue5b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def trolley_suitcase(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an trolley-suitcase.
 
@@ -28920,12 +28944,12 @@ def trolley_suitcase(
     _write(xy=xy, width=width, code="\ue5b4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def trophy(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an trophy.
 
@@ -28940,12 +28964,12 @@ def trophy(
     _write(xy=xy, width=width, code="\ue67e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def truck(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an truck.
 
@@ -28960,12 +28984,12 @@ def truck(
     _write(xy=xy, width=width, code="\ue4b4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def truck_trailer(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an truck-trailer.
 
@@ -28980,12 +29004,12 @@ def truck_trailer(
     _write(xy=xy, width=width, code="\ue4b6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def tumblr_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tumblr-logo.
 
@@ -29000,12 +29024,12 @@ def tumblr_logo(
     _write(xy=xy, width=width, code="\ue8d4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def twitch_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an twitch-logo.
 
@@ -29020,12 +29044,12 @@ def twitch_logo(
     _write(xy=xy, width=width, code="\ue5ce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def twitter_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an twitter-logo.
 
@@ -29040,12 +29064,12 @@ def twitter_logo(
     _write(xy=xy, width=width, code="\ue4ba", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def umbrella(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an umbrella.
 
@@ -29060,12 +29084,12 @@ def umbrella(
     _write(xy=xy, width=width, code="\ue684", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def umbrella_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an umbrella-simple.
 
@@ -29080,12 +29104,12 @@ def umbrella_simple(
     _write(xy=xy, width=width, code="\ue686", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def union(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an union.
 
@@ -29100,12 +29124,12 @@ def union(
     _write(xy=xy, width=width, code="\uedbe", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def unite(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an unite.
 
@@ -29120,12 +29144,12 @@ def unite(
     _write(xy=xy, width=width, code="\ue87e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def unite_square(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an unite-square.
 
@@ -29140,12 +29164,12 @@ def unite_square(
     _write(xy=xy, width=width, code="\ue878", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def upload(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an upload.
 
@@ -29160,12 +29184,12 @@ def upload(
     _write(xy=xy, width=width, code="\ue4be", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def upload_simple(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an upload-simple.
 
@@ -29180,12 +29204,12 @@ def upload_simple(
     _write(xy=xy, width=width, code="\ue4c0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def usb(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an usb.
 
@@ -29200,12 +29224,12 @@ def usb(
     _write(xy=xy, width=width, code="\ue956", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def user(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an user.
 
@@ -29220,12 +29244,12 @@ def user(
     _write(xy=xy, width=width, code="\ue4c2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def user_check(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an user-check.
 
@@ -29240,12 +29264,12 @@ def user_check(
     _write(xy=xy, width=width, code="\ueafa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def user_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an user-circle.
 
@@ -29260,12 +29284,12 @@ def user_circle(
     _write(xy=xy, width=width, code="\ue4c4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def user_circle_check(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an user-circle-check.
 
@@ -29280,12 +29304,12 @@ def user_circle_check(
     _write(xy=xy, width=width, code="\uec38", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def user_circle_dashed(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an user-circle-dashed.
 
@@ -29300,12 +29324,12 @@ def user_circle_dashed(
     _write(xy=xy, width=width, code="\uec36", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def user_circle_gear(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an user-circle-gear.
 
@@ -29320,12 +29344,12 @@ def user_circle_gear(
     _write(xy=xy, width=width, code="\ue4c6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def user_circle_minus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an user-circle-minus.
 
@@ -29340,12 +29364,12 @@ def user_circle_minus(
     _write(xy=xy, width=width, code="\ue4c8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def user_circle_plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an user-circle-plus.
 
@@ -29360,12 +29384,12 @@ def user_circle_plus(
     _write(xy=xy, width=width, code="\ue4ca", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def user_focus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an user-focus.
 
@@ -29380,12 +29404,12 @@ def user_focus(
     _write(xy=xy, width=width, code="\ue6fc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def user_gear(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an user-gear.
 
@@ -29400,12 +29424,12 @@ def user_gear(
     _write(xy=xy, width=width, code="\ue4cc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def user_list(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an user-list.
 
@@ -29420,12 +29444,12 @@ def user_list(
     _write(xy=xy, width=width, code="\ue73c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def user_minus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an user-minus.
 
@@ -29440,12 +29464,12 @@ def user_minus(
     _write(xy=xy, width=width, code="\ue4ce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def user_plus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an user-plus.
 
@@ -29460,12 +29484,12 @@ def user_plus(
     _write(xy=xy, width=width, code="\ue4d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def user_rectangle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an user-rectangle.
 
@@ -29480,12 +29504,12 @@ def user_rectangle(
     _write(xy=xy, width=width, code="\ue4d2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def user_sound(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an user-sound.
 
@@ -29500,12 +29524,12 @@ def user_sound(
     _write(xy=xy, width=width, code="\ueca8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def user_square(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an user-square.
 
@@ -29520,12 +29544,12 @@ def user_square(
     _write(xy=xy, width=width, code="\ue4d4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def user_switch(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an user-switch.
 
@@ -29540,12 +29564,12 @@ def user_switch(
     _write(xy=xy, width=width, code="\ue756", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def users(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an users.
 
@@ -29560,12 +29584,12 @@ def users(
     _write(xy=xy, width=width, code="\ue4d6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def users_four(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an users-four.
 
@@ -29580,12 +29604,12 @@ def users_four(
     _write(xy=xy, width=width, code="\ue68c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def users_three(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an users-three.
 
@@ -29600,12 +29624,12 @@ def users_three(
     _write(xy=xy, width=width, code="\ue68e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def van(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an van.
 
@@ -29620,12 +29644,12 @@ def van(
     _write(xy=xy, width=width, code="\ue826", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def vault(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an vault.
 
@@ -29640,12 +29664,12 @@ def vault(
     _write(xy=xy, width=width, code="\ue76e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def vector_three(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an vector-three.
 
@@ -29660,12 +29684,12 @@ def vector_three(
     _write(xy=xy, width=width, code="\uee62", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def vector_two(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an vector-two.
 
@@ -29680,12 +29704,12 @@ def vector_two(
     _write(xy=xy, width=width, code="\uee64", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def vibrate(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an vibrate.
 
@@ -29700,12 +29724,12 @@ def vibrate(
     _write(xy=xy, width=width, code="\ue4d8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def video(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an video.
 
@@ -29720,12 +29744,12 @@ def video(
     _write(xy=xy, width=width, code="\ue740", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def video_camera(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an video-camera.
 
@@ -29740,12 +29764,12 @@ def video_camera(
     _write(xy=xy, width=width, code="\ue4da", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def video_camera_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an video-camera-slash.
 
@@ -29760,12 +29784,12 @@ def video_camera_slash(
     _write(xy=xy, width=width, code="\ue4dc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def video_conference(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an video-conference.
 
@@ -29780,12 +29804,12 @@ def video_conference(
     _write(xy=xy, width=width, code="\uedce", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def vignette(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an vignette.
 
@@ -29800,12 +29824,12 @@ def vignette(
     _write(xy=xy, width=width, code="\ueba2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def vinyl_record(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an vinyl-record.
 
@@ -29820,12 +29844,12 @@ def vinyl_record(
     _write(xy=xy, width=width, code="\uecac", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def virtual_reality(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an virtual-reality.
 
@@ -29840,12 +29864,12 @@ def virtual_reality(
     _write(xy=xy, width=width, code="\ue7b8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def virus(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an virus.
 
@@ -29860,12 +29884,12 @@ def virus(
     _write(xy=xy, width=width, code="\ue7d6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def visor(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an visor.
 
@@ -29880,12 +29904,12 @@ def visor(
     _write(xy=xy, width=width, code="\uee2a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def voicemail(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an voicemail.
 
@@ -29900,12 +29924,12 @@ def voicemail(
     _write(xy=xy, width=width, code="\ue4de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def volleyball(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an volleyball.
 
@@ -29920,12 +29944,12 @@ def volleyball(
     _write(xy=xy, width=width, code="\ue726", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def wall(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an wall.
 
@@ -29940,12 +29964,12 @@ def wall(
     _write(xy=xy, width=width, code="\ue688", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def wallet(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an wallet.
 
@@ -29960,12 +29984,12 @@ def wallet(
     _write(xy=xy, width=width, code="\ue68a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def warehouse(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an warehouse.
 
@@ -29980,12 +30004,12 @@ def warehouse(
     _write(xy=xy, width=width, code="\uecd4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def warning(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an warning.
 
@@ -30000,12 +30024,12 @@ def warning(
     _write(xy=xy, width=width, code="\ue4e0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def warning_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an warning-circle.
 
@@ -30020,12 +30044,12 @@ def warning_circle(
     _write(xy=xy, width=width, code="\ue4e2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def warning_diamond(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an warning-diamond.
 
@@ -30040,12 +30064,12 @@ def warning_diamond(
     _write(xy=xy, width=width, code="\ue7fc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def warning_octagon(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an warning-octagon.
 
@@ -30060,12 +30084,12 @@ def warning_octagon(
     _write(xy=xy, width=width, code="\ue4e4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def washing_machine(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an washing-machine.
 
@@ -30080,12 +30104,12 @@ def washing_machine(
     _write(xy=xy, width=width, code="\uede8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def watch(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an watch.
 
@@ -30100,12 +30124,12 @@ def watch(
     _write(xy=xy, width=width, code="\ue4e6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def wave_sawtooth(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an wave-sawtooth.
 
@@ -30120,12 +30144,12 @@ def wave_sawtooth(
     _write(xy=xy, width=width, code="\uea9c", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def wave_sine(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an wave-sine.
 
@@ -30140,12 +30164,12 @@ def wave_sine(
     _write(xy=xy, width=width, code="\uea9a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def wave_square(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an wave-square.
 
@@ -30160,12 +30184,12 @@ def wave_square(
     _write(xy=xy, width=width, code="\uea9e", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def wave_triangle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an wave-triangle.
 
@@ -30180,12 +30204,12 @@ def wave_triangle(
     _write(xy=xy, width=width, code="\ueaa0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def waveform(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an waveform.
 
@@ -30200,12 +30224,12 @@ def waveform(
     _write(xy=xy, width=width, code="\ue802", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def waveform_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an waveform-slash.
 
@@ -30220,12 +30244,12 @@ def waveform_slash(
     _write(xy=xy, width=width, code="\ue800", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def waves(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an waves.
 
@@ -30240,12 +30264,12 @@ def waves(
     _write(xy=xy, width=width, code="\ue6de", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def webcam(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an webcam.
 
@@ -30260,12 +30284,12 @@ def webcam(
     _write(xy=xy, width=width, code="\ue9b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def webcam_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an webcam-slash.
 
@@ -30280,12 +30304,12 @@ def webcam_slash(
     _write(xy=xy, width=width, code="\uecdc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def webhooks_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an webhooks-logo.
 
@@ -30300,12 +30324,12 @@ def webhooks_logo(
     _write(xy=xy, width=width, code="\uecae", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def wechat_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an wechat-logo.
 
@@ -30320,12 +30344,12 @@ def wechat_logo(
     _write(xy=xy, width=width, code="\ue8d2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def whatsapp_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an whatsapp-logo.
 
@@ -30340,12 +30364,12 @@ def whatsapp_logo(
     _write(xy=xy, width=width, code="\ue5d0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def wheelchair(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an wheelchair.
 
@@ -30360,12 +30384,12 @@ def wheelchair(
     _write(xy=xy, width=width, code="\ue4e8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def wheelchair_motion(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an wheelchair-motion.
 
@@ -30380,12 +30404,12 @@ def wheelchair_motion(
     _write(xy=xy, width=width, code="\ue89a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def wifi_high(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an wifi-high.
 
@@ -30400,12 +30424,12 @@ def wifi_high(
     _write(xy=xy, width=width, code="\ue4ea", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def wifi_low(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an wifi-low.
 
@@ -30420,12 +30444,12 @@ def wifi_low(
     _write(xy=xy, width=width, code="\ue4ec", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def wifi_medium(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an wifi-medium.
 
@@ -30440,12 +30464,12 @@ def wifi_medium(
     _write(xy=xy, width=width, code="\ue4ee", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def wifi_none(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an wifi-none.
 
@@ -30460,12 +30484,12 @@ def wifi_none(
     _write(xy=xy, width=width, code="\ue4f0", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def wifi_slash(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an wifi-slash.
 
@@ -30480,12 +30504,12 @@ def wifi_slash(
     _write(xy=xy, width=width, code="\ue4f2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def wifi_x(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an wifi-x.
 
@@ -30500,12 +30524,12 @@ def wifi_x(
     _write(xy=xy, width=width, code="\ue4f4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def wind(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an wind.
 
@@ -30520,12 +30544,12 @@ def wind(
     _write(xy=xy, width=width, code="\ue5d2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def windmill(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an windmill.
 
@@ -30540,12 +30564,12 @@ def windmill(
     _write(xy=xy, width=width, code="\ue9f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def windows_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an windows-logo.
 
@@ -30560,12 +30584,12 @@ def windows_logo(
     _write(xy=xy, width=width, code="\ue692", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def wine(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an wine.
 
@@ -30580,12 +30604,12 @@ def wine(
     _write(xy=xy, width=width, code="\ue6b2", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def wrench(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an wrench.
 
@@ -30600,12 +30624,12 @@ def wrench(
     _write(xy=xy, width=width, code="\ue5d4", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def x(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an x.
 
@@ -30620,12 +30644,12 @@ def x(
     _write(xy=xy, width=width, code="\ue4f6", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def x_circle(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an x-circle.
 
@@ -30640,12 +30664,12 @@ def x_circle(
     _write(xy=xy, width=width, code="\ue4f8", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def x_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an x-logo.
 
@@ -30660,12 +30684,12 @@ def x_logo(
     _write(xy=xy, width=width, code="\ue4bc", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def x_square(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an x-square.
 
@@ -30680,12 +30704,12 @@ def x_square(
     _write(xy=xy, width=width, code="\ue4fa", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def yarn(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an yarn.
 
@@ -30700,12 +30724,12 @@ def yarn(
     _write(xy=xy, width=width, code="\ued9a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def yin_yang(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an yin-yang.
 
@@ -30720,12 +30744,12 @@ def yin_yang(
     _write(xy=xy, width=width, code="\ue92a", angle=angle, style=style)
 
 
-@drawlib.v0_2.private.util.guarded
+@guarded
 def youtube_logo(
-    xy: typing.Tuple[float, float],
-    width: float,
-    angle: typing.Union[int, float] = 0.0,
-    style: typing.Union[drawlib.v0_2.private.core.model.IconStyle, str, None] = None,
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: IconStyle | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an youtube-logo.
 
