@@ -9,15 +9,15 @@
 
 """Font definition module."""
 
-import dataclasses
 import os
 from enum import Enum
 from urllib.parse import urljoin
 
-import drawlib.assets.v0_2.fonts
-from drawlib.v0_2.private.util import get_script_relative_path
+from pydantic import BaseModel, ConfigDict, field_validator
 
-ASSET_VERSION: str = "v0_2"
+import drawlib.assets.v0_2.fonts
+from drawlib.v0_2 import ASSET_VERSION
+from drawlib.v0_2.private.util import get_script_relative_path
 
 
 def get_fontfile_tuple(path: str, md5_hash: str) -> tuple[str, str, str]:
@@ -52,24 +52,21 @@ def get_fontfile_tuple(path: str, md5_hash: str) -> tuple[str, str, str]:
     return (font_path, url, md5_hash)
 
 
-@dataclasses.dataclass
-class FontFile:
+class FontFile(BaseModel):
     """A class representing a font file"""
+
+    model_config = ConfigDict(validate_assignment=True)
 
     file: str
 
-    @property
-    def file(self) -> str:
-        """Get the font file path.
+    def __init__(self, file: str) -> None:
+        """Initialize the font file."""
+        super().__init__(file=file)
 
-        Returns:
-            str: The path to the font file.
-        """
-        return self._file
-
-    @file.setter
-    def file(self, value: str) -> None:
-        """Set the font file path.
+    @field_validator("file")
+    @classmethod
+    def validate_file(cls, value: str) -> str:
+        """Validate the font file path.
 
         Validates that the provided path exists and is a valid file path. If not,
         raises an appropriate exception.
@@ -77,17 +74,16 @@ class FontFile:
         Args:
             value (str): The path to the font file.
 
+        Returns:
+            str: The absolute path to the font file.
+
         Raises:
-            ValueError: If the provided value is a property.
             FileNotFoundError: If the file does not exist at the specified path.
         """
-        if isinstance(value, property):
-            raise ValueError("font file not specified at class FontFile.")
-
         path = get_script_relative_path(value)
         if not os.path.exists(path):
             raise FileNotFoundError(f'font file "{path}" does not exist.')
-        self._file = path
+        return path
 
 
 # Default

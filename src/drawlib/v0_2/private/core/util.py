@@ -21,7 +21,6 @@ from drawlib.v0_2.private.core.fonts import (
     FontBase,
     FontFile,
 )
-from drawlib.v0_2.private.types import TypeArrowHead, TypeColor, TypeColorRGBA
 from drawlib.v0_2.private.core.model import (
     IconStyle,
     ImageStyle,
@@ -40,7 +39,7 @@ from drawlib.v0_2.private.core.model_system_default import (
 )
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.download import download_if_not_exist
-from drawlib.v0_2.private.types import TypeColor, TypeColorRGBA
+from drawlib.v0_2.private.types import TypeArrowHead, TypeColor, TypeColorRGBA
 
 
 class ColorUtil:

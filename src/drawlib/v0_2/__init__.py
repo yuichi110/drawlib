@@ -16,6 +16,7 @@ import drawlib
 # this API package is latest now. So, API version is same to software's one.
 # When you create newer API, please set string value instead.
 LIB_VERSION: Final[str] = drawlib.LIB_VERSION
+ASSET_VERSION: Final[str] = "v0_2"
 
 # might not be changed
 __version__: Final[str] = LIB_VERSION
