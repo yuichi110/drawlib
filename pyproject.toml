@@ -60,7 +60,6 @@ ignore = [
     "D212",    # Multi-line docstring summary should start at the first line
     "D415",    # First line should end with a period, question mark, or exclamation point
     "F401",    # imported but unused
-    "ANN101",  # Missing type annotation for self in method (deprecated in newer ruff)
     "PLC0414", # Import alias does not rename original package
     "PLC1901", # compare-to-empty-string
     "PLR0904", # Too many public methods
