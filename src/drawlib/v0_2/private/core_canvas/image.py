@@ -1,4 +1,4 @@
-# Copyright (c) 2024 Yuichi Ito (yuichi@yuichi.com)
+# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
 #
 # This software is licensed under the Apache License, Version 2.0.
 # For more information, please visit: https://github.com/yuichi110/drawlib
@@ -9,10 +9,6 @@
 
 
 """Canvas's image feature implementation module."""
-
-from drawlib.v0_2.private.types import (
-    TypeCoordinate,
-)
 
 from typing import Any
 
@@ -28,6 +24,9 @@ from drawlib.v0_2.private.core.model import ImageStyle, ShapeStyle
 from drawlib.v0_2.private.core.util import ImageUtil
 from drawlib.v0_2.private.core_canvas.base import CanvasBase
 from drawlib.v0_2.private.logging import logger
+from drawlib.v0_2.private.types import (
+    TypeCoordinate,
+)
 from drawlib.v0_2.private.util import guarded
 
 

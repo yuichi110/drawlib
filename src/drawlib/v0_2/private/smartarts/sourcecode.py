@@ -1,4 +1,4 @@
-# Copyright (c) 2024 Yuichi Ito (yuichi@yuichi.com)
+# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
 #
 # This software is licensed under the Apache License, Version 2.0.
 # For more information, please visit: https://github.com/yuichi110/drawlib
@@ -28,12 +28,12 @@ from pygments.styles import get_style_by_name
 from drawlib.v0_2.private.core.dimage import Dimage
 from drawlib.v0_2.private.core.fonts import get_font_metadata
 from drawlib.v0_2.private.core.fonts_enum import FontSourceCode
-from drawlib.v0_2.private.types import FontFile
 from drawlib.v0_2.private.core.model import ImageStyle
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.core.util import ColorUtil
 from drawlib.v0_2.private.core_canvas.canvas import image
 from drawlib.v0_2.private.download import download_if_not_exist
+from drawlib.v0_2.private.types import FontFile
 from drawlib.v0_2.private.util import get_script_relative_path, guarded
 
 PYGMENTS_LINENUM_TEXT_COLOR: Final[Tuple[int, int, int]] = (136, 136, 102)

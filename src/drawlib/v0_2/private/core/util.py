@@ -1,4 +1,4 @@
-# Copyright (c) 2024 Yuichi Ito (yuichi@yuichi.com)
+# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
 #
 # This software is licensed under the Apache License, Version 2.0.
 # For more information, please visit: https://github.com/yuichi110/drawlib
@@ -18,7 +18,6 @@ from matplotlib.text import Text
 
 from drawlib.v0_2.private.core.colors import Colors
 from drawlib.v0_2.private.core.fonts import get_font_metadata
-from drawlib.v0_2.private.types import FontBase, FontFile
 from drawlib.v0_2.private.core.model import (
     IconStyle,
     ImageStyle,
@@ -37,7 +36,7 @@ from drawlib.v0_2.private.core.model_system_default import (
 )
 from drawlib.v0_2.private.core.theme import dtheme
 from drawlib.v0_2.private.download import download_if_not_exist
-from drawlib.v0_2.private.types import TypeArrowHead, TypeColor, TypeColorRGBA
+from drawlib.v0_2.private.types import FontBase, FontFile, TypeArrowHead, TypeColor, TypeColorRGBA
 
 
 class ColorUtil:

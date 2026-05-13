@@ -1,4 +1,4 @@
-# Copyright (c) 2024 Yuichi Ito (yuichi@yuichi.com)
+# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
 #
 # This software is licensed under the Apache License, Version 2.0.
 # For more information, please visit: https://github.com/yuichi110/drawlib
@@ -14,10 +14,10 @@ import typing
 
 import drawlib.v0_2.private.util
 import drawlib.v0_2.private.validators.args as validator
-from drawlib.v0_2.private.types import FontFile
 from drawlib.v0_2.private.core.model import IconStyle, TextStyle
 from drawlib.v0_2.private.core.util import IconUtil
 from drawlib.v0_2.private.core_canvas.canvas import get_fontsize_from_charwidth, text
+from drawlib.v0_2.private.types import FontFile
 
 
 @drawlib.v0_2.private.util.guarded

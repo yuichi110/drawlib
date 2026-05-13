@@ -1,4 +1,4 @@
-# Copyright (c) 2024 Yuichi Ito (yuichi@yuichi.com)
+# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
 #
 # This software is licensed under the Apache License, Version 2.0.
 # For more information, please visit: https://github.com/yuichi110/drawlib
@@ -30,10 +30,6 @@ from drawlib.v0_2.private.core.fonts_enum import (
     FontSansSerif,
     FontSerif,
     FontSourceCode,
-)
-from drawlib.v0_2.private.types import (
-    FontBase,
-    FontFile,
 )
 from drawlib.v0_2.private.core.model import (
     IconStyle,
@@ -94,7 +90,12 @@ from drawlib.v0_2.private.core.theme_style_caches import (
     WedgeStyleCache,
     WedgeTextStyleCache,
 )
-from drawlib.v0_2.private.types import TypeColor, TypeColorRGB
+from drawlib.v0_2.private.types import (
+    FontBase,
+    FontFile,
+    TypeColor,
+    TypeColorRGB,
+)
 from drawlib.v0_2.private.util import guarded
 
 

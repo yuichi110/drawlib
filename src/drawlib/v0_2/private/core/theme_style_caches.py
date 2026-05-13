@@ -1,4 +1,4 @@
-# Copyright (c) 2024 Yuichi Ito (yuichi@yuichi.com)
+# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
 #
 # This software is licensed under the Apache License, Version 2.0.
 # For more information, please visit: https://github.com/yuichi110/drawlib
@@ -98,6 +98,7 @@ class ThemeColorCache:
         if len(color) == 3:
             color = (color[0], color[1], color[2], 1.0)
         from typing import cast
+
         self._colors[name] = cast(TypeColorRGBA, color)
 
     @guarded
@@ -181,6 +182,7 @@ class BackgroundColorCache:
         if len(color) == 3:
             color = (color[0], color[1], color[2], 1.0)
         from typing import cast
+
         self._colors[name] = cast(TypeColorRGBA, color)
 
     @guarded
