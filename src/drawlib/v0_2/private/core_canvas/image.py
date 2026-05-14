@@ -67,7 +67,7 @@ class CanvasImageFeature(CanvasBase):
         """Draw an image on the canvas.
 
         Args:
-            xy (TypeCoordinate): Coordinates of the left bottom corner of the image.
+            xy (tuple[float, float]): Coordinates of the left bottom corner of the image.
             width (float): Width of the image. Height is calculated automatically based on image aspect ratio.
             image (str | Image | Dimage): Path to the image file or PIL Image object or Dimage object.
             angle (int | float, optional): Rotation angle of the image in degrees (default is 0.0).

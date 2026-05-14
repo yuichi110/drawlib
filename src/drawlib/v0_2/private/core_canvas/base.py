@@ -574,7 +574,7 @@ class CanvasBase:
         adjusted for better accuracy in the future.
 
         Args:
-            size (TypePosFloat): The font size for which to calculate the character width.
+            size (float): The font size for which to calculate the character width.
 
         Returns:
             float: The calculated character width.
@@ -602,7 +602,7 @@ class CanvasBase:
         for better accuracy in the future.
 
         Args:
-            width (TypePosFloat): The character width for which to calculate the font size.
+            width (float): The character width for which to calculate the font size.
 
         Returns:
             float: The calculated font size.

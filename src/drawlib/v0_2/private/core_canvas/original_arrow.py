@@ -73,12 +73,12 @@ class CanvasOriginalArrowFeature(CanvasBase):
         """Draw single and double-headed arrow.
 
         Args:
-            xy1: TypeCoordinate: Arrow start point.
-            xy2: TypeCoordinate: Arrow end point.
+            xy1: tuple[float, float]: Arrow start point.
+            xy2: tuple[float, float]: Arrow end point.
             tail_width: float: Width of the arrow tail.
             head_width: float: Width of the arrow head.
             head_length: float: Length of the arrow head.
-            head: TypeArrowHead: Arrow head style ("->", "<-", "<->").
+            head: Literal["->", "<-", "<->", "-"] | str: Arrow head style ("->", "<-", "<->").
             style: ShapeStyle | str | None:style of the arrow.
             text: str:text to display at the center of the arrow.
             textsize: float | None:size of the text.
@@ -161,11 +161,11 @@ class CanvasOriginalArrowFeature(CanvasBase):
         """Draw single and double-headed arrow.
 
         Args:
-            xys: TypeCoordinates: Arrow points.
+            xys: list[tuple[float, float]]: Arrow points.
             tail_width: float: Width of the arrow tail.
             head_width: float: Width of the arrow head.
             head_length: float: Length of the arrow head.
-            head: TypeArrowHead: Arrow head style ("->", "<-", "<->").
+            head: Literal["->", "<-", "<->", "-"] | str: Arrow head style ("->", "<-", "<->").
             r (float, optional): Radius for rounded connections (default is 0.0).
             style: ShapeStyle | str | None:style of the arrow.
 
@@ -256,13 +256,13 @@ class CanvasOriginalArrowFeature(CanvasBase):
         """Draw arc arrow.
 
         Args:
-            xy: TypeCoordinate: The center point of the circle from which the arc arrow is drawn.
+            xy: tuple[float, float]: The center point of the circle from which the arc arrow is drawn.
             width: float: The width of the ellipse.
             height: float: The height of the ellipse
             tail_width: float: The width of the tail of the arrow.
             head_width: float: The width of the head of the arrow.
             head_angle: float: The angle of the arrowhead in degrees (default is 10).
-            head: TypeArrowHead: The arrowhead style ("->", "<-", "<->").
+            head: Literal["->", "<-", "<->", "-"] | str: The arrowhead style ("->", "<-", "<->").
             angle_start: float: The starting angle of the arc in degrees (default is 0).
             angle_end: float: The ending angle of the arc in degrees (default is 180).
             angle (float): The angle of ellipse.
@@ -408,13 +408,13 @@ class CanvasOriginalArrowFeature(CanvasBase):
         """Draw "L" shape arrow.
 
         Args:
-            xy: TypeCoordinate: The center point of L arrow.
+            xy: tuple[float, float]: The center point of L arrow.
             width: float: The width L arrow.
             height: float: The height of L arrow.
             tail_width: float: The width of the tail of the arrow.
             head_width: float: The width of the head of the arrow.
             head_length: float: Length of the arrow head.
-            head: TypeArrowHead: Arrow head style ("->", "<-", "<->").
+            head: Literal["->", "<-", "<->", "-"] | str: Arrow head style ("->", "<-", "<->").
             r (float, optional): Radius for rounded connections (default is 0.0).
             angle: float: rotate angle.
             style: ShapeStyle | str | None:shape style.
@@ -464,13 +464,13 @@ class CanvasOriginalArrowFeature(CanvasBase):
         """Draw "U" shape arrow.
 
         Args:
-            xy: TypeCoordinate: The center point U arrow.
+            xy: tuple[float, float]: The center point U arrow.
             width: float: The width of the U arrow.
             height: float: The height of the U arrow.
             tail_width: float: The width of the tail of the arrow.
             head_width: float: The width of the head of the arrow.
             head_length: float: Length of the arrow head.
-            head: TypeArrowHead: Arrow head style ("->", "<-", "<->").
+            head: Literal["->", "<-", "<->", "-"] | str: Arrow head style ("->", "<-", "<->").
             r (float, optional): Radius for rounded connections (default is 0.0).
             angle: float: rotate angle.
             style: ShapeStyle | str | None:shape style.

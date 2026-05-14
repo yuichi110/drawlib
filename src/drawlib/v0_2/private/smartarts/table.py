@@ -413,9 +413,9 @@ class Table:
         """Draws the table with equal-sized cells.
 
         Args:
-            xy (TypeCoordinate): The coordinates where the table should be drawn.
-            width (TypePosFloat): The total width of the table.
-            height (TypePosFloat): The total height of the table.
+            xy (tuple[float, float]): The coordinates where the table should be drawn.
+            width (float): The total width of the table.
+            height (float): The total height of the table.
             data (List[List[Any]]): The data to be displayed in the table.
         """
         num_rows = len(data)
@@ -441,9 +441,9 @@ class Table:
         """Draws the table with flexible cell sizes.
 
         Args:
-            xy (TypeCoordinate): The coordinates where the table should be drawn.
-            column_widths (List[TypePosFloat]): A list of widths for each column.
-            row_heights (List[TypePosFloat]): A list of heights for each row.
+            xy (tuple[float, float]): The coordinates where the table should be drawn.
+            column_widths (List[float]): A list of widths for each column.
+            row_heights (List[float]): A list of heights for each row.
             data (List[List[Any]]): The data to be displayed in the table.
         """
         # create blank matrix

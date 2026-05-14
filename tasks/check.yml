@@ -31,8 +31,14 @@ tasks:
     cmds:
       - uv run python tasks/scripts/count_lines.py
 
+  docstring:
+    desc: Check if forbidden type aliases appear in @guarded function docstrings
+    cmds:
+      - uv run python tasks/scripts/check_docstring.py
+
   default:
-    desc: Run all checks (lint and type)
+    desc: Run all checks (lint, type, and docstring)
     cmds:
       - task: lint
       - task: type
+      - task: docstring

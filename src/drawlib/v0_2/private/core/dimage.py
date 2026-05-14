@@ -219,7 +219,7 @@ class Dimage:
 
         Args:
             file (str): The file path to save the image. This path is relative to the user script file.
-            quality (TypeImageQuality, optional): The quality of the saved image (0-100). Defaults to 95.
+            quality (int, optional): The quality of the saved image (0-100). Defaults to 95.
 
         Returns:
             None
@@ -242,9 +242,10 @@ class Dimage:
         This method returns a new Dimage that is rotated by the specified angle.
 
         Args:
-            angle (TypeAngle): The angle to rotate the image by, between 0.0 and 360.0 degrees.
+            angle (float): The angle to rotate the image by, between 0.0 and 360.0 degrees.
                            The pixel size can change, and new areas become transparent.
-            resample (TypeImageResample, optional): The resampling method to use. Defaults to "bicubic".
+            resample (Literal["nearest", "bilinear", "bicubic", "lanczos"] | str, optional):
+                The resampling method to use. Defaults to "bicubic".
 
         Returns:
             Dimage: A new rotated image.
@@ -271,9 +272,10 @@ class Dimage:
         This method returns a new Dimage that is resized to the specified width and height.
 
         Args:
-            width (TypePosInt): The new width of the image.
-            height (TypePosInt): The new height of the image.
-            resample (TypeImageResample, optional): The resampling method to use. Defaults to "lanczos".
+            width (int): The new width of the image.
+            height (int): The new height of the image.
+            resample (Literal["nearest", "bilinear", "bicubic", "lanczos"] | str, optional):
+                The resampling method to use. Defaults to "lanczos".
 
         Returns:
             Dimage: A new resized image.

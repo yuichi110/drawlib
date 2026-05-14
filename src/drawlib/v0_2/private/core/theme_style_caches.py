@@ -46,10 +46,10 @@ class ThemeColorCache:
         """Checks if a theme color exists by name.
 
         Args:
-            name (TypeStr): Name of the theme color.
+            name (str): Name of the theme color.
 
         Returns:
-            TypeBool: True if the theme color exists, False otherwise.
+            bool: True if the theme color exists, False otherwise.
         """
         return name in self._colors
 
@@ -58,10 +58,10 @@ class ThemeColorCache:
         """Retrieves a theme color by name.
 
         Args:
-            name (TypeStr, optional): Name of the theme color. Defaults to "".
+            name (str, optional): Name of the theme color. Defaults to "".
 
         Returns:
-            TypeColorRGBA: RGBA components of the theme color.
+            tuple[int, int, int, float]: RGBA components of the theme color.
 
         Raises:
             ValueError: If the specified theme color name does not exist.
@@ -75,7 +75,7 @@ class ThemeColorCache:
         """Lists all existing theme color names.
 
         Returns:
-            list[TypeStr]: List of theme color names.
+            list[str]: List of theme color names.
         """
         return list_(self._colors.keys())
 
@@ -88,9 +88,9 @@ class ThemeColorCache:
         """Sets or updates a theme color with the given name.
 
         Args:
-            color (TypeColor):
+            color (tuple[int, int, int] | tuple[int, int, int, float] | str):
                 RGB or RGBA components of the theme color.
-            name (TypeStr, optional): Name of the theme color. Defaults to "".
+            name (str, optional): Name of the theme color. Defaults to "".
 
         Raises:
             ValueError: If the color format is invalid or if the name format is invalid.
@@ -105,7 +105,7 @@ class ThemeColorCache:
         """Deletes a theme color by name.
 
         Args:
-            name (TypeStr): Name of the theme color to delete.
+            name (str): Name of the theme color to delete.
 
         Raises:
             ValueError: If the specified theme color name does not exist.
@@ -127,10 +127,10 @@ class BackgroundColorCache:
         """Checks if a background color exists by name.
 
         Args:
-            name (TypeStr): Name of the background color.
+            name (str): Name of the background color.
 
         Returns:
-            TypeBool: True if the background color exists, False otherwise.
+            bool: True if the background color exists, False otherwise.
         """
         return name in self._colors
 
@@ -139,10 +139,10 @@ class BackgroundColorCache:
         """Retrieves a background color by name.
 
         Args:
-            name (TypeStr, optional): Name of the background color. Defaults to "".
+            name (str, optional): Name of the background color. Defaults to "".
 
         Returns:
-            TypeColorRGBA: RGBA components of the background color.
+            tuple[int, int, int, float]: RGBA components of the background color.
 
         Raises:
             ValueError: If the specified background color name does not exist.
@@ -156,7 +156,7 @@ class BackgroundColorCache:
         """Lists all existing background color names.
 
         Returns:
-            list[TypeStr]: List of background color names.
+            list[str]: List of background color names.
         """
         return list_(self._colors.keys())
 
@@ -169,9 +169,9 @@ class BackgroundColorCache:
         """Sets or updates a background color with the given name.
 
         Args:
-            color (TypeColor):
+            color (tuple[int, int, int] | tuple[int, int, int, float] | str):
                 RGB or RGBA components of the theme color.
-            name (TypeStr, optional): Name of the background color. Defaults to "".
+            name (str, optional): Name of the background color. Defaults to "".
 
         Raises:
             ValueError: If the color format is invalid or if the name format is invalid.
@@ -186,7 +186,7 @@ class BackgroundColorCache:
         """Deletes a background color by name.
 
         Args:
-            name (TypeStr): Name of the background color to delete.
+            name (str): Name of the background color to delete.
 
         Raises:
             ValueError: If the specified background color name does not exist.
@@ -208,10 +208,10 @@ class SourceCodeFontCache:
         """Checks if a source code font exists by name.
 
         Args:
-            name (TypeStr): Name of the source code font.
+            name (str): Name of the source code font.
 
         Returns:
-            TypeBool: True if the source code font exists, False otherwise.
+            bool: True if the source code font exists, False otherwise.
         """
         return name in self._fonts
 
@@ -220,7 +220,7 @@ class SourceCodeFontCache:
         """Retrieves a source code font by name.
 
         Args:
-            name (TypeStr, optional): Name of the source code font. Defaults to "".
+            name (str, optional): Name of the source code font. Defaults to "".
 
         Returns:
             FontSourceCode: Source code font object.
@@ -237,7 +237,7 @@ class SourceCodeFontCache:
         """Lists all existing source code font names.
 
         Returns:
-            list[TypeStr]: List of theme color names.
+            list[str]: List of theme color names.
         """
         return list_(self._fonts.keys())
 
@@ -251,7 +251,7 @@ class SourceCodeFontCache:
 
         Args:
             font (FontSourceCode): Source code font object.
-            name (TypeStr, optional): Name of the source code font. Defaults to "".
+            name (str, optional): Name of the source code font. Defaults to "".
 
         Raises:
             ValueError: If the font is not an instance of FontSourceCode or if the name format is invalid.
@@ -266,7 +266,7 @@ class SourceCodeFontCache:
         """Deletes a source code font by name.
 
         Args:
-            name (TypeStr): Name of the source code font to delete.
+            name (str): Name of the source code font to delete.
 
         Raises:
             ValueError: If the specified source code font name does not exist.
@@ -381,10 +381,10 @@ class IconStyleCache(AbstractStyleCache):
         """Check if a style exists by name.
 
         Args:
-            name (TypeStr): Name of the style.
+            name (str): Name of the style.
 
         Returns:
-            TypeBool: True if the style exists, False otherwise.
+            bool: True if the style exists, False otherwise.
         """
         return name in self._styles
 
@@ -393,7 +393,7 @@ class IconStyleCache(AbstractStyleCache):
         """Retrieve a style by name.
 
         Args:
-            name (TypeStr, optional): Name of the style to retrieve. Defaults to "".
+            name (str, optional): Name of the style to retrieve. Defaults to "".
 
         Returns:
             IconStyle: The retrieved IconStyle object.
@@ -410,7 +410,7 @@ class IconStyleCache(AbstractStyleCache):
         """List all existing style names.
 
         Returns:
-            list[TypeStr]: List of style names.
+            list[str]: List of style names.
         """
         return list_(self._styles.keys())
 
@@ -420,7 +420,7 @@ class IconStyleCache(AbstractStyleCache):
 
         Args:
             style (IconStyle): The IconStyle object to cache.
-            name (TypeStr, optional): Name of the style. Defaults to "".
+            name (str, optional): Name of the style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -433,7 +433,7 @@ class IconStyleCache(AbstractStyleCache):
         """Delete a style by name.
 
         Args:
-            name (TypeStr): Name of the style to delete.
+            name (str): Name of the style to delete.
 
         Raises:
             ValueError: If the style with the specified name does not exist.
@@ -449,7 +449,7 @@ class IconStyleCache(AbstractStyleCache):
 
         Args:
             style (IconStyle): The IconStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target style names to merge into.
+            targets (list[str] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
@@ -491,10 +491,10 @@ class ImageStyleCache(AbstractStyleCache):
         """Check if a style exists by name.
 
         Args:
-            name (TypeStr): Name of the style.
+            name (str): Name of the style.
 
         Returns:
-            TypeBool: True if the style exists, False otherwise.
+            bool: True if the style exists, False otherwise.
         """
         return name in self._styles
 
@@ -503,7 +503,7 @@ class ImageStyleCache(AbstractStyleCache):
         """Retrieve a style by name.
 
         Args:
-            name (TypeStr, optional): Name of the style to retrieve. Defaults to "".
+            name (str, optional): Name of the style to retrieve. Defaults to "".
 
         Returns:
             ImageStyle: The retrieved IconStyle object.
@@ -520,7 +520,7 @@ class ImageStyleCache(AbstractStyleCache):
         """List all existing style names.
 
         Returns:
-            list[TypeStr]: List of style names.
+            list[str]: List of style names.
         """
         return list_(self._styles.keys())
 
@@ -530,7 +530,7 @@ class ImageStyleCache(AbstractStyleCache):
 
         Args:
             style (ImageStyle): The ImageStyle object to cache.
-            name (TypeStr, optional): Name of the style. Defaults to "".
+            name (str, optional): Name of the style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -543,7 +543,7 @@ class ImageStyleCache(AbstractStyleCache):
         """Delete a style by name.
 
         Args:
-            name (TypeStr): Name of the style to delete.
+            name (str): Name of the style to delete.
 
         Raises:
             ValueError: If the style with the specified name does not exist.
@@ -559,7 +559,7 @@ class ImageStyleCache(AbstractStyleCache):
 
         Args:
             style (ImageStyle): The ImageStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target style names to merge into.
+            targets (list[str] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
@@ -601,10 +601,10 @@ class LineStyleCache(AbstractStyleCache):
         """Check if a style exists by name.
 
         Args:
-            name (TypeStr): Name of the style.
+            name (str): Name of the style.
 
         Returns:
-            TypeBool: True if the style exists, False otherwise.
+            bool: True if the style exists, False otherwise.
         """
         return name in self._styles
 
@@ -613,7 +613,7 @@ class LineStyleCache(AbstractStyleCache):
         """Retrieve a style by name.
 
         Args:
-            name (TypeStr, optional): Name of the style to retrieve. Defaults to "".
+            name (str, optional): Name of the style to retrieve. Defaults to "".
 
         Returns:
             LineStyle: The retrieved IconStyle object.
@@ -630,7 +630,7 @@ class LineStyleCache(AbstractStyleCache):
         """List all existing style names.
 
         Returns:
-            list[TypeStr]: List of style names.
+            list[str]: List of style names.
         """
         return list_(self._styles.keys())
 
@@ -640,7 +640,7 @@ class LineStyleCache(AbstractStyleCache):
 
         Args:
             style (LineStyle): The LineStyle object to cache.
-            name (TypeStr, optional): Name of the style. Defaults to "".
+            name (str, optional): Name of the style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -653,7 +653,7 @@ class LineStyleCache(AbstractStyleCache):
         """Delete a style by name.
 
         Args:
-            name (TypeStr): Name of the style to delete.
+            name (str): Name of the style to delete.
 
         Raises:
             ValueError: If the style with the specified name does not exist.
@@ -669,7 +669,7 @@ class LineStyleCache(AbstractStyleCache):
 
         Args:
             style (LineStyle): The LineStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target style names to merge into.
+            targets (list[str] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
@@ -711,10 +711,10 @@ class ShapeStyleCache(AbstractStyleCache):
         """Check if a style exists by name.
 
         Args:
-            name (TypeStr): Name of the style.
+            name (str): Name of the style.
 
         Returns:
-            TypeBool: True if the style exists, False otherwise.
+            bool: True if the style exists, False otherwise.
         """
         return name in self._styles
 
@@ -723,7 +723,7 @@ class ShapeStyleCache(AbstractStyleCache):
         """Retrieve a style by name.
 
         Args:
-            name (TypeStr, optional): Name of the style to retrieve. Defaults to "".
+            name (str, optional): Name of the style to retrieve. Defaults to "".
 
         Returns:
             ShapeStyle: The retrieved IconStyle object.
@@ -740,7 +740,7 @@ class ShapeStyleCache(AbstractStyleCache):
         """List all existing style names.
 
         Returns:
-            list[TypeStr]: List of style names.
+            list[str]: List of style names.
         """
         return list_(self._styles.keys())
 
@@ -750,7 +750,7 @@ class ShapeStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the style. Defaults to "".
+            name (str, optional): Name of the style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -763,7 +763,7 @@ class ShapeStyleCache(AbstractStyleCache):
         """Delete a style by name.
 
         Args:
-            name (TypeStr): Name of the style to delete.
+            name (str): Name of the style to delete.
 
         Raises:
             ValueError: If the style with the specified name does not exist.
@@ -779,7 +779,7 @@ class ShapeStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target style names to merge into.
+            targets (list[str] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
@@ -821,10 +821,10 @@ class ShapeTextStyleCache(AbstractStyleCache):
         """Check if a style exists by name.
 
         Args:
-            name (TypeStr): Name of the style.
+            name (str): Name of the style.
 
         Returns:
-            TypeBool: True if the style exists, False otherwise.
+            bool: True if the style exists, False otherwise.
         """
         return name in self._styles
 
@@ -833,7 +833,7 @@ class ShapeTextStyleCache(AbstractStyleCache):
         """Retrieve a style by name.
 
         Args:
-            name (TypeStr, optional): Name of the style to retrieve. Defaults to "".
+            name (str, optional): Name of the style to retrieve. Defaults to "".
 
         Returns:
             ShapeTextStyle: The retrieved IconStyle object.
@@ -850,7 +850,7 @@ class ShapeTextStyleCache(AbstractStyleCache):
         """List all existing style names.
 
         Returns:
-            list[TypeStr]: List of style names.
+            list[str]: List of style names.
         """
         return list_(self._styles.keys())
 
@@ -860,7 +860,7 @@ class ShapeTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the style. Defaults to "".
+            name (str, optional): Name of the style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -873,7 +873,7 @@ class ShapeTextStyleCache(AbstractStyleCache):
         """Delete a style by name.
 
         Args:
-            name (TypeStr): Name of the style to delete.
+            name (str): Name of the style to delete.
 
         Raises:
             ValueError: If the style with the specified name does not exist.
@@ -889,7 +889,7 @@ class ShapeTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target style names to merge into.
+            targets (list[str] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
@@ -931,10 +931,10 @@ class TextStyleCache(AbstractStyleCache):
         """Check if a style exists by name.
 
         Args:
-            name (TypeStr): Name of the style.
+            name (str): Name of the style.
 
         Returns:
-            TypeBool: True if the style exists, False otherwise.
+            bool: True if the style exists, False otherwise.
         """
         return name in self._styles
 
@@ -943,7 +943,7 @@ class TextStyleCache(AbstractStyleCache):
         """Retrieve a style by name.
 
         Args:
-            name (TypeStr, optional): Name of the style to retrieve. Defaults to "".
+            name (str, optional): Name of the style to retrieve. Defaults to "".
 
         Returns:
             TextStyle: The retrieved IconStyle object.
@@ -960,7 +960,7 @@ class TextStyleCache(AbstractStyleCache):
         """List all existing style names.
 
         Returns:
-            list[TypeStr]: List of style names.
+            list[str]: List of style names.
         """
         return list_(self._styles.keys())
 
@@ -970,7 +970,7 @@ class TextStyleCache(AbstractStyleCache):
 
         Args:
             style (TextStyle): The TextStyle object to cache.
-            name (TypeStr, optional): Name of the style. Defaults to "".
+            name (str, optional): Name of the style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -983,7 +983,7 @@ class TextStyleCache(AbstractStyleCache):
         """Delete a style by name.
 
         Args:
-            name (TypeStr): Name of the style to delete.
+            name (str): Name of the style to delete.
 
         Raises:
             ValueError: If the style with the specified name does not exist.
@@ -999,7 +999,7 @@ class TextStyleCache(AbstractStyleCache):
 
         Args:
             style (TextStyle): The TextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target style names to merge into.
+            targets (list[str] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
@@ -1044,10 +1044,10 @@ class ArcStyleCache(AbstractStyleCache):
         """Check if an arc style exists by name.
 
         Args:
-            name (TypeStr): Name of the arc style.
+            name (str): Name of the arc style.
 
         Returns:
-            TypeBool: True if the arc style exists, False otherwise.
+            bool: True if the arc style exists, False otherwise.
         """
         return name in self._styles
 
@@ -1056,8 +1056,8 @@ class ArcStyleCache(AbstractStyleCache):
         """Retrieve an arc style by name.
 
         Args:
-            name (TypeStr, optional): Name of the arc style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
+            name (str, optional): Name of the arc style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -1080,7 +1080,7 @@ class ArcStyleCache(AbstractStyleCache):
         """List all existing arc style names.
 
         Returns:
-            list[TypeStr]: List of arc style names.
+            list[str]: List of arc style names.
         """
         return list_(self._styles.keys())
 
@@ -1090,7 +1090,7 @@ class ArcStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the arc style. Defaults to "".
+            name (str, optional): Name of the arc style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -1103,7 +1103,7 @@ class ArcStyleCache(AbstractStyleCache):
         """Delete an arc style by name.
 
         Args:
-            name (TypeStr): Name of the arc style to delete.
+            name (str): Name of the arc style to delete.
 
         Raises:
             ValueError: If the arc style with the specified name does not exist.
@@ -1119,7 +1119,7 @@ class ArcStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target arc style names to merge into.
+            targets (list[str] | None, optional): List of target arc style names to merge into.
                 If None, merge into all existing arc styles. Defaults to None.
 
         Raises:
@@ -1164,10 +1164,10 @@ class CircleStyleCache(AbstractStyleCache):
         """Check if an circle style exists by name.
 
         Args:
-            name (TypeStr): Name of the circle style.
+            name (str): Name of the circle style.
 
         Returns:
-            TypeBool: True if the circle style exists, False otherwise.
+            bool: True if the circle style exists, False otherwise.
         """
         return name in self._styles
 
@@ -1176,8 +1176,8 @@ class CircleStyleCache(AbstractStyleCache):
         """Retrieve an circle style by name.
 
         Args:
-            name (TypeStr, optional): Name of the circle style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
+            name (str, optional): Name of the circle style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -1200,7 +1200,7 @@ class CircleStyleCache(AbstractStyleCache):
         """List all existing circle style names.
 
         Returns:
-            list[TypeStr]: List of circle style names.
+            list[str]: List of circle style names.
         """
         return list_(self._styles.keys())
 
@@ -1210,7 +1210,7 @@ class CircleStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the circle style. Defaults to "".
+            name (str, optional): Name of the circle style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -1223,7 +1223,7 @@ class CircleStyleCache(AbstractStyleCache):
         """Delete an circle style by name.
 
         Args:
-            name (TypeStr): Name of the circle style to delete.
+            name (str): Name of the circle style to delete.
 
         Raises:
             ValueError: If the circle style with the specified name does not exist.
@@ -1239,7 +1239,7 @@ class CircleStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target circle style names to merge into.
+            targets (list[str] | None, optional): List of target circle style names to merge into.
                 If None, merge into all existing circle styles. Defaults to None.
 
         Raises:
@@ -1284,10 +1284,10 @@ class DonutsStyleCache(AbstractStyleCache):
         """Check if an donuts style exists by name.
 
         Args:
-            name (TypeStr): Name of the donuts style.
+            name (str): Name of the donuts style.
 
         Returns:
-            TypeBool: True if the donuts style exists, False otherwise.
+            bool: True if the donuts style exists, False otherwise.
         """
         return name in self._styles
 
@@ -1296,8 +1296,8 @@ class DonutsStyleCache(AbstractStyleCache):
         """Retrieve an donuts style by name.
 
         Args:
-            name (TypeStr, optional): Name of the donuts style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
+            name (str, optional): Name of the donuts style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -1320,7 +1320,7 @@ class DonutsStyleCache(AbstractStyleCache):
         """List all existing donuts style names.
 
         Returns:
-            list[TypeStr]: List of donuts style names.
+            list[str]: List of donuts style names.
         """
         return list_(self._styles.keys())
 
@@ -1330,7 +1330,7 @@ class DonutsStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the donuts style. Defaults to "".
+            name (str, optional): Name of the donuts style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -1343,7 +1343,7 @@ class DonutsStyleCache(AbstractStyleCache):
         """Delete an donuts style by name.
 
         Args:
-            name (TypeStr): Name of the donuts style to delete.
+            name (str): Name of the donuts style to delete.
 
         Raises:
             ValueError: If the donuts style with the specified name does not exist.
@@ -1359,7 +1359,7 @@ class DonutsStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target donuts style names to merge into.
+            targets (list[str] | None, optional): List of target donuts style names to merge into.
                 If None, merge into all existing donuts styles. Defaults to None.
 
         Raises:
@@ -1404,10 +1404,10 @@ class EllipseStyleCache(AbstractStyleCache):
         """Check if an ellipse style exists by name.
 
         Args:
-            name (TypeStr): Name of the ellipse style.
+            name (str): Name of the ellipse style.
 
         Returns:
-            TypeBool: True if the ellipse style exists, False otherwise.
+            bool: True if the ellipse style exists, False otherwise.
         """
         return name in self._styles
 
@@ -1416,8 +1416,8 @@ class EllipseStyleCache(AbstractStyleCache):
         """Retrieve an ellipse style by name.
 
         Args:
-            name (TypeStr, optional): Name of the ellipse style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
+            name (str, optional): Name of the ellipse style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -1440,7 +1440,7 @@ class EllipseStyleCache(AbstractStyleCache):
         """List all existing ellipse style names.
 
         Returns:
-            list[TypeStr]: List of ellipse style names.
+            list[str]: List of ellipse style names.
         """
         return list_(self._styles.keys())
 
@@ -1450,7 +1450,7 @@ class EllipseStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the ellipse style. Defaults to "".
+            name (str, optional): Name of the ellipse style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -1463,7 +1463,7 @@ class EllipseStyleCache(AbstractStyleCache):
         """Delete an ellipse style by name.
 
         Args:
-            name (TypeStr): Name of the ellipse style to delete.
+            name (str): Name of the ellipse style to delete.
 
         Raises:
             ValueError: If the ellipse style with the specified name does not exist.
@@ -1479,7 +1479,7 @@ class EllipseStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target ellipse style names to merge into.
+            targets (list[str] | None, optional): List of target ellipse style names to merge into.
                 If None, merge into all existing ellipse styles. Defaults to None.
 
         Raises:
@@ -1524,10 +1524,10 @@ class FanStyleCache(AbstractStyleCache):
         """Check if an fan style exists by name.
 
         Args:
-            name (TypeStr): Name of the fan style.
+            name (str): Name of the fan style.
 
         Returns:
-            TypeBool: True if the fan style exists, False otherwise.
+            bool: True if the fan style exists, False otherwise.
         """
         return name in self._styles
 
@@ -1536,8 +1536,8 @@ class FanStyleCache(AbstractStyleCache):
         """Retrieve an fan style by name.
 
         Args:
-            name (TypeStr, optional): Name of the fan style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
+            name (str, optional): Name of the fan style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -1560,7 +1560,7 @@ class FanStyleCache(AbstractStyleCache):
         """List all existing fan style names.
 
         Returns:
-            list[TypeStr]: List of fan style names.
+            list[str]: List of fan style names.
         """
         return list_(self._styles.keys())
 
@@ -1570,7 +1570,7 @@ class FanStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the fan style. Defaults to "".
+            name (str, optional): Name of the fan style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -1583,7 +1583,7 @@ class FanStyleCache(AbstractStyleCache):
         """Delete an fan style by name.
 
         Args:
-            name (TypeStr): Name of the fan style to delete.
+            name (str): Name of the fan style to delete.
 
         Raises:
             ValueError: If the fan style with the specified name does not exist.
@@ -1599,7 +1599,7 @@ class FanStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target fan style names to merge into.
+            targets (list[str] | None, optional): List of target fan style names to merge into.
                 If None, merge into all existing fan styles. Defaults to None.
 
         Raises:
@@ -1644,10 +1644,10 @@ class PolygonStyleCache(AbstractStyleCache):
         """Check if an polygon style exists by name.
 
         Args:
-            name (TypeStr): Name of the polygon style.
+            name (str): Name of the polygon style.
 
         Returns:
-            TypeBool: True if the polygon style exists, False otherwise.
+            bool: True if the polygon style exists, False otherwise.
         """
         return name in self._styles
 
@@ -1656,8 +1656,8 @@ class PolygonStyleCache(AbstractStyleCache):
         """Retrieve an polygon style by name.
 
         Args:
-            name (TypeStr, optional): Name of the polygon style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
+            name (str, optional): Name of the polygon style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -1680,7 +1680,7 @@ class PolygonStyleCache(AbstractStyleCache):
         """List all existing polygon style names.
 
         Returns:
-            list[TypeStr]: List of polygon style names.
+            list[str]: List of polygon style names.
         """
         return list_(self._styles.keys())
 
@@ -1690,7 +1690,7 @@ class PolygonStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the polygon style. Defaults to "".
+            name (str, optional): Name of the polygon style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -1703,7 +1703,7 @@ class PolygonStyleCache(AbstractStyleCache):
         """Delete an polygon style by name.
 
         Args:
-            name (TypeStr): Name of the polygon style to delete.
+            name (str): Name of the polygon style to delete.
 
         Raises:
             ValueError: If the polygon style with the specified name does not exist.
@@ -1719,7 +1719,7 @@ class PolygonStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target polygon style names to merge into.
+            targets (list[str] | None, optional): List of target polygon style names to merge into.
                 If None, merge into all existing polygon styles. Defaults to None.
 
         Raises:
@@ -1764,10 +1764,10 @@ class RectangleStyleCache(AbstractStyleCache):
         """Check if an rectangle style exists by name.
 
         Args:
-            name (TypeStr): Name of the rectangle style.
+            name (str): Name of the rectangle style.
 
         Returns:
-            TypeBool: True if the rectangle style exists, False otherwise.
+            bool: True if the rectangle style exists, False otherwise.
         """
         return name in self._styles
 
@@ -1776,8 +1776,8 @@ class RectangleStyleCache(AbstractStyleCache):
         """Retrieve an rectangle style by name.
 
         Args:
-            name (TypeStr, optional): Name of the rectangle style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
+            name (str, optional): Name of the rectangle style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -1800,7 +1800,7 @@ class RectangleStyleCache(AbstractStyleCache):
         """List all existing rectangle style names.
 
         Returns:
-            list[TypeStr]: List of rectangle style names.
+            list[str]: List of rectangle style names.
         """
         return list_(self._styles.keys())
 
@@ -1810,7 +1810,7 @@ class RectangleStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the rectangle style. Defaults to "".
+            name (str, optional): Name of the rectangle style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -1823,7 +1823,7 @@ class RectangleStyleCache(AbstractStyleCache):
         """Delete an rectangle style by name.
 
         Args:
-            name (TypeStr): Name of the rectangle style to delete.
+            name (str): Name of the rectangle style to delete.
 
         Raises:
             ValueError: If the rectangle style with the specified name does not exist.
@@ -1839,7 +1839,7 @@ class RectangleStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target rectangle style names to merge into.
+            targets (list[str] | None, optional): List of target rectangle style names to merge into.
                 If None, merge into all existing rectangle styles. Defaults to None.
 
         Raises:
@@ -1884,10 +1884,10 @@ class RegularpolygonStyleCache(AbstractStyleCache):
         """Check if an regular polygon style exists by name.
 
         Args:
-            name (TypeStr): Name of the regular polygon style.
+            name (str): Name of the regular polygon style.
 
         Returns:
-            TypeBool: True if the regular polygon style exists, False otherwise.
+            bool: True if the regular polygon style exists, False otherwise.
         """
         return name in self._styles
 
@@ -1896,8 +1896,8 @@ class RegularpolygonStyleCache(AbstractStyleCache):
         """Retrieve an regular polygon style by name.
 
         Args:
-            name (TypeStr, optional): Name of the regular polygon style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
+            name (str, optional): Name of the regular polygon style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -1920,7 +1920,7 @@ class RegularpolygonStyleCache(AbstractStyleCache):
         """List all existing regular polygon style names.
 
         Returns:
-            list[TypeStr]: List of regular polygon style names.
+            list[str]: List of regular polygon style names.
         """
         return list_(self._styles.keys())
 
@@ -1930,7 +1930,7 @@ class RegularpolygonStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the regular polygon style. Defaults to "".
+            name (str, optional): Name of the regular polygon style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -1943,7 +1943,7 @@ class RegularpolygonStyleCache(AbstractStyleCache):
         """Delete an regular polygon style by name.
 
         Args:
-            name (TypeStr): Name of the regular polygon style to delete.
+            name (str): Name of the regular polygon style to delete.
 
         Raises:
             ValueError: If the regular polygon style with the specified name does not exist.
@@ -1959,7 +1959,7 @@ class RegularpolygonStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target regular polygon style names to merge into.
+            targets (list[str] | None, optional): List of target regular polygon style names to merge into.
                 If None, merge into all existing regular polygon styles. Defaults to None.
 
         Raises:
@@ -2004,10 +2004,10 @@ class WedgeStyleCache(AbstractStyleCache):
         """Check if an wedge style exists by name.
 
         Args:
-            name (TypeStr): Name of the wedge style.
+            name (str): Name of the wedge style.
 
         Returns:
-            TypeBool: True if the wedge style exists, False otherwise.
+            bool: True if the wedge style exists, False otherwise.
         """
         return name in self._styles
 
@@ -2016,8 +2016,8 @@ class WedgeStyleCache(AbstractStyleCache):
         """Retrieve an wedge style by name.
 
         Args:
-            name (TypeStr, optional): Name of the wedge style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
+            name (str, optional): Name of the wedge style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -2040,7 +2040,7 @@ class WedgeStyleCache(AbstractStyleCache):
         """List all existing wedge style names.
 
         Returns:
-            list[TypeStr]: List of wedge style names.
+            list[str]: List of wedge style names.
         """
         return list_(self._styles.keys())
 
@@ -2050,7 +2050,7 @@ class WedgeStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the wedge style. Defaults to "".
+            name (str, optional): Name of the wedge style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -2063,7 +2063,7 @@ class WedgeStyleCache(AbstractStyleCache):
         """Delete an wedge style by name.
 
         Args:
-            name (TypeStr): Name of the wedge style to delete.
+            name (str): Name of the wedge style to delete.
 
         Raises:
             ValueError: If the wedge style with the specified name does not exist.
@@ -2079,7 +2079,7 @@ class WedgeStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target wedge style names to merge into.
+            targets (list[str] | None, optional): List of target wedge style names to merge into.
                 If None, merge into all existing wedge styles. Defaults to None.
 
         Raises:
@@ -2124,10 +2124,10 @@ class ArrowStyleCache(AbstractStyleCache):
         """Check if an arrow style exists by name.
 
         Args:
-            name (TypeStr): Name of the arrow style.
+            name (str): Name of the arrow style.
 
         Returns:
-            TypeBool: True if the arrow style exists, False otherwise.
+            bool: True if the arrow style exists, False otherwise.
         """
         return name in self._styles
 
@@ -2136,8 +2136,8 @@ class ArrowStyleCache(AbstractStyleCache):
         """Retrieve an arrow style by name.
 
         Args:
-            name (TypeStr, optional): Name of the arrow style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
+            name (str, optional): Name of the arrow style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -2160,7 +2160,7 @@ class ArrowStyleCache(AbstractStyleCache):
         """List all existing arrow style names.
 
         Returns:
-            list[TypeStr]: List of arrow style names.
+            list[str]: List of arrow style names.
         """
         return list_(self._styles.keys())
 
@@ -2170,7 +2170,7 @@ class ArrowStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the arrow style. Defaults to "".
+            name (str, optional): Name of the arrow style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -2183,7 +2183,7 @@ class ArrowStyleCache(AbstractStyleCache):
         """Delete an arrow style by name.
 
         Args:
-            name (TypeStr): Name of the arrow style to delete.
+            name (str): Name of the arrow style to delete.
 
         Raises:
             ValueError: If the arrow style with the specified name does not exist.
@@ -2199,7 +2199,7 @@ class ArrowStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target arrow style names to merge into.
+            targets (list[str] | None, optional): List of target arrow style names to merge into.
                 If None, merge into all existing arrow styles. Defaults to None.
 
         Raises:
@@ -2244,10 +2244,10 @@ class ChevronStyleCache(AbstractStyleCache):
         """Check if an chevron style exists by name.
 
         Args:
-            name (TypeStr): Name of the chevron style.
+            name (str): Name of the chevron style.
 
         Returns:
-            TypeBool: True if the chevron style exists, False otherwise.
+            bool: True if the chevron style exists, False otherwise.
         """
         return name in self._styles
 
@@ -2256,8 +2256,8 @@ class ChevronStyleCache(AbstractStyleCache):
         """Retrieve an chevron style by name.
 
         Args:
-            name (TypeStr, optional): Name of the chevron style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
+            name (str, optional): Name of the chevron style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -2280,7 +2280,7 @@ class ChevronStyleCache(AbstractStyleCache):
         """List all existing chevron style names.
 
         Returns:
-            list[TypeStr]: List of chevron style names.
+            list[str]: List of chevron style names.
         """
         return list_(self._styles.keys())
 
@@ -2290,7 +2290,7 @@ class ChevronStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the chevron style. Defaults to "".
+            name (str, optional): Name of the chevron style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -2303,7 +2303,7 @@ class ChevronStyleCache(AbstractStyleCache):
         """Delete an chevron style by name.
 
         Args:
-            name (TypeStr): Name of the chevron style to delete.
+            name (str): Name of the chevron style to delete.
 
         Raises:
             ValueError: If the chevron style with the specified name does not exist.
@@ -2319,7 +2319,7 @@ class ChevronStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target chevron style names to merge into.
+            targets (list[str] | None, optional): List of target chevron style names to merge into.
                 If None, merge into all existing chevron styles. Defaults to None.
 
         Raises:
@@ -2364,10 +2364,10 @@ class ParallelogramStyleCache(AbstractStyleCache):
         """Check if an parallelogram style exists by name.
 
         Args:
-            name (TypeStr): Name of the parallelogram style.
+            name (str): Name of the parallelogram style.
 
         Returns:
-            TypeBool: True if the parallelogram style exists, False otherwise.
+            bool: True if the parallelogram style exists, False otherwise.
         """
         return name in self._styles
 
@@ -2376,8 +2376,8 @@ class ParallelogramStyleCache(AbstractStyleCache):
         """Retrieve an parallelogram style by name.
 
         Args:
-            name (TypeStr, optional): Name of the parallelogram style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
+            name (str, optional): Name of the parallelogram style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -2400,7 +2400,7 @@ class ParallelogramStyleCache(AbstractStyleCache):
         """List all existing parallelogram style names.
 
         Returns:
-            list[TypeStr]: List of parallelogram style names.
+            list[str]: List of parallelogram style names.
         """
         return list_(self._styles.keys())
 
@@ -2410,7 +2410,7 @@ class ParallelogramStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the parallelogram style. Defaults to "".
+            name (str, optional): Name of the parallelogram style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -2423,7 +2423,7 @@ class ParallelogramStyleCache(AbstractStyleCache):
         """Delete an parallelogram style by name.
 
         Args:
-            name (TypeStr): Name of the parallelogram style to delete.
+            name (str): Name of the parallelogram style to delete.
 
         Raises:
             ValueError: If the parallelogram style with the specified name does not exist.
@@ -2439,7 +2439,7 @@ class ParallelogramStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target parallelogram style names to merge into.
+            targets (list[str] | None, optional): List of target parallelogram style names to merge into.
                 If None, merge into all existing parallelogram styles. Defaults to None.
 
         Raises:
@@ -2484,10 +2484,10 @@ class RhombusStyleCache(AbstractStyleCache):
         """Check if an rhombus style exists by name.
 
         Args:
-            name (TypeStr): Name of the rhombus style.
+            name (str): Name of the rhombus style.
 
         Returns:
-            TypeBool: True if the rhombus style exists, False otherwise.
+            bool: True if the rhombus style exists, False otherwise.
         """
         return name in self._styles
 
@@ -2496,8 +2496,8 @@ class RhombusStyleCache(AbstractStyleCache):
         """Retrieve an rhombus style by name.
 
         Args:
-            name (TypeStr, optional): Name of the rhombus style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
+            name (str, optional): Name of the rhombus style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -2520,7 +2520,7 @@ class RhombusStyleCache(AbstractStyleCache):
         """List all existing rhombus style names.
 
         Returns:
-            list[TypeStr]: List of rhombus style names.
+            list[str]: List of rhombus style names.
         """
         return list_(self._styles.keys())
 
@@ -2530,7 +2530,7 @@ class RhombusStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the rhombus style. Defaults to "".
+            name (str, optional): Name of the rhombus style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -2543,7 +2543,7 @@ class RhombusStyleCache(AbstractStyleCache):
         """Delete an rhombus style by name.
 
         Args:
-            name (TypeStr): Name of the rhombus style to delete.
+            name (str): Name of the rhombus style to delete.
 
         Raises:
             ValueError: If the rhombus style with the specified name does not exist.
@@ -2559,7 +2559,7 @@ class RhombusStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target rhombus style names to merge into.
+            targets (list[str] | None, optional): List of target rhombus style names to merge into.
                 If None, merge into all existing rhombus styles. Defaults to None.
 
         Raises:
@@ -2604,10 +2604,10 @@ class StarStyleCache(AbstractStyleCache):
         """Check if an star style exists by name.
 
         Args:
-            name (TypeStr): Name of the star style.
+            name (str): Name of the star style.
 
         Returns:
-            TypeBool: True if the star style exists, False otherwise.
+            bool: True if the star style exists, False otherwise.
         """
         return name in self._styles
 
@@ -2616,8 +2616,8 @@ class StarStyleCache(AbstractStyleCache):
         """Retrieve an star style by name.
 
         Args:
-            name (TypeStr, optional): Name of the star style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
+            name (str, optional): Name of the star style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -2640,7 +2640,7 @@ class StarStyleCache(AbstractStyleCache):
         """List all existing star style names.
 
         Returns:
-            list[TypeStr]: List of star style names.
+            list[str]: List of star style names.
         """
         return list_(self._styles.keys())
 
@@ -2650,7 +2650,7 @@ class StarStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the star style. Defaults to "".
+            name (str, optional): Name of the star style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -2663,7 +2663,7 @@ class StarStyleCache(AbstractStyleCache):
         """Delete an star style by name.
 
         Args:
-            name (TypeStr): Name of the star style to delete.
+            name (str): Name of the star style to delete.
 
         Raises:
             ValueError: If the star style with the specified name does not exist.
@@ -2679,7 +2679,7 @@ class StarStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target star style names to merge into.
+            targets (list[str] | None, optional): List of target star style names to merge into.
                 If None, merge into all existing star styles. Defaults to None.
 
         Raises:
@@ -2724,10 +2724,10 @@ class TrapezoidStyleCache(AbstractStyleCache):
         """Check if an trapezoid style exists by name.
 
         Args:
-            name (TypeStr): Name of the trapezoid style.
+            name (str): Name of the trapezoid style.
 
         Returns:
-            TypeBool: True if the trapezoid style exists, False otherwise.
+            bool: True if the trapezoid style exists, False otherwise.
         """
         return name in self._styles
 
@@ -2736,8 +2736,8 @@ class TrapezoidStyleCache(AbstractStyleCache):
         """Retrieve an trapezoid style by name.
 
         Args:
-            name (TypeStr, optional): Name of the trapezoid style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
+            name (str, optional): Name of the trapezoid style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -2760,7 +2760,7 @@ class TrapezoidStyleCache(AbstractStyleCache):
         """List all existing trapezoid style names.
 
         Returns:
-            list[TypeStr]: List of trapezoid style names.
+            list[str]: List of trapezoid style names.
         """
         return list_(self._styles.keys())
 
@@ -2770,7 +2770,7 @@ class TrapezoidStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the trapezoid style. Defaults to "".
+            name (str, optional): Name of the trapezoid style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -2783,7 +2783,7 @@ class TrapezoidStyleCache(AbstractStyleCache):
         """Delete an trapezoid style by name.
 
         Args:
-            name (TypeStr): Name of the trapezoid style to delete.
+            name (str): Name of the trapezoid style to delete.
 
         Raises:
             ValueError: If the trapezoid style with the specified name does not exist.
@@ -2799,7 +2799,7 @@ class TrapezoidStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target trapezoid style names to merge into.
+            targets (list[str] | None, optional): List of target trapezoid style names to merge into.
                 If None, merge into all existing trapezoid styles. Defaults to None.
 
         Raises:
@@ -2844,10 +2844,10 @@ class TriangleStyleCache(AbstractStyleCache):
         """Check if an triangle style exists by name.
 
         Args:
-            name (TypeStr): Name of the triangle style.
+            name (str): Name of the triangle style.
 
         Returns:
-            TypeBool: True if the triangle style exists, False otherwise.
+            bool: True if the triangle style exists, False otherwise.
         """
         return name in self._styles
 
@@ -2856,8 +2856,8 @@ class TriangleStyleCache(AbstractStyleCache):
         """Retrieve an triangle style by name.
 
         Args:
-            name (TypeStr, optional): Name of the triangle style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
+            name (str, optional): Name of the triangle style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -2880,7 +2880,7 @@ class TriangleStyleCache(AbstractStyleCache):
         """List all existing triangle style names.
 
         Returns:
-            list[TypeStr]: List of triangle style names.
+            list[str]: List of triangle style names.
         """
         return list_(self._styles.keys())
 
@@ -2890,7 +2890,7 @@ class TriangleStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the triangle style. Defaults to "".
+            name (str, optional): Name of the triangle style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -2903,7 +2903,7 @@ class TriangleStyleCache(AbstractStyleCache):
         """Delete an triangle style by name.
 
         Args:
-            name (TypeStr): Name of the triangle style to delete.
+            name (str): Name of the triangle style to delete.
 
         Raises:
             ValueError: If the triangle style with the specified name does not exist.
@@ -2919,7 +2919,7 @@ class TriangleStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target triangle style names to merge into.
+            targets (list[str] | None, optional): List of target triangle style names to merge into.
                 If None, merge into all existing triangle styles. Defaults to None.
 
         Raises:
@@ -2964,10 +2964,10 @@ class BubblespeechStyleCache(AbstractStyleCache):
         """Check if an bubble speech style exists by name.
 
         Args:
-            name (TypeStr): Name of the bubble speech style.
+            name (str): Name of the bubble speech style.
 
         Returns:
-            TypeBool: True if the bubble speech style exists, False otherwise.
+            bool: True if the bubble speech style exists, False otherwise.
         """
         return name in self._styles
 
@@ -2976,8 +2976,8 @@ class BubblespeechStyleCache(AbstractStyleCache):
         """Retrieve an bubble speech style by name.
 
         Args:
-            name (TypeStr, optional): Name of the bubble speech style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
+            name (str, optional): Name of the bubble speech style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -3000,7 +3000,7 @@ class BubblespeechStyleCache(AbstractStyleCache):
         """List all existing bubble speech style names.
 
         Returns:
-            list[TypeStr]: List of bubble speech style names.
+            list[str]: List of bubble speech style names.
         """
         return list_(self._styles.keys())
 
@@ -3010,7 +3010,7 @@ class BubblespeechStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the bubble speech style. Defaults to "".
+            name (str, optional): Name of the bubble speech style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -3023,7 +3023,7 @@ class BubblespeechStyleCache(AbstractStyleCache):
         """Delete an bubble speech style by name.
 
         Args:
-            name (TypeStr): Name of the bubble speech style to delete.
+            name (str): Name of the bubble speech style to delete.
 
         Raises:
             ValueError: If the bubble speech style with the specified name does not exist.
@@ -3039,7 +3039,7 @@ class BubblespeechStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target bubble speech style names to merge into.
+            targets (list[str] | None, optional): List of target bubble speech style names to merge into.
                 If None, merge into all existing bubble speech styles. Defaults to None.
 
         Raises:
@@ -3084,10 +3084,10 @@ class ArcTextStyleCache(AbstractStyleCache):
         """Check if an arc text style exists by name.
 
         Args:
-            name (TypeStr): Name of the arc text style.
+            name (str): Name of the arc text style.
 
         Returns:
-            TypeBool: True if the arc text style exists, False otherwise.
+            bool: True if the arc text style exists, False otherwise.
         """
         return name in self._styles
 
@@ -3096,8 +3096,8 @@ class ArcTextStyleCache(AbstractStyleCache):
         """Retrieve an arc text style by name.
 
         Args:
-            name (TypeStr, optional): Name of the arc text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (str, optional): Name of the arc text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -3118,7 +3118,7 @@ class ArcTextStyleCache(AbstractStyleCache):
         """List all existing arc text style names.
 
         Returns:
-            list[TypeStr]: List of arc text style names.
+            list[str]: List of arc text style names.
         """
         return list_(self._styles.keys())
 
@@ -3128,7 +3128,7 @@ class ArcTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the arc text style. Defaults to "".
+            name (str, optional): Name of the arc text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -3141,7 +3141,7 @@ class ArcTextStyleCache(AbstractStyleCache):
         """Delete an arc text style by name.
 
         Args:
-            name (TypeStr): Name of the arc text style to delete.
+            name (str): Name of the arc text style to delete.
 
         Raises:
             ValueError: If the arc text style with the specified name does not exist.
@@ -3157,7 +3157,7 @@ class ArcTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target arc text style names to merge into.
+            targets (list[str] | None, optional): List of target arc text style names to merge into.
                 If None, merge into all existing arc text styles. Defaults to None.
 
         Raises:
@@ -3202,10 +3202,10 @@ class CircleTextStyleCache(AbstractStyleCache):
         """Check if an circle text style exists by name.
 
         Args:
-            name (TypeStr): Name of the circle text style.
+            name (str): Name of the circle text style.
 
         Returns:
-            TypeBool: True if the circle text style exists, False otherwise.
+            bool: True if the circle text style exists, False otherwise.
         """
         return name in self._styles
 
@@ -3214,8 +3214,8 @@ class CircleTextStyleCache(AbstractStyleCache):
         """Retrieve an circle text style by name.
 
         Args:
-            name (TypeStr, optional): Name of the circle text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (str, optional): Name of the circle text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -3236,7 +3236,7 @@ class CircleTextStyleCache(AbstractStyleCache):
         """List all existing circle text style names.
 
         Returns:
-            list[TypeStr]: List of circle text style names.
+            list[str]: List of circle text style names.
         """
         return list_(self._styles.keys())
 
@@ -3246,7 +3246,7 @@ class CircleTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the circle text style. Defaults to "".
+            name (str, optional): Name of the circle text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -3259,7 +3259,7 @@ class CircleTextStyleCache(AbstractStyleCache):
         """Delete an circle text style by name.
 
         Args:
-            name (TypeStr): Name of the circle text style to delete.
+            name (str): Name of the circle text style to delete.
 
         Raises:
             ValueError: If the circle text style with the specified name does not exist.
@@ -3275,7 +3275,7 @@ class CircleTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target circle text style names to merge into.
+            targets (list[str] | None, optional): List of target circle text style names to merge into.
                 If None, merge into all existing circle text styles. Defaults to None.
 
         Raises:
@@ -3320,10 +3320,10 @@ class DonutsTextStyleCache(AbstractStyleCache):
         """Check if an donuts text style exists by name.
 
         Args:
-            name (TypeStr): Name of the donuts text style.
+            name (str): Name of the donuts text style.
 
         Returns:
-            TypeBool: True if the donuts text style exists, False otherwise.
+            bool: True if the donuts text style exists, False otherwise.
         """
         return name in self._styles
 
@@ -3332,8 +3332,8 @@ class DonutsTextStyleCache(AbstractStyleCache):
         """Retrieve an donuts text style by name.
 
         Args:
-            name (TypeStr, optional): Name of the donuts text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (str, optional): Name of the donuts text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -3354,7 +3354,7 @@ class DonutsTextStyleCache(AbstractStyleCache):
         """List all existing donuts text style names.
 
         Returns:
-            list[TypeStr]: List of donuts text style names.
+            list[str]: List of donuts text style names.
         """
         return list_(self._styles.keys())
 
@@ -3364,7 +3364,7 @@ class DonutsTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the donuts text style. Defaults to "".
+            name (str, optional): Name of the donuts text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -3377,7 +3377,7 @@ class DonutsTextStyleCache(AbstractStyleCache):
         """Delete an donuts text style by name.
 
         Args:
-            name (TypeStr): Name of the donuts text style to delete.
+            name (str): Name of the donuts text style to delete.
 
         Raises:
             ValueError: If the donuts text style with the specified name does not exist.
@@ -3393,7 +3393,7 @@ class DonutsTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target donuts text style names to merge into.
+            targets (list[str] | None, optional): List of target donuts text style names to merge into.
                 If None, merge into all existing donuts text styles. Defaults to None.
 
         Raises:
@@ -3438,10 +3438,10 @@ class EllipseTextStyleCache(AbstractStyleCache):
         """Check if an ellipse text style exists by name.
 
         Args:
-            name (TypeStr): Name of the ellipse text style.
+            name (str): Name of the ellipse text style.
 
         Returns:
-            TypeBool: True if the ellipse text style exists, False otherwise.
+            bool: True if the ellipse text style exists, False otherwise.
         """
         return name in self._styles
 
@@ -3450,8 +3450,8 @@ class EllipseTextStyleCache(AbstractStyleCache):
         """Retrieve an ellipse text style by name.
 
         Args:
-            name (TypeStr, optional): Name of the ellipse text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (str, optional): Name of the ellipse text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -3472,7 +3472,7 @@ class EllipseTextStyleCache(AbstractStyleCache):
         """List all existing ellipse text style names.
 
         Returns:
-            list[TypeStr]: List of ellipse text style names.
+            list[str]: List of ellipse text style names.
         """
         return list_(self._styles.keys())
 
@@ -3482,7 +3482,7 @@ class EllipseTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the ellipse text style. Defaults to "".
+            name (str, optional): Name of the ellipse text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -3495,7 +3495,7 @@ class EllipseTextStyleCache(AbstractStyleCache):
         """Delete an ellipse text style by name.
 
         Args:
-            name (TypeStr): Name of the ellipse text style to delete.
+            name (str): Name of the ellipse text style to delete.
 
         Raises:
             ValueError: If the ellipse text style with the specified name does not exist.
@@ -3511,7 +3511,7 @@ class EllipseTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target ellipse text style names to merge into.
+            targets (list[str] | None, optional): List of target ellipse text style names to merge into.
                 If None, merge into all existing ellipse text styles. Defaults to None.
 
         Raises:
@@ -3556,10 +3556,10 @@ class FanTextStyleCache(AbstractStyleCache):
         """Check if an fan text style exists by name.
 
         Args:
-            name (TypeStr): Name of the fan text style.
+            name (str): Name of the fan text style.
 
         Returns:
-            TypeBool: True if the fan text style exists, False otherwise.
+            bool: True if the fan text style exists, False otherwise.
         """
         return name in self._styles
 
@@ -3568,8 +3568,8 @@ class FanTextStyleCache(AbstractStyleCache):
         """Retrieve an fan text style by name.
 
         Args:
-            name (TypeStr, optional): Name of the fan text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (str, optional): Name of the fan text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -3590,7 +3590,7 @@ class FanTextStyleCache(AbstractStyleCache):
         """List all existing fan text style names.
 
         Returns:
-            list[TypeStr]: List of fan text style names.
+            list[str]: List of fan text style names.
         """
         return list_(self._styles.keys())
 
@@ -3600,7 +3600,7 @@ class FanTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the fan text style. Defaults to "".
+            name (str, optional): Name of the fan text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -3613,7 +3613,7 @@ class FanTextStyleCache(AbstractStyleCache):
         """Delete an fan text style by name.
 
         Args:
-            name (TypeStr): Name of the fan text style to delete.
+            name (str): Name of the fan text style to delete.
 
         Raises:
             ValueError: If the fan text style with the specified name does not exist.
@@ -3629,7 +3629,7 @@ class FanTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target fan text style names to merge into.
+            targets (list[str] | None, optional): List of target fan text style names to merge into.
                 If None, merge into all existing fan text styles. Defaults to None.
 
         Raises:
@@ -3674,10 +3674,10 @@ class PolygonTextStyleCache(AbstractStyleCache):
         """Check if an polygon text style exists by name.
 
         Args:
-            name (TypeStr): Name of the polygon text style.
+            name (str): Name of the polygon text style.
 
         Returns:
-            TypeBool: True if the polygon text style exists, False otherwise.
+            bool: True if the polygon text style exists, False otherwise.
         """
         return name in self._styles
 
@@ -3686,8 +3686,8 @@ class PolygonTextStyleCache(AbstractStyleCache):
         """Retrieve an polygon text style by name.
 
         Args:
-            name (TypeStr, optional): Name of the polygon text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (str, optional): Name of the polygon text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -3708,7 +3708,7 @@ class PolygonTextStyleCache(AbstractStyleCache):
         """List all existing polygon text style names.
 
         Returns:
-            list[TypeStr]: List of polygon text style names.
+            list[str]: List of polygon text style names.
         """
         return list_(self._styles.keys())
 
@@ -3718,7 +3718,7 @@ class PolygonTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the polygon text style. Defaults to "".
+            name (str, optional): Name of the polygon text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -3731,7 +3731,7 @@ class PolygonTextStyleCache(AbstractStyleCache):
         """Delete an polygon text style by name.
 
         Args:
-            name (TypeStr): Name of the polygon text style to delete.
+            name (str): Name of the polygon text style to delete.
 
         Raises:
             ValueError: If the polygon text style with the specified name does not exist.
@@ -3747,7 +3747,7 @@ class PolygonTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target polygon text style names to merge into.
+            targets (list[str] | None, optional): List of target polygon text style names to merge into.
                 If None, merge into all existing polygon text styles. Defaults to None.
 
         Raises:
@@ -3792,10 +3792,10 @@ class RectangleTextStyleCache(AbstractStyleCache):
         """Check if an rectangle text style exists by name.
 
         Args:
-            name (TypeStr): Name of the rectangle text style.
+            name (str): Name of the rectangle text style.
 
         Returns:
-            TypeBool: True if the rectangle text style exists, False otherwise.
+            bool: True if the rectangle text style exists, False otherwise.
         """
         return name in self._styles
 
@@ -3804,8 +3804,8 @@ class RectangleTextStyleCache(AbstractStyleCache):
         """Retrieve an rectangle text style by name.
 
         Args:
-            name (TypeStr, optional): Name of the rectangle text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (str, optional): Name of the rectangle text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -3826,7 +3826,7 @@ class RectangleTextStyleCache(AbstractStyleCache):
         """List all existing rectangle text style names.
 
         Returns:
-            list[TypeStr]: List of rectangle text style names.
+            list[str]: List of rectangle text style names.
         """
         return list_(self._styles.keys())
 
@@ -3836,7 +3836,7 @@ class RectangleTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the rectangle text style. Defaults to "".
+            name (str, optional): Name of the rectangle text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -3849,7 +3849,7 @@ class RectangleTextStyleCache(AbstractStyleCache):
         """Delete an rectangle text style by name.
 
         Args:
-            name (TypeStr): Name of the rectangle text style to delete.
+            name (str): Name of the rectangle text style to delete.
 
         Raises:
             ValueError: If the rectangle text style with the specified name does not exist.
@@ -3865,7 +3865,7 @@ class RectangleTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target rectangle text style names to merge into.
+            targets (list[str] | None, optional): List of target rectangle text style names to merge into.
                 If None, merge into all existing rectangle text styles. Defaults to None.
 
         Raises:
@@ -3910,10 +3910,10 @@ class RegularpolygonTextStyleCache(AbstractStyleCache):
         """Check if an regular polygon text style exists by name.
 
         Args:
-            name (TypeStr): Name of the regular polygon text style.
+            name (str): Name of the regular polygon text style.
 
         Returns:
-            TypeBool: True if the regular polygon text style exists, False otherwise.
+            bool: True if the regular polygon text style exists, False otherwise.
         """
         return name in self._styles
 
@@ -3922,8 +3922,8 @@ class RegularpolygonTextStyleCache(AbstractStyleCache):
         """Retrieve an regular polygon text style by name.
 
         Args:
-            name (TypeStr, optional): Name of the regular polygon text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (str, optional): Name of the regular polygon text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -3944,7 +3944,7 @@ class RegularpolygonTextStyleCache(AbstractStyleCache):
         """List all existing regular polygon text style names.
 
         Returns:
-            list[TypeStr]: List of regular polygon text style names.
+            list[str]: List of regular polygon text style names.
         """
         return list_(self._styles.keys())
 
@@ -3954,7 +3954,7 @@ class RegularpolygonTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the regular polygon text style. Defaults to "".
+            name (str, optional): Name of the regular polygon text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -3967,7 +3967,7 @@ class RegularpolygonTextStyleCache(AbstractStyleCache):
         """Delete an regular polygon text style by name.
 
         Args:
-            name (TypeStr): Name of the regular polygon text style to delete.
+            name (str): Name of the regular polygon text style to delete.
 
         Raises:
             ValueError: If the regular polygon text style with the specified name does not exist.
@@ -3983,7 +3983,7 @@ class RegularpolygonTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target regular polygon text style names to merge into.
+            targets (list[str] | None, optional): List of target regular polygon text style names to merge into.
                 If None, merge into all existing regular polygon text styles. Defaults to None.
 
         Raises:
@@ -4028,10 +4028,10 @@ class WedgeTextStyleCache(AbstractStyleCache):
         """Check if an wedge text style exists by name.
 
         Args:
-            name (TypeStr): Name of the wedge text style.
+            name (str): Name of the wedge text style.
 
         Returns:
-            TypeBool: True if the wedge text style exists, False otherwise.
+            bool: True if the wedge text style exists, False otherwise.
         """
         return name in self._styles
 
@@ -4040,8 +4040,8 @@ class WedgeTextStyleCache(AbstractStyleCache):
         """Retrieve an wedge text style by name.
 
         Args:
-            name (TypeStr, optional): Name of the wedge text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (str, optional): Name of the wedge text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -4062,7 +4062,7 @@ class WedgeTextStyleCache(AbstractStyleCache):
         """List all existing wedge text style names.
 
         Returns:
-            list[TypeStr]: List of wedge text style names.
+            list[str]: List of wedge text style names.
         """
         return list_(self._styles.keys())
 
@@ -4072,7 +4072,7 @@ class WedgeTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the wedge text style. Defaults to "".
+            name (str, optional): Name of the wedge text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -4085,7 +4085,7 @@ class WedgeTextStyleCache(AbstractStyleCache):
         """Delete an wedge text style by name.
 
         Args:
-            name (TypeStr): Name of the wedge text style to delete.
+            name (str): Name of the wedge text style to delete.
 
         Raises:
             ValueError: If the wedge text style with the specified name does not exist.
@@ -4101,7 +4101,7 @@ class WedgeTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target wedge text style names to merge into.
+            targets (list[str] | None, optional): List of target wedge text style names to merge into.
                 If None, merge into all existing wedge text styles. Defaults to None.
 
         Raises:
@@ -4146,10 +4146,10 @@ class ArrowTextStyleCache(AbstractStyleCache):
         """Check if an arrow text style exists by name.
 
         Args:
-            name (TypeStr): Name of the arrow text style.
+            name (str): Name of the arrow text style.
 
         Returns:
-            TypeBool: True if the arrow text style exists, False otherwise.
+            bool: True if the arrow text style exists, False otherwise.
         """
         return name in self._styles
 
@@ -4158,8 +4158,8 @@ class ArrowTextStyleCache(AbstractStyleCache):
         """Retrieve an arrow text style by name.
 
         Args:
-            name (TypeStr, optional): Name of the arrow text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (str, optional): Name of the arrow text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -4180,7 +4180,7 @@ class ArrowTextStyleCache(AbstractStyleCache):
         """List all existing arrow text style names.
 
         Returns:
-            list[TypeStr]: List of arrow text style names.
+            list[str]: List of arrow text style names.
         """
         return list_(self._styles.keys())
 
@@ -4190,7 +4190,7 @@ class ArrowTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the arrow text style. Defaults to "".
+            name (str, optional): Name of the arrow text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -4203,7 +4203,7 @@ class ArrowTextStyleCache(AbstractStyleCache):
         """Delete an arrow text style by name.
 
         Args:
-            name (TypeStr): Name of the arrow text style to delete.
+            name (str): Name of the arrow text style to delete.
 
         Raises:
             ValueError: If the arrow text style with the specified name does not exist.
@@ -4219,7 +4219,7 @@ class ArrowTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target arrow text style names to merge into.
+            targets (list[str] | None, optional): List of target arrow text style names to merge into.
                 If None, merge into all existing arrow text styles. Defaults to None.
 
         Raises:
@@ -4264,10 +4264,10 @@ class ChevronTextStyleCache(AbstractStyleCache):
         """Check if an chevron text style exists by name.
 
         Args:
-            name (TypeStr): Name of the chevron text style.
+            name (str): Name of the chevron text style.
 
         Returns:
-            TypeBool: True if the chevron text style exists, False otherwise.
+            bool: True if the chevron text style exists, False otherwise.
         """
         return name in self._styles
 
@@ -4276,8 +4276,8 @@ class ChevronTextStyleCache(AbstractStyleCache):
         """Retrieve an chevron text style by name.
 
         Args:
-            name (TypeStr, optional): Name of the chevron text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (str, optional): Name of the chevron text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -4298,7 +4298,7 @@ class ChevronTextStyleCache(AbstractStyleCache):
         """List all existing chevron text style names.
 
         Returns:
-            list[TypeStr]: List of chevron text style names.
+            list[str]: List of chevron text style names.
         """
         return list_(self._styles.keys())
 
@@ -4308,7 +4308,7 @@ class ChevronTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the chevron text style. Defaults to "".
+            name (str, optional): Name of the chevron text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -4321,7 +4321,7 @@ class ChevronTextStyleCache(AbstractStyleCache):
         """Delete an chevron text style by name.
 
         Args:
-            name (TypeStr): Name of the chevron text style to delete.
+            name (str): Name of the chevron text style to delete.
 
         Raises:
             ValueError: If the chevron text style with the specified name does not exist.
@@ -4337,7 +4337,7 @@ class ChevronTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target chevron text style names to merge into.
+            targets (list[str] | None, optional): List of target chevron text style names to merge into.
                 If None, merge into all existing chevron text styles. Defaults to None.
 
         Raises:
@@ -4382,10 +4382,10 @@ class ParallelogramTextStyleCache(AbstractStyleCache):
         """Check if an parallelogram text style exists by name.
 
         Args:
-            name (TypeStr): Name of the parallelogram text style.
+            name (str): Name of the parallelogram text style.
 
         Returns:
-            TypeBool: True if the parallelogram text style exists, False otherwise.
+            bool: True if the parallelogram text style exists, False otherwise.
         """
         return name in self._styles
 
@@ -4394,8 +4394,8 @@ class ParallelogramTextStyleCache(AbstractStyleCache):
         """Retrieve an parallelogram text style by name.
 
         Args:
-            name (TypeStr, optional): Name of the parallelogram text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (str, optional): Name of the parallelogram text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -4416,7 +4416,7 @@ class ParallelogramTextStyleCache(AbstractStyleCache):
         """List all existing parallelogram text style names.
 
         Returns:
-            list[TypeStr]: List of parallelogram text style names.
+            list[str]: List of parallelogram text style names.
         """
         return list_(self._styles.keys())
 
@@ -4426,7 +4426,7 @@ class ParallelogramTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the parallelogram text style. Defaults to "".
+            name (str, optional): Name of the parallelogram text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -4439,7 +4439,7 @@ class ParallelogramTextStyleCache(AbstractStyleCache):
         """Delete an parallelogram text style by name.
 
         Args:
-            name (TypeStr): Name of the parallelogram text style to delete.
+            name (str): Name of the parallelogram text style to delete.
 
         Raises:
             ValueError: If the parallelogram text style with the specified name does not exist.
@@ -4455,7 +4455,7 @@ class ParallelogramTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target parallelogram text style names to merge into.
+            targets (list[str] | None, optional): List of target parallelogram text style names to merge into.
                 If None, merge into all existing parallelogram text styles. Defaults to None.
 
         Raises:
@@ -4500,10 +4500,10 @@ class RhombusTextStyleCache(AbstractStyleCache):
         """Check if an rhombus text style exists by name.
 
         Args:
-            name (TypeStr): Name of the rhombus text style.
+            name (str): Name of the rhombus text style.
 
         Returns:
-            TypeBool: True if the rhombus text style exists, False otherwise.
+            bool: True if the rhombus text style exists, False otherwise.
         """
         return name in self._styles
 
@@ -4512,8 +4512,8 @@ class RhombusTextStyleCache(AbstractStyleCache):
         """Retrieve an rhombus text style by name.
 
         Args:
-            name (TypeStr, optional): Name of the rhombus text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (str, optional): Name of the rhombus text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -4534,7 +4534,7 @@ class RhombusTextStyleCache(AbstractStyleCache):
         """List all existing rhombus text style names.
 
         Returns:
-            list[TypeStr]: List of rhombus text style names.
+            list[str]: List of rhombus text style names.
         """
         return list_(self._styles.keys())
 
@@ -4544,7 +4544,7 @@ class RhombusTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the rhombus text style. Defaults to "".
+            name (str, optional): Name of the rhombus text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -4557,7 +4557,7 @@ class RhombusTextStyleCache(AbstractStyleCache):
         """Delete an rhombus text style by name.
 
         Args:
-            name (TypeStr): Name of the rhombus text style to delete.
+            name (str): Name of the rhombus text style to delete.
 
         Raises:
             ValueError: If the rhombus text style with the specified name does not exist.
@@ -4573,7 +4573,7 @@ class RhombusTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target rhombus text style names to merge into.
+            targets (list[str] | None, optional): List of target rhombus text style names to merge into.
                 If None, merge into all existing rhombus text styles. Defaults to None.
 
         Raises:
@@ -4618,10 +4618,10 @@ class StarTextStyleCache(AbstractStyleCache):
         """Check if an star text style exists by name.
 
         Args:
-            name (TypeStr): Name of the star text style.
+            name (str): Name of the star text style.
 
         Returns:
-            TypeBool: True if the star text style exists, False otherwise.
+            bool: True if the star text style exists, False otherwise.
         """
         return name in self._styles
 
@@ -4630,8 +4630,8 @@ class StarTextStyleCache(AbstractStyleCache):
         """Retrieve an star text style by name.
 
         Args:
-            name (TypeStr, optional): Name of the star text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (str, optional): Name of the star text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -4652,7 +4652,7 @@ class StarTextStyleCache(AbstractStyleCache):
         """List all existing star text style names.
 
         Returns:
-            list[TypeStr]: List of star text style names.
+            list[str]: List of star text style names.
         """
         return list_(self._styles.keys())
 
@@ -4662,7 +4662,7 @@ class StarTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the star text style. Defaults to "".
+            name (str, optional): Name of the star text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -4675,7 +4675,7 @@ class StarTextStyleCache(AbstractStyleCache):
         """Delete an star text style by name.
 
         Args:
-            name (TypeStr): Name of the star text style to delete.
+            name (str): Name of the star text style to delete.
 
         Raises:
             ValueError: If the star text style with the specified name does not exist.
@@ -4691,7 +4691,7 @@ class StarTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target star text style names to merge into.
+            targets (list[str] | None, optional): List of target star text style names to merge into.
                 If None, merge into all existing star text styles. Defaults to None.
 
         Raises:
@@ -4736,10 +4736,10 @@ class TrapezoidTextStyleCache(AbstractStyleCache):
         """Check if an trapezoid text style exists by name.
 
         Args:
-            name (TypeStr): Name of the trapezoid text style.
+            name (str): Name of the trapezoid text style.
 
         Returns:
-            TypeBool: True if the trapezoid text style exists, False otherwise.
+            bool: True if the trapezoid text style exists, False otherwise.
         """
         return name in self._styles
 
@@ -4748,8 +4748,8 @@ class TrapezoidTextStyleCache(AbstractStyleCache):
         """Retrieve an trapezoid text style by name.
 
         Args:
-            name (TypeStr, optional): Name of the trapezoid text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (str, optional): Name of the trapezoid text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -4770,7 +4770,7 @@ class TrapezoidTextStyleCache(AbstractStyleCache):
         """List all existing trapezoid text style names.
 
         Returns:
-            list[TypeStr]: List of trapezoid text style names.
+            list[str]: List of trapezoid text style names.
         """
         return list_(self._styles.keys())
 
@@ -4780,7 +4780,7 @@ class TrapezoidTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the trapezoid text style. Defaults to "".
+            name (str, optional): Name of the trapezoid text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -4793,7 +4793,7 @@ class TrapezoidTextStyleCache(AbstractStyleCache):
         """Delete an trapezoid text style by name.
 
         Args:
-            name (TypeStr): Name of the trapezoid text style to delete.
+            name (str): Name of the trapezoid text style to delete.
 
         Raises:
             ValueError: If the trapezoid text style with the specified name does not exist.
@@ -4809,7 +4809,7 @@ class TrapezoidTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target trapezoid text style names to merge into.
+            targets (list[str] | None, optional): List of target trapezoid text style names to merge into.
                 If None, merge into all existing trapezoid text styles. Defaults to None.
 
         Raises:
@@ -4854,10 +4854,10 @@ class TriangleTextStyleCache(AbstractStyleCache):
         """Check if an triangle text style exists by name.
 
         Args:
-            name (TypeStr): Name of the triangle text style.
+            name (str): Name of the triangle text style.
 
         Returns:
-            TypeBool: True if the triangle text style exists, False otherwise.
+            bool: True if the triangle text style exists, False otherwise.
         """
         return name in self._styles
 
@@ -4866,8 +4866,8 @@ class TriangleTextStyleCache(AbstractStyleCache):
         """Retrieve an triangle text style by name.
 
         Args:
-            name (TypeStr, optional): Name of the triangle text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (str, optional): Name of the triangle text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -4888,7 +4888,7 @@ class TriangleTextStyleCache(AbstractStyleCache):
         """List all existing triangle text style names.
 
         Returns:
-            list[TypeStr]: List of triangle text style names.
+            list[str]: List of triangle text style names.
         """
         return list_(self._styles.keys())
 
@@ -4898,7 +4898,7 @@ class TriangleTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the triangle text style. Defaults to "".
+            name (str, optional): Name of the triangle text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -4911,7 +4911,7 @@ class TriangleTextStyleCache(AbstractStyleCache):
         """Delete an triangle text style by name.
 
         Args:
-            name (TypeStr): Name of the triangle text style to delete.
+            name (str): Name of the triangle text style to delete.
 
         Raises:
             ValueError: If the triangle text style with the specified name does not exist.
@@ -4927,7 +4927,7 @@ class TriangleTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target triangle text style names to merge into.
+            targets (list[str] | None, optional): List of target triangle text style names to merge into.
                 If None, merge into all existing triangle text styles. Defaults to None.
 
         Raises:
@@ -4972,10 +4972,10 @@ class BubblespeechTextStyleCache(AbstractStyleCache):
         """Check if an bubble speech text style exists by name.
 
         Args:
-            name (TypeStr): Name of the bubble speech text style.
+            name (str): Name of the bubble speech text style.
 
         Returns:
-            TypeBool: True if the bubble speech text style exists, False otherwise.
+            bool: True if the bubble speech text style exists, False otherwise.
         """
         return name in self._styles
 
@@ -4984,8 +4984,8 @@ class BubblespeechTextStyleCache(AbstractStyleCache):
         """Retrieve an bubble speech text style by name.
 
         Args:
-            name (TypeStr, optional): Name of the bubble speech text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (str, optional): Name of the bubble speech text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -5006,7 +5006,7 @@ class BubblespeechTextStyleCache(AbstractStyleCache):
         """List all existing bubble speech text style names.
 
         Returns:
-            list[TypeStr]: List of bubble speech text style names.
+            list[str]: List of bubble speech text style names.
         """
         return list_(self._styles.keys())
 
@@ -5016,7 +5016,7 @@ class BubblespeechTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the bubble speech text style. Defaults to "".
+            name (str, optional): Name of the bubble speech text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -5029,7 +5029,7 @@ class BubblespeechTextStyleCache(AbstractStyleCache):
         """Delete an bubble speech text style by name.
 
         Args:
-            name (TypeStr): Name of the bubble speech text style to delete.
+            name (str): Name of the bubble speech text style to delete.
 
         Raises:
             ValueError: If the bubble speech text style with the specified name does not exist.
@@ -5045,7 +5045,7 @@ class BubblespeechTextStyleCache(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target bubble speech text style names to merge into.
+            targets (list[str] | None, optional): List of target bubble speech text style names to merge into.
                 If None, merge into all existing bubble speech text styles. Defaults to None.
 
         Raises:
