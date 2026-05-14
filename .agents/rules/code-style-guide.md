@@ -35,6 +35,13 @@ This document defines the coding standards and style guidelines for the `drawlib
     - **Classes**: Document all attributes in the `Attributes` section.
     - **Functions/Methods**: Include `Args`, `Returns`, and `Raises` sections if applicable.
 - **Brief vs. Detailed**: Provide a concise one-line summary followed by a more detailed explanation if the logic is complex.
+- **Type Annotations in Docstrings**:
+    - **For functions decorated with `@guarded`**:
+        - Use explicit base Python types and `Union` / `Literal` syntax (e.g., `tuple[float, float]`, `Literal["->", "<-", "<->", "-"] | str`).
+        - Do **not** use internal type aliases (e.g., `TypeCoordinate`, `TypeArrowHead`) to ensure better IDE support for end-users.
+    - **For internal functions (NOT decorated with `@guarded`)**:
+        - Use internal type aliases (e.g., `TypeCoordinate`, `TypeArrowHead`) to maintain consistency with the function signature.
+    - **Line Length**: Docstring lines must not exceed **120** characters. Wrap long type definitions or descriptions if necessary.
 
 ## 5. Implementation Patterns
 - **Data Modeling**: 
