@@ -10,8 +10,9 @@
 
 """Pyramid implementation module."""
 
-import dataclasses
-from typing import List, Literal, Optional, Tuple, Union
+from typing import Literal
+
+from pydantic import BaseModel
 
 from drawlib.v0_2.private.l1_core import guarded
 from drawlib.v0_2.private.l2_types import (
@@ -25,8 +26,9 @@ from drawlib.v0_2.private.l4_theme import dtheme
 from drawlib.v0_2.private.l5_canvas import trapezoid, triangle
 
 
-@dataclasses.dataclass
-class _PyramidItem:
+class _PyramidItem(BaseModel):
+    """Internal class for storing pyramid item information."""
+
     style: ShapeStyle
     text: TypeStr
     textstyle: ShapeTextStyle
@@ -72,7 +74,7 @@ class Pyramid:
         self._default_textangle = default_textangle
         self._default_text_xy_shift = default_text_xy_shift
 
-        self._items: List[_PyramidItem] = []
+        self._items: list[_PyramidItem] = []
 
     @guarded
     def add(  # noqa: C901
@@ -181,8 +183,8 @@ class Pyramid:
         self,
         xy: TypeCoordinate,
         width: TypePosFloat,
-        item_heights: List[TypePosFloat],
-        margins: List[TypePosFloat],
+        item_heights: list[TypePosFloat],
+        margins: list[TypePosFloat],
         align: Literal["bottom", "top", "left", "right"] = "bottom",
         order: Literal["vertex_to_base", "base_to_vertex"] = "vertex_to_base",
     ) -> None:
@@ -226,9 +228,9 @@ class Pyramid:
     def _draw_flexible_bottom(
         xy: TypeCoordinate,
         width: TypePosFloat,
-        item_heights: List[TypePosFloat],
-        margins: List[TypePosFloat],
-        items: List[_PyramidItem],
+        item_heights: list[TypePosFloat],
+        margins: list[TypePosFloat],
+        items: list[_PyramidItem],
     ) -> None:
         x = xy[0] + width / 2
         height = sum(item_heights) + sum(margins)
@@ -275,9 +277,9 @@ class Pyramid:
     def _draw_flexible_top(
         xy: TypeCoordinate,
         width: TypePosFloat,
-        item_heights: List[TypePosFloat],
-        margins: List[TypePosFloat],
-        items: List[_PyramidItem],
+        item_heights: list[TypePosFloat],
+        margins: list[TypePosFloat],
+        items: list[_PyramidItem],
     ) -> None:
         x = xy[0] + width / 2
         height = sum(item_heights) + sum(margins)
@@ -329,9 +331,9 @@ class Pyramid:
     def _draw_flexible_left(
         xy: TypeCoordinate,
         width: TypePosFloat,
-        item_heights: List[TypePosFloat],
-        margins: List[TypePosFloat],
-        items: List[_PyramidItem],
+        item_heights: list[TypePosFloat],
+        margins: list[TypePosFloat],
+        items: list[_PyramidItem],
     ) -> None:
         y = xy[1] + width / 2
         height = sum(item_heights) + sum(margins)
@@ -385,9 +387,9 @@ class Pyramid:
     def _draw_flexible_right(
         xy: TypeCoordinate,
         width: TypePosFloat,
-        item_heights: List[TypePosFloat],
-        margins: List[TypePosFloat],
-        items: List[_PyramidItem],
+        item_heights: list[TypePosFloat],
+        margins: list[TypePosFloat],
+        items: list[_PyramidItem],
     ) -> None:
         y = xy[1] + width / 2
         height = sum(item_heights) + sum(margins)

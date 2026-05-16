@@ -10,14 +10,17 @@
 
 """Table implementation module."""
 
-import dataclasses
-from typing import Any, List, Literal, Optional, Tuple, Union
+from typing import Any, Literal
+
+from PIL.ExifTags import Base
+from pydantic import BaseModel
 
 from drawlib.v0_2.private.l1_core import guarded
 from drawlib.v0_2.private.l2_types import (
     TypeColor,
     TypeCoordinate,
     TypePosFloat,
+    TypePosInt,
     TypeStr,
 )
 from drawlib.v0_2.private.l3_fonts import Font
@@ -32,19 +35,21 @@ from drawlib.v0_2.private.l4_theme import dtheme
 from drawlib.v0_2.private.l5_canvas import line, rectangle
 
 
-@dataclasses.dataclass
-class _CellStyleOrder:
+class _CellStyleOrder(BaseModel):
+    """Represents the style order of cells."""
+
     order: Literal["range", "even_odd"]
     textstyle1: ShapeTextStyle
     background_color1: TypeColor
-    textstyle2: Optional[ShapeTextStyle] = None
+    textstyle2: ShapeTextStyle | None = None
     background_color2: TypeColor | None = None
-    rows: Optional[List[int]] = None
-    columns: Optional[List[int]] = None
+    rows: list[TypePosInt] | None = None
+    columns: list[TypePosInt] | None = None
 
 
-@dataclasses.dataclass
-class _CellInfo:
+class _CellInfo(BaseModel):
+    """Represents information about a cell."""
+
     xy: TypeCoordinate
     width: TypePosFloat
     height: TypePosFloat
@@ -59,15 +64,15 @@ class Table:
     @guarded
     def __init__(self) -> None:
         """Initialize instance"""
-        self._bs_top: Optional[LineStyle] = None
-        self._bs_top2: Optional[LineStyle] = None
-        self._bs_bottom: Optional[LineStyle] = None
-        self._bs_left: Optional[LineStyle] = None
-        self._bs_left2: Optional[LineStyle] = None
-        self._bs_right: Optional[LineStyle] = None
-        self._bs_between_columns: Optional[LineStyle] = None
-        self._bs_between_rows: Optional[LineStyle] = None
-        self._cell_style_orders: List[_CellStyleOrder] = []
+        self._bs_top: LineStyle | None = None
+        self._bs_top2: LineStyle | None = None
+        self._bs_bottom: LineStyle | None = None
+        self._bs_left: LineStyle | None = None
+        self._bs_left2: LineStyle | None = None
+        self._bs_right: LineStyle | None = None
+        self._bs_between_columns: LineStyle | None = None
+        self._bs_between_rows: LineStyle | None = None
+        self._cell_style_orders: list[_CellStyleOrder] = []
 
         self.set_predefined_style("default")
 
@@ -183,15 +188,15 @@ class Table:
     @guarded
     def set_style_cell_headers(
         self,
-        background_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
-        textstyle: Union[str, ShapeTextStyle],
+        background_color: TypeColor,
+        textstyle: TypeStr | ShapeTextStyle,
     ) -> None:
         """Sets the style for both column and row headers.
 
         Args:
-            background_color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
+            background_color (tuple[int, int, int] | tuple[int, int, int, float]]):
                     The background color of the headers.
-            textstyle (Union[str, ShapeTextStyle]):
+            textstyle (str | ShapeTextStyle):
                     The text style of the headers. Can be a string key for predefined styles or a ShapeTextStyle object.
         """
         if isinstance(textstyle, str):
@@ -203,8 +208,8 @@ class Table:
     @guarded
     def set_style_cell_header(
         self,
-        background_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
-        textstyle: Union[str, ShapeTextStyle],
+        background_color: TypeColor,
+        textstyle: TypeStr | ShapeTextStyle,
     ) -> None:
         """
         Sets the style for the column header.
@@ -228,8 +233,8 @@ class Table:
     @guarded
     def set_style_cell_rowheader(
         self,
-        background_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
-        textstyle: Union[str, ShapeTextStyle],
+        background_color: TypeColor,
+        textstyle: TypeStr | ShapeTextStyle,
     ) -> None:
         """
         Sets the style for the row header.
@@ -253,10 +258,10 @@ class Table:
     @guarded
     def set_style_cell_evenodd(
         self,
-        even_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
-        even_textstyle: Union[str, ShapeTextStyle],
-        odd_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
-        odd_textstyle: Union[str, ShapeTextStyle],
+        even_color: TypeColor,
+        even_textstyle: TypeStr | ShapeTextStyle,
+        odd_color: TypeColor,
+        odd_textstyle: TypeStr | ShapeTextStyle,
     ) -> None:
         """
         Sets alternating styles for even and odd rows.
@@ -280,7 +285,7 @@ class Table:
 
         self._cell_style_orders.append(
             _CellStyleOrder(
-                "even_odd",
+                order="even_odd",
                 background_color1=even_color,
                 background_color2=odd_color,
                 textstyle1=even_textstyle,
@@ -291,18 +296,18 @@ class Table:
     @guarded
     def set_style_cell(
         self,
-        background_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
-        textstyle: Union[str, ShapeTextStyle],
-        rows: Optional[List[int]] = None,
-        columns: Optional[List[int]] = None,
+        background_color: TypeColor,
+        textstyle: TypeStr | ShapeTextStyle,
+        rows: list[TypePosInt] | None = None,
+        columns: list[TypePosInt] | None = None,
     ) -> None:
         """
         Sets the style for specific cells.
 
         Args:
-            background_color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
+            background_color (tuple[int, int, int] | tuple[int, int, int, float]):
                     The background color of the cells.
-            textstyle (Union[str, ShapeTextStyle]):
+            textstyle (str | ShapeTextStyle):
                     The text style of the cells.
                     Can be a string key for predefined styles or a ShapeTextStyle object.
             rows (Optional[List[int]]):
@@ -315,7 +320,7 @@ class Table:
 
         self._cell_style_orders.append(
             _CellStyleOrder(
-                "range",
+                order="range",
                 background_color1=background_color,
                 textstyle1=textstyle,
                 rows=rows,
@@ -328,40 +333,40 @@ class Table:
     @guarded
     def set_style_border(  # noqa: C901
         self,
-        top: Union[str, LineStyle, None] = None,
-        top2: Union[str, LineStyle, None] = None,
-        bottom: Union[str, LineStyle, None] = None,
-        left: Union[str, LineStyle, None] = None,
-        left2: Union[str, LineStyle, None] = None,
-        right: Union[str, LineStyle, None] = None,
-        between_columns: Union[str, LineStyle, None] = None,
-        between_rows: Union[str, LineStyle, None] = None,
+        top: TypeStr | LineStyle | None = None,
+        top2: TypeStr | LineStyle | None = None,
+        bottom: TypeStr | LineStyle | None = None,
+        left: TypeStr | LineStyle | None = None,
+        left2: TypeStr | LineStyle | None = None,
+        right: TypeStr | LineStyle | None = None,
+        between_columns: TypeStr | LineStyle | None = None,
+        between_rows: TypeStr | LineStyle | None = None,
     ) -> None:
         """Sets the style for table borders.
 
         Args:
-            top (Union[str, LineStyle, None]):
+            top (str | LineStyle | None):
                     Style for the top border.
                     Can be a string key for predefined styles or a LineStyle object.
-            top2 (Union[str, LineStyle, None]):
+            top2 (str | LineStyle | None):
                     Style for the secondary top border.
                     Can be a string key for predefined styles or a LineStyle object.
-            bottom (Union[str, LineStyle, None]):
+            bottom (str | LineStyle | None):
                     Style for the bottom border.
                     Can be a string key for predefined styles or a LineStyle object.
-            left (Union[str, LineStyle, None]):
+            left (str | LineStyle | None):
                     Style for the left border.
                     Can be a string key for predefined styles or a LineStyle object.
-            left2 (Union[str, LineStyle, None]):
+            left2 (str | LineStyle | None):
                     Style for the secondary left border.
                     Can be a string key for predefined styles or a LineStyle object.
-            right (Union[str, LineStyle, None]):
+            right (str | LineStyle | None):
                     Style for the right border.
                     Can be a string key for predefined styles or a LineStyle object.
-            between_columns (Union[str, LineStyle, None]):
+            between_columns (str | LineStyle | None):
                     Style for borders between columns.
                     Can be a string key for predefined styles or a LineStyle object.
-            between_rows (Union[str, LineStyle, None]):
+            between_rows (str | LineStyle | None):
                     Style for borders between rows.
                     Can be a string key for predefined styles or a LineStyle object.
         """
@@ -413,7 +418,7 @@ class Table:
         xy: TypeCoordinate,
         width: TypePosFloat,
         height: TypePosFloat,
-        data: List[List[Any]],
+        data: list[list[Any]],
     ) -> None:
         """Draws the table with equal-sized cells.
 
@@ -439,9 +444,9 @@ class Table:
     def draw_flexible(
         self,
         xy: TypeCoordinate,
-        column_widths: List[TypePosFloat],
-        row_heights: List[TypePosFloat],
-        data: List[List[Any]],
+        column_widths: list[TypePosFloat],
+        row_heights: list[TypePosFloat],
+        data: list[list[Any]],
     ) -> None:
         """Draws the table with flexible cell sizes.
 
@@ -453,9 +458,9 @@ class Table:
         """
         # create blank matrix
         default_textstyle = dtheme.shapetextstyles.get()
-        matrix: List[List[_CellInfo]] = []
+        matrix: list[list[_CellInfo]] = []
         for row_data in data:
-            row: List[_CellInfo] = []
+            row: list[_CellInfo] = []
             for column in row_data:
                 cell = _CellInfo(
                     xy=(0, 0),
@@ -491,10 +496,10 @@ class Table:
 
     @staticmethod
     def _update_cell_xy_size(
-        xy: Tuple[float, float],
-        column_widths: List[float],
-        row_heights: List[float],
-        matrix: List[List[_CellInfo]],
+        xy: TypeCoordinate,
+        column_widths: list[TypePosFloat],
+        row_heights: list[TypePosFloat],
+        matrix: list[list[_CellInfo]],
     ) -> None:
         x = xy[0]
         y = xy[1]
@@ -510,12 +515,12 @@ class Table:
 
     def _update_cell_style(  # noqa: C901
         self,
-        matrix: List[List[_CellInfo]],
+        matrix: list[list[_CellInfo]],
     ) -> None:
         def style_even_odd(
-            even_background_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
+            even_background_color: TypeColor,
             even_textstyle: ShapeTextStyle,
-            odd_background_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
+            odd_background_color: TypeColor,
             odd_textstyle: ShapeTextStyle,
         ) -> None:
             for i, row in enumerate(matrix):
@@ -529,10 +534,10 @@ class Table:
                         c.textstyle = odd_textstyle
 
         def style_range(
-            background_color: Union[Tuple[int, int, int], Tuple[int, int, int, float]],
+            background_color: TypeColor,
             textstyle: ShapeTextStyle,
-            rows: Optional[List[int]],
-            columns: Optional[List[int]],
+            rows: list[int] | None,
+            columns: list[int] | None,
         ) -> None:
             if rows is None:
                 rows = list(range(len(matrix)))
@@ -572,7 +577,7 @@ class Table:
 
     @staticmethod
     def _draw_cells(
-        matrix: List[List[_CellInfo]],
+        matrix: list[list[_CellInfo]],
     ) -> None:
         for row in matrix:
             for col in row:
@@ -599,40 +604,40 @@ class Table:
     def _draw_border_lines(  # noqa: C901
         self,
         xy: TypeCoordinate,
-        column_widths: List[TypePosFloat],
-        row_heights: List[TypePosFloat],
+        column_widths: list[TypePosFloat],
+        row_heights: list[TypePosFloat],
     ) -> None:
-        bs_top1: Optional[LineStyle] = None
+        bs_top1: LineStyle | None = None
         if self._bs_top is not None:
             bs_top1 = self._bs_top
         elif self._bs_between_columns is not None:
             bs_top1 = self._bs_between_columns
 
-        bs_top2: Optional[LineStyle] = None
+        bs_top2: LineStyle | None = None
         if self._bs_top2 is not None:
             bs_top2 = self._bs_top2
         elif self._bs_between_columns is not None:
             bs_top2 = self._bs_between_columns
 
-        bs_bottom: Optional[LineStyle] = None
+        bs_bottom: LineStyle | None = None
         if self._bs_bottom is not None:
             bs_bottom = self._bs_bottom
         elif self._bs_between_columns is not None:
             bs_bottom = self._bs_between_columns
 
-        bs_left1: Optional[LineStyle] = None
+        bs_left1: LineStyle | None = None
         if self._bs_left is not None:
             bs_left1 = self._bs_left
         elif self._bs_between_rows is not None:
             bs_left1 = self._bs_between_rows
 
-        bs_left2: Optional[LineStyle] = None
+        bs_left2: LineStyle | None = None
         if self._bs_left2 is not None:
             bs_left2 = self._bs_left2
         elif self._bs_between_rows is not None:
             bs_left2 = self._bs_between_rows
 
-        bs_right: Optional[LineStyle] = None
+        bs_right: LineStyle | None = None
         if self._bs_right is not None:
             bs_right = self._bs_right
         elif self._bs_between_rows is not None:

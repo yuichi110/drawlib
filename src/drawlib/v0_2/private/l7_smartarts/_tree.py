@@ -12,8 +12,9 @@
 
 from __future__ import annotations
 
-import dataclasses
-from typing import Callable, Dict, List, Literal, Optional, Tuple, Union
+from typing import Callable, Literal
+
+from pydantic import BaseModel
 
 from drawlib.v0_2.private.l1_core import guarded
 from drawlib.v0_2.private.l2_types import (
@@ -27,6 +28,16 @@ from drawlib.v0_2.private.l4_theme import dtheme
 from drawlib.v0_2.private.l5_canvas import line, text
 
 
+class _TreeNodeDrawingItem(BaseModel):
+    """Represents a drawing item for a tree node."""
+
+    location: Literal["before", "after"]
+    padding_width: TypePosFloat
+    function: Callable
+    style: IconStyle | ImageStyle | ShapeStyle | TextStyle
+    args: dict
+
+
 class TreeNode:
     """Class for rendering smart art trees.
 
@@ -35,7 +46,7 @@ class TreeNode:
     horizontal and vertical lines.
     """
 
-    _drawing_item_map: Dict[str, _TreeNodeDrawingItem] = {}
+    _drawing_item_map: dict[str, _TreeNodeDrawingItem] = {}
 
     @guarded
     def __init__(
@@ -46,7 +57,7 @@ class TreeNode:
         line_horizontal_margin: TypePosFloat | None = None,
         line_horizontal_length: TypePosFloat | None = None,
         line_vertical_margin: TypePosFloat | None = None,
-        children: Optional[List[TreeNode]] = None,
+        children: list[TreeNode] | None = None,
         default_textstyle: TypeStr | TextStyle | None = None,
         default_linestyle: TypeStr | LineStyle | None = None,
         default_line_horizontal_margin: TypePosFloat | None = None,
@@ -59,12 +70,12 @@ class TreeNode:
 
         Args:
             text (str): The text content for the tree node.
-            textstyle (Union[str, TextStyle, None], optional): The text style for the node.
+            textstyle (str | TextStyle | None): The text style for the node.
                 It can be a string that maps to a `TextStyle` or a `TextStyle` instance. Defaults to None.
-            linestyle (Union[str, LineStyle, None], optional): The line style for the node.
+            linestyle (str | LineStyle | None): The line style for the node.
                 It can be a string that maps to a `LineStyle` or a `LineStyle` instance. Defaults to None.
-            line_horizontal_margin (Optional[float], optional): The margin for horizontal lines. Defaults to None.
-            line_horizontal_length (Optional[float], optional): The length of horizontal lines. Defaults to None.
+            line_horizontal_margin (float | None): The margin for horizontal lines. Defaults to None.
+            line_horizontal_length (float | None): The length of horizontal lines. Defaults to None.
             line_vertical_margin (Optional[float], optional): The margin for vertical lines. Defaults to None.
             children (Optional[List[TreeNode]], optional):
                 A list of child nodes connected to this node. Defaults to None.
@@ -93,22 +104,22 @@ class TreeNode:
         self._line_vertical_margin = line_vertical_margin
 
         if children is None:
-            self._children: List[TreeNode] = []
+            self._children: list[TreeNode] = []
         else:
-            self._children: List[TreeNode] = children
+            self._children: list[TreeNode] = children
 
         if isinstance(default_textstyle, str):
             default_textstyle = dtheme.textstyles.get(default_textstyle)
-        self._default_textstyle: Union[TextStyle, None] = default_textstyle
+        self._default_textstyle: TextStyle | None = default_textstyle
         if isinstance(default_linestyle, str):
             default_linestyle = dtheme.linestyles.get(default_linestyle)
-        self._default_linestyle: Union[LineStyle, None] = default_linestyle
+        self._default_linestyle: LineStyle | None = default_linestyle
 
-        self._default_line_horizontal_margin: Optional[float] = default_line_horizontal_margin
-        self._default_line_horizontal_length: Optional[float] = default_line_horizontal_length
-        self._default_line_vertical_margin: Optional[float] = default_line_vertical_margin
+        self._default_line_horizontal_margin: float | None = default_line_horizontal_margin
+        self._default_line_horizontal_length: float | None = default_line_horizontal_length
+        self._default_line_vertical_margin: float | None = default_line_vertical_margin
 
-        self._drawing_item_name: Optional[str] = None
+        self._drawing_item_name: str | None = None
 
     @classmethod
     @guarded
@@ -118,7 +129,7 @@ class TreeNode:
         location: Literal["before", "after"],
         padding_width: float,
         function: Callable,
-        style: Union[IconStyle, ImageStyle, ShapeStyle, TextStyle],
+        style: IconStyle | ImageStyle | ShapeStyle | TextStyle,
         args: dict,
     ) -> None:
         """Register a drawing item for the tree node.
@@ -304,12 +315,3 @@ class TreeNode:
                 style=linestyle,
             )
         return child_y
-
-
-@dataclasses.dataclass
-class _TreeNodeDrawingItem:
-    location: Literal["before", "after"]
-    padding_width: float
-    function: Callable
-    style: Union[IconStyle, ImageStyle, ShapeStyle, TextStyle]
-    args: dict

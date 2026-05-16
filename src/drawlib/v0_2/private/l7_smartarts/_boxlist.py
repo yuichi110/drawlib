@@ -10,8 +10,9 @@
 
 """BoxList implementation module."""
 
-import dataclasses
-from typing import Any, List, Literal, Optional, Tuple, Union
+from typing import List, Literal
+
+from pydantic import BaseModel
 
 from drawlib.v0_2.private.l1_core import guarded
 from drawlib.v0_2.private.l2_types import (
@@ -22,6 +23,15 @@ from drawlib.v0_2.private.l2_types import (
 from drawlib.v0_2.private.l3_styles import Colors, ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.l4_theme import dtheme
 from drawlib.v0_2.private.l5_canvas import rectangle
+
+
+class _Item(BaseModel):
+    """Internal item class for BoxList."""
+
+    text: TypeStr
+    box_style: ShapeStyle
+    text_style: ShapeTextStyle
+    is_custom_style: bool
 
 
 class BoxList:
@@ -247,11 +257,3 @@ class BoxList:
             text=text,
             textstyle=text_style,
         )
-
-
-@dataclasses.dataclass
-class _Item:
-    text: TypeStr
-    box_style: ShapeStyle
-    text_style: ShapeTextStyle
-    is_custom_style: bool

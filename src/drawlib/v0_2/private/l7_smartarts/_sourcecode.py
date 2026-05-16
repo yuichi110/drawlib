@@ -12,7 +12,7 @@
 
 import io
 import os
-from typing import Final, Literal, Optional, Tuple, Union
+from typing import Final, Literal
 
 from PIL import Image
 from pygments import highlight
@@ -45,8 +45,8 @@ from drawlib.v0_2.private.l4_theme import dtheme
 from drawlib.v0_2.private.l5_canvas import image
 from drawlib.v0_2.private.l5_canvas_utils import ColorUtil
 
-PYGMENTS_LINENUM_TEXT_COLOR: Final[Tuple[int, int, int]] = (136, 136, 102)
-PYGMENTS_LINENUM_BACKGROUND_COLOR: Final[Tuple[int, int, int]] = (238, 238, 221)
+PYGMENTS_LINENUM_TEXT_COLOR: Final[TypeColor] = (136, 136, 102)
+PYGMENTS_LINENUM_BACKGROUND_COLOR: Final[TypeColor] = (238, 238, 221)
 
 
 class SourceCode:
@@ -60,51 +60,50 @@ class SourceCode:
     @guarded
     def __init__(
         self,
-        language: Optional[
-            Literal[
-                "bash",
-                "c",
-                "c#",
-                "c++",
-                "coffeescript",
-                "css",
-                "dart",
-                "docker",
-                "go",
-                "groovy",
-                "haskell",
-                "html",
-                "ini",
-                "java",
-                "javascript",
-                "json",
-                "julia",
-                "kotlin",
-                "less",
-                "markdown",
-                "none",
-                "objective-c",
-                "perl",
-                "php",
-                "plain",
-                "powershell",
-                "promql",
-                "protobuf",
-                "python",
-                "restructuredtext",
-                "ruby",
-                "rust",
-                "sql",
-                "swift",
-                "tex",
-                "text",
-                "toml",
-                "typescript",
-                "verilog",
-                "xml",
-                "yaml",
-            ]
-        ] = None,
+        language: Literal[
+            "bash",
+            "c",
+            "c#",
+            "c++",
+            "coffeescript",
+            "css",
+            "dart",
+            "docker",
+            "go",
+            "groovy",
+            "haskell",
+            "html",
+            "ini",
+            "java",
+            "javascript",
+            "json",
+            "julia",
+            "kotlin",
+            "less",
+            "markdown",
+            "none",
+            "objective-c",
+            "perl",
+            "php",
+            "plain",
+            "powershell",
+            "promql",
+            "protobuf",
+            "python",
+            "restructuredtext",
+            "ruby",
+            "rust",
+            "sql",
+            "swift",
+            "tex",
+            "text",
+            "toml",
+            "typescript",
+            "verilog",
+            "xml",
+            "yaml",
+        ]
+        | None = None,
         style: Literal[
             "bw",
             "sas",
@@ -120,11 +119,7 @@ class SourceCode:
             "algol_nu",
             "friendly_grayscale",
         ] = "default",
-        font: Union[
-            FontSourceCode,
-            FontFile,
-            None,
-        ] = None,
+        font: FontSourceCode | FontFile | None = None,
         show_linenum: bool = False,
         linenum_textcolor: TypeColor = PYGMENTS_LINENUM_TEXT_COLOR,
         linenum_bgcolor: TypeColor = PYGMENTS_LINENUM_BACKGROUND_COLOR,
@@ -149,7 +144,7 @@ class SourceCode:
                     Default is (238, 238, 221).
 
         """
-        self._lexer: Optional[Lexer] = self._get_lexer(language)
+        self._lexer: Lexer | None = self._get_lexer(language)
         self._formatter = self._get_formatter(style, font, show_linenum, linenum_textcolor, linenum_bgcolor)
 
     @guarded
@@ -180,7 +175,7 @@ class SourceCode:
         xy: TypeCoordinate,
         width: TypePosFloat,
         code: TypeStr,
-        style: Optional[ImageStyle] = None,
+        style: ImageStyle | None = None,
     ) -> None:
         """Draw the source code image on a canvas.
 
@@ -224,7 +219,7 @@ class SourceCode:
     #
 
     @staticmethod
-    def _get_lexer(language: Optional[TypeStr]) -> Optional[Lexer]:
+    def _get_lexer(language: TypeStr | None) -> Lexer | None:
         if language is None:
             # guess lexer at method draw()
             return None
@@ -237,7 +232,7 @@ class SourceCode:
     @staticmethod
     def _get_formatter(
         style: str,
-        font: Union[FontFile, FontSourceCode, None],
+        font: FontFile | FontSourceCode | None,
         show_linenum: bool,
         linenum_textcolor: TypeColor,
         linenum_bgcolor: TypeColor,

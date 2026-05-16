@@ -10,8 +10,7 @@
 
 """GridLayout implementation module."""
 
-import dataclasses
-from typing import List, Optional, Tuple, Union
+from pydantic import BaseModel
 
 from drawlib.v0_2.private.l1_core import guarded
 from drawlib.v0_2.private.l2_types import (
@@ -24,6 +23,17 @@ from drawlib.v0_2.private.l2_types import (
 from drawlib.v0_2.private.l3_styles import ShapeStyle, ShapeTextStyle
 from drawlib.v0_2.private.l4_theme import dtheme
 from drawlib.v0_2.private.l5_canvas import rectangle
+
+
+class _GridLayoutItem(BaseModel):
+    """Internal class for storing grid layout item information."""
+
+    column_range: tuple[TypePosInt, TypePosInt]
+    row_range: tuple[TypePosInt, TypePosInt]
+    r: TypePosFloat
+    style: ShapeStyle
+    text: TypeStr
+    textstyle: ShapeTextStyle
 
 
 class GridLayout:
@@ -76,12 +86,12 @@ class GridLayout:
         self._default_textstyle = default_textstyle
         self._default_textangle = default_textangle
 
-        self._items: List[_GridLayoutItem] = []
+        self._items: list[_GridLayoutItem] = []
 
     @guarded
     def add(  # noqa: C901
         self,
-        position: Tuple[TypePosInt, TypePosInt],
+        position: tuple[TypePosInt, TypePosInt],
         width: TypePosInt,
         height: TypePosInt,
         r: TypePosFloat | None = None,
@@ -187,7 +197,7 @@ class GridLayout:
         height: TypePosFloat,
         margin: TypePosFloat,
         outer_r: TypePosFloat | None = None,
-        outer_style: Union[str, ShapeStyle, None] = None,
+        outer_style: TypeStr | ShapeStyle | None = None,
     ) -> None:
         """Draw the grid layout.
 
@@ -226,12 +236,12 @@ class GridLayout:
     def draw_flexible(  # noqa: C901
         self,
         xy: TypeCoordinate,
-        column_widths: List[TypePosFloat],
-        column_margins: List[TypePosFloat],
-        row_heights: List[TypePosFloat],
-        row_margins: List[TypePosFloat],
+        column_widths: list[TypePosFloat],
+        column_margins: list[TypePosFloat],
+        row_heights: list[TypePosFloat],
+        row_margins: list[TypePosFloat],
         outer_r: TypePosFloat | None = None,
-        outer_style: Union[str, ShapeStyle, None] = None,
+        outer_style: TypeStr | ShapeStyle | None = None,
     ) -> None:
         """Draw the grid layout with flexible column widths and row heights.
 
@@ -322,13 +332,3 @@ class GridLayout:
                 text=text,
                 textstyle=textstyle,
             )
-
-
-@dataclasses.dataclass
-class _GridLayoutItem:
-    column_range: Tuple[int, int]
-    row_range: Tuple[int, int]
-    r: TypePosFloat
-    style: ShapeStyle
-    text: str
-    textstyle: ShapeTextStyle

@@ -10,8 +10,9 @@
 
 """BulletPoints implementation module."""
 
-import dataclasses
-from typing import Callable, List, Optional, Tuple, Union
+from typing import Callable
+
+from pydantic import BaseModel
 
 from drawlib.v0_2.private.l1_core import guarded
 from drawlib.v0_2.private.l2_types import (
@@ -24,6 +25,22 @@ from drawlib.v0_2.private.l2_types import (
 from drawlib.v0_2.private.l3_styles import Colors, ShapeStyle, TextStyle
 from drawlib.v0_2.private.l4_theme import dtheme
 from drawlib.v0_2.private.l5_canvas import circle, text
+
+
+class _BulletPointsShape(BaseModel):
+    """Shape settings for a specific indent level."""
+
+    function: Callable
+    style: ShapeStyle
+    args: dict
+
+
+class _BulletPointsText(BaseModel):
+    """Text settings for a specific indent level."""
+
+    indent: TypeInt
+    text: TypeStr
+    style: TextStyle
 
 
 class BulletPoints:
@@ -58,7 +75,7 @@ class BulletPoints:
         self._default_style = default_style
 
         self._indent_level = 0
-        self._bullet_texts: List[_BulletPointsText] = []
+        self._bullet_texts: list[_BulletPointsText] = []
         self._bullet_shape_map: dict[int, _BulletPointsShape] = {}
 
         # set default bullet styles
@@ -133,9 +150,9 @@ class BulletPoints:
 
         self._bullet_texts.append(
             _BulletPointsText(
-                self._indent_level,
-                text,
-                style,
+                indent=self._indent_level,
+                text=text,
+                style=style,
             )
         )
 
@@ -178,17 +195,3 @@ class BulletPoints:
                 function(**args)
 
             y -= self._vertical_margin
-
-
-@dataclasses.dataclass
-class _BulletPointsShape:
-    function: Callable
-    style: ShapeStyle
-    args: dict
-
-
-@dataclasses.dataclass
-class _BulletPointsText:
-    indent: TypeInt
-    text: TypeStr
-    style: TextStyle

@@ -10,7 +10,7 @@
 
 """bubblespeech() implementation module."""
 
-from typing import Literal, Optional, Tuple, Union
+from typing import Literal
 
 from matplotlib.patches import Polygon
 
@@ -37,10 +37,10 @@ def bubblespeech(
     tail_start_ratio: TypeAlpha,
     tail_vertex_xy: TypeCoordinate,
     tail_end_ratio: TypeAlpha,
-    style: Union[ShapeStyle, TypeStr, None] = None,
+    style: ShapeStyle | TypeStr | None = None,
     text: TypeStr = "",
     textsize: TypeSize | None = None,
-    textstyle: Union[ShapeTextStyle, TypeStr, None] = None,
+    textstyle: ShapeTextStyle | TypeStr | None = None,
 ) -> None:
     """Draw a bubble speech on the canvas.
 

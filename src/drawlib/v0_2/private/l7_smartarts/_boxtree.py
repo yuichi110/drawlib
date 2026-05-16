@@ -12,8 +12,7 @@
 
 from __future__ import annotations
 
-import dataclasses
-from typing import Callable, Dict, List, Literal, Optional, Tuple, Union
+from typing import Literal
 
 from drawlib.v0_2.private.l1_core import guarded
 from drawlib.v0_2.private.l2_types import (
@@ -34,25 +33,25 @@ class BoxTreeNode:
     def __init__(
         self,
         text: TypeStr,
-        boxsize: Optional[Tuple[TypeFloat, TypeFloat]] = None,
+        boxsize: tuple[TypeFloat, TypeFloat] | None = None,
         boxstyle: TypeStr | ShapeStyle | None = None,
-        box_r: Optional[TypeFloat] = None,
-        box_horizontal_margin: Optional[TypeFloat] = None,
-        box_vertical_margin: Optional[TypeFloat] = None,
+        box_r: TypeFloat | None = None,
+        box_horizontal_margin: TypeFloat | None = None,
+        box_vertical_margin: TypeFloat | None = None,
         textstyle: TypeStr | ShapeTextStyle | None = None,
         linestyle: TypeStr | LineStyle | None = None,
-        line_horizontal_length: Optional[TypeFloat] = None,
-        line_vertical_length: Optional[TypeFloat] = None,
-        children: Optional[List[BoxTreeNode]] = None,
-        default_boxsize: Optional[Tuple[TypeFloat, TypeFloat]] = None,
+        line_horizontal_length: TypeFloat | None = None,
+        line_vertical_length: TypeFloat | None = None,
+        children: list[BoxTreeNode] | None = None,
+        default_boxsize: tuple[TypeFloat, TypeFloat] | None = None,
         default_boxstyle: TypeStr | ShapeStyle | None = None,
-        default_box_r: Optional[TypeFloat] = None,
-        default_box_horizontal_margin: Optional[TypeFloat] = None,
-        default_box_vertical_margin: Optional[TypeFloat] = None,
+        default_box_r: TypeFloat | None = None,
+        default_box_horizontal_margin: TypeFloat | None = None,
+        default_box_vertical_margin: TypeFloat | None = None,
         default_textstyle: TypeStr | ShapeTextStyle | None = None,
         default_linestyle: TypeStr | LineStyle | None = None,
-        default_line_horizontal_length: Optional[TypeFloat] = None,
-        default_line_vertical_length: Optional[TypeFloat] = None,
+        default_line_horizontal_length: TypeFloat | None = None,
+        default_line_vertical_length: TypeFloat | None = None,
     ) -> None:
         """Initialize class."""
         self._text = text
@@ -76,9 +75,9 @@ class BoxTreeNode:
         self._line_vertical_length = line_vertical_length
 
         if children is None:
-            self._children: List[BoxTreeNode] = []
+            self._children: list[BoxTreeNode] = []
         else:
-            self._children: List[BoxTreeNode] = children
+            self._children: list[BoxTreeNode] = children
 
         self._default_boxsize = default_boxsize
         if isinstance(default_boxstyle, str):
@@ -90,20 +89,20 @@ class BoxTreeNode:
 
         if isinstance(default_textstyle, str):
             default_textstyle = dtheme.rectangletextstyles.get(default_textstyle)
-        self._default_textstyle: Union[ShapeTextStyle, None] = default_textstyle
+        self._default_textstyle: ShapeTextStyle | None = default_textstyle
         if isinstance(default_linestyle, str):
             default_linestyle = dtheme.linestyles.get(default_linestyle)
-        self._default_linestyle: Union[LineStyle, None] = default_linestyle
+        self._default_linestyle: LineStyle | None = default_linestyle
 
         self._default_line_horizontal_length = default_line_horizontal_length
         self._default_line_vertical_length = default_line_vertical_length
 
-        self._drawing_item_name: Optional[str] = None
+        self._drawing_item_name: str | None = None
 
     @guarded
     def draw(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         orientation: Literal["horizontal", "vertical"],
         align: Literal["top", "bottom", "center", "left", "right"],
     ) -> None:
@@ -111,7 +110,7 @@ class BoxTreeNode:
 
     def _draw_vertical_left(
         self,
-        xy: Tuple[float, float],
+        xy: TypeCoordinate,
         orientation: Literal["horizontal", "vertical"],
         align: Literal["top", "bottom", "center", "left", "right"],
         default_textstyle: ShapeTextStyle,
