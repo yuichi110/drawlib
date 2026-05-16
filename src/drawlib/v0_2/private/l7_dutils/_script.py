@@ -10,13 +10,17 @@
 """Script path related utilities."""
 
 from drawlib.v0_2.private.l1_core import (
-    get_script_function_name,
-    get_script_path,
-    get_script_relative_path,
+    get_script_function_name as get_function_name,
+)
+from drawlib.v0_2.private.l1_core import (
+    get_script_path as get_script_path,
+)
+from drawlib.v0_2.private.l1_core import (
+    get_script_relative_path as get_relative_path,
 )
 
 __all__ = [
-    "get_script_function_name",
+    "get_function_name",
     "get_script_path",
-    "get_script_relative_path",
+    "get_relative_path",
 ]
