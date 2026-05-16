@@ -8,7 +8,7 @@
 # merchantability, fitness for a particular purpose and noninfringement.
 
 from drawlib.v0_2.apis import *
-from drawlib.v0_2.private.core_canvas.line import LineArcHelper
+from drawlib.v0_2.private.l5_canvas._line import LineArcHelper
 
 OUTPUT_DIR = "../../../output_tests/v0_2/drawings_line/arc/"
 

@@ -12,9 +12,7 @@ import json
 import pytest
 from pydantic import BaseModel
 
-from drawlib.v0_2.private.core.fonts import get_font_metadata
-from drawlib.v0_2.private.core.fonts_enum import Font
-from drawlib.v0_2.private.core.fonts_resource import FONT_RESOURCES
+from drawlib.v0_2.private.l3_fonts import get_font_metadata, Font, FONT_RESOURCES
 
 
 class MyModel(BaseModel):
