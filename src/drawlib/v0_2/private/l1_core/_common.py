@@ -20,11 +20,20 @@ def get_package_root_path() -> str:
         str: Absolute path of the package root.
 
     """
-    first_module = inspect.stack()[0].filename
-    module_path = os.path.abspath(first_module)
-    package_root = module_path
-    while not os.path.exists(os.path.join(package_root, "__init__.py")):
-        package_root = os.path.dirname(package_root)
+    # Get the directory of the current file (_common.py)
+    current_file = inspect.stack()[0].filename
+    package_root = os.path.dirname(os.path.abspath(current_file))
+
+    # Go up as long as the parent directory also contains an __init__.py file.
+    # This identifies the outermost package directory.
+    while True:
+        parent_dir = os.path.dirname(package_root)
+        if parent_dir == package_root:  # Reached the file system root
+            break
+        if not os.path.exists(os.path.join(parent_dir, "__init__.py")):
+            break
+        package_root = parent_dir
+
     return package_root
 
 
