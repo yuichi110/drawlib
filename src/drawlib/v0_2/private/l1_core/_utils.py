@@ -104,6 +104,8 @@ def get_script_function_name() -> str:
         file = frame.filename
         if not os.path.isfile(file):
             continue
+        if "site-packages" in file:
+            continue
         if is_path_under(package_root, file):
             continue
         return frame[3]
