@@ -7,15 +7,18 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Entry point of drawlib command."""
+"""Package for external asset downloading implementations."""
 
-from drawlib.v0_2.private.l7_cli import call_command
+from drawlib.v0_2.private.l3_external._download import (
+    download_if_not_exist,
+)
+from drawlib.v0_2.private.l3_external._font import (
+    purge_font_cache,
+)
 
-
-def main() -> None:
-    """Call latest drawlib command"""
-    call_command()
-
-
-if __name__ == "__main__":
-    main()
+__all__ = [
+    # _download.py
+    "download_if_not_exist",
+    # _font.py
+    "purge_font_cache",
+]

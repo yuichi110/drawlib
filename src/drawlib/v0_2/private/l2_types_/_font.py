@@ -7,15 +7,12 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Entry point of drawlib command."""
+"""Font type definitions for drawlib."""
 
-from drawlib.v0_2.private.l7_cli import call_command
+from typing import Annotated
 
+from pydantic import Field
 
-def main() -> None:
-    """Call latest drawlib command"""
-    call_command()
+from drawlib.v0_2.private.l2_models_._font import FontBase, FontFile
 
-
-if __name__ == "__main__":
-    main()
+TypeFont = Annotated[FontBase | FontFile, Field()]

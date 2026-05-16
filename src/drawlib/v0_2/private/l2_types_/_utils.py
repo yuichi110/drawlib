@@ -7,15 +7,13 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Entry point of drawlib command."""
+"""Base type definitions for drawlib."""
 
-from drawlib.v0_2.private.l7_cli import call_command
-
-
-def main() -> None:
-    """Call latest drawlib command"""
-    call_command()
+from typing import Any
 
 
-if __name__ == "__main__":
-    main()
+def validate_literal(v: Any, supported: set[Any], name: str) -> Any:  # noqa: ANN401
+    """Helper to validate literal values with a custom error message."""
+    if v not in supported:
+        raise ValueError(f'Arg/Attr "{name}" must be one of {sorted(list(supported))}. But "{v}" is given.')
+    return v

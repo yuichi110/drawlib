@@ -9,22 +9,15 @@
 
 """Latest API module."""
 
-from drawlib.v0_2.private.core.colors import (
-    Colors,
-    Colors140,
-    ColorsBase,
-    ColorsThemeDefault,
-    ColorsThemeEssentials,
-    ColorsThemeMonochrome,
-)
-from drawlib.v0_2.private.core.dimage import (
+from drawlib.v0_2.private.l2_models import (
     Dimage,
 )
-from drawlib.v0_2.private.core.fonts_enum import (
+from drawlib.v0_2.private.l3_fonts import (
     Font,
     FontArabic,
     FontBrahmic,
     FontChinese,
+    FontFile,
     FontJapanese,
     FontKorean,
     FontMonoSpace,
@@ -34,7 +27,13 @@ from drawlib.v0_2.private.core.fonts_enum import (
     FontSourceCode,
     FontThai,
 )
-from drawlib.v0_2.private.core.model import (
+from drawlib.v0_2.private.l3_styles import (
+    Colors,
+    Colors140,
+    ColorsBase,
+    ColorsThemeDefault,
+    ColorsThemeEssentials,
+    ColorsThemeMonochrome,
     IconStyle,
     ImageStyle,
     LineStyle,
@@ -42,10 +41,10 @@ from drawlib.v0_2.private.core.model import (
     ShapeTextStyle,
     TextStyle,
 )
-from drawlib.v0_2.private.core.theme import (
+from drawlib.v0_2.private.l4_theme import (
     dtheme,
 )
-from drawlib.v0_2.private.core_canvas.canvas import (
+from drawlib.v0_2.private.l5_canvas import (
     arc,
     arrow,
     arrow_arc,
@@ -83,25 +82,18 @@ from drawlib.v0_2.private.core_canvas.canvas import (
     triangle,
     wedge,
 )
-from drawlib.v0_2.private.dutil import (
+from drawlib.v0_2.private.l6_icons import (
+    icon,
+    icon_phosphor,
+)
+from drawlib.v0_2.private.l7_dutils import (
     dutil_canvas,
     dutil_color,
     dutil_script,
-)
-from drawlib.v0_2.private.dutil.settings import (
     dutil_settings,
 )
-from drawlib.v0_2.private.icons import (
-    phosphor as icon_phosphor,
-)
-from drawlib.v0_2.private.icons.util import (
-    icon,
-)
-from drawlib.v0_2.private.smartarts import (
+from drawlib.v0_2.private.l7_smartarts import (
     dsart,
-)
-from drawlib.v0_2.private.types import (
-    FontFile,
 )
 
 __all__ = [

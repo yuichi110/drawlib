@@ -7,15 +7,12 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Entry point of drawlib command."""
+"""Constants module."""
 
-from drawlib.v0_2.private.l7_cli import call_command
+import os
 
+import drawlib.assets.v0_2.fonticons
+import drawlib.assets.v0_2.fonts
 
-def main() -> None:
-    """Call latest drawlib command"""
-    call_command()
-
-
-if __name__ == "__main__":
-    main()
+FONT_DIR_PATH = os.path.dirname(drawlib.assets.v0_2.fonts.__file__)
+FONT_ICON_DIR_PATH = os.path.dirname(drawlib.assets.v0_2.fonticons.__file__)

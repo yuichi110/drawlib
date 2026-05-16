@@ -7,15 +7,16 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Entry point of drawlib command."""
+"""Package for icon() function and icon modules"""
 
-from drawlib.v0_2.private.l7_cli import call_command
+from drawlib.v0_2.private.l6_icons import (
+    _phosphor as icon_phosphor,
+)
+from drawlib.v0_2.private.l6_icons._icon import (
+    icon,
+)
 
-
-def main() -> None:
-    """Call latest drawlib command"""
-    call_command()
-
-
-if __name__ == "__main__":
-    main()
+__all__ = [
+    "icon",
+    "icon_phosphor",
+]

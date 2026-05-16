@@ -7,15 +7,16 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Entry point of drawlib command."""
+"""Package for dutil modules."""
 
-from drawlib.v0_2.private.l7_cli import call_command
+from drawlib.v0_2.private.l1_core import dutil_settings
+from drawlib.v0_2.private.l7_dutils import _canvas as dutil_canvas
+from drawlib.v0_2.private.l7_dutils import _color as dutil_color
+from drawlib.v0_2.private.l7_dutils import _script as dutil_script
 
-
-def main() -> None:
-    """Call latest drawlib command"""
-    call_command()
-
-
-if __name__ == "__main__":
-    main()
+__all__ = [
+    "dutil_settings",
+    "dutil_canvas",
+    "dutil_color",
+    "dutil_script",
+]

@@ -7,15 +7,10 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Entry point of drawlib command."""
+"""Package for smart arts modules"""
 
-from drawlib.v0_2.private.l7_cli import call_command
+from drawlib.v0_2.private.l7_smartarts import _dsart as dsart
 
-
-def main() -> None:
-    """Call latest drawlib command"""
-    call_command()
-
-
-if __name__ == "__main__":
-    main()
+__all__ = [
+    "dsart",
+]

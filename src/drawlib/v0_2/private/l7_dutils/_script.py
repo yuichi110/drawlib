@@ -7,15 +7,16 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Entry point of drawlib command."""
+"""Script path related utilities."""
 
-from drawlib.v0_2.private.l7_cli import call_command
+from drawlib.v0_2.private.l1_core import (
+    get_script_function_name,
+    get_script_path,
+    get_script_relative_path,
+)
 
-
-def main() -> None:
-    """Call latest drawlib command"""
-    call_command()
-
-
-if __name__ == "__main__":
-    main()
+__all__ = [
+    "get_script_function_name",
+    "get_script_path",
+    "get_script_relative_path",
+]
