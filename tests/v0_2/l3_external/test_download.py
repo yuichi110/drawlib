@@ -10,7 +10,9 @@
 """Unit tests for the download module in l3_external."""
 
 import hashlib
+import os
 from pathlib import Path
+from typing import Union
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -109,11 +111,7 @@ class TestDownloadIfNotExist:
         mock_response = MagicMock()
         mock_response.read.return_value = content
 
-        import os
-
         original_exists = os.path.exists
-
-        from typing import Union
 
         def custom_exists(path: Union[str, os.PathLike[str]]) -> bool:
             if str(path) == str(file_path):
