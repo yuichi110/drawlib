@@ -7,86 +7,100 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-from drawlib.v0_2.apis import *
+"""Unit and integration tests for TreeNode smart art hierarchical rendering."""
+
+from drawlib.v0_2.apis import (
+    clear,
+    dsart,
+    dtheme,
+    icon_phosphor,
+    save,
+)
 
 OUTPUT_DIR = "../../../output_tests/v0_2/l7_smartarts/tree/"
 
 
-def test():
-    dtheme.apply_official_theme("essentials")
-    tn = dsart.TreeNode
-    t = tn(
-        "Root",
-        default_textstyle="",
-        default_linestyle="light",
-        default_line_horizontal_margin=2,
-        default_line_horizontal_length=2,
-        default_line_vertical_margin=5,
-        children=[
-            tn(
-                "Child1",
-                children=[
-                    tn(
-                        "Child1-1",
-                        children=[
-                            tn("Child1-1-1"),
-                        ],
-                    ),
-                    tn("Child1-2", textstyle="red"),
-                ],
-            ),
-            tn(
-                text="Child2",
-                default_textstyle="blue",
-                children=[
-                    tn("Child2-1"),
-                    tn("Child2-2"),
-                ],
-            ),
-        ],
-    )
+class TestTree:
+    """Tests for the TreeNode class hierarchical drawing and custom decorators."""
 
-    t.draw((10, 80))
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    def test_tree_default(self) -> None:
+        """Verify standard TreeNode hierarchy rendering with custom styled child nodes."""
+        clear()
+        dtheme.apply_official_theme("essentials")
+        tn = dsart.TreeNode
+        t = tn(
+            "Root",
+            default_textstyle="",
+            default_linestyle="light",
+            default_line_horizontal_margin=2,
+            default_line_horizontal_length=2,
+            default_line_vertical_margin=5,
+            children=[
+                tn(
+                    "Child1",
+                    children=[
+                        tn(
+                            "Child1-1",
+                            children=[
+                                tn("Child1-1-1"),
+                             ],
+                        ),
+                        tn("Child1-2", textstyle="red"),
+                    ],
+                ),
+                tn(
+                    text="Child2",
+                    default_textstyle="blue",
+                    children=[
+                        tn("Child2-1"),
+                        tn("Child2-2"),
+                    ],
+                ),
+            ],
+        )
 
+        t.draw((10, 80))
+        save(f"{OUTPUT_DIR}test_tree_default.png")
 
-def test_icon():
-    tn = dsart.TreeNode
-    tn.register_drawing_item(
-        name="py_file",
-        location="before",
-        padding_width=5,
-        function=icon_phosphor.file_py,
-        style=dtheme.iconstyles.get(),
-        args={"width": 4},
-    )
+    def test_tree_with_icon_item_decorators(self) -> None:
+        """Verify TreeNode hierarchy rendering including registered icon drawing decorators."""
+        clear()
+        tn = dsart.TreeNode
+        tn.register_drawing_item(
+            name="py_file",
+            location="before",
+            padding_width=5,
+            function=icon_phosphor.file_py,
+            style=dtheme.iconstyles.get(),
+            args={"width": 4},
+        )
 
-    t = tn(
-        "Root",
-        default_textstyle="",
-        default_linestyle="",
-        default_line_horizontal_margin=2,
-        default_line_horizontal_length=2,
-        default_line_vertical_margin=5,
-        children=[
-            tn(
-                "Child1",
-                children=[
-                    tn(
-                        "Child1-1",
-                    ).set_drawing_item("py_file"),
-                    tn("Child1-2"),
-                ],
-            ),
-            tn(
-                "Child2",
-                children=[
-                    tn("Child2-1").set_drawing_item("py_file"),
-                    tn("Child2-2"),
-                ],
-            ),
-        ],
-    )
+        t = tn(
+            "Root",
+            default_textstyle="",
+            default_linestyle="",
+            default_line_horizontal_margin=2,
+            default_line_horizontal_length=2,
+            default_line_vertical_margin=5,
+            children=[
+                tn(
+                    "Child1",
+                    children=[
+                        tn(
+                            "Child1-1",
+                        ).set_drawing_item("py_file"),
+                        tn("Child1-2"),
+                    ],
+                ),
+                tn(
+                    "Child2",
+                    children=[
+                        tn("Child2-1").set_drawing_item("py_file"),
+                        tn("Child2-2"),
+                    ],
+                ),
+            ],
+        )
 
-    t.draw((10, 80))
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+        t.draw((10, 80))
+        save(f"{OUTPUT_DIR}test_tree_icon.png")

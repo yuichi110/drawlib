@@ -7,87 +7,90 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-from drawlib.v0_2.apis import *
+"""Unit and integration tests for bubblespeech smart art."""
+
+from drawlib.v0_2.apis import (
+    Colors,
+    ShapeTextStyle,
+    clear,
+    dsart,
+    save,
+)
 
 OUTPUT_DIR = "../../../output_tests/v0_2/l7_smartarts/bubblespeech/"
 
 
-def test_left():
-    dsart.bubblespeech(
-        xy=(30, 30),
-        width=50,
-        height=40,
-        tail_edge="left",
-        tail_start_ratio=0.2,
-        tail_vertex_xy=(10, 50),
-        tail_end_ratio=0.6,
-    )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+class TestBubblespeech:
+    """Tests for the bubblespeech drawing function."""
 
+    def test_tail_left(self) -> None:
+        """Verify bubblespeech tail rendered on the left edge."""
+        clear()
+        dsart.bubblespeech(
+            xy=(30, 30),
+            width=50,
+            height=40,
+            tail_edge="left",
+            tail_start_ratio=0.2,
+            tail_vertex_xy=(10, 50),
+            tail_end_ratio=0.6,
+        )
+        save(f"{OUTPUT_DIR}test_tail_left.png")
 
-def test_top():
-    dsart.bubblespeech(
-        xy=(30, 30),
-        width=50,
-        height=40,
-        tail_edge="top",
-        tail_start_ratio=0.2,
-        tail_vertex_xy=(50, 90),
-        tail_end_ratio=0.6,
-    )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    def test_tail_top(self) -> None:
+        """Verify bubblespeech tail rendered on the top edge."""
+        clear()
+        dsart.bubblespeech(
+            xy=(30, 30),
+            width=50,
+            height=40,
+            tail_edge="top",
+            tail_start_ratio=0.2,
+            tail_vertex_xy=(50, 90),
+            tail_end_ratio=0.6,
+        )
+        save(f"{OUTPUT_DIR}test_tail_top.png")
 
+    def test_tail_right(self) -> None:
+        """Verify bubblespeech tail rendered on the right edge."""
+        clear()
+        dsart.bubblespeech(
+            xy=(30, 30),
+            width=50,
+            height=40,
+            tail_edge="right",
+            tail_start_ratio=0.2,
+            tail_vertex_xy=(95, 50),
+            tail_end_ratio=0.6,
+        )
+        save(f"{OUTPUT_DIR}test_tail_right.png")
 
-def test_right():
-    dsart.bubblespeech(
-        xy=(30, 30),
-        width=50,
-        height=40,
-        tail_edge="right",
-        tail_start_ratio=0.2,
-        tail_vertex_xy=(95, 50),
-        tail_end_ratio=0.6,
-    )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    def test_tail_bottom(self) -> None:
+        """Verify bubblespeech tail rendered on the bottom edge."""
+        clear()
+        dsart.bubblespeech(
+            xy=(30, 30),
+            width=50,
+            height=40,
+            tail_edge="bottom",
+            tail_start_ratio=0.2,
+            tail_vertex_xy=(50, 10),
+            tail_end_ratio=0.6,
+        )
+        save(f"{OUTPUT_DIR}test_tail_bottom.png")
 
-
-def test_bottom():
-    dsart.bubblespeech(
-        xy=(30, 30),
-        width=50,
-        height=40,
-        tail_edge="bottom",
-        tail_start_ratio=0.2,
-        tail_vertex_xy=(50, 10),
-        tail_end_ratio=0.6,
-    )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
-
-
-def test_text():
-    dsart.bubblespeech(
-        xy=(30, 30),
-        width=50,
-        height=40,
-        tail_edge="left",
-        tail_start_ratio=0.2,
-        tail_vertex_xy=(10, 50),
-        tail_end_ratio=0.6,
-        text="Hello Drawlib\nHello Python World!!",
-    )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
-
-
-def test_textstyle():
-    dsart.bubblespeech(
-        xy=(30, 30),
-        width=50,
-        height=40,
-        tail_edge="left",
-        tail_start_ratio=0.2,
-        tail_vertex_xy=(10, 50),
-        tail_end_ratio=0.6,
-        text="Hello Drawlib\nHello Python World!!",
-        textstyle=ShapeTextStyle(color=Colors.Red, size=28),
-    )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    def test_with_text_and_style(self) -> None:
+        """Verify bubblespeech drawing with formatted text and custom ShapeTextStyle."""
+        clear()
+        dsart.bubblespeech(
+            xy=(30, 30),
+            width=50,
+            height=40,
+            tail_edge="left",
+            tail_start_ratio=0.2,
+            tail_vertex_xy=(10, 50),
+            tail_end_ratio=0.6,
+            text="Hello Drawlib\nHello Python World!!",
+            textstyle=ShapeTextStyle(color=Colors.Red, size=28),
+        )
+        save(f"{OUTPUT_DIR}test_with_text_style.png")

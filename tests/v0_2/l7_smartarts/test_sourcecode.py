@@ -7,7 +7,14 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-from drawlib.v0_2.apis import *
+"""Unit and integration tests for SourceCode smart art rendering."""
+
+from drawlib.v0_2.apis import (
+    FontSourceCode,
+    clear,
+    dsart,
+    save,
+)
 
 OUTPUT_DIR = "../../../output_tests/v0_2/l7_smartarts/sourcecode/"
 
@@ -35,72 +42,80 @@ init_content = """
 """.strip()
 
 
-def test():
-    sc = dsart.SourceCode(
-        language="python",
-        style="default",
-    )
-    sc.draw(xy=(20, 20), width=30, code=code_snippet)
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+class TestSourceCode:
+    """Tests for the SourceCode class drawing and syntax highlighting operations."""
 
-
-def test_styles():
-    for x, y, style in [
-        (5, 5, "bw"),
-        (5, 35, "sas"),
-        (5, 60, "staroffice"),
-        (40, 5, "xcode"),
-        (40, 35, "default"),
-        (40, 60, "monokai"),
-        (70, 5, "lightbulb"),
-        (70, 35, "github-dark"),
-        (70, 60, "rrt"),
-    ]:
+    def test_sourcecode_default(self) -> None:
+        """Verify SourceCode rendering with default style and python syntax."""
+        clear()
         sc = dsart.SourceCode(
             language="python",
-            style=style,  # type: ignore
-            font=FontSourceCode.ROBOTO_MONO,
+            style="default",
         )
-        sc.draw(xy=(x, y), width=25, code=code_snippet)
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+        sc.draw(xy=(20, 20), width=30, code=code_snippet)
+        save(f"{OUTPUT_DIR}test_sourcecode_default.png")
 
+    def test_sourcecode_styles(self) -> None:
+        """Verify SourceCode rendering with different Pygments themes and Roboto Mono font."""
+        clear()
+        for x, y, style in [
+            (5, 5, "bw"),
+            (5, 35, "sas"),
+            (5, 60, "staroffice"),
+            (40, 5, "xcode"),
+            (40, 35, "default"),
+            (40, 60, "monokai"),
+            (70, 5, "lightbulb"),
+            (70, 35, "github-dark"),
+            (70, 60, "rrt"),
+        ]:
+            sc = dsart.SourceCode(
+                language="python",
+                style=style,  # type: ignore
+                font=FontSourceCode.ROBOTO_MONO,
+            )
+            sc.draw(xy=(x, y), width=25, code=code_snippet)
+        save(f"{OUTPUT_DIR}test_sourcecode_styles.png")
 
-def test_styles2():
-    for x, y, style in [
-        (5, 5, "algol"),
-        (5, 35, "algol_nu"),
-        (5, 65, "friendly_grayscale"),
-    ]:
-        sc = dsart.SourceCode(
-            language="python",
-            style=style,  # type: ignore
-            font=FontSourceCode.ROBOTO_MONO,
-        )
-        sc.draw(xy=(x, y), width=25, code=code_snippet)
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    def test_sourcecode_grayscale_styles(self) -> None:
+        """Verify SourceCode rendering with grayscale Pygments themes."""
+        clear()
+        for x, y, style in [
+            (5, 5, "algol"),
+            (5, 35, "algol_nu"),
+            (5, 65, "friendly_grayscale"),
+        ]:
+            sc = dsart.SourceCode(
+                language="python",
+                style=style,  # type: ignore
+                font=FontSourceCode.ROBOTO_MONO,
+            )
+            sc.draw(xy=(x, y), width=25, code=code_snippet)
+        save(f"{OUTPUT_DIR}test_sourcecode_grayscale_styles.png")
 
+    def test_sourcecode_font_courier(self) -> None:
+        """Verify SourceCode rendering with Courier font style."""
+        clear()
+        for x, y, style in [
+            (5, 5, "bw"),
+            (5, 35, "sas"),
+            (5, 60, "staroffice"),
+            (40, 5, "xcode"),
+            (40, 35, "default"),
+            (40, 60, "monokai"),
+            (70, 5, "lightbulb"),
+            (70, 35, "github-dark"),
+            (70, 60, "rrt"),
+        ]:
+            sc = dsart.SourceCode(
+                language="python",
+                style=style,  # type: ignore
+                font=FontSourceCode.COURIER,
+            )
+            sc.draw(xy=(x, y), width=25, code=code_snippet)
+        save(f"{OUTPUT_DIR}test_sourcecode_courier.png")
 
-def test_font():
-    for x, y, style in [
-        (5, 5, "bw"),
-        (5, 35, "sas"),
-        (5, 60, "staroffice"),
-        (40, 5, "xcode"),
-        (40, 35, "default"),
-        (40, 60, "monokai"),
-        (70, 5, "lightbulb"),
-        (70, 35, "github-dark"),
-        (70, 60, "rrt"),
-    ]:
-        sc = dsart.SourceCode(
-            language="python",
-            style=style,  # type: ignore
-            font=FontSourceCode.COURIER,
-        )
-        sc.draw(xy=(x, y), width=25, code=code_snippet)
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
-
-
-def test_get_text():
-    text = dsart.SourceCode.get_text("__init__.py").strip()
-    assert text == init_content
+    def test_sourcecode_get_text(self) -> None:
+        """Verify static method get_text reads local files correctly relative to execution context."""
+        text = dsart.SourceCode.get_text("__init__.py").strip()
+        assert text == init_content

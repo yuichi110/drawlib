@@ -7,54 +7,71 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-from drawlib.v0_2.apis import *
+"""Unit and integration tests for Table smart art rendering."""
+
+from drawlib.v0_2.apis import (
+    Colors,
+    clear,
+    dsart,
+    save,
+)
 
 OUTPUT_DIR = "../../../output_tests/v0_2/l7_smartarts/table/"
 
 
-def test():
-    t = dsart.Table()
-    t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+class TestTable:
+    """Tests for the Table class drawing and styling operations."""
 
+    def test_table_default(self) -> None:
+        """Verify basic Table drawing with standard grid layout."""
+        clear()
+        t = dsart.Table()
+        t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        save(f"{OUTPUT_DIR}test_table_default.png")
 
-def test_predefined_style_default():
-    t = dsart.Table()
-    t.set_predefined_style("default")
-    t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    def test_table_predefined_style_default(self) -> None:
+        """Verify Table drawing with predefined 'default' styling."""
+        clear()
+        t = dsart.Table()
+        t.set_predefined_style("default")
+        t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        save(f"{OUTPUT_DIR}test_table_predefined_default.png")
 
+    def test_table_predefined_style_monochrome(self) -> None:
+        """Verify Table drawing with predefined 'monochrome' styling."""
+        clear()
+        t = dsart.Table()
+        t.set_predefined_style("monochrome")
+        t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        save(f"{OUTPUT_DIR}test_table_predefined_monochrome.png")
 
-def test_predefined_style_monochrome():
-    t = dsart.Table()
-    t.set_predefined_style("monochrome")
-    t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    def test_table_predefined_style_border_simple(self) -> None:
+        """Verify Table drawing with predefined 'border_simple' styling."""
+        clear()
+        t = dsart.Table()
+        t.set_predefined_style("border_simple")
+        t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        save(f"{OUTPUT_DIR}test_table_predefined_border_simple.png")
 
+    def test_table_predefined_style_none(self) -> None:
+        """Verify Table drawing with predefined 'none' styling."""
+        clear()
+        t = dsart.Table()
+        t.set_predefined_style("none")
+        t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        save(f"{OUTPUT_DIR}test_table_predefined_none.png")
 
-def test_predefined_style_border_simple():
-    t = dsart.Table()
-    t.set_predefined_style("border_simple")
-    t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
-
-
-def test_predefined_style_none():
-    t = dsart.Table()
-    t.set_predefined_style("none")
-    t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
-
-
-def test_style():
-    t = dsart.Table()
-    t.clear_styles()
-    t.set_style_cell_evenodd(
-        Colors.Gray,
-        "white",
-        Colors.White,
-        "black",
-    )
-    t.set_style_border(top="black", top2="black_light", bottom="black")
-    t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    def test_table_custom_styles(self) -> None:
+        """Verify Table drawing with even-odd cell background coloring and custom borders."""
+        clear()
+        t = dsart.Table()
+        t.clear_styles()
+        t.set_style_cell_evenodd(
+            Colors.Gray,
+            "white",
+            Colors.White,
+            "black",
+        )
+        t.set_style_border(top="black", top2="black_light", bottom="black")
+        t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        save(f"{OUTPUT_DIR}test_table_custom_style.png")

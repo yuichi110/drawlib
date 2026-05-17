@@ -7,57 +7,71 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-from drawlib.v0_2.apis import *
+"""Unit and integration tests for Pyramid smart art."""
+
+from drawlib.v0_2.apis import (
+    clear,
+    dsart,
+    save,
+)
 
 OUTPUT_DIR = "../../../output_tests/v0_2/l7_smartarts/pyramid/"
 
 
-def test():
-    p = dsart.Pyramid(default_style="solid")
-    p.add(text="Hello")
-    p.add(text="World")
-    p.add(text="A")
-    p.draw((10, 10), 30, 30, 2)
-    p.draw((60, 10), 30, 30, 2, order="base_to_vertex")
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+class TestPyramid:
+    """Tests for the Pyramid class drawing operations."""
 
+    def test_pyramid_default(self) -> None:
+        """Verify basic Pyramid drawing with default vertex order and reversed base-to-vertex order."""
+        clear()
+        p = dsart.Pyramid(default_style="solid")
+        p.add(text="Hello")
+        p.add(text="World")
+        p.add(text="A")
+        p.draw((10, 10), 30, 30, 2)
+        p.draw((60, 10), 30, 30, 2, order="base_to_vertex")
+        save(f"{OUTPUT_DIR}test_pyramid_default.png")
 
-def test_align_bottom():
-    p = dsart.Pyramid(default_style="solid")
-    p.add(text="Hello")
-    p.add(text="World")
-    p.add(text="A")
-    p.draw((10, 10), 30, 30, 2, align="bottom")
-    p.draw((60, 10), 30, 30, 2, align="bottom", order="base_to_vertex")
+    def test_pyramid_align_bottom(self) -> None:
+        """Verify Pyramid drawing aligned bottom."""
+        clear()
+        p = dsart.Pyramid(default_style="solid")
+        p.add(text="Hello")
+        p.add(text="World")
+        p.add(text="A")
+        p.draw((10, 10), 30, 30, 2, align="bottom")
+        p.draw((60, 10), 30, 30, 2, align="bottom", order="base_to_vertex")
+        save(f"{OUTPUT_DIR}test_pyramid_align_bottom.png")
 
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    def test_pyramid_align_top(self) -> None:
+        """Verify Pyramid drawing aligned top."""
+        clear()
+        p = dsart.Pyramid(default_style="solid")
+        p.add(text="Hello")
+        p.add(text="World")
+        p.add(text="A")
+        p.draw((10, 10), 30, 30, 2, align="top")
+        p.draw((60, 10), 30, 30, 2, align="top", order="base_to_vertex")
+        save(f"{OUTPUT_DIR}test_pyramid_align_top.png")
 
+    def test_pyramid_align_left(self) -> None:
+        """Verify Pyramid drawing aligned left."""
+        clear()
+        p = dsart.Pyramid(default_style="solid")
+        p.add(text="Hello")
+        p.add(text="World")
+        p.add(text="A")
+        p.draw((10, 10), 30, 30, 2, align="left")
+        p.draw((60, 10), 30, 30, 2, align="left", order="base_to_vertex")
+        save(f"{OUTPUT_DIR}test_pyramid_align_left.png")
 
-def test_align_top():
-    p = dsart.Pyramid(default_style="solid")
-    p.add(text="Hello")
-    p.add(text="World")
-    p.add(text="A")
-    p.draw((10, 10), 30, 30, 2, align="top")
-    p.draw((60, 10), 30, 30, 2, align="top", order="base_to_vertex")
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
-
-
-def test_align_left():
-    p = dsart.Pyramid(default_style="solid")
-    p.add(text="Hello")
-    p.add(text="World")
-    p.add(text="A")
-    p.draw((10, 10), 30, 30, 2, align="left")
-    p.draw((60, 10), 30, 30, 2, align="left", order="base_to_vertex")
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
-
-
-def test_align_right():
-    p = dsart.Pyramid(default_style="solid")
-    p.add(text="Hello")
-    p.add(text="World")
-    p.add(text="A")
-    p.draw((10, 10), 30, 30, 2, align="right")
-    p.draw((60, 10), 30, 30, 2, align="right", order="base_to_vertex")
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    def test_pyramid_align_right(self) -> None:
+        """Verify Pyramid drawing aligned right."""
+        clear()
+        p = dsart.Pyramid(default_style="solid")
+        p.add(text="Hello")
+        p.add(text="World")
+        p.add(text="A")
+        p.draw((10, 10), 30, 30, 2, align="right")
+        p.draw((60, 10), 30, 30, 2, align="right", order="base_to_vertex")
+        save(f"{OUTPUT_DIR}test_pyramid_align_right.png")
