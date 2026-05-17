@@ -13,12 +13,11 @@ import os
 
 from utils import cd_to_project_root
 
-OUTPUT_DIR = "output_codes"
-OUTPUT_FILE = "theme_style_caches.py"
+OUTPUT_DIR = "src/drawlib/v0_2/private/l4_theme"
+OUTPUT_FILE = "_theme_style_caches.py"
 
 
-HEAD = '''
-# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+HEAD = '''# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
 #
 # This software is licensed under the Apache License, Version 2.0.
 # For more information, please visit: https://github.com/yuichi110/drawlib
@@ -34,8 +33,15 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Any, Callable, Literal, cast
 
-from drawlib.v0_2.private.core.fonts_enum import FontSourceCode
-from drawlib.v0_2.private.core.model import (
+from drawlib.v0_2.private.l1_core import guarded
+from drawlib.v0_2.private.l2_types import (
+    TypeBool,
+    TypeColor,
+    TypeColorRGBA,
+    TypeStr,
+)
+from drawlib.v0_2.private.l3_fonts import FontSourceCode
+from drawlib.v0_2.private.l3_styles import (
     IconStyle,
     ImageStyle,
     LineStyle,
@@ -43,13 +49,6 @@ from drawlib.v0_2.private.core.model import (
     ShapeTextStyle,
     TextStyle,
 )
-from drawlib.v0_2.private.types import (
-    TypeBool,
-    TypeColor,
-    TypeColorRGBA,
-    TypeStr,
-)
-from drawlib.v0_2.private.util import guarded
 
 list_ = list
 
@@ -66,10 +65,10 @@ class ThemeColorCache:
         """Checks if a theme color exists by name.
 
         Args:
-            name (TypeStr): Name of the theme color.
+            name (str): Name of the theme color.
 
         Returns:
-            TypeBool: True if the theme color exists, False otherwise.
+            bool: True if the theme color exists, False otherwise.
         """
         return name in self._colors
 
@@ -78,10 +77,10 @@ class ThemeColorCache:
         """Retrieves a theme color by name.
 
         Args:
-            name (TypeStr, optional): Name of the theme color. Defaults to "".
+            name (str, optional): Name of the theme color. Defaults to "".
 
         Returns:
-            TypeColorRGBA: RGBA components of the theme color.
+            tuple[int, int, int, float]: RGBA components of the theme color.
 
         Raises:
             ValueError: If the specified theme color name does not exist.
@@ -95,7 +94,7 @@ class ThemeColorCache:
         """Lists all existing theme color names.
 
         Returns:
-            list[TypeStr]: List of theme color names.
+            list[str]: List of theme color names.
         """
         return list_(self._colors.keys())
 
@@ -108,9 +107,9 @@ class ThemeColorCache:
         """Sets or updates a theme color with the given name.
 
         Args:
-            color (TypeColor):
+            color (tuple[int, int, int] | tuple[int, int, int, float] | str):
                 RGB or RGBA components of the theme color.
-            name (TypeStr, optional): Name of the theme color. Defaults to "".
+            name (str, optional): Name of the theme color. Defaults to "".
 
         Raises:
             ValueError: If the color format is invalid or if the name format is invalid.
@@ -125,7 +124,7 @@ class ThemeColorCache:
         """Deletes a theme color by name.
 
         Args:
-            name (TypeStr): Name of the theme color to delete.
+            name (str): Name of the theme color to delete.
 
         Raises:
             ValueError: If the specified theme color name does not exist.
@@ -147,10 +146,10 @@ class BackgroundColorCache:
         """Checks if a background color exists by name.
 
         Args:
-            name (TypeStr): Name of the background color.
+            name (str): Name of the background color.
 
         Returns:
-            TypeBool: True if the background color exists, False otherwise.
+            bool: True if the background color exists, False otherwise.
         """
         return name in self._colors
 
@@ -159,10 +158,10 @@ class BackgroundColorCache:
         """Retrieves a background color by name.
 
         Args:
-            name (TypeStr, optional): Name of the background color. Defaults to "".
+            name (str, optional): Name of the background color. Defaults to "".
 
         Returns:
-            TypeColorRGBA: RGBA components of the background color.
+            tuple[int, int, int, float]: RGBA components of the background color.
 
         Raises:
             ValueError: If the specified background color name does not exist.
@@ -176,7 +175,7 @@ class BackgroundColorCache:
         """Lists all existing background color names.
 
         Returns:
-            list[TypeStr]: List of background color names.
+            list[str]: List of background color names.
         """
         return list_(self._colors.keys())
 
@@ -189,9 +188,9 @@ class BackgroundColorCache:
         """Sets or updates a background color with the given name.
 
         Args:
-            color (TypeColor):
+            color (tuple[int, int, int] | tuple[int, int, int, float] | str):
                 RGB or RGBA components of the theme color.
-            name (TypeStr, optional): Name of the background color. Defaults to "".
+            name (str, optional): Name of the background color. Defaults to "".
 
         Raises:
             ValueError: If the color format is invalid or if the name format is invalid.
@@ -206,7 +205,7 @@ class BackgroundColorCache:
         """Deletes a background color by name.
 
         Args:
-            name (TypeStr): Name of the background color to delete.
+            name (str): Name of the background color to delete.
 
         Raises:
             ValueError: If the specified background color name does not exist.
@@ -228,10 +227,10 @@ class SourceCodeFontCache:
         """Checks if a source code font exists by name.
 
         Args:
-            name (TypeStr): Name of the source code font.
+            name (str): Name of the source code font.
 
         Returns:
-            TypeBool: True if the source code font exists, False otherwise.
+            bool: True if the source code font exists, False otherwise.
         """
         return name in self._fonts
 
@@ -240,7 +239,7 @@ class SourceCodeFontCache:
         """Retrieves a source code font by name.
 
         Args:
-            name (TypeStr, optional): Name of the source code font. Defaults to "".
+            name (str, optional): Name of the source code font. Defaults to "".
 
         Returns:
             FontSourceCode: Source code font object.
@@ -257,7 +256,7 @@ class SourceCodeFontCache:
         """Lists all existing source code font names.
 
         Returns:
-            list[TypeStr]: List of theme color names.
+            list[str]: List of theme color names.
         """
         return list_(self._fonts.keys())
 
@@ -271,7 +270,7 @@ class SourceCodeFontCache:
 
         Args:
             font (FontSourceCode): Source code font object.
-            name (TypeStr, optional): Name of the source code font. Defaults to "".
+            name (str, optional): Name of the source code font. Defaults to "".
 
         Raises:
             ValueError: If the font is not an instance of FontSourceCode or if the name format is invalid.
@@ -286,7 +285,7 @@ class SourceCodeFontCache:
         """Deletes a source code font by name.
 
         Args:
-            name (TypeStr): Name of the source code font to delete.
+            name (str): Name of the source code font to delete.
 
         Raises:
             ValueError: If the specified source code font name does not exist.
@@ -315,7 +314,7 @@ class AbstractStyleCache(ABC):
         """
 
     @abstractmethod
-    def get(self, name: TypeStr = "") -> Any: # noqa: ANN401
+    def get(self, name: TypeStr = "") -> Any:  # noqa: ANN401
         """Retrieves a style by name.
 
         Args:
@@ -337,7 +336,7 @@ class AbstractStyleCache(ABC):
         """
 
     @abstractmethod
-    def set(self, style: Any, name: TypeStr = "") -> None: # noqa: ANN401
+    def set(self, style: Any, name: TypeStr = "") -> None:  # noqa: ANN401
         """Sets or updates a style with the given name.
 
         Args:
@@ -361,7 +360,7 @@ class AbstractStyleCache(ABC):
         """
 
     @abstractmethod
-    def merge(self, style: Any, targets: list_[TypeStr] | None = None) -> None: # noqa: ANN401
+    def merge(self, style: Any, targets: list_[TypeStr] | None = None) -> None:  # noqa: ANN401
         """Merges a style into existing styles.
 
         Args:
@@ -373,6 +372,7 @@ class AbstractStyleCache(ABC):
             NotImplementedError: If the method is not implemented in a subclass.
         """
 '''
+
 
 TEMPLATE = '''
 class {class_name}(AbstractStyleCache):
@@ -402,10 +402,10 @@ class {class_name}(AbstractStyleCache):
         """Check if a style exists by name.
 
         Args:
-            name (TypeStr): Name of the style.
+            name (str): Name of the style.
 
         Returns:
-            TypeBool: True if the style exists, False otherwise.
+            bool: True if the style exists, False otherwise.
         """
         return name in self._styles
 
@@ -414,7 +414,7 @@ class {class_name}(AbstractStyleCache):
         """Retrieve a style by name.
 
         Args:
-            name (TypeStr, optional): Name of the style to retrieve. Defaults to "".
+            name (str, optional): Name of the style to retrieve. Defaults to "".
 
         Returns:
             {style_class}: The retrieved IconStyle object.
@@ -431,7 +431,7 @@ class {class_name}(AbstractStyleCache):
         """List all existing style names.
 
         Returns:
-            list[TypeStr]: List of style names.
+            list[str]: List of style names.
         """
         return list_(self._styles.keys())
 
@@ -441,7 +441,7 @@ class {class_name}(AbstractStyleCache):
 
         Args:
             style ({style_class}): The {style_class} object to cache.
-            name (TypeStr, optional): Name of the style. Defaults to "".
+            name (str, optional): Name of the style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -454,7 +454,7 @@ class {class_name}(AbstractStyleCache):
         """Delete a style by name.
 
         Args:
-            name (TypeStr): Name of the style to delete.
+            name (str): Name of the style to delete.
 
         Raises:
             ValueError: If the style with the specified name does not exist.
@@ -470,7 +470,7 @@ class {class_name}(AbstractStyleCache):
 
         Args:
             style ({style_class}): The {style_class} object to merge.
-            targets (list[TypeStr] | None, optional): List of target style names to merge into.
+            targets (list[str] | None, optional): List of target style names to merge into.
                 If None, merge into all existing styles. Defaults to None.
 
         Raises:
@@ -484,6 +484,7 @@ class {class_name}(AbstractStyleCache):
             merged_style = self.get(target).merge(style)
             self.set(merged_style, target)
 '''
+
 
 TEMPLATE_SHAPE_TYPES = '''
 class {class_name}(AbstractStyleCache):
@@ -516,10 +517,10 @@ class {class_name}(AbstractStyleCache):
         """Check if an {name} style exists by name.
 
         Args:
-            name (TypeStr): Name of the {name} style.
+            name (str): Name of the {name} style.
 
         Returns:
-            TypeBool: True if the {name} style exists, False otherwise.
+            bool: True if the {name} style exists, False otherwise.
         """
         return name in self._styles
 
@@ -528,8 +529,8 @@ class {class_name}(AbstractStyleCache):
         """Retrieve an {name} style by name.
 
         Args:
-            name (TypeStr, optional): Name of the {name} style to retrieve. Defaults to "".
-            use_shapestyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeStyleCache if
+            name (str, optional): Name of the {name} style to retrieve. Defaults to "".
+            use_shapestyles_if_not_exist (bool, optional): Whether to fallback to ShapeStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -552,7 +553,7 @@ class {class_name}(AbstractStyleCache):
         """List all existing {name} style names.
 
         Returns:
-            list[TypeStr]: List of {name} style names.
+            list[str]: List of {name} style names.
         """
         return list_(self._styles.keys())
 
@@ -562,7 +563,7 @@ class {class_name}(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to cache.
-            name (TypeStr, optional): Name of the {name} style. Defaults to "".
+            name (str, optional): Name of the {name} style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -575,7 +576,7 @@ class {class_name}(AbstractStyleCache):
         """Delete an {name} style by name.
 
         Args:
-            name (TypeStr): Name of the {name} style to delete.
+            name (str): Name of the {name} style to delete.
 
         Raises:
             ValueError: If the {name} style with the specified name does not exist.
@@ -591,7 +592,7 @@ class {class_name}(AbstractStyleCache):
 
         Args:
             style (ShapeStyle): The ShapeStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target {name} style names to merge into.
+            targets (list[str] | None, optional): List of target {name} style names to merge into.
                 If None, merge into all existing {name} styles. Defaults to None.
 
         Raises:
@@ -605,6 +606,7 @@ class {class_name}(AbstractStyleCache):
             merged_style = self.get(target).merge(style)
             self.set(merged_style, target)
 '''
+
 
 TEMPLATE_SHAPETEXT_TYPES = '''
 class {class_name}(AbstractStyleCache):
@@ -637,10 +639,10 @@ class {class_name}(AbstractStyleCache):
         """Check if an {name} text style exists by name.
 
         Args:
-            name (TypeStr): Name of the {name} text style.
+            name (str): Name of the {name} text style.
 
         Returns:
-            TypeBool: True if the {name} text style exists, False otherwise.
+            bool: True if the {name} text style exists, False otherwise.
         """
         return name in self._styles
 
@@ -649,8 +651,8 @@ class {class_name}(AbstractStyleCache):
         """Retrieve an {name} text style by name.
 
         Args:
-            name (TypeStr, optional): Name of the {name} text style to retrieve. Defaults to "".
-            use_shapetextstyles_if_not_exist (TypeBool, optional): Whether to fallback to ShapeTextStyleCache if
+            name (str, optional): Name of the {name} text style to retrieve. Defaults to "".
+            use_shapetextstyles_if_not_exist (bool, optional): Whether to fallback to ShapeTextStyleCache if
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
@@ -671,7 +673,7 @@ class {class_name}(AbstractStyleCache):
         """List all existing {name} text style names.
 
         Returns:
-            list[TypeStr]: List of {name} text style names.
+            list[str]: List of {name} text style names.
         """
         return list_(self._styles.keys())
 
@@ -681,7 +683,7 @@ class {class_name}(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to cache.
-            name (TypeStr, optional): Name of the {name} text style. Defaults to "".
+            name (str, optional): Name of the {name} text style. Defaults to "".
 
         Raises:
             ValueError: If the style is invalid or name is not a string.
@@ -694,7 +696,7 @@ class {class_name}(AbstractStyleCache):
         """Delete an {name} text style by name.
 
         Args:
-            name (TypeStr): Name of the {name} text style to delete.
+            name (str): Name of the {name} text style to delete.
 
         Raises:
             ValueError: If the {name} text style with the specified name does not exist.
@@ -710,7 +712,7 @@ class {class_name}(AbstractStyleCache):
 
         Args:
             style (ShapeTextStyle): The ShapeTextStyle object to merge.
-            targets (list[TypeStr] | None, optional): List of target {name} text style names to merge into.
+            targets (list[str] | None, optional): List of target {name} text style names to merge into.
                 If None, merge into all existing {name} text styles. Defaults to None.
 
         Raises:
