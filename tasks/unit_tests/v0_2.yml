@@ -24,11 +24,23 @@ tasks:
     cmds:
       - uv run pytest -s --cov=drawlib tests/v0_2/l2_models/
 
+  l2_types:
+    desc: Run l2_types tests for v0.2
+    dir: '{{.PROJECT_ROOT}}'
+    cmds:
+      - uv run pytest -s --cov=drawlib tests/v0_2/l2_types/
+
   l3_external:
     desc: Run l3_external tests for v0.2
     dir: '{{.PROJECT_ROOT}}'
     cmds:
       - uv run pytest -s --cov=drawlib tests/v0_2/l3_external/
+
+  l3_styles:
+    desc: Run l3_styles tests for v0.2
+    dir: '{{.PROJECT_ROOT}}'
+    cmds:
+      - uv run pytest -s --cov=drawlib tests/v0_2/l3_styles/
 
   l3_fonts:
     desc: Run l3_fonts tests for v0.2
