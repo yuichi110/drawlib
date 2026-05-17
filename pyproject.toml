@@ -85,7 +85,8 @@ ignore = [
     "D103", # undocumented-public-function
     "D104", # undocumented-public-package
     "ANN",  # flake8-annotations
-    "S101"  # Use of assert detected
+    "S101", # Use of assert detected
+    "PLC2701" # Private name import from external module (standard for unit tests)
 ]
 "test_build_target/**.py" = [
     "F403", # undefined-local-with-import-star

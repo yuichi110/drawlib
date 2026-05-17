@@ -7,9 +7,17 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Entry point of "python -m drawlib.v0_2" command."""
+from drawlib.v0_2.apis import *
 
-from drawlib.v0_2.private.l7_cli import call_command as call
+OUTPUT_DIR = "../../../output_tests/v0_2/l5_canvas/lines_bezier/"
 
-if __name__ == "__main__":
-    call()
+
+def test_lines_bezier():
+    points = [
+        ((10, 20), (20, 20)),
+        (30, 20),
+        ((40, 20), (40, 10)),
+        ((40, 20), (50, 20)),
+    ]
+    lines_bezier(xy=(0, 30), path_points=points)  # type: ignore
+    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
