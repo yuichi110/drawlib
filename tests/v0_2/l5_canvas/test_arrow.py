@@ -15,6 +15,7 @@ from drawlib.v0_2.apis import (
     Colors,
     ShapeStyle,
     ShapeTextStyle,
+    TextStyle,
     arrow,
     arrow_arc,
     arrow_l,
@@ -23,6 +24,7 @@ from drawlib.v0_2.apis import (
     clear,
     ellipse,
     save,
+    text,
 )
 
 # ruff: noqa: F403, F405
@@ -38,8 +40,9 @@ class TestCanvasArrow:
         clear()
 
         # Simple arrow
+        text((5, 10), "simple", style=TextStyle(size=14, halign="left"))
         arrow(
-            (10, 10),
+            (40, 10),
             (90, 10),
             tail_width=5,
             head_width=10,
@@ -47,8 +50,9 @@ class TestCanvasArrow:
         )
 
         # Arrow with style
+        text((5, 20), "style", style=TextStyle(size=14, halign="left"))
         arrow(
-            (10, 20),
+            (40, 20),
             (90, 20),
             tail_width=5,
             head_width=10,
@@ -62,16 +66,18 @@ class TestCanvasArrow:
         )
 
         # Arrow with text & flipping/shifting options
+        text((5, 30), "text", style=TextStyle(size=14, halign="left"))
         arrow(
-            (10, 30),
+            (40, 30),
             (90, 30),
             tail_width=5,
             head_width=10,
             head_length=10,
             text="Hello Drawlib",
         )
+        text((5, 40), "text (flip)", style=TextStyle(size=14, halign="left"))
         arrow(
-            (10, 40),
+            (40, 40),
             (90, 40),
             tail_width=5,
             head_width=10,
@@ -79,8 +85,9 @@ class TestCanvasArrow:
             text="Hello Drawlib",
             textstyle=ShapeTextStyle(flip=True),
         )
+        text((5, 50), "text (shift)", style=TextStyle(size=14, halign="left"))
         arrow(
-            (10, 50),
+            (40, 50),
             (90, 50),
             tail_width=5,
             head_width=10,
@@ -91,16 +98,18 @@ class TestCanvasArrow:
         )
 
         # Other heads
+        text((5, 60), "head <-", style=TextStyle(size=14, halign="left"))
         arrow(
-            (10, 60),
+            (40, 60),
             (90, 60),
             tail_width=5,
             head_width=10,
             head_length=10,
             head="<-",
         )
+        text((5, 70), "head <->", style=TextStyle(size=14, halign="left"))
         arrow(
-            (10, 70),
+            (40, 70),
             (90, 70),
             tail_width=5,
             head_width=10,
@@ -109,8 +118,9 @@ class TestCanvasArrow:
         )
 
         # Theme styles
+        text((5, 80), "theme style", style=TextStyle(size=14, halign="left"))
         arrow(
-            (10, 80),
+            (40, 80),
             (90, 80),
             tail_width=5,
             head_width=10,
@@ -128,7 +138,7 @@ class TestCanvasArrow:
 
         # Standard polyline arrow
         arrow_polyline(
-            xys=[(10, 10), (10, 50), (50, 50), (50, 10)],
+            xys=[(10, 10), (10, 30), (30, 30), (30, 10)],
             tail_width=2,
             head_length=3,
             head_width=5,
@@ -138,7 +148,7 @@ class TestCanvasArrow:
 
         # Polyline with duplicated consecutive points
         arrow_polyline(
-            xys=[(10, 10), (10, 50), (10, 50), (50, 50), (50, 10)],
+            xys=[(40, 10), (40, 30), (40, 30), (60, 30), (60, 10)],
             tail_width=2,
             head_length=3,
             head_width=5,
@@ -148,7 +158,7 @@ class TestCanvasArrow:
 
         # Polyline with straight slopes (same m)
         arrow_polyline(
-            xys=[(10, 10), (10, 30), (10, 50), (10, 50), (50, 50), (50, 10)],
+            xys=[(10, 40), (10, 50), (10, 60), (10, 60), (30, 60), (30, 40)],
             tail_width=2,
             head_length=3,
             head_width=5,
@@ -158,7 +168,7 @@ class TestCanvasArrow:
 
         # Other heads
         arrow_polyline(
-            xys=[(10, 10), (10, 50), (50, 50), (50, 10)],
+            xys=[(40, 40), (40, 60), (60, 60), (60, 40)],
             tail_width=2,
             head_length=3,
             head_width=5,
@@ -166,7 +176,7 @@ class TestCanvasArrow:
             r=5,
         )
         arrow_polyline(
-            xys=[(10, 10), (10, 50), (50, 50), (50, 10)],
+            xys=[(70, 40), (70, 60), (90, 60), (90, 40)],
             tail_width=2,
             head_length=3,
             head_width=5,
@@ -180,7 +190,7 @@ class TestCanvasArrow:
         """Verify elliptical arc arrow drawing on circles and ellipses."""
         clear()
 
-        # On circle
+        # On circle (quadrant 1)
         ellipse(xy=(25, 25), width=30, height=30, style="dashed")
         arrow_arc(
             xy=(25, 25),
@@ -194,7 +204,7 @@ class TestCanvasArrow:
             angle_end=135,
         )
 
-        # Other heads & full angles on circles
+        # Other heads & full angles on circles (quadrant 2)
         ellipse(xy=(25, 75), width=30, height=30, style="dashed")
         arrow_arc(
             xy=(25, 75),
@@ -208,10 +218,10 @@ class TestCanvasArrow:
             angle_end=270,
         )
 
-        # Ellipse
-        ellipse(xy=(25, 25), width=40, height=20, style="dashed")
+        # Ellipse (quadrant 3)
+        ellipse(xy=(75, 25), width=40, height=20, style="dashed")
         arrow_arc(
-            xy=(25, 25),
+            xy=(75, 25),
             width=40,
             height=20,
             tail_width=5,
@@ -222,10 +232,10 @@ class TestCanvasArrow:
             angle_end=135,
         )
 
-        # Ellipse with 45 degrees orientation
-        ellipse(xy=(25, 25), width=40, height=20, style="dashed", angle=45)
+        # Ellipse with 45 degrees orientation (quadrant 4)
+        ellipse(xy=(75, 75), width=40, height=20, style="dashed", angle=45)
         arrow_arc(
-            xy=(25, 25),
+            xy=(75, 75),
             width=40,
             height=20,
             tail_width=5,
@@ -244,18 +254,18 @@ class TestCanvasArrow:
         clear()
 
         arrow_l(
-            (50, 25),
-            width=30,
-            height=20,
+            (25, 25),
+            width=20,
+            height=15,
             tail_width=5,
             head_width=10,
             head_length=10,
         )
 
         arrow_l(
-            xy=(50, 50),
-            width=60,
-            height=30,
+            xy=(25, 75),
+            width=20,
+            height=15,
             tail_width=2,
             head_length=3,
             head_width=5,
@@ -264,9 +274,9 @@ class TestCanvasArrow:
         )
 
         # Angles & other heads
-        arrow_l(xy=(50, 50), width=60, height=30, tail_width=2, head_length=3, head_width=5, head="->", r=5, angle=90)
-        arrow_l(xy=(50, 50), width=60, height=30, tail_width=2, head_length=3, head_width=5, head="<-", r=5)
-        arrow_l(xy=(50, 50), width=60, height=30, tail_width=2, head_length=3, head_width=5, head="<->", r=5)
+        arrow_l(xy=(75, 25), width=20, height=15, tail_width=2, head_length=3, head_width=5, head="->", r=5, angle=90)
+        arrow_l(xy=(75, 75), width=20, height=15, tail_width=2, head_length=3, head_width=5, head="<-", r=5)
+        arrow_l(xy=(50, 50), width=20, height=15, tail_width=2, head_length=3, head_width=5, head="<->", r=5)
 
         save(f"{OUTPUT_DIR}test_arrow_l.png")
 
@@ -275,9 +285,9 @@ class TestCanvasArrow:
         clear()
 
         arrow_u(
-            xy=(50, 50),
-            width=60,
-            height=30,
+            xy=(25, 25),
+            width=20,
+            height=15,
             tail_width=2,
             head_length=3,
             head_width=5,
@@ -286,8 +296,8 @@ class TestCanvasArrow:
         )
 
         # Angles & other heads
-        arrow_u(xy=(50, 50), width=60, height=30, tail_width=2, head_length=3, head_width=5, head="->", r=5, angle=90)
-        arrow_u(xy=(50, 50), width=60, height=30, tail_width=2, head_length=3, head_width=5, head="<-", r=5)
-        arrow_u(xy=(50, 50), width=60, height=30, tail_width=2, head_length=3, head_width=5, head="<->", r=5)
+        arrow_u(xy=(25, 75), width=20, height=15, tail_width=2, head_length=3, head_width=5, head="->", r=5, angle=90)
+        arrow_u(xy=(75, 25), width=20, height=15, tail_width=2, head_length=3, head_width=5, head="<-", r=5)
+        arrow_u(xy=(75, 75), width=20, height=15, tail_width=2, head_length=3, head_width=5, head="<->", r=5)
 
         save(f"{OUTPUT_DIR}test_arrow_u.png")

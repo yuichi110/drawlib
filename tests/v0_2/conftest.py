@@ -58,24 +58,32 @@ def _get_answers_file_path(gen_file_abs: Path, test_module_abs: Path) -> Path:
 
 
 @pytest.fixture(scope="function", autouse=True)
-def preprocess(request):
-    """Preprocess test setup and automatically verify generated images against answers."""
+def preprocess():
+    """Preprocess test setup and initialize drawlib canvas."""
     dutil_settings._set_suppress_warning(True)
     config(grid_only=True)
+    yield
+    dutil_canvas.initialize()
 
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_call(item):
+    """Intercept the test function execution to verify generated images in the call phase (FAILED status)."""
     # Track output images before the test
     files_before = _get_output_files()
 
-    yield
+    # Execute the test function
+    outcome = yield
 
-    # If the test itself failed, skip image assertion to avoid masking the real failure
-    if sys.exc_info()[0] is not None:
-        dutil_canvas.initialize()
+    # If the test function itself raised an exception, do not assert image matches
+    try:
+        outcome.get_result()
+    except Exception:
         return
 
     # Track output images after the test
     files_after = _get_output_files()
-    test_module_path = Path(request.module.__file__)
+    test_module_path = Path(item.module.__file__)
 
     # Identify files that were created or modified during the test
     modified_files = []
@@ -92,5 +100,3 @@ def preprocess(request):
         assert check_image_match(gen_bytes, correct_file=correct_file), (
             f"Image match failed for: {gen_file} against expected {correct_file}"
         )
-
-    dutil_canvas.initialize()
