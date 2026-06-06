@@ -17,7 +17,7 @@ def check_image_match(
     generated_binary: bytes,
     correct_binary: bytes | None = None,
     correct_file: str | Path | None = None,
-    threshold: float = 0.99,
+    threshold: float = 99.0,
 ) -> bool:
     """Compare two image binaries.
 

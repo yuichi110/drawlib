@@ -40,18 +40,18 @@ class TestCanvasArrow:
         # Simple arrow
         arrow(
             (10, 10),
-            (80, 60),
-            tail_width=10,
-            head_width=30,
+            (90, 10),
+            tail_width=5,
+            head_width=10,
             head_length=10,
         )
 
         # Arrow with style
         arrow(
-            (10, 10),
-            (80, 60),
-            tail_width=10,
-            head_width=30,
+            (10, 20),
+            (90, 20),
+            tail_width=5,
+            head_width=10,
             head_length=10,
             style=ShapeStyle(
                 lcolor=Colors.Red,
@@ -63,27 +63,27 @@ class TestCanvasArrow:
 
         # Arrow with text & flipping/shifting options
         arrow(
-            (10, 10),
-            (80, 60),
-            tail_width=10,
-            head_width=30,
+            (10, 30),
+            (90, 30),
+            tail_width=5,
+            head_width=10,
             head_length=10,
             text="Hello Drawlib",
         )
         arrow(
-            (80, 60),
-            (10, 10),
-            tail_width=10,
-            head_width=30,
+            (10, 40),
+            (90, 40),
+            tail_width=5,
+            head_width=10,
             head_length=10,
             text="Hello Drawlib",
             textstyle=ShapeTextStyle(flip=True),
         )
         arrow(
-            (10, 10),
-            (80, 60),
-            tail_width=10,
-            head_width=30,
+            (10, 50),
+            (90, 50),
+            tail_width=5,
+            head_width=10,
             head_length=10,
             head="->",
             text="Hello Drawlib",
@@ -92,28 +92,28 @@ class TestCanvasArrow:
 
         # Other heads
         arrow(
-            (10, 10),
-            (80, 60),
-            tail_width=10,
-            head_width=30,
+            (10, 60),
+            (90, 60),
+            tail_width=5,
+            head_width=10,
             head_length=10,
             head="<-",
         )
         arrow(
-            (10, 10),
-            (80, 60),
-            tail_width=10,
-            head_width=30,
+            (10, 70),
+            (90, 70),
+            tail_width=5,
+            head_width=10,
             head_length=10,
             head="<->",
         )
 
         # Theme styles
         arrow(
-            (10, 25),
-            (40, 25),
-            tail_width=10,
-            head_width=30,
+            (10, 80),
+            (90, 80),
+            tail_width=5,
+            head_width=10,
             head_length=10,
             head="->",
             style="blue",
