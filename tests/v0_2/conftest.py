@@ -7,14 +7,90 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
+import os
+import sys
+from pathlib import Path
+
 import pytest
 
 from drawlib.apis import *
+from tests.v0_2.utils import check_image_match
+
+# Paths
+REPO_ROOT = Path(__file__).resolve().parents[2]
+OUTPUT_TESTS_DIR = REPO_ROOT / "output_tests" / "v0_2"
+TESTS_DIR = REPO_ROOT / "tests" / "v0_2"
+
+
+def _get_output_files() -> dict[Path, float]:
+    """Retrieve all PNG files and their modification times in output_tests/v0_2."""
+    files = {}
+    if OUTPUT_TESTS_DIR.exists():
+        for p in OUTPUT_TESTS_DIR.rglob("*.png"):
+            try:
+                files[p] = p.stat().st_mtime
+            except FileNotFoundError:
+                pass
+    return files
+
+
+def _get_answers_file_path(gen_file_abs: Path, test_module_abs: Path) -> Path:
+    """Map a generated file path to the corresponding expected answer file path."""
+    subpath = test_module_abs.parent.relative_to(TESTS_DIR)
+    subpath_str = str(subpath).replace("\\", "/")
+
+    rel_gen = gen_file_abs.relative_to(OUTPUT_TESTS_DIR)
+    rel_gen_str = str(rel_gen).replace("\\", "/")
+
+    prefix = f"{subpath_str}/"
+    if rel_gen_str.startswith(prefix):
+        suffix = rel_gen_str[len(prefix):]
+    else:
+        suffix = gen_file_abs.name
+
+    module_name_clean = test_module_abs.stem.replace("test_", "")
+    suffix_parts = suffix.split("/")
+    if suffix_parts[0] == module_name_clean:
+        suffix = "/".join(suffix_parts[1:])
+
+    answers_dir = test_module_abs.parent / f"{test_module_abs.stem}_answers"
+    return answers_dir / suffix
 
 
 @pytest.fixture(scope="function", autouse=True)
-def preprocess():
+def preprocess(request):
+    """Preprocess test setup and automatically verify generated images against answers."""
     dutil_settings._set_suppress_warning(True)
     config(grid_only=True)
+
+    # Track output images before the test
+    files_before = _get_output_files()
+
     yield
+
+    # If the test itself failed, skip image assertion to avoid masking the real failure
+    if sys.exc_info()[0] is not None:
+        dutil_canvas.initialize()
+        return
+
+    # Track output images after the test
+    files_after = _get_output_files()
+    test_module_path = Path(request.module.__file__)
+
+    # Identify files that were created or modified during the test
+    modified_files = []
+    for p, mtime in files_after.items():
+        if p not in files_before or mtime > files_before[p]:
+            modified_files.append(p)
+
+    for gen_file in modified_files:
+        correct_file = _get_answers_file_path(gen_file, test_module_path)
+        with open(gen_file, "rb") as f:
+            gen_bytes = f.read()
+
+        # Verify that the generated image matches the reference answer image
+        assert check_image_match(gen_bytes, correct_file=correct_file), (
+            f"Image match failed for: {gen_file} against expected {correct_file}"
+        )
+
     dutil_canvas.initialize()
