@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BoxList &mdash; drawlib 0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=6432bc99" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=10f1778b"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="BulletPoints" href="../bulletpoints/doc.html" />
+    <link rel="prev" title="Bubblespeech" href="../bubblespeech/doc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            drawlib
+          </a>
+              <div class="version">
+                version: 0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introductions:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/about/doc.html">About drawlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/install/doc.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/lib_design/doc.html">Drawlib from a High Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/quick_start/doc.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/release_note/doc.html">Release Note of 0.2.*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/other_version_docs/doc.html">Other Version Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/links/doc.html">Links</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Foundations:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/canvas/doc.html">Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/coordinate_align/doc.html">Coordinate and Alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/icon/doc.html">Drawing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/image/doc.html">Drawing Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/line/doc.html">Drawing line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/line_style/doc.html">Line Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape/doc.html">Drawing Shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_arrow/doc.html">Drawing Arrow Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_circle/doc.html">Drawing Circle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_rectangle/doc.html">Drawing Rectangle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_style/doc.html">Shape Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/text/doc.html">Drawing Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/theme/doc.html">Theme feature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/build_many/doc.html">Building many images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/programming/doc.html">Coding Best Practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Topics:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/color/doc.html">Color Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/font/doc.html">Font Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/dimage/doc.html">Dimage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/debug/doc.html">Debugging errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/settings/doc.html">Library Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/cli_options/doc.html">CLI and Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/example_flow/doc.html">Example of Documentation Build Flow</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Smart Arts:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index/doc.html">About Smart Arts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bubblespeech/doc.html">Bubblespeech</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">BoxList</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#alignment-and-xy">Alignment and XY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api-specification">API Specification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">BoxList()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#append"><code class="docutils literal notranslate"><span class="pre">append()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#insert"><code class="docutils literal notranslate"><span class="pre">insert()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extend"><code class="docutils literal notranslate"><span class="pre">extend()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#draw"><code class="docutils literal notranslate"><span class="pre">draw()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../bulletpoints/doc.html">BulletPoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gridlayout/doc.html">GridLayout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pyramid/doc.html">Pyramid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sourcecode/doc.html">SourceCode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../table/doc.html">Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tree/doc.html">Tree</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Themes:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/advanced_topics/doc.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_default/doc.html">Official Theme: default</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_essentials/doc.html">Official Theme: essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_monochrome/doc.html">Official Theme: monochrome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/create/doc.html">Create Your Custom Theme from Scratch</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">drawlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">BoxList</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/manual/smartarts/boxlist/doc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="boxlist">
+<h1>BoxList<a class="headerlink" href="#boxlist" title="Link to this heading"></a></h1>
+<p>BoxList draws list of texts within boxes.
+Here is examples of BoxList.</p>
+<figure class="align-center" id="id2">
+<a class="with-border reference internal image-reference" href="../../../_images/image111.png"><img alt="../../../_images/image111.png" class="with-border" src="../../../_images/image111.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">image1.png</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>As you can see, BoxList supports changing size, style and alignments.</p>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h2>
+<p>BoxList is used in these procedures.</p>
+<ol class="arabic simple">
+<li><p>Create object with specifying default styles.</p></li>
+<li><p>Add single or multiple items to list with optional style.</p></li>
+<li><p>draw with specifying xy, size and align.</p></li>
+</ol>
+<p>Here is an example code.</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">image1.py</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="n">b1</span> <span class="o">=</span> <span class="n">dsart</span><span class="o">.</span><span class="n">BoxList</span><span class="p">(</span><span class="n">default_text_style</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span><span class="n">b1</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span> <span class="s2">&quot;4&quot;</span><span class="p">])</span>
+<span class="linenos"> 7</span><span class="n">b1</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="n">box_width</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">box_height</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="n">b2</span> <span class="o">=</span> <span class="n">dsart</span><span class="o">.</span><span class="n">BoxList</span><span class="p">(</span><span class="n">default_box_style</span><span class="o">=</span><span class="s2">&quot;solid&quot;</span><span class="p">,</span> <span class="n">default_text_style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="linenos">11</span><span class="n">b2</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">])</span>
+<span class="linenos">12</span><span class="n">b2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;3&quot;</span><span class="p">,</span> <span class="n">box_style</span><span class="o">=</span><span class="s2">&quot;red_solid_bold&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="s2">&quot;red_bold&quot;</span><span class="p">)</span>
+<span class="linenos">13</span><span class="n">b2</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;4&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">])</span>
+<span class="linenos">14</span><span class="n">b2</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">box_width</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">box_height</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="n">b3</span> <span class="o">=</span> <span class="n">dsart</span><span class="o">.</span><span class="n">BoxList</span><span class="p">(</span><span class="n">default_text_style</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="linenos">17</span><span class="n">b3</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span> <span class="s2">&quot;4&quot;</span><span class="p">])</span>
+<span class="linenos">18</span><span class="n">b3</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">box_width</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">box_height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">)</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>This function call draws a bubble speech shape with a tail starting from the right edge, beginning at 30% from the bottom, extending to 70% along its path.</p>
+<figure class="align-center" id="id4">
+<a class="with-border reference internal image-reference" href="../../../_images/image111.png"><img alt="../../../_images/image111.png" class="with-border" src="../../../_images/image111.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">image1.png</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="alignment-and-xy">
+<h2>Alignment and XY<a class="headerlink" href="#alignment-and-xy" title="Link to this heading"></a></h2>
+<p>BoxList supports 4 alignment.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">left</span></code>: Left to right. Default</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">right</span></code>: Right to left</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bottom</span></code>: Bottom to top</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">top</span></code>: Top to bottom</p></li>
+</ul>
+<p>Each BoxList location depends on args <code class="docutils literal notranslate"><span class="pre">xy</span></code> of function <code class="docutils literal notranslate"><span class="pre">draw</span></code>.</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">image1.py</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="n">b1</span> <span class="o">=</span> <span class="n">dsart</span><span class="o">.</span><span class="n">BoxList</span><span class="p">(</span><span class="n">default_text_style</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span><span class="n">b1</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span> <span class="s2">&quot;4&quot;</span><span class="p">])</span>
+<span class="linenos"> 7</span><span class="n">b1</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="n">box_width</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">box_height</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="n">b2</span> <span class="o">=</span> <span class="n">dsart</span><span class="o">.</span><span class="n">BoxList</span><span class="p">(</span><span class="n">default_box_style</span><span class="o">=</span><span class="s2">&quot;solid&quot;</span><span class="p">,</span> <span class="n">default_text_style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="linenos">11</span><span class="n">b2</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">])</span>
+<span class="linenos">12</span><span class="n">b2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;3&quot;</span><span class="p">,</span> <span class="n">box_style</span><span class="o">=</span><span class="s2">&quot;red_solid_bold&quot;</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="s2">&quot;red_bold&quot;</span><span class="p">)</span>
+<span class="linenos">13</span><span class="n">b2</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;4&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">])</span>
+<span class="linenos">14</span><span class="n">b2</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">box_width</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">box_height</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="n">b3</span> <span class="o">=</span> <span class="n">dsart</span><span class="o">.</span><span class="n">BoxList</span><span class="p">(</span><span class="n">default_text_style</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="linenos">17</span><span class="n">b3</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span> <span class="s2">&quot;4&quot;</span><span class="p">])</span>
+<span class="linenos">18</span><span class="n">b3</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">box_width</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">box_height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">)</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="api-specification">
+<h2>API Specification<a class="headerlink" href="#api-specification" title="Link to this heading"></a></h2>
+<section id="id1">
+<h3><code class="docutils literal notranslate"><span class="pre">BoxList()</span></code><a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>Initialize BoxList.</p>
+<p>Args.</p>
+<ul class="simple">
+<li><p>default_box_style (Union[str, ShapeStyle, None]): The style for the boxes.</p></li>
+<li><p>default_text_style (Union[str, ShapeTextStyle, None]): The style for the text inside the boxes.</p></li>
+</ul>
+</section>
+<section id="append">
+<h3><code class="docutils literal notranslate"><span class="pre">append()</span></code><a class="headerlink" href="#append" title="Link to this heading"></a></h3>
+<p>Appends a new box with text to the BoxList.</p>
+<p>Args:</p>
+<ul class="simple">
+<li><p>text (str): The text to be displayed inside the box.</p></li>
+<li><p>box_style (Union[str, ShapeStyle, None], optional): The style for the box. Can be a style name, a ShapeStyle object, or None. If None, the default box style is used.</p></li>
+<li><p>text_style (Union[str, ShapeTextStyle, None], optional): The style for the text inside the box. Can be a style name, a ShapeTextStyle object, or None. If None, the default text style is used.</p></li>
+</ul>
+</section>
+<section id="insert">
+<h3><code class="docutils literal notranslate"><span class="pre">insert()</span></code><a class="headerlink" href="#insert" title="Link to this heading"></a></h3>
+<p>Inserts a new box with text at a specified position in the BoxList.</p>
+<p>Args:</p>
+<ul class="simple">
+<li><p>index (int): The position at which to insert the new box.</p></li>
+<li><p>text (str): The text to be displayed inside the box.</p></li>
+<li><p>box_style (Union[str, ShapeStyle, None], optional): The style for the box. Can be a style name, a ShapeStyle object, or None. If None, the default box style is used.</p></li>
+<li><p>text_style (Union[str, ShapeTextStyle, None], optional): The style for the text inside the box. Can be a style name, a ShapeTextStyle object, or None. If None, the default text style is used.</p></li>
+</ul>
+</section>
+<section id="extend">
+<h3><code class="docutils literal notranslate"><span class="pre">extend()</span></code><a class="headerlink" href="#extend" title="Link to this heading"></a></h3>
+<p>Extends the BoxList by appending multiple boxes with text.</p>
+<p>Args:</p>
+<ul class="simple">
+<li><p>texts (List[str]): A list of texts to be displayed inside the boxes.</p></li>
+<li><p>box_style (Union[str, ShapeStyle, None], optional): The style for the boxes. Can be a style name, a ShapeStyle object, or None. If None, the default box style is used.</p></li>
+<li><p>text_style (Union[str, ShapeTextStyle, None], optional): The style for the text inside the boxes. Can be a style name, a ShapeTextStyle object, or None. If None, the default text style is used.</p></li>
+</ul>
+</section>
+<section id="draw">
+<h3><code class="docutils literal notranslate"><span class="pre">draw()</span></code><a class="headerlink" href="#draw" title="Link to this heading"></a></h3>
+<p>Draws a list of boxes at the specified location.</p>
+<p>Args:</p>
+<ul class="simple">
+<li><p>xy (Tuple[float, float]): The starting point (x, y) to draw the list of boxes.</p></li>
+<li><p>box_width (float): The width of each box.</p></li>
+<li><p>box_height (float): The height of each box.</p></li>
+<li><p>align (Literal[“left”, “right”, “bottom”, “top”]): The alignment of the boxes relative to the starting point.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../bubblespeech/doc.html" class="btn btn-neutral float-left" title="Bubblespeech" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../bulletpoints/doc.html" class="btn btn-neutral float-right" title="BulletPoints" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Yuichi Ito &lt;yuichi@yuichi.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

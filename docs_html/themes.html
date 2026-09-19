@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Themes & Color Palettes Guide</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Drawlib Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="smartarts/index.html">SmartArts Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="themes/index.html">Themes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="tools/index.html">Tools & CLI Reference</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="doc_builder.html">Document Builder Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="foundations/canvas.html">Canvas & Coordinate System</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="icons.html">Icons Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="images.html">Images & Effects Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="lines.html">Lines & Curves Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="quick_start.html">Quick Start Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="smartarts.html">SmartArts Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="text.html">Text & Typography Guide</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="themes.html">Themes & Color Palettes Guide</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Themes & Color Palettes Guide</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Themes &amp; Color Palettes Guide</h1>
+<p>Drawlib encourages separating content (coordinates, item types) from visual presentation (colors, line weights, themes).</p>
+<hr />
+<h2>1. Color Palettes (<code>Colors</code> &amp; <code>Colors140</code>)</h2>
+<p>Drawlib provides predefined color constants:</p>
+<ul>
+<li><strong><code>Colors</code></strong>: Standard primary colors (<code>Red</code>, <code>Blue</code>, <code>Green</code>, <code>Black</code>, <code>White</code>, <code>Silver</code>, <code>Transparent</code>).</li>
+<li><strong><code>Colors140</code></strong>: 140 CSS named colors (<code>Turquoise</code>, <code>Coral</code>, <code>DodgerBlue</code>, <code>SlateGray</code>, etc.).</li>
+<li><strong>Utility functions</strong>: <code>from_hex(&quot;#6366f1&quot;)</code>, <code>from_grayscale(0.8)</code>, <code>with_alpha(color, 0.5)</code>.</li>
+</ul>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.colors import Colors, Colors140, from_hex, with_alpha
+from drawlib.shapes import circle, rectangle
+from drawlib.types import ShapeStyle
+
+config(width=100, height=40)
+
+# Custom hex color
+circle(
+    xy=(25, 20),
+    radius=12,
+    style=ShapeStyle(fill_color=from_hex(&quot;#6366f1&quot;))
+)
+
+# Color with transparency (alpha)
+rectangle(
+    xy=(75, 20),
+    width=24,
+    height=24,
+    style=ShapeStyle(fill_color=with_alpha(Colors140.Tomato, 0.6), line_color=Colors.Navy)
+)
+</code></pre>
+<div class="drawlib-image">
+  <img src="themes_1.png" alt="themes_1" />
+</div>
+<hr />
+<h2>2. Using Themes and Preset Styles</h2>
+<p>Theme styles allow referencing predefined visual classes by string names (e.g., <code>&quot;blue&quot;</code>, <code>&quot;red_fill&quot;</code>):</p>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.shapes import circle
+from drawlib.text import text
+
+config(width=100, height=30)
+
+circle(xy=(30, 15), radius=10, style=&quot;blue&quot;)
+text(xy=(30, 15), text=&quot;Theme Blue&quot;, style=&quot;white&quot;)
+
+circle(xy=(70, 15), radius=10, style=&quot;red&quot;)
+text(xy=(70, 15), text=&quot;Theme Red&quot;, style=&quot;white&quot;)
+</code></pre>
+<div class="drawlib-image">
+  <img src="themes_2.png" alt="themes_2" />
+</div>
+<hr />
+<h2>Navigation</h2>
+<ul>
+<li><a href="./index.html">Back to Index</a></li>
+<li><a href="./smartarts.html">Next: SmartArts Guide</a></li>
+</ul>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

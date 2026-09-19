@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building many images &mdash; drawlib 0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=6432bc99" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=10f1778b"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Coding Best Practices" href="../programming/doc.html" />
+    <link rel="prev" title="Theme feature" href="../theme/doc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            drawlib
+          </a>
+              <div class="version">
+                version: 0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introductions:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/about/doc.html">About drawlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/install/doc.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/lib_design/doc.html">Drawlib from a High Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/quick_start/doc.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/release_note/doc.html">Release Note of 0.2.*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/other_version_docs/doc.html">Other Version Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/links/doc.html">Links</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Foundations:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../canvas/doc.html">Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coordinate_align/doc.html">Coordinate and Alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../icon/doc.html">Drawing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../image/doc.html">Drawing Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../line/doc.html">Drawing line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../line_style/doc.html">Line Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape/doc.html">Drawing Shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_arrow/doc.html">Drawing Arrow Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_circle/doc.html">Drawing Circle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_rectangle/doc.html">Drawing Rectangle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_style/doc.html">Shape Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../text/doc.html">Drawing Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../theme/doc.html">Theme feature</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Building many images</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-most-important-things">The Most Important Things</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sample-package-architecture-flat">Sample Package Architecture: Flat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sample-package-architecture-grouped">Sample Package Architecture: Grouped</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-drawing-project-as-python-package">Create Drawing Project as Python Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#background-knowledge-python-path">Background Knowledge: Python Path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-drawlib-command">Using the drawlib Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sample-codes-and-their-outputs">Sample Codes and Their Outputs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../programming/doc.html">Coding Best Practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Topics:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/color/doc.html">Color Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/font/doc.html">Font Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/dimage/doc.html">Dimage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/debug/doc.html">Debugging errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/settings/doc.html">Library Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/cli_options/doc.html">CLI and Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/example_flow/doc.html">Example of Documentation Build Flow</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Smart Arts:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/index/doc.html">About Smart Arts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bubblespeech/doc.html">Bubblespeech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/boxlist/doc.html">BoxList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bulletpoints/doc.html">BulletPoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/gridlayout/doc.html">GridLayout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/pyramid/doc.html">Pyramid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/sourcecode/doc.html">SourceCode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/table/doc.html">Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/tree/doc.html">Tree</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Themes:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/advanced_topics/doc.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_default/doc.html">Official Theme: default</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_essentials/doc.html">Official Theme: essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_monochrome/doc.html">Official Theme: monochrome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/create/doc.html">Create Your Custom Theme from Scratch</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">drawlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Building many images</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/manual/foundations/build_many/doc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="building-many-images">
+<h1>Building many images<a class="headerlink" href="#building-many-images" title="Link to this heading"></a></h1>
+<p>Drawlib is designed for creating numerous illustrations, such as those used in documentation.
+It provides the <code class="docutils literal notranslate"><span class="pre">drawlib</span></code> command for bulk building images under a specified directory, allowing you to easily apply defined styles to many illustrations.</p>
+<p>Here is a typical build process for documentation.
+As shown, we first build many images and then build the documentation using those images.</p>
+<figure class="align-center" id="id1">
+<a class="with-border reference internal image-reference" href="../../../_images/image_buildmany.png"><img alt="../../../_images/image_buildmany.png" class="with-border" src="../../../_images/image_buildmany.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Build many images</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>In this process, Drawlib achieves the following:</p>
+<ul class="simple">
+<li><p>Declare Styling at Common Code Files: Centralize style definitions for consistency.</p></li>
+<li><p>Declare Functions at Common Code Files: Centralize function definitions for reuse.</p></li>
+<li><p>Import Common Code in Each Image File: Each image script imports the common styles and functions.</p></li>
+<li><p>Execute All Image Scripts in a Specified Directory: Generate all images by executing the scripts in the specified directory.</p></li>
+</ul>
+<section id="the-most-important-things">
+<h2>The Most Important Things<a class="headerlink" href="#the-most-important-things" title="Link to this heading"></a></h2>
+<p>When building many images with Drawlib, keep these key points in mind:</p>
+<ul class="simple">
+<li><p>Create a Normal Python Package Architecture: Ensure your project is structured as a standard Python package.</p></li>
+<li><p>Include <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> in Each Directory: This file is essential for Python to recognize directories as packages.</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">drawlib</span> <span class="pre">&lt;target&gt;</span></code> Command: Instead of using <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">&lt;code-file&gt;</span></code>, utilize the drawlib command for building images in your package.</p></li>
+</ul>
+<p>We use the normal Python <code class="docutils literal notranslate"><span class="pre">import</span></code> statement to reference style code from the image code.
+This requires a correct package structure for the image code to locate the style code.
+If your package has issues, the image code will show an import error.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">drawlib</span></code> command simplifies complex tasks as long as the package structure is correct.</p>
+</section>
+<section id="sample-package-architecture-flat">
+<h2>Sample Package Architecture: Flat<a class="headerlink" href="#sample-package-architecture-flat" title="Link to this heading"></a></h2>
+<p>We recommend a flat architecture for a single document.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>docs
+├── __init__.py
+├── doc.md
+├── image1.py
+├── ...
+└── image&lt;n&gt;.py
+</pre></div>
+</div>
+</section>
+<section id="sample-package-architecture-grouped">
+<h2>Sample Package Architecture: Grouped<a class="headerlink" href="#sample-package-architecture-grouped" title="Link to this heading"></a></h2>
+<p>If you are writing extensive documentation, such as a book, a single directory might not be sufficient.
+In such cases, categorizing content into subdirectories is recommended.</p>
+<p>Here is a sample architecture:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>docs
+├── __init__.py
+├── chap01
+│   ├── __init__.py
+│   ├── image1.py
+│   ├── image2.py
+├── chap02
+│   ├── __init__.py
+│   └── image1.py
+└── commons
+   ├── __init__.py
+   ├── avenger
+   │   ├── readme.txt
+   │   └── regular.ttf
+   ├── images
+   │   ├── linux.png
+   │   └── python.png
+   ├── style.py
+   └── util.py
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>docs: Root directory for documents.</p></li>
+<li><p>commons: Contains code shared by image scripts, as well as common files (e.g., fonts and images).</p></li>
+<li><p>chap01: Contains image scripts. Document text files, such as Markdown, might also be placed in this directory.</p></li>
+<li><p>chap02: Similar to chap01. Both directories have files named image1.py, which is acceptable because they are in different directories.</p></li>
+</ul>
+<p>You can create additional subdirectories for sections as needed.</p>
+</section>
+<section id="create-drawing-project-as-python-package">
+<h2>Create Drawing Project as Python Package<a class="headerlink" href="#create-drawing-project-as-python-package" title="Link to this heading"></a></h2>
+<p>Image scripts depend on common code, such as styling and utility functions.
+In Python, this dependency is managed using <code class="docutils literal notranslate"><span class="pre">import</span></code> statements.
+To keep the project organized, especially when dealing with a large number of image scripts, structuring the project as a Python package is essential.</p>
+<p>For small projects, a flat directory structure might be sufficient, with all files in one directory.
+However, for larger projects with hundreds of image scripts, it’s smarter to organize the files into directories that reflect the documentation structure.</p>
+<p>When your project grows, you’ll need to import code from different directories.
+This requires setting up a package architecture and using module names for imports.</p>
+<p>Suppose we use last grouped package architecture.
+Here is a code snippet of illustration code:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">docs/chap01/image1.py</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="kn">import</span> <span class="nn">docs.commons.style</span>
+<span class="linenos">4</span><span class="kn">from</span> <span class="nn">docs.commons</span> <span class="kn">import</span> <span class="n">util</span>
+<span class="linenos">5</span>
+<span class="linenos">6</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos">7</span><span class="n">util</span><span class="o">.</span><span class="n">draw_3circles</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="linenos">8</span><span class="n">util</span><span class="o">.</span><span class="n">draw_logo</span><span class="p">()</span>
+<span class="linenos">9</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>In this example, <code class="docutils literal notranslate"><span class="pre">image1.py</span></code> imports <code class="docutils literal notranslate"><span class="pre">docs.commons.style</span></code> and <code class="docutils literal notranslate"><span class="pre">docs.commons.util</span></code>:
+The module nas has full package hierarchy.
+This style is called <code class="docutils literal notranslate"><span class="pre">Absolute</span> <span class="pre">import</span></code>.
+We recommend using absolute imports, as shown in the example above.
+However, you can also use relative imports.</p>
+<p>All directories containing Python code should have an <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file.
+This file is crucial for Python’s package system, as it designates a directory as a package.
+While newer versions of Python can handle directories without <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>, it is still good practice to include it for clarity and compatibility.
+But, drawlib does require it.
+There are no choice for having no <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> in your package with technical reason.</p>
+<p>Here is a summary of the directory requirements:</p>
+<ul class="simple">
+<li><p>docs: Contains an <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file. It doesn’t have Python files directly, but its subdirectories do.</p></li>
+<li><p>docs.chap01, docs.chap02, etc.: Each contains an <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file.</p></li>
+<li><p>docs.commons.images: Does not contain an <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file since it has no Python files. You can add one if desired.</p></li>
+</ul>
+<p>In this setup, docs is the root package because its parent directory does not contain an <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file.
+If the parent directory had an <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file, it would be the root package instead.
+Please remember, parent directory of you package must not have <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>.</p>
+</section>
+<section id="background-knowledge-python-path">
+<h2>Background Knowledge: Python Path<a class="headerlink" href="#background-knowledge-python-path" title="Link to this heading"></a></h2>
+<p>The Python path is a list of directories where Python searches for modules.
+You can view this list using <code class="docutils literal notranslate"><span class="pre">sys.path</span></code>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ python
+Python 3.9.19 (main, May  1 2024, 23:01:19)
+[Clang 15.0.0 (clang-1500.3.9.4)] on darwin
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import sys
+&gt;&gt;&gt; import pprint
+&gt;&gt;&gt; pprint.pprint(sys.path)
+[&#39;&#39;,
+&#39;/Users/yuichi/.pyenv/versions/3.9.19/lib/python39.zip&#39;,
+&#39;/Users/yuichi/.pyenv/versions/3.9.19/lib/python3.9&#39;,
+&#39;/Users/yuichi/.pyenv/versions/3.9.19/lib/python3.9/lib-dynload&#39;,
+&#39;/Users/yuichi/.pyenv/versions/3.9.19/lib/python3.9/site-packages&#39;]
+</pre></div>
+</div>
+<p>When you try to import packages and modules in your code, Python searches for them in the directories listed in the Python path.
+The Python path includes:</p>
+<ul class="simple">
+<li><p>The current working directory</p></li>
+<li><p>The directory where Python is installed</p></li>
+<li><p>The directory containing external packages installed via pip or other package managers</p></li>
+</ul>
+<p>When you run your code using the drawlib command, drawlib adds your package to the Python path.
+This ensures that your image code can find the style code within your package.</p>
+</section>
+<section id="using-the-drawlib-command">
+<h2>Using the drawlib Command<a class="headerlink" href="#using-the-drawlib-command" title="Link to this heading"></a></h2>
+<p>Let’s try running <code class="docutils literal notranslate"><span class="pre">docs.chap01.image1.py</span></code> normally:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ python docs/chap01/image1.py
+Traceback (most recent call last):
+File &quot;/Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap01/image1.py&quot;, line 3, in &lt;module&gt;
+   import docs.commons.style
+ModuleNotFoundError: No module named &#39;docs&#39;
+</pre></div>
+</div>
+<p>As mentioned earlier, this error occurs because Python cannot find the docs package.</p>
+<p>Drawlib can execute any code in your package without complicated procedures.
+Just use <code class="docutils literal notranslate"><span class="pre">drawlib</span> <span class="pre">&lt;target&gt;</span></code> or <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">drawlib</span> <span class="pre">&lt;target&gt;</span></code>.
+Let’s try:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ drawlib docs/chap01/image1.py
+Detect package root &quot;/Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs&quot;.
+   - Add parent directory of package root &quot;/Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many&quot; to Python Path.
+
+Execute python files
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap01/image1.py
+</pre></div>
+</div>
+<p>As shown in the console, Drawlib detects the package root and adds it to the Python path.
+This allows the Python illustration code to import style code from anywhere within the Python path.
+<code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> is used for detecting root of your package.
+This is the reason why you must need to put <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> in your package.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">drawlib</span></code> command can also execute all Python files in a directory:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ drawlib docs/
+Detect package root &quot;/Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs&quot;.
+   - Add parent directory of package root &quot;/Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many&quot; to Python Path.
+
+Execute python files
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/__init__.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap01/__init__.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap01/image1.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap01/image2.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap02/__init__.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap02/image1.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/commons/__init__.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/commons/style.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/commons/util.py
+</pre></div>
+</div>
+<p>The order of execution is not critical if each illustration code is independent.
+However, the execution follows these rules:</p>
+<ul class="simple">
+<li><p>Shallow directories are executed before deep directories.</p></li>
+<li><p>If the directory levels are the same, files are executed in alphabetical order.</p></li>
+</ul>
+<p>By default, the clear() function, which resets the current canvas, is automatically invoked between each file execution.
+You can customize this behavior using options.</p>
+</section>
+<section id="sample-codes-and-their-outputs">
+<h2>Sample Codes and Their Outputs<a class="headerlink" href="#sample-codes-and-their-outputs" title="Link to this heading"></a></h2>
+<p>Below, we present example codes alongside their corresponding output images.</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">docs/commons/style.py</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="n">dtheme</span><span class="o">.</span><span class="n">apply_official_theme</span><span class="p">(</span><span class="s2">&quot;essentials&quot;</span><span class="p">)</span>
+<span class="linenos">4</span><span class="n">dtheme</span><span class="o">.</span><span class="n">shapestyles</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">dtheme</span><span class="o">.</span><span class="n">shapestyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;lightgreen&quot;</span><span class="p">))</span>
+<span class="linenos">5</span><span class="n">dtheme</span><span class="o">.</span><span class="n">shapestyles</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">dtheme</span><span class="o">.</span><span class="n">shapestyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;lightgreen_flat&quot;</span><span class="p">),</span> <span class="s2">&quot;flat&quot;</span><span class="p">)</span>
+<span class="linenos">6</span><span class="n">Dimage</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;linux&quot;</span><span class="p">,</span> <span class="s2">&quot;images/linux.png&quot;</span><span class="p">)</span>
+<span class="linenos">7</span><span class="n">Dimage</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;python&quot;</span><span class="p">,</span> <span class="s2">&quot;images/python.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">docs/commons/util.py</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">docs.commons.style</span>
+<span class="linenos"> 2</span><span class="kn">import</span> <span class="nn">drawlib.apis</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="k">def</span> <span class="nf">draw_3circles</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">margin</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 6</span>    <span class="n">x_shift</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">+</span> <span class="n">margin</span>
+<span class="linenos"> 7</span>    <span class="n">drawlib</span><span class="o">.</span><span class="n">apis</span><span class="o">.</span><span class="n">circle</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">radius</span><span class="p">)</span>
+<span class="linenos"> 8</span>    <span class="n">drawlib</span><span class="o">.</span><span class="n">apis</span><span class="o">.</span><span class="n">circle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">radius</span><span class="p">)</span>
+<span class="linenos"> 9</span>    <span class="n">drawlib</span><span class="o">.</span><span class="n">apis</span><span class="o">.</span><span class="n">circle</span><span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">radius</span><span class="p">)</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="k">def</span> <span class="nf">draw_3rectangle</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">margin</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">13</span>    <span class="n">x_shift</span> <span class="o">=</span> <span class="n">width</span> <span class="o">+</span> <span class="n">margin</span>
+<span class="linenos">14</span>    <span class="n">drawlib</span><span class="o">.</span><span class="n">apis</span><span class="o">.</span><span class="n">rectangle</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;flat&quot;</span><span class="p">)</span>
+<span class="linenos">15</span>    <span class="n">drawlib</span><span class="o">.</span><span class="n">apis</span><span class="o">.</span><span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;flat&quot;</span><span class="p">)</span>
+<span class="linenos">16</span>    <span class="n">drawlib</span><span class="o">.</span><span class="n">apis</span><span class="o">.</span><span class="n">rectangle</span><span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="n">x_shift</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;flat&quot;</span><span class="p">)</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="k">def</span> <span class="nf">draw_logo</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">):</span>
+<span class="linenos">20</span>    <span class="n">drawlib</span><span class="o">.</span><span class="n">apis</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+<span class="linenos">21</span>        <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>
+<span class="linenos">22</span>        <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Drawlib&quot;</span><span class="p">,</span>
+<span class="linenos">23</span>        <span class="n">style</span><span class="o">=</span><span class="n">drawlib</span><span class="o">.</span><span class="n">apis</span><span class="o">.</span><span class="n">TextStyle</span><span class="p">(</span>
+<span class="linenos">24</span>            <span class="n">color</span><span class="o">=</span><span class="n">drawlib</span><span class="o">.</span><span class="n">apis</span><span class="o">.</span><span class="n">Colors140</span><span class="o">.</span><span class="n">BlueViolet</span><span class="p">,</span>
+<span class="linenos">25</span>            <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+<span class="linenos">26</span>            <span class="n">font</span><span class="o">=</span><span class="n">drawlib</span><span class="o">.</span><span class="n">apis</span><span class="o">.</span><span class="n">FontFile</span><span class="p">(</span><span class="s2">&quot;avenger/regular.ttf&quot;</span><span class="p">),</span>
+<span class="linenos">27</span>        <span class="p">),</span>
+<span class="linenos">28</span>    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">docs/chap01/image1.py</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="kn">import</span> <span class="nn">docs.commons.style</span>
+<span class="linenos">4</span><span class="kn">from</span> <span class="nn">docs.commons</span> <span class="kn">import</span> <span class="n">util</span>
+<span class="linenos">5</span>
+<span class="linenos">6</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos">7</span><span class="n">util</span><span class="o">.</span><span class="n">draw_3circles</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="linenos">8</span><span class="n">util</span><span class="o">.</span><span class="n">draw_logo</span><span class="p">()</span>
+<span class="linenos">9</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<figure class="align-center" id="id6">
+<a class="with-border reference internal image-reference" href="../../../_images/image1.png"><img alt="../../../_images/image1.png" class="with-border" src="../../../_images/image1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">output image of docs/chap01/image1.py</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">docs/chap01/image2.py</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="kn">import</span> <span class="nn">docs.commons.style</span>
+<span class="linenos">4</span><span class="kn">import</span> <span class="nn">docs.commons.util</span> <span class="k">as</span> <span class="nn">util</span>
+<span class="linenos">5</span>
+<span class="linenos">6</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos">7</span><span class="n">util</span><span class="o">.</span><span class="n">draw_3rectangle</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="linenos">8</span><span class="n">util</span><span class="o">.</span><span class="n">draw_logo</span><span class="p">()</span>
+<span class="linenos">9</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<figure class="align-center" id="id8">
+<a class="with-border reference internal image-reference" href="../../../_images/image2.png"><img alt="../../../_images/image2.png" class="with-border" src="../../../_images/image2.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">output image of docs/chap01/image2.py</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">docs/chap02/image1.py</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="kn">import</span> <span class="nn">docs.commons.style</span>
+<span class="linenos"> 4</span><span class="kn">import</span> <span class="nn">docs.commons.util</span> <span class="k">as</span> <span class="nn">util</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="n">image</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">Dimage</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;linux&quot;</span><span class="p">))</span>
+<span class="linenos"> 8</span><span class="n">image</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">Dimage</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;python&quot;</span><span class="p">))</span>
+<span class="linenos"> 9</span><span class="n">util</span><span class="o">.</span><span class="n">draw_logo</span><span class="p">()</span>
+<span class="linenos">10</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<figure class="align-center" id="id10">
+<a class="with-border reference internal image-reference" href="../../../_images/image11.png"><img alt="../../../_images/image11.png" class="with-border" src="../../../_images/image11.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">output image of doc/schap02/image1.py</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../theme/doc.html" class="btn btn-neutral float-left" title="Theme feature" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../programming/doc.html" class="btn btn-neutral float-right" title="Coding Best Practices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Yuichi Ito &lt;yuichi@yuichi.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

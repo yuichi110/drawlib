@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawlib Documentation</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="index.html">Drawlib Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="smartarts/index.html">SmartArts Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="themes/index.html">Themes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="tools/index.html">Tools & CLI Reference</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="doc_builder.html">Document Builder Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="foundations/canvas.html">Canvas & Coordinate System</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="icons.html">Icons Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="images.html">Images & Effects Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="lines.html">Lines & Curves Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="quick_start.html">Quick Start Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="smartarts.html">SmartArts Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="text.html">Text & Typography Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="themes.html">Themes & Color Palettes Guide</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Drawlib Documentation</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Drawlib Documentation</h1>
+<p><strong>Drawlib</strong> is a Python library crafted to facilitate <strong>Illustration as Code</strong>.
+Define your diagrams and illustrations programmatically, manage them with Git, and automate document compilation.</p>
+<hr />
+<h2>1. Concept: Illustration as Code</h2>
+<p>In traditional workflows, illustrations are drawn manually in graphic tools. With Drawlib, you write Python code to generate clean vector graphics directly inside your Markdown documents and scripts.</p>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.colors import Colors, Colors140
+from drawlib.shapes import circle, rectangle
+from drawlib.text import text
+from drawlib.types import ShapeStyle, TextStyle
+
+config(width=100, height=40)
+
+# Draw circle and rectangle with custom styles
+circle(xy=(25, 20), radius=12, style=ShapeStyle(fill_color=Colors140.Turquoise, line_color=Colors.Navy, line_width=2))
+text(xy=(25, 20), text=&quot;Circle&quot;, style=TextStyle(text_color=Colors.White, text_size=16))
+
+rectangle(xy=(75, 20), width=24, height=24, style=ShapeStyle(fill_color=Colors140.Coral, line_color=Colors.Navy, line_width=2))
+text(xy=(75, 20), text=&quot;Rectangle&quot;, style=TextStyle(text_color=Colors.White, text_size=16))
+</code></pre>
+<div class="drawlib-image">
+  <img src="index_1.png" alt="index_1" />
+</div>
+<hr />
+<h2>2. Table of Contents</h2>
+<ul>
+<li><a href="./quick_start.html">Quick Start</a> - Get started in 5 minutes</li>
+<li><strong>Foundations</strong> (<code>./foundations/</code>)
+<ul>
+<li><a href="./foundations/canvas.html">Canvas &amp; Coordinate System</a> - Coordinates, canvas size, resolution (DPI), grid overlays</li>
+<li><a href="./shapes.html">Shapes Guide</a> - Circles, rectangles, polygons, stars, and arrows</li>
+<li><a href="./lines.html">Lines Guide</a> - Straight lines, curves, polyline connectors, and arrowheads</li>
+<li><a href="./text.html">Text Guide</a> - Typography, alignment, fonts, and text boxes</li>
+<li><a href="./images.html">Images Guide</a> - Embedding images, cropping, and filter effects</li>
+<li><a href="./icons.html">Icons Guide</a> - Over 1,500 Phosphor icons and icon badges</li>
+</ul>
+</li>
+<li><strong>Themes &amp; Styling</strong> (<code>./themes/</code>)
+<ul>
+<li><a href="./themes/themes.html">Themes Guide</a> - Predefined themes, color palettes, and custom styles</li>
+</ul>
+</li>
+<li><strong>SmartArts Diagrams</strong> (<code>./smartarts/</code>)
+<ul>
+<li><a href="./smartarts/smartarts.html">SmartArts Guide</a> - Tables, trees, process lists, speech bubbles, and pyramids</li>
+</ul>
+</li>
+<li><strong>Developer Tools</strong> (<code>./tools/</code>)
+<ul>
+<li><a href="./tools/doc_builder.html">Document Builder</a> - Compiling Markdown documents into HTML/PDF</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>3. Core Principles</h2>
+<ol>
+<li><strong>Separation of Content and Style</strong>: Similar to HTML and CSS, define drawing structures separately from visual themes.</li>
+<li><strong>Version Control Friendly</strong>: Store illustrations as plain code alongside your documentation in Git repositories.</li>
+<li><strong>Automated Document Compilation</strong>: Compile Markdown files containing <code>drawlib</code> code blocks into static Web sites or PDFs.</li>
+</ol>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -18,7 +18,7 @@ tasks:
         
       Usage:
         task utest:docker IMAGE=test-drawlib:<tag>
-        task utest:docker IMAGE=test-drawlib:<tag> PATH=tests/v0_2/core
+        task utest:docker IMAGE=test-drawlib:<tag> PATH=tests/core
 #    deps:
 #      - :docker:daemon:check
     vars:

@@ -9,11 +9,11 @@
 
 """Entry point of drawlib command."""
 
-from drawlib.v0_2.private.l7_cli import call_command
+from drawlib._tools.cli import call_command
 
 
 def main() -> None:
-    """Call latest drawlib command"""
+    """Call latest drawlib command."""
     call_command()
 
 

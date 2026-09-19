@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CLI and Options &mdash; drawlib 0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=6432bc99" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=10f1778b"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Example of Documentation Build Flow" href="../example_flow/doc.html" />
+    <link rel="prev" title="Library Settings" href="../settings/doc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            drawlib
+          </a>
+              <div class="version">
+                version: 0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introductions:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/about/doc.html">About drawlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/install/doc.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/lib_design/doc.html">Drawlib from a High Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/quick_start/doc.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/release_note/doc.html">Release Note of 0.2.*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/other_version_docs/doc.html">Other Version Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/links/doc.html">Links</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Foundations:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/canvas/doc.html">Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/coordinate_align/doc.html">Coordinate and Alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/icon/doc.html">Drawing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/image/doc.html">Drawing Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/line/doc.html">Drawing line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/line_style/doc.html">Line Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape/doc.html">Drawing Shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_arrow/doc.html">Drawing Arrow Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_circle/doc.html">Drawing Circle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_rectangle/doc.html">Drawing Rectangle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_style/doc.html">Shape Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/text/doc.html">Drawing Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/theme/doc.html">Theme feature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/build_many/doc.html">Building many images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/programming/doc.html">Coding Best Practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Topics:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../color/doc.html">Color Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../font/doc.html">Font Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dimage/doc.html">Dimage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/doc.html">Debugging errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings/doc.html">Library Settings</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CLI and Options</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#drawlib-command">drawlib Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sample">Sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-options">Command Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#controlling-auto-clear-and-initialize-feature">Controlling Auto Clear and Initialize Feature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#purging-font-cache">Purging Font Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-log-level">Setting Log Level</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../example_flow/doc.html">Example of Documentation Build Flow</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Smart Arts:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/index/doc.html">About Smart Arts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bubblespeech/doc.html">Bubblespeech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/boxlist/doc.html">BoxList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bulletpoints/doc.html">BulletPoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/gridlayout/doc.html">GridLayout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/pyramid/doc.html">Pyramid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/sourcecode/doc.html">SourceCode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/table/doc.html">Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/tree/doc.html">Tree</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Themes:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/advanced_topics/doc.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_default/doc.html">Official Theme: default</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_essentials/doc.html">Official Theme: essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_monochrome/doc.html">Official Theme: monochrome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/create/doc.html">Create Your Custom Theme from Scratch</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">drawlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">CLI and Options</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/manual/advanced_topics/cli_options/doc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cli-and-options">
+<h1>CLI and Options<a class="headerlink" href="#cli-and-options" title="Link to this heading"></a></h1>
+<section id="drawlib-command">
+<h2>drawlib Command<a class="headerlink" href="#drawlib-command" title="Link to this heading"></a></h2>
+<p>Once drawlib is installed, you gain access to the <code class="docutils literal notranslate"><span class="pre">drawlib</span></code> command.
+This command is equivalent to invoking the drawlib module using <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">drawlib</span></code>.</p>
+<p>You can develop your illustration code using either <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">&lt;your_drawlib_code&gt;</span></code> or <code class="docutils literal notranslate"><span class="pre">drawlib</span> <span class="pre">&lt;your_drawlib_code_or_directory&gt;</span></code>.
+If you are working with a single file that doesn’t import any other files, there is minimal difference between using these commands.</p>
+<p>However, significant differences arise when managing multiple illustration codes or referencing style code:</p>
+<ul class="simple">
+<li><p>The python command executes a single file.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">drawlib</span></code> command performs several tasks before executing your code:</p>
+<ul>
+<li><p>It detects your package architecture and registers paths.</p></li>
+<li><p>It executes all Python files found under the specified directory.</p></li>
+<li><p>It can automatically apply <code class="docutils literal notranslate"><span class="pre">clear()</span></code> before executing each file.</p></li>
+</ul>
+</li>
+</ul>
+<p>For projects involving numerous illustrations, we strongly recommend using the <code class="docutils literal notranslate"><span class="pre">drawlib</span></code> command over <code class="docutils literal notranslate"><span class="pre">python</span></code> for its added convenience and automation features.</p>
+</section>
+<section id="sample">
+<h2>Sample<a class="headerlink" href="#sample" title="Link to this heading"></a></h2>
+<p>We will cover how to build multiple illustrations in detail in the foundational chapter.
+Please refer to that section for comprehensive guidance.
+However, as demonstrated here, the <code class="docutils literal notranslate"><span class="pre">drawlib</span></code> command is capable of building multiple Python illustration codes after registering your package path.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ drawlib docs/
+Detect package root &quot;/Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs&quot;.
+   - Add parent directory of package root &quot;/Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many&quot; to Python Path.
+
+Execute python files
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/__init__.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap01/__init__.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap01/image1.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap01/image2.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap02/__init__.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap02/image1.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/commons/__init__.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/commons/style.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/commons/util.py
+</pre></div>
+</div>
+</section>
+<section id="command-options">
+<h2>Command Options<a class="headerlink" href="#command-options" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">drawlib</span></code> command includes the <code class="docutils literal notranslate"><span class="pre">-h</span></code> and <code class="docutils literal notranslate"><span class="pre">--help</span></code> options, which display command help.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ drawlib -h
+usage: drawlib [-h] [-v] [--purge_font_cache] [--disable_auto_clear] [--enable_auto_initialize] [--quiet] [--verbose] [--developer] ...
+
+Ilustration as code by python
+
+positional arguments:
+file_or_directory     Target python file or directory which contains python codes
+
+optional arguments:
+-h, --help            show this help message and exit
+-v, --version         Show version.
+--purge_font_cache    Purge cached font files.
+--disable_auto_clear  Disable clearing canvas per executing drawing code files.
+--enable_auto_initialize
+                        Enable initializing theme/canvas/image_cache per executing drawing code files.
+--quiet               Enable quiet logging. show only error messages
+--verbose             Enable verbose logging.
+--debug               Enable verbose logging. Equivalent to option &quot;--verbose&quot;.
+--developer           Enable verbose logging. Disable error handling for library users.
+</pre></div>
+</div>
+<section id="controlling-auto-clear-and-initialize-feature">
+<h3>Controlling Auto Clear and Initialize Feature<a class="headerlink" href="#controlling-auto-clear-and-initialize-feature" title="Link to this heading"></a></h3>
+<p>By default, auto <code class="docutils literal notranslate"><span class="pre">clear()</span></code> is enabled, meaning your previous drawing actions are erased before executing the next illustration code.
+This behavior is generally suitable for normal use cases.</p>
+<p>However, if you intend to create a single illustration using multiple Python files, this auto clear feature may not be desirable.
+In such cases, you can disable it using <code class="docutils literal notranslate"><span class="pre">--disable_auto_clear</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">clear()</span></code> function does not reset theme settings and image cache, as many users prefer to maintain consistent themes across multiple illustrations.
+If you need to completely initialize drawlib per illustration code execution, you can use <code class="docutils literal notranslate"><span class="pre">--enable_auto_initialize</span></code>.
+This option ensures that drawlib calls <code class="docutils literal notranslate"><span class="pre">dutil_canvas.initialize()</span></code> every time your code files are executed.</p>
+<p>Typically, you won’t need to specify both options.</p>
+</section>
+<section id="purging-font-cache">
+<h3>Purging Font Cache<a class="headerlink" href="#purging-font-cache" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">--purge_font_cache</span></code> option removes drawlib’s cached font files from your local machine.</p>
+<p>Font files are downloaded and cached the first time you use a particular font, and this option deletes those cached files to reclaim disk space.
+The combined size of font files is usually under 100MB.
+Note that using Chinese or Japanese fonts may consume more space due to the large number of characters they include.</p>
+<p>Uninstalling drawlib also removes cached fonts, as drawlib stores font caches in its library directory.</p>
+</section>
+<section id="setting-log-level">
+<h3>Setting Log Level<a class="headerlink" href="#setting-log-level" title="Link to this heading"></a></h3>
+<p>Options like <code class="docutils literal notranslate"><span class="pre">--quiet</span></code>, <code class="docutils literal notranslate"><span class="pre">--verbose</span></code>, <code class="docutils literal notranslate"><span class="pre">--debug</span></code>, and <code class="docutils literal notranslate"><span class="pre">--developer</span></code> adjust the log level:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--quiet</span></code>: Suppresses all output except errors.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--verbose</span></code> / <code class="docutils literal notranslate"><span class="pre">--debug</span></code>: Provides verbose logging and includes stack traces for errors.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--developer</span></code>: Provides verbose logging and offering detailed error dumps without error handling, suitable for advanced Python users troubleshooting issues.</p></li>
+</ul>
+<p>Choose the appropriate log level based on your need for error visibility and troubleshooting depth.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../settings/doc.html" class="btn btn-neutral float-left" title="Library Settings" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../example_flow/doc.html" class="btn btn-neutral float-right" title="Example of Documentation Build Flow" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Yuichi Ito &lt;yuichi@yuichi.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

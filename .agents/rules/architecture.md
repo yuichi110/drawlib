@@ -8,43 +8,38 @@ This document describes the project structure and architectural principles of th
 
 ## 1. Project Root Structure
 - `src/drawlib/`: The main source code directory.
+  - `apis.py`: The global gateway re-exporting public symbols.
+  - `core/`: Core drawing engine implementation details.
+  - `doc_builder/`: Markdown AST parsing & document compiler module.
+  - `cli/`: Unified command-line interface logic.
+- `docs/`: User documentation and technical guides written in Markdown.
 - `tests/`: Contains unit and integration tests.
-- `tasks/`: Automation scripts and configuration for development workflows (e.g., dependency management, building).
+- `tasks/`: Automation scripts and configuration for development workflows.
 - `pyproject.toml`: Project metadata and tool configurations (Ruff, Pyright, uv).
 
-## 2. Versioning Strategy
-`drawlib` uses a versioned directory structure to manage library evolution while maintaining backward compatibility.
-
-- **Version Directories**: Major versions or significant API iterations are placed in directories like `src/drawlib/v0_1/`, `src/drawlib/v0_2/`, etc.
-- **Latest Version**: The highest version directory (currently `v0_2`) is considered the primary development target.
-- **Top-level Entry Point**: `src/drawlib/apis.py` serves as the global gateway, re-exporting all public symbols from the latest version directory.
-- **Deprecation**: Older version directories are kept for backward compatibility but are eventually deprecated. New features should only be added to the latest version.
+## 2. Package Architecture
+`drawlib` follows a flat, single-package architecture (Pattern A):
+- Standard Python package layout (`src/drawlib/`).
+- Package releases and versioning are managed via Semantic Versioning in PyPI/Git tags.
+- Three major components reside under `src/drawlib/`: `core` (drawing engine), `doc_builder` (document compiler), and `cli` (command line interface).
 
 ## 3. Module Hierarchy (Internal Structure)
-Each version directory (e.g., `v0_2/`) follows a strict layered architecture to separate public APIs from internal implementation.
 
 ### 3.1. Public API (`apis.py`)
-- Located at `src/drawlib/v0_x/apis.py`.
-- This file acts as the facade for the version. It exports only the symbols intended for end-users.
-- It imports from the `private/` sub-packages and flattens the hierarchy for easier user access.
+- Located at `src/drawlib/apis.py`.
+- Acts as the main facade exporting symbols intended for end-users.
+- Imports from `drawlib.core` and flattens the export namespace.
 
-### 3.2. Implementation (`private/`)
-The `private/` directory contains the actual logic and is not intended to be accessed directly by users.
+### 3.2. Core Implementation (`core/`)
+The `core/` directory contains internal drawing logic and is not meant to be accessed directly by users.
+- **Layered Structure**: `l1_core`, `l2_models`, `l2_types`, `l3_fonts`, `l3_styles`, `l4_theme`, `l5_canvas`, `l6_icons`, `l7_dutils`, `l7_smartarts`, `l7_umls`.
 
-- **`core/`**: Foundations of the library.
-    - `model.py`: Style models (ShapeStyle, LineStyle, etc.) implemented as dataclasses.
-    - `colors.py`, `fonts.py`, `theme.py`: Basic visual components.
-- **`core_canvas/`**: The drawing engine.
-    - `canvas.py`: Manages the drawing state and Matplotlib integration.
-    - Implements basic primitives (line, rectangle, circle, text, etc.).
-- **`validators/`**: Dedicated validation logic for user inputs and style attributes.
-- **`dutil/`**: Low-level utilities, settings, and helper functions used across the version.
-- **Feature Modules**:
-    - `icons/`: Icon library integration (e.g., Phosphor icons).
-    - `smartarts/`: Higher-level drawing components (e.g., flowcharts, diagrams).
-    - `umls/`: Specialized UML diagram support.
+### 3.3. Document Builder (`doc_builder/`)
+- Handles Markdown parsing, `drawlib` code block execution, and HTML/PDF compilation.
 
-## 4. Dependency Rules
-- **Layered Access**: Higher-level modules (like `smartarts` or `umls`) may depend on lower-level modules (`core`, `core_canvas`), but not vice versa.
-- **Private Access**: Code inside `private/` should avoid importing from other versions (e.g., `v0_2` should not depend on `v0_1`).
-- **Validation**: All style model attributes must be validated using the logic in `private/validators/` via property setters.
+### 3.4. Command Line Interface (`cli/`)
+- Unified CLI entrypoint (`drawlib.cli.main:main`) and argument parser.
+
+## 4. Dependency & Safety Rules
+- **Layered Access**: Higher-level modules may depend on lower-level modules, but not vice versa.
+- **Validation**: Style model attributes must be validated using guarded properties.

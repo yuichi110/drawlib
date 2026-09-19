@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Line Style &mdash; drawlib 0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=6432bc99" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=10f1778b"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Drawing Shape" href="../shape/doc.html" />
+    <link rel="prev" title="Drawing line" href="../line/doc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            drawlib
+          </a>
+              <div class="version">
+                version: 0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introductions:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/about/doc.html">About drawlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/install/doc.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/lib_design/doc.html">Drawlib from a High Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/quick_start/doc.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/release_note/doc.html">Release Note of 0.2.*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/other_version_docs/doc.html">Other Version Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/links/doc.html">Links</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Foundations:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../canvas/doc.html">Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coordinate_align/doc.html">Coordinate and Alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../icon/doc.html">Drawing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../image/doc.html">Drawing Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../line/doc.html">Drawing line</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Line Style</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#linestyle">LineStyle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#drawing-line-with-style">Drawing line with style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#drawing-line-arrow-with-style">Drawing line arrow with style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#theme-s-pre-defined-line-styles">Theme’s Pre-Defined Line Styles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../shape/doc.html">Drawing Shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_arrow/doc.html">Drawing Arrow Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_circle/doc.html">Drawing Circle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_rectangle/doc.html">Drawing Rectangle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_style/doc.html">Shape Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../text/doc.html">Drawing Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../theme/doc.html">Theme feature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_many/doc.html">Building many images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../programming/doc.html">Coding Best Practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Topics:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/color/doc.html">Color Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/font/doc.html">Font Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/dimage/doc.html">Dimage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/debug/doc.html">Debugging errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/settings/doc.html">Library Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/cli_options/doc.html">CLI and Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/example_flow/doc.html">Example of Documentation Build Flow</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Smart Arts:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/index/doc.html">About Smart Arts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bubblespeech/doc.html">Bubblespeech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/boxlist/doc.html">BoxList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bulletpoints/doc.html">BulletPoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/gridlayout/doc.html">GridLayout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/pyramid/doc.html">Pyramid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/sourcecode/doc.html">SourceCode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/table/doc.html">Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/tree/doc.html">Tree</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Themes:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/advanced_topics/doc.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_default/doc.html">Official Theme: default</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_essentials/doc.html">Official Theme: essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_monochrome/doc.html">Official Theme: monochrome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/create/doc.html">Create Your Custom Theme from Scratch</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">drawlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Line Style</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/manual/foundations/line_style/doc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="line-style">
+<h1>Line Style<a class="headerlink" href="#line-style" title="Link to this heading"></a></h1>
+<p>Drawlib provides six functions for drawing lines and lines with arrowheads:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">line()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">line_curve()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">line_bezier1()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">line_bezier2()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lines()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lines_bezier()</span></code></p></li>
+</ul>
+<p>They all share the following optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">arrowhead</span></code>: Specifies the type of arrowhead. Options are <code class="docutils literal notranslate"><span class="pre">[&quot;&quot;,</span> <span class="pre">&quot;-&gt;&quot;,</span> <span class="pre">&quot;&lt;-&quot;,</span> <span class="pre">&quot;&lt;-&gt;&quot;]</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">width</span></code>: Specifies the line width. This should typically be configured within the style, but it is also available as an optional argument.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">style</span></code>: Defines the line style. Accepts a LineStyle object or a string (style name).</p></li>
+</ul>
+<p>These optional arguments control the line’s style.
+Regarding line width, you can control it using both the <code class="docutils literal notranslate"><span class="pre">width</span></code> argument and the <code class="docutils literal notranslate"><span class="pre">style</span></code> attribute.
+We recommend using the style attribute, as it is a visual parameter.
+If you configure it in the style, you can change the line width by modifying the shared style.
+However, since many users might want to change the line width easily, the width argument is provided as a shortcut.</p>
+<p>Additionally, we have a function called <code class="docutils literal notranslate"><span class="pre">arrow()</span></code>.
+You might think it is similar to a line with an arrowhead, but it actually draws a thick and bold arrow shape, not an arrow line.</p>
+<section id="linestyle">
+<h2>LineStyle<a class="headerlink" href="#linestyle" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">LineStyle</span></code> object has the following attributes:</p>
+<ul class="simple">
+<li><p>width: Line width, represented as a float value.</p></li>
+<li><p>color: Line color, specified in RGB (0~255, 0~255, 0~255) or RGBA (0~255, 0~255, 0~255, 0~1.0). You can use the Color classes for convenience.</p></li>
+<li><p>alpha: Line transparency, ranging from 0.0 (totally transparent) to 1.0 (fully opaque).</p></li>
+<li><p>style: Line style, which can be one of <code class="docutils literal notranslate"><span class="pre">[&quot;solid&quot;,</span> <span class="pre">&quot;dashed&quot;,</span> <span class="pre">&quot;dotted&quot;,</span> <span class="pre">&quot;dashdot&quot;]</span></code>. The default style is solid.</p></li>
+<li><p>ahfill: Arrowhead fill, indicating whether the arrowhead is filled (<code class="docutils literal notranslate"><span class="pre">True</span></code>) or not (<code class="docutils literal notranslate"><span class="pre">False</span></code>). The default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p>ahscale: Arrowhead scale, determining the size of the arrowhead. A larger value results in a larger arrowhead. The default scale is <code class="docutils literal notranslate"><span class="pre">20.0</span></code>.</p></li>
+</ul>
+<p>The first four attributes (<code class="docutils literal notranslate"><span class="pre">width</span></code>, <code class="docutils literal notranslate"><span class="pre">color</span></code>, <code class="docutils literal notranslate"><span class="pre">alpha</span></code>, <code class="docutils literal notranslate"><span class="pre">style</span></code>) affect both lines and lines with arrowheads.
+The last two attributes (<code class="docutils literal notranslate"><span class="pre">ahfill</span></code>, <code class="docutils literal notranslate"><span class="pre">ahscale</span></code>) specifically affect lines with arrowheads.
+This structure allows for precise control over the appearance of lines and their associated arrowheads within Drawlib.</p>
+<p>It’s important to note that whether the arrowhead is present or not carries logical meaning, so it is considered a function argument rather than a style attribute.</p>
+</section>
+<section id="drawing-line-with-style">
+<h2>Drawing line with style<a class="headerlink" href="#drawing-line-with-style" title="Link to this heading"></a></h2>
+<p>Let’s explore different line styles through examples.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">image1.py</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="n">text</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="s2">&quot;no style&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span><span class="n">line</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="linenos"> 7</span><span class="n">text</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="s2">&quot;width: 5&quot;</span><span class="p">)</span>
+<span class="linenos"> 8</span><span class="n">line</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">LineStyle</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+<span class="linenos"> 9</span><span class="n">text</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="s2">&quot;color: Red&quot;</span><span class="p">)</span>
+<span class="linenos">10</span><span class="n">line</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">LineStyle</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">))</span>
+<span class="linenos">11</span><span class="n">text</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="s2">&quot;alpha: 0.2&quot;</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">line</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">LineStyle</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">))</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="n">text</span><span class="p">((</span><span class="mi">60</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="s2">&quot;style: solid</span><span class="se">\n</span><span class="s2">(default)&quot;</span><span class="p">)</span>
+<span class="linenos">15</span><span class="n">line</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">LineStyle</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;solid&quot;</span><span class="p">))</span>
+<span class="linenos">16</span><span class="n">text</span><span class="p">((</span><span class="mi">60</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="s2">&quot;style: dashed&quot;</span><span class="p">)</span>
+<span class="linenos">17</span><span class="n">line</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">LineStyle</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">))</span>
+<span class="linenos">18</span><span class="n">text</span><span class="p">((</span><span class="mi">60</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="s2">&quot;style: dotted&quot;</span><span class="p">)</span>
+<span class="linenos">19</span><span class="n">line</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">LineStyle</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;dotted&quot;</span><span class="p">))</span>
+<span class="linenos">20</span><span class="n">text</span><span class="p">((</span><span class="mi">60</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="s2">&quot;style: dashdot&quot;</span><span class="p">)</span>
+<span class="linenos">21</span><span class="n">line</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">LineStyle</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;dashdot&quot;</span><span class="p">))</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Running this code produces the following output:</p>
+<figure class="align-center" id="id2">
+<a class="with-border reference internal image-reference" href="../../../_images/image15.png"><img alt="../../../_images/image15.png" class="with-border" src="../../../_images/image15.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-text">lines with styles</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>This example demonstrates various line styles applied to lines using Drawlib.</p>
+</section>
+<section id="drawing-line-arrow-with-style">
+<h2>Drawing line arrow with style<a class="headerlink" href="#drawing-line-arrow-with-style" title="Link to this heading"></a></h2>
+<p>All line functions in Drawlib support the <code class="docutils literal notranslate"><span class="pre">arrowhead</span></code> argument, which allows you to add arrowheads to lines.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">arrowhead</span></code> argument accepts one of the following parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code>: No arrowhead (default).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;-&gt;&quot;</span></code>: Right arrowhead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;&lt;-&quot;</span></code>: Left arrowhead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;&lt;-&gt;&quot;</span></code>: Both right and left arrowheads.</p></li>
+</ul>
+<p>You can customize the visual appearance of arrowheads using the following <code class="docutils literal notranslate"><span class="pre">LineStyle</span></code> attributes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ahfill</span></code>: Arrowhead fill. Determines whether the arrowhead is filled (<code class="docutils literal notranslate"><span class="pre">True</span></code>) or not (<code class="docutils literal notranslate"><span class="pre">False</span></code>). Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ahscale</span></code>: Arrowhead scale. Controls the size of the arrowhead. Larger values result in larger arrowheads. Default is <code class="docutils literal notranslate"><span class="pre">20.0</span></code>.</p></li>
+</ul>
+<p>Let’s see an example:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">image2.py</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos"> 4</span><span class="sd">config(width=100, height=50)</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="sd">text((10, 5), &quot;LineArrowStyle()&quot;, style=TextStyle(size=14))</span>
+<span class="linenos"> 7</span><span class="sd">line((20, 5), (40, 5), )</span>
+<span class="linenos"> 8</span><span class="sd">text((10, 13), &quot;width: 5&quot;)</span>
+<span class="linenos"> 9</span><span class="sd">line((20, 13), (40, 13), style=LineArrowStyle(lwidth=5))</span>
+<span class="linenos">10</span><span class="sd">text((10, 21), &quot;color: Red&quot;)</span>
+<span class="linenos">11</span><span class="sd">line((20, 21), (40, 21), style=LineArrowStyle(color=Colors.Red))</span>
+<span class="linenos">12</span><span class="sd">text((10, 29), &quot;alpha: 0.2&quot;)</span>
+<span class="linenos">13</span><span class="sd">line((20, 29), (40, 29), style=LineArrowStyle(alpha=0.2))</span>
+<span class="linenos">14</span><span class="sd">text((10, 37), &quot;lstyle: dashed&quot;)</span>
+<span class="linenos">15</span><span class="sd">line((20, 37), (40, 37), style=LineArrowStyle(lstyle=&quot;dashed&quot;))</span>
+<span class="linenos">16</span><span class="sd">text((10, 45), &quot;hscale: 50\n(default: 20)&quot;)</span>
+<span class="linenos">17</span><span class="sd">line((20, 45), (40, 45), style=LineArrowStyle(hscale=50))</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="sd">text((60, 5), &quot;hstyle: -&gt;\n(default)&quot;)</span>
+<span class="linenos">20</span><span class="sd">line((70, 5), (90, 5), style=LineArrowStyle(hstyle=&quot;-&gt;&quot;))</span>
+<span class="linenos">21</span><span class="sd">text((60, 13), &quot;style: &lt;-&quot;)</span>
+<span class="linenos">22</span><span class="sd">line((70, 13), (90, 13), style=LineArrowStyle(hstyle=&quot;&lt;-&quot;))</span>
+<span class="linenos">23</span><span class="sd">text((60, 21), &quot;style: &lt;-&gt;&quot;)</span>
+<span class="linenos">24</span><span class="sd">line((70, 21), (90, 21), style=LineArrowStyle(hstyle=&quot;&lt;-&gt;&quot;))</span>
+<span class="linenos">25</span><span class="sd">text((60, 29), &quot;style: -|&gt;&quot;)</span>
+<span class="linenos">26</span><span class="sd">line((70, 29), (90, 29), style=LineArrowStyle(hstyle=&quot;-|&gt;&quot;))</span>
+<span class="linenos">27</span><span class="sd">text((60, 37), &quot;style: &lt;|-&quot;)</span>
+<span class="linenos">28</span><span class="sd">line((70, 37), (90, 37), style=LineArrowStyle(hstyle=&quot;&lt;|-&quot;))</span>
+<span class="linenos">29</span><span class="sd">text((60, 45), &quot;style: &lt;|-|&gt;&quot;)</span>
+<span class="linenos">30</span><span class="sd">line((70, 45), (90, 45), style=LineArrowStyle(hstyle=&quot;&lt;|-|&gt;&quot;))</span>
+<span class="linenos">31</span>
+<span class="linenos">32</span><span class="sd">save()</span>
+<span class="linenos">33</span><span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>Executing this code generates the following output:</p>
+<figure class="align-center" id="id4">
+<a class="with-border reference internal image-reference" href="../../../_images/image24.png"><img alt="../../../_images/image24.png" class="with-border" src="../../../_images/image24.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-text">arrow lines with styles</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>This example demonstrates lines with different arrowhead styles and visual configurations using Drawlib.</p>
+</section>
+<section id="theme-s-pre-defined-line-styles">
+<h2>Theme’s Pre-Defined Line Styles<a class="headerlink" href="#theme-s-pre-defined-line-styles" title="Link to this heading"></a></h2>
+<p>Drawlib provides pre-defined line styles.
+You can provide style via name easily.
+What name you can use depends on theme you choose.</p>
+<p>The style has this syntax: <code class="docutils literal notranslate"><span class="pre">&lt;color&gt;_&lt;type&gt;_&lt;weight&gt;</span></code>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;color&gt;</span></code>: Specifies the color of the line.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;type&gt;</span></code> is one of thme.</p>
+<ul class="simple">
+<li><p>(default): solid line</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">solid</span></code>: solid line</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dashed</span></code>: dashed line</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;weight&gt;</span></code> is one of them</p>
+<ul class="simple">
+<li><p>(default): regular line width</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">light</span></code>: half of the default width</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bold</span></code>: double the default width</p></li>
+</ul>
+<p>If the type and weight are default, they may not be explicitly shown in the style name.</p>
+<p>Let’s look at an example:</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">image3.py</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="n">text</span><span class="p">((</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="s2">&quot;no style&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span><span class="n">line</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="linenos"> 7</span><span class="n">text</span><span class="p">((</span><span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="s1">&#39;style=&quot;red&quot;&#39;</span><span class="p">)</span>
+<span class="linenos"> 8</span><span class="n">line</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="linenos"> 9</span><span class="n">text</span><span class="p">((</span><span class="mi">12</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="s1">&#39;style=&quot;red_solid&quot;&#39;</span><span class="p">)</span>
+<span class="linenos">10</span><span class="n">line</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;red_solid&quot;</span><span class="p">)</span>
+<span class="linenos">11</span><span class="n">text</span><span class="p">((</span><span class="mi">12</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="s1">&#39;style=&quot;red_dashed&quot;&#39;</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">line</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;red_dashed&quot;</span><span class="p">)</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="n">text</span><span class="p">((</span><span class="mi">60</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="s1">&#39;style=&quot;red_solid_light&quot;&#39;</span><span class="p">)</span>
+<span class="linenos">15</span><span class="n">line</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;red_solid_light&quot;</span><span class="p">)</span>
+<span class="linenos">16</span><span class="n">text</span><span class="p">((</span><span class="mi">60</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="s1">&#39;style=&quot;red_solid_bold&quot;&#39;</span><span class="p">)</span>
+<span class="linenos">17</span><span class="n">line</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;red_solid_bold&quot;</span><span class="p">)</span>
+<span class="linenos">18</span><span class="n">text</span><span class="p">((</span><span class="mi">60</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="s1">&#39;style=&quot;dashed&quot;&#39;</span><span class="p">)</span>
+<span class="linenos">19</span><span class="n">line</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
+<span class="linenos">20</span><span class="n">text</span><span class="p">((</span><span class="mi">60</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="s1">&#39;style=&quot;bold&quot;&#39;</span><span class="p">)</span>
+<span class="linenos">21</span><span class="n">line</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Executing this code generates the following output:</p>
+<figure class="align-center" id="id6">
+<a class="with-border reference internal image-reference" href="../../../_images/image33.png"><img alt="../../../_images/image33.png" class="with-border" src="../../../_images/image33.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-text">lines with pre-defined style names</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>This example demonstrates lines drawn using pre-defined style names in Drawlib, showcasing different colors, line types, and thicknesses based on the specified styles.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../line/doc.html" class="btn btn-neutral float-left" title="Drawing line" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../shape/doc.html" class="btn btn-neutral float-right" title="Drawing Shape" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Yuichi Ito &lt;yuichi@yuichi.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dimage &mdash; drawlib 0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=6432bc99" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=10f1778b"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Debugging errors" href="../debug/doc.html" />
+    <link rel="prev" title="Font Classes" href="../font/doc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            drawlib
+          </a>
+              <div class="version">
+                version: 0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introductions:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/about/doc.html">About drawlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/install/doc.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/lib_design/doc.html">Drawlib from a High Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/quick_start/doc.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/release_note/doc.html">Release Note of 0.2.*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/other_version_docs/doc.html">Other Version Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/links/doc.html">Links</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Foundations:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/canvas/doc.html">Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/coordinate_align/doc.html">Coordinate and Alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/icon/doc.html">Drawing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/image/doc.html">Drawing Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/line/doc.html">Drawing line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/line_style/doc.html">Line Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape/doc.html">Drawing Shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_arrow/doc.html">Drawing Arrow Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_circle/doc.html">Drawing Circle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_rectangle/doc.html">Drawing Rectangle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_style/doc.html">Shape Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/text/doc.html">Drawing Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/theme/doc.html">Theme feature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/build_many/doc.html">Building many images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/programming/doc.html">Coding Best Practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Topics:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../color/doc.html">Color Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../font/doc.html">Font Classes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Dimage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#image-cache-feature">Image Cache Feature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#things-controlled-by-image">Things Controlled by <code class="docutils literal notranslate"><span class="pre">image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#save-dimage-to-file">Save Dimage to File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-image-pixel-size">Get Image Pixel Size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resizing-and-changing-aspect">Resizing and Changing Aspect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#crop">Crop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#flip-horizontally-and-vertically">Flip Horizontally and Vertically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#change-color">Change color</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#apply-effects">Apply Effects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/doc.html">Debugging errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings/doc.html">Library Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/doc.html">CLI and Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../example_flow/doc.html">Example of Documentation Build Flow</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Smart Arts:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/index/doc.html">About Smart Arts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bubblespeech/doc.html">Bubblespeech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/boxlist/doc.html">BoxList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bulletpoints/doc.html">BulletPoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/gridlayout/doc.html">GridLayout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/pyramid/doc.html">Pyramid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/sourcecode/doc.html">SourceCode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/table/doc.html">Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/tree/doc.html">Tree</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Themes:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/advanced_topics/doc.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_default/doc.html">Official Theme: default</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_essentials/doc.html">Official Theme: essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_monochrome/doc.html">Official Theme: monochrome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/create/doc.html">Create Your Custom Theme from Scratch</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">drawlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Dimage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/manual/advanced_topics/dimage/doc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dimage">
+<h1>Dimage<a class="headerlink" href="#dimage" title="Link to this heading"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">image()</span></code> function draws an image from a file.
+If you want to specify a file path and show it as is, providing a relative path is acceptable.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Dimage</span></code> is an image data class in Drawlib.
+It is useful in the following situations:</p>
+<ul class="simple">
+<li><p>Applying effects to images</p></li>
+<li><p>Caching (loading data in one place and using it in many places)</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">image()</span></code> function can take a Dimage object and draw the image.</p>
+<section id="image-cache-feature">
+<h2>Image Cache Feature<a class="headerlink" href="#image-cache-feature" title="Link to this heading"></a></h2>
+<p>Each illustration code can refer to image files for drawing the image.
+If the image is used only in the code, this is fine.</p>
+<p>However, if many of your illustration codes refer to the same image file, pointing to the same file is not ideal.
+In such cases, changing the file name and location becomes difficult.
+Dimage’s cache feature is useful in this situation.
+You can cache the image in the style code, and all illustration codes can access it through the cache name.</p>
+<p>Dimage possesses a class attribute <code class="docutils literal notranslate"><span class="pre">cache</span></code>.
+This means you can access it like <code class="docutils literal notranslate"><span class="pre">Dimage.cache</span></code>.
+It is an image cache management object with the following methods:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">has(name:str)</span></code>: Checks if the cache exists</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set(name:str,</span> <span class="pre">image:str|Dimage|PIL.Image)</span></code>: Caches image data with the specified name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">list()</span></code>: Gets all cache names</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get(name:str)</span></code>: Retrieves cache data by name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">delete(name:str)</span></code>: Deletes cache data</p></li>
+</ul>
+<p>Here is an example:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">image_cache.py</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos">4</span><span class="n">Dimage</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;linux&quot;</span><span class="p">,</span> <span class="s2">&quot;linux.png&quot;</span><span class="p">)</span>
+<span class="linenos">5</span><span class="n">im</span> <span class="o">=</span> <span class="n">Dimage</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;linux&quot;</span><span class="p">)</span>
+<span class="linenos">6</span><span class="n">image</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="mi">25</span><span class="p">,</span> <span class="n">im</span><span class="p">)</span>
+<span class="linenos">7</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>In this example, we first cache an image using the <code class="docutils literal notranslate"><span class="pre">set()</span></code> function.
+The function has an <code class="docutils literal notranslate"><span class="pre">image</span></code> argument, which can handle a string (file name), Dimage object, or PIL.Image object.
+When you cache an image with a name, the object is automatically copied or converted to a Dimage internally.</p>
+<p>You can retrieve the image using the <code class="docutils literal notranslate"><span class="pre">get()</span></code> function.
+It will return the copied image data that matches the key name.</p>
+<p>Here is the output:</p>
+<figure class="align-center">
+<a class="with-border reference internal image-reference" href="../../../_images/image_cache.png"><img alt="../../../_images/image_cache.png" class="with-border" src="../../../_images/image_cache.png" style="width: 600px;" /></a>
+</figure>
+<p>Not only can you cache images loaded from files, but you can also cache images you have modified.
+If you repeatedly use some images, we recommend using this feature as well.</p>
+</section>
+<section id="things-controlled-by-image">
+<h2>Things Controlled by <code class="docutils literal notranslate"><span class="pre">image()</span></code><a class="headerlink" href="#things-controlled-by-image" title="Link to this heading"></a></h2>
+<p>Dimage is a helper for the <code class="docutils literal notranslate"><span class="pre">image()</span></code> function.
+Therefore, Dimage does not include features that are implemented in <code class="docutils literal notranslate"><span class="pre">image()</span></code>.
+These features are not included:</p>
+<ul class="simple">
+<li><p>Rotate: Controlled by the <code class="docutils literal notranslate"><span class="pre">angle</span></code> option</p></li>
+<li><p>Add Border: Controlled by the <code class="docutils literal notranslate"><span class="pre">lwidth</span></code> and <code class="docutils literal notranslate"><span class="pre">lcolor</span></code> attributes of <code class="docutils literal notranslate"><span class="pre">ImageStyle</span></code></p></li>
+</ul>
+</section>
+<section id="save-dimage-to-file">
+<h2>Save Dimage to File<a class="headerlink" href="#save-dimage-to-file" title="Link to this heading"></a></h2>
+<p>Dimage can save its data to a file without using Drawlib’s canvas.
+The <code class="docutils literal notranslate"><span class="pre">save()</span></code> method performs this function.
+It requires a mandatory argument, <code class="docutils literal notranslate"><span class="pre">file</span></code>.
+While the file argument in Canvas’s <code class="docutils literal notranslate"><span class="pre">save()</span></code> is optional, it is required for Dimage’s <code class="docutils literal notranslate"><span class="pre">save()</span></code>.</p>
+<p>If you provide a relative path, the image file will be saved relative to the script’s path.
+An absolute path will also work.</p>
+</section>
+<section id="get-image-pixel-size">
+<h2>Get Image Pixel Size<a class="headerlink" href="#get-image-pixel-size" title="Link to this heading"></a></h2>
+<p>You can get the original image size using the <code class="docutils literal notranslate"><span class="pre">get_image_size()</span></code> method.
+It returns a tuple of width and height.</p>
+<p>This method is helpful for determining the dimensions of the image before performing operations like <code class="docutils literal notranslate"><span class="pre">resize()</span></code> or <code class="docutils literal notranslate"><span class="pre">trim()</span></code></p>
+</section>
+<section id="resizing-and-changing-aspect">
+<h2>Resizing and Changing Aspect<a class="headerlink" href="#resizing-and-changing-aspect" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">resize()</span></code> method in Dimage takes two arguments: <code class="docutils literal notranslate"><span class="pre">width</span></code> and <code class="docutils literal notranslate"><span class="pre">height</span></code>.
+These dimensions refer to the original pixel size of the image data, not the size on Drawlib’s canvas.</p>
+<p>Before resizing, you can check the original width and height using the <code class="docutils literal notranslate"><span class="pre">get_image_size()</span></code> method.
+If you want to maintain the aspect ratio of the original image, you should calculate either the new width or the new height while keeping the ratio between them.
+If you want to change the aspect ratio, you need to calculate both the new width and height accordingly.</p>
+<p>Here’s an example of changing the aspect ratio where we halve the image height:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">image_getsize_resize.py</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># original</span>
+<span class="linenos"> 6</span><span class="n">original_image</span> <span class="o">=</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">&quot;linux.png&quot;</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="n">image</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="mi">20</span><span class="p">,</span> <span class="n">original_image</span><span class="p">)</span>
+<span class="linenos"> 8</span><span class="n">text</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="s2">&quot;original&quot;</span><span class="p">)</span>
+<span class="linenos"> 9</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">original_image</span><span class="o">.</span><span class="n">get_image_size</span><span class="p">()</span>
+<span class="linenos">10</span><span class="n">text</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;width=</span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">, height=</span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="c1"># resize</span>
+<span class="linenos">13</span><span class="n">new_height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="linenos">14</span><span class="n">resized_image</span> <span class="o">=</span> <span class="n">original_image</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">new_height</span><span class="p">)</span>
+<span class="linenos">15</span><span class="n">image</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="mi">20</span><span class="p">,</span> <span class="n">resized_image</span><span class="p">)</span>
+<span class="linenos">16</span><span class="n">text</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="s2">&quot;resize()&quot;</span><span class="p">)</span>
+<span class="linenos">17</span><span class="n">text</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;width=</span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">, height=</span><span class="si">{</span><span class="n">new_height</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>In this example, we retrieve the original image dimensions using <code class="docutils literal notranslate"><span class="pre">get_image_size()</span></code>.
+And then resize the image using <code class="docutils literal notranslate"><span class="pre">resize()</span></code>.
+We keep original width, but new height is half of original.
+Finally, the resized image is drawn with <code class="docutils literal notranslate"><span class="pre">image()</span></code> function.</p>
+<p>Here is the output:</p>
+<figure class="align-center" id="id3">
+<a class="with-border reference internal image-reference" href="../../../_images/image_getsize_resize.png"><img alt="../../../_images/image_getsize_resize.png" class="with-border" src="../../../_images/image_getsize_resize.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">resize</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="crop">
+<h2>Crop<a class="headerlink" href="#crop" title="Link to this heading"></a></h2>
+<p>If an image contains unnecessary parts, you can trim or crop it using the <code class="docutils literal notranslate"><span class="pre">crop()</span></code> method.
+This method accepts the following arguments:</p>
+<ul class="simple">
+<li><p>x: Specifies the starting point from the left (0 to x pixels will be cropped).</p></li>
+<li><p>y: Specifies the starting point from the bottom (0 to y pixels will be cropped).</p></li>
+<li><p>width: Specifies the width of the cropped area starting from x.</p></li>
+<li><p>height: Specifies the height of the cropped area starting from y.</p></li>
+</ul>
+<p>Here’s an example that keeps the center 50% of the image:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">image_crop.py</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># original</span>
+<span class="linenos"> 6</span><span class="n">original_image</span> <span class="o">=</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">&quot;linux.png&quot;</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="n">image</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="mi">20</span><span class="p">,</span> <span class="n">original_image</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">ImageStyle</span><span class="p">(</span><span class="n">lwidth</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="linenos"> 8</span><span class="n">text</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;original&quot;</span><span class="p">)</span>
+<span class="linenos"> 9</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">original_image</span><span class="o">.</span><span class="n">get_image_size</span><span class="p">()</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># trimming</span>
+<span class="linenos">12</span><span class="n">x_start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span>
+<span class="linenos">13</span><span class="n">crop_width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="linenos">14</span><span class="n">y_start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">height</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span>
+<span class="linenos">15</span><span class="n">crop_height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="linenos">16</span><span class="n">cropped_image</span> <span class="o">=</span> <span class="n">original_image</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="n">x_start</span><span class="p">,</span> <span class="n">y_start</span><span class="p">,</span> <span class="n">crop_width</span><span class="p">,</span> <span class="n">crop_height</span><span class="p">)</span>
+<span class="linenos">17</span><span class="n">image</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="mi">20</span><span class="p">,</span> <span class="n">cropped_image</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">ImageStyle</span><span class="p">(</span><span class="n">lwidth</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="linenos">18</span><span class="n">text</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;crop()&quot;</span><span class="p">)</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>In this example, we calculate the cropping parameters to keep the center 50% of the image.
+We then use the <code class="docutils literal notranslate"><span class="pre">crop()</span></code> method to apply the cropping operation to the Dimage object.
+Finally, the cropped image can be used in drawing operations with <code class="docutils literal notranslate"><span class="pre">image()</span></code>.</p>
+<p>Here is the output:</p>
+<figure class="align-center" id="id5">
+<a class="with-border reference internal image-reference" href="../../../_images/image_crop.png"><img alt="../../../_images/image_crop.png" class="with-border" src="../../../_images/image_crop.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">crop()</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="flip-horizontally-and-vertically">
+<h2>Flip Horizontally and Vertically<a class="headerlink" href="#flip-horizontally-and-vertically" title="Link to this heading"></a></h2>
+<p>You can easily flip an image using Dimage:</p>
+<ul class="simple">
+<li><p>Horizontal Flip: Use the <code class="docutils literal notranslate"><span class="pre">mirror()</span></code> method.</p></li>
+<li><p>Vertical Flip: Use the <code class="docutils literal notranslate"><span class="pre">flip()</span></code> method.</p></li>
+</ul>
+<p>Here’s an example:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">image_mirror_flip.py</span><a class="headerlink" href="#id6" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># original</span>
+<span class="linenos"> 6</span><span class="n">original_image</span> <span class="o">=</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">&quot;linux.png&quot;</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="n">image</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="mi">20</span><span class="p">,</span> <span class="n">original_image</span><span class="p">)</span>
+<span class="linenos"> 8</span><span class="n">text</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;original&quot;</span><span class="p">)</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># mirror</span>
+<span class="linenos">11</span><span class="n">image</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="mi">20</span><span class="p">,</span> <span class="n">original_image</span><span class="o">.</span><span class="n">mirror</span><span class="p">())</span>
+<span class="linenos">12</span><span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;mirror()&quot;</span><span class="p">)</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="c1"># flip</span>
+<span class="linenos">15</span><span class="n">image</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="mi">20</span><span class="p">,</span> <span class="n">original_image</span><span class="o">.</span><span class="n">flip</span><span class="p">())</span>
+<span class="linenos">16</span><span class="n">text</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;flip()&quot;</span><span class="p">)</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Here is the output:</p>
+<figure class="align-center">
+<a class="with-border reference internal image-reference" href="../../../_images/image_mirror_flip.png"><img alt="../../../_images/image_mirror_flip.png" class="with-border" src="../../../_images/image_mirror_flip.png" style="width: 600px;" /></a>
+</figure>
+</section>
+<section id="change-color">
+<h2>Change color<a class="headerlink" href="#change-color" title="Link to this heading"></a></h2>
+<p>Drawlib provides several functions to modify the color of images:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">grayscale()</span></code>: Converts the image to grayscale</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sepia()</span></code>: Applies a sepia tone effect to the image</p></li>
+</ul>
+<p>Here’s an example:</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">image_grayscale_sepia.py</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># original</span>
+<span class="linenos"> 6</span><span class="n">original_image</span> <span class="o">=</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">&quot;linux.png&quot;</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="n">image</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="mi">20</span><span class="p">,</span> <span class="n">original_image</span><span class="p">)</span>
+<span class="linenos"> 8</span><span class="n">text</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;original&quot;</span><span class="p">)</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># grayscale</span>
+<span class="linenos">11</span><span class="n">image</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="mi">20</span><span class="p">,</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">&quot;linux.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">grayscale</span><span class="p">())</span>
+<span class="linenos">12</span><span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;grayscale()&quot;</span><span class="p">)</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="c1"># sepia</span>
+<span class="linenos">15</span><span class="n">image</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="mi">20</span><span class="p">,</span> <span class="n">original_image</span><span class="o">.</span><span class="n">sepia</span><span class="p">())</span>
+<span class="linenos">16</span><span class="n">text</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;sepia()&quot;</span><span class="p">)</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Here is the output.</p>
+<figure class="align-center">
+<a class="with-border reference internal image-reference" href="../../../_images/image_grayscale_sepia.png"><img alt="../../../_images/image_grayscale_sepia.png" class="with-border" src="../../../_images/image_grayscale_sepia.png" style="width: 600px;" /></a>
+</figure>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">brightness()</span></code>:  Adjusts the brightness of the image</p></li>
+</ul>
+<p>A value of <code class="docutils literal notranslate"><span class="pre">0.0</span></code> makes the image completely dark, <code class="docutils literal notranslate"><span class="pre">1.0</span></code> keeps the original brightness, and values greater than <code class="docutils literal notranslate"><span class="pre">1.0</span></code> increase the brightness.</p>
+<p>Here’s an example:</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">image_brightness.py</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="n">image</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="mi">20</span><span class="p">,</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">&quot;linux.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">brightness</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="linenos"> 6</span><span class="n">text</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;brightness(0.5)&quot;</span><span class="p">)</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="n">image</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="mi">20</span><span class="p">,</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">&quot;linux.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">brightness</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
+<span class="linenos"> 9</span><span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;brightness(1.0): Original&quot;</span><span class="p">)</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="n">image</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="mi">20</span><span class="p">,</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">&quot;linux.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">brightness</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="linenos">12</span><span class="n">text</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;brightness(2.0)&quot;</span><span class="p">)</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Here is an output.</p>
+<figure class="align-center">
+<a class="with-border reference internal image-reference" href="../../../_images/image_brightness.png"><img alt="../../../_images/image_brightness.png" class="with-border" src="../../../_images/image_brightness.png" style="width: 600px;" /></a>
+</figure>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">invert()</span></code>: Reverses the RGB values of the image</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">colorize()</span></code>: Applies colors to a grayscale image. If the image is not grayscaled, it will be automatically grayscaled before colorize.</p></li>
+</ul>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">image_invert_colorize.py</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">background_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Gray</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="n">tstyle</span> <span class="o">=</span> <span class="n">TextStyle</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">)</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="c1"># invert</span>
+<span class="linenos"> 7</span><span class="n">image</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="mi">20</span><span class="p">,</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">&quot;linux.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">invert</span><span class="p">())</span>
+<span class="linenos"> 8</span><span class="n">text</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;invert()&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">tstyle</span><span class="p">)</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># brightness</span>
+<span class="linenos">11</span><span class="n">image</span><span class="p">(</span>
+<span class="linenos">12</span>    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">13</span>    <span class="mi">20</span><span class="p">,</span>
+<span class="linenos">14</span>    <span class="n">Dimage</span><span class="p">(</span><span class="s2">&quot;linux.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">colorize</span><span class="p">(</span>
+<span class="linenos">15</span>        <span class="n">from_black_to</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Blue</span><span class="p">,</span>
+<span class="linenos">16</span>        <span class="n">from_white_to</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">,</span>
+<span class="linenos">17</span>    <span class="p">),</span>
+<span class="linenos">18</span><span class="p">)</span>
+<span class="linenos">19</span><span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;colorize()&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">tstyle</span><span class="p">)</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="c1"># invert (rectangle is just background)</span>
+<span class="linenos">22</span><span class="n">image</span><span class="p">(</span>
+<span class="linenos">23</span>    <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">24</span>    <span class="mi">20</span><span class="p">,</span>
+<span class="linenos">25</span>    <span class="n">Dimage</span><span class="p">(</span><span class="s2">&quot;linux.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">colorize</span><span class="p">(</span>
+<span class="linenos">26</span>        <span class="n">from_black_to</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Blue</span><span class="p">,</span>
+<span class="linenos">27</span>        <span class="n">from_white_to</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">,</span>
+<span class="linenos">28</span>        <span class="n">from_mid_to</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Green</span><span class="p">,</span>
+<span class="linenos">29</span>    <span class="p">),</span>
+<span class="linenos">30</span><span class="p">)</span>
+<span class="linenos">31</span><span class="n">text</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;colorize()&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">tstyle</span><span class="p">)</span>
+<span class="linenos">32</span>
+<span class="linenos">33</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Here is the output.</p>
+<figure class="align-center">
+<a class="with-border reference internal image-reference" href="../../../_images/image_invert_colorize.png"><img alt="../../../_images/image_invert_colorize.png" class="with-border" src="../../../_images/image_invert_colorize.png" style="width: 600px;" /></a>
+</figure>
+</section>
+<section id="apply-effects">
+<h2>Apply Effects<a class="headerlink" href="#apply-effects" title="Link to this heading"></a></h2>
+<p>You can apply various effects to images using Drawlib:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mosaic()</span></code>: Applies a mosaic effect to the image. You can specify the size of mosaic blocks with the optional <code class="docutils literal notranslate"><span class="pre">block_size</span></code> argument. Default is 8.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">blur()</span></code>: Applies a blur effect to the image</p></li>
+</ul>
+<p>Here’s an example:</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">image_mosaic_blur.py</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="n">image</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="mi">20</span><span class="p">,</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">&quot;linux.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mosaic</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+<span class="linenos"> 6</span><span class="n">text</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;mosaic(8)&quot;</span><span class="p">)</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="n">image</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="mi">20</span><span class="p">,</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">&quot;linux.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mosaic</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
+<span class="linenos"> 9</span><span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;mosaic(16)&quot;</span><span class="p">)</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="n">image</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="mi">20</span><span class="p">,</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">&quot;linux.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">blur</span><span class="p">())</span>
+<span class="linenos">12</span><span class="n">text</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;blur()&quot;</span><span class="p">)</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Here is the output.</p>
+<figure class="align-center">
+<a class="with-border reference internal image-reference" href="../../../_images/image_mosaic_blur.png"><img alt="../../../_images/image_mosaic_blur.png" class="with-border" src="../../../_images/image_mosaic_blur.png" style="width: 600px;" /></a>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../font/doc.html" class="btn btn-neutral float-left" title="Font Classes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../debug/doc.html" class="btn btn-neutral float-right" title="Debugging errors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Yuichi Ito &lt;yuichi@yuichi.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

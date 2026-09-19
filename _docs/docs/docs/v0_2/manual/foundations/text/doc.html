@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drawing Text &mdash; drawlib 0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=6432bc99" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=10f1778b"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Theme feature" href="../theme/doc.html" />
+    <link rel="prev" title="Shape Style" href="../shape_style/doc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            drawlib
+          </a>
+              <div class="version">
+                version: 0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introductions:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/about/doc.html">About drawlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/install/doc.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/lib_design/doc.html">Drawlib from a High Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/quick_start/doc.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/release_note/doc.html">Release Note of 0.2.*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/other_version_docs/doc.html">Other Version Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/links/doc.html">Links</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Foundations:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../canvas/doc.html">Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coordinate_align/doc.html">Coordinate and Alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../icon/doc.html">Drawing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../image/doc.html">Drawing Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../line/doc.html">Drawing line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../line_style/doc.html">Line Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape/doc.html">Drawing Shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_arrow/doc.html">Drawing Arrow Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_circle/doc.html">Drawing Circle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_rectangle/doc.html">Drawing Rectangle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_style/doc.html">Shape Style</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Drawing Text</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#text">text()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#text-vertical">text_vertical()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#textstyle">TextStyle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#font">Font</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-font-classes">Basic Font Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#local-language-fonts">Local Language Fonts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-font">Custom Font</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#theme-s-pre-defined-styles">Theme’s pre-defined styles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../theme/doc.html">Theme feature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_many/doc.html">Building many images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../programming/doc.html">Coding Best Practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Topics:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/color/doc.html">Color Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/font/doc.html">Font Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/dimage/doc.html">Dimage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/debug/doc.html">Debugging errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/settings/doc.html">Library Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/cli_options/doc.html">CLI and Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/example_flow/doc.html">Example of Documentation Build Flow</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Smart Arts:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/index/doc.html">About Smart Arts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bubblespeech/doc.html">Bubblespeech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/boxlist/doc.html">BoxList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bulletpoints/doc.html">BulletPoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/gridlayout/doc.html">GridLayout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/pyramid/doc.html">Pyramid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/sourcecode/doc.html">SourceCode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/table/doc.html">Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/tree/doc.html">Tree</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Themes:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/advanced_topics/doc.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_default/doc.html">Official Theme: default</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_essentials/doc.html">Official Theme: essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_monochrome/doc.html">Official Theme: monochrome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/create/doc.html">Create Your Custom Theme from Scratch</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">drawlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Drawing Text</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/manual/foundations/text/doc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="drawing-text">
+<h1>Drawing Text<a class="headerlink" href="#drawing-text" title="Link to this heading"></a></h1>
+<p>Drawing text requires understanding the following concepts:</p>
+<ul class="simple">
+<li><p>text(): Function for drawing text</p></li>
+<li><p>TextStyle: Style class for text</p></li>
+<li><p>font: How to specify fonts</p></li>
+<li><p>Theme’s pre-defined styles</p></li>
+</ul>
+<p>We will explain each of these concepts in this section.</p>
+<section id="text">
+<h2>text()<a class="headerlink" href="#text" title="Link to this heading"></a></h2>
+<p>Drawlib uses the <code class="docutils literal notranslate"><span class="pre">text()</span></code> function for drawing text.
+It takes the following arguments:</p>
+<ul class="simple">
+<li><p>xy: coordinate of drawing point</p></li>
+<li><p>text: text value</p></li>
+<li><p>size(optional): size of text font</p></li>
+<li><p>angle(optional): angle of text</p></li>
+<li><p>style(optional): text style</p></li>
+</ul>
+<p>Font size can be changed with <code class="docutils literal notranslate"><span class="pre">size</span></code>, but it can also be changed by the <code class="docutils literal notranslate"><span class="pre">style</span></code> attribute.
+We recommend using the style attribute rather than size.
+Similar to how you shouldn’t configure text size in HTML but should do it in CSS, it’s best to handle text styling via the style attribute for better consistency and flexibility.</p>
+<p>We will explain style later, so for now, we will focus on the other arguments.
+Here are three examples:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">image1.py</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos">4</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">)</span>
+<span class="linenos">5</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="linenos">6</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;こんにちは Drawlib.&quot;</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="linenos">7</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Below is a figure illustrating these examples:</p>
+<figure class="align-center" id="id2">
+<a class="with-border reference internal image-reference" href="../../../_images/image17.png"><img alt="../../../_images/image17.png" class="with-border" src="../../../_images/image17.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">text()</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Drawlib’s default theme uses the multilingual font “Noto Sans CJK Japanese”.
+This is a popular sans-serif font that supports CJK (Chinese, Japanese, Korean) in addition to the alphabet.
+As the font name suggests, it prioritizes Japanese but typically does not conflict with Chinese and Korean.</p>
+<p>Fonts that prioritize Chinese and Korean are also provided.
+Additionally, other local language fonts are available for languages not supported by the default font.</p>
+</section>
+<section id="text-vertical">
+<h2>text_vertical()<a class="headerlink" href="#text-vertical" title="Link to this heading"></a></h2>
+<p>While it is not common in alphabetic languages, vertically aligned text is popular in a few languages, such as Japanese.
+We provide the <code class="docutils literal notranslate"><span class="pre">text_vertical()</span></code> function to achieve this.
+The arguments are exactly the same as those for <code class="docutils literal notranslate"><span class="pre">text()</span></code>.</p>
+<ul class="simple">
+<li><p>xy: coordinate of drawing point</p></li>
+<li><p>text: text value</p></li>
+<li><p>size(optional): size of text font</p></li>
+<li><p>angle(optional): angle of text</p></li>
+<li><p>style(optional): text style</p></li>
+</ul>
+<p>Here are three examples:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">image_vertical1.py</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos">4</span><span class="n">text_vertical</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">)</span>
+<span class="linenos">5</span><span class="n">text_vertical</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="linenos">6</span><span class="n">text_vertical</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;こんにちは Drawlib.&quot;</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="linenos">7</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Below is a figure illustrating these examples:</p>
+<figure class="align-center" id="id4">
+<a class="with-border reference internal image-reference" href="../../../_images/image_vertical1.png"><img alt="../../../_images/image_vertical1.png" class="with-border" src="../../../_images/image_vertical1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">text_vertical()</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Please use <code class="docutils literal notranslate"><span class="pre">halign=&quot;center&quot;</span></code> in TextStyle.
+It is the default value.
+Horizontal align left/right will work, but it does not look nice except with monospaced fonts.</p>
+</section>
+<section id="textstyle">
+<h2>TextStyle<a class="headerlink" href="#textstyle" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">TextStyle</span></code> is style class for <code class="docutils literal notranslate"><span class="pre">text()</span></code> and <code class="docutils literal notranslate"><span class="pre">text_vertical()</span></code>.
+It encompasses many attributes, categorized into “alignment”, “text style”, and “text background style”.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TextStyle</span></code> has these attributes.</p>
+<ul class="simple">
+<li><p>halign: Horizontal alignment of text. Options are “left”, “center”, “right”.</p></li>
+<li><p>valign: Vertical alignment of text. Options are “bottom”, “center”, “top”.</p></li>
+<li><p>color: Text color.</p></li>
+<li><p>size: Text size.</p></li>
+<li><p>font: Text font.</p></li>
+<li><p>bgalpha: Background alpha.</p></li>
+<li><p>bglwidth: Background line width.</p></li>
+<li><p>bglcolor: Background line color.</p></li>
+<li><p>bglstyle: Background line style. Options are “solid”, “dashed”, “dotted”, “dashdot”.</p></li>
+<li><p>bgfcolor: Background fill color.</p></li>
+</ul>
+<p>The default alignment is “center” horizontally and “center” vertically.
+By default, no background is drawn.</p>
+<p>Here are 2 examples.</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">image_style1.py</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">grid_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="n">text</span><span class="p">(</span>
+<span class="linenos"> 5</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos"> 6</span>    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">,</span>
+<span class="linenos"> 7</span>    <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span>
+<span class="linenos"> 8</span>        <span class="n">color</span><span class="o">=</span><span class="n">Colors140</span><span class="o">.</span><span class="n">Turquoise</span><span class="p">,</span>
+<span class="linenos"> 9</span>        <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+<span class="linenos">10</span>        <span class="n">halign</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
+<span class="linenos">11</span>        <span class="n">valign</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">,</span>
+<span class="linenos">12</span>        <span class="n">font</span><span class="o">=</span><span class="n">FontSerif</span><span class="o">.</span><span class="n">MERRIWEATHER_REGULAR</span><span class="p">,</span>
+<span class="linenos">13</span>    <span class="p">),</span>
+<span class="linenos">14</span><span class="p">)</span>
+<span class="linenos">15</span><span class="n">circle</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">ShapeStyle</span><span class="p">(</span><span class="n">fcolor</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">,</span> <span class="n">lwidth</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="linenos">16</span><span class="n">text</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="s2">&quot;align: left,bottom&quot;</span><span class="p">)</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="n">text</span><span class="p">(</span>
+<span class="linenos">19</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">20</span>    <span class="n">angle</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+<span class="linenos">21</span>    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;こんにちは Drawlib.&quot;</span><span class="p">,</span>
+<span class="linenos">22</span>    <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span>
+<span class="linenos">23</span>        <span class="n">color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+<span class="linenos">24</span>        <span class="n">bglwidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="linenos">25</span>        <span class="n">bglcolor</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">,</span>
+<span class="linenos">26</span>        <span class="n">bglstyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span>
+<span class="linenos">27</span>        <span class="n">bgfcolor</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Black</span><span class="p">,</span>
+<span class="linenos">28</span>    <span class="p">),</span>
+<span class="linenos">29</span><span class="p">)</span>
+<span class="linenos">30</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>The left-side example configures alignment and text style, while the right-side example configures text background style.
+Below is a figure illustrating these examples:</p>
+<figure class="align-center" id="id6">
+<a class="with-border reference internal image-reference" href="../../../_images/image_style1.png"><img alt="../../../_images/image_style1.png" class="with-border" src="../../../_images/image_style1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">TextStyle</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>In our opinion, there are few chances to use text background.
+Setting a white (or another canvas background color) background without a border can be useful for drawing text over shapes and lines in some situations.</p>
+</section>
+<section id="font">
+<h2>Font<a class="headerlink" href="#font" title="Link to this heading"></a></h2>
+<p>Drawlib specifies fonts from Drawlib’s font library or from your own font files.
+Drawlib does not use system fonts installed on your PC because using system fonts may result in inconsistent rendering across different environments.</p>
+<section id="basic-font-classes">
+<h3>Basic Font Classes<a class="headerlink" href="#basic-font-classes" title="Link to this heading"></a></h3>
+<p>Drawlib includes these basic Font classes:</p>
+<ul class="simple">
+<li><p>Font</p></li>
+<li><p>FontSanSerif</p></li>
+<li><p>FontSerif</p></li>
+<li><p>FontMonoSpace</p></li>
+<li><p>FontSourceCode</p></li>
+<li><p>FontRoboto</p></li>
+</ul>
+<p>These classes contain popular fonts or fonts preferred by the Drawlib team.</p>
+</section>
+<section id="local-language-fonts">
+<h3>Local Language Fonts<a class="headerlink" href="#local-language-fonts" title="Link to this heading"></a></h3>
+<p>Additionally, Drawlib supports local language fonts:</p>
+<ul class="simple">
+<li><p>FontArabic</p></li>
+<li><p>FontBrahmic</p></li>
+<li><p>FontChinese</p></li>
+<li><p>FontJapanese</p></li>
+<li><p>FontKorean</p></li>
+<li><p>FontThai</p></li>
+</ul>
+<p>If your preferred language is not supported, please let us know.
+However, we can only support open-source free fonts at the moment.
+And currently, we use Google fonts.</p>
+<p>Here are font examples.</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">image_font1.py</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">grid_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">Font</span><span class="o">.</span><span class="n">SANSSERIF_LIGHT</span><span class="p">))</span>
+<span class="linenos"> 5</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">Font</span><span class="o">.</span><span class="n">SANSSERIF_REGULAR</span><span class="p">))</span>
+<span class="linenos"> 6</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">Font</span><span class="o">.</span><span class="n">SANSSERIF_BOLD</span><span class="p">))</span>
+<span class="linenos"> 7</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">Font</span><span class="o">.</span><span class="n">SERIF_LIGHT</span><span class="p">))</span>
+<span class="linenos"> 8</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">Font</span><span class="o">.</span><span class="n">SERIF_REGULAR</span><span class="p">))</span>
+<span class="linenos"> 9</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">55</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">Font</span><span class="o">.</span><span class="n">SERIF_BOLD</span><span class="p">))</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">FontRoboto</span><span class="o">.</span><span class="n">ROBOTO_REGULAR</span><span class="p">))</span>
+<span class="linenos">12</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">FontSansSerif</span><span class="o">.</span><span class="n">RALEWAYS_REGULAR</span><span class="p">))</span>
+<span class="linenos">13</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">FontSerif</span><span class="o">.</span><span class="n">MERRIWEATHER_REGULAR</span><span class="p">))</span>
+<span class="linenos">14</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">FontMonoSpace</span><span class="o">.</span><span class="n">SOURCECODEPRO_REGULAR</span><span class="p">))</span>
+<span class="linenos">15</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;こんにちは Drawlib.&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">MPLUS1P_REGULAR</span><span class="p">))</span>
+<span class="linenos">16</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">55</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;สวัสดี ดรอว์ลิบ&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">FontThai</span><span class="o">.</span><span class="n">SERIF_REGULAR</span><span class="p">))</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Below is a figure illustrating these examples:</p>
+<figure class="align-center" id="id8">
+<a class="with-border reference internal image-reference" href="../../../_images/image_font1.png"><img alt="../../../_images/image_font1.png" class="with-border" src="../../../_images/image_font1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Fonts</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>To change the default font, refer to the theme documentation.
+The <code class="docutils literal notranslate"><span class="pre">dtheme.allstyles.merge()</span></code> function allows you to partially override pre-defined styles.
+If you provide a TextStyle with fonts, the pre-defined fonts will be overridden with your specified font.</p>
+</section>
+<section id="custom-font">
+<h3>Custom Font<a class="headerlink" href="#custom-font" title="Link to this heading"></a></h3>
+<p>Drawlib offers a wide range of fonts.
+However, if you want to use fonts that are not supported, use the <code class="docutils literal notranslate"><span class="pre">FontFile</span></code> class.
+This class can be used in place of the basic font classes and accepts a font file as an argument.</p>
+<p>Here is an examples which uses font avenger.</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">image_file1.py</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="n">text</span><span class="p">(</span>
+<span class="linenos"> 5</span>    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos"> 6</span>    <span class="s2">&quot;Hello Drawlib!&quot;</span><span class="p">,</span>
+<span class="linenos"> 7</span>    <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span>
+<span class="linenos"> 8</span>        <span class="n">size</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span>
+<span class="linenos"> 9</span>        <span class="n">font</span><span class="o">=</span><span class="n">FontFile</span><span class="p">(</span><span class="s2">&quot;./avenger/regular.ttf&quot;</span><span class="p">),</span>
+<span class="linenos">10</span>    <span class="p">),</span>
+<span class="linenos">11</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Below is a figure illustrating these examples:</p>
+<figure class="align-center" id="id10">
+<a class="with-border reference internal image-reference" href="../../../_images/image_file1.png"><img alt="../../../_images/image_file1.png" class="with-border" src="../../../_images/image_file1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">FontFile</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>You can check the list of fonts supported by Drawlib in the Font documentation.</p>
+</section>
+</section>
+<section id="theme-s-pre-defined-styles">
+<h2>Theme’s pre-defined styles<a class="headerlink" href="#theme-s-pre-defined-styles" title="Link to this heading"></a></h2>
+<p>Text in Drawlib can utilize pre-defined styles from the theme you select.</p>
+<p>The style syntax is: <code class="docutils literal notranslate"><span class="pre">&lt;color&gt;_&lt;type&gt;_&lt;weight&gt;</span></code>.
+If the color and weight are default, they are not explicitly shown in the style name.
+However, text styles do not use the type variations that are used for lines and shapes.</p>
+<p>Each weight type variation includes different font weights:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">light</span></code>: Font weight light</p></li>
+<li><p>default: Font weight regular</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bold</span></code>: Font weight bold</p></li>
+</ul>
+<p>Here is an example script that demonstrates the use of theme-defined text styles:</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">image_theme1.py</span><a class="headerlink" href="#id11" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos">4</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="linenos">5</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+<span class="linenos">6</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue_light&quot;</span><span class="p">)</span>
+<span class="linenos">7</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello Drawlib.&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;green_bold&quot;</span><span class="p">)</span>
+<span class="linenos">8</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Below is a figure illustrating these examples:</p>
+<figure class="align-center" id="id12">
+<a class="with-border reference internal image-reference" href="../../../_images/image_theme11.png"><img alt="../../../_images/image_theme11.png" class="with-border" src="../../../_images/image_theme11.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Theme’s pre-defined styles</span><a class="headerlink" href="#id12" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../shape_style/doc.html" class="btn btn-neutral float-left" title="Shape Style" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../theme/doc.html" class="btn btn-neutral float-right" title="Theme feature" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Yuichi Ito &lt;yuichi@yuichi.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

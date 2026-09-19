@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Using Old APIs &mdash; drawlib 0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=6432bc99" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=10f1778b"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            drawlib
+          </a>
+              <div class="version">
+                version: 0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introductions:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/about/doc.html">About drawlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/install/doc.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/lib_design/doc.html">Drawlib from a High Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/quick_start/doc.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/release_note/doc.html">Release Note of 0.2.*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/other_version_docs/doc.html">Other Version Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/links/doc.html">Links</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Foundations:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/canvas/doc.html">Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/coordinate_align/doc.html">Coordinate and Alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/icon/doc.html">Drawing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/image/doc.html">Drawing Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/line/doc.html">Drawing line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/line_style/doc.html">Line Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape/doc.html">Drawing Shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_arrow/doc.html">Drawing Arrow Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_circle/doc.html">Drawing Circle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_rectangle/doc.html">Drawing Rectangle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_style/doc.html">Shape Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/text/doc.html">Drawing Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/theme/doc.html">Theme feature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/build_many/doc.html">Building many images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/programming/doc.html">Coding Best Practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Topics:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../color/doc.html">Color Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../font/doc.html">Font Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dimage/doc.html">Dimage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/doc.html">Debugging errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings/doc.html">Library Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/doc.html">CLI and Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../example_flow/doc.html">Example of Documentation Build Flow</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Smart Arts:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/index/doc.html">About Smart Arts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bubblespeech/doc.html">Bubblespeech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/boxlist/doc.html">BoxList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bulletpoints/doc.html">BulletPoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/gridlayout/doc.html">GridLayout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/pyramid/doc.html">Pyramid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/sourcecode/doc.html">SourceCode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/table/doc.html">Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/tree/doc.html">Tree</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Themes:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/advanced_topics/doc.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_default/doc.html">Official Theme: default</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_essentials/doc.html">Official Theme: essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_monochrome/doc.html">Official Theme: monochrome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/create/doc.html">Create Your Custom Theme from Scratch</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">drawlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Using Old APIs</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/manual/advanced_topics/api_version/doc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="using-old-apis">
+<h1>Using Old APIs<a class="headerlink" href="#using-old-apis" title="Link to this heading"></a></h1>
+<p>Software library has dillenma.
+That is</p>
+<ul class="simple">
+<li><p>Improvement of library API is required</p></li>
+<li><p>But old user want to keep old APIs since their old code doesn’t work with new API</p></li>
+</ul>
+<p>drawlib has same problems too.</p>
+<p>Matured library such as <code class="docutils literal notranslate"><span class="pre">requests</span></code> doesn’t change their core API.
+More new library will change their API sometimes.
+On that time, they requests users to</p>
+<ul class="simple">
+<li><p>change user code</p></li>
+<li><p>use old version library</p></li>
+</ul>
+<p>drawlib is not matured library now.
+So we want to change API for future improvement.
+But we don’t want to let user use old library.
+So, drawlib adopt API versioning inside the library.
+It means drawlib new library holds not only new API, but also old API too.</p>
+<p>In previous example, we imported library as <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">drawlib.advance</span> <span class="pre">import</span> <span class="pre">*</span></code>.
+It will import latest API on the library.
+If you use drawlib version 0.5, API version 0.5 are imported.</p>
+<p>But you can import old library as <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">drawlib.&lt;old_version&gt;.advance</span> <span class="pre">import</span> <span class="pre">*</span></code>.
+With specifying API version in package, you can use old API at new library.</p>
+<p>For example, when you create your code with <code class="docutils literal notranslate"><span class="pre">drawlib</span> <span class="pre">version</span> <span class="pre">0.1</span></code>.
+Few years later, you want to run your code at <code class="docutils literal notranslate"><span class="pre">drawlib</span> <span class="pre">version</span> <span class="pre">0.5</span></code>.
+On this situation you can import like this.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">drawlib.v0_1.advance</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>Your code will run with <code class="docutils literal notranslate"><span class="pre">API</span> <span class="pre">version</span> <span class="pre">0.1</span></code> on <code class="docutils literal notranslate"><span class="pre">drawlib</span> <span class="pre">version</span> <span class="pre">0.5</span></code> which is almost same to <code class="docutils literal notranslate"><span class="pre">drawlib</span> <span class="pre">version</span> <span class="pre">0.1</span></code>.
+If you like conservertive code, you should specify import version when you write your code.</p>
+<p>You can do same for using <code class="docutils literal notranslate"><span class="pre">drawlib</span></code> command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>drawlib.v0_1<span class="w"> </span>&lt;args&gt;
+</pre></div>
+</div>
+<p>It will call API version 0.1 on drawlib version 0.5 too.</p>
+<p>We will not touch old API code after new version release.
+Only if critical bug fix is required, it can be modified without changing API.</p>
+<p>However, when the API becomes too old for new Python or underlying library Matplotlib, we will depricate the API version.
+On that situation, please get old drawlib library for run old code.</p>
+<p>Drawlib’s versioning is <code class="docutils literal notranslate"><span class="pre">major.minor.patch</span></code>.
+patch release doesn’t have API change.
+version <code class="docutils literal notranslate"><span class="pre">0.1.1</span></code> and <code class="docutils literal notranslate"><span class="pre">0.1.5</span></code> has same API.
+So you can’t specify patch version at import.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Yuichi Ito &lt;yuichi@yuichi.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

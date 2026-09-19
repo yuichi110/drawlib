@@ -14,6 +14,8 @@ dependencies = [
     "matplotlib>=3.8",
     "pydantic>=2.8",
     "pygments>=2.18",
+    "markdown-it-py>=3.0",
+    "jinja2>=3.1",
 ]
 
 [project.urls]
@@ -21,7 +23,7 @@ Homepage = "https://www.drawlib.com"
 Repository = "https://github.com/yuichi110/drawlib"
 
 [project.scripts]
-drawlib = "drawlib.__main__:main"
+drawlib = "drawlib._tools.cli.main:main"
 
 [dependency-groups]
 dev = [
@@ -39,6 +41,7 @@ preview = true
 fix = true
 unsafe-fixes = false
 line-length = 120
+exclude = ["docs"]
 
 [tool.ruff.lint]
 select = [
@@ -82,12 +85,27 @@ ignore = [
     "F403", # undefined-local-with-import-star
     "F405", # undefined-local-with-import-star-usage
     "D100", # undocumented-public-module
+    "D101", # undocumented-public-class
+    "D102", # undocumented-public-method
     "D103", # undocumented-public-function
     "D104", # undocumented-public-package
+    "D107", # undocumented-public-init
     "ANN",  # flake8-annotations
+    "CPY",  # flake8-copyright
     "S101", # Use of assert detected
     "PLC2701", # Private name import from external module (standard for unit tests)
     "PLR6301" # Method could be a function/static method (standard for pytest classes)
+]
+"src/drawlib/_tools/doc_builder/**.py" = [
+    "S102",    # exec usage is intentional for dynamic code execution
+    "S701",    # jinja2 autoescape
+    "PLC0415", # lazy import for optional dependencies
+    "C901",    # complex build_document
+    "F403",    # import star
+    "F405"     # import star usage
+]
+"src/drawlib/_tools/cli/_command.py" = [
+    "C901"     # complex command parser
 ]
 "test_build_target/**.py" = [
     "F403", # undefined-local-with-import-star
@@ -108,3 +126,6 @@ reportUnknownParameterType = "warning"
 reportUnknownVariableType = "warning"
 reportUnknownMemberType = "warning"
 reportUnknownArgumentType = "warning"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

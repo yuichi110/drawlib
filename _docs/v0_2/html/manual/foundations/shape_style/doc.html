@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shape Style &mdash; drawlib 0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=6432bc99" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=10f1778b"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Drawing Text" href="../text/doc.html" />
+    <link rel="prev" title="Drawing Rectangle Like Shapes" href="../shape_rectangle/doc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            drawlib
+          </a>
+              <div class="version">
+                version: 0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introductions:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/about/doc.html">About drawlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/install/doc.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/lib_design/doc.html">Drawlib from a High Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/quick_start/doc.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/release_note/doc.html">Release Note of 0.2.*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/other_version_docs/doc.html">Other Version Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/links/doc.html">Links</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Foundations:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../canvas/doc.html">Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coordinate_align/doc.html">Coordinate and Alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../icon/doc.html">Drawing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../image/doc.html">Drawing Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../line/doc.html">Drawing line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../line_style/doc.html">Line Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape/doc.html">Drawing Shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_arrow/doc.html">Drawing Arrow Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_circle/doc.html">Drawing Circle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_rectangle/doc.html">Drawing Rectangle Like Shapes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Shape Style</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#shapestyle">ShapeStyle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#alignment">Alignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style">Style</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#shapetextstyle">ShapeTextStyle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#theme-s-pre-defined-styles">Theme’s Pre-defined Styles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../text/doc.html">Drawing Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../theme/doc.html">Theme feature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_many/doc.html">Building many images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../programming/doc.html">Coding Best Practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Topics:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/color/doc.html">Color Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/font/doc.html">Font Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/dimage/doc.html">Dimage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/debug/doc.html">Debugging errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/settings/doc.html">Library Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/cli_options/doc.html">CLI and Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/example_flow/doc.html">Example of Documentation Build Flow</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Smart Arts:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/index/doc.html">About Smart Arts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bubblespeech/doc.html">Bubblespeech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/boxlist/doc.html">BoxList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bulletpoints/doc.html">BulletPoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/gridlayout/doc.html">GridLayout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/pyramid/doc.html">Pyramid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/sourcecode/doc.html">SourceCode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/table/doc.html">Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/tree/doc.html">Tree</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Themes:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/advanced_topics/doc.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_default/doc.html">Official Theme: default</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_essentials/doc.html">Official Theme: essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_monochrome/doc.html">Official Theme: monochrome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/create/doc.html">Create Your Custom Theme from Scratch</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">drawlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Shape Style</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/manual/foundations/shape_style/doc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="shape-style">
+<h1>Shape Style<a class="headerlink" href="#shape-style" title="Link to this heading"></a></h1>
+<p>Drawlib uses <code class="docutils literal notranslate"><span class="pre">ShapeStyle</span></code> for styling shapes.
+For a shape’s text, it uses <code class="docutils literal notranslate"><span class="pre">ShapeTextStyle</span></code>, which is similar to <code class="docutils literal notranslate"><span class="pre">TextStyle</span></code> but is a different type.</p>
+<section id="shapestyle">
+<h2>ShapeStyle<a class="headerlink" href="#shapestyle" title="Link to this heading"></a></h2>
+<p>ShapeStyle is used for styling shapes.
+Additionally, shape alignment is configured within ShapeStyle.</p>
+<p>Here are attributes of ShapeSyel.</p>
+<ul class="simple">
+<li><p>haligh</p></li>
+<li><p>valign</p></li>
+<li><p>lwidth</p></li>
+<li><p>lcolor</p></li>
+<li><p>lstyle</p></li>
+<li><p>fcolor</p></li>
+<li><p>alpha</p></li>
+</ul>
+<p>All of these attributes are optional.
+If you don’t specify values for them, the default theme values are applied.</p>
+<section id="alignment">
+<h3>Alignment<a class="headerlink" href="#alignment" title="Link to this heading"></a></h3>
+<p>You can configure the alignment of shapes, except for <code class="docutils literal notranslate"><span class="pre">arrow()</span></code> and <code class="docutils literal notranslate"><span class="pre">polygon()</span></code>, which specify drawing points explicitly and therefore do not have alignment options.</p>
+<p>The default alignment is centered both horizontally and vertically. Y
+ou can specify <code class="docutils literal notranslate"><span class="pre">&quot;left&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;center&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;right&quot;</span></code> for horizontal alignment (<code class="docutils literal notranslate"><span class="pre">halign</span></code>).
+Similarly, you can specify <code class="docutils literal notranslate"><span class="pre">&quot;bottom&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;center&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;top&quot;</span></code> for vertical alignment (<code class="docutils literal notranslate"><span class="pre">valign</span></code>).
+For more details and examples, please refer to the Coordinate and Alignment page.</p>
+</section>
+<section id="style">
+<h3>Style<a class="headerlink" href="#style" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ShapeStyle</span></code> possesses styling attributes, categorized as follows:</p>
+<ul class="simple">
+<li><p>Line style</p></li>
+<li><p>Line style</p></li>
+<li><p>Line and fill style</p></li>
+</ul>
+<p>Currently, the fill style includes only the color attribute (<code class="docutils literal notranslate"><span class="pre">fcolor</span></code>), where f stands for fill.
+The only attribute that applies to both line and fill is <code class="docutils literal notranslate"><span class="pre">alpha</span></code>.
+Other attributes are for the shape’s line and start with l, which implies line.</p>
+<p>Here are three examples:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">image_shapestyle1.py</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># left</span>
+<span class="linenos"> 6</span><span class="n">rectangle</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="n">circle</span><span class="p">(</span>
+<span class="linenos"> 8</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos"> 9</span>    <span class="n">radius</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">10</span>    <span class="n">style</span><span class="o">=</span><span class="n">ShapeStyle</span><span class="p">(</span>
+<span class="linenos">11</span>        <span class="n">lwidth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="linenos">12</span>        <span class="n">lcolor</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">,</span>
+<span class="linenos">13</span>        <span class="n">lstyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span>
+<span class="linenos">14</span>        <span class="n">fcolor</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+<span class="linenos">15</span>    <span class="p">),</span>
+<span class="linenos">16</span><span class="p">)</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="c1"># center</span>
+<span class="linenos">19</span><span class="n">rectangle</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="linenos">20</span><span class="n">circle</span><span class="p">(</span>
+<span class="linenos">21</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">22</span>    <span class="n">radius</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">23</span>    <span class="n">style</span><span class="o">=</span><span class="n">ShapeStyle</span><span class="p">(</span>
+<span class="linenos">24</span>        <span class="n">lwidth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="linenos">25</span>        <span class="n">lcolor</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">,</span>
+<span class="linenos">26</span>        <span class="n">lstyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span>
+<span class="linenos">27</span>        <span class="n">fcolor</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Transparent</span><span class="p">,</span>
+<span class="linenos">28</span>    <span class="p">),</span>
+<span class="linenos">29</span><span class="p">)</span>
+<span class="linenos">30</span>
+<span class="linenos">31</span><span class="c1"># right</span>
+<span class="linenos">32</span><span class="n">rectangle</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">125</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="linenos">33</span><span class="n">circle</span><span class="p">(</span>
+<span class="linenos">34</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">125</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">35</span>    <span class="n">radius</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">36</span>    <span class="n">style</span><span class="o">=</span><span class="n">ShapeStyle</span><span class="p">(</span>
+<span class="linenos">37</span>        <span class="n">lwidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="linenos">38</span>        <span class="n">fcolor</span><span class="o">=</span><span class="n">Colors140</span><span class="o">.</span><span class="n">Orange</span><span class="p">,</span>
+<span class="linenos">39</span>        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+<span class="linenos">40</span>    <span class="p">),</span>
+<span class="linenos">41</span><span class="p">)</span>
+<span class="linenos">42</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Left example has non transparent style.
+Center has fcolor transparent.
+Right has alpha value.</p>
+<figure class="align-center" id="id2">
+<a class="with-border reference internal image-reference" href="../../../_images/image_shapestyle1.png"><img alt="../../../_images/image_shapestyle1.png" class="with-border" src="../../../_images/image_shapestyle1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">ShapeStyle</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>If you don’t need a shape border line, set <code class="docutils literal notranslate"><span class="pre">lwidth=0</span></code>.
+If you don’t need a shape fill color, set <code class="docutils literal notranslate"><span class="pre">fcolor=Colors.Transparent</span></code> or <code class="docutils literal notranslate"><span class="pre">fcolor=Colors.White</span></code>.
+These are typical shape styling configurations.</p>
+</section>
+</section>
+<section id="shapetextstyle">
+<h2>ShapeTextStyle<a class="headerlink" href="#shapetextstyle" title="Link to this heading"></a></h2>
+<p>ShapeTextStyle is similar to <code class="docutils literal notranslate"><span class="pre">TextStyle</span></code>, which is used for drawing text with the <code class="docutils literal notranslate"><span class="pre">text()</span></code> function.
+The differences between them are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ShapeTextStyle</span></code>: Allows shifting the x and y coordinates of the text from the center of the shape and changing the angle.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TextStyle</span></code>: Allows configuring the text background.</p></li>
+</ul>
+<p>ShapeTextStyle has these attributes.</p>
+<ul class="simple">
+<li><p>halign: Ignored (for future implementation)</p></li>
+<li><p>valign: Ignored (for future implementation)</p></li>
+<li><p>color: Text color</p></li>
+<li><p>size: Text size</p></li>
+<li><p>font: Text font</p></li>
+<li><p>xy_shift: Shifting from the original drawing point</p></li>
+<li><p>angle: Text angle (default is the same as the shape angle)</p></li>
+</ul>
+<p>Here are three examples:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">image_textstyle1.py</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># left</span>
+<span class="linenos"> 6</span><span class="n">rectangle</span><span class="p">(</span>
+<span class="linenos"> 7</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos"> 8</span>    <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+<span class="linenos"> 9</span>    <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="linenos">10</span>    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;rectangle()&quot;</span><span class="p">,</span>
+<span class="linenos">11</span>    <span class="n">textstyle</span><span class="o">=</span><span class="n">ShapeTextStyle</span><span class="p">(</span>
+<span class="linenos">12</span>        <span class="n">color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+<span class="linenos">13</span>        <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+<span class="linenos">14</span>        <span class="n">font</span><span class="o">=</span><span class="n">FontSerif</span><span class="o">.</span><span class="n">COURIER_BOLD</span><span class="p">,</span>
+<span class="linenos">15</span>    <span class="p">),</span>
+<span class="linenos">16</span><span class="p">)</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="c1"># center</span>
+<span class="linenos">20</span><span class="n">rectangle</span><span class="p">(</span>
+<span class="linenos">21</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">22</span>    <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+<span class="linenos">23</span>    <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="linenos">24</span>    <span class="n">angle</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+<span class="linenos">25</span>    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;rectangle()&quot;</span><span class="p">,</span>
+<span class="linenos">26</span>    <span class="n">textstyle</span><span class="o">=</span><span class="n">ShapeTextStyle</span><span class="p">(</span>
+<span class="linenos">27</span>        <span class="n">color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+<span class="linenos">28</span>        <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+<span class="linenos">29</span>        <span class="n">font</span><span class="o">=</span><span class="n">FontSansSerif</span><span class="o">.</span><span class="n">RALEWAYS_REGULAR</span><span class="p">,</span>
+<span class="linenos">30</span>    <span class="p">),</span>
+<span class="linenos">31</span><span class="p">)</span>
+<span class="linenos">32</span>
+<span class="linenos">33</span>
+<span class="linenos">34</span><span class="c1"># right</span>
+<span class="linenos">35</span><span class="n">rectangle</span><span class="p">(</span>
+<span class="linenos">36</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">125</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">37</span>    <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+<span class="linenos">38</span>    <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="linenos">39</span>    <span class="n">angle</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+<span class="linenos">40</span>    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;rectangle()&quot;</span><span class="p">,</span>
+<span class="linenos">41</span>    <span class="n">textstyle</span><span class="o">=</span><span class="n">ShapeTextStyle</span><span class="p">(</span>
+<span class="linenos">42</span>        <span class="n">color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+<span class="linenos">43</span>        <span class="n">angle</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="linenos">44</span>        <span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">12</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">),</span>
+<span class="linenos">45</span>    <span class="p">),</span>
+<span class="linenos">46</span><span class="p">)</span>
+<span class="linenos">47</span>
+<span class="linenos">48</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>You can configure text styles.
+But also, you can configure text positioning which you can see right example.</p>
+<p>Below is a figure illustrating these styles:</p>
+<figure class="align-center" id="id4">
+<a class="with-border reference internal image-reference" href="../../../_images/image_textstyle1.png"><img alt="../../../_images/image_textstyle1.png" class="with-border" src="../../../_images/image_textstyle1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">ShapeTextStyle</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>As you can see from the center text example, text normally follows the shape’s angle.
+However, you can override it, as shown in the right example.
+In that example, we also move the text positioning via <code class="docutils literal notranslate"><span class="pre">xy_shift</span></code>.
+The x and y values are not absolute coordinates but are relative to the shape’s dimensions.</p>
+</section>
+<section id="theme-s-pre-defined-styles">
+<h2>Theme’s Pre-defined Styles<a class="headerlink" href="#theme-s-pre-defined-styles" title="Link to this heading"></a></h2>
+<p>Shapes can use pre-defined styles from the theme you choose.</p>
+<p>The style syntax is: <code class="docutils literal notranslate"><span class="pre">&lt;color&gt;_&lt;type&gt;_&lt;weight&gt;</span></code>.
+If the color, type, and weight are default, they are not shown in the style name.</p>
+<p>Each style type has variations for line and fill styles with <code class="docutils literal notranslate"><span class="pre">ShapeStyle</span></code>.
+<code class="docutils literal notranslate"><span class="pre">ShapeTextStyle</span></code> cannot use these styles.</p>
+<ul class="simple">
+<li><p>default: Has border and fill color</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flat</span></code>: Has no border</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">solid</span></code>: Shape has an outline but no fill</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dashed</span></code>: Dashed outline, no fill</p></li>
+</ul>
+<p>Each weight types has variation of line width except <code class="docutils literal notranslate"><span class="pre">flat</span></code> which doesn’t have line.
+On <code class="docutils literal notranslate"><span class="pre">ShapeTextStyle</span></code>, it means tyep of fonts.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">light</span></code>: Half of the default line width; font is light</p></li>
+<li><p>default: Regular line width; font is regular</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bold</span></code>: Double the default line width; font is bold</p></li>
+</ul>
+<p>Here are three examples:</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">image_theme1.py</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># left</span>
+<span class="linenos"> 6</span><span class="n">circle</span><span class="p">(</span>
+<span class="linenos"> 7</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos"> 8</span>    <span class="n">radius</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos"> 9</span>    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;red_flat&quot;</span><span class="p">,</span>
+<span class="linenos">10</span>    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;circle&quot;</span><span class="p">,</span>
+<span class="linenos">11</span>    <span class="n">textstyle</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+<span class="linenos">12</span><span class="p">)</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="c1"># center</span>
+<span class="linenos">15</span><span class="n">circle</span><span class="p">(</span>
+<span class="linenos">16</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">17</span>    <span class="n">radius</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">18</span>    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue_solid&quot;</span><span class="p">,</span>
+<span class="linenos">19</span>    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;circle&quot;</span><span class="p">,</span>
+<span class="linenos">20</span>    <span class="n">textstyle</span><span class="o">=</span><span class="s2">&quot;blue_bold&quot;</span><span class="p">,</span>
+<span class="linenos">21</span><span class="p">)</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="c1"># right</span>
+<span class="linenos">24</span><span class="n">circle</span><span class="p">(</span>
+<span class="linenos">25</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">125</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">26</span>    <span class="n">radius</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">27</span>    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;green_dashed_light&quot;</span><span class="p">,</span>
+<span class="linenos">28</span>    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;circle&quot;</span><span class="p">,</span>
+<span class="linenos">29</span>    <span class="n">textstyle</span><span class="o">=</span><span class="s2">&quot;green_light&quot;</span><span class="p">,</span>
+<span class="linenos">30</span><span class="p">)</span>
+<span class="linenos">31</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Below is a figure illustrating these styles:</p>
+<figure class="align-center" id="id6">
+<a class="with-border reference internal image-reference" href="../../../_images/image_theme1.png"><img alt="../../../_images/image_theme1.png" class="with-border" src="../../../_images/image_theme1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Theme’s styles</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../shape_rectangle/doc.html" class="btn btn-neutral float-left" title="Drawing Rectangle Like Shapes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../text/doc.html" class="btn btn-neutral float-right" title="Drawing Text" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Yuichi Ito &lt;yuichi@yuichi.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

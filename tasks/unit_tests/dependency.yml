@@ -7,7 +7,7 @@ vars:
   PYGMENTS_VERSIONS: ["2.18.0", "2.19.2", "2.20.0"]
 
   # Test Target
-  TEST_TARGET: "tests/v0_2/core"
+  TEST_TARGET: "tests/core"
   SUMMARY_FILE: "output_tests/dependency/summary.txt"
 
 tasks:

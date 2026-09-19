@@ -27,7 +27,7 @@ Include the mandatory copyright header and imports:
 
 from dataclasses import asdict
 import pytest
-from drawlib.v0_x.apis import * # Replace x with version
+from drawlib.v0_x.apis import *  # Replace x with version
 ```
 
 ### Step 4: Generate Test Cases

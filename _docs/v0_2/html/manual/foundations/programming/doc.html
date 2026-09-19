@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coding Best Practices &mdash; drawlib 0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=6432bc99" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=10f1778b"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Color Classes" href="../../advanced_topics/color/doc.html" />
+    <link rel="prev" title="Building many images" href="../build_many/doc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            drawlib
+          </a>
+              <div class="version">
+                version: 0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introductions:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/about/doc.html">About drawlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/install/doc.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/lib_design/doc.html">Drawlib from a High Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/quick_start/doc.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/release_note/doc.html">Release Note of 0.2.*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/other_version_docs/doc.html">Other Version Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/links/doc.html">Links</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Foundations:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../canvas/doc.html">Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coordinate_align/doc.html">Coordinate and Alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../icon/doc.html">Drawing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../image/doc.html">Drawing Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../line/doc.html">Drawing line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../line_style/doc.html">Line Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape/doc.html">Drawing Shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_arrow/doc.html">Drawing Arrow Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_circle/doc.html">Drawing Circle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_rectangle/doc.html">Drawing Rectangle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_style/doc.html">Shape Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../text/doc.html">Drawing Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../theme/doc.html">Theme feature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_many/doc.html">Building many images</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Coding Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#consider-which-alignment-is-the-best">Consider Which Alignment is the Best</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#use-variables-when-having-same-values">Use Variables When Having Same Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#grouping-by-functions">Grouping by Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-your-package">Create Your Package</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Topics:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/color/doc.html">Color Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/font/doc.html">Font Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/dimage/doc.html">Dimage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/debug/doc.html">Debugging errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/settings/doc.html">Library Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/cli_options/doc.html">CLI and Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/example_flow/doc.html">Example of Documentation Build Flow</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Smart Arts:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/index/doc.html">About Smart Arts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bubblespeech/doc.html">Bubblespeech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/boxlist/doc.html">BoxList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bulletpoints/doc.html">BulletPoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/gridlayout/doc.html">GridLayout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/pyramid/doc.html">Pyramid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/sourcecode/doc.html">SourceCode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/table/doc.html">Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/tree/doc.html">Tree</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Themes:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/advanced_topics/doc.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_default/doc.html">Official Theme: default</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_essentials/doc.html">Official Theme: essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_monochrome/doc.html">Official Theme: monochrome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/create/doc.html">Create Your Custom Theme from Scratch</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">drawlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Coding Best Practices</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/manual/foundations/programming/doc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="coding-best-practices">
+<h1>Coding Best Practices<a class="headerlink" href="#coding-best-practices" title="Link to this heading"></a></h1>
+<p>Illustration code is used to generate images.
+If the illustration is simple, code quality may not be a major concern.
+However, for more complex outputs, maintaining high code quality is essential.</p>
+<p>Following Drawlib’s best practices can significantly improve the quality of your illustration code.
+These best practices align with common Python coding standards and also include specific guidelines for handling illustrations effectively.</p>
+<p>Let’s go through these practices one by one.</p>
+<section id="consider-which-alignment-is-the-best">
+<h2>Consider Which Alignment is the Best<a class="headerlink" href="#consider-which-alignment-is-the-best" title="Link to this heading"></a></h2>
+<p>Many drawing items are aligned vertically and horizontally.
+Using horizontal and vertical alignment with “center” is often the best approach for aligning different types and sizes of objects.</p>
+<p>Let’s compare some example code with different alignments.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">image1.py</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">grid_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># alignment: horizontally left, vertically bottom</span>
+<span class="linenos"> 6</span><span class="n">text</span><span class="p">(</span>
+<span class="linenos"> 7</span>    <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">73</span><span class="p">),</span>
+<span class="linenos"> 8</span>    <span class="s2">&quot;Drawlib&quot;</span><span class="p">,</span>
+<span class="linenos"> 9</span>    <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">),</span>
+<span class="linenos">10</span><span class="p">)</span>
+<span class="linenos">11</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">heart</span><span class="p">(</span>
+<span class="linenos">12</span>    <span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="mi">70</span><span class="p">),</span>
+<span class="linenos">13</span>    <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">14</span>    <span class="n">style</span><span class="o">=</span><span class="n">IconStyle</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">),</span>
+<span class="linenos">15</span><span class="p">)</span>
+<span class="linenos">16</span><span class="n">circle</span><span class="p">(</span>
+<span class="linenos">17</span>    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">70</span><span class="p">),</span>
+<span class="linenos">18</span>    <span class="n">radius</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="linenos">19</span>    <span class="n">style</span><span class="o">=</span><span class="n">ShapeStyle</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">),</span>
+<span class="linenos">20</span><span class="p">)</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="c1"># alignment: horizontally center, vertically center</span>
+<span class="linenos">23</span><span class="n">text</span><span class="p">(</span>
+<span class="linenos">24</span>    <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">25</span>    <span class="s2">&quot;Drawlib&quot;</span><span class="p">,</span>
+<span class="linenos">26</span>    <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">),</span>
+<span class="linenos">27</span><span class="p">)</span>
+<span class="linenos">28</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">heart</span><span class="p">(</span>
+<span class="linenos">29</span>    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">30</span>    <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">31</span>    <span class="n">style</span><span class="o">=</span><span class="n">IconStyle</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">),</span>
+<span class="linenos">32</span><span class="p">)</span>
+<span class="linenos">33</span><span class="n">circle</span><span class="p">(</span>
+<span class="linenos">34</span>    <span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">35</span>    <span class="n">radius</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="linenos">36</span>    <span class="n">style</span><span class="o">=</span><span class="n">ShapeStyle</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">),</span>
+<span class="linenos">37</span><span class="p">)</span>
+<span class="linenos">38</span>
+<span class="linenos">39</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Before diving into the code, let’s examine the output image.</p>
+<figure class="align-center" id="id2">
+<a class="with-border reference internal image-reference" href="../../../_images/image16.png"><img alt="../../../_images/image16.png" class="with-border" src="../../../_images/image16.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Align left,bottom vs center,center</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Both types of alignment produce a similar output.</p>
+<p>Now, let’s review the code.
+The upper drawings, starting from line 5, use horizontal left and vertical bottom alignment.
+As you can see, the coordinates <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> are not straightforward, such as <code class="docutils literal notranslate"><span class="pre">(19,</span> <span class="pre">73)</span></code>, <code class="docutils literal notranslate"><span class="pre">(45,</span> <span class="pre">70),</span></code> and <code class="docutils literal notranslate"><span class="pre">(70,</span> <span class="pre">70),</span></code>.
+These values were calculated, tested, and adjusted repeatedly to find good positions.</p>
+<p>In contrast, the lower drawings, starting from line 22, use center alignment for both horizontal and vertical positions.
+The coordinates are simple and easy to understand, such as <code class="docutils literal notranslate"><span class="pre">(25,</span> <span class="pre">25)</span></code>, <code class="docutils literal notranslate"><span class="pre">(50,</span> <span class="pre">25)</span></code>, and <code class="docutils literal notranslate"><span class="pre">(75,</span> <span class="pre">25)</span></code>.
+This simplicity is because each item’s center is aligned with the coordinates, making the width and angle of each item irrelevant for vertical and horizontal alignment.</p>
+<p>If you need to change the size and angle of each item, aligning left and bottom requires recalculation and position testing.
+However, center alignment does not require such adjustments.</p>
+<p>We recommend using center alignment for typical situations.
+However, the best alignment depends on the context.
+Consider which alignment is best for your specific needs.
+You can also mix multiple alignments within one illustration.</p>
+</section>
+<section id="use-variables-when-having-same-values">
+<h2>Use Variables When Having Same Values<a class="headerlink" href="#use-variables-when-having-same-values" title="Link to this heading"></a></h2>
+<p>In the previous example, changing the y position of all items required modifying each y coordinate individually.
+When aligning items horizontally, it’s common for them to share the same y value, just as vertically aligned items often share the same x value.</p>
+<p>To simplify this process, use variables for coordinates instead of hardcoding values.
+In this example, we use variables to align items horizontally.</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">image2_1.py</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">width</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="linenos"> 4</span><span class="n">height</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="linenos"> 5</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span> <span class="n">grid_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="n">num_items</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="linenos"> 8</span><span class="n">margin_x</span> <span class="o">=</span> <span class="n">width</span> <span class="o">/</span> <span class="p">(</span><span class="n">num_items</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="linenos"> 9</span><span class="n">y</span> <span class="o">=</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># center center align</span>
+<span class="linenos">12</span><span class="n">text</span><span class="p">((</span><span class="n">margin_x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="s2">&quot;Drawlib&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">))</span>
+<span class="linenos">13</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">heart</span><span class="p">((</span><span class="n">margin_x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="linenos">14</span><span class="n">circle</span><span class="p">((</span><span class="n">margin_x</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">y</span></code> is straightforward, representing half the height.
+The variable <code class="docutils literal notranslate"><span class="pre">x</span></code> is a bit more complex but ensures equal x margins for the items.</p>
+<p>Executing this code generate below image.</p>
+<figure class="align-center" id="id4">
+<a class="with-border reference internal image-reference" href="../../../_images/image2_1.png"><img alt="../../../_images/image2_1.png" class="with-border" src="../../../_images/image2_1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Avoiding hard coding values</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>This approach makes it easy to change the canvas height and add new items.
+Let’s change the canvas height to <code class="docutils literal notranslate"><span class="pre">50</span></code> and add a rectangle at last.</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">image2_2.py</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">width</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="linenos"> 4</span><span class="n">height</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># &lt;= CHANGED FROM 100 !!</span>
+<span class="linenos"> 5</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span> <span class="n">grid_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="n">num_items</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># &lt;= CHANGED FROM 3!!</span>
+<span class="linenos"> 8</span><span class="n">margin_x</span> <span class="o">=</span> <span class="n">width</span> <span class="o">/</span> <span class="p">(</span><span class="n">num_items</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="linenos"> 9</span><span class="n">y</span> <span class="o">=</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># center center align</span>
+<span class="linenos">12</span><span class="n">text</span><span class="p">((</span><span class="n">margin_x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="s2">&quot;Drawlib&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">))</span>
+<span class="linenos">13</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">heart</span><span class="p">((</span><span class="n">margin_x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="linenos">14</span><span class="n">circle</span><span class="p">((</span><span class="n">margin_x</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="linenos">15</span><span class="n">rectangle</span><span class="p">((</span><span class="n">margin_x</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>As you can see, only a few points need modification.
+Using a variable for y simplifies the code. However, the x variable makes the code slightly more complex.</p>
+<figure class="align-center" id="id6">
+<a class="with-border reference internal image-reference" href="../../../_images/image2_2.png"><img alt="../../../_images/image2_2.png" class="with-border" src="../../../_images/image2_2.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Easy to change positions with variables</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>New image align the items correctly.</p>
+<p>If you do not plan to add many items, not using variables and calculations can be a valid choice.
+Initially, hardcoding 25, 50, and 75 for the x coordinates, as shown in the first example, is often simpler.
+You can refactor your illustration code later of course.</p>
+</section>
+<section id="grouping-by-functions">
+<h2>Grouping by Functions<a class="headerlink" href="#grouping-by-functions" title="Link to this heading"></a></h2>
+<p>Using functions to group drawing operations is a highly recommended coding style in Drawlib.
+Functions are not only useful for repeated operations but also for organizing and abstracting your drawing logic.</p>
+<p>Here are some benefits of grouping items using functions:</p>
+<ul class="simple">
+<li><p>Abstract Design Understanding: Functions help to understand the high-level design of the image.</p></li>
+<li><p>Variable Localization: You can localize variables (like x, y) within the function, preventing them from affecting the global scope.</p></li>
+<li><p>Reusability: You can easily draw the same group of items in different locations by calling the function multiple times.</p></li>
+</ul>
+<p>A common approach is to create functions for different alignment scenarios:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">left()</span></code>, <code class="docutils literal notranslate"><span class="pre">center()</span></code>, <code class="docutils literal notranslate"><span class="pre">right()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bottom()</span></code>, <code class="docutils literal notranslate"><span class="pre">center()</span></code>, <code class="docutils literal notranslate"><span class="pre">top()</span></code></p></li>
+<li><p>group name of items</p></li>
+</ul>
+<p>Within each function, you define base x and y coordinates at the start.
+All items in the function are positioned relative to these base coordinates.
+To move the entire group, you simply adjust the base x and y values.</p>
+</section>
+<section id="create-your-package">
+<h2>Create Your Package<a class="headerlink" href="#create-your-package" title="Link to this heading"></a></h2>
+<p>When creating multiple images, maintaining consistency across your illustrations is crucial.
+While it’s possible to create independent image codes, packaging your code offers significant advantages.</p>
+<p>Here are some reasons why creating a package is beneficial:</p>
+<ul class="simple">
+<li><p>Consistent Style: By defining styles in one place, any changes to the style code will automatically affect all images, ensuring a uniform appearance.</p></li>
+<li><p>Utility Functions: You can create utility functions in a separate utility code file, simplifying your image code.</p></li>
+<li><p>Organization: Group images by chapters and sections for better organization and easier navigation.</p></li>
+</ul>
+<p>Please take a look documents for building many images.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../build_many/doc.html" class="btn btn-neutral float-left" title="Building many images" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../advanced_topics/color/doc.html" class="btn btn-neutral float-right" title="Color Classes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Yuichi Ito &lt;yuichi@yuichi.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

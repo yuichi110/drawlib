@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color Classes &mdash; drawlib 0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=6432bc99" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=10f1778b"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Font Classes" href="../font/doc.html" />
+    <link rel="prev" title="Coding Best Practices" href="../../foundations/programming/doc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            drawlib
+          </a>
+              <div class="version">
+                version: 0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introductions:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/about/doc.html">About drawlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/install/doc.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/lib_design/doc.html">Drawlib from a High Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/quick_start/doc.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/release_note/doc.html">Release Note of 0.2.*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/other_version_docs/doc.html">Other Version Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/links/doc.html">Links</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Foundations:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/canvas/doc.html">Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/coordinate_align/doc.html">Coordinate and Alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/icon/doc.html">Drawing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/image/doc.html">Drawing Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/line/doc.html">Drawing line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/line_style/doc.html">Line Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape/doc.html">Drawing Shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_arrow/doc.html">Drawing Arrow Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_circle/doc.html">Drawing Circle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_rectangle/doc.html">Drawing Rectangle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_style/doc.html">Shape Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/text/doc.html">Drawing Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/theme/doc.html">Theme feature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/build_many/doc.html">Building many images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/programming/doc.html">Coding Best Practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Topics:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Color Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#colors">Colors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#colors140">Colors140</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#colorsthemedefault">ColorsThemeDefault</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#colorsthemeessentials">ColorsThemeEssentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#colorsthememonochrome">ColorsThemeMonochrome</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implement-your-own-colors">Implement Your Own Colors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../font/doc.html">Font Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dimage/doc.html">Dimage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/doc.html">Debugging errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings/doc.html">Library Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/doc.html">CLI and Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../example_flow/doc.html">Example of Documentation Build Flow</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Smart Arts:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/index/doc.html">About Smart Arts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bubblespeech/doc.html">Bubblespeech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/boxlist/doc.html">BoxList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bulletpoints/doc.html">BulletPoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/gridlayout/doc.html">GridLayout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/pyramid/doc.html">Pyramid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/sourcecode/doc.html">SourceCode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/table/doc.html">Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/tree/doc.html">Tree</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Themes:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/advanced_topics/doc.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_default/doc.html">Official Theme: default</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_essentials/doc.html">Official Theme: essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_monochrome/doc.html">Official Theme: monochrome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/create/doc.html">Create Your Custom Theme from Scratch</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">drawlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Color Classes</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/manual/advanced_topics/color/doc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="color-classes">
+<h1>Color Classes<a class="headerlink" href="#color-classes" title="Link to this heading"></a></h1>
+<p>Drawlib’s color format is either RGB (Red, Green, Blue) or RGBA (RGB with Alpha).
+The RGB format is represented as tuple(0-255, 0-255, 0-255), and the RGBA format is tuple(0-255, 0-255, 0-255, 0.0-1.0).
+For simplicity, Drawlib does not support string color codes (e.g., “red”) or hex style codes (e.g., “#00FF00”).</p>
+<p>However, using RGB can be inconvenient for basic colors.
+Therefore, we provide Color classes. Currently, we offer the following classes:</p>
+<ul class="simple">
+<li><p>Colors: basic web 16 colors + Transparent</p></li>
+<li><p>Colors140: basic web 140 colors + Transparent</p></li>
+<li><p>ColorsThemeDefault: Colors which are used in theme <code class="docutils literal notranslate"><span class="pre">default</span></code></p></li>
+<li><p>ColorsThemeEssentials: Colors which are used in theme <code class="docutils literal notranslate"><span class="pre">essentials</span></code></p></li>
+<li><p>ColorsThemeMonochrome: Colors which are used in theme <code class="docutils literal notranslate"><span class="pre">monochrome</span></code></p></li>
+<li><p>ColorBase: Base class for creating your own Color class</p></li>
+</ul>
+<p>Here is an image showing their relationships:</p>
+<figure class="align-center" id="id1">
+<a class="with-border reference internal image-reference" href="../../../_images/image_architecture.png"><img alt="../../../_images/image_architecture.png" class="with-border" src="../../../_images/image_architecture.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Structure of color classes</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>As you can see, <code class="docutils literal notranslate"><span class="pre">ColorsBase</span></code> class implements the <code class="docutils literal notranslate"><span class="pre">Transparent</span></code> color and utility functions.
+Each child class inherits these and implements its own colors.</p>
+<p>You can create your own color class as well.
+Let’s look at an example of creating a Google color class at end of this page.</p>
+<section id="colors">
+<h2>Colors<a class="headerlink" href="#colors" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Colors</span></code> class contains the following members:</p>
+<ul class="simple">
+<li><p>Transparent: (0, 0, 0, 0.0)</p></li>
+<li><p>Aqua: (0, 255, 255)</p></li>
+<li><p>Black: (0, 0, 0)</p></li>
+<li><p>Blue: (0, 0, 255)</p></li>
+<li><p>Fuchsia: (255, 0, 255)</p></li>
+<li><p>Gray: (128, 128, 128)</p></li>
+<li><p>Green: (0, 128, 0)</p></li>
+<li><p>Lime: (0, 255, 0)</p></li>
+<li><p>Maroon: (128, 0, 0)</p></li>
+<li><p>Navy: (0, 0, 128)</p></li>
+<li><p>Olive: (128, 128, 0)</p></li>
+<li><p>Purple: (128, 0, 128)</p></li>
+<li><p>Red: (255, 0, 0)</p></li>
+<li><p>Silver: (192, 192, 192)</p></li>
+<li><p>Teal: (0, 128, 128)</p></li>
+<li><p>White: (255, 255, 255)</p></li>
+<li><p>Yellow: (255, 255, 0)</p></li>
+</ul>
+</section>
+<section id="colors140">
+<h2>Colors140<a class="headerlink" href="#colors140" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Colors140</span></code> class contains the following members:</p>
+<ul class="simple">
+<li><p>Transparent: (0, 0, 0, 0.0)</p></li>
+<li><p>AliceBlue: (240, 248, 255)</p></li>
+<li><p>AntiqueWhite: (250, 235, 215)</p></li>
+<li><p>Aqua: (0, 255, 255)</p></li>
+<li><p>Aquamarine: (127, 255, 212)</p></li>
+<li><p>Azure: (240, 255, 255)</p></li>
+<li><p>Beige: (245, 245, 220)</p></li>
+<li><p>Bisque: (255, 228, 196)</p></li>
+<li><p>Black: (0, 0, 0)</p></li>
+<li><p>BlanchedAlmond: (255, 235, 205)</p></li>
+<li><p>Blue: (0, 0, 255)</p></li>
+<li><p>BlueViolet: (138, 43, 226)</p></li>
+<li><p>Brown: (165, 42, 42)</p></li>
+<li><p>BurlyWood: (222, 184, 135)</p></li>
+<li><p>CadetBlue: (95, 158, 160)</p></li>
+<li><p>Chartreuse: (127, 255, 0)</p></li>
+<li><p>Chocolate: (210, 105, 30)</p></li>
+<li><p>Coral: (255, 127, 80)</p></li>
+<li><p>CornflowerBlue: (100, 149, 237)</p></li>
+<li><p>Cornsilk: (255, 248, 220)</p></li>
+<li><p>Crimson: (220, 20, 60)</p></li>
+<li><p>Cyan: (0, 255, 255)</p></li>
+<li><p>DarkBlue: (0, 0, 139)</p></li>
+<li><p>DarkCyan: (0, 139, 139)</p></li>
+<li><p>DarkGoldenRod: (184, 134, 11)</p></li>
+<li><p>DarkGray: (169, 169, 169)</p></li>
+<li><p>DarkGreen: (0, 100, 0)</p></li>
+<li><p>DarkKhaki: (189, 183, 107)</p></li>
+<li><p>DarkMagenta: (139, 0, 139)</p></li>
+<li><p>DarkOliveGreen: (85, 107, 47)</p></li>
+<li><p>DarkOrange: (255, 140, 0)</p></li>
+<li><p>DarkOrchid: (153, 50, 204)</p></li>
+<li><p>DarkRed: (139, 0, 0)</p></li>
+<li><p>DarkSalmon: (233, 150, 122)</p></li>
+<li><p>DarkSeaGreen: (143, 188, 143)</p></li>
+<li><p>DarkSlateBlue: (72, 61, 139)</p></li>
+<li><p>DarkSlateGray: (47, 79, 79)</p></li>
+<li><p>DarkTurquoise: (0, 206, 209)</p></li>
+<li><p>DarkViolet: (148, 0, 211)</p></li>
+<li><p>DeepPink: (255, 20, 147)</p></li>
+<li><p>DeepSkyBlue: (0, 191, 255)</p></li>
+<li><p>DimGray: (105, 105, 105)</p></li>
+<li><p>DodgerBlue: (30, 144, 255)</p></li>
+<li><p>FireBrick: (178, 34, 34)</p></li>
+<li><p>FloralWhite: (255, 250, 240)</p></li>
+<li><p>ForestGreen: (34, 139, 34)</p></li>
+<li><p>Fuchsia: (255, 0, 255)</p></li>
+<li><p>Gainsboro: (220, 220, 220)</p></li>
+<li><p>GhostWhite: (248, 248, 255)</p></li>
+<li><p>Gold: (255, 215, 0)</p></li>
+<li><p>GoldenRod: (218, 165, 32)</p></li>
+<li><p>Gray: (128, 128, 128)</p></li>
+<li><p>Green: (0, 128, 0)</p></li>
+<li><p>GreenYellow: (173, 255, 47)</p></li>
+<li><p>HoneyDew: (240, 255, 240)</p></li>
+<li><p>HotPink: (255, 105, 180)</p></li>
+<li><p>IndianRed: (205, 92, 92)</p></li>
+<li><p>Indigo: (75, 0, 130)</p></li>
+<li><p>Ivory: (255, 255, 240)</p></li>
+<li><p>Khaki: (240, 230, 140)</p></li>
+<li><p>Lavender: (230, 230, 250)</p></li>
+<li><p>LavenderBlush: (255, 240, 245)</p></li>
+<li><p>LawnGreen: (124, 252, 0)</p></li>
+<li><p>LemonChiffon: (255, 250, 205)</p></li>
+<li><p>LightBlue: (173, 216, 230)</p></li>
+<li><p>LightCoral: (240, 128, 128)</p></li>
+<li><p>LightCyan: (224, 255, 255)</p></li>
+<li><p>LightGoldenRodYellow: (250, 250, 210)</p></li>
+<li><p>LightGray: (211, 211, 211)</p></li>
+<li><p>LightGreen: (144, 238, 144)</p></li>
+<li><p>LightPink: (255, 182, 193)</p></li>
+<li><p>LightSalmon: (255, 160, 122)</p></li>
+<li><p>LightSeaGreen: (32, 178, 170)</p></li>
+<li><p>LightSkyBlue: (135, 206, 250)</p></li>
+<li><p>LightSlateGray: (119, 136, 153)</p></li>
+<li><p>LightSteelBlue: (176, 196, 222)</p></li>
+<li><p>LightYellow: (255, 255, 224)</p></li>
+<li><p>Lime: (0, 255, 0)</p></li>
+<li><p>LimeGreen: (50, 205, 50)</p></li>
+<li><p>Linen: (250, 240, 230)</p></li>
+<li><p>Magenta: (255, 0, 255)</p></li>
+<li><p>Maroon: (128, 0, 0)</p></li>
+<li><p>MediumAquaMarine: (102, 205, 170)</p></li>
+<li><p>MediumBlue: (0, 0, 205)</p></li>
+<li><p>MediumOrchid: (186, 85, 211)</p></li>
+<li><p>MediumPurple: (147, 112, 219)</p></li>
+<li><p>MediumSeaGreen: (60, 179, 113)</p></li>
+<li><p>MediumSlateBlue: (123, 104, 238)</p></li>
+<li><p>MediumSpringGreen: (0, 250, 154)</p></li>
+<li><p>MediumTurquoise: (72, 209, 204)</p></li>
+<li><p>MediumVioletRed: (199, 21, 133)</p></li>
+<li><p>MidnightBlue: (25, 25, 112)</p></li>
+<li><p>MintCream: (245, 255, 250)</p></li>
+<li><p>MistyRose: (255, 228, 225)</p></li>
+<li><p>Moccasin: (255, 228, 181)</p></li>
+<li><p>NavajoWhite: (255, 222, 173)</p></li>
+<li><p>Navy: (0, 0, 128)</p></li>
+<li><p>OldLace: (253, 245, 230)</p></li>
+<li><p>Olive: (128, 128, 0)</p></li>
+<li><p>OliveDrab: (107, 142, 35)</p></li>
+<li><p>Orange: (255, 165, 0)</p></li>
+<li><p>OrangeRed: (255, 69, 0)</p></li>
+<li><p>Orchid: (218, 112, 214)</p></li>
+<li><p>PaleGoldenRod: (238, 232, 170)</p></li>
+<li><p>PaleGreen: (152, 251, 152)</p></li>
+<li><p>PaleTurquoise: (175, 238, 238)</p></li>
+<li><p>PaleVioletRed: (219, 112, 147)</p></li>
+<li><p>PapayaWhip: (255, 239, 213)</p></li>
+<li><p>PeachPuff: (255, 218, 185)</p></li>
+<li><p>Peru: (205, 133, 63)</p></li>
+<li><p>Pink: (255, 192, 203)</p></li>
+<li><p>Plum: (221, 160, 221)</p></li>
+<li><p>PowderBlue: (176, 224, 230)</p></li>
+<li><p>Purple: (128, 0, 128)</p></li>
+<li><p>RebeccaPurple: (102, 51, 153)</p></li>
+<li><p>Red: (255, 0, 0)</p></li>
+<li><p>RosyBrown: (188, 143, 143)</p></li>
+<li><p>RoyalBlue: (65, 105, 225)</p></li>
+<li><p>SaddleBrown: (139, 69, 19)</p></li>
+<li><p>Salmon: (250, 128, 114)</p></li>
+<li><p>SandyBrown: (244, 164, 96)</p></li>
+<li><p>SeaGreen: (46, 139, 87)</p></li>
+<li><p>SeaShell: (255, 245, 238)</p></li>
+<li><p>Sienna: (160, 82, 45)</p></li>
+<li><p>Silver: (192, 192, 192)</p></li>
+<li><p>SkyBlue: (135, 206, 235)</p></li>
+<li><p>SlateBlue: (106, 90, 205)</p></li>
+<li><p>SlateGray: (112, 128, 144)</p></li>
+<li><p>Snow: (255, 250, 250)</p></li>
+<li><p>SpringGreen: (0, 255, 127)</p></li>
+<li><p>SteelBlue: (70, 130, 180)</p></li>
+<li><p>Tan: (210, 180, 140)</p></li>
+<li><p>Teal: (0, 128, 128)</p></li>
+<li><p>Thistle: (216, 191, 216)</p></li>
+<li><p>Tomato: (255, 99, 71)</p></li>
+<li><p>Turquoise: (64, 224, 208)</p></li>
+<li><p>Violet: (238, 130, 238)</p></li>
+<li><p>Wheat: (245, 222, 179)</p></li>
+<li><p>White: (255, 255, 255)</p></li>
+<li><p>WhiteSmoke: (245, 245, 245)</p></li>
+<li><p>Yellow: (255, 255, 0)</p></li>
+<li><p>YellowGreen: (154, 205, 50)</p></li>
+</ul>
+</section>
+<section id="colorsthemedefault">
+<h2>ColorsThemeDefault<a class="headerlink" href="#colorsthemedefault" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ColorsThemeDefault</span></code> class contains the following members:</p>
+<ul class="simple">
+<li><p>Red: (239, 95, 95)</p></li>
+<li><p>Green: (79, 191, 79)</p></li>
+<li><p>Blue: (111, 111, 239)</p></li>
+<li><p>Black: (0, 0, 0)</p></li>
+<li><p>White: (255, 255, 255)</p></li>
+</ul>
+</section>
+<section id="colorsthemeessentials">
+<h2>ColorsThemeEssentials<a class="headerlink" href="#colorsthemeessentials" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ColorsThemeEssentials</span></code> class contains the following members:</p>
+<ul class="simple">
+<li><p>Red:  (255, 23, 23)</p></li>
+<li><p>LightRed: (239, 95, 95)</p></li>
+<li><p>Green: (15, 127, 15)</p></li>
+<li><p>LightGreen: (79, 191, 79)</p></li>
+<li><p>Blue: (31, 31, 255)</p></li>
+<li><p>LightBlue: (111, 111, 239)</p></li>
+<li><p>Yellow: (239, 239, 31)</p></li>
+<li><p>Purple: (127, 31, 127)</p></li>
+<li><p>Orange: (255, 95, 31)</p></li>
+<li><p>Navy: (15, 15, 127)</p></li>
+<li><p>Pink: (239, 63, 239)</p></li>
+<li><p>Charcoal: (39, 39, 39)</p></li>
+<li><p>Graphite: (63, 63, 63)</p></li>
+<li><p>Gray: (127, 127, 127)</p></li>
+<li><p>Silver: (191, 191, 191)</p></li>
+<li><p>Snow: (239, 239, 239)</p></li>
+<li><p>Teal: (15, 127, 127)</p></li>
+<li><p>Olive: (127, 127, 31)</p></li>
+<li><p>Brown: (159, 31, 31)</p></li>
+<li><p>Black: (0, 0, 0)</p></li>
+<li><p>White: (255, 255, 255)</p></li>
+<li><p>Aqua: (47, 239, 239)</p></li>
+<li><p>GreenYellow: (127, 207, 31)</p></li>
+<li><p>Ivory: (239, 239, 207)</p></li>
+<li><p>Steel: (96, 96, 143)</p></li>
+</ul>
+</section>
+<section id="colorsthememonochrome">
+<h2>ColorsThemeMonochrome<a class="headerlink" href="#colorsthememonochrome" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ColorsThemeMonochrome</span></code> class contains the following members:</p>
+<ul class="simple">
+<li><p>Black: (0, 0, 0)</p></li>
+<li><p>Charcoal: (39, 39, 39)</p></li>
+<li><p>Graphite: (63, 63, 63)</p></li>
+<li><p>Gray: (127, 127, 127)</p></li>
+<li><p>Silver: (191, 191, 191)</p></li>
+<li><p>Snow: (239, 239, 239)</p></li>
+<li><p>White: (255, 255, 255)</p></li>
+</ul>
+</section>
+<section id="implement-your-own-colors">
+<h2>Implement Your Own Colors<a class="headerlink" href="#implement-your-own-colors" title="Link to this heading"></a></h2>
+<p>We provide a base class for colors called <code class="docutils literal notranslate"><span class="pre">ColorsBase</span></code>.
+You can define your own color palette class by extending this base class.</p>
+<p>Suppose you are an official partner of Google, eligible to use their corporate colors.
+Let’s define these colors and use them.</p>
+<p>Partner Marketing Hub: Google News Color Palette.
+<a class="reference external" href="https://partnermarketinghub.withgoogle.com/brands/google-news/visual-identity/color-palette/">https://partnermarketinghub.withgoogle.com/brands/google-news/visual-identity/color-palette/</a></p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">image_mycolor.py</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Please define color at styling codes normally.</span>
+<span class="linenos"> 5</span><span class="k">class</span> <span class="nc">ColorsGoogle</span><span class="p">(</span><span class="n">ColorsBase</span><span class="p">):</span>
+<span class="linenos"> 6</span>    <span class="c1"># From Official Google Color Palette</span>
+<span class="linenos"> 7</span>    <span class="c1"># At Partner Marketing Hub</span>
+<span class="linenos"> 8</span>    <span class="n">Blue</span> <span class="o">=</span> <span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">166</span><span class="p">)</span>
+<span class="linenos"> 9</span>    <span class="n">Red</span> <span class="o">=</span> <span class="p">(</span><span class="mi">165</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+<span class="linenos">10</span>    <span class="n">Orange</span> <span class="o">=</span> <span class="p">(</span><span class="mi">227</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="linenos">11</span>    <span class="n">Green</span> <span class="o">=</span> <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">36</span><span class="p">)</span>
+<span class="linenos">12</span>    <span class="n">MediumBlue</span> <span class="o">=</span> <span class="p">(</span><span class="mi">66</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">210</span><span class="p">)</span>
+<span class="linenos">13</span>    <span class="n">MediumRed</span> <span class="o">=</span> <span class="p">(</span><span class="mi">234</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">53</span><span class="p">)</span>
+<span class="linenos">14</span>    <span class="n">Yellow</span> <span class="o">=</span> <span class="p">(</span><span class="mi">251</span><span class="p">,</span> <span class="mi">188</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="linenos">15</span>    <span class="n">MediumGreen</span> <span class="o">=</span> <span class="p">(</span><span class="mi">52</span><span class="p">,</span> <span class="mi">168</span><span class="p">,</span> <span class="mi">83</span><span class="p">)</span>
+<span class="linenos">16</span>    <span class="n">LightBlue</span> <span class="o">=</span> <span class="p">(</span><span class="mi">210</span><span class="p">,</span> <span class="mi">227</span><span class="p">,</span> <span class="mi">252</span><span class="p">)</span>
+<span class="linenos">17</span>    <span class="n">LightRed</span> <span class="o">=</span> <span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">207</span><span class="p">)</span>
+<span class="linenos">18</span>    <span class="n">LightYellow</span> <span class="o">=</span> <span class="p">(</span><span class="mi">254</span><span class="p">,</span> <span class="mi">239</span><span class="p">,</span> <span class="mi">195</span><span class="p">)</span>
+<span class="linenos">19</span>    <span class="n">LightGreen</span> <span class="o">=</span> <span class="p">(</span><span class="mi">206</span><span class="p">,</span> <span class="mi">234</span><span class="p">,</span> <span class="mi">214</span><span class="p">)</span>
+<span class="linenos">20</span>    <span class="n">LightGrey</span> <span class="o">=</span> <span class="p">(</span><span class="mi">241</span><span class="p">,</span> <span class="mi">243</span><span class="p">,</span> <span class="mi">244</span><span class="p">)</span>
+<span class="linenos">21</span>    <span class="n">Grey</span> <span class="o">=</span> <span class="p">(</span><span class="mi">154</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">166</span><span class="p">)</span>
+<span class="linenos">22</span>    <span class="n">Black</span> <span class="o">=</span> <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">36</span><span class="p">)</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos">26</span><span class="n">shape_y</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="linenos">27</span><span class="n">circle</span><span class="p">(</span>
+<span class="linenos">28</span>    <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="n">shape_y</span><span class="p">),</span>
+<span class="linenos">29</span>    <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">30</span>    <span class="n">style</span><span class="o">=</span><span class="n">ShapeStyle</span><span class="p">(</span><span class="n">lwidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fcolor</span><span class="o">=</span><span class="n">ColorsGoogle</span><span class="o">.</span><span class="n">MediumBlue</span><span class="p">),</span>
+<span class="linenos">31</span><span class="p">)</span>
+<span class="linenos">32</span><span class="n">triangle</span><span class="p">(</span>
+<span class="linenos">33</span>    <span class="p">(</span><span class="mf">37.5</span><span class="p">,</span> <span class="n">shape_y</span><span class="p">),</span>
+<span class="linenos">34</span>    <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="linenos">35</span>    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">36</span>    <span class="n">style</span><span class="o">=</span><span class="n">ShapeStyle</span><span class="p">(</span><span class="n">lwidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fcolor</span><span class="o">=</span><span class="n">ColorsGoogle</span><span class="o">.</span><span class="n">MediumRed</span><span class="p">),</span>
+<span class="linenos">37</span><span class="p">)</span>
+<span class="linenos">38</span><span class="n">rectangle</span><span class="p">(</span>
+<span class="linenos">39</span>    <span class="p">(</span><span class="mf">62.5</span><span class="p">,</span> <span class="n">shape_y</span><span class="p">),</span>
+<span class="linenos">40</span>    <span class="n">width</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+<span class="linenos">41</span>    <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+<span class="linenos">42</span>    <span class="n">style</span><span class="o">=</span><span class="n">ShapeStyle</span><span class="p">(</span><span class="n">lwidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fcolor</span><span class="o">=</span><span class="n">ColorsGoogle</span><span class="o">.</span><span class="n">Yellow</span><span class="p">),</span>
+<span class="linenos">43</span><span class="p">)</span>
+<span class="linenos">44</span><span class="n">wedge</span><span class="p">(</span>
+<span class="linenos">45</span>    <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="n">shape_y</span><span class="p">),</span>
+<span class="linenos">46</span>    <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">47</span>    <span class="n">width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="linenos">48</span>    <span class="n">angle_end</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span>
+<span class="linenos">49</span>    <span class="n">style</span><span class="o">=</span><span class="n">ShapeStyle</span><span class="p">(</span><span class="n">lwidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fcolor</span><span class="o">=</span><span class="n">ColorsGoogle</span><span class="o">.</span><span class="n">MediumGreen</span><span class="p">),</span>
+<span class="linenos">50</span><span class="p">)</span>
+<span class="linenos">51</span><span class="n">text</span><span class="p">(</span>
+<span class="linenos">52</span>    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+<span class="linenos">53</span>    <span class="s2">&quot;Google Colors&quot;</span><span class="p">,</span>
+<span class="linenos">54</span>    <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span>
+<span class="linenos">55</span>        <span class="n">color</span><span class="o">=</span><span class="n">ColorsGoogle</span><span class="o">.</span><span class="n">Black</span><span class="p">,</span>
+<span class="linenos">56</span>        <span class="n">size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+<span class="linenos">57</span>        <span class="n">font</span><span class="o">=</span><span class="n">FontRoboto</span><span class="o">.</span><span class="n">ROBOTO_REGULAR</span><span class="p">,</span>
+<span class="linenos">58</span>    <span class="p">),</span>
+<span class="linenos">59</span><span class="p">)</span>
+<span class="linenos">60</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>In this example, we define a color class and use it in image drawing code.
+Typically, you should define your color class in a styling module and import it into your image code.</p>
+<p>Here is the output:</p>
+<figure class="align-center">
+<a class="with-border reference internal image-reference" href="../../../_images/image_mycolor.png"><img alt="../../../_images/image_mycolor.png" class="with-border" src="../../../_images/image_mycolor.png" style="width: 600px;" /></a>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../foundations/programming/doc.html" class="btn btn-neutral float-left" title="Coding Best Practices" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../font/doc.html" class="btn btn-neutral float-right" title="Font Classes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Yuichi Ito &lt;yuichi@yuichi.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

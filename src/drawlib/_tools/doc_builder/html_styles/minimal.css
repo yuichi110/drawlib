@@ -1,0 +1,308 @@
+/* Minimal Editorial Theme (minimal.css) */
+:root {
+    --rtd-sidebar-bg: #fafafa;
+    --rtd-sidebar-header: #ffffff;
+    --rtd-sidebar-text: #525252;
+    --rtd-sidebar-hover: #f5f5f5;
+    --rtd-sidebar-active: #e5e5e5;
+    --rtd-brand-color: #262626;
+    --rtd-brand-dark: #000000;
+    --rtd-text-color: #262626;
+    --rtd-bg-color: #ffffff;
+    --rtd-content-bg: #ffffff;
+    --rtd-border-color: #e5e5e5;
+    --rtd-code-bg: #fafafa;
+    --rtd-inline-code-bg: #f5f5f5;
+    --rtd-inline-code-color: #262626;
+    --rtd-note-bg: #fafafa;
+    --rtd-note-border: #737373;
+    --rtd-font: -apple-system, BlinkMacSystemFont, "Georgia", serif;
+    --rtd-mono-font: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --sidebar-width: 260px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --rtd-sidebar-bg: #171717;
+        --rtd-sidebar-header: #0a0a0a;
+        --rtd-sidebar-text: #a3a3a3;
+        --rtd-sidebar-hover: #262626;
+        --rtd-sidebar-active: #404040;
+        --rtd-brand-color: #e5e5e5;
+        --rtd-brand-dark: #ffffff;
+        --rtd-text-color: #d4d4d4;
+        --rtd-bg-color: #0a0a0a;
+        --rtd-content-bg: #171717;
+        --rtd-border-color: #262626;
+        --rtd-code-bg: #0a0a0a;
+        --rtd-inline-code-bg: #262626;
+        --rtd-inline-code-color: #e5e5e5;
+        --rtd-note-bg: #262626;
+        --rtd-note-border: #a3a3a3;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--rtd-font);
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--rtd-text-color);
+    background-color: var(--rtd-bg-color);
+    margin: 0;
+    padding: 0;
+}
+
+.doc-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--rtd-sidebar-bg);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    border-right: 1px solid var(--rtd-border-color);
+}
+
+.sidebar-header {
+    background-color: var(--rtd-sidebar-header);
+    padding: 1.25rem 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid var(--rtd-border-color);
+}
+
+.sidebar-brand {
+    color: var(--rtd-text-color);
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar-brand:hover {
+    text-decoration: none;
+}
+
+.sidebar-version {
+    color: #737373;
+    font-size: 0.75rem;
+    margin-top: 0.1rem;
+}
+
+.sidebar-menu {
+    padding: 1rem 0;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.sidebar-heading {
+    color: #a3a3a3;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.5rem 1.5rem;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item a {
+    color: var(--rtd-sidebar-text);
+    display: block;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.nav-item a:hover {
+    background-color: var(--rtd-sidebar-hover);
+    color: var(--rtd-brand-color);
+}
+
+.nav-item.active a {
+    background-color: var(--rtd-sidebar-active);
+    color: var(--rtd-brand-color);
+    font-weight: 600;
+}
+
+.content-wrapper {
+    flex: 1;
+    background-color: var(--rtd-content-bg);
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.top-bar {
+    background-color: var(--rtd-content-bg);
+    border-bottom: 1px solid var(--rtd-border-color);
+    padding: 0.85rem 2.5rem;
+    font-size: 0.88rem;
+}
+
+.breadcrumbs {
+    color: #737373;
+}
+
+.crumb {
+    color: var(--rtd-brand-color);
+}
+
+.crumb.active {
+    color: var(--rtd-text-color);
+}
+
+.crumb-separator {
+    margin: 0 0.4rem;
+    color: #d4d4d4;
+}
+
+.main-content {
+    padding: 3rem 4rem;
+    max-width: 800px;
+    flex: 1;
+}
+
+.main-container {
+    max-width: 780px;
+    margin: 2rem auto;
+    background-color: var(--rtd-content-bg);
+    padding: 3rem 4rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #171717;
+    margin-top: 2.2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+    h1, h2, h3, h4, h5, h6 {
+        color: #f5f5f5;
+    }
+}
+
+h1 {
+    font-size: 2.4rem;
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+}
+
+h2 {
+    font-size: 1.6rem;
+    margin-top: 2.5rem;
+}
+
+h3 {
+    font-size: 1.25rem;
+}
+
+a {
+    color: var(--rtd-brand-color);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+code {
+    font-family: var(--rtd-mono-font);
+    font-size: 0.85em;
+    background-color: var(--rtd-inline-code-bg);
+    color: var(--rtd-inline-code-color);
+    padding: 0.15rem 0.35rem;
+    border-radius: 3px;
+}
+
+pre {
+    background-color: var(--rtd-code-bg);
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 4px;
+    padding: 1.25rem;
+    overflow-x: auto;
+    font-size: 0.88em;
+    line-height: 1.5;
+}
+
+pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+}
+
+blockquote {
+    margin: 1.8rem 0;
+    padding: 0.5rem 1.2rem;
+    color: #525252;
+    border-left: 2px solid var(--rtd-note-border);
+    font-style: italic;
+}
+
+blockquote p {
+    margin: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 0.9rem;
+}
+
+th, td {
+    border-bottom: 1px solid var(--rtd-border-color);
+    padding: 0.75rem 0.5rem;
+    text-align: left;
+}
+
+th {
+    font-weight: 600;
+    border-bottom: 2px solid var(--rtd-border-color);
+}
+
+.drawlib-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1rem;
+}
+
+.drawlib-image img, .drawlib-image svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.footer {
+    border-top: 1px solid var(--rtd-border-color);
+    padding: 2rem 0;
+    font-size: 0.82rem;
+    color: #a3a3a3;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .doc-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .main-content {
+        padding: 1.5rem;
+    }
+}

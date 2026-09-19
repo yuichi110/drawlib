@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example of Documentation Build Flow &mdash; drawlib 0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=6432bc99" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=10f1778b"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="About Smart Arts" href="../../smartarts/index/doc.html" />
+    <link rel="prev" title="CLI and Options" href="../cli_options/doc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            drawlib
+          </a>
+              <div class="version">
+                version: 0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introductions:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/about/doc.html">About drawlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/install/doc.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/lib_design/doc.html">Drawlib from a High Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/quick_start/doc.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/release_note/doc.html">Release Note of 0.2.*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/other_version_docs/doc.html">Other Version Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/links/doc.html">Links</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Foundations:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/canvas/doc.html">Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/coordinate_align/doc.html">Coordinate and Alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/icon/doc.html">Drawing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/image/doc.html">Drawing Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/line/doc.html">Drawing line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/line_style/doc.html">Line Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape/doc.html">Drawing Shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_arrow/doc.html">Drawing Arrow Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_circle/doc.html">Drawing Circle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_rectangle/doc.html">Drawing Rectangle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_style/doc.html">Shape Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/text/doc.html">Drawing Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/theme/doc.html">Theme feature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/build_many/doc.html">Building many images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/programming/doc.html">Coding Best Practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Topics:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../color/doc.html">Color Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../font/doc.html">Font Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dimage/doc.html">Dimage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/doc.html">Debugging errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings/doc.html">Library Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/doc.html">CLI and Options</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Example of Documentation Build Flow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example-github-repository">Example GitHub Repository</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tools-used">Tools Used</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#repository-structure">Repository Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#description-of-each-files">Description of each files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#abstract-workflow">Abstract Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#scripts">Scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python-environment-setup">Python Environment Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#setup-python-sh">setup_python.sh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#requirements-txt">requirements.txt</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#building-images">Building Images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-documentation">Building Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#check-build-content-of-directory-staging">Check Build Content of Directory staging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#github-pages-settings">GitHub Pages Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#move-html-to-github-pages-directory-docs">Move HTML to GitHub Pages Directory docs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#publishing-your-documentation">Publishing Your Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Smart Arts:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/index/doc.html">About Smart Arts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bubblespeech/doc.html">Bubblespeech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/boxlist/doc.html">BoxList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bulletpoints/doc.html">BulletPoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/gridlayout/doc.html">GridLayout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/pyramid/doc.html">Pyramid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/sourcecode/doc.html">SourceCode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/table/doc.html">Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/tree/doc.html">Tree</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Themes:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/advanced_topics/doc.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_default/doc.html">Official Theme: default</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_essentials/doc.html">Official Theme: essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_monochrome/doc.html">Official Theme: monochrome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/create/doc.html">Create Your Custom Theme from Scratch</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">drawlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Example of Documentation Build Flow</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/manual/advanced_topics/example_flow/doc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="example-of-documentation-build-flow">
+<h1>Example of Documentation Build Flow<a class="headerlink" href="#example-of-documentation-build-flow" title="Link to this heading"></a></h1>
+<p>Here is a high-level documentation build flow using Drawlib:</p>
+<figure class="align-center" id="id1">
+<a class="with-border reference internal image-reference" href="../../../_images/image_buildmany.png"><img alt="../../../_images/image_buildmany.png" class="with-border" src="../../../_images/image_buildmany.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Build many images</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>In this document, we will explain our example documentation project and the step-by-step procedure for building it.</p>
+<section id="example-github-repository">
+<h2>Example GitHub Repository<a class="headerlink" href="#example-github-repository" title="Link to this heading"></a></h2>
+<p>We have created an example GitHub repository that contains the source images and documentation for this demonstration.
+This repository will serve as the basis for building and creating documentation, which will then be published to the internet using GitHub Pages.</p>
+<p><a class="reference external" href="https://github.com/yuichi110/drawlib_docs_example">https://github.com/yuichi110/drawlib_docs_example</a></p>
+<section id="tools-used">
+<h3>Tools Used<a class="headerlink" href="#tools-used" title="Link to this heading"></a></h3>
+<p>We will use the following tools for writing and publishing our documentation:</p>
+<ul class="simple">
+<li><p>Drawlib: For building images programmatically.</p></li>
+<li><p>Sphinx: For generating documentation with pre-built images.</p></li>
+<li><p>GitHub Pages: To publish the documentation online.</p></li>
+</ul>
+<p>In our scenario of writing Python documentation, we have chosen <code class="docutils literal notranslate"><span class="pre">Sphinx</span></code> due to its popularity and suitability for structured documentation.
+It requires understanding of reStructuredText (reST), which is similar to markdown but offers more complexity and flexibility for structuring comprehensive documentation pages.
+This complexity allows for detailed and organized documentation creation.</p>
+<p>An alternative to Sphinx could be <code class="docutils literal notranslate"><span class="pre">MkDocs</span></code> and <code class="docutils literal notranslate"><span class="pre">Jekyll</span></code>, which generates documentation from markdown files.
+Both MkDocs and Jekyll are popular for creating static websites, including documentation sites.</p>
+</section>
+<section id="repository-structure">
+<h3>Repository Structure<a class="headerlink" href="#repository-structure" title="Link to this heading"></a></h3>
+<p>Here is the structure of the repository:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>repository
+├── .gitignore
+├── .venv
+├── LICENSE
+├── README.md
+├── requirements.txt
+├── docs
+|   └── ... # Generated documentation files (HTML)
+├── scripts
+|   └── ... # Scripts for building, checking, and publishing
+├── source
+│   ├── __init__.py
+│   ├── _static
+│   ├── _templates
+│   ├── chapter01
+│   ├── chapter0
+│   ├── commons
+│   ├── conf.py
+│   ├── index
+│   └── index.rst # Main entry point for documentation
+└── staging
+    └── ... # Intermediate directory for checking generated documentation
+</pre></div>
+</div>
+</section>
+</section>
+<section id="description-of-each-files">
+<h2>Description of each files<a class="headerlink" href="#description-of-each-files" title="Link to this heading"></a></h2>
+<ul>
+<li><p>.gitignore: Specifies files and directories to ignore in version control.</p></li>
+<li><p>.venv: Virtual environment directory for Python dependencies.</p></li>
+<li><p>LICENSE: License file for the repository.</p></li>
+<li><p>README.md: Markdown file providing an overview of the repository.</p></li>
+<li><p>requirements.txt: File listing Python dependencies.</p></li>
+<li><p>docs/: Directory where generated HTML documentation files are stored.</p></li>
+<li><p>scripts/: Directory containing scripts for various tasks related to documentation.</p></li>
+<li><p>source/: Directory containing the source files for documentation.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>__init__.py: Initialization file (typically for Python modules).</p></li>
+<li><p>_static/: Static files directory for the documentation.</p></li>
+<li><p>_templates/: Templates directory for custom Sphinx templates.</p></li>
+<li><p>chapter01/, chapter02/: Directories for organizing documentation chapters.</p></li>
+<li><p>commons/: Directory for common resources used across documentation.</p></li>
+<li><p>conf.py: Configuration file for Sphinx.</p></li>
+<li><p>index.rst: Main entry point for the documentation, typically starting with index.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>staging/: Temporary directory for checking generated documentation before moving to docs/.</p></li>
+</ul>
+<section id="abstract-workflow">
+<h3>Abstract Workflow<a class="headerlink" href="#abstract-workflow" title="Link to this heading"></a></h3>
+<p>Here’s the workflow for managing and publishing documentation:</p>
+<ol class="arabic simple">
+<li><p>Image Build Process: Images are built first</p></li>
+<li><p>Documentation Build Process: Documentation is generated in the staging/ directory.</p></li>
+<li><p>Review: Newly generated documentation in staging/ is reviewed for any issues.</p></li>
+<li><p>Deployment: Once validated, the content from staging/ is moved to docs/, which is used for GitHub Pages publication.</p></li>
+<li><p>Publication: GitHub Pages can publish its new content after Git commit and push</p></li>
+</ol>
+</section>
+</section>
+<section id="scripts">
+<h2>Scripts<a class="headerlink" href="#scripts" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> directory contains script files for each step of the workflow.
+Whether adopting CI/CD or not, having these scripts helps facilitate local operations such as image and documentation generation.</p>
+<section id="python-environment-setup">
+<h3>Python Environment Setup<a class="headerlink" href="#python-environment-setup" title="Link to this heading"></a></h3>
+<p>To build images and documentation, you need specific Python packages installed in a virtual environment to avoid conflicts.
+Here’s a bash script that sets up the environment:</p>
+</section>
+</section>
+<section id="setup-python-sh">
+<h2>setup_python.sh<a class="headerlink" href="#setup-python-sh" title="Link to this heading"></a></h2>
+<p>We created a bash script named setup_python.sh with the following content:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span><span class="w"> </span>-e
+
+<span class="c1"># cd to repository root</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">cd</span><span class="w"> </span>../
+
+<span class="c1"># delete python venv</span>
+deactivate<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>.venv
+
+<span class="c1"># create venv and activate</span>
+python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+
+<span class="c1"># install python packages</span>
+pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+<p>At last of the script, installing python packages from <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>.</p>
+</section>
+<section id="requirements-txt">
+<h2>requirements.txt<a class="headerlink" href="#requirements-txt" title="Link to this heading"></a></h2>
+<p>We created requirements.txt file with the following content:
+.. code-block:: none</p>
+<blockquote>
+<div><p>drawlib == 0.1.*
+sphinx == 7.2.*
+sphinx-rtd-theme == 2.0.*</p>
+</div></blockquote>
+<p>After running the setup script, if your Sphinx configuration (conf.py) is not ready, you need to prepare it using Sphinx commands.
+Please refere to sphinx documentation for details.</p>
+<section id="building-images">
+<h3>Building Images<a class="headerlink" href="#building-images" title="Link to this heading"></a></h3>
+<p>The source directory serves as the root of your Sphinx project and contains both the Sphinx configuration files and the source files for your documentation.
+If you are not familiar to how to build many images with common style, please check foundation document first.
+We will skip Python code explanation at here.</p>
+<p>For building images, we use script <code class="docutils literal notranslate"><span class="pre">/scripts/build_images.sh</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span><span class="w"> </span>-e
+
+<span class="c1"># cd to project root directory</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">cd</span><span class="w"> </span>../
+
+<span class="c1"># activate</span>
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+
+<span class="c1"># build</span>
+drawlib<span class="w"> </span>./source
+</pre></div>
+</div>
+<p>For larger documentation projects, consider creating separate build scripts for specific chapters or sections.
+For example, you can create scripts like <code class="docutils literal notranslate"><span class="pre">scripts/build_images_chapter01.sh</span></code> and <code class="docutils literal notranslate"><span class="pre">scripts/build_images_chapter02.sh</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span><span class="w"> </span>-e
+
+<span class="c1"># cd to project root directory</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">cd</span><span class="w"> </span>../
+
+<span class="c1"># activate</span>
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+
+<span class="c1"># build only chapter01</span>
+drawlib<span class="w"> </span>./source/chapter01
+</pre></div>
+</div>
+<p>After building the images, verify their correctness and quality before proceeding to build the documentation.
+This ensures that all images are correctly generated and meet your project’s requirements.</p>
+</section>
+<section id="building-documentation">
+<h3>Building Documentation<a class="headerlink" href="#building-documentation" title="Link to this heading"></a></h3>
+<p>To compile your documentation using Sphinx, you can utilize the script <code class="docutils literal notranslate"><span class="pre">script/build_docs.sh</span></code>.
+This script manages the compilation process, creating HTML files in the <code class="docutils literal notranslate"><span class="pre">staging</span></code> directory from <code class="docutils literal notranslate"><span class="pre">source</span></code> directory.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span><span class="w"> </span>-e
+
+<span class="c1"># cd to project root directory</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">cd</span><span class="w"> </span>../
+
+<span class="c1"># activate</span>
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+
+<span class="c1"># delete last build target contents</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>./staging
+
+<span class="c1"># build to html</span>
+sphinx-build<span class="w"> </span>-a<span class="w"> </span>./source<span class="w"> </span>./staging
+</pre></div>
+</div>
+<p>At the script, deletes the contents of the <code class="docutils literal notranslate"><span class="pre">staging</span></code> directory to remove any remnants from previous builds.
+And then, executes <code class="docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-a</span> <span class="pre">./source</span> <span class="pre">./staging</span></code> to generate HTML files from the source files in the source directory and store them in the staging directory.</p>
+</section>
+<section id="check-build-content-of-directory-staging">
+<h3>Check Build Content of Directory staging<a class="headerlink" href="#check-build-content-of-directory-staging" title="Link to this heading"></a></h3>
+<p>To check the contents of the <code class="docutils literal notranslate"><span class="pre">staging</span></code> directory, which contains the built HTML documentation from Sphinx, you can use a script like <code class="docutils literal notranslate"><span class="pre">scripts/serv_staging.sh</span></code>.
+This script starts an HTTP server that hosts the staging directory locally and opens a web browser to view it automatically.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span><span class="w"> </span>-e
+
+open_browser_1sec_later<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">   </span>sleep<span class="w"> </span><span class="m">1</span>
+<span class="w">   </span>open<span class="w"> </span>http://localhost
+<span class="o">}</span>
+
+<span class="c1"># cd to doc root</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">cd</span><span class="w"> </span>../
+
+<span class="c1"># activate</span>
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+
+<span class="c1"># open browser later</span>
+open_browser_1sec_later<span class="w"> </span><span class="p">&amp;</span>
+
+<span class="c1"># cd to html directory and start http server</span>
+<span class="nb">cd</span><span class="w"> </span>./staging
+python<span class="w"> </span>-m<span class="w"> </span>http.server<span class="w"> </span><span class="m">80</span>
+</pre></div>
+</div>
+<p>After a brief moment, your default web browser should open with the locally hosted documentation from the <code class="docutils literal notranslate"><span class="pre">staging</span></code> directory.
+You can navigate and inspect the documentation to ensure everything appears as expected before further steps like publishing.</p>
+</section>
+<section id="github-pages-settings">
+<h3>GitHub Pages Settings<a class="headerlink" href="#github-pages-settings" title="Link to this heading"></a></h3>
+<p>Configuring GitHub Pages for your repository allows you to host your Sphinx-generated documentation directly from your GitHub repository.
+If you haven’t configured GitHub Pages for your repository yet, please configure it first.</p>
+<figure class="align-center" id="id2">
+<a class="with-border reference internal image-reference" href="../../../_images/image_github_pages.png"><img alt="../../../_images/image_github_pages.png" class="with-border" src="../../../_images/image_github_pages.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Configure github pages</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="move-html-to-github-pages-directory-docs">
+<h3>Move HTML to GitHub Pages Directory docs<a class="headerlink" href="#move-html-to-github-pages-directory-docs" title="Link to this heading"></a></h3>
+<p>To publish your Sphinx-generated documentation using GitHub Pages, you need to move the built HTML files from the staging directory to the docs directory.
+Below is a script named <code class="docutils literal notranslate"><span class="pre">deploy_from_staging_to_docs.sh</span></code> that automates this process:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span><span class="w"> </span>-e
+
+<span class="c1"># cd to doc root</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">cd</span><span class="w"> </span>../
+
+<span class="c1"># delete old docs</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>./docs
+
+<span class="c1"># copy latest staging to docs</span>
+cp<span class="w"> </span>-r<span class="w"> </span>./staging<span class="w"> </span>./docs
+
+<span class="c1"># create .nojekyll</span>
+<span class="nb">cd</span><span class="w"> </span>./docs
+touch<span class="w"> </span>.nojekyll
+</pre></div>
+</div>
+<p>This script delete last HTML content first.
+And them move new HTML to GitHub Pages directory.</p>
+<p>GitHub Pages uses Jekyll by default to build and serve static websites.
+However, Sphinx-generated documentation does not require Jekyll processing.
+By including a .nojekyll file in the docs directory, GitHub Pages skips the Jekyll build process, allowing your Sphinx-generated HTML to be served as-is.</p>
+</section>
+<section id="publishing-your-documentation">
+<h3>Publishing Your Documentation<a class="headerlink" href="#publishing-your-documentation" title="Link to this heading"></a></h3>
+<p>Once you have successfully moved the newly built HTML documents to the GitHub Pages directory (docs), the next step is to sync these changes with the GitHub remote server.</p>
+<p>Before pushing changes to GitHub, commit the changes locally.
+After committing your changes locally, push them to the GitHub remote repository.
+Once git push completes, GitHub will automatically deploy the contents of the docs directory to your GitHub Pages site.
+You can access your published documentation using the GitHub Pages URL for your repository.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../cli_options/doc.html" class="btn btn-neutral float-left" title="CLI and Options" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../smartarts/index/doc.html" class="btn btn-neutral float-right" title="About Smart Arts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Yuichi Ito &lt;yuichi@yuichi.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

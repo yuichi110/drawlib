@@ -13,7 +13,7 @@ import os
 
 from utils import cd_to_project_root
 
-OUTPUT_DIR = "src/drawlib/v0_2/private/l4_theme"
+OUTPUT_DIR = "src/drawlib/core/l4_theme"
 OUTPUT_FILE = "_theme_style_caches.py"
 
 
@@ -33,15 +33,15 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Any, Callable, Literal, cast
 
-from drawlib.v0_2.private.l1_core import guarded
-from drawlib.v0_2.private.l2_types import (
+from drawlib._core.l1_core import guarded
+from drawlib._core.l2_types import (
     TypeBool,
     TypeColor,
     TypeColorRGBA,
     TypeStr,
 )
-from drawlib.v0_2.private.l3_fonts import FontSourceCode
-from drawlib.v0_2.private.l3_styles import (
+from drawlib._core.l3_fonts import FontSourceCode
+from drawlib._core.l3_styles import (
     IconStyle,
     ImageStyle,
     LineStyle,

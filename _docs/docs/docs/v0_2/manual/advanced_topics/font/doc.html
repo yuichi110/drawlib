@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Font Classes &mdash; drawlib 0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=6432bc99" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=10f1778b"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Dimage" href="../dimage/doc.html" />
+    <link rel="prev" title="Color Classes" href="../color/doc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            drawlib
+          </a>
+              <div class="version">
+                version: 0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introductions:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/about/doc.html">About drawlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/install/doc.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/lib_design/doc.html">Drawlib from a High Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/quick_start/doc.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/release_note/doc.html">Release Note of 0.2.*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/other_version_docs/doc.html">Other Version Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/links/doc.html">Links</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Foundations:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/canvas/doc.html">Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/coordinate_align/doc.html">Coordinate and Alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/icon/doc.html">Drawing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/image/doc.html">Drawing Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/line/doc.html">Drawing line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/line_style/doc.html">Line Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape/doc.html">Drawing Shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_arrow/doc.html">Drawing Arrow Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_circle/doc.html">Drawing Circle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_rectangle/doc.html">Drawing Rectangle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_style/doc.html">Shape Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/text/doc.html">Drawing Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/theme/doc.html">Theme feature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/build_many/doc.html">Building many images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/programming/doc.html">Coding Best Practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Topics:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../color/doc.html">Color Classes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Font Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fontfile">FontFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#font">Font</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fontsansserif">FontSansSerif</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fontserif">FontSerif</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fontroboto">FontRoboto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fontmonospace">FontMonoSpace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fontarabic">FontArabic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fontbrahmic">FontBrahmic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fontchinese">FontChinese</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fontjapanese">FontJapanese</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fontkorean">FontKorean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fontthai">FontThai</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#request-for-adding-fonts">Request for Adding Fonts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dimage/doc.html">Dimage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/doc.html">Debugging errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings/doc.html">Library Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/doc.html">CLI and Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../example_flow/doc.html">Example of Documentation Build Flow</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Smart Arts:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/index/doc.html">About Smart Arts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bubblespeech/doc.html">Bubblespeech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/boxlist/doc.html">BoxList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bulletpoints/doc.html">BulletPoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/gridlayout/doc.html">GridLayout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/pyramid/doc.html">Pyramid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/sourcecode/doc.html">SourceCode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/table/doc.html">Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/tree/doc.html">Tree</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Themes:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/advanced_topics/doc.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_default/doc.html">Official Theme: default</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_essentials/doc.html">Official Theme: essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_monochrome/doc.html">Official Theme: monochrome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/create/doc.html">Create Your Custom Theme from Scratch</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">drawlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Font Classes</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/manual/advanced_topics/font/doc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="font-classes">
+<h1>Font Classes<a class="headerlink" href="#font-classes" title="Link to this heading"></a></h1>
+<p>In Drawlib, fonts are categorized into various Font Classes, each serving different purposes and supporting different styles and languages.
+Here’s an overview of the supported Font Classes:</p>
+<ul>
+<li><p>Default Fonts</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Font</span></code>: Supports both SanSerif and Serif fonts for Alphabet and CJK (Chinese, Japanese, Korean) characters.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Alphabet Fonts</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FontSansSerif</span></code>: Specifically SanSerif fonts for Alphabet characters.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FontSerif</span></code>: Specifically Serif fonts for Alphabet characters.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FontMonoSpace</span></code>: Monospace fonts, where each character occupies the same amount of horizontal space.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FontSourcecode</span></code>:  A subset of FontMonoSpace fonts, optimized for source code display using <code class="docutils literal notranslate"><span class="pre">dsart.sourcecode()</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FontRoboto</span></code>: Fonts from the Roboto family, tailored for Alphabet characters.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Local Language Fonts</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FontArabic</span></code>: Fonts specifically designed for Arabic script.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FontBrahmic</span></code>: Fonts for Brahmic scripts used in India and neighboring countries.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FontChinese</span></code>: Fonts tailored for Chinese characters.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FontJapanese</span></code>: Fonts designed for Japanese characters.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FontKorean</span></code>: Fonts specifically for Korean characters.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FontThai</span></code>: Fonts optimized for Thai script.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>Each font class supports various styles, though some fonts may have fewer styles available:</p>
+<ul class="simple">
+<li><p>Light: A lighter weight variant of the font.</p></li>
+<li><p>Regular: The standard, normal-weight variant of the font.</p></li>
+<li><p>Bold: A heavier, bold-weight variant of the font.</p></li>
+</ul>
+<p>Due to the large file sizes of font files, Drawlib does not include them in the initial package when installed via pip.
+Instead, the necessary font files are downloaded dynamically the first time they are used.
+This approach minimizes the initial package size and allows for on-demand fetching of resources.
+Once downloaded, these font files are cached on your local machine.</p>
+<p>If needed, you can manage the font cache using the <code class="docutils literal notranslate"><span class="pre">drawlib</span> <span class="pre">--purge_font_cache</span></code> command.
+This command clears the cached font files from your system, freeing up storage space if necessary.</p>
+<section id="fontfile">
+<h2>FontFile<a class="headerlink" href="#fontfile" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">FontFile</span></code> class in Drawlib allows users to utilize custom fonts for rendering text using the <code class="docutils literal notranslate"><span class="pre">text()</span></code> function and similar methods.
+Here’s how you can use the FontFile class in your Python code:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">image_file.py</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="n">text</span><span class="p">(</span>
+<span class="linenos"> 5</span>    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos"> 6</span>    <span class="s2">&quot;Hello Drawlib!&quot;</span><span class="p">,</span>
+<span class="linenos"> 7</span>    <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span>
+<span class="linenos"> 8</span>        <span class="n">size</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span>
+<span class="linenos"> 9</span>        <span class="n">font</span><span class="o">=</span><span class="n">FontFile</span><span class="p">(</span><span class="s2">&quot;./avenger/regular.ttf&quot;</span><span class="p">),</span>
+<span class="linenos">10</span>    <span class="p">),</span>
+<span class="linenos">11</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Executing this code generate the output:</p>
+<figure class="align-center" id="id2">
+<a class="with-border reference internal image-reference" href="../../../_images/image_file.png"><img alt="../../../_images/image_file.png" class="with-border" src="../../../_images/image_file.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Using font file</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="font">
+<h2>Font<a class="headerlink" href="#font" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Font</span></code> class in Drawlib provides default fonts.
+Here’s an overview of the fonts available in the Font class:</p>
+<ul>
+<li><p>SanSerif Fonts</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SANSSERIF_LIGHT</span></code>: Noto SansSerif CJK(Chinese, Japanese, Korean)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SANSSERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SANSSERIF_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Serif Fonts</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SERIF_LIGHT</span></code>: Noto Serif CJK Japanese</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SERIF_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>By default, the Drawlib’s default theme uses <code class="docutils literal notranslate"><span class="pre">Font.SANSSERIF_REGULAR</span></code>.
+This font choice is based on its standard shape and wide coverage across different languages and populations.</p>
+<p>The following image illustrates the fonts available in the Font class:</p>
+<figure class="align-center" id="id3">
+<a class="with-border reference internal image-reference" href="../../../_images/image_Font.png"><img alt="../../../_images/image_Font.png" class="with-border" src="../../../_images/image_Font.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">class Font</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="fontsansserif">
+<h2>FontSansSerif<a class="headerlink" href="#fontsansserif" title="Link to this heading"></a></h2>
+<p>Class <code class="docutils literal notranslate"><span class="pre">FontSansSerif</span></code> contains popular SansSerif fonts for alphabet languages.</p>
+<ul>
+<li><p>Lato</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">LATO_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LATO_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LATO_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Raleways</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">RALEWAYS_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RALEWAYS_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RALEWAYS_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Montserrat</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MONTSERRAT_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MONTSERRAT_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MONTSERRAT_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Oswald</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">OSWALD_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OSWALD_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OSWALD_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Poppins</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">POPPINS_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POPPINS_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POPPINS_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontSansSerif class:</p>
+<figure class="align-center" id="id4">
+<a class="with-border reference internal image-reference" href="../../../_images/image_FontSansSerif.png"><img alt="../../../_images/image_FontSansSerif.png" class="with-border" src="../../../_images/image_FontSansSerif.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">class FontSansSerif</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="fontserif">
+<h2>FontSerif<a class="headerlink" href="#fontserif" title="Link to this heading"></a></h2>
+<p>Class <code class="docutils literal notranslate"><span class="pre">FontSerif</span></code> contains popular Serif fonts for alphabet languages.</p>
+<ul>
+<li><p>Courier</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">COURIER_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">COURIER_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Merriweather</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MERRIWEATHER_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MERRIWEATHER_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MERRIWEATHER_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Platypi</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PLATYPI_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PLATYPI_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PLATYPI_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>PlayFairDisplay</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PLAYFAIRDISPLAY_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PLAYFAIRDISPLAY_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PLAYFAIRDISPLAY_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontSerif class:</p>
+<figure class="align-center" id="id5">
+<a class="with-border reference internal image-reference" href="../../../_images/image_FontSerif.png"><img alt="../../../_images/image_FontSerif.png" class="with-border" src="../../../_images/image_FontSerif.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">class FontSansSerif</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="fontroboto">
+<h2>FontRoboto<a class="headerlink" href="#fontroboto" title="Link to this heading"></a></h2>
+<p>Class <code class="docutils literal notranslate"><span class="pre">FontRoboto</span></code> famous and popular Roboto group fonts.</p>
+<ul>
+<li><p>Roboto</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ROBOTO_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ROBOTO_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ROBOTO_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Roboto Serif</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SERIF_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Roboto Mono</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MONO_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MONO_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MONO_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Roboto Condensed</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CONDENSED_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CONDENSED_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CONDENSED_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Roboto Slab</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SLAB_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SLAB_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SLAB_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontRoboto class:</p>
+<figure class="align-center" id="id6">
+<a class="with-border reference internal image-reference" href="../../../_images/image_FontRoboto.png"><img alt="../../../_images/image_FontRoboto.png" class="with-border" src="../../../_images/image_FontRoboto.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">class FontRoboto</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="fontmonospace">
+<h2>FontMonoSpace<a class="headerlink" href="#fontmonospace" title="Link to this heading"></a></h2>
+<p>Class <code class="docutils literal notranslate"><span class="pre">FontMonoSpace</span></code> contains  mono space fonts.
+Almost all are for alphabet, but SourceHanCodeJP supports Japanese.</p>
+<ul>
+<li><p>Courier</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">COURIER_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">COURIER_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Roboto Mono</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ROBOTO_MONO_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ROBOTO_MONO_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ROBOTO_MONO_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>SourceCodePro</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SOURCECODEPRO_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SOURCECODEPRO_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SOURCECODEPRO_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>SourceHanCodeJP</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SOURCEHANCODEJP_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SOURCEHANCODEJP_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SOURCEHANCODEJP_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontMonoSpace class:</p>
+<figure class="align-center" id="id7">
+<a class="with-border reference internal image-reference" href="../../../_images/image_FontMonoSpace.png"><img alt="../../../_images/image_FontMonoSpace.png" class="with-border" src="../../../_images/image_FontMonoSpace.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">class FontSansSerif</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="fontarabic">
+<h2>FontArabic<a class="headerlink" href="#fontarabic" title="Link to this heading"></a></h2>
+<p>Class <code class="docutils literal notranslate"><span class="pre">FontArabic</span></code> contains Arabic fonts.</p>
+<ul>
+<li><p>Sans Serif</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SANSSERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SANSSERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SANSSERIF_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Kufi</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">KUFI_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">KUFI_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">KUFI_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Naskh</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NASKH_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NASKH_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NASKH_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontArabic class:</p>
+<figure class="align-center" id="id8">
+<a class="with-border reference internal image-reference" href="../../../_images/image_FontArabic.png"><img alt="../../../_images/image_FontArabic.png" class="with-border" src="../../../_images/image_FontArabic.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">class FontArabic</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="fontbrahmic">
+<h2>FontBrahmic<a class="headerlink" href="#fontbrahmic" title="Link to this heading"></a></h2>
+<p>Class <code class="docutils literal notranslate"><span class="pre">FontBrahmic</span></code> contains fonts for characters which delived from Brahmic.</p>
+<ul>
+<li><p>Bengali</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">BENGALI_SANSSERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BENGALI_SANSSERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BENGALI_SANSSERIF_BOLD</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BENGALI_SERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BENGALI_SERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BENGALI_SERIF_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Devanagari</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DEVANAGARI_SANSSERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEVANAGARI_SANSSERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEVANAGARI_SANSSERIF_BOLD</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEVANAGARI_SERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEVANAGARI_SERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEVANAGARI_SERIF_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Tamil</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TAMIL_SANSSERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TAMIL_SANSSERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TAMIL_SANSSERIF_BOLD</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TAMIL_SERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TAMIL_SERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TAMIL_SERIF_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Telugu</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TELUGU_SANSSERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TELUGU_SANSSERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TELUGU_SANSSERIF_BOLD</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TELUGU_SERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TELUGU_SERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TELUGU_SERIF_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontBrahmic class:</p>
+<figure class="align-center" id="id9">
+<a class="with-border reference internal image-reference" href="../../../_images/image_FontBrahmic.png"><img alt="../../../_images/image_FontBrahmic.png" class="with-border" src="../../../_images/image_FontBrahmic.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">class FontBrahmic</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="fontchinese">
+<h2>FontChinese<a class="headerlink" href="#fontchinese" title="Link to this heading"></a></h2>
+<p>Class <code class="docutils literal notranslate"><span class="pre">FontChinese</span></code> contains Chinese fonts.</p>
+<ul>
+<li><p>Simplified</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SIMPLIFIED_SANSSERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SIMPLIFIED_SANSSERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SIMPLIFIED_SANSSERIF_BOLD</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SIMPLIFIED_SERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SIMPLIFIED_SERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SIMPLIFIED_SERIF_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Traditional</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TRADITIONAL_SANSSERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TRADITIONAL_SANSSERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TRADITIONAL_SANSSERIF_BOLD</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TRADITIONAL_SERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TRADITIONAL_SERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TRADITIONAL_SERIF_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>HongKong</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">HONGKONG_SANSSERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HONGKONG_SANSSERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HONGKONG_SANSSERIF_BOLD</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HONGKONG_SERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HONGKONG_SERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HONGKONG_SERIF_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontChinese class:</p>
+<figure class="align-center" id="id10">
+<a class="with-border reference internal image-reference" href="../../../_images/image_FontChinese.png"><img alt="../../../_images/image_FontChinese.png" class="with-border" src="../../../_images/image_FontChinese.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">class FontChinese</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="fontjapanese">
+<h2>FontJapanese<a class="headerlink" href="#fontjapanese" title="Link to this heading"></a></h2>
+<p>Class <code class="docutils literal notranslate"><span class="pre">FontJapanese</span></code> contains Japanese fonts.</p>
+<ul>
+<li><p>Sans Serif</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SANSSERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SANSSERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SANSSERIF_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Serif</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SERIF_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Mplus 1P</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MPLUS1P_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MPLUS1P_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MPLUS1P_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Mplus Rounded 1C</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MPLUSROUNDED1C_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MPLUSROUNDED1C_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MPLUSROUNDED1C_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Sawarabi</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SAWARABI_GOTHIC</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SAWARABI_MINCHO</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontJapanese class:</p>
+<figure class="align-center" id="id11">
+<a class="with-border reference internal image-reference" href="../../../_images/image_FontJapanese.png"><img alt="../../../_images/image_FontJapanese.png" class="with-border" src="../../../_images/image_FontJapanese.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">class FontJapanese</span><a class="headerlink" href="#id11" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="fontkorean">
+<h2>FontKorean<a class="headerlink" href="#fontkorean" title="Link to this heading"></a></h2>
+<p>Class <code class="docutils literal notranslate"><span class="pre">FontKorean</span></code> contains Korean fonts.</p>
+<ul>
+<li><p>Sans Serif</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SANSSERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SANSSERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SANSSERIF_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Serif</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SERIF_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontKorean class:</p>
+<figure class="align-center" id="id12">
+<a class="with-border reference internal image-reference" href="../../../_images/image_FontKorean.png"><img alt="../../../_images/image_FontKorean.png" class="with-border" src="../../../_images/image_FontKorean.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">class FontKorean</span><a class="headerlink" href="#id12" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="fontthai">
+<h2>FontThai<a class="headerlink" href="#fontthai" title="Link to this heading"></a></h2>
+<p>Class <code class="docutils literal notranslate"><span class="pre">FontThai</span></code> contains Thai fonts.</p>
+<ul>
+<li><p>Sans Serif</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SANSSERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SANSSERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SANSSERIF_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Serif</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SERIF_LIGHT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SERIF_REGULAR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SERIF_BOLD</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontThai class:</p>
+<figure class="align-center" id="id13">
+<a class="with-border reference internal image-reference" href="../../../_images/image_FontThai.png"><img alt="../../../_images/image_FontThai.png" class="with-border" src="../../../_images/image_FontThai.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">class FontThai</span><a class="headerlink" href="#id13" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="request-for-adding-fonts">
+<h2>Request for Adding Fonts<a class="headerlink" href="#request-for-adding-fonts" title="Link to this heading"></a></h2>
+<p>We welcome suggestions for adding new fonts to our Drawlib library.
+To ensure compatibility and usability, please consider the following criteria before making a request:</p>
+<ul class="simple">
+<li><p>Free License: The font must be available under a free license.</p></li>
+<li><p>Compatibility: The font should work seamlessly with Drawlib. Note that emoji fonts may not be fully supported at this time.</p></li>
+<li><p>Language Support: Fonts for languages currently not supported by Drawlib are prioritized, including minor languages.</p></li>
+<li><p>Global Popularity: The font should be widely recognized and used globally.</p></li>
+<li><p>Regional Popularity: Fonts for local languages that are popular in specific regions are also highly considered.</p></li>
+</ul>
+<p>Before submitting a request, we recommend testing the font using the <code class="docutils literal notranslate"><span class="pre">FontFile()</span></code> class to ensure it meets your requirements.
+At present, Drawlib does not include decorative or ornamental fonts.</p>
+<p>Your input is valuable to us, and if your font suggestion meets these criteria, we will consider adding it in a future release.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../color/doc.html" class="btn btn-neutral float-left" title="Color Classes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../dimage/doc.html" class="btn btn-neutral float-right" title="Dimage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Yuichi Ito &lt;yuichi@yuichi.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

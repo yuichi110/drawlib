@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  build:
+    desc: Build documentation site (docs_src -> docs & docs_html)
+    cmds:
+      - uv run python tasks/scripts/build_docs.py

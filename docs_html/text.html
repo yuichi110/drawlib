@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text & Typography Guide</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Drawlib Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="smartarts/index.html">SmartArts Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="themes/index.html">Themes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="tools/index.html">Tools & CLI Reference</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="doc_builder.html">Document Builder Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="foundations/canvas.html">Canvas & Coordinate System</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="icons.html">Icons Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="images.html">Images & Effects Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="lines.html">Lines & Curves Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="quick_start.html">Quick Start Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="smartarts.html">SmartArts Guide</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="text.html">Text & Typography Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="themes.html">Themes & Color Palettes Guide</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Text & Typography Guide</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Text &amp; Typography Guide</h1>
+<p>Drawlib provides <code>text()</code> and <code>text_vertical()</code> for rendering crisp text with custom fonts, alignment options, and background formatting.</p>
+<hr />
+<h2>1. Basic Text Rendering</h2>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.colors import Colors, Colors140
+from drawlib.text import text
+from drawlib.types import TextStyle
+
+config(width=100, height=40)
+
+text(
+    xy=(50, 20),
+    text=&quot;Hello Drawlib Typography!&quot;,
+    style=TextStyle(
+        text_color=Colors140.DarkSlateBlue,
+        text_size=18,
+        text_halign=&quot;center&quot;,
+        text_valign=&quot;center&quot;
+    )
+)
+</code></pre>
+<div class="drawlib-image">
+  <img src="text_1.png" alt="text_1" />
+</div>
+<hr />
+<h2>2. Text Background Formatting</h2>
+<p>You can specify background fill and border styles directly within <code>TextStyle</code>:</p>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.colors import Colors, Colors140
+from drawlib.text import text
+from drawlib.types import TextStyle
+
+config(width=100, height=40)
+
+text(
+    xy=(50, 20),
+    text=&quot;Highlighted Text Box&quot;,
+    style=TextStyle(
+        text_color=Colors.White,
+        text_size=16,
+        text_bg_fill_color=Colors140.DarkCyan,
+        text_bg_line_color=Colors.Navy,
+        text_bg_line_width=2
+    )
+)
+</code></pre>
+<div class="drawlib-image">
+  <img src="text_2.png" alt="text_2" />
+</div>
+<hr />
+<h2>Navigation</h2>
+<ul>
+<li><a href="./index.html">Back to Index</a></li>
+<li><a href="./icons.html">Next: Icons Guide</a></li>
+</ul>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

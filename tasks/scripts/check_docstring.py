@@ -118,10 +118,10 @@ def check_file(path: str) -> list[tuple[int, str, str]]:
 
 def main() -> None:
     """Main function to run the check across the source directory."""
-    target_dir = "src/drawlib/v0_2/private"
+    target_dir = "src/drawlib/core"
     all_violations = []
     for root, _, files in os.walk(target_dir):
-        if "drawlib/v0_2/private/types" in root:
+        if "drawlib/core/types" in root:
             continue
         for f in files:
             if f.endswith(".py"):

@@ -9,74 +9,74 @@ tasks:
     desc: Run all tests for v0.2
     dir: '{{.PROJECT_ROOT}}'
     cmds:
-      - uv run pytest -s --cov=drawlib tests/v0_2/
+      - uv run pytest -s --cov=drawlib tests/
 
   # Level-based New Tasks
   l1_core:
     desc: Run l1_core tests for v0.2
     dir: '{{.PROJECT_ROOT}}'
     cmds:
-      - uv run pytest -s --cov=drawlib tests/v0_2/l1_core/
+      - uv run pytest -s --cov=drawlib tests/l1_core/
 
   l2_models:
     desc: Run l2_models tests for v0.2
     dir: '{{.PROJECT_ROOT}}'
     cmds:
-      - uv run pytest -s --cov=drawlib tests/v0_2/l2_models/
+      - uv run pytest -s --cov=drawlib tests/l2_models/
 
   l2_types:
     desc: Run l2_types tests for v0.2
     dir: '{{.PROJECT_ROOT}}'
     cmds:
-      - uv run pytest -s --cov=drawlib tests/v0_2/l2_types/
+      - uv run pytest -s --cov=drawlib tests/l2_types/
 
   l3_external:
     desc: Run l3_external tests for v0.2
     dir: '{{.PROJECT_ROOT}}'
     cmds:
-      - uv run pytest -s --cov=drawlib tests/v0_2/l3_external/
+      - uv run pytest -s --cov=drawlib tests/l3_external/
 
   l3_styles:
     desc: Run l3_styles tests for v0.2
     dir: '{{.PROJECT_ROOT}}'
     cmds:
-      - uv run pytest -s --cov=drawlib tests/v0_2/l3_styles/
+      - uv run pytest -s --cov=drawlib tests/l3_styles/
 
   l3_fonts:
     desc: Run l3_fonts tests for v0.2
     dir: '{{.PROJECT_ROOT}}'
     cmds:
-      - uv run pytest -s --cov=drawlib tests/v0_2/l3_fonts/
+      - uv run pytest -s --cov=drawlib tests/l3_fonts/
 
   l4_theme:
     desc: Run l4_theme tests for v0.2
     dir: '{{.PROJECT_ROOT}}'
     cmds:
-      - uv run pytest -s --cov=drawlib tests/v0_2/l4_theme/
+      - uv run pytest -s --cov=drawlib tests/l4_theme/
 
-  l5_canvas:
-    desc: Run l5_canvas tests for v0.2
+  l4_canvas:
+    desc: Run l4_canvas tests for v0.2
     dir: '{{.PROJECT_ROOT}}'
     cmds:
-      - uv run pytest -s --cov=drawlib tests/v0_2/l5_canvas/
+      - uv run pytest -s --cov=drawlib tests/l4_canvas/
 
   l6_icons:
     desc: Run l6_icons tests for v0.2
     dir: '{{.PROJECT_ROOT}}'
     cmds:
-      - uv run pytest -s --cov=drawlib tests/v0_2/l6_icons/
+      - uv run pytest -s --cov=drawlib tests/l6_icons/
 
   l7_cli:
     desc: Run l7_cli tests for v0.2
     dir: '{{.PROJECT_ROOT}}'
     cmds:
-      - uv run pytest -s --cov=drawlib tests/v0_2/l7_cli/
+      - uv run pytest -s --cov=drawlib tests/l7_cli/
 
   l7_smartarts:
     desc: Run l7_smartarts tests for v0.2
     dir: '{{.PROJECT_ROOT}}'
     cmds:
-      - uv run pytest -s --cov=drawlib tests/v0_2/l7_smartarts/
+      - uv run pytest -s --cov=drawlib tests/l7_smartarts/
 
   # Backward Compatibility Mappings
   core:
@@ -113,19 +113,19 @@ tasks:
     desc: Run original drawings tests for v0.2 (Legacy alias)
     dir: '{{.PROJECT_ROOT}}'
     cmds:
-      - task: l5_canvas
+      - task: l4_canvas
 
   others:
     desc: Run other tests for v0.2 (Legacy alias)
     dir: '{{.PROJECT_ROOT}}'
     cmds:
-      - uv run pytest -s --cov=drawlib tests/v0_2/l3_external/ tests/v0_2/l7_cli/
+      - uv run pytest -s --cov=drawlib tests/l3_external/ tests/l7_cli/
 
   patches:
     desc: Run patches tests for v0.2 (Legacy alias)
     dir: '{{.PROJECT_ROOT}}'
     cmds:
-      - task: l5_canvas
+      - task: l4_canvas
 
   theme:
     desc: Run theme tests for v0.2 (Legacy alias)

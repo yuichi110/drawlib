@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drawing Icons &mdash; drawlib 0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=6432bc99" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=10f1778b"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Drawing Image" href="../image/doc.html" />
+    <link rel="prev" title="Coordinate and Alignment" href="../coordinate_align/doc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            drawlib
+          </a>
+              <div class="version">
+                version: 0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introductions:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/about/doc.html">About drawlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/install/doc.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/lib_design/doc.html">Drawlib from a High Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/quick_start/doc.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/release_note/doc.html">Release Note of 0.2.*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/other_version_docs/doc.html">Other Version Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/links/doc.html">Links</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Foundations:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../canvas/doc.html">Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coordinate_align/doc.html">Coordinate and Alignment</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Drawing Icons</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#icon-modules">Icon Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#icon">icon()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iconstyle">IconStyle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pre-defined-icon-styles">Pre-defined icon styles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../image/doc.html">Drawing Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../line/doc.html">Drawing line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../line_style/doc.html">Line Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape/doc.html">Drawing Shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_arrow/doc.html">Drawing Arrow Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_circle/doc.html">Drawing Circle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_rectangle/doc.html">Drawing Rectangle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_style/doc.html">Shape Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../text/doc.html">Drawing Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../theme/doc.html">Theme feature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_many/doc.html">Building many images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../programming/doc.html">Coding Best Practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Topics:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/color/doc.html">Color Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/font/doc.html">Font Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/dimage/doc.html">Dimage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/debug/doc.html">Debugging errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/settings/doc.html">Library Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/cli_options/doc.html">CLI and Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/example_flow/doc.html">Example of Documentation Build Flow</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Smart Arts:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/index/doc.html">About Smart Arts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bubblespeech/doc.html">Bubblespeech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/boxlist/doc.html">BoxList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bulletpoints/doc.html">BulletPoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/gridlayout/doc.html">GridLayout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/pyramid/doc.html">Pyramid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/sourcecode/doc.html">SourceCode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/table/doc.html">Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/tree/doc.html">Tree</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Themes:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/advanced_topics/doc.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_default/doc.html">Official Theme: default</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_essentials/doc.html">Official Theme: essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_monochrome/doc.html">Official Theme: monochrome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/create/doc.html">Create Your Custom Theme from Scratch</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">drawlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Drawing Icons</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/manual/foundations/icon/doc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="drawing-icons">
+<h1>Drawing Icons<a class="headerlink" href="#drawing-icons" title="Link to this heading"></a></h1>
+<p>If you’re looking to enhance your illustrations with icons, drawlib offers several methods to achieve this.
+You can utilize the <code class="docutils literal notranslate"><span class="pre">image()</span></code> function by providing an icon image file of your choice.
+Alternatively, you can use <code class="docutils literal notranslate"><span class="pre">icon()</span></code> along with dedicated <code class="docutils literal notranslate"><span class="pre">Icon</span> <span class="pre">Modules</span></code> for drawing icons directly.</p>
+<section id="icon-modules">
+<h2>Icon Modules<a class="headerlink" href="#icon-modules" title="Link to this heading"></a></h2>
+<p>We’ve curated a selection of icons for your convenience, available in drawlib now.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">icon_phosphor</span></code>: Derived from Phosphor Icons (<a class="reference external" href="https://phosphoricons.com">https://phosphoricons.com</a>)</p></li>
+</ul>
+<p>Each icon within these modules is defined as a function, allowing you to draw specific icons by simply calling their respective function.
+Let’s explore with examples:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">image_iconmod1.py</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">width</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="linenos"> 4</span><span class="n">height</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="linenos"> 5</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="n">x</span> <span class="o">=</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">7</span>
+<span class="linenos"> 8</span><span class="n">y</span> <span class="o">=</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="linenos"> 9</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">airplane_taxiing</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="linenos">10</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">airplane_takeoff</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="linenos">11</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">airplane_in_flight</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">airplane_tilt</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="linenos">13</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">airplane</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mi">270</span><span class="p">)</span>
+<span class="linenos">14</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">10</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;angle 270&quot;</span><span class="p">)</span>
+<span class="linenos">15</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">airplane_landing</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">6</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>All functions have these args.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">xy</span></code> : coordinate</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">width</span></code> : icon width</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">angle</span></code> : angle 0.0~360.0</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">style</span></code> : Accepts string style name or <code class="docutils literal notranslate"><span class="pre">IconStyle</span></code> object.</p></li>
+</ul>
+<p>Executing this code yields the following image:</p>
+<figure class="align-center" id="id2">
+<a class="with-border reference internal image-reference" href="../../../_images/image_iconmod1.png"><img alt="../../../_images/image_iconmod1.png" class="with-border" src="../../../_images/image_iconmod1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">icon_phosphor’s icons</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>You see lots of variation of only airplane.
+<code class="docutils literal notranslate"><span class="pre">icon_phosphor</span></code> has around 1500 icons.</p>
+</section>
+<section id="icon">
+<h2>icon()<a class="headerlink" href="#icon" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">icon()</span></code> is a versatile function for displaying font icons.
+Internally, icon modules utilize icon().</p>
+<p>The function arguments are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">xy</span></code>: Coordinates for positioning the icon.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">width</span></code>: Width of the icon.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">code</span></code>: Font code representing the icon.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: Font file used for rendering the icon.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">angle</span></code>: Angle for rotating the icon (optional).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">style</span></code>: Additional style configurations (optional).</p></li>
+</ul>
+<p>Let’s explore its usage with FontAwesome Free:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">image_icon1.py</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">width</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="linenos"> 4</span><span class="n">height</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="linenos"> 5</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="n">file_brand</span> <span class="o">=</span> <span class="s2">&quot;fontawesome-free/brands.ttf&quot;</span>
+<span class="linenos"> 8</span><span class="n">file_regular</span> <span class="o">=</span> <span class="s2">&quot;fontawesome-free/regular.ttf&quot;</span>
+<span class="linenos"> 9</span><span class="n">file_solid</span> <span class="o">=</span> <span class="s2">&quot;fontawesome-free/solid.ttf&quot;</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="n">google</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\uf1a0</span><span class="s2">&quot;</span>
+<span class="linenos">12</span><span class="n">gmail</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\uf0e0</span><span class="s2">&quot;</span>
+<span class="linenos">13</span><span class="n">google_map</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\uf3c5</span><span class="s2">&quot;</span>
+<span class="linenos">14</span><span class="n">google_drive</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\uf3aa</span><span class="s2">&quot;</span>
+<span class="linenos">15</span><span class="n">google_play</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\uf3ab</span><span class="s2">&quot;</span>
+<span class="linenos">16</span><span class="n">google_pay</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\ue079</span><span class="s2">&quot;</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="n">x</span> <span class="o">=</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">7</span>
+<span class="linenos">19</span><span class="n">y</span> <span class="o">=</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="linenos">20</span><span class="n">icon</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="n">google</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file_brand</span><span class="p">)</span>
+<span class="linenos">21</span><span class="n">icon</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="n">gmail</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file_regular</span><span class="p">)</span>
+<span class="linenos">22</span><span class="n">icon</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="n">google_map</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file_solid</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mi">270</span><span class="p">)</span>
+<span class="linenos">23</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">10</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;angle 270&quot;</span><span class="p">)</span>
+<span class="linenos">24</span><span class="n">icon</span><span class="p">(</span>
+<span class="linenos">25</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>
+<span class="linenos">26</span>    <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">27</span>    <span class="n">code</span><span class="o">=</span><span class="n">google_drive</span><span class="p">,</span>
+<span class="linenos">28</span>    <span class="n">file</span><span class="o">=</span><span class="n">file_brand</span><span class="p">,</span>
+<span class="linenos">29</span><span class="p">)</span>
+<span class="linenos">30</span><span class="n">icon</span><span class="p">(</span>
+<span class="linenos">31</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>
+<span class="linenos">32</span>    <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">33</span>    <span class="n">code</span><span class="o">=</span><span class="n">google_play</span><span class="p">,</span>
+<span class="linenos">34</span>    <span class="n">file</span><span class="o">=</span><span class="n">file_brand</span><span class="p">,</span>
+<span class="linenos">35</span><span class="p">)</span>
+<span class="linenos">36</span>
+<span class="linenos">37</span>
+<span class="linenos">38</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Executing this code generates the following image:</p>
+<figure class="align-center" id="id4">
+<a class="with-border reference internal image-reference" href="../../../_images/image_icon1.png"><img alt="../../../_images/image_icon1.png" class="with-border" src="../../../_images/image_icon1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">FontAwesome-Free icons</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>While FontAwesome is widely recognized, its full usage requires a commercial license.
+The free version may lack variation and style consistency.
+Therefore, drawlib does not currently provide an icon module for it.</p>
+</section>
+<section id="iconstyle">
+<h2>IconStyle<a class="headerlink" href="#iconstyle" title="Link to this heading"></a></h2>
+<p>Similar to other drawing elements, the appearance of icons can be customized using the <code class="docutils literal notranslate"><span class="pre">IconStyle</span></code> class, which allows you to control:</p>
+<p><code class="docutils literal notranslate"><span class="pre">IconStyle</span></code> encompasses these attributes</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">halign</span></code>: Horizontal alignment</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">valign</span></code>: Vertical alignment</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">style</span></code>: Icon style, Supports <code class="docutils literal notranslate"><span class="pre">&quot;thin&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;light&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;regular&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;bold&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;fill&quot;</span></code>. The availability of styles depends on the icon modules.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color</span></code>: Icon color, specified in RGB (0255, 0255, 0255) or RGBA (0255, 0255, 0255, 0.0~1.0). You can utilize helpers like <code class="docutils literal notranslate"><span class="pre">Colors</span></code> and <code class="docutils literal notranslate"><span class="pre">Colors140</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alpha</span></code>: Icon transparency, ranging from 0.0 to 1.0, where 0.0 represents total transparency.</p></li>
+</ul>
+<p>Let’s illustrate this with an example:</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">image_iconstyle1.py</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">width</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="linenos"> 4</span><span class="n">height</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="linenos"> 5</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="n">x</span> <span class="o">=</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">7</span>
+<span class="linenos"> 8</span><span class="n">y</span> <span class="o">=</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="linenos"> 9</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">airplane_taxiing</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">IconStyle</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">))</span>
+<span class="linenos">10</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">airplane_takeoff</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">IconStyle</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;thin&quot;</span><span class="p">))</span>
+<span class="linenos">11</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">airplane_in_flight</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">IconStyle</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">))</span>
+<span class="linenos">12</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">airplane_tilt</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">IconStyle</span><span class="p">(</span><span class="s2">&quot;fill&quot;</span><span class="p">))</span>
+<span class="linenos">13</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">airplane</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">IconStyle</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">))</span>
+<span class="linenos">14</span><span class="n">circle</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">ShapeStyle</span><span class="p">(</span><span class="n">fcolor</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">,</span> <span class="n">lcolor</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">))</span>
+<span class="linenos">15</span><span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">10</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;align left,bottom&quot;</span><span class="p">)</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Executing this code generates the following image:</p>
+<figure class="align-center" id="id6">
+<a class="with-border reference internal image-reference" href="../../../_images/image_iconstyle1.png"><img alt="../../../_images/image_iconstyle1.png" class="with-border" src="../../../_images/image_iconstyle1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">icons with IconStyle.</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="pre-defined-icon-styles">
+<h2>Pre-defined icon styles<a class="headerlink" href="#pre-defined-icon-styles" title="Link to this heading"></a></h2>
+<p>Drawlib’s theme provides pre-defined icon styles.
+You can specify them by names.</p>
+<p>Here is an examples.</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">image_iconstyle2.py</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">width</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="linenos"> 4</span><span class="n">height</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="linenos"> 5</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="n">x</span> <span class="o">=</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">7</span>
+<span class="linenos"> 8</span><span class="n">y</span> <span class="o">=</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="linenos"> 9</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">airplane_taxiing</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span>
+<span class="linenos">10</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">airplane_takeoff</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;red_light&quot;</span><span class="p">)</span>
+<span class="linenos">11</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">airplane_in_flight</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue_bold&quot;</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">airplane_tilt</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;green_flat&quot;</span><span class="p">)</span>
+<span class="linenos">13</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Icon supports the following styles exclusively:</p>
+<ul class="simple">
+<li><p>weight of icon: <code class="docutils literal notranslate"><span class="pre">light</span></code> and <code class="docutils literal notranslate"><span class="pre">bold</span></code></p></li>
+<li><p>fill color: <code class="docutils literal notranslate"><span class="pre">flat</span></code></p></li>
+<li><p>color of icon</p></li>
+</ul>
+<p>Line style solid and dashed are not supported.</p>
+<figure class="align-center" id="id8">
+<a class="with-border reference internal image-reference" href="../../../_images/image_iconstyle2.png"><img alt="../../../_images/image_iconstyle2.png" class="with-border" src="../../../_images/image_iconstyle2.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">icon with theme’s style</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../coordinate_align/doc.html" class="btn btn-neutral float-left" title="Coordinate and Alignment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../image/doc.html" class="btn btn-neutral float-right" title="Drawing Image" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Yuichi Ito &lt;yuichi@yuichi.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

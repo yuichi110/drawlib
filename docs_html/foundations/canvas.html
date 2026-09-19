@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas & Coordinate System</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Drawlib Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">SmartArts Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../themes/index.html">Themes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../tools/index.html">Tools & CLI Reference</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../doc_builder.html">Document Builder Guide</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="canvas.html">Canvas & Coordinate System</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../icons.html">Icons Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../images.html">Images & Effects Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../lines.html">Lines & Curves Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../quick_start.html">Quick Start Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts.html">SmartArts Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../text.html">Text & Typography Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../themes.html">Themes & Color Palettes Guide</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Canvas & Coordinate System</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Canvas &amp; Coordinate System</h1>
+<p>The <strong>Canvas</strong> is the foundational surface in Drawlib upon which all shapes, lines, images, icons, and text elements are drawn.</p>
+<p>Drawlib manages the canvas state automatically behind public facade APIs like <code>config()</code>, <code>save()</code>, and <code>clear()</code>, ensuring that creating illustrations remains simple, declarative, and clean.</p>
+<hr />
+<h2>1. Canvas Architecture Overview</h2>
+<p>Drawlib follows a facade architecture where global functions in <code>drawlib.canvas</code> interact with an internal canvas singleton instance.</p>
+<pre><code>+-------------------------------------------------------------+
+|                     User Code (APIs)                        |
+|   config()           circle()           line()       save() |
++-------------------------+-----------------------------------+
+                          | (interacts internally)
+                          v
++-------------------------------------------------------------+
+|                     Internal Canvas                         |
+|   Coordinates     Style Stack     Grid Engine     Matplotlib|
++-------------------------------------------------------------+
+</code></pre>
+<h3>Public Canvas APIs</h3>
+<ul>
+<li><strong><code>config(...)</code></strong>: Configures canvas parameters such as coordinate dimensions, DPI resolution, background colors, and grid overlays.</li>
+<li><strong><code>save(...)</code></strong>: Renders and exports the current canvas to an image file (PNG, JPG, WEBP, or PDF).</li>
+<li><strong><code>clear()</code></strong>: Resets the canvas state, clearing all drawn elements and configurations.</li>
+</ul>
+<hr />
+<h2>2. 2D Cartesian Coordinate System</h2>
+<p>Drawlib uses a 2D Cartesian coordinate system <code>(x, y)</code> where <code>(0, 0)</code> is anchored at the <strong>bottom-left corner</strong> of the canvas.</p>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.colors import Colors, Colors140
+from drawlib.lines import line
+from drawlib.shapes import circle
+from drawlib.text import text
+from drawlib.types import LineStyle, ShapeStyle, TextStyle
+
+# Configure 100x50 canvas
+config(width=100, height=50)
+
+# Axes
+line(xy1=(0, 0), xy2=(100, 0), style=LineStyle(line_color=Colors.Black, line_width=2))
+line(xy1=(0, 0), xy2=(0, 50), style=LineStyle(line_color=Colors.Black, line_width=2))
+
+# Grid center lines
+line(xy1=(0, 25), xy2=(100, 25), style=LineStyle(line_color=Colors140.LightGray, line_width=1, line_style=&quot;dashed&quot;))
+line(xy1=(50, 0), xy2=(50, 50), style=LineStyle(line_color=Colors140.LightGray, line_width=1, line_style=&quot;dashed&quot;))
+
+# Coordinate markers
+circle(xy=(0, 0), radius=2, style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Black))
+text(xy=(3, 3), text=&quot;Origin (0,0)&quot;, style=TextStyle(text_color=Colors.Red, text_size=11, text_halign=&quot;left&quot;))
+
+circle(xy=(50, 25), radius=3, style=ShapeStyle(fill_color=Colors140.DodgerBlue, line_color=Colors.Black))
+text(xy=(50, 29), text=&quot;Center (50, 25)&quot;, style=TextStyle(text_color=Colors140.DodgerBlue, text_size=12, text_valign=&quot;bottom&quot;))
+
+circle(xy=(100, 50), radius=2, style=ShapeStyle(fill_color=Colors.Green, line_color=Colors.Black))
+text(xy=(97, 47), text=&quot;Top-Right (100,50)&quot;, style=TextStyle(text_color=Colors.Green, text_size=11, text_halign=&quot;right&quot;))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="canvas_1.png" alt="canvas_1" style="width: 500px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">2D Cartesian Coordinate System with Bottom-Left Origin (0,0)</figcaption>
+</figure>
+<hr />
+<h2>3. Configuring Canvas Grid</h2>
+<p>During the iterative process of positioning elements, enabling the grid overlay helps locate exact coordinates.</p>
+<h3>Grid Options</h3>
+<ul>
+<li><strong><code>grid=True</code></strong>: Enables grid overlay during visual design.</li>
+<li><strong><code>grid_only=True</code></strong>: Generates only the grid-overlay image without creating a second clean image file.</li>
+<li><strong><code>grid_style</code></strong>: Applies a custom <code>LineStyle</code> to normal grid lines.</li>
+<li><strong><code>grid_centerstyle</code></strong>: Applies a custom <code>LineStyle</code> to the center axis lines.</li>
+</ul>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.colors import Colors, Colors140
+from drawlib.shapes import rectangle
+from drawlib.text import text
+from drawlib.types import LineStyle, ShapeStyle, TextStyle
+
+# Custom grid styling
+config(
+    width=100,
+    height=60,
+    grid=True,
+    grid_style=LineStyle(line_color=Colors140.PowderBlue, line_width=1, line_style=&quot;dotted&quot;),
+    grid_centerstyle=LineStyle(line_color=Colors140.SteelBlue, line_width=2, line_style=&quot;solid&quot;)
+)
+
+rectangle(
+    xy=(50, 30),
+    width=60,
+    height=30,
+    style=ShapeStyle(fill_color=Colors140.AliceBlue, line_color=Colors140.SteelBlue, line_width=2)
+)
+text(
+    xy=(50, 30),
+    text=&quot;Styled Grid Overlay&quot;,
+    style=TextStyle(text_color=Colors140.SteelBlue, text_size=14)
+)
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="canvas_2.png" alt="canvas_2" style="width: 500px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Canvas with Custom Styled Grid Overlay</figcaption>
+</figure>
+<hr />
+<h2>4. Canvas Dimensions &amp; Aspect Ratio</h2>
+<p>Canvas size defines the logical coordinate boundaries <code>(width, height)</code>. By default, the canvas is <strong>100 × 100</strong>.</p>
+<p>Adjusting the logical canvas size changes the relative positioning scale without altering the base pixel output dimensions.</p>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.colors import Colors140
+from drawlib.shapes import rectangle
+from drawlib.text import text
+from drawlib.types import ShapeStyle, TextStyle
+
+# Set 16:9 aspect ratio coordinate space
+config(width=160, height=90, background_color=Colors140.GhostWhite)
+
+# Background border
+rectangle(
+    xy=(80, 45),
+    width=150,
+    height=80,
+    style=ShapeStyle(fill_color=Colors140.White, line_color=Colors140.SlateGray, line_width=2)
+)
+
+text(
+    xy=(80, 45),
+    text=&quot;Widescreen Canvas (160 x 90)&quot;,
+    style=TextStyle(text_color=Colors140.SlateGray, text_size=16)
+)
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="canvas_3.png" alt="canvas_3" style="width: 500px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Widescreen 16:9 Aspect Ratio Canvas (width=160, height=90)</figcaption>
+</figure>
+<hr />
+<h2>5. DPI &amp; Output Resolution</h2>
+<p>Resolution and logical coordinate size are decoupled in Drawlib:</p>
+<ul>
+<li><strong>Logical Size</strong>: Determines the <code>(x, y)</code> coordinate limits (e.g. <code>100x100</code>).</li>
+<li><strong>DPI (Dots Per Inch)</strong>: Determines output pixel density. Default DPI is <strong>100</strong>.</li>
+</ul>
+<h3>Pixel Resolution Calculation</h3>
+<p>Drawlib treats standard canvas width as <strong>10 inches</strong>.</p>
+<ul>
+<li>Default <code>dpi=100</code> $\rightarrow$ $10\text{ in} \times 100\text{ DPI} = 1000\text{ px}$ image width.</li>
+<li>High resolution <code>dpi=200</code> $\rightarrow$ $10\text{ in} \times 200\text{ DPI} = 2000\text{ px}$ image width.</li>
+</ul>
+<p>To generate exact Full HD (1920px width) output for a 1920x1080 canvas:</p>
+<pre><code class="language-python">config(width=1920, height=1080, dpi=192)
+# 10 inches * 192 DPI = 1920 pixels width
+</code></pre>
+<hr />
+<h2>6. Background Color &amp; Transparency</h2>
+<p>Canvas background color and opacity can be set via <code>config()</code>:</p>
+<ul>
+<li><strong><code>background_color</code></strong>: Accepts any <code>Color</code> tuple or preset like <code>Colors.Orange</code>.</li>
+<li><strong><code>background_alpha</code></strong>: Opacity value from <code>0.0</code> (transparent) to <code>1.0</code> (opaque).</li>
+</ul>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.colors import Colors140
+from drawlib.shapes import circle
+from drawlib.text import text
+from drawlib.types import ShapeStyle, TextStyle
+
+# Custom orange background with 0.15 transparency
+config(width=100, height=50, background_color=Colors140.Orange, background_alpha=0.15)
+
+circle(
+    xy=(50, 25),
+    radius=15,
+    style=ShapeStyle(fill_color=Colors140.DarkOrange, line_color=Colors140.SaddleBrown, line_width=2)
+)
+text(
+    xy=(50, 25),
+    text=&quot;Transparent Background&quot;,
+    style=TextStyle(text_color=Colors140.White, text_size=12)
+)
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="canvas_4.png" alt="canvas_4" style="width: 500px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Canvas with Custom Background Color and Opacity</figcaption>
+</figure>
+<blockquote>
+<p>[!NOTE]
+Setting <code>background_color=Colors.Transparent</code> or <code>background_alpha=0</code> generates a transparent background PNG. Note that format limitations apply (e.g. JPG does not support alpha channels).</p>
+</blockquote>
+<hr />
+<h2>7. Exporting &amp; Saving (<code>save</code> / <code>clear</code>)</h2>
+<p>Exporting illustrations is handled by <code>save()</code>:</p>
+<pre><code class="language-python">from drawlib.canvas import save
+
+# Save as &lt;script_name&gt;.png in current directory
+save()
+
+# Save with custom file path
+save(file=&quot;output/diagram.png&quot;)
+
+# Save in specific format (PNG, JPG, WEBP, PDF)
+save(file=&quot;output/diagram&quot;, format=&quot;pdf&quot;)
+</code></pre>
+<h3>Supported Output Formats</h3>
+<ul>
+<li><strong>PNG</strong>: Standard lossless format with alpha support (default).</li>
+<li><strong>JPG</strong>: Compressed image format.</li>
+<li><strong>WEBP</strong>: Modern web image format.</li>
+<li><strong>PDF</strong>: Vector document format.</li>
+</ul>
+<h3>Refreshing Canvas State (<code>clear</code>)</h3>
+<p>When generating multiple illustrations within a loop or single script, call <code>clear()</code> between images to reset all drawn items and canvas configurations.</p>
+<hr />
+<h2>Navigation</h2>
+<ul>
+<li><a href="./index.html">Back to Foundations Index</a></li>
+<li><a href="./shapes.html">Next: Shapes Guide</a></li>
+</ul>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

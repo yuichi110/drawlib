@@ -15,6 +15,8 @@ from typing import Final, List
 
 # please update here when you release new version
 LIB_VERSION: Final[str] = "0.2.4.dev3"
+ASSET_VERSION: Final[str] = "v0_2"
+
 
 # please list active main committers (1+ commits per month)
 AUTHORS: Final[List[str]] = [
@@ -85,3 +87,43 @@ except ValueError as e:
     print("Please check drawlib.__init__.py")
     print("Abort.")
     sys.exit(1)
+
+from drawlib import (  # noqa: E402
+    canvas,
+    colors,
+    doc_builder,
+    fonts,
+    icons,
+    images,
+    lines,
+    math,
+    preset_styles,
+    shapes,
+    smartarts,
+    text,
+    types,
+)
+
+__all__ = [
+    "LIB_VERSION",
+    "ASSET_VERSION",
+    "AUTHORS",
+    "LIB_NAME",
+    "DESCRIPTION",
+    "HOMEPAGE",
+    "REPOSITORY",
+    "README",
+    "canvas",
+    "colors",
+    "doc_builder",
+    "fonts",
+    "icons",
+    "images",
+    "lines",
+    "math",
+    "preset_styles",
+    "shapes",
+    "smartarts",
+    "text",
+    "types",
+]

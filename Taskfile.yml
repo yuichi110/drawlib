@@ -13,6 +13,7 @@ includes:
   utest: ./tasks/unit_tests/Taskfile.yml
   dependency: ./tasks/dependency.yml
   agent: ./tasks/agent.yml
+  docs: ./tasks/docs.yml
   
 tasks:
   default:

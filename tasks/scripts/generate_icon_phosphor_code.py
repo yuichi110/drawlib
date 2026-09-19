@@ -48,16 +48,16 @@ from enum import Enum
 from typing import Optional, Tuple, Union
 from urllib.parse import urljoin
 
-import drawlib.assets.v0_2.fonticons
+import drawlib._assets.fonticons
 from drawlib.v0_2 import ASSET_VERSION
-from drawlib.v0_2.private.core.fonts import FontMetadata
-from drawlib.v0_2.private.core.fonts_resource import FontResource
-from drawlib.v0_2.private.core.model import IconStyle
-from drawlib.v0_2.private.core.theme import dtheme
-from drawlib.v0_2.private.download import download_if_not_exist
-from drawlib.v0_2.private.icons.util import icon
-from drawlib.v0_2.private.types import TypeAngle, TypeCoordinate, TypePosFloat, TypeStr
-from drawlib.v0_2.private.util import guarded
+from drawlib._core.core.fonts import FontMetadata
+from drawlib._core.core.fonts_resource import FontResource
+from drawlib._core.core.model import IconStyle
+from drawlib._core.core.theme import dtheme
+from drawlib._core.download import download_if_not_exist
+from drawlib._core.icons.util import icon
+from drawlib._core.types import TypeAngle, TypeCoordinate, TypePosFloat, TypeStr
+from drawlib._core.util import guarded
 
 
 class _Fonts(str, Enum):
@@ -114,7 +114,7 @@ def _get_font_metadata(font: _Fonts | str) -> FontMetadata:
     paths = [p for p in resource.path.split("/") if p]
 
     # Construct the local font path
-    dir_path = os.path.dirname(drawlib.assets.v0_2.fonticons.__file__)
+    dir_path = os.path.dirname(drawlib._assets.fonticons.__file__)
     abs_path = os.path.join(dir_path, *paths)
 
     # Construct the URL

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartArts Guide</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Drawlib Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="smartarts/index.html">SmartArts Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="themes/index.html">Themes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="tools/index.html">Tools & CLI Reference</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="doc_builder.html">Document Builder Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="foundations/canvas.html">Canvas & Coordinate System</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="icons.html">Icons Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="images.html">Images & Effects Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="lines.html">Lines & Curves Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="quick_start.html">Quick Start Guide</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="smartarts.html">SmartArts Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="text.html">Text & Typography Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="themes.html">Themes & Color Palettes Guide</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">SmartArts Guide</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>SmartArts Guide</h1>
+<p>SmartArts in Drawlib provide high-level, automated diagram components for structural content like code syntax highlighting, list trees, tables, and pyramids.</p>
+<hr />
+<h2>1. Code Syntax Highlighting (<code>sourcecode</code>)</h2>
+<p><code>sourcecode()</code> renders syntax-highlighted code blocks with line numbers directly on the canvas:</p>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.smartarts import SourceCode
+
+config(width=120, height=60)
+
+code_snippet = &quot;&quot;&quot;def calculate_area(radius: float) -&gt; float:
+    # Compute circle area
+    return 3.14159 * radius ** 2
+&quot;&quot;&quot;
+
+sc = SourceCode(language=&quot;python&quot;)
+sc.draw(xy=(60, 30), width=100, code=code_snippet)
+</code></pre>
+<div class="drawlib-image">
+  <img src="smartarts_1.png" alt="smartarts_1" />
+</div>
+<hr />
+<h2>2. Structured SmartArts</h2>
+<p>Drawlib includes several automated diagram templates:</p>
+<ul>
+<li><strong><code>boxlist()</code></strong>: Sequential process/step boxes.</li>
+<li><strong><code>boxtree()</code> / <code>tree()</code></strong>: Hierarchical tree structures.</li>
+<li><strong><code>table()</code></strong>: Formatted tabular data.</li>
+<li><strong><code>pyramid()</code></strong>: Multi-level pyramid diagrams.</li>
+<li><strong><code>bulletpoints()</code></strong>: Categorized bullet lists.</li>
+</ul>
+<hr />
+<h2>Navigation</h2>
+<ul>
+<li><a href="./index.html">Back to Index</a></li>
+<li><a href="./doc_builder.html">Next: Document Builder</a></li>
+</ul>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Start &mdash; drawlib 0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=6432bc99" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=10f1778b"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Release Note of 0.2.*" href="../release_note/doc.html" />
+    <link rel="prev" title="Drawlib from a High Perspective" href="../lib_design/doc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            drawlib
+          </a>
+              <div class="version">
+                version: 0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introductions:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about/doc.html">About drawlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/doc.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lib_design/doc.html">Drawlib from a High Perspective</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#standard-procedure-for-drawing-with-drawlib">Standard Procedure for Drawing with Drawlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#importing-drawlib">Importing Drawlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuring-the-canvas-size-and-dpi">Configuring the Canvas Size and DPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuring-the-canvas-grid">Configuring the Canvas Grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#coordinate-and-alignment">Coordinate and alignment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#horizontal-alignment-halign">Horizontal alignment <code class="docutils literal notranslate"><span class="pre">halign</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vertical-alignment-valign">Vertical alignment <code class="docutils literal notranslate"><span class="pre">valign</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#drawing-icon">Drawing icon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#drawing-image">Drawing image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#drawing-line">Drawing line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#drawing-shapes">Drawing shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#drawing-texts">Drawing texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-official-theme">Using Official Theme</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../release_note/doc.html">Release Note of 0.2.*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../other_version_docs/doc.html">Other Version Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../links/doc.html">Links</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Foundations:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/canvas/doc.html">Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/coordinate_align/doc.html">Coordinate and Alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/icon/doc.html">Drawing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/image/doc.html">Drawing Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/line/doc.html">Drawing line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/line_style/doc.html">Line Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape/doc.html">Drawing Shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_arrow/doc.html">Drawing Arrow Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_circle/doc.html">Drawing Circle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_rectangle/doc.html">Drawing Rectangle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/shape_style/doc.html">Shape Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/text/doc.html">Drawing Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/theme/doc.html">Theme feature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/build_many/doc.html">Building many images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../foundations/programming/doc.html">Coding Best Practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Topics:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/color/doc.html">Color Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/font/doc.html">Font Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/dimage/doc.html">Dimage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/debug/doc.html">Debugging errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/settings/doc.html">Library Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/cli_options/doc.html">CLI and Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/example_flow/doc.html">Example of Documentation Build Flow</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Smart Arts:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/index/doc.html">About Smart Arts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bubblespeech/doc.html">Bubblespeech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/boxlist/doc.html">BoxList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bulletpoints/doc.html">BulletPoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/gridlayout/doc.html">GridLayout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/pyramid/doc.html">Pyramid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/sourcecode/doc.html">SourceCode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/table/doc.html">Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/tree/doc.html">Tree</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Themes:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/advanced_topics/doc.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_default/doc.html">Official Theme: default</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_essentials/doc.html">Official Theme: essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_monochrome/doc.html">Official Theme: monochrome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/create/doc.html">Create Your Custom Theme from Scratch</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">drawlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Quick Start</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/manual/introductions/quick_start/doc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="quick-start">
+<h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h1>
+<section id="standard-procedure-for-drawing-with-drawlib">
+<h2>Standard Procedure for Drawing with Drawlib<a class="headerlink" href="#standard-procedure-for-drawing-with-drawlib" title="Link to this heading"></a></h2>
+<p>Below is the standard procedure for drawing using Drawlib:</p>
+<ol class="arabic simple">
+<li><p>Import Drawlib library: Begin by importing the Drawlib library into your Python environment.</p></li>
+<li><p>(Optional) Import Your Style Code and Utilities: Optionally, import any custom style definitions or utility functions you may have.</p></li>
+<li><p>(Optional) Configure the Canvas: Set up the canvas by specifying its size and resolution.</p></li>
+<li><p>Draw Elements: Use Drawlib’s APIs to draw icons, images, lines, shapes, or text on the canvas as needed.</p></li>
+<li><p>Save the Canvas: Once your drawing is complete, save the canvas to an image file.</p></li>
+</ol>
+<p>While detailed explanations will be provided in subsequent documents, let’s briefly overview each step with an example.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">image_abstract1.py</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="n">line</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">))</span>
+<span class="linenos"> 6</span><span class="n">circle</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">75</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="n">image</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="s2">&quot;python.png&quot;</span><span class="p">)</span>
+<span class="linenos"> 8</span><span class="n">text</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="s2">&quot;Hello drawlib!&quot;</span><span class="p">)</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Execute this code using the Python command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>image_abstract1.py
+</pre></div>
+</div>
+<p>After execution, an image file named “image_abstract1.png,” corresponding to the code’s content, will be generated.</p>
+<figure class="align-center" id="id2">
+<a class="with-border reference internal image-reference" href="../../../_images/image_abstract1.png"><img alt="../../../_images/image_abstract1.png" class="with-border" src="../../../_images/image_abstract1.png" style="width: 450px;" /></a>
+<figcaption>
+<p><span class="caption-text">image_abstract1.png (corresponding to code file name)</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Now, let’s proceed to explore the functionality of Drawlib step by step.</p>
+</section>
+<section id="importing-drawlib">
+<h2>Importing Drawlib<a class="headerlink" href="#importing-drawlib" title="Link to this heading"></a></h2>
+<p>Drawlib is a pure Python library that you can import and use like any other library after installation.
+While many libraries spread their APIs across multiple packages, drawlib consolidates all its public APIs within the <code class="docutils literal notranslate"><span class="pre">drawlib.apis</span></code> package.</p>
+<p>We recommend importing all APIs using the wildcard <code class="docutils literal notranslate"><span class="pre">*</span></code>, as shown below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>Although conventional Python programming guidelines (PEP) discourage wildcard imports for clarity and maintenance reasons, in the context of illustrating typical scenarios, simplicity in accessing APIs takes precedence.</p>
+<p>This import style ensures that you have immediate access to all the latest APIs available in your drawlib installation.
+You can then proceed to import your custom styles and utilities as needed, akin to importing CSS and utility JavaScript code in an HTML header.
+We will provide detailed explanations on this aspect later.</p>
+<p>If you need to use older APIs, you can achieve this by importing them using the following style:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">drawlib.v0_1.apis</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>Here, <code class="docutils literal notranslate"><span class="pre">v0_1</span></code> corresponds to version <code class="docutils literal notranslate"><span class="pre">0.1.*</span></code>.</p>
+</section>
+<section id="configuring-the-canvas-size-and-dpi">
+<h2>Configuring the Canvas Size and DPI<a class="headerlink" href="#configuring-the-canvas-size-and-dpi" title="Link to this heading"></a></h2>
+<p>After importing the Drawlib library, you can start drawing.
+However, it’s recommended to configure the canvas to define parameters such as size using the <code class="docutils literal notranslate"><span class="pre">config()</span></code> function.
+For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This snippet sets the canvas width to 100 units and height to 100 units.
+These units represent coordinates within the canvas, not pixel values.
+With both dimensions set to 100, the coordinate range for both x and y axes is from 0 to 100.
+If you set both dimensions to 10, specifying x=20 would be out of range.
+Drawlib does not raise an error in this case, but your item may not render as expected.
+By default, both width and height are set to 100 units.</p>
+<p>If you configure the canvas with <code class="docutils literal notranslate"><span class="pre">config(width=200,</span> <span class="pre">height=100)</span></code>, it will produce a wider canvas while maintaining the coordinate system for each item.
+See the output image below:</p>
+<figure class="align-center" id="id3">
+<a class="with-border reference internal image-reference" href="../../../_images/image_config1.png"><img alt="../../../_images/image_config1.png" class="with-border" src="../../../_images/image_config1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">image_config1.png</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>For higher resolution images, adjusting the DPI (Dots Per Inch) is necessary:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">config</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Drawlib maintains a consistent canvas width of 10 inches.
+Therefore, changes in the coordinate-based width from the previous example do not affect the output.</p>
+<p>In the given example, a canvas size of “10 inches x 200 DPI” results in an image width of 2000 pixels.
+Increasing the DPI to 400 would double the image width to 4000 pixels.
+However, generating high-resolution images consumes more time and disk space.
+While there is no maximum set value, a DPI of 1000 may be excessive.
+Default DPI value is 100.</p>
+</section>
+<section id="configuring-the-canvas-grid">
+<h2>Configuring the Canvas Grid<a class="headerlink" href="#configuring-the-canvas-grid" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">config()</span></code> function in Drawlib offers several advanced options, including the grid feature,
+which can be particularly useful for positioning items on your canvas quickly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Enabling <code class="docutils literal notranslate"><span class="pre">grid=True</span></code> adds a grid to your image without affecting the normal image generation.
+Therefore, there’s no need to remove the <code class="docutils literal notranslate"><span class="pre">grid=True</span></code> option to obtain an image without a grid.
+If you specifically require only a grid image, you can use <code class="docutils literal notranslate"><span class="pre">grid_only=True</span></code> instead.
+By default, both grid and grid_only are set to False.</p>
+<p>The effects of these adjustments are demonstrated in the following files:</p>
+<figure class="align-center" id="id4">
+<a class="with-border reference internal image-reference" href="../../../_images/image_config2.png"><img alt="../../../_images/image_config2.png" class="with-border" src="../../../_images/image_config2.png" style="width: 450px;" /></a>
+<figcaption>
+<p><span class="caption-text">Image without grid</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id5">
+<a class="with-border reference internal image-reference" href="../../../_images/image_config2_grid.png"><img alt="../../../_images/image_config2_grid.png" class="with-border" src="../../../_images/image_config2_grid.png" style="width: 450px;" /></a>
+<figcaption>
+<p><span class="caption-text">Image with grid</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Code file <code class="docutils literal notranslate"><span class="pre">image_config2.py</span></code> yield two files: <code class="docutils literal notranslate"><span class="pre">image_config2.png</span></code> and <code class="docutils literal notranslate"><span class="pre">image_config2_grid.png</span></code>.
+Image file without grid is normal file name.
+Image file with grid has <code class="docutils literal notranslate"><span class="pre">_grid</span></code> on its last.</p>
+</section>
+<section id="coordinate-and-alignment">
+<h2>Coordinate and alignment<a class="headerlink" href="#coordinate-and-alignment" title="Link to this heading"></a></h2>
+<p>Drawlib organizes its drawing functionalities into five main categories: Icon, Image, Line, Shape, and Text.
+Before delving into these categories, understanding Drawlib’s coordinate system is essential, as all drawing objects rely on it.</p>
+<p>Each drawing object in Drawlib is positioned using xy coordinates.
+The placement of these xy coordinates depends on horizontal (<code class="docutils literal notranslate"><span class="pre">halign</span></code>) and vertical (<code class="docutils literal notranslate"><span class="pre">valign</span></code>) alignment settings.
+Common alignment options include:</p>
+<section id="horizontal-alignment-halign">
+<h3>Horizontal alignment <code class="docutils literal notranslate"><span class="pre">halign</span></code><a class="headerlink" href="#horizontal-alignment-halign" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>left</p></li>
+<li><p>center</p></li>
+<li><p>right</p></li>
+</ul>
+</section>
+<section id="vertical-alignment-valign">
+<h3>Vertical alignment <code class="docutils literal notranslate"><span class="pre">valign</span></code><a class="headerlink" href="#vertical-alignment-valign" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>bottom</p></li>
+<li><p>center</p></li>
+<li><p>top</p></li>
+</ul>
+<p>Let’s examine these alignment options through an example:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">image_coordinate1.py</span><a class="headerlink" href="#id6" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">grid_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="n">circle</span><span class="p">(</span>
+<span class="linenos"> 6</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos"> 7</span>    <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos"> 8</span>    <span class="n">style</span><span class="o">=</span><span class="n">ShapeStyle</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">),</span>
+<span class="linenos"> 9</span><span class="p">)</span>
+<span class="linenos">10</span><span class="n">circle</span><span class="p">(</span>
+<span class="linenos">11</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">12</span>    <span class="n">radius</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="linenos">13</span>    <span class="n">style</span><span class="o">=</span><span class="n">ShapeStyle</span><span class="p">(</span><span class="n">fcolor</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">,</span> <span class="n">lcolor</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">),</span>
+<span class="linenos">14</span><span class="p">)</span>
+<span class="linenos">15</span><span class="n">text</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;Align center,center&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">))</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="n">circle</span><span class="p">(</span>
+<span class="linenos">18</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">19</span>    <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">20</span>    <span class="n">style</span><span class="o">=</span><span class="n">ShapeStyle</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">),</span>
+<span class="linenos">21</span><span class="p">)</span>
+<span class="linenos">22</span><span class="n">circle</span><span class="p">(</span>
+<span class="linenos">23</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">24</span>    <span class="n">radius</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="linenos">25</span>    <span class="n">style</span><span class="o">=</span><span class="n">ShapeStyle</span><span class="p">(</span><span class="n">fcolor</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">,</span> <span class="n">lcolor</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">),</span>
+<span class="linenos">26</span><span class="p">)</span>
+<span class="linenos">27</span><span class="n">text</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;Align left,bottom&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">))</span>
+<span class="linenos">28</span>
+<span class="linenos">29</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>In this example, horizontal and vertical alignment are specified within the style object, with defaults set to <code class="docutils literal notranslate"><span class="pre">halign=&quot;center&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">valign=&quot;center&quot;</span></code>.</p>
+<p>The resulting image demonstrates the effects of different alignments:</p>
+<figure class="align-center" id="id7">
+<a class="with-border reference internal image-reference" href="../../../_images/image_coordinate1.png"><img alt="../../../_images/image_coordinate1.png" class="with-border" src="../../../_images/image_coordinate1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Horizontal/Vertical alignments</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>In the image, the left circle’s xy coordinates are aligned “center, center” as specified,
+while the right circle’s xy coordinates are aligned “left, bottom”.</p>
+<p>By default, Drawlib sets the alignment for shapes like rectangles to “center, center”.
+This differs from many other drawing systems, which often default to “left, bottom” for rectangle-related shapes.
+Drawlib’s choice of “center, center” simplifies the process of aligning items of varying sizes both vertically and horizontally.</p>
+<p>Despite the default setting, there may be cases where “left, bottom” alignment is preferred over “center, center”.
+In such situations, it’s recommended to define a custom style object with the desired alignment settings and apply it selectively to specific items.
+You can overrides primary style with secondary style easily. Please take a look foundation chapter for details.</p>
+</section>
+</section>
+<section id="drawing-icon">
+<h2>Drawing icon<a class="headerlink" href="#drawing-icon" title="Link to this heading"></a></h2>
+<p>Drawing an icon is similar to drawing an image.
+However, while an image typically refers to a png/jpeg picture, drawlib’s icon is a Font Icon.
+If you’re unfamiliar with Font Icons, I recommend checking out FontAwesome first.</p>
+<p>Drawlib version 0.1 offers two methods for drawing icons:</p>
+<ul class="simple">
+<li><p>Using the <code class="docutils literal notranslate"><span class="pre">icon()</span></code> function.</p></li>
+<li><p>Utilizing the <code class="docutils literal notranslate"><span class="pre">icon_phosphor</span></code> module and its functions.</p></li>
+</ul>
+<p>If you wish to draw an icon using your own font icon file, you can employ the icon() function.
+For instance, if you want to utilize FontAwesome (which is not supported by default), you need to provide the file and drawing parameters to this function.</p>
+<p>The icon_phosphor module provides embedded font icons and functions for drawing them.
+It leverages Phosphor (<a class="reference external" href="https://phosphoricons.com">https://phosphoricons.com</a>), which offers icons that are easy to use and facilitate “Illustration as Code” since they are accessible to anyone.</p>
+<p>Here’s an example using icon_phosphor:</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">image_icon_1.py</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">airplane</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="linenos"> 6</span><span class="n">icon_phosphor</span><span class="o">.</span><span class="n">coffee</span><span class="p">(</span>
+<span class="linenos"> 7</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+<span class="linenos"> 8</span>    <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="linenos"> 9</span>    <span class="n">angle</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+<span class="linenos">10</span>    <span class="n">style</span><span class="o">=</span><span class="n">IconStyle</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;fill&quot;</span><span class="p">),</span>
+<span class="linenos">11</span><span class="p">)</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>This code generates the following output image:</p>
+<figure class="align-center" id="id9">
+<a class="with-border reference internal image-reference" href="../../../_images/image_icon11.png"><img alt="../../../_images/image_icon11.png" class="with-border" src="../../../_images/image_icon11.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">icon() and icon_phosphor draw icons</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>As demonstrated, the function name determines the icon to be drawn, while the <code class="docutils literal notranslate"><span class="pre">IconStyle</span></code> can be adjusted to modify color, style, and other attributes.</p>
+<p>For detailed instructions on using the icon() function, please refer to the icon documentation.
+This topic is beyond the scope of this quick start guide.</p>
+</section>
+<section id="drawing-image">
+<h2>Drawing image<a class="headerlink" href="#drawing-image" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">image()</span></code> function draws the provided image onto the Canvas at the specified xy coordinates and width.
+The height is automatically calculated based on the width to maintain the original image aspect ratio.
+If you need to adjust the aspect ratio, you can utilize the <code class="docutils literal notranslate"><span class="pre">Dimage</span></code> class, which I will discuss later.</p>
+<p>Here’s an example using the <code class="docutils literal notranslate"><span class="pre">image()</span></code> function:</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">image_image1.py</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="n">image</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="s2">&quot;python.png&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span><span class="n">image</span><span class="p">(</span>
+<span class="linenos"> 7</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos"> 8</span>    <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="linenos"> 9</span>    <span class="n">angle</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+<span class="linenos">10</span>    <span class="n">image</span><span class="o">=</span><span class="s2">&quot;python.png&quot;</span><span class="p">,</span>
+<span class="linenos">11</span>    <span class="n">style</span><span class="o">=</span><span class="n">ImageStyle</span><span class="p">(</span><span class="n">lwidth</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+<span class="linenos">12</span><span class="p">)</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Execute this code using the Python command to get image.</p>
+<figure class="align-center" id="id11">
+<a class="with-border reference internal image-reference" href="../../../_images/image_image1.png"><img alt="../../../_images/image_image1.png" class="with-border" src="../../../_images/image_image1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">image() draws image</span><a class="headerlink" href="#id11" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>As you can observe, you can specify the angle and use the <code class="docutils literal notranslate"><span class="pre">ImageStyle</span></code> to manage alignment and border lines.</p>
+<p>If you wish to modify the image itself, consider utilizing the <code class="docutils literal notranslate"><span class="pre">Dimage</span></code> class, which provides numerous methods for image manipulation.
+Take a look at this example:</p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">image_image2.py</span><a class="headerlink" href="#id12" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="n">image</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="s2">&quot;python.png&quot;</span><span class="p">)</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="n">dimg</span> <span class="o">=</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">&quot;python.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mirror</span><span class="p">()</span><span class="o">.</span><span class="n">sepia</span><span class="p">()</span>
+<span class="linenos"> 9</span><span class="n">image</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">dimg</span><span class="p">)</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">Dimage</span></code> class is a string-like object.
+Methods for applying effects do not modify the image itself but create a new image object.
+Therefore, we use method chaining to apply operations such as mirroring (horizontal reverse) and sepia (changing color).</p>
+<figure class="align-center" id="id13">
+<a class="with-border reference internal image-reference" href="../../../_images/image_image2.png"><img alt="../../../_images/image_image2.png" class="with-border" src="../../../_images/image_image2.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Dimage applies effects to the image</span><a class="headerlink" href="#id13" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Both the <code class="docutils literal notranslate"><span class="pre">image()</span></code> function and the <code class="docutils literal notranslate"><span class="pre">Dimage</span></code> class accept images from the popular Pillow library.
+If you wish to perform advanced image processing, it’s advisable to do so using Pillow and then utilize image() and Dimage for handling the processed images.</p>
+<p>Additionally, if the original image is of high resolution and drawlib compromises its quality upon saving, consider increasing the DPI (dots per inch) using the <code class="docutils literal notranslate"><span class="pre">config()</span></code> function.</p>
+</section>
+<section id="drawing-line">
+<h2>Drawing line<a class="headerlink" href="#drawing-line" title="Link to this heading"></a></h2>
+<p>Drawlib features the <code class="docutils literal notranslate"><span class="pre">line()</span></code> function for drawing lines, but it offers various other line-drawing options as well:</p>
+<ul class="simple">
+<li><p>line</p></li>
+<li><p>line_curved</p></li>
+<li><p>line_bezier1</p></li>
+<li><p>line_bezier2</p></li>
+<li><p>lines</p></li>
+<li><p>lines_curved</p></li>
+<li><p>lines_bezier</p></li>
+</ul>
+<p>Functions starting with “line” are designed to draw lines from point xy1 to point xy2, while those starting with “lines” are designed for lines passing through multiple points.
+Let’s explore some of these line types:</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">image_line1.py</span><a class="headerlink" href="#id14" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="n">line</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="linenos"> 6</span><span class="n">line_curved</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">bend</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="n">line_curved</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">bend</span><span class="o">=-</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="linenos"> 8</span><span class="n">lines</span><span class="p">([(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">40</span><span class="p">)])</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">line_curved()</span></code> function draws a line from xy1 to xy2, but the bend parameter allows you to create curved lines.
+A bend value of 0.2 indicates a curved line 1.2 times longer than a straight line, while a value of -0.2 creates a curve in the opposite direction.</p>
+<figure class="align-center" id="id15">
+<a class="with-border reference internal image-reference" href="../../../_images/image_line1.png"><img alt="../../../_images/image_line1.png" class="with-border" src="../../../_images/image_line1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">image_line1.png</span><a class="headerlink" href="#id15" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Bezier line functions are a bit more complex.
+Please refer to the line documentation for details. However, they are incredibly useful for controlling complex curves.</p>
+<p>From point of line styling, we have these 2 categories.</p>
+<ul class="simple">
+<li><p>Arrow head</p></li>
+<li><p>Visual styles: Color, width, line style(solid, dashed etc) etc.</p></li>
+</ul>
+<p>Arrow head has logical meaning (HTML equivalent), so we will specify it at function arg <code class="docutils literal notranslate"><span class="pre">arrowhead</span></code>.
+But visual style has less meaning (CSS equivalent), then we will specify it as styling class <code class="docutils literal notranslate"><span class="pre">LineStyle</span></code>.</p>
+<p>Consider this example showcasing styling:</p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">image_line2.py</span><a class="headerlink" href="#id16" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="n">line</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="linenos"> 6</span><span class="n">line</span><span class="p">(</span>
+<span class="linenos"> 7</span>    <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>
+<span class="linenos"> 8</span>    <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>
+<span class="linenos"> 9</span>    <span class="n">style</span><span class="o">=</span><span class="n">LineStyle</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">),</span>
+<span class="linenos">10</span><span class="p">)</span>
+<span class="linenos">11</span><span class="n">line</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">line</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;&lt;-&gt;&quot;</span><span class="p">)</span>
+<span class="linenos">13</span><span class="n">line</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">43</span><span class="p">),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">43</span><span class="p">),</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;&lt;-&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">LineStyle</span><span class="p">(</span><span class="n">ahscale</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;dashdot&quot;</span><span class="p">,</span> <span class="n">ahfill</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>With LineStyle, you can configure line width, color, style, and more.
+Arrow head style is specified in function directry.</p>
+<figure class="align-center" id="id17">
+<a class="with-border reference internal image-reference" href="../../../_images/image_line2.png"><img alt="../../../_images/image_line2.png" class="with-border" src="../../../_images/image_line2.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">line() draws line</span><a class="headerlink" href="#id17" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>While the <code class="docutils literal notranslate"><span class="pre">arrow()</span></code> function also draws arrows, it is not a line but rather a shape.
+Keep in mind that if you wish to draw an arrow line, utilize line() and related functions with LineArrowStyle.</p>
+</section>
+<section id="drawing-shapes">
+<h2>Drawing shapes<a class="headerlink" href="#drawing-shapes" title="Link to this heading"></a></h2>
+<p>Drawlib’s keyword <code class="docutils literal notranslate"><span class="pre">Shape</span></code> encompasses a variety of shapes such as circles, rectangles, and more.
+While you’re already familiar with the <code class="docutils literal notranslate"><span class="pre">circle()</span></code> function, Drawlib version 0.1 introduces several other functions for drawing shapes:</p>
+<ul class="simple">
+<li><p>arrow()</p></li>
+<li><p>arc()</p></li>
+<li><p>bubblespeech()</p></li>
+<li><p>chevron()</p></li>
+<li><p>circle()</p></li>
+<li><p>donuts()</p></li>
+<li><p>ellipse()</p></li>
+<li><p>fan()</p></li>
+<li><p>parallelogram()</p></li>
+<li><p>polygon()</p></li>
+<li><p>rectangle()</p></li>
+<li><p>regularpolygon()</p></li>
+<li><p>rhombus()</p></li>
+<li><p>shape()</p></li>
+<li><p>star()</p></li>
+<li><p>trapezoid()</p></li>
+<li><p>triangle()</p></li>
+<li><p>wedge()</p></li>
+</ul>
+<p>Most of these functions fall into one of two categories: circle-like or rectangle-like.
+Circle-type shapes are defined by parameters such as xy coordinates and radius, while rectangle-type shapes are defined by parameters like xy coordinates, width, and height.
+The exceptions are arrow(), polygon(), and shape().</p>
+<p>We won’t delve into the specifics in this quick start guide, but it’s worth noting that the <code class="docutils literal notranslate"><span class="pre">shape()</span></code> function is particularly versatile for creating custom shape objects.
+When you use it, tasks like positioning your item at a specified xy coordinate and adjusting its angle are automatically handled.</p>
+<p>Let’s explore two examples: a circle-like shape, <code class="docutils literal notranslate"><span class="pre">star()</span></code>, and a rectangle-like shape, <code class="docutils literal notranslate"><span class="pre">rectangle()</span></code>.</p>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">image_shape1.py</span><a class="headerlink" href="#id18" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos">4</span>
+<span class="linenos">5</span><span class="n">star</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">num_vertex</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">radius_ext</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">radius_int</span><span class="o">=</span><span class="mf">7.5</span><span class="p">)</span>
+<span class="linenos">6</span><span class="n">rectangle</span><span class="p">((</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="linenos">7</span>
+<span class="linenos">8</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>This code generates the following image:</p>
+<figure class="align-center" id="id19">
+<a class="with-border reference internal image-reference" href="../../../_images/image_shape1.png"><img alt="../../../_images/image_shape1.png" class="with-border" src="../../../_images/image_shape1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">image_shape1.png</span><a class="headerlink" href="#id19" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Circle-type shapes are defined by their radius, while rectangle-type shapes are defined by their width and height.
+By default, the xy coordinate marks the center of the shape.
+Except for arrow() and polygon(), all functions can accept an angle parameter.</p>
+<p>Shapes can also be styled using two types of styles:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ShapeStyle</span></code>: for basic shape styling such as line width, color, and fill color</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ShapeTextStyle</span></code>: for styling text within a shape</p></li>
+</ul>
+<p>The ShapeTextStyle allows you to specify parameters like color, size, font, and more.
+Additionally, it offers xy_shift and angle options.
+When you specify xy_shift, you can adjust the position of the text within the shape.
+Keep in mind that the angle parameter in ShapeTextStyle overrides the shape’s angle for the text.</p>
+<p>Let’s examine a styling example:</p>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text">image_shape2.py</span><a class="headerlink" href="#id20" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="n">rectangle</span><span class="p">(</span>
+<span class="linenos"> 6</span>    <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos"> 7</span>    <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+<span class="linenos"> 8</span>    <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="linenos"> 9</span>    <span class="n">angle</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+<span class="linenos">10</span>    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello!&quot;</span><span class="p">,</span>
+<span class="linenos">11</span>    <span class="n">style</span><span class="o">=</span><span class="n">ShapeStyle</span><span class="p">(</span><span class="n">lstyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="n">lwidth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">lcolor</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">,</span> <span class="n">fcolor</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Transparent</span><span class="p">),</span>
+<span class="linenos">12</span><span class="p">)</span>
+<span class="linenos">13</span><span class="n">rectangle</span><span class="p">(</span>
+<span class="linenos">14</span>    <span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">15</span>    <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+<span class="linenos">16</span>    <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="linenos">17</span>    <span class="n">angle</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+<span class="linenos">18</span>    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hello!&quot;</span><span class="p">,</span>
+<span class="linenos">19</span>    <span class="n">textstyle</span><span class="o">=</span><span class="n">ShapeTextStyle</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">angle</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+<span class="linenos">20</span><span class="p">)</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>This code generates the following output:</p>
+<figure class="align-center" id="id21">
+<a class="with-border reference internal image-reference" href="../../../_images/image_shape2.png"><img alt="../../../_images/image_shape2.png" class="with-border" src="../../../_images/image_shape2.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">image_shape2.png</span><a class="headerlink" href="#id21" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>In the left example, we configure ShapeStyle to add style to the rectangle.
+Parameters like l-something represent line-something, and fcolor stands for fill-color.
+Options for shape lines are nearly identical to those for LineStyle.
+If you don’t require a shape line, simply set <code class="docutils literal notranslate"><span class="pre">lwidth=0</span></code>, and if you don’t need a fill color, set <code class="docutils literal notranslate"><span class="pre">fcolor=Colors.Transparent</span></code>.
+Notice how the text angle follows the shape angle by default.</p>
+<p>In the right example, we configure ShapeTextStyle for the center text within the rectangle.
+Parameters such as color, size, font, etc., are similar to TextStyle.
+However, ShapeTextStyle includes additional options like xy_shift and angle.</p>
+<p>When you specify xy_shift, you can move the center point of the text.
+Remember that the xy value is not a global coordinate but is relative to the shape, taking its angle into account.
+Therefore, specifying <code class="docutils literal notranslate"><span class="pre">(-10,</span> <span class="pre">0)</span></code> moves the center point not only to the left but also downward since the shape has a 45-degree angle.</p>
+<p>The angle option in ShapeTextStyle overrides the shape’s angle for the text.
+If left unspecified, the text inside the right rectangle should be at a 45-degree angle.
+However, since we’ve specified it in the style, it remains at 0 degrees.</p>
+</section>
+<section id="drawing-texts">
+<h2>Drawing texts<a class="headerlink" href="#drawing-texts" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">text()</span></code> function is used to render text onto the canvas.
+It requires specifications for xy coordinates, the text message, and an optional angle.
+All other text parameters are defined within the <code class="docutils literal notranslate"><span class="pre">TextStyle</span></code>.</p>
+<p>TextStyle differs slightly from ShapeTextStyle, which we discussed earlier.
+Unlike ShapeTextStyle, it lacks features like xy_shift and angle, as these can be directly configured as arguments in text().
+However, TextStyle includes an option that ShapeTextStyle doesn’t: text background options.</p>
+<p>Let’s examine some code examples:</p>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">image_text_1.py</span><a class="headerlink" href="#id22" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="s2">&quot;Hello drawlib. こんにちは。&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span><span class="n">text</span><span class="p">(</span>
+<span class="linenos"> 7</span>    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>
+<span class="linenos"> 8</span>    <span class="s2">&quot;Hello drawlib. こんにちは。&quot;</span><span class="p">,</span>
+<span class="linenos"> 9</span>    <span class="n">angle</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">10</span>    <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">FontRoboto</span><span class="o">.</span><span class="n">ROBOTO_REGULAR</span><span class="p">),</span>
+<span class="linenos">11</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">text</span><span class="p">(</span>
+<span class="linenos">13</span>    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">14</span>    <span class="s2">&quot;Hello drawlib.&quot;</span><span class="p">,</span>
+<span class="linenos">15</span>    <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="n">FontFile</span><span class="p">(</span><span class="s2">&quot;avenger/regular.ttf&quot;</span><span class="p">)),</span>
+<span class="linenos">16</span><span class="p">)</span>
+<span class="linenos">17</span><span class="n">text</span><span class="p">(</span>
+<span class="linenos">18</span>    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span>
+<span class="linenos">19</span>    <span class="s2">&quot;Hello drawlib. こんにちは。&quot;</span><span class="p">,</span>
+<span class="linenos">20</span>    <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Red</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">),</span>
+<span class="linenos">21</span><span class="p">)</span>
+<span class="linenos">22</span><span class="n">text</span><span class="p">(</span>
+<span class="linenos">23</span>    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">43</span><span class="p">),</span>
+<span class="linenos">24</span>    <span class="s2">&quot;Hello drawlib. こんにちは。&quot;</span><span class="p">,</span>
+<span class="linenos">25</span>    <span class="n">style</span><span class="o">=</span><span class="n">TextStyle</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">,</span> <span class="n">bgfcolor</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Black</span><span class="p">),</span>
+<span class="linenos">26</span><span class="p">)</span>
+<span class="linenos">27</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Executing this code yields the following image:</p>
+<figure class="align-center" id="id23">
+<a class="with-border reference internal image-reference" href="../../../_images/image_text1.png"><img alt="../../../_images/image_text1.png" class="with-border" src="../../../_images/image_text1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">image_text_1.png</span><a class="headerlink" href="#id23" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>In this example, we’ve configured several TextStyle parameters.
+I’ve used Japanese text for testing purposes.
+As you can see, the Roboto font fails to render it correctly.
+Be cautious when using non-alphabet characters.
+Drawlib supports a variety of embedded fonts, categorized under Font-Something classes.
+For instance, Japanese fonts are defined within FontJapanese.</p>
+<p>Remember, fonts are downloaded from the internet the first time you use them, after which they’re cached locally within the drawlib library on your machine.
+Fonts that haven’t been used before won’t be downloaded.
+However, attempting to call text() with a new font can result in a download error.
+Therefore, make sure to download fonts before entering internet-restricted areas.</p>
+<p>Calling text() with new font will make download error.
+Please download fonts before you go to internet restricted area.</p>
+<p>In the third example, we’ve prepared a font file locally and utilized it.
+If drawlib doesn’t include the font you wish to use, you can provide it to the style’s font parameter using the <code class="docutils literal notranslate"><span class="pre">FontFile</span></code> class.</p>
+<p>In the fourth and fifth examples, we’ve configured text parameters such as color, size, and background.
+These settings may not be particularly complex, but it’s important to note that the font size remains constant regardless of changes in canvas width and height.
+Doubling the canvas size won’t result in halving the font text size; it remains the same as the original size.</p>
+</section>
+<section id="using-official-theme">
+<h2>Using Official Theme<a class="headerlink" href="#using-official-theme" title="Link to this heading"></a></h2>
+<p>In Drawlib, you can define the style of drawing items using style class objects such as <code class="docutils literal notranslate"><span class="pre">ShapeStyle</span></code> and <code class="docutils literal notranslate"><span class="pre">TextStyle</span></code>.
+However, specifying styles for each item can be cumbersome and may lead to inconsistency.
+To address this, Drawlib provides a theme and style feature, allowing you to choose a theme and easily apply its styles by name.</p>
+<p>Here is an example. Note that the <code class="docutils literal notranslate"><span class="pre">style</span></code> argument takes text values.</p>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">image_theme1.py</span><a class="headerlink" href="#id24" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="n">x1</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="linenos"> 5</span><span class="n">x2</span> <span class="o">=</span> <span class="mi">34</span>
+<span class="linenos"> 6</span><span class="n">x3</span> <span class="o">=</span> <span class="mi">62</span>
+<span class="linenos"> 7</span><span class="n">x4</span> <span class="o">=</span> <span class="mi">88</span>
+<span class="linenos"> 8</span><span class="n">line_y</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="linenos"> 9</span><span class="n">line_length</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="linenos">10</span><span class="n">circle_y</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="linenos">11</span><span class="n">text_y</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="c1"># blue style</span>
+<span class="linenos">14</span><span class="n">line</span><span class="p">((</span><span class="n">x1</span> <span class="o">-</span> <span class="n">line_length</span><span class="p">,</span> <span class="n">line_y</span><span class="p">),</span> <span class="p">(</span><span class="n">x1</span> <span class="o">+</span> <span class="n">line_length</span><span class="p">,</span> <span class="n">line_y</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+<span class="linenos">15</span><span class="n">circle</span><span class="p">((</span><span class="n">x1</span><span class="p">,</span> <span class="n">circle_y</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+<span class="linenos">16</span><span class="n">text</span><span class="p">((</span><span class="n">x1</span><span class="p">,</span> <span class="n">text_y</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="c1"># blue solid style</span>
+<span class="linenos">19</span><span class="n">line</span><span class="p">((</span><span class="n">x2</span> <span class="o">-</span> <span class="n">line_length</span><span class="p">,</span> <span class="n">line_y</span><span class="p">),</span> <span class="p">(</span><span class="n">x2</span> <span class="o">+</span> <span class="n">line_length</span><span class="p">,</span> <span class="n">line_y</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue_solid&quot;</span><span class="p">)</span>
+<span class="linenos">20</span><span class="n">circle</span><span class="p">((</span><span class="n">x2</span><span class="p">,</span> <span class="n">circle_y</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue_solid&quot;</span><span class="p">)</span>
+<span class="linenos">21</span><span class="n">text</span><span class="p">((</span><span class="n">x2</span><span class="p">,</span> <span class="n">text_y</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;style=&quot;blue_solid&quot;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="c1"># green dashed style</span>
+<span class="linenos">24</span><span class="n">line</span><span class="p">((</span><span class="n">x3</span> <span class="o">-</span> <span class="n">line_length</span><span class="p">,</span> <span class="n">line_y</span><span class="p">),</span> <span class="p">(</span><span class="n">x3</span> <span class="o">+</span> <span class="n">line_length</span><span class="p">,</span> <span class="n">line_y</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;green_dashed_bold&quot;</span><span class="p">)</span>
+<span class="linenos">25</span><span class="n">circle</span><span class="p">((</span><span class="n">x3</span><span class="p">,</span> <span class="n">circle_y</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;green_dashed_bold&quot;</span><span class="p">)</span>
+<span class="linenos">26</span><span class="n">text</span><span class="p">((</span><span class="n">x3</span><span class="p">,</span> <span class="n">text_y</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;style=&quot;green_dashed_bold&quot;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;green_bold&quot;</span><span class="p">)</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span><span class="c1"># red flat style</span>
+<span class="linenos">29</span><span class="n">line</span><span class="p">((</span><span class="n">x4</span> <span class="o">-</span> <span class="n">line_length</span><span class="p">,</span> <span class="n">line_y</span><span class="p">),</span> <span class="p">(</span><span class="n">x4</span> <span class="o">+</span> <span class="n">line_length</span><span class="p">,</span> <span class="n">line_y</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="linenos">30</span><span class="n">circle</span><span class="p">((</span><span class="n">x4</span><span class="p">,</span> <span class="n">circle_y</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;red_flat&quot;</span><span class="p">)</span>
+<span class="linenos">31</span><span class="n">text</span><span class="p">((</span><span class="n">x4</span><span class="p">,</span> <span class="n">text_y</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;style=&quot;red_flat&quot;&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="linenos">32</span>
+<span class="linenos">33</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>The style has this syntax: <code class="docutils literal notranslate"><span class="pre">&lt;color&gt;_&lt;type&gt;_&lt;weight&gt;</span></code>.
+If the type and weight are default, they are not shown in the style name.
+Executing this code yields the following image:</p>
+<figure class="align-center" id="id25">
+<a class="with-border reference internal image-reference" href="../../../_images/image_theme12.png"><img alt="../../../_images/image_theme12.png" class="with-border" src="../../../_images/image_theme12.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">image_theme1.png</span><a class="headerlink" href="#id25" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Drawlib offers several official themes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">default</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">essentials</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">monochrome</span></code></p></li>
+</ul>
+<p>The style naming rules are consistent across all themes.
+However, the <code class="docutils literal notranslate"><span class="pre">default</span></code> theme default primarily focuses on colors to keep it simple for beginners.
+You can check the available style names for each style class using <code class="docutils literal notranslate"><span class="pre">dtheme.print_style_table()</span></code>.
+Note that many style names support only a few style classes because “flat (no border fill)” styles do not suit lines and text.</p>
+<p>Here’s how you can print the available styles in a theme:</p>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">print_theme_styles.py</span><a class="headerlink" href="#id26" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">dtheme</span><span class="o">.</span><span class="n">apply_official_theme</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="n">dtheme</span><span class="o">.</span><span class="n">print_style_table</span><span class="p">()</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="c1"># +----------------+---+-------+------+------+-------+-------------+------------+--------+--------------+-------------+</span>
+<span class="linenos"> 7</span><span class="c1"># | class \ name   |   | light | bold | flat | solid | solid_light | solid_bold | dashed | dashed_light | dashed_bold |</span>
+<span class="linenos"> 8</span><span class="c1"># +----------------+---+-------+------+------+-------+-------------+------------+--------+--------------+-------------+</span>
+<span class="linenos"> 9</span><span class="c1"># | IconStyle      | x | x     | x    | x    |       |             |            |        |              |             |</span>
+<span class="linenos">10</span><span class="c1"># | ImageStyle     | x | x     | x    | x    | x     | x           | x          | x      | x            | x           |</span>
+<span class="linenos">11</span><span class="c1"># | LineStyle      | x | x     | x    |      | x     | x           | x          | x      | x            | x           |</span>
+<span class="linenos">12</span><span class="c1"># | ShapeStyle     | x | x     | x    | x    | x     | x           | x          | x      | x            | x           |</span>
+<span class="linenos">13</span><span class="c1"># | ShapeTextStyle | x | x     | x    |      |       |             |            |        |              |             |</span>
+<span class="linenos">14</span><span class="c1"># | TextStyle      | x | x     | x    |      |       |             |            |        |              |             |</span>
+<span class="linenos">15</span><span class="c1"># +----------------+---+-------+------+------+-------+-------------+------------+--------+--------------+-------------+</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="c1"># +----------------+-----+-----------+----------+----------+-----------+-----------------+----------------+------------+------------------+-----------------+</span>
+<span class="linenos">18</span><span class="c1"># | class \ name   | red | red_light | red_bold | red_flat | red_solid | red_solid_light | red_solid_bold | red_dashed | red_dashed_light | red_dashed_bold |</span>
+<span class="linenos">19</span><span class="c1"># +----------------+-----+-----------+----------+----------+-----------+-----------------+----------------+------------+------------------+-----------------+</span>
+<span class="linenos">20</span><span class="c1"># | IconStyle      | x   | x         | x        | x        |           |                 |                |            |                  |                 |</span>
+<span class="linenos">21</span><span class="c1"># | ImageStyle     | x   | x         | x        | x        | x         | x               | x              | x          | x                | x               |</span>
+<span class="linenos">22</span><span class="c1"># | LineStyle      | x   | x         | x        |          | x         | x               | x              | x          | x                | x               |</span>
+<span class="linenos">23</span><span class="c1"># | ShapeStyle     | x   | x         | x        | x        | x         | x               | x              | x          | x                | x               |</span>
+<span class="linenos">24</span><span class="c1"># | ShapeTextStyle | x   | x         | x        |          |           |                 |                |            |                  |                 |</span>
+<span class="linenos">25</span><span class="c1"># | TextStyle      | x   | x         | x        |          |           |                 |                |            |                  |                 |</span>
+<span class="linenos">26</span><span class="c1"># +----------------+-----+-----------+----------+----------+-----------+-----------------+----------------+------------+------------------+-----------------+</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span><span class="c1"># +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+</span>
+<span class="linenos">29</span><span class="c1"># | class \ name   | green | green_light | green_bold | green_flat | green_solid | green_solid_light | green_solid_bold | green_dashed | green_dashed_light | green_dashed_bold |</span>
+<span class="linenos">30</span><span class="c1"># +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+</span>
+<span class="linenos">31</span><span class="c1"># | IconStyle      | x     | x           | x          | x          |             |                   |                  |              |                    |                   |</span>
+<span class="linenos">32</span><span class="c1"># | ImageStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |</span>
+<span class="linenos">33</span><span class="c1"># | LineStyle      | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |</span>
+<span class="linenos">34</span><span class="c1"># | ShapeStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |</span>
+<span class="linenos">35</span><span class="c1"># | ShapeTextStyle | x     | x           | x          |            |             |                   |                  |              |                    |                   |</span>
+<span class="linenos">36</span><span class="c1"># | TextStyle      | x     | x           | x          |            |             |                   |                  |              |                    |                   |</span>
+<span class="linenos">37</span><span class="c1"># +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+</span>
+<span class="linenos">38</span>
+<span class="linenos">39</span><span class="c1"># +----------------+------+------------+-----------+-----------+------------+------------------+-----------------+-------------+-------------------+------------------+</span>
+<span class="linenos">40</span><span class="c1"># | class \ name   | blue | blue_light | blue_bold | blue_flat | blue_solid | blue_solid_light | blue_solid_bold | blue_dashed | blue_dashed_light | blue_dashed_bold |</span>
+<span class="linenos">41</span><span class="c1"># +----------------+------+------------+-----------+-----------+------------+------------------+-----------------+-------------+-------------------+------------------+</span>
+<span class="linenos">42</span><span class="c1"># | IconStyle      | x    | x          | x         | x         |            |                  |                 |             |                   |                  |</span>
+<span class="linenos">43</span><span class="c1"># | ImageStyle     | x    | x          | x         | x         | x          | x                | x               | x           | x                 | x                |</span>
+<span class="linenos">44</span><span class="c1"># | LineStyle      | x    | x          | x         |           | x          | x                | x               | x           | x                 | x                |</span>
+<span class="linenos">45</span><span class="c1"># | ShapeStyle     | x    | x          | x         | x         | x          | x                | x               | x           | x                 | x                |</span>
+<span class="linenos">46</span><span class="c1"># | ShapeTextStyle | x    | x          | x         |           |            |                  |                 |             |                   |                  |</span>
+<span class="linenos">47</span><span class="c1"># | TextStyle      | x    | x          | x         |           |            |                  |                 |             |                   |                  |</span>
+<span class="linenos">48</span><span class="c1"># +----------------+------+------------+-----------+-----------+------------+------------------+-----------------+-------------+-------------------+------------------+</span>
+<span class="linenos">49</span>
+<span class="linenos">50</span><span class="c1"># +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+</span>
+<span class="linenos">51</span><span class="c1"># | class \ name   | black | black_light | black_bold | black_flat | black_solid | black_solid_light | black_solid_bold | black_dashed | black_dashed_light | black_dashed_bold |</span>
+<span class="linenos">52</span><span class="c1"># +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+</span>
+<span class="linenos">53</span><span class="c1"># | IconStyle      | x     | x           | x          | x          |             |                   |                  |              |                    |                   |</span>
+<span class="linenos">54</span><span class="c1"># | ImageStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |</span>
+<span class="linenos">55</span><span class="c1"># | LineStyle      | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |</span>
+<span class="linenos">56</span><span class="c1"># | ShapeStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |</span>
+<span class="linenos">57</span><span class="c1"># | ShapeTextStyle | x     | x           | x          |            |             |                   |                  |              |                    |                   |</span>
+<span class="linenos">58</span><span class="c1"># | TextStyle      | x     | x           | x          |            |             |                   |                  |              |                    |                   |</span>
+<span class="linenos">59</span><span class="c1"># +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+</span>
+<span class="linenos">60</span>
+<span class="linenos">61</span><span class="c1"># +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+</span>
+<span class="linenos">62</span><span class="c1"># | class \ name   | white | white_light | white_bold | white_flat | white_solid | white_solid_light | white_solid_bold | white_dashed | white_dashed_light | white_dashed_bold |</span>
+<span class="linenos">63</span><span class="c1"># +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+</span>
+<span class="linenos">64</span><span class="c1"># | IconStyle      | x     | x           | x          | x          |             |                   |                  |              |                    |                   |</span>
+<span class="linenos">65</span><span class="c1"># | ImageStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |</span>
+<span class="linenos">66</span><span class="c1"># | LineStyle      | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |</span>
+<span class="linenos">67</span><span class="c1"># | ShapeStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |</span>
+<span class="linenos">68</span><span class="c1"># | ShapeTextStyle | x     | x           | x          |            |             |                   |                  |              |                    |                   |</span>
+<span class="linenos">69</span><span class="c1"># | TextStyle      | x     | x           | x          |            |             |                   |                  |              |                    |                   |</span>
+<span class="linenos">70</span><span class="c1"># +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../lib_design/doc.html" class="btn btn-neutral float-left" title="Drawlib from a High Perspective" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../release_note/doc.html" class="btn btn-neutral float-right" title="Release Note of 0.2.*" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Yuichi Ito &lt;yuichi@yuichi.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

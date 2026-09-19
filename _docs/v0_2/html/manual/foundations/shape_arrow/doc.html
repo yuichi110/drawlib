@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drawing Arrow Shapes &mdash; drawlib 0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=6432bc99" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=10f1778b"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Drawing Circle Like Shapes" href="../shape_circle/doc.html" />
+    <link rel="prev" title="Drawing Shape" href="../shape/doc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            drawlib
+          </a>
+              <div class="version">
+                version: 0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introductions:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/about/doc.html">About drawlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/install/doc.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/lib_design/doc.html">Drawlib from a High Perspective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/quick_start/doc.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/release_note/doc.html">Release Note of 0.2.*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/other_version_docs/doc.html">Other Version Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introductions/links/doc.html">Links</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Foundations:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../canvas/doc.html">Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../coordinate_align/doc.html">Coordinate and Alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../icon/doc.html">Drawing Icons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../image/doc.html">Drawing Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../line/doc.html">Drawing line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../line_style/doc.html">Line Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape/doc.html">Drawing Shape</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Drawing Arrow Shapes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introductions">Introductions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#name-of-arguments">Name of Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#arrow">arrow()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arrow-polyline">arrow_polyline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arrow-l">arrow_l</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arrow-u">arrow_u</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arrow-arc">arrow_arc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_circle/doc.html">Drawing Circle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_rectangle/doc.html">Drawing Rectangle Like Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shape_style/doc.html">Shape Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../text/doc.html">Drawing Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../theme/doc.html">Theme feature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build_many/doc.html">Building many images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../programming/doc.html">Coding Best Practices</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Topics:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/color/doc.html">Color Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/font/doc.html">Font Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/dimage/doc.html">Dimage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/debug/doc.html">Debugging errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/settings/doc.html">Library Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/cli_options/doc.html">CLI and Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/example_flow/doc.html">Example of Documentation Build Flow</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Smart Arts:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/index/doc.html">About Smart Arts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bubblespeech/doc.html">Bubblespeech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/boxlist/doc.html">BoxList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/bulletpoints/doc.html">BulletPoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/gridlayout/doc.html">GridLayout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/pyramid/doc.html">Pyramid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/sourcecode/doc.html">SourceCode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/table/doc.html">Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smartarts/tree/doc.html">Tree</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Themes:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/advanced_topics/doc.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_default/doc.html">Official Theme: default</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_essentials/doc.html">Official Theme: essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/official_monochrome/doc.html">Official Theme: monochrome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../themes/create/doc.html">Create Your Custom Theme from Scratch</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">drawlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Drawing Arrow Shapes</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/manual/foundations/shape_arrow/doc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="drawing-arrow-shapes">
+<h1>Drawing Arrow Shapes<a class="headerlink" href="#drawing-arrow-shapes" title="Link to this heading"></a></h1>
+<section id="introductions">
+<h2>Introductions<a class="headerlink" href="#introductions" title="Link to this heading"></a></h2>
+<p>Arrow Shapes draw thick arrow.
+There are these functios</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">arrow()</span></code>: Draw arrow from xy1 to xy2.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arrow_polyline</span></code>: Draw arrow which passes list of xys.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arrow_l</span></code>: Draw L shape arrow from top left to right bottom.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arrow_u</span></code>: Draw U shape arrow from top left to right top.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arrow_arc</span></code>: Draw ellipse arc arrow from start angle to end angle.</p></li>
+</ul>
+<p>Here are arrow examples:</p>
+<figure class="align-center" id="id1">
+<a class="with-border reference internal image-reference" href="../../../_images/image_introduction.png"><img alt="../../../_images/image_introduction.png" class="with-border" src="../../../_images/image_introduction.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">arrow()</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="name-of-arguments">
+<h2>Name of Arguments<a class="headerlink" href="#name-of-arguments" title="Link to this heading"></a></h2>
+<p>All arrow functions have similar argument namings.
+Understanding how to specify arrow size might be useful.</p>
+<figure class="align-center" id="id2">
+<a class="with-border reference internal image-reference" href="../../../_images/image_args1.png"><img alt="../../../_images/image_args1.png" class="with-border" src="../../../_images/image_args1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Arrow size arguments.</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">xy</span></code> means coordinate of arrow. <code class="docutils literal notranslate"><span class="pre">xy1</span></code> and <code class="docutils literal notranslate"><span class="pre">xy2</span></code>, <code class="docutils literal notranslate"><span class="pre">xys</span></code> are used.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tail_width</span></code>: Tail width of arrow</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">head_width</span></code>: Head width of arrow</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">head_length</span></code>: Head length of arrow</p></li>
+</ul>
+<p>You can specify arrow direction via arg <code class="docutils literal notranslate"><span class="pre">head</span></code>.</p>
+<figure class="align-center" id="id3">
+<a class="with-border reference internal image-reference" href="../../../_images/image_args2.png"><img alt="../../../_images/image_args2.png" class="with-border" src="../../../_images/image_args2.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Arrow size arguments.</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-&gt;</span></code>: Draw arrow head at end of xy</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;-</span></code>: Draw arrow head at start of xy</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;-&gt;</span></code>: Draw arrow head at both start and end of xy</p></li>
+</ul>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<section id="arrow">
+<h3>arrow()<a class="headerlink" href="#arrow" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">arrow()</span></code> function draws an arrow shape between two points defined by <code class="docutils literal notranslate"><span class="pre">xy1</span></code> (start point) and <code class="docutils literal notranslate"><span class="pre">xy2</span></code> (end point).
+You can customize the arrow’s tail and head sizes and styles.</p>
+<p>This function accepts the following arguments:</p>
+<ul class="simple">
+<li><p>xy1: Start point coordinates (x1, y1)</p></li>
+<li><p>xy2: End point coordinates (x2, y2)</p></li>
+<li><p>tail_width: Width of the arrow’s tail (not the head)</p></li>
+<li><p>head_width: Width of the arrow’s head</p></li>
+<li><p>head_length: Length of the arrow’s head</p></li>
+<li><p>head (optional): Style of the arrow’s head (<code class="docutils literal notranslate"><span class="pre">&quot;-&gt;&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;&lt;-&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;&lt;-&gt;&quot;</span></code> for different configurations)</p></li>
+<li><p>style (optional): Style of the arrow</p></li>
+<li><p>text (optional): Centered text</p></li>
+<li><p>textstyle (optional): Style of the centered text</p></li>
+</ul>
+<p>Let’s explore an example:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">image_arrow1.py</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">dtheme</span><span class="o">.</span><span class="n">change_default_fonts</span><span class="p">(</span><span class="n">FontRoboto</span><span class="o">.</span><span class="n">MONO_LIGHT</span><span class="p">,</span> <span class="n">FontRoboto</span><span class="o">.</span><span class="n">MONO_REGULAR</span><span class="p">,</span> <span class="n">FontRoboto</span><span class="o">.</span><span class="n">MONO_BOLD</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">grid_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="n">arrow</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">tail_width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="n">arrow</span><span class="p">(</span>
+<span class="linenos"> 8</span>    <span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="linenos"> 9</span>    <span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span>
+<span class="linenos">10</span>    <span class="n">tail_width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">11</span>    <span class="n">head_width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="linenos">12</span>    <span class="n">head_length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">13</span>    <span class="n">head</span><span class="o">=</span><span class="s2">&quot;&lt;-&gt;&quot;</span><span class="p">,</span>
+<span class="linenos">14</span>    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;arrow()&quot;</span><span class="p">,</span>
+<span class="linenos">15</span><span class="p">)</span>
+<span class="linenos">16</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Here is an example output:</p>
+<figure class="align-center" id="id5">
+<a class="with-border reference internal image-reference" href="../../../_images/image_arrow1.png"><img alt="../../../_images/image_arrow1.png" class="with-border" src="../../../_images/image_arrow1.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">arrow()</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>In the <code class="docutils literal notranslate"><span class="pre">arrow()</span></code> function, the angle of the arrow is determined automatically by its start and end points.
+The function does not use the alignment attributes (<code class="docutils literal notranslate"><span class="pre">halign</span></code> and <code class="docutils literal notranslate"><span class="pre">valign</span></code>) from <code class="docutils literal notranslate"><span class="pre">ShapeStyle</span></code>.</p>
+</section>
+<section id="arrow-polyline">
+<h3>arrow_polyline<a class="headerlink" href="#arrow-polyline" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">arrow_polyline</span></code> function draws an arrow which passes <code class="docutils literal notranslate"><span class="pre">xys</span></code> points.
+It supports rounded edges.
+It doesn’t support having text inside.</p>
+<ul class="simple">
+<li><p>xys: List of arrow coordinates.</p></li>
+<li><p>tail_width: Width of the arrow’s tail (not the head)</p></li>
+<li><p>head_width: Width of the arrow’s head</p></li>
+<li><p>head_length: Length of the arrow’s head</p></li>
+<li><p>head (optional): Style of the arrow’s head (<code class="docutils literal notranslate"><span class="pre">&quot;-&gt;&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;&lt;-&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;&lt;-&gt;&quot;</span></code> for different configurations)</p></li>
+<li><p>r (optional): R of arrow line</p></li>
+<li><p>style (optional): Style of the arrow</p></li>
+<li><p>text (optional): Centered text</p></li>
+<li><p>textstyle (optional): Style of the centered text</p></li>
+</ul>
+<p>Let’s explore an example:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">image_arrow_polyline.py</span><a class="headerlink" href="#id6" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">dtheme</span><span class="o">.</span><span class="n">apply_official_theme</span><span class="p">(</span><span class="s2">&quot;essentials&quot;</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="n">dtheme</span><span class="o">.</span><span class="n">change_default_fonts</span><span class="p">(</span><span class="n">FontRoboto</span><span class="o">.</span><span class="n">MONO_LIGHT</span><span class="p">,</span> <span class="n">FontRoboto</span><span class="o">.</span><span class="n">MONO_REGULAR</span><span class="p">,</span> <span class="n">FontRoboto</span><span class="o">.</span><span class="n">MONO_BOLD</span><span class="p">)</span>
+<span class="linenos"> 5</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 6</span><span class="n">arrow_polyline</span><span class="p">(</span>
+<span class="linenos"> 7</span>    <span class="p">[(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">45</span><span class="p">)],</span>
+<span class="linenos"> 8</span>    <span class="n">tail_width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="linenos"> 9</span>    <span class="n">head_width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">10</span>    <span class="n">head_length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="linenos">11</span><span class="p">)</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="n">arrow_polyline</span><span class="p">(</span>
+<span class="linenos">14</span>    <span class="p">[(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">45</span><span class="p">)],</span>
+<span class="linenos">15</span>    <span class="n">tail_width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="linenos">16</span>    <span class="n">head_width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">17</span>    <span class="n">head_length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="linenos">18</span><span class="p">)</span>
+<span class="linenos">19</span><span class="n">lines</span><span class="p">([(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">45</span><span class="p">)],</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;white_dashed&quot;</span><span class="p">)</span>
+<span class="linenos">20</span><span class="k">for</span> <span class="n">dot</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">45</span><span class="p">)]:</span>
+<span class="linenos">21</span>    <span class="n">circle</span><span class="p">(</span><span class="n">dot</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;red_flat&quot;</span><span class="p">)</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="n">arrow_polyline</span><span class="p">(</span>
+<span class="linenos">24</span>    <span class="p">[(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">45</span><span class="p">)],</span>
+<span class="linenos">25</span>    <span class="n">tail_width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="linenos">26</span>    <span class="n">head_width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">27</span>    <span class="n">head_length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="linenos">28</span>    <span class="n">r</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="linenos">29</span>    <span class="n">head</span><span class="o">=</span><span class="s2">&quot;&lt;-&gt;&quot;</span><span class="p">,</span>
+<span class="linenos">30</span><span class="p">)</span>
+<span class="linenos">31</span><span class="n">lines_curved</span><span class="p">([(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">45</span><span class="p">)],</span> <span class="n">r</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;white_dashed&quot;</span><span class="p">)</span>
+<span class="linenos">32</span><span class="k">for</span> <span class="n">dot</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">45</span><span class="p">)]:</span>
+<span class="linenos">33</span>    <span class="n">circle</span><span class="p">(</span><span class="n">dot</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;red_flat&quot;</span><span class="p">)</span>
+<span class="linenos">34</span>
+<span class="linenos">35</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Here is an example output:</p>
+<figure class="align-center" id="id7">
+<a class="with-border reference internal image-reference" href="../../../_images/image_arrow_polyline.png"><img alt="../../../_images/image_arrow_polyline.png" class="with-border" src="../../../_images/image_arrow_polyline.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">arrow_polyline()</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="arrow-l">
+<h3>arrow_l<a class="headerlink" href="#arrow-l" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">arrow_l</span></code> function is syntax sugar of <code class="docutils literal notranslate"><span class="pre">arrow_polyline</span></code>.
+It draw “L” style arrow easily by specifying <code class="docutils literal notranslate"><span class="pre">width</span></code> and <code class="docutils literal notranslate"><span class="pre">height</span></code> and <code class="docutils literal notranslate"><span class="pre">angle</span></code>.</p>
+<ul class="simple">
+<li><p>xys: Center of arrow shape.</p></li>
+<li><p>width: width of arrow</p></li>
+<li><p>height: height of arrow</p></li>
+<li><p>tail_width: Width of the arrow’s tail (not the head)</p></li>
+<li><p>head_width: Width of the arrow’s head</p></li>
+<li><p>head_length: Length of the arrow’s head</p></li>
+<li><p>head (optional): Style of the arrow’s head (<code class="docutils literal notranslate"><span class="pre">&quot;-&gt;&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;&lt;-&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;&lt;-&gt;&quot;</span></code> for different configurations)</p></li>
+<li><p>r (optional): R of arrow line</p></li>
+<li><p>angle (optional): Angle of arrow</p></li>
+<li><p>style (optional): Style of the arrow</p></li>
+</ul>
+<p>Let’s explore an example:</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">image_arrow_l.py</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">dtheme</span><span class="o">.</span><span class="n">apply_official_theme</span><span class="p">(</span><span class="s2">&quot;essentials&quot;</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="n">dtheme</span><span class="o">.</span><span class="n">change_default_fonts</span><span class="p">(</span><span class="n">FontRoboto</span><span class="o">.</span><span class="n">MONO_LIGHT</span><span class="p">,</span> <span class="n">FontRoboto</span><span class="o">.</span><span class="n">MONO_REGULAR</span><span class="p">,</span> <span class="n">FontRoboto</span><span class="o">.</span><span class="n">MONO_BOLD</span><span class="p">)</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="n">arrow_l</span><span class="p">(</span>
+<span class="linenos"> 8</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos"> 9</span>    <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="linenos">10</span>    <span class="n">height</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+<span class="linenos">11</span>    <span class="n">tail_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">12</span>    <span class="n">head_width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="linenos">13</span>    <span class="n">head_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">14</span><span class="p">)</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="n">arrow_l</span><span class="p">(</span>
+<span class="linenos">17</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">18</span>    <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="linenos">19</span>    <span class="n">height</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+<span class="linenos">20</span>    <span class="n">tail_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">21</span>    <span class="n">head_width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="linenos">22</span>    <span class="n">head_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">23</span>    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+<span class="linenos">24</span><span class="p">)</span>
+<span class="linenos">25</span><span class="n">lines</span><span class="p">([(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">)],</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
+<span class="linenos">26</span><span class="k">for</span> <span class="n">dot</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]:</span>
+<span class="linenos">27</span>    <span class="n">circle</span><span class="p">(</span><span class="n">dot</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;red_flat&quot;</span><span class="p">)</span>
+<span class="linenos">28</span>
+<span class="linenos">29</span><span class="n">circle</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue_flat&quot;</span><span class="p">)</span>
+<span class="linenos">30</span><span class="n">line</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue_dashed&quot;</span><span class="p">,</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;&lt;-&gt;&quot;</span><span class="p">)</span>
+<span class="linenos">31</span><span class="n">text</span><span class="p">((</span><span class="mf">47.5</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+<span class="linenos">32</span><span class="n">line</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue_dashed&quot;</span><span class="p">,</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;&lt;-&gt;&quot;</span><span class="p">)</span>
+<span class="linenos">33</span><span class="n">text</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+<span class="linenos">34</span>
+<span class="linenos">35</span><span class="n">arrow_l</span><span class="p">(</span>
+<span class="linenos">36</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+<span class="linenos">37</span>    <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">38</span>    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">39</span>    <span class="n">tail_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">40</span>    <span class="n">head_width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="linenos">41</span>    <span class="n">head_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">42</span>    <span class="n">angle</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+<span class="linenos">43</span>    <span class="n">head</span><span class="o">=</span><span class="s2">&quot;&lt;-&gt;&quot;</span><span class="p">,</span>
+<span class="linenos">44</span><span class="p">)</span>
+<span class="linenos">45</span><span class="n">text</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;angle=90&quot;</span><span class="p">)</span>
+<span class="linenos">46</span>
+<span class="linenos">47</span><span class="n">arrow_l</span><span class="p">(</span>
+<span class="linenos">48</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">49</span>    <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">50</span>    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">51</span>    <span class="n">tail_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">52</span>    <span class="n">head_width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="linenos">53</span>    <span class="n">head_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">54</span>    <span class="n">angle</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span>
+<span class="linenos">55</span>    <span class="n">head</span><span class="o">=</span><span class="s2">&quot;&lt;-&quot;</span><span class="p">,</span>
+<span class="linenos">56</span><span class="p">)</span>
+<span class="linenos">57</span><span class="n">text</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="s2">&quot;angle=180&quot;</span><span class="p">)</span>
+<span class="linenos">58</span>
+<span class="linenos">59</span><span class="n">arrow_l</span><span class="p">(</span>
+<span class="linenos">60</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span>
+<span class="linenos">61</span>    <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">62</span>    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">63</span>    <span class="n">tail_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">64</span>    <span class="n">head_width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="linenos">65</span>    <span class="n">head_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">66</span>    <span class="n">angle</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span>
+<span class="linenos">67</span>    <span class="n">head</span><span class="o">=</span><span class="s2">&quot;&lt;-&quot;</span><span class="p">,</span>
+<span class="linenos">68</span><span class="p">)</span>
+<span class="linenos">69</span><span class="n">text</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="s2">&quot;angle=270&quot;</span><span class="p">)</span>
+<span class="linenos">70</span>
+<span class="linenos">71</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Here is an example output:</p>
+<figure class="align-center" id="id9">
+<a class="with-border reference internal image-reference" href="../../../_images/image_arrow_l.png"><img alt="../../../_images/image_arrow_l.png" class="with-border" src="../../../_images/image_arrow_l.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">arrow_l()</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>You need to change <code class="docutils literal notranslate"><span class="pre">angle</span></code> and direction of arrow <code class="docutils literal notranslate"><span class="pre">head</span></code> for drawing various style of L arrow.</p>
+</section>
+<section id="arrow-u">
+<h3>arrow_u<a class="headerlink" href="#arrow-u" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">arrow_u</span></code> function is syntax sugar of <code class="docutils literal notranslate"><span class="pre">arrow_polyline</span></code>.
+It draw “U” style arrow easily by specifying <code class="docutils literal notranslate"><span class="pre">width</span></code> and <code class="docutils literal notranslate"><span class="pre">height</span></code> and <code class="docutils literal notranslate"><span class="pre">angle</span></code>.</p>
+<ul class="simple">
+<li><p>xy: Center of arrow shape.</p></li>
+<li><p>width: width of arrow</p></li>
+<li><p>height: height of arrow</p></li>
+<li><p>tail_width: Width of the arrow’s tail (not the head)</p></li>
+<li><p>head_width: Width of the arrow’s head</p></li>
+<li><p>head_length: Length of the arrow’s head</p></li>
+<li><p>head (optional): Style of the arrow’s head (<code class="docutils literal notranslate"><span class="pre">&quot;-&gt;&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;&lt;-&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;&lt;-&gt;&quot;</span></code> for different configurations)</p></li>
+<li><p>r (optional): R of arrow line</p></li>
+<li><p>angle (optional): Angle of arrow</p></li>
+<li><p>style (optional): Style of the arrow</p></li>
+</ul>
+<p>Let’s explore an example:</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">image_arrow_u.py</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">dtheme</span><span class="o">.</span><span class="n">apply_official_theme</span><span class="p">(</span><span class="s2">&quot;essentials&quot;</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="n">dtheme</span><span class="o">.</span><span class="n">change_default_fonts</span><span class="p">(</span><span class="n">FontRoboto</span><span class="o">.</span><span class="n">MONO_LIGHT</span><span class="p">,</span> <span class="n">FontRoboto</span><span class="o">.</span><span class="n">MONO_REGULAR</span><span class="p">,</span> <span class="n">FontRoboto</span><span class="o">.</span><span class="n">MONO_BOLD</span><span class="p">)</span>
+<span class="linenos"> 5</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="n">arrow_u</span><span class="p">(</span>
+<span class="linenos"> 8</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos"> 9</span>    <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">10</span>    <span class="n">height</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+<span class="linenos">11</span>    <span class="n">tail_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">12</span>    <span class="n">head_width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="linenos">13</span>    <span class="n">head_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">14</span><span class="p">)</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="n">arrow_u</span><span class="p">(</span>
+<span class="linenos">17</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">18</span>    <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">19</span>    <span class="n">height</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+<span class="linenos">20</span>    <span class="n">tail_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">21</span>    <span class="n">head_width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="linenos">22</span>    <span class="n">head_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">23</span>    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+<span class="linenos">24</span><span class="p">)</span>
+<span class="linenos">25</span><span class="n">lines</span><span class="p">([(</span><span class="mf">32.5</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="p">(</span><span class="mf">32.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mf">47.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mf">47.5</span><span class="p">,</span> <span class="mi">40</span><span class="p">)],</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
+<span class="linenos">26</span><span class="k">for</span> <span class="n">dot</span> <span class="ow">in</span> <span class="p">[(</span><span class="mf">32.5</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="p">(</span><span class="mf">32.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mf">47.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mf">47.5</span><span class="p">,</span> <span class="mi">40</span><span class="p">)]:</span>
+<span class="linenos">27</span>    <span class="n">circle</span><span class="p">(</span><span class="n">dot</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;red_flat&quot;</span><span class="p">)</span>
+<span class="linenos">28</span>
+<span class="linenos">29</span><span class="n">circle</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue_flat&quot;</span><span class="p">)</span>
+<span class="linenos">30</span><span class="n">line</span><span class="p">((</span><span class="mf">32.5</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mf">47.5</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue_dashed&quot;</span><span class="p">,</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;&lt;-&gt;&quot;</span><span class="p">)</span>
+<span class="linenos">31</span><span class="n">text</span><span class="p">((</span><span class="mi">45</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+<span class="linenos">32</span><span class="n">line</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue_dashed&quot;</span><span class="p">,</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;&lt;-&gt;&quot;</span><span class="p">)</span>
+<span class="linenos">33</span><span class="n">text</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+<span class="linenos">34</span>
+<span class="linenos">35</span><span class="n">arrow_u</span><span class="p">(</span>
+<span class="linenos">36</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+<span class="linenos">37</span>    <span class="n">width</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="linenos">38</span>    <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+<span class="linenos">39</span>    <span class="n">tail_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">40</span>    <span class="n">head_width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="linenos">41</span>    <span class="n">head_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">42</span>    <span class="n">angle</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+<span class="linenos">43</span>    <span class="n">head</span><span class="o">=</span><span class="s2">&quot;&lt;-&gt;&quot;</span><span class="p">,</span>
+<span class="linenos">44</span><span class="p">)</span>
+<span class="linenos">45</span><span class="n">text</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;angle=90&quot;</span><span class="p">)</span>
+<span class="linenos">46</span>
+<span class="linenos">47</span><span class="n">arrow_u</span><span class="p">(</span>
+<span class="linenos">48</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">49</span>    <span class="n">width</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="linenos">50</span>    <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+<span class="linenos">51</span>    <span class="n">tail_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">52</span>    <span class="n">head_width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="linenos">53</span>    <span class="n">head_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">54</span>    <span class="n">angle</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span>
+<span class="linenos">55</span>    <span class="n">head</span><span class="o">=</span><span class="s2">&quot;&lt;-&quot;</span><span class="p">,</span>
+<span class="linenos">56</span><span class="p">)</span>
+<span class="linenos">57</span><span class="n">text</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="s2">&quot;angle=180&quot;</span><span class="p">)</span>
+<span class="linenos">58</span>
+<span class="linenos">59</span><span class="n">arrow_u</span><span class="p">(</span>
+<span class="linenos">60</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span>
+<span class="linenos">61</span>    <span class="n">width</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="linenos">62</span>    <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+<span class="linenos">63</span>    <span class="n">tail_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">64</span>    <span class="n">head_width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="linenos">65</span>    <span class="n">head_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">66</span>    <span class="n">angle</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span>
+<span class="linenos">67</span>    <span class="n">head</span><span class="o">=</span><span class="s2">&quot;&lt;-&quot;</span><span class="p">,</span>
+<span class="linenos">68</span><span class="p">)</span>
+<span class="linenos">69</span><span class="n">text</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="s2">&quot;angle=270&quot;</span><span class="p">)</span>
+<span class="linenos">70</span>
+<span class="linenos">71</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Here is an example output:</p>
+<figure class="align-center" id="id11">
+<a class="with-border reference internal image-reference" href="../../../_images/image_arrow_u.png"><img alt="../../../_images/image_arrow_u.png" class="with-border" src="../../../_images/image_arrow_u.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">arrow_u()</span><a class="headerlink" href="#id11" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>You need to change <code class="docutils literal notranslate"><span class="pre">angle</span></code> and direction of arrow <code class="docutils literal notranslate"><span class="pre">head</span></code> for drawing various style of L arrow.</p>
+</section>
+<section id="arrow-arc">
+<h3>arrow_arc<a class="headerlink" href="#arrow-arc" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">arrow_arc</span></code> function draw arc on ellipse and circle(when width and height are same).
+It specify ellipse <code class="docutils literal notranslate"><span class="pre">width</span></code> and <code class="docutils literal notranslate"><span class="pre">height</span></code>.
+And also, you can specify where arrow start and end via <code class="docutils literal notranslate"><span class="pre">angle_start</span></code> and <code class="docutils literal notranslate"><span class="pre">angle_end</span></code>.
+Please take care, length of head is specified by <code class="docutils literal notranslate"><span class="pre">head_angle</span></code>.
+<code class="docutils literal notranslate"><span class="pre">head_angle=N</span></code> means drawing head within N degree.</p>
+<ul class="simple">
+<li><p>xy: Center of arrow shape.</p></li>
+<li><p>width: width of ellipse</p></li>
+<li><p>height: height of ellipse</p></li>
+<li><p>tail_width: Width of the arrow’s tail (not the head)</p></li>
+<li><p>head_width: Width of the arrow’s head</p></li>
+<li><p>head_angle: Length of the arrow’s head by degree</p></li>
+<li><p>head (optional): Style of the arrow’s head (<code class="docutils literal notranslate"><span class="pre">&quot;-&gt;&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;&lt;-&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;&lt;-&gt;&quot;</span></code> for different configurations)</p></li>
+<li><p>angle_start (optional): Where the arrow start. default is 0.</p></li>
+<li><p>angle_end (optional): Where the arrow end. default is 360.</p></li>
+<li><p>angle (optional): Angle of arrow</p></li>
+<li><p>style (optional): Style of the arrow</p></li>
+</ul>
+<p>Let’s explore an example:</p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">image_arrow_arc.py</span><a class="headerlink" href="#id12" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">drawlib.apis</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">dtheme</span><span class="o">.</span><span class="n">apply_official_theme</span><span class="p">(</span><span class="s2">&quot;essentials&quot;</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="n">dtheme</span><span class="o">.</span><span class="n">change_default_fonts</span><span class="p">(</span><span class="n">FontRoboto</span><span class="o">.</span><span class="n">MONO_LIGHT</span><span class="p">,</span> <span class="n">FontRoboto</span><span class="o">.</span><span class="n">MONO_REGULAR</span><span class="p">,</span> <span class="n">FontRoboto</span><span class="o">.</span><span class="n">MONO_BOLD</span><span class="p">)</span>
+<span class="linenos"> 5</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="n">arrow_arc</span><span class="p">(</span>
+<span class="linenos"> 8</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos"> 9</span>    <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">10</span>    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">11</span>    <span class="n">tail_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">12</span>    <span class="n">head_width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="linenos">13</span>    <span class="n">head_angle</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="linenos">14</span>    <span class="n">angle_start</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="linenos">15</span>    <span class="n">angle_end</span><span class="o">=</span><span class="mi">340</span><span class="p">,</span>
+<span class="linenos">16</span><span class="p">)</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="n">arrow_arc</span><span class="p">(</span>
+<span class="linenos">19</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">20</span>    <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">21</span>    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">22</span>    <span class="n">tail_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">23</span>    <span class="n">head_width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="linenos">24</span>    <span class="n">head_angle</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="linenos">25</span>    <span class="n">angle_start</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="linenos">26</span>    <span class="n">angle_end</span><span class="o">=</span><span class="mi">340</span><span class="p">,</span>
+<span class="linenos">27</span>    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+<span class="linenos">28</span><span class="p">)</span>
+<span class="linenos">29</span><span class="n">arc</span><span class="p">(</span>
+<span class="linenos">30</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+<span class="linenos">31</span>    <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">32</span>    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">33</span>    <span class="c1"># angle_start=20,</span>
+<span class="linenos">34</span>    <span class="c1"># angle_end=340,</span>
+<span class="linenos">35</span>    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span>
+<span class="linenos">36</span><span class="p">)</span>
+<span class="linenos">37</span><span class="n">circle</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue_flat&quot;</span><span class="p">)</span>
+<span class="linenos">38</span><span class="n">line</span><span class="p">((</span><span class="mf">32.5</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mf">47.5</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue_dashed&quot;</span><span class="p">,</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;&lt;-&gt;&quot;</span><span class="p">)</span>
+<span class="linenos">39</span><span class="n">text</span><span class="p">((</span><span class="mi">53</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+<span class="linenos">40</span><span class="n">line</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mf">17.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mf">32.5</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue_dashed&quot;</span><span class="p">,</span> <span class="n">arrowhead</span><span class="o">=</span><span class="s2">&quot;&lt;-&gt;&quot;</span><span class="p">)</span>
+<span class="linenos">41</span><span class="n">text</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mf">37.5</span><span class="p">),</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+<span class="linenos">42</span>
+<span class="linenos">43</span><span class="k">for</span> <span class="n">dot</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">47</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">47</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">)]:</span>
+<span class="linenos">44</span>    <span class="n">circle</span><span class="p">(</span><span class="n">dot</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;red_flat&quot;</span><span class="p">)</span>
+<span class="linenos">45</span>
+<span class="linenos">46</span><span class="n">text</span><span class="p">((</span><span class="mf">57.5</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="s2">&quot;angle_start&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="linenos">47</span><span class="n">text</span><span class="p">((</span><span class="mf">57.5</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="s2">&quot;angle_end&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="linenos">48</span>
+<span class="linenos">49</span><span class="n">text</span><span class="p">((</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span> <span class="s1">&#39;The arrow is drawn counterclockwise.</span><span class="se">\n</span><span class="s1">To draw a clockwise arrow, specify head=&quot;&lt;-&quot;.&#39;</span><span class="p">)</span>
+<span class="linenos">50</span>
+<span class="linenos">51</span><span class="n">arrow_arc</span><span class="p">(</span>
+<span class="linenos">52</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">),</span>
+<span class="linenos">53</span>    <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+<span class="linenos">54</span>    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">55</span>    <span class="n">tail_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">56</span>    <span class="n">head_width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="linenos">57</span>    <span class="n">head_angle</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="linenos">58</span>    <span class="n">angle_start</span><span class="o">=</span><span class="mi">225</span><span class="p">,</span>
+<span class="linenos">59</span>    <span class="n">angle_end</span><span class="o">=</span><span class="mi">135</span><span class="p">,</span>
+<span class="linenos">60</span>    <span class="n">head</span><span class="o">=</span><span class="s2">&quot;&lt;-&gt;&quot;</span><span class="p">,</span>
+<span class="linenos">61</span><span class="p">)</span>
+<span class="linenos">62</span><span class="n">text</span><span class="p">((</span><span class="mf">72.5</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">),</span> <span class="s2">&quot;width=25, height=15&quot;</span><span class="p">)</span>
+<span class="linenos">63</span>
+<span class="linenos">64</span><span class="n">arc</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mf">37.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
+<span class="linenos">65</span><span class="n">arrow_arc</span><span class="p">(</span>
+<span class="linenos">66</span>    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mf">37.5</span><span class="p">),</span>
+<span class="linenos">67</span>    <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+<span class="linenos">68</span>    <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="linenos">69</span>    <span class="n">tail_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="linenos">70</span>    <span class="n">head_width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="linenos">71</span>    <span class="n">head_angle</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="linenos">72</span>    <span class="n">angle_start</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+<span class="linenos">73</span>    <span class="n">angle_end</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span>
+<span class="linenos">74</span>    <span class="n">angle</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+<span class="linenos">75</span>    <span class="n">head</span><span class="o">=</span><span class="s2">&quot;&lt;-&quot;</span><span class="p">,</span>
+<span class="linenos">76</span><span class="p">)</span>
+<span class="linenos">77</span><span class="n">text</span><span class="p">((</span><span class="mf">82.5</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="s1">&#39;angle=45</span><span class="se">\n</span><span class="s1">head=&quot;&lt;-&quot;&#39;</span><span class="p">)</span>
+<span class="linenos">78</span>
+<span class="linenos">79</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Here is an example output:</p>
+<figure class="align-center" id="id13">
+<a class="with-border reference internal image-reference" href="../../../_images/image_arrow_arc.png"><img alt="../../../_images/image_arrow_arc.png" class="with-border" src="../../../_images/image_arrow_arc.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">arrow_arc()</span><a class="headerlink" href="#id13" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Please remember, arrow is always drawn from <code class="docutils literal notranslate"><span class="pre">angle_start</span></code> to <code class="docutils literal notranslate"><span class="pre">angle_end</span></code> counterclockwise.
+If you want to draw clockwise arrow, please specify it via <code class="docutils literal notranslate"><span class="pre">head</span></code>.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../shape/doc.html" class="btn btn-neutral float-left" title="Drawing Shape" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../shape_circle/doc.html" class="btn btn-neutral float-right" title="Drawing Circle Like Shapes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Yuichi Ito &lt;yuichi@yuichi.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

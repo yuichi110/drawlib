@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Builder Guide</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Drawlib Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="smartarts/index.html">SmartArts Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="themes/index.html">Themes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="tools/index.html">Tools & CLI Reference</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="doc_builder.html">Document Builder Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="foundations/canvas.html">Canvas & Coordinate System</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="icons.html">Icons Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="images.html">Images & Effects Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="lines.html">Lines & Curves Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="quick_start.html">Quick Start Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="smartarts.html">SmartArts Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="text.html">Text & Typography Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="themes.html">Themes & Color Palettes Guide</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Document Builder Guide</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Document Builder Guide</h1>
+<p>The <code>doc_builder</code> module compiles Markdown documents containing <code>drawlib</code> code blocks into fully rendered HTML static sites, PDFs, or GitHub-ready Markdown.</p>
+<hr />
+<h2>1. Using Python API (<code>build</code>)</h2>
+<p>Import <code>build</code> directly from <code>drawlib.doc_builder</code>:</p>
+<pre><code class="language-python">from drawlib.doc_builder import build
+
+# Build GitHub Markdown documentation with embedded images
+build(
+    input_path=&quot;docs_src&quot;,
+    output_path=&quot;docs&quot;,
+    output_format=&quot;markdown&quot;
+)
+
+# Build Web HTML documentation with built-in CSS preset
+build(
+    input_path=&quot;docs_src&quot;,
+    output_path=&quot;docs_html&quot;,
+    output_format=&quot;html&quot;,
+    css_path=&quot;default&quot;  # Presets: &quot;default&quot;, &quot;github&quot;, &quot;monochrome&quot;, &quot;minimal&quot;
+)
+</code></pre>
+<hr />
+<h2>2. Using Command-Line Interface (CLI)</h2>
+<p>Drawlib provides a CLI tool accessible via <code>drawlib doc-builder compile</code>:</p>
+<pre><code class="language-bash"># Compile input directory to HTML site with &quot;github&quot; CSS preset
+drawlib doc-builder compile docs_src -o docs_html --format html --css github
+
+# Compile single file to PDF
+drawlib doc-builder compile docs_src/index.md -o docs_html/index.pdf --format pdf
+</code></pre>
+<hr />
+<h2>3. Built-in CSS Presets</h2>
+<p>When compiling HTML output, select from 4 built-in CSS presets:</p>
+<ul>
+<li><strong><code>default</code></strong>: Drawlib signature Indigo/Violet modern design.</li>
+<li><strong><code>github</code></strong>: GitHub Markdown clean light theme.</li>
+<li><strong><code>monochrome</code></strong>: Slate/Zinc dark minimalist theme.</li>
+<li><strong><code>minimal</code></strong>: Print-inspired editorial typography.</li>
+</ul>
+<hr />
+<h2>4. Code Block Options</h2>
+<p>Customize image size, alignment, captions, or output format directly on the code block header line using space-separated parameters:</p>
+<pre><code class="language-markdown">&lt;!-- Shorthand syntax for 400px width and center alignment --&gt;
+
+
+```python
+circle((50, 50), radius=20)
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="doc_builder_1.png" alt="doc_builder_1" style="width: 400px; max-width: 100%;" />
+</div>
+<!-- Explicit key:value syntax with caption and SVG format override -->
+<pre><code class="language-python">circle((50, 50), radius=20)
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="doc_builder_2.svg" alt="doc_builder_2" style="width: 500px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Network Topology</figcaption>
+</figure>
+<pre><code>
+### Available Parameters
+- **`width:` / `w:`** or numeric shorthand (`400px`, `50%`) - Image width.
+- **`height:` / `h:`** (`300px`) - Image height.
+- **`align:` / `a:`** or shorthand (`left`, `center`, `right`) - Container alignment.
+- **`format:` / `fmt:`** or shorthand (`png`, `svg`, `inline_svg`) - Per-block output format override.
+- **`caption:`** (`caption:&quot;Description&quot;`) - Renders a `&lt;figure&gt;` with `&lt;figcaption&gt;`.
+- **`class:`** (`class:custom-class`) - Custom CSS class on the container element.
+
+---
+
+## Navigation
+
+- [Back to Index](./index.md)
+
+</code></pre>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>
