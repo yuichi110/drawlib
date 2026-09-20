@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoxList</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with ThemePreset</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">BoxList</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <p>=============</p>
+<h1>BoxList</h1>
+<p>BoxList draws list of texts within boxes.
+Here is examples of BoxList.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.smartarts import BoxList, dsart
+
+config(width=100, height=50)
+
+b1 = dsart.BoxList(default_text_style=&quot;white&quot;)
+b1.extend([&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;])
+b1.draw(xy=(10, 35), box_width=8, box_height=6)
+
+
+b2 = dsart.BoxList(default_box_style=&quot;solid&quot;, default_text_style=&quot;&quot;)
+b2.extend([&quot;1&quot;, &quot;2&quot;])
+b2.append(&quot;3&quot;, box_style=&quot;red_solid_bold&quot;, text_style=&quot;red_bold&quot;)
+b2.extend([&quot;4&quot;, &quot;&quot;, &quot;&quot;])
+b2.draw(xy=(10, 10), box_width=8, box_height=6)
+
+b3 = dsart.BoxList(default_text_style=&quot;white&quot;)
+b3.extend([&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;])
+b3.draw(xy=(75, 10), box_width=8, box_height=6, align=&quot;bottom&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="boxlist_images/1.png" alt="boxlist_1" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>image1.png
+</code></pre>
+<p>As you can see, BoxList supports changing size, style and alignments.</p>
+<h1>Quick Start</h1>
+<p>BoxList is used in these procedures.</p>
+<ol>
+<li>Create object with specifying default styles.</li>
+<li>Add single or multiple items to list with optional style.</li>
+<li>draw with specifying xy, size and align.</li>
+</ol>
+<p>Here is an example code.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.smartarts import BoxList, dsart
+
+config(width=100, height=50)
+
+b1 = dsart.BoxList(default_text_style=&quot;white&quot;)
+b1.extend([&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;])
+b1.draw(xy=(10, 35), box_width=8, box_height=6)
+
+
+b2 = dsart.BoxList(default_box_style=&quot;solid&quot;, default_text_style=&quot;&quot;)
+b2.extend([&quot;1&quot;, &quot;2&quot;])
+b2.append(&quot;3&quot;, box_style=&quot;red_solid_bold&quot;, text_style=&quot;red_bold&quot;)
+b2.extend([&quot;4&quot;, &quot;&quot;, &quot;&quot;])
+b2.draw(xy=(10, 10), box_width=8, box_height=6)
+
+b3 = dsart.BoxList(default_text_style=&quot;white&quot;)
+b3.extend([&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;])
+b3.draw(xy=(75, 10), box_width=8, box_height=6, align=&quot;bottom&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="boxlist_images/2.png" alt="boxlist_2" />
+</div>
+<p>This function call draws a bubble speech shape with a tail starting from the right edge, beginning at 30% from the bottom, extending to 70% along its path.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.smartarts import BoxList, dsart
+
+config(width=100, height=50)
+
+b1 = dsart.BoxList(default_text_style=&quot;white&quot;)
+b1.extend([&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;])
+b1.draw(xy=(10, 35), box_width=8, box_height=6)
+
+
+b2 = dsart.BoxList(default_box_style=&quot;solid&quot;, default_text_style=&quot;&quot;)
+b2.extend([&quot;1&quot;, &quot;2&quot;])
+b2.append(&quot;3&quot;, box_style=&quot;red_solid_bold&quot;, text_style=&quot;red_bold&quot;)
+b2.extend([&quot;4&quot;, &quot;&quot;, &quot;&quot;])
+b2.draw(xy=(10, 10), box_width=8, box_height=6)
+
+b3 = dsart.BoxList(default_text_style=&quot;white&quot;)
+b3.extend([&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;])
+b3.draw(xy=(75, 10), box_width=8, box_height=6, align=&quot;bottom&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="boxlist_images/3.png" alt="boxlist_3" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>image1.png
+</code></pre>
+<h1>Alignment and XY</h1>
+<p>BoxList supports 4 alignment.</p>
+<ul>
+<li><code>left</code>: Left to right. Default</li>
+<li><code>right</code>: Right to left</li>
+<li><code>bottom</code>: Bottom to top</li>
+<li><code>top</code>: Top to bottom</li>
+</ul>
+<p>Each BoxList location depends on args <code>xy</code> of function <code>draw</code>.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.smartarts import BoxList, dsart
+
+config(width=100, height=50)
+
+b1 = dsart.BoxList(default_text_style=&quot;white&quot;)
+b1.extend([&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;])
+b1.draw(xy=(10, 35), box_width=8, box_height=6)
+
+
+b2 = dsart.BoxList(default_box_style=&quot;solid&quot;, default_text_style=&quot;&quot;)
+b2.extend([&quot;1&quot;, &quot;2&quot;])
+b2.append(&quot;3&quot;, box_style=&quot;red_solid_bold&quot;, text_style=&quot;red_bold&quot;)
+b2.extend([&quot;4&quot;, &quot;&quot;, &quot;&quot;])
+b2.draw(xy=(10, 10), box_width=8, box_height=6)
+
+b3 = dsart.BoxList(default_text_style=&quot;white&quot;)
+b3.extend([&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;])
+b3.draw(xy=(75, 10), box_width=8, box_height=6, align=&quot;bottom&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="boxlist_images/4.png" alt="boxlist_4" />
+</div>
+<h1>API Specification</h1>
+<h2><code>BoxList()</code></h2>
+<p>Initialize BoxList.</p>
+<p>Args.</p>
+<ul>
+<li>default_box_style (Union[str, ShapeStyle, None]): The style for the boxes.</li>
+<li>default_text_style (Union[str, ShapeTextStyle, None]): The style for the text inside the boxes.</li>
+</ul>
+<h2><code>append()</code></h2>
+<p>Appends a new box with text to the BoxList.</p>
+<p>Args:</p>
+<ul>
+<li>text (str): The text to be displayed inside the box.</li>
+<li>box_style (Union[str, ShapeStyle, None], optional): The style for the box. Can be a style name, a ShapeStyle object, or None. If None, the default box style is used.</li>
+<li>text_style (Union[str, ShapeTextStyle, None], optional): The style for the text inside the box. Can be a style name, a ShapeTextStyle object, or None. If None, the default text style is used.</li>
+</ul>
+<h2><code>insert()</code></h2>
+<p>Inserts a new box with text at a specified position in the BoxList.</p>
+<p>Args:</p>
+<ul>
+<li>index (int): The position at which to insert the new box.</li>
+<li>text (str): The text to be displayed inside the box.</li>
+<li>box_style (Union[str, ShapeStyle, None], optional): The style for the box. Can be a style name, a ShapeStyle object, or None. If None, the default box style is used.</li>
+<li>text_style (Union[str, ShapeTextStyle, None], optional): The style for the text inside the box. Can be a style name, a ShapeTextStyle object, or None. If None, the default text style is used.</li>
+</ul>
+<h2><code>extend()</code></h2>
+<p>Extends the BoxList by appending multiple boxes with text.</p>
+<p>Args:</p>
+<ul>
+<li>texts (List[str]): A list of texts to be displayed inside the boxes.</li>
+<li>box_style (Union[str, ShapeStyle, None], optional): The style for the boxes. Can be a style name, a ShapeStyle object, or None. If None, the default box style is used.</li>
+<li>text_style (Union[str, ShapeTextStyle, None], optional): The style for the text inside the boxes. Can be a style name, a ShapeTextStyle object, or None. If None, the default text style is used.</li>
+</ul>
+<h2><code>draw()</code></h2>
+<p>Draws a list of boxes at the specified location.</p>
+<p>Args:</p>
+<ul>
+<li>xy (Tuple[float, float]): The starting point (x, y) to draw the list of boxes.</li>
+<li>box_width (float): The width of each box.</li>
+<li>box_height (float): The height of each box.</li>
+<li>align (Literal[&quot;left&quot;, &quot;right&quot;, &quot;bottom&quot;, &quot;top&quot;]): The alignment of the boxes relative to the starting point.</li>
+</ul>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

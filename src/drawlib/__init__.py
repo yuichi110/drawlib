@@ -9,13 +9,23 @@
 
 """Root package."""
 
+import importlib.metadata
 import re
 import sys
 from typing import Final, List
 
-# please update here when you release new version
-LIB_VERSION: Final[str] = "0.2.4.dev3"
-ASSET_VERSION: Final[str] = "v0_2"
+LIB_NAME: Final[str] = "drawlib"
+
+
+def _get_version() -> str:
+    try:
+        return importlib.metadata.version(LIB_NAME)
+    except importlib.metadata.PackageNotFoundError:
+        return "0.3.0.dev1"
+
+
+LIB_VERSION: Final[str] = _get_version()
+ASSET_VERSION: Final[str] = "v0_3"
 
 
 # please list active main committers (1+ commits per month)
@@ -24,7 +34,6 @@ AUTHORS: Final[List[str]] = [
 ]
 
 # please change accordingly
-LIB_NAME: Final[str] = "drawlib"
 DESCRIPTION: Final[str] = "Python drawing library. Illustration as Code."
 HOMEPAGE: Final[str] = "https://www.drawlib.com"
 REPOSITORY: Final[str] = "https://github.com/yuichi110/drawlib"

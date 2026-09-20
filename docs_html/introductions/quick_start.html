@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Start</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with ThemePreset</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Quick Start</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <p>=============</p>
+<h1>Quick Start</h1>
+<h1>Standard Procedure for Drawing with Drawlib</h1>
+<p>Below is the standard procedure for drawing using Drawlib:</p>
+<ol>
+<li>Import Drawlib library: Begin by importing the Drawlib library into your Python environment.</li>
+<li>(Optional) Import Your Style Code and Utilities: Optionally, import any custom style definitions or utility functions you may have.</li>
+<li>(Optional) Configure the Canvas: Set up the canvas by specifying its size and resolution.</li>
+<li>Draw Elements: Use Drawlib's APIs to draw icons, images, lines, shapes, or text on the canvas as needed.</li>
+<li>Save the Canvas: Once your drawing is complete, save the canvas to an image file.</li>
+</ol>
+<p>While detailed explanations will be provided in subsequent documents, let's briefly overview each step with an example.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.images import image
+from drawlib.lines import line
+from drawlib.shapes import circle
+from drawlib.text import text
+
+config(width=100, height=100)
+
+line((10, 10), (90, 90))
+circle((25, 75), radius=20)
+image((75, 25), width=30, image=&quot;python.png&quot;)
+text((75, 5), &quot;Hello drawlib!&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="quick_start_images/1.png" alt="quick_start_1" />
+</div>
+<p>Execute this code using the Python command:</p>
+<pre><code class="language-text">$ python image_abstract1.py
+</code></pre>
+<p>After execution, an image file named &quot;image_abstract1.png,&quot; corresponding to the code's content, will be generated.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.images import image
+from drawlib.lines import line
+from drawlib.shapes import circle
+from drawlib.text import text
+
+config(width=100, height=100)
+
+line((10, 10), (90, 90))
+circle((25, 75), radius=20)
+image((75, 25), width=30, image=&quot;python.png&quot;)
+text((75, 5), &quot;Hello drawlib!&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="quick_start_images/2.png" alt="quick_start_2" style="width: 450px; max-width: 100%;" />
+</div>
+<p>image_abstract1.png (corresponding to code file name)</p>
+<p>Now, let's proceed to explore the functionality of Drawlib step by step.</p>
+<h1>Importing Drawlib</h1>
+<p>Drawlib is a pure Python library that you can import and use like any other library after installation.
+While many libraries spread their APIs across multiple packages, drawlib consolidates all its public APIs within the <code>drawlib</code> modules.</p>
+<p>We recommend importing all APIs using the wildcard <code>*</code>, as shown below:</p>
+<pre><code class="language-python">
+</code></pre>
+<p>Although conventional Python programming guidelines (PEP) discourage wildcard imports for clarity and maintenance reasons, in the context of illustrating typical scenarios, simplicity in accessing APIs takes precedence.</p>
+<p>This import style ensures that you have immediate access to all the latest APIs available in your drawlib installation.
+You can then proceed to import your custom styles and utilities as needed, akin to importing CSS and utility JavaScript code in an HTML header.
+We will provide detailed explanations on this aspect later.</p>
+<p>If you need to use older APIs, you can achieve this by importing them using the following style:</p>
+<pre><code class="language-python">
+</code></pre>
+<p>Here, <code>v0_1</code> corresponds to version <code>0.1.*</code>.</p>
+<h1>Configuring the Canvas Size and DPI</h1>
+<p>After importing the Drawlib library, you can start drawing.
+However, it's recommended to configure the canvas to define parameters such as size using the <code>config()</code> function.
+For example:</p>
+<pre><code class="language-python">from drawlib.canvas import config
+config(width=100, height=100)
+</code></pre>
+<p>This snippet sets the canvas width to 100 units and height to 100 units.
+These units represent coordinates within the canvas, not pixel values.
+With both dimensions set to 100, the coordinate range for both x and y axes is from 0 to 100.
+If you set both dimensions to 10, specifying x=20 would be out of range.
+Drawlib does not raise an error in this case, but your item may not render as expected.
+By default, both width and height are set to 100 units.</p>
+<p>If you configure the canvas with <code>config(width=200, height=100)</code>, it will produce a wider canvas while maintaining the coordinate system for each item.
+See the output image below:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.images import image
+from drawlib.lines import line
+from drawlib.shapes import circle
+from drawlib.text import text
+
+config(width=200, height=100)
+
+line((10, 10), (90, 90))
+circle((25, 75), radius=20)
+image((75, 25), width=30, image=&quot;python.png&quot;)
+text((75, 5), &quot;Hello drawlib!&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="quick_start_images/3.png" alt="quick_start_3" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>image_config1.png
+</code></pre>
+<p>For higher resolution images, adjusting the DPI (Dots Per Inch) is necessary:</p>
+<pre><code class="language-python">from drawlib.canvas import config
+config(dpi=200)
+</code></pre>
+<p>Drawlib maintains a consistent canvas width of 10 inches.
+Therefore, changes in the coordinate-based width from the previous example do not affect the output.</p>
+<p>In the given example, a canvas size of &quot;10 inches x 200 DPI&quot; results in an image width of 2000 pixels.
+Increasing the DPI to 400 would double the image width to 4000 pixels.
+However, generating high-resolution images consumes more time and disk space.
+While there is no maximum set value, a DPI of 1000 may be excessive.
+Default DPI value is 100.</p>
+<h1>Configuring the Canvas Grid</h1>
+<p>The <code>config()</code> function in Drawlib offers several advanced options, including the grid feature,
+which can be particularly useful for positioning items on your canvas quickly:</p>
+<pre><code class="language-python">from drawlib.canvas import config
+config(width=100, height=100, grid=True)
+</code></pre>
+<p>Enabling <code>grid=True</code> adds a grid to your image without affecting the normal image generation.
+Therefore, there's no need to remove the <code>grid=True</code> option to obtain an image without a grid.
+If you specifically require only a grid image, you can use <code>grid_only=True</code> instead.
+By default, both grid and grid_only are set to False.</p>
+<p>The effects of these adjustments are demonstrated in the following files:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.images import image
+from drawlib.lines import line
+from drawlib.shapes import circle
+from drawlib.text import text
+
+config(width=100, height=100, grid=True)
+
+line((10, 10), (90, 90))
+circle((25, 75), radius=20)
+image((75, 25), width=30, image=&quot;python.png&quot;)
+text((75, 5), &quot;Hello drawlib!&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="quick_start_images/4.png" alt="quick_start_4" style="width: 450px; max-width: 100%;" />
+</div>
+<pre><code>Image without grid
+</code></pre>
+<p><img src="image_config2_grid.png" alt="image_config2_grid.png" /></p>
+<pre><code>Image with grid
+</code></pre>
+<p>Code file <code>image_config2.py</code> yield two files: <code>image_config2.png</code> and <code>image_config2_grid.png</code>.
+Image file without grid is normal file name.
+Image file with grid has <code>_grid</code> on its last.</p>
+<h1>Coordinate and alignment</h1>
+<p>Drawlib organizes its drawing functionalities into five main categories: Icon, Image, Line, Shape, and Text.
+Before delving into these categories, understanding Drawlib's coordinate system is essential, as all drawing objects rely on it.</p>
+<p>Each drawing object in Drawlib is positioned using xy coordinates.
+The placement of these xy coordinates depends on horizontal (<code>halign</code>) and vertical (<code>valign</code>) alignment settings.
+Common alignment options include:</p>
+<h2>Horizontal alignment <code>halign</code></h2>
+<ul>
+<li>left</li>
+<li>center</li>
+<li>right</li>
+</ul>
+<h2>Vertical alignment <code>valign</code></h2>
+<ul>
+<li>bottom</li>
+<li>center</li>
+<li>top</li>
+</ul>
+<p>Let's examine these alignment options through an example:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.shapes import circle
+from drawlib.text import text
+from drawlib.types import ShapeStyle, TextStyle
+
+config(width=100, height=50, grid_only=True)
+
+circle(
+    xy=(25, 25),
+    radius=10,
+    style=ShapeStyle(text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
+)
+circle(
+    xy=(25, 25),
+    radius=1,
+    style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red),
+)
+text((25, 10), &quot;Align center,center&quot;, style=TextStyle(text_color=Colors.Red))
+
+circle(
+    xy=(75, 25),
+    radius=10,
+    style=ShapeStyle(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
+)
+circle(
+    xy=(75, 25),
+    radius=1,
+    style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red),
+)
+text((75, 10), &quot;Align left,bottom&quot;, style=TextStyle(text_color=Colors.Red))
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="quick_start_images/5.png" alt="quick_start_5" />
+</div>
+<p>In this example, horizontal and vertical alignment are specified within the style object, with defaults set to <code>halign=&quot;center&quot;</code> and <code>valign=&quot;center&quot;</code>.</p>
+<p>The resulting image demonstrates the effects of different alignments:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.shapes import circle
+from drawlib.text import text
+from drawlib.types import ShapeStyle, TextStyle
+
+config(width=100, height=50, grid_only=True)
+
+circle(
+    xy=(25, 25),
+    radius=10,
+    style=ShapeStyle(text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
+)
+circle(
+    xy=(25, 25),
+    radius=1,
+    style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red),
+)
+text((25, 10), &quot;Align center,center&quot;, style=TextStyle(text_color=Colors.Red))
+
+circle(
+    xy=(75, 25),
+    radius=10,
+    style=ShapeStyle(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
+)
+circle(
+    xy=(75, 25),
+    radius=1,
+    style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red),
+)
+text((75, 10), &quot;Align left,bottom&quot;, style=TextStyle(text_color=Colors.Red))
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="quick_start_images/6.png" alt="quick_start_6" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>Horizontal/Vertical alignments
+</code></pre>
+<p>In the image, the left circle's xy coordinates are aligned &quot;center, center&quot; as specified,
+while the right circle's xy coordinates are aligned &quot;left, bottom&quot;.</p>
+<p>By default, Drawlib sets the alignment for shapes like rectangles to &quot;center, center&quot;.
+This differs from many other drawing systems, which often default to &quot;left, bottom&quot; for rectangle-related shapes.
+Drawlib's choice of &quot;center, center&quot; simplifies the process of aligning items of varying sizes both vertically and horizontally.</p>
+<p>Despite the default setting, there may be cases where &quot;left, bottom&quot; alignment is preferred over &quot;center, center&quot;.
+In such situations, it's recommended to define a custom style object with the desired alignment settings and apply it selectively to specific items.
+You can overrides primary style with secondary style easily. Please take a look foundation chapter for details.</p>
+<h1>Drawing icon</h1>
+<p>Drawing an icon is similar to drawing an image.
+However, while an image typically refers to a png/jpeg picture, drawlib's icon is a Font Icon.
+If you're unfamiliar with Font Icons, I recommend checking out FontAwesome first.</p>
+<p>Drawlib version 0.1 offers two methods for drawing icons:</p>
+<ul>
+<li>Using the <code>icon()</code> function.</li>
+<li>Utilizing the <code>icon_phosphor</code> module and its functions.</li>
+</ul>
+<p>If you wish to draw an icon using your own font icon file, you can employ the icon() function.
+For instance, if you want to utilize FontAwesome (which is not supported by default), you need to provide the file and drawing parameters to this function.</p>
+<p>The icon_phosphor module provides embedded font icons and functions for drawing them.
+It leverages Phosphor (https://phosphoricons.com), which offers icons that are easy to use and facilitate &quot;Illustration as Code&quot; since they are accessible to anyone.</p>
+<p>Here's an example using icon_phosphor:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.icons import icon_phosphor
+from drawlib.types import IconStyle
+
+config(width=100, height=60, grid=True)
+
+icon_phosphor.airplane((25, 30), width=20)
+icon_phosphor.coffee(
+    xy=(75, 30),
+    width=20,
+    angle=45,
+    style=IconStyle(text_color=Colors.Red, icon_style=&quot;fill&quot;),
+)
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="quick_start_images/7.png" alt="quick_start_7" />
+</div>
+<p>This code generates the following output image:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.icons import icon_phosphor
+from drawlib.types import IconStyle
+
+config(width=100, height=60, grid=True)
+
+icon_phosphor.airplane((25, 30), width=20)
+icon_phosphor.coffee(
+    xy=(75, 30),
+    width=20,
+    angle=45,
+    style=IconStyle(text_color=Colors.Red, icon_style=&quot;fill&quot;),
+)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="quick_start_images/8.png" alt="quick_start_8" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>icon() and icon_phosphor draw icons
+</code></pre>
+<p>As demonstrated, the function name determines the icon to be drawn, while the <code>IconStyle</code> can be adjusted to modify color, style, and other attributes.</p>
+<p>For detailed instructions on using the icon() function, please refer to the icon documentation.
+This topic is beyond the scope of this quick start guide.</p>
+<h1>Drawing image</h1>
+<p>The <code>image()</code> function draws the provided image onto the Canvas at the specified xy coordinates and width.
+The height is automatically calculated based on the width to maintain the original image aspect ratio.
+If you need to adjust the aspect ratio, you can utilize the <code>Dimage</code> class, which I will discuss later.</p>
+<p>Here's an example using the <code>image()</code> function:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.images import image
+from drawlib.types import ImageStyle
+
+config(width=100, height=50, grid=True)
+
+image(xy=(25, 25), width=20, image=&quot;python.png&quot;)
+image(
+    xy=(75, 25),
+    width=20,
+    angle=45,
+    image=&quot;python.png&quot;,
+    style=ImageStyle(line_width=1),
+)
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="quick_start_images/9.png" alt="quick_start_9" />
+</div>
+<p>Execute this code using the Python command to get image.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.images import image
+from drawlib.types import ImageStyle
+
+config(width=100, height=50, grid=True)
+
+image(xy=(25, 25), width=20, image=&quot;python.png&quot;)
+image(
+    xy=(75, 25),
+    width=20,
+    angle=45,
+    image=&quot;python.png&quot;,
+    style=ImageStyle(line_width=1),
+)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="quick_start_images/10.png" alt="quick_start_10" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>image() draws image
+</code></pre>
+<p>As you can observe, you can specify the angle and use the <code>ImageStyle</code> to manage alignment and border lines.</p>
+<p>If you wish to modify the image itself, consider utilizing the <code>Dimage</code> class, which provides numerous methods for image manipulation.
+Take a look at this example:</p>
+<pre><code class="language-python">from drawlib._core.l2_models_._dimage import Dimage
+from drawlib.canvas import config, save
+from drawlib.images import image
+
+config(width=100, height=50, grid=True)
+
+
+image(xy=(25, 25), width=20, image=&quot;python.png&quot;)
+
+dimg = Dimage(&quot;python.png&quot;).mirror().sepia()
+image(xy=(75, 25), width=20, image=dimg)
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="quick_start_images/11.png" alt="quick_start_11" />
+</div>
+<p>The <code>Dimage</code> class is a string-like object.
+Methods for applying effects do not modify the image itself but create a new image object.
+Therefore, we use method chaining to apply operations such as mirroring (horizontal reverse) and sepia (changing color).</p>
+<pre><code class="language-python">from drawlib._core.l2_models_._dimage import Dimage
+from drawlib.canvas import config, save
+from drawlib.images import image
+
+config(width=100, height=50, grid=True)
+
+
+image(xy=(25, 25), width=20, image=&quot;python.png&quot;)
+
+dimg = Dimage(&quot;python.png&quot;).mirror().sepia()
+image(xy=(75, 25), width=20, image=dimg)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="quick_start_images/12.png" alt="quick_start_12" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>Dimage applies effects to the image
+</code></pre>
+<p>Both the <code>image()</code> function and the <code>Dimage</code> class accept images from the popular Pillow library.
+If you wish to perform advanced image processing, it's advisable to do so using Pillow and then utilize image() and Dimage for handling the processed images.</p>
+<p>Additionally, if the original image is of high resolution and drawlib compromises its quality upon saving, consider increasing the DPI (dots per inch) using the <code>config()</code> function.</p>
+<h1>Drawing line</h1>
+<p>Drawlib features the <code>line()</code> function for drawing lines, but it offers various other line-drawing options as well:</p>
+<ul>
+<li>line</li>
+<li>line_curved</li>
+<li>line_bezier1</li>
+<li>line_bezier2</li>
+<li>lines</li>
+<li>lines_curved</li>
+<li>lines_bezier</li>
+</ul>
+<p>Functions starting with &quot;line&quot; are designed to draw lines from point xy1 to point xy2, while those starting with &quot;lines&quot; are designed for lines passing through multiple points.
+Let's explore some of these line types:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.lines import line, line_curved, lines
+
+config(width=100, height=50, grid=True)
+
+line((20, 7), (80, 7))
+line_curved((20, 20), (80, 20), bend=0.2)
+line_curved((20, 30), (80, 30), bend=-0.2)
+lines([(20, 40), (30, 45), (70, 45), (80, 40)])
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="quick_start_images/13.png" alt="quick_start_13" />
+</div>
+<p>The <code>line_curved()</code> function draws a line from xy1 to xy2, but the bend parameter allows you to create curved lines.
+A bend value of 0.2 indicates a curved line 1.2 times longer than a straight line, while a value of -0.2 creates a curve in the opposite direction.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.lines import line, line_curved, lines
+
+config(width=100, height=50, grid=True)
+
+line((20, 7), (80, 7))
+line_curved((20, 20), (80, 20), bend=0.2)
+line_curved((20, 30), (80, 30), bend=-0.2)
+lines([(20, 40), (30, 45), (70, 45), (80, 40)])
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="quick_start_images/14.png" alt="quick_start_14" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>image_line1.png
+</code></pre>
+<p>Bezier line functions are a bit more complex.
+Please refer to the line documentation for details. However, they are incredibly useful for controlling complex curves.</p>
+<p>From point of line styling, we have these 2 categories.</p>
+<ul>
+<li>Arrow head</li>
+<li>Visual styles: Color, width, line style(solid, dashed etc) etc.</li>
+</ul>
+<p>Arrow head has logical meaning (HTML equivalent), so we will specify it at function arg <code>arrowhead</code>.
+But visual style has less meaning (CSS equivalent), then we will specify it as styling class <code>LineStyle</code>.</p>
+<p>Consider this example showcasing styling:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.lines import line
+from drawlib.types import LineStyle
+
+config(width=100, height=50, grid=True)
+
+line((20, 7), (80, 7))
+line(
+    (20, 16),
+    (80, 16),
+    style=LineStyle(line_style=&quot;dashed&quot;, line_width=5, line_color=Colors.Red),
+)
+line((20, 25), (80, 25), arrowhead=&quot;-&gt;&quot;)
+line((20, 34), (80, 34), arrowhead=&quot;&lt;-&gt;&quot;)
+line((20, 43), (80, 43), arrowhead=&quot;&lt;-&quot;, style=LineStyle(arrow_head_scale=50, line_style=&quot;dashdot&quot;, arrow_head_fill=True))
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="quick_start_images/15.png" alt="quick_start_15" />
+</div>
+<p>With LineStyle, you can configure line width, color, style, and more.
+Arrow head style is specified in function directry.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.lines import line
+from drawlib.types import LineStyle
+
+config(width=100, height=50, grid=True)
+
+line((20, 7), (80, 7))
+line(
+    (20, 16),
+    (80, 16),
+    style=LineStyle(line_style=&quot;dashed&quot;, line_width=5, line_color=Colors.Red),
+)
+line((20, 25), (80, 25), arrowhead=&quot;-&gt;&quot;)
+line((20, 34), (80, 34), arrowhead=&quot;&lt;-&gt;&quot;)
+line((20, 43), (80, 43), arrowhead=&quot;&lt;-&quot;, style=LineStyle(arrow_head_scale=50, line_style=&quot;dashdot&quot;, arrow_head_fill=True))
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="quick_start_images/16.png" alt="quick_start_16" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>line() draws line
+</code></pre>
+<p>While the <code>arrow()</code> function also draws arrows, it is not a line but rather a shape.
+Keep in mind that if you wish to draw an arrow line, utilize line() and related functions with LineArrowStyle.</p>
+<h1>Drawing shapes</h1>
+<p>Drawlib's keyword <code>Shape</code> encompasses a variety of shapes such as circles, rectangles, and more.
+While you're already familiar with the <code>circle()</code> function, Drawlib version 0.1 introduces several other functions for drawing shapes:</p>
+<ul>
+<li>arrow()</li>
+<li>arc()</li>
+<li>bubblespeech()</li>
+<li>chevron()</li>
+<li>circle()</li>
+<li>donuts()</li>
+<li>ellipse()</li>
+<li>fan()</li>
+<li>parallelogram()</li>
+<li>polygon()</li>
+<li>rectangle()</li>
+<li>regularpolygon()</li>
+<li>rhombus()</li>
+<li>shape()</li>
+<li>star()</li>
+<li>trapezoid()</li>
+<li>triangle()</li>
+<li>wedge()</li>
+</ul>
+<p>Most of these functions fall into one of two categories: circle-like or rectangle-like.
+Circle-type shapes are defined by parameters such as xy coordinates and radius, while rectangle-type shapes are defined by parameters like xy coordinates, width, and height.
+The exceptions are arrow(), polygon(), and shape().</p>
+<p>We won't delve into the specifics in this quick start guide, but it's worth noting that the <code>shape()</code> function is particularly versatile for creating custom shape objects.
+When you use it, tasks like positioning your item at a specified xy coordinate and adjusting its angle are automatically handled.</p>
+<p>Let's explore two examples: a circle-like shape, <code>star()</code>, and a rectangle-like shape, <code>rectangle()</code>.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import rectangle, star
+
+config(width=100, height=50, grid=True)
+
+star((25, 25), num_vertex=5, radius_ext=20, radius_int=7.5)
+rectangle((75, 25), width=30, height=20, r=3, angle=45)
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="quick_start_images/17.png" alt="quick_start_17" />
+</div>
+<p>This code generates the following image:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import rectangle, star
+
+config(width=100, height=50, grid=True)
+
+star((25, 25), num_vertex=5, radius_ext=20, radius_int=7.5)
+rectangle((75, 25), width=30, height=20, r=3, angle=45)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="quick_start_images/18.png" alt="quick_start_18" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>image_shape1.png
+</code></pre>
+<p>Circle-type shapes are defined by their radius, while rectangle-type shapes are defined by their width and height.
+By default, the xy coordinate marks the center of the shape.
+Except for arrow() and polygon(), all functions can accept an angle parameter.</p>
+<p>Shapes can also be styled using two types of styles:</p>
+<ul>
+<li><code>ShapeStyle</code>: for basic shape styling such as line width, color, and fill color</li>
+<li><code>ShapeTextStyle</code>: for styling text within a shape</li>
+</ul>
+<p>The ShapeTextStyle allows you to specify parameters like color, size, font, and more.
+Additionally, it offers xy_shift and angle options.
+When you specify xy_shift, you can adjust the position of the text within the shape.
+Keep in mind that the angle parameter in ShapeTextStyle overrides the shape's angle for the text.</p>
+<p>Let's examine a styling example:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.shapes import rectangle
+from drawlib.text import text
+from drawlib.types import ShapeStyle, ShapeTextStyle
+
+config(width=100, height=50, grid=True)
+
+rectangle(
+    (25, 25),
+    width=30,
+    height=20,
+    angle=45,
+    text=&quot;Hello!&quot;,
+    style=ShapeStyle(line_style=&quot;dashed&quot;, line_width=5, line_color=Colors.Red, fill_color=Colors.Transparent),
+)
+rectangle(
+    (75, 25),
+    width=30,
+    height=20,
+    angle=45,
+    text=&quot;Hello!&quot;,
+    textstyle=ShapeTextStyle(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
+)
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="quick_start_images/19.png" alt="quick_start_19" />
+</div>
+<p>This code generates the following output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.shapes import rectangle
+from drawlib.text import text
+from drawlib.types import ShapeStyle, ShapeTextStyle
+
+config(width=100, height=50, grid=True)
+
+rectangle(
+    (25, 25),
+    width=30,
+    height=20,
+    angle=45,
+    text=&quot;Hello!&quot;,
+    style=ShapeStyle(line_style=&quot;dashed&quot;, line_width=5, line_color=Colors.Red, fill_color=Colors.Transparent),
+)
+rectangle(
+    (75, 25),
+    width=30,
+    height=20,
+    angle=45,
+    text=&quot;Hello!&quot;,
+    textstyle=ShapeTextStyle(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
+)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="quick_start_images/20.png" alt="quick_start_20" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>image_shape2.png
+</code></pre>
+<p>In the left example, we configure ShapeStyle to add style to the rectangle.
+Parameters like l-something represent line-something, and fcolor stands for fill-color.
+Options for shape lines are nearly identical to those for LineStyle.
+If you don't require a shape line, simply set <code>lwidth=0</code>, and if you don't need a fill color, set <code>fcolor=Colors.Transparent</code>.
+Notice how the text angle follows the shape angle by default.</p>
+<p>In the right example, we configure ShapeTextStyle for the center text within the rectangle.
+Parameters such as color, size, font, etc., are similar to TextStyle.
+However, ShapeTextStyle includes additional options like xy_shift and angle.</p>
+<p>When you specify xy_shift, you can move the center point of the text.
+Remember that the xy value is not a global coordinate but is relative to the shape, taking its angle into account.
+Therefore, specifying <code>(-10, 0)</code> moves the center point not only to the left but also downward since the shape has a 45-degree angle.</p>
+<p>The angle option in ShapeTextStyle overrides the shape's angle for the text.
+If left unspecified, the text inside the right rectangle should be at a 45-degree angle.
+However, since we've specified it in the style, it remains at 0 degrees.</p>
+<h1>Drawing texts</h1>
+<p>The <code>text()</code> function is used to render text onto the canvas.
+It requires specifications for xy coordinates, the text message, and an optional angle.
+All other text parameters are defined within the <code>TextStyle</code>.</p>
+<p>TextStyle differs slightly from ShapeTextStyle, which we discussed earlier.
+Unlike ShapeTextStyle, it lacks features like xy_shift and angle, as these can be directly configured as arguments in text().
+However, TextStyle includes an option that ShapeTextStyle doesn't: text background options.</p>
+<p>Let's examine some code examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.fonts import FontRoboto
+from drawlib.text import text
+from drawlib.types import TextStyle
+
+config(width=100, height=50)
+
+text((50, 7), &quot;Hello drawlib. こんにちは。&quot;)
+text(
+    (50, 16),
+    &quot;Hello drawlib. こんにちは。&quot;,
+    angle=10,
+    style=TextStyle(text_font=FontRoboto.ROBOTO_REGULAR),
+)
+text(
+    (50, 25),
+    &quot;Hello drawlib.&quot;,
+    style=TextStyle(text_font=FontFile(&quot;avenger/regular.ttf&quot;)),
+)
+text(
+    (50, 34),
+    &quot;Hello drawlib. こんにちは。&quot;,
+    style=TextStyle(text_color=Colors.Red, text_size=24),
+)
+text(
+    (50, 43),
+    &quot;Hello drawlib. こんにちは。&quot;,
+    style=TextStyle(text_color=Colors.White, text_bg_fill_color=Colors.Black),
+)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="quick_start_images/21.png" alt="quick_start_21" />
+</div>
+<p>Executing this code yields the following image:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.fonts import FontRoboto
+from drawlib.text import text
+from drawlib.types import TextStyle
+
+config(width=100, height=50)
+
+text((50, 7), &quot;Hello drawlib. こんにちは。&quot;)
+text(
+    (50, 16),
+    &quot;Hello drawlib. こんにちは。&quot;,
+    angle=10,
+    style=TextStyle(text_font=FontRoboto.ROBOTO_REGULAR),
+)
+text(
+    (50, 25),
+    &quot;Hello drawlib.&quot;,
+    style=TextStyle(text_font=FontFile(&quot;avenger/regular.ttf&quot;)),
+)
+text(
+    (50, 34),
+    &quot;Hello drawlib. こんにちは。&quot;,
+    style=TextStyle(text_color=Colors.Red, text_size=24),
+)
+text(
+    (50, 43),
+    &quot;Hello drawlib. こんにちは。&quot;,
+    style=TextStyle(text_color=Colors.White, text_bg_fill_color=Colors.Black),
+)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="quick_start_images/22.png" alt="quick_start_22" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>image_text_1.png
+</code></pre>
+<p>In this example, we've configured several TextStyle parameters.
+I've used Japanese text for testing purposes.
+As you can see, the Roboto font fails to render it correctly.
+Be cautious when using non-alphabet characters.
+Drawlib supports a variety of embedded fonts, categorized under Font-Something classes.
+For instance, Japanese fonts are defined within FontJapanese.</p>
+<p>Remember, fonts are downloaded from the internet the first time you use them, after which they're cached locally within the drawlib library on your machine.
+Fonts that haven't been used before won't be downloaded.
+However, attempting to call text() with a new font can result in a download error.
+Therefore, make sure to download fonts before entering internet-restricted areas.</p>
+<p>Calling text() with new font will make download error.
+Please download fonts before you go to internet restricted area.</p>
+<p>In the third example, we've prepared a font file locally and utilized it.
+If drawlib doesn't include the font you wish to use, you can provide it to the style's font parameter using the <code>FontFile</code> class.</p>
+<p>In the fourth and fifth examples, we've configured text parameters such as color, size, and background.
+These settings may not be particularly complex, but it's important to note that the font size remains constant regardless of changes in canvas width and height.
+Doubling the canvas size won't result in halving the font text size; it remains the same as the original size.</p>
+<h1>Using Official Theme</h1>
+<p>In Drawlib, you can define the style of drawing items using style class objects such as <code>ShapeStyle</code> and <code>TextStyle</code>.
+However, specifying styles for each item can be cumbersome and may lead to inconsistency.
+To address this, Drawlib provides a theme and style feature, allowing you to choose a theme and easily apply its styles by name.</p>
+<p>Here is an example. Note that the <code>style</code> argument takes text values.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.lines import line
+from drawlib.shapes import circle
+from drawlib.text import text
+
+config(width=100, height=50)
+x1 = 12
+x2 = 34
+x3 = 62
+x4 = 88
+line_y = 40
+line_length = 7
+circle_y = 25
+text_y = 10
+
+# blue style
+line((x1 - line_length, line_y), (x1 + line_length, line_y), style=&quot;blue&quot;)
+circle((x1, circle_y), radius=8, style=&quot;blue&quot;)
+text((x1, text_y), text=&quot;blue&quot;, style=&quot;blue&quot;)
+
+# blue solid style
+line((x2 - line_length, line_y), (x2 + line_length, line_y), style=&quot;blue_solid&quot;)
+circle((x2, circle_y), radius=8, style=&quot;blue_solid&quot;)
+text((x2, text_y), text='style=&quot;blue_solid&quot;', style=&quot;blue&quot;)
+
+# green dashed style
+line((x3 - line_length, line_y), (x3 + line_length, line_y), style=&quot;green_dashed_bold&quot;)
+circle((x3, circle_y), radius=8, style=&quot;green_dashed_bold&quot;)
+text((x3, text_y), text='style=&quot;green_dashed_bold&quot;', style=&quot;green_bold&quot;)
+
+# red flat style
+line((x4 - line_length, line_y), (x4 + line_length, line_y), style=&quot;red&quot;)
+circle((x4, circle_y), radius=8, style=&quot;red_flat&quot;)
+text((x4, text_y), text='style=&quot;red_flat&quot;', style=&quot;red&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="quick_start_images/23.png" alt="quick_start_23" />
+</div>
+<p>The style has this syntax: <code>&lt;color&gt;_&lt;type&gt;_&lt;weight&gt;</code>.
+If the type and weight are default, they are not shown in the style name.
+Executing this code yields the following image:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.lines import line
+from drawlib.shapes import circle
+from drawlib.text import text
+
+config(width=100, height=50)
+x1 = 12
+x2 = 34
+x3 = 62
+x4 = 88
+line_y = 40
+line_length = 7
+circle_y = 25
+text_y = 10
+
+# blue style
+line((x1 - line_length, line_y), (x1 + line_length, line_y), style=&quot;blue&quot;)
+circle((x1, circle_y), radius=8, style=&quot;blue&quot;)
+text((x1, text_y), text=&quot;blue&quot;, style=&quot;blue&quot;)
+
+# blue solid style
+line((x2 - line_length, line_y), (x2 + line_length, line_y), style=&quot;blue_solid&quot;)
+circle((x2, circle_y), radius=8, style=&quot;blue_solid&quot;)
+text((x2, text_y), text='style=&quot;blue_solid&quot;', style=&quot;blue&quot;)
+
+# green dashed style
+line((x3 - line_length, line_y), (x3 + line_length, line_y), style=&quot;green_dashed_bold&quot;)
+circle((x3, circle_y), radius=8, style=&quot;green_dashed_bold&quot;)
+text((x3, text_y), text='style=&quot;green_dashed_bold&quot;', style=&quot;green_bold&quot;)
+
+# red flat style
+line((x4 - line_length, line_y), (x4 + line_length, line_y), style=&quot;red&quot;)
+circle((x4, circle_y), radius=8, style=&quot;red_flat&quot;)
+text((x4, text_y), text='style=&quot;red_flat&quot;', style=&quot;red&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="quick_start_images/24.png" alt="quick_start_24" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>image_theme1.png
+</code></pre>
+<p>Drawlib offers several official themes:</p>
+<ul>
+<li><code>default</code></li>
+<li><code>essentials</code></li>
+<li><code>monochrome</code></li>
+</ul>
+<p>The style naming rules are consistent across all themes.
+However, the <code>default</code> theme default primarily focuses on colors to keep it simple for beginners.
+You can check the available style names and color variations in the preset styles documentation.</p>
+<p>Here's how you can print the available styles in a theme:</p>
+<pre><code class="language-python">from drawlib.types import IconStyle, ImageStyle, LineStyle, ShapeStyle, ShapeTextStyle, TextStyle
+
+
+
+
+# +----------------+---+-------+------+------+-------+-------------+------------+--------+--------------+-------------+
+# | class \ name   |   | light | bold | flat | solid | solid_light | solid_bold | dashed | dashed_light | dashed_bold |
+# +----------------+---+-------+------+------+-------+-------------+------------+--------+--------------+-------------+
+# | IconStyle      | x | x     | x    | x    |       |             |            |        |              |             |
+# | ImageStyle     | x | x     | x    | x    | x     | x           | x          | x      | x            | x           |
+# | LineStyle      | x | x     | x    |      | x     | x           | x          | x      | x            | x           |
+# | ShapeStyle     | x | x     | x    | x    | x     | x           | x          | x      | x            | x           |
+# | ShapeTextStyle | x | x     | x    |      |       |             |            |        |              |             |
+# | TextStyle      | x | x     | x    |      |       |             |            |        |              |             |
+# +----------------+---+-------+------+------+-------+-------------+------------+--------+--------------+-------------+
+
+# +----------------+-----+-----------+----------+----------+-----------+-----------------+----------------+------------+------------------+-----------------+
+# | class \ name   | red | red_light | red_bold | red_flat | red_solid | red_solid_light | red_solid_bold | red_dashed | red_dashed_light | red_dashed_bold |
+# +----------------+-----+-----------+----------+----------+-----------+-----------------+----------------+------------+------------------+-----------------+
+# | IconStyle      | x   | x         | x        | x        |           |                 |                |            |                  |                 |
+# | ImageStyle     | x   | x         | x        | x        | x         | x               | x              | x          | x                | x               |
+# | LineStyle      | x   | x         | x        |          | x         | x               | x              | x          | x                | x               |
+# | ShapeStyle     | x   | x         | x        | x        | x         | x               | x              | x          | x                | x               |
+# | ShapeTextStyle | x   | x         | x        |          |           |                 |                |            |                  |                 |
+# | TextStyle      | x   | x         | x        |          |           |                 |                |            |                  |                 |
+# +----------------+-----+-----------+----------+----------+-----------+-----------------+----------------+------------+------------------+-----------------+
+
+# +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
+# | class \ name   | green | green_light | green_bold | green_flat | green_solid | green_solid_light | green_solid_bold | green_dashed | green_dashed_light | green_dashed_bold |
+# +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
+# | IconStyle      | x     | x           | x          | x          |             |                   |                  |              |                    |                   |
+# | ImageStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
+# | LineStyle      | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |
+# | ShapeStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
+# | ShapeTextStyle | x     | x           | x          |            |             |                   |                  |              |                    |                   |
+# | TextStyle      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
+# +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
+
+# +----------------+------+------------+-----------+-----------+------------+------------------+-----------------+-------------+-------------------+------------------+
+# | class \ name   | blue | blue_light | blue_bold | blue_flat | blue_solid | blue_solid_light | blue_solid_bold | blue_dashed | blue_dashed_light | blue_dashed_bold |
+# +----------------+------+------------+-----------+-----------+------------+------------------+-----------------+-------------+-------------------+------------------+
+# | IconStyle      | x    | x          | x         | x         |            |                  |                 |             |                   |                  |
+# | ImageStyle     | x    | x          | x         | x         | x          | x                | x               | x           | x                 | x                |
+# | LineStyle      | x    | x          | x         |           | x          | x                | x               | x           | x                 | x                |
+# | ShapeStyle     | x    | x          | x         | x         | x          | x                | x               | x           | x                 | x                |
+# | ShapeTextStyle | x    | x          | x         |           |            |                  |                 |             |                   |                  |
+# | TextStyle      | x    | x          | x         |           |            |                  |                 |             |                   |                  |
+# +----------------+------+------------+-----------+-----------+------------+------------------+-----------------+-------------+-------------------+------------------+
+
+# +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
+# | class \ name   | black | black_light | black_bold | black_flat | black_solid | black_solid_light | black_solid_bold | black_dashed | black_dashed_light | black_dashed_bold |
+# +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
+# | IconStyle      | x     | x           | x          | x          |             |                   |                  |              |                    |                   |
+# | ImageStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
+# | LineStyle      | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |
+# | ShapeStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
+# | ShapeTextStyle | x     | x           | x          |            |             |                   |                  |              |                    |                   |
+# | TextStyle      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
+# +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
+
+# +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
+# | class \ name   | white | white_light | white_bold | white_flat | white_solid | white_solid_light | white_solid_bold | white_dashed | white_dashed_light | white_dashed_bold |
+# +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
+# | IconStyle      | x     | x           | x          | x          |             |                   |                  |              |                    |                   |
+# | ImageStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
+# | LineStyle      | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |
+# | ShapeStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
+# | ShapeTextStyle | x     | x           | x          |            |             |                   |                  |              |                    |                   |
+# | TextStyle      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
+# +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
+</code></pre>
+<div class="drawlib-image">
+  <img src="quick_start_images/25.png" alt="quick_start_25" />
+</div>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

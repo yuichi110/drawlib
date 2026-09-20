@@ -1,262 +1,851 @@
-# Canvas & Coordinate System
+===============
 
-The **Canvas** is the foundational surface in Drawlib upon which all shapes, lines, images, icons, and text elements are drawn. 
+# Canvas
 
-Drawlib manages the canvas state automatically behind public facade APIs like `config()`, `save()`, and `clear()`, ensuring that creating illustrations remains simple, declarative, and clean.
 
----
+Drawlib manages the canvas, allowing you to draw various elements such as lines and shapes onto it. 
+Once your drawing is complete, you can save it as an image.
 
-## 1. Canvas Architecture Overview
+The canvas is a pivotal concept in drawlib, although it remains internal and isn't directly exposed to users. 
+Below is a succinct overview of drawlib's canvas architecture:
 
-Drawlib follows a facade architecture where global functions in `drawlib.canvas` interact with an internal canvas singleton instance.
-
-```
-+-------------------------------------------------------------+
-|                     User Code (APIs)                        |
-|   config()           circle()           line()       save() |
-+-------------------------+-----------------------------------+
-                          | (interacts internally)
-                          v
-+-------------------------------------------------------------+
-|                     Internal Canvas                         |
-|   Coordinates     Style Stack     Grid Engine     Matplotlib|
-+-------------------------------------------------------------+
-```
-
-### Public Canvas APIs
-- **`config(...)`**: Configures canvas parameters such as coordinate dimensions, DPI resolution, background colors, and grid overlays.
-- **`save(...)`**: Renders and exports the current canvas to an image file (PNG, JPG, WEBP, or PDF).
-- **`clear()`**: Resets the canvas state, clearing all drawn elements and configurations.
-
----
-
-## 2. 2D Cartesian Coordinate System
-
-Drawlib uses a 2D Cartesian coordinate system `(x, y)` where `(0, 0)` is anchored at the **bottom-left corner** of the canvas.
 
 
 
 ```python
-from drawlib.canvas import config
-from drawlib.colors import Colors, Colors140
+from copy import deepcopy
+from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.fonts import FontRoboto
 from drawlib.lines import line
-from drawlib.shapes import circle
+from drawlib.shapes import arrow, circle, rectangle
 from drawlib.text import text
-from drawlib.types import LineStyle, ShapeStyle, TextStyle
+from drawlib.types import ShapeStyle, ShapeTextStyle, TextStyle
 
-# Configure 100x50 canvas
-config(width=100, height=50)
 
-# Axes
-line(xy1=(0, 0), xy2=(100, 0), style=LineStyle(line_color=Colors.Black, line_width=2))
-line(xy1=(0, 0), xy2=(0, 50), style=LineStyle(line_color=Colors.Black, line_width=2))
+config(width=100, height=60, grid=True)
 
-# Grid center lines
-line(xy1=(0, 25), xy2=(100, 25), style=LineStyle(line_color=Colors140.LightGray, line_width=1, line_style="dashed"))
-line(xy1=(50, 0), xy2=(50, 50), style=LineStyle(line_color=Colors140.LightGray, line_width=1, line_style="dashed"))
+outer_y = 10
+outer_height = 35
+outer_r = 2
+outer_style = ShapeStyle(text_halign="left", text_valign="bottom", fill_color=Colors.Transparent)
+text_style = TextStyle(text_halign="left")
 
-# Coordinate markers
-circle(xy=(0, 0), radius=2, style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Black))
-text(xy=(3, 3), text="Origin (0,0)", style=TextStyle(text_color=Colors.Red, text_size=11, text_halign="left"))
 
-circle(xy=(50, 25), radius=3, style=ShapeStyle(fill_color=Colors140.DodgerBlue, line_color=Colors.Black))
-text(xy=(50, 29), text="Center (50, 25)", style=TextStyle(text_color=Colors140.DodgerBlue, text_size=12, text_valign="bottom"))
+def left():
+    rectangle(
+        (10, outer_y),
+        width=10,
+        height=outer_height,
+        r=outer_r,
+        style=outer_style,
+        text="Other drawlib features",
+        textstyle=ShapeTextStyle(text_angle=270, text_font=FontRoboto.ROBOTO_BOLD, text_size=18),
+    )
 
-circle(xy=(100, 50), radius=2, style=ShapeStyle(fill_color=Colors.Green, line_color=Colors.Black))
-text(xy=(97, 47), text="Top-Right (100,50)", style=TextStyle(text_color=Colors.Green, text_size=11, text_halign="right"))
+
+def center():
+    pad_y = 10
+    width = 25
+    outer_style2 = deepcopy(outer_style)
+    outer_style2.line_color = Colors.Red
+    rectangle(
+        (30, outer_y + pad_y),
+        width=width,
+        height=outer_height - pad_y,
+        r=outer_r,
+        style=outer_style2,
+    )
+
+    text(
+        (30 + width / 2, 42),
+        "Canvas Instance",
+        style=TextStyle(text_font=FontRoboto.ROBOTO_BOLD, text_size=18, text_color=Colors.Red),
+    )
+    x = 34
+    y = 37
+    pad_y = 4
+    text_style2 = deepcopy(text_style)
+    text_style2.text_color = Colors.Red
+    text((x, y), "- config()", style=text_style2)
+    text((x, y - pad_y * 1), "- save()", style=text_style2)
+    text((x, y - pad_y * 2), "- circle()", style=text_style2)
+    text((x, y - pad_y * 3), "- ...", style=text_style2)
+
+
+def right():
+    outer_style2 = deepcopy(outer_style)
+    outer_style2.line_style = "dashed"
+    width = 25
+    rectangle(
+        (65, outer_y),
+        width=width,
+        height=outer_height,
+        r=outer_r,
+        style=outer_style2,
+    )
+
+    text(
+        (65 + width / 2, 42),
+        "Public APIs",
+        style=TextStyle(text_font=FontRoboto.ROBOTO_BOLD, text_size=18),
+    )
+    x = 69
+    y = 37
+    pad_y = 4
+    text((x, y), "- config()", style=text_style)
+    text((x, y - pad_y * 1), "- save()", style=text_style)
+    text((x, y - pad_y * 2), "- circle()", style=text_style)
+    text((x, y - pad_y * 3), "- ...", style=text_style)
+    text((x, y - pad_y * 5), "- Colors", style=text_style)
+    text((x, y - pad_y * 6), "- ...", style=text_style)
+
+
+def center_to_right():
+    x1 = 45
+    x2 = 68
+    y = 37
+    pad_y = 4
+    for i in range(7):
+        if i == 4:
+            x1 = 23
+            continue
+
+        line((x1, y - pad_y * i), (x2, y - pad_y * i), arrowhead="->", width=1.5, style="dashed")
+    text(((23 + 68) / 2, 10), "Publish private as API")
+
+
+rectangle((5, 5), width=55, height=50, r=outer_r, style=outer_style)
+text(
+    (5 + 55 / 2, 50),
+    "Drawlib's internal state (Private)",
+    style=TextStyle(text_font=FontRoboto.ROBOTO_BOLD, text_size=18),
+)
+left()
+arrow(
+    (21.5, 30),
+    (28.5, 30),
+    tail_width=1.5,
+    head_width=4,
+    head_length=2,
+    head="<->",
+    style=outer_style,
+)
+center()
+right()
+center_to_right()
+
+save()
 ```
 
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="canvas_1.png" alt="canvas_1" style="width: 500px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">2D Cartesian Coordinate System with Bottom-Left Origin (0,0)</figcaption>
-</figure>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="canvas_images/1.png" alt="canvas_1" style="width: 600px; max-width: 100%;" />
+</div>
 
 
 
----
 
-## 3. Configuring Canvas Grid
+    Canvas architecture
 
-During the iterative process of positioning elements, enabling the grid overlay helps locate exact coordinates.
+In this architecture, drawlib internally incorporates core functions and methods that are accessible to users through APIs defined in `drawlib.apis`. 
+When you invoke APIs like `config()`, these functions internally interact with the canvas state.
 
-### Grid Options
-- **`grid=True`**: Enables grid overlay during visual design.
-- **`grid_only=True`**: Generates only the grid-overlay image without creating a second clean image file.
-- **`grid_style`**: Applies a custom `LineStyle` to normal grid lines.
-- **`grid_centerstyle`**: Applies a custom `LineStyle` to the center axis lines.
+For example, using the public API `config(width=200, height=100)` triggers an internal method that adjusts the canvas's dimensions to 200 pixels wide and 100 pixels high.
+Similarly, calling the `circle(...)` API invokes an internal method that adds a circle to the canvas.
+
+While it's technically possible to create your own instance of the Canvas and perform drawing operations, this approach isn't recommended.
+This is because functionalities such as file handling and theme settings are integrated with drawlib's internal canvas management. 
+Our architecture is designed to ensure:
+
+- Accessibility for users unfamiliar with Python and object-oriented programming.
+- Ease of learning and use.
+- Simplicity akin to scripting for drawing operations.
+
+
+
+# Canvas-related APIs
+
+
+The canvas in drawlib provides several categories of public APIs:
+
+* APIs for managing the canvas itself.
+* APIs for drawing icons.
+* APIs for drawing images.
+* APIs for drawing lines.
+* APIs for drawing shapes.
+* APIs for drawing text.
+* Utility APIs that require canvas information.
+
+This page focuses specifically on the APIs for managing the canvas itself, while other categories are covered in separate documentation sections.
+
+* `config()`: Configures the canvas by adjusting parameters such as size and background color.
+* `save()`: Exports the current canvas as an image file.
+* `clear()`: Resets the canvas state by clearing all configurations and drawn objects.
+
+Both `config()` and `save()` are essential functions discussed in the introductory pages, as they are fundamental for creating illustrations. 
+`clear()` is useful when you need to refresh the canvas state, especially within scripts that create multiple illustrations sequentially. 
+However, it's recommended to adhere to the guideline of having one illustration per script file. 
+By following this recommendation, there's typically no need to explicitly call `clear()`.
+
+
+# config()
+
+
+The `config()` API in drawlib manages various canvas configurations, encompassing:
+
+* Size (width, height): Specifies the dimensions of the canvas in coordinate units.
+* DPI (resolution): Sets the Dots Per Inch for the canvas, influencing image clarity.
+* Grid: Enables a grid overlay on the canvas for visual alignment assistance.
+* Canvas color (background color): Defines the background color of the canvas.
+* Theme: Applies predefined styles across drawings, including item colors and line thicknesses.
+
+We'll start with an exploration of grid settings, as they form the foundational basis and are used in conjunction with other configuration options.
+
+
+## Configuring Canvas Grid
+
+
+During the process of creating illustrations, you may find yourself running your code multiple times to check how your changes affect the resulting image. 
+As you iterate through this write/check/fix cycle, displaying a grid might prove beneficial for understanding item coordinates and sizes, aiding in aligning multiple objects within a single image.
+
+Enabling the grid is straightforward; simply set the grid option to True. 
+By default, this option is set to `False`. Below is an example code snippet:
+
 
 
 
 ```python
-from drawlib.canvas import config
-from drawlib.colors import Colors, Colors140
-from drawlib.shapes import rectangle
-from drawlib.text import text
-from drawlib.types import LineStyle, ShapeStyle, TextStyle
+from drawlib.canvas import config, save
+from drawlib.shapes import circle
 
-# Custom grid styling
+config(width=100, height=50, grid=True)
+circle((50, 25), radius=20)
+save()
+```
+
+![canvas_2](canvas_images/2.png)
+
+
+
+Executing this code will generate two files:
+
+* `image_grid1.png`: The resulting image without the grid.
+* `image_grid1_grid.png`: The same image with the grid displayed.
+
+By default, the file name is the same as the script file name. 
+The grid version appends `_grid` to the file name.
+
+The former image without the grid:
+
+
+
+
+```python
+from drawlib.canvas import config, save
+from drawlib.shapes import circle
+
+config(width=100, height=50, grid=True)
+circle((50, 25), radius=20)
+save()
+```
+
+<div class="drawlib-image" style="text-align: center;">
+  <img src="canvas_images/3.png" alt="canvas_3" style="width: 450px; max-width: 100%;" />
+</div>
+
+
+
+
+    image_grid1.png
+
+The latter image with the grid displayed:
+
+
+![image_grid1_grid.png](image_grid1_grid.png)
+
+
+    image_grid1_grid.png
+
+Normally, grid lines are removed after completing the creation of the drawing code. 
+However, if you need to modify the illustration later, having the grid displayed again might be useful. 
+To avoid repeatedly enabling/disabling the grid in your code, you can export both versions of the image files.
+
+If you only require the grid illustration, you can use the `grid_only=True` option instead:
+
+
+
+
+```python
+from drawlib.canvas import config, save
+from drawlib.shapes import circle
+
+config(width=100, height=50, grid_only=True)
+circle((50, 25), radius=20)
+save()
+```
+
+![canvas_4](canvas_images/4.png)
+
+
+
+This code will generate an image with grid lines but without the additional grid version file (image_grid2_grid.png).
+
+
+
+
+```python
+from drawlib.canvas import config, save
+from drawlib.shapes import circle
+
+config(width=100, height=50, grid_only=True)
+circle((50, 25), radius=20)
+save()
+```
+
+<div class="drawlib-image" style="text-align: center;">
+  <img src="canvas_images/5.png" alt="canvas_5" style="width: 450px; max-width: 100%;" />
+</div>
+
+
+
+
+    Grid only option generate grid image only
+
+To apply a specific line style to the grid, provide a `LineStyle` object to the following options:
+
+* `grid_style`: Sets the style for all grid lines.
+* `grid_centerstyle`: Overrides the style for the center grid lines.
+
+Here's an example code snippet demonstrating the use of grid styles:
+
+
+
+
+```python
+from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.shapes import circle
+from drawlib.types import LineStyle
+
 config(
     width=100,
-    height=60,
-    grid=True,
-    grid_style=LineStyle(line_color=Colors140.PowderBlue, line_width=1, line_style="dotted"),
-    grid_centerstyle=LineStyle(line_color=Colors140.SteelBlue, line_width=2, line_style="solid")
+    height=50,
+    grid_only=True,
+    grid_style=LineStyle(line_width=1, line_color=Colors.Red, line_style="dashed"),
+    grid_centerstyle=LineStyle(line_width=2, line_color=Colors.Blue, line_style="dashed"),
 )
-
-rectangle(
-    xy=(50, 30),
-    width=60,
-    height=30,
-    style=ShapeStyle(fill_color=Colors140.AliceBlue, line_color=Colors140.SteelBlue, line_width=2)
-)
-text(
-    xy=(50, 30),
-    text="Styled Grid Overlay",
-    style=TextStyle(text_color=Colors140.SteelBlue, text_size=14)
-)
+circle((50, 25), radius=20)
+save()
 ```
 
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="canvas_2.png" alt="canvas_2" style="width: 500px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">Canvas with Custom Styled Grid Overlay</figcaption>
-</figure>
+![canvas_6](canvas_images/6.png)
 
 
 
----
+This code will generate an image with the grid displayed using the provided line style. 
+Note that providing a grid_style automatically sets the grid option to True, but you can override this by explicitly setting `grid=False`.
 
-## 4. Canvas Dimensions & Aspect Ratio
-
-Canvas size defines the logical coordinate boundaries `(width, height)`. By default, the canvas is **100 × 100**.
-
-Adjusting the logical canvas size changes the relative positioning scale without altering the base pixel output dimensions.
 
 
 
 ```python
-from drawlib.canvas import config
-from drawlib.colors import Colors140
-from drawlib.shapes import rectangle
-from drawlib.text import text
-from drawlib.types import ShapeStyle, TextStyle
+from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.shapes import circle
+from drawlib.types import LineStyle
 
-# Set 16:9 aspect ratio coordinate space
-config(width=160, height=90, background_color=Colors140.GhostWhite)
-
-# Background border
-rectangle(
-    xy=(80, 45),
-    width=150,
-    height=80,
-    style=ShapeStyle(fill_color=Colors140.White, line_color=Colors140.SlateGray, line_width=2)
+config(
+    width=100,
+    height=50,
+    grid_only=True,
+    grid_style=LineStyle(line_width=1, line_color=Colors.Red, line_style="dashed"),
+    grid_centerstyle=LineStyle(line_width=2, line_color=Colors.Blue, line_style="dashed"),
 )
-
-text(
-    xy=(80, 45),
-    text="Widescreen Canvas (160 x 90)",
-    style=TextStyle(text_color=Colors140.SlateGray, text_size=16)
-)
+circle((50, 25), radius=20)
+save()
 ```
 
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="canvas_3.png" alt="canvas_3" style="width: 500px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">Widescreen 16:9 Aspect Ratio Canvas (width=160, height=90)</figcaption>
-</figure>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="canvas_images/7.png" alt="canvas_7" style="width: 450px; max-width: 100%;" />
+</div>
 
 
 
----
 
-## 5. DPI & Output Resolution
+    Changing grid line
 
-Resolution and logical coordinate size are decoupled in Drawlib:
-- **Logical Size**: Determines the `(x, y)` coordinate limits (e.g. `100x100`).
-- **DPI (Dots Per Inch)**: Determines output pixel density. Default DPI is **100**.
 
-### Pixel Resolution Calculation
-Drawlib treats standard canvas width as **10 inches**. 
-- Default `dpi=100` $\rightarrow$ $10\text{ in} \times 100\text{ DPI} = 1000\text{ px}$ image width.
-- High resolution `dpi=200` $\rightarrow$ $10\text{ in} \times 200\text{ DPI} = 2000\text{ px}$ image width.
 
-To generate exact Full HD (1920px width) output for a 1920x1080 canvas:
-```python
-config(width=1920, height=1080, dpi=192)
-# 10 inches * 192 DPI = 1920 pixels width
-```
+## Configuring Canvas Size
 
----
 
-## 6. Background Color & Transparency
+The canvas size and resolution are distinct concepts in Drawlib. 
+Size refers to the coordinate system's values (the range of xy), while resolution pertains to the output image's pixel dimensions.
 
-Canvas background color and opacity can be set via `config()`:
-- **`background_color`**: Accepts any `Color` tuple or preset like `Colors.Orange`.
-- **`background_alpha`**: Opacity value from `0.0` (transparent) to `1.0` (opaque).
+When configuring the canvas size, note that it doesn't directly affect the pixel dimensions of the output image by default. 
+For example, setting `width=10, height=10` and `width=100, height=100` both generate images of the same pixel size.
+However, to maintain the aspect ratio, `width=10, height=5` would produce an image with half the pixel height.
+
+By default, Drawlib's canvas size is:
+
+* Width: 100
+* Height: 100
+
+which can be adjusted using `config(width=<value>, height=<value>)`. 
+This default size usually suffices for typical situations. 
+Therefore, we typically only adjust the height when we need to create horizontally wider images. 
+There's no reason to set a very small value that requires using coordinate values close to 0.01. 
+Conversely, excessively large values may become unwieldy.
+
+Let's explore how changing the size affects the output. 
+Below is a code snippet with `config(width=100, height=100, ...)`:
+
 
 
 
 ```python
-from drawlib.canvas import config
-from drawlib.colors import Colors140
+from drawlib.canvas import config, save
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import ShapeStyle, TextStyle
+from drawlib.types import ShapeTextStyle
 
-# Custom orange background with 0.15 transparency
-config(width=100, height=50, background_color=Colors140.Orange, background_alpha=0.15)
-
+config(width=100, height=100, grid_only=True)
 circle(
-    xy=(50, 25),
-    radius=15,
-    style=ShapeStyle(fill_color=Colors140.DarkOrange, line_color=Colors140.SaddleBrown, line_width=2)
+    (50, 50),
+    radius=30,
+    text="(50,50)",
+    textstyle=ShapeTextStyle(text_size=36),
 )
-text(
-    xy=(50, 25),
-    text="Transparent Background",
-    style=TextStyle(text_color=Colors140.White, text_size=12)
-)
+save()
 ```
 
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="canvas_4.png" alt="canvas_4" style="width: 500px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">Canvas with Custom Background Color and Opacity</figcaption>
-</figure>
+![canvas_8](canvas_images/8.png)
 
 
 
-> [!NOTE]
-> Setting `background_color=Colors.Transparent` or `background_alpha=0` generates a transparent background PNG. Note that format limitations apply (e.g. JPG does not support alpha channels).
+Executing this code generates the following image:
 
----
 
-## 7. Exporting & Saving (`save` / `clear`)
 
-Exporting illustrations is handled by `save()`:
 
 ```python
-from drawlib.canvas import save
+from drawlib.canvas import config, save
+from drawlib.shapes import circle
+from drawlib.text import text
+from drawlib.types import ShapeTextStyle
 
-# Save as <script_name>.png in current directory
+config(width=100, height=100, grid_only=True)
+circle(
+    (50, 50),
+    radius=30,
+    text="(50,50)",
+    textstyle=ShapeTextStyle(text_size=36),
+)
 save()
-
-# Save with custom file path
-save(file="output/diagram.png")
-
-# Save in specific format (PNG, JPG, WEBP, PDF)
-save(file="output/diagram", format="pdf")
 ```
 
-### Supported Output Formats
-- **PNG**: Standard lossless format with alpha support (default).
-- **JPG**: Compressed image format.
-- **WEBP**: Modern web image format.
-- **PDF**: Vector document format.
+<div class="drawlib-image" style="text-align: center;">
+  <img src="canvas_images/9.png" alt="canvas_9" style="width: 450px; max-width: 100%;" />
+</div>
 
-### Refreshing Canvas State (`clear`)
-When generating multiple illustrations within a loop or single script, call `clear()` between images to reset all drawn items and canvas configurations.
 
----
 
-## Navigation
 
-- [Back to Foundations Index](./index.md)
-- [Next: Shapes Guide](./shapes.md)
+    width=100, height=100
+
+Now, let's adjust the size to `config(width=200, height=200, ...)`:
+
+
+
+
+```python
+from drawlib.canvas import config, save
+from drawlib.shapes import circle
+from drawlib.text import text
+from drawlib.types import ShapeTextStyle
+
+config(width=200, height=200, grid_only=True)
+circle(
+    (50, 50),
+    radius=30,
+    text="(50,50)",
+    textstyle=ShapeTextStyle(text_size=36),
+)
+save()
+```
+
+![canvas_10](canvas_images/10.png)
+
+
+
+This change results in a new image:
+
+
+
+
+```python
+from drawlib.canvas import config, save
+from drawlib.shapes import circle
+from drawlib.text import text
+from drawlib.types import ShapeTextStyle
+
+config(width=200, height=200, grid_only=True)
+circle(
+    (50, 50),
+    radius=30,
+    text="(50,50)",
+    textstyle=ShapeTextStyle(text_size=36),
+)
+save()
+```
+
+<div class="drawlib-image" style="text-align: center;">
+  <img src="canvas_images/11.png" alt="canvas_11" style="width: 450px; max-width: 100%;" />
+</div>
+
+
+
+
+    width=200, height=200
+
+For wider images, increase the width relative to the height. 
+You can either increase the width or decrease the height. 
+In the following example, we set the canvas coordinate size to full HD (1920x1080):
+
+
+
+
+```python
+from drawlib.canvas import config, save
+from drawlib.shapes import circle
+from drawlib.text import text
+from drawlib.types import ShapeTextStyle
+
+config(width=1920, height=1080, grid_only=True)
+circle(
+    (960, 540),
+    radius=300,
+    text="(960,540)",
+    textstyle=ShapeTextStyle(text_size=36),
+)
+save()
+```
+
+![canvas_12](canvas_images/12.png)
+
+
+
+This produces the image below:
+
+
+
+
+```python
+from drawlib.canvas import config, save
+from drawlib.shapes import circle
+from drawlib.text import text
+from drawlib.types import ShapeTextStyle
+
+config(width=1920, height=1080, grid_only=True)
+circle(
+    (960, 540),
+    radius=300,
+    text="(960,540)",
+    textstyle=ShapeTextStyle(text_size=36),
+)
+save()
+```
+
+<div class="drawlib-image" style="text-align: center;">
+  <img src="canvas_images/13.png" alt="canvas_13" style="width: 450px; max-width: 100%;" />
+</div>
+
+
+
+
+    width=1920, height=1080
+
+When setting the size, using simple values such as 50, 100, 150, 200 makes mathematical calculations easier. 
+It's more challenging to compute half or quarter values of 1920 compared to 100.
+
+
+
+## Configuring DPI and Resolution
+
+
+Understanding DPI (Dots Per Inch) is crucial for grasping drawlib's rendering quality. 
+However, before delving into DPI, it's essential to comprehend the actual implementation of drawlib's canvas size.
+
+In the previous examples, you configured `config(width=100, height=100)`, `config(width=200, height=200)` and `config(width=1920, height=1080)`. 
+One might assume that larger width and height values result in higher resolution images. 
+However, let's check the actual image sizes:
+
+
+```text
+$ file image_size1.png 
+ image_size1.png: PNG image data, 1000 x 1000, 8-bit/color RGBA, non-interlaced
+
+ $ file image_size2.png
+ image_size2.png: PNG image data, 1000 x 1000, 8-bit/color RGBA, non-interlaced
+
+ $ file image_size3.png
+ image_size3.png: PNG image data, 1000 x 562, 8-bit/color RGBA, non-interlaced
+```
+
+
+As observed, all images have a pixel width of 1000.
+
+DPI refers to the density of dots within one inch. 
+The default DPI value in drawlib is `100`, and the canvas width is always considered to be `10 inches`. 
+Hence, the 1000-pixel width arises from 10 inches x 100 DPI.
+
+The first and second images have heights equal to their widths, resulting in a height of 1000 pixels. 
+However, the third image (`image_size3.png`) has a coordinate width of 1920 and a height of 1080. 
+In this case, 1920 correspond to 10 inches, while 1080 equate to 5.625 inches.
+Then, 562 pixel height.
+
+To export high-resolution images, you can adjust the DPI setting. 
+For instance, 10 inches x 100 DPI equals 1000 pixels, whereas 10 inches x 200 DPI yields 2000 pixels. 
+Let's demonstrate this with an example:
+
+
+
+
+```python
+from drawlib.canvas import config, save
+from drawlib.shapes import circle
+from drawlib.text import text
+from drawlib.types import ShapeTextStyle
+
+config(width=100, height=100, dpi=200, grid_only=True)
+circle(
+    (50, 50),
+    radius=30,
+    text="(50,50)",
+    textstyle=ShapeTextStyle(text_size=36),
+)
+save()
+```
+
+![canvas_14](canvas_images/14.png)
+
+
+
+Executing this code generates the following image:
+
+
+
+
+```python
+from drawlib.canvas import config, save
+from drawlib.shapes import circle
+from drawlib.text import text
+from drawlib.types import ShapeTextStyle
+
+config(width=100, height=100, dpi=200, grid_only=True)
+circle(
+    (50, 50),
+    radius=30,
+    text="(50,50)",
+    textstyle=ShapeTextStyle(text_size=36),
+)
+save()
+```
+
+<div class="drawlib-image" style="text-align: center;">
+  <img src="canvas_images/15.png" alt="canvas_15" style="width: 450px; max-width: 100%;" />
+</div>
+
+
+
+
+    dpi=200
+
+It seems there are no big differences from previous outputs.
+However, it has different pixel width.
+
+
+```text
+$ file image_dpi1.png 
+ image_dpi1.png: PNG image data, 2000 x 2000, 8-bit/color RGBA, non-interlaced
+```
+
+
+Doubling the DPI results in a twofold increase in resolution. 
+If you want to 1920px output for previous image, you can set `config(width=1920, height=1080, dpi=192)` instead.
+10 inch width x 192 DPI generates 1920 pixel width image.
+
+It's important to note that higher DPI settings can slow down image generation and require more disk space. 
+Hence, setting excessively large values such as `dpi=1000` might not be advisable in typical scenarios.
+
+
+
+## Configuring Background Color and Alpha
+
+
+There are situations where you may want to customize the background color of your illustrations, such as placing a black background image on a black background page. 
+In such cases, you can configure the background color and alpha using the `config()` function.
+
+By default, drawlib's background color depends on the adopted theme, but typically, it is white with an alpha value of 1.0 (completely opaque). 
+You can adjust these settings by changing the theme's default background color and alpha. 
+However, it's much simpler and takes precedence to configure them directly using `config()`.
+
+Let's look at an example:
+
+
+
+
+```python
+from drawlib.canvas import config, save
+from drawlib.colors import Colors140
+from drawlib.shapes import circle
+
+config(background_color=Colors140.Orange, background_alpha=0.2)
+circle((50, 50), radius=30)
+save()
+```
+
+![canvas_16](canvas_images/16.png)
+
+
+
+In this example, we've configured the background color to orange with an alpha value of 0.2. 
+Executing this code generates the following output:
+
+
+
+
+```python
+from drawlib.canvas import config, save
+from drawlib.colors import Colors140
+from drawlib.shapes import circle
+
+config(background_color=Colors140.Orange, background_alpha=0.2)
+circle((50, 50), radius=30)
+save()
+```
+
+<div class="drawlib-image" style="text-align: center;">
+  <img src="canvas_images/17.png" alt="canvas_17" style="width: 450px; max-width: 100%;" />
+</div>
+
+
+
+
+    Background color orange. Alpha 0.2
+
+If you wish to create a completely transparent background image, you can set the background color to `Colors.Transparent` or set the alpha value to `0`.
+
+It's important to note that some image formats, such as JPG, do not support alpha values. 
+Therefore, a non-transparent JPG file is not a bug; it's a limitation of the file format.
+
+
+# save()
+
+
+The `save()` function is used to save the canvas as an image file. 
+If no arguments are provided, it defaults to saving a PNG image with the same name as the script file. 
+For instance, calling save() in a script named `myimage.py` will generate `myimage.png`.
+
+We recommend using no arguments for save() because:
+
+* It helps in easily understanding which script generated which image.
+* PNG format suffices for normal situations.
+
+
+## Changing the Saving Filename
+
+
+The `save()` function offers optional arguments. 
+If you wish to save the image with a specific name, you can use the `file` option. 
+Here's an example:
+
+
+
+
+```python
+from drawlib.canvas import config, save
+from drawlib.shapes import circle
+
+config(width=100, height=50)
+circle((50, 25), radius=20)
+save(file="myimage.webp")
+```
+
+![canvas_18](canvas_images/18.png)
+
+
+
+Executing this code generates the following image:
+
+
+![myimage.webp](myimage.webp)
+
+
+    File name: myimage.webp
+
+In this case, you didn't specify a file path. 
+In such situations, the image will be created in the same directory as the script file. 
+Providing a file path works as follows:
+
+* Absolute path: Saves the image normally.
+* Relative path: Saves the image relative to the script file's directory.
+
+Normally, Python handles relative paths from the entry point (where the program is started). 
+However, drawlib handles relative paths from the script file's directory. 
+If you prefer the traditional Python file path behavior, please convert the relative path to an absolute path first, then provide it to the save() function. 
+It will work as you expect.
+
+
+## Changing the Saving Format
+
+
+If you want to save the image with the script file name but specify a file format other than PNG, the `format` option is useful. 
+It behaves almost the same as save() without options, but you can specify the file format. 
+Here's an example:
+
+
+
+
+```python
+from drawlib.canvas import config, save
+from drawlib.shapes import circle
+
+config(width=100, height=50)
+circle((50, 25), radius=20)
+save(format="jpg")
+```
+
+![canvas_19](canvas_images/19.png)
+
+
+
+This code generate this file.
+
+
+
+
+```python
+from drawlib.canvas import config, save
+from drawlib.shapes import circle
+
+config(width=100, height=50)
+circle((50, 25), radius=20)
+save(format="jpg")
+```
+
+<div class="drawlib-image" style="text-align: center;">
+  <img src="canvas_images/20.png" alt="canvas_20" style="width: 450px; max-width: 100%;" />
+</div>
+
+
+
+
+    File name: image_save2.jpg
+
+Drawlib supports the following formats for now:
+
+* PNG
+* JPG
+* WEBP
+* PDF

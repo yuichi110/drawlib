@@ -17,7 +17,7 @@ from drawlib._tools.doc_builder.exporter_html import get_default_css, render_htm
 from drawlib._tools.doc_builder.exporter_md import write_rendered_markdown
 from drawlib._tools.doc_builder.exporter_pdf import export_html_to_pdf
 from drawlib._tools.doc_builder.parser_md import parse_markdown_to_html
-from drawlib._tools.doc_builder.processor import DrawlibBlockProcessor
+from drawlib._tools.doc_builder.processor import DrawlibBlockProcessor, extract_code_blocks, show_code_block
 from drawlib._tools.doc_builder.template import export_default_template, validate_template
 
 
@@ -142,6 +142,7 @@ def _compile_single_file(
                 output_dir=output_dir,
                 image_format=image_format,
                 use_markdown_syntax=True,
+                source_filename=src_abs,
             )
             if is_md
             else content
@@ -156,6 +157,7 @@ def _compile_single_file(
                 output_dir=output_dir if not embed_images else None,
                 image_format=image_format,
                 embed_images=embed_images,
+                source_filename=src_abs,
             )
             body_html = parse_markdown_to_html(processed_text)
         else:
@@ -165,6 +167,7 @@ def _compile_single_file(
                 output_dir=output_dir if not embed_images else None,
                 image_format=image_format,
                 embed_images=embed_images,
+                source_filename=src_abs,
             )
 
         doc_title = _extract_title(content, os.path.basename(src_abs)) if is_md else os.path.basename(src_abs)
@@ -505,6 +508,8 @@ __all__ = [
     "build_document",
     "build_documents",
     "export_default_template",
+    "extract_code_blocks",
+    "show_code_block",
     "validate_template",
     "DrawlibBlockProcessor",
     "parse_markdown_to_html",

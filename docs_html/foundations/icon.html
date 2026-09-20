@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing Icons</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with ThemePreset</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Drawing Icons</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <p>===============</p>
+<h1>Drawing Icons</h1>
+<p>If you're looking to enhance your illustrations with icons, drawlib offers several methods to achieve this.
+You can utilize the <code>image()</code> function by providing an icon image file of your choice.
+Alternatively, you can use <code>icon()</code> along with dedicated <code>Icon Modules</code> for drawing icons directly.</p>
+<h1>Icon Modules</h1>
+<p>We've curated a selection of icons for your convenience, available in drawlib now.</p>
+<ul>
+<li><code>icon_phosphor</code>: Derived from Phosphor Icons (https://phosphoricons.com)</li>
+</ul>
+<p>Each icon within these modules is defined as a function, allowing you to draw specific icons by simply calling their respective function.
+Let's explore with examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.icons import icon_phosphor
+from drawlib.text import text
+
+width = 100
+height = 50
+config(width=width, height=height)
+
+x = width / 7
+y = height / 2
+icon_phosphor.airplane_taxiing(xy=(x, y), width=10)
+icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10)
+icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10)
+icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10)
+icon_phosphor.airplane(xy=(x * 5, y), width=10, angle=270)
+text(xy=(x * 5, y - 10), text=&quot;angle 270&quot;)
+icon_phosphor.airplane_landing(xy=(x * 6, y), width=10)
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="icon_images/1.png" alt="icon_1" />
+</div>
+<p>All functions have these args.</p>
+<ul>
+<li><code>xy</code> : coordinate</li>
+<li><code>width</code> : icon width</li>
+<li><code>angle</code> : angle 0.0~360.0</li>
+<li><code>style</code> : Accepts string style name or <code>IconStyle</code> object.</li>
+</ul>
+<p>Executing this code yields the following image:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.icons import icon_phosphor
+from drawlib.text import text
+
+width = 100
+height = 50
+config(width=width, height=height)
+
+x = width / 7
+y = height / 2
+icon_phosphor.airplane_taxiing(xy=(x, y), width=10)
+icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10)
+icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10)
+icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10)
+icon_phosphor.airplane(xy=(x * 5, y), width=10, angle=270)
+text(xy=(x * 5, y - 10), text=&quot;angle 270&quot;)
+icon_phosphor.airplane_landing(xy=(x * 6, y), width=10)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="icon_images/2.png" alt="icon_2" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>icon_phosphor's icons
+</code></pre>
+<p>You see lots of variation of only airplane.
+<code>icon_phosphor</code> has around 1500 icons.</p>
+<h1>icon()</h1>
+<p><code>icon()</code> is a versatile function for displaying font icons.
+Internally, icon modules utilize icon().</p>
+<p>The function arguments are:</p>
+<ul>
+<li><code>xy</code>: Coordinates for positioning the icon.</li>
+<li><code>width</code>: Width of the icon.</li>
+<li><code>code</code>: Font code representing the icon.</li>
+<li><code>file</code>: Font file used for rendering the icon.</li>
+<li><code>angle</code>: Angle for rotating the icon (optional).</li>
+<li><code>style</code>: Additional style configurations (optional).</li>
+</ul>
+<p>Let's explore its usage with FontAwesome Free:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.icons import icon
+from drawlib.text import text
+
+width = 100
+height = 50
+config(width=width, height=height)
+
+file_brand = &quot;fontawesome-free/brands.ttf&quot;
+file_regular = &quot;fontawesome-free/regular.ttf&quot;
+file_solid = &quot;fontawesome-free/solid.ttf&quot;
+
+google = &quot;\uf1a0&quot;
+gmail = &quot;\uf0e0&quot;
+google_map = &quot;\uf3c5&quot;
+google_drive = &quot;\uf3aa&quot;
+google_play = &quot;\uf3ab&quot;
+google_pay = &quot;\ue079&quot;
+
+x = width / 7
+y = height / 2
+icon(xy=(x, y), width=10, code=google, file=file_brand)
+icon(xy=(x * 2, y), width=10, code=gmail, file=file_regular)
+icon(xy=(x * 3, y), width=10, code=google_map, file=file_solid, angle=270)
+text(xy=(x * 3, y - 10), text=&quot;angle 270&quot;)
+icon(
+    xy=(x * 4, y),
+    width=10,
+    code=google_drive,
+    file=file_brand,
+)
+icon(
+    xy=(x * 5, y),
+    width=10,
+    code=google_play,
+    file=file_brand,
+)
+
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="icon_images/3.png" alt="icon_3" />
+</div>
+<p>Executing this code generates the following image:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.icons import icon
+from drawlib.text import text
+
+width = 100
+height = 50
+config(width=width, height=height)
+
+file_brand = &quot;fontawesome-free/brands.ttf&quot;
+file_regular = &quot;fontawesome-free/regular.ttf&quot;
+file_solid = &quot;fontawesome-free/solid.ttf&quot;
+
+google = &quot;\uf1a0&quot;
+gmail = &quot;\uf0e0&quot;
+google_map = &quot;\uf3c5&quot;
+google_drive = &quot;\uf3aa&quot;
+google_play = &quot;\uf3ab&quot;
+google_pay = &quot;\ue079&quot;
+
+x = width / 7
+y = height / 2
+icon(xy=(x, y), width=10, code=google, file=file_brand)
+icon(xy=(x * 2, y), width=10, code=gmail, file=file_regular)
+icon(xy=(x * 3, y), width=10, code=google_map, file=file_solid, angle=270)
+text(xy=(x * 3, y - 10), text=&quot;angle 270&quot;)
+icon(
+    xy=(x * 4, y),
+    width=10,
+    code=google_drive,
+    file=file_brand,
+)
+icon(
+    xy=(x * 5, y),
+    width=10,
+    code=google_play,
+    file=file_brand,
+)
+
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="icon_images/4.png" alt="icon_4" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>FontAwesome-Free icons
+</code></pre>
+<p>While FontAwesome is widely recognized, its full usage requires a commercial license.
+The free version may lack variation and style consistency.
+Therefore, drawlib does not currently provide an icon module for it.</p>
+<h1>IconStyle</h1>
+<p>Similar to other drawing elements, the appearance of icons can be customized using the <code>IconStyle</code> class, which allows you to control:</p>
+<p><code>IconStyle</code> encompasses these attributes</p>
+<ul>
+<li><code>halign</code>: Horizontal alignment</li>
+<li><code>valign</code>: Vertical alignment</li>
+<li><code>style</code>: Icon style, Supports <code>&quot;thin&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;regular&quot;</code>, <code>&quot;bold&quot;</code>, or <code>&quot;fill&quot;</code>. The availability of styles depends on the icon modules.</li>
+<li><code>color</code>: Icon color, specified in RGB (0255, 0255, 0255) or RGBA (0255, 0255, 0255, 0.0~1.0). You can utilize helpers like <code>Colors</code> and <code>Colors140</code>.</li>
+<li><code>alpha</code>: Icon transparency, ranging from 0.0 to 1.0, where 0.0 represents total transparency.</li>
+</ul>
+<p>Let's illustrate this with an example:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.icons import icon_phosphor
+from drawlib.shapes import circle
+from drawlib.text import text
+from drawlib.types import IconStyle, ShapeStyle
+
+width = 100
+height = 50
+config(width=width, height=height)
+
+x = width / 7
+y = height / 2
+icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style=IconStyle(text_color=Colors.Red))
+icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=IconStyle(icon_style=&quot;thin&quot;))
+icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=IconStyle(icon_style=&quot;bold&quot;))
+icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=IconStyle(icon_style=&quot;fill&quot;))
+icon_phosphor.airplane(xy=(x * 5, y), width=10, style=IconStyle(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;))
+circle(xy=(x * 5, y), radius=0.5, style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red))
+text(xy=(x * 5 + 5, y - 10), text=&quot;align left,bottom&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="icon_images/5.png" alt="icon_5" />
+</div>
+<p>Executing this code generates the following image:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.icons import icon_phosphor
+from drawlib.shapes import circle
+from drawlib.text import text
+from drawlib.types import IconStyle, ShapeStyle
+
+width = 100
+height = 50
+config(width=width, height=height)
+
+x = width / 7
+y = height / 2
+icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style=IconStyle(text_color=Colors.Red))
+icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=IconStyle(icon_style=&quot;thin&quot;))
+icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=IconStyle(icon_style=&quot;bold&quot;))
+icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=IconStyle(icon_style=&quot;fill&quot;))
+icon_phosphor.airplane(xy=(x * 5, y), width=10, style=IconStyle(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;))
+circle(xy=(x * 5, y), radius=0.5, style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red))
+text(xy=(x * 5 + 5, y - 10), text=&quot;align left,bottom&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="icon_images/6.png" alt="icon_6" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>icons with IconStyle.
+</code></pre>
+<h1>Pre-defined icon styles</h1>
+<p>Drawlib's theme provides pre-defined icon styles.
+You can specify them by names.</p>
+<p>Here is an examples.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.icons import icon_phosphor
+
+width = 100
+height = 50
+config(width=width, height=height)
+
+x = width / 7
+y = height / 2
+icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style=&quot;green&quot;)
+icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=&quot;red_light&quot;)
+icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=&quot;blue_bold&quot;)
+icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=&quot;green_flat&quot;)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="icon_images/7.png" alt="icon_7" />
+</div>
+<p>Icon supports the following styles exclusively:</p>
+<ul>
+<li>weight of icon: <code>light</code> and <code>bold</code></li>
+<li>fill color: <code>flat</code></li>
+<li>color of icon</li>
+</ul>
+<p>Line style solid and dashed are not supported.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.icons import icon_phosphor
+
+width = 100
+height = 50
+config(width=width, height=height)
+
+x = width / 7
+y = height / 2
+icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style=&quot;green&quot;)
+icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=&quot;red_light&quot;)
+icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=&quot;blue_bold&quot;)
+icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=&quot;green_flat&quot;)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="icon_images/8.png" alt="icon_8" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>icon with theme's style
+</code></pre>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

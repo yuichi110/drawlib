@@ -50,12 +50,10 @@ class TestCanvasImage:
         save(f"{OUTPUT_DIR}test_pimage.png")
 
     def test_cache_image(self) -> None:
-        """Verify image retrieval and caching in Dimage."""
+        """Verify image retrieval and reuse in Dimage."""
         clear()
         pimg = Dimage(IMAGE_FILE)
-        Dimage.cache.set("linux", pimg)
-        assert Dimage.cache.list() == ["linux"]
-        pimg2 = Dimage.cache.get("linux")
+        pimg2 = pimg.copy()
         image(xy=(50, 50), width=30, image=pimg2)
         save(f"{OUTPUT_DIR}test_cache.png")
 

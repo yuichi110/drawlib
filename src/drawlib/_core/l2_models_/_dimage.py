@@ -42,92 +42,13 @@ from drawlib._core.l2_types_._style import (
 list_ = list
 
 
-class DimageCache:
-    """A class for managing a cache of Dimage objects."""
-
-    def __init__(self) -> None:
-        """Initialize an empty Dimage cache."""
-        self._cache: dict[str, Dimage] = {}
-
-    def has(self, name: str) -> bool:
-        """Check whether a Dimage cache with the given name exists.
-
-        Args:
-            name (str): The name of the cache.
-
-        Returns:
-            bool: True if the cache exists, False otherwise.
-        """
-        return name in self._cache
-
-    def set(self, name: str, image: str | Dimage | Image.Image) -> None:
-        """Set a copied Dimage cache with the provided name key.
-
-        This method creates a copy of the original object and sets the copied one in the cache.
-        It means you can modify the original object after caching without affecting the cached object.
-
-        Args:
-            name (str): The key under which to cache the Dimage.
-            image (str | Dimage | Image.Image): The image to cache, either as a file path,
-                a Dimage object, or a PIL Image.
-
-        Returns:
-            None
-        """
-        self._cache[name] = Dimage(image=image, copy=True)
-
-    def list(self) -> List[str]:
-        """List all cached Dimage names.
-
-        Returns:
-            list[str]: A list of all cached Dimage names.
-        """
-        return list_(self._cache.keys())
-
-    def get(self, name: str) -> Dimage:
-        """Get a copied Dimage cache by name (key).
-
-        This method returns a copy of the cached Dimage object, allowing modifications
-        without affecting the original cached object.
-
-        Args:
-            name (str): The key of the cached Dimage to retrieve.
-
-        Returns:
-            Dimage: A copy of the original cached Dimage object.
-
-        Raises:
-            ValueError: If the specified Dimage cache does not exist.
-        """
-        if not self.has(name):
-            raise ValueError(f'Dimage "{name}" is not cached.')
-        return self._cache[name].copy()
-
-    def delete(self, name: str) -> None:
-        """Delete a Dimage cache if it exists.
-
-        Args:
-            name (str): The key of the Dimage cache to delete.
-
-        Returns:
-            None
-        """
-        if self.has(name):
-            del self._cache[name]
-
-
 class Dimage:
     """A wrapper class for handling images with easy methods for reading, writing, and applying effects.
 
     This class provides simple methods for reading, writing, and applying effects to images.
     It serves as a wrapper for `PIL.Image.Image`, allowing users to get and set PIL images
     from this class. For advanced effects, users should directly use the PIL Image class.
-
-    Attributes:
-        cache (DimageCache): A cache for storing Dimage objects.
     """
-
-    cache = DimageCache()
 
     @guarded
     def __init__(

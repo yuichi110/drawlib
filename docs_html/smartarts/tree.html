@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with ThemePreset</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Tree</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <p>=============</p>
+<h1>Tree</h1>
+<p>Class <code>dsart.Tree</code> draws smart art tree which is similar to <code>tree</code> command output.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.icons import icon_phosphor
+from drawlib.smartarts import TreeNode, dsart
+from drawlib.text import text
+from drawlib.preset_styles import get_style
+
+config(width=100, height=50, grid=True)
+
+tree1 = dsart.TreeNode(
+    &quot;Root&quot;,
+    default_textstyle=&quot;&quot;,
+    default_linestyle=&quot;light&quot;,
+    default_line_horizontal_margin=2,
+    default_line_horizontal_length=2,
+    default_line_vertical_margin=5,
+    children=[
+        dsart.TreeNode(
+            &quot;Child1&quot;,
+            children=[
+                dsart.TreeNode(
+                    &quot;Child1-1&quot;,
+                    children=[
+                        dsart.TreeNode(&quot;Child1-1-1&quot;),
+                    ],
+                ),
+                dsart.TreeNode(&quot;Child1-2&quot;, textstyle=&quot;red&quot;),
+            ],
+        ),
+        dsart.TreeNode(
+            text=&quot;Child2&quot;,
+            default_textstyle=&quot;blue&quot;,
+            children=[
+                dsart.TreeNode(&quot;Child2-1&quot;),
+                dsart.TreeNode(&quot;Child2-2&quot;),
+            ],
+        ),
+    ],
+)
+tree1.draw((10, 42.5))
+
+
+dsart.TreeNode.register_drawing_item(
+    name=&quot;py_file&quot;,
+    location=&quot;before&quot;,
+    padding_width=5,
+    function=icon_phosphor.file_py,
+    style=get_style(),
+    args={&quot;width&quot;: 4},
+)
+dsart.TreeNode.register_drawing_item(
+    name=&quot;png_file&quot;,
+    location=&quot;before&quot;,
+    padding_width=5,
+    function=icon_phosphor.file_png,
+    style=get_style(&quot;red&quot;),
+    args={&quot;width&quot;: 4},
+)
+
+tree2 = dsart.TreeNode(
+    &quot;Root&quot;,
+    default_textstyle=&quot;&quot;,
+    default_linestyle=&quot;light&quot;,
+    default_line_horizontal_margin=2,
+    default_line_horizontal_length=2,
+    default_line_vertical_margin=5,
+    children=[
+        dsart.TreeNode(
+            &quot;Child1&quot;,
+            children=[
+                dsart.TreeNode(
+                    &quot;Child1-1&quot;,
+                ).set_drawing_item(&quot;py_file&quot;),
+                dsart.TreeNode(&quot;Child1-2&quot;).set_drawing_item(&quot;png_file&quot;),
+            ],
+        ),
+        dsart.TreeNode(
+            &quot;Child2&quot;,
+            children=[
+                dsart.TreeNode(&quot;Child2-1&quot;).set_drawing_item(&quot;py_file&quot;),
+                dsart.TreeNode(&quot;Child2-2&quot;).set_drawing_item(&quot;png_file&quot;),
+            ],
+        ),
+    ],
+)
+
+tree2.draw((60, 42.5))
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="tree_images/1.png" alt="tree_1" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>image1.png
+</code></pre>
+<p>Each Tree instances are nodes of tree structure.
+Node can contain children nodes and able to override the style.</p>
+<p>You can draw tree with these procedure.</p>
+<ol>
+<li>Create root tree node</li>
+<li>Add children nodes</li>
+<li>Draw tree with providing coordinate</li>
+</ol>
+<h1>API Specification</h1>
+<h2><code>dsart.Tree()</code></h2>
+<p>Initializes a TreeNode instance with specific text, styles, and optional children.
+Styles are mandatory for root node. Optional for child nodes.</p>
+<p>Args:</p>
+<ul>
+<li>text (str): The text content for the tree node.</li>
+<li>textstyle (Union[str, TextStyle, None], optional): The text style for the node. It can be a string that maps to a <code>TextStyle</code> or a <code>TextStyle</code> instance. Defaults to None.</li>
+<li>linestyle (Union[str, LineStyle, None], optional): The line style for the node. It can be a string that maps to a <code>LineStyle</code> or a <code>LineStyle</code> instance. Defaults to None.</li>
+<li>line_horizontal_margin (Optional[float], optional): The margin for horizontal lines. Defaults to None.</li>
+<li>line_horizontal_length (Optional[float], optional): The length of horizontal lines. Defaults to None.</li>
+<li>line_vertical_margin (Optional[float], optional): The margin for vertical lines. Defaults to None.</li>
+<li>children (Optional[List[TreeNode]], optional): A list of child nodes connected to this node. Defaults to None.</li>
+<li>default_textstyle (Union[str, TextStyle, None], optional): The default text style for child nodes. Defaults to None.</li>
+<li>default_linestyle (Union[str, LineStyle, None], optional): The default line style for child nodes. Defaults to None.</li>
+<li>default_line_horizontal_margin (Optional[float], optional): The default horizontal margin for lines of child nodes. Defaults to None.</li>
+<li>default_line_horizontal_length (Optional[float], optional): The default horizontal length for lines of child nodes. Defaults to None.</li>
+<li>default_line_vertical_margin (Optional[float], optional): The default vertical margin for lines of child nodes. Defaults to None.</li>
+</ul>
+<h2><code>register_drawing_item()</code></h2>
+<p>Class method.
+Register a drawing item for the tree node.
+This class returns current tree node instance.</p>
+<p>Args:</p>
+<ul>
+<li>name (str): Name of drawing item.</li>
+<li>location (Literal[&quot;before&quot;, &quot;after&quot;]): The location of the drawing item relative to the text.</li>
+<li>padding_width (float): The padding width for the drawing item.</li>
+<li>function (Callable): The function to render the drawing item.</li>
+<li>style (Union[IconStyle, ImageStyle, ShapeStyle, TextStyle]): The style for the drawing item.</li>
+<li>args (dict): The arguments for the function.</li>
+</ul>
+<h2><code>set_drawing_item()</code></h2>
+<p>Set a drawing item for the tree node.</p>
+<p>Args:</p>
+<ul>
+<li>name (str): Name of drawing item.</li>
+</ul>
+<h2><code>draw()</code></h2>
+<p>Draw the tree node and its children.
+ValueError is raised if any of the default styles or margins are None.</p>
+<p>Args:</p>
+<ul>
+<li>xy (Tuple[float, float]): The coordinates to start drawing.</li>
+</ul>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

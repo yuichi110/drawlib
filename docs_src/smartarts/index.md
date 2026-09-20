@@ -1,15 +1,14 @@
-# SmartArts Guide
+===================
 
-The **SmartArts** section covers high-level diagramming components in Drawlib for creating structured diagrams quickly.
+# About Smart Arts
 
----
 
-## SmartArts Documentation
+Smart Arts are an advanced drawing feature in Drawlib, inspired by PowerPoint's Smart Art. 
+These features are implemented within the `dsart` module. 
 
-- [SmartArts Overview & Components](./smartarts.md): Tables, trees, process lists, speech bubbles, and pyramid diagrams.
+Below is an index of available Smart Arts with brief descriptions:
 
----
+- bubblespeech: Represents bubble speech graphics.
+- sourcecode: Renders source code or programming-related graphics.
 
-## Navigation
-
-- [Back to Main Index](../index.md)
+Each Smart Art item provides specialized drawing capabilities tailored for different graphical needs.

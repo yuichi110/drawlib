@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing line</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with ThemePreset</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Drawing line</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <p>==================</p>
+<h1>Drawing line</h1>
+<p>Drawlib provides six functions for drawing lines:</p>
+<ul>
+<li><code>line()</code></li>
+<li><code>line_curve()</code></li>
+<li><code>line_bezier1()</code></li>
+<li><code>line_bezier2()</code></li>
+<li><code>lines()</code></li>
+<li><code>lines_bezier()</code></li>
+</ul>
+<p>We will explain each of these functions in detail.
+They all share the following optional arguments:</p>
+<ul>
+<li><code>arrowhead</code>: Specifies the type of arrowhead. Options are <code>[&quot;&quot;, &quot;-&gt;&quot;, &quot;&lt;-&quot;, &quot;&lt;-&gt;&quot;]</code>.</li>
+<li><code>width</code>: Specifies the line width. This should typically be configured within the style, but it is also available as an optional argument.</li>
+<li><code>style</code>: Defines the line style. Accepts a LineStyle object or a string (style name).</li>
+</ul>
+<p>Details on these options will be covered in the next section on line styles (see the following page).</p>
+<h1>line()</h1>
+<p>The <code>line()</code> function is the most basic function for drawing lines.
+It requires two mandatory arguments and accepts three optional arguments.</p>
+<ul>
+<li>xy1: The start point of the line</li>
+<li>xy2: The end point of the line</li>
+<li>(optional) arrowhead: Specifies the type of arrow head</li>
+<li>(optional) width: The width of the line</li>
+<li>(optional) style: The style of the line</li>
+</ul>
+<p>Let's look at an example:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.lines import line
+
+config(width=100, height=50)
+line(xy1=(10, 10), xy2=(90, 40))
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="line_images/1.png" alt="line_1" />
+</div>
+<p>In this example, we draw a line from (10, 10) to (90, 40) without specifying a style.
+This generates the following output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.lines import line
+
+config(width=100, height=50)
+line(xy1=(10, 10), xy2=(90, 40))
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="line_images/2.png" alt="line_2" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>straight line from xy1 to xy2
+</code></pre>
+<h1>line_curved()</h1>
+<p>The <code>line_curved()</code> function makes it easy to draw curved lines.
+While <code>line_bezier1()</code> and <code>line_bezier2()</code> can also draw curved lines, they require more complex curve control compared to <code>line_curved()</code>.</p>
+<p>It requires three mandatory arguments and accepts three optional arguments.</p>
+<ul>
+<li>xy1: The start point of the line</li>
+<li>xy2: The end point of the line</li>
+<li>bend: The additional length beyond a direct connection, controlling the curvature.</li>
+<li>(optional) arrowhead: Specifies the type of arrow head</li>
+<li>(optional) width: The width of the line</li>
+<li>(optional) style: The style of the line</li>
+</ul>
+<p>For example, suppose xy1 is (10, 10) and xy2 is (10, 20).
+The distance between these points is 10 units.</p>
+<ul>
+<li>When <code>bend</code> is set to 0.2, the line is drawn from (10, 10) to (10, 20) with a length of 12 units (10 x 1.2).</li>
+<li>When <code>bend</code> is set to 0.4, the length is 14 units (10 x 1.4).</li>
+</ul>
+<p>Negative values can also be used for bend, which maintains the length but reverses the bending direction.
+Let's check some examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.lines import line_curved
+from drawlib.text import text
+
+config(width=100, height=50)
+line_curved(xy1=(10, 20), xy2=(90, 20), bend=0.4)
+text((50, 7), &quot;0.4&quot;)
+line_curved(xy1=(10, 23), xy2=(90, 23), bend=0.2)
+text((50, 18), &quot;0.2&quot;)
+line_curved(xy1=(10, 27), xy2=(90, 27), bend=-0.2)
+text((50, 32), &quot;-0.2&quot;)
+line_curved(xy1=(10, 30), xy2=(90, 30), bend=-0.4)
+text((50, 43), &quot;-0.4&quot;)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="line_images/3.png" alt="line_3" />
+</div>
+<p>This code generates the following output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.lines import line_curved
+from drawlib.text import text
+
+config(width=100, height=50)
+line_curved(xy1=(10, 20), xy2=(90, 20), bend=0.4)
+text((50, 7), &quot;0.4&quot;)
+line_curved(xy1=(10, 23), xy2=(90, 23), bend=0.2)
+text((50, 18), &quot;0.2&quot;)
+line_curved(xy1=(10, 27), xy2=(90, 27), bend=-0.2)
+text((50, 32), &quot;-0.2&quot;)
+line_curved(xy1=(10, 30), xy2=(90, 30), bend=-0.4)
+text((50, 43), &quot;-0.4&quot;)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="line_images/4.png" alt="line_4" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>curved line from xy1 to xy2
+</code></pre>
+<h1>line_bezier1()</h1>
+<p>The <code>line_bezier1()</code> function draws a Bézier curve with one control point.
+It requires three mandatory arguments and accepts three optional arguments.</p>
+<ul>
+<li>xy1: The start point of the line</li>
+<li>cp: The Bézier control point.</li>
+<li>xy2: The end point of the line</li>
+<li>bend: The additional length beyond a direct connection, controlling the curvature.</li>
+<li>(optional) arrowhead: Specifies the type of arrow head</li>
+<li>(optional) width: The width of the line</li>
+<li>(optional) style: The style of the line</li>
+</ul>
+<p>Bézier curves are a popular method for drawing smooth, curved lines.
+If you are not familiar with Bézier curves, it is recommended to research and understand the concept first.</p>
+<p>This code generates the following output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.lines import line, line_bezier1
+from drawlib.shapes import circle
+from drawlib.types import LineStyle, ShapeStyle
+
+config(width=100, height=50)
+line_bezier1(xy1=(10, 10), cp=(10, 40), xy2=(40, 40))
+line(xy1=(10, 10), xy2=(10, 40), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(40, 40), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+circle(xy=(10, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(40, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+
+line_bezier1(xy1=(60, 40), cp=(90, 40), xy2=(90, 10))
+line(xy1=(60, 40), xy2=(90, 40), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(90, 40), xy2=(90, 10), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="line_images/5.png" alt="line_5" />
+</div>
+<p>It generate this output.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.lines import line, line_bezier1
+from drawlib.shapes import circle
+from drawlib.types import LineStyle, ShapeStyle
+
+config(width=100, height=50)
+line_bezier1(xy1=(10, 10), cp=(10, 40), xy2=(40, 40))
+line(xy1=(10, 10), xy2=(10, 40), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(40, 40), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+circle(xy=(10, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(40, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+
+line_bezier1(xy1=(60, 40), cp=(90, 40), xy2=(90, 10))
+line(xy1=(60, 40), xy2=(90, 40), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(90, 40), xy2=(90, 10), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="line_images/6.png" alt="line_6" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>Bézier curves from xy1 to xy2
+</code></pre>
+<h1>line_bezier2()</h1>
+<p>The <code>line_bezier2()</code> function draws a Bézier curve with two control points.
+It requires four mandatory arguments and accepts three optional arguments.</p>
+<ul>
+<li>xy1: The start point of the line</li>
+<li>cp1: The first Bézier control point.</li>
+<li>cp2: The seconde Bézier control point.</li>
+<li>xy2: The end point of the line</li>
+<li>bend: The additional length beyond a direct connection, controlling the curvature.</li>
+<li>(optional) arrowhead: Specifies the type of arrow head</li>
+<li>(optional) width: The width of the line</li>
+<li>(optional) style: The style of the line</li>
+</ul>
+<p>Drawing a Bézier curve with two control points is a popular method for creating smooth, curved lines.
+If you are not familiar with Bézier curves, it is recommended to research and understand the concept first.</p>
+<p>Here is an example code:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.lines import line, line_bezier2
+from drawlib.shapes import circle
+from drawlib.types import LineStyle, ShapeStyle
+
+config(width=100, height=50)
+line_bezier2(xy1=(10, 10), cp1=(10, 40), cp2=(40, 40), xy2=(40, 10))
+line(xy1=(10, 10), xy2=(10, 40), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(40, 40), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(40, 40), xy2=(40, 10), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+circle(xy=(10, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(40, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(40, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+
+line_bezier2(xy1=(60, 40), cp1=(60, 10), cp2=(90, 10), xy2=(90, 40))
+line(xy1=(60, 40), xy2=(60, 10), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(60, 10), xy2=(90, 10), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(90, 10), xy2=(90, 40), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(60, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="line_images/7.png" alt="line_7" />
+</div>
+<p>Executing this code generates the following output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.lines import line, line_bezier2
+from drawlib.shapes import circle
+from drawlib.types import LineStyle, ShapeStyle
+
+config(width=100, height=50)
+line_bezier2(xy1=(10, 10), cp1=(10, 40), cp2=(40, 40), xy2=(40, 10))
+line(xy1=(10, 10), xy2=(10, 40), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(40, 40), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(40, 40), xy2=(40, 10), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+circle(xy=(10, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(40, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(40, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+
+line_bezier2(xy1=(60, 40), cp1=(60, 10), cp2=(90, 10), xy2=(90, 40))
+line(xy1=(60, 40), xy2=(60, 10), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(60, 10), xy2=(90, 10), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(90, 10), xy2=(90, 40), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(60, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="line_images/8.png" alt="line_8" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>Bézier curves from xy1 to xy2
+</code></pre>
+<h1>line_arc()</h1>
+<p>The <code>line_arc()</code> function draws a line on the ellipse arc. If the width and height of the ellipse are same, line will be drawn on circle arc.</p>
+<h1>lines()</h1>
+<p>The <code>lines()</code> function draws a line that passes through a series of provided points
+It requires one mandatory arguments and accepts three optional arguments.</p>
+<ul>
+<li>xys: A list of (x, y) tuples representing the points the line should pass through.</li>
+<li>(optional) arrowhead: Specifies the type of arrow head</li>
+<li>(optional) width: The width of the line</li>
+<li>(optional) style: The style of the line</li>
+</ul>
+<p>The <code>xys</code> argument differs from the previous functions, but it is simply a list of (x, y) coordinates, such as <code>[(10, 10), (20, 40), (30, 10), (40, 40)]</code>.</p>
+<p>Here is an example code:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.lines import lines
+
+config(width=100, height=50)
+lines(
+    xys=[
+        (10, 10),
+        (10, 20),
+        (40, 30),
+        (40, 40),
+        (60, 40),
+        (90, 10),
+    ]
+)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="line_images/9.png" alt="line_9" />
+</div>
+<p>It generate this output.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.lines import lines
+
+config(width=100, height=50)
+lines(
+    xys=[
+        (10, 10),
+        (10, 20),
+        (40, 30),
+        (40, 40),
+        (60, 40),
+        (90, 10),
+    ]
+)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="line_images/10.png" alt="line_10" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>lines which passes list of xy
+</code></pre>
+<h1>lines_bezier()</h1>
+<p>The <code>lines_bezier()</code> function is similar to <code>lines()</code>, but it can draw multiple straight lines,
+Bézier curves with one control point (bezier1), or Bézier curves with two control points (bezier2) from point to point.</p>
+<p>It takes two mandatory arguments and three optional arguments.</p>
+<ul>
+<li>xy: The starting point.</li>
+<li>path_points: A list of tuples defining the path.</li>
+<li>(optional) arrowhead: Specifies the type of arrow head</li>
+<li>(optional) width: The width of the line</li>
+<li>(optional) style: The style of the line</li>
+</ul>
+<p>The <code>path_points</code> argument can be complex, as it accepts three types of tuples:</p>
+<ul>
+<li>(x, y): Draws a straight line from the last point to (x, y).</li>
+<li>((cp_x, cp_y), (x, y)): Draws a bezier1 line from the last point to (x, y) with one control point (cp_x, cp_y).</li>
+<li>((cp1_x, cp1_y), (cp2_x, cp2_y), (x, y)): Draws a bezier2 line from the last point to (x, y) with two control points (cp1_x, cp1_y) and (cp2_x, cp2_y).</li>
+</ul>
+<p>Element of <code>path_points</code> are very similar to the previous functions line(), line_bezier1(), and line_bezier2().
+We set almost the same arguments for elements of the path_points.</p>
+<p>Let's see how it works with an example:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.lines import line, lines_bezier
+from drawlib.shapes import circle
+from drawlib.types import LineStyle, ShapeStyle
+
+config(width=100, height=50)
+
+points = [
+    ((10, 20), (30, 20)),
+    (60, 10),
+    ((60, 40), (90, 40), (90, 10)),
+]
+lines_bezier(xy=(10, 40), path_points=points)
+
+# bezier1 help line
+line(xy1=(10, 40), xy2=(10, 20), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(10, 20), xy2=(30, 20), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(10, 20), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(30, 20), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+
+# bezier2 help line
+line(xy1=(60, 10), xy2=(60, 40), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(60, 40), xy2=(90, 40), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(90, 40), xy2=(90, 10), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+circle(xy=(60, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="line_images/11.png" alt="line_11" />
+</div>
+<p>In this example, we use all three types of tuples as elements of path_points.
+They will create a straight line, a bezier1 line, and a bezier2 line.</p>
+<p>Executing this code generates the following output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.lines import line, lines_bezier
+from drawlib.shapes import circle
+from drawlib.types import LineStyle, ShapeStyle
+
+config(width=100, height=50)
+
+points = [
+    ((10, 20), (30, 20)),
+    (60, 10),
+    ((60, 40), (90, 40), (90, 10)),
+]
+lines_bezier(xy=(10, 40), path_points=points)
+
+# bezier1 help line
+line(xy1=(10, 40), xy2=(10, 20), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(10, 20), xy2=(30, 20), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(10, 20), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(30, 20), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+
+# bezier2 help line
+line(xy1=(60, 10), xy2=(60, 40), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(60, 40), xy2=(90, 40), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(90, 40), xy2=(90, 10), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+circle(xy=(60, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="line_images/12.png" alt="line_12" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>image6.png
+</code></pre>
+<p>This function can be used to draw curved lines from shape to shape like this:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.lines import line, lines_bezier
+from drawlib.shapes import circle
+from drawlib.types import LineStyle, ShapeStyle
+
+config(width=100, height=50)
+
+circle((10, 40), radius=5)
+lines_bezier(
+    (20, 40),
+    path_points=[
+        (75, 40),
+        ((90, 40), (90, 25)),
+        (90, 20),
+    ],
+    arrowhead=&quot;-&gt;&quot;,
+)
+circle((90, 10), radius=5)
+
+# bezier1 help line
+line(xy1=(75, 40), xy2=(90, 40), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+line(xy1=(90, 40), xy2=(90, 25), style=LineStyle(line_style=&quot;dashed&quot;, line_color=Colors.Red))
+circle(xy=(75, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 25), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="line_images/13.png" alt="line_13" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>image7.png
+</code></pre>
+<p>For precise control, use this function.
+However, if you want to draw a simple curved line, we recommend using <code>lines_curved()</code> instead.</p>
+<h1>lines_curved()</h1>
+<p>The <code>lines_curved()</code> function is a simplified syntax for <code>lines_bezier()</code>.</p>
+<p>From an argument perspective, this function is almost the same as <code>lines()</code>, but it includes an additional argument <code>r</code> which specifies the length of the curve.
+This automatically applies a bezier1 curve effect to lines with the specified length <code>r</code>.
+If you want to add related curves to all vertices, this function is very useful.</p>
+<p>It takes two mandatory arguments and three optional arguments.</p>
+<ul>
+<li>xys: A list of (x, y) tuples representing the points the line should pass through.</li>
+<li>r: The length of the curve.</li>
+<li>(optional) arrowhead: Specifies the type of arrow head</li>
+<li>(optional) width: The width of the line</li>
+<li>(optional) style: The style of the line</li>
+</ul>
+<p>Here is an example code:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.lines import lines, lines_curved
+from drawlib.shapes import circle
+from drawlib.types import LineStyle
+
+config(width=100, height=50)
+
+circle((10, 40), radius=5)
+lines(
+    [(20, 40), (30, 40), (30, 10), (90, 40), (90, 22)],
+    style=LineStyle(line_color=Colors.Red, line_style=&quot;dashed&quot;, line_width=1.5),
+)
+lines_curved(
+    [(20, 40), (30, 40), (30, 10), (90, 40), (90, 20)],
+    r=8,
+    width=2.5,
+    arrowhead=&quot;-&gt;&quot;,
+)
+circle((90, 10), radius=5)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="line_images/14.png" alt="line_14" />
+</div>
+<p>Executing this code generates the following output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.lines import lines, lines_curved
+from drawlib.shapes import circle
+from drawlib.types import LineStyle
+
+config(width=100, height=50)
+
+circle((10, 40), radius=5)
+lines(
+    [(20, 40), (30, 40), (30, 10), (90, 40), (90, 22)],
+    style=LineStyle(line_color=Colors.Red, line_style=&quot;dashed&quot;, line_width=1.5),
+)
+lines_curved(
+    [(20, 40), (30, 40), (30, 10), (90, 40), (90, 20)],
+    r=8,
+    width=2.5,
+    arrowhead=&quot;-&gt;&quot;,
+)
+circle((90, 10), radius=5)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="line_images/15.png" alt="line_15" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>lines_curve()
+</code></pre>
+<p>The red dashed support line length is the value of <code>r</code>.
+If you set a large value, the curve becomes bigger.
+However, be careful: <code>r</code> should be smaller than the distance between points.</p>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

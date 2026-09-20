@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLI and Options</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with ThemePreset</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">CLI and Options</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <p>=================</p>
+<h1>CLI and Options</h1>
+<h1>drawlib Command</h1>
+<p>Once drawlib is installed, you gain access to the <code>drawlib</code> command.
+This command is equivalent to invoking the drawlib module using <code>python -m drawlib</code>.</p>
+<p>You can develop your illustration code using either <code>python &lt;your_drawlib_code&gt;</code> or <code>drawlib &lt;your_drawlib_code_or_directory&gt;</code>.
+If you are working with a single file that doesn't import any other files, there is minimal difference between using these commands.</p>
+<p>However, significant differences arise when managing multiple illustration codes or referencing style code:</p>
+<ul>
+<li>
+<p>The python command executes a single file.</p>
+</li>
+<li>
+<p>The <code>drawlib</code> command performs several tasks before executing your code:</p>
+<ul>
+<li>It detects your package architecture and registers paths.</li>
+<li>It executes all Python files found under the specified directory.</li>
+<li>It can automatically apply <code>clear()</code> before executing each file.</li>
+</ul>
+</li>
+</ul>
+<p>For projects involving numerous illustrations, we strongly recommend using the <code>drawlib</code> command over <code>python</code> for its added convenience and automation features.</p>
+<h1>Sample</h1>
+<p>We will cover how to build multiple illustrations in detail in the foundational chapter.
+Please refer to that section for comprehensive guidance.
+However, as demonstrated here, the <code>drawlib</code> command is capable of building multiple Python illustration codes after registering your package path.</p>
+<pre><code class="language-text">$ drawlib docs/                
+Detect package root &quot;/Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs&quot;.
+   - Add parent directory of package root &quot;/Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many&quot; to Python Path.
+
+Execute python files
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/__init__.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap01/__init__.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap01/image1.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap01/image2.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap02/__init__.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap02/image1.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/commons/__init__.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/commons/style.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/commons/util.py
+</code></pre>
+<h1>Command Options</h1>
+<p>The <code>drawlib</code> command includes the <code>-h</code> and <code>--help</code> options, which display command help.</p>
+<pre><code class="language-text">$ drawlib -h
+ usage: drawlib [-h] [-v] [--purge_font_cache] [--disable_auto_clear] [--enable_auto_initialize] [--quiet] [--verbose] [--developer] ...
+
+ Ilustration as code by python
+
+ positional arguments:
+ file_or_directory     Target python file or directory which contains python codes
+
+ optional arguments:
+ -h, --help            show this help message and exit
+ -v, --version         Show version.
+ --purge_font_cache    Purge cached font files.
+ --disable_auto_clear  Disable clearing canvas per executing drawing code files.
+ --enable_auto_initialize
+                         Enable initializing canvas per executing drawing code files.
+ --quiet               Enable quiet logging. show only error messages
+ --verbose             Enable verbose logging.
+ --debug               Enable verbose logging. Equivalent to option &quot;--verbose&quot;.
+ --developer           Enable verbose logging. Disable error handling for library users.
+</code></pre>
+<h2>Controlling Auto Clear and Initialize Feature</h2>
+<p>By default, auto <code>clear()</code> is enabled, meaning your previous drawing actions are erased before executing the next illustration code.
+This behavior is generally suitable for normal use cases.</p>
+<p>However, if you intend to create a single illustration using multiple Python files, this auto clear feature may not be desirable.
+In such cases, you can disable it using <code>--disable_auto_clear</code>.</p>
+<p>The <code>clear()</code> function erases canvas elements while maintaining consistent theme configurations.
+If you need to completely initialize drawlib per illustration code execution, you can use <code>--enable_auto_initialize</code>.
+This option ensures that drawlib calls <code>dutil_canvas.initialize()</code> every time your code files are executed.</p>
+<p>Typically, you won't need to specify both options.</p>
+<h2>Purging Font Cache</h2>
+<p>The <code>--purge_font_cache</code> option removes drawlib's cached font files from your local machine.</p>
+<p>Font files are downloaded and cached the first time you use a particular font, and this option deletes those cached files to reclaim disk space.
+The combined size of font files is usually under 100MB.
+Note that using Chinese or Japanese fonts may consume more space due to the large number of characters they include.</p>
+<p>Uninstalling drawlib also removes cached fonts, as drawlib stores font caches in its library directory.</p>
+<h2>Setting Log Level</h2>
+<p>Options like <code>--quiet</code>, <code>--verbose</code>, <code>--debug</code>, and <code>--developer</code> adjust the log level:</p>
+<ul>
+<li><code>--quiet</code>: Suppresses all output except errors.</li>
+<li><code>--verbose</code> / <code>--debug</code>: Provides verbose logging and includes stack traces for errors.</li>
+<li><code>--developer</code>: Provides verbose logging and offering detailed error dumps without error handling, suitable for advanced Python users troubleshooting issues.</li>
+</ul>
+<p>Choose the appropriate log level based on your need for error visibility and troubleshooting depth.</p>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

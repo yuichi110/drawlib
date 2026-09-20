@@ -36,9 +36,9 @@ circle((50, 50), radius=20, text="Core Engine")
     content = out_html.read_text(encoding="utf-8")
     assert "<!DOCTYPE html>" in content
     assert "<h1" in content
-    assert '<img src="sample_1.png"' in content
+    assert '<img src="sample_images/1.png"' in content
 
-    png_file = tmp_path / "sample_1.png"
+    png_file = tmp_path / "sample_images" / "1.png"
     assert png_file.exists()
 
 
@@ -105,7 +105,7 @@ line((0, 0), (100, 100))
     assert os.path.exists(res_path)
     content = out_md.read_text(encoding="utf-8")
     assert "# Rendered MD Test" in content
-    assert "![sample.rendered_1](sample.rendered_1.png)" in content
+    assert "![sample.rendered_1](sample.rendered_images/1.png)" in content
     assert "```drawlib" not in content
 
 

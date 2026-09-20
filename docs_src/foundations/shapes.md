@@ -23,7 +23,8 @@ Circle-like shapes take `xy` as center coordinates and a `radius` parameter.
 ```drawlib 500px center caption:"Circle-like Shapes Overview"
 from drawlib.canvas import config
 from drawlib.colors import Colors140
-from drawlib.shapes import circle, donuts, fan, regularpolygon, star
+from drawlib.shapes import circle, donuts, regularpolygon, star
+from drawlib.text import text
 from drawlib.types import ShapeStyle
 
 config(width=150, height=60)
@@ -83,7 +84,8 @@ Rectangle-like shapes take `xy` as center coordinates, `width`, `height`, and an
 ```drawlib 500px center caption:"Rectangle-like Shapes and Rotation Angles"
 from drawlib.canvas import config
 from drawlib.colors import Colors140
-from drawlib.shapes import chevron, ellipse, parallelogram, rectangle, rhombus, triangle
+from drawlib.shapes import chevron, ellipse, rectangle, rhombus, triangle
+from drawlib.text import text
 from drawlib.types import ShapeStyle
 
 config(width=160, height=60)
@@ -145,6 +147,7 @@ The `arrow()` function draws a thick block arrow from point `xy1` to point `xy2`
 from drawlib.canvas import config
 from drawlib.colors import Colors140
 from drawlib.shapes import arrow
+from drawlib.text import text
 from drawlib.types import ShapeStyle
 
 config(width=100, height=40)
@@ -170,6 +173,7 @@ The `polygon()` function connects a sequence of `(x, y)` coordinate points `xys`
 from drawlib.canvas import config
 from drawlib.colors import Colors140
 from drawlib.shapes import polygon
+from drawlib.text import text
 from drawlib.types import ShapeStyle
 
 config(width=100, height=50)
@@ -196,6 +200,7 @@ Shape appearance is configured using `ShapeStyle`:
 from drawlib.canvas import config
 from drawlib.colors import Colors140
 from drawlib.shapes import circle, rectangle
+from drawlib.text import text
 from drawlib.types import ShapeStyle
 
 config(width=100, height=40)

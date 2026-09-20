@@ -25,7 +25,8 @@ Circle-like shapes take `xy` as center coordinates and a `radius` parameter.
 ```python
 from drawlib.canvas import config
 from drawlib.colors import Colors140
-from drawlib.shapes import circle, donuts, fan, regularpolygon, star
+from drawlib.shapes import circle, donuts, regularpolygon, star
+from drawlib.text import text
 from drawlib.types import ShapeStyle
 
 config(width=150, height=60)
@@ -68,7 +69,7 @@ star(
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_1.png" alt="shapes_1" style="width: 500px; max-width: 100%;" />
+  <img src="shapes_images/1.png" alt="shapes_1" style="width: 500px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Circle-like Shapes Overview</figcaption>
 </figure>
 
@@ -94,7 +95,8 @@ Rectangle-like shapes take `xy` as center coordinates, `width`, `height`, and an
 ```python
 from drawlib.canvas import config
 from drawlib.colors import Colors140
-from drawlib.shapes import chevron, ellipse, parallelogram, rectangle, rhombus, triangle
+from drawlib.shapes import chevron, ellipse, rectangle, rhombus, triangle
+from drawlib.text import text
 from drawlib.types import ShapeStyle
 
 config(width=160, height=60)
@@ -147,7 +149,7 @@ chevron(
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_2.png" alt="shapes_2" style="width: 500px; max-width: 100%;" />
+  <img src="shapes_images/2.png" alt="shapes_2" style="width: 500px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Rectangle-like Shapes and Rotation Angles</figcaption>
 </figure>
 
@@ -165,6 +167,7 @@ The `arrow()` function draws a thick block arrow from point `xy1` to point `xy2`
 from drawlib.canvas import config
 from drawlib.colors import Colors140
 from drawlib.shapes import arrow
+from drawlib.text import text
 from drawlib.types import ShapeStyle
 
 config(width=100, height=40)
@@ -181,7 +184,7 @@ arrow(
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_3.png" alt="shapes_3" style="width: 500px; max-width: 100%;" />
+  <img src="shapes_images/3.png" alt="shapes_3" style="width: 500px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Block Arrow from xy1 to xy2</figcaption>
 </figure>
 
@@ -199,6 +202,7 @@ The `polygon()` function connects a sequence of `(x, y)` coordinate points `xys`
 from drawlib.canvas import config
 from drawlib.colors import Colors140
 from drawlib.shapes import polygon
+from drawlib.text import text
 from drawlib.types import ShapeStyle
 
 config(width=100, height=50)
@@ -211,7 +215,7 @@ polygon(
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_4.png" alt="shapes_4" style="width: 500px; max-width: 100%;" />
+  <img src="shapes_images/4.png" alt="shapes_4" style="width: 500px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Custom Polygon Connecting Points</figcaption>
 </figure>
 
@@ -234,6 +238,7 @@ Shape appearance is configured using `ShapeStyle`:
 from drawlib.canvas import config
 from drawlib.colors import Colors140
 from drawlib.shapes import circle, rectangle
+from drawlib.text import text
 from drawlib.types import ShapeStyle
 
 config(width=100, height=40)
@@ -265,7 +270,7 @@ circle(
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="shapes_5.png" alt="shapes_5" style="width: 500px; max-width: 100%;" />
+  <img src="shapes_images/5.png" alt="shapes_5" style="width: 500px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Shape Styling and Border Styles</figcaption>
 </figure>
 

@@ -18,7 +18,7 @@ import shlex
 import sys
 import tempfile
 from dataclasses import dataclass
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 from drawlib._tools.doc_builder.config import load_config
 from drawlib.canvas import clear, save
@@ -34,6 +34,7 @@ class DrawlibBlockOptions:
     format: Optional[str] = None
     caption: Optional[str] = None
     css_class: Optional[str] = None
+    file: Optional[str] = None
 
 
 class DrawlibBlockProcessor:
@@ -237,6 +238,8 @@ class DrawlibBlockProcessor:
                 options.caption = val_clean
             elif key_lower in {"class", "css_class"}:
                 options.css_class = val_clean
+            elif key_lower == "file":
+                options.file = val_clean
             elif not key_lower:
                 val_lower = val_clean.lower()
                 if val_lower in {"left", "center", "right"}:
@@ -318,6 +321,7 @@ class DrawlibBlockProcessor:
         image_format: str = "png",
         use_markdown_syntax: bool = False,
         embed_images: bool = False,
+        source_filename: str = "<drawlib_block>",
     ) -> str:
         """Process Markdown text and replace ```drawlib blocks with rendered images or inline SVG.
 
@@ -328,6 +332,7 @@ class DrawlibBlockProcessor:
             image_format (str): Image format ('png', 'svg', or 'inline_svg'). Default is 'png'.
             use_markdown_syntax (bool): If True, output Markdown image syntax (![alt](path)) instead of HTML img tags.
             embed_images (bool): If True, embed images directly as Data URLs or inline SVG without saving files.
+            source_filename (str): Path of source markdown file used for code execution context.
 
         Returns:
             str: Processed Markdown text with img tags or inline SVG.
@@ -348,40 +353,46 @@ class DrawlibBlockProcessor:
 
             if embed_images:
                 if eff_format in {"svg", "inline_svg"}:
-                    svg = self.render_block_svg(code)
+                    svg = self.render_block_svg(code, source_filename=source_filename)
                     wrapper = self._format_image_wrapper(
                         "", f"{doc_base_name}_{block_counter}", options, is_inline_svg=True, svg_content=svg
                     )
                     return f"\n\n```python\n{code}\n```\n\n{wrapper}\n\n"
-                data_url = self.render_block_to_data_url(code, image_format=eff_format)
+                data_url = self.render_block_to_data_url(code, image_format=eff_format, source_filename=source_filename)
                 alt = f"{doc_base_name}_{block_counter}"
                 wrapper = self._format_image_wrapper(data_url, alt, options)
                 return f"\n\n```python\n{code}\n```\n\n{wrapper}\n\n"
 
             if eff_format == "inline_svg":
-                svg = self.render_block_svg(code)
+                svg = self.render_block_svg(code, source_filename=source_filename)
                 wrapper = self._format_image_wrapper(
                     "", f"{doc_base_name}_{block_counter}", options, is_inline_svg=True, svg_content=svg
                 )
                 return f"\n\n```python\n{code}\n```\n\n{wrapper}\n\n"
 
             ext = "svg" if eff_format == "svg" else "png"
-            img_filename = f"{doc_base_name}_{block_counter}.{ext}"
+            if options.file:
+                img_name = options.file if ("." in options.file) else f"{options.file}.{ext}"
+            else:
+                img_name = f"{block_counter}.{ext}"
+
+            images_dir = f"{doc_base_name}_images"
+            rel_img_path = f"{images_dir}/{img_name}"
 
             if output_dir:
-                target_img_path = os.path.join(output_dir, img_filename)
+                target_img_path = os.path.join(output_dir, images_dir, img_name)
             else:
-                target_img_path = img_filename
+                target_img_path = rel_img_path
 
-            self.render_block_to_file(code, target_img_path)
+            self.render_block_to_file(code, target_img_path, source_filename=source_filename)
 
             has_custom_options = bool(
                 options.width or options.height or options.align or options.caption or options.css_class
             )
             if use_markdown_syntax and not has_custom_options:
-                return f"\n\n```python\n{code}\n```\n\n![{doc_base_name}_{block_counter}]({img_filename})\n\n"
+                return f"\n\n```python\n{code}\n```\n\n![{doc_base_name}_{block_counter}]({rel_img_path})\n\n"
 
-            wrapper = self._format_image_wrapper(img_filename, f"{doc_base_name}_{block_counter}", options)
+            wrapper = self._format_image_wrapper(rel_img_path, f"{doc_base_name}_{block_counter}", options)
             return f"\n\n```python\n{code}\n```\n\n{wrapper}\n\n"
 
         res = pattern.sub(replacer, text_to_search)
@@ -394,6 +405,7 @@ class DrawlibBlockProcessor:
         output_dir: Optional[str] = None,
         image_format: str = "png",
         embed_images: bool = False,
+        source_filename: str = "<drawlib_block>",
     ) -> str:
         """Process HTML text and replace <drawlib> and <script type="text/drawlib"> blocks.
 
@@ -403,6 +415,7 @@ class DrawlibBlockProcessor:
             output_dir (Optional[str]): Target output directory for image files.
             image_format (str): Image format ('png', 'svg', or 'inline_svg'). Default is 'png'.
             embed_images (bool): If True, embed images directly as Data URLs or inline SVG without saving files.
+            source_filename (str): Path of source HTML file used for code execution context.
 
         Returns:
             str: Processed HTML text with img tags or inline SVG.
@@ -422,18 +435,18 @@ class DrawlibBlockProcessor:
 
             if embed_images:
                 if eff_format in {"svg", "inline_svg"}:
-                    svg = self.render_block_svg(code)
+                    svg = self.render_block_svg(code, source_filename=source_filename)
                     wrapper = self._format_image_wrapper(
                         "", f"{doc_base_name}_{block_counter}", options, is_inline_svg=True, svg_content=svg
                     )
                     return f'<pre><code class="language-python">{code}</code></pre>\n{wrapper}'
-                data_url = self.render_block_to_data_url(code, image_format=eff_format)
+                data_url = self.render_block_to_data_url(code, image_format=eff_format, source_filename=source_filename)
                 alt = f"{doc_base_name}_{block_counter}"
                 wrapper = self._format_image_wrapper(data_url, alt, options)
                 return f'<pre><code class="language-python">{code}</code></pre>\n{wrapper}'
 
             if eff_format == "inline_svg":
-                svg = self.render_block_svg(code)
+                svg = self.render_block_svg(code, source_filename=source_filename)
                 wrapper = self._format_image_wrapper(
                     "", f"{doc_base_name}_{block_counter}", options, is_inline_svg=True, svg_content=svg
                 )
@@ -447,7 +460,7 @@ class DrawlibBlockProcessor:
             else:
                 target_img_path = img_filename
 
-            self.render_block_to_file(code, target_img_path)
+            self.render_block_to_file(code, target_img_path, source_filename=source_filename)
             wrapper = self._format_image_wrapper(img_filename, f"{doc_base_name}_{block_counter}", options)
             return f'<pre><code class="language-python">{code}</code></pre>\n{wrapper}'
 
@@ -463,3 +476,134 @@ class DrawlibBlockProcessor:
 
         html_text = pattern_tag.sub(replacer_tag, html_text)
         return pattern_script.sub(replacer_script, html_text)
+
+
+@dataclass
+class ExtractedBlockInfo:
+    """Extracted code block information for show subcommand."""
+
+    index: int
+    code: str
+    info_str: str
+    options: DrawlibBlockOptions
+    file_name: str
+    line_number: int
+
+
+def extract_code_blocks(markdown_text: str) -> List[ExtractedBlockInfo]:
+    """Extract all drawlib code blocks from Markdown text.
+
+    Args:
+        markdown_text (str): Input Markdown text.
+
+    Returns:
+        List[ExtractedBlockInfo]: List of extracted code block information objects.
+    """
+    blocks: List[ExtractedBlockInfo] = []
+    lines = markdown_text.splitlines()
+    i = 0
+    block_index = 0
+    while i < len(lines):
+        line = lines[i]
+        match = re.match(r"^[ \t]*```drawlib([^\n]*)", line)
+        if match:
+            block_index += 1
+            start_line = i + 1
+            info_str = match.group(1).strip()
+            options = DrawlibBlockProcessor._parse_block_info(info_str)
+            code_lines = []
+            i += 1
+            while i < len(lines) and not re.match(r"^[ \t]*```", lines[i]):
+                code_lines.append(lines[i])
+                i += 1
+            code = "\n".join(code_lines).strip()
+
+            ext = "svg" if (options.format == "svg") else "png"
+            if options.file:
+                fn = options.file if ("." in options.file) else f"{options.file}.{ext}"
+            else:
+                fn = f"{block_index}.{ext}"
+
+            blocks.append(
+                ExtractedBlockInfo(
+                    index=block_index,
+                    code=code,
+                    info_str=info_str,
+                    options=options,
+                    file_name=fn,
+                    line_number=start_line,
+                )
+            )
+        i += 1
+    return blocks
+
+
+def show_code_block(markdown_path: str, target: Optional[str] = None, config_path: Optional[str] = None) -> None:
+    """Execute target code block from Markdown file and display output image.
+
+    Args:
+        markdown_path (str): File path to input Markdown document.
+        target (Optional[str]): Optional index or file specifier.
+        config_path (Optional[str]): Optional path to Python setup/config script.
+    """
+    if not os.path.exists(markdown_path):
+        print(f"Error: File '{markdown_path}' does not exist.", file=sys.stderr)
+        sys.exit(1)
+
+    doc_base_name = os.path.splitext(os.path.basename(markdown_path))[0]
+    with open(markdown_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    blocks = extract_code_blocks(content)
+    if not blocks:
+        print(f"No drawlib code blocks found in '{markdown_path}'.")
+        return
+
+    if not target:
+        print(f"Available drawlib code blocks in '{markdown_path}':")
+        print(f"{'Index':<7} {'Line':<7} {'File Target':<28} {'Header Options'}")
+        print("-" * 65)
+        for b in blocks:
+            target_rel_path = f"{doc_base_name}_images/{b.file_name}"
+            opts = b.info_str if b.info_str else "-"
+            print(f"{b.index:<7} L{b.line_number:<6} {target_rel_path:<28} {opts}")
+        return
+
+    selected_block: Optional[ExtractedBlockInfo] = None
+    if target.isdigit() or (target.startswith("-") and target[1:].isdigit()):
+        idx = int(target)
+        if idx < 0:
+            idx = len(blocks) + idx + 1
+        for b in blocks:
+            if b.index == idx:
+                selected_block = b
+                break
+    else:
+        target_clean = target.lower()
+        for b in blocks:
+            b_fn = b.file_name.lower()
+            b_base = os.path.splitext(b_fn)[0]
+            if target_clean in {b_fn, b_base}:
+                selected_block = b
+                break
+
+    if not selected_block:
+        print(f"Error: Could not find block matching '{target}' in '{markdown_path}'.", file=sys.stderr)
+        sys.exit(1)
+
+    target_rel_path = f"{doc_base_name}_images/{selected_block.file_name}"
+    print(f"Executing block #{selected_block.index} (L{selected_block.line_number} -> {target_rel_path})...")
+
+    processor = DrawlibBlockProcessor(config_path=config_path)
+    with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp:
+        tmp_path = tmp.name
+
+    try:
+        processor.render_block_to_file(selected_block.code, tmp_path, source_filename=markdown_path)
+        print(f"Rendered successfully to temp file: {tmp_path}")
+        from PIL import Image
+
+        img = Image.open(tmp_path)
+        img.show()
+    finally:
+        pass

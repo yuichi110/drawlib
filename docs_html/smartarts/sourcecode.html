@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SourceCode</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with ThemePreset</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">SourceCode</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <p>========================</p>
+<h1>SourceCode</h1>
+<p>Drawing source code with Drawlib can be done simply using the <code>text()</code> function with <code>halign=&quot;left&quot;</code> and a monospace font.
+For more sophisticated source code visuals, including syntax highlighting, Drawlib provides the SourceCode Smart Art feature.
+This feature leverages pygments to generate visually enhanced source code images.</p>
+<p>Here is an example of code:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors, Colors140
+from drawlib.fonts import FontSourceCode
+from drawlib.shapes import circle
+from drawlib.smartarts import SourceCode, dsart
+from drawlib.types import ImageStyle, ShapeStyle
+
+CODE = &quot;&quot;&quot;
+
+config(width=100, height=100)
+circle(
+    xy=(50, 50),
+    radius=30,
+    style=ShapeStyle(
+        line_style=&quot;dashed&quot;,
+        line_color=Colors140.BlueViolet,
+        line_width=5,
+        fill_color=Colors140.Turquoise,
+    ),
+)
+save()
+&quot;&quot;&quot;.strip()
+
+config(width=100, height=50)
+
+sc1 = dsart.SourceCode(
+    language=&quot;python&quot;,
+    style=&quot;default&quot;,
+)
+sc1.draw((25, 25), width=40, code=CODE)
+
+sc2 = dsart.SourceCode(
+    style=&quot;monokai&quot;,
+    font=FontSourceCode.ROBOTO_MONO,
+    show_linenum=True,
+    linenum_textcolor=Colors140.Black,
+    linenum_bgcolor=Colors140.LightGray,
+)
+sc2.draw((75, 25), width=40, code=CODE, style=ImageStyle(line_width=2, line_color=Colors.Red))
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="sourcecode_images/1.png" alt="sourcecode_1" />
+</div>
+<p>In the example above, the <code>dsart.SourceCode</code> instance is configured with options such as:</p>
+<ul>
+<li>language: Specifies the programming language (automatically detected if not provided).</li>
+<li>style: Defines the syntax highlighting style (e.g., monokai).</li>
+<li>font: Source code font</li>
+<li>show_linenum: Determines whether to display line numbers.</li>
+<li>linenum_textcolor and linenum_bgcolor: Customize the colors of line numbers.</li>
+</ul>
+<p>After creating instance, you will draw code with <code>draw()</code> method.
+This method's arg is same to <code>image()</code>.
+But it takes <code>code</code> argument instead of <code>image</code> argument.</p>
+<p>Here is a list of <code>draw()</code> arguments:</p>
+<ul>
+<li>xy: Coordinates to place the source code image.</li>
+<li>width: Width of the source code image.</li>
+<li>code: The source code string.</li>
+<li>style: ImageStyle for source code image</li>
+</ul>
+<p>Executing the code will generate below output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors, Colors140
+from drawlib.fonts import FontSourceCode
+from drawlib.shapes import circle
+from drawlib.smartarts import SourceCode, dsart
+from drawlib.types import ImageStyle, ShapeStyle
+
+CODE = &quot;&quot;&quot;
+
+config(width=100, height=100)
+circle(
+    xy=(50, 50),
+    radius=30,
+    style=ShapeStyle(
+        line_style=&quot;dashed&quot;,
+        line_color=Colors140.BlueViolet,
+        line_width=5,
+        fill_color=Colors140.Turquoise,
+    ),
+)
+save()
+&quot;&quot;&quot;.strip()
+
+config(width=100, height=50)
+
+sc1 = dsart.SourceCode(
+    language=&quot;python&quot;,
+    style=&quot;default&quot;,
+)
+sc1.draw((25, 25), width=40, code=CODE)
+
+sc2 = dsart.SourceCode(
+    style=&quot;monokai&quot;,
+    font=FontSourceCode.ROBOTO_MONO,
+    show_linenum=True,
+    linenum_textcolor=Colors140.Black,
+    linenum_bgcolor=Colors140.LightGray,
+)
+sc2.draw((75, 25), width=40, code=CODE, style=ImageStyle(line_width=2, line_color=Colors.Red))
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="sourcecode_images/2.png" alt="sourcecode_2" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>image1.png
+</code></pre>
+<h1>Source Code Styles</h1>
+<p>Drawlib supports a variety of styles from Pygment's recommended list, as well as additional black and white styles.
+Here are list of supported styles:</p>
+<ul>
+<li>bw</li>
+<li>sas</li>
+<li>staroffice</li>
+<li>xcode</li>
+<li>default</li>
+<li>monokai</li>
+<li>lightbulb</li>
+<li>github-dark</li>
+<li>rrt</li>
+<li>algol</li>
+<li>algol_nu</li>
+<li>friendly_grayscale</li>
+</ul>
+<p>Here are output of Source Code styles.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.fonts import FontSourceCode
+from drawlib.smartarts import SourceCode, dsart
+from drawlib.text import text
+from drawlib.types import ImageStyle
+
+CODE = &quot;&quot;&quot;
+import math
+
+def example_function(x):
+    return x * 2
+
+print(example_function(5))
+&quot;&quot;&quot;.strip()
+
+
+config(width=100, height=100, dpi=200)
+xs = [17.5, 50, 82.5]
+ys = [15, 37.5, 62.5, 85]
+ix = 0
+iy = 0
+for style in [
+    &quot;bw&quot;,
+    &quot;sas&quot;,
+    &quot;staroffice&quot;,
+    &quot;xcode&quot;,
+    &quot;default&quot;,
+    &quot;monokai&quot;,
+    &quot;lightbulb&quot;,
+    &quot;github-dark&quot;,
+    &quot;rrt&quot;,
+    &quot;algol&quot;,
+    &quot;algol_nu&quot;,
+    &quot;friendly_grayscale&quot;,
+]:
+    sc = dsart.SourceCode(
+        language=&quot;python&quot;,
+        style=style,
+        font=FontSourceCode.ROBOTO_MONO,
+    )
+
+    x = xs[ix]
+    y = ys[iy]
+    sc.draw(xy=(x, y), width=25, code=CODE, style=ImageStyle(line_width=1))
+    text((x, y - 9), text=style)
+
+    if ix == len(xs) - 1:
+        ix = 0
+        iy += 1
+    else:
+        ix += 1
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="sourcecode_images/3.png" alt="sourcecode_3" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>image2.png
+</code></pre>
+<h1>get_text()</h1>
+<p>To retrieve the text content directly from a code file, you can use the <code>dsart.SourceCode.get_text()</code> method provided by SourceCode.
+This function allows you to specify a file path relative to the code file's location.</p>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

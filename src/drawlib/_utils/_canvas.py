@@ -12,38 +12,23 @@
 """Canvas related utilities."""
 
 from drawlib._core.l1_core import guarded
-from drawlib._core.l2_models import Dimage
 from drawlib._core.l4_canvas import clear
 from drawlib._core.l4_canvas_utils import (
     get_angle,
     get_center_and_size,
     get_distance,
 )
-from drawlib._theme import get_style
 
 
 @guarded
 def initialize() -> None:
-    """Initialize the drawing environment by applying the official theme and clearing the image cache.
-
-    This function performs the following steps:
-    1. Clears the drawing canvas.
-    2. Applies the official "default" theme using the `dtheme` module.
-    3. Deletes all images in the `Dimage` cache.
+    """Initialize the drawing environment by clearing the drawing canvas.
 
     Returns:
         None
 
     """
-    #
-    # !!! Caution !!!
-    # Please import modules here for avoiding exposure useless modules to user
-    # Moving this code to "private.util" will make circular import.
-    #
-
     clear()
-    for name in Dimage.cache.list():
-        Dimage.cache.delete(name)
 
 
 __all__ = [

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing Shape</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with ThemePreset</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Drawing Shape</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <p>===============</p>
+<h1>Drawing Shape</h1>
+<p>Drawlib provides a variety of functions for drawing shapes, from basic circles and rectangles to more specialized shapes like bubblespeech and chevrons.
+These functions are categorized into three types based on the shapes they draw:</p>
+<ul>
+<li>Circle-like shape: Specify <code>xy</code> and <code>radius</code></li>
+<li>Rectangle-like shape: Specify <code>xy</code> and <code>width</code>, <code>height</code></li>
+<li>Other shapes: Arrow(from <code>xy1</code> to <code>xy2</code>), Polygon(connects <code>xys</code> and filling) etc.</li>
+</ul>
+<h2>Circle-like Shapes</h2>
+<p>Functions that draw circle-like shapes include:</p>
+<ul>
+<li><code>circle()</code></li>
+<li><code>donuts()</code></li>
+<li><code>fan()</code></li>
+<li><code>regularpolygon()</code></li>
+<li><code>star()</code></li>
+<li><code>wedge()</code></li>
+</ul>
+<h2>Rectangle-like Shapes</h2>
+<p>Functions that draw rectangle-like shapes include:</p>
+<ul>
+<li><code>arc()</code></li>
+<li><code>chevron()</code></li>
+<li><code>ellipse()</code></li>
+<li><code>parallelogram()</code></li>
+<li><code>rectangle()</code></li>
+<li><code>rhombus()</code></li>
+<li><code>trapezoid()</code></li>
+<li><code>triangle</code></li>
+</ul>
+<h2>Other Shapes</h2>
+<p>Functions that draw other types of shapes include:</p>
+<ul>
+<li><code>arrow()</code></li>
+<li><code>polygon()</code></li>
+<li><code>shape()</code></li>
+</ul>
+<p>Let's explore all of these functions, except <code>shape()</code> which is covered on another page.
+The <code>shape()</code> function is useful for drawing custom shapes.</p>
+<p>By default, all shapes are horizontally and vertically centered.
+This can be changed using the <code>ShapeStyle()</code> object.
+However, <code>arrow()</code> and <code>polygon()</code> do not have alignment attributes and will ignore these settings.</p>
+<p>We'll discuss styling with <code>ShapeStyle</code> and <code>ShapeTextStyle</code> on another page.</p>
+<h1>Text of Shapes</h1>
+<p>All shapes can have text at their center.
+Before diving into each shape, let's explain this common feature.</p>
+<p>Shape functions can take these three optional arguments:</p>
+<ul>
+<li><code>text</code>: The text to display at the center of the shape.</li>
+<li><code>textsize</code>: The font size of the text.</li>
+<li><code>textstyle</code>: The style of the center text. You can configure the size and other properties here as well.</li>
+</ul>
+<p>All of these arguments are optional.
+If you do not provide any value for text, no text will be shown.
+We recommend setting font size at textstyle rather than textsize.</p>
+<h1>Draw Other Type of Shapes</h1>
+<h2>polygon()</h2>
+<p>The <code>polygon()</code> function draws a shape that connects specified points to form a polygon.
+The start point and end point are automatically connected.</p>
+<p>This function accepts the following arguments:</p>
+<ul>
+<li>xys: List of tuples specifying the points of the polygon [(x1, y1), (x2, y2), ..., (xn, yn)]</li>
+<li>style (optional): Style of the polygon</li>
+<li>text (optional): Centered text</li>
+<li>textstyle (optional): Style of the centered text</li>
+</ul>
+<p>Let's explore an example:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import polygon
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+polygon(xys=[(25, 20), (30, 25), (25, 45), (20, 25)])
+polygon(xys=[(70, 25), (75, 20), (95, 25), (75, 30)], text=&quot;polygon()&quot;)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_images/1.png" alt="shape_1" />
+</div>
+<p>Here is an example output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import polygon
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+polygon(xys=[(25, 20), (30, 25), (25, 45), (20, 25)])
+polygon(xys=[(70, 25), (75, 20), (95, 25), (75, 30)], text=&quot;polygon()&quot;)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_images/2.png" alt="shape_2" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>polygon()
+</code></pre>
+<p>The <code>polygon()</code> function does not use an angle argument because the shape's orientation is determined by the order of the specified points.
+If you prefer to draw shapes with a standard coordinate system and angle features, consider using the <code>shape()</code> function.</p>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

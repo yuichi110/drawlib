@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Preset Styles Topics</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="create.html">Creating Custom Presets with ThemePreset</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Advanced Preset Styles Topics</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <p>=================</p>
+<h1>Advanced Preset Styles Topics</h1>
+<p>In this section, we cover advanced topics for working with preset styles in <code>drawlib.preset_styles</code>.</p>
+<h1>Resolving Styles with <code>get_style()</code></h1>
+<p>Drawlib provides the <code>get_style()</code> function in <code>drawlib.preset_styles</code> to dynamically retrieve <code>Style</code> instances by preset name, color name, or combined style specification.</p>
+<h2>Using Preset Names</h2>
+<p>You can retrieve standard preset styles directly by name:</p>
+<ul>
+<li><code>&quot;primary&quot;</code> (or <code>&quot;&quot;</code> / <code>None</code>): The default primary style.</li>
+<li><code>&quot;light&quot;</code>: Light line/font weight style.</li>
+<li><code>&quot;bold&quot;</code>: Bold line/font weight style.</li>
+<li><code>&quot;flat&quot;</code>: Filled shape with no border line.</li>
+<li><code>&quot;solid&quot;</code>: Outlined shape with no fill color.</li>
+<li><code>&quot;dashed&quot;</code>: Outlined shape with dashed line style.</li>
+<li><code>&quot;solid_light&quot;</code>, <code>&quot;solid_bold&quot;</code>, <code>&quot;dashed_light&quot;</code>, <code>&quot;dashed_bold&quot;</code>: Combinations of line style and weight.</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.preset_styles import get_style
+from drawlib.shapes import circle, rectangle
+from drawlib.text import text
+
+config(width=100, height=40)
+
+style_primary = get_style(&quot;primary&quot;)
+style_bold = get_style(&quot;bold&quot;)
+
+circle((25, 20), radius=10, style=style_primary)
+rectangle((75, 20), width=20, height=20, style=style_bold)
+text((50, 20), &quot;Preset Styles&quot;, style=get_style(&quot;bold&quot;))
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="advanced_topics_images/1.png" alt="advanced_topics_1" />
+</div>
+<p>Executing this code produces the following output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.preset_styles import get_style
+from drawlib.shapes import circle, rectangle
+from drawlib.text import text
+
+config(width=100, height=40)
+
+style_primary = get_style(&quot;primary&quot;)
+style_bold = get_style(&quot;bold&quot;)
+
+circle((25, 20), radius=10, style=style_primary)
+rectangle((75, 20), width=20, height=20, style=style_bold)
+text((50, 20), &quot;Preset Styles&quot;, style=get_style(&quot;bold&quot;))
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="advanced_topics_images/2.png" alt="advanced_topics_2" style="width: 600px; max-width: 100%;" />
+</div>
+<h2>Using Color Names and Combinations</h2>
+<p>You can also pass color names (e.g., <code>&quot;red&quot;</code>, <code>&quot;blue&quot;</code>, <code>&quot;turquoise&quot;</code>) or combined names (e.g., <code>&quot;red_solid_bold&quot;</code>) to <code>get_style()</code>:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.preset_styles import get_style
+from drawlib.shapes import circle, rectangle
+from drawlib.text import text
+
+config(width=100, height=40)
+
+circle((25, 20), radius=10, style=get_style(&quot;red_flat&quot;))
+rectangle((75, 20), width=20, height=20, style=get_style(&quot;blue_dashed_bold&quot;))
+text((50, 20), &quot;Combined Style&quot;, style=get_style(&quot;red_bold&quot;))
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="advanced_topics_images/3.png" alt="advanced_topics_3" />
+</div>
+<p>Executing this code produces:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.preset_styles import get_style
+from drawlib.shapes import circle, rectangle
+from drawlib.text import text
+
+config(width=100, height=40)
+
+circle((25, 20), radius=10, style=get_style(&quot;red_flat&quot;))
+rectangle((75, 20), width=20, height=20, style=get_style(&quot;blue_dashed_bold&quot;))
+text((50, 20), &quot;Combined Style&quot;, style=get_style(&quot;red_bold&quot;))
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="advanced_topics_images/4.png" alt="advanced_topics_4" style="width: 600px; max-width: 100%;" />
+</div>
+<h1>Accessing Official Theme Presets</h1>
+<p>Drawlib includes three official theme presets: <code>default</code>, <code>essentials</code>, and <code>monochrome</code>.
+You can access full <code>ThemePreset</code> objects using <code>get_styles()</code> or the dedicated functions:</p>
+<ul>
+<li><code>get_styles(&quot;default&quot;)</code> / <code>get_default_styles()</code></li>
+<li><code>get_styles(&quot;essentials&quot;)</code> / <code>get_essentials_styles()</code></li>
+<li><code>get_styles(&quot;monochrome&quot;)</code> / <code>get_monochrome_styles()</code></li>
+</ul>
+<p>Each <code>ThemePreset</code> instance contains <code>primary</code>, <code>light</code>, <code>bold</code>, <code>flat</code>, <code>solid</code>, and <code>dashed</code> <code>Style</code> attributes.</p>
+<p>Example:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.preset_styles import get_styles
+from drawlib.shapes import circle, rectangle
+
+essentials = get_styles(&quot;essentials&quot;)
+monochrome = get_styles(&quot;monochrome&quot;)
+
+config(width=100, height=40)
+
+circle((25, 20), radius=10, style=essentials.primary)
+rectangle((75, 20), width=20, height=20, style=monochrome.bold)
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="advanced_topics_images/5.png" alt="advanced_topics_5" />
+</div>
+<p>Output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.preset_styles import get_styles
+from drawlib.shapes import circle, rectangle
+
+essentials = get_styles(&quot;essentials&quot;)
+monochrome = get_styles(&quot;monochrome&quot;)
+
+config(width=100, height=40)
+
+circle((25, 20), radius=10, style=essentials.primary)
+rectangle((75, 20), width=20, height=20, style=monochrome.bold)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="advanced_topics_images/6.png" alt="advanced_topics_6" style="width: 600px; max-width: 100%;" />
+</div>
+<h1>Customizing Style Objects</h1>
+<p>Retrieved <code>Style</code> objects can be modified or copied before passing them to drawing functions.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.preset_styles import get_style
+from drawlib.text import text
+
+custom_style = get_style(&quot;blue&quot;).copy()
+custom_style.text_size = 28
+custom_style.text_color = Colors.Red
+
+config(width=100, height=40)
+text((50, 20), &quot;Customized Style&quot;, style=custom_style)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="advanced_topics_images/7.png" alt="advanced_topics_7" />
+</div>
+<p>Output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.preset_styles import get_style
+from drawlib.text import text
+
+custom_style = get_style(&quot;blue&quot;).copy()
+custom_style.text_size = 28
+custom_style.text_color = Colors.Red
+
+config(width=100, height=40)
+text((50, 20), &quot;Customized Style&quot;, style=custom_style)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="advanced_topics_images/8.png" alt="advanced_topics_8" style="width: 600px; max-width: 100%;" />
+</div>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

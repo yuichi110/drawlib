@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Classes</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with ThemePreset</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Font Classes</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <p>=============</p>
+<h1>Font Classes</h1>
+<p>In Drawlib, fonts are categorized into various Font Classes, each serving different purposes and supporting different styles and languages.
+Here's an overview of the supported Font Classes:</p>
+<ul>
+<li>
+<p>Default Fonts</p>
+<ul>
+<li><code>Font</code>: Supports both SanSerif and Serif fonts for Alphabet and CJK (Chinese, Japanese, Korean) characters.</li>
+</ul>
+</li>
+<li>
+<p>Alphabet Fonts</p>
+<ul>
+<li><code>FontSansSerif</code>: Specifically SanSerif fonts for Alphabet characters.</li>
+<li><code>FontSerif</code>: Specifically Serif fonts for Alphabet characters.</li>
+<li><code>FontMonoSpace</code>: Monospace fonts, where each character occupies the same amount of horizontal space.</li>
+<li><code>FontSourcecode</code>:  A subset of FontMonoSpace fonts, optimized for source code display using <code>dsart.sourcecode()</code>.</li>
+<li><code>FontRoboto</code>: Fonts from the Roboto family, tailored for Alphabet characters.</li>
+</ul>
+</li>
+<li>
+<p>Local Language Fonts</p>
+<ul>
+<li><code>FontArabic</code>: Fonts specifically designed for Arabic script.</li>
+<li><code>FontBrahmic</code>: Fonts for Brahmic scripts used in India and neighboring countries.</li>
+<li><code>FontChinese</code>: Fonts tailored for Chinese characters.</li>
+<li><code>FontJapanese</code>: Fonts designed for Japanese characters.</li>
+<li><code>FontKorean</code>: Fonts specifically for Korean characters.</li>
+<li><code>FontThai</code>: Fonts optimized for Thai script.</li>
+</ul>
+</li>
+</ul>
+<p>Each font class supports various styles, though some fonts may have fewer styles available:</p>
+<ul>
+<li>Light: A lighter weight variant of the font.</li>
+<li>Regular: The standard, normal-weight variant of the font.</li>
+<li>Bold: A heavier, bold-weight variant of the font.</li>
+</ul>
+<p>Due to the large file sizes of font files, Drawlib does not include them in the initial package when installed via pip.
+Instead, the necessary font files are downloaded dynamically the first time they are used.
+This approach minimizes the initial package size and allows for on-demand fetching of resources.
+Once downloaded, these font files are cached on your local machine.</p>
+<p>If needed, you can manage the font cache using the <code>drawlib --purge_font_cache</code> command.
+This command clears the cached font files from your system, freeing up storage space if necessary.</p>
+<h1>FontFile</h1>
+<p>The <code>FontFile</code> class in Drawlib allows users to utilize custom fonts for rendering text using the <code>text()</code> function and similar methods.
+Here's how you can use the FontFile class in your Python code:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.text import text
+from drawlib.types import TextStyle
+
+config(width=100, height=50)
+text(
+    (50, 25),
+    &quot;Hello Drawlib!&quot;,
+    style=TextStyle(
+        text_size=36,
+        text_font=FontFile(&quot;./avenger/regular.ttf&quot;),
+    ),
+)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="font_images/1.png" alt="font_1" />
+</div>
+<p>Executing this code generate the output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.text import text
+from drawlib.types import TextStyle
+
+config(width=100, height=50)
+text(
+    (50, 25),
+    &quot;Hello Drawlib!&quot;,
+    style=TextStyle(
+        text_size=36,
+        text_font=FontFile(&quot;./avenger/regular.ttf&quot;),
+    ),
+)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="font_images/2.png" alt="font_2" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>Using font file
+</code></pre>
+<h1>Font</h1>
+<p>The <code>Font</code> class in Drawlib provides default fonts.
+Here's an overview of the fonts available in the Font class:</p>
+<ul>
+<li>
+<p>SanSerif Fonts</p>
+<ul>
+<li><code>SANSSERIF_LIGHT</code>: Noto SansSerif CJK(Chinese, Japanese, Korean)</li>
+<li><code>SANSSERIF_REGULAR</code></li>
+<li><code>SANSSERIF_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Serif Fonts</p>
+<ul>
+<li><code>SERIF_LIGHT</code>: Noto Serif CJK Japanese</li>
+<li><code>SERIF_REGULAR</code></li>
+<li><code>SERIF_BOLD</code></li>
+</ul>
+</li>
+</ul>
+<p>By default, the Drawlib's default theme uses <code>Font.SANSSERIF_REGULAR</code>.
+This font choice is based on its standard shape and wide coverage across different languages and populations.</p>
+<p>The following image illustrates the fonts available in the Font class:</p>
+<p><img src="image_Font.png" alt="image_Font.png" /></p>
+<pre><code>class Font
+</code></pre>
+<h1>FontSansSerif</h1>
+<p>Class <code>FontSansSerif</code> contains popular SansSerif fonts for alphabet languages.</p>
+<ul>
+<li>
+<p>Lato</p>
+<ul>
+<li><code>LATO_LIGHT</code></li>
+<li><code>LATO_REGULAR</code></li>
+<li><code>LATO_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Raleways</p>
+<ul>
+<li><code>RALEWAYS_LIGHT</code></li>
+<li><code>RALEWAYS_REGULAR</code></li>
+<li><code>RALEWAYS_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Montserrat</p>
+<ul>
+<li><code>MONTSERRAT_LIGHT</code></li>
+<li><code>MONTSERRAT_REGULAR</code></li>
+<li><code>MONTSERRAT_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Oswald</p>
+<ul>
+<li><code>OSWALD_LIGHT</code></li>
+<li><code>OSWALD_REGULAR</code></li>
+<li><code>OSWALD_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Poppins</p>
+<ul>
+<li><code>POPPINS_LIGHT</code></li>
+<li><code>POPPINS_REGULAR</code></li>
+<li><code>POPPINS_BOLD</code></li>
+</ul>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontSansSerif class:</p>
+<p><img src="image_FontSansSerif.png" alt="image_FontSansSerif.png" /></p>
+<pre><code>class FontSansSerif
+</code></pre>
+<h1>FontSerif</h1>
+<p>Class <code>FontSerif</code> contains popular Serif fonts for alphabet languages.</p>
+<ul>
+<li>
+<p>Courier</p>
+<ul>
+<li><code>COURIER_REGULAR</code></li>
+<li><code>COURIER_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Merriweather</p>
+<ul>
+<li><code>MERRIWEATHER_LIGHT</code></li>
+<li><code>MERRIWEATHER_REGULAR</code></li>
+<li><code>MERRIWEATHER_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Platypi</p>
+<ul>
+<li><code>PLATYPI_LIGHT</code></li>
+<li><code>PLATYPI_REGULAR</code></li>
+<li><code>PLATYPI_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>PlayFairDisplay</p>
+<ul>
+<li><code>PLAYFAIRDISPLAY_LIGHT</code></li>
+<li><code>PLAYFAIRDISPLAY_REGULAR</code></li>
+<li><code>PLAYFAIRDISPLAY_BOLD</code></li>
+</ul>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontSerif class:</p>
+<p><img src="image_FontSerif.png" alt="image_FontSerif.png" /></p>
+<pre><code>class FontSansSerif
+</code></pre>
+<h1>FontRoboto</h1>
+<p>Class <code>FontRoboto</code> famous and popular Roboto group fonts.</p>
+<ul>
+<li>
+<p>Roboto</p>
+<ul>
+<li><code>ROBOTO_LIGHT</code></li>
+<li><code>ROBOTO_REGULAR</code></li>
+<li><code>ROBOTO_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Roboto Serif</p>
+<ul>
+<li><code>SERIF_LIGHT</code></li>
+<li><code>SERIF_REGULAR</code></li>
+<li><code>SERIF_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Roboto Mono</p>
+<ul>
+<li><code>MONO_LIGHT</code></li>
+<li><code>MONO_REGULAR</code></li>
+<li><code>MONO_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Roboto Condensed</p>
+<ul>
+<li><code>CONDENSED_LIGHT</code></li>
+<li><code>CONDENSED_REGULAR</code></li>
+<li><code>CONDENSED_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Roboto Slab</p>
+<ul>
+<li><code>SLAB_LIGHT</code></li>
+<li><code>SLAB_REGULAR</code></li>
+<li><code>SLAB_BOLD</code></li>
+</ul>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontRoboto class:</p>
+<p><img src="image_FontRoboto.png" alt="image_FontRoboto.png" /></p>
+<pre><code>class FontRoboto
+</code></pre>
+<h1>FontMonoSpace</h1>
+<p>Class <code>FontMonoSpace</code> contains  mono space fonts.
+Almost all are for alphabet, but SourceHanCodeJP supports Japanese.</p>
+<ul>
+<li>
+<p>Courier</p>
+<ul>
+<li><code>COURIER_REGULAR</code></li>
+<li><code>COURIER_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Roboto Mono</p>
+<ul>
+<li><code>ROBOTO_MONO_LIGHT</code></li>
+<li><code>ROBOTO_MONO_REGULAR</code></li>
+<li><code>ROBOTO_MONO_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>SourceCodePro</p>
+<ul>
+<li><code>SOURCECODEPRO_LIGHT</code></li>
+<li><code>SOURCECODEPRO_REGULAR</code></li>
+<li><code>SOURCECODEPRO_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>SourceHanCodeJP</p>
+<ul>
+<li><code>SOURCEHANCODEJP_LIGHT</code></li>
+<li><code>SOURCEHANCODEJP_REGULAR</code></li>
+<li><code>SOURCEHANCODEJP_BOLD</code></li>
+</ul>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontMonoSpace class:</p>
+<p><img src="image_FontMonoSpace.png" alt="image_FontMonoSpace.png" /></p>
+<pre><code>class FontSansSerif
+</code></pre>
+<h1>FontArabic</h1>
+<p>Class <code>FontArabic</code> contains Arabic fonts.</p>
+<ul>
+<li>
+<p>Sans Serif</p>
+<ul>
+<li><code>SANSSERIF_LIGHT</code></li>
+<li><code>SANSSERIF_REGULAR</code></li>
+<li><code>SANSSERIF_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Kufi</p>
+<ul>
+<li><code>KUFI_LIGHT</code></li>
+<li><code>KUFI_REGULAR</code></li>
+<li><code>KUFI_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Naskh</p>
+<ul>
+<li><code>NASKH_LIGHT</code></li>
+<li><code>NASKH_REGULAR</code></li>
+<li><code>NASKH_BOLD</code></li>
+</ul>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontArabic class:</p>
+<p><img src="image_FontArabic.png" alt="image_FontArabic.png" /></p>
+<pre><code>class FontArabic
+</code></pre>
+<h1>FontBrahmic</h1>
+<p>Class <code>FontBrahmic</code> contains fonts for characters which delived from Brahmic.</p>
+<ul>
+<li>
+<p>Bengali</p>
+<ul>
+<li><code>BENGALI_SANSSERIF_LIGHT</code></li>
+<li><code>BENGALI_SANSSERIF_REGULAR</code></li>
+<li><code>BENGALI_SANSSERIF_BOLD</code></li>
+<li><code>BENGALI_SERIF_LIGHT</code></li>
+<li><code>BENGALI_SERIF_REGULAR</code></li>
+<li><code>BENGALI_SERIF_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Devanagari</p>
+<ul>
+<li><code>DEVANAGARI_SANSSERIF_LIGHT</code></li>
+<li><code>DEVANAGARI_SANSSERIF_REGULAR</code></li>
+<li><code>DEVANAGARI_SANSSERIF_BOLD</code></li>
+<li><code>DEVANAGARI_SERIF_LIGHT</code></li>
+<li><code>DEVANAGARI_SERIF_REGULAR</code></li>
+<li><code>DEVANAGARI_SERIF_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Tamil</p>
+<ul>
+<li><code>TAMIL_SANSSERIF_LIGHT</code></li>
+<li><code>TAMIL_SANSSERIF_REGULAR</code></li>
+<li><code>TAMIL_SANSSERIF_BOLD</code></li>
+<li><code>TAMIL_SERIF_LIGHT</code></li>
+<li><code>TAMIL_SERIF_REGULAR</code></li>
+<li><code>TAMIL_SERIF_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Telugu</p>
+<ul>
+<li><code>TELUGU_SANSSERIF_LIGHT</code></li>
+<li><code>TELUGU_SANSSERIF_REGULAR</code></li>
+<li><code>TELUGU_SANSSERIF_BOLD</code></li>
+<li><code>TELUGU_SERIF_LIGHT</code></li>
+<li><code>TELUGU_SERIF_REGULAR</code></li>
+<li><code>TELUGU_SERIF_BOLD</code></li>
+</ul>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontBrahmic class:</p>
+<p><img src="image_FontBrahmic.png" alt="image_FontBrahmic.png" /></p>
+<pre><code>class FontBrahmic
+</code></pre>
+<h1>FontChinese</h1>
+<p>Class <code>FontChinese</code> contains Chinese fonts.</p>
+<ul>
+<li>
+<p>Simplified</p>
+<ul>
+<li><code>SIMPLIFIED_SANSSERIF_LIGHT</code></li>
+<li><code>SIMPLIFIED_SANSSERIF_REGULAR</code></li>
+<li><code>SIMPLIFIED_SANSSERIF_BOLD</code></li>
+<li><code>SIMPLIFIED_SERIF_LIGHT</code></li>
+<li><code>SIMPLIFIED_SERIF_REGULAR</code></li>
+<li><code>SIMPLIFIED_SERIF_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Traditional</p>
+<ul>
+<li><code>TRADITIONAL_SANSSERIF_LIGHT</code></li>
+<li><code>TRADITIONAL_SANSSERIF_REGULAR</code></li>
+<li><code>TRADITIONAL_SANSSERIF_BOLD</code></li>
+<li><code>TRADITIONAL_SERIF_LIGHT</code></li>
+<li><code>TRADITIONAL_SERIF_REGULAR</code></li>
+<li><code>TRADITIONAL_SERIF_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>HongKong</p>
+<ul>
+<li><code>HONGKONG_SANSSERIF_LIGHT</code></li>
+<li><code>HONGKONG_SANSSERIF_REGULAR</code></li>
+<li><code>HONGKONG_SANSSERIF_BOLD</code></li>
+<li><code>HONGKONG_SERIF_LIGHT</code></li>
+<li><code>HONGKONG_SERIF_REGULAR</code></li>
+<li><code>HONGKONG_SERIF_BOLD</code></li>
+</ul>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontChinese class:</p>
+<p><img src="image_FontChinese.png" alt="image_FontChinese.png" /></p>
+<pre><code>class FontChinese
+</code></pre>
+<h1>FontJapanese</h1>
+<p>Class <code>FontJapanese</code> contains Japanese fonts.</p>
+<ul>
+<li>
+<p>Sans Serif</p>
+<ul>
+<li><code>SANSSERIF_LIGHT</code></li>
+<li><code>SANSSERIF_REGULAR</code></li>
+<li><code>SANSSERIF_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Serif</p>
+<ul>
+<li><code>SERIF_LIGHT</code></li>
+<li><code>SERIF_REGULAR</code></li>
+<li><code>SERIF_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Mplus 1P</p>
+<ul>
+<li><code>MPLUS1P_LIGHT</code></li>
+<li><code>MPLUS1P_REGULAR</code></li>
+<li><code>MPLUS1P_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Mplus Rounded 1C</p>
+<ul>
+<li><code>MPLUSROUNDED1C_LIGHT</code></li>
+<li><code>MPLUSROUNDED1C_REGULAR</code></li>
+<li><code>MPLUSROUNDED1C_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Sawarabi</p>
+<ul>
+<li><code>SAWARABI_GOTHIC</code></li>
+<li><code>SAWARABI_MINCHO</code></li>
+</ul>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontJapanese class:</p>
+<p><img src="image_FontJapanese.png" alt="image_FontJapanese.png" /></p>
+<pre><code>class FontJapanese
+</code></pre>
+<h1>FontKorean</h1>
+<p>Class <code>FontKorean</code> contains Korean fonts.</p>
+<ul>
+<li>
+<p>Sans Serif</p>
+<ul>
+<li><code>SANSSERIF_LIGHT</code></li>
+<li><code>SANSSERIF_REGULAR</code></li>
+<li><code>SANSSERIF_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Serif</p>
+<ul>
+<li><code>SERIF_LIGHT</code></li>
+<li><code>SERIF_REGULAR</code></li>
+<li><code>SERIF_BOLD</code></li>
+</ul>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontKorean class:</p>
+<p><img src="image_FontKorean.png" alt="image_FontKorean.png" /></p>
+<pre><code>class FontKorean
+</code></pre>
+<h1>FontThai</h1>
+<p>Class <code>FontThai</code> contains Thai fonts.</p>
+<ul>
+<li>
+<p>Sans Serif</p>
+<ul>
+<li><code>SANSSERIF_LIGHT</code></li>
+<li><code>SANSSERIF_REGULAR</code></li>
+<li><code>SANSSERIF_BOLD</code></li>
+</ul>
+</li>
+<li>
+<p>Serif</p>
+<ul>
+<li><code>SERIF_LIGHT</code></li>
+<li><code>SERIF_REGULAR</code></li>
+<li><code>SERIF_BOLD</code></li>
+</ul>
+</li>
+</ul>
+<p>The following image illustrates the fonts available in the FontThai class:</p>
+<p><img src="image_FontThai.png" alt="image_FontThai.png" /></p>
+<pre><code>class FontThai
+</code></pre>
+<h1>Request for Adding Fonts</h1>
+<p>We welcome suggestions for adding new fonts to our Drawlib library.
+To ensure compatibility and usability, please consider the following criteria before making a request:</p>
+<ul>
+<li>Free License: The font must be available under a free license.</li>
+<li>Compatibility: The font should work seamlessly with Drawlib. Note that emoji fonts may not be fully supported at this time.</li>
+<li>Language Support: Fonts for languages currently not supported by Drawlib are prioritized, including minor languages.</li>
+<li>Global Popularity: The font should be widely recognized and used globally.</li>
+<li>Regional Popularity: Fonts for local languages that are popular in specific regions are also highly considered.</li>
+</ul>
+<p>Before submitting a request, we recommend testing the font using the <code>FontFile()</code> class to ensure it meets your requirements.
+At present, Drawlib does not include decorative or ornamental fonts.</p>
+<p>Your input is valuable to us, and if your font suggestion meets these criteria, we will consider adding it in a future release.</p>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

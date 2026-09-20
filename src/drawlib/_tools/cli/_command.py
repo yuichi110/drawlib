@@ -30,6 +30,7 @@ from drawlib._core.l4_canvas import clear
 from drawlib._tools.doc_builder import (
     build_document,
     export_default_template,
+    show_code_block,
     validate_template,
 )
 from drawlib._tools.http_server import run_server
@@ -135,6 +136,22 @@ def call_command() -> None:
                 traceback.print_exc()
             sys.exit(1)
 
+    # handle show subcommand
+    if argparser.is_show_command():
+        show_args = argparser.get_show_args()
+        try:
+            show_code_block(
+                markdown_path=show_args.file,
+                target=show_args.target,
+                config_path=show_args.config,
+            )
+            sys.exit(0)
+        except Exception as e:
+            print(f"Show Error: {e}", file=sys.stderr)
+            if logging_mode in {"verbose", "developer"}:
+                traceback.print_exc()
+            sys.exit(1)
+
     # get execution mode
     exec_mode = argparser.get_exec_mode()
 
@@ -215,7 +232,7 @@ class DrawlibArgParser:
         main_parser.add_argument(
             "--enable_auto_initialize",
             action="store_true",
-            help="Enable initializing theme/canvas/image_cache per executing drawing code files.",
+            help="Enable initializing canvas per executing drawing code files.",
         )
 
         # log options
@@ -337,16 +354,39 @@ class DrawlibArgParser:
             help="Path to Jinja2 template file to validate.",
         )
 
+        # show subcommand parser
+        show_parser = argparse.ArgumentParser(
+            prog="drawlib show",
+            description="Execute and display a drawlib code block from a Markdown file.",
+        )
+        show_parser.add_argument(
+            "file",
+            help="Target Markdown file path.",
+        )
+        show_parser.add_argument(
+            "target",
+            nargs="?",
+            default=None,
+            help="Index (e.g. 1) or file specifier (e.g. my_image.png) of the code block.",
+        )
+        show_parser.add_argument(
+            "--config",
+            help="Path to Python config/setup script (e.g. config.py).",
+        )
+
         self._main_parser = main_parser
         self._build_parser = build_parser
         self._serve_parser = serve_parser
         self._template_parser = template_parser
+        self._show_parser = show_parser
         self._is_build = False
         self._is_serve = False
         self._is_template = False
+        self._is_show = False
         self._build_args: Optional[argparse.Namespace] = None
         self._serve_args: Optional[argparse.Namespace] = None
         self._template_args: Optional[argparse.Namespace] = None
+        self._show_args: Optional[argparse.Namespace] = None
         self._positional_args: Optional[List[str]] = None
         self._name_args: Optional[argparse.Namespace] = None
 
@@ -357,6 +397,7 @@ class DrawlibArgParser:
             self._is_build = True
             self._is_serve = False
             self._is_template = False
+            self._is_show = False
             global_args, _ = self._main_parser.parse_known_args(sys.argv[1:idx])
             self._name_args = global_args
             self._build_args = self._build_parser.parse_args(sys.argv[idx + 1 :])
@@ -365,6 +406,7 @@ class DrawlibArgParser:
             self._is_build = False
             self._is_serve = True
             self._is_template = False
+            self._is_show = False
             global_args, _ = self._main_parser.parse_known_args(sys.argv[1:idx])
             self._name_args = global_args
             self._serve_args = self._serve_parser.parse_args(sys.argv[idx + 1 :])
@@ -373,13 +415,24 @@ class DrawlibArgParser:
             self._is_build = False
             self._is_serve = False
             self._is_template = True
+            self._is_show = False
             global_args, _ = self._main_parser.parse_known_args(sys.argv[1:idx])
             self._name_args = global_args
             self._template_args = self._template_parser.parse_args(sys.argv[idx + 1 :])
+        elif "show" in sys.argv[1:]:
+            idx = sys.argv.index("show")
+            self._is_build = False
+            self._is_serve = False
+            self._is_template = False
+            self._is_show = True
+            global_args, _ = self._main_parser.parse_known_args(sys.argv[1:idx])
+            self._name_args = global_args
+            self._show_args = self._show_parser.parse_args(sys.argv[idx + 1 :])
         else:
             self._is_build = False
             self._is_serve = False
             self._is_template = False
+            self._is_show = False
             args = self._main_parser.parse_args()
             self._name_args = args
             self._positional_args = args.file_or_directory
@@ -426,6 +479,20 @@ class DrawlibArgParser:
             raise ValueError("Not a template command")
         return self._template_args
 
+    def is_show_command(self) -> bool:
+        """Check if show subcommand was called."""
+        if not self._is_show and self._name_args is None and self._show_args is None:
+            self.parse()
+        return self._is_show
+
+    def get_show_args(self) -> argparse.Namespace:
+        """Get parsed arguments for show subcommand."""
+        if self._show_args is None:
+            self.parse()
+        if self._show_args is None:
+            raise ValueError("Not a show command")
+        return self._show_args
+
     def is_show_version(self) -> bool:
         """Check if the version option is specified.
 
@@ -436,7 +503,7 @@ class DrawlibArgParser:
             bool: True if version option is specified, False otherwise.
 
         """
-        if self._is_build or self._is_serve or self._is_template:
+        if self._is_build or self._is_serve or self._is_template or self._is_show:
             return False
         if self._name_args is None:
             self.parse()
@@ -452,7 +519,7 @@ class DrawlibArgParser:
             bool: True if purge font cache option is specified, False otherwise.
 
         """
-        if self._is_build or self._is_serve or self._is_template:
+        if self._is_build or self._is_serve or self._is_template or self._is_show:
             return False
         if self._name_args is None:
             self.parse()
@@ -472,7 +539,7 @@ class DrawlibArgParser:
         Raises:
             ValueError: If conflicting logging options are specified.
         """
-        if self._is_build or self._is_serve or self._is_template:
+        if self._is_build or self._is_serve or self._is_template or self._is_show:
             return "normal"
         if self._name_args is None:
             raise ValueError("Parsed arguments unavailable.")
@@ -545,7 +612,7 @@ class DrawlibExecuter:
                 The execution mode for handling Python file execution:
                 - "none": Executes Python files without clearing canvas between executions.
                 - "auto_clear": Automatically clears the canvas between executing each Python file.
-                - "auto_initialize": Automatically initializes theme/canvas/image_cache per execution.
+                - "auto_initialize": Automatically initializes canvas per execution.
 
                 Raises ValueError if mode is not one of ["none", "auto_clear", "auto_initialize"].
 

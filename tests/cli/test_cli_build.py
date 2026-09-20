@@ -57,7 +57,7 @@ circle((50, 50), radius=20)
 
     index_html = out_dir / "index.html"
     style_css = out_dir / "style.css"
-    index_img = out_dir / "index_1.png"
+    index_img = out_dir / "index_images" / "1.png"
 
     assert index_html.exists()
     assert style_css.exists()
@@ -65,7 +65,7 @@ circle((50, 50), radius=20)
 
     content = index_html.read_text(encoding="utf-8")
     assert '<link rel="stylesheet" href="style.css">' in content
-    assert '<img src="index_1.png"' in content
+    assert '<img src="index_images/1.png"' in content
 
 
 def test_cli_build_single_file(tmp_path) -> None:
@@ -87,7 +87,7 @@ rectangle((50, 50), width=40, height=20)
 
     assert res.returncode == 0
     assert output_html.exists()
-    assert (tmp_path / "sample_1.png").exists()
+    assert (tmp_path / "sample_images" / "1.png").exists()
 
 
 def test_cli_build_inline_svg(tmp_path) -> None:

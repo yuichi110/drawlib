@@ -1,15 +1,8 @@
-# Drawlib Documentation
+# Welcome to the Drawlib Documentation!
 
-**Drawlib** is a Python library crafted to facilitate **Illustration as Code**.
-Define your diagrams and illustrations programmatically, manage them with Git, and automate document compilation.
+Drawlib is a pure Python drawing library crafted to facilitate **Illustration as Code** rather than focusing solely on creating polished illustrations manually.
 
----
-
-## 1. Concept: Illustration as Code
-
-In traditional workflows, illustrations are drawn manually in graphic tools. With Drawlib, you write Python code to generate clean vector graphics directly inside your Markdown documents and scripts.
-
-```drawlib
+```drawlib 600px center caption:"Code makes Illustration"
 from drawlib.canvas import config
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import circle, rectangle
@@ -18,7 +11,6 @@ from drawlib.types import ShapeStyle, TextStyle
 
 config(width=100, height=40)
 
-# Draw circle and rectangle with custom styles
 circle(xy=(25, 20), radius=12, style=ShapeStyle(fill_color=Colors140.Turquoise, line_color=Colors.Navy, line_width=2))
 text(xy=(25, 20), text="Circle", style=TextStyle(text_color=Colors.White, text_size=16))
 
@@ -28,27 +20,60 @@ text(xy=(75, 20), text="Rectangle", style=TextStyle(text_color=Colors.White, tex
 
 ---
 
-## 2. Table of Contents
+## Documentation Navigation
 
-- [Quick Start](./quick_start.md) - Get started in 5 minutes
-- **Foundations** (`./foundations/`)
-  - [Canvas & Coordinate System](./foundations/canvas.md) - Coordinates, canvas size, resolution (DPI), grid overlays
-  - [Shapes Guide](./shapes.md) - Circles, rectangles, polygons, stars, and arrows
-  - [Lines Guide](./lines.md) - Straight lines, curves, polyline connectors, and arrowheads
-  - [Text Guide](./text.md) - Typography, alignment, fonts, and text boxes
-  - [Images Guide](./images.md) - Embedding images, cropping, and filter effects
-  - [Icons Guide](./icons.md) - Over 1,500 Phosphor icons and icon badges
-- **Themes & Styling** (`./themes/`)
-  - [Themes Guide](./themes/themes.md) - Predefined themes, color palettes, and custom styles
-- **SmartArts Diagrams** (`./smartarts/`)
-  - [SmartArts Guide](./smartarts/smartarts.md) - Tables, trees, process lists, speech bubbles, and pyramids
-- **Developer Tools** (`./tools/`)
-  - [Document Builder](./tools/doc_builder.md) - Compiling Markdown documents into HTML/PDF
+### 1. Introductions
+- [About Drawlib](./introductions/about.md)
+- [Installation Guide](./introductions/install.md)
+- [Library Design Philosophy](./introductions/lib_design.md)
+- [Quick Start Guide](./introductions/quick_start.md)
+- [Release Notes](./introductions/release_note.md)
+- [Other Version Documentation](./introductions/other_version_docs.md)
+- [Useful Links](./introductions/links.md)
 
----
+### 2. Foundations
+- [Canvas & Coordinate System](./foundations/canvas.md)
+- [Coordinate Alignment](./foundations/coordinate_align.md)
+- [Icons Guide](./foundations/icon.md)
+- [Images Guide](./foundations/image.md)
+- [Lines Guide](./foundations/line.md)
+- [Line Styles](./foundations/line_style.md)
+- [Shapes Overview](./foundations/shape.md)
+- [Circle Shapes](./foundations/shape_circle.md)
+- [Rectangle Shapes](./foundations/shape_rectangle.md)
+- [Arrow Shapes](./foundations/shape_arrow.md)
+- [Shape Styling](./foundations/shape_style.md)
+- [Text Guide](./foundations/text.md)
+- [Preset Styles Guide](./foundations/preset_styles.md)
+- [Building Multiple Images](./foundations/build_many.md)
+- [Programming Practices](./foundations/programming.md)
 
-## 3. Core Principles
+### 3. SmartArts Diagrams
+- [SmartArts Overview](./smartarts/index.md)
+- [SourceCode Highlighting](./smartarts/sourcecode.md)
+- [Table Component](./smartarts/table.md)
+- [Tree Component](./smartarts/tree.md)
+- [BoxList Component](./smartarts/boxlist.md)
+- [BubbleSpeech Component](./smartarts/bubblespeech.md)
+- [BulletPoints Component](./smartarts/bulletpoints.md)
+- [GridLayout Component](./smartarts/gridlayout.md)
+- [Pyramid Component](./smartarts/pyramid.md)
 
-1. **Separation of Content and Style**: Similar to HTML and CSS, define drawing structures separately from visual themes.
-2. **Version Control Friendly**: Store illustrations as plain code alongside your documentation in Git repositories.
-3. **Automated Document Compilation**: Compile Markdown files containing `drawlib` code blocks into static Web sites or PDFs.
+### 4. Preset Styles
+- [Official Default Preset Styles](./preset_styles/official_default.md)
+- [Official Essentials Preset Styles](./preset_styles/official_essentials.md)
+- [Official Monochrome Preset Styles](./preset_styles/official_monochrome.md)
+- [Advanced Preset Styles Topics](./preset_styles/advanced_topics.md)
+- [Creating Custom Preset Styles](./preset_styles/create.md)
+
+### 5. Advanced Topics
+- [Colors System](./advanced_topics/color.md)
+- [Fonts System](./advanced_topics/font.md)
+- [Dimage Image Processing](./advanced_topics/dimage.md)
+- [Debugging Tools](./advanced_topics/debug.md)
+- [Global Settings](./advanced_topics/settings.md)
+- [CLI Options](./advanced_topics/cli_options.md)
+- [Example Workflow](./advanced_topics/example_flow.md)
+- [API Versioning](./advanced_topics/api_version.md)
+- [Disable Linting](./advanced_topics/disable_lint.md)
+- [Utility Functions](./advanced_topics/util.md)

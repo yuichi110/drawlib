@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing Text</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with ThemePreset</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Drawing Text</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <p>===============</p>
+<h1>Drawing Text</h1>
+<p>Drawing text requires understanding the following concepts:</p>
+<ul>
+<li>text(): Function for drawing text</li>
+<li>TextStyle: Style class for text</li>
+<li>font: How to specify fonts</li>
+<li>Theme's pre-defined styles</li>
+</ul>
+<p>We will explain each of these concepts in this section.</p>
+<h1>text()</h1>
+<p>Drawlib uses the <code>text()</code> function for drawing text.
+It takes the following arguments:</p>
+<ul>
+<li>xy: coordinate of drawing point</li>
+<li>text: text value</li>
+<li>size(optional): size of text font</li>
+<li>angle(optional): angle of text</li>
+<li>style(optional): text style</li>
+</ul>
+<p>Font size can be changed with <code>size</code>, but it can also be changed by the <code>style</code> attribute.
+We recommend using the style attribute rather than size.
+Similar to how you shouldn't configure text size in HTML but should do it in CSS, it's best to handle text styling via the style attribute for better consistency and flexibility.</p>
+<p>We will explain style later, so for now, we will focus on the other arguments.
+Here are three examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.text import text
+
+config(width=100, height=50)
+text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;)
+text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, size=24)
+text(xy=(75, 25), text=&quot;こんにちは Drawlib.&quot;, angle=45)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="text_images/1.png" alt="text_1" />
+</div>
+<p>Below is a figure illustrating these examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.text import text
+
+config(width=100, height=50)
+text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;)
+text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, size=24)
+text(xy=(75, 25), text=&quot;こんにちは Drawlib.&quot;, angle=45)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="text_images/2.png" alt="text_2" style="width: 600px; max-width: 100%;" />
+</div>
+<p>text()</p>
+<p>Drawlib's default theme uses the multilingual font &quot;Noto Sans CJK Japanese&quot;.
+This is a popular sans-serif font that supports CJK (Chinese, Japanese, Korean) in addition to the alphabet.
+As the font name suggests, it prioritizes Japanese but typically does not conflict with Chinese and Korean.</p>
+<p>Fonts that prioritize Chinese and Korean are also provided.
+Additionally, other local language fonts are available for languages not supported by the default font.</p>
+<h1>text_vertical()</h1>
+<p>While it is not common in alphabetic languages, vertically aligned text is popular in a few languages, such as Japanese.
+We provide the <code>text_vertical()</code> function to achieve this.
+The arguments are exactly the same as those for <code>text()</code>.</p>
+<ul>
+<li>xy: coordinate of drawing point</li>
+<li>text: text value</li>
+<li>size(optional): size of text font</li>
+<li>angle(optional): angle of text</li>
+<li>style(optional): text style</li>
+</ul>
+<p>Here are three examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.text import text, text_vertical
+
+config(width=100, height=50)
+text_vertical(xy=(15, 25), text=&quot;Hello Drawlib.&quot;)
+text_vertical(xy=(35, 25), text=&quot;Hello Drawlib.&quot;, size=12)
+text_vertical(xy=(75, 25), text=&quot;こんにちは Drawlib.&quot;, angle=45)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="text_images/3.png" alt="text_3" />
+</div>
+<p>Below is a figure illustrating these examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.text import text, text_vertical
+
+config(width=100, height=50)
+text_vertical(xy=(15, 25), text=&quot;Hello Drawlib.&quot;)
+text_vertical(xy=(35, 25), text=&quot;Hello Drawlib.&quot;, size=12)
+text_vertical(xy=(75, 25), text=&quot;こんにちは Drawlib.&quot;, angle=45)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="text_images/4.png" alt="text_4" style="width: 600px; max-width: 100%;" />
+</div>
+<p>text_vertical()</p>
+<p>Please use <code>halign=&quot;center&quot;</code> in TextStyle.
+It is the default value.
+Horizontal align left/right will work, but it does not look nice except with monospaced fonts.</p>
+<h1>TextStyle</h1>
+<p><code>TextStyle</code> is style class for <code>text()</code> and <code>text_vertical()</code>.
+It encompasses many attributes, categorized into &quot;alignment&quot;, &quot;text style&quot;, and &quot;text background style&quot;.</p>
+<p><code>TextStyle</code> has these attributes.</p>
+<ul>
+<li>halign: Horizontal alignment of text. Options are &quot;left&quot;, &quot;center&quot;, &quot;right&quot;.</li>
+<li>valign: Vertical alignment of text. Options are &quot;bottom&quot;, &quot;center&quot;, &quot;top&quot;.</li>
+<li>color: Text color.</li>
+<li>size: Text size.</li>
+<li>font: Text font.</li>
+<li>bgalpha: Background alpha.</li>
+<li>bglwidth: Background line width.</li>
+<li>bglcolor: Background line color.</li>
+<li>bglstyle: Background line style. Options are &quot;solid&quot;, &quot;dashed&quot;, &quot;dotted&quot;, &quot;dashdot&quot;.</li>
+<li>bgfcolor: Background fill color.</li>
+</ul>
+<p>The default alignment is &quot;center&quot; horizontally and &quot;center&quot; vertically.
+By default, no background is drawn.</p>
+<p>Here are 2 examples.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors, Colors140
+from drawlib.fonts import FontSerif
+from drawlib.shapes import circle
+from drawlib.text import text
+from drawlib.types import ShapeStyle, TextStyle
+
+config(width=100, height=50, grid_only=True)
+text(
+    xy=(15, 25),
+    text=&quot;Hello Drawlib.&quot;,
+    style=TextStyle(
+        text_color=Colors140.Turquoise,
+        text_size=24,
+        text_halign=&quot;left&quot;,
+        text_valign=&quot;bottom&quot;,
+        text_font=FontSerif.MERRIWEATHER_REGULAR,
+    ),
+)
+circle(xy=(15, 25), radius=0.5, style=ShapeStyle(fill_color=Colors.Red, line_width=0))
+text((15, 22), &quot;align: left,bottom&quot;)
+
+text(
+    xy=(75, 25),
+    angle=45,
+    text=&quot;こんにちは Drawlib.&quot;,
+    style=TextStyle(
+        text_color=Colors.White,
+        text_bg_line_width=2,
+        text_bg_line_color=Colors.Red,
+        text_bg_line_style=&quot;dashed&quot;,
+        text_bg_fill_color=Colors.Black,
+    ),
+)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="text_images/5.png" alt="text_5" />
+</div>
+<p>The left-side example configures alignment and text style, while the right-side example configures text background style.
+Below is a figure illustrating these examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors, Colors140
+from drawlib.fonts import FontSerif
+from drawlib.shapes import circle
+from drawlib.text import text
+from drawlib.types import ShapeStyle, TextStyle
+
+config(width=100, height=50, grid_only=True)
+text(
+    xy=(15, 25),
+    text=&quot;Hello Drawlib.&quot;,
+    style=TextStyle(
+        text_color=Colors140.Turquoise,
+        text_size=24,
+        text_halign=&quot;left&quot;,
+        text_valign=&quot;bottom&quot;,
+        text_font=FontSerif.MERRIWEATHER_REGULAR,
+    ),
+)
+circle(xy=(15, 25), radius=0.5, style=ShapeStyle(fill_color=Colors.Red, line_width=0))
+text((15, 22), &quot;align: left,bottom&quot;)
+
+text(
+    xy=(75, 25),
+    angle=45,
+    text=&quot;こんにちは Drawlib.&quot;,
+    style=TextStyle(
+        text_color=Colors.White,
+        text_bg_line_width=2,
+        text_bg_line_color=Colors.Red,
+        text_bg_line_style=&quot;dashed&quot;,
+        text_bg_fill_color=Colors.Black,
+    ),
+)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="text_images/6.png" alt="text_6" style="width: 600px; max-width: 100%;" />
+</div>
+<p>TextStyle</p>
+<p>In our opinion, there are few chances to use text background.
+Setting a white (or another canvas background color) background without a border can be useful for drawing text over shapes and lines in some situations.</p>
+<h1>Font</h1>
+<p>Drawlib specifies fonts from Drawlib's font library or from your own font files.
+Drawlib does not use system fonts installed on your PC because using system fonts may result in inconsistent rendering across different environments.</p>
+<h2>Basic Font Classes</h2>
+<p>Drawlib includes these basic Font classes:</p>
+<ul>
+<li>Font</li>
+<li>FontSanSerif</li>
+<li>FontSerif</li>
+<li>FontMonoSpace</li>
+<li>FontSourceCode</li>
+<li>FontRoboto</li>
+</ul>
+<p>These classes contain popular fonts or fonts preferred by the Drawlib team.</p>
+<h2>Local Language Fonts</h2>
+<p>Additionally, Drawlib supports local language fonts:</p>
+<ul>
+<li>FontArabic</li>
+<li>FontBrahmic</li>
+<li>FontChinese</li>
+<li>FontJapanese</li>
+<li>FontKorean</li>
+<li>FontThai</li>
+</ul>
+<p>If your preferred language is not supported, please let us know.
+However, we can only support open-source free fonts at the moment.
+And currently, we use Google fonts.</p>
+<p>Here are font examples.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.fonts import Font, FontJapanese, FontMonoSpace, FontRoboto, FontSansSerif, FontSerif, FontThai
+from drawlib.text import text
+from drawlib.types import TextStyle
+
+config(width=100, height=60, grid_only=True)
+text(xy=(25, 5), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SANSSERIF_LIGHT))
+text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SANSSERIF_REGULAR))
+text(xy=(25, 25), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SANSSERIF_BOLD))
+text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SERIF_LIGHT))
+text(xy=(25, 45), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SERIF_REGULAR))
+text(xy=(25, 55), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SERIF_BOLD))
+
+text(xy=(75, 5), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=FontRoboto.ROBOTO_REGULAR))
+text(xy=(75, 15), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=FontSansSerif.RALEWAYS_REGULAR))
+text(xy=(75, 25), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=FontSerif.MERRIWEATHER_REGULAR))
+text(xy=(75, 35), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=FontMonoSpace.SOURCECODEPRO_REGULAR))
+text(xy=(75, 45), text=&quot;こんにちは Drawlib.&quot;, style=TextStyle(text_font=FontJapanese.MPLUS1P_REGULAR))
+text(xy=(75, 55), text=&quot;สวัสดี ดรอว์ลิบ&quot;, style=TextStyle(text_font=FontThai.SERIF_REGULAR))
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="text_images/7.png" alt="text_7" />
+</div>
+<p>Below is a figure illustrating these examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.fonts import Font, FontJapanese, FontMonoSpace, FontRoboto, FontSansSerif, FontSerif, FontThai
+from drawlib.text import text
+from drawlib.types import TextStyle
+
+config(width=100, height=60, grid_only=True)
+text(xy=(25, 5), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SANSSERIF_LIGHT))
+text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SANSSERIF_REGULAR))
+text(xy=(25, 25), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SANSSERIF_BOLD))
+text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SERIF_LIGHT))
+text(xy=(25, 45), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SERIF_REGULAR))
+text(xy=(25, 55), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SERIF_BOLD))
+
+text(xy=(75, 5), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=FontRoboto.ROBOTO_REGULAR))
+text(xy=(75, 15), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=FontSansSerif.RALEWAYS_REGULAR))
+text(xy=(75, 25), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=FontSerif.MERRIWEATHER_REGULAR))
+text(xy=(75, 35), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=FontMonoSpace.SOURCECODEPRO_REGULAR))
+text(xy=(75, 45), text=&quot;こんにちは Drawlib.&quot;, style=TextStyle(text_font=FontJapanese.MPLUS1P_REGULAR))
+text(xy=(75, 55), text=&quot;สวัสดี ดรอว์ลิบ&quot;, style=TextStyle(text_font=FontThai.SERIF_REGULAR))
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="text_images/8.png" alt="text_8" style="width: 600px; max-width: 100%;" />
+</div>
+<p>Fonts</p>
+<p>To change font styles, refer to the preset styles documentation.
+You can create custom <code>Style</code> or <code>ThemePreset</code> objects to specify font settings across text elements.</p>
+<h2>Custom Font</h2>
+<p>Drawlib offers a wide range of fonts.
+However, if you want to use fonts that are not supported, use the <code>FontFile</code> class.
+This class can be used in place of the basic font classes and accepts a font file as an argument.</p>
+<p>Here is an examples which uses font avenger.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.text import text
+from drawlib.types import TextStyle
+
+config(width=100, height=50)
+text(
+    (50, 25),
+    &quot;Hello Drawlib!&quot;,
+    style=TextStyle(
+        text_size=36,
+        text_font=FontFile(&quot;./avenger/regular.ttf&quot;),
+    ),
+)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="text_images/9.png" alt="text_9" />
+</div>
+<p>Below is a figure illustrating these examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.text import text
+from drawlib.types import TextStyle
+
+config(width=100, height=50)
+text(
+    (50, 25),
+    &quot;Hello Drawlib!&quot;,
+    style=TextStyle(
+        text_size=36,
+        text_font=FontFile(&quot;./avenger/regular.ttf&quot;),
+    ),
+)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="text_images/10.png" alt="text_10" style="width: 600px; max-width: 100%;" />
+</div>
+<p>FontFile</p>
+<p>You can check the list of fonts supported by Drawlib in the Font documentation.</p>
+<h1>Theme's pre-defined styles</h1>
+<p>Text in Drawlib can utilize pre-defined styles from the theme you select.</p>
+<p>The style syntax is: <code>&lt;color&gt;_&lt;type&gt;_&lt;weight&gt;</code>.
+If the color and weight are default, they are not explicitly shown in the style name.
+However, text styles do not use the type variations that are used for lines and shapes.</p>
+<p>Each weight type variation includes different font weights:</p>
+<ul>
+<li><code>light</code>: Font weight light</li>
+<li>default: Font weight regular</li>
+<li><code>bold</code>: Font weight bold</li>
+</ul>
+<p>Here is an example script that demonstrates the use of theme-defined text styles:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.text import text
+
+config(width=100, height=50)
+text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;, style=&quot;red&quot;)
+text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, size=12, style=&quot;bold&quot;)
+text(xy=(75, 15), text=&quot;Hello Drawlib.&quot;, style=&quot;blue_light&quot;)
+text(xy=(75, 35), text=&quot;Hello Drawlib.&quot;, size=24, style=&quot;green_bold&quot;)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="text_images/11.png" alt="text_11" />
+</div>
+<p>Below is a figure illustrating these examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.text import text
+
+config(width=100, height=50)
+text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;, style=&quot;red&quot;)
+text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, size=12, style=&quot;bold&quot;)
+text(xy=(75, 15), text=&quot;Hello Drawlib.&quot;, style=&quot;blue_light&quot;)
+text(xy=(75, 35), text=&quot;Hello Drawlib.&quot;, size=24, style=&quot;green_bold&quot;)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="text_images/12.png" alt="text_12" style="width: 600px; max-width: 100%;" />
+</div>
+<p>Theme's pre-defined styles</p>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

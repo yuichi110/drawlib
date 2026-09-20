@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Classes</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with ThemePreset</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Color Classes</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <p>===============</p>
+<h1>Color Classes</h1>
+<p>Drawlib's color format is either RGB (Red, Green, Blue) or RGBA (RGB with Alpha).
+The RGB format is represented as tuple(0-255, 0-255, 0-255), and the RGBA format is tuple(0-255, 0-255, 0-255, 0.0-1.0).
+For simplicity, Drawlib does not support string color codes (e.g., &quot;red&quot;) or hex style codes (e.g., &quot;#00FF00&quot;).</p>
+<p>However, using RGB can be inconvenient for basic colors.
+Therefore, we provide Color classes. Currently, we offer the following classes:</p>
+<ul>
+<li>Colors: basic web 16 colors + Transparent</li>
+<li>Colors140: basic web 140 colors + Transparent</li>
+<li>ColorsThemeDefault: Colors which are used in theme <code>default</code></li>
+<li>ColorsThemeEssentials: Colors which are used in theme <code>essentials</code></li>
+<li>ColorsThemeMonochrome: Colors which are used in theme <code>monochrome</code></li>
+<li>ColorBase: Base class for creating your own Color class</li>
+</ul>
+<p>Here is an image showing their relationships:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors, Colors140
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.text import text
+from drawlib.types import ShapeStyle, ShapeTextStyle, TextStyle
+
+config(width=100, height=80)
+y1 = 70
+y2 = 40
+y3 = 25
+y4 = 10
+rect_width = 25
+rect_height = 10
+rect_style = ShapeStyle(fill_color=Colors.White)
+rect_text_style = ShapeTextStyle(text_size=18)
+
+COLORS_BASE_TEXT = &quot;&quot;&quot;
+- Transparent = (0, 0, 0, 0.0)
+
+- get_rgba()
+
+- get_rgba_from_hexcode()
+
+- get_rgba_from_grayscale()
+&quot;&quot;&quot;.strip()
+
+COLORS_TEXT = &quot;&quot;&quot;
+- BLACK = (0, 0, 0)
+- WHITE = (255, 255, 255)
+- . . .
+&quot;&quot;&quot;.strip()
+
+
+def draw_base():
+    rectangle(
+        (20, y1),
+        width=rect_width,
+        height=rect_height,
+        style=rect_style,
+        text=&quot;ColorsBase\n(Base Class)&quot;,
+        textstyle=rect_text_style,
+    )
+
+    text(
+        (7.5, 60),
+        COLORS_BASE_TEXT,
+        style=(TextStyle(text_halign=&quot;left&quot;, text_valign=&quot;top&quot;)),
+    )
+
+
+def draw_line_arrows():
+    x1 = 40
+    x2 = 47.5
+    x3 = 55
+    line((x1, y1), (x3, y1), arrowhead=&quot;-&gt;&quot;)
+    text((x2, y1 + 3), &quot;inherit&quot;, style=TextStyle(text_size=20))
+    line((x2, y1), (x2, y4))
+    line((x2, y2), (x3, y2), arrowhead=&quot;-&gt;&quot;)
+    line((x2, y3), (x3, y3), arrowhead=&quot;-&gt;&quot;)
+    line((x2, y4), (x3, y4), arrowhead=&quot;-&gt;&quot;)
+
+
+def draw_childs():
+    x = 75
+    rectangle(
+        (x, y1),
+        width=rect_width,
+        height=rect_height,
+        style=rect_style,
+        text=&quot;Colors\n(CSS 16 Colors)&quot;,
+        textstyle=rect_text_style,
+    )
+
+    text(
+        (62.5, 60),
+        COLORS_TEXT,
+        style=(TextStyle(text_halign=&quot;left&quot;, text_valign=&quot;top&quot;)),
+    )
+
+    rectangle(
+        (x, y2),
+        width=rect_width,
+        height=rect_height,
+        style=rect_style,
+        text=&quot;Colors140\n(CSS 140 Colors)&quot;,
+        textstyle=rect_text_style,
+    )
+
+    text((x, y3), &quot;...&quot;, style=TextStyle(text_size=32))
+
+    rectangle(
+        (x, y4),
+        width=rect_width,
+        height=rect_height,
+        style=rect_style,
+        text=&quot;Your_Colors_Class&quot;,
+        textstyle=rect_text_style,
+    )
+
+
+draw_base()
+draw_line_arrows()
+draw_childs()
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="color_images/1.png" alt="color_1" style="width: 600px; max-width: 100%;" />
+</div>
+<p>Structure of color classes</p>
+<p>As you can see, <code>ColorsBase</code> class implements the <code>Transparent</code> color and utility functions.
+Each child class inherits these and implements its own colors.</p>
+<p>You can create your own color class as well.
+Let's look at an example of creating a Google color class at end of this page.</p>
+<h1>Colors</h1>
+<p>The <code>Colors</code> class contains the following members:</p>
+<ul>
+<li>Transparent: (0, 0, 0, 0.0)</li>
+<li>Aqua: (0, 255, 255)</li>
+<li>Black: (0, 0, 0)</li>
+<li>Blue: (0, 0, 255)</li>
+<li>Fuchsia: (255, 0, 255)</li>
+<li>Gray: (128, 128, 128)</li>
+<li>Green: (0, 128, 0)</li>
+<li>Lime: (0, 255, 0)</li>
+<li>Maroon: (128, 0, 0)</li>
+<li>Navy: (0, 0, 128)</li>
+<li>Olive: (128, 128, 0)</li>
+<li>Purple: (128, 0, 128)</li>
+<li>Red: (255, 0, 0)</li>
+<li>Silver: (192, 192, 192)</li>
+<li>Teal: (0, 128, 128)</li>
+<li>White: (255, 255, 255)</li>
+<li>Yellow: (255, 255, 0)</li>
+</ul>
+<h1>Colors140</h1>
+<p>The <code>Colors140</code> class contains the following members:</p>
+<ul>
+<li>Transparent: (0, 0, 0, 0.0)</li>
+<li>AliceBlue: (240, 248, 255)</li>
+<li>AntiqueWhite: (250, 235, 215)</li>
+<li>Aqua: (0, 255, 255)</li>
+<li>Aquamarine: (127, 255, 212)</li>
+<li>Azure: (240, 255, 255)</li>
+<li>Beige: (245, 245, 220)</li>
+<li>Bisque: (255, 228, 196)</li>
+<li>Black: (0, 0, 0)</li>
+<li>BlanchedAlmond: (255, 235, 205)</li>
+<li>Blue: (0, 0, 255)</li>
+<li>BlueViolet: (138, 43, 226)</li>
+<li>Brown: (165, 42, 42)</li>
+<li>BurlyWood: (222, 184, 135)</li>
+<li>CadetBlue: (95, 158, 160)</li>
+<li>Chartreuse: (127, 255, 0)</li>
+<li>Chocolate: (210, 105, 30)</li>
+<li>Coral: (255, 127, 80)</li>
+<li>CornflowerBlue: (100, 149, 237)</li>
+<li>Cornsilk: (255, 248, 220)</li>
+<li>Crimson: (220, 20, 60)</li>
+<li>Cyan: (0, 255, 255)</li>
+<li>DarkBlue: (0, 0, 139)</li>
+<li>DarkCyan: (0, 139, 139)</li>
+<li>DarkGoldenRod: (184, 134, 11)</li>
+<li>DarkGray: (169, 169, 169)</li>
+<li>DarkGreen: (0, 100, 0)</li>
+<li>DarkKhaki: (189, 183, 107)</li>
+<li>DarkMagenta: (139, 0, 139)</li>
+<li>DarkOliveGreen: (85, 107, 47)</li>
+<li>DarkOrange: (255, 140, 0)</li>
+<li>DarkOrchid: (153, 50, 204)</li>
+<li>DarkRed: (139, 0, 0)</li>
+<li>DarkSalmon: (233, 150, 122)</li>
+<li>DarkSeaGreen: (143, 188, 143)</li>
+<li>DarkSlateBlue: (72, 61, 139)</li>
+<li>DarkSlateGray: (47, 79, 79)</li>
+<li>DarkTurquoise: (0, 206, 209)</li>
+<li>DarkViolet: (148, 0, 211)</li>
+<li>DeepPink: (255, 20, 147)</li>
+<li>DeepSkyBlue: (0, 191, 255)</li>
+<li>DimGray: (105, 105, 105)</li>
+<li>DodgerBlue: (30, 144, 255)</li>
+<li>FireBrick: (178, 34, 34)</li>
+<li>FloralWhite: (255, 250, 240)</li>
+<li>ForestGreen: (34, 139, 34)</li>
+<li>Fuchsia: (255, 0, 255)</li>
+<li>Gainsboro: (220, 220, 220)</li>
+<li>GhostWhite: (248, 248, 255)</li>
+<li>Gold: (255, 215, 0)</li>
+<li>GoldenRod: (218, 165, 32)</li>
+<li>Gray: (128, 128, 128)</li>
+<li>Green: (0, 128, 0)</li>
+<li>GreenYellow: (173, 255, 47)</li>
+<li>HoneyDew: (240, 255, 240)</li>
+<li>HotPink: (255, 105, 180)</li>
+<li>IndianRed: (205, 92, 92)</li>
+<li>Indigo: (75, 0, 130)</li>
+<li>Ivory: (255, 255, 240)</li>
+<li>Khaki: (240, 230, 140)</li>
+<li>Lavender: (230, 230, 250)</li>
+<li>LavenderBlush: (255, 240, 245)</li>
+<li>LawnGreen: (124, 252, 0)</li>
+<li>LemonChiffon: (255, 250, 205)</li>
+<li>LightBlue: (173, 216, 230)</li>
+<li>LightCoral: (240, 128, 128)</li>
+<li>LightCyan: (224, 255, 255)</li>
+<li>LightGoldenRodYellow: (250, 250, 210)</li>
+<li>LightGray: (211, 211, 211)</li>
+<li>LightGreen: (144, 238, 144)</li>
+<li>LightPink: (255, 182, 193)</li>
+<li>LightSalmon: (255, 160, 122)</li>
+<li>LightSeaGreen: (32, 178, 170)</li>
+<li>LightSkyBlue: (135, 206, 250)</li>
+<li>LightSlateGray: (119, 136, 153)</li>
+<li>LightSteelBlue: (176, 196, 222)</li>
+<li>LightYellow: (255, 255, 224)</li>
+<li>Lime: (0, 255, 0)</li>
+<li>LimeGreen: (50, 205, 50)</li>
+<li>Linen: (250, 240, 230)</li>
+<li>Magenta: (255, 0, 255)</li>
+<li>Maroon: (128, 0, 0)</li>
+<li>MediumAquaMarine: (102, 205, 170)</li>
+<li>MediumBlue: (0, 0, 205)</li>
+<li>MediumOrchid: (186, 85, 211)</li>
+<li>MediumPurple: (147, 112, 219)</li>
+<li>MediumSeaGreen: (60, 179, 113)</li>
+<li>MediumSlateBlue: (123, 104, 238)</li>
+<li>MediumSpringGreen: (0, 250, 154)</li>
+<li>MediumTurquoise: (72, 209, 204)</li>
+<li>MediumVioletRed: (199, 21, 133)</li>
+<li>MidnightBlue: (25, 25, 112)</li>
+<li>MintCream: (245, 255, 250)</li>
+<li>MistyRose: (255, 228, 225)</li>
+<li>Moccasin: (255, 228, 181)</li>
+<li>NavajoWhite: (255, 222, 173)</li>
+<li>Navy: (0, 0, 128)</li>
+<li>OldLace: (253, 245, 230)</li>
+<li>Olive: (128, 128, 0)</li>
+<li>OliveDrab: (107, 142, 35)</li>
+<li>Orange: (255, 165, 0)</li>
+<li>OrangeRed: (255, 69, 0)</li>
+<li>Orchid: (218, 112, 214)</li>
+<li>PaleGoldenRod: (238, 232, 170)</li>
+<li>PaleGreen: (152, 251, 152)</li>
+<li>PaleTurquoise: (175, 238, 238)</li>
+<li>PaleVioletRed: (219, 112, 147)</li>
+<li>PapayaWhip: (255, 239, 213)</li>
+<li>PeachPuff: (255, 218, 185)</li>
+<li>Peru: (205, 133, 63)</li>
+<li>Pink: (255, 192, 203)</li>
+<li>Plum: (221, 160, 221)</li>
+<li>PowderBlue: (176, 224, 230)</li>
+<li>Purple: (128, 0, 128)</li>
+<li>RebeccaPurple: (102, 51, 153)</li>
+<li>Red: (255, 0, 0)</li>
+<li>RosyBrown: (188, 143, 143)</li>
+<li>RoyalBlue: (65, 105, 225)</li>
+<li>SaddleBrown: (139, 69, 19)</li>
+<li>Salmon: (250, 128, 114)</li>
+<li>SandyBrown: (244, 164, 96)</li>
+<li>SeaGreen: (46, 139, 87)</li>
+<li>SeaShell: (255, 245, 238)</li>
+<li>Sienna: (160, 82, 45)</li>
+<li>Silver: (192, 192, 192)</li>
+<li>SkyBlue: (135, 206, 235)</li>
+<li>SlateBlue: (106, 90, 205)</li>
+<li>SlateGray: (112, 128, 144)</li>
+<li>Snow: (255, 250, 250)</li>
+<li>SpringGreen: (0, 255, 127)</li>
+<li>SteelBlue: (70, 130, 180)</li>
+<li>Tan: (210, 180, 140)</li>
+<li>Teal: (0, 128, 128)</li>
+<li>Thistle: (216, 191, 216)</li>
+<li>Tomato: (255, 99, 71)</li>
+<li>Turquoise: (64, 224, 208)</li>
+<li>Violet: (238, 130, 238)</li>
+<li>Wheat: (245, 222, 179)</li>
+<li>White: (255, 255, 255)</li>
+<li>WhiteSmoke: (245, 245, 245)</li>
+<li>Yellow: (255, 255, 0)</li>
+<li>YellowGreen: (154, 205, 50)</li>
+</ul>
+<h1>ColorsThemeDefault</h1>
+<p>The <code>ColorsThemeDefault</code> class contains the following members:</p>
+<ul>
+<li>Red: (239, 95, 95)</li>
+<li>Green: (79, 191, 79)</li>
+<li>Blue: (111, 111, 239)</li>
+<li>Black: (0, 0, 0)</li>
+<li>White: (255, 255, 255)</li>
+</ul>
+<h1>ColorsThemeEssentials</h1>
+<p>The <code>ColorsThemeEssentials</code> class contains the following members:</p>
+<ul>
+<li>Red:  (255, 23, 23)</li>
+<li>LightRed: (239, 95, 95)</li>
+<li>Green: (15, 127, 15)</li>
+<li>LightGreen: (79, 191, 79)</li>
+<li>Blue: (31, 31, 255)</li>
+<li>LightBlue: (111, 111, 239)</li>
+<li>Yellow: (239, 239, 31)</li>
+<li>Purple: (127, 31, 127)</li>
+<li>Orange: (255, 95, 31)</li>
+<li>Navy: (15, 15, 127)</li>
+<li>Pink: (239, 63, 239)</li>
+<li>Charcoal: (39, 39, 39)</li>
+<li>Graphite: (63, 63, 63)</li>
+<li>Gray: (127, 127, 127)</li>
+<li>Silver: (191, 191, 191)</li>
+<li>Snow: (239, 239, 239)</li>
+<li>Teal: (15, 127, 127)</li>
+<li>Olive: (127, 127, 31)</li>
+<li>Brown: (159, 31, 31)</li>
+<li>Black: (0, 0, 0)</li>
+<li>White: (255, 255, 255)</li>
+<li>Aqua: (47, 239, 239)</li>
+<li>GreenYellow: (127, 207, 31)</li>
+<li>Ivory: (239, 239, 207)</li>
+<li>Steel: (96, 96, 143)</li>
+</ul>
+<h1>ColorsThemeMonochrome</h1>
+<p>The <code>ColorsThemeMonochrome</code> class contains the following members:</p>
+<ul>
+<li>Black: (0, 0, 0)</li>
+<li>Charcoal: (39, 39, 39)</li>
+<li>Graphite: (63, 63, 63)</li>
+<li>Gray: (127, 127, 127)</li>
+<li>Silver: (191, 191, 191)</li>
+<li>Snow: (239, 239, 239)</li>
+<li>White: (255, 255, 255)</li>
+</ul>
+<h1>Implement Your Own Colors</h1>
+<p>We provide a base class for colors called <code>ColorsBase</code>.
+You can define your own color palette class by extending this base class.</p>
+<p>Suppose you are an official partner of Google, eligible to use their corporate colors.
+Let's define these colors and use them.</p>
+<p>Partner Marketing Hub: Google News Color Palette.
+https://partnermarketinghub.withgoogle.com/brands/google-news/visual-identity/color-palette/</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.fonts import FontRoboto
+from drawlib.shapes import circle, rectangle, triangle, wedge
+from drawlib.text import text
+from drawlib.types import ShapeStyle, TextStyle
+
+
+# Please define color at styling codes normally.
+class ColorsGoogle(ColorsBase):
+    # From Official Google Color Palette
+    # At Partner Marketing Hub
+    Blue = (23, 78, 166)
+    Red = (165, 14, 14)
+    Orange = (227, 116, 0)
+    Green = (32, 33, 36)
+    MediumBlue = (66, 103, 210)
+    MediumRed = (234, 67, 53)
+    Yellow = (251, 188, 4)
+    MediumGreen = (52, 168, 83)
+    LightBlue = (210, 227, 252)
+    LightRed = (250, 210, 207)
+    LightYellow = (254, 239, 195)
+    LightGreen = (206, 234, 214)
+    LightGrey = (241, 243, 244)
+    Grey = (154, 160, 166)
+    Black = (32, 33, 36)
+
+
+config(width=100, height=50)
+shape_y = 30
+circle(
+    (15, shape_y),
+    radius=10,
+    style=ShapeStyle(line_width=0, fill_color=ColorsGoogle.MediumBlue),
+)
+triangle(
+    (37.5, shape_y),
+    width=20,
+    height=15,
+    style=ShapeStyle(line_width=0, fill_color=ColorsGoogle.MediumRed),
+)
+rectangle(
+    (62.5, shape_y),
+    width=18,
+    height=18,
+    style=ShapeStyle(line_width=0, fill_color=ColorsGoogle.Yellow),
+)
+wedge(
+    (85, shape_y),
+    radius=10,
+    width=5,
+    angle_end=270,
+    style=ShapeStyle(line_width=0, fill_color=ColorsGoogle.MediumGreen),
+)
+text(
+    (50, 10),
+    &quot;Google Colors&quot;,
+    style=TextStyle(
+        text_color=ColorsGoogle.Black,
+        text_size=32,
+        text_font=FontRoboto.ROBOTO_REGULAR,
+    ),
+)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="color_images/2.png" alt="color_2" />
+</div>
+<p>In this example, we define a color class and use it in image drawing code.
+Typically, you should define your color class in a styling module and import it into your image code.</p>
+<p>Here is the output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.fonts import FontRoboto
+from drawlib.shapes import circle, rectangle, triangle, wedge
+from drawlib.text import text
+from drawlib.types import ShapeStyle, TextStyle
+
+
+# Please define color at styling codes normally.
+class ColorsGoogle(ColorsBase):
+    # From Official Google Color Palette
+    # At Partner Marketing Hub
+    Blue = (23, 78, 166)
+    Red = (165, 14, 14)
+    Orange = (227, 116, 0)
+    Green = (32, 33, 36)
+    MediumBlue = (66, 103, 210)
+    MediumRed = (234, 67, 53)
+    Yellow = (251, 188, 4)
+    MediumGreen = (52, 168, 83)
+    LightBlue = (210, 227, 252)
+    LightRed = (250, 210, 207)
+    LightYellow = (254, 239, 195)
+    LightGreen = (206, 234, 214)
+    LightGrey = (241, 243, 244)
+    Grey = (154, 160, 166)
+    Black = (32, 33, 36)
+
+
+config(width=100, height=50)
+shape_y = 30
+circle(
+    (15, shape_y),
+    radius=10,
+    style=ShapeStyle(line_width=0, fill_color=ColorsGoogle.MediumBlue),
+)
+triangle(
+    (37.5, shape_y),
+    width=20,
+    height=15,
+    style=ShapeStyle(line_width=0, fill_color=ColorsGoogle.MediumRed),
+)
+rectangle(
+    (62.5, shape_y),
+    width=18,
+    height=18,
+    style=ShapeStyle(line_width=0, fill_color=ColorsGoogle.Yellow),
+)
+wedge(
+    (85, shape_y),
+    radius=10,
+    width=5,
+    angle_end=270,
+    style=ShapeStyle(line_width=0, fill_color=ColorsGoogle.MediumGreen),
+)
+text(
+    (50, 10),
+    &quot;Google Colors&quot;,
+    style=TextStyle(
+        text_color=ColorsGoogle.Black,
+        text_size=32,
+        text_font=FontRoboto.ROBOTO_REGULAR,
+    ),
+)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="color_images/3.png" alt="color_3" style="width: 600px; max-width: 100%;" />
+</div>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

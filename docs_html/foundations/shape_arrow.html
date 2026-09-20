@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing Arrow Shapes</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with ThemePreset</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Drawing Arrow Shapes</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <p>======================</p>
+<h1>Drawing Arrow Shapes</h1>
+<h1>Introductions</h1>
+<p>Arrow Shapes draw thick arrow.
+There are these functios</p>
+<ul>
+<li><code>arrow()</code>: Draw arrow from xy1 to xy2.</li>
+<li><code>arrow_polyline</code>: Draw arrow which passes list of xys.</li>
+<li><code>arrow_l</code>: Draw L shape arrow from top left to right bottom.</li>
+<li><code>arrow_u</code>: Draw U shape arrow from top left to right top.</li>
+<li><code>arrow_arc</code>: Draw ellipse arc arrow from start angle to end angle.</li>
+</ul>
+<p>Here are arrow examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.fonts import FontRoboto
+from drawlib.shapes import arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u
+from drawlib.text import text
+
+
+config(width=100, height=100, grid_only=True)
+
+x1 = 15
+x2 = 35
+x3 = 75
+
+arrow((x1, 20), (x1, 70), tail_width=5, head_width=10, head_length=10)
+text((x1, 15), &quot;arrow()&quot;, size=24)
+arrow_polyline(
+    [(x2, 30), (x2 - 5, 45), (x2 + 5, 60), (x2, 80)],
+    tail_width=5,
+    head_width=10,
+    head_length=10,
+    head=&quot;&lt;-&gt;&quot;,
+    r=5,
+)
+text((x2, 85), &quot;arrow_polyline()&quot;, size=24)
+
+arrow_l((x3, 20), 30, 20, tail_width=5, head_width=10, head_length=10)
+text((x3, 20), &quot;arrow_l()&quot;, size=24)
+
+arrow_u((x3, 50), 30, 20, tail_width=5, head_width=10, head_length=10, head=&quot;&lt;-&gt;&quot;, r=5)
+text((x3, 55), &quot;arrow_u()&quot;, size=24)
+
+arrow_arc(
+    (x3, 70),
+    width=30,
+    height=20,
+    tail_width=5,
+    head_width=10,
+    head_angle=30,
+    angle_start=0,
+    angle_end=180,
+)
+text((x3, 90), &quot;arrow_arc()&quot;, size=24)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_arrow_images/1.png" alt="shape_arrow_1" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>arrow()
+</code></pre>
+<h1>Name of Arguments</h1>
+<p>All arrow functions have similar argument namings.
+Understanding how to specify arrow size might be useful.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.fonts import FontRoboto
+from drawlib.lines import line
+from drawlib.shapes import arrow, circle
+from drawlib.text import text
+
+
+
+config(width=100, height=50)
+arrow((20, 25), (80, 25), tail_width=10, head_width=20, head_length=10)
+
+circle((20, 25), radius=1, style=&quot;red&quot;)
+text((27, 25), &quot;xy1&quot;, style=&quot;white_bold&quot;)
+circle((80, 25), radius=1, style=&quot;red&quot;)
+text((73, 25), &quot;xy2&quot;, style=&quot;white_bold&quot;)
+
+line((15, 20), (15, 30), style=&quot;dashed&quot;, arrowhead=&quot;&lt;-&gt;&quot;)
+text((15, 35), &quot;tail_width&quot;)
+
+line((85, 15), (85, 35), style=&quot;dashed&quot;, arrowhead=&quot;&lt;-&gt;&quot;)
+text((85, 40), &quot;head_width&quot;)
+
+line((70, 10), (80, 10), style=&quot;dashed&quot;, arrowhead=&quot;&lt;-&gt;&quot;)
+text((55, 10), &quot;head_length&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_arrow_images/2.png" alt="shape_arrow_2" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>Arrow size arguments.
+</code></pre>
+<ul>
+<li><code>xy</code> means coordinate of arrow. <code>xy1</code> and <code>xy2</code>, <code>xys</code> are used.</li>
+<li><code>tail_width</code>: Tail width of arrow</li>
+<li><code>head_width</code>: Head width of arrow</li>
+<li><code>head_length</code>: Head length of arrow</li>
+</ul>
+<p>You can specify arrow direction via arg <code>head</code>.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.fonts import FontRoboto
+from drawlib.shapes import arrow
+from drawlib.text import text
+
+
+
+config(width=100, height=50)
+
+arrow((10, 25), (30, 25), tail_width=5, head_width=10, head_length=7, head=&quot;-&gt;&quot;)
+text((20, 15), 'head=&quot;-&gt;&quot;')
+
+arrow((40, 25), (60, 25), tail_width=5, head_width=10, head_length=7, head=&quot;&lt;-&quot;)
+text((50, 15), 'head=&quot;&lt;-&quot;')
+
+arrow((70, 25), (90, 25), tail_width=5, head_width=10, head_length=7, head=&quot;&lt;-&gt;&quot;)
+text((80, 15), 'head=&quot;&lt;-&gt;&quot;')
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_arrow_images/3.png" alt="shape_arrow_3" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>Arrow size arguments.
+</code></pre>
+<ul>
+<li><code>-&gt;</code>: Draw arrow head at end of xy</li>
+<li><code>&lt;-</code>: Draw arrow head at start of xy</li>
+<li><code>&lt;-&gt;</code>: Draw arrow head at both start and end of xy</li>
+</ul>
+<h1>Functions</h1>
+<h2>arrow()</h2>
+<p>The <code>arrow()</code> function draws an arrow shape between two points defined by <code>xy1</code> (start point) and <code>xy2</code> (end point).
+You can customize the arrow's tail and head sizes and styles.</p>
+<p>This function accepts the following arguments:</p>
+<ul>
+<li>xy1: Start point coordinates (x1, y1)</li>
+<li>xy2: End point coordinates (x2, y2)</li>
+<li>tail_width: Width of the arrow's tail (not the head)</li>
+<li>head_width: Width of the arrow's head</li>
+<li>head_length: Length of the arrow's head</li>
+<li>head (optional): Style of the arrow's head (<code>&quot;-&gt;&quot;</code>, <code>&quot;&lt;-&quot;</code>, <code>&quot;&lt;-&gt;&quot;</code> for different configurations)</li>
+<li>style (optional): Style of the arrow</li>
+<li>text (optional): Centered text</li>
+<li>textstyle (optional): Style of the centered text</li>
+</ul>
+<p>Let's explore an example:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.fonts import FontRoboto
+from drawlib.shapes import arrow
+from drawlib.text import text
+
+
+config(width=100, height=50, grid_only=True)
+
+arrow((5, 25), (45, 25), tail_width=10, head_width=20, head_length=10)
+arrow(
+    (75, 5),
+    (75, 45),
+    tail_width=10,
+    head_width=20,
+    head_length=10,
+    head=&quot;&lt;-&gt;&quot;,
+    text=&quot;arrow()&quot;,
+)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_arrow_images/4.png" alt="shape_arrow_4" />
+</div>
+<p>Here is an example output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.fonts import FontRoboto
+from drawlib.shapes import arrow
+from drawlib.text import text
+
+
+config(width=100, height=50, grid_only=True)
+
+arrow((5, 25), (45, 25), tail_width=10, head_width=20, head_length=10)
+arrow(
+    (75, 5),
+    (75, 45),
+    tail_width=10,
+    head_width=20,
+    head_length=10,
+    head=&quot;&lt;-&gt;&quot;,
+    text=&quot;arrow()&quot;,
+)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_arrow_images/5.png" alt="shape_arrow_5" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>arrow()
+</code></pre>
+<p>In the <code>arrow()</code> function, the angle of the arrow is determined automatically by its start and end points.
+The function does not use the alignment attributes (<code>halign</code> and <code>valign</code>) from <code>ShapeStyle</code>.</p>
+<h2>arrow_polyline</h2>
+<p>The <code>arrow_polyline</code> function draws an arrow which passes <code>xys</code> points.
+It supports rounded edges.
+It doesn't support having text inside.</p>
+<ul>
+<li>xys: List of arrow coordinates.</li>
+<li>tail_width: Width of the arrow's tail (not the head)</li>
+<li>head_width: Width of the arrow's head</li>
+<li>head_length: Length of the arrow's head</li>
+<li>head (optional): Style of the arrow's head (<code>&quot;-&gt;&quot;</code>, <code>&quot;&lt;-&quot;</code>, <code>&quot;&lt;-&gt;&quot;</code> for different configurations)</li>
+<li>r (optional): R of arrow line</li>
+<li>style (optional): Style of the arrow</li>
+<li>text (optional): Centered text</li>
+<li>textstyle (optional): Style of the centered text</li>
+</ul>
+<p>Let's explore an example:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.fonts import FontRoboto
+from drawlib.lines import lines, lines_curved
+from drawlib.shapes import arrow_polyline, circle
+
+
+
+config(width=100, height=50, grid=True)
+arrow_polyline(
+    [(25, 5), (15, 25), (25, 45)],
+    tail_width=5,
+    head_width=10,
+    head_length=5,
+)
+
+arrow_polyline(
+    [(50, 5), (40, 25), (50, 45)],
+    tail_width=5,
+    head_width=10,
+    head_length=5,
+)
+lines([(50, 5), (40, 25), (50, 45)], style=&quot;white_dashed&quot;)
+for dot in [(50, 5), (40, 25), (50, 45)]:
+    circle(dot, radius=1, style=&quot;red_flat&quot;)
+
+arrow_polyline(
+    [(75, 5), (85, 25), (75, 45)],
+    tail_width=5,
+    head_width=10,
+    head_length=5,
+    r=5,
+    head=&quot;&lt;-&gt;&quot;,
+)
+lines_curved([(75, 5), (85, 25), (75, 45)], r=5, style=&quot;white_dashed&quot;)
+for dot in [(75, 5), (85, 25), (75, 45)]:
+    circle(dot, radius=1, style=&quot;red_flat&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_arrow_images/6.png" alt="shape_arrow_6" />
+</div>
+<p>Here is an example output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.fonts import FontRoboto
+from drawlib.lines import lines, lines_curved
+from drawlib.shapes import arrow_polyline, circle
+
+
+
+config(width=100, height=50, grid=True)
+arrow_polyline(
+    [(25, 5), (15, 25), (25, 45)],
+    tail_width=5,
+    head_width=10,
+    head_length=5,
+)
+
+arrow_polyline(
+    [(50, 5), (40, 25), (50, 45)],
+    tail_width=5,
+    head_width=10,
+    head_length=5,
+)
+lines([(50, 5), (40, 25), (50, 45)], style=&quot;white_dashed&quot;)
+for dot in [(50, 5), (40, 25), (50, 45)]:
+    circle(dot, radius=1, style=&quot;red_flat&quot;)
+
+arrow_polyline(
+    [(75, 5), (85, 25), (75, 45)],
+    tail_width=5,
+    head_width=10,
+    head_length=5,
+    r=5,
+    head=&quot;&lt;-&gt;&quot;,
+)
+lines_curved([(75, 5), (85, 25), (75, 45)], r=5, style=&quot;white_dashed&quot;)
+for dot in [(75, 5), (85, 25), (75, 45)]:
+    circle(dot, radius=1, style=&quot;red_flat&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_arrow_images/7.png" alt="shape_arrow_7" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>arrow_polyline()
+</code></pre>
+<h2>arrow_l</h2>
+<p>The <code>arrow_l</code> function is syntax sugar of <code>arrow_polyline</code>.
+It draw &quot;L&quot; style arrow easily by specifying <code>width</code> and <code>height</code> and <code>angle</code>.</p>
+<ul>
+<li>xys: Center of arrow shape.</li>
+<li>width: width of arrow</li>
+<li>height: height of arrow</li>
+<li>tail_width: Width of the arrow's tail (not the head)</li>
+<li>head_width: Width of the arrow's head</li>
+<li>head_length: Length of the arrow's head</li>
+<li>head (optional): Style of the arrow's head (<code>&quot;-&gt;&quot;</code>, <code>&quot;&lt;-&quot;</code>, <code>&quot;&lt;-&gt;&quot;</code> for different configurations)</li>
+<li>r (optional): R of arrow line</li>
+<li>angle (optional): Angle of arrow</li>
+<li>style (optional): Style of the arrow</li>
+</ul>
+<p>Let's explore an example:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.fonts import FontRoboto
+from drawlib.lines import line, lines
+from drawlib.shapes import arrow_l, circle
+from drawlib.text import text
+
+
+
+
+config(width=100, height=50, grid=True)
+arrow_l(
+    xy=(15, 25),
+    width=20,
+    height=30,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+)
+
+arrow_l(
+    xy=(40, 25),
+    width=20,
+    height=30,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+    style=&quot;white&quot;,
+)
+lines([(30, 40), (30, 10), (50, 10)], style=&quot;dashed&quot;)
+for dot in [(30, 40), (30, 10), (50, 10)]:
+    circle(dot, radius=0.7, style=&quot;red_flat&quot;)
+
+circle((40, 25), radius=0.7, style=&quot;blue_flat&quot;)
+line((30, 25), (50, 25), style=&quot;blue_dashed&quot;, arrowhead=&quot;&lt;-&gt;&quot;)
+text((47.5, 27.5), &quot;width&quot;, style=&quot;blue&quot;)
+line((40, 40), (40, 10), style=&quot;blue_dashed&quot;, arrowhead=&quot;&lt;-&gt;&quot;)
+text((40, 42.5), &quot;height&quot;, style=&quot;blue&quot;)
+
+arrow_l(
+    xy=(75, 10),
+    width=10,
+    height=15,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+    angle=90,
+    head=&quot;&lt;-&gt;&quot;,
+)
+text((70, 10), &quot;angle=90&quot;)
+
+arrow_l(
+    xy=(75, 25),
+    width=10,
+    height=15,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+    angle=180,
+    head=&quot;&lt;-&quot;,
+)
+text((70, 25), &quot;angle=180&quot;)
+
+arrow_l(
+    xy=(75, 40),
+    width=10,
+    height=15,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+    angle=270,
+    head=&quot;&lt;-&quot;,
+)
+text((80, 40), &quot;angle=270&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_arrow_images/8.png" alt="shape_arrow_8" />
+</div>
+<p>Here is an example output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.fonts import FontRoboto
+from drawlib.lines import line, lines
+from drawlib.shapes import arrow_l, circle
+from drawlib.text import text
+
+
+
+
+config(width=100, height=50, grid=True)
+arrow_l(
+    xy=(15, 25),
+    width=20,
+    height=30,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+)
+
+arrow_l(
+    xy=(40, 25),
+    width=20,
+    height=30,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+    style=&quot;white&quot;,
+)
+lines([(30, 40), (30, 10), (50, 10)], style=&quot;dashed&quot;)
+for dot in [(30, 40), (30, 10), (50, 10)]:
+    circle(dot, radius=0.7, style=&quot;red_flat&quot;)
+
+circle((40, 25), radius=0.7, style=&quot;blue_flat&quot;)
+line((30, 25), (50, 25), style=&quot;blue_dashed&quot;, arrowhead=&quot;&lt;-&gt;&quot;)
+text((47.5, 27.5), &quot;width&quot;, style=&quot;blue&quot;)
+line((40, 40), (40, 10), style=&quot;blue_dashed&quot;, arrowhead=&quot;&lt;-&gt;&quot;)
+text((40, 42.5), &quot;height&quot;, style=&quot;blue&quot;)
+
+arrow_l(
+    xy=(75, 10),
+    width=10,
+    height=15,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+    angle=90,
+    head=&quot;&lt;-&gt;&quot;,
+)
+text((70, 10), &quot;angle=90&quot;)
+
+arrow_l(
+    xy=(75, 25),
+    width=10,
+    height=15,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+    angle=180,
+    head=&quot;&lt;-&quot;,
+)
+text((70, 25), &quot;angle=180&quot;)
+
+arrow_l(
+    xy=(75, 40),
+    width=10,
+    height=15,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+    angle=270,
+    head=&quot;&lt;-&quot;,
+)
+text((80, 40), &quot;angle=270&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_arrow_images/9.png" alt="shape_arrow_9" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>arrow_l()
+</code></pre>
+<p>You need to change <code>angle</code> and direction of arrow <code>head</code> for drawing various style of L arrow.</p>
+<h2>arrow_u</h2>
+<p>The <code>arrow_u</code> function is syntax sugar of <code>arrow_polyline</code>.
+It draw &quot;U&quot; style arrow easily by specifying <code>width</code> and <code>height</code> and <code>angle</code>.</p>
+<ul>
+<li>xy: Center of arrow shape.</li>
+<li>width: width of arrow</li>
+<li>height: height of arrow</li>
+<li>tail_width: Width of the arrow's tail (not the head)</li>
+<li>head_width: Width of the arrow's head</li>
+<li>head_length: Length of the arrow's head</li>
+<li>head (optional): Style of the arrow's head (<code>&quot;-&gt;&quot;</code>, <code>&quot;&lt;-&quot;</code>, <code>&quot;&lt;-&gt;&quot;</code> for different configurations)</li>
+<li>r (optional): R of arrow line</li>
+<li>angle (optional): Angle of arrow</li>
+<li>style (optional): Style of the arrow</li>
+</ul>
+<p>Let's explore an example:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.fonts import FontRoboto
+from drawlib.lines import line, lines
+from drawlib.shapes import arrow_u, circle
+from drawlib.text import text
+
+
+
+config(width=100, height=50, grid=True)
+
+arrow_u(
+    xy=(15, 25),
+    width=15,
+    height=30,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+)
+
+arrow_u(
+    xy=(40, 25),
+    width=15,
+    height=30,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+    style=&quot;white&quot;,
+)
+lines([(32.5, 40), (32.5, 10), (47.5, 10), (47.5, 40)], style=&quot;dashed&quot;)
+for dot in [(32.5, 40), (32.5, 10), (47.5, 10), (47.5, 40)]:
+    circle(dot, radius=0.7, style=&quot;red_flat&quot;)
+
+circle((40, 25), radius=1, style=&quot;blue_flat&quot;)
+line((32.5, 25), (47.5, 25), style=&quot;blue_dashed&quot;, arrowhead=&quot;&lt;-&gt;&quot;)
+text((45, 27.5), &quot;width&quot;, style=&quot;blue&quot;)
+line((40, 40), (40, 10), style=&quot;blue_dashed&quot;, arrowhead=&quot;&lt;-&gt;&quot;)
+text((40, 42.5), &quot;height&quot;, style=&quot;blue&quot;)
+
+arrow_u(
+    xy=(75, 10),
+    width=8,
+    height=12,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+    angle=90,
+    head=&quot;&lt;-&gt;&quot;,
+)
+text((70, 10), &quot;angle=90&quot;)
+
+arrow_u(
+    xy=(75, 25),
+    width=8,
+    height=12,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+    angle=180,
+    head=&quot;&lt;-&quot;,
+)
+text((70, 25), &quot;angle=180&quot;)
+
+arrow_u(
+    xy=(75, 40),
+    width=8,
+    height=12,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+    angle=270,
+    head=&quot;&lt;-&quot;,
+)
+text((80, 40), &quot;angle=270&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_arrow_images/10.png" alt="shape_arrow_10" />
+</div>
+<p>Here is an example output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.fonts import FontRoboto
+from drawlib.lines import line, lines
+from drawlib.shapes import arrow_u, circle
+from drawlib.text import text
+
+
+
+config(width=100, height=50, grid=True)
+
+arrow_u(
+    xy=(15, 25),
+    width=15,
+    height=30,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+)
+
+arrow_u(
+    xy=(40, 25),
+    width=15,
+    height=30,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+    style=&quot;white&quot;,
+)
+lines([(32.5, 40), (32.5, 10), (47.5, 10), (47.5, 40)], style=&quot;dashed&quot;)
+for dot in [(32.5, 40), (32.5, 10), (47.5, 10), (47.5, 40)]:
+    circle(dot, radius=0.7, style=&quot;red_flat&quot;)
+
+circle((40, 25), radius=1, style=&quot;blue_flat&quot;)
+line((32.5, 25), (47.5, 25), style=&quot;blue_dashed&quot;, arrowhead=&quot;&lt;-&gt;&quot;)
+text((45, 27.5), &quot;width&quot;, style=&quot;blue&quot;)
+line((40, 40), (40, 10), style=&quot;blue_dashed&quot;, arrowhead=&quot;&lt;-&gt;&quot;)
+text((40, 42.5), &quot;height&quot;, style=&quot;blue&quot;)
+
+arrow_u(
+    xy=(75, 10),
+    width=8,
+    height=12,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+    angle=90,
+    head=&quot;&lt;-&gt;&quot;,
+)
+text((70, 10), &quot;angle=90&quot;)
+
+arrow_u(
+    xy=(75, 25),
+    width=8,
+    height=12,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+    angle=180,
+    head=&quot;&lt;-&quot;,
+)
+text((70, 25), &quot;angle=180&quot;)
+
+arrow_u(
+    xy=(75, 40),
+    width=8,
+    height=12,
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+    angle=270,
+    head=&quot;&lt;-&quot;,
+)
+text((80, 40), &quot;angle=270&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_arrow_images/11.png" alt="shape_arrow_11" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>arrow_u()
+</code></pre>
+<p>You need to change <code>angle</code> and direction of arrow <code>head</code> for drawing various style of L arrow.</p>
+<h2>arrow_arc</h2>
+<p>The <code>arrow_arc</code> function draw arc on ellipse and circle(when width and height are same).
+It specify ellipse <code>width</code> and <code>height</code>.
+And also, you can specify where arrow start and end via <code>angle_start</code> and <code>angle_end</code>.
+Please take care, length of head is specified by <code>head_angle</code>.
+<code>head_angle=N</code> means drawing head within N degree.</p>
+<ul>
+<li>xy: Center of arrow shape.</li>
+<li>width: width of ellipse</li>
+<li>height: height of ellipse</li>
+<li>tail_width: Width of the arrow's tail (not the head)</li>
+<li>head_width: Width of the arrow's head</li>
+<li>head_angle: Length of the arrow's head by degree</li>
+<li>head (optional): Style of the arrow's head (<code>&quot;-&gt;&quot;</code>, <code>&quot;&lt;-&quot;</code>, <code>&quot;&lt;-&gt;&quot;</code> for different configurations)</li>
+<li>angle_start (optional): Where the arrow start. default is 0.</li>
+<li>angle_end (optional): Where the arrow end. default is 360.</li>
+<li>angle (optional): Angle of arrow</li>
+<li>style (optional): Style of the arrow</li>
+</ul>
+<p>Let's explore an example:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.fonts import FontRoboto
+from drawlib.lines import line
+from drawlib.shapes import arc, arrow, arrow_arc, circle
+from drawlib.text import text
+
+
+
+config(width=100, height=50, grid=True)
+
+arrow_arc(
+    xy=(15, 25),
+    width=15,
+    height=15,
+    tail_width=3,
+    head_width=6,
+    head_angle=20,
+    angle_start=20,
+    angle_end=340,
+)
+
+arrow_arc(
+    xy=(40, 25),
+    width=15,
+    height=15,
+    tail_width=3,
+    head_width=6,
+    head_angle=20,
+    angle_start=20,
+    angle_end=340,
+    style=&quot;white&quot;,
+)
+arc(
+    xy=(40, 25),
+    width=15,
+    height=15,
+    # angle_start=20,
+    # angle_end=340,
+    style=&quot;dashed&quot;,
+)
+circle((40, 25), radius=1, style=&quot;blue_flat&quot;)
+line((32.5, 25), (47.5, 25), style=&quot;blue_dashed&quot;, arrowhead=&quot;&lt;-&gt;&quot;)
+text((53, 25), &quot;width&quot;, style=&quot;blue&quot;)
+line((40, 17.5), (40, 32.5), style=&quot;blue_dashed&quot;, arrowhead=&quot;&lt;-&gt;&quot;)
+text((40, 37.5), &quot;height&quot;, style=&quot;blue&quot;)
+
+for dot in [(47, 27.5), (47, 22.5)]:
+    circle(dot, radius=0.7, style=&quot;red_flat&quot;)
+
+text((57.5, 29), &quot;angle_start&quot;, style=&quot;red&quot;)
+text((57.5, 21), &quot;angle_end&quot;, style=&quot;red&quot;)
+
+text((32.5, 7.5), 'The arrow is drawn counterclockwise.\nTo draw a clockwise arrow, specify head=&quot;&lt;-&quot;.')
+
+arrow_arc(
+    xy=(80, 12.5),
+    width=25,
+    height=15,
+    tail_width=3,
+    head_width=6,
+    head_angle=20,
+    angle_start=225,
+    angle_end=135,
+    head=&quot;&lt;-&gt;&quot;,
+)
+text((72.5, 12.5), &quot;width=25, height=15&quot;)
+
+arc(xy=(80, 37.5), width=25, height=15, angle=45, style=&quot;dashed&quot;)
+arrow_arc(
+    xy=(80, 37.5),
+    width=25,
+    height=15,
+    tail_width=3,
+    head_width=6,
+    head_angle=20,
+    angle_start=90,
+    angle_end=270,
+    angle=45,
+    head=&quot;&lt;-&quot;,
+)
+text((82.5, 40), 'angle=45\nhead=&quot;&lt;-&quot;')
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_arrow_images/12.png" alt="shape_arrow_12" />
+</div>
+<p>Here is an example output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.fonts import FontRoboto
+from drawlib.lines import line
+from drawlib.shapes import arc, arrow, arrow_arc, circle
+from drawlib.text import text
+
+
+
+config(width=100, height=50, grid=True)
+
+arrow_arc(
+    xy=(15, 25),
+    width=15,
+    height=15,
+    tail_width=3,
+    head_width=6,
+    head_angle=20,
+    angle_start=20,
+    angle_end=340,
+)
+
+arrow_arc(
+    xy=(40, 25),
+    width=15,
+    height=15,
+    tail_width=3,
+    head_width=6,
+    head_angle=20,
+    angle_start=20,
+    angle_end=340,
+    style=&quot;white&quot;,
+)
+arc(
+    xy=(40, 25),
+    width=15,
+    height=15,
+    # angle_start=20,
+    # angle_end=340,
+    style=&quot;dashed&quot;,
+)
+circle((40, 25), radius=1, style=&quot;blue_flat&quot;)
+line((32.5, 25), (47.5, 25), style=&quot;blue_dashed&quot;, arrowhead=&quot;&lt;-&gt;&quot;)
+text((53, 25), &quot;width&quot;, style=&quot;blue&quot;)
+line((40, 17.5), (40, 32.5), style=&quot;blue_dashed&quot;, arrowhead=&quot;&lt;-&gt;&quot;)
+text((40, 37.5), &quot;height&quot;, style=&quot;blue&quot;)
+
+for dot in [(47, 27.5), (47, 22.5)]:
+    circle(dot, radius=0.7, style=&quot;red_flat&quot;)
+
+text((57.5, 29), &quot;angle_start&quot;, style=&quot;red&quot;)
+text((57.5, 21), &quot;angle_end&quot;, style=&quot;red&quot;)
+
+text((32.5, 7.5), 'The arrow is drawn counterclockwise.\nTo draw a clockwise arrow, specify head=&quot;&lt;-&quot;.')
+
+arrow_arc(
+    xy=(80, 12.5),
+    width=25,
+    height=15,
+    tail_width=3,
+    head_width=6,
+    head_angle=20,
+    angle_start=225,
+    angle_end=135,
+    head=&quot;&lt;-&gt;&quot;,
+)
+text((72.5, 12.5), &quot;width=25, height=15&quot;)
+
+arc(xy=(80, 37.5), width=25, height=15, angle=45, style=&quot;dashed&quot;)
+arrow_arc(
+    xy=(80, 37.5),
+    width=25,
+    height=15,
+    tail_width=3,
+    head_width=6,
+    head_angle=20,
+    angle_start=90,
+    angle_end=270,
+    angle=45,
+    head=&quot;&lt;-&quot;,
+)
+text((82.5, 40), 'angle=45\nhead=&quot;&lt;-&quot;')
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_arrow_images/13.png" alt="shape_arrow_13" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>arrow_arc()
+</code></pre>
+<p>Please remember, arrow is always drawn from <code>angle_start</code> to <code>angle_end</code> counterclockwise.
+If you want to draw clockwise arrow, please specify it via <code>head</code>.</p>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -53,9 +53,9 @@ Footer
     processed_md = processor.process_markdown(md_input, doc_base_name="my_doc", output_dir=str(out_dir))
 
     assert "# Test Title" in processed_md
-    assert '<img src="my_doc_1.png"' in processed_md
+    assert '<img src="my_doc_images/1.png"' in processed_md
     assert "```drawlib" not in processed_md
-    assert (out_dir / "my_doc_1.png").exists()
+    assert (out_dir / "my_doc_images" / "1.png").exists()
 
 
 def test_block_processor_with_config(tmp_path) -> None:
@@ -101,8 +101,8 @@ save(r"{ignored_file}")
 """
     processed_md = processor.process_markdown(md_input, doc_base_name="save_test", output_dir=str(out_dir))
 
-    assert "save_test_1.png" in processed_md
-    assert (out_dir / "save_test_1.png").exists()
+    assert "save_test_images/1.png" in processed_md
+    assert (out_dir / "save_test_images" / "1.png").exists()
     assert not ignored_file.exists(), "Explicit save() file should not have been created"
 
 

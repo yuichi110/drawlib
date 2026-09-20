@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building many images</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with ThemePreset</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Building many images</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <p>======================</p>
+<h1>Building many images</h1>
+<p>Drawlib is designed for creating numerous illustrations, such as those used in documentation.
+It provides the <code>drawlib</code> command for bulk building images under a specified directory, allowing you to easily apply defined styles to many illustrations.</p>
+<p>Here is a typical build process for documentation.
+As shown, we first build many images and then build the documentation using those images.</p>
+<p><img src="../../index/image_buildmany.png" alt="../../index/image_buildmany.png" /></p>
+<pre><code>Build many images
+</code></pre>
+<p>In this process, Drawlib achieves the following:</p>
+<ul>
+<li>Declare Styling at Common Code Files: Centralize style definitions for consistency.</li>
+<li>Declare Functions at Common Code Files: Centralize function definitions for reuse.</li>
+<li>Import Common Code in Each Image File: Each image script imports the common styles and functions.</li>
+<li>Execute All Image Scripts in a Specified Directory: Generate all images by executing the scripts in the specified directory.</li>
+</ul>
+<h1>The Most Important Things</h1>
+<p>When building many images with Drawlib, keep these key points in mind:</p>
+<ul>
+<li>Create a Normal Python Package Architecture: Ensure your project is structured as a standard Python package.</li>
+<li>Include <code>__init__.py</code> in Each Directory: This file is essential for Python to recognize directories as packages.</li>
+<li>Use the <code>drawlib &lt;target&gt;</code> Command: Instead of using <code>python &lt;code-file&gt;</code>, utilize the drawlib command for building images in your package.</li>
+</ul>
+<p>We use the normal Python <code>import</code> statement to reference style code from the image code.
+This requires a correct package structure for the image code to locate the style code.
+If your package has issues, the image code will show an import error.</p>
+<p>The <code>drawlib</code> command simplifies complex tasks as long as the package structure is correct.</p>
+<h1>Sample Package Architecture: Flat</h1>
+<p>We recommend a flat architecture for a single document.</p>
+<pre><code class="language-text">docs
+├── __init__.py
+├── doc.md
+├── image1.py
+├── ...
+└── image&lt;n&gt;.py
+</code></pre>
+<h1>Sample Package Architecture: Grouped</h1>
+<p>If you are writing extensive documentation, such as a book, a single directory might not be sufficient.
+In such cases, categorizing content into subdirectories is recommended.</p>
+<p>Here is a sample architecture:</p>
+<pre><code class="language-text">docs
+├── __init__.py
+├── chap01
+│   ├── __init__.py
+│   ├── image1.py
+│   ├── image2.py
+├── chap02
+│   ├── __init__.py
+│   └── image1.py
+└── commons
+   ├── __init__.py
+   ├── avenger
+   │   ├── readme.txt
+   │   └── regular.ttf
+   ├── images
+   │   ├── linux.png
+   │   └── python.png
+   ├── style.py
+   └── util.py
+</code></pre>
+<ul>
+<li>docs: Root directory for documents.</li>
+<li>commons: Contains code shared by image scripts, as well as common files (e.g., fonts and images).</li>
+<li>chap01: Contains image scripts. Document text files, such as Markdown, might also be placed in this directory.</li>
+<li>chap02: Similar to chap01. Both directories have files named image1.py, which is acceptable because they are in different directories.</li>
+</ul>
+<p>You can create additional subdirectories for sections as needed.</p>
+<h1>Create Drawing Project as Python Package</h1>
+<p>Image scripts depend on common code, such as styling and utility functions.
+In Python, this dependency is managed using <code>import</code> statements.
+To keep the project organized, especially when dealing with a large number of image scripts, structuring the project as a Python package is essential.</p>
+<p>For small projects, a flat directory structure might be sufficient, with all files in one directory.
+However, for larger projects with hundreds of image scripts, it's smarter to organize the files into directories that reflect the documentation structure.</p>
+<p>When your project grows, you'll need to import code from different directories.
+This requires setting up a package architecture and using module names for imports.</p>
+<p>Suppose we use last grouped package architecture.
+Here is a code snippet of illustration code:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+
+import docs.commons.style
+from docs.commons import util
+
+config(width=100, height=50)
+util.draw_3circles(50, 25, 10, 5)
+util.draw_logo()
+save()
+</code></pre>
+<p>In this example, <code>image1.py</code> imports <code>docs.commons.style</code> and <code>docs.commons.util</code>:
+The module nas has full package hierarchy.
+This style is called <code>Absolute import</code>.
+We recommend using absolute imports, as shown in the example above.
+However, you can also use relative imports.</p>
+<p>All directories containing Python code should have an <code>__init__.py</code> file.
+This file is crucial for Python's package system, as it designates a directory as a package.
+While newer versions of Python can handle directories without <code>__init__.py</code>, it is still good practice to include it for clarity and compatibility.
+But, drawlib does require it.
+There are no choice for having no <code>__init__.py</code> in your package with technical reason.</p>
+<p>Here is a summary of the directory requirements:</p>
+<ul>
+<li>docs: Contains an <code>__init__.py</code> file. It doesn't have Python files directly, but its subdirectories do.</li>
+<li>docs.chap01, docs.chap02, etc.: Each contains an <code>__init__.py</code> file.</li>
+<li>docs.commons.images: Does not contain an <code>__init__.py</code> file since it has no Python files. You can add one if desired.</li>
+</ul>
+<p>In this setup, docs is the root package because its parent directory does not contain an <code>__init__.py</code> file.
+If the parent directory had an <code>__init__.py</code> file, it would be the root package instead.
+Please remember, parent directory of you package must not have <code>__init__.py</code>.</p>
+<h1>Background Knowledge: Python Path</h1>
+<p>The Python path is a list of directories where Python searches for modules.
+You can view this list using <code>sys.path</code>.</p>
+<pre><code class="language-text">$ python
+Python 3.9.19 (main, May  1 2024, 23:01:19)
+[Clang 15.0.0 (clang-1500.3.9.4)] on darwin
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import sys
+&gt;&gt;&gt; import pprint
+&gt;&gt;&gt; pprint.pprint(sys.path)
+['',
+'/Users/yuichi/.pyenv/versions/3.9.19/lib/python39.zip',
+'/Users/yuichi/.pyenv/versions/3.9.19/lib/python3.9',
+'/Users/yuichi/.pyenv/versions/3.9.19/lib/python3.9/lib-dynload',
+'/Users/yuichi/.pyenv/versions/3.9.19/lib/python3.9/site-packages']
+</code></pre>
+<p>When you try to import packages and modules in your code, Python searches for them in the directories listed in the Python path.
+The Python path includes:</p>
+<ul>
+<li>The current working directory</li>
+<li>The directory where Python is installed</li>
+<li>The directory containing external packages installed via pip or other package managers</li>
+</ul>
+<p>When you run your code using the drawlib command, drawlib adds your package to the Python path.
+This ensures that your image code can find the style code within your package.</p>
+<h1>Using the drawlib Command</h1>
+<p>Let's try running <code>docs.chap01.image1.py</code> normally:</p>
+<pre><code class="language-text">$ python docs/chap01/image1.py 
+Traceback (most recent call last):
+File &quot;/Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap01/image1.py&quot;, line 3, in &lt;module&gt;
+   import docs.commons.style
+ModuleNotFoundError: No module named 'docs'
+</code></pre>
+<p>As mentioned earlier, this error occurs because Python cannot find the docs package.</p>
+<p>Drawlib can execute any code in your package without complicated procedures.
+Just use <code>drawlib &lt;target&gt;</code> or <code>python -m drawlib &lt;target&gt;</code>.
+Let's try:</p>
+<pre><code class="language-text">$ drawlib docs/chap01/image1.py
+Detect package root &quot;/Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs&quot;.
+   - Add parent directory of package root &quot;/Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many&quot; to Python Path.
+
+Execute python files
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap01/image1.py
+</code></pre>
+<p>As shown in the console, Drawlib detects the package root and adds it to the Python path.
+This allows the Python illustration code to import style code from anywhere within the Python path.
+<code>__init__.py</code> is used for detecting root of your package.
+This is the reason why you must need to put <code>__init__.py</code> in your package.</p>
+<p>The <code>drawlib</code> command can also execute all Python files in a directory:</p>
+<pre><code class="language-text">$ drawlib docs/                
+Detect package root &quot;/Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs&quot;.
+   - Add parent directory of package root &quot;/Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many&quot; to Python Path.
+
+Execute python files
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/__init__.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap01/__init__.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap01/image1.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap01/image2.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap02/__init__.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/chap02/image1.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/commons/__init__.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/commons/style.py
+   - /Users/yuichi/GitHub/drawlib_docs/v0_1/samples/build_many/docs/commons/util.py
+</code></pre>
+<p>The order of execution is not critical if each illustration code is independent.
+However, the execution follows these rules:</p>
+<ul>
+<li>Shallow directories are executed before deep directories.</li>
+<li>If the directory levels are the same, files are executed in alphabetical order.</li>
+</ul>
+<p>By default, the clear() function, which resets the current canvas, is automatically invoked between each file execution.
+You can customize this behavior using options.</p>
+<h1>Sample Codes and Their Outputs</h1>
+<p>Below, we present example codes alongside their corresponding output images.</p>
+<pre><code class="language-python">from drawlib._core.l2_models_._dimage import Dimage
+
+img_linux = Dimage(&quot;images/linux.png&quot;)
+img_python = Dimage(&quot;images/python.png&quot;)
+</code></pre>
+<pre><code class="language-python">from drawlib.colors import Colors140
+from drawlib.shapes import circle, rectangle
+from drawlib.text import text
+from drawlib.types import TextStyle
+
+import docs.commons.style
+
+
+def draw_3circles(x: float, y: float, radius: float, margin: float) -&gt; None:
+    x_shift = 2 * radius + margin
+    circle((x - x_shift, y), radius)
+    circle((x, y), radius)
+    circle((x + x_shift, y), radius)
+
+
+def draw_3rectangle(x: float, y: float, width: float, height: float, margin: float) -&gt; None:
+    x_shift = width + margin
+    rectangle((x - x_shift, y), width, height, style=&quot;flat&quot;)
+    rectangle((x, y), width, height, style=&quot;flat&quot;)
+    rectangle((x + x_shift, y), width, height, style=&quot;flat&quot;)
+
+
+def draw_logo(x: float = 15, y: float = 5):
+    text(
+        (x, y),
+        text=&quot;Drawlib&quot;,
+        style=TextStyle(
+            text_color=Colors140.BlueViolet,
+            text_size=24,
+            text_font=FontFile(&quot;avenger/regular.ttf&quot;),
+        ),
+    )
+</code></pre>
+<pre><code class="language-python">from drawlib.canvas import config, save
+
+import docs.commons.style
+from docs.commons import util
+
+config(width=100, height=50)
+util.draw_3circles(50, 25, 10, 5)
+util.draw_logo()
+save()
+</code></pre>
+<pre><code>output image of docs/chap01/image1.py
+</code></pre>
+<pre><code class="language-python">from drawlib.canvas import config, save
+
+import docs.commons.style
+from docs.commons import util
+
+config(width=100, height=50)
+util.draw_3rectangle(50, 25, 20, 15, 5)
+util.draw_logo()
+save()
+</code></pre>
+<pre><code>output image of docs/chap01/image2.py
+</code></pre>
+<pre><code class="language-python">from drawlib._core.l2_models_._dimage import Dimage
+from drawlib.canvas import config, save
+from drawlib.images import image
+
+import docs.commons.style
+from docs.commons import util
+
+config(width=100, height=50)
+image((25, 25), width=25, image=&quot;images/linux.png&quot;)
+image((75, 25), width=25, image=&quot;images/python.png&quot;)
+util.draw_logo()
+save()
+</code></pre>
+<pre><code>output image of doc/schap02/image1.py
+</code></pre>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinate and Alignment</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with ThemePreset</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Coordinate and Alignment</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <p>==========================</p>
+<h1>Coordinate and Alignment</h1>
+<p>Drawing items accurately requires precise positioning.
+Understanding drawlib's coordinates and alignment is essential to achieve this.</p>
+<h1>Coordinate</h1>
+<p>Nearly all drawing functions include arguments like <code>xy</code> or similar, such as <code>xy1</code> or <code>xys</code>.
+These represent the tuple <code>(X, Y)</code> coordinate of your drawing item.
+Here, <code>X</code> represents the x-axis value, and <code>Y</code> represents the y-axis value.</p>
+<p>Let's delve into some code examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import circle
+
+config(width=10, height=10, grid_only=True)
+for i in range(11):
+    circle(xy=(i, i), radius=0.2)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="coordinate_align_images/1.png" alt="coordinate_align_1" />
+</div>
+<p>In this example, setting <code>config(width=10, height=10, ...)</code> implies:</p>
+<ul>
+<li>x-axis: 0 to 10</li>
+<li>y-axis: 0 to 10</li>
+</ul>
+<p>Both axes always start from 0. In this scenario, the bottom-left is (0, 0), and the top-right is (10, 10).
+Within the for loop, we plot small circles from coordinates (0, 0) to (10, 10).</p>
+<p>Executing this code generates the following image:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import circle
+
+config(width=10, height=10, grid_only=True)
+for i in range(11):
+    circle(xy=(i, i), radius=0.2)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="coordinate_align_images/2.png" alt="coordinate_align_2" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>Circles from (0, 0) to (10, 10)
+</code></pre>
+<p>As you observe, (0, 0) represents the minimum value.
+Therefore, the circle at (0, 0) is only partially displayed.
+Shapes existing at values less than 0 are not drawn, and similarly, those exceeding the maximum value of 10 are omitted.</p>
+<p>The default values for width and height are both <code>100</code>.
+We recommend explicitly setting width and height using config() even if you're using default values to showcase the image's coordinate size.</p>
+<p>You may need to calculate coordinates either mentally or programmatically within drawlib's code for drawing objects.
+It's advisable to use simple values such as 100 to simplify calculations.
+Setting complex values like 1920 can complicate matters.
+We prefer using <code>config(width=100, height=100)</code> or <code>config(width=100, height=50)</code>.</p>
+<h1>Alignment</h1>
+<p>Alignment refers to the arrangement of items, such as text, images, or shapes, on drawlib's canvas.
+These items can be aligned horizontally and vertically.
+The default alignment is center horizontally and center vertically.
+You can alter alignment using <code>Style</code> classes for each drawing item:</p>
+<ul>
+<li>Icon: <code>IconStyle</code></li>
+<li>Image: <code>ImageStyle</code></li>
+<li>Line: <code>LineStyle</code> and <code>LineArrowStyle</code></li>
+<li>Shape: <code>ShapeStyle</code> and <code>ShapeTextStyle</code></li>
+<li>Text: <code>TextStyle</code></li>
+</ul>
+<p>All of these have attributes:</p>
+<ul>
+<li><code>halign</code>: Horizontal alignment</li>
+<li><code>valign</code>: Vertical alignment</li>
+</ul>
+<p>By setting values <code>&quot;left&quot;</code>, <code>&quot;center&quot;</code>, or <code>&quot;bottom&quot;</code> to halign and <code>&quot;bottom&quot;</code>, <code>&quot;center&quot;</code>, or <code>&quot;top&quot;</code> to valign, you can adjust the drawing item's alignment.
+If alignment isn't specified, <code>&quot;center&quot;</code> is applied to both halign and valign.</p>
+<p>Let's examine the alignment of rectangles with an example code:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.shapes import circle, rectangle
+from drawlib.text import text
+from drawlib.types import ShapeStyle, ShapeTextStyle
+
+config(width=100, height=100, grid_only=True)
+
+for x, halign in [(15, &quot;left&quot;), (50, &quot;center&quot;), (85, &quot;right&quot;)]:
+    for y, valign in [(15, &quot;bottom&quot;), (50, &quot;center&quot;), (85, &quot;top&quot;)]:
+        rectangle(
+            xy=(x, y),
+            width=15,
+            height=15,
+            style=ShapeStyle(text_halign=halign, text_valign=valign),
+            text=f&quot;({halign}, {valign})&quot;,
+            textstyle=ShapeTextStyle(text_size=14),
+        )
+        circle(
+            xy=(x, y),
+            radius=1,
+            style=ShapeStyle(line_color=Colors.Red, fill_color=Colors.Red),
+        )
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="coordinate_align_images/3.png" alt="coordinate_align_3" />
+</div>
+<p>In this code, we display nine variations of alignments.
+The red dot represents &quot;xy&quot;, and the inner text indicates the alignment.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.shapes import circle, rectangle
+from drawlib.text import text
+from drawlib.types import ShapeStyle, ShapeTextStyle
+
+config(width=100, height=100, grid_only=True)
+
+for x, halign in [(15, &quot;left&quot;), (50, &quot;center&quot;), (85, &quot;right&quot;)]:
+    for y, valign in [(15, &quot;bottom&quot;), (50, &quot;center&quot;), (85, &quot;top&quot;)]:
+        rectangle(
+            xy=(x, y),
+            width=15,
+            height=15,
+            style=ShapeStyle(text_halign=halign, text_valign=valign),
+            text=f&quot;({halign}, {valign})&quot;,
+            textstyle=ShapeTextStyle(text_size=14),
+        )
+        circle(
+            xy=(x, y),
+            radius=1,
+            style=ShapeStyle(line_color=Colors.Red, fill_color=Colors.Red),
+        )
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="coordinate_align_images/4.png" alt="coordinate_align_4" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>Alignment variations.
+</code></pre>
+<p>We prefer using <code>(center, center)</code> and <code>(left, bottom)</code>.
+Occasionally, we employ <code>(left, center)</code> and <code>(center, bottom)</code>.</p>
+<p><code>(left, bottom)</code> is beneficial for pinpointing the exact location of rectangle-like shape items.
+However, center alignment is much simpler for aligning different-sized multiple items horizontally or vertically.
+That's why we've set <code>(center, center)</code> as the default for all items.
+Consistency is key.</p>
+<p>Here's an example of aligning items horizontally and vertically:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.icons import icon_phosphor
+from drawlib.images import image
+from drawlib.shapes import chevron, circle, parallelogram, rectangle, regularpolygon, star
+from drawlib.text import text
+from drawlib.types import ShapeStyle, TextStyle
+
+config(width=100, height=100, grid_only=True)
+
+x1 = 20
+x2 = 50
+x3 = 80
+y1 = 20
+y2 = 50
+y3 = 80
+
+circle((x1, y1), radius=5)
+rectangle((x1, y2), width=20, height=10, angle=45)
+star((x1, y3), 5, 15, 6, angle=45)
+
+image((x2, y1), width=20, image=&quot;python.png&quot;, angle=315)
+icon_phosphor.heart((x2, y2), 10, angle=315)
+text((x2, y3), &quot;Drawlib&quot;, angle=315, style=TextStyle(text_size=24))
+
+chevron((x3, y1), 35, 10, corner_angle=45, angle=45)
+parallelogram((x3, y2), 15, 10, corner_angle=60, angle=45)
+regularpolygon((x3, y3), num_vertex=6, radius=5, angle=45)
+
+for x in [x1, x2, x3]:
+    for y in [y1, y2, y3]:
+        circle((x, y), 1, style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red))
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="coordinate_align_images/5.png" alt="coordinate_align_5" />
+</div>
+<p>Each item have different size an angles.
+If we use alignment like <code>(left, bottom)</code>, aligning items becomes complex.
+However, <code>(center, center)</code> is straightforward.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.icons import icon_phosphor
+from drawlib.images import image
+from drawlib.shapes import chevron, circle, parallelogram, rectangle, regularpolygon, star
+from drawlib.text import text
+from drawlib.types import ShapeStyle, TextStyle
+
+config(width=100, height=100, grid_only=True)
+
+x1 = 20
+x2 = 50
+x3 = 80
+y1 = 20
+y2 = 50
+y3 = 80
+
+circle((x1, y1), radius=5)
+rectangle((x1, y2), width=20, height=10, angle=45)
+star((x1, y3), 5, 15, 6, angle=45)
+
+image((x2, y1), width=20, image=&quot;python.png&quot;, angle=315)
+icon_phosphor.heart((x2, y2), 10, angle=315)
+text((x2, y3), &quot;Drawlib&quot;, angle=315, style=TextStyle(text_size=24))
+
+chevron((x3, y1), 35, 10, corner_angle=45, angle=45)
+parallelogram((x3, y2), 15, 10, corner_angle=60, angle=45)
+regularpolygon((x3, y3), num_vertex=6, radius=5, angle=45)
+
+for x in [x1, x2, x3]:
+    for y in [y1, y2, y3]:
+        circle((x, y), 1, style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red))
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="coordinate_align_images/6.png" alt="coordinate_align_6" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>Align center, center is recommended
+</code></pre>
+<p>Please consider the best alignment for placing items.
+It depends on the situation.</p>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing Circle Like Shapes</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with ThemePreset</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Drawing Circle Like Shapes</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <p>============================</p>
+<h1>Drawing Circle Like Shapes</h1>
+<h2>Circle-like Shapes</h2>
+<p>Functions that draw circle-like shapes include:</p>
+<ul>
+<li><code>circle()</code></li>
+<li><code>donuts()</code></li>
+<li><code>fan()</code></li>
+<li><code>regularpolygon()</code></li>
+<li><code>star()</code></li>
+<li><code>wedge()</code></li>
+</ul>
+<p>Circle-like shapes specify <code>xy</code>, <code>radius</code>, and other shape-specific arguments.</p>
+<h2>circle()</h2>
+<p>The <code>circle()</code> function draws a circle and takes the following arguments:</p>
+<ul>
+<li>xy : X, Y coordinates.</li>
+<li>radius: Radius of the circle.</li>
+<li>angle: Angle which affects the text inside the circle.</li>
+<li>style: Style of the circle.</li>
+<li>text: Text displayed at the center of the circle.</li>
+<li>textsize: The font size of the text.</li>
+<li>textstyle: The style of the center text</li>
+</ul>
+<p>Let's explore two examples.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import circle
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+circle(xy=(25, 25), radius=15)
+circle(xy=(75, 25), radius=20, angle=45, text=&quot;circle&quot;)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_circle_images/1.png" alt="shape_circle_1" />
+</div>
+<p>The circle shape itself does not have an angle effect, but the text inside does.</p>
+<p>Executing the above script generates the following output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import circle
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+circle(xy=(25, 25), radius=15)
+circle(xy=(75, 25), radius=20, angle=45, text=&quot;circle&quot;)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_circle_images/2.png" alt="shape_circle_2" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>circle()
+</code></pre>
+<h2>donuts()</h2>
+<p>The <code>donuts()</code> function draws a donut-like shape.
+This shape is defined by an external radius and the width of the filled area, meaning the internal radius is calculated as <code>external radius - width</code>.</p>
+<p>This function takes these arguments.</p>
+<ul>
+<li>xy : X, Y coordinates.</li>
+<li>radius: Radius of the donuts.</li>
+<li>width: Width of donuts fill area</li>
+<li>angle: Angle which affects the text inside the donuts.</li>
+<li>style: Style of the donuts.</li>
+<li>text: Text displayed at the center of the donuts.</li>
+<li>textsize: The font size of the text.</li>
+<li>textstyle: The style of the center text</li>
+</ul>
+<p>Let's explore two examples.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import donuts
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+donuts(xy=(25, 25), radius=15, width=5)
+donuts(xy=(75, 25), radius=20, width=10, angle=45, text=&quot;donuts&quot;)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_circle_images/3.png" alt="shape_circle_3" />
+</div>
+<p>By adjusting the <code>radius</code> and <code>width</code> arguments, you can control the size and thickness of the donut shape.
+Executing the above script generates donut shapes with centered text, showing the usage of various arguments.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import donuts
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+donuts(xy=(25, 25), radius=15, width=5)
+donuts(xy=(75, 25), radius=20, width=10, angle=45, text=&quot;donuts&quot;)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_circle_images/4.png" alt="shape_circle_4" style="width: 600px; max-width: 100%;" />
+</div>
+<p>donuts()</p>
+<p>The <code>donuts()</code> function is essentially a simplified wrapper around the <code>wedge()</code> function, providing an easy way to draw donut shapes without needing to handle the internal radius calculations manually.</p>
+<h2>fan()</h2>
+<p>The <code>fan()</code> function draws a fan shape, which is a sector of a circle. In other words, it creates a part of a circle from one angle to another.</p>
+<ul>
+<li>xy : X, Y coordinates.</li>
+<li>radius: Radius of the fan.</li>
+<li>from_angle: The starting angle of the fan.</li>
+<li>to_angle: The ending angle of the fan.</li>
+<li>angle: Angle of the fan.</li>
+<li>style: Style of the fan.</li>
+<li>text: Text displayed at the center of the fan.</li>
+<li>textsize: The font size of the text.</li>
+<li>textstyle: The style of the center text</li>
+</ul>
+<p>There are three angle-related arguments:</p>
+<ul>
+<li><code>from_angle</code>: Defines where the fan shape starts.</li>
+<li><code>to_angle</code>: Defines where the fan shape ends.</li>
+<li><code>angle</code>: Rotates the entire fan shape after it is created.</li>
+</ul>
+<p>Let's explore two examples.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import fan
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+fan(xy=(25, 25), radius=15, angle_start=0, angle_end=135)
+fan(
+    xy=(75, 25),
+    radius=20,
+    angle_start=0,
+    angle_end=135,
+    angle=45,
+    text=&quot;fan&quot;,
+)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_circle_images/5.png" alt="shape_circle_5" />
+</div>
+<p>By adjusting the from_angle, to_angle, and angle arguments, you can create and position the fan shape as desired.</p>
+<p>First example draws fan from angle(<code>from_angle</code>) 0 to angle(<code>to_angle</code>) 135.
+Second example is same, but it rotate fan via specifying <code>angle</code>.</p>
+<p>Executing the above script generates fan shapes with centered text, showing the usage of various arguments.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import fan
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+fan(xy=(25, 25), radius=15, angle_start=0, angle_end=135)
+fan(
+    xy=(75, 25),
+    radius=20,
+    angle_start=0,
+    angle_end=135,
+    angle=45,
+    text=&quot;fan&quot;,
+)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_circle_images/6.png" alt="shape_circle_6" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>fan()
+</code></pre>
+<p>The <code>fan()</code> function is essentially a simplified wrapper around the <code>wedge()</code> function, making it easy to draw fan shapes by specifying start and end angles, and then optionally rotating the shape.</p>
+<h2>regularpolygon()</h2>
+<p>The <code>regularpolygon()</code> function draws a regular polygon with a specified number of vertices.</p>
+<p>This function takes these arguments.</p>
+<ul>
+<li>xy : X, Y coordinates.</li>
+<li>radius: Radius of the regularpolygon.</li>
+<li>num_vertices: Number of vertices of the polygon (must be 3 or more).</li>
+<li>angle: Angle of the regularpolygon.</li>
+<li>style: Style of the regularpolygon.</li>
+<li>text: Text displayed at the center of the regularpolygon.</li>
+<li>textsize: The font size of the text.</li>
+<li>textstyle: The style of the center text</li>
+</ul>
+<p>Here are two examples demonstrating the use of <code>regularpolygon()</code>:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import polygon, regularpolygon
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+regularpolygon(xy=(25, 25), radius=15, num_vertex=5)
+regularpolygon(xy=(75, 25), radius=20, num_vertex=6, angle=45, text=&quot;regular polygon&quot;)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_circle_images/7.png" alt="shape_circle_7" />
+</div>
+<p>Executing the above script generates regular polygons with centered text, demonstrating the usage of various arguments.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import polygon, regularpolygon
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+regularpolygon(xy=(25, 25), radius=15, num_vertex=5)
+regularpolygon(xy=(75, 25), radius=20, num_vertex=6, angle=45, text=&quot;regular polygon&quot;)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_circle_images/8.png" alt="shape_circle_8" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>regularpolygon()
+</code></pre>
+<p>The <code>regularpolygon()</code> function allows you to specify the number of vertices from 3 upwards to create polygons of various shapes.</p>
+<h2>star()</h2>
+<p>The <code>star()</code> function draws a star shape with a specified number of external vertices.</p>
+<p>This function takes these arguments.</p>
+<ul>
+<li>xy : X, Y coordinates.</li>
+<li>radius_ext: Radius of the circle circumscribing the outermost vertices of the star.</li>
+<li>radius_int: Radius of the circle circumscribing the innermost vertices of the star.</li>
+<li>num_vertices: Number of external vertices of the star (must be 3 or more).</li>
+<li>angle: Angle of the star.</li>
+<li>style: Style of the star.</li>
+<li>text: Text displayed at the center of the star.</li>
+<li>textsize: The font size of the text.</li>
+<li>textstyle: The style of the center text</li>
+</ul>
+<p>Here are two examples demonstrating the use of <code>star()</code>:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import star
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+star(xy=(25, 25), num_vertex=5, radius_ext=15, radius_int=5)
+star(xy=(75, 25), num_vertex=9, radius_ext=20, radius_int=7.5, angle=45, text=&quot;star&quot;)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_circle_images/9.png" alt="shape_circle_9" />
+</div>
+<p>The <code>star()</code> function allows you to specify the number of external vertices to create stars of different shapes and sizes.
+Executing the above script generates stars with centered text, demonstrating the usage of various arguments.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import star
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+star(xy=(25, 25), num_vertex=5, radius_ext=15, radius_int=5)
+star(xy=(75, 25), num_vertex=9, radius_ext=20, radius_int=7.5, angle=45, text=&quot;star&quot;)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_circle_images/10.png" alt="shape_circle_10" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>star()
+</code></pre>
+<h2>wedge()</h2>
+<p>The <code>wedge()</code> function draws a wedge shape, which is a combination of a donut (ring) and a fan (sector of a circle).</p>
+<p>This function takes these arguments.</p>
+<ul>
+<li>xy : X, Y coordinates.</li>
+<li>radius: Radius of the wedge.</li>
+<li>width : width of donuts fill area</li>
+<li>from_angle: Starting angle of the wedge.</li>
+<li>to_angle: Ending angle of the wedge.</li>
+<li>angle: Angle of the wedge.</li>
+<li>style: Style of the wedge.</li>
+<li>text: Text displayed at the center of the wedge.</li>
+<li>textsize: The font size of the text.</li>
+<li>textstyle: The style of the center text</li>
+</ul>
+<p>Here is an example demonstrating the use of <code>wedge()</code>:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import wedge
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+wedge(xy=(25, 25), radius=15, width=5, angle_start=0, angle_end=135)
+wedge(
+    xy=(75, 25),
+    radius=20,
+    width=10,
+    angle_start=0,
+    angle_end=135,
+    angle=45,
+    text=&quot;wedge&quot;,
+)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_circle_images/11.png" alt="shape_circle_11" />
+</div>
+<p>Executing the above script generates a wedge shape with centered text, demonstrating the usage of various arguments.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import wedge
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+wedge(xy=(25, 25), radius=15, width=5, angle_start=0, angle_end=135)
+wedge(
+    xy=(75, 25),
+    radius=20,
+    width=10,
+    angle_start=0,
+    angle_end=135,
+    angle=45,
+    text=&quot;wedge&quot;,
+)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_circle_images/12.png" alt="shape_circle_12" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>wedge()
+</code></pre>
+<p>The <code>wedge()</code> function allows you to specify the radius, width, starting angle, and ending angle to create wedge shapes, which are useful for visualizing segments of circles with customizable styles and text.</p>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>

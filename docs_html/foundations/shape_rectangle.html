@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing Rectangle Like Shapes</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">drawlib</a>
+                <div class="sidebar-version">v0.2</div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with ThemePreset</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Drawing Rectangle Like Shapes</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <p>=============================</p>
+<h1>Drawing Rectangle Like Shapes</h1>
+<h2>Rectangle-like Shapes</h2>
+<p>Functions that draw rectangle-like shapes include:</p>
+<ul>
+<li><code>arc()</code></li>
+<li><code>chevron()</code></li>
+<li><code>ellipse()</code></li>
+<li><code>parallelogram()</code></li>
+<li><code>rectangle()</code></li>
+<li><code>rhombus()</code></li>
+<li><code>trapezoid()</code></li>
+<li><code>triangle</code></li>
+</ul>
+<p>Rectangle-like shapes in Drawlib are defined using X, Y coordinates along with width and height parameters.
+These shapes, such as <code>arc()</code> and <code>ellipse()</code>, resemble rectangles in their parameterization despite their curved appearances, hence they are categorized as rectangle-like shapes.</p>
+<h2>arc()</h2>
+<p>The <code>arc()</code> function is used to draw arcs.</p>
+<p>An arc resembles a line but is drawn as a shape, thus arrow styles cannot be specified.
+However, you can define the line style using attributes of <code>ShapeStyle</code>.</p>
+<p>This function requires the following arguments:</p>
+<ul>
+<li>xy: X, Y coordinates</li>
+<li>width: Width of the underlying ellipse</li>
+<li>height: Height of the underlying ellipse</li>
+<li>from_angle: Starting angle of the arc</li>
+<li>to_angle: Ending angle of the arc</li>
+<li>angle: Rotation angle of the arc</li>
+<li>style: Style of the arc</li>
+<li>text: Centered text</li>
+<li>textsize: Font size of the text</li>
+<li>textstyle: Style of the centered text</li>
+</ul>
+<p>Let's explore two examples.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import arc
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+arc(xy=(25, 25), width=30, height=20, angle_start=0, angle_end=135)
+arc(
+    xy=(75, 25),
+    width=40,
+    height=30,
+    angle_start=0,
+    angle_end=135,
+    angle=45,
+    text=&quot;arc&quot;,
+)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_rectangle_images/1.png" alt="shape_rectangle_1" />
+</div>
+<p>Handling angles is similar to functions like <code>donuts()</code>.
+Please refer to its explanation for more details.
+Here's an example output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import arc
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+arc(xy=(25, 25), width=30, height=20, angle_start=0, angle_end=135)
+arc(
+    xy=(75, 25),
+    width=40,
+    height=30,
+    angle_start=0,
+    angle_end=135,
+    angle=45,
+    text=&quot;arc&quot;,
+)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_rectangle_images/2.png" alt="shape_rectangle_2" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>arc()
+</code></pre>
+<h2>chevron()</h2>
+<p>The <code>chevron()</code> function draws a chevron shape.
+In addition to specifying width and height, it allows you to define the angle of the bottom-left corner using corner_angle.
+The shape of the chevron varies based on this parameter.</p>
+<p>This function takes the following arguments:</p>
+<ul>
+<li>xy: X, Y coordinates</li>
+<li>width: Width of the chevron</li>
+<li>height: Height of the chevron</li>
+<li>corner_angle: Angle of the bottom-left corner</li>
+<li>mirror: Optionally reverses the chevron horizontally (default is False)</li>
+<li>angle: Rotation angle of the chevron</li>
+<li>style: Style of the chevron</li>
+<li>text: Centered text</li>
+<li>textsize: Font size of the text</li>
+<li>textstyle: Style of the centered text</li>
+</ul>
+<p>Let's explore two examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import chevron
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+chevron(xy=(25, 25), width=30, height=20, corner_angle=30)
+chevron(xy=(75, 25), width=35, height=25, corner_angle=60, mirror=True, angle=45, text=&quot;chevron()&quot;)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_rectangle_images/3.png" alt="shape_rectangle_3" />
+</div>
+<p>The shape of the chevron is influenced by <code>corner_angle</code>.
+When <code>mirror</code> is set to True, the chevron is horizontally reversed.
+Here is an example output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import chevron
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+chevron(xy=(25, 25), width=30, height=20, corner_angle=30)
+chevron(xy=(75, 25), width=35, height=25, corner_angle=60, mirror=True, angle=45, text=&quot;chevron()&quot;)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_rectangle_images/4.png" alt="shape_rectangle_4" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>chevron()
+</code></pre>
+<h2>ellipse()</h2>
+<p>The <code>ellipse()</code> function draws an ellipse.
+If the width and height are identical, it behaves similarly to the <code>circle()</code> function.</p>
+<p>This function accepts the following arguments:</p>
+<ul>
+<li>xy: X, Y coordinates</li>
+<li>width: Width of the ellipse</li>
+<li>height: Height of the ellipse</li>
+<li>angle: Rotation angle of the ellipse</li>
+<li>style: Style of the ellipse</li>
+<li>text: Centered text</li>
+<li>textsize: Font size of the text</li>
+<li>textstyle: Style of the centered text</li>
+</ul>
+<p>Let's explore two examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import ellipse
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+ellipse(xy=(25, 25), width=30, height=20)
+ellipse(xy=(75, 25), width=35, height=25, angle=45, text=&quot;ellipse()&quot;)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_rectangle_images/5.png" alt="shape_rectangle_5" />
+</div>
+<p>Here is an example output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import ellipse
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+ellipse(xy=(25, 25), width=30, height=20)
+ellipse(xy=(75, 25), width=35, height=25, angle=45, text=&quot;ellipse()&quot;)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_rectangle_images/6.png" alt="shape_rectangle_6" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>ellipse()
+</code></pre>
+<h2>parallelogram()</h2>
+<p>The <code>parallelogram()</code> function draws a parallelogram shape.
+It allows you to specify the angle of the bottom-left corner using <code>corner_angle</code>.
+Additionally, you can mirror the shape horizontally by setting the <code>mirror</code> parameter to True.</p>
+<p>This function accepts the following arguments:</p>
+<ul>
+<li>xy: X, Y coordinates</li>
+<li>width: Width of the parallelogram</li>
+<li>height: Height of the parallelogram</li>
+<li>corner_angle: Angle of the bottom-left corner</li>
+<li>mirror: Optionally reverses the parallelogram horizontally (default is False)</li>
+<li>angle: Rotation angle of the parallelogram</li>
+<li>style: Style of the parallelogram</li>
+<li>text: Centered text</li>
+<li>textsize: Font size of the text</li>
+<li>textstyle: Style of the centered text</li>
+</ul>
+<p>Let's explore two examples.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import parallelogram
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+parallelogram(xy=(25, 25), width=20, height=15, corner_angle=30)
+parallelogram(xy=(75, 25), width=30, height=20, corner_angle=60, angle=45, text=&quot;parallelogram()&quot;)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_rectangle_images/7.png" alt="shape_rectangle_7" />
+</div>
+<p>Here is an example output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import parallelogram
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+parallelogram(xy=(25, 25), width=20, height=15, corner_angle=30)
+parallelogram(xy=(75, 25), width=30, height=20, corner_angle=60, angle=45, text=&quot;parallelogram()&quot;)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_rectangle_images/8.png" alt="shape_rectangle_8" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>parallelogram()
+</code></pre>
+<h2>rectangle()</h2>
+<p>The <code>rectangle()</code> function draws a rectangle shape.
+It allows you to specify the radius of the rounded corners using the <code>r</code> parameter.</p>
+<p>This function accepts the following arguments:</p>
+<ul>
+<li>xy: X, Y coordinates</li>
+<li>width: Width of the rectangle</li>
+<li>height: Height of the rectangle</li>
+<li>r: Radius of the rounded corners (default is 0, resulting in sharp corners)</li>
+<li>angle: Rotation angle of the rectangle</li>
+<li>style: Style of the rectangle</li>
+<li>text: Centered text</li>
+<li>textsize: Font size of the text</li>
+<li>textstyle: Style of the centered text</li>
+</ul>
+<p>Let's explore two examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import rectangle
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+rectangle(xy=(25, 25), width=30, height=20)
+rectangle(xy=(75, 25), width=35, height=25, r=2, angle=45, text=&quot;rectangle()&quot;)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_rectangle_images/9.png" alt="shape_rectangle_9" />
+</div>
+<p>Here is an example output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import rectangle
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+rectangle(xy=(25, 25), width=30, height=20)
+rectangle(xy=(75, 25), width=35, height=25, r=2, angle=45, text=&quot;rectangle()&quot;)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_rectangle_images/10.png" alt="shape_rectangle_10" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>rectangle()
+</code></pre>
+<h2>rhombus()</h2>
+<p>The <code>rhombus()</code> function draws a rhombus shape, which is a diamond-like figure with equal sides.</p>
+<p>This function accepts the following arguments:</p>
+<ul>
+<li>xy: X, Y coordinates</li>
+<li>width: Width of the rhombus</li>
+<li>height: Height of the rhombus</li>
+<li>angle: Rotation angle of the rhombus</li>
+<li>style: Style of the rhombus</li>
+<li>text: Centered text</li>
+<li>textsize: Font size of the text</li>
+<li>textstyle: Style of the centered text</li>
+</ul>
+<p>Let's explore two examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import rhombus
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+rhombus(xy=(25, 25), width=20, height=40)
+rhombus(xy=(75, 25), width=40, height=20, angle=45, text=&quot;rhombus()&quot;)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_rectangle_images/11.png" alt="shape_rectangle_11" />
+</div>
+<p>Here is an example output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import rhombus
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+rhombus(xy=(25, 25), width=20, height=40)
+rhombus(xy=(75, 25), width=40, height=20, angle=45, text=&quot;rhombus()&quot;)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_rectangle_images/12.png" alt="shape_rectangle_12" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>rhombus()
+</code></pre>
+<h2>trapezoid()</h2>
+<p>The <code>trapezoid()</code> function draws a trapezoid shape, which has two different widths at its top and bottom edges.
+The positioning of the top side relative to the bottom side can be adjusted using the <code>top_width</code>, <code>bottom_width</code>, and optionally <code>top_start</code> parameters.</p>
+<p>This function takes these arguments.</p>
+<ul>
+<li>xy: X, Y coordinates</li>
+<li>width: Width of the trapezoid</li>
+<li>height: Height of the trapezoid</li>
+<li>bottom_width: Width of the bottom side of the trapezoid</li>
+<li>top_width: Width of the top side of the trapezoid</li>
+<li>top_start: Optional parameter to specify where the top side starts (default places the top side centered). If set to 0, the top side starts at the same position as the bottom side.</li>
+<li>angle: Rotation angle of the trapezoid</li>
+<li>style: Style of the trapezoid</li>
+<li>text: Centered text</li>
+<li>textsize: Font size of the text</li>
+<li>textstyle: Style of the centered text</li>
+</ul>
+<p>Let's explore two examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import trapezoid
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+trapezoid(xy=(25, 25), height=20, bottomedge_width=30, topedge_width=20)
+trapezoid(
+    xy=(75, 25),
+    height=20,
+    bottomedge_width=30,
+    topedge_width=20,
+    topedge_x=0,
+    angle=45,
+    text=&quot;trapezoid()&quot;,
+)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_rectangle_images/13.png" alt="shape_rectangle_13" />
+</div>
+<p>Here is an example output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import trapezoid
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+trapezoid(xy=(25, 25), height=20, bottomedge_width=30, topedge_width=20)
+trapezoid(
+    xy=(75, 25),
+    height=20,
+    bottomedge_width=30,
+    topedge_width=20,
+    topedge_x=0,
+    angle=45,
+    text=&quot;trapezoid()&quot;,
+)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_rectangle_images/14.png" alt="shape_rectangle_14" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>trapezoid()
+</code></pre>
+<h2>triangle()</h2>
+<p>The <code>triangle()</code> function draws a triangle shape.
+It has an optional parameter <code>topvertex_xpos</code> to specify where the top vertex is positioned horizontally.
+If not specified, the triangle is drawn as an isosceles triangle with the top vertex aligned at the center of its width.</p>
+<p>This function accepts the following arguments:</p>
+<ul>
+<li>xy: X, Y coordinates</li>
+<li>width: Width of the triangle</li>
+<li>height: Height of the triangle</li>
+<li>topvertex_xpos: Optional parameter to specify the horizontal position where the top vertex is pointed</li>
+<li>angle: Rotation angle of the triangle</li>
+<li>style: Style of the triangle</li>
+<li>text: Centered text</li>
+<li>textsize: Font size of the text</li>
+<li>textstyle: Style of the centered text</li>
+</ul>
+<p>Let's explore two examples:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import rectangle, triangle
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+triangle(xy=(25, 25), width=30, height=20)
+triangle(xy=(75, 25), width=35, height=25, topvertex_x=0, angle=45, text=&quot;rectangle()&quot;)
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="shape_rectangle_images/15.png" alt="shape_rectangle_15" />
+</div>
+<p>Here is an example output:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.shapes import rectangle, triangle
+from drawlib.text import text
+
+config(width=100, height=50, grid_only=True)
+triangle(xy=(25, 25), width=30, height=20)
+triangle(xy=(75, 25), width=35, height=25, topvertex_x=0, angle=45, text=&quot;rectangle()&quot;)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_rectangle_images/16.png" alt="shape_rectangle_16" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>triangle()
+</code></pre>
+<p>In this example, inner text is drawn at the center of the right triangle shape.
+However, the text extends beyond the shape's boundaries.
+In such situations, you can adjust the position where the text is drawn by specifying the <code>xy_shift</code> attribute of <code>ShapeTextStyle</code>.
+For further details, refer to the shape style documentation.</p>
+
+            </main>
+            <footer class="footer">
+                <p>&copy; 2026 drawlib. Built with drawlib doc_builder.</p>
+            </footer>
+        </div>
+    </div>
+    
+</body>
+</html>
