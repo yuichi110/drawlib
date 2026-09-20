@@ -37,7 +37,7 @@ AUTHORS: Final[List[str]] = [
 DESCRIPTION: Final[str] = "Python drawing library. Illustration as Code."
 HOMEPAGE: Final[str] = "https://www.drawlib.com"
 REPOSITORY: Final[str] = "https://github.com/yuichi110/drawlib"
-README: Final[str] = "pypi.md"
+README: Final[str] = "README_PYPI.md"
 
 __version__: Final[str] = LIB_VERSION
 

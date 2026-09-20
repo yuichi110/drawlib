@@ -18,10 +18,10 @@ tests/**/*.png
 !tests/assets/**/*.png
 !tests/**/*_answers/**/*.png
 tests/**/*.webp
-tests_sandbox/*.png
 
 # others
 sandbox/*
+scratch/
 test_build_target/**/*.png
 !test_build_target/docs/commons/images/*.png
 
