@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import hashlib
 from pathlib import Path
 
 import pytest
@@ -22,6 +23,7 @@ from drawlib._release_assets import (
     ReleaseAssetPackage,
     ReleaseAssetPackageName,
     ReleaseAssetPackages,
+    create_deterministic_zip_bytes,
     find_package_by_name,
     find_package_for_font_path,
     get_all_release_asset_packages,
@@ -179,3 +181,21 @@ def test_all_declared_files_exist_on_disk() -> None:
         for filename in pkg.files:
             file_path = pkg_dir / filename
             assert file_path.is_file(), f"File missing for {pkg.name}: {file_path}"
+
+
+def test_deterministic_zip_hashes_match_all_packages() -> None:
+    """Verify that deterministic ZIP generation matches the exact archive_sha256 for all packages."""
+    root = Path(__file__).resolve().parent.parent
+    assets_dir = root / "release_assets" / "v0.3"
+    if not assets_dir.exists():
+        pytest.skip("release_assets/v0.3 not present on this machine.")
+
+    for pkg in get_all_release_asset_packages():
+        assert len(pkg.archive_sha256) == 64
+        assert pkg.archive_sha256 == pkg.sha256
+        pkg_dir = assets_dir / pkg.source_rel_path
+        zip_bytes = create_deterministic_zip_bytes(pkg_dir, pkg.files)
+        calculated_sha = hashlib.sha256(zip_bytes).hexdigest()
+        assert (
+            calculated_sha == pkg.archive_sha256
+        ), f"SHA-256 mismatch for {pkg.name}: expected {pkg.archive_sha256}, got {calculated_sha}"
