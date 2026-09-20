@@ -1,0 +1,74 @@
+#!/bin/bash
+
+# Detect whether the script is being sourced or executed directly
+IS_SOURCED=0
+if [ -n "$ZSH_VERSION" ]; then
+  case $ZSH_EVAL_CONTEXT in *:file*) IS_SOURCED=1 ;; esac
+  SELF_PATH="${(%):-%x}"
+elif [ -n "$BASH_VERSION" ]; then
+  if [ "${BASH_SOURCE[0]}" != "$0" ]; then IS_SOURCED=1; fi
+  SELF_PATH="${BASH_SOURCE[0]}"
+else
+  SELF_PATH="$0"
+fi
+
+# Determine the absolute path of the directory containing this script.
+SCRIPT_DIR="$(cd "$(dirname "${SELF_PATH}")" && pwd)"
+
+# When sourced (e.g. `source ./dcli`), register shell autocompletion and alias, then return
+if [ "$IS_SOURCED" -eq 1 ]; then
+  if [ -n "$ZSH_VERSION" ]; then
+    autoload -Uz +X compinit && compinit -u 2>/dev/null || true
+    autoload -Uz +X bashcompinit && bashcompinit 2>/dev/null || true
+  fi
+
+  _dcli_completions() {
+    local candidates
+    candidates=$(
+      _DCLI_COMPLETE=complete \
+      COMP_WORDS="${COMP_WORDS[*]}" \
+      COMP_CWORD="${COMP_CWORD}" \
+      "${SCRIPT_DIR}/dcli"
+    )
+    COMPREPLY=( $(compgen -W "$candidates" -- "${COMP_WORDS[COMP_CWORD]}") )
+  }
+
+  complete -F _dcli_completions ./dcli
+  complete -F _dcli_completions "${SCRIPT_DIR}/dcli"
+  complete -F _dcli_completions dcli
+  alias dcli="${SCRIPT_DIR}/dcli"
+
+  echo "✓ dcli autocompletion & alias registered. You can now use './dcli <tab>' or 'dcli <tab>'."
+  return 0 2>/dev/null || exit 0
+fi
+
+# Add the root and src directories to PYTHONPATH to make tools.dcli and packages inside src/ importable.
+export PYTHONPATH="${SCRIPT_DIR}:${SCRIPT_DIR}/src${PYTHONPATH:+:$PYTHONPATH}"
+
+# Dynamic Autocomplete Gate
+# If _DCLI_COMPLETE environment variable is set, route execution directly
+# to the completion handler and bypass all other standard CLI execution logic.
+if [ -n "${_DCLI_COMPLETE}" ]; then
+  exec uv run python -m "tools.dcli.completion"
+fi
+
+# If no command is provided, or the user requests global help, delegate to the master launcher (tools/dcli/__main__.py)
+if [ $# -lt 1 ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+  exec uv run python -m "tools.dcli" "$@"
+fi
+
+CLI_NAME="$1"
+shift
+
+# Check if the target toolset file exists inside tools/dcli/
+# Exclude base/system directories or module entrypoints
+if [ ! -f "${SCRIPT_DIR}/tools/dcli/${CLI_NAME}.py" ] || \
+   [ "${CLI_NAME}" = "__init__" ] || \
+   [ "${CLI_NAME}" = "__main__" ] || \
+   [ "${CLI_NAME}" = "common" ] || \
+   [ "${CLI_NAME}" = "completion" ]; then
+  exec uv run python -m "tools.dcli" --invalid-toolset "${CLI_NAME}"
+fi
+
+# Execute the target CLI script as a module under tools.dcli.*
+exec uv run python -m "tools.dcli.${CLI_NAME}" "$@"

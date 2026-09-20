@@ -14,7 +14,7 @@ This document describes the project structure and architectural principles of th
   - `cli/`: Unified command-line interface logic.
 - `docs/`: User documentation and technical guides written in Markdown.
 - `tests/`: Contains unit and integration tests.
-- `tasks/`: Automation scripts and configuration for development workflows.
+- `tools/`: Project developer CLI (`tools/dcli/`) and maintenance scripts (`tools/scripts/`).
 - `pyproject.toml`: Project metadata and tool configurations (Ruff, Pyright, uv).
 
 ## 2. Package Architecture

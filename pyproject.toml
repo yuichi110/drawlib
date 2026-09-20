@@ -35,6 +35,8 @@ dev = [
     "ty>=0.0.35",
     "pyright>=1.1.409",
     "playwright>=1.40.0",
+    "typer>=0.12.0",
+    "rich>=13.0.0",
 ]
 
 [tool.ruff]
@@ -119,8 +121,8 @@ ignore = [
 convention = "google"
 
 [tool.pyright]
-include = ["src/drawlib", "tasks/scripts"]
-extraPaths = ["tasks/scripts"]
+include = ["src/drawlib", "tools/scripts"]
+extraPaths = ["tools/scripts"]
 typeCheckingMode = "basic"
 reportMissingTypeArgument = "warning"
 reportUnknownParameterType = "warning"
