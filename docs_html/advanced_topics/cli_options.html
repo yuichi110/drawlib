@@ -318,6 +318,16 @@ Note that using Chinese or Japanese fonts may consume more space due to the larg
 <li><code>--developer</code>: Provides verbose logging and offering detailed error dumps without error handling, suitable for advanced Python users troubleshooting issues.</li>
 </ul>
 <p>Choose the appropriate log level based on your need for error visibility and troubleshooting depth.</p>
+<h2>Generating Coordinate Grid Images with Batch (<code>--grid</code> / <code>-g</code>)</h2>
+<p>When building illustrations via <code>drawlib batch</code> (or direct <code>drawlib &lt;files&gt;</code> execution), you can specify the <code>-g</code> or <code>--grid</code> option:</p>
+<pre><code class="language-bash">drawlib batch my_drawing.py --grid
+# Shorthand:
+drawlib batch my_drawing.py -g
+
+# Batch build an entire directory with grids:
+drawlib batch docs/ --grid
+</code></pre>
+<p>When <code>--grid</code> is enabled, drawlib automatically generates a companion <code>{name}_grid.png</code> image with the coordinate grid overlaid alongside the normal <code>{name}.png</code> image for every executed script. This is especially helpful during drafting and layout alignment when managing multiple illustrations in a project.</p>
 <h1>Interactive Preview with <code>drawlib show</code></h1>
 <p>The <code>drawlib show</code> command provides an instant visual preview of your illustrations without manually opening saved image files. It supports both standalone Python scripts (<code>.py</code>) and embedded code blocks within Markdown files (<code>.md</code>).</p>
 <h2>Previewing a Python Script</h2>

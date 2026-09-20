@@ -168,6 +168,7 @@ def call_command() -> None:
             mode=exec_mode,
             config_path=batch_args.config,
             output_dir=batch_args.output_dir,
+            grid=batch_args.grid,
         )
         try:
             for target_file in target_files:
@@ -212,7 +213,7 @@ def call_command() -> None:
         realpath = os.path.realpath(abspath)
 
         # execute file or directory
-        executer = DrawlibExecuter(mode=exec_mode)
+        executer = DrawlibExecuter(mode=exec_mode, grid=argparser.is_grid())
         executer.execute(realpath)
 
 
@@ -268,6 +269,12 @@ class DrawlibArgParser:
             "--enable_auto_initialize",
             action="store_true",
             help="Enable initializing canvas per executing drawing code files.",
+        )
+        main_parser.add_argument(
+            "-g",
+            "--grid",
+            action="store_true",
+            help="Save canvas images with coordinate grid overlaid in addition to normal images.",
         )
 
         # log options
@@ -443,6 +450,12 @@ class DrawlibArgParser:
             "--enable_auto_initialize",
             action="store_true",
             help="Enable initializing canvas per executing drawing code files.",
+        )
+        batch_parser.add_argument(
+            "-g",
+            "--grid",
+            action="store_true",
+            help="Save canvas images with coordinate grid overlaid in addition to normal images.",
         )
 
         self._main_parser = main_parser
@@ -685,6 +698,17 @@ class DrawlibArgParser:
 
         return "auto_clear"
 
+    def is_grid(self) -> bool:
+        """Check if grid overlay option is specified.
+
+        Returns:
+            bool: True if grid option is specified, False otherwise.
+        """
+        if self._name_args is None:
+            self.parse()
+
+        return bool(self._name_args and getattr(self._name_args, "grid", False))
+
     def get_target_files(self) -> List[str]:
         """Retrieve positional arguments representing target files and directories.
 
@@ -712,6 +736,7 @@ class DrawlibExecuter:
         mode: Literal["none", "auto_clear", "auto_initialize"],
         config_path: Optional[str] = None,
         output_dir: Optional[str] = None,
+        grid: bool = False,
     ) -> None:
         """Initializes a DrawlibExecuter instance with the specified mode.
 
@@ -723,6 +748,7 @@ class DrawlibExecuter:
                 - "auto_initialize": Automatically initializes canvas per execution.
             config_path (Optional[str]): Optional path to Python config script.
             output_dir (Optional[str]): Optional path to directory where images should be saved.
+            grid (bool): Whether to generate coordinate grid overlaid images in addition to normal images.
 
         Raises:
             ValueError: If mode is not one of ["none", "auto_clear", "auto_initialize"].
@@ -732,6 +758,7 @@ class DrawlibExecuter:
         self._mode = mode
         self._config_path = config_path
         self._output_dir = output_dir
+        self._grid = grid
         self._topdir_path: str = ""
 
     @guarded
@@ -756,6 +783,8 @@ class DrawlibExecuter:
         """
         if self._output_dir is not None:
             dutil_settings.set_output_dir(os.path.abspath(self._output_dir))
+        if self._grid:
+            dutil_settings.set_force_grid(True)
 
         try:
             path = get_script_relative_path(file_or_directory)
@@ -776,6 +805,8 @@ class DrawlibExecuter:
                         continue
                     self._exec_module(file_path)
         finally:
+            if self._grid:
+                dutil_settings.set_force_grid(False)
             if self._output_dir is not None:
                 dutil_settings.set_output_dir(None)
 

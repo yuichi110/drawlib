@@ -67,7 +67,8 @@ class Canvas(
         zorder = self._draw_items()
         self._remove_margin()
 
-        if not self._grid:
+        is_grid = self._grid or dutil_settings.get_force_grid()
+        if not is_grid:
             pyplot.show()
             return
 
@@ -105,13 +106,15 @@ class Canvas(
         self._remove_margin()
         self._create_parent_directory(file_path)
 
+        is_grid = self._grid or dutil_settings.get_force_grid()
+
         # save normal image
         if self._grid_only:
             # does not save normal image
             ...
         else:
             pyplot.savefig(file_path)
-            if not self._grid:
+            if not is_grid:
                 self._remove_artists_from_ax()  # remove drawing items
                 return
 

@@ -158,3 +158,87 @@ save()
     )
     assert res.returncode == 0
     assert (scripts_dir / "img_cfg.png").exists()
+
+
+def test_cli_batch_single_file_with_grid(tmp_path) -> None:
+    """Test batch command executing a single Python file with --grid option."""
+    script = tmp_path / "test_batch_grid.py"
+    script.write_text(
+        """from drawlib.canvas import config, save
+from drawlib.shapes import circle
+
+config(width=100, height=100)
+circle((50, 50), radius=20)
+save()
+""",
+        encoding="utf-8",
+    )
+
+    res = run_drawlib_cli(["batch", str(script), "--grid"], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert "Successfully executed batch drawing" in res.stdout
+    assert (tmp_path / "test_batch_grid.png").exists()
+    assert (tmp_path / "test_batch_grid_grid.png").exists()
+
+
+def test_cli_batch_single_file_with_grid_short(tmp_path) -> None:
+    """Test batch command executing a single Python file with -g shorthand."""
+    script = tmp_path / "test_batch_g.py"
+    script.write_text(
+        """from drawlib.canvas import config, save
+from drawlib.shapes import circle
+
+config(width=100, height=100)
+circle((50, 50), radius=20)
+save()
+""",
+        encoding="utf-8",
+    )
+
+    res = run_drawlib_cli(["batch", str(script), "-g"], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert "Successfully executed batch drawing" in res.stdout
+    assert (tmp_path / "test_batch_g.png").exists()
+    assert (tmp_path / "test_batch_g_grid.png").exists()
+
+
+def test_cli_batch_directory_with_grid(tmp_path) -> None:
+    """Test batch command executing a directory with --grid option."""
+    pkg_dir = tmp_path / "pkg_grid"
+    pkg_dir.mkdir()
+    (pkg_dir / "__init__.py").write_text("", encoding="utf-8")
+    (pkg_dir / "img1.py").write_text(
+        """from drawlib.canvas import config, save
+from drawlib.shapes import circle
+
+config(width=100, height=100)
+circle((25, 25), radius=10)
+save()
+""",
+        encoding="utf-8",
+    )
+
+    res = run_drawlib_cli(["batch", str(pkg_dir), "--grid"], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert (pkg_dir / "img1.png").exists()
+    assert (pkg_dir / "img1_grid.png").exists()
+
+
+def test_cli_legacy_with_grid(tmp_path) -> None:
+    """Test legacy command execution with --grid option."""
+    script = tmp_path / "test_legacy_grid.py"
+    script.write_text(
+        """from drawlib.canvas import config, save
+from drawlib.shapes import circle
+
+config(width=100, height=100)
+circle((50, 50), radius=20)
+save()
+""",
+        encoding="utf-8",
+    )
+
+    res = run_drawlib_cli([str(script), "--grid"], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert (tmp_path / "test_legacy_grid.png").exists()
+    assert (tmp_path / "test_legacy_grid_grid.png").exists()

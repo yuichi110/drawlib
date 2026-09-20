@@ -45,6 +45,7 @@ class DrawlibSettings:
         ] = "normal"
         self._suppress_warning: bool = False
         self._output_dir: typing.Optional[str] = None
+        self._force_grid: bool = False
 
     @validate_call
     def get_logging_mode(
@@ -224,6 +225,27 @@ class DrawlibSettings:
             None
         """
         self._output_dir = output_dir
+
+    @validate_call
+    def get_force_grid(self) -> bool:
+        """Get whether coordinate grid overlay is globally forced.
+
+        Returns:
+            bool: True if grid overlay is forced, False otherwise.
+        """
+        return self._force_grid
+
+    @validate_call
+    def set_force_grid(self, force_grid: bool) -> None:
+        """Set whether coordinate grid overlay is globally forced.
+
+        Args:
+            force_grid: True to force coordinate grid overlay on save/show.
+
+        Returns:
+            None
+        """
+        self._force_grid = force_grid
 
 
 dutil_settings = DrawlibSettings()

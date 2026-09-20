@@ -126,6 +126,22 @@ Options like `--quiet`, `--verbose`, `--debug`, and `--developer` adjust the log
 Choose the appropriate log level based on your need for error visibility and troubleshooting depth.
 
 
+## Generating Coordinate Grid Images with Batch (`--grid` / `-g`)
+
+When building illustrations via `drawlib batch` (or direct `drawlib <files>` execution), you can specify the `-g` or `--grid` option:
+
+```bash
+drawlib batch my_drawing.py --grid
+# Shorthand:
+drawlib batch my_drawing.py -g
+
+# Batch build an entire directory with grids:
+drawlib batch docs/ --grid
+```
+
+When `--grid` is enabled, drawlib automatically generates a companion `{name}_grid.png` image with the coordinate grid overlaid alongside the normal `{name}.png` image for every executed script. This is especially helpful during drafting and layout alignment when managing multiple illustrations in a project.
+
+
 # Interactive Preview with `drawlib show`
 
 The `drawlib show` command provides an instant visual preview of your illustrations without manually opening saved image files. It supports both standalone Python scripts (`.py`) and embedded code blocks within Markdown files (`.md`).
