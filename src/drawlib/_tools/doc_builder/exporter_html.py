@@ -55,6 +55,7 @@ def render_html_document(
     css_href: Optional[str] = None,
     nav_items: Optional[List[Dict[str, Any]]] = None,
     template_path: Optional[str] = None,
+    index_url: str = "index.html",
 ) -> str:
     """Render full standalone HTML document with embedded CSS or external CSS link.
 
@@ -65,6 +66,7 @@ def render_html_document(
         css_href (Optional[str]): Relative path/href for external stylesheet link.
         nav_items (Optional[List[Dict[str, Any]]]): Navigation items for sidebar menu.
         template_path (Optional[str]): Optional path to custom Jinja2 HTML template.
+        index_url (str): Relative URL to root index.html for brand link. Defaults to 'index.html'.
 
     Returns:
         str: Complete HTML string.
@@ -95,4 +97,5 @@ def render_html_document(
         custom_css=custom_css,
         css_href=css_href,
         nav_items=nav_items or [],
+        index_url=index_url,
     )

@@ -236,7 +236,7 @@ circle(
 ## Navigation
 
 - [Back to Foundations Index](./index.md)
-- [Next: Lines Guide](./lines.md)
+- [Next: Lines Guide](./line.md)
 
 ---
 

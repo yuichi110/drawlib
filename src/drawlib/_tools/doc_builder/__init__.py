@@ -190,9 +190,19 @@ def _compile_single_file(
 
         doc_title = _extract_title(content, os.path.basename(src_abs)) if is_md else os.path.basename(src_abs)
 
+        index_rel_url = "index.html"
         if is_md and nav_list:
             doc_nav_items: list[dict[str, object]] = []
             dest_dir = os.path.dirname(dest_abs)
+
+            root_index_nav = None
+            for nav in nav_list:
+                if os.path.basename(nav["dest_abs"]) == "index.html":
+                    if root_index_nav is None or len(nav["dest_abs"]) < len(root_index_nav["dest_abs"]):
+                        root_index_nav = nav
+            if root_index_nav is not None:
+                index_rel_url = os.path.relpath(root_index_nav["dest_abs"], dest_dir)
+
             for nav in nav_list:
                 rel_url = os.path.relpath(nav["dest_abs"], dest_dir)
                 doc_nav_items.append({
@@ -210,6 +220,7 @@ def _compile_single_file(
             css_href=css_href,
             nav_items=doc_nav_items,
             template_path=template_path,
+            index_url=index_rel_url,
         )
 
         os.makedirs(os.path.dirname(dest_abs), exist_ok=True)

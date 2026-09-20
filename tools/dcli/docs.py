@@ -36,16 +36,24 @@ def build() -> None:
 def serve(
     port: int = typer.Option(8000, "--port", "-p", help="Port to serve the documentation on."),
     no_browser: bool = typer.Option(False, "--no-browser", help="Do not automatically open the browser."),
+    skip_check: bool = typer.Option(False, "--skip-check", help="Skip pre-scan for broken links."),
+    check: bool = typer.Option(False, "--check", help="Check for broken links and exit without starting server."),
 ) -> None:
     """Serve docs_html locally via drawlib preview server.
 
     Args:
         port: Port number for the HTTP server.
         no_browser: Whether to prevent opening the default browser.
+        skip_check: Whether to skip pre-scan for broken links.
+        check: Whether to check for broken links and exit.
     """
     cmd = ["uv", "run", "python", "-m", "drawlib", "serve", "docs_html", "-p", str(port)]
     if no_browser:
         cmd.append("--no-browser")
+    if skip_check:
+        cmd.append("--skip-check")
+    if check:
+        cmd.append("--check")
     run_command(cmd, desc=f"Serving documentation on http://localhost:{port}...")
 
 

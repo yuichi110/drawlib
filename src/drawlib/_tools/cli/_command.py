@@ -106,6 +106,8 @@ def call_command() -> None:
                 directory=serve_args.directory,
                 port=serve_args.port,
                 open_browser=not serve_args.no_browser,
+                skip_check=serve_args.skip_check,
+                check_only=serve_args.check_only,
             )
             sys.exit(0)
         except Exception as e:
@@ -367,6 +369,18 @@ class DrawlibArgParser:
             "--no-browser",
             action="store_true",
             help="Do not open browser automatically.",
+        )
+        serve_parser.add_argument(
+            "--skip-check",
+            action="store_true",
+            help="Skip pre-scan for broken links and assets before starting server.",
+        )
+        serve_parser.add_argument(
+            "--check",
+            "--check-only",
+            dest="check_only",
+            action="store_true",
+            help="Check for broken links/assets in target directory and exit without starting server.",
         )
 
         # template subcommand parser
