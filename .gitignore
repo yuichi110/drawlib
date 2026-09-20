@@ -70,6 +70,7 @@ htmlcov/
 .coverage
 .coverage.*
 .cache
+.drawlib_cache/
 nosetests.xml
 coverage.xml
 *.cover
