@@ -96,7 +96,7 @@ This can be easily achieved by creating a theme file (which is simply Python cod
 Here is a typical use case of Drawlib:
 
 
-![../../index/image_buildmany.png](../../index/image_buildmany.png)
+![image_buildmany.png](image_buildmany.png)
 
 
     Build many images at same time

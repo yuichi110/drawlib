@@ -278,54 +278,7 @@ from drawlib.types import Style
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
 ```
 
-
-
-## color: default
-
-
-
-![image_style.png](image_style.png)
-
-
-
-## color: ``red``.
-
-
-
-![image_style_red.png](image_style_red.png)
-
-
-
-## color: ``green``.
-
-
-
-![image_style_green.png](image_style_green.png)
-
-
-
-## color: ``blue``.
-
-
-
-![image_style_blue.png](image_style_blue.png)
-
-
-
-## color: ``black``.
-
-
-
-![image_style_black.png](image_style_black.png)
-
-
-
-## color: ``white``.
-
-
-
-![image_style_white.png](image_style_white.png)
-
 ---
 
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
+

@@ -10,7 +10,7 @@ Here is a typical build process for documentation.
 As shown, we first build many images and then build the documentation using those images.
 
 
-![../../index/image_buildmany.png](../../index/image_buildmany.png)
+![image_buildmany.png](image_buildmany.png)
 
 
     Build many images

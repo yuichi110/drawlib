@@ -226,3 +226,14 @@ circle((50, 50), radius=15)
     png_files = list(out_dir.glob("*.png"))
     assert len(png_files) == 0
     assert not (out_dir / "style.css").exists()
+
+
+def test_build_document_missing_image_warning(tmp_path, capsys) -> None:
+    """Test warning is emitted when local static image referenced in Markdown is missing."""
+    doc = tmp_path / "missing_img.md"
+    doc.write_text("# Doc\n\n![Nonexistent](missing_test_image.png)\n", encoding="utf-8")
+    out = tmp_path / "out.html"
+
+    build_document(input_path=str(doc), output_path=str(out))
+    captured = capsys.readouterr()
+    assert "WARNING: Image 'missing_test_image.png'" in captured.err

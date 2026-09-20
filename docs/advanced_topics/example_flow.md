@@ -6,7 +6,7 @@
 Here is a high-level documentation build flow using Drawlib:
 
 
-![../../index/image_buildmany.png](../../index/image_buildmany.png)
+![image_buildmany.png](image_buildmany.png)
 
 
    Build many images

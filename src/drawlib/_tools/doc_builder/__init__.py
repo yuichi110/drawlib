@@ -10,7 +10,9 @@
 """Document compiler package for drawlib."""
 
 import os
+import re
 import shutil
+import sys
 from typing import Optional
 
 from drawlib._tools.doc_builder.exporter_html import get_default_css, render_html_document
@@ -19,6 +21,20 @@ from drawlib._tools.doc_builder.exporter_pdf import export_html_to_pdf
 from drawlib._tools.doc_builder.parser_md import parse_markdown_to_html
 from drawlib._tools.doc_builder.processor import DrawlibBlockProcessor, extract_code_blocks, show_code_block
 from drawlib._tools.doc_builder.template import export_default_template, validate_template
+
+
+def _validate_markdown_images(src_abs: str, content: str) -> None:
+    """Check for missing local static images referenced via ![alt](path) in markdown."""
+    src_dir = os.path.dirname(src_abs)
+    pattern = re.compile(r"!\[(.*?)\]\((.*?)\)")
+    for match in pattern.finditer(content):
+        img_ref = match.group(2).strip()
+        if not img_ref or img_ref.startswith(("http://", "https://", "data:", "#")):
+            continue
+        clean_ref = img_ref.split("#")[0].split("?")[0]
+        resolved_path = os.path.abspath(os.path.join(src_dir, clean_ref))
+        if not os.path.exists(resolved_path):
+            sys.stderr.write(f"WARNING: Image '{img_ref}' referenced in '{src_abs}' does not exist.\n")
 
 
 def _extract_title(md_content: str, filename: str) -> str:
@@ -131,6 +147,8 @@ def _compile_single_file(
 
     processor = DrawlibBlockProcessor(config_path=config_path)
     is_md = src_abs.endswith(".md") or src_abs.endswith(".markdown")
+    if is_md:
+        _validate_markdown_images(src_abs, content)
     doc_base_name = os.path.splitext(os.path.basename(dest_abs))[0]
     output_dir = os.path.dirname(dest_abs)
 
