@@ -14,9 +14,31 @@ import os
 import urllib.request
 
 from drawlib._core.l1_core import guarded, logger
+from drawlib._release_assets import ReleaseAssetPackage, find_package_for_resource_path
 
 
-def download_if_not_exist(file_path: str, download_url: str, md5_hash: str) -> None:
+def _find_package_for_file_path(file_path: str) -> ReleaseAssetPackage | None:
+    """Identify matching ReleaseAssetPackage for a local file path if applicable.
+
+    Args:
+        file_path: File path to inspect.
+
+    Returns:
+        ReleaseAssetPackage | None: Matching package if matched, otherwise None.
+    """
+    normalized = file_path.replace("\\", "/").strip("/")
+    if "/fonts/" in normalized:
+        sub = "fonts/" + normalized.split("/fonts/", 1)[1]
+        return find_package_for_resource_path(sub)
+    if "/fonticons/" in normalized:
+        sub = "fonticons/" + normalized.split("/fonticons/", 1)[1]
+        return find_package_for_resource_path(sub)
+    if normalized.startswith("fonts/") or normalized.startswith("fonticons/"):
+        return find_package_for_resource_path(normalized)
+    return None
+
+
+def download_if_not_exist(file_path: str, download_url: str, md5_hash: str) -> None:  # noqa: C901
     """Download asset if it doesn't exist locally or corrupted.
 
     Download an asset file from the specified URL if it does not already exist locally,
@@ -79,7 +101,16 @@ def download_if_not_exist(file_path: str, download_url: str, md5_hash: str) -> N
         if is_checksum_correct():
             return
 
-    # if file not exist or checksum has problem, try download
+    # Check if this asset belongs to a defined ReleaseAssetPackage
+    pkg = _find_package_for_file_path(file_path)
+    if pkg is not None:
+        logger.info('Downloading release asset package "%s" from GitHub Releases...', pkg.name)
+        pkg.download_and_extract()
+        if is_file_exist():
+            logger.info('Asset package "%s" downloaded and extracted successfully.', pkg.name)
+            return
+
+    # if file not exist or checksum has problem, try legacy download
     logger.info('No font on local machine. Downloading from "%s".', download_url)
     download()
 

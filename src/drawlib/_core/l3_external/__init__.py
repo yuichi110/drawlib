@@ -13,6 +13,9 @@ from drawlib._core.l3_external._download import (
     download_if_not_exist,
 )
 from drawlib._core.l3_external._font import (
+    download_all_assets,
+    download_all_fonts,
+    download_all_icons,
     purge_font_cache,
 )
 
@@ -20,5 +23,8 @@ __all__ = [
     # _download.py
     "download_if_not_exist",
     # _font.py
+    "download_all_assets",
+    "download_all_fonts",
+    "download_all_icons",
     "purge_font_cache",
 ]

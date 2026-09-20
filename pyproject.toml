@@ -79,10 +79,15 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"scripts/**.py" = [
-    "ANN",  # flake8-annotations
-    "S101", # Use of assert detected
-    "S310"  # Audit URL open for permitted schemes
+"tools/**.py" = [
+    "ANN",     # flake8-annotations
+    "S101",    # Use of assert detected
+    "S310",    # Audit URL open for permitted schemes
+    "S404",    # Subprocess module usage
+    "S603",    # Subprocess call without shell=True
+    "S607",    # Subprocess with partial executable path
+    "PLC2701", # Private name import from external module
+    "PLR6301", # Method could be a function/static method
 ]
 "tests*/**.py" = [
     "F403", # undefined-local-with-import-star

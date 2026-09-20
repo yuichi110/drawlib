@@ -19,12 +19,32 @@ from drawlib._core.l1_core import (
     guarded,
     logger,
 )
+from drawlib._release_assets import (
+    RELEASE_ASSET_PACKAGES,
+    download_all_release_assets,
+)
 
 
 @guarded
 def download_all_fonts() -> None:
-    """Download all fonts."""
-    raise NotImplementedError("Not implemented yet")
+    """Download all fonts from GitHub Releases."""
+    for pkg in RELEASE_ASSET_PACKAGES.values():
+        if pkg.category == "font":
+            pkg.download_and_extract()
+
+
+@guarded
+def download_all_icons() -> None:
+    """Download all icon fonts from GitHub Releases."""
+    for pkg in RELEASE_ASSET_PACKAGES.values():
+        if pkg.category == "icon":
+            pkg.download_and_extract()
+
+
+@guarded
+def download_all_assets() -> None:
+    """Download all fonts and icons from GitHub Releases."""
+    download_all_release_assets()
 
 
 @guarded

@@ -15,13 +15,19 @@ archive structures, and contained files for fonts and icons.
 
 from __future__ import annotations
 
+import hashlib
 import io
+import urllib.request
 import zipfile
 from enum import StrEnum
 from pathlib import Path
 from typing import Final, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
+
+import drawlib._assets
+
+DEFAULT_RELEASE_TAG: Final[str] = "v0.3"
 
 
 class ReleaseAssetPackageName(StrEnum):
@@ -127,6 +133,65 @@ class ReleaseAssetPackage(BaseModel):
             str: Absolute download URL from GitHub Releases.
         """
         return f"https://github.com/{repo_owner}/{repo_name}/releases/download/{tag}/{self.archive_name}"
+
+    def get_local_dir(self) -> Path:
+        """Get the absolute local destination directory for this package in drawlib._assets.
+
+        Returns:
+            Path: Local directory path, e.g. '.../drawlib/_assets/fonts/roboto'.
+        """
+        base_dir = Path(drawlib._assets.__file__).parent
+        return base_dir / self.target_rel_path
+
+    def is_downloaded(self) -> bool:
+        """Check if all files in this package are already downloaded and present locally.
+
+        Returns:
+            bool: True if all files exist, False otherwise.
+        """
+        local_dir = self.get_local_dir()
+        if not local_dir.is_dir():
+            return False
+        return all((local_dir / fname).is_file() for fname in self.files)
+
+    def download_and_extract(
+        self,
+        tag: str = DEFAULT_RELEASE_TAG,
+        force: bool = False,
+    ) -> None:
+        """Download package archive from GitHub Releases, verify SHA-256, and extract files.
+
+        Args:
+            tag: GitHub release tag name. Defaults to DEFAULT_RELEASE_TAG.
+            force: If True, re-download and re-extract even if files already exist.
+
+        Raises:
+            RuntimeError: If download fails, SHA-256 does not match, or extraction fails.
+        """
+        if not force and self.is_downloaded():
+            return
+
+        url = self.get_download_url(tag=tag)
+        req = urllib.request.Request(url, headers={"User-Agent": "drawlib"})  # noqa: S310
+        try:
+            with urllib.request.urlopen(req) as resp:  # noqa: S310
+                data: bytes = resp.read()
+        except Exception as e:
+            raise RuntimeError(f"Failed to download asset package '{self.name}' from '{url}': {e}") from e
+
+        actual_sha256 = hashlib.sha256(data).hexdigest()
+        if actual_sha256.lower() != self.archive_sha256.lower():
+            raise RuntimeError(
+                f"Checksum mismatch for '{self.archive_name}': expected {self.archive_sha256}, got {actual_sha256}"
+            )
+
+        local_dir = self.get_local_dir()
+        local_dir.mkdir(parents=True, exist_ok=True)
+        try:
+            with zipfile.ZipFile(io.BytesIO(data)) as zf:
+                zf.extractall(local_dir)
+        except Exception as e:
+            raise RuntimeError(f"Failed to extract asset package '{self.archive_name}' to '{local_dir}': {e}") from e
 
 
 class AssetManifestItem(BaseModel):
@@ -837,3 +902,83 @@ def find_package_for_font_path(font_file_path: str) -> ReleaseAssetPackage | Non
     family = normalized.split("/")[0] if "/" in normalized else normalized
     target_name = f"font_{family}"
     return RELEASE_ASSET_PACKAGES.get(target_name)
+
+
+def find_package_for_icon_path(icon_file_path: str) -> ReleaseAssetPackage | None:
+    """Identify which asset package contains a given icon resource path.
+
+    Args:
+        icon_file_path: Relative icon path (e.g. 'phosphor/thin.ttf' or 'fonticons/phosphor/thin.ttf').
+
+    Returns:
+        ReleaseAssetPackage | None: The containing package if matched, otherwise None.
+    """
+    normalized = icon_file_path.strip("/").removeprefix("fonticons/")
+    family = normalized.split("/")[0] if "/" in normalized else normalized
+    target_name = f"icon_{family}"
+    return RELEASE_ASSET_PACKAGES.get(target_name)
+
+
+def find_package_for_resource_path(resource_path: str) -> ReleaseAssetPackage | None:
+    """Identify which asset package contains a given resource path (font or icon).
+
+    Args:
+        resource_path: Relative resource path (e.g. 'fonts/roboto/regular.ttf', 'fonticons/phosphor/thin.ttf').
+
+    Returns:
+        ReleaseAssetPackage | None: The containing package if matched, otherwise None.
+    """
+    norm = resource_path.strip("/")
+    if norm.startswith("fonticons/") or norm.startswith("phosphor/"):
+        return find_package_for_icon_path(norm)
+    return find_package_for_font_path(norm)
+
+
+def ensure_asset_available(resource_path: str, tag: str = DEFAULT_RELEASE_TAG) -> None:
+    """Ensure that the asset file for a given resource path is downloaded and available.
+
+    Args:
+        resource_path: Relative path to font or icon file.
+        tag: Release tag to download from if missing. Defaults to DEFAULT_RELEASE_TAG.
+
+    Raises:
+        ValueError: If no release asset package matches the resource path.
+        RuntimeError: If downloading or extracting the package fails.
+    """
+    pkg = find_package_for_resource_path(resource_path)
+    if pkg is None:
+        raise ValueError(f"No release asset package found for resource path '{resource_path}'.")
+
+    if not pkg.is_downloaded():
+        pkg.download_and_extract(tag=tag)
+
+
+def download_all_release_assets(tag: str = DEFAULT_RELEASE_TAG, force: bool = False) -> None:
+    """Download and extract all defined release asset packages (fonts and icons).
+
+    Args:
+        tag: Release tag to download from. Defaults to DEFAULT_RELEASE_TAG.
+        force: If True, force re-download even if already present.
+    """
+    for pkg in RELEASE_ASSET_PACKAGES.values():
+        pkg.download_and_extract(tag=tag, force=force)
+
+
+def get_release_asset_manifest(tag: str = DEFAULT_RELEASE_TAG) -> AssetManifest:
+    """Generate complete release manifest from defined packages.
+
+    Args:
+        tag: Release version tag. Defaults to DEFAULT_RELEASE_TAG.
+
+    Returns:
+        AssetManifest: Populated release manifest.
+    """
+    assets = {
+        pkg.archive_name: AssetManifestItem(
+            archive_name=pkg.archive_name,
+            sha256=pkg.archive_sha256,
+            size=0,
+        )
+        for pkg in RELEASE_ASSET_PACKAGES.values()
+    }
+    return AssetManifest(version=tag, assets=assets)

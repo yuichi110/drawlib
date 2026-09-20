@@ -21,10 +21,11 @@ from drawlib._core.l3_external._font import download_all_fonts, purge_font_cache
 class TestDownloadAllFonts:
     """Test cases for download_all_fonts function."""
 
-    def test_download_all_fonts_raises_not_implemented(self):
-        """Test that download_all_fonts raises NotImplementedError."""
-        with pytest.raises(NotImplementedError, match="Not implemented yet"):
+    def test_download_all_fonts(self):
+        """Test that download_all_fonts calls download_and_extract on font packages."""
+        with patch("drawlib._release_assets.ReleaseAssetPackage.download_and_extract") as mock_dl:
             download_all_fonts()
+            assert mock_dl.call_count == 46
 
 
 class TestPurgeFontCache:

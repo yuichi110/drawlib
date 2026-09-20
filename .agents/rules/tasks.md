@@ -11,6 +11,12 @@ Routine development tasks, such as linting, testing, document building, and publ
 Execute `./dcli` with no arguments to print all available toolsets:
 
 ```text
+* assets:   Release asset management for GitHub Releases
+  - ./dcli assets list
+  - ./dcli assets build [PACKAGE] [--tag VER]
+  - ./dcli assets remote [--tag VER]
+  - ./dcli assets upload [PACKAGE] [--tag VER] [--force] [--dry-run]
+  - ./dcli assets remove [PACKAGE] [--all] [--tag VER] [--yes] [--dry-run]
 * check:    Code quality and static analysis (Ruff, Ty, docstrings)
   - ./dcli check lint [--fix]
   - ./dcli check type
