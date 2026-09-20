@@ -352,3 +352,7 @@ Before pushing changes to GitHub, commit the changes locally.
 After committing your changes locally, push them to the GitHub remote repository.
 Once git push completes, GitHub will automatically deploy the contents of the docs directory to your GitHub Pages site. 
 You can access your published documentation using the GitHub Pages URL for your repository.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

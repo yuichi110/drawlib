@@ -351,3 +351,7 @@ Here are some reasons why creating a package is beneficial:
 - Organization: Group images by chapters and sections for better organization and easier navigation.
 
 Please take a look documents for building many images.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

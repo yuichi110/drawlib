@@ -849,3 +849,7 @@ Drawlib supports the following formats for now:
 * JPG
 * WEBP
 * PDF
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

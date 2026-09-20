@@ -90,12 +90,6 @@ body {
     text-decoration: none;
 }
 
-.sidebar-version {
-    color: #737373;
-    font-size: 0.75rem;
-    margin-top: 0.1rem;
-}
-
 .sidebar-menu {
     padding: 1rem 0;
     overflow-y: auto;

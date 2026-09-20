@@ -131,3 +131,7 @@ Draws the list of bullet points starting from the specified location.
 Args:
 
 xy (Tuple[float, float]): The starting point (x, y) to draw the bullet points.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

@@ -520,3 +520,7 @@ Before submitting a request, we recommend testing the font using the `FontFile()
 At present, Drawlib does not include decorative or ornamental fonts.
 
 Your input is valuable to us, and if your font suggestion meets these criteria, we will consider adding it in a future release.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

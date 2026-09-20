@@ -1008,3 +1008,7 @@ save()
 
 Please remember, arrow is always drawn from `angle_start` to `angle_end` counterclockwise.
 If you want to draw clockwise arrow, please specify it via `head`.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

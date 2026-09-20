@@ -126,3 +126,7 @@ Args:
 - row_margins (List[float]): The margins between rows.
 - outer_r (int, optional): The radius for the outer grid border. Default is 0.
 - outer_style (Union[str, Style, None], optional): The style for the outer grid border. Can be a string key for a predefined style, a Style object, or None.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

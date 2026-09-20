@@ -90,12 +90,6 @@ body {
     text-decoration: none;
 }
 
-.sidebar-version {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 0.8rem;
-    margin-top: 0.2rem;
-}
-
 .sidebar-menu {
     padding: 1rem 0;
     overflow-y: auto;

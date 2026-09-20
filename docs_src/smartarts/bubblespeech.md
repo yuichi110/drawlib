@@ -116,3 +116,7 @@ save()
     image2.png
 
 Ellipse like bubblespeech is not supported yet.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

@@ -238,3 +238,7 @@ save()
 
 Please consider the best alignment for placing items.
 It depends on the situation.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

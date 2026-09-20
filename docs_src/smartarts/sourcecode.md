@@ -213,3 +213,7 @@ save()
 
 To retrieve the text content directly from a code file, you can use the `dsart.SourceCode.get_text()` method provided by SourceCode. 
 This function allows you to specify a file path relative to the code file's location.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

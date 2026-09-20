@@ -226,3 +226,7 @@ If you have multiple documentation projects on your machine, we recommend instal
 We typically use `venv` for pure documentation projects and `poetry` for development projects that involve documentation.
 
 Using virtual environments allows you to isolate Drawlib installations for different projects, which helps avoid conflicts with underlying library versions like matplotlib.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

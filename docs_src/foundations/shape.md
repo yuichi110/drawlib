@@ -126,3 +126,7 @@ save()
 
 The `polygon()` function does not use an angle argument because the shape's orientation is determined by the order of the specified points. 
 If you prefer to draw shapes with a standard coordinate system and angle features, consider using the `shape()` function.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

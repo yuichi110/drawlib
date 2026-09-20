@@ -234,3 +234,7 @@ Args:
 - box_width (float): The width of each box.
 - box_height (float): The height of each box.
 - align (Literal["left", "right", "bottom", "top"]): The alignment of the boxes relative to the starting point.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

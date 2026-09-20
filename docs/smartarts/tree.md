@@ -180,3 +180,7 @@ ValueError is raised if any of the default styles or margins are None.
 Args:
 
 - xy (Tuple[float, float]): The coordinates to start drawing.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

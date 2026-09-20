@@ -86,3 +86,8 @@ text(xy=(75, 20), text="Rectangle", style=Style(text_color=Colors.White, text_si
 - [API Versioning](./advanced_topics/api_version.md)
 - [Disable Linting](./advanced_topics/disable_lint.md)
 - [Utility Functions](./advanced_topics/util.md)
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
+

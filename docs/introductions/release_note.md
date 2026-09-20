@@ -73,3 +73,7 @@ Change arg names at function `dsart.bubblespeech()`.
 
 
 First release of Drawlib `0.2`.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

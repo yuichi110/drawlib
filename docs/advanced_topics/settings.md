@@ -43,3 +43,7 @@ To control the display of these warnings, you can utilize the following function
 - `get_suppress_warning()`: Retrieves the current suppression setting.
 
 Adjusting these settings allows users to manage how warnings are handled within Drawlib and its associated operations.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

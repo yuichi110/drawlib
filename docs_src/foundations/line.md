@@ -584,3 +584,7 @@ save()
 The red dashed support line length is the value of `r`. 
 If you set a large value, the curve becomes bigger. 
 However, be careful: `r` should be smaller than the distance between points.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

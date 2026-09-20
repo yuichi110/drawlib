@@ -128,3 +128,7 @@ The image above illustrates Drawlib's core components, categorized into five sec
 Despite its complexity, Drawlib maintains consistency in function arguments and style classes.
 
 Once you grasp the fundamental concepts of the library, predicting the outcomes of functions and arguments becomes intuitive.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

@@ -27,3 +27,7 @@ To set the logging level to debug, you have two options:
 - Set the logging level via CLI options: `drawlib --verbose` or `drawlib --debug`
 
 Please check the settings documentation and CLI options documentation for more details.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

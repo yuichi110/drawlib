@@ -169,3 +169,7 @@ Args:
 - column_widths (List[float]): A list of widths for each column.
 - row_heights (List[float]): A list of heights for each row.
 - data (List[List[Any]]): The data to be displayed in the table.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

@@ -124,3 +124,7 @@ As you can see, VSCode provides detailed information about the function and offe
 
 If you are familiar with Python, you should be able to understand how to use Drawlib with just a few hours of practice. 
 The design of Drawlib is consistent and Pythonic, making it intuitive for Python developers.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

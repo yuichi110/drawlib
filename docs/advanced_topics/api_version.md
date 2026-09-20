@@ -64,3 +64,7 @@ Drawlib's versioning is `major.minor.patch`.
 patch release doesn't have API change.
 version `0.1.1` and `0.1.5` has same API.
 So you can't specify patch version at import.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

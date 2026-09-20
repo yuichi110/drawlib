@@ -1265,3 +1265,7 @@ from drawlib.types import Style
 ![quick_start_25](quick_start_images/25.png)
 
 
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

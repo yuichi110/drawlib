@@ -582,3 +582,7 @@ In this example, inner text is drawn at the center of the right triangle shape.
 However, the text extends beyond the shape's boundaries. 
 In such situations, you can adjust the position where the text is drawn by specifying the `text_xy_shift` attribute of `Style`. 
 For further details, refer to the shape style documentation.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

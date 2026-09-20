@@ -97,3 +97,7 @@ Args:
 - margins (float): The margin between pyramid items.
 - align (str): Alignment of a pyramid.
 - order (str): Item order. "vertex -> base" or "base -> vertex". default is "vertex -> base".
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
