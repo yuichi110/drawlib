@@ -9,7 +9,7 @@
 
 """Unit tests for the BoxTreeNode class."""
 
-from drawlib._core.l3_styles import LineStyle, ShapeStyle, ShapeTextStyle
+from drawlib._core.l3_styles import Style
 from drawlib._smartarts._boxtree import BoxTreeNode
 
 
@@ -31,9 +31,9 @@ class TestBoxTreeNode:
 
     def test_boxtreenode_initialization_custom(self) -> None:
         """Verify that BoxTreeNode parses custom styling and size structures correctly."""
-        box_style = ShapeStyle(fill_color=(255, 0, 0))
-        text_style = ShapeTextStyle(text_color=(0, 255, 0), text_size=12)
-        line_style = LineStyle(text_color=(0, 0, 255), line_width=2)
+        box_style = Style(fill_color=(255, 0, 0))
+        text_style = Style(text_color=(0, 255, 0), text_size=12)
+        line_style = Style(text_color=(0, 0, 255), line_width=2)
         child1 = BoxTreeNode(text="Child1")
         child2 = BoxTreeNode(text="Child2")
 

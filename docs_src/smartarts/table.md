@@ -75,7 +75,7 @@ Sets the style for both column and row headers.
 Args:
 
 - background_color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]): The background color of the headers.
-- textstyle (Union[str, ShapeTextStyle]): The text style of the headers. Can be a string key for predefined styles or a ShapeTextStyle object.
+- textstyle (Union[str, Style]): The text style of the headers. Can be a string key for predefined styles or a Style object.
 
 
 ## ``set_style_cell_header()``
@@ -86,7 +86,7 @@ Sets the style for the column header.
 Args:
 
 - background_color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]): The background color of the column header.
-- textstyle (Union[str, ShapeTextStyle]): The text style of the column header. Can be a string key for predefined styles or a ShapeTextStyle object.
+- textstyle (Union[str, Style]): The text style of the column header. Can be a string key for predefined styles or a Style object.
 
 
 ## ``set_style_cell_rowheader()``
@@ -97,7 +97,7 @@ Sets the style for the row header.
 Args:
 
 - background_color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]): The background color of the row header.
-- textstyle (Union[str, ShapeTextStyle]): The text style of the row header. Can be a string key for predefined styles or a ShapeTextStyle object.
+- textstyle (Union[str, Style]): The text style of the row header. Can be a string key for predefined styles or a Style object.
 
 
 ## ``set_style_cell_evenodd()``
@@ -108,9 +108,9 @@ Sets alternating styles for even and odd rows.
 Args:
 
 - even_color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]): The background color for even rows.
-- even_textstyle (Union[str, ShapeTextStyle]): The text style for even rows. Can be a string key for predefined styles or a ShapeTextStyle object.
+- even_textstyle (Union[str, Style]): The text style for even rows. Can be a string key for predefined styles or a Style object.
 - odd_color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]): The background color for odd rows.
-- odd_textstyle (Union[str, ShapeTextStyle]): The text style for odd rows. Can be a string key for predefined styles or a ShapeTextStyle object.
+- odd_textstyle (Union[str, Style]): The text style for odd rows. Can be a string key for predefined styles or a Style object.
 
 
 
@@ -122,11 +122,9 @@ Sets the style for specific cells.
 Args:
 
 - background_color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]): The background color of the cells.
-- textstyle (Union[str, ShapeTextStyle]): The text style of the cells.
-- Can be a string key for predefined styles or a ShapeTextStyle object.
+- textstyle (Union[str, Style]): The text style of the cells. Can be a string key for predefined styles or a Style object.
 - rows (Optional[List[int]]): A list of row indices to apply the style to. If None, applies to all rows.
-- columns (Optional[List[int]]):
-- A list of column indices to apply the style to. If None, applies to all columns.
+- columns (Optional[List[int]]): A list of column indices to apply the style to. If None, applies to all columns.
 
 
 
@@ -137,14 +135,14 @@ Sets the style for table borders.
 
 Args:
 
-- top (Union[str, LineStyle, None]): Style for the top border. Can be a string key for predefined styles or a LineStyle object.
-- top2 (Union[str, LineStyle, None]): Style for the secondary top border. Can be a string key for predefined styles or a LineStyle object.
-- bottom (Union[str, LineStyle, None]): Style for the bottom border. Can be a string key for predefined styles or a LineStyle object.
-- left (Union[str, LineStyle, None]): Style for the left border. Can be a string key for predefined styles or a LineStyle object.
-- left2 (Union[str, LineStyle, None]): Style for the secondary left border. Can be a string key for predefined styles or a LineStyle object.
-- right (Union[str, LineStyle, None]): Style for the right border. Can be a string key for predefined styles or a LineStyle object.
-- between_columns (Union[str, LineStyle, None]): Style for borders between columns. Can be a string key for predefined styles or a LineStyle object.
-- between_rows (Union[str, LineStyle, None]): Style for borders between rows. Can be a string key for predefined styles or a LineStyle object.
+- top (Union[str, Style, None]): Style for the top border. Can be a string key for predefined styles or a Style object.
+- top2 (Union[str, Style, None]): Style for the secondary top border. Can be a string key for predefined styles or a Style object.
+- bottom (Union[str, Style, None]): Style for the bottom border. Can be a string key for predefined styles or a Style object.
+- left (Union[str, Style, None]): Style for the left border. Can be a string key for predefined styles or a Style object.
+- left2 (Union[str, Style, None]): Style for the secondary left border. Can be a string key for predefined styles or a Style object.
+- right (Union[str, Style, None]): Style for the right border. Can be a string key for predefined styles or a Style object.
+- between_columns (Union[str, Style, None]): Style for borders between columns. Can be a string key for predefined styles or a Style object.
+- between_rows (Union[str, Style, None]): Style for borders between rows. Can be a string key for predefined styles or a Style object.
 
 
 ## ``draw()``

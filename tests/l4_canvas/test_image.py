@@ -18,7 +18,7 @@ from drawlib._core.l2_models import Dimage
 from drawlib.canvas import clear, config, save
 from drawlib.colors import Colors
 from drawlib.images import image
-from drawlib.types import ImageStyle
+from drawlib.types import Style
 
 # ruff: noqa: F403, F405
 
@@ -73,7 +73,7 @@ class TestCanvasImage:
             xy=(25, 50),
             width=30,
             image=IMAGE_FILE,
-            style=ImageStyle(line_width=2),
+            style=Style(line_width=2),
         )
 
         # Left bottom alignment
@@ -81,7 +81,7 @@ class TestCanvasImage:
             xy=(55, 25),
             width=30,
             image=IMAGE_FILE,
-            style=ImageStyle(line_width=2, text_halign="left", text_valign="bottom"),
+            style=Style(line_width=2, text_halign="left", text_valign="bottom"),
         )
         save(f"{OUTPUT_DIR}test_file_border.png")
 
@@ -93,7 +93,7 @@ class TestCanvasImage:
             xy=(50, 50),
             width=30,
             image=IMAGE_FILE,
-            style=ImageStyle(fill_color=Colors.Gray),
+            style=Style(fill_color=Colors.Gray),
         )
 
         # Alpha adjustment
@@ -102,7 +102,7 @@ class TestCanvasImage:
             xy=(50, 50),
             width=30,
             image=IMAGE_FILE,
-            style=ImageStyle(fill_alpha=0.1),
+            style=Style(fill_alpha=0.1),
         )
         save(f"{OUTPUT_DIR}test_file_effects.png")
 
@@ -114,7 +114,7 @@ class TestCanvasImage:
             width=30,
             image=IMAGE_FILE,
             angle=45,
-            style=ImageStyle(line_width=2),
+            style=Style(line_width=2),
         )
         save(f"{OUTPUT_DIR}test_file_border_angle45.png")
 
@@ -127,5 +127,5 @@ class TestCanvasImage:
                 xy=(50, 50),
                 width=30,
                 image=IMAGE_FILE,
-                style=ImageStyle(text_halign="invalid_halign"),  # type: ignore
+                style=Style(text_halign="invalid_halign"),  # type: ignore
             )

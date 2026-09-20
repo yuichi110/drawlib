@@ -28,9 +28,7 @@ from drawlib.colors import (
 )
 from drawlib.shapes import polygon, rectangle, shape
 from drawlib.types import (
-    LineStyle,
-    ShapeStyle,
-    ShapeTextStyle,
+    Style,
 )
 
 # ruff: noqa: F403, F405
@@ -76,7 +74,7 @@ class TestCanvasBase:
             background_color=Colors140.Orange,
             background_alpha=0.5,
             grid=True,
-            grid_style=LineStyle(line_width=2, text_color=Colors.Red),
+            grid_style=Style(line_width=2, text_color=Colors.Red),
         )
         assert canvas._width == 150
         assert canvas._height == 120
@@ -96,13 +94,13 @@ class TestCanvasBase:
         # With alignment and style
         polygon(
             xys=[(10, 10), (10, 50), (80, 30)],
-            style=ShapeStyle(text_halign="center", text_valign="center"),
+            style=Style(text_halign="center", text_valign="center"),
         )
 
         # Custom line style
         polygon(
             xys=[(10, 10), (10, 50), (80, 30)],
-            style=ShapeStyle(line_width=3, line_color=Colors.Red, line_style="dashdot", fill_color=Colors.Green),
+            style=Style(line_width=3, line_color=Colors.Red, line_style="dashdot", fill_color=Colors.Green),
         )
 
         # With text
@@ -117,7 +115,7 @@ class TestCanvasBase:
         shape(
             xy=(50, 50),
             path_points=[(0, 0), (10, 0), (10, 10), (0, 10)],
-            style=ShapeStyle(fill_color=Colors.Blue),
+            style=Style(fill_color=Colors.Blue),
             text="Shape",
         )
         save(f"{OUTPUT_DIR}test_shape.png")
@@ -129,9 +127,9 @@ class TestCanvasBase:
         rectangle((50, 50), 40, 20, text="Rectangle")
 
         # Alignment options
-        rectangle((50, 50), 40, 20, text="Rectangle", style=ShapeStyle(text_halign="left", text_valign="bottom"))
-        rectangle((50, 50), 40, 20, text="Rectangle", style=ShapeStyle(text_halign="center", text_valign="center"))
-        rectangle((50, 50), 40, 20, text="Rectangle", style=ShapeStyle(text_halign="right", text_valign="top"))
+        rectangle((50, 50), 40, 20, text="Rectangle", style=Style(text_halign="left", text_valign="bottom"))
+        rectangle((50, 50), 40, 20, text="Rectangle", style=Style(text_halign="center", text_valign="center"))
+        rectangle((50, 50), 40, 20, text="Rectangle", style=Style(text_halign="right", text_valign="top"))
 
         # Different angles
         rectangle((50, 50), 40, 20, angle=45, text="Rectangle")
@@ -144,7 +142,7 @@ class TestCanvasBase:
             20,
             angle=135,
             text="Rectangle",
-            textstyle=ShapeTextStyle(text_xy_shift=(10, 5), text_flip=True, text_color=Colors.Red),
+            textstyle=Style(text_xy_shift=(10, 5), text_flip=True, text_color=Colors.Red),
         )
         rectangle(
             (50, 50),
@@ -152,7 +150,7 @@ class TestCanvasBase:
             20,
             angle=135,
             text="Rectangle",
-            textstyle=ShapeTextStyle(text_xy_abs_shift=(10, 5), text_flip=True, text_color=Colors.Red),
+            textstyle=Style(text_xy_abs_shift=(10, 5), text_flip=True, text_color=Colors.Red),
         )
 
         # Style & rounded corner (r > 0)
@@ -163,7 +161,7 @@ class TestCanvasBase:
             r=3.0,
             angle=45,
             text="Rectangle",
-            style=ShapeStyle(
+            style=Style(
                 line_color=Colors.Blue,
                 fill_color=Colors.Yellow,
                 fill_alpha=0.5,

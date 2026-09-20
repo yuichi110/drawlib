@@ -52,7 +52,7 @@ import drawlib._assets.fonticons
 from drawlib.v0_2 import ASSET_VERSION
 from drawlib._core.core.fonts import FontMetadata
 from drawlib._core.core.fonts_resource import FontResource
-from drawlib._core.core.model import IconStyle
+from drawlib._core.core.model import Style
 from drawlib._core.core.theme import dtheme
 from drawlib._core.download import download_if_not_exist
 from drawlib._core.icons.util import icon
@@ -136,7 +136,7 @@ def _write(
     width: TypePosFloat,
     code: str,
     angle: TypeAngle = 0.0,
-    style: IconStyle | TypeStr | None = None,
+    style: Style | TypeStr | None = None,
 ) -> None:
     """Draw a Phosphor icon at the specified position with given parameters.
 
@@ -145,28 +145,28 @@ def _write(
         width: Width of the icon.
         code: Identifier or code of the icon.
         angle: Angle of rotation (default is 0.0).
-        style: Style of the icon as an IconStyle object, string, or None.
+        style: Style of the icon as an Style object, string, or None.
             Defaults to None, which uses the default style.
 
     Raises:
         ValueError: If an unsupported style type is passed to 'style'.
 
     """
-    # None -> IconStyle
+    # None -> Style
     if style is None:
         style_obj = dtheme.iconstyles.get().copy()
-    # str -> IconStyle
+    # str -> Style
     elif isinstance(style, str):
         style_obj = dtheme.iconstyles.get(style).copy()
-    # IconStyle
+    # Style
     else:
         style_obj = style.copy()
 
-    # set IconStyle.style if it is None
+    # set Style.style if it is None
     if style_obj.style is None:
         style_obj.style = _DEFAULT_STYLE
 
-    # validate IconStyle.style
+    # validate Style.style
     if style_obj.style not in _Fonts:
         raise ValueError(f'icon_phosphor does not support style "{style_obj.style}".')
 
@@ -202,7 +202,7 @@ def {function_name}(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: IconStyle | TypeStr | None = None,
+    style: Style | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an {icon_name}.
 
@@ -211,7 +211,7 @@ def {function_name}(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an IconStyle object, string, or None.
+        style: Style of the icon as an Style object, string, or None.
 
     """
     _write(xy=xy, width=width, code="\\u{icon_code}", angle=angle, style=style)

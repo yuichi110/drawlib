@@ -21,7 +21,7 @@ from drawlib._core.l2_types import (
     TypePosFloat,
     TypeStr,
 )
-from drawlib._core.l3_styles import LineStyle, ShapeStyle, ShapeTextStyle
+from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import line, rectangle
 from drawlib._theme import get_style
 
@@ -34,22 +34,22 @@ class BoxTreeNode:
         self,
         text: TypeStr,
         boxsize: tuple[TypeFloat, TypeFloat] | None = None,
-        boxstyle: TypeStr | ShapeStyle | None = None,
+        boxstyle: TypeStr | Style | None = None,
         box_r: TypeFloat | None = None,
         box_horizontal_margin: TypeFloat | None = None,
         box_vertical_margin: TypeFloat | None = None,
-        textstyle: TypeStr | ShapeTextStyle | None = None,
-        linestyle: TypeStr | LineStyle | None = None,
+        textstyle: TypeStr | Style | None = None,
+        linestyle: TypeStr | Style | None = None,
         line_horizontal_length: TypeFloat | None = None,
         line_vertical_length: TypeFloat | None = None,
         children: list[BoxTreeNode] | None = None,
         default_boxsize: tuple[TypeFloat, TypeFloat] | None = None,
-        default_boxstyle: TypeStr | ShapeStyle | None = None,
+        default_boxstyle: TypeStr | Style | None = None,
         default_box_r: TypeFloat | None = None,
         default_box_horizontal_margin: TypeFloat | None = None,
         default_box_vertical_margin: TypeFloat | None = None,
-        default_textstyle: TypeStr | ShapeTextStyle | None = None,
-        default_linestyle: TypeStr | LineStyle | None = None,
+        default_textstyle: TypeStr | Style | None = None,
+        default_linestyle: TypeStr | Style | None = None,
         default_line_horizontal_length: TypeFloat | None = None,
         default_line_vertical_length: TypeFloat | None = None,
     ) -> None:
@@ -89,10 +89,10 @@ class BoxTreeNode:
 
         if isinstance(default_textstyle, str):
             default_textstyle = get_style(default_textstyle)
-        self._default_textstyle: ShapeTextStyle | None = default_textstyle
+        self._default_textstyle: Style | None = default_textstyle
         if isinstance(default_linestyle, str):
             default_linestyle = get_style(default_linestyle)
-        self._default_linestyle: LineStyle | None = default_linestyle
+        self._default_linestyle: Style | None = default_linestyle
 
         self._default_line_horizontal_length = default_line_horizontal_length
         self._default_line_vertical_length = default_line_vertical_length
@@ -113,8 +113,8 @@ class BoxTreeNode:
         xy: TypeCoordinate,
         orientation: Literal["horizontal", "vertical"],
         align: Literal["top", "bottom", "center", "left", "right"],
-        default_textstyle: ShapeTextStyle,
-        default_linestyle: LineStyle,
+        default_textstyle: Style,
+        default_linestyle: Style,
         default_line_horizontal_margin: float,
         default_line_horizontal_length: float,
         default_line_vertical_margin: float,

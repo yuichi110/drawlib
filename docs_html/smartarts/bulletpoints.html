@@ -300,7 +300,7 @@ save()
 <ul>
 <li>vertical_margin (float): The vertical space between bullet points.</li>
 <li>indent_width (float): The width of the indentation for each level.</li>
-<li>default_style (Union[str, TextStyle, None]): The default text style for the bullet points.</li>
+<li>default_style (Union[str, Style, None]): The default text style for the bullet points.</li>
 </ul>
 <h2><code>set_indent()</code></h2>
 <p>Sets the indentation level for the next bullet point.</p>
@@ -314,7 +314,7 @@ save()
 <ul>
 <li>indent_level (int): The indentation level to apply the style to.</li>
 <li>function (Callable): The function to draw the bullet shape.</li>
-<li>style (Union[str, ShapeStyle]): The style to apply to the bullet shape.</li>
+<li>style (Union[str, Style]): The style to apply to the bullet shape.</li>
 <li>args (dict): Additional arguments to pass to the drawing function.</li>
 </ul>
 <h2><code>add()</code></h2>
@@ -322,7 +322,7 @@ save()
 <p>Args:</p>
 <ul>
 <li>text (str): The text for the bullet point.</li>
-<li>style (Union[str, TextStyle, None]): The text style for the bullet point.</li>
+<li>style (Union[str, Style, None]): The text style for the bullet point.</li>
 </ul>
 <h2><code>draw()</code></h2>
 <p>Draws the list of bullet points starting from the specified location.</p>

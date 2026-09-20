@@ -29,7 +29,7 @@ from drawlib._core.l2_types import (
     TypePosFloat,
     TypeStr,
 )
-from drawlib._core.l3_styles import Colors, ImageStyle, ShapeStyle
+from drawlib._core.l3_styles import Colors, Style
 from drawlib._core.l4_canvas._base import CanvasBase
 from drawlib._core.l4_canvas_utils import ImageUtil
 
@@ -62,7 +62,7 @@ class CanvasImageFeature(CanvasBase):
         width: TypePosFloat,
         image: TypeStr | Image | Dimage,
         angle: TypeAngle = 0.0,
-        style: ImageStyle | TypeStr | None = None,
+        style: Style | TypeStr | None = None,
     ) -> None:
         """Draw an image on the canvas.
 
@@ -71,7 +71,7 @@ class CanvasImageFeature(CanvasBase):
             width (float): Width of the image. Height is calculated automatically based on image aspect ratio.
             image (str | Image | Dimage): Path to the image file or PIL Image object or Dimage object.
             angle (int | float, optional): Rotation angle of the image in degrees (default is 0.0).
-            style (ImageStyle | str | None, optional): Style of the image (default is None).
+            style (Style | str | None, optional): Style of the image (default is None).
 
         Returns:
             None
@@ -117,7 +117,7 @@ class CanvasImageFeature(CanvasBase):
         self._draw_border(xy, width, height, angle, style)
 
     @staticmethod
-    def _rotate_image(dimg: Dimage, angle: TypeAngle, style: ImageStyle) -> tuple[Dimage, ImageStyle]:
+    def _rotate_image(dimg: Dimage, angle: TypeAngle, style: Style) -> tuple[Dimage, Style]:
         # rotate image
         if angle == 0:
             return dimg, style
@@ -130,11 +130,11 @@ class CanvasImageFeature(CanvasBase):
             has_wrong_style = True
             style.text_valign = "center"
         if has_wrong_style:
-            logger.warning("image() with angle only accepts ShapeTextStyle alignment center.")
+            logger.warning("image() with angle only accepts Style alignment center.")
 
         return dimg._rotate(angle), style
 
-    def _shift_xy(self, x: float, y: float, dimg: Dimage, zoom: TypeImageZoom, style: ImageStyle) -> TypeCoordinate:
+    def _shift_xy(self, x: float, y: float, dimg: Dimage, zoom: TypeImageZoom, style: Style) -> TypeCoordinate:
         if style.text_halign == "center" and style.text_valign == "center":
             return (x, y)
 
@@ -189,7 +189,7 @@ class CanvasImageFeature(CanvasBase):
         width: TypePosFloat,
         height: TypePosFloat,
         angle: TypeAngle,
-        style: ImageStyle,
+        style: Style,
     ) -> None:
         # border
         if style.line_width is None:
@@ -197,7 +197,7 @@ class CanvasImageFeature(CanvasBase):
         if style.line_width == 0:
             return
 
-        shapestyle = ShapeStyle(
+        shapestyle = Style(
             text_halign=style.text_halign,
             text_valign=style.text_valign,
             line_style=style.line_style,

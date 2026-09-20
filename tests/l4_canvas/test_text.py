@@ -15,7 +15,7 @@ from drawlib.canvas import clear, save
 from drawlib.colors import Colors
 from drawlib.fonts import FontFile
 from drawlib.text import text, text_vertical
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 # ruff: noqa: F403, F405
 
@@ -35,15 +35,15 @@ class TestCanvasText:
         text((30, 30), "Hello World")
 
         # Size settings & overrides
-        text((30, 30), "Hello World", style=TextStyle(text_size=12))
-        text((30, 30), "Hello World", size=36, style=TextStyle(text_size=12))
+        text((30, 30), "Hello World", style=Style(text_size=12))
+        text((30, 30), "Hello World", size=36, style=Style(text_size=12))
 
         # Background bounding box settings
         text(
             (30, 30),
             "Hello World",
             angle=90,
-            style=TextStyle(
+            style=Style(
                 text_bg_line_color=Colors.Blue,
                 text_bg_fill_color=Colors.Yellow,
                 text_bg_line_style="dotted",
@@ -55,12 +55,12 @@ class TestCanvasText:
         text(
             (20, 30),
             "Hello World. あいうえお",
-            style=TextStyle(text_font=FontFile(FONT_MPLUS1P)),
+            style=Style(text_font=FontFile(FONT_MPLUS1P)),
         )
         text(
             (20, 70),
             "Hello World. あいうえお",
-            style=TextStyle(text_font=FontFile(FONT_AVENGER)),
+            style=Style(text_font=FontFile(FONT_AVENGER)),
         )
 
         save(f"{OUTPUT_DIR}test_text.png")
@@ -73,14 +73,14 @@ class TestCanvasText:
         text_vertical((30, 30), "Hello World. あいうえお")
 
         # Custom sizes
-        text_vertical((30, 30), "Hello World", style=TextStyle(text_size=12))
+        text_vertical((30, 30), "Hello World", style=Style(text_size=12))
 
         # Bounding box & angles
         text_vertical(
             (30, 30),
             "Hello World",
             angle=90,
-            style=TextStyle(
+            style=Style(
                 text_bg_line_color=Colors.Blue,
                 text_bg_fill_color=Colors.Yellow,
                 text_bg_line_style="dotted",
@@ -92,12 +92,12 @@ class TestCanvasText:
         text_vertical(
             (20, 30),
             "Hello World. あいうえお",
-            style=TextStyle(text_font=FontFile(FONT_MPLUS1P)),
+            style=Style(text_font=FontFile(FONT_MPLUS1P)),
         )
         text_vertical(
             (50, 30),
             "Hello World. あいうえお",
-            style=TextStyle(text_font=FontFile(FONT_AVENGER)),
+            style=Style(text_font=FontFile(FONT_AVENGER)),
         )
 
         save(f"{OUTPUT_DIR}test_text_vertical.png")

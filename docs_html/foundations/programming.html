@@ -248,7 +248,7 @@ Using horizontal and vertical alignment with &quot;center&quot; is often the bes
 from drawlib.icons import icon_phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import IconStyle, ShapeStyle, TextStyle
+from drawlib.types import Style
 
 config(width=100, height=100, grid_only=True)
 
@@ -256,34 +256,34 @@ config(width=100, height=100, grid_only=True)
 text(
     (19, 73),
     &quot;Drawlib&quot;,
-    style=TextStyle(text_size=24, text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
+    style=Style(text_size=24, text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
 )
 icon_phosphor.heart(
     (45, 70),
     width=10,
-    style=IconStyle(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
+    style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
 )
 circle(
     (70, 70),
     radius=5,
-    style=ShapeStyle(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
+    style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
 )
 
 # alignment: horizontally center, vertically center
 text(
     (25, 25),
     &quot;Drawlib&quot;,
-    style=TextStyle(text_size=24, text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
+    style=Style(text_size=24, text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
 )
 icon_phosphor.heart(
     (50, 25),
     width=10,
-    style=IconStyle(text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
+    style=Style(text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
 )
 circle(
     (75, 25),
     radius=5,
-    style=ShapeStyle(text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
+    style=Style(text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
 )
 
 save()
@@ -296,7 +296,7 @@ save()
 from drawlib.icons import icon_phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import IconStyle, ShapeStyle, TextStyle
+from drawlib.types import Style
 
 config(width=100, height=100, grid_only=True)
 
@@ -304,34 +304,34 @@ config(width=100, height=100, grid_only=True)
 text(
     (19, 73),
     &quot;Drawlib&quot;,
-    style=TextStyle(text_size=24, text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
+    style=Style(text_size=24, text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
 )
 icon_phosphor.heart(
     (45, 70),
     width=10,
-    style=IconStyle(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
+    style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
 )
 circle(
     (70, 70),
     radius=5,
-    style=ShapeStyle(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
+    style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
 )
 
 # alignment: horizontally center, vertically center
 text(
     (25, 25),
     &quot;Drawlib&quot;,
-    style=TextStyle(text_size=24, text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
+    style=Style(text_size=24, text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
 )
 icon_phosphor.heart(
     (50, 25),
     width=10,
-    style=IconStyle(text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
+    style=Style(text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
 )
 circle(
     (75, 25),
     radius=5,
-    style=ShapeStyle(text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
+    style=Style(text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
 )
 
 save()
@@ -364,7 +364,7 @@ In this example, we use variables to align items horizontally.</p>
 from drawlib.icons import icon_phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 width = 100
 height = 100
@@ -375,7 +375,7 @@ margin_x = width / (num_items + 1)
 y = height / 2
 
 # center center align
-text((margin_x, y), &quot;Drawlib&quot;, style=TextStyle(text_size=24))
+text((margin_x, y), &quot;Drawlib&quot;, style=Style(text_size=24))
 icon_phosphor.heart((margin_x * 2, y), width=10)
 circle((margin_x * 3, y), radius=5)
 
@@ -391,7 +391,7 @@ The variable <code>x</code> is a bit more complex but ensures equal x margins fo
 from drawlib.icons import icon_phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 width = 100
 height = 100
@@ -402,7 +402,7 @@ margin_x = width / (num_items + 1)
 y = height / 2
 
 # center center align
-text((margin_x, y), &quot;Drawlib&quot;, style=TextStyle(text_size=24))
+text((margin_x, y), &quot;Drawlib&quot;, style=Style(text_size=24))
 icon_phosphor.heart((margin_x * 2, y), width=10)
 circle((margin_x * 3, y), radius=5)
 
@@ -419,7 +419,7 @@ Let's change the canvas height to <code>50</code> and add a rectangle at last.</
 from drawlib.icons import icon_phosphor
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 width = 100
 height = 50  # &lt;= CHANGED FROM 100 !!
@@ -430,7 +430,7 @@ margin_x = width / (num_items + 1)
 y = height / 2
 
 # center center align
-text((margin_x, y), &quot;Drawlib&quot;, style=TextStyle(text_size=24))
+text((margin_x, y), &quot;Drawlib&quot;, style=Style(text_size=24))
 icon_phosphor.heart((margin_x * 2, y), width=10)
 circle((margin_x * 3, y), radius=5)
 rectangle((margin_x * 4, y), width=10, height=10)
@@ -446,7 +446,7 @@ Using a variable for y simplifies the code. However, the x variable makes the co
 from drawlib.icons import icon_phosphor
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 width = 100
 height = 50  # &lt;= CHANGED FROM 100 !!
@@ -457,7 +457,7 @@ margin_x = width / (num_items + 1)
 y = height / 2
 
 # center center align
-text((margin_x, y), &quot;Drawlib&quot;, style=TextStyle(text_size=24))
+text((margin_x, y), &quot;Drawlib&quot;, style=Style(text_size=24))
 icon_phosphor.heart((margin_x * 2, y), width=10)
 circle((margin_x * 3, y), radius=5)
 rectangle((margin_x * 4, y), width=10, height=10)

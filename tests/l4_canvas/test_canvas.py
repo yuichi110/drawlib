@@ -21,7 +21,7 @@ from drawlib.colors import (
     Colors140,
 )
 from drawlib.shapes import circle
-from drawlib.types import LineStyle
+from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l4_canvas/canvas/"
 
@@ -80,7 +80,7 @@ class TestCanvas:
         clear()
         config(
             grid_only=True,
-            grid_style=LineStyle(
+            grid_style=Style(
                 line_width=1,
                 line_color=Colors.Red,
                 line_style="dashed",

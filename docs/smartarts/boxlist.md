@@ -182,8 +182,8 @@ Initialize BoxList.
 
 Args.
 
-- default_box_style (Union[str, ShapeStyle, None]): The style for the boxes.
-- default_text_style (Union[str, ShapeTextStyle, None]): The style for the text inside the boxes.
+- default_box_style (Union[str, Style, None]): The style for the boxes.
+- default_text_style (Union[str, Style, None]): The style for the text inside the boxes.
 
 
 ## ``append()``
@@ -194,8 +194,8 @@ Appends a new box with text to the BoxList.
 Args:
 
 - text (str): The text to be displayed inside the box.
-- box_style (Union[str, ShapeStyle, None], optional): The style for the box. Can be a style name, a ShapeStyle object, or None. If None, the default box style is used.
-- text_style (Union[str, ShapeTextStyle, None], optional): The style for the text inside the box. Can be a style name, a ShapeTextStyle object, or None. If None, the default text style is used.
+- box_style (Union[str, Style, None], optional): The style for the box. Can be a style name, a Style object, or None. If None, the default box style is used.
+- text_style (Union[str, Style, None], optional): The style for the text inside the box. Can be a style name, a Style object, or None. If None, the default text style is used.
 
 
 ## ``insert()``
@@ -207,8 +207,8 @@ Args:
 
 - index (int): The position at which to insert the new box.
 - text (str): The text to be displayed inside the box.
-- box_style (Union[str, ShapeStyle, None], optional): The style for the box. Can be a style name, a ShapeStyle object, or None. If None, the default box style is used.
-- text_style (Union[str, ShapeTextStyle, None], optional): The style for the text inside the box. Can be a style name, a ShapeTextStyle object, or None. If None, the default text style is used.
+- box_style (Union[str, Style, None], optional): The style for the box. Can be a style name, a Style object, or None. If None, the default box style is used.
+- text_style (Union[str, Style, None], optional): The style for the text inside the box. Can be a style name, a Style object, or None. If None, the default text style is used.
 
 
 ## ``extend()``
@@ -219,8 +219,8 @@ Extends the BoxList by appending multiple boxes with text.
 Args:
 
 - texts (List[str]): A list of texts to be displayed inside the boxes.
-- box_style (Union[str, ShapeStyle, None], optional): The style for the boxes. Can be a style name, a ShapeStyle object, or None. If None, the default box style is used.
-- text_style (Union[str, ShapeTextStyle, None], optional): The style for the text inside the boxes. Can be a style name, a ShapeTextStyle object, or None. If None, the default text style is used.
+- box_style (Union[str, Style, None], optional): The style for the boxes. Can be a style name, a Style object, or None. If None, the default box style is used.
+- text_style (Union[str, Style, None], optional): The style for the text inside the boxes. Can be a style name, a Style object, or None. If None, the default text style is used.
 
 
 ## ``draw()``

@@ -20,12 +20,7 @@ import pytest
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles._colors import Colors
 from drawlib._core.l3_styles._style_models import (
-    IconStyle,
-    ImageStyle,
-    LineStyle,
-    ShapeStyle,
-    ShapeTextStyle,
-    TextStyle,
+    Style,
 )
 
 ICON_FIELDS = ["icon_style", "text_color", "fill_alpha", "text_halign", "text_valign"]
@@ -90,76 +85,76 @@ class TestStyleModelBase:
     def test_extra_fields_forbidden(self):
         """Test that instantiating a style model with extra fields raises ValueError."""
         with pytest.raises(ValueError):
-            IconStyle(extra_field_name="forbidden")
+            Style(extra_field_name="forbidden")
 
     def test_validate_assignment(self):
         """Test that validation is performed on attribute assignment."""
-        style = IconStyle()
+        style = Style()
         with pytest.raises(ValueError):
             style.icon_style = "wrong"
 
     def test_merge_type_mismatch(self):
         """Test that merging a style with a mismatched class raises ValueError."""
-        style1 = IconStyle()
+        style1 = Style()
         with pytest.raises(ValueError):
             style1.merge("invalid_style")
 
 
 class TestIconStyle:
-    """Test cases for IconStyle validation, copy, and merge."""
+    """Test cases for Style validation, copy, and merge."""
 
     def test_icon_style_validation(self):
-        """Test validation and default values of IconStyle fields."""
-        assert asdict(IconStyle()) == {
+        """Test validation and default values of Style fields."""
+        assert asdict(Style()) == {
             "icon_style": None,
             "text_color": None,
             "fill_alpha": None,
             "text_halign": None,
             "text_valign": None,
         }
-        assert asdict(IconStyle(icon_style="thin")) == {
+        assert asdict(Style(icon_style="thin")) == {
             "icon_style": "thin",
             "text_color": None,
             "fill_alpha": None,
             "text_halign": None,
             "text_valign": None,
         }
-        assert asdict(IconStyle(text_color=Colors.Red)) == {
+        assert asdict(Style(text_color=Colors.Red)) == {
             "icon_style": None,
             "text_color": Colors.Red,
             "fill_alpha": None,
             "text_halign": None,
             "text_valign": None,
         }
-        assert asdict(IconStyle(text_color=(100, 100, 100))) == {
+        assert asdict(Style(text_color=(100, 100, 100))) == {
             "icon_style": None,
             "text_color": (100, 100, 100),
             "fill_alpha": None,
             "text_halign": None,
             "text_valign": None,
         }
-        assert asdict(IconStyle(text_color=(100, 100, 100, 0.5))) == {
+        assert asdict(Style(text_color=(100, 100, 100, 0.5))) == {
             "icon_style": None,
             "text_color": (100, 100, 100, 0.5),
             "fill_alpha": None,
             "text_halign": None,
             "text_valign": None,
         }
-        assert asdict(IconStyle(fill_alpha=0.5)) == {
+        assert asdict(Style(fill_alpha=0.5)) == {
             "icon_style": None,
             "text_color": None,
             "fill_alpha": 0.5,
             "text_halign": None,
             "text_valign": None,
         }
-        assert asdict(IconStyle(text_halign="left")) == {
+        assert asdict(Style(text_halign="left")) == {
             "icon_style": None,
             "text_color": None,
             "fill_alpha": None,
             "text_halign": "left",
             "text_valign": None,
         }
-        assert asdict(IconStyle(text_valign="bottom")) == {
+        assert asdict(Style(text_valign="bottom")) == {
             "icon_style": None,
             "text_color": None,
             "fill_alpha": None,
@@ -168,43 +163,43 @@ class TestIconStyle:
         }
 
         with pytest.raises(ValueError):
-            IconStyle(icon_style="wrong")
+            Style(icon_style="wrong")
         with pytest.raises(ValueError):
-            IconStyle(text_color=0.1)
+            Style(text_color=0.1)
         with pytest.raises(ValueError):
-            IconStyle(text_color=(100, 100, 1000))
+            Style(text_color=(100, 100, 1000))
         with pytest.raises(ValueError):
-            IconStyle(text_color=(100, 100, 100, 10))
+            Style(text_color=(100, 100, 100, 10))
         with pytest.raises(ValueError):
-            IconStyle(text_halign="wrong")
+            Style(text_halign="wrong")
         with pytest.raises(ValueError):
-            IconStyle(text_valign="wrong")
+            Style(text_valign="wrong")
 
     def test_icon_style_copy(self):
-        """Test copy() behavior on IconStyle."""
-        style1 = IconStyle(icon_style="thin", text_color=Colors.Red)
+        """Test copy() behavior on Style."""
+        style1 = Style(icon_style="thin", text_color=Colors.Red)
         style2 = style1.copy()
 
         assert id(style1) != id(style2)
         assert style1 == style2
 
     def test_icon_style_merge(self):
-        """Test merge() behavior on IconStyle."""
-        style1 = IconStyle(icon_style="thin", text_color=Colors.Red)
-        style2 = IconStyle(text_halign="left")
+        """Test merge() behavior on Style."""
+        style1 = Style(icon_style="thin", text_color=Colors.Red)
+        style2 = Style(text_halign="left")
         style3 = style1.merge(style2)
 
-        assert style1 == IconStyle(icon_style="thin", text_color=Colors.Red)
-        assert style2 == IconStyle(text_halign="left")
-        assert style3 == IconStyle(icon_style="thin", text_color=Colors.Red, text_halign="left")
+        assert style1 == Style(icon_style="thin", text_color=Colors.Red)
+        assert style2 == Style(text_halign="left")
+        assert style3 == Style(icon_style="thin", text_color=Colors.Red, text_halign="left")
 
 
 class TestImageStyle:
-    """Test cases for ImageStyle validation, copy, and merge."""
+    """Test cases for Style validation, copy, and merge."""
 
     def test_image_style_validation(self):
-        """Test validation and default values of ImageStyle fields."""
-        assert asdict(ImageStyle()) == {
+        """Test validation and default values of Style fields."""
+        assert asdict(Style()) == {
             "text_halign": None,
             "text_valign": None,
             "line_width": None,
@@ -213,7 +208,7 @@ class TestImageStyle:
             "fill_color": None,
             "fill_alpha": None,
         }
-        assert asdict(ImageStyle(text_halign="left")) == {
+        assert asdict(Style(text_halign="left")) == {
             "text_halign": "left",
             "text_valign": None,
             "line_width": None,
@@ -222,7 +217,7 @@ class TestImageStyle:
             "fill_color": None,
             "fill_alpha": None,
         }
-        assert asdict(ImageStyle(text_valign="bottom")) == {
+        assert asdict(Style(text_valign="bottom")) == {
             "text_halign": None,
             "text_valign": "bottom",
             "line_width": None,
@@ -231,7 +226,7 @@ class TestImageStyle:
             "fill_color": None,
             "fill_alpha": None,
         }
-        assert asdict(ImageStyle(line_width=2)) == {
+        assert asdict(Style(line_width=2)) == {
             "text_halign": None,
             "text_valign": None,
             "line_width": 2,
@@ -240,7 +235,7 @@ class TestImageStyle:
             "fill_color": None,
             "fill_alpha": None,
         }
-        assert asdict(ImageStyle(line_style="dashed")) == {
+        assert asdict(Style(line_style="dashed")) == {
             "text_halign": None,
             "text_valign": None,
             "line_width": None,
@@ -249,7 +244,7 @@ class TestImageStyle:
             "fill_color": None,
             "fill_alpha": None,
         }
-        assert asdict(ImageStyle(line_color=Colors.Red)) == {
+        assert asdict(Style(line_color=Colors.Red)) == {
             "text_halign": None,
             "text_valign": None,
             "line_width": None,
@@ -258,7 +253,7 @@ class TestImageStyle:
             "fill_color": None,
             "fill_alpha": None,
         }
-        assert asdict(ImageStyle(fill_color=Colors.Red)) == {
+        assert asdict(Style(fill_color=Colors.Red)) == {
             "text_halign": None,
             "text_valign": None,
             "line_width": None,
@@ -267,7 +262,7 @@ class TestImageStyle:
             "fill_color": Colors.Red,
             "fill_alpha": None,
         }
-        assert asdict(ImageStyle(fill_alpha=0.3)) == {
+        assert asdict(Style(fill_alpha=0.3)) == {
             "text_halign": None,
             "text_valign": None,
             "line_width": None,
@@ -277,34 +272,34 @@ class TestImageStyle:
             "fill_alpha": 0.3,
         }
         with pytest.raises(ValueError):
-            ImageStyle(text_halign="wrong")
+            Style(text_halign="wrong")
         with pytest.raises(ValueError):
-            ImageStyle(text_valign="wrong")
+            Style(text_valign="wrong")
         with pytest.raises(ValueError):
-            ImageStyle(line_style="wrong")
+            Style(line_style="wrong")
 
     def test_image_style_copy(self):
-        """Test copy() behavior on ImageStyle."""
-        style1 = ImageStyle(text_halign="left", line_style="dashed", line_width=1)
+        """Test copy() behavior on Style."""
+        style1 = Style(text_halign="left", line_style="dashed", line_width=1)
         style2 = style1.copy()
 
         assert id(style1) != id(style2)
         assert style1 == style2
 
     def test_image_style_merge(self):
-        """Test merge() behavior on ImageStyle."""
-        style1 = ImageStyle(text_halign="left", line_style="dashed", line_width=1)
-        style2 = ImageStyle(text_valign="bottom")
+        """Test merge() behavior on Style."""
+        style1 = Style(text_halign="left", line_style="dashed", line_width=1)
+        style2 = Style(text_valign="bottom")
         style3 = style1.merge(style2)
-        assert style3 == ImageStyle(text_halign="left", text_valign="bottom", line_style="dashed", line_width=1)
+        assert style3 == Style(text_halign="left", text_valign="bottom", line_style="dashed", line_width=1)
 
 
 class TestLineStyle:
-    """Test cases for LineStyle validation, copy, and merge."""
+    """Test cases for Style validation, copy, and merge."""
 
     def test_line_style_validation(self):
-        """Test validation and default values of LineStyle fields."""
-        assert asdict(LineStyle()) == {
+        """Test validation and default values of Style fields."""
+        assert asdict(Style()) == {
             "line_width": None,
             "line_style": None,
             "text_color": None,
@@ -312,7 +307,7 @@ class TestLineStyle:
             "arrow_head_scale": None,
             "arrow_head_fill": None,
         }
-        assert asdict(LineStyle(line_width=2)) == {
+        assert asdict(Style(line_width=2)) == {
             "line_width": 2,
             "line_style": None,
             "text_color": None,
@@ -320,7 +315,7 @@ class TestLineStyle:
             "arrow_head_scale": None,
             "arrow_head_fill": None,
         }
-        assert asdict(LineStyle(line_style="dashed")) == {
+        assert asdict(Style(line_style="dashed")) == {
             "line_width": None,
             "line_style": "dashed",
             "text_color": None,
@@ -328,7 +323,7 @@ class TestLineStyle:
             "arrow_head_scale": None,
             "arrow_head_fill": None,
         }
-        assert asdict(LineStyle(text_color=Colors.Red)) == {
+        assert asdict(Style(text_color=Colors.Red)) == {
             "line_width": None,
             "line_style": None,
             "text_color": Colors.Red,
@@ -336,7 +331,7 @@ class TestLineStyle:
             "arrow_head_scale": None,
             "arrow_head_fill": None,
         }
-        assert asdict(LineStyle(fill_alpha=0.5)) == {
+        assert asdict(Style(fill_alpha=0.5)) == {
             "line_width": None,
             "line_style": None,
             "text_color": None,
@@ -346,36 +341,36 @@ class TestLineStyle:
         }
 
         with pytest.raises(ValueError):
-            LineStyle(line_width="wrong")
+            Style(line_width="wrong")
         with pytest.raises(ValueError):
-            LineStyle(line_style="wrong")
+            Style(line_style="wrong")
         with pytest.raises(ValueError):
-            LineStyle(text_color="wrong")
+            Style(text_color="wrong")
         with pytest.raises(ValueError):
-            LineStyle(fill_alpha="wrong")
+            Style(fill_alpha="wrong")
 
     def test_line_style_copy(self):
-        """Test copy() behavior on LineStyle."""
-        style1 = LineStyle(text_color=Colors.Red)
+        """Test copy() behavior on Style."""
+        style1 = Style(text_color=Colors.Red)
         style2 = style1.copy()
 
         assert id(style1) != id(style2)
         assert style1 == style2
 
     def test_line_style_merge(self):
-        """Test merge() behavior on LineStyle."""
-        style1 = LineStyle(text_color=Colors.Red, line_width=2)
-        style2 = LineStyle(line_style="dashed")
+        """Test merge() behavior on Style."""
+        style1 = Style(text_color=Colors.Red, line_width=2)
+        style2 = Style(line_style="dashed")
         style3 = style1.merge(style2)
-        assert style3 == LineStyle(text_color=Colors.Red, line_width=2, line_style="dashed")
+        assert style3 == Style(text_color=Colors.Red, line_width=2, line_style="dashed")
 
 
 class TestShapeStyle:
-    """Test cases for ShapeStyle validation, copy, and merge."""
+    """Test cases for Style validation, copy, and merge."""
 
     def test_shape_style_validation(self):
-        """Test validation and default values of ShapeStyle fields."""
-        assert asdict(ShapeStyle()) == {
+        """Test validation and default values of Style fields."""
+        assert asdict(Style()) == {
             "text_halign": None,
             "text_valign": None,
             "fill_alpha": None,
@@ -384,7 +379,7 @@ class TestShapeStyle:
             "line_style": None,
             "fill_color": None,
         }
-        assert asdict(ShapeStyle(text_halign="left")) == {
+        assert asdict(Style(text_halign="left")) == {
             "text_halign": "left",
             "text_valign": None,
             "fill_alpha": None,
@@ -393,7 +388,7 @@ class TestShapeStyle:
             "line_style": None,
             "fill_color": None,
         }
-        assert asdict(ShapeStyle(text_valign="bottom")) == {
+        assert asdict(Style(text_valign="bottom")) == {
             "text_halign": None,
             "text_valign": "bottom",
             "fill_alpha": None,
@@ -403,7 +398,7 @@ class TestShapeStyle:
             "fill_color": None,
         }
 
-        assert asdict(ShapeStyle(fill_alpha=0.5)) == {
+        assert asdict(Style(fill_alpha=0.5)) == {
             "text_halign": None,
             "text_valign": None,
             "fill_alpha": 0.5,
@@ -412,7 +407,7 @@ class TestShapeStyle:
             "line_style": None,
             "fill_color": None,
         }
-        assert asdict(ShapeStyle(line_width=2)) == {
+        assert asdict(Style(line_width=2)) == {
             "text_halign": None,
             "text_valign": None,
             "fill_alpha": None,
@@ -421,7 +416,7 @@ class TestShapeStyle:
             "line_style": None,
             "fill_color": None,
         }
-        assert asdict(ShapeStyle(line_color=Colors.Red)) == {
+        assert asdict(Style(line_color=Colors.Red)) == {
             "text_halign": None,
             "text_valign": None,
             "fill_alpha": None,
@@ -430,7 +425,7 @@ class TestShapeStyle:
             "line_style": None,
             "fill_color": None,
         }
-        assert asdict(ShapeStyle(line_style="dashed")) == {
+        assert asdict(Style(line_style="dashed")) == {
             "text_halign": None,
             "text_valign": None,
             "fill_alpha": None,
@@ -439,7 +434,7 @@ class TestShapeStyle:
             "line_style": "dashed",
             "fill_color": None,
         }
-        assert asdict(ShapeStyle(fill_color=Colors.Red)) == {
+        assert asdict(Style(fill_color=Colors.Red)) == {
             "text_halign": None,
             "text_valign": None,
             "fill_alpha": None,
@@ -450,42 +445,42 @@ class TestShapeStyle:
         }
 
         with pytest.raises(ValueError):
-            ShapeStyle(text_halign="wrong")
+            Style(text_halign="wrong")
         with pytest.raises(ValueError):
-            ShapeStyle(text_valign="wrong")
+            Style(text_valign="wrong")
         with pytest.raises(ValueError):
-            ShapeStyle(fill_alpha="wrong")
+            Style(fill_alpha="wrong")
         with pytest.raises(ValueError):
-            ShapeStyle(line_width="wrong")
+            Style(line_width="wrong")
         with pytest.raises(ValueError):
-            ShapeStyle(line_color="wrong")
+            Style(line_color="wrong")
         with pytest.raises(ValueError):
-            ShapeStyle(line_style="wrong")
+            Style(line_style="wrong")
         with pytest.raises(ValueError):
-            ShapeStyle(fill_color="wrong")
+            Style(fill_color="wrong")
 
     def test_shape_style_copy(self):
-        """Test copy() behavior on ShapeStyle."""
-        style1 = ShapeStyle(line_color=Colors.Red)
+        """Test copy() behavior on Style."""
+        style1 = Style(line_color=Colors.Red)
         style2 = style1.copy()
 
         assert id(style1) != id(style2)
         assert style1 == style2
 
     def test_shape_style_merge(self):
-        """Test merge() behavior on ShapeStyle."""
-        style1 = ShapeStyle(line_color=Colors.Red, line_width=2)
-        style2 = ShapeStyle(fill_color=Colors.Blue)
+        """Test merge() behavior on Style."""
+        style1 = Style(line_color=Colors.Red, line_width=2)
+        style2 = Style(fill_color=Colors.Blue)
         style3 = style1.merge(style2)
-        assert style3 == ShapeStyle(line_color=Colors.Red, line_width=2, fill_color=Colors.Blue)
+        assert style3 == Style(line_color=Colors.Red, line_width=2, fill_color=Colors.Blue)
 
 
 class TestShapeTextStyle:
-    """Test cases for ShapeTextStyle validation, copy, and merge."""
+    """Test cases for Style validation, copy, and merge."""
 
     def test_shape_text_style_validation(self):
-        """Test validation and default values of ShapeTextStyle fields."""
-        assert asdict(ShapeTextStyle()) == {
+        """Test validation and default values of Style fields."""
+        assert asdict(Style()) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": None,
@@ -497,7 +492,7 @@ class TestShapeTextStyle:
             "text_xy_shift": None,
             "text_xy_abs_shift": None,
         }
-        assert asdict(ShapeTextStyle(fill_alpha=0.5)) == {
+        assert asdict(Style(fill_alpha=0.5)) == {
             "fill_alpha": 0.5,
             "text_color": None,
             "text_size": None,
@@ -509,7 +504,7 @@ class TestShapeTextStyle:
             "text_xy_shift": None,
             "text_xy_abs_shift": None,
         }
-        assert asdict(ShapeTextStyle(text_color=Colors.Red)) == {
+        assert asdict(Style(text_color=Colors.Red)) == {
             "fill_alpha": None,
             "text_color": Colors.Red,
             "text_size": None,
@@ -521,7 +516,7 @@ class TestShapeTextStyle:
             "text_xy_shift": None,
             "text_xy_abs_shift": None,
         }
-        assert asdict(ShapeTextStyle(text_size=20)) == {
+        assert asdict(Style(text_size=20)) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": 20,
@@ -533,7 +528,7 @@ class TestShapeTextStyle:
             "text_xy_shift": None,
             "text_xy_abs_shift": None,
         }
-        assert asdict(ShapeTextStyle(text_halign="left")) == {
+        assert asdict(Style(text_halign="left")) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": None,
@@ -545,7 +540,7 @@ class TestShapeTextStyle:
             "text_xy_shift": None,
             "text_xy_abs_shift": None,
         }
-        assert asdict(ShapeTextStyle(text_valign="bottom")) == {
+        assert asdict(Style(text_valign="bottom")) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": None,
@@ -557,7 +552,7 @@ class TestShapeTextStyle:
             "text_xy_shift": None,
             "text_xy_abs_shift": None,
         }
-        assert asdict(ShapeTextStyle(text_font=Font.SANSSERIF_BOLD)) == {
+        assert asdict(Style(text_font=Font.SANSSERIF_BOLD)) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": None,
@@ -569,7 +564,7 @@ class TestShapeTextStyle:
             "text_xy_shift": None,
             "text_xy_abs_shift": None,
         }
-        assert asdict(ShapeTextStyle(text_angle=90)) == {
+        assert asdict(Style(text_angle=90)) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": None,
@@ -581,7 +576,7 @@ class TestShapeTextStyle:
             "text_xy_shift": None,
             "text_xy_abs_shift": None,
         }
-        assert asdict(ShapeTextStyle(text_flip=True)) == {
+        assert asdict(Style(text_flip=True)) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": None,
@@ -593,7 +588,7 @@ class TestShapeTextStyle:
             "text_xy_shift": None,
             "text_xy_abs_shift": None,
         }
-        assert asdict(ShapeTextStyle(text_xy_shift=(10, 10))) == {
+        assert asdict(Style(text_xy_shift=(10, 10))) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": None,
@@ -605,7 +600,7 @@ class TestShapeTextStyle:
             "text_xy_shift": (10, 10),
             "text_xy_abs_shift": None,
         }
-        assert asdict(ShapeTextStyle(text_xy_abs_shift=(10, 10))) == {
+        assert asdict(Style(text_xy_abs_shift=(10, 10))) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": None,
@@ -619,46 +614,46 @@ class TestShapeTextStyle:
         }
 
         with pytest.raises(ValueError):
-            ShapeTextStyle(fill_alpha="wrong")
+            Style(fill_alpha="wrong")
         with pytest.raises(ValueError):
-            ShapeTextStyle(text_color="wrong")
+            Style(text_color="wrong")
         with pytest.raises(ValueError):
-            ShapeTextStyle(text_size="wrong")
+            Style(text_size="wrong")
         with pytest.raises(ValueError):
-            ShapeTextStyle(text_halign="wrong")
+            Style(text_halign="wrong")
         with pytest.raises(ValueError):
-            ShapeTextStyle(text_valign="wrong")
+            Style(text_valign="wrong")
         with pytest.raises(ValueError):
-            ShapeTextStyle(text_font="wrong")
+            Style(text_font="wrong")
         with pytest.raises(ValueError):
-            ShapeTextStyle(text_angle="wrong")
+            Style(text_angle="wrong")
         with pytest.raises(ValueError):
-            ShapeTextStyle(text_flip="wrong")
+            Style(text_flip="wrong")
         with pytest.raises(ValueError):
-            ShapeTextStyle(text_xy_shift="wrong")
+            Style(text_xy_shift="wrong")
 
     def test_shape_text_style_copy(self):
-        """Test copy() behavior on ShapeTextStyle."""
-        style1 = ShapeTextStyle(text_color=Colors.Red)
+        """Test copy() behavior on Style."""
+        style1 = Style(text_color=Colors.Red)
         style2 = style1.copy()
 
         assert id(style1) != id(style2)
         assert style1 == style2
 
     def test_shape_text_style_merge(self):
-        """Test merge() behavior on ShapeTextStyle."""
-        style1 = ShapeTextStyle(text_color=Colors.Red, text_size=20)
-        style2 = ShapeTextStyle(text_font=Font.SANSSERIF_BOLD)
+        """Test merge() behavior on Style."""
+        style1 = Style(text_color=Colors.Red, text_size=20)
+        style2 = Style(text_font=Font.SANSSERIF_BOLD)
         style3 = style1.merge(style2)
-        assert style3 == ShapeTextStyle(text_color=Colors.Red, text_size=20, text_font=Font.SANSSERIF_BOLD)
+        assert style3 == Style(text_color=Colors.Red, text_size=20, text_font=Font.SANSSERIF_BOLD)
 
 
 class TestTextStyle:
-    """Test cases for TextStyle validation, copy, and merge."""
+    """Test cases for Style validation, copy, and merge."""
 
     def test_text_style_validation(self):
-        """Test validation and default values of TextStyle fields."""
-        assert asdict(TextStyle()) == {
+        """Test validation and default values of Style fields."""
+        assert asdict(Style()) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": None,
@@ -671,7 +666,7 @@ class TestTextStyle:
             "text_bg_line_width": None,
             "text_bg_fill_color": None,
         }
-        assert asdict(TextStyle(fill_alpha=0.5)) == {
+        assert asdict(Style(fill_alpha=0.5)) == {
             "fill_alpha": 0.5,
             "text_color": None,
             "text_size": None,
@@ -684,7 +679,7 @@ class TestTextStyle:
             "text_bg_line_width": None,
             "text_bg_fill_color": None,
         }
-        assert asdict(TextStyle(text_color=Colors.Red)) == {
+        assert asdict(Style(text_color=Colors.Red)) == {
             "fill_alpha": None,
             "text_color": Colors.Red,
             "text_size": None,
@@ -697,7 +692,7 @@ class TestTextStyle:
             "text_bg_line_width": None,
             "text_bg_fill_color": None,
         }
-        assert asdict(TextStyle(text_size=20)) == {
+        assert asdict(Style(text_size=20)) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": 20,
@@ -710,7 +705,7 @@ class TestTextStyle:
             "text_bg_line_width": None,
             "text_bg_fill_color": None,
         }
-        assert asdict(TextStyle(text_halign="left")) == {
+        assert asdict(Style(text_halign="left")) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": None,
@@ -723,7 +718,7 @@ class TestTextStyle:
             "text_bg_line_width": None,
             "text_bg_fill_color": None,
         }
-        assert asdict(TextStyle(text_valign="bottom")) == {
+        assert asdict(Style(text_valign="bottom")) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": None,
@@ -736,7 +731,7 @@ class TestTextStyle:
             "text_bg_line_width": None,
             "text_bg_fill_color": None,
         }
-        assert asdict(TextStyle(text_font=Font.SANSSERIF_BOLD)) == {
+        assert asdict(Style(text_font=Font.SANSSERIF_BOLD)) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": None,
@@ -750,7 +745,7 @@ class TestTextStyle:
             "text_bg_fill_color": None,
         }
 
-        assert asdict(TextStyle(text_bg_fill_alpha=0.5)) == {
+        assert asdict(Style(text_bg_fill_alpha=0.5)) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": None,
@@ -763,7 +758,7 @@ class TestTextStyle:
             "text_bg_line_width": None,
             "text_bg_fill_color": None,
         }
-        assert asdict(TextStyle(text_bg_line_color=Colors.Red)) == {
+        assert asdict(Style(text_bg_line_color=Colors.Red)) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": None,
@@ -776,7 +771,7 @@ class TestTextStyle:
             "text_bg_line_width": None,
             "text_bg_fill_color": None,
         }
-        assert asdict(TextStyle(text_bg_line_style="dashed")) == {
+        assert asdict(Style(text_bg_line_style="dashed")) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": None,
@@ -789,7 +784,7 @@ class TestTextStyle:
             "text_bg_line_width": None,
             "text_bg_fill_color": None,
         }
-        assert asdict(TextStyle(text_bg_line_width=2)) == {
+        assert asdict(Style(text_bg_line_width=2)) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": None,
@@ -802,7 +797,7 @@ class TestTextStyle:
             "text_bg_line_width": 2,
             "text_bg_fill_color": None,
         }
-        assert asdict(TextStyle(text_bg_fill_color=Colors.Red)) == {
+        assert asdict(Style(text_bg_fill_color=Colors.Red)) == {
             "fill_alpha": None,
             "text_color": None,
             "text_size": None,
@@ -817,39 +812,39 @@ class TestTextStyle:
         }
 
         with pytest.raises(ValueError):
-            TextStyle(fill_alpha="wrong")
+            Style(fill_alpha="wrong")
         with pytest.raises(ValueError):
-            TextStyle(text_color="wrong")
+            Style(text_color="wrong")
         with pytest.raises(ValueError):
-            TextStyle(text_size="wrong")
+            Style(text_size="wrong")
         with pytest.raises(ValueError):
-            TextStyle(text_halign="wrong")
+            Style(text_halign="wrong")
         with pytest.raises(ValueError):
-            TextStyle(text_valign="wrong")
+            Style(text_valign="wrong")
         with pytest.raises(ValueError):
-            TextStyle(text_font="wrong")
+            Style(text_font="wrong")
         with pytest.raises(ValueError):
-            TextStyle(text_bg_fill_alpha="wrong")
+            Style(text_bg_fill_alpha="wrong")
         with pytest.raises(ValueError):
-            TextStyle(text_bg_line_color="wrong")
+            Style(text_bg_line_color="wrong")
         with pytest.raises(ValueError):
-            TextStyle(text_bg_line_style="wrong")
+            Style(text_bg_line_style="wrong")
         with pytest.raises(ValueError):
-            TextStyle(text_bg_line_width="wrong")
+            Style(text_bg_line_width="wrong")
         with pytest.raises(ValueError):
-            TextStyle(text_bg_fill_color="wrong")
+            Style(text_bg_fill_color="wrong")
 
     def test_text_style_copy(self):
-        """Test copy() behavior on TextStyle."""
-        style1 = TextStyle(text_color=Colors.Red)
+        """Test copy() behavior on Style."""
+        style1 = Style(text_color=Colors.Red)
         style2 = style1.copy()
 
         assert id(style1) != id(style2)
         assert style1 == style2
 
     def test_text_style_merge(self):
-        """Test merge() behavior on TextStyle."""
-        style1 = TextStyle(text_color=Colors.Red, text_size=20)
-        style2 = TextStyle(text_font=Font.SANSSERIF_BOLD)
+        """Test merge() behavior on Style."""
+        style1 = Style(text_color=Colors.Red, text_size=20)
+        style2 = Style(text_font=Font.SANSSERIF_BOLD)
         style3 = style1.merge(style2)
-        assert style3 == TextStyle(text_color=Colors.Red, text_size=20, text_font=Font.SANSSERIF_BOLD)
+        assert style3 == Style(text_color=Colors.Red, text_size=20, text_font=Font.SANSSERIF_BOLD)

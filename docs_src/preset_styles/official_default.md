@@ -18,7 +18,7 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors, ColorsThemeDefault
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.types import ShapeStyle, TextStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 start_x = 15
@@ -42,10 +42,10 @@ for i, (color_name, color) in enumerate(colors):
         (x, rect_y),
         width=12,
         height=12,
-        style=ShapeStyle(fill_color=color, line_width=lwidth, line_color=Colors.Black),
+        style=Style(fill_color=color, line_width=lwidth, line_color=Colors.Black),
     )
     text((x, text1_y), color_name)
-    text((x, text2_y), str(color[:3]), style=TextStyle(text_size=14))
+    text((x, text2_y), str(color[:3]), style=Style(text_size=14))
 
 save()
 ```
@@ -96,7 +96,7 @@ from drawlib.lines import line
 from drawlib.preset_styles import get_style
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 xs = [28, 48, 68, 88]
 ys = [80, 50, 20]
@@ -155,19 +155,19 @@ save()
 
     Style type and width
 
-As you can see, each style has these effects:
+As you can see, each drawing element is affected by theme style names as follows:
 
-- `ShapeStyle`: Both style and width work.
-- `IconStyle`: Line width can be controlled with width; flat style makes it fill.
-- `LineStyle`: Width has an effect; flat style doesn't support line.
-- `TextStyle`: Only the default type is supported; width affects font (light/regular/bold).
+- Shapes: Both style type (flat, solid, dashed) and width/weight (light, bold) work.
+- Icons: Line width can be controlled with weight; flat style makes it fill.
+- Lines: Width has an effect; solid and dashed types work; flat style doesn't support lines.
+- Text: Only the default type is supported; weight affects font weight (light/regular/bold).
 
-Although not shown in the example, other styles have these effects:
+Although not shown in the example, other elements have these effects:
 
-- `ImageStyle`: Similar to ShapeStyle, but the default has no line and fill.
-- `ShapeTextStyle`: Similar to TextStyle.
+- Images: Similar to shapes, but the default has no line and fill.
+- Shape Text: Similar to text.
 
-You can check which style supports which style class in the style capability table below. 
+You can check which style supports which drawing element in the capability table below. 
 
 Let's take a look at the blue example:
 
@@ -175,26 +175,26 @@ Let's take a look at the blue example:
 
 ```text
 +----------------+------+------------+-----------+-----------+------------+------------------+-----------------+-------------+-------------------+------------------+
- | class \ name   | blue | blue_light | blue_bold | blue_flat | blue_solid | blue_solid_light | blue_solid_bold | blue_dashed | blue_dashed_light | blue_dashed_bold |
+ | Item \ Name    | blue | blue_light | blue_bold | blue_flat | blue_solid | blue_solid_light | blue_solid_bold | blue_dashed | blue_dashed_light | blue_dashed_bold |
  +----------------+------+------------+-----------+-----------+------------+------------------+-----------------+-------------+-------------------+------------------+
- | IconStyle      | x    | x          | x         | x         |            |                  |                 |             |                   |                  |
- | ImageStyle     | x    | x          | x         | x         | x          | x                | x               | x           | x                 | x                |
- | LineStyle      | x    | x          | x         |           | x          | x                | x               | x           | x                 | x                |
- | ShapeStyle     | x    | x          | x         | x         | x          | x                | x               | x           | x                 | x                |
- | ShapeTextStyle | x    | x          | x         |           |            |                  |                 |             |                   |                  |
- | TextStyle      | x    | x          | x         |           |            |                  |                 |             |                   |                  |
+ | Icon           | x    | x          | x         | x         |            |                  |                 |             |                   |                  |
+ | Image          | x    | x          | x         | x         | x          | x                | x               | x           | x                 | x                |
+ | Line           | x    | x          | x         |           | x          | x                | x               | x           | x                 | x                |
+ | Shape          | x    | x          | x         | x         | x          | x                | x               | x           | x                 | x                |
+ | ShapeText      | x    | x          | x         |           |            |                  |                 |             |                   |                  |
+ | Text           | x    | x          | x         |           |            |                  |                 |             |                   |                  |
  +----------------+------+------------+-----------+-----------+------------+------------------+-----------------+-------------+-------------------+------------------+
 ```
 
 
-As you can see, `flat` doesn't have a weight(light, bold). 
-It can be used for only `IconStyle`, `ImageStyle`, and `ShapeStyle`. 
+As you can see, `flat` doesn't have a weight (light, bold). 
+It can be used for items that support filling: icons, images, and shapes. 
 
 Here is a tip for remembering the rule:
 
-- default type supports all classes.
-- flat supports styles that can be filled.
-- solid and dashed support styles that have a line.
+- default type supports all drawing items.
+- flat supports items that can be filled.
+- solid and dashed support items that have a line.
 
 Please remember, this naming rule is common in other official themes as well.
 
@@ -207,74 +207,74 @@ Here is a list of style names:
 
 
 ```drawlib
-from drawlib.types import IconStyle, ImageStyle, LineStyle, ShapeStyle, ShapeTextStyle, TextStyle
+from drawlib.types import Style
 
 
 
 # +----------------+---+-------+------+------+-------+-------------+------------+--------+--------------+-------------+
-# | class \ name   |   | light | bold | flat | solid | solid_light | solid_bold | dashed | dashed_light | dashed_bold |
+# | Item \ Name    |   | light | bold | flat | solid | solid_light | solid_bold | dashed | dashed_light | dashed_bold |
 # +----------------+---+-------+------+------+-------+-------------+------------+--------+--------------+-------------+
-# | IconStyle      | x | x     | x    | x    |       |             |            |        |              |             |
-# | ImageStyle     | x | x     | x    | x    | x     | x           | x          | x      | x            | x           |
-# | LineStyle      | x | x     | x    |      | x     | x           | x          | x      | x            | x           |
-# | ShapeStyle     | x | x     | x    | x    | x     | x           | x          | x      | x            | x           |
-# | ShapeTextStyle | x | x     | x    |      |       |             |            |        |              |             |
-# | TextStyle      | x | x     | x    |      |       |             |            |        |              |             |
+# | Icon           | x | x     | x    | x    |       |             |            |        |              |             |
+# | Image          | x | x     | x    | x    | x     | x           | x          | x      | x            | x           |
+# | Line           | x | x     | x    |      | x     | x           | x          | x      | x            | x           |
+# | Shape          | x | x     | x    | x    | x     | x           | x          | x      | x            | x           |
+# | ShapeText      | x | x     | x    |      |       |             |            |        |              |             |
+# | Text           | x | x     | x    |      |       |             |            |        |              |             |
 # +----------------+---+-------+------+------+-------+-------------+------------+--------+--------------+-------------+
 
 # +----------------+-----+-----------+----------+----------+-----------+-----------------+----------------+------------+------------------+-----------------+
-# | class \ name   | red | red_light | red_bold | red_flat | red_solid | red_solid_light | red_solid_bold | red_dashed | red_dashed_light | red_dashed_bold |
+# | Item \ Name    | red | red_light | red_bold | red_flat | red_solid | red_solid_light | red_solid_bold | red_dashed | red_dashed_light | red_dashed_bold |
 # +----------------+-----+-----------+----------+----------+-----------+-----------------+----------------+------------+------------------+-----------------+
-# | IconStyle      | x   | x         | x        | x        |           |                 |                |            |                  |                 |
-# | ImageStyle     | x   | x         | x        | x        | x         | x               | x              | x          | x                | x               |
-# | LineStyle      | x   | x         | x        |          | x         | x               | x              | x          | x                | x               |
-# | ShapeStyle     | x   | x         | x        | x        | x         | x               | x              | x          | x                | x               |
-# | ShapeTextStyle | x   | x         | x        |          |           |                 |                |            |                  |                 |
-# | TextStyle      | x   | x         | x        |          |           |                 |                |            |                  |                 |
+# | Icon           | x   | x         | x        | x        |           |                 |                |            |                  |                 |
+# | Image          | x   | x         | x        | x        | x         | x               | x              | x          | x                | x               |
+# | Line           | x   | x         | x        |          | x         | x               | x              | x          | x                | x               |
+# | Shape          | x   | x         | x        | x        | x         | x               | x              | x          | x                | x               |
+# | ShapeText      | x   | x         | x        |          |           |                 |                |            |                  |                 |
+# | Text           | x   | x         | x        |          |           |                 |                |            |                  |                 |
 # +----------------+-----+-----------+----------+----------+-----------+-----------------+----------------+------------+------------------+-----------------+
 
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
-# | class \ name   | green | green_light | green_bold | green_flat | green_solid | green_solid_light | green_solid_bold | green_dashed | green_dashed_light | green_dashed_bold |
+# | Item \ Name    | green | green_light | green_bold | green_flat | green_solid | green_solid_light | green_solid_bold | green_dashed | green_dashed_light | green_dashed_bold |
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
-# | IconStyle      | x     | x           | x          | x          |             |                   |                  |              |                    |                   |
-# | ImageStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
-# | LineStyle      | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |
-# | ShapeStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
-# | ShapeTextStyle | x     | x           | x          |            |             |                   |                  |              |                    |                   |
-# | TextStyle      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
+# | Icon           | x     | x           | x          | x          |             |                   |                  |              |                    |                   |
+# | Image          | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
+# | Line           | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |
+# | Shape          | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
+# | ShapeText      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
+# | Text           | x     | x           | x          |            |             |                   |                  |              |                    |                   |
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
 
 # +----------------+------+------------+-----------+-----------+------------+------------------+-----------------+-------------+-------------------+------------------+
-# | class \ name   | blue | blue_light | blue_bold | blue_flat | blue_solid | blue_solid_light | blue_solid_bold | blue_dashed | blue_dashed_light | blue_dashed_bold |
+# | Item \ Name    | blue | blue_light | blue_bold | blue_flat | blue_solid | blue_solid_light | blue_solid_bold | blue_dashed | blue_dashed_light | blue_dashed_bold |
 # +----------------+------+------------+-----------+-----------+------------+------------------+-----------------+-------------+-------------------+------------------+
-# | IconStyle      | x    | x          | x         | x         |            |                  |                 |             |                   |                  |
-# | ImageStyle     | x    | x          | x         | x         | x          | x                | x               | x           | x                 | x                |
-# | LineStyle      | x    | x          | x         |           | x          | x                | x               | x           | x                 | x                |
-# | ShapeStyle     | x    | x          | x         | x         | x          | x                | x               | x           | x                 | x                |
-# | ShapeTextStyle | x    | x          | x         |           |            |                  |                 |             |                   |                  |
-# | TextStyle      | x    | x          | x         |           |            |                  |                 |             |                   |                  |
+# | Icon           | x    | x          | x         | x         |            |                  |                 |             |                   |                  |
+# | Image          | x    | x          | x         | x         | x          | x                | x               | x           | x                 | x                |
+# | Line           | x    | x          | x         |           | x          | x                | x               | x           | x                 | x                |
+# | Shape          | x    | x          | x         | x         | x          | x                | x               | x           | x                 | x                |
+# | ShapeText      | x    | x          | x         |           |            |                  |                 |             |                   |                  |
+# | Text           | x    | x          | x         |           |            |                  |                 |             |                   |                  |
 # +----------------+------+------------+-----------+-----------+------------+------------------+-----------------+-------------+-------------------+------------------+
 
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
-# | class \ name   | black | black_light | black_bold | black_flat | black_solid | black_solid_light | black_solid_bold | black_dashed | black_dashed_light | black_dashed_bold |
+# | Item \ Name    | black | black_light | black_bold | black_flat | black_solid | black_solid_light | black_solid_bold | black_dashed | black_dashed_light | black_dashed_bold |
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
-# | IconStyle      | x     | x           | x          | x          |             |                   |                  |              |                    |                   |
-# | ImageStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
-# | LineStyle      | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |
-# | ShapeStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
-# | ShapeTextStyle | x     | x           | x          |            |             |                   |                  |              |                    |                   |
-# | TextStyle      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
+# | Icon           | x     | x           | x          | x          |             |                   |                  |              |                    |                   |
+# | Image          | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
+# | Line           | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |
+# | Shape          | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
+# | ShapeText      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
+# | Text           | x     | x           | x          |            |             |                   |                  |              |                    |                   |
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
 
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
-# | class \ name   | white | white_light | white_bold | white_flat | white_solid | white_solid_light | white_solid_bold | white_dashed | white_dashed_light | white_dashed_bold |
+# | Item \ Name    | white | white_light | white_bold | white_flat | white_solid | white_solid_light | white_solid_bold | white_dashed | white_dashed_light | white_dashed_bold |
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
-# | IconStyle      | x     | x           | x          | x          |             |                   |                  |              |                    |                   |
-# | ImageStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
-# | LineStyle      | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |
-# | ShapeStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
-# | ShapeTextStyle | x     | x           | x          |            |             |                   |                  |              |                    |                   |
-# | TextStyle      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
+# | Icon           | x     | x           | x          | x          |             |                   |                  |              |                    |                   |
+# | Image          | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
+# | Line           | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |
+# | Shape          | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
+# | ShapeText      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
+# | Text           | x     | x           | x          |            |             |                   |                  |              |                    |                   |
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
 ```
 

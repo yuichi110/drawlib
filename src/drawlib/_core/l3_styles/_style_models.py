@@ -135,12 +135,3 @@ class Style(_StyleModel):
     def get_icon_style(self) -> TypeIconStyle | None:
         """Get icon style."""
         return self.icon_style
-
-
-# Type aliases for backward compatibility
-IconStyle = Style
-ImageStyle = Style
-LineStyle = Style
-ShapeStyle = Style
-ShapeTextStyle = Style
-TextStyle = Style

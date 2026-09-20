@@ -223,7 +223,7 @@ save()
     arrow()
 
 In the `arrow()` function, the angle of the arrow is determined automatically by its start and end points. 
-The function does not use the alignment attributes (`halign` and `valign`) from `ShapeStyle`.
+The function does not use the alignment attributes (`text_halign` and `text_valign`) from `Style`.
 
 
 ## arrow_polyline

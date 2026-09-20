@@ -25,7 +25,7 @@ from drawlib.fonts import (
     FontThai,
 )
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 FONT_AVENGER = "../assets/avenger/regular.ttf"
 FONT_MPLUS1P = "../assets/mplus1p/regular.ttf"
@@ -37,11 +37,11 @@ def test():
     text(
         (20, 30),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontFile(FONT_MPLUS1P)),
+        style=Style(text_font=FontFile(FONT_MPLUS1P)),
     )
     text(
         (20, 70),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontFile(FONT_AVENGER)),
+        style=Style(text_font=FontFile(FONT_AVENGER)),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

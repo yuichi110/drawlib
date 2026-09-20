@@ -24,7 +24,7 @@ The image() function accepts the following arguments:
 - width: Width of the image.
 - image: Source of the image, which can be a file path string, Dimage object, or PIL.Image.Image object.
 - angle: Rotation angle of the image (optional).
-- style: Styling information, either as a string name or an ImageStyle object.
+- style: Styling information, either as a string name or a Style object.
 
 Coordinates and alignment work similarly to other drawing elements. 
 Let's start with an example:
@@ -65,17 +65,17 @@ save()
 By default, the xy coordinates position the center of the image.
 
 
-# ImageStyle
+# Style for Images
 
 
-Images can be styled using the `ImageStyle` data class, which includes:
+Images can be styled using the `Style` class, which includes:
 
-* halign: Horizontal Align
-* valign: Verteical Align
-* lwidth: Line width
-* lcolor: Line color
-* lstyle: Line style
-* fcolor: Fill color for transparent part
+* `text_halign`: Horizontal Align
+* `text_valign`: Vertical Align
+* `line_width`: Border line width
+* `line_color`: Border line color
+* `line_style`: Border line style
+* `fill_color`: Fill color for transparent part
 
 Let's check image styling with example.
 Here is a code which specify stylings.
@@ -87,7 +87,7 @@ from drawlib.colors import Colors
 from drawlib.images import image
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import ImageStyle, ShapeStyle
+from drawlib.types import Style
 
 config(width=100, height=50, grid_only=True)
 
@@ -95,16 +95,16 @@ image(
     xy=(10, 25),
     width=10,
     image="python.png",
-    style=ImageStyle(text_halign="left", text_valign="bottom"),
+    style=Style(text_halign="left", text_valign="bottom"),
 )
-circle((10, 25), radius=0.5, style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red))
+circle((10, 25), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
 text((15, 20), "align: left,bottom")
 
 image(
     xy=(40, 25),
     width=20,
     image="python.png",
-    style=ImageStyle(line_width=2, line_style="dashed", line_color=Colors.Red, fill_color=Colors.Gray),
+    style=Style(line_width=2, line_style="dashed", line_color=Colors.Red, fill_color=Colors.Gray),
 )
 text((40, 10), "border: red,dot,width2")
 
@@ -132,7 +132,7 @@ from drawlib.colors import Colors
 from drawlib.images import image
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import ImageStyle, ShapeStyle
+from drawlib.types import Style
 
 config(width=100, height=50, grid_only=True)
 
@@ -140,16 +140,16 @@ image(
     xy=(10, 25),
     width=10,
     image="python.png",
-    style=ImageStyle(text_halign="left", text_valign="bottom"),
+    style=Style(text_halign="left", text_valign="bottom"),
 )
-circle((10, 25), radius=0.5, style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red))
+circle((10, 25), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
 text((15, 20), "align: left,bottom")
 
 image(
     xy=(40, 25),
     width=20,
     image="python.png",
-    style=ImageStyle(line_width=2, line_style="dashed", line_color=Colors.Red, fill_color=Colors.Gray),
+    style=Style(line_width=2, line_style="dashed", line_color=Colors.Red, fill_color=Colors.Gray),
 )
 text((40, 10), "border: red,dot,width2")
 
@@ -162,7 +162,7 @@ save()
 
     image with styles
 
-Styling an image with ImageStyle allows adjustments such as alignment changes, border customization, and rotation.
+Styling an image with Style allows adjustments such as alignment changes, border customization, and rotation.
 
 
 # Passing image objects

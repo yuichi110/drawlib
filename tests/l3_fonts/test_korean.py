@@ -25,7 +25,7 @@ from drawlib.fonts import (
     FontThai,
 )
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l3_fonts/korean/"
 
@@ -34,17 +34,17 @@ def test_sans():
     text(
         (50, 10),
         "Hello World. 오늘은 날씨가 좋네요。",
-        style=TextStyle(text_font=FontKorean.SANSSERIF_LIGHT),
+        style=Style(text_font=FontKorean.SANSSERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. 오늘은 날씨가 좋네요。",
-        style=TextStyle(text_font=FontKorean.SANSSERIF_REGULAR),
+        style=Style(text_font=FontKorean.SANSSERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. 오늘은 날씨가 좋네요。",
-        style=TextStyle(text_font=FontKorean.SANSSERIF_BOLD),
+        style=Style(text_font=FontKorean.SANSSERIF_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -53,16 +53,16 @@ def test_serif():
     text(
         (50, 10),
         "Hello World. 오늘은 날씨가 좋네요。",
-        style=TextStyle(text_font=FontKorean.SERIF_LIGHT),
+        style=Style(text_font=FontKorean.SERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. 오늘은 날씨가 좋네요。",
-        style=TextStyle(text_font=FontKorean.SERIF_REGULAR),
+        style=Style(text_font=FontKorean.SERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. 오늘은 날씨가 좋네요。",
-        style=TextStyle(text_font=FontKorean.SERIF_BOLD),
+        style=Style(text_font=FontKorean.SERIF_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

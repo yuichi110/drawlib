@@ -86,7 +86,7 @@ Args:
 
 - vertical_margin (float): The vertical space between bullet points.
 - indent_width (float): The width of the indentation for each level.
-- default_style (Union[str, TextStyle, None]): The default text style for the bullet points.
+- default_style (Union[str, Style, None]): The default text style for the bullet points.
 
 
 ## ``set_indent()``
@@ -108,7 +108,7 @@ Args:
 
 - indent_level (int): The indentation level to apply the style to.
 - function (Callable): The function to draw the bullet shape.
-- style (Union[str, ShapeStyle]): The style to apply to the bullet shape.
+- style (Union[str, Style]): The style to apply to the bullet shape.
 - args (dict): Additional arguments to pass to the drawing function.
 
 
@@ -120,7 +120,7 @@ Adds a bullet point with the specified text and style.
 Args:
 
 - text (str): The text for the bullet point.
-- style (Union[str, TextStyle, None]): The text style for the bullet point.
+- style (Union[str, Style, None]): The text style for the bullet point.
 
 
 ## ``draw()``

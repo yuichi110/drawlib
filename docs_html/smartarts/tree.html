@@ -343,14 +343,14 @@ Styles are mandatory for root node. Optional for child nodes.</p>
 <p>Args:</p>
 <ul>
 <li>text (str): The text content for the tree node.</li>
-<li>textstyle (Union[str, TextStyle, None], optional): The text style for the node. It can be a string that maps to a <code>TextStyle</code> or a <code>TextStyle</code> instance. Defaults to None.</li>
-<li>linestyle (Union[str, LineStyle, None], optional): The line style for the node. It can be a string that maps to a <code>LineStyle</code> or a <code>LineStyle</code> instance. Defaults to None.</li>
+<li>textstyle (Union[str, Style, None], optional): The text style for the node. It can be a string that maps to a <code>Style</code> or a <code>Style</code> instance. Defaults to None.</li>
+<li>linestyle (Union[str, Style, None], optional): The line style for the node. It can be a string that maps to a <code>Style</code> or a <code>Style</code> instance. Defaults to None.</li>
 <li>line_horizontal_margin (Optional[float], optional): The margin for horizontal lines. Defaults to None.</li>
 <li>line_horizontal_length (Optional[float], optional): The length of horizontal lines. Defaults to None.</li>
 <li>line_vertical_margin (Optional[float], optional): The margin for vertical lines. Defaults to None.</li>
 <li>children (Optional[List[TreeNode]], optional): A list of child nodes connected to this node. Defaults to None.</li>
-<li>default_textstyle (Union[str, TextStyle, None], optional): The default text style for child nodes. Defaults to None.</li>
-<li>default_linestyle (Union[str, LineStyle, None], optional): The default line style for child nodes. Defaults to None.</li>
+<li>default_textstyle (Union[str, Style, None], optional): The default text style for child nodes. Defaults to None.</li>
+<li>default_linestyle (Union[str, Style, None], optional): The default line style for child nodes. Defaults to None.</li>
 <li>default_line_horizontal_margin (Optional[float], optional): The default horizontal margin for lines of child nodes. Defaults to None.</li>
 <li>default_line_horizontal_length (Optional[float], optional): The default horizontal length for lines of child nodes. Defaults to None.</li>
 <li>default_line_vertical_margin (Optional[float], optional): The default vertical margin for lines of child nodes. Defaults to None.</li>
@@ -365,7 +365,7 @@ This class returns current tree node instance.</p>
 <li>location (Literal[&quot;before&quot;, &quot;after&quot;]): The location of the drawing item relative to the text.</li>
 <li>padding_width (float): The padding width for the drawing item.</li>
 <li>function (Callable): The function to render the drawing item.</li>
-<li>style (Union[IconStyle, ImageStyle, ShapeStyle, TextStyle]): The style for the drawing item.</li>
+<li>style (Union[str, Style]): The style for the drawing item.</li>
 <li>args (dict): The arguments for the function.</li>
 </ul>
 <h2><code>set_drawing_item()</code></h2>

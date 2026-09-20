@@ -237,7 +237,7 @@
 <p>Drawing text requires understanding the following concepts:</p>
 <ul>
 <li>text(): Function for drawing text</li>
-<li>TextStyle: Style class for text</li>
+<li>Style: Unified style class (text styling attributes)</li>
 <li>font: How to specify fonts</li>
 <li>Theme's pre-defined styles</li>
 </ul>
@@ -326,24 +326,24 @@ save()
   <img src="text_images/4.png" alt="text_4" style="width: 600px; max-width: 100%;" />
 </div>
 <p>text_vertical()</p>
-<p>Please use <code>halign=&quot;center&quot;</code> in TextStyle.
+<p>Please use <code>text_halign=&quot;center&quot;</code> in Style.
 It is the default value.
 Horizontal align left/right will work, but it does not look nice except with monospaced fonts.</p>
-<h1>TextStyle</h1>
-<p><code>TextStyle</code> is style class for <code>text()</code> and <code>text_vertical()</code>.
+<h1>Style for Text</h1>
+<p>In Drawlib, text is styled using the unified <code>Style</code> class.
 It encompasses many attributes, categorized into &quot;alignment&quot;, &quot;text style&quot;, and &quot;text background style&quot;.</p>
-<p><code>TextStyle</code> has these attributes.</p>
+<p><code>Style</code> has these text-related attributes:</p>
 <ul>
-<li>halign: Horizontal alignment of text. Options are &quot;left&quot;, &quot;center&quot;, &quot;right&quot;.</li>
-<li>valign: Vertical alignment of text. Options are &quot;bottom&quot;, &quot;center&quot;, &quot;top&quot;.</li>
-<li>color: Text color.</li>
-<li>size: Text size.</li>
-<li>font: Text font.</li>
-<li>bgalpha: Background alpha.</li>
-<li>bglwidth: Background line width.</li>
-<li>bglcolor: Background line color.</li>
-<li>bglstyle: Background line style. Options are &quot;solid&quot;, &quot;dashed&quot;, &quot;dotted&quot;, &quot;dashdot&quot;.</li>
-<li>bgfcolor: Background fill color.</li>
+<li><code>text_halign</code>: Horizontal alignment of text. Options are &quot;left&quot;, &quot;center&quot;, &quot;right&quot;.</li>
+<li><code>text_valign</code>: Vertical alignment of text. Options are &quot;bottom&quot;, &quot;center&quot;, &quot;top&quot;.</li>
+<li><code>text_color</code>: Text color.</li>
+<li><code>text_size</code>: Text size.</li>
+<li><code>text_font</code>: Text font.</li>
+<li><code>text_bg_fill_alpha</code>: Background alpha.</li>
+<li><code>text_bg_line_width</code>: Background line width.</li>
+<li><code>text_bg_line_color</code>: Background line color.</li>
+<li><code>text_bg_line_style</code>: Background line style. Options are &quot;solid&quot;, &quot;dashed&quot;, &quot;dotted&quot;, &quot;dashdot&quot;.</li>
+<li><code>text_bg_fill_color</code>: Background fill color.</li>
 </ul>
 <p>The default alignment is &quot;center&quot; horizontally and &quot;center&quot; vertically.
 By default, no background is drawn.</p>
@@ -353,13 +353,13 @@ from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontSerif
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import ShapeStyle, TextStyle
+from drawlib.types import Style
 
 config(width=100, height=50, grid_only=True)
 text(
     xy=(15, 25),
     text=&quot;Hello Drawlib.&quot;,
-    style=TextStyle(
+    style=Style(
         text_color=Colors140.Turquoise,
         text_size=24,
         text_halign=&quot;left&quot;,
@@ -367,14 +367,14 @@ text(
         text_font=FontSerif.MERRIWEATHER_REGULAR,
     ),
 )
-circle(xy=(15, 25), radius=0.5, style=ShapeStyle(fill_color=Colors.Red, line_width=0))
+circle(xy=(15, 25), radius=0.5, style=Style(fill_color=Colors.Red, line_width=0))
 text((15, 22), &quot;align: left,bottom&quot;)
 
 text(
     xy=(75, 25),
     angle=45,
     text=&quot;こんにちは Drawlib.&quot;,
-    style=TextStyle(
+    style=Style(
         text_color=Colors.White,
         text_bg_line_width=2,
         text_bg_line_color=Colors.Red,
@@ -394,13 +394,13 @@ from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontSerif
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import ShapeStyle, TextStyle
+from drawlib.types import Style
 
 config(width=100, height=50, grid_only=True)
 text(
     xy=(15, 25),
     text=&quot;Hello Drawlib.&quot;,
-    style=TextStyle(
+    style=Style(
         text_color=Colors140.Turquoise,
         text_size=24,
         text_halign=&quot;left&quot;,
@@ -408,14 +408,14 @@ text(
         text_font=FontSerif.MERRIWEATHER_REGULAR,
     ),
 )
-circle(xy=(15, 25), radius=0.5, style=ShapeStyle(fill_color=Colors.Red, line_width=0))
+circle(xy=(15, 25), radius=0.5, style=Style(fill_color=Colors.Red, line_width=0))
 text((15, 22), &quot;align: left,bottom&quot;)
 
 text(
     xy=(75, 25),
     angle=45,
     text=&quot;こんにちは Drawlib.&quot;,
-    style=TextStyle(
+    style=Style(
         text_color=Colors.White,
         text_bg_line_width=2,
         text_bg_line_color=Colors.Red,
@@ -428,7 +428,7 @@ save()
 <div class="drawlib-image" style="text-align: center;">
   <img src="text_images/6.png" alt="text_6" style="width: 600px; max-width: 100%;" />
 </div>
-<p>TextStyle</p>
+<p>Text with Style</p>
 <p>In our opinion, there are few chances to use text background.
 Setting a white (or another canvas background color) background without a border can be useful for drawing text over shapes and lines in some situations.</p>
 <h1>Font</h1>
@@ -462,22 +462,22 @@ And currently, we use Google fonts.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.fonts import Font, FontJapanese, FontMonoSpace, FontRoboto, FontSansSerif, FontSerif, FontThai
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 config(width=100, height=60, grid_only=True)
-text(xy=(25, 5), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SANSSERIF_LIGHT))
-text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SANSSERIF_REGULAR))
-text(xy=(25, 25), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SANSSERIF_BOLD))
-text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SERIF_LIGHT))
-text(xy=(25, 45), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SERIF_REGULAR))
-text(xy=(25, 55), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SERIF_BOLD))
+text(xy=(25, 5), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SANSSERIF_LIGHT))
+text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SANSSERIF_REGULAR))
+text(xy=(25, 25), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SANSSERIF_BOLD))
+text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SERIF_LIGHT))
+text(xy=(25, 45), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SERIF_REGULAR))
+text(xy=(25, 55), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SERIF_BOLD))
 
-text(xy=(75, 5), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=FontRoboto.ROBOTO_REGULAR))
-text(xy=(75, 15), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=FontSansSerif.RALEWAYS_REGULAR))
-text(xy=(75, 25), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=FontSerif.MERRIWEATHER_REGULAR))
-text(xy=(75, 35), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=FontMonoSpace.SOURCECODEPRO_REGULAR))
-text(xy=(75, 45), text=&quot;こんにちは Drawlib.&quot;, style=TextStyle(text_font=FontJapanese.MPLUS1P_REGULAR))
-text(xy=(75, 55), text=&quot;สวัสดี ดรอว์ลิบ&quot;, style=TextStyle(text_font=FontThai.SERIF_REGULAR))
+text(xy=(75, 5), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=FontRoboto.ROBOTO_REGULAR))
+text(xy=(75, 15), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=FontSansSerif.RALEWAYS_REGULAR))
+text(xy=(75, 25), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=FontSerif.MERRIWEATHER_REGULAR))
+text(xy=(75, 35), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=FontMonoSpace.SOURCECODEPRO_REGULAR))
+text(xy=(75, 45), text=&quot;こんにちは Drawlib.&quot;, style=Style(text_font=FontJapanese.MPLUS1P_REGULAR))
+text(xy=(75, 55), text=&quot;สวัสดี ดรอว์ลิบ&quot;, style=Style(text_font=FontThai.SERIF_REGULAR))
 
 save()
 </code></pre>
@@ -488,22 +488,22 @@ save()
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.fonts import Font, FontJapanese, FontMonoSpace, FontRoboto, FontSansSerif, FontSerif, FontThai
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 config(width=100, height=60, grid_only=True)
-text(xy=(25, 5), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SANSSERIF_LIGHT))
-text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SANSSERIF_REGULAR))
-text(xy=(25, 25), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SANSSERIF_BOLD))
-text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SERIF_LIGHT))
-text(xy=(25, 45), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SERIF_REGULAR))
-text(xy=(25, 55), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=Font.SERIF_BOLD))
+text(xy=(25, 5), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SANSSERIF_LIGHT))
+text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SANSSERIF_REGULAR))
+text(xy=(25, 25), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SANSSERIF_BOLD))
+text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SERIF_LIGHT))
+text(xy=(25, 45), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SERIF_REGULAR))
+text(xy=(25, 55), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SERIF_BOLD))
 
-text(xy=(75, 5), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=FontRoboto.ROBOTO_REGULAR))
-text(xy=(75, 15), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=FontSansSerif.RALEWAYS_REGULAR))
-text(xy=(75, 25), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=FontSerif.MERRIWEATHER_REGULAR))
-text(xy=(75, 35), text=&quot;Hello Drawlib.&quot;, style=TextStyle(text_font=FontMonoSpace.SOURCECODEPRO_REGULAR))
-text(xy=(75, 45), text=&quot;こんにちは Drawlib.&quot;, style=TextStyle(text_font=FontJapanese.MPLUS1P_REGULAR))
-text(xy=(75, 55), text=&quot;สวัสดี ดรอว์ลิบ&quot;, style=TextStyle(text_font=FontThai.SERIF_REGULAR))
+text(xy=(75, 5), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=FontRoboto.ROBOTO_REGULAR))
+text(xy=(75, 15), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=FontSansSerif.RALEWAYS_REGULAR))
+text(xy=(75, 25), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=FontSerif.MERRIWEATHER_REGULAR))
+text(xy=(75, 35), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=FontMonoSpace.SOURCECODEPRO_REGULAR))
+text(xy=(75, 45), text=&quot;こんにちは Drawlib.&quot;, style=Style(text_font=FontJapanese.MPLUS1P_REGULAR))
+text(xy=(75, 55), text=&quot;สวัสดี ดรอว์ลิบ&quot;, style=Style(text_font=FontThai.SERIF_REGULAR))
 
 save()
 </code></pre>
@@ -520,13 +520,13 @@ This class can be used in place of the basic font classes and accepts a font fil
 <p>Here is an examples which uses font avenger.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 text(
     (50, 25),
     &quot;Hello Drawlib!&quot;,
-    style=TextStyle(
+    style=Style(
         text_size=36,
         text_font=FontFile(&quot;./avenger/regular.ttf&quot;),
     ),
@@ -539,13 +539,13 @@ save()
 <p>Below is a figure illustrating these examples:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 text(
     (50, 25),
     &quot;Hello Drawlib!&quot;,
-    style=TextStyle(
+    style=Style(
         text_size=36,
         text_font=FontFile(&quot;./avenger/regular.ttf&quot;),
     ),

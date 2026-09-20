@@ -20,7 +20,7 @@ from drawlib._core.l2_types import (
     TypePosInt,
     TypeStr,
 )
-from drawlib._core.l3_styles import ShapeStyle, ShapeTextStyle
+from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import rectangle
 from drawlib._theme import get_style
 
@@ -31,9 +31,9 @@ class _GridLayoutItem(BaseModel):
     column_range: tuple[TypePosInt, TypePosInt]
     row_range: tuple[TypePosInt, TypePosInt]
     r: TypePosFloat
-    style: ShapeStyle
+    style: Style
     text: TypeStr
-    textstyle: ShapeTextStyle
+    textstyle: Style
 
 
 class GridLayout:
@@ -43,10 +43,10 @@ class GridLayout:
     num_column (int): The number of columns in the grid.
     num_row (int): The number of rows in the grid.
     default_r (int, optional): The default radius for the rectangles. Defaults to 0.
-    default_style (Union[str, ShapeStyle, None], optional): The default style for the rectangles.
-        Can be a string key, a ShapeStyle object, or None. Defaults to None.
-    default_textstyle (Union[str, ShapeTextStyle, None], optional): The default text style for the rectangles.
-        Can be a string key, a ShapeTextStyle object, or None. Defaults to None.
+    default_style (Union[str, Style, None], optional): The default style for the rectangles.
+        Can be a string key, a Style object, or None. Defaults to None.
+    default_textstyle (Union[str, Style, None], optional): The default text style for the rectangles.
+        Can be a string key, a Style object, or None. Defaults to None.
     default_textangle (Optional[float], optional): The default angle for the text inside the rectangles.
         If None, no angle is applied. Defaults to None.
     """
@@ -57,8 +57,8 @@ class GridLayout:
         num_column: TypePosInt,
         num_row: TypePosInt,
         default_r: TypePosFloat = 0,
-        default_style: TypeStr | ShapeStyle | None = None,
-        default_textstyle: TypeStr | ShapeTextStyle | None = None,
+        default_style: TypeStr | Style | None = None,
+        default_textstyle: TypeStr | Style | None = None,
         default_textangle: TypeAngle | None = None,
     ) -> None:
         """Initializes a GridLayout instance.
@@ -67,10 +67,10 @@ class GridLayout:
             num_column (int): The number of columns in the grid.
             num_row (int): The number of rows in the grid.
             default_r (int, optional): The default radius for the rectangles. Defaults to 0.
-            default_style (Union[str, ShapeStyle, None], optional): The default style for the rectangles.
-                Can be a string key, a ShapeStyle object, or None. Defaults to None.
-            default_textstyle (Union[str, ShapeTextStyle, None], optional): The default text style for the rectangles.
-                Can be a string key, a ShapeTextStyle object, or None. Defaults to None.
+            default_style (Union[str, Style, None], optional): The default style for the rectangles.
+                Can be a string key, a Style object, or None. Defaults to None.
+            default_textstyle (Union[str, Style, None], optional): The default text style for the rectangles.
+                Can be a string key, a Style object, or None. Defaults to None.
             default_textangle (Optional[float], optional): The default angle for the text inside the rectangles.
                 If None, no angle is applied. Defaults to None.
 
@@ -95,9 +95,9 @@ class GridLayout:
         width: TypePosInt,
         height: TypePosInt,
         r: TypePosFloat | None = None,
-        style: TypeStr | ShapeStyle | None = None,
+        style: TypeStr | Style | None = None,
         text: TypeStr = "",
-        textstyle: TypeStr | ShapeTextStyle | None = None,
+        textstyle: TypeStr | Style | None = None,
         textangle: TypeAngle | None = None,
         text_xy_shift: TypeCoordinate | None = None,
     ) -> None:
@@ -165,7 +165,7 @@ class GridLayout:
         height: TypePosFloat,
         margin: TypePosFloat,
         outer_r: TypePosFloat | None = None,
-        outer_style: TypeStr | ShapeStyle | None = None,
+        outer_style: TypeStr | Style | None = None,
     ) -> None:
         """Draw the grid layout.
 
@@ -175,9 +175,9 @@ class GridLayout:
             height (float): The total height of the grid.
             margin (float): The margin between grid items.
             outer_r (int, optional): The radius for the outer grid border. Default is 0.
-            outer_style (Union[str, ShapeStyle, None], optional):
+            outer_style (Union[str, Style, None], optional):
                     The style for the outer grid border. Can be a string key for a predefined style,
-                    a ShapeStyle object, or None.
+                    a Style object, or None.
         """
         if outer_style is None:
             column_widths = [(width - margin * (self._num_column - 1)) / self._num_column] * self._num_column
@@ -209,7 +209,7 @@ class GridLayout:
         row_heights: list[TypePosFloat],
         row_margins: list[TypePosFloat],
         outer_r: TypePosFloat | None = None,
-        outer_style: TypeStr | ShapeStyle | None = None,
+        outer_style: TypeStr | Style | None = None,
     ) -> None:
         """Draw the grid layout with flexible column widths and row heights.
 
@@ -220,9 +220,9 @@ class GridLayout:
             row_heights (List[float]): The heights of each row.
             row_margins (List[float]): The margins between rows.
             outer_r (int, optional): The radius for the outer grid border. Default is 0.
-            outer_style (Union[str, ShapeStyle, None], optional):
+            outer_style (Union[str, Style, None], optional):
                     The style for the outer grid border.
-                    Can be a string key for a predefined style, a ShapeStyle object, or None.
+                    Can be a string key for a predefined style, a Style object, or None.
 
         Raises:
             ValueError: If the lengths of column_widths, column_margins, row_heights, or row_margins are incorrect.

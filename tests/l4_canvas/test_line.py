@@ -16,7 +16,7 @@ from drawlib.canvas import clear, save
 from drawlib.colors import Colors
 from drawlib.lines import line, line_arc, line_bezier1, line_bezier2, line_curved, lines, lines_bezier, lines_curved
 from drawlib.shapes import circle, ellipse
-from drawlib.types import LineStyle
+from drawlib.types import Style
 
 # ruff: noqa: F403, F405
 
@@ -34,12 +34,12 @@ class TestCanvasLine:
         line((10, 10), (90, 90))
 
         # With line styling
-        style = LineStyle(line_width=3, line_color=Colors.Red, line_style="dashdot", fill_alpha=0.5)
+        style = Style(line_width=3, line_color=Colors.Red, line_style="dashdot", fill_alpha=0.5)
         line((20, 80), (80, 20), style=style)
 
         # Arrowheads and arrow fill
         line((20, 20), (80, 80), arrowhead="->")
-        line((20, 80), (80, 20), arrowhead="<->", style=LineStyle(line_color=Colors.Red, arrow_head_fill=True))
+        line((20, 80), (80, 20), arrowhead="<->", style=Style(line_color=Colors.Red, arrow_head_fill=True))
 
         # Themes
         line((10, 10), (90, 90), style="green")
@@ -66,7 +66,7 @@ class TestCanvasLine:
             (20, 80),
             (80, 20),
             bend=-0.5,
-            style=LineStyle(line_style="dashed", line_width=2, line_color=Colors.Red),
+            style=Style(line_style="dashed", line_width=2, line_color=Colors.Red),
         )
 
         # Theme line curved
@@ -83,7 +83,7 @@ class TestCanvasLine:
         """Verify quadratic and cubic Bezier line drawing."""
         clear()
 
-        style = LineStyle(line_width=3, line_color=Colors.Red, line_style="dotted", fill_alpha=1)
+        style = Style(line_width=3, line_color=Colors.Red, line_style="dotted", fill_alpha=1)
         line_bezier1((20, 20), (50, 50), (80, 20), style=style)
         line_bezier2((20, 20), (20, 50), (80, 50), (80, 20), style=style)
 

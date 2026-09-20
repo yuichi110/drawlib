@@ -26,7 +26,7 @@ from drawlib.colors import Colors, Colors140
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.types import ShapeStyle, ShapeTextStyle, TextStyle
+from drawlib.types import Style
 
 config(width=100, height=80)
 y1 = 70
@@ -35,8 +35,8 @@ y3 = 25
 y4 = 10
 rect_width = 25
 rect_height = 10
-rect_style = ShapeStyle(fill_color=Colors.White)
-rect_text_style = ShapeTextStyle(text_size=18)
+rect_style = Style(fill_color=Colors.White)
+rect_text_style = Style(text_size=18)
 
 COLORS_BASE_TEXT = """
 - Transparent = (0, 0, 0, 0.0)
@@ -68,7 +68,7 @@ def draw_base():
     text(
         (7.5, 60),
         COLORS_BASE_TEXT,
-        style=(TextStyle(text_halign="left", text_valign="top")),
+        style=(Style(text_halign="left", text_valign="top")),
     )
 
 
@@ -77,7 +77,7 @@ def draw_line_arrows():
     x2 = 47.5
     x3 = 55
     line((x1, y1), (x3, y1), arrowhead="->")
-    text((x2, y1 + 3), "inherit", style=TextStyle(text_size=20))
+    text((x2, y1 + 3), "inherit", style=Style(text_size=20))
     line((x2, y1), (x2, y4))
     line((x2, y2), (x3, y2), arrowhead="->")
     line((x2, y3), (x3, y3), arrowhead="->")
@@ -98,7 +98,7 @@ def draw_childs():
     text(
         (62.5, 60),
         COLORS_TEXT,
-        style=(TextStyle(text_halign="left", text_valign="top")),
+        style=(Style(text_halign="left", text_valign="top")),
     )
 
     rectangle(
@@ -110,7 +110,7 @@ def draw_childs():
         textstyle=rect_text_style,
     )
 
-    text((x, y3), "...", style=TextStyle(text_size=32))
+    text((x, y3), "...", style=Style(text_size=32))
 
     rectangle(
         (x, y4),
@@ -394,7 +394,7 @@ from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.shapes import circle, rectangle, triangle, wedge
 from drawlib.text import text
-from drawlib.types import ShapeStyle, TextStyle
+from drawlib.types import Style
 
 
 # Please define color at styling codes normally.
@@ -423,31 +423,31 @@ shape_y = 30
 circle(
     (15, shape_y),
     radius=10,
-    style=ShapeStyle(line_width=0, fill_color=ColorsGoogle.MediumBlue),
+    style=Style(line_width=0, fill_color=ColorsGoogle.MediumBlue),
 )
 triangle(
     (37.5, shape_y),
     width=20,
     height=15,
-    style=ShapeStyle(line_width=0, fill_color=ColorsGoogle.MediumRed),
+    style=Style(line_width=0, fill_color=ColorsGoogle.MediumRed),
 )
 rectangle(
     (62.5, shape_y),
     width=18,
     height=18,
-    style=ShapeStyle(line_width=0, fill_color=ColorsGoogle.Yellow),
+    style=Style(line_width=0, fill_color=ColorsGoogle.Yellow),
 )
 wedge(
     (85, shape_y),
     radius=10,
     width=5,
     angle_end=270,
-    style=ShapeStyle(line_width=0, fill_color=ColorsGoogle.MediumGreen),
+    style=Style(line_width=0, fill_color=ColorsGoogle.MediumGreen),
 )
 text(
     (50, 10),
     "Google Colors",
-    style=TextStyle(
+    style=Style(
         text_color=ColorsGoogle.Black,
         text_size=32,
         text_font=FontRoboto.ROBOTO_REGULAR,
@@ -468,7 +468,7 @@ from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.shapes import circle, rectangle, triangle, wedge
 from drawlib.text import text
-from drawlib.types import ShapeStyle, TextStyle
+from drawlib.types import Style
 
 
 # Please define color at styling codes normally.
@@ -497,31 +497,31 @@ shape_y = 30
 circle(
     (15, shape_y),
     radius=10,
-    style=ShapeStyle(line_width=0, fill_color=ColorsGoogle.MediumBlue),
+    style=Style(line_width=0, fill_color=ColorsGoogle.MediumBlue),
 )
 triangle(
     (37.5, shape_y),
     width=20,
     height=15,
-    style=ShapeStyle(line_width=0, fill_color=ColorsGoogle.MediumRed),
+    style=Style(line_width=0, fill_color=ColorsGoogle.MediumRed),
 )
 rectangle(
     (62.5, shape_y),
     width=18,
     height=18,
-    style=ShapeStyle(line_width=0, fill_color=ColorsGoogle.Yellow),
+    style=Style(line_width=0, fill_color=ColorsGoogle.Yellow),
 )
 wedge(
     (85, shape_y),
     radius=10,
     width=5,
     angle_end=270,
-    style=ShapeStyle(line_width=0, fill_color=ColorsGoogle.MediumGreen),
+    style=Style(line_width=0, fill_color=ColorsGoogle.MediumGreen),
 )
 text(
     (50, 10),
     "Google Colors",
-    style=TextStyle(
+    style=Style(
         text_color=ColorsGoogle.Black,
         text_size=32,
         text_font=FontRoboto.ROBOTO_REGULAR,

@@ -22,7 +22,7 @@ from drawlib._core.l2_types import (
     TypeSize,
     TypeStr,
 )
-from drawlib._core.l3_styles import ShapeStyle, ShapeTextStyle
+from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import canvas
 from drawlib._core.l4_canvas_utils import ShapeUtil
 from drawlib._theme import get_style
@@ -37,10 +37,10 @@ def bubblespeech(
     tail_start_ratio: TypeAlpha,
     tail_vertex_xy: TypeCoordinate,
     tail_end_ratio: TypeAlpha,
-    style: ShapeStyle | TypeStr | None = None,
+    style: Style | TypeStr | None = None,
     text: TypeStr = "",
     textsize: TypeSize | None = None,
-    textstyle: ShapeTextStyle | TypeStr | None = None,
+    textstyle: Style | TypeStr | None = None,
 ) -> None:
     """Draw a bubble speech on the canvas.
 
@@ -52,10 +52,10 @@ def bubblespeech(
         tail_start_ratio (float): The ratio along the edge where the tail starts.
         tail_vertex_xy (Tuple[float, float]): The (x, y) coordinates of the tail's vertex.
         tail_end_ratio (float): The ratio along the edge where the tail ends.
-        style (Union[ShapeStyle, str, None], optional): The style of the bubble. Defaults to None.
+        style (Union[Style, str, None], optional): The style of the bubble. Defaults to None.
         text (str, optional): The text to display inside the bubble. Defaults to an empty string.
         textsize (Optional[float], optional): The size of the text. Defaults to None.
-        textstyle (Union[ShapeTextStyle, str, None], optional): The style of the text. Defaults to None.
+        textstyle (Union[Style, str, None], optional): The style of the text. Defaults to None.
 
     Returns:
         None

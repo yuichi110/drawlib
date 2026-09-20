@@ -25,7 +25,7 @@ from drawlib.fonts import (
     FontThai,
 )
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l3_fonts/serif/"
 
@@ -34,12 +34,12 @@ def test_courier():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSerif.COURIER_REGULAR),
+        style=Style(text_font=FontSerif.COURIER_REGULAR),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSerif.COURIER_BOLD),
+        style=Style(text_font=FontSerif.COURIER_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -48,12 +48,12 @@ def test_playfairdisplay():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSerif.PLAYFAIRDISPLAY_REGULAR),
+        style=Style(text_font=FontSerif.PLAYFAIRDISPLAY_REGULAR),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSerif.PLAYFAIRDISPLAY_BOLD),
+        style=Style(text_font=FontSerif.PLAYFAIRDISPLAY_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -62,17 +62,17 @@ def test_merriweather():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSerif.MERRIWEATHER_LIGHT),
+        style=Style(text_font=FontSerif.MERRIWEATHER_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSerif.MERRIWEATHER_REGULAR),
+        style=Style(text_font=FontSerif.MERRIWEATHER_REGULAR),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSerif.MERRIWEATHER_BOLD),
+        style=Style(text_font=FontSerif.MERRIWEATHER_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -81,16 +81,16 @@ def test_platypi():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSerif.PLATYPI_LIGHT),
+        style=Style(text_font=FontSerif.PLATYPI_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSerif.PLATYPI_REGULAR),
+        style=Style(text_font=FontSerif.PLATYPI_REGULAR),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSerif.PLATYPI_BOLD),
+        style=Style(text_font=FontSerif.PLATYPI_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

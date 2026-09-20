@@ -14,7 +14,7 @@ import pytest
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
 from drawlib.shapes import arc, circle, donuts, ellipse, fan, regularpolygon, wedge
-from drawlib.types import ShapeStyle
+from drawlib.types import Style
 
 # ruff: noqa: F403, F405
 
@@ -32,16 +32,16 @@ class TestCanvasPatches:
         arc((50, 50), 30, 50)
 
         # Alignments and text
-        arc((50, 50), 30, 50, style=ShapeStyle(text_halign="left", text_valign="bottom"), text="Hello")
-        arc((50, 50), 30, 50, style=ShapeStyle(text_halign="center", text_valign="center"), text="Hello")
-        arc((50, 50), 30, 50, style=ShapeStyle(text_halign="right", text_valign="top"), text="Hello")
+        arc((50, 50), 30, 50, style=Style(text_halign="left", text_valign="bottom"), text="Hello")
+        arc((50, 50), 30, 50, style=Style(text_halign="center", text_valign="center"), text="Hello")
+        arc((50, 50), 30, 50, style=Style(text_halign="right", text_valign="top"), text="Hello")
 
         # Custom styling
         arc(
             (50, 50),
             30,
             50,
-            style=ShapeStyle(line_color=Colors.Red, line_width=5, line_style="dashdot", fill_color=Colors.Blue),
+            style=Style(line_color=Colors.Red, line_width=5, line_style="dashdot", fill_color=Colors.Blue),
         )
 
         # Theta spans & angles
@@ -61,21 +61,21 @@ class TestCanvasPatches:
         circle(
             xy=(50, 50),
             radius=30,
-            style=ShapeStyle(text_halign="left", text_valign="bottom"),
+            style=Style(text_halign="left", text_valign="bottom"),
             text="Hello",
             angle=45,
         )
         circle(
             xy=(50, 50),
             radius=30,
-            style=ShapeStyle(text_halign="center", text_valign="center"),
+            style=Style(text_halign="center", text_valign="center"),
             text="Hello",
             angle=45,
         )
         circle(
             xy=(50, 50),
             radius=30,
-            style=ShapeStyle(text_halign="right", text_valign="top"),
+            style=Style(text_halign="right", text_valign="top"),
             text="Hello",
             angle=45,
         )
@@ -84,7 +84,7 @@ class TestCanvasPatches:
         circle(
             xy=(50, 50),
             radius=30,
-            style=ShapeStyle(
+            style=Style(
                 line_color=Colors.Red, line_width=5, line_style="dashdot", fill_color=Colors.Blue, fill_alpha=0.7
             ),
         )
@@ -107,7 +107,7 @@ class TestCanvasPatches:
             xy=(50, 50),
             width=40,
             height=20,
-            style=ShapeStyle(line_width=3, line_color=Colors.Red, line_style="dashdot"),
+            style=Style(line_width=3, line_color=Colors.Red, line_style="dashdot"),
         )
 
         # Alignments and text
@@ -115,21 +115,21 @@ class TestCanvasPatches:
             xy=(50, 50),
             width=40,
             height=20,
-            style=ShapeStyle(text_halign="left", text_valign="bottom"),
+            style=Style(text_halign="left", text_valign="bottom"),
             text="Hello",
         )
         ellipse(
             xy=(50, 50),
             width=40,
             height=20,
-            style=ShapeStyle(text_halign="center", text_valign="center"),
+            style=Style(text_halign="center", text_valign="center"),
             text="Hello",
         )
         ellipse(
             xy=(50, 50),
             width=40,
             height=20,
-            style=ShapeStyle(text_halign="right", text_valign="top"),
+            style=Style(text_halign="right", text_valign="top"),
             text="Hello",
         )
 
@@ -152,7 +152,7 @@ class TestCanvasPatches:
             xy=(50, 50),
             radius=30,
             num_vertex=5,
-            style=ShapeStyle(line_width=3, line_color=Colors.Red, line_style="dashdot", fill_color=Colors.Green),
+            style=Style(line_width=3, line_color=Colors.Red, line_style="dashdot", fill_color=Colors.Green),
         )
 
         # Alignments
@@ -161,14 +161,14 @@ class TestCanvasPatches:
             radius=30,
             num_vertex=8,
             text="Hello",
-            style=ShapeStyle(text_halign="left", text_valign="bottom"),
+            style=Style(text_halign="left", text_valign="bottom"),
         )
         regularpolygon(
             xy=(50, 50),
             radius=30,
             num_vertex=8,
             text="Hello",
-            style=ShapeStyle(text_halign="center", text_valign="center"),
+            style=Style(text_halign="center", text_valign="center"),
         )
 
         # Angle orientation
@@ -188,19 +188,19 @@ class TestCanvasPatches:
             (50, 50),
             radius=30,
             width=10,
-            style=ShapeStyle(line_width=3, line_color=Colors.Red, line_style="dashdot", fill_color=Colors.Green),
+            style=Style(line_width=3, line_color=Colors.Red, line_style="dashdot", fill_color=Colors.Green),
             text="Hello",
         )
 
         # Alignments
         wedge(
-            (50, 50), radius=30, width=10, style=ShapeStyle(text_halign="left", text_valign="bottom"), text="Hello"
+            (50, 50), radius=30, width=10, style=Style(text_halign="left", text_valign="bottom"), text="Hello"
         )
         wedge(
             (50, 50),
             radius=30,
             width=10,
-            style=ShapeStyle(text_halign="center", text_valign="center"),
+            style=Style(text_halign="center", text_valign="center"),
             text="Hello",
         )
 
@@ -221,19 +221,19 @@ class TestCanvasPatches:
             (50, 50),
             radius=30,
             width=10,
-            style=ShapeStyle(line_width=3, line_color=Colors.Red, line_style="dashdot", fill_color=Colors.Green),
+            style=Style(line_width=3, line_color=Colors.Red, line_style="dashdot", fill_color=Colors.Green),
             text="Hello",
         )
 
         # Alignments
         donuts(
-            (50, 50), radius=30, width=10, style=ShapeStyle(text_halign="left", text_valign="bottom"), text="Hello"
+            (50, 50), radius=30, width=10, style=Style(text_halign="left", text_valign="bottom"), text="Hello"
         )
         donuts(
             (50, 50),
             radius=30,
             width=10,
-            style=ShapeStyle(text_halign="center", text_valign="center"),
+            style=Style(text_halign="center", text_valign="center"),
             text="Hello",
         )
 
@@ -255,7 +255,7 @@ class TestCanvasPatches:
             radius=30,
             angle_start=45,
             angle_end=90,
-            style=ShapeStyle(line_width=3, line_color=Colors.Red, line_style="dashdot", fill_color=Colors.Green),
+            style=Style(line_width=3, line_color=Colors.Red, line_style="dashdot", fill_color=Colors.Green),
             text="Hello",
         )
 
@@ -265,7 +265,7 @@ class TestCanvasPatches:
             radius=30,
             angle_start=45,
             angle_end=90,
-            style=ShapeStyle(text_halign="left", text_valign="bottom"),
+            style=Style(text_halign="left", text_valign="bottom"),
             text="Hello",
         )
         fan(
@@ -273,7 +273,7 @@ class TestCanvasPatches:
             radius=30,
             angle_start=45,
             angle_end=90,
-            style=ShapeStyle(text_halign="center", text_valign="center"),
+            style=Style(text_halign="center", text_valign="center"),
             text="Hello",
         )
 

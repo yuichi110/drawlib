@@ -43,9 +43,7 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_styles import (
     Colors,
-    LineStyle,
-    ShapeStyle,
-    ShapeTextStyle,
+    Style,
 )
 from drawlib._core.l4_canvas_utils import (
     ShapeUtil,
@@ -66,8 +64,8 @@ class CanvasBase:
     DEFAULT_DPI: Final[int] = 100
     DEFAULT_GRID: Final[bool] = False
     DEFAULT_GRID_ONLY: Final[bool] = False
-    DEFAULT_GRID_STYLE: Final[LineStyle] = LineStyle(line_width=1, line_color=Colors.Gray, line_style="dashed")
-    DEFAULT_GRID_CENTERSTYLE: Final[LineStyle] = LineStyle(line_width=2, line_color=Colors.Gray, line_style="dashed")
+    DEFAULT_GRID_STYLE: Final[Style] = Style(line_width=1, line_color=Colors.Gray, line_style="dashed")
+    DEFAULT_GRID_CENTERSTYLE: Final[Style] = Style(line_width=2, line_color=Colors.Gray, line_style="dashed")
 
     @guarded
     def __init__(self) -> None:
@@ -128,8 +126,8 @@ class CanvasBase:
         background_alpha: TypeAlpha | None = None,
         grid: bool | None = None,
         grid_only: bool | None = None,
-        grid_style: LineStyle | None = None,
-        grid_centerstyle: LineStyle | None = None,
+        grid_style: Style | None = None,
+        grid_centerstyle: Style | None = None,
         grid_xpitch: TypePosInt | None = None,
         grid_ypitch: TypePosInt | None = None,
     ) -> None:
@@ -148,8 +146,8 @@ class CanvasBase:
             background_alpha (float | None): Background alpha (opacity).
             grid (bool | None): Show grid for checking coordinates.
             grid_only (bool | None): Show grid only.
-            grid_style (LineStyle | None): Style of grid lines.
-            grid_centerstyle (LineStyle | None): Style of center grid lines.
+            grid_style (Style | None): Style of grid lines.
+            grid_centerstyle (Style | None): Style of center grid lines.
             grid_xpitch (int | None): X-axis grid pitch.
             grid_ypitch (int | None): Y-axis grid pitch.
 
@@ -241,10 +239,10 @@ class CanvasBase:
     def polygon(
         self,
         xys: TypeCoordinates,
-        style: ShapeStyle | TypeStr | None = None,
+        style: Style | TypeStr | None = None,
         text: TypeStr = "",
         textsize: TypeSize | None = None,
-        textstyle: ShapeTextStyle | TypeStr | None = None,
+        textstyle: Style | TypeStr | None = None,
     ) -> None:
         """Draw a polygon on the canvas.
 
@@ -289,10 +287,10 @@ class CanvasBase:
         xy: TypeCoordinate,
         path_points: TypePathPoints,
         angle: TypeAngle = 0.0,
-        style: ShapeStyle | TypeStr | None = None,
+        style: Style | TypeStr | None = None,
         text: TypeStr = "",
         textsize: TypeSize | None = None,
-        textstyle: ShapeTextStyle | TypeStr | None = None,
+        textstyle: Style | TypeStr | None = None,
         is_default_center: bool = False,
     ) -> None:
         """Draw basic shape on the canvas.
@@ -301,10 +299,10 @@ class CanvasBase:
             xy: Starting point of the shape.
             path_points: List of path points including control points for Bezier curves.
             angle (float, optional): Rotation angle of the shape.
-            style (ShapeStyle | str | None, optional): Style of the shape.
+            style (Style | str | None, optional): Style of the shape.
             text (str, optional): Text to display along with the shape.
             textsize (float | None, optional): Size of the text.
-            textstyle (ShapeTextStyle | None, optional): Style of the text.
+            textstyle (Style | None, optional): Style of the text.
             is_default_center (bool, optional): Whether to place (xy) at the center of the shape.
 
         Raises:
@@ -442,10 +440,10 @@ class CanvasBase:
         height: TypePosFloat,
         r: TypePosFloat = 0.0,
         angle: TypeAngle = 0.0,
-        style: ShapeStyle | TypeStr | None = None,
+        style: Style | TypeStr | None = None,
         text: TypeStr = "",
         textsize: TypeSize | None = None,
-        textstyle: ShapeTextStyle | TypeStr | None = None,
+        textstyle: Style | TypeStr | None = None,
     ) -> None:
         """Draw a rectangle on the canvas.
 
@@ -455,10 +453,10 @@ class CanvasBase:
             height: Height of the rectangle.
             r (float, optional): Radius for rounded corners (default is 0.0).
             angle (int | float, optional): Rotation angle of the rectangle.
-            style (ShapeStyle | str | None, optional): Style of the rectangle.
+            style (Style | str | None, optional): Style of the rectangle.
             text (str, optional): Text to display within the rectangle.
             textsize (float | None, optional): Size of the text.
-            textstyle (ShapeTextStyle | str | None, optional): Style of the text.
+            textstyle (Style | str | None, optional): Style of the text.
 
         Raises:
             ValueError: If invalid path points are provided.

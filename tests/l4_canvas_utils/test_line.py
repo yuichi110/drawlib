@@ -9,7 +9,7 @@
 
 import pytest
 
-from drawlib._core.l3_styles import LineStyle
+from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas_utils._line import LineUtil
 from drawlib._theme import get_style
 
@@ -56,18 +56,18 @@ class TestLineUtil:
         assert LineUtil.sanitize_xys(points) == [(0.0, 0.0), (2.0, 2.0)]
 
     def test_format_style(self) -> None:
-        """Verifies format_style merges LineStyle correctly and raises ValueError on invalid types."""
+        """Verifies format_style merges Style correctly and raises ValueError on invalid types."""
         # 1. Test None style
         formatted_none = LineUtil.format_style(None)
-        assert isinstance(formatted_none, LineStyle)
+        assert isinstance(formatted_none, Style)
         assert formatted_none.line_width == get_style().line_width
 
         # 2. Test string style
         formatted_str = LineUtil.format_style("primary")
         assert formatted_str.text_color == get_style("primary").text_color
 
-        # 3. Test LineStyle object
-        custom_style = LineStyle(line_width=8.0)
+        # 3. Test Style object
+        custom_style = Style(line_width=8.0)
         formatted_obj = LineUtil.format_style(custom_style)
         assert formatted_obj.line_width == 8.0
 
@@ -76,8 +76,8 @@ class TestLineUtil:
             LineUtil.format_style(123)  # type: ignore
 
     def test_get_fancyarrowpatch_options(self) -> None:
-        """Verifies conversion of LineStyle to matplotlib's FancyArrowPatch options."""
-        style = LineStyle(
+        """Verifies conversion of Style to matplotlib's FancyArrowPatch options."""
+        style = Style(
             line_width=3.5,
             line_style="dashed",
             line_color=(255, 0, 0),
@@ -108,6 +108,6 @@ class TestLineUtil:
         assert options_both_filled["arrowstyle"] == "<|-|>"
 
         # 5. Test with unfilled arrowhead (ahfill = False)
-        unfilled_style = LineStyle(line_width=3.5, line_style="solid", arrow_head_fill=False)
+        unfilled_style = Style(line_width=3.5, line_style="solid", arrow_head_fill=False)
         options_unfilled = LineUtil.get_fancyarrowpatch_options("->", unfilled_style)
         assert options_unfilled["arrowstyle"] == "->"

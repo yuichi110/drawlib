@@ -245,7 +245,7 @@ from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import arrow, circle, rectangle
 from drawlib.text import text
-from drawlib.types import ShapeStyle, ShapeTextStyle, TextStyle
+from drawlib.types import Style
 
 
 config(width=100, height=60, grid=True)
@@ -253,8 +253,8 @@ config(width=100, height=60, grid=True)
 outer_y = 10
 outer_height = 35
 outer_r = 2
-outer_style = ShapeStyle(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;, fill_color=Colors.Transparent)
-text_style = TextStyle(text_halign=&quot;left&quot;)
+outer_style = Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;, fill_color=Colors.Transparent)
+text_style = Style(text_halign=&quot;left&quot;)
 
 
 def left():
@@ -265,7 +265,7 @@ def left():
         r=outer_r,
         style=outer_style,
         text=&quot;Other drawlib features&quot;,
-        textstyle=ShapeTextStyle(text_angle=270, text_font=FontRoboto.ROBOTO_BOLD, text_size=18),
+        textstyle=Style(text_angle=270, text_font=FontRoboto.ROBOTO_BOLD, text_size=18),
     )
 
 
@@ -285,7 +285,7 @@ def center():
     text(
         (30 + width / 2, 42),
         &quot;Canvas Instance&quot;,
-        style=TextStyle(text_font=FontRoboto.ROBOTO_BOLD, text_size=18, text_color=Colors.Red),
+        style=Style(text_font=FontRoboto.ROBOTO_BOLD, text_size=18, text_color=Colors.Red),
     )
     x = 34
     y = 37
@@ -313,7 +313,7 @@ def right():
     text(
         (65 + width / 2, 42),
         &quot;Public APIs&quot;,
-        style=TextStyle(text_font=FontRoboto.ROBOTO_BOLD, text_size=18),
+        style=Style(text_font=FontRoboto.ROBOTO_BOLD, text_size=18),
     )
     x = 69
     y = 37
@@ -344,7 +344,7 @@ rectangle((5, 5), width=55, height=50, r=outer_r, style=outer_style)
 text(
     (5 + 55 / 2, 50),
     &quot;Drawlib's internal state (Private)&quot;,
-    style=TextStyle(text_font=FontRoboto.ROBOTO_BOLD, text_size=18),
+    style=Style(text_font=FontRoboto.ROBOTO_BOLD, text_size=18),
 )
 left()
 arrow(
@@ -476,7 +476,7 @@ save()
 </div>
 <pre><code>Grid only option generate grid image only
 </code></pre>
-<p>To apply a specific line style to the grid, provide a <code>LineStyle</code> object to the following options:</p>
+<p>To apply a specific line style to the grid, provide a <code>Style</code> object to the following options:</p>
 <ul>
 <li><code>grid_style</code>: Sets the style for all grid lines.</li>
 <li><code>grid_centerstyle</code>: Overrides the style for the center grid lines.</li>
@@ -485,14 +485,14 @@ save()
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.shapes import circle
-from drawlib.types import LineStyle
+from drawlib.types import Style
 
 config(
     width=100,
     height=50,
     grid_only=True,
-    grid_style=LineStyle(line_width=1, line_color=Colors.Red, line_style=&quot;dashed&quot;),
-    grid_centerstyle=LineStyle(line_width=2, line_color=Colors.Blue, line_style=&quot;dashed&quot;),
+    grid_style=Style(line_width=1, line_color=Colors.Red, line_style=&quot;dashed&quot;),
+    grid_centerstyle=Style(line_width=2, line_color=Colors.Blue, line_style=&quot;dashed&quot;),
 )
 circle((50, 25), radius=20)
 save()
@@ -505,14 +505,14 @@ Note that providing a grid_style automatically sets the grid option to True, but
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.shapes import circle
-from drawlib.types import LineStyle
+from drawlib.types import Style
 
 config(
     width=100,
     height=50,
     grid_only=True,
-    grid_style=LineStyle(line_width=1, line_color=Colors.Red, line_style=&quot;dashed&quot;),
-    grid_centerstyle=LineStyle(line_width=2, line_color=Colors.Blue, line_style=&quot;dashed&quot;),
+    grid_style=Style(line_width=1, line_color=Colors.Red, line_style=&quot;dashed&quot;),
+    grid_centerstyle=Style(line_width=2, line_color=Colors.Blue, line_style=&quot;dashed&quot;),
 )
 circle((50, 25), radius=20)
 save()
@@ -543,14 +543,14 @@ Below is a code snippet with <code>config(width=100, height=100, ...)</code>:</p
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import ShapeTextStyle
+from drawlib.types import Style
 
 config(width=100, height=100, grid_only=True)
 circle(
     (50, 50),
     radius=30,
     text=&quot;(50,50)&quot;,
-    textstyle=ShapeTextStyle(text_size=36),
+    textstyle=Style(text_size=36),
 )
 save()
 </code></pre>
@@ -561,14 +561,14 @@ save()
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import ShapeTextStyle
+from drawlib.types import Style
 
 config(width=100, height=100, grid_only=True)
 circle(
     (50, 50),
     radius=30,
     text=&quot;(50,50)&quot;,
-    textstyle=ShapeTextStyle(text_size=36),
+    textstyle=Style(text_size=36),
 )
 save()
 </code></pre>
@@ -581,14 +581,14 @@ save()
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import ShapeTextStyle
+from drawlib.types import Style
 
 config(width=200, height=200, grid_only=True)
 circle(
     (50, 50),
     radius=30,
     text=&quot;(50,50)&quot;,
-    textstyle=ShapeTextStyle(text_size=36),
+    textstyle=Style(text_size=36),
 )
 save()
 </code></pre>
@@ -599,14 +599,14 @@ save()
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import ShapeTextStyle
+from drawlib.types import Style
 
 config(width=200, height=200, grid_only=True)
 circle(
     (50, 50),
     radius=30,
     text=&quot;(50,50)&quot;,
-    textstyle=ShapeTextStyle(text_size=36),
+    textstyle=Style(text_size=36),
 )
 save()
 </code></pre>
@@ -621,14 +621,14 @@ In the following example, we set the canvas coordinate size to full HD (1920x108
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import ShapeTextStyle
+from drawlib.types import Style
 
 config(width=1920, height=1080, grid_only=True)
 circle(
     (960, 540),
     radius=300,
     text=&quot;(960,540)&quot;,
-    textstyle=ShapeTextStyle(text_size=36),
+    textstyle=Style(text_size=36),
 )
 save()
 </code></pre>
@@ -639,14 +639,14 @@ save()
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import ShapeTextStyle
+from drawlib.types import Style
 
 config(width=1920, height=1080, grid_only=True)
 circle(
     (960, 540),
     radius=300,
     text=&quot;(960,540)&quot;,
-    textstyle=ShapeTextStyle(text_size=36),
+    textstyle=Style(text_size=36),
 )
 save()
 </code></pre>
@@ -686,14 +686,14 @@ Let's demonstrate this with an example:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import ShapeTextStyle
+from drawlib.types import Style
 
 config(width=100, height=100, dpi=200, grid_only=True)
 circle(
     (50, 50),
     radius=30,
     text=&quot;(50,50)&quot;,
-    textstyle=ShapeTextStyle(text_size=36),
+    textstyle=Style(text_size=36),
 )
 save()
 </code></pre>
@@ -704,14 +704,14 @@ save()
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import ShapeTextStyle
+from drawlib.types import Style
 
 config(width=100, height=100, dpi=200, grid_only=True)
 circle(
     (50, 50),
     radius=30,
     text=&quot;(50,50)&quot;,
-    textstyle=ShapeTextStyle(text_size=36),
+    textstyle=Style(text_size=36),
 )
 save()
 </code></pre>

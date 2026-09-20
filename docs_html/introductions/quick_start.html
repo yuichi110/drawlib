@@ -406,33 +406,33 @@ Common alignment options include:</p>
 from drawlib.colors import Colors
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import ShapeStyle, TextStyle
+from drawlib.types import Style
 
 config(width=100, height=50, grid_only=True)
 
 circle(
     xy=(25, 25),
     radius=10,
-    style=ShapeStyle(text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
+    style=Style(text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
 )
 circle(
     xy=(25, 25),
     radius=1,
-    style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red),
+    style=Style(fill_color=Colors.Red, line_color=Colors.Red),
 )
-text((25, 10), &quot;Align center,center&quot;, style=TextStyle(text_color=Colors.Red))
+text((25, 10), &quot;Align center,center&quot;, style=Style(text_color=Colors.Red))
 
 circle(
     xy=(75, 25),
     radius=10,
-    style=ShapeStyle(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
+    style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
 )
 circle(
     xy=(75, 25),
     radius=1,
-    style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red),
+    style=Style(fill_color=Colors.Red, line_color=Colors.Red),
 )
-text((75, 10), &quot;Align left,bottom&quot;, style=TextStyle(text_color=Colors.Red))
+text((75, 10), &quot;Align left,bottom&quot;, style=Style(text_color=Colors.Red))
 
 save()
 </code></pre>
@@ -445,33 +445,33 @@ save()
 from drawlib.colors import Colors
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import ShapeStyle, TextStyle
+from drawlib.types import Style
 
 config(width=100, height=50, grid_only=True)
 
 circle(
     xy=(25, 25),
     radius=10,
-    style=ShapeStyle(text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
+    style=Style(text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
 )
 circle(
     xy=(25, 25),
     radius=1,
-    style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red),
+    style=Style(fill_color=Colors.Red, line_color=Colors.Red),
 )
-text((25, 10), &quot;Align center,center&quot;, style=TextStyle(text_color=Colors.Red))
+text((25, 10), &quot;Align center,center&quot;, style=Style(text_color=Colors.Red))
 
 circle(
     xy=(75, 25),
     radius=10,
-    style=ShapeStyle(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
+    style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
 )
 circle(
     xy=(75, 25),
     radius=1,
-    style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red),
+    style=Style(fill_color=Colors.Red, line_color=Colors.Red),
 )
-text((75, 10), &quot;Align left,bottom&quot;, style=TextStyle(text_color=Colors.Red))
+text((75, 10), &quot;Align left,bottom&quot;, style=Style(text_color=Colors.Red))
 
 save()
 </code></pre>
@@ -505,7 +505,7 @@ It leverages Phosphor (https://phosphoricons.com), which offers icons that are e
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.icons import icon_phosphor
-from drawlib.types import IconStyle
+from drawlib.types import Style
 
 config(width=100, height=60, grid=True)
 
@@ -514,7 +514,7 @@ icon_phosphor.coffee(
     xy=(75, 30),
     width=20,
     angle=45,
-    style=IconStyle(text_color=Colors.Red, icon_style=&quot;fill&quot;),
+    style=Style(text_color=Colors.Red, icon_style=&quot;fill&quot;),
 )
 
 save()
@@ -526,7 +526,7 @@ save()
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.icons import icon_phosphor
-from drawlib.types import IconStyle
+from drawlib.types import Style
 
 config(width=100, height=60, grid=True)
 
@@ -535,7 +535,7 @@ icon_phosphor.coffee(
     xy=(75, 30),
     width=20,
     angle=45,
-    style=IconStyle(text_color=Colors.Red, icon_style=&quot;fill&quot;),
+    style=Style(text_color=Colors.Red, icon_style=&quot;fill&quot;),
 )
 
 save()
@@ -545,7 +545,7 @@ save()
 </div>
 <pre><code>icon() and icon_phosphor draw icons
 </code></pre>
-<p>As demonstrated, the function name determines the icon to be drawn, while the <code>IconStyle</code> can be adjusted to modify color, style, and other attributes.</p>
+<p>As demonstrated, the function name determines the icon to be drawn, while the <code>Style</code> object can be adjusted to modify color, style, and other attributes.</p>
 <p>For detailed instructions on using the icon() function, please refer to the icon documentation.
 This topic is beyond the scope of this quick start guide.</p>
 <h1>Drawing image</h1>
@@ -555,7 +555,7 @@ If you need to adjust the aspect ratio, you can utilize the <code>Dimage</code> 
 <p>Here's an example using the <code>image()</code> function:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.images import image
-from drawlib.types import ImageStyle
+from drawlib.types import Style
 
 config(width=100, height=50, grid=True)
 
@@ -565,7 +565,7 @@ image(
     width=20,
     angle=45,
     image=&quot;python.png&quot;,
-    style=ImageStyle(line_width=1),
+    style=Style(line_width=1),
 )
 
 save()
@@ -576,7 +576,7 @@ save()
 <p>Execute this code using the Python command to get image.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.images import image
-from drawlib.types import ImageStyle
+from drawlib.types import Style
 
 config(width=100, height=50, grid=True)
 
@@ -586,7 +586,7 @@ image(
     width=20,
     angle=45,
     image=&quot;python.png&quot;,
-    style=ImageStyle(line_width=1),
+    style=Style(line_width=1),
 )
 
 save()
@@ -596,7 +596,7 @@ save()
 </div>
 <pre><code>image() draws image
 </code></pre>
-<p>As you can observe, you can specify the angle and use the <code>ImageStyle</code> to manage alignment and border lines.</p>
+<p>As you can observe, you can specify the angle and use the <code>Style</code> object to manage alignment and border lines.</p>
 <p>If you wish to modify the image itself, consider utilizing the <code>Dimage</code> class, which provides numerous methods for image manipulation.
 Take a look at this example:</p>
 <pre><code class="language-python">from drawlib._core.l2_models_._dimage import Dimage
@@ -696,12 +696,12 @@ Please refer to the line documentation for details. However, they are incredibly
 <li>Visual styles: Color, width, line style(solid, dashed etc) etc.</li>
 </ul>
 <p>Arrow head has logical meaning (HTML equivalent), so we will specify it at function arg <code>arrowhead</code>.
-But visual style has less meaning (CSS equivalent), then we will specify it as styling class <code>LineStyle</code>.</p>
+But visual style has less meaning (CSS equivalent), then we will specify it as styling class <code>Style</code>.</p>
 <p>Consider this example showcasing styling:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line
-from drawlib.types import LineStyle
+from drawlib.types import Style
 
 config(width=100, height=50, grid=True)
 
@@ -709,23 +709,23 @@ line((20, 7), (80, 7))
 line(
     (20, 16),
     (80, 16),
-    style=LineStyle(line_style=&quot;dashed&quot;, line_width=5, line_color=Colors.Red),
+    style=Style(line_style=&quot;dashed&quot;, line_width=5, line_color=Colors.Red),
 )
 line((20, 25), (80, 25), arrowhead=&quot;-&gt;&quot;)
 line((20, 34), (80, 34), arrowhead=&quot;&lt;-&gt;&quot;)
-line((20, 43), (80, 43), arrowhead=&quot;&lt;-&quot;, style=LineStyle(arrow_head_scale=50, line_style=&quot;dashdot&quot;, arrow_head_fill=True))
+line((20, 43), (80, 43), arrowhead=&quot;&lt;-&quot;, style=Style(arrow_head_scale=50, line_style=&quot;dashdot&quot;, arrow_head_fill=True))
 
 save()
 </code></pre>
 <div class="drawlib-image">
   <img src="quick_start_images/15.png" alt="quick_start_15" />
 </div>
-<p>With LineStyle, you can configure line width, color, style, and more.
+<p>With <code>Style</code>, you can configure line width, color, style, and more.
 Arrow head style is specified in function directry.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line
-from drawlib.types import LineStyle
+from drawlib.types import Style
 
 config(width=100, height=50, grid=True)
 
@@ -733,11 +733,11 @@ line((20, 7), (80, 7))
 line(
     (20, 16),
     (80, 16),
-    style=LineStyle(line_style=&quot;dashed&quot;, line_width=5, line_color=Colors.Red),
+    style=Style(line_style=&quot;dashed&quot;, line_width=5, line_color=Colors.Red),
 )
 line((20, 25), (80, 25), arrowhead=&quot;-&gt;&quot;)
 line((20, 34), (80, 34), arrowhead=&quot;&lt;-&gt;&quot;)
-line((20, 43), (80, 43), arrowhead=&quot;&lt;-&quot;, style=LineStyle(arrow_head_scale=50, line_style=&quot;dashdot&quot;, arrow_head_fill=True))
+line((20, 43), (80, 43), arrowhead=&quot;&lt;-&quot;, style=Style(arrow_head_scale=50, line_style=&quot;dashdot&quot;, arrow_head_fill=True))
 
 save()
 </code></pre>
@@ -809,21 +809,21 @@ save()
 <p>Circle-type shapes are defined by their radius, while rectangle-type shapes are defined by their width and height.
 By default, the xy coordinate marks the center of the shape.
 Except for arrow() and polygon(), all functions can accept an angle parameter.</p>
-<p>Shapes can also be styled using two types of styles:</p>
+<p>Shapes can also be styled using the <code>Style</code> class:</p>
 <ul>
-<li><code>ShapeStyle</code>: for basic shape styling such as line width, color, and fill color</li>
-<li><code>ShapeTextStyle</code>: for styling text within a shape</li>
+<li><code>style</code>: for basic shape styling such as line width, line color, and fill color</li>
+<li><code>textstyle</code>: for styling text within a shape</li>
 </ul>
-<p>The ShapeTextStyle allows you to specify parameters like color, size, font, and more.
-Additionally, it offers xy_shift and angle options.
-When you specify xy_shift, you can adjust the position of the text within the shape.
-Keep in mind that the angle parameter in ShapeTextStyle overrides the shape's angle for the text.</p>
+<p>The <code>Style</code> object allows you to specify parameters like color, size, font, and more.
+When styling text within a shape, it also offers <code>text_xy_shift</code> and <code>text_angle</code> options.
+Specifying <code>text_xy_shift</code> allows you to adjust the position of the text within the shape.
+Keep in mind that the <code>text_angle</code> parameter in <code>Style</code> overrides the shape's angle for the text.</p>
 <p>Let's examine a styling example:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.types import ShapeStyle, ShapeTextStyle
+from drawlib.types import Style
 
 config(width=100, height=50, grid=True)
 
@@ -833,7 +833,7 @@ rectangle(
     height=20,
     angle=45,
     text=&quot;Hello!&quot;,
-    style=ShapeStyle(line_style=&quot;dashed&quot;, line_width=5, line_color=Colors.Red, fill_color=Colors.Transparent),
+    style=Style(line_style=&quot;dashed&quot;, line_width=5, line_color=Colors.Red, fill_color=Colors.Transparent),
 )
 rectangle(
     (75, 25),
@@ -841,7 +841,7 @@ rectangle(
     height=20,
     angle=45,
     text=&quot;Hello!&quot;,
-    textstyle=ShapeTextStyle(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
+    textstyle=Style(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
 )
 
 save()
@@ -854,7 +854,7 @@ save()
 from drawlib.colors import Colors
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.types import ShapeStyle, ShapeTextStyle
+from drawlib.types import Style
 
 config(width=100, height=50, grid=True)
 
@@ -864,7 +864,7 @@ rectangle(
     height=20,
     angle=45,
     text=&quot;Hello!&quot;,
-    style=ShapeStyle(line_style=&quot;dashed&quot;, line_width=5, line_color=Colors.Red, fill_color=Colors.Transparent),
+    style=Style(line_style=&quot;dashed&quot;, line_width=5, line_color=Colors.Red, fill_color=Colors.Transparent),
 )
 rectangle(
     (75, 25),
@@ -872,7 +872,7 @@ rectangle(
     height=20,
     angle=45,
     text=&quot;Hello!&quot;,
-    textstyle=ShapeTextStyle(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
+    textstyle=Style(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
 )
 
 save()
@@ -882,33 +882,29 @@ save()
 </div>
 <pre><code>image_shape2.png
 </code></pre>
-<p>In the left example, we configure ShapeStyle to add style to the rectangle.
-Parameters like l-something represent line-something, and fcolor stands for fill-color.
-Options for shape lines are nearly identical to those for LineStyle.
-If you don't require a shape line, simply set <code>lwidth=0</code>, and if you don't need a fill color, set <code>fcolor=Colors.Transparent</code>.
+<p>In the left example, we configure <code>Style</code> to add style to the rectangle.
+<code>line_width</code>, <code>line_color</code>, and <code>line_style</code> control the border, while <code>fill_color</code> sets the fill color.
+If you don't require a shape border line, simply set <code>line_width=0</code>, and if you don't need a fill color, set <code>fill_color=Colors.Transparent</code>.
 Notice how the text angle follows the shape angle by default.</p>
-<p>In the right example, we configure ShapeTextStyle for the center text within the rectangle.
-Parameters such as color, size, font, etc., are similar to TextStyle.
-However, ShapeTextStyle includes additional options like xy_shift and angle.</p>
-<p>When you specify xy_shift, you can move the center point of the text.
+<p>In the right example, we configure <code>Style</code> for the text within the rectangle via <code>textstyle</code>.
+Parameters like <code>text_color</code>, <code>text_size</code>, <code>text_font</code> control typography, while options like <code>text_xy_shift</code> and <code>text_angle</code> adjust placement.</p>
+<p>When you specify <code>text_xy_shift</code>, you can move the center point of the text.
 Remember that the xy value is not a global coordinate but is relative to the shape, taking its angle into account.
 Therefore, specifying <code>(-10, 0)</code> moves the center point not only to the left but also downward since the shape has a 45-degree angle.</p>
-<p>The angle option in ShapeTextStyle overrides the shape's angle for the text.
-If left unspecified, the text inside the right rectangle should be at a 45-degree angle.
-However, since we've specified it in the style, it remains at 0 degrees.</p>
+<p>The <code>text_angle</code> option in <code>Style</code> overrides the shape's angle for the text.
+If left unspecified, the text inside the right rectangle would be at a 45-degree angle.
+However, since we've specified <code>text_angle=0</code>, it remains horizontal.</p>
 <h1>Drawing texts</h1>
 <p>The <code>text()</code> function is used to render text onto the canvas.
 It requires specifications for xy coordinates, the text message, and an optional angle.
-All other text parameters are defined within the <code>TextStyle</code>.</p>
-<p>TextStyle differs slightly from ShapeTextStyle, which we discussed earlier.
-Unlike ShapeTextStyle, it lacks features like xy_shift and angle, as these can be directly configured as arguments in text().
-However, TextStyle includes an option that ShapeTextStyle doesn't: text background options.</p>
+All other text parameters are defined within a <code>Style</code> object.</p>
+<p>With <code>Style</code>, you can configure text color, size, font, alignment, and text background options (such as <code>text_bg_fill_color</code>, <code>text_bg_line_width</code>, etc.).</p>
 <p>Let's examine some code examples:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 
@@ -917,22 +913,22 @@ text(
     (50, 16),
     &quot;Hello drawlib. こんにちは。&quot;,
     angle=10,
-    style=TextStyle(text_font=FontRoboto.ROBOTO_REGULAR),
+    style=Style(text_font=FontRoboto.ROBOTO_REGULAR),
 )
 text(
     (50, 25),
     &quot;Hello drawlib.&quot;,
-    style=TextStyle(text_font=FontFile(&quot;avenger/regular.ttf&quot;)),
+    style=Style(text_font=FontFile(&quot;avenger/regular.ttf&quot;)),
 )
 text(
     (50, 34),
     &quot;Hello drawlib. こんにちは。&quot;,
-    style=TextStyle(text_color=Colors.Red, text_size=24),
+    style=Style(text_color=Colors.Red, text_size=24),
 )
 text(
     (50, 43),
     &quot;Hello drawlib. こんにちは。&quot;,
-    style=TextStyle(text_color=Colors.White, text_bg_fill_color=Colors.Black),
+    style=Style(text_color=Colors.White, text_bg_fill_color=Colors.Black),
 )
 save()
 </code></pre>
@@ -944,7 +940,7 @@ save()
 from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 
@@ -953,22 +949,22 @@ text(
     (50, 16),
     &quot;Hello drawlib. こんにちは。&quot;,
     angle=10,
-    style=TextStyle(text_font=FontRoboto.ROBOTO_REGULAR),
+    style=Style(text_font=FontRoboto.ROBOTO_REGULAR),
 )
 text(
     (50, 25),
     &quot;Hello drawlib.&quot;,
-    style=TextStyle(text_font=FontFile(&quot;avenger/regular.ttf&quot;)),
+    style=Style(text_font=FontFile(&quot;avenger/regular.ttf&quot;)),
 )
 text(
     (50, 34),
     &quot;Hello drawlib. こんにちは。&quot;,
-    style=TextStyle(text_color=Colors.Red, text_size=24),
+    style=Style(text_color=Colors.Red, text_size=24),
 )
 text(
     (50, 43),
     &quot;Hello drawlib. こんにちは。&quot;,
-    style=TextStyle(text_color=Colors.White, text_bg_fill_color=Colors.Black),
+    style=Style(text_color=Colors.White, text_bg_fill_color=Colors.Black),
 )
 save()
 </code></pre>
@@ -977,7 +973,7 @@ save()
 </div>
 <pre><code>image_text_1.png
 </code></pre>
-<p>In this example, we've configured several TextStyle parameters.
+<p>In this example, we've configured several text-related <code>Style</code> parameters.
 I've used Japanese text for testing purposes.
 As you can see, the Roboto font fails to render it correctly.
 Be cautious when using non-alphabet characters.
@@ -995,7 +991,7 @@ If drawlib doesn't include the font you wish to use, you can provide it to the s
 These settings may not be particularly complex, but it's important to note that the font size remains constant regardless of changes in canvas width and height.
 Doubling the canvas size won't result in halving the font text size; it remains the same as the original size.</p>
 <h1>Using Official Theme</h1>
-<p>In Drawlib, you can define the style of drawing items using style class objects such as <code>ShapeStyle</code> and <code>TextStyle</code>.
+<p>In Drawlib, you can define the style of drawing items using the unified <code>Style</code> class.
 However, specifying styles for each item can be cumbersome and may lead to inconsistency.
 To address this, Drawlib provides a theme and style feature, allowing you to choose a theme and easily apply its styles by name.</p>
 <p>Here is an example. Note that the <code>style</code> argument takes text values.</p>
@@ -1094,7 +1090,7 @@ save()
 However, the <code>default</code> theme default primarily focuses on colors to keep it simple for beginners.
 You can check the available style names and color variations in the preset styles documentation.</p>
 <p>Here's how you can print the available styles in a theme:</p>
-<pre><code class="language-python">from drawlib.types import IconStyle, ImageStyle, LineStyle, ShapeStyle, ShapeTextStyle, TextStyle
+<pre><code class="language-python">from drawlib.types import Style
 
 
 
@@ -1102,67 +1098,67 @@ You can check the available style names and color variations in the preset style
 # +----------------+---+-------+------+------+-------+-------------+------------+--------+--------------+-------------+
 # | class \ name   |   | light | bold | flat | solid | solid_light | solid_bold | dashed | dashed_light | dashed_bold |
 # +----------------+---+-------+------+------+-------+-------------+------------+--------+--------------+-------------+
-# | IconStyle      | x | x     | x    | x    |       |             |            |        |              |             |
-# | ImageStyle     | x | x     | x    | x    | x     | x           | x          | x      | x            | x           |
-# | LineStyle      | x | x     | x    |      | x     | x           | x          | x      | x            | x           |
-# | ShapeStyle     | x | x     | x    | x    | x     | x           | x          | x      | x            | x           |
-# | ShapeTextStyle | x | x     | x    |      |       |             |            |        |              |             |
-# | TextStyle      | x | x     | x    |      |       |             |            |        |              |             |
+# | Style      | x | x     | x    | x    |       |             |            |        |              |             |
+# | Style     | x | x     | x    | x    | x     | x           | x          | x      | x            | x           |
+# | Style      | x | x     | x    |      | x     | x           | x          | x      | x            | x           |
+# | Style     | x | x     | x    | x    | x     | x           | x          | x      | x            | x           |
+# | Style | x | x     | x    |      |       |             |            |        |              |             |
+# | Style      | x | x     | x    |      |       |             |            |        |              |             |
 # +----------------+---+-------+------+------+-------+-------------+------------+--------+--------------+-------------+
 
 # +----------------+-----+-----------+----------+----------+-----------+-----------------+----------------+------------+------------------+-----------------+
 # | class \ name   | red | red_light | red_bold | red_flat | red_solid | red_solid_light | red_solid_bold | red_dashed | red_dashed_light | red_dashed_bold |
 # +----------------+-----+-----------+----------+----------+-----------+-----------------+----------------+------------+------------------+-----------------+
-# | IconStyle      | x   | x         | x        | x        |           |                 |                |            |                  |                 |
-# | ImageStyle     | x   | x         | x        | x        | x         | x               | x              | x          | x                | x               |
-# | LineStyle      | x   | x         | x        |          | x         | x               | x              | x          | x                | x               |
-# | ShapeStyle     | x   | x         | x        | x        | x         | x               | x              | x          | x                | x               |
-# | ShapeTextStyle | x   | x         | x        |          |           |                 |                |            |                  |                 |
-# | TextStyle      | x   | x         | x        |          |           |                 |                |            |                  |                 |
+# | Style      | x   | x         | x        | x        |           |                 |                |            |                  |                 |
+# | Style     | x   | x         | x        | x        | x         | x               | x              | x          | x                | x               |
+# | Style      | x   | x         | x        |          | x         | x               | x              | x          | x                | x               |
+# | Style     | x   | x         | x        | x        | x         | x               | x              | x          | x                | x               |
+# | Style | x   | x         | x        |          |           |                 |                |            |                  |                 |
+# | Style      | x   | x         | x        |          |           |                 |                |            |                  |                 |
 # +----------------+-----+-----------+----------+----------+-----------+-----------------+----------------+------------+------------------+-----------------+
 
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
 # | class \ name   | green | green_light | green_bold | green_flat | green_solid | green_solid_light | green_solid_bold | green_dashed | green_dashed_light | green_dashed_bold |
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
-# | IconStyle      | x     | x           | x          | x          |             |                   |                  |              |                    |                   |
-# | ImageStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
-# | LineStyle      | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |
-# | ShapeStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
-# | ShapeTextStyle | x     | x           | x          |            |             |                   |                  |              |                    |                   |
-# | TextStyle      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
+# | Style      | x     | x           | x          | x          |             |                   |                  |              |                    |                   |
+# | Style     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
+# | Style      | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |
+# | Style     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
+# | Style | x     | x           | x          |            |             |                   |                  |              |                    |                   |
+# | Style      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
 
 # +----------------+------+------------+-----------+-----------+------------+------------------+-----------------+-------------+-------------------+------------------+
 # | class \ name   | blue | blue_light | blue_bold | blue_flat | blue_solid | blue_solid_light | blue_solid_bold | blue_dashed | blue_dashed_light | blue_dashed_bold |
 # +----------------+------+------------+-----------+-----------+------------+------------------+-----------------+-------------+-------------------+------------------+
-# | IconStyle      | x    | x          | x         | x         |            |                  |                 |             |                   |                  |
-# | ImageStyle     | x    | x          | x         | x         | x          | x                | x               | x           | x                 | x                |
-# | LineStyle      | x    | x          | x         |           | x          | x                | x               | x           | x                 | x                |
-# | ShapeStyle     | x    | x          | x         | x         | x          | x                | x               | x           | x                 | x                |
-# | ShapeTextStyle | x    | x          | x         |           |            |                  |                 |             |                   |                  |
-# | TextStyle      | x    | x          | x         |           |            |                  |                 |             |                   |                  |
+# | Style      | x    | x          | x         | x         |            |                  |                 |             |                   |                  |
+# | Style     | x    | x          | x         | x         | x          | x                | x               | x           | x                 | x                |
+# | Style      | x    | x          | x         |           | x          | x                | x               | x           | x                 | x                |
+# | Style     | x    | x          | x         | x         | x          | x                | x               | x           | x                 | x                |
+# | Style | x    | x          | x         |           |            |                  |                 |             |                   |                  |
+# | Style      | x    | x          | x         |           |            |                  |                 |             |                   |                  |
 # +----------------+------+------------+-----------+-----------+------------+------------------+-----------------+-------------+-------------------+------------------+
 
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
 # | class \ name   | black | black_light | black_bold | black_flat | black_solid | black_solid_light | black_solid_bold | black_dashed | black_dashed_light | black_dashed_bold |
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
-# | IconStyle      | x     | x           | x          | x          |             |                   |                  |              |                    |                   |
-# | ImageStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
-# | LineStyle      | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |
-# | ShapeStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
-# | ShapeTextStyle | x     | x           | x          |            |             |                   |                  |              |                    |                   |
-# | TextStyle      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
+# | Style      | x     | x           | x          | x          |             |                   |                  |              |                    |                   |
+# | Style     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
+# | Style      | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |
+# | Style     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
+# | Style | x     | x           | x          |            |             |                   |                  |              |                    |                   |
+# | Style      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
 
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
 # | class \ name   | white | white_light | white_bold | white_flat | white_solid | white_solid_light | white_solid_bold | white_dashed | white_dashed_light | white_dashed_bold |
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
-# | IconStyle      | x     | x           | x          | x          |             |                   |                  |              |                    |                   |
-# | ImageStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
-# | LineStyle      | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |
-# | ShapeStyle     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
-# | ShapeTextStyle | x     | x           | x          |            |             |                   |                  |              |                    |                   |
-# | TextStyle      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
+# | Style      | x     | x           | x          | x          |             |                   |                  |              |                    |                   |
+# | Style     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
+# | Style      | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |
+# | Style     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
+# | Style | x     | x           | x          |            |             |                   |                  |              |                    |                   |
+# | Style      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
 </code></pre>
 <div class="drawlib-image">

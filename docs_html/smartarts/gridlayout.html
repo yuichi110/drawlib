@@ -287,8 +287,8 @@ save()
 <li>num_column (int): The number of columns in the grid.</li>
 <li>num_row (int): The number of rows in the grid.</li>
 <li>default_r (int, optional): The default radius for the rectangles. Defaults to 0.</li>
-<li>default_style (Union[str, ShapeStyle, None], optional): The default style for the rectangles. Can be a string key, a ShapeStyle object, or None. Defaults to None.</li>
-<li>default_textstyle (Union[str, ShapeTextStyle, None], optional): The default text style for the rectangles. Can be a string key, a ShapeTextStyle object, or None. Defaults to None.</li>
+<li>default_style (Union[str, Style, None], optional): The default style for the rectangles. Can be a string key, a Style object, or None. Defaults to None.</li>
+<li>default_textstyle (Union[str, Style, None], optional): The default text style for the rectangles. Can be a string key, a Style object, or None. Defaults to None.</li>
 <li>default_textangle (Optional[float], optional): The default angle for the text inside the rectangles. If None, no angle is applied. Defaults to None.</li>
 </ul>
 <h2>add()</h2>
@@ -299,9 +299,9 @@ save()
 <li>width (int): How many column cells.</li>
 <li>height (int): How many row cells.</li>
 <li>r (Optional[int], optional): The radius of the item. Default is None, which uses the default radius.</li>
-<li>style (Union[str, ShapeStyle, None], optional): The style of the item. Can be a string key for a predefined style, a ShapeStyle object, or None to use the default style.</li>
+<li>style (Union[str, Style, None], optional): The style of the item. Can be a string key for a predefined style, a Style object, or None to use the default style.</li>
 <li>text (str, optional): The text associated with the item. Default is an empty string.</li>
-<li>textstyle (Union[str, ShapeTextStyle, None], optional): The text style of the item. Can be a string key for a predefined text style, a ShapeTextStyle object, or None to use the default text style.</li>
+<li>textstyle (Union[str, Style, None], optional): The text style of the item. Can be a string key for a predefined text style, a Style object, or None to use the default text style.</li>
 <li>textangle (Optional[float], optional): The angle of the text. Default is None, which is same to 0.</li>
 <li>text_xy_shift (Optional[Tuple[float, float]], optional): The XY shift of the text. Default is None, which is same to (0, 0).</li>
 </ul>
@@ -314,7 +314,7 @@ save()
 <li>height (float): The total height of the grid.</li>
 <li>margin (float): The margin between grid items.</li>
 <li>outer_r (int, optional): The radius for the outer grid border. Default is 0.</li>
-<li>outer_style (Union[str, ShapeStyle, None], optional): The style for the outer grid border. Can be a string key for a predefined style, a ShapeStyle object, or None.</li>
+<li>outer_style (Union[str, Style, None], optional): The style for the outer grid border. Can be a string key for a predefined style, a Style object, or None.</li>
 </ul>
 <h2>draw_flexible()</h2>
 <p>Draw the grid layout with flexible column widths and row heights.</p>
@@ -326,7 +326,7 @@ save()
 <li>row_heights (List[float]): The heights of each row.</li>
 <li>row_margins (List[float]): The margins between rows.</li>
 <li>outer_r (int, optional): The radius for the outer grid border. Default is 0.</li>
-<li>outer_style (Union[str, ShapeStyle, None], optional): The style for the outer grid border. Can be a string key for a predefined style, a ShapeStyle object, or None.</li>
+<li>outer_style (Union[str, Style, None], optional): The style for the outer grid border. Can be a string key for a predefined style, a Style object, or None.</li>
 </ul>
 
             </main>

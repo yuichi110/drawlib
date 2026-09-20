@@ -137,7 +137,7 @@ from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import arrow, chevron
 from drawlib.text import text
-from drawlib.types import ShapeStyle, ShapeTextStyle, TextStyle
+from drawlib.types import Style
 
 
 def draw_versions(x: float, y: float, versions: list[str]):
@@ -146,10 +146,10 @@ def draw_versions(x: float, y: float, versions: list[str]):
     corner_angle = 60
     padding = 1
 
-    s1 = ShapeStyle(text_halign="left", text_valign="bottom")
-    s2 = ShapeStyle(text_halign="left", text_valign="bottom", line_style="dashed", fill_color=Colors.Transparent)
-    st1 = ShapeTextStyle(text_size=12, text_color=Colors.White, text_font=FontRoboto.ROBOTO_REGULAR)
-    st2 = ShapeTextStyle(text_size=12, text_font=FontRoboto.ROBOTO_REGULAR)
+    s1 = Style(text_halign="left", text_valign="bottom")
+    s2 = Style(text_halign="left", text_valign="bottom", line_style="dashed", fill_color=Colors.Transparent)
+    st1 = Style(text_size=12, text_color=Colors.White, text_font=FontRoboto.ROBOTO_REGULAR)
+    st2 = Style(text_size=12, text_font=FontRoboto.ROBOTO_REGULAR)
     for i, version in enumerate(versions):
         if len(versions) == 5 and i in [0, 1]:
             chevron(
@@ -175,7 +175,7 @@ def draw_versions(x: float, y: float, versions: list[str]):
 
 config(width=115, height=72)
 
-ts = TextStyle(text_size=16, text_font=FontRoboto.ROBOTO_REGULAR)
+ts = Style(text_size=16, text_font=FontRoboto.ROBOTO_REGULAR)
 text((7, 6), "private\nα\nrelease", style=ts)
 text((7, 18), "public\nβ\nrelease", style=ts)
 text((7, 30), "public\nreleases", style=ts)
@@ -189,13 +189,13 @@ line((32, 9), (32, 14), arrowhead="->")
 draw_versions(29, 15, ["0.2.1", "...", "0.2.n"])
 line((46, 21), (46, 26), arrowhead="->")
 
-text((50, 34), "dev only", style=TextStyle(text_size=14, text_font=FontRoboto.ROBOTO_REGULAR))
+text((50, 34), "dev only", style=Style(text_size=14, text_font=FontRoboto.ROBOTO_REGULAR))
 draw_versions(43, 27, ["0.3.0\ndev1", "...", "0.3.1", "...", "0.3.n"])
 line((74, 33), (74, 38), arrowhead="->")
-text((74, 39.5), 'keep "0.n.m" till library matures', style=TextStyle(text_font=FontRoboto.ROBOTO_REGULAR))
+text((74, 39.5), 'keep "0.n.m" till library matures', style=Style(text_font=FontRoboto.ROBOTO_REGULAR))
 line((74, 42), (74, 47), arrowhead="->")
 
-text((78, 55), "dev only", style=TextStyle(text_size=14, text_font=FontRoboto.ROBOTO_REGULAR))
+text((78, 55), "dev only", style=Style(text_size=14, text_font=FontRoboto.ROBOTO_REGULAR))
 draw_versions(71, 48, ["1.0.0\ndev1", "...", "1.0.1", "...", "1.0.n"])
 line((102, 54), (102, 59), arrowhead="->")
 text((102, 62), "...")
@@ -207,9 +207,9 @@ arrow(
     head_width=7,
     head_length=5,
     head="->",
-    style=ShapeStyle(line_width=0),
+    style=Style(line_width=0),
     text="Time",
-    textstyle=ShapeTextStyle(text_color=Colors.White, text_size=14, text_font=FontRoboto.ROBOTO_REGULAR),
+    textstyle=Style(text_color=Colors.White, text_size=14, text_font=FontRoboto.ROBOTO_REGULAR),
 )
 save()
 ```

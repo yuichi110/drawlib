@@ -272,7 +272,7 @@ save()
 <li><code>xy</code> : coordinate</li>
 <li><code>width</code> : icon width</li>
 <li><code>angle</code> : angle 0.0~360.0</li>
-<li><code>style</code> : Accepts string style name or <code>IconStyle</code> object.</li>
+<li><code>style</code> : Accepts string style name or <code>Style</code> object.</li>
 </ul>
 <p>Executing this code yields the following image:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
@@ -409,15 +409,15 @@ save()
 <p>While FontAwesome is widely recognized, its full usage requires a commercial license.
 The free version may lack variation and style consistency.
 Therefore, drawlib does not currently provide an icon module for it.</p>
-<h1>IconStyle</h1>
-<p>Similar to other drawing elements, the appearance of icons can be customized using the <code>IconStyle</code> class, which allows you to control:</p>
-<p><code>IconStyle</code> encompasses these attributes</p>
+<h1>Style for Icons</h1>
+<p>Similar to other drawing elements, the appearance of icons can be customized using the <code>Style</code> class, which allows you to control:</p>
+<p><code>Style</code> encompasses these icon-related attributes:</p>
 <ul>
-<li><code>halign</code>: Horizontal alignment</li>
-<li><code>valign</code>: Vertical alignment</li>
-<li><code>style</code>: Icon style, Supports <code>&quot;thin&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;regular&quot;</code>, <code>&quot;bold&quot;</code>, or <code>&quot;fill&quot;</code>. The availability of styles depends on the icon modules.</li>
-<li><code>color</code>: Icon color, specified in RGB (0255, 0255, 0255) or RGBA (0255, 0255, 0255, 0.0~1.0). You can utilize helpers like <code>Colors</code> and <code>Colors140</code>.</li>
-<li><code>alpha</code>: Icon transparency, ranging from 0.0 to 1.0, where 0.0 represents total transparency.</li>
+<li><code>text_halign</code>: Horizontal alignment</li>
+<li><code>text_valign</code>: Vertical alignment</li>
+<li><code>icon_style</code>: Icon style, supports <code>&quot;thin&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;regular&quot;</code>, <code>&quot;bold&quot;</code>, or <code>&quot;fill&quot;</code>. The availability of styles depends on the icon modules.</li>
+<li><code>text_color</code>: Icon color, specified in RGB (0~255, 0~255, 0~255) or RGBA (0~255, 0~255, 0~255, 0.0~1.0). You can utilize helpers like <code>Colors</code> and <code>Colors140</code>.</li>
+<li><code>fill_alpha</code>: Icon transparency, ranging from 0.0 to 1.0, where 0.0 represents total transparency.</li>
 </ul>
 <p>Let's illustrate this with an example:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
@@ -425,7 +425,7 @@ from drawlib.colors import Colors
 from drawlib.icons import icon_phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import IconStyle, ShapeStyle
+from drawlib.types import Style
 
 width = 100
 height = 50
@@ -433,12 +433,12 @@ config(width=width, height=height)
 
 x = width / 7
 y = height / 2
-icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style=IconStyle(text_color=Colors.Red))
-icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=IconStyle(icon_style=&quot;thin&quot;))
-icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=IconStyle(icon_style=&quot;bold&quot;))
-icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=IconStyle(icon_style=&quot;fill&quot;))
-icon_phosphor.airplane(xy=(x * 5, y), width=10, style=IconStyle(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;))
-circle(xy=(x * 5, y), radius=0.5, style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red))
+icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style=Style(text_color=Colors.Red))
+icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Style(icon_style=&quot;thin&quot;))
+icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Style(icon_style=&quot;bold&quot;))
+icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Style(icon_style=&quot;fill&quot;))
+icon_phosphor.airplane(xy=(x * 5, y), width=10, style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;))
+circle(xy=(x * 5, y), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
 text(xy=(x * 5 + 5, y - 10), text=&quot;align left,bottom&quot;)
 
 save()
@@ -452,7 +452,7 @@ from drawlib.colors import Colors
 from drawlib.icons import icon_phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import IconStyle, ShapeStyle
+from drawlib.types import Style
 
 width = 100
 height = 50
@@ -460,12 +460,12 @@ config(width=width, height=height)
 
 x = width / 7
 y = height / 2
-icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style=IconStyle(text_color=Colors.Red))
-icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=IconStyle(icon_style=&quot;thin&quot;))
-icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=IconStyle(icon_style=&quot;bold&quot;))
-icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=IconStyle(icon_style=&quot;fill&quot;))
-icon_phosphor.airplane(xy=(x * 5, y), width=10, style=IconStyle(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;))
-circle(xy=(x * 5, y), radius=0.5, style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red))
+icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style=Style(text_color=Colors.Red))
+icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Style(icon_style=&quot;thin&quot;))
+icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Style(icon_style=&quot;bold&quot;))
+icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Style(icon_style=&quot;fill&quot;))
+icon_phosphor.airplane(xy=(x * 5, y), width=10, style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;))
+circle(xy=(x * 5, y), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
 text(xy=(x * 5 + 5, y - 10), text=&quot;align left,bottom&quot;)
 
 save()
@@ -473,7 +473,7 @@ save()
 <div class="drawlib-image" style="text-align: center;">
   <img src="icon_images/6.png" alt="icon_6" style="width: 600px; max-width: 100%;" />
 </div>
-<pre><code>icons with IconStyle.
+<pre><code>icons with Style.
 </code></pre>
 <h1>Pre-defined icon styles</h1>
 <p>Drawlib's theme provides pre-defined icon styles.

@@ -25,7 +25,7 @@ from drawlib.fonts import (
     FontThai,
 )
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l3_fonts/sansserif/"
 
@@ -34,17 +34,17 @@ def test_lato():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSansSerif.LATO_LIGHT),
+        style=Style(text_font=FontSansSerif.LATO_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSansSerif.LATO_REGULAR),
+        style=Style(text_font=FontSansSerif.LATO_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSansSerif.LATO_BOLD),
+        style=Style(text_font=FontSansSerif.LATO_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -53,17 +53,17 @@ def test_raleways():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSansSerif.RALEWAYS_LIGHT),
+        style=Style(text_font=FontSansSerif.RALEWAYS_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSansSerif.RALEWAYS_REGULAR),
+        style=Style(text_font=FontSansSerif.RALEWAYS_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSansSerif.RALEWAYS_BOLD),
+        style=Style(text_font=FontSansSerif.RALEWAYS_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -72,17 +72,17 @@ def test_montserrat():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSansSerif.MONTSERRAT_LIGHT),
+        style=Style(text_font=FontSansSerif.MONTSERRAT_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSansSerif.MONTSERRAT_REGULAR),
+        style=Style(text_font=FontSansSerif.MONTSERRAT_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSansSerif.MONTSERRAT_BOLD),
+        style=Style(text_font=FontSansSerif.MONTSERRAT_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -91,17 +91,17 @@ def test_oswald():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSansSerif.OSWALD_LIGHT),
+        style=Style(text_font=FontSansSerif.OSWALD_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSansSerif.OSWALD_REGULAR),
+        style=Style(text_font=FontSansSerif.OSWALD_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSansSerif.OSWALD_BOLD),
+        style=Style(text_font=FontSansSerif.OSWALD_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -110,16 +110,16 @@ def test_poppins():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSansSerif.POPPINS_LIGHT),
+        style=Style(text_font=FontSansSerif.POPPINS_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSansSerif.POPPINS_REGULAR),
+        style=Style(text_font=FontSansSerif.POPPINS_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontSansSerif.POPPINS_BOLD),
+        style=Style(text_font=FontSansSerif.POPPINS_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

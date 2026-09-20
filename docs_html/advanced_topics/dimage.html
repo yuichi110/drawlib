@@ -284,7 +284,7 @@ Therefore, Dimage does not include features that are implemented in <code>image(
 These features are not included:</p>
 <ul>
 <li>Rotate: Controlled by the <code>angle</code> option</li>
-<li>Add Border: Controlled by the <code>lwidth</code> and <code>lcolor</code> attributes of <code>ImageStyle</code></li>
+<li>Add Border: Controlled by the <code>line_width</code> and <code>line_color</code> attributes of <code>Style</code></li>
 </ul>
 <h1>Save Dimage to File</h1>
 <p>Dimage can save its data to a file without using Drawlib's canvas.
@@ -376,13 +376,13 @@ This method accepts the following arguments:</p>
 from drawlib.canvas import config, save
 from drawlib.images import image
 from drawlib.text import text
-from drawlib.types import ImageStyle
+from drawlib.types import Style
 
 config(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage(&quot;linux.png&quot;)
-image((25, 25), 20, original_image, style=ImageStyle(line_width=1))
+image((25, 25), 20, original_image, style=Style(line_width=1))
 text((25, 10), &quot;original&quot;)
 width, height = original_image.get_image_size()
 
@@ -392,7 +392,7 @@ crop_width = int(width / 2)
 y_start = int(height / 4)
 crop_height = int(height / 2)
 cropped_image = original_image.crop(x_start, y_start, crop_width, crop_height)
-image((75, 25), 20, cropped_image, style=ImageStyle(line_width=1))
+image((75, 25), 20, cropped_image, style=Style(line_width=1))
 text((75, 10), &quot;crop()&quot;)
 
 save()
@@ -408,13 +408,13 @@ Finally, the cropped image can be used in drawing operations with <code>image()<
 from drawlib.canvas import config, save
 from drawlib.images import image
 from drawlib.text import text
-from drawlib.types import ImageStyle
+from drawlib.types import Style
 
 config(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage(&quot;linux.png&quot;)
-image((25, 25), 20, original_image, style=ImageStyle(line_width=1))
+image((25, 25), 20, original_image, style=Style(line_width=1))
 text((25, 10), &quot;original&quot;)
 width, height = original_image.get_image_size()
 
@@ -424,7 +424,7 @@ crop_width = int(width / 2)
 y_start = int(height / 4)
 crop_height = int(height / 2)
 cropped_image = original_image.crop(x_start, y_start, crop_width, crop_height)
-image((75, 25), 20, cropped_image, style=ImageStyle(line_width=1))
+image((75, 25), 20, cropped_image, style=Style(line_width=1))
 text((75, 10), &quot;crop()&quot;)
 
 save()
@@ -607,10 +607,10 @@ from drawlib.colors import Colors
 from drawlib.images import image
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 config(width=100, height=50, dpi=200, background_color=Colors.Gray)
-tstyle = TextStyle(text_color=Colors.White)
+tstyle = Style(text_color=Colors.White)
 
 # invert
 image((20, 25), 20, Dimage(&quot;linux.png&quot;).invert())
@@ -651,10 +651,10 @@ from drawlib.colors import Colors
 from drawlib.images import image
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 config(width=100, height=50, dpi=200, background_color=Colors.Gray)
-tstyle = TextStyle(text_color=Colors.White)
+tstyle = Style(text_color=Colors.White)
 
 # invert
 image((20, 25), 20, Dimage(&quot;linux.png&quot;).invert())

@@ -20,7 +20,7 @@ from drawlib._core.l2_types import (
     TypePosFloat,
     TypeStr,
 )
-from drawlib._core.l3_styles import Colors, ShapeStyle, ShapeTextStyle
+from drawlib._core.l3_styles import Colors, Style
 from drawlib._core.l4_canvas import rectangle
 from drawlib._theme import get_style
 
@@ -29,8 +29,8 @@ class _Item(BaseModel):
     """Internal item class for BoxList."""
 
     text: TypeStr
-    box_style: ShapeStyle
-    text_style: ShapeTextStyle
+    box_style: Style
+    text_style: Style
     is_custom_style: bool
 
 
@@ -38,22 +38,22 @@ class BoxList:
     """A class to draw a list of boxes with text, supporting highlighting of certain boxes.
 
     Args:
-        default_box_style (Union[str, ShapeStyle, None]): The style for the boxes.
-        default_text_style (Union[str, ShapeTextStyle, None]): The style for the text inside the boxes.
+        default_box_style (Union[str, Style, None]): The style for the boxes.
+        default_text_style (Union[str, Style, None]): The style for the text inside the boxes.
 
     """
 
     @guarded
     def __init__(
         self,
-        default_box_style: TypeStr | ShapeStyle | None = None,
-        default_text_style: TypeStr | ShapeTextStyle | None = None,
+        default_box_style: TypeStr | Style | None = None,
+        default_text_style: TypeStr | Style | None = None,
     ) -> None:
         """Initialize BoxList.
 
         Args:
-            default_box_style (Union[str, ShapeStyle, None]): The style for the boxes.
-            default_text_style (Union[str, ShapeTextStyle, None]): The style for the text inside the boxes.
+            default_box_style (Union[str, Style, None]): The style for the boxes.
+            default_text_style (Union[str, Style, None]): The style for the text inside the boxes.
 
         """
         default_box_style = get_style(default_box_style)
@@ -70,8 +70,8 @@ class BoxList:
     def append(
         self,
         text: TypeStr,
-        box_style: TypeStr | ShapeStyle | None = None,
-        text_style: TypeStr | ShapeTextStyle | None = None,
+        box_style: TypeStr | Style | None = None,
+        text_style: TypeStr | Style | None = None,
     ) -> None:
         self.extend([text], box_style=box_style, text_style=text_style)
 
@@ -80,8 +80,8 @@ class BoxList:
         self,
         index: int,
         text: TypeStr,
-        box_style: TypeStr | ShapeStyle | None = None,
-        text_style: TypeStr | ShapeTextStyle | None = None,
+        box_style: TypeStr | Style | None = None,
+        text_style: TypeStr | Style | None = None,
     ) -> None:
         is_custom_style = box_style is not None or text_style is not None
 
@@ -100,8 +100,8 @@ class BoxList:
     def extend(
         self,
         texts: List[TypeStr],
-        box_style: TypeStr | ShapeStyle | None = None,
-        text_style: TypeStr | ShapeTextStyle | None = None,
+        box_style: TypeStr | Style | None = None,
+        text_style: TypeStr | Style | None = None,
     ) -> None:
         is_custom_style = box_style is not None or text_style is not None
 
@@ -181,8 +181,8 @@ class BoxList:
         text: str,
         box_width: TypePosFloat,
         box_height: TypePosFloat,
-        box_style: ShapeStyle,
-        text_style: ShapeTextStyle,
+        box_style: Style,
+        text_style: Style,
         align: Literal["left", "right", "bottom", "top"],
     ) -> None:
         if align == "left":

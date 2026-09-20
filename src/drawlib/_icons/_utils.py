@@ -10,7 +10,7 @@
 """Icon utility module for canvas operations."""
 
 from drawlib._core.l2_models import StaticContainer
-from drawlib._core.l3_styles import SYSTEM_DEFAULT_ICON_STYLE, IconStyle, Style
+from drawlib._core.l3_styles import SYSTEM_DEFAULT_ICON_STYLE, Style
 from drawlib._theme import get_style
 
 
@@ -19,15 +19,15 @@ class IconUtil(StaticContainer):
 
     @staticmethod
     def format_style(
-        style: IconStyle | str | None,
+        style: Style | str | None,
         default_icon_style: str | None = None,
-    ) -> IconStyle:
+    ) -> Style:
         if default_icon_style is not None and not isinstance(default_icon_style, str):
             raise ValueError(f"default_icon_style must be str or None, but {type(default_icon_style)} given.")
         if style is None or isinstance(style, (Style, str)):
             formatted_style = get_style(style).copy()
         else:
-            raise ValueError(f'Arg "style" must be IconStyle or None, but {type(style)} given.')
+            raise ValueError(f'Arg "style" must be Style or None, but {type(style)} given.')
 
         formatted_style = SYSTEM_DEFAULT_ICON_STYLE.merge(formatted_style)
         return formatted_style

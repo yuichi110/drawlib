@@ -29,7 +29,7 @@ from drawlib._core.l2_types import (
     TypeSize,
     TypeStr,
 )
-from drawlib._core.l3_styles import ShapeStyle, ShapeTextStyle
+from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
 from drawlib._core.l4_canvas_utils import ShapeUtil
 
@@ -54,10 +54,10 @@ class CanvasPatchesFeature(CanvasBase):
         angle_start: TypeAngle = 0.0,
         angle_end: TypeAngle = 360.0,
         angle: TypeAngle = 0.0,
-        style: ShapeStyle | TypeStr | None = None,
+        style: Style | TypeStr | None = None,
         text: TypeStr = "",
         textsize: TypeSize | None = None,
-        textstyle: ShapeTextStyle | TypeStr | None = None,
+        textstyle: Style | TypeStr | None = None,
     ) -> None:
         """Draw an arc on the canvas.
 
@@ -68,10 +68,10 @@ class CanvasPatchesFeature(CanvasBase):
             angle_start: Starting angle in degrees.
             angle_end: Ending angle in degrees.
             angle: Rotation angle in degrees.
-            style: ShapeStyle object or preset string.
+            style: Style object or preset string.
             text: Text to display inside shape.
             textsize: Font size of text.
-            textstyle: ShapeTextStyle object or preset string.
+            textstyle: Style object or preset string.
         """
         style, textstyle = ShapeUtil.format_styles(
             style,
@@ -112,10 +112,10 @@ class CanvasPatchesFeature(CanvasBase):
         xy: TypeCoordinate,
         radius: TypePosFloat,
         angle: TypeAngle = 0.0,
-        style: ShapeStyle | TypeStr | None = None,
+        style: Style | TypeStr | None = None,
         text: TypeStr = "",
         textsize: TypeSize | None = None,
-        textstyle: ShapeTextStyle | TypeStr | None = None,
+        textstyle: Style | TypeStr | None = None,
     ) -> None:
         """Draw a circle on the canvas.
 
@@ -123,10 +123,10 @@ class CanvasPatchesFeature(CanvasBase):
             xy: Center coordinates tuple (x, y).
             radius: Radius of the circle.
             angle: Rotation angle in degrees.
-            style: ShapeStyle object or preset string.
+            style: Style object or preset string.
             text: Text to display inside shape.
             textsize: Font size of text.
-            textstyle: ShapeTextStyle object or preset string.
+            textstyle: Style object or preset string.
         """
         style, textstyle = ShapeUtil.format_styles(
             style,
@@ -166,10 +166,10 @@ class CanvasPatchesFeature(CanvasBase):
         width: TypePosFloat,
         height: TypePosFloat,
         angle: TypeAngle = 0.0,
-        style: ShapeStyle | TypeStr | None = None,
+        style: Style | TypeStr | None = None,
         text: TypeStr = "",
         textsize: TypeSize | None = None,
-        textstyle: ShapeTextStyle | TypeStr | None = None,
+        textstyle: Style | TypeStr | None = None,
     ) -> None:
         """Draw an ellipse on the canvas.
 
@@ -178,10 +178,10 @@ class CanvasPatchesFeature(CanvasBase):
             width: Width of the ellipse.
             height: Height of the ellipse.
             angle: Rotation angle in degrees.
-            style: ShapeStyle object or preset string.
+            style: Style object or preset string.
             text: Text to display inside shape.
             textsize: Font size of text.
-            textstyle: ShapeTextStyle object or preset string.
+            textstyle: Style object or preset string.
         """
         style, textstyle = ShapeUtil.format_styles(
             style,
@@ -221,10 +221,10 @@ class CanvasPatchesFeature(CanvasBase):
         num_vertex: TypeNumVertex,
         radius: TypePosFloat,
         angle: TypeAngle = 0.0,
-        style: ShapeStyle | TypeStr | None = None,
+        style: Style | TypeStr | None = None,
         text: TypeStr = "",
         textsize: TypeSize | None = None,
-        textstyle: ShapeTextStyle | TypeStr | None = None,
+        textstyle: Style | TypeStr | None = None,
     ) -> None:
         """Draw a regular polygon on the canvas.
 
@@ -233,10 +233,10 @@ class CanvasPatchesFeature(CanvasBase):
             num_vertex: Number of vertices.
             radius: Radius of polygon.
             angle: Rotation angle in degrees.
-            style: ShapeStyle object or preset string.
+            style: Style object or preset string.
             text: Text to display inside shape.
             textsize: Font size of text.
-            textstyle: ShapeTextStyle object or preset string.
+            textstyle: Style object or preset string.
         """
         style, textstyle = ShapeUtil.format_styles(
             style,
@@ -280,10 +280,10 @@ class CanvasPatchesFeature(CanvasBase):
         angle_start: TypeAngle = 0,
         angle_end: TypeAngle = 360,
         angle: TypeAngle = 0.0,
-        style: ShapeStyle | TypeStr | None = None,
+        style: Style | TypeStr | None = None,
         text: TypeStr = "",
         textsize: TypeSize | None = None,
-        textstyle: ShapeTextStyle | TypeStr | None = None,
+        textstyle: Style | TypeStr | None = None,
     ) -> None:
         """Draw a wedge shape on the canvas.
 
@@ -294,10 +294,10 @@ class CanvasPatchesFeature(CanvasBase):
             angle_start: Starting theta angle in degrees.
             angle_end: Ending theta angle in degrees.
             angle: Rotation angle in degrees.
-            style: ShapeStyle object or preset string.
+            style: Style object or preset string.
             text: Text to display inside shape.
             textsize: Font size of text.
-            textstyle: ShapeTextStyle object or preset string.
+            textstyle: Style object or preset string.
         """
         style, textstyle = ShapeUtil.format_styles(
             style,
@@ -340,10 +340,10 @@ class CanvasPatchesFeature(CanvasBase):
         radius: TypePosFloat,
         width: TypePosFloat | None = None,
         angle: TypeAngle = 0.0,
-        style: ShapeStyle | TypeStr | None = None,
+        style: Style | TypeStr | None = None,
         text: TypeStr = "",
         textsize: TypeSize | None = None,
-        textstyle: ShapeTextStyle | TypeStr | None = None,
+        textstyle: Style | TypeStr | None = None,
     ) -> None:
         """Draw a donut shape on the canvas.
 
@@ -352,10 +352,10 @@ class CanvasPatchesFeature(CanvasBase):
             radius: Outer radius of the donut.
             width: Width of the donut ring.
             angle: Rotation angle in degrees.
-            style: ShapeStyle object or preset string.
+            style: Style object or preset string.
             text: Text to display inside shape.
             textsize: Font size of text.
-            textstyle: ShapeTextStyle object or preset string.
+            textstyle: Style object or preset string.
         """
         style, textstyle = ShapeUtil.format_styles(
             style,
@@ -381,10 +381,10 @@ class CanvasPatchesFeature(CanvasBase):
         angle_start: TypeAngle = 0,
         angle_end: TypeAngle = 180,
         angle: TypeAngle = 0.0,
-        style: ShapeStyle | TypeStr | None = None,
+        style: Style | TypeStr | None = None,
         text: TypeStr = "",
         textsize: TypeSize | None = None,
-        textstyle: ShapeTextStyle | TypeStr | None = None,
+        textstyle: Style | TypeStr | None = None,
     ) -> None:
         """Draw a fan shape on the canvas.
 
@@ -394,10 +394,10 @@ class CanvasPatchesFeature(CanvasBase):
             angle_start: Starting theta angle in degrees.
             angle_end: Ending theta angle in degrees.
             angle: Rotation angle in degrees.
-            style: ShapeStyle object or preset string.
+            style: Style object or preset string.
             text: Text to display inside shape.
             textsize: Font size of text.
-            textstyle: ShapeTextStyle object or preset string.
+            textstyle: Style object or preset string.
         """
         style, textstyle = ShapeUtil.format_styles(
             style,

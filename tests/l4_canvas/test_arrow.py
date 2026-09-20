@@ -16,9 +16,7 @@ from drawlib.colors import Colors
 from drawlib.shapes import arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u, ellipse
 from drawlib.text import text
 from drawlib.types import (
-    ShapeStyle,
-    ShapeTextStyle,
-    TextStyle,
+    Style,
 )
 
 # ruff: noqa: F403, F405
@@ -34,7 +32,7 @@ class TestCanvasArrow:
         clear()
 
         # Simple arrow
-        text((5, 10), "simple", style=TextStyle(text_size=14, text_halign="left"))
+        text((5, 10), "simple", style=Style(text_size=14, text_halign="left"))
         arrow(
             (40, 10),
             (90, 10),
@@ -44,14 +42,14 @@ class TestCanvasArrow:
         )
 
         # Arrow with style
-        text((5, 20), "style", style=TextStyle(text_size=14, text_halign="left"))
+        text((5, 20), "style", style=Style(text_size=14, text_halign="left"))
         arrow(
             (40, 20),
             (90, 20),
             tail_width=5,
             head_width=10,
             head_length=10,
-            style=ShapeStyle(
+            style=Style(
                 line_color=Colors.Red,
                 fill_color=Colors.Transparent,
                 line_width=5,
@@ -60,7 +58,7 @@ class TestCanvasArrow:
         )
 
         # Arrow with text & flipping/shifting options
-        text((5, 30), "text", style=TextStyle(text_size=14, text_halign="left"))
+        text((5, 30), "text", style=Style(text_size=14, text_halign="left"))
         arrow(
             (40, 30),
             (90, 30),
@@ -69,7 +67,7 @@ class TestCanvasArrow:
             head_length=10,
             text="Hello Drawlib",
         )
-        text((5, 40), "text (flip)", style=TextStyle(text_size=14, text_halign="left"))
+        text((5, 40), "text (flip)", style=Style(text_size=14, text_halign="left"))
         arrow(
             (40, 40),
             (90, 40),
@@ -77,9 +75,9 @@ class TestCanvasArrow:
             head_width=10,
             head_length=10,
             text="Hello Drawlib",
-            textstyle=ShapeTextStyle(text_flip=True),
+            textstyle=Style(text_flip=True),
         )
-        text((5, 50), "text (shift)", style=TextStyle(text_size=14, text_halign="left"))
+        text((5, 50), "text (shift)", style=Style(text_size=14, text_halign="left"))
         arrow(
             (40, 50),
             (90, 50),
@@ -88,11 +86,11 @@ class TestCanvasArrow:
             head_length=10,
             head="->",
             text="Hello Drawlib",
-            textstyle=ShapeTextStyle(text_xy_shift=(2.5, 2.5)),
+            textstyle=Style(text_xy_shift=(2.5, 2.5)),
         )
 
         # Other heads
-        text((5, 60), "head <-", style=TextStyle(text_size=14, text_halign="left"))
+        text((5, 60), "head <-", style=Style(text_size=14, text_halign="left"))
         arrow(
             (40, 60),
             (90, 60),
@@ -101,7 +99,7 @@ class TestCanvasArrow:
             head_length=10,
             head="<-",
         )
-        text((5, 70), "head <->", style=TextStyle(text_size=14, text_halign="left"))
+        text((5, 70), "head <->", style=Style(text_size=14, text_halign="left"))
         arrow(
             (40, 70),
             (90, 70),
@@ -112,7 +110,7 @@ class TestCanvasArrow:
         )
 
         # Theme styles
-        text((5, 80), "theme style", style=TextStyle(text_size=14, text_halign="left"))
+        text((5, 80), "theme style", style=Style(text_size=14, text_halign="left"))
         arrow(
             (40, 80),
             (90, 80),

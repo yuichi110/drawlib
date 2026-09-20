@@ -286,27 +286,18 @@ We prefer using <code>config(width=100, height=100)</code> or <code>config(width
 <p>Alignment refers to the arrangement of items, such as text, images, or shapes, on drawlib's canvas.
 These items can be aligned horizontally and vertically.
 The default alignment is center horizontally and center vertically.
-You can alter alignment using <code>Style</code> classes for each drawing item:</p>
+You can alter alignment using the unified <code>Style</code> class (or function arguments) for each drawing item:</p>
 <ul>
-<li>Icon: <code>IconStyle</code></li>
-<li>Image: <code>ImageStyle</code></li>
-<li>Line: <code>LineStyle</code> and <code>LineArrowStyle</code></li>
-<li>Shape: <code>ShapeStyle</code> and <code>ShapeTextStyle</code></li>
-<li>Text: <code>TextStyle</code></li>
+<li><code>text_halign</code>: Horizontal alignment (<code>&quot;left&quot;</code>, <code>&quot;center&quot;</code>, <code>&quot;right&quot;</code>)</li>
+<li><code>text_valign</code>: Vertical alignment (<code>&quot;bottom&quot;</code>, <code>&quot;center&quot;</code>, <code>&quot;top&quot;</code>)</li>
 </ul>
-<p>All of these have attributes:</p>
-<ul>
-<li><code>halign</code>: Horizontal alignment</li>
-<li><code>valign</code>: Vertical alignment</li>
-</ul>
-<p>By setting values <code>&quot;left&quot;</code>, <code>&quot;center&quot;</code>, or <code>&quot;bottom&quot;</code> to halign and <code>&quot;bottom&quot;</code>, <code>&quot;center&quot;</code>, or <code>&quot;top&quot;</code> to valign, you can adjust the drawing item's alignment.
-If alignment isn't specified, <code>&quot;center&quot;</code> is applied to both halign and valign.</p>
+<p>If alignment isn't specified, <code>&quot;center&quot;</code> is applied to both horizontal and vertical alignment by default.</p>
 <p>Let's examine the alignment of rectangles with an example code:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.types import ShapeStyle, ShapeTextStyle
+from drawlib.types import Style
 
 config(width=100, height=100, grid_only=True)
 
@@ -316,14 +307,14 @@ for x, halign in [(15, &quot;left&quot;), (50, &quot;center&quot;), (85, &quot;r
             xy=(x, y),
             width=15,
             height=15,
-            style=ShapeStyle(text_halign=halign, text_valign=valign),
+            style=Style(text_halign=halign, text_valign=valign),
             text=f&quot;({halign}, {valign})&quot;,
-            textstyle=ShapeTextStyle(text_size=14),
+            textstyle=Style(text_size=14),
         )
         circle(
             xy=(x, y),
             radius=1,
-            style=ShapeStyle(line_color=Colors.Red, fill_color=Colors.Red),
+            style=Style(line_color=Colors.Red, fill_color=Colors.Red),
         )
 
 save()
@@ -337,7 +328,7 @@ The red dot represents &quot;xy&quot;, and the inner text indicates the alignmen
 from drawlib.colors import Colors
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.types import ShapeStyle, ShapeTextStyle
+from drawlib.types import Style
 
 config(width=100, height=100, grid_only=True)
 
@@ -347,14 +338,14 @@ for x, halign in [(15, &quot;left&quot;), (50, &quot;center&quot;), (85, &quot;r
             xy=(x, y),
             width=15,
             height=15,
-            style=ShapeStyle(text_halign=halign, text_valign=valign),
+            style=Style(text_halign=halign, text_valign=valign),
             text=f&quot;({halign}, {valign})&quot;,
-            textstyle=ShapeTextStyle(text_size=14),
+            textstyle=Style(text_size=14),
         )
         circle(
             xy=(x, y),
             radius=1,
-            style=ShapeStyle(line_color=Colors.Red, fill_color=Colors.Red),
+            style=Style(line_color=Colors.Red, fill_color=Colors.Red),
         )
 
 save()
@@ -377,7 +368,7 @@ from drawlib.icons import icon_phosphor
 from drawlib.images import image
 from drawlib.shapes import chevron, circle, parallelogram, rectangle, regularpolygon, star
 from drawlib.text import text
-from drawlib.types import ShapeStyle, TextStyle
+from drawlib.types import Style
 
 config(width=100, height=100, grid_only=True)
 
@@ -394,7 +385,7 @@ star((x1, y3), 5, 15, 6, angle=45)
 
 image((x2, y1), width=20, image=&quot;python.png&quot;, angle=315)
 icon_phosphor.heart((x2, y2), 10, angle=315)
-text((x2, y3), &quot;Drawlib&quot;, angle=315, style=TextStyle(text_size=24))
+text((x2, y3), &quot;Drawlib&quot;, angle=315, style=Style(text_size=24))
 
 chevron((x3, y1), 35, 10, corner_angle=45, angle=45)
 parallelogram((x3, y2), 15, 10, corner_angle=60, angle=45)
@@ -402,7 +393,7 @@ regularpolygon((x3, y3), num_vertex=6, radius=5, angle=45)
 
 for x in [x1, x2, x3]:
     for y in [y1, y2, y3]:
-        circle((x, y), 1, style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red))
+        circle((x, y), 1, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
 
 save()
 </code></pre>
@@ -418,7 +409,7 @@ from drawlib.icons import icon_phosphor
 from drawlib.images import image
 from drawlib.shapes import chevron, circle, parallelogram, rectangle, regularpolygon, star
 from drawlib.text import text
-from drawlib.types import ShapeStyle, TextStyle
+from drawlib.types import Style
 
 config(width=100, height=100, grid_only=True)
 
@@ -435,7 +426,7 @@ star((x1, y3), 5, 15, 6, angle=45)
 
 image((x2, y1), width=20, image=&quot;python.png&quot;, angle=315)
 icon_phosphor.heart((x2, y2), 10, angle=315)
-text((x2, y3), &quot;Drawlib&quot;, angle=315, style=TextStyle(text_size=24))
+text((x2, y3), &quot;Drawlib&quot;, angle=315, style=Style(text_size=24))
 
 chevron((x3, y1), 35, 10, corner_angle=45, angle=45)
 parallelogram((x3, y2), 15, 10, corner_angle=60, angle=45)
@@ -443,7 +434,7 @@ regularpolygon((x3, y3), num_vertex=6, radius=5, angle=45)
 
 for x in [x1, x2, x3]:
     for y in [y1, y2, y3]:
-        circle((x, y), 1, style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red))
+        circle((x, y), 1, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
 
 save()
 </code></pre>

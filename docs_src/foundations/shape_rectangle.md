@@ -29,7 +29,7 @@ These shapes, such as `arc()` and `ellipse()`, resemble rectangles in their para
 The `arc()` function is used to draw arcs.
 
 An arc resembles a line but is drawn as a shape, thus arrow styles cannot be specified. 
-However, you can define the line style using attributes of `ShapeStyle`.
+However, you can define the line style using attributes of `Style`.
 
 This function requires the following arguments:
 
@@ -468,5 +468,5 @@ save()
 
 In this example, inner text is drawn at the center of the right triangle shape. 
 However, the text extends beyond the shape's boundaries. 
-In such situations, you can adjust the position where the text is drawn by specifying the `xy_shift` attribute of `ShapeTextStyle`. 
+In such situations, you can adjust the position where the text is drawn by specifying the `text_xy_shift` attribute of `Style`. 
 For further details, refer to the shape style documentation.

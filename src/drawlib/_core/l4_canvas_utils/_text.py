@@ -25,9 +25,7 @@ from drawlib._core.l3_styles import (
     SYSTEM_DEFAULT_SHAPE_TEXT_STYLE,
     SYSTEM_DEFAULT_TEXT_STYLE,
     Colors,
-    ShapeTextStyle,
     Style,
-    TextStyle,
 )
 from drawlib._core.l4_canvas_utils._colors import ColorUtil
 from drawlib._core.l4_canvas_utils._utils import get_dict_value_none_keys_removed
@@ -38,11 +36,11 @@ class TextUtil(StaticContainer):
     """A utility class for handling text styles and options."""
 
     @staticmethod
-    def format_style(style: TextStyle | str | None) -> TextStyle:
+    def format_style(style: Style | str | None) -> Style:
         if style is None or isinstance(style, (Style, str)):
             formatted_style = get_style(style).copy()
         else:
-            raise ValueError(f'Arg "style" must be TextStyle or None, but {type(style)} given.')
+            raise ValueError(f'Arg "style" must be Style or None, but {type(style)} given.')
 
         system_default = SYSTEM_DEFAULT_TEXT_STYLE.copy()
         system_default.text_bg_fill_alpha = None
@@ -55,7 +53,7 @@ class TextUtil(StaticContainer):
 
     @staticmethod
     def get_text_options(
-        style: TextStyle | ShapeTextStyle | None,
+        style: Style | None,
     ) -> dict[str, Any]:
         if style is None:
             return {}
@@ -73,7 +71,7 @@ class TextUtil(StaticContainer):
 
     @staticmethod
     def get_font_properties(
-        style: TextStyle | ShapeTextStyle,
+        style: Style,
     ) -> FontProperties | None:
         if not isinstance(style, Style):
             raise ValueError(f"style must be Style, but {type(style)} given")
@@ -105,13 +103,13 @@ class TextUtil(StaticContainer):
 
     @staticmethod
     def get_bbox_dict(
-        style: TextStyle | None = None,
+        style: Style | None = None,
     ) -> dict[str, Any] | None:
-        """Convert drawlib's TextStyle to matplotlib's text background options.
+        """Convert drawlib's Style to matplotlib's text background options.
 
         Args:
-            style (TextStyle | None):
-                The TextStyle object containing text background style properties.
+            style (Style | None):
+                The Style object containing text background style properties.
 
         Returns:
             dict[str, Any] | None: Dictionary of options suitable for matplotlib's text background.
@@ -119,7 +117,7 @@ class TextUtil(StaticContainer):
         Notes:
             - Returns None if style is None or if all background properties are None.
             - Converts bgfcolor, bglcolor, bglstyle, bglwidth, and bgalpha properties
-              from TextStyle to matplotlib compatible bbox options.
+              from Style to matplotlib compatible bbox options.
         """
         # {} doesn't mean no style.
         # requires returning None when no style.

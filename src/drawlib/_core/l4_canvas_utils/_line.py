@@ -13,7 +13,7 @@ from typing import Any
 
 from drawlib._core.l2_models import StaticContainer
 from drawlib._core.l2_types import TypeArrowHead
-from drawlib._core.l3_styles import SYSTEM_DEFAULT_LINE_STYLE, LineStyle, Style
+from drawlib._core.l3_styles import SYSTEM_DEFAULT_LINE_STYLE, Style
 from drawlib._core.l4_canvas_utils._colors import ColorUtil
 from drawlib._core.l4_canvas_utils._utils import get_dict_value_none_keys_removed
 from drawlib._theme import get_style
@@ -108,12 +108,12 @@ class LineUtil(StaticContainer):
 
     @staticmethod
     def format_style(
-        style: LineStyle | str | None,
-    ) -> LineStyle:
+        style: Style | str | None,
+    ) -> Style:
         if style is None or isinstance(style, (Style, str)):
             formatted_style = get_style(style).copy()
         else:
-            raise ValueError(f'Arg "style" must be LineStyle or None, but {type(style)} given.')
+            raise ValueError(f'Arg "style" must be Style or None, but {type(style)} given.')
 
         formatted_style = SYSTEM_DEFAULT_LINE_STYLE.merge(formatted_style)
         return formatted_style
@@ -121,7 +121,7 @@ class LineUtil(StaticContainer):
     @staticmethod
     def get_fancyarrowpatch_options(
         arrowhead: TypeArrowHead,
-        style: LineStyle,
+        style: Style,
     ) -> dict[str, Any]:
         color_val = style.get_line_color()
         width_val = style.get_line_width()

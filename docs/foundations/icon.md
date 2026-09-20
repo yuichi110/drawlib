@@ -52,7 +52,7 @@ All functions have these args.
 - `xy` : coordinate
 - `width` : icon width
 - `angle` : angle 0.0~360.0
-- `style` : Accepts string style name or `IconStyle` object.
+- `style` : Accepts string style name or `Style` object.
 
 Executing this code yields the following image:
 
@@ -224,18 +224,18 @@ Therefore, drawlib does not currently provide an icon module for it.
 
 
 
-# IconStyle
+# Style for Icons
 
 
-Similar to other drawing elements, the appearance of icons can be customized using the `IconStyle` class, which allows you to control:
+Similar to other drawing elements, the appearance of icons can be customized using the `Style` class, which allows you to control:
 
-`IconStyle` encompasses these attributes
+`Style` encompasses these icon-related attributes:
 
-* `halign`: Horizontal alignment
-* `valign`: Vertical alignment
-* `style`: Icon style, Supports `"thin"`, `"light"`, `"regular"`, `"bold"`, or `"fill"`. The availability of styles depends on the icon modules.
-* `color`: Icon color, specified in RGB (0255, 0255, 0255) or RGBA (0255, 0255, 0255, 0.0~1.0). You can utilize helpers like `Colors` and `Colors140`.
-* `alpha`: Icon transparency, ranging from 0.0 to 1.0, where 0.0 represents total transparency.
+* `text_halign`: Horizontal alignment
+* `text_valign`: Vertical alignment
+* `icon_style`: Icon style, supports `"thin"`, `"light"`, `"regular"`, `"bold"`, or `"fill"`. The availability of styles depends on the icon modules.
+* `text_color`: Icon color, specified in RGB (0~255, 0~255, 0~255) or RGBA (0~255, 0~255, 0~255, 0.0~1.0). You can utilize helpers like `Colors` and `Colors140`.
+* `fill_alpha`: Icon transparency, ranging from 0.0 to 1.0, where 0.0 represents total transparency.
 
 Let's illustrate this with an example:
 
@@ -248,7 +248,7 @@ from drawlib.colors import Colors
 from drawlib.icons import icon_phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import IconStyle, ShapeStyle
+from drawlib.types import Style
 
 width = 100
 height = 50
@@ -256,12 +256,12 @@ config(width=width, height=height)
 
 x = width / 7
 y = height / 2
-icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style=IconStyle(text_color=Colors.Red))
-icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=IconStyle(icon_style="thin"))
-icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=IconStyle(icon_style="bold"))
-icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=IconStyle(icon_style="fill"))
-icon_phosphor.airplane(xy=(x * 5, y), width=10, style=IconStyle(text_halign="left", text_valign="bottom"))
-circle(xy=(x * 5, y), radius=0.5, style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red))
+icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style=Style(text_color=Colors.Red))
+icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Style(icon_style="thin"))
+icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Style(icon_style="bold"))
+icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Style(icon_style="fill"))
+icon_phosphor.airplane(xy=(x * 5, y), width=10, style=Style(text_halign="left", text_valign="bottom"))
+circle(xy=(x * 5, y), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
 text(xy=(x * 5 + 5, y - 10), text="align left,bottom")
 
 save()
@@ -282,7 +282,7 @@ from drawlib.colors import Colors
 from drawlib.icons import icon_phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import IconStyle, ShapeStyle
+from drawlib.types import Style
 
 width = 100
 height = 50
@@ -290,12 +290,12 @@ config(width=width, height=height)
 
 x = width / 7
 y = height / 2
-icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style=IconStyle(text_color=Colors.Red))
-icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=IconStyle(icon_style="thin"))
-icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=IconStyle(icon_style="bold"))
-icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=IconStyle(icon_style="fill"))
-icon_phosphor.airplane(xy=(x * 5, y), width=10, style=IconStyle(text_halign="left", text_valign="bottom"))
-circle(xy=(x * 5, y), radius=0.5, style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red))
+icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style=Style(text_color=Colors.Red))
+icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Style(icon_style="thin"))
+icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Style(icon_style="bold"))
+icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Style(icon_style="fill"))
+icon_phosphor.airplane(xy=(x * 5, y), width=10, style=Style(text_halign="left", text_valign="bottom"))
+circle(xy=(x * 5, y), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
 text(xy=(x * 5 + 5, y - 10), text="align left,bottom")
 
 save()
@@ -308,7 +308,7 @@ save()
 
 
 
-    icons with IconStyle.
+    icons with Style.
 
 
 

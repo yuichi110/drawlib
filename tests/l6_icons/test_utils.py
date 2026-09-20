@@ -12,7 +12,7 @@
 import pytest
 
 from drawlib._core.l2_models import StaticContainer
-from drawlib._core.l3_styles import IconStyle
+from drawlib._core.l3_styles import Style
 from drawlib._icons._utils import IconUtil
 
 
@@ -31,17 +31,17 @@ class TestIconUtils:
     def test_format_style_none(self) -> None:
         """Verify format_style returns the merged default style when input style is None."""
         formatted = IconUtil.format_style(None)
-        assert isinstance(formatted, IconStyle)
+        assert isinstance(formatted, Style)
 
     def test_format_style_string(self) -> None:
         """Verify format_style formats from a named string registered in the active theme."""
         # Using "blue" as a standard registered theme style key
         formatted = IconUtil.format_style("blue")
-        assert isinstance(formatted, IconStyle)
+        assert isinstance(formatted, Style)
 
     def test_format_style_object(self) -> None:
-        """Verify format_style retains properties and merges custom IconStyle instances."""
-        custom_style = IconStyle(text_color=(255, 0, 0), text_halign="center")
+        """Verify format_style retains properties and merges custom Style instances."""
+        custom_style = Style(text_color=(255, 0, 0), text_halign="center")
         formatted = IconUtil.format_style(custom_style)
         assert formatted.text_color == (255, 0, 0)
         assert formatted.text_halign == "center"

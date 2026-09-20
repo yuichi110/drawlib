@@ -22,7 +22,7 @@ from drawlib._core.l2_types import (
     TypePosFloat,
     TypeStr,
 )
-from drawlib._core.l3_styles import Colors, ShapeStyle, TextStyle
+from drawlib._core.l3_styles import Colors, Style
 from drawlib._core.l4_canvas import circle, text
 from drawlib._theme import get_style
 
@@ -31,7 +31,7 @@ class _BulletPointsShape(BaseModel):
     """Shape settings for a specific indent level."""
 
     function: Callable
-    style: ShapeStyle
+    style: Style
     args: dict
 
 
@@ -40,7 +40,7 @@ class _BulletPointsText(BaseModel):
 
     indent: TypeInt
     text: TypeStr
-    style: TextStyle
+    style: Style
 
 
 class BulletPoints:
@@ -49,7 +49,7 @@ class BulletPoints:
     Args:
         vertical_margin (float): The vertical space between bullet points.
         indent_width (float): The width of the indentation for each level.
-        default_style (Union[str, TextStyle, None]): The default text style for the bullet points.
+        default_style (Union[str, Style, None]): The default text style for the bullet points.
     """
 
     @guarded
@@ -57,14 +57,14 @@ class BulletPoints:
         self,
         vertical_margin: TypePosFloat,
         indent_width: TypePosFloat,
-        default_style: TypeStr | TextStyle | None = None,
+        default_style: TypeStr | Style | None = None,
     ) -> None:
         """Initialize BulletPoints.
 
         Args:
             vertical_margin (float): The vertical space between bullet points.
             indent_width (float): The width of the indentation for each level.
-            default_style (Union[str, TextStyle, None]): The default text style for the bullet points.
+            default_style (Union[str, Style, None]): The default text style for the bullet points.
         """
         self._vertical_margin = vertical_margin
         self._indent_width = indent_width
@@ -94,7 +94,7 @@ class BulletPoints:
         self,
         indent_level: TypeInt,
         function: Callable,
-        style: TypeStr | ShapeStyle,
+        style: TypeStr | Style,
         args: dict,
     ) -> None:
         if isinstance(style, str):
@@ -114,7 +114,7 @@ class BulletPoints:
     def add(
         self,
         text: TypeStr,
-        style: TypeStr | TextStyle | None = None,
+        style: TypeStr | Style | None = None,
     ) -> None:
         style_resolved = get_style(style) if style is not None else self._default_style
         style_resolved = get_style(style_resolved)

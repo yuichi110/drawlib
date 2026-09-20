@@ -20,7 +20,7 @@ from drawlib._core.l2_types import (
     TypeSize,
     TypeStr,
 )
-from drawlib._core.l3_styles import TextStyle
+from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
 from drawlib._core.l4_canvas_utils import TextUtil
 
@@ -44,7 +44,7 @@ class CanvasTextFeature(CanvasBase):
         text: TypeStr,
         size: TypeSize | None = None,
         angle: TypeAngle = 0.0,
-        style: TextStyle | TypeStr | None = None,
+        style: Style | TypeStr | None = None,
     ) -> None:
         """Draw text on the canvas.
 
@@ -89,7 +89,7 @@ class CanvasTextFeature(CanvasBase):
         text: TypeStr,
         size: TypeSize | None = None,
         angle: TypeAngle = 0.0,
-        style: TextStyle | None = None,
+        style: Style | None = None,
     ) -> None:
         """Draw vertical text on the canvas.
 
@@ -108,7 +108,7 @@ class CanvasTextFeature(CanvasBase):
         style = TextUtil.format_style(style)
 
         if style.text_halign != "center":
-            logger.warning("TextStyle.halign must be center on text_vertical(). Fix halign.")
+            logger.warning("Style.halign must be center on text_vertical(). Fix halign.")
             style.text_halign = "center"
 
         vertical_text = "\n".join(text)

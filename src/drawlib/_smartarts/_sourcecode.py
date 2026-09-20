@@ -40,7 +40,7 @@ from drawlib._core.l3_fonts import (
     FontSourceCode,
     get_font_metadata,
 )
-from drawlib._core.l3_styles import ImageStyle
+from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import image
 from drawlib._core.l4_canvas_utils import ColorUtil
 from drawlib._theme import get_style
@@ -175,7 +175,7 @@ class SourceCode:
         xy: TypeCoordinate,
         width: TypePosFloat,
         code: TypeStr,
-        style: ImageStyle | None = None,
+        style: Style | None = None,
     ) -> None:
         """Draw the source code image on a canvas.
 
@@ -183,7 +183,7 @@ class SourceCode:
             xy (Tuple[float, float]): The (x, y) coordinates for the top-left corner of the image.
             width (float): The width of the image.
             code (str): The source code to render.
-            style (Optional[ImageStyle]): The style to apply to the image.
+            style (Optional[Style]): The style to apply to the image.
 
         """
         image_ = self.get_image(code=code)

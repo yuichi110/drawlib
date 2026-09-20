@@ -251,7 +251,7 @@ You can specify:</p>
 <li>width: Width of the image.</li>
 <li>image: Source of the image, which can be a file path string, Dimage object, or PIL.Image.Image object.</li>
 <li>angle: Rotation angle of the image (optional).</li>
-<li>style: Styling information, either as a string name or an ImageStyle object.</li>
+<li>style: Styling information, either as a string name or a Style object.</li>
 </ul>
 <p>Coordinates and alignment work similarly to other drawing elements.
 Let's start with an example:</p>
@@ -287,15 +287,15 @@ save()
 <pre><code>image1.png
 </code></pre>
 <p>By default, the xy coordinates position the center of the image.</p>
-<h1>ImageStyle</h1>
-<p>Images can be styled using the <code>ImageStyle</code> data class, which includes:</p>
+<h1>Style for Images</h1>
+<p>Images can be styled using the <code>Style</code> class, which includes:</p>
 <ul>
-<li>halign: Horizontal Align</li>
-<li>valign: Verteical Align</li>
-<li>lwidth: Line width</li>
-<li>lcolor: Line color</li>
-<li>lstyle: Line style</li>
-<li>fcolor: Fill color for transparent part</li>
+<li><code>text_halign</code>: Horizontal Align</li>
+<li><code>text_valign</code>: Vertical Align</li>
+<li><code>line_width</code>: Border line width</li>
+<li><code>line_color</code>: Border line color</li>
+<li><code>line_style</code>: Border line style</li>
+<li><code>fill_color</code>: Fill color for transparent part</li>
 </ul>
 <p>Let's check image styling with example.
 Here is a code which specify stylings.</p>
@@ -304,7 +304,7 @@ from drawlib.colors import Colors
 from drawlib.images import image
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import ImageStyle, ShapeStyle
+from drawlib.types import Style
 
 config(width=100, height=50, grid_only=True)
 
@@ -312,16 +312,16 @@ image(
     xy=(10, 25),
     width=10,
     image=&quot;python.png&quot;,
-    style=ImageStyle(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
+    style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
 )
-circle((10, 25), radius=0.5, style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red))
+circle((10, 25), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
 text((15, 20), &quot;align: left,bottom&quot;)
 
 image(
     xy=(40, 25),
     width=20,
     image=&quot;python.png&quot;,
-    style=ImageStyle(line_width=2, line_style=&quot;dashed&quot;, line_color=Colors.Red, fill_color=Colors.Gray),
+    style=Style(line_width=2, line_style=&quot;dashed&quot;, line_color=Colors.Red, fill_color=Colors.Gray),
 )
 text((40, 10), &quot;border: red,dot,width2&quot;)
 
@@ -345,7 +345,7 @@ from drawlib.colors import Colors
 from drawlib.images import image
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import ImageStyle, ShapeStyle
+from drawlib.types import Style
 
 config(width=100, height=50, grid_only=True)
 
@@ -353,16 +353,16 @@ image(
     xy=(10, 25),
     width=10,
     image=&quot;python.png&quot;,
-    style=ImageStyle(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
+    style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
 )
-circle((10, 25), radius=0.5, style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red))
+circle((10, 25), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
 text((15, 20), &quot;align: left,bottom&quot;)
 
 image(
     xy=(40, 25),
     width=20,
     image=&quot;python.png&quot;,
-    style=ImageStyle(line_width=2, line_style=&quot;dashed&quot;, line_color=Colors.Red, fill_color=Colors.Gray),
+    style=Style(line_width=2, line_style=&quot;dashed&quot;, line_color=Colors.Red, fill_color=Colors.Gray),
 )
 text((40, 10), &quot;border: red,dot,width2&quot;)
 
@@ -376,7 +376,7 @@ save()
 </div>
 <pre><code>image with styles
 </code></pre>
-<p>Styling an image with ImageStyle allows adjustments such as alignment changes, border customization, and rotation.</p>
+<p>Styling an image with Style allows adjustments such as alignment changes, border customization, and rotation.</p>
 <h1>Passing image objects</h1>
 <p>While file paths are commonly used, image() also accepts the following image objects:</p>
 <p><code>Dimage</code>: Drawlib's image utility class.

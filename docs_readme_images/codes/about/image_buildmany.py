@@ -14,21 +14,21 @@ from drawlib.icons import icon_phosphor
 from drawlib.lines import line
 from drawlib.shapes import arrow, rectangle
 from drawlib.text import text
-from drawlib.types import IconStyle, LineStyle, ShapeTextStyle, TextStyle
+from drawlib.types import Style
 
 config(height=60)
 
 rect_width = 20
 rect_height = 38
 
-line_thin = LineStyle(line_width=0.5)
-ts_left = TextStyle(text_size=12, text_halign="left")
-ts_left_red = TextStyle(text_size=12, text_halign="left", text_color=ColorsThemeEssentials.Red)
-icon_thin = IconStyle(icon_style="thin")
-icon_thin_red = IconStyle(icon_style="thin", text_color=ColorsThemeEssentials.Red)
+line_thin = Style(line_width=0.5)
+ts_left = Style(text_size=12, text_halign="left")
+ts_left_red = Style(text_size=12, text_halign="left", text_color=ColorsThemeEssentials.Red)
+icon_thin = Style(icon_style="thin")
+icon_thin_red = Style(icon_style="thin", text_color=ColorsThemeEssentials.Red)
 
-tscenter16 = TextStyle(text_halign="center", text_size=16)
-tscenter16r = TextStyle(text_halign="center", text_size=16, text_color=ColorsThemeEssentials.Red)
+tscenter16 = Style(text_halign="center", text_size=16)
+tscenter16r = Style(text_halign="center", text_size=16, text_color=ColorsThemeEssentials.Red)
 
 
 def left():
@@ -154,7 +154,7 @@ arrow(
     head_length=3,
     style="red_flat",
     text="Drawlib",
-    textstyle=ShapeTextStyle(
+    textstyle=Style(
         text_size=14,
         text_color=Colors.White,
         text_font=FontRoboto.ROBOTO_BOLD,

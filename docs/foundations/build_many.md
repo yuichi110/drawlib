@@ -272,7 +272,7 @@ img_python = Dimage("images/python.png")
 from drawlib.colors import Colors140
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 import docs.commons.style
 
@@ -295,7 +295,7 @@ def draw_logo(x: float = 15, y: float = 5):
     text(
         (x, y),
         text="Drawlib",
-        style=TextStyle(
+        style=Style(
             text_color=Colors140.BlueViolet,
             text_size=24,
             text_font=FontFile("avenger/regular.ttf"),

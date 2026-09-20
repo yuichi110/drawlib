@@ -12,7 +12,7 @@
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
 from drawlib.smartarts import dsart
-from drawlib.types import ShapeTextStyle
+from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l7_smartarts/bubblespeech/"
 
@@ -77,7 +77,7 @@ class TestBubblespeech:
         save(f"{OUTPUT_DIR}test_tail_bottom.png")
 
     def test_with_text_and_style(self) -> None:
-        """Verify bubblespeech drawing with formatted text and custom ShapeTextStyle."""
+        """Verify bubblespeech drawing with formatted text and custom Style."""
         clear()
         dsart.bubblespeech(
             xy=(30, 30),
@@ -88,6 +88,6 @@ class TestBubblespeech:
             tail_vertex_xy=(10, 50),
             tail_end_ratio=0.6,
             text="Hello Drawlib\nHello Python World!!",
-            textstyle=ShapeTextStyle(text_color=Colors.Red, text_size=28),
+            textstyle=Style(text_color=Colors.Red, text_size=28),
         )
         save(f"{OUTPUT_DIR}test_with_text_style.png")

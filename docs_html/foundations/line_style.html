@@ -247,7 +247,7 @@
 <ul>
 <li><code>arrowhead</code>: Specifies the type of arrowhead. Options are <code>[&quot;&quot;, &quot;-&gt;&quot;, &quot;&lt;-&quot;, &quot;&lt;-&gt;&quot;]</code>.</li>
 <li><code>width</code>: Specifies the line width. This should typically be configured within the style, but it is also available as an optional argument.</li>
-<li><code>style</code>: Defines the line style. Accepts a LineStyle object or a string (style name).</li>
+<li><code>style</code>: Defines the line style. Accepts a Style object or a string (style name).</li>
 </ul>
 <p>These optional arguments control the line's style.
 Regarding line width, you can control it using both the <code>width</code> argument and the <code>style</code> attribute.
@@ -256,17 +256,17 @@ If you configure it in the style, you can change the line width by modifying the
 However, since many users might want to change the line width easily, the width argument is provided as a shortcut.</p>
 <p>Additionally, we have a function called <code>arrow()</code>.
 You might think it is similar to a line with an arrowhead, but it actually draws a thick and bold arrow shape, not an arrow line.</p>
-<h1>LineStyle</h1>
-<p>The <code>LineStyle</code> object has the following attributes:</p>
+<h1>Style for Lines</h1>
+<p>The <code>Style</code> object has the following attributes for line styling:</p>
 <ul>
-<li>width: Line width, represented as a float value.</li>
-<li>color: Line color, specified in RGB (0~255, 0~255, 0~255) or RGBA (0~255, 0~255, 0~255, 0~1.0). You can use the Color classes for convenience.</li>
-<li>alpha: Line transparency, ranging from 0.0 (totally transparent) to 1.0 (fully opaque).</li>
-<li>style: Line style, which can be one of <code>[&quot;solid&quot;, &quot;dashed&quot;, &quot;dotted&quot;, &quot;dashdot&quot;]</code>. The default style is solid.</li>
-<li>arrow_head_fill: Arrowhead fill, indicating whether the arrowhead is filled (<code>True</code>) or not (<code>False</code>). The default is <code>False</code>.</li>
-<li>arrow_head_scale: Arrowhead scale, determining the size of the arrowhead. A larger value results in a larger arrowhead. The default scale is <code>20.0</code>.</li>
+<li><code>line_width</code>: Line width, represented as a float value.</li>
+<li><code>line_color</code>: Line color, specified in RGB (0~255, 0~255, 0~255) or RGBA (0~255, 0~255, 0~255, 0~1.0). You can use the Color classes for convenience.</li>
+<li><code>fill_alpha</code>: Line transparency, ranging from 0.0 (totally transparent) to 1.0 (fully opaque).</li>
+<li><code>line_style</code>: Line style, which can be one of <code>[&quot;solid&quot;, &quot;dashed&quot;, &quot;dotted&quot;, &quot;dashdot&quot;]</code>. The default style is solid.</li>
+<li><code>arrow_head_fill</code>: Arrowhead fill, indicating whether the arrowhead is filled (<code>True</code>) or not (<code>False</code>). The default is <code>False</code>.</li>
+<li><code>arrow_head_scale</code>: Arrowhead scale, determining the size of the arrowhead. A larger value results in a larger arrowhead. The default scale is <code>20.0</code>.</li>
 </ul>
-<p>The first four attributes (<code>width</code>, <code>color</code>, <code>alpha</code>, <code>style</code>) affect both lines and lines with arrowheads.
+<p>The first four attributes (<code>line_width</code>, <code>line_color</code>, <code>fill_alpha</code>, <code>line_style</code>) affect both lines and lines with arrowheads.
 The last two attributes (<code>arrow_head_fill</code>, <code>arrow_head_scale</code>) specifically affect lines with arrowheads.
 This structure allows for precise control over the appearance of lines and their associated arrowheads within Drawlib.</p>
 <p>It's important to note that whether the arrowhead is present or not carries logical meaning, so it is considered a function argument rather than a style attribute.</p>
@@ -276,27 +276,27 @@ This structure allows for precise control over the appearance of lines and their
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
-from drawlib.types import LineStyle
+from drawlib.types import Style
 
 config(width=100, height=40)
 
 text((10, 5), &quot;no style&quot;)
 line((20, 5), (40, 5))
 text((10, 15), &quot;width: 5&quot;)
-line((20, 15), (40, 15), style=LineStyle(line_width=5))
+line((20, 15), (40, 15), style=Style(line_width=5))
 text((10, 25), &quot;color: Red&quot;)
-line((20, 25), (40, 25), style=LineStyle(line_color=Colors.Red))
+line((20, 25), (40, 25), style=Style(line_color=Colors.Red))
 text((10, 35), &quot;alpha: 0.2&quot;)
-line((20, 35), (40, 35), style=LineStyle(fill_alpha=0.2))
+line((20, 35), (40, 35), style=Style(fill_alpha=0.2))
 
 text((60, 5), &quot;style: solid\n(default)&quot;)
-line((70, 5), (90, 5), style=LineStyle(line_style=&quot;solid&quot;))
+line((70, 5), (90, 5), style=Style(line_style=&quot;solid&quot;))
 text((60, 15), &quot;style: dashed&quot;)
-line((70, 15), (90, 15), style=LineStyle(line_style=&quot;dashed&quot;))
+line((70, 15), (90, 15), style=Style(line_style=&quot;dashed&quot;))
 text((60, 25), &quot;style: dotted&quot;)
-line((70, 25), (90, 25), style=LineStyle(line_style=&quot;dotted&quot;))
+line((70, 25), (90, 25), style=Style(line_style=&quot;dotted&quot;))
 text((60, 35), &quot;style: dashdot&quot;)
-line((70, 35), (90, 35), style=LineStyle(line_style=&quot;dashdot&quot;))
+line((70, 35), (90, 35), style=Style(line_style=&quot;dashdot&quot;))
 
 save()
 </code></pre>
@@ -308,27 +308,27 @@ save()
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
-from drawlib.types import LineStyle
+from drawlib.types import Style
 
 config(width=100, height=40)
 
 text((10, 5), &quot;no style&quot;)
 line((20, 5), (40, 5))
 text((10, 15), &quot;width: 5&quot;)
-line((20, 15), (40, 15), style=LineStyle(line_width=5))
+line((20, 15), (40, 15), style=Style(line_width=5))
 text((10, 25), &quot;color: Red&quot;)
-line((20, 25), (40, 25), style=LineStyle(line_color=Colors.Red))
+line((20, 25), (40, 25), style=Style(line_color=Colors.Red))
 text((10, 35), &quot;alpha: 0.2&quot;)
-line((20, 35), (40, 35), style=LineStyle(fill_alpha=0.2))
+line((20, 35), (40, 35), style=Style(fill_alpha=0.2))
 
 text((60, 5), &quot;style: solid\n(default)&quot;)
-line((70, 5), (90, 5), style=LineStyle(line_style=&quot;solid&quot;))
+line((70, 5), (90, 5), style=Style(line_style=&quot;solid&quot;))
 text((60, 15), &quot;style: dashed&quot;)
-line((70, 15), (90, 15), style=LineStyle(line_style=&quot;dashed&quot;))
+line((70, 15), (90, 15), style=Style(line_style=&quot;dashed&quot;))
 text((60, 25), &quot;style: dotted&quot;)
-line((70, 25), (90, 25), style=LineStyle(line_style=&quot;dotted&quot;))
+line((70, 25), (90, 25), style=Style(line_style=&quot;dotted&quot;))
 text((60, 35), &quot;style: dashdot&quot;)
-line((70, 35), (90, 35), style=LineStyle(line_style=&quot;dashdot&quot;))
+line((70, 35), (90, 35), style=Style(line_style=&quot;dashdot&quot;))
 
 save()
 </code></pre>
@@ -347,7 +347,7 @@ save()
 <li><code>&quot;&lt;-&quot;</code>: Left arrowhead.</li>
 <li><code>&quot;&lt;-&gt;&quot;</code>: Both right and left arrowheads.</li>
 </ul>
-<p>You can customize the visual appearance of arrowheads using the following <code>LineStyle</code> attributes:</p>
+<p>You can customize the visual appearance of arrowheads using the following <code>Style</code> attributes:</p>
 <ul>
 <li><code>arrow_head_fill</code>: Arrowhead fill. Determines whether the arrowhead is filled (<code>True</code>) or not (<code>False</code>). Default is <code>False</code>.</li>
 <li><code>arrow_head_scale</code>: Arrowhead scale. Controls the size of the arrowhead. Larger values result in larger arrowheads. Default is <code>20.0</code>.</li>
@@ -357,12 +357,12 @@ save()
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 &quot;&quot;&quot;
 config(width=100, height=50)
 
-text((10, 5), &quot;LineArrowStyle()&quot;, style=TextStyle(text_size=14))
+text((10, 5), &quot;LineArrowStyle()&quot;, style=Style(text_size=14))
 line((20, 5), (40, 5), )
 text((10, 13), &quot;width: 5&quot;)
 line((20, 13), (40, 13), style=LineArrowStyle(lwidth=5))
@@ -399,12 +399,12 @@ save()
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 &quot;&quot;&quot;
 config(width=100, height=50)
 
-text((10, 5), &quot;LineArrowStyle()&quot;, style=TextStyle(text_size=14))
+text((10, 5), &quot;LineArrowStyle()&quot;, style=Style(text_size=14))
 line((20, 5), (40, 5), )
 text((10, 13), &quot;width: 5&quot;)
 line((20, 13), (40, 13), style=LineArrowStyle(lwidth=5))

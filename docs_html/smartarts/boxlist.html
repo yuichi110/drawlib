@@ -364,16 +364,16 @@ save()
 <p>Initialize BoxList.</p>
 <p>Args.</p>
 <ul>
-<li>default_box_style (Union[str, ShapeStyle, None]): The style for the boxes.</li>
-<li>default_text_style (Union[str, ShapeTextStyle, None]): The style for the text inside the boxes.</li>
+<li>default_box_style (Union[str, Style, None]): The style for the boxes.</li>
+<li>default_text_style (Union[str, Style, None]): The style for the text inside the boxes.</li>
 </ul>
 <h2><code>append()</code></h2>
 <p>Appends a new box with text to the BoxList.</p>
 <p>Args:</p>
 <ul>
 <li>text (str): The text to be displayed inside the box.</li>
-<li>box_style (Union[str, ShapeStyle, None], optional): The style for the box. Can be a style name, a ShapeStyle object, or None. If None, the default box style is used.</li>
-<li>text_style (Union[str, ShapeTextStyle, None], optional): The style for the text inside the box. Can be a style name, a ShapeTextStyle object, or None. If None, the default text style is used.</li>
+<li>box_style (Union[str, Style, None], optional): The style for the box. Can be a style name, a Style object, or None. If None, the default box style is used.</li>
+<li>text_style (Union[str, Style, None], optional): The style for the text inside the box. Can be a style name, a Style object, or None. If None, the default text style is used.</li>
 </ul>
 <h2><code>insert()</code></h2>
 <p>Inserts a new box with text at a specified position in the BoxList.</p>
@@ -381,16 +381,16 @@ save()
 <ul>
 <li>index (int): The position at which to insert the new box.</li>
 <li>text (str): The text to be displayed inside the box.</li>
-<li>box_style (Union[str, ShapeStyle, None], optional): The style for the box. Can be a style name, a ShapeStyle object, or None. If None, the default box style is used.</li>
-<li>text_style (Union[str, ShapeTextStyle, None], optional): The style for the text inside the box. Can be a style name, a ShapeTextStyle object, or None. If None, the default text style is used.</li>
+<li>box_style (Union[str, Style, None], optional): The style for the box. Can be a style name, a Style object, or None. If None, the default box style is used.</li>
+<li>text_style (Union[str, Style, None], optional): The style for the text inside the box. Can be a style name, a Style object, or None. If None, the default text style is used.</li>
 </ul>
 <h2><code>extend()</code></h2>
 <p>Extends the BoxList by appending multiple boxes with text.</p>
 <p>Args:</p>
 <ul>
 <li>texts (List[str]): A list of texts to be displayed inside the boxes.</li>
-<li>box_style (Union[str, ShapeStyle, None], optional): The style for the boxes. Can be a style name, a ShapeStyle object, or None. If None, the default box style is used.</li>
-<li>text_style (Union[str, ShapeTextStyle, None], optional): The style for the text inside the boxes. Can be a style name, a ShapeTextStyle object, or None. If None, the default text style is used.</li>
+<li>box_style (Union[str, Style, None], optional): The style for the boxes. Can be a style name, a Style object, or None. If None, the default box style is used.</li>
+<li>text_style (Union[str, Style, None], optional): The style for the text inside the boxes. Can be a style name, a Style object, or None. If None, the default text style is used.</li>
 </ul>
 <h2><code>draw()</code></h2>
 <p>Draws a list of boxes at the specified location.</p>

@@ -9,15 +9,15 @@ from drawlib.canvas import config
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.types import ShapeStyle, TextStyle
+from drawlib.types import Style
 
 config(width=100, height=40)
 
-circle(xy=(25, 20), radius=12, style=ShapeStyle(fill_color=Colors140.Turquoise, line_color=Colors.Navy, line_width=2))
-text(xy=(25, 20), text="Circle", style=TextStyle(text_color=Colors.White, text_size=16))
+circle(xy=(25, 20), radius=12, style=Style(fill_color=Colors140.Turquoise, line_color=Colors.Navy, line_width=2))
+text(xy=(25, 20), text="Circle", style=Style(text_color=Colors.White, text_size=16))
 
-rectangle(xy=(75, 20), width=24, height=24, style=ShapeStyle(fill_color=Colors140.Coral, line_color=Colors.Navy, line_width=2))
-text(xy=(75, 20), text="Rectangle", style=TextStyle(text_color=Colors.White, text_size=16))
+rectangle(xy=(75, 20), width=24, height=24, style=Style(fill_color=Colors140.Coral, line_color=Colors.Navy, line_width=2))
+text(xy=(75, 20), text="Rectangle", style=Style(text_color=Colors.White, text_size=16))
 ```
 
 <figure class="drawlib-image" style="text-align: center;">

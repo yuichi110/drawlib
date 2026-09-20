@@ -42,12 +42,7 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_fonts import FontSourceCode
 from drawlib._core.l3_styles import (
-    IconStyle,
-    ImageStyle,
-    LineStyle,
-    ShapeStyle,
-    ShapeTextStyle,
-    TextStyle,
+    Style,
 )
 
 list_ = list
@@ -417,7 +412,7 @@ class {class_name}(AbstractStyleCache):
             name (str, optional): Name of the style to retrieve. Defaults to "".
 
         Returns:
-            {style_class}: The retrieved IconStyle object.
+            {style_class}: The retrieved Style object.
 
         Raises:
             ValueError: If the style with the specified name does not exist.
@@ -490,7 +485,7 @@ TEMPLATE_SHAPE_TYPES = '''
 class {class_name}(AbstractStyleCache):
     """Cache for managing {name} styles.
 
-    This class provides methods to manage and manipulate ShapeStyle objects
+    This class provides methods to manage and manipulate Style objects
     specifically tailored for {name} within a cache.
     """
 
@@ -509,7 +504,7 @@ class {class_name}(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[TypeStr, ShapeStyle] = {{}}
+        self._styles: dict[TypeStr, Style] = {{}}
         self._shapestyles = shapestyles
 
     @guarded
@@ -525,7 +520,7 @@ class {class_name}(AbstractStyleCache):
         return name in self._styles
 
     @guarded
-    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> ShapeStyle:
+    def get(self, name: TypeStr = "", use_shapestyles_if_not_exist: TypeBool = True) -> Style:
         """Retrieve an {name} style by name.
 
         Args:
@@ -534,7 +529,7 @@ class {class_name}(AbstractStyleCache):
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
-            ShapeStyle: The retrieved ShapeStyle object.
+            Style: The retrieved Style object.
 
         Raises:
             ValueError: If the {name} style with the specified name does not exist and
@@ -558,11 +553,11 @@ class {class_name}(AbstractStyleCache):
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeStyle, name: TypeStr = "") -> None:
+    def set(self, style: Style, name: TypeStr = "") -> None:
         """Set or update an {name} style with the given name.
 
         Args:
-            style (ShapeStyle): The ShapeStyle object to cache.
+            style (Style): The Style object to cache.
             name (str, optional): Name of the {name} style. Defaults to "".
 
         Raises:
@@ -587,11 +582,11 @@ class {class_name}(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeStyle, targets: list_[TypeStr] | None = None) -> None:
+    def merge(self, style: Style, targets: list_[TypeStr] | None = None) -> None:
         """Merge an {name} style into existing {name} styles.
 
         Args:
-            style (ShapeStyle): The ShapeStyle object to merge.
+            style (Style): The Style object to merge.
             targets (list[str] | None, optional): List of target {name} style names to merge into.
                 If None, merge into all existing {name} styles. Defaults to None.
 
@@ -612,7 +607,7 @@ TEMPLATE_SHAPETEXT_TYPES = '''
 class {class_name}(AbstractStyleCache):
     """Cache for managing {name} text styles.
 
-    This class provides methods to manage and manipulate ShapeTextStyle objects
+    This class provides methods to manage and manipulate Style objects
     specifically tailored for {name} within a cache.
     """
 
@@ -631,7 +626,7 @@ class {class_name}(AbstractStyleCache):
         """
         self._callback_set = callback_set
         self._callback_delete = callback_delete
-        self._styles: dict[TypeStr, ShapeTextStyle] = {{}}
+        self._styles: dict[TypeStr, Style] = {{}}
         self._shapetextstyles = shapetextstyles
 
     @guarded
@@ -647,7 +642,7 @@ class {class_name}(AbstractStyleCache):
         return name in self._styles
 
     @guarded
-    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> ShapeTextStyle:
+    def get(self, name: TypeStr = "", use_shapetextstyles_if_not_exist: TypeBool = True) -> Style:
         """Retrieve an {name} text style by name.
 
         Args:
@@ -656,7 +651,7 @@ class {class_name}(AbstractStyleCache):
                 the style does not exist in _styles. Defaults to True.
 
         Returns:
-            ShapeTextStyle: The retrieved ShapeTextStyle object.
+            Style: The retrieved Style object.
 
         Raises:
             ValueError: If the {name} text style with the specified name does not exist and
@@ -678,11 +673,11 @@ class {class_name}(AbstractStyleCache):
         return list_(self._styles.keys())
 
     @guarded
-    def set(self, style: ShapeTextStyle, name: TypeStr = "") -> None:
+    def set(self, style: Style, name: TypeStr = "") -> None:
         """Set or update an {name} text style with the given name.
 
         Args:
-            style (ShapeTextStyle): The ShapeTextStyle object to cache.
+            style (Style): The Style object to cache.
             name (str, optional): Name of the {name} text style. Defaults to "".
 
         Raises:
@@ -707,11 +702,11 @@ class {class_name}(AbstractStyleCache):
         self._callback_delete(name)
 
     @guarded
-    def merge(self, style: ShapeTextStyle, targets: list_[TypeStr] | None = None) -> None:
+    def merge(self, style: Style, targets: list_[TypeStr] | None = None) -> None:
         """Merge an {name} text style into existing {name} text styles.
 
         Args:
-            style (ShapeTextStyle): The ShapeTextStyle object to merge.
+            style (Style): The Style object to merge.
             targets (list[str] | None, optional): List of target {name} text style names to merge into.
                 If None, merge into all existing {name} text styles. Defaults to None.
 
@@ -732,12 +727,12 @@ def get_text_basics() -> str:
     """Fill basic template."""
     texts = []
     for class_name, style_class in [
-        ("IconStyleCache", "IconStyle"),
-        ("ImageStyleCache", "ImageStyle"),
-        ("LineStyleCache", "LineStyle"),
-        ("ShapeStyleCache", "ShapeStyle"),
-        ("ShapeTextStyleCache", "ShapeTextStyle"),
-        ("TextStyleCache", "TextStyle"),
+        ("IconStyleCache", "Style"),
+        ("ImageStyleCache", "Style"),
+        ("LineStyleCache", "Style"),
+        ("ShapeStyleCache", "Style"),
+        ("ShapeTextStyleCache", "Style"),
+        ("TextStyleCache", "Style"),
     ]:
         text = TEMPLATE.format(
             class_name=class_name,

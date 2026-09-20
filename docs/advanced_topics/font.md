@@ -55,13 +55,13 @@ Here's how you can use the FontFile class in your Python code:
 ```python
 from drawlib.canvas import config, save
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 text(
     (50, 25),
     "Hello Drawlib!",
-    style=TextStyle(
+    style=Style(
         text_size=36,
         text_font=FontFile("./avenger/regular.ttf"),
     ),
@@ -81,13 +81,13 @@ Executing this code generate the output:
 ```python
 from drawlib.canvas import config, save
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 text(
     (50, 25),
     "Hello Drawlib!",
-    style=TextStyle(
+    style=Style(
         text_size=36,
         text_font=FontFile("./avenger/regular.ttf"),
     ),

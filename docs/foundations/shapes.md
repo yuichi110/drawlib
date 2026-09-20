@@ -27,7 +27,7 @@ from drawlib.canvas import config
 from drawlib.colors import Colors140
 from drawlib.shapes import circle, donuts, regularpolygon, star
 from drawlib.text import text
-from drawlib.types import ShapeStyle
+from drawlib.types import Style
 
 config(width=150, height=60)
 
@@ -35,7 +35,7 @@ config(width=150, height=60)
 circle(
     xy=(20, 30),
     radius=12,
-    style=ShapeStyle(fill_color=Colors140.LightSkyBlue, line_color=Colors140.SteelBlue, line_width=2),
+    style=Style(fill_color=Colors140.LightSkyBlue, line_color=Colors140.SteelBlue, line_width=2),
     text="Circle"
 )
 
@@ -44,7 +44,7 @@ donuts(
     xy=(50, 30),
     radius=12,
     width=4,
-    style=ShapeStyle(fill_color=Colors140.Plum, line_color=Colors140.Purple, line_width=2),
+    style=Style(fill_color=Colors140.Plum, line_color=Colors140.Purple, line_width=2),
     text="Donut"
 )
 
@@ -53,7 +53,7 @@ regularpolygon(
     xy=(80, 30),
     radius=12,
     num_vertex=6,
-    style=ShapeStyle(fill_color=Colors140.MediumSpringGreen, line_color=Colors140.SeaGreen, line_width=2),
+    style=Style(fill_color=Colors140.MediumSpringGreen, line_color=Colors140.SeaGreen, line_width=2),
     text="Hexagon"
 )
 
@@ -63,7 +63,7 @@ star(
     radius_ext=12,
     radius_int=6,
     num_vertex=5,
-    style=ShapeStyle(fill_color=Colors140.Gold, line_color=Colors140.DarkGoldenRod, line_width=2),
+    style=Style(fill_color=Colors140.Gold, line_color=Colors140.DarkGoldenRod, line_width=2),
     text="Star"
 )
 ```
@@ -97,7 +97,7 @@ from drawlib.canvas import config
 from drawlib.colors import Colors140
 from drawlib.shapes import chevron, ellipse, rectangle, rhombus, triangle
 from drawlib.text import text
-from drawlib.types import ShapeStyle
+from drawlib.types import Style
 
 config(width=160, height=60)
 
@@ -106,7 +106,7 @@ rectangle(
     xy=(20, 30),
     width=24,
     height=16,
-    style=ShapeStyle(fill_color=Colors140.AliceBlue, line_color=Colors140.DodgerBlue, line_width=2),
+    style=Style(fill_color=Colors140.AliceBlue, line_color=Colors140.DodgerBlue, line_width=2),
     text="Rect"
 )
 
@@ -115,7 +115,7 @@ ellipse(
     xy=(50, 30),
     width=24,
     height=16,
-    style=ShapeStyle(fill_color=Colors140.MistyRose, line_color=Colors140.Crimson, line_width=2),
+    style=Style(fill_color=Colors140.MistyRose, line_color=Colors140.Crimson, line_width=2),
     text="Ellipse"
 )
 
@@ -124,7 +124,7 @@ triangle(
     xy=(80, 30),
     width=24,
     height=20,
-    style=ShapeStyle(fill_color=Colors140.LemonChiffon, line_color=Colors140.GoldenRod, line_width=2),
+    style=Style(fill_color=Colors140.LemonChiffon, line_color=Colors140.GoldenRod, line_width=2),
     text="Tri"
 )
 
@@ -133,7 +133,7 @@ rhombus(
     xy=(110, 30),
     width=22,
     height=22,
-    style=ShapeStyle(fill_color=Colors140.HoneyDew, line_color=Colors140.ForestGreen, line_width=2),
+    style=Style(fill_color=Colors140.HoneyDew, line_color=Colors140.ForestGreen, line_width=2),
     text="Diamond"
 )
 
@@ -143,7 +143,7 @@ chevron(
     width=20,
     height=16,
     corner_angle=45,
-    style=ShapeStyle(fill_color=Colors140.Lavender, line_color=Colors140.DarkOrchid, line_width=2),
+    style=Style(fill_color=Colors140.Lavender, line_color=Colors140.DarkOrchid, line_width=2),
     text="Chevron"
 )
 ```
@@ -168,7 +168,7 @@ from drawlib.canvas import config
 from drawlib.colors import Colors140
 from drawlib.shapes import arrow
 from drawlib.text import text
-from drawlib.types import ShapeStyle
+from drawlib.types import Style
 
 config(width=100, height=40)
 
@@ -178,7 +178,7 @@ arrow(
     tail_width=4,
     head_width=10,
     head_length=12,
-    style=ShapeStyle(fill_color=Colors140.DodgerBlue, line_color=Colors140.MidnightBlue, line_width=2),
+    style=Style(fill_color=Colors140.DodgerBlue, line_color=Colors140.MidnightBlue, line_width=2),
     text="Process Flow"
 )
 ```
@@ -203,13 +203,13 @@ from drawlib.canvas import config
 from drawlib.colors import Colors140
 from drawlib.shapes import polygon
 from drawlib.text import text
-from drawlib.types import ShapeStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 
 polygon(
     xys=[(20, 10), (80, 10), (90, 40), (50, 45), (10, 30)],
-    style=ShapeStyle(fill_color=Colors140.LightCoral, line_color=Colors140.FireBrick, line_width=2),
+    style=Style(fill_color=Colors140.LightCoral, line_color=Colors140.FireBrick, line_width=2),
     text="Custom Polygon"
 )
 ```
@@ -223,14 +223,14 @@ polygon(
 
 ---
 
-## 5. Shape Styling (`ShapeStyle`)
+## 5. Shape Styling (`Style`)
 
-Shape appearance is configured using `ShapeStyle`:
+Shape appearance is configured using `Style`:
 - **`fill_color`**: Interior color.
 - **`line_color`**: Border line color.
 - **`line_width`**: Border line thickness.
 - **`line_style`**: `"solid"`, `"dashed"`, `"dotted"`, `"dashdot"`.
-- **`alpha`**: Opacity (`0.0` to `1.0`).
+- **`fill_alpha`**: Opacity (`0.0` to `1.0`).
 
 
 
@@ -239,7 +239,7 @@ from drawlib.canvas import config
 from drawlib.colors import Colors140
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.types import ShapeStyle
+from drawlib.types import Style
 
 config(width=100, height=40)
 
@@ -247,7 +247,7 @@ rectangle(
     xy=(30, 20),
     width=35,
     height=20,
-    style=ShapeStyle(
+    style=Style(
         fill_color=Colors140.LightYellow,
         line_color=Colors140.DarkOrange,
         line_width=3,
@@ -259,7 +259,7 @@ rectangle(
 circle(
     xy=(75, 20),
     radius=12,
-    style=ShapeStyle(
+    style=Style(
         fill_color=Colors140.MediumTurquoise,
         line_color=Colors140.Teal,
         line_width=2,

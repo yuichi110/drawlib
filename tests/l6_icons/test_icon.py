@@ -14,7 +14,7 @@ import os
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
 from drawlib.icons import icon
-from drawlib.types import IconStyle
+from drawlib.types import Style
 
 FONT_AWESOME_FREE = os.path.normpath(os.path.join(os.path.dirname(__file__), "../assets/fontawesome-free/brands.ttf"))
 OUTPUT_DIR = "../../output_tests/l6_icons/icon/"
@@ -31,7 +31,7 @@ class TestCanvasIcon:
             width=20,
             code="\uf1a0",
             file=FONT_AWESOME_FREE,
-            style=IconStyle(
+            style=Style(
                 text_color=Colors.Red,
                 text_halign="center",
                 text_valign="center",

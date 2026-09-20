@@ -93,7 +93,7 @@ TypeColor = Annotated[
 
 TypeIconStyle = Annotated[
     Literal["thin", "light", "regular", "bold", "fill"],
-    BeforeValidator(lambda v: validate_literal(v, {"thin", "light", "regular", "bold", "fill"}, "IconStyle")),
+    BeforeValidator(lambda v: validate_literal(v, {"thin", "light", "regular", "bold", "fill"}, "icon_style")),
 ]
 TypeHAlign = Annotated[
     Literal["left", "center", "right"],
@@ -105,7 +105,7 @@ TypeVAlign = Annotated[
 ]
 TypeLineStyle = Annotated[
     Literal["solid", "dashed", "dotted", "dashdot"],
-    BeforeValidator(lambda v: validate_literal(v, {"solid", "dashed", "dotted", "dashdot"}, "LineStyle")),
+    BeforeValidator(lambda v: validate_literal(v, {"solid", "dashed", "dotted", "dashdot"}, "line_style")),
 ]
 TypeArrowHead = Annotated[
     Literal["", "->", "<-", "<->"],

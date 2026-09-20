@@ -11,7 +11,7 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.shapes import arrow, circle
 from drawlib.text import text
-from drawlib.types import ShapeStyle, ShapeTextStyle, TextStyle
+from drawlib.types import Style
 
 config(width=100, height=60)
 
@@ -22,10 +22,10 @@ def left():
         (x, 30),
         radius=8,
         text="Circle",
-        style=ShapeStyle(fill_color=Colors.Transparent),
-        textstyle=ShapeTextStyle(text_size=18),
+        style=Style(fill_color=Colors.Transparent),
+        textstyle=Style(text_size=18),
     )
-    text((x, 15), text="Content", style=TextStyle(text_size=24))
+    text((x, 15), text="Content", style=Style(text_size=24))
 
 
 def center():
@@ -46,20 +46,20 @@ def center():
 
 def right():
     x = 82
-    circle((x, 49), radius=8, text="Circle", textstyle=ShapeTextStyle(text_size=18))
+    circle((x, 49), radius=8, text="Circle", textstyle=Style(text_size=18))
     circle(
         (x, 30),
         radius=8,
         text="Circle",
         style="blue_flat",
-        textstyle=ShapeTextStyle(text_color=Colors.White, text_size=18),
+        textstyle=Style(text_color=Colors.White, text_size=18),
     )
     circle(
         (x, 11),
         radius=8,
         text="Circle",
         style="red_solid_bold",
-        textstyle=ShapeTextStyle(text_color=Colors.Red, text_size=18),
+        textstyle=Style(text_color=Colors.Red, text_size=18),
     )
 
 

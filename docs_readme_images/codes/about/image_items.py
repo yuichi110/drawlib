@@ -15,11 +15,11 @@ from drawlib.images import Dimage, image
 from drawlib.lines import line, line_curved, lines, lines_curved
 from drawlib.shapes import arrow, circle, ellipse, rectangle, star
 from drawlib.text import text
-from drawlib.types import IconStyle, ImageStyle, LineStyle, TextStyle
+from drawlib.types import Style
 
 x1 = 10
-title_style = TextStyle(text_size=24)
-icon_thin = IconStyle(icon_style="thin")
+title_style = Style(text_size=24)
+icon_thin = Style(icon_style="thin")
 
 
 def main():
@@ -39,13 +39,13 @@ def draw_icon():
     icon_phosphor.airplane_taxiing((30, y), width=w, style=icon_thin)
     icon_phosphor.airplane_takeoff(xy=(40, y), width=w, style=icon_thin)
     icon_phosphor.airplane_in_flight(
-        xy=(50, y), width=w, style=IconStyle(text_color=Colors140.Red, icon_style="thin")
+        xy=(50, y), width=w, style=Style(text_color=Colors140.Red, icon_style="thin")
     )
     icon_phosphor.airplane_tilt(xy=(60, y), width=w, style=icon_thin)
     icon_phosphor.airplane(xy=(70, y), width=w, angle=270, style=icon_thin)
     icon_phosphor.airplane_landing(xy=(80, y), width=w, style=icon_thin)
     icon_phosphor.airplane_taxiing(
-        (90, y), width=w, style=IconStyle(icon_style="fill", text_color=Colors140.Red)
+        (90, y), width=w, style=Style(icon_style="fill", text_color=Colors140.Red)
     )
 
 
@@ -54,8 +54,8 @@ def draw_image():
     w = 7
     text((x1, y), "Image", style=title_style)
     image((30, y), w, image="linux.png")
-    image((40, y), w, image="linux.png", style=ImageStyle(line_width=1))
-    image((50, y), w, image="linux.png", style=ImageStyle(fill_color=Colors.Red))
+    image((40, y), w, image="linux.png", style=Style(line_width=1))
+    image((50, y), w, image="linux.png", style=Style(fill_color=Colors.Red))
     image((60, y), w, image="linux.png", angle=315)
     dimg = Dimage("linux.png")
     image((70, y), w, image=dimg.flip().sepia())
@@ -68,18 +68,18 @@ def draw_line():
     text((x1, y), "Line", style=title_style)
     line((30, y - 4), (30, y + 4))
     line((40, y - 4), (40, y + 4), arrowhead="->")
-    line((50, y - 4), (50, y + 4), style=LineStyle(line_style="dashed", line_color=Colors.Red))
+    line((50, y - 4), (50, y + 4), style=Style(line_style="dashed", line_color=Colors.Red))
     line(
         (60, y - 4),
         (60, y + 4),
         arrowhead="<->",
-        style=LineStyle(line_color=Colors.Red, arrow_head_fill=True),
+        style=Style(line_color=Colors.Red, arrow_head_fill=True),
     )
     line_curved((69, y - 4), (69, y + 4), bend=-0.3)
     line_curved((71, y - 4), (71, y + 4), bend=0.3)
     lines(
         [(77, y - 4), (83, y - 2), (77, y), (83, y + 2), (77, y + 4)],
-        style=LineStyle(line_style="dotted", line_color=Colors.Red),
+        style=Style(line_style="dotted", line_color=Colors.Red),
     )
     lines_curved([(87, y - 4), (87, y + 4), (93, y + 4), (93, y - 4)], r=2, arrowhead="->")
 
@@ -100,16 +100,16 @@ def draw_shape():
 def draw_text():
     y = 7
     text((x1, y), "Text", style=title_style)
-    text((35, y), "Hello Drawlib!", style=TextStyle(text_font=FontSansSerif.RALEWAYS_REGULAR, text_size=18))
+    text((35, y), "Hello Drawlib!", style=Style(text_font=FontSansSerif.RALEWAYS_REGULAR, text_size=18))
     text(
         (60, y),
         "Hello\nDrawlib!",
-        style=TextStyle(text_font=FontSerif.COURIER_REGULAR, text_size=28, text_color=Colors.Red),
+        style=Style(text_font=FontSerif.COURIER_REGULAR, text_size=28, text_color=Colors.Red),
     )
     text(
         (85, y),
         "こんにちは Drawlib!",
-        style=TextStyle(
+        style=Style(
             text_font=FontJapanese.MPLUS1P_REGULAR,
             text_size=16,
             text_bg_fill_color=Colors.Black,

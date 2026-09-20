@@ -11,16 +11,9 @@
 
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles._colors import Colors
-from drawlib._core.l3_styles._style_models import (
-    IconStyle,
-    ImageStyle,
-    LineStyle,
-    ShapeStyle,
-    ShapeTextStyle,
-    TextStyle,
-)
+from drawlib._core.l3_styles._style_models import Style
 
-SYSTEM_DEFAULT_ICON_STYLE = IconStyle(
+SYSTEM_DEFAULT_ICON_STYLE = Style(
     icon_style="thin",
     text_color=Colors.Black,
     fill_alpha=None,
@@ -28,7 +21,7 @@ SYSTEM_DEFAULT_ICON_STYLE = IconStyle(
     text_valign="center",
 )
 
-SYSTEM_DEFAULT_IMAGE_STYLE = ImageStyle(
+SYSTEM_DEFAULT_IMAGE_STYLE = Style(
     text_halign="center",
     text_valign="center",
     line_style="solid",
@@ -38,7 +31,7 @@ SYSTEM_DEFAULT_IMAGE_STYLE = ImageStyle(
     fill_alpha=None,
 )
 
-SYSTEM_DEFAULT_LINE_STYLE = LineStyle(
+SYSTEM_DEFAULT_LINE_STYLE = Style(
     line_width=1.0,
     line_color=Colors.Black,
     fill_alpha=None,
@@ -47,7 +40,7 @@ SYSTEM_DEFAULT_LINE_STYLE = LineStyle(
     arrow_head_fill=False,
 )
 
-SYSTEM_DEFAULT_SHAPE_STYLE = ShapeStyle(
+SYSTEM_DEFAULT_SHAPE_STYLE = Style(
     text_halign="center",
     text_valign="center",
     line_width=1.0,
@@ -57,7 +50,7 @@ SYSTEM_DEFAULT_SHAPE_STYLE = ShapeStyle(
     fill_alpha=None,
 )
 
-SYSTEM_DEFAULT_SHAPE_TEXT_STYLE = ShapeTextStyle(
+SYSTEM_DEFAULT_SHAPE_TEXT_STYLE = Style(
     fill_alpha=None,
     text_color=Colors.Black,
     text_size=16,
@@ -69,7 +62,7 @@ SYSTEM_DEFAULT_SHAPE_TEXT_STYLE = ShapeTextStyle(
     text_xy_shift=None,
 )
 
-SYSTEM_DEFAULT_TEXT_STYLE = TextStyle(
+SYSTEM_DEFAULT_TEXT_STYLE = Style(
     fill_alpha=None,
     text_color=Colors.Black,
     text_size=16,

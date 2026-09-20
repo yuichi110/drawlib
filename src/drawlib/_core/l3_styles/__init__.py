@@ -18,13 +18,7 @@ from drawlib._core.l3_styles._colors import (
     ColorsThemeMonochrome,
 )
 from drawlib._core.l3_styles._style_models import (
-    IconStyle,
-    ImageStyle,
-    LineStyle,
-    ShapeStyle,
-    ShapeTextStyle,
     Style,
-    TextStyle,
 )
 from drawlib._core.l3_styles._system_default import (
     SYSTEM_DEFAULT_ICON_STYLE,
@@ -45,12 +39,6 @@ __all__ = [
     "ColorsThemeMonochrome",
     # _style_models.py
     "Style",
-    "IconStyle",
-    "ImageStyle",
-    "LineStyle",
-    "ShapeStyle",
-    "ShapeTextStyle",
-    "TextStyle",
     # _system_default.py
     "SYSTEM_DEFAULT_ICON_STYLE",
     "SYSTEM_DEFAULT_IMAGE_STYLE",

@@ -16,7 +16,7 @@ from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontSourceCode
 from drawlib.shapes import circle
 from drawlib.smartarts import SourceCode, dsart
-from drawlib.types import ImageStyle, ShapeStyle
+from drawlib.types import Style
 
 CODE = """
 
@@ -24,7 +24,7 @@ config(width=100, height=100)
 circle(
     xy=(50, 50),
     radius=30,
-    style=ShapeStyle(
+    style=Style(
         line_style="dashed",
         line_color=Colors140.BlueViolet,
         line_width=5,
@@ -49,7 +49,7 @@ sc2 = dsart.SourceCode(
     linenum_textcolor=Colors140.Black,
     linenum_bgcolor=Colors140.LightGray,
 )
-sc2.draw((75, 25), width=40, code=CODE, style=ImageStyle(line_width=2, line_color=Colors.Red))
+sc2.draw((75, 25), width=40, code=CODE, style=Style(line_width=2, line_color=Colors.Red))
 
 save()
 ```
@@ -71,7 +71,7 @@ Here is a list of `draw()` arguments:
 - xy: Coordinates to place the source code image.
 - width: Width of the source code image.
 - code: The source code string.
-- style: ImageStyle for source code image
+- style: Style for source code image
 
 
 Executing the code will generate below output:
@@ -83,7 +83,7 @@ from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontSourceCode
 from drawlib.shapes import circle
 from drawlib.smartarts import SourceCode, dsart
-from drawlib.types import ImageStyle, ShapeStyle
+from drawlib.types import Style
 
 CODE = """
 
@@ -91,7 +91,7 @@ config(width=100, height=100)
 circle(
     xy=(50, 50),
     radius=30,
-    style=ShapeStyle(
+    style=Style(
         line_style="dashed",
         line_color=Colors140.BlueViolet,
         line_width=5,
@@ -116,7 +116,7 @@ sc2 = dsart.SourceCode(
     linenum_textcolor=Colors140.Black,
     linenum_bgcolor=Colors140.LightGray,
 )
-sc2.draw((75, 25), width=40, code=CODE, style=ImageStyle(line_width=2, line_color=Colors.Red))
+sc2.draw((75, 25), width=40, code=CODE, style=Style(line_width=2, line_color=Colors.Red))
 
 save()
 ```
@@ -153,7 +153,7 @@ from drawlib.canvas import config, save
 from drawlib.fonts import FontSourceCode
 from drawlib.smartarts import SourceCode, dsart
 from drawlib.text import text
-from drawlib.types import ImageStyle
+from drawlib.types import Style
 
 CODE = """
 import math
@@ -192,7 +192,7 @@ for style in [
 
     x = xs[ix]
     y = ys[iy]
-    sc.draw(xy=(x, y), width=25, code=CODE, style=ImageStyle(line_width=1))
+    sc.draw(xy=(x, y), width=25, code=CODE, style=Style(line_width=1))
     text((x, y - 9), text=style)
 
     if ix == len(xs) - 1:

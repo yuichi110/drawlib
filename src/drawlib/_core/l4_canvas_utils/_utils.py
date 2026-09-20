@@ -37,12 +37,7 @@ from drawlib._core.l3_styles import (
     SYSTEM_DEFAULT_SHAPE_TEXT_STYLE,
     SYSTEM_DEFAULT_TEXT_STYLE,
     Colors,
-    IconStyle,
-    ImageStyle,
-    LineStyle,
-    ShapeStyle,
-    ShapeTextStyle,
-    TextStyle,
+    Style,
 )
 from drawlib._theme import get_style
 

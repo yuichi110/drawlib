@@ -1,6 +1,6 @@
 from drawlib.canvas import config, save
 from drawlib.images import image
-from drawlib.types import ImageStyle
+from drawlib.types import Style
 
 config(width=100, height=50, grid=True)
 
@@ -10,7 +10,7 @@ image(
     width=20,
     angle=45,
     image="python.png",
-    style=ImageStyle(line_width=1),
+    style=Style(line_width=1),
 )
 
 save()

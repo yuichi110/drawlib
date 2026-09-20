@@ -25,7 +25,7 @@ from drawlib.fonts import (
     FontThai,
 )
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l3_fonts/chinese/"
 
@@ -34,17 +34,17 @@ def test_simplified_sans():
     text(
         (50, 10),
         "Hello World. 今天天气很好。",
-        style=TextStyle(text_font=FontChinese.SIMPLIFIED_SANSSERIF_LIGHT),
+        style=Style(text_font=FontChinese.SIMPLIFIED_SANSSERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. 今天天气很好。",
-        style=TextStyle(text_font=FontChinese.SIMPLIFIED_SANSSERIF_REGULAR),
+        style=Style(text_font=FontChinese.SIMPLIFIED_SANSSERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. 今天天气很好。",
-        style=TextStyle(text_font=FontChinese.SIMPLIFIED_SANSSERIF_BOLD),
+        style=Style(text_font=FontChinese.SIMPLIFIED_SANSSERIF_BOLD),
     )
 
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
@@ -54,17 +54,17 @@ def test_simplified_serif():
     text(
         (50, 10),
         "Hello World. 今天天气很好。",
-        style=TextStyle(text_font=FontChinese.SIMPLIFIED_SERIF_LIGHT),
+        style=Style(text_font=FontChinese.SIMPLIFIED_SERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. 今天天气很好。",
-        style=TextStyle(text_font=FontChinese.SIMPLIFIED_SERIF_REGULAR),
+        style=Style(text_font=FontChinese.SIMPLIFIED_SERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. 今天天气很好。",
-        style=TextStyle(text_font=FontChinese.SIMPLIFIED_SERIF_BOLD),
+        style=Style(text_font=FontChinese.SIMPLIFIED_SERIF_BOLD),
     )
 
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
@@ -74,17 +74,17 @@ def test_traditional_sans():
     text(
         (50, 10),
         "Hello World. 今天天气很好。",
-        style=TextStyle(text_font=FontChinese.TRADITIONAL_SANSSERIF_LIGHT),
+        style=Style(text_font=FontChinese.TRADITIONAL_SANSSERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. 今天天气很好。",
-        style=TextStyle(text_font=FontChinese.TRADITIONAL_SANSSERIF_REGULAR),
+        style=Style(text_font=FontChinese.TRADITIONAL_SANSSERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. 今天天气很好。",
-        style=TextStyle(text_font=FontChinese.TRADITIONAL_SANSSERIF_BOLD),
+        style=Style(text_font=FontChinese.TRADITIONAL_SANSSERIF_BOLD),
     )
 
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
@@ -94,17 +94,17 @@ def test_traditional_serif():
     text(
         (50, 10),
         "Hello World. 今天天气很好。",
-        style=TextStyle(text_font=FontChinese.TRADITIONAL_SERIF_LIGHT),
+        style=Style(text_font=FontChinese.TRADITIONAL_SERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. 今天天气很好。",
-        style=TextStyle(text_font=FontChinese.TRADITIONAL_SERIF_REGULAR),
+        style=Style(text_font=FontChinese.TRADITIONAL_SERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. 今天天气很好。",
-        style=TextStyle(text_font=FontChinese.TRADITIONAL_SERIF_BOLD),
+        style=Style(text_font=FontChinese.TRADITIONAL_SERIF_BOLD),
     )
 
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
@@ -114,17 +114,17 @@ def test_hongkong_sans():
     text(
         (50, 10),
         "Hello World. 今天天气很好。",
-        style=TextStyle(text_font=FontChinese.HONGKONG_SANSSERIF_LIGHT),
+        style=Style(text_font=FontChinese.HONGKONG_SANSSERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. 今天天气很好。",
-        style=TextStyle(text_font=FontChinese.HONGKONG_SANSSERIF_REGULAR),
+        style=Style(text_font=FontChinese.HONGKONG_SANSSERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. 今天天气很好。",
-        style=TextStyle(text_font=FontChinese.HONGKONG_SANSSERIF_BOLD),
+        style=Style(text_font=FontChinese.HONGKONG_SANSSERIF_BOLD),
     )
 
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
@@ -134,17 +134,17 @@ def test_hongkong_serif():
     text(
         (50, 10),
         "Hello World. 今天天气很好。",
-        style=TextStyle(text_font=FontChinese.HONGKONG_SERIF_LIGHT),
+        style=Style(text_font=FontChinese.HONGKONG_SERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. 今天天气很好。",
-        style=TextStyle(text_font=FontChinese.HONGKONG_SERIF_REGULAR),
+        style=Style(text_font=FontChinese.HONGKONG_SERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. 今天天气很好。",
-        style=TextStyle(text_font=FontChinese.HONGKONG_SERIF_BOLD),
+        style=Style(text_font=FontChinese.HONGKONG_SERIF_BOLD),
     )
 
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

@@ -18,7 +18,7 @@ from drawlib._core.l2_types import (
     TypeStr,
 )
 from drawlib._core.l3_fonts import FontFile
-from drawlib._core.l3_styles import IconStyle, TextStyle
+from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import get_fontsize_from_charwidth, text
 from drawlib._icons._utils import IconUtil
 from drawlib._theme import get_style
@@ -31,7 +31,7 @@ def icon(
     code: TypeStr,
     file: TypeStr,
     angle: TypeAngle = 0.0,
-    style: IconStyle | TypeStr | None = None,
+    style: Style | TypeStr | None = None,
 ) -> None:
     """Draw an icon from the provided icon font.
 
@@ -44,7 +44,7 @@ def icon(
         file (str): The path to the font file.
         angle (Union[int, float], optional): The rotation angle of the icon,
                                              ranging from 0.0 to 360.0. Defaults to 0.0.
-        style (Union[IconStyle, str, None], optional): The style of the icon, including alignment
+        style (Union[Style, str, None], optional): The style of the icon, including alignment
                                                        and other properties. Defaults to None.
 
     Returns:
@@ -54,8 +54,8 @@ def icon(
     style = IconUtil.format_style(style)
     font_size = get_fontsize_from_charwidth(width)
 
-    # convert IconStyle to TextStyle
-    textstyle = TextStyle(
+    # convert Style to Style
+    textstyle = Style(
         text_color=style.text_color,
         text_size=font_size,
         text_font=FontFile(file),

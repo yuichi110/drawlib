@@ -18,8 +18,6 @@ from drawlib._core.l2_models import StaticContainer
 from drawlib._core.l3_styles import (
     SYSTEM_DEFAULT_SHAPE_STYLE,
     SYSTEM_DEFAULT_SHAPE_TEXT_STYLE,
-    ShapeStyle,
-    ShapeTextStyle,
     Style,
 )
 from drawlib._core.l4_canvas_utils._colors import ColorUtil
@@ -50,11 +48,11 @@ class ShapeUtil(StaticContainer):
 
     @staticmethod
     def format_styles(
-        style: ShapeStyle | str | None,
-        textstyle: ShapeTextStyle | str | None,
+        style: Style | str | None,
+        textstyle: Style | str | None,
         get_style: Callable | None = None,
         get_textstyle: Callable | None = None,
-    ) -> tuple[ShapeStyle, ShapeTextStyle]:
+    ) -> tuple[Style, Style]:
         formatted_style = ShapeUtil._resolve_style_item(style, "style", get_style)
         formatted_style = SYSTEM_DEFAULT_SHAPE_STYLE.merge(formatted_style)
 
@@ -69,10 +67,10 @@ class ShapeUtil(StaticContainer):
         width: float,
         height: float,
         angle: float | None,
-        style: ShapeStyle,
+        style: Style,
         is_default_center: bool = False,
-    ) -> tuple[tuple[float, float], ShapeStyle]:
-        """Apply alignment adjustments to coordinates based on ShapeStyle alignment settings.
+    ) -> tuple[tuple[float, float], Style]:
+        """Apply alignment adjustments to coordinates based on Style alignment settings.
 
         Args:
             xy (tuple[float, float]):
@@ -83,14 +81,14 @@ class ShapeUtil(StaticContainer):
                 The height of the shape.
             angle (float | None):
                 The angle of rotation for the shape.
-            style (ShapeStyle):
-                The ShapeStyle object containing alignment properties.
+            style (Style):
+                The Style object containing alignment properties.
             is_default_center (bool, optional):
                 Flag indicating if default center alignment should be applied.
                 Defaults to False.
 
         Returns:
-            tuple[tuple[float, float], ShapeStyle]: Adjusted coordinates and updated ShapeStyle object.
+            tuple[tuple[float, float], Style]: Adjusted coordinates and updated Style object.
 
         """
         x, y = xy
@@ -137,7 +135,7 @@ class ShapeUtil(StaticContainer):
         xy: tuple[float, float],
         angle: float | None,
         text: str,
-        style: ShapeTextStyle | None = None,
+        style: Style | None = None,
     ) -> Text:
         """Get text object which is drawn inside shape.
 
@@ -152,15 +150,15 @@ class ShapeUtil(StaticContainer):
                 The angle of rotation for the shape.
             text (str):
                 The text content to be displayed.
-            style (ShapeTextStyle | None, optional):
-                The ShapeTextStyle object containing text style properties.
+            style (Style | None, optional):
+                The Style object containing text style properties.
                 Defaults to None.
 
         Returns:
             matplotlib.text.Text: Shape center text object.
         """
         if style is None:
-            style = ShapeTextStyle()
+            style = Style()
 
         shape_angle = angle
         if shape_angle is None:
@@ -213,14 +211,14 @@ class ShapeUtil(StaticContainer):
 
     @staticmethod
     def get_shape_options(
-        style: ShapeStyle | None = None,
+        style: Style | None = None,
         default_no_line: bool = True,
     ) -> dict[str, Any]:
-        """Convert drawlib's ShapeStyle to matplotlib's patches(shape) options.
+        """Convert drawlib's Style to matplotlib's patches(shape) options.
 
         Args:
-            style (ShapeStyle | None, optional):
-                The ShapeStyle object containing shape style properties.
+            style (Style | None, optional):
+                The Style object containing shape style properties.
                 Defaults to None.
             default_no_line (bool, optional):
                 Flag indicating if default no line should be applied.
@@ -233,7 +231,7 @@ class ShapeUtil(StaticContainer):
             - If style is None and default_no_line is True, returns {"linewidth": 0}.
             - Returns an empty dictionary if style is None.
             - Otherwise, returns a dictionary containing facecolor, edgecolor, linestyle,
-              linewidth, and alpha based on the ShapeStyle object.
+              linewidth, and alpha based on the Style object.
         """
         if style is None:
             if default_no_line:

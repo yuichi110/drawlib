@@ -21,7 +21,7 @@ from drawlib._core.l2_types import (
     TypePosFloat,
     TypeStr,
 )
-from drawlib._core.l3_styles import ShapeStyle, ShapeTextStyle
+from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import trapezoid, triangle
 from drawlib._theme import get_style
 
@@ -29,9 +29,9 @@ from drawlib._theme import get_style
 class _PyramidItem(BaseModel):
     """Internal class for storing pyramid item information."""
 
-    style: ShapeStyle
+    style: Style
     text: TypeStr
-    textstyle: ShapeTextStyle
+    textstyle: Style
 
 
 class Pyramid:
@@ -45,20 +45,20 @@ class Pyramid:
     @guarded
     def __init__(
         self,
-        default_style: TypeStr | ShapeStyle | None = None,
-        default_textstyle: TypeStr | ShapeTextStyle | None = None,
+        default_style: TypeStr | Style | None = None,
+        default_textstyle: TypeStr | Style | None = None,
         default_textangle: TypeAngle | None = None,
         default_text_xy_shift: TypeCoordinate | None = None,
     ) -> None:
         """Initializes a Pyramid instance with optional default styles and settings.
 
         Args:
-            default_style (Union[str, ShapeStyle, None], optional): The default
+            default_style (Union[str, Style, None], optional): The default
                 style for the pyramid shapes. It can be a string that maps to a
-                `ShapeStyle` or a `ShapeStyle` instance. Defaults to None.
-            default_textstyle (Union[str, ShapeTextStyle, None], optional): The
+                `Style` or a `Style` instance. Defaults to None.
+            default_textstyle (Union[str, Style, None], optional): The
                 default text style for the pyramid shapes. It can be a string that
-                maps to a `ShapeTextStyle` or a `ShapeTextStyle` instance. Defaults to None.
+                maps to a `Style` or a `Style` instance. Defaults to None.
             default_textangle (Optional[float], optional): The default rotation
                 angle for the text within the pyramid shapes. Defaults to None.
             default_text_xy_shift (Optional[Tuple[float, float]], optional): The
@@ -80,8 +80,8 @@ class Pyramid:
     def add(  # noqa: C901
         self,
         text: TypeStr,
-        style: TypeStr | ShapeStyle | None = None,
-        textstyle: TypeStr | ShapeTextStyle | None = None,
+        style: TypeStr | Style | None = None,
+        textstyle: TypeStr | Style | None = None,
         textangle: TypeAngle | None = None,
         text_xy_shift: TypeCoordinate | None = None,
     ) -> None:

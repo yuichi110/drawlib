@@ -70,21 +70,12 @@ We prefer using `config(width=100, height=100)` or `config(width=100, height=50)
 Alignment refers to the arrangement of items, such as text, images, or shapes, on drawlib's canvas. 
 These items can be aligned horizontally and vertically. 
 The default alignment is center horizontally and center vertically. 
-You can alter alignment using `Style` classes for each drawing item:
+You can alter alignment using the unified `Style` class (or function arguments) for each drawing item:
 
-* Icon: `IconStyle`
-* Image: `ImageStyle`
-* Line: `LineStyle` and `LineArrowStyle`
-* Shape: `ShapeStyle` and `ShapeTextStyle`
-* Text: `TextStyle`
+* `text_halign`: Horizontal alignment (`"left"`, `"center"`, `"right"`)
+* `text_valign`: Vertical alignment (`"bottom"`, `"center"`, `"top"`)
 
-All of these have attributes:
-
-* `halign`: Horizontal alignment
-* `valign`: Vertical alignment
-
-By setting values `"left"`, `"center"`, or `"bottom"` to halign and `"bottom"`, `"center"`, or `"top"` to valign, you can adjust the drawing item's alignment. 
-If alignment isn't specified, `"center"` is applied to both halign and valign.
+If alignment isn't specified, `"center"` is applied to both horizontal and vertical alignment by default.
 
 Let's examine the alignment of rectangles with an example code:
 
@@ -94,7 +85,7 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.types import ShapeStyle, ShapeTextStyle
+from drawlib.types import Style
 
 config(width=100, height=100, grid_only=True)
 
@@ -104,14 +95,14 @@ for x, halign in [(15, "left"), (50, "center"), (85, "right")]:
             xy=(x, y),
             width=15,
             height=15,
-            style=ShapeStyle(text_halign=halign, text_valign=valign),
+            style=Style(text_halign=halign, text_valign=valign),
             text=f"({halign}, {valign})",
-            textstyle=ShapeTextStyle(text_size=14),
+            textstyle=Style(text_size=14),
         )
         circle(
             xy=(x, y),
             radius=1,
-            style=ShapeStyle(line_color=Colors.Red, fill_color=Colors.Red),
+            style=Style(line_color=Colors.Red, fill_color=Colors.Red),
         )
 
 save()
@@ -126,7 +117,7 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.types import ShapeStyle, ShapeTextStyle
+from drawlib.types import Style
 
 config(width=100, height=100, grid_only=True)
 
@@ -136,14 +127,14 @@ for x, halign in [(15, "left"), (50, "center"), (85, "right")]:
             xy=(x, y),
             width=15,
             height=15,
-            style=ShapeStyle(text_halign=halign, text_valign=valign),
+            style=Style(text_halign=halign, text_valign=valign),
             text=f"({halign}, {valign})",
-            textstyle=ShapeTextStyle(text_size=14),
+            textstyle=Style(text_size=14),
         )
         circle(
             xy=(x, y),
             radius=1,
-            style=ShapeStyle(line_color=Colors.Red, fill_color=Colors.Red),
+            style=Style(line_color=Colors.Red, fill_color=Colors.Red),
         )
 
 save()
@@ -170,7 +161,7 @@ from drawlib.icons import icon_phosphor
 from drawlib.images import image
 from drawlib.shapes import chevron, circle, parallelogram, rectangle, regularpolygon, star
 from drawlib.text import text
-from drawlib.types import ShapeStyle, TextStyle
+from drawlib.types import Style
 
 config(width=100, height=100, grid_only=True)
 
@@ -187,7 +178,7 @@ star((x1, y3), 5, 15, 6, angle=45)
 
 image((x2, y1), width=20, image="python.png", angle=315)
 icon_phosphor.heart((x2, y2), 10, angle=315)
-text((x2, y3), "Drawlib", angle=315, style=TextStyle(text_size=24))
+text((x2, y3), "Drawlib", angle=315, style=Style(text_size=24))
 
 chevron((x3, y1), 35, 10, corner_angle=45, angle=45)
 parallelogram((x3, y2), 15, 10, corner_angle=60, angle=45)
@@ -195,7 +186,7 @@ regularpolygon((x3, y3), num_vertex=6, radius=5, angle=45)
 
 for x in [x1, x2, x3]:
     for y in [y1, y2, y3]:
-        circle((x, y), 1, style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red))
+        circle((x, y), 1, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
 
 save()
 ```
@@ -212,7 +203,7 @@ from drawlib.icons import icon_phosphor
 from drawlib.images import image
 from drawlib.shapes import chevron, circle, parallelogram, rectangle, regularpolygon, star
 from drawlib.text import text
-from drawlib.types import ShapeStyle, TextStyle
+from drawlib.types import Style
 
 config(width=100, height=100, grid_only=True)
 
@@ -229,7 +220,7 @@ star((x1, y3), 5, 15, 6, angle=45)
 
 image((x2, y1), width=20, image="python.png", angle=315)
 icon_phosphor.heart((x2, y2), 10, angle=315)
-text((x2, y3), "Drawlib", angle=315, style=TextStyle(text_size=24))
+text((x2, y3), "Drawlib", angle=315, style=Style(text_size=24))
 
 chevron((x3, y1), 35, 10, corner_angle=45, angle=45)
 parallelogram((x3, y2), 15, 10, corner_angle=60, angle=45)
@@ -237,7 +228,7 @@ regularpolygon((x3, y3), num_vertex=6, radius=5, angle=45)
 
 for x in [x1, x2, x3]:
     for y in [y1, y2, y3]:
-        circle((x, y), 1, style=ShapeStyle(fill_color=Colors.Red, line_color=Colors.Red))
+        circle((x, y), 1, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
 
 save()
 ```

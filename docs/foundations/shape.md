@@ -52,10 +52,10 @@ Let's explore all of these functions, except `shape()` which is covered on anoth
 The `shape()` function is useful for drawing custom shapes.
 
 By default, all shapes are horizontally and vertically centered. 
-This can be changed using the `ShapeStyle()` object. 
+This can be changed using the `Style()` object (via `text_halign` and `text_valign`). 
 However, `arrow()` and `polygon()` do not have alignment attributes and will ignore these settings.
 
-We'll discuss styling with `ShapeStyle` and `ShapeTextStyle` on another page.
+We'll discuss styling with `Style` on another page.
 
 
 

@@ -12,7 +12,7 @@
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
 from drawlib.icons import icon_phosphor
-from drawlib.types import IconStyle
+from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l6_icons/icon_phosphor/"
 
@@ -32,7 +32,7 @@ class TestCanvasPhosphor:
         icon_phosphor.google_logo(
             xy=(50, 50),
             width=20,
-            style=IconStyle(icon_style="fill", text_color=Colors.Red),
+            style=Style(icon_style="fill", text_color=Colors.Red),
         )
         save(f"{OUTPUT_DIR}test_style.png")
 
@@ -43,7 +43,7 @@ class TestCanvasPhosphor:
             xy=(50, 50),
             width=20,
             angle=45,
-            style=IconStyle(icon_style="thin", text_color=Colors.Red),
+            style=Style(icon_style="thin", text_color=Colors.Red),
         )
         save(f"{OUTPUT_DIR}test_angle45.png")
 

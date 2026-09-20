@@ -16,7 +16,7 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.smartarts import bubblespeech, dsart
 from drawlib.text import text
-from drawlib.types import ShapeStyle, ShapeTextStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 dsart.bubblespeech(
@@ -27,9 +27,9 @@ dsart.bubblespeech(
     tail_start_ratio=0.2,
     tail_vertex_xy=(10, 25),
     tail_end_ratio=0.6,
-    style=ShapeStyle(line_width=0, fill_color=Colors.Blue),
+    style=Style(line_width=0, fill_color=Colors.Blue),
     text="Hello Drawlib!",
-    textstyle=ShapeTextStyle(text_size=32, text_color=Colors.White),
+    textstyle=Style(text_size=32, text_color=Colors.White),
 )
 save()
 ```
@@ -48,7 +48,7 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.smartarts import bubblespeech, dsart
 from drawlib.text import text
-from drawlib.types import ShapeStyle, ShapeTextStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 dsart.bubblespeech(
@@ -59,9 +59,9 @@ dsart.bubblespeech(
     tail_start_ratio=0.2,
     tail_vertex_xy=(10, 25),
     tail_end_ratio=0.6,
-    style=ShapeStyle(line_width=0, fill_color=Colors.Blue),
+    style=Style(line_width=0, fill_color=Colors.Blue),
     text="Hello Drawlib!",
-    textstyle=ShapeTextStyle(text_size=32, text_color=Colors.White),
+    textstyle=Style(text_size=32, text_color=Colors.White),
 )
 save()
 ```
@@ -95,7 +95,7 @@ from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.smartarts import bubblespeech, dsart
 from drawlib.text import text
-from drawlib.types import LineStyle, ShapeStyle, ShapeTextStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 dsart.bubblespeech(
@@ -106,20 +106,20 @@ dsart.bubblespeech(
     tail_start_ratio=0.2,
     tail_vertex_xy=(10, 25),
     tail_end_ratio=0.6,
-    style=ShapeStyle(line_width=0, fill_color=Colors140.LightGray),
+    style=Style(line_width=0, fill_color=Colors140.LightGray),
     text="Hello Drawlib!",
-    textstyle=ShapeTextStyle(text_size=32, text_color=Colors.White),
+    textstyle=Style(text_size=32, text_color=Colors.White),
 )
 
-line((30, 10), (30, 40), style=LineStyle(line_width=2, line_style="dashed", line_color=Colors.Blue))
+line((30, 10), (30, 40), style=Style(line_width=2, line_style="dashed", line_color=Colors.Blue))
 text((30, 45), 'tail_edge = "left"')
-circle(xy=(30, 10), radius=1, style=ShapeStyle(line_width=0, fill_color=Colors.Red))
+circle(xy=(30, 10), radius=1, style=Style(line_width=0, fill_color=Colors.Red))
 text((30, 5), "xy = (30, 10)")
 
 line((27, 10), (27, 16), arrowhead="<->")
 text((13, 13), "tail_from_ratio = 0.2")
 
-circle(xy=(10, 25), radius=1, style=ShapeStyle(line_width=0, fill_color=Colors.Red))
+circle(xy=(10, 25), radius=1, style=Style(line_width=0, fill_color=Colors.Red))
 text((15, 30), "tail_vertex_xy = (30, 10)")
 
 line((33, 10), (33, 28), arrowhead="<->")

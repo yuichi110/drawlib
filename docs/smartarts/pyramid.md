@@ -57,8 +57,8 @@ Initialize instance.
 
 Args
 
-- default_style (Union[str, ShapeStyle, None], optional): The default style for the pyramid shapes. It can be a string that maps to a `ShapeStyle` or a `ShapeStyle` instance. Defaults to None.
-- default_textstyle (Union[str, ShapeTextStyle, None], optional): The default text style for the pyramid shapes. It can be a string that maps to a `ShapeTextStyle` or a `ShapeTextStyle` instance. Defaults to None.
+- default_style (Union[str, Style, None], optional): The default style for the pyramid shapes. It can be a string that maps to a `Style` or a `Style` instance. Defaults to None.
+- default_textstyle (Union[str, Style, None], optional): The default text style for the pyramid shapes. It can be a string that maps to a `Style` or a `Style` instance. Defaults to None.
 - default_textangle (Optional[float], optional): The default rotation angle for the text within the pyramid shapes. Defaults to None.
 - default_text_xy_shift (Optional[Tuple[float, float]], optional): The default x and y shift for the text within the pyramid shapes. Defaults to None.
 
@@ -71,8 +71,8 @@ Add an item to the pyramid.
 Args:
 
 - text (str): The text associated with the item.
-- style (Union[str, ShapeStyle, None], optional): The style of the item. Can be a string key for a predefined style, a ShapeStyle object, or None to use the default style.
-- textstyle (Union[str, ShapeTextStyle, None], optional): The text style of the item. Can be a string key for a predefined text style, a ShapeTextStyle object, or None to use the default text style.
+- style (Union[str, Style, None], optional): The style of the item. Can be a string key for a predefined style, a Style object, or None to use the default style.
+- textstyle (Union[str, Style, None], optional): The text style of the item. Can be a string key for a predefined text style, a Style object, or None to use the default text style.
 - textangle (Optional[float], optional): The angle of the text. Default is None, which is same to 0.
 - text_xy_shift (Optional[Tuple[float, float]], optional): The XY shift of the text. Default is None, which is same to (0, 0).
 

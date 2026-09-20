@@ -15,7 +15,7 @@ from drawlib.images import image
 from drawlib.shapes import arrow
 from drawlib.smartarts import SourceCode
 from drawlib.text import text
-from drawlib.types import IconStyle, ImageStyle, TextStyle
+from drawlib.types import Style
 
 config(height=60, dpi=200)
 
@@ -25,24 +25,24 @@ def upper():
     text(
         xy=(20, y),
         text="Drawlib",
-        style=TextStyle(text_size=28, text_font=FontRoboto.ROBOTO_BOLD),
+        style=Style(text_size=28, text_font=FontRoboto.ROBOTO_BOLD),
     )
     icon_phosphor.heart(
         xy=(38, y),
         width=7,
-        style=IconStyle(text_color=Colors140.Pink, icon_style="fill"),
+        style=Style(text_color=Colors140.Pink, icon_style="fill"),
     )
     text(
         xy=(70, y),
         text="Illustration as Code",
-        style=TextStyle(text_size=28, text_font=FontRoboto.ROBOTO_BOLD),
+        style=Style(text_size=28, text_font=FontRoboto.ROBOTO_BOLD),
     )
 
 
 def middle():
     image_y = 12
     arrow_y = 28
-    style = ImageStyle(line_width=1, text_valign="bottom")
+    style = Style(line_width=1, text_valign="bottom")
 
     sc = SourceCode(style="default", font=FontSourceCode.ROBOTO_MONO)
     text_content = SourceCode.get_text("inside.py")
@@ -55,7 +55,7 @@ def middle():
 
 def lower():
     y = 6
-    style = TextStyle(text_size=20, text_font=FontRoboto.ROBOTO_REGULAR)
+    style = Style(text_size=20, text_font=FontRoboto.ROBOTO_REGULAR)
     icon_phosphor.file_py(xy=(15, y), width=5)
     text((28, y), "Python Code", style=style)
     text((55, y), "to", style=style)

@@ -240,12 +240,12 @@ Instead of focusing solely on creating polished illustrations, Drawlib emphasize
 <pre><code class="language-python">from drawlib.canvas import save
 from drawlib.colors import Colors140
 from drawlib.shapes import circle
-from drawlib.types import ShapeStyle
+from drawlib.types import Style
 
 circle(
     xy=(50, 50),
     radius=30,
-    style=ShapeStyle(
+    style=Style(
         line_style=&quot;dashed&quot;,
         line_color=Colors140.BlueViolet,
         line_width=5,
@@ -264,12 +264,12 @@ save()
 <pre><code class="language-python">from drawlib.canvas import save
 from drawlib.colors import Colors140
 from drawlib.shapes import circle
-from drawlib.types import ShapeStyle
+from drawlib.types import Style
 
 circle(
     xy=(50, 50),
     radius=30,
-    style=ShapeStyle(
+    style=Style(
         line_style=&quot;dashed&quot;,
         line_color=Colors140.BlueViolet,
         line_width=5,

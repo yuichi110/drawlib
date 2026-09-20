@@ -234,44 +234,39 @@
             <main class="main-content">
                 <p>============</p>
 <h1>Shape Style</h1>
-<p>Drawlib uses <code>ShapeStyle</code> for styling shapes.
-For a shape's text, it uses <code>ShapeTextStyle</code>, which is similar to <code>TextStyle</code> but is a different type.</p>
-<h1>ShapeStyle</h1>
-<p>ShapeStyle is used for styling shapes.
-Additionally, shape alignment is configured within ShapeStyle.</p>
-<p>Here are attributes of ShapeSyel.</p>
+<p>Drawlib uses <code>Style</code> for styling shapes and the text inside them.</p>
+<h1>Style for Shapes</h1>
+<p>The <code>Style</code> object is used for styling shapes and configuring shape alignment.</p>
+<p>Here are the shape-related attributes of <code>Style</code>:</p>
 <ul>
-<li>haligh</li>
-<li>valign</li>
-<li>lwidth</li>
-<li>lcolor</li>
-<li>lstyle</li>
-<li>fcolor</li>
-<li>alpha</li>
+<li><code>text_halign</code>: Horizontal alignment of shape</li>
+<li><code>text_valign</code>: Vertical alignment of shape</li>
+<li><code>line_width</code>: Border line width</li>
+<li><code>line_color</code>: Border line color</li>
+<li><code>line_style</code>: Border line style (&quot;solid&quot;, &quot;dashed&quot;, &quot;dotted&quot;, &quot;dashdot&quot;)</li>
+<li><code>fill_color</code>: Fill color</li>
+<li><code>fill_alpha</code>: Transparency</li>
 </ul>
 <p>All of these attributes are optional.
 If you don't specify values for them, the default theme values are applied.</p>
 <h2>Alignment</h2>
 <p>You can configure the alignment of shapes, except for <code>arrow()</code> and <code>polygon()</code>, which specify drawing points explicitly and therefore do not have alignment options.</p>
-<p>The default alignment is centered both horizontally and vertically. Y
-ou can specify <code>&quot;left&quot;</code>, <code>&quot;center&quot;</code>, or <code>&quot;right&quot;</code> for horizontal alignment (<code>halign</code>).
-Similarly, you can specify <code>&quot;bottom&quot;</code>, <code>&quot;center&quot;</code>, or <code>&quot;top&quot;</code> for vertical alignment (<code>valign</code>).
+<p>The default alignment is centered both horizontally and vertically.
+You can specify <code>&quot;left&quot;</code>, <code>&quot;center&quot;</code>, or <code>&quot;right&quot;</code> for horizontal alignment (<code>text_halign</code>).
+Similarly, you can specify <code>&quot;bottom&quot;</code>, <code>&quot;center&quot;</code>, or <code>&quot;top&quot;</code> for vertical alignment (<code>text_valign</code>).
 For more details and examples, please refer to the Coordinate and Alignment page.</p>
 <h2>Style</h2>
-<p><code>ShapeStyle</code> possesses styling attributes, categorized as follows:</p>
+<p><code>Style</code> possesses shape styling attributes:</p>
 <ul>
-<li>Line style</li>
-<li>Line style</li>
-<li>Line and fill style</li>
+<li>Line styling: <code>line_width</code>, <code>line_color</code>, <code>line_style</code></li>
+<li>Fill styling: <code>fill_color</code></li>
+<li>Transparency: <code>fill_alpha</code></li>
 </ul>
-<p>Currently, the fill style includes only the color attribute (<code>fcolor</code>), where f stands for fill.
-The only attribute that applies to both line and fill is <code>alpha</code>.
-Other attributes are for the shape's line and start with l, which implies line.</p>
 <p>Here are three examples:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import circle, rectangle
-from drawlib.types import ShapeStyle
+from drawlib.types import Style
 
 config(width=150, height=50)
 
@@ -280,7 +275,7 @@ rectangle(xy=(25, 25), width=40, height=20)
 circle(
     xy=(25, 25),
     radius=15,
-    style=ShapeStyle(
+    style=Style(
         line_width=5,
         line_color=Colors.Red,
         line_style=&quot;dashed&quot;,
@@ -293,7 +288,7 @@ rectangle(xy=(75, 25), width=40, height=20)
 circle(
     xy=(75, 25),
     radius=15,
-    style=ShapeStyle(
+    style=Style(
         line_width=5,
         line_color=Colors.Red,
         line_style=&quot;dashed&quot;,
@@ -306,7 +301,7 @@ rectangle(xy=(125, 25), width=40, height=20)
 circle(
     xy=(125, 25),
     radius=15,
-    style=ShapeStyle(
+    style=Style(
         line_width=0,
         fill_color=Colors140.Orange,
         fill_alpha=0.3,
@@ -323,7 +318,7 @@ Right has alpha value.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import circle, rectangle
-from drawlib.types import ShapeStyle
+from drawlib.types import Style
 
 config(width=150, height=50)
 
@@ -332,7 +327,7 @@ rectangle(xy=(25, 25), width=40, height=20)
 circle(
     xy=(25, 25),
     radius=15,
-    style=ShapeStyle(
+    style=Style(
         line_width=5,
         line_color=Colors.Red,
         line_style=&quot;dashed&quot;,
@@ -345,7 +340,7 @@ rectangle(xy=(75, 25), width=40, height=20)
 circle(
     xy=(75, 25),
     radius=15,
-    style=ShapeStyle(
+    style=Style(
         line_width=5,
         line_color=Colors.Red,
         line_style=&quot;dashed&quot;,
@@ -358,7 +353,7 @@ rectangle(xy=(125, 25), width=40, height=20)
 circle(
     xy=(125, 25),
     radius=15,
-    style=ShapeStyle(
+    style=Style(
         line_width=0,
         fill_color=Colors140.Orange,
         fill_alpha=0.3,
@@ -369,27 +364,22 @@ save()
 <div class="drawlib-image" style="text-align: center;">
   <img src="shape_style_images/2.png" alt="shape_style_2" style="width: 600px; max-width: 100%;" />
 </div>
-<pre><code>ShapeStyle
+<pre><code>Shapes with Style
 </code></pre>
-<p>If you don't need a shape border line, set <code>lwidth=0</code>.
-If you don't need a shape fill color, set <code>fcolor=Colors.Transparent</code> or <code>fcolor=Colors.White</code>.
+<p>If you don't need a shape border line, set <code>line_width=0</code>.
+If you don't need a shape fill color, set <code>fill_color=Colors.Transparent</code> or <code>fill_color=Colors.White</code>.
 These are typical shape styling configurations.</p>
-<h1>ShapeTextStyle</h1>
-<p>ShapeTextStyle is similar to <code>TextStyle</code>, which is used for drawing text with the <code>text()</code> function.
-The differences between them are:</p>
+<h1>Styling Text Inside Shapes (textstyle)</h1>
+<p>Text drawn inside a shape via the <code>text</code> parameter is styled using a <code>Style</code> object passed to the <code>textstyle</code> parameter.</p>
+<p>Common <code>Style</code> attributes used for shape text include:</p>
 <ul>
-<li><code>ShapeTextStyle</code>: Allows shifting the x and y coordinates of the text from the center of the shape and changing the angle.</li>
-<li><code>TextStyle</code>: Allows configuring the text background.</li>
-</ul>
-<p>ShapeTextStyle has these attributes.</p>
-<ul>
-<li>halign: Ignored (for future implementation)</li>
-<li>valign: Ignored (for future implementation)</li>
-<li>color: Text color</li>
-<li>size: Text size</li>
-<li>font: Text font</li>
-<li>xy_shift: Shifting from the original drawing point</li>
-<li>angle: Text angle (default is the same as the shape angle)</li>
+<li><code>text_color</code>: Text color</li>
+<li><code>text_size</code>: Text size</li>
+<li><code>text_font</code>: Text font</li>
+<li><code>text_xy_shift</code>: Relative offset <code>(x, y)</code> from the shape center</li>
+<li><code>text_angle</code>: Text angle (default follows the shape's angle)</li>
+<li><code>text_halign</code>: Horizontal alignment</li>
+<li><code>text_valign</code>: Vertical alignment</li>
 </ul>
 <p>Here are three examples:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
@@ -397,7 +387,7 @@ from drawlib.colors import Colors
 from drawlib.fonts import FontSansSerif, FontSerif
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.types import ShapeTextStyle
+from drawlib.types import Style
 
 config(width=150, height=50)
 
@@ -407,7 +397,7 @@ rectangle(
     width=40,
     height=20,
     text=&quot;rectangle()&quot;,
-    textstyle=ShapeTextStyle(
+    textstyle=Style(
         text_color=Colors.White,
         text_size=24,
         text_font=FontSerif.COURIER_BOLD,
@@ -422,7 +412,7 @@ rectangle(
     height=20,
     angle=45,
     text=&quot;rectangle()&quot;,
-    textstyle=ShapeTextStyle(
+    textstyle=Style(
         text_color=Colors.White,
         text_size=24,
         text_font=FontSansSerif.RALEWAYS_REGULAR,
@@ -437,7 +427,7 @@ rectangle(
     height=20,
     angle=45,
     text=&quot;rectangle()&quot;,
-    textstyle=ShapeTextStyle(
+    textstyle=Style(
         text_color=Colors.White,
         text_angle=0,
         text_xy_shift=(-12, -3),
@@ -457,7 +447,7 @@ from drawlib.colors import Colors
 from drawlib.fonts import FontSansSerif, FontSerif
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.types import ShapeTextStyle
+from drawlib.types import Style
 
 config(width=150, height=50)
 
@@ -467,7 +457,7 @@ rectangle(
     width=40,
     height=20,
     text=&quot;rectangle()&quot;,
-    textstyle=ShapeTextStyle(
+    textstyle=Style(
         text_color=Colors.White,
         text_size=24,
         text_font=FontSerif.COURIER_BOLD,
@@ -482,7 +472,7 @@ rectangle(
     height=20,
     angle=45,
     text=&quot;rectangle()&quot;,
-    textstyle=ShapeTextStyle(
+    textstyle=Style(
         text_color=Colors.White,
         text_size=24,
         text_font=FontSansSerif.RALEWAYS_REGULAR,
@@ -497,7 +487,7 @@ rectangle(
     height=20,
     angle=45,
     text=&quot;rectangle()&quot;,
-    textstyle=ShapeTextStyle(
+    textstyle=Style(
         text_color=Colors.White,
         text_angle=0,
         text_xy_shift=(-12, -3),
@@ -509,26 +499,26 @@ save()
 <div class="drawlib-image" style="text-align: center;">
   <img src="shape_style_images/4.png" alt="shape_style_4" style="width: 600px; max-width: 100%;" />
 </div>
-<pre><code>ShapeTextStyle
+<pre><code>Text in shapes with Style
 </code></pre>
 <p>As you can see from the center text example, text normally follows the shape's angle.
 However, you can override it, as shown in the right example.
-In that example, we also move the text positioning via <code>xy_shift</code>.
+In that example, we also move the text positioning via <code>text_xy_shift</code>.
 The x and y values are not absolute coordinates but are relative to the shape's dimensions.</p>
 <h1>Theme's Pre-defined Styles</h1>
 <p>Shapes can use pre-defined styles from the theme you choose.</p>
 <p>The style syntax is: <code>&lt;color&gt;_&lt;type&gt;_&lt;weight&gt;</code>.
 If the color, type, and weight are default, they are not shown in the style name.</p>
-<p>Each style type has variations for line and fill styles with <code>ShapeStyle</code>.
-<code>ShapeTextStyle</code> cannot use these styles.</p>
+<p>Each style type has variations for line and fill styles.
+For shape text, predefined color and weight styles can also be supplied to <code>textstyle</code>.</p>
 <ul>
 <li>default: Has border and fill color</li>
 <li><code>flat</code>: Has no border</li>
 <li><code>solid</code>: Shape has an outline but no fill</li>
 <li><code>dashed</code>: Dashed outline, no fill</li>
 </ul>
-<p>Each weight types has variation of line width except <code>flat</code> which doesn't have line.
-On <code>ShapeTextStyle</code>, it means tyep of fonts.</p>
+<p>Each weight type provides a variation of line width, except <code>flat</code> which has no border line.
+When applied to <code>textstyle</code>, it controls font weight.</p>
 <ul>
 <li><code>light</code>: Half of the default line width; font is light</li>
 <li>default: Regular line width; font is regular</li>

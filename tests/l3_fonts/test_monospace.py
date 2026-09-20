@@ -25,7 +25,7 @@ from drawlib.fonts import (
     FontThai,
 )
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l3_fonts/monospace/"
 
@@ -34,17 +34,17 @@ def test_roboto_mono():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontMonoSpace.ROBOTO_MONO_LIGHT),
+        style=Style(text_font=FontMonoSpace.ROBOTO_MONO_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontMonoSpace.ROBOTO_MONO_REGULAR),
+        style=Style(text_font=FontMonoSpace.ROBOTO_MONO_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontMonoSpace.ROBOTO_MONO_BOLD),
+        style=Style(text_font=FontMonoSpace.ROBOTO_MONO_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -53,12 +53,12 @@ def test_courier():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontMonoSpace.COURIER_REGULAR),
+        style=Style(text_font=FontMonoSpace.COURIER_REGULAR),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontMonoSpace.COURIER_BOLD),
+        style=Style(text_font=FontMonoSpace.COURIER_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -67,16 +67,16 @@ def test_sourcecodepro():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontMonoSpace.SOURCECODEPRO_LIGHT),
+        style=Style(text_font=FontMonoSpace.SOURCECODEPRO_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontMonoSpace.SOURCECODEPRO_REGULAR),
+        style=Style(text_font=FontMonoSpace.SOURCECODEPRO_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. あいうえお",
-        style=TextStyle(text_font=FontMonoSpace.SOURCECODEPRO_BOLD),
+        style=Style(text_font=FontMonoSpace.SOURCECODEPRO_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

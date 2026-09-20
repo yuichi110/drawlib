@@ -17,7 +17,7 @@ They all share the following optional arguments:
 
 - `arrowhead`: Specifies the type of arrowhead. Options are `["", "->", "<-", "<->"]`.
 - `width`: Specifies the line width. This should typically be configured within the style, but it is also available as an optional argument.
-- `style`: Defines the line style. Accepts a LineStyle object or a string (style name).
+- `style`: Defines the line style. Accepts a Style object or a string (style name).
 
 Details on these options will be covered in the next section on line styles (see the following page).
 
@@ -186,22 +186,22 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line, line_bezier1
 from drawlib.shapes import circle
-from drawlib.types import LineStyle, ShapeStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 line_bezier1(xy1=(10, 10), cp=(10, 40), xy2=(40, 40))
-line(xy1=(10, 10), xy2=(10, 40), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(10, 40), xy2=(40, 40), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-circle(xy=(10, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(10, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(40, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+line(xy1=(10, 10), xy2=(10, 40), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(40, 40), style=Style(line_style="dashed", line_color=Colors.Red))
+circle(xy=(10, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(40, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
 
 line_bezier1(xy1=(60, 40), cp=(90, 40), xy2=(90, 10))
-line(xy1=(60, 40), xy2=(90, 40), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 40), xy2=(90, 10), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-circle(xy=(60, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+line(xy1=(60, 40), xy2=(90, 40), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(90, 40), xy2=(90, 10), style=Style(line_style="dashed", line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
 
 save()
 ```
@@ -220,22 +220,22 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line, line_bezier1
 from drawlib.shapes import circle
-from drawlib.types import LineStyle, ShapeStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 line_bezier1(xy1=(10, 10), cp=(10, 40), xy2=(40, 40))
-line(xy1=(10, 10), xy2=(10, 40), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(10, 40), xy2=(40, 40), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-circle(xy=(10, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(10, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(40, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+line(xy1=(10, 10), xy2=(10, 40), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(40, 40), style=Style(line_style="dashed", line_color=Colors.Red))
+circle(xy=(10, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(40, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
 
 line_bezier1(xy1=(60, 40), cp=(90, 40), xy2=(90, 10))
-line(xy1=(60, 40), xy2=(90, 40), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 40), xy2=(90, 10), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-circle(xy=(60, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+line(xy1=(60, 40), xy2=(90, 40), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(90, 40), xy2=(90, 10), style=Style(line_style="dashed", line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
 
 save()
 ```
@@ -278,26 +278,26 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line, line_bezier2
 from drawlib.shapes import circle
-from drawlib.types import LineStyle, ShapeStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 line_bezier2(xy1=(10, 10), cp1=(10, 40), cp2=(40, 40), xy2=(40, 10))
-line(xy1=(10, 10), xy2=(10, 40), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(10, 40), xy2=(40, 40), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(40, 40), xy2=(40, 10), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-circle(xy=(10, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(10, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(40, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(40, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+line(xy1=(10, 10), xy2=(10, 40), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(40, 40), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(40, 40), xy2=(40, 10), style=Style(line_style="dashed", line_color=Colors.Red))
+circle(xy=(10, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(40, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(40, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
 
 line_bezier2(xy1=(60, 40), cp1=(60, 10), cp2=(90, 10), xy2=(90, 40))
-line(xy1=(60, 40), xy2=(60, 10), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(60, 10), xy2=(90, 10), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 10), xy2=(90, 40), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-circle(xy=(60, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(60, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+line(xy1=(60, 40), xy2=(60, 10), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(60, 10), xy2=(90, 10), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(90, 10), xy2=(90, 40), style=Style(line_style="dashed", line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(60, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
 
 save()
 ```
@@ -316,26 +316,26 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line, line_bezier2
 from drawlib.shapes import circle
-from drawlib.types import LineStyle, ShapeStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 line_bezier2(xy1=(10, 10), cp1=(10, 40), cp2=(40, 40), xy2=(40, 10))
-line(xy1=(10, 10), xy2=(10, 40), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(10, 40), xy2=(40, 40), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(40, 40), xy2=(40, 10), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-circle(xy=(10, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(10, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(40, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(40, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+line(xy1=(10, 10), xy2=(10, 40), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(40, 40), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(40, 40), xy2=(40, 10), style=Style(line_style="dashed", line_color=Colors.Red))
+circle(xy=(10, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(40, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(40, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
 
 line_bezier2(xy1=(60, 40), cp1=(60, 10), cp2=(90, 10), xy2=(90, 40))
-line(xy1=(60, 40), xy2=(60, 10), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(60, 10), xy2=(90, 10), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 10), xy2=(90, 40), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-circle(xy=(60, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(60, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+line(xy1=(60, 40), xy2=(60, 10), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(60, 10), xy2=(90, 10), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(90, 10), xy2=(90, 40), style=Style(line_style="dashed", line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(60, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
 
 save()
 ```
@@ -463,7 +463,7 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line, lines_bezier
 from drawlib.shapes import circle
-from drawlib.types import LineStyle, ShapeStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 
@@ -475,20 +475,20 @@ points = [
 lines_bezier(xy=(10, 40), path_points=points)
 
 # bezier1 help line
-line(xy1=(10, 40), xy2=(10, 20), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(10, 20), xy2=(30, 20), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-circle(xy=(10, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(10, 20), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(30, 20), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(10, 20), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(10, 20), xy2=(30, 20), style=Style(line_style="dashed", line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(10, 20), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(30, 20), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
 
 # bezier2 help line
-line(xy1=(60, 10), xy2=(60, 40), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(60, 40), xy2=(90, 40), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 40), xy2=(90, 10), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-circle(xy=(60, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(60, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+line(xy1=(60, 10), xy2=(60, 40), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(60, 40), xy2=(90, 40), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(90, 40), xy2=(90, 10), style=Style(line_style="dashed", line_color=Colors.Red))
+circle(xy=(60, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
 
 save()
 ```
@@ -510,7 +510,7 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line, lines_bezier
 from drawlib.shapes import circle
-from drawlib.types import LineStyle, ShapeStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 
@@ -522,20 +522,20 @@ points = [
 lines_bezier(xy=(10, 40), path_points=points)
 
 # bezier1 help line
-line(xy1=(10, 40), xy2=(10, 20), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(10, 20), xy2=(30, 20), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-circle(xy=(10, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(10, 20), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(30, 20), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(10, 20), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(10, 20), xy2=(30, 20), style=Style(line_style="dashed", line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(10, 20), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(30, 20), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
 
 # bezier2 help line
-line(xy1=(60, 10), xy2=(60, 40), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(60, 40), xy2=(90, 40), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 40), xy2=(90, 10), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-circle(xy=(60, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(60, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 10), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+line(xy1=(60, 10), xy2=(60, 40), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(60, 40), xy2=(90, 40), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(90, 40), xy2=(90, 10), style=Style(line_style="dashed", line_color=Colors.Red))
+circle(xy=(60, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
 
 save()
 ```
@@ -559,7 +559,7 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line, lines_bezier
 from drawlib.shapes import circle
-from drawlib.types import LineStyle, ShapeStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 
@@ -576,11 +576,11 @@ lines_bezier(
 circle((90, 10), radius=5)
 
 # bezier1 help line
-line(xy1=(75, 40), xy2=(90, 40), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 40), xy2=(90, 25), style=LineStyle(line_style="dashed", line_color=Colors.Red))
-circle(xy=(75, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 25), radius=0.5, style=ShapeStyle(fill_color=Colors.White, line_color=Colors.Red))
+line(xy1=(75, 40), xy2=(90, 40), style=Style(line_style="dashed", line_color=Colors.Red))
+line(xy1=(90, 40), xy2=(90, 25), style=Style(line_style="dashed", line_color=Colors.Red))
+circle(xy=(75, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+circle(xy=(90, 25), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
 
 save()
 ```
@@ -626,14 +626,14 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import lines, lines_curved
 from drawlib.shapes import circle
-from drawlib.types import LineStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 
 circle((10, 40), radius=5)
 lines(
     [(20, 40), (30, 40), (30, 10), (90, 40), (90, 22)],
-    style=LineStyle(line_color=Colors.Red, line_style="dashed", line_width=1.5),
+    style=Style(line_color=Colors.Red, line_style="dashed", line_width=1.5),
 )
 lines_curved(
     [(20, 40), (30, 40), (30, 10), (90, 40), (90, 20)],
@@ -659,14 +659,14 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import lines, lines_curved
 from drawlib.shapes import circle
-from drawlib.types import LineStyle
+from drawlib.types import Style
 
 config(width=100, height=50)
 
 circle((10, 40), radius=5)
 lines(
     [(20, 40), (30, 40), (30, 10), (90, 40), (90, 22)],
-    style=LineStyle(line_color=Colors.Red, line_style="dashed", line_width=1.5),
+    style=Style(line_color=Colors.Red, line_style="dashed", line_width=1.5),
 )
 lines_curved(
     [(20, 40), (30, 40), (30, 10), (90, 40), (90, 20)],

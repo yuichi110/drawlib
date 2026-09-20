@@ -56,7 +56,7 @@ Drawlib is structured around the following APIs:
 
 - Fundamental classes and functions: These include essential canvas manipulation methods such as ``save()`` and ``config()``.
 - Drawing functions: Examples include ``circle()`` and ``line()``.
-- Style classes: Categories like ``ShapeStyle`` and ``LineStyle`` define the visual appearance of elements.
+- Style class: The unified ``Style`` class defines the visual appearance of elements (lines, shapes, text, icons, images).
 - Theme and style accessor module (``dtheme``): This module facilitates managing themes and accessing styles across drawings.
 - Advanced classes and functions: These components utilize the aforementioned APIs internally to provide extended functionality.
 
@@ -254,26 +254,26 @@ config(width=100, height=50, grid_only=True)
 circle(
     xy=(25, 25),
     radius=10,
-    style=ShapeStyle(halign="center", valign="center"),
+    style=Style(text_halign="center", text_valign="center"),
 )
 circle(
     xy=(25, 25),
     radius=1,
-    style=ShapeStyle(fcolor=Colors.Red, lcolor=Colors.Red),
+    style=Style(fill_color=Colors.Red, line_color=Colors.Red),
 )
-text((25, 10), "Align center,center", style=TextStyle(color=Colors.Red))
+text((25, 10), "Align center,center", style=Style(text_color=Colors.Red))
 
 circle(
     xy=(75, 25),
     radius=10,
-    style=ShapeStyle(halign="left", valign="bottom"),
+    style=Style(text_halign="left", text_valign="bottom"),
 )
 circle(
     xy=(75, 25),
     radius=1,
-    style=ShapeStyle(fcolor=Colors.Red, lcolor=Colors.Red),
+    style=Style(fill_color=Colors.Red, line_color=Colors.Red),
 )
-text((75, 10), "Align left,bottom", style=TextStyle(color=Colors.Red))
+text((75, 10), "Align left,bottom", style=Style(text_color=Colors.Red))
 
 save()
 ```
@@ -321,7 +321,7 @@ icon_phosphor.coffee(
     xy=(75, 30),
     width=20,
     angle=45,
-    style=IconStyle(color=Colors.Red, style="fill"),
+    style=Style(text_color=Colors.Red, icon_style="fill"),
 )
 
 save()
@@ -331,7 +331,7 @@ This code generates the following output image:
 
 ![Alt text for the image](docs_readme_images/images/qs/image_icon1.png)
 
-As demonstrated, the function name determines the icon to be drawn, while the ``IconStyle`` can be adjusted to modify color, style, and other attributes.
+As demonstrated, the function name determines the icon to be drawn, while the ``Style`` object can be adjusted to modify color, style, and other attributes.
 
 For detailed instructions on using the icon() function, please refer to the icon documentation. 
 This topic is beyond the scope of this quick start guide.
@@ -356,7 +356,7 @@ image(
     width=20,
     angle=45,
     image="python.png",
-    style=ImageStyle(lwidth=1),
+    style=Style(line_width=1),
 )
 
 save()
@@ -366,7 +366,7 @@ Execute this code using the Python command to get image.
 
 ![Alt text for the image](docs_readme_images/images/qs/image_image1.png)
 
-As you can observe, you can specify the angle and use the ``ImageStyle`` to manage alignment and border lines.
+As you can observe, you can specify the angle and use the ``Style`` object to manage alignment and border lines.
 
 If you wish to modify the image itself, consider utilizing the ``Dimage`` class, which provides numerous methods for image manipulation. 
 Take a look at this example:
@@ -437,7 +437,7 @@ From point of line styling, we have these 2 categories.
 - Visual styles: Color, width, line style(solid, dashed etc) etc.
 
 Arrow head has logical meaning (HTML equivalent), so we will specify it at function arg ``arrowhead``.
-But visual style has less meaning (CSS equivalent), then we will specify it as styling class ``LineStyle``.
+But visual style has less meaning (CSS equivalent), then we will specify it as styling class ``Style``.
 
 Consider this example showcasing styling:
 
@@ -450,22 +450,22 @@ line((20, 7), (80, 7))
 line(
     (20, 16),
     (80, 16),
-    style=LineStyle(style="dashed", width=5, color=Colors.Red),
+    style=Style(line_style="dashed", line_width=5, line_color=Colors.Red),
 )
 line((20, 25), (80, 25), arrowhead="->")
 line((20, 34), (80, 34), arrowhead="<->")
-line((20, 43), (80, 43), arrowhead="<-", style=LineStyle(ahscale=50, style="dashdot", ahfill=True))
+line((20, 43), (80, 43), arrowhead="<-", style=Style(arrow_head_scale=50, line_style="dashdot", arrow_head_fill=True))
 
 save()
 ```
 
-With LineStyle, you can configure line width, color, style, and more. 
+With ``Style``, you can configure line width, color, style, and more. 
 Arrow head style is specified in function directry.
 
 ![Alt text for the image](docs_readme_images/images/qs/image_line2.png)
 
 While the ``arrow()`` function also draws arrows, it is not a line but rather a shape. 
-Keep in mind that if you wish to draw an arrow line, utilize line() and related functions with LineArrowStyle.
+Keep in mind that if you wish to draw an arrow line, utilize line() and related functions with arrowhead argument or Style.
 
 ## Drawing shapes
 
@@ -519,15 +519,15 @@ Circle-type shapes are defined by their radius, while rectangle-type shapes are 
 By default, the xy coordinate marks the center of the shape. 
 Except for arrow() and polygon(), all functions can accept an angle parameter.
 
-Shapes can also be styled using two types of styles:
+Shapes can also be styled using the ``Style`` class:
 
-- ``ShapeStyle``: for basic shape styling such as line width, color, and fill color
-- ``ShapeTextStyle``: for styling text within a shape
+- ``style``: for basic shape styling such as line width, line color, and fill color
+- ``textstyle``: for styling text within a shape
 
-The ShapeTextStyle allows you to specify parameters like color, size, font, and more. 
-Additionally, it offers xy_shift and angle options. 
-When you specify xy_shift, you can adjust the position of the text within the shape. 
-Keep in mind that the angle parameter in ShapeTextStyle overrides the shape's angle for the text.
+The ``Style`` object allows you to specify parameters like color, size, font, and more. 
+When styling text within a shape, it also offers ``text_xy_shift`` and ``text_angle`` options. 
+Specifying ``text_xy_shift`` allows you to adjust the position of the text within the shape. 
+Keep in mind that the ``text_angle`` parameter in ``Style`` overrides the shape's angle for the text.
 
 Let's examine a styling example:
 
@@ -542,7 +542,7 @@ rectangle(
     height=20,
     angle=45,
     text="Hello!",
-    style=ShapeStyle(lstyle="dashed", lwidth=5, lcolor=Colors.Red, fcolor=Colors.Transparent),
+    style=Style(line_style="dashed", line_width=5, line_color=Colors.Red, fill_color=Colors.Transparent),
 )
 rectangle(
     (75, 25),
@@ -550,7 +550,7 @@ rectangle(
     height=20,
     angle=45,
     text="Hello!",
-    textstyle=ShapeTextStyle(color=Colors.White, size=20, xy_shift=(-10, 0), angle=0),
+    textstyle=Style(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
 )
 
 save()
@@ -560,21 +560,19 @@ This code generates the following output:
 
 ![Alt text for the image](docs_readme_images/images/qs/image_shape2.png)
 
-In the left example, we configure ShapeStyle to add style to the rectangle. 
-Parameters like l-something represent line-something, and fcolor stands for fill-color. 
-Options for shape lines are nearly identical to those for LineStyle. 
-If you don't require a shape line, simply set ``lwidth=0``, and if you don't need a fill color, set ``fcolor=Colors.Transparent``. 
+In the left example, we configure ``Style`` to add style to the rectangle. 
+``line_width``, ``line_color``, and ``line_style`` control the border, while ``fill_color`` sets the fill color. 
+If you don't require a shape border line, simply set ``line_width=0``, and if you don't need a fill color, set ``fill_color=Colors.Transparent``. 
 Notice how the text angle follows the shape angle by default.
 
-In the right example, we configure ShapeTextStyle for the center text within the rectangle. 
-Parameters such as color, size, font, etc., are similar to TextStyle. 
-However, ShapeTextStyle includes additional options like xy_shift and angle.
+In the right example, we configure ``Style`` for the text within the rectangle via ``textstyle``. 
+Parameters like ``text_color``, ``text_size``, ``text_font`` control typography, while options like ``text_xy_shift`` and ``text_angle`` adjust placement.
 
-When you specify xy_shift, you can move the center point of the text. 
+When you specify ``text_xy_shift``, you can move the center point of the text. 
 Remember that the xy value is not a global coordinate but is relative to the shape, taking its angle into account. 
 Therefore, specifying ``(-10, 0)`` moves the center point not only to the left but also downward since the shape has a 45-degree angle.
 
-The angle option in ShapeTextStyle overrides the shape's angle for the text. 
+The ``text_angle`` option in ``Style`` overrides the shape's angle for the text. 
 If left unspecified, the text inside the right rectangle should be at a 45-degree angle. 
 However, since we've specified it in the style, it remains at 0 degrees.
 
@@ -582,11 +580,9 @@ However, since we've specified it in the style, it remains at 0 degrees.
 
 The ``text()`` function is used to render text onto the canvas. 
 It requires specifications for xy coordinates, the text message, and an optional angle. 
-All other text parameters are defined within the ``TextStyle``.
+All other text parameters are defined within a ``Style`` object.
 
-TextStyle differs slightly from ShapeTextStyle, which we discussed earlier. 
-Unlike ShapeTextStyle, it lacks features like xy_shift and angle, as these can be directly configured as arguments in text(). 
-However, TextStyle includes an option that ShapeTextStyle doesn't: text background options.
+With ``Style``, you can configure text color, size, font, alignment, and text background options (such as ``text_bg_fill_color``, ``text_bg_line_width``, etc.).
 
 Let's examine some code examples:
 
@@ -600,22 +596,22 @@ text(
     (50, 16),
     "Hello drawlib. こんにちは。",
     angle=10,
-    style=TextStyle(font=FontRoboto.ROBOTO_REGULAR),
+    style=Style(text_font=FontRoboto.ROBOTO_REGULAR),
 )
 text(
     (50, 25),
     "Hello drawlib.",
-    style=TextStyle(font=FontFile("avenger/regular.ttf")),
+    style=Style(text_font=FontFile("avenger/regular.ttf")),
 )
 text(
     (50, 34),
     "Hello drawlib. こんにちは。",
-    style=TextStyle(color=Colors.Red, size=24),
+    style=Style(text_color=Colors.Red, text_size=24),
 )
 text(
     (50, 43),
     "Hello drawlib. こんにちは。",
-    style=TextStyle(color=Colors.White, bgfcolor=Colors.Black),
+    style=Style(text_color=Colors.White, text_bg_fill_color=Colors.Black),
 )
 save()
 ```
@@ -624,7 +620,7 @@ Executing this code yields the following image:
 
 ![Alt text for the image](docs_readme_images/images/qs/image_text1.png)
 
-In this example, we've configured several TextStyle parameters. 
+In this example, we've configured several text-related ``Style`` parameters. 
 I've used Japanese text for testing purposes. 
 As you can see, the Roboto font fails to render it correctly. 
 Be cautious when using non-alphabet characters. 
@@ -648,7 +644,7 @@ Doubling the canvas size won't result in halving the font text size; it remains 
 
 ## Using Official Theme
 
-In Drawlib, you can define the style of drawing items using style class objects such as ``ShapeStyle`` and ``TextStyle``. 
+In Drawlib, you can define the style of drawing items using the unified ``Style`` class. 
 However, specifying styles for each item can be cumbersome and may lead to inconsistency. 
 To address this, Drawlib provides a theme and style feature, allowing you to choose a theme and easily apply its styles by name.
 

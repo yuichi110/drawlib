@@ -14,7 +14,7 @@ from matplotlib.font_manager import FontProperties
 
 from drawlib._core.l2_models import FontFile
 from drawlib._core.l3_fonts import FontSansSerif
-from drawlib._core.l3_styles import Colors, ShapeTextStyle, TextStyle
+from drawlib._core.l3_styles import Colors, Style
 from drawlib._core.l4_canvas_utils._text import TextUtil
 from drawlib._theme import get_style
 
@@ -23,18 +23,18 @@ class TestTextUtil:
     """Unit tests for the TextUtil static helper class."""
 
     def test_format_style(self) -> None:
-        """Verifies format_style merges and formats TextStyle and copies attributes."""
+        """Verifies format_style merges and formats Style and copies attributes."""
         # 1. Test None style
         formatted_none = TextUtil.format_style(None)
-        assert isinstance(formatted_none, TextStyle)
+        assert isinstance(formatted_none, Style)
         assert formatted_none.text_size == get_style().text_size
 
         # 2. Test string style lookup
         formatted_str = TextUtil.format_style("primary")
         assert formatted_str.text_color == get_style("primary").text_color
 
-        # 3. Test TextStyle object (deep copied and merged)
-        custom_style = TextStyle(text_size=32.0, text_color=(255, 0, 0))
+        # 3. Test Style object (deep copied and merged)
+        custom_style = Style(text_size=32.0, text_color=(255, 0, 0))
         formatted_obj = TextUtil.format_style(custom_style)
         assert formatted_obj.text_size == 32.0
         assert formatted_obj.text_color == (255, 0, 0)
@@ -45,12 +45,12 @@ class TestTextUtil:
             TextUtil.format_style(123)  # type: ignore
 
     def test_get_text_options(self) -> None:
-        """Verifies mapping from TextStyle to matplotlib's options dictionary."""
+        """Verifies mapping from Style to matplotlib's options dictionary."""
         # 1. Test None style
         assert TextUtil.get_text_options(None) == {}
 
         # 2. Test mapped values
-        style = TextStyle(text_color=(0, 255, 0), text_halign="center", text_valign="top")
+        style = Style(text_color=(0, 255, 0), text_halign="center", text_valign="top")
         options = TextUtil.get_text_options(style)
         assert options["color"] == (0.0, 1.0, 0.0, 1.0)
         assert options["horizontalalignment"] == "center"
@@ -58,19 +58,19 @@ class TestTextUtil:
 
     def test_get_font_properties(self) -> None:
         """Verifies get_font_properties constructs a FontProperties object for custom and default fonts."""
-        # 1. Test TextStyle with custom FontFile (referencing an existing file)
+        # 1. Test Style with custom FontFile (referencing an existing file)
         font_path = os.path.normpath(
             os.path.join(os.path.dirname(__file__), "../../src/drawlib/_assets/fonts/roboto/regular.ttf")
         )
         font_file = FontFile(font_path)
-        style_file = TextStyle(text_font=font_file, text_size=18.0)
+        style_file = Style(text_font=font_file, text_size=18.0)
         props = TextUtil.get_font_properties(style_file)
         assert isinstance(props, FontProperties)
         assert props.get_size() == 18.0
         assert props.get_file() == font_path
 
-        # 2. Test ShapeTextStyle with FontSansSerif
-        style_sans = ShapeTextStyle(text_font=FontSansSerif.LATO_REGULAR, text_size=15.0)
+        # 2. Test Style with FontSansSerif
+        style_sans = Style(text_font=FontSansSerif.LATO_REGULAR, text_size=15.0)
         props_sans = TextUtil.get_font_properties(style_sans)
         assert isinstance(props_sans, FontProperties)
         assert props_sans.get_size() == 15.0
@@ -86,19 +86,19 @@ class TestTextUtil:
 
         with pytest.raises(ValueError):
             # Font type not supported
-            invalid_font_style = TextStyle(text_font=123, text_size=12.0)  # type: ignore
+            invalid_font_style = Style(text_font=123, text_size=12.0)  # type: ignore
             TextUtil.get_font_properties(invalid_font_style)
 
     def test_get_bbox_dict(self) -> None:
-        """Verifies get_bbox_dict converts TextStyle background properties to bbox options."""
+        """Verifies get_bbox_dict converts Style background properties to bbox options."""
         # 1. Test None style
         assert TextUtil.get_bbox_dict(None) is None
 
         # 2. Test style with all None background options
-        assert TextUtil.get_bbox_dict(TextStyle()) is None
+        assert TextUtil.get_bbox_dict(Style()) is None
 
         # 3. Test background options mapping
-        style = TextStyle(
+        style = Style(
             text_bg_fill_color=(255, 0, 0),
             text_bg_line_color=(0, 255, 0),
             text_bg_line_style="dashed",
@@ -115,7 +115,7 @@ class TestTextUtil:
         assert bbox["alpha"] == 0.5
 
         # 4. Transparent fallback
-        transparent_style = TextStyle(text_bg_fill_color=None, text_bg_line_color=None, text_bg_line_style="solid")
+        transparent_style = Style(text_bg_fill_color=None, text_bg_line_color=None, text_bg_line_style="solid")
         bbox_trans = TextUtil.get_bbox_dict(transparent_style)
         assert bbox_trans is not None
         assert bbox_trans["facecolor"] == Colors.Transparent

@@ -25,7 +25,7 @@ from drawlib.fonts import (
     FontThai,
 )
 from drawlib.text import text
-from drawlib.types import TextStyle
+from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l3_fonts/arabic/"
 
@@ -34,17 +34,17 @@ def test_kufi():
     text(
         (50, 10),
         "Hello World. لمّا كان الاعتراف بالكرامة المتأصلة في جميع",
-        style=TextStyle(text_font=FontArabic.KUFI_LIGHT),
+        style=Style(text_font=FontArabic.KUFI_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. لمّا كان الاعتراف بالكرامة المتأصلة في جميع",
-        style=TextStyle(text_font=FontArabic.KUFI_REGULAR),
+        style=Style(text_font=FontArabic.KUFI_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. لمّا كان الاعتراف بالكرامة المتأصلة في جميع",
-        style=TextStyle(text_font=FontArabic.KUFI_BOLD),
+        style=Style(text_font=FontArabic.KUFI_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -53,12 +53,12 @@ def test_naskh():
     text(
         (50, 30),
         "Hello World. لمّا كان الاعتراف بالكرامة المتأصلة في جميع",
-        style=TextStyle(text_font=FontArabic.NASKH_REGULAR),
+        style=Style(text_font=FontArabic.NASKH_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. لمّا كان الاعتراف بالكرامة المتأصلة في جميع",
-        style=TextStyle(text_font=FontArabic.NASKH_BOLD),
+        style=Style(text_font=FontArabic.NASKH_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -67,16 +67,16 @@ def test_sans():
     text(
         (50, 10),
         "Hello World. لمّا كان الاعتراف بالكرامة المتأصلة في جميع",
-        style=TextStyle(text_font=FontArabic.SANSSERIF_LIGHT),
+        style=Style(text_font=FontArabic.SANSSERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. لمّا كان الاعتراف بالكرامة المتأصلة في جميع",
-        style=TextStyle(text_font=FontArabic.SANSSERIF_REGULAR),
+        style=Style(text_font=FontArabic.SANSSERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. لمّا كان الاعتراف بالكرامة المتأصلة في جميع",
-        style=TextStyle(text_font=FontArabic.SANSSERIF_BOLD),
+        style=Style(text_font=FontArabic.SANSSERIF_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

@@ -27,7 +27,7 @@ from drawlib._core.l2_types import (
     TypePosFloat,
     TypeStr,
 )
-from drawlib._core.l3_styles import LineStyle
+from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
 from drawlib._core.l4_canvas_utils import LineUtil, get_rotated_path_points
 
@@ -63,7 +63,7 @@ class CanvasLineFeature(CanvasBase):
         xy2: TypeCoordinate,
         width: TypePosFloat | None = None,
         arrowhead: TypeArrowHead = "",
-        style: LineStyle | str | None = None,
+        style: Style | str | None = None,
     ) -> None:
         """Draw straight line from xy1 to xy2.
 
@@ -73,7 +73,7 @@ class CanvasLineFeature(CanvasBase):
             width (float | None): Optional width of the line.
             arrowhead (Literal["->", "<-", "<->", "-"] | str):
                     Optional arrowhead style ("", "->", "<-", "<->").
-            style (LineStyle | str | None): Optional line style.
+            style (Style | str | None): Optional line style.
 
         Returns:
             None
@@ -99,7 +99,7 @@ class CanvasLineFeature(CanvasBase):
         bend: TypeBend = 0,
         width: TypePosFloat | None = None,
         arrowhead: TypeArrowHead = "",
-        style: LineStyle | str | None = None,
+        style: Style | str | None = None,
     ) -> None:
         """Draw curved line from xy1 to xy2.
 
@@ -109,7 +109,7 @@ class CanvasLineFeature(CanvasBase):
             bend: float: Additional line length between xy1 and xy2. 0 is straight.
             width: float | None: Optional width of the line.
             arrowhead: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style ("", "->", "<-", "<->").
-            style: LineStyle | str | None: Optional line style.
+            style: Style | str | None: Optional line style.
 
         Returns:
             None
@@ -136,7 +136,7 @@ class CanvasLineFeature(CanvasBase):
         cp: TypeCoordinate,
         width: TypePosFloat | None = None,
         arrowhead: TypeArrowHead = "",
-        style: LineStyle | TypeStr | None = None,
+        style: Style | TypeStr | None = None,
     ) -> None:
         """Draw Bezier line from xy1 to xy2 with 1 control point.
 
@@ -146,7 +146,7 @@ class CanvasLineFeature(CanvasBase):
             xy2: tuple[float, float]: Ending point of the line.
             width: float | None: Optional width of the line.
             arrowhead: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style ("", "->", "<-", "<->").
-            style: LineStyle | str | None: Optional line style.
+            style: Style | str | None: Optional line style.
 
         Returns:
             None
@@ -170,7 +170,7 @@ class CanvasLineFeature(CanvasBase):
         cp2: TypeCoordinate,
         width: TypePosFloat | None = None,
         arrowhead: TypeArrowHead = "",
-        style: LineStyle | TypeStr | None = None,
+        style: Style | TypeStr | None = None,
     ) -> None:
         """Draw Bezier line from xy1 to xy2 with 2 control points.
 
@@ -181,7 +181,7 @@ class CanvasLineFeature(CanvasBase):
             xy2: tuple[float, float]: Ending point of the line.
             width: float | None: Optional width of the line.
             arrowhead: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style ("", "->", "<-", "<->").
-            style: LineStyle | str | None: Optional line style.
+            style: Style | str | None: Optional line style.
 
         Returns:
             None
@@ -207,7 +207,7 @@ class CanvasLineFeature(CanvasBase):
         angle: TypeAngle = 0,
         linewidth: TypePosFloat | None = None,
         arrowhead: TypeArrowHead = "",
-        style: LineStyle | TypeStr | None = None,
+        style: Style | TypeStr | None = None,
     ) -> None:
         """Draw arc line on ellipse.
 
@@ -220,7 +220,7 @@ class CanvasLineFeature(CanvasBase):
             angle (float): The angle of ellipse.
             arrowhead: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style ("", "->", "<-", "<->").
             linewidth: float | None: Optional width of the line.
-            style: LineStyle | str | None: Optional line style.
+            style: Style | str | None: Optional line style.
 
         Returns:
             None
@@ -257,7 +257,7 @@ class CanvasLineFeature(CanvasBase):
         xys: TypeCoordinates,
         width: TypePosFloat | None = None,
         arrowhead: TypeArrowHead = "",
-        style: LineStyle | TypeStr | None = None,
+        style: Style | TypeStr | None = None,
     ) -> None:
         """Draw multiple connected lines.
 
@@ -265,7 +265,7 @@ class CanvasLineFeature(CanvasBase):
             xys: list[tuple[float, float]]: List of points defining the lines.
             width: float | None: Optional width of the lines.
             arrowhead: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style ("", "->", "<-", "<->").
-            style: LineStyle | str | None: Optional line style.
+            style: Style | str | None: Optional line style.
 
         Returns:
             None
@@ -287,7 +287,7 @@ class CanvasLineFeature(CanvasBase):
         r: TypePosFloat,
         width: TypePosFloat | None = None,
         arrowhead: TypeArrowHead = "",
-        style: LineStyle | str | None = None,
+        style: Style | str | None = None,
     ) -> None:
         """Draw curved lines connecting multiple points.
 
@@ -296,7 +296,7 @@ class CanvasLineFeature(CanvasBase):
             r: float: Radius of curvature for the lines.
             width: float | None: Optional width of the lines.
             arrowhead: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style ("", "->", "<-", "<->").
-            style: LineStyle | str | None: Optional line style.
+            style: Style | str | None: Optional line style.
 
         Returns:
             None
@@ -342,7 +342,7 @@ class CanvasLineFeature(CanvasBase):
         path_points: TypePathPoints,
         width: TypePosFloat | None = None,
         arrowhead: TypeArrowHead = "",
-        style: LineStyle | TypeStr | None = None,
+        style: Style | TypeStr | None = None,
     ) -> None:
         """Draw Bezier lines based on given path points.
 
@@ -351,7 +351,7 @@ class CanvasLineFeature(CanvasBase):
             path_points: List of path points and control points.
             width: float | None: Optional width of the lines.
             arrowhead: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style ("", "->", "<-", "<->").
-            style: LineStyle | str | None: Optional line style.
+            style: Style | str | None: Optional line style.
 
         Returns:
             None
