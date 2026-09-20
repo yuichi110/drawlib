@@ -14,6 +14,7 @@
 import argparse
 import importlib.util
 import os
+import runpy
 import sys
 import traceback
 from typing import List, Literal, Optional, Tuple
@@ -148,6 +149,39 @@ def call_command() -> None:
             sys.exit(0)
         except Exception as e:
             print(f"Show Error: {e}", file=sys.stderr)
+            if logging_mode in {"verbose", "developer"}:
+                traceback.print_exc()
+            sys.exit(1)
+
+    # handle batch subcommand
+    if argparser.is_batch_command():
+        batch_args = argparser.get_batch_args()
+        target_files = batch_args.file_or_directory
+        exec_mode = "auto_clear"
+        if batch_args.disable_auto_clear:
+            exec_mode = "none"
+        elif batch_args.enable_auto_initialize:
+            exec_mode = "auto_initialize"
+
+        executer = DrawlibExecuter(
+            mode=exec_mode,
+            config_path=batch_args.config,
+            output_dir=batch_args.output_dir,
+        )
+        try:
+            for target_file in target_files:
+                if not os.path.isfile(target_file) and not os.path.isdir(target_file):
+                    msg = f'ignore arg "{target_file}" since it is not a file/dir path'
+                    logger.warning(msg)
+                    continue
+
+                abspath = os.path.abspath(target_file)
+                realpath = os.path.realpath(abspath)
+                executer.execute(realpath)
+            print(f"Successfully executed batch drawing for {len(target_files)} target(s).")
+            sys.exit(0)
+        except Exception as e:
+            print(f"Batch Error: {e}", file=sys.stderr)
             if logging_mode in {"verbose", "developer"}:
                 traceback.print_exc()
             sys.exit(1)
@@ -374,19 +408,52 @@ class DrawlibArgParser:
             help="Path to Python config/setup script (e.g. config.py).",
         )
 
+        # batch subcommand parser
+        batch_parser = argparse.ArgumentParser(
+            prog="drawlib batch",
+            description="Execute multiple Python drawing scripts to generate images.",
+        )
+        batch_parser.add_argument(
+            "file_or_directory",
+            nargs="+",
+            help="Target Python file(s) or directory containing Python drawing code.",
+        )
+        batch_parser.add_argument(
+            "--config",
+            help="Path to Python config/setup script (e.g. config.py).",
+        )
+        batch_parser.add_argument(
+            "-o",
+            "--output-dir",
+            help="Output directory path for generated images.",
+        )
+        batch_parser.add_argument(
+            "--disable_auto_clear",
+            action="store_true",
+            help="Disable clearing canvas per executing drawing code files.",
+        )
+        batch_parser.add_argument(
+            "--enable_auto_initialize",
+            action="store_true",
+            help="Enable initializing canvas per executing drawing code files.",
+        )
+
         self._main_parser = main_parser
         self._build_parser = build_parser
         self._serve_parser = serve_parser
         self._template_parser = template_parser
         self._show_parser = show_parser
+        self._batch_parser = batch_parser
         self._is_build = False
         self._is_serve = False
         self._is_template = False
         self._is_show = False
+        self._is_batch = False
         self._build_args: Optional[argparse.Namespace] = None
         self._serve_args: Optional[argparse.Namespace] = None
         self._template_args: Optional[argparse.Namespace] = None
         self._show_args: Optional[argparse.Namespace] = None
+        self._batch_args: Optional[argparse.Namespace] = None
         self._positional_args: Optional[List[str]] = None
         self._name_args: Optional[argparse.Namespace] = None
 
@@ -398,6 +465,7 @@ class DrawlibArgParser:
             self._is_serve = False
             self._is_template = False
             self._is_show = False
+            self._is_batch = False
             global_args, _ = self._main_parser.parse_known_args(sys.argv[1:idx])
             self._name_args = global_args
             self._build_args = self._build_parser.parse_args(sys.argv[idx + 1 :])
@@ -407,6 +475,7 @@ class DrawlibArgParser:
             self._is_serve = True
             self._is_template = False
             self._is_show = False
+            self._is_batch = False
             global_args, _ = self._main_parser.parse_known_args(sys.argv[1:idx])
             self._name_args = global_args
             self._serve_args = self._serve_parser.parse_args(sys.argv[idx + 1 :])
@@ -416,6 +485,7 @@ class DrawlibArgParser:
             self._is_serve = False
             self._is_template = True
             self._is_show = False
+            self._is_batch = False
             global_args, _ = self._main_parser.parse_known_args(sys.argv[1:idx])
             self._name_args = global_args
             self._template_args = self._template_parser.parse_args(sys.argv[idx + 1 :])
@@ -425,14 +495,26 @@ class DrawlibArgParser:
             self._is_serve = False
             self._is_template = False
             self._is_show = True
+            self._is_batch = False
             global_args, _ = self._main_parser.parse_known_args(sys.argv[1:idx])
             self._name_args = global_args
             self._show_args = self._show_parser.parse_args(sys.argv[idx + 1 :])
+        elif "batch" in sys.argv[1:]:
+            idx = sys.argv.index("batch")
+            self._is_build = False
+            self._is_serve = False
+            self._is_template = False
+            self._is_show = False
+            self._is_batch = True
+            global_args, _ = self._main_parser.parse_known_args(sys.argv[1:idx])
+            self._name_args = global_args
+            self._batch_args = self._batch_parser.parse_args(sys.argv[idx + 1 :])
         else:
             self._is_build = False
             self._is_serve = False
             self._is_template = False
             self._is_show = False
+            self._is_batch = False
             args = self._main_parser.parse_args()
             self._name_args = args
             self._positional_args = args.file_or_directory
@@ -493,6 +575,20 @@ class DrawlibArgParser:
             raise ValueError("Not a show command")
         return self._show_args
 
+    def is_batch_command(self) -> bool:
+        """Check if batch subcommand was called."""
+        if not self._is_batch and self._name_args is None and self._batch_args is None:
+            self.parse()
+        return self._is_batch
+
+    def get_batch_args(self) -> argparse.Namespace:
+        """Get parsed arguments for batch subcommand."""
+        if self._batch_args is None:
+            self.parse()
+        if self._batch_args is None:
+            raise ValueError("Not a batch command")
+        return self._batch_args
+
     def is_show_version(self) -> bool:
         """Check if the version option is specified.
 
@@ -503,7 +599,7 @@ class DrawlibArgParser:
             bool: True if version option is specified, False otherwise.
 
         """
-        if self._is_build or self._is_serve or self._is_template or self._is_show:
+        if self._is_build or self._is_serve or self._is_template or self._is_show or self._is_batch:
             return False
         if self._name_args is None:
             self.parse()
@@ -519,7 +615,7 @@ class DrawlibArgParser:
             bool: True if purge font cache option is specified, False otherwise.
 
         """
-        if self._is_build or self._is_serve or self._is_template or self._is_show:
+        if self._is_build or self._is_serve or self._is_template or self._is_show or self._is_batch:
             return False
         if self._name_args is None:
             self.parse()
@@ -539,7 +635,7 @@ class DrawlibArgParser:
         Raises:
             ValueError: If conflicting logging options are specified.
         """
-        if self._is_build or self._is_serve or self._is_template or self._is_show:
+        if self._is_build or self._is_serve or self._is_template or self._is_show or self._is_batch:
             return "normal"
         if self._name_args is None:
             raise ValueError("Parsed arguments unavailable.")
@@ -604,7 +700,12 @@ class DrawlibExecuter:
     within a specified directory. Handles logging, module loading, and error handling.
     """
 
-    def __init__(self, mode: Literal["none", "auto_clear", "auto_initialize"]) -> None:
+    def __init__(
+        self,
+        mode: Literal["none", "auto_clear", "auto_initialize"],
+        config_path: Optional[str] = None,
+        output_dir: Optional[str] = None,
+    ) -> None:
         """Initializes a DrawlibExecuter instance with the specified mode.
 
         Args:
@@ -613,8 +714,8 @@ class DrawlibExecuter:
                 - "none": Executes Python files without clearing canvas between executions.
                 - "auto_clear": Automatically clears the canvas between executing each Python file.
                 - "auto_initialize": Automatically initializes canvas per execution.
-
-                Raises ValueError if mode is not one of ["none", "auto_clear", "auto_initialize"].
+            config_path (Optional[str]): Optional path to Python config script.
+            output_dir (Optional[str]): Optional path to directory where images should be saved.
 
         Raises:
             ValueError: If mode is not one of ["none", "auto_clear", "auto_initialize"].
@@ -622,6 +723,8 @@ class DrawlibExecuter:
         if mode not in {"none", "auto_clear", "auto_initialize"}:
             raise ValueError(f'Arg mode is "{mode}". But it must be one of ["none", "auto_clear", "auto_initialize"].')
         self._mode = mode
+        self._config_path = config_path
+        self._output_dir = output_dir
         self._topdir_path: str = ""
 
     @guarded
@@ -644,21 +747,30 @@ class DrawlibExecuter:
             ValueError: If the specified path `file_or_directory` does not exist.
 
         """
-        path = get_script_relative_path(file_or_directory)
-        if not os.path.exists(path):
-            raise ValueError(f'"{path}" does not exist')
+        if self._output_dir is not None:
+            dutil_settings.set_output_dir(os.path.abspath(self._output_dir))
 
-        self._add_topdir_to_syspath(path)
+        try:
+            path = get_script_relative_path(file_or_directory)
+            if not os.path.exists(path):
+                raise ValueError(f'"{path}" does not exist')
 
-        logger.info("Execute python files")
-        if os.path.isfile(path):
-            if not path.endswith(".py"):
-                raise ValueError(f'Unable to run "{path}"')
-            self._exec_module(path)
-        else:
-            file_paths = self._get_python_files(path)
-            for file_path in file_paths:
-                self._exec_module(file_path)
+            self._add_topdir_to_syspath(path)
+
+            logger.info("Execute python files")
+            if os.path.isfile(path):
+                if not path.endswith(".py"):
+                    raise ValueError(f'Unable to run "{path}"')
+                self._exec_module(path)
+            else:
+                file_paths = self._get_python_files(path)
+                for file_path in file_paths:
+                    if os.path.basename(file_path).startswith("__"):
+                        continue
+                    self._exec_module(file_path)
+        finally:
+            if self._output_dir is not None:
+                dutil_settings.set_output_dir(None)
 
     def _add_topdir_to_syspath(self, path: str) -> None:
         """Add the top directory of the specified path to the Python sys.path.
@@ -671,32 +783,38 @@ class DrawlibExecuter:
 
         Returns:
             None
-
-        Raises:
-            ValueError: If the specified directory does not have __init__.py, indicating it's not a valid package.
-
         """
         if os.path.isfile(path):
             topdir = os.path.dirname(path)
+            package_dir = ""
+            while os.path.exists(os.path.join(topdir, "__init__.py")):
+                package_dir = topdir
+                topdir = os.path.dirname(topdir)
         else:
             init_path = os.path.join(path, "__init__.py")
             if not os.path.exists(init_path):
-                logger.critical(f'Target directory "{path}" does not have __init__.py. Abort.')
-                sys.exit(1)
-            topdir = path
-
-        package_dir = ""
-        while os.path.exists(os.path.join(topdir, "__init__.py")):
-            package_dir = topdir
-            topdir = os.path.dirname(topdir)
+                topdir = path
+                package_dir = ""
+            else:
+                topdir = path
+                package_dir = ""
+                while os.path.exists(os.path.join(topdir, "__init__.py")):
+                    package_dir = topdir
+                    topdir = os.path.dirname(topdir)
 
         self._topdir_path = topdir
-        logger.info(f'Detect package root "{package_dir}".')
-        if topdir not in sys.path:
-            sys.path.append(topdir)
-            logger.info(f'    - Add parent directory of package root "{topdir}" to Python Path.')
+        if package_dir:
+            logger.info(f'Detect package root "{package_dir}".')
+            if topdir not in sys.path:
+                sys.path.insert(0, topdir)
+                logger.info(f'    - Add parent directory of package root "{topdir}" to Python Path.')
+            else:
+                logger.info(f'    - Parent of package directory "{topdir}" is already in Python Path.')
         else:
-            logger.info(f'    - Parent of package directory "{topdir}" is already in Python Path.')
+            logger.info(f'Target directory "{topdir}".')
+            if topdir not in sys.path:
+                sys.path.insert(0, topdir)
+                logger.info(f'    - Add directory "{topdir}" to Python Path.')
         logger.info("")
 
     @staticmethod
@@ -739,21 +857,32 @@ class DrawlibExecuter:
         Returns:
             None
         """
-        words = self._get_package_words(file_path)
-        self._load_parent_modules(words)
-
         if self._is_module_loaded(file_path):
             logger.info(f"    - {file_path}")
             return
 
-        # load module
-        name = ".".join(words).replace(".py", "")
+        is_package = False
+        if self._topdir_path:
+            rel = os.path.relpath(file_path, self._topdir_path)
+            parts = rel.split(os.sep)
+            if len(parts) > 1 and os.path.exists(os.path.join(self._topdir_path, parts[0], "__init__.py")):
+                is_package = True
+
+        if is_package:
+            words = self._get_package_words(file_path)
+            self._load_parent_modules(words)
+            name = ".".join(words).replace(".py", "")
+        else:
+            name = os.path.splitext(os.path.basename(file_path))[0]
+            script_dir = os.path.dirname(os.path.abspath(file_path))
+            if script_dir not in sys.path:
+                sys.path.insert(0, script_dir)
+
         mspec = importlib.util.spec_from_file_location(
             name=name,
             location=file_path,
         )
         if mspec is None:
-            # need to investigate what situation make this
             logger.info(f"    - {file_path} : skipped with unknown reason.")
             return
         module = importlib.util.module_from_spec(mspec)
@@ -766,19 +895,40 @@ class DrawlibExecuter:
                 dutil_canvas.initialize()
             else:
                 ...
+
+            if self._config_path:
+                self._exec_config(self._config_path)
+
             logger.info(f"    - {file_path}")
             mspec.loader.exec_module(module)  # type: ignore[union-attr]
             sys.modules[name] = module
 
         except Exception as e:
-            # Please don't raise again.
-            # Error handler can't detect exact error location of imported module
             file, line, _, _ = traceback.extract_tb(e.__traceback__)[-1]
             logger.critical(f'{type(e).__name__} at file:"{file}", line:"{line}"')
             logger.critical(str(e))
             logger.debug("")
             logger.debug(traceback.format_exc())
             sys.exit(1)
+
+    @staticmethod
+    def _exec_config(config_path: str) -> None:
+        """Execute external config script before running drawing code.
+
+        Args:
+            config_path (str): Path to config Python script.
+
+        Raises:
+            FileNotFoundError: If config_path does not exist.
+        """
+        abs_config = os.path.abspath(config_path)
+        if not os.path.exists(abs_config):
+            raise FileNotFoundError(f'Config file "{abs_config}" does not exist.')
+        config_dir = os.path.dirname(abs_config)
+        if config_dir not in sys.path:
+            sys.path.insert(0, config_dir)
+
+        runpy.run_path(abs_config, run_name="__drawlib_config__")
 
     @staticmethod
     def _is_module_loaded(module_path: str) -> bool:

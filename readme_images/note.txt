@@ -1,2 +1,0 @@
-Please don't create image at here with drawlib code.
-But create at doc repository and move images to here.

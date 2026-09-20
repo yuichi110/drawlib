@@ -44,6 +44,7 @@ class DrawlibSettings:
             "developer",
         ] = "normal"
         self._suppress_warning: bool = False
+        self._output_dir: typing.Optional[str] = None
 
     @validate_call
     def get_logging_mode(
@@ -202,6 +203,27 @@ class DrawlibSettings:
             bool: Whether developer debug mode is enabled.
         """
         return self._logging_mode == "developer"
+
+    @validate_call
+    def get_output_dir(self) -> typing.Optional[str]:
+        """Get the custom output directory for saved images, if configured.
+
+        Returns:
+            Optional[str]: Configured output directory or None.
+        """
+        return self._output_dir
+
+    @validate_call
+    def set_output_dir(self, output_dir: typing.Optional[str]) -> None:
+        """Set the custom output directory for saved images.
+
+        Args:
+            output_dir: Output directory path, or None to clear.
+
+        Returns:
+            None
+        """
+        self._output_dir = output_dir
 
 
 dutil_settings = DrawlibSettings()

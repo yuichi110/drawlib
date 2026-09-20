@@ -16,6 +16,7 @@ from typing import Literal
 from matplotlib import pyplot
 
 from drawlib._core.l1_core import (
+    dutil_settings,
     get_script_path,
     get_script_relative_path,
     guarded,
@@ -155,14 +156,18 @@ class Canvas(
         Returns:
             str: File path to save the canvas.
         """
+        output_dir = dutil_settings.get_output_dir()
         if file is None:
             script_path = get_script_path()
             parent_dir = os.path.dirname(script_path)
             name = os.path.basename(script_path)
             name_without_ext = os.path.splitext(name)[0]
             ext = "png" if format is None else format
-            file_path = f"{os.path.join(parent_dir, name_without_ext)}.{ext}"
+            target_dir = output_dir if output_dir is not None else parent_dir
+            file_path = f"{os.path.join(target_dir, name_without_ext)}.{ext}"
 
+        elif output_dir is not None and not os.path.isabs(file):
+            file_path = os.path.join(output_dir, file)
         else:
             file_path = get_script_relative_path(file)
 
