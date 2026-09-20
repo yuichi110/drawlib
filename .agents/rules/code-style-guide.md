@@ -7,7 +7,7 @@ trigger: always_on
 This document defines the coding standards and style guidelines for the `drawlib` project. All contributors must follow these rules to ensure consistency, readability, and maintainability.
 
 ## 1. General Principles
-- **Target Python Version**: Python 3.10 or higher.
+- **Target Python Version**: Python 3.11 or higher.
 - **Standard Compliance**: Follow [PEP 8](https://peps.python.org/pep-0008/) unless otherwise specified here.
 - **Formatting & Linting**: 
     - Use `ruff` for both linting and formatting.
