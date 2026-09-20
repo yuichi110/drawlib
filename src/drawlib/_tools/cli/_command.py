@@ -142,9 +142,10 @@ def call_command() -> None:
         show_args = argparser.get_show_args()
         try:
             show_code_block(
-                markdown_path=show_args.file,
+                file_path=show_args.file,
                 target=show_args.target,
                 config_path=show_args.config,
+                grid=show_args.grid,
             )
             sys.exit(0)
         except Exception as e:
@@ -391,17 +392,23 @@ class DrawlibArgParser:
         # show subcommand parser
         show_parser = argparse.ArgumentParser(
             prog="drawlib show",
-            description="Execute and display a drawlib code block from a Markdown file.",
+            description="Execute and display a drawlib code block from a Markdown file or a Python drawing script.",
         )
         show_parser.add_argument(
             "file",
-            help="Target Markdown file path.",
+            help="Target Markdown file path (.md) or Python script path (.py).",
         )
         show_parser.add_argument(
             "target",
             nargs="?",
             default=None,
-            help="Index (e.g. 1) or file specifier (e.g. my_image.png) of the code block.",
+            help="Index (e.g. 1) or file specifier (e.g. my_image.png) of the code block (for Markdown files).",
+        )
+        show_parser.add_argument(
+            "-g",
+            "--grid",
+            action="store_true",
+            help="Show canvas with coordinate grid overlaid.",
         )
         show_parser.add_argument(
             "--config",

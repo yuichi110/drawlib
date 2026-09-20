@@ -124,3 +124,72 @@ Options like `--quiet`, `--verbose`, `--debug`, and `--developer` adjust the log
 - `--developer`: Provides verbose logging and offering detailed error dumps without error handling, suitable for advanced Python users troubleshooting issues.
 
 Choose the appropriate log level based on your need for error visibility and troubleshooting depth.
+
+
+# Interactive Preview with `drawlib show`
+
+The `drawlib show` command provides an instant visual preview of your illustrations without manually opening saved image files. It supports both standalone Python scripts (`.py`) and embedded code blocks within Markdown files (`.md`).
+
+
+## Previewing a Python Script
+
+To preview an illustration defined in a Python script:
+
+```bash
+drawlib show my_drawing.py
+```
+
+### Displaying with Coordinate Grid (`--grid` / `-g`)
+
+When designing illustrations, aligning elements precisely to coordinates is essential. You can overlay the coordinate grid onto the preview image using the `-g` or `--grid` option:
+
+```bash
+drawlib show my_drawing.py --grid
+# Shorthand:
+drawlib show my_drawing.py -g
+```
+
+This renders the drawing along with the canvas grid lines and center axes, making it straightforward to fine-tune shape coordinates and sizes.
+
+
+## Previewing Markdown Code Blocks
+
+You can also preview `drawlib` code blocks embedded in your Markdown documents.
+
+### Listing Available Code Blocks
+
+If you specify a Markdown file without a block index, `drawlib show` lists all code blocks found in the document:
+
+```bash
+drawlib show doc.md
+```
+
+Example output:
+```text
+Available drawlib code blocks in 'doc.md':
+Index   Line    File Target                  Header Options
+-----------------------------------------------------------------
+1       L45     doc_images/1.png             -
+2       L92     doc_images/diagram.png       caption:"Architecture"
+```
+
+### Previewing a Specific Block
+
+Provide the block index (1-based) or target filename:
+
+```bash
+drawlib show doc.md 1
+# Or by target name:
+drawlib show doc.md diagram.png
+```
+
+### Previewing Markdown Blocks with Grid (`--grid` / `-g`)
+
+Just like with Python scripts, add `-g` or `--grid` to overlay the coordinate grid:
+
+```bash
+drawlib show doc.md 1 --grid
+# Shorthand:
+drawlib show doc.md 1 -g
+```
+

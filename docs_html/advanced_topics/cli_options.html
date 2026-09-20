@@ -318,6 +318,44 @@ Note that using Chinese or Japanese fonts may consume more space due to the larg
 <li><code>--developer</code>: Provides verbose logging and offering detailed error dumps without error handling, suitable for advanced Python users troubleshooting issues.</li>
 </ul>
 <p>Choose the appropriate log level based on your need for error visibility and troubleshooting depth.</p>
+<h1>Interactive Preview with <code>drawlib show</code></h1>
+<p>The <code>drawlib show</code> command provides an instant visual preview of your illustrations without manually opening saved image files. It supports both standalone Python scripts (<code>.py</code>) and embedded code blocks within Markdown files (<code>.md</code>).</p>
+<h2>Previewing a Python Script</h2>
+<p>To preview an illustration defined in a Python script:</p>
+<pre><code class="language-bash">drawlib show my_drawing.py
+</code></pre>
+<h3>Displaying with Coordinate Grid (<code>--grid</code> / <code>-g</code>)</h3>
+<p>When designing illustrations, aligning elements precisely to coordinates is essential. You can overlay the coordinate grid onto the preview image using the <code>-g</code> or <code>--grid</code> option:</p>
+<pre><code class="language-bash">drawlib show my_drawing.py --grid
+# Shorthand:
+drawlib show my_drawing.py -g
+</code></pre>
+<p>This renders the drawing along with the canvas grid lines and center axes, making it straightforward to fine-tune shape coordinates and sizes.</p>
+<h2>Previewing Markdown Code Blocks</h2>
+<p>You can also preview <code>drawlib</code> code blocks embedded in your Markdown documents.</p>
+<h3>Listing Available Code Blocks</h3>
+<p>If you specify a Markdown file without a block index, <code>drawlib show</code> lists all code blocks found in the document:</p>
+<pre><code class="language-bash">drawlib show doc.md
+</code></pre>
+<p>Example output:</p>
+<pre><code class="language-text">Available drawlib code blocks in 'doc.md':
+Index   Line    File Target                  Header Options
+-----------------------------------------------------------------
+1       L45     doc_images/1.png             -
+2       L92     doc_images/diagram.png       caption:&quot;Architecture&quot;
+</code></pre>
+<h3>Previewing a Specific Block</h3>
+<p>Provide the block index (1-based) or target filename:</p>
+<pre><code class="language-bash">drawlib show doc.md 1
+# Or by target name:
+drawlib show doc.md diagram.png
+</code></pre>
+<h3>Previewing Markdown Blocks with Grid (<code>--grid</code> / <code>-g</code>)</h3>
+<p>Just like with Python scripts, add <code>-g</code> or <code>--grid</code> to overlay the coordinate grid:</p>
+<pre><code class="language-bash">drawlib show doc.md 1 --grid
+# Shorthand:
+drawlib show doc.md 1 -g
+</code></pre>
 
             </main>
             <footer class="footer">

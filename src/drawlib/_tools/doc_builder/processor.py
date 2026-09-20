@@ -146,6 +146,7 @@ class DrawlibBlockProcessor:
         code: str,
         target_file_path: str,
         source_filename: str = "<drawlib_block>",
+        grid: Optional[bool] = None,
     ) -> None:
         """Execute a single drawlib code block and save output image to target file path.
 
@@ -153,11 +154,16 @@ class DrawlibBlockProcessor:
             code (str): Drawlib code block.
             target_file_path (str): File path to save output image (e.g. PNG, SVG).
             source_filename (str): Name used for code compilation traceback reporting.
+            grid (Optional[bool]): Whether to overlay coordinate grid on output image.
         """
         self._exec_code_block(code, source_filename=source_filename, shared_globals=self.shared_globals)
 
         target_abs_path = os.path.abspath(target_file_path)
         os.makedirs(os.path.dirname(target_abs_path), exist_ok=True)
+        if grid is True:
+            import drawlib._core.l4_canvas._canvas
+
+            drawlib._core.l4_canvas._canvas.canvas._grid = True
         save(target_abs_path)
 
     def render_block_to_data_url(
@@ -538,29 +544,80 @@ def extract_code_blocks(markdown_text: str) -> List[ExtractedBlockInfo]:
     return blocks
 
 
-def show_code_block(markdown_path: str, target: Optional[str] = None, config_path: Optional[str] = None) -> None:
-    """Execute target code block from Markdown file and display output image.
+def show_code_block(
+    file_path: Optional[str] = None,
+    target: Optional[str] = None,
+    config_path: Optional[str] = None,
+    grid: bool = False,
+    *,
+    markdown_path: Optional[str] = None,
+) -> None:
+    """Execute target code block from Markdown file or Python drawing script and display output image.
 
     Args:
-        markdown_path (str): File path to input Markdown document.
-        target (Optional[str]): Optional index or file specifier.
+        file_path (Optional[str]): File path to input Markdown document (.md) or Python script (.py).
+        target (Optional[str]): Optional index or file specifier for Markdown code blocks.
         config_path (Optional[str]): Optional path to Python setup/config script.
+        grid (bool): Whether to overlay coordinate grid on displayed image.
+        markdown_path (Optional[str]): Deprecated alias for file_path for backward compatibility.
     """
-    if not os.path.exists(markdown_path):
-        print(f"Error: File '{markdown_path}' does not exist.", file=sys.stderr)
+    target_path = file_path or markdown_path
+    if not target_path:
+        print("Error: No file path provided.", file=sys.stderr)
         sys.exit(1)
 
-    doc_base_name = os.path.splitext(os.path.basename(markdown_path))[0]
-    with open(markdown_path, "r", encoding="utf-8") as f:
+    if not os.path.exists(target_path):
+        print(f"Error: File '{target_path}' does not exist.", file=sys.stderr)
+        sys.exit(1)
+
+    if target_path.endswith(".py"):
+        print(f"Executing Python script '{target_path}'" + (" with grid overlay..." if grid else "..."))
+        with open(target_path, "r", encoding="utf-8") as f:
+            code = f.read()
+
+        abs_file = os.path.abspath(target_path)
+        file_dir = os.path.dirname(abs_file)
+        orig_cwd = os.getcwd()
+        sys_path_added = False
+
+        processor = DrawlibBlockProcessor(config_path=config_path)
+        with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp:
+            tmp_path = tmp.name
+
+        base, ext = os.path.splitext(tmp_path)
+        grid_path = f"{base}_grid{ext}"
+
+        try:
+            os.chdir(file_dir)
+            if file_dir not in sys.path:
+                sys.path.insert(0, file_dir)
+                sys_path_added = True
+
+            processor.render_block_to_file(code, tmp_path, source_filename=abs_file, grid=grid)
+            display_path = grid_path if (grid and os.path.exists(grid_path)) else tmp_path
+            print(f"Rendered successfully to temp file: {display_path}")
+            from PIL import Image
+
+            img = Image.open(display_path)
+            if os.environ.get("DRAWLIB_SHOW_NO_DISPLAY") != "1":
+                img.show()
+        finally:
+            os.chdir(orig_cwd)
+            if sys_path_added and file_dir in sys.path:
+                sys.path.remove(file_dir)
+        return
+
+    doc_base_name = os.path.splitext(os.path.basename(target_path))[0]
+    with open(target_path, "r", encoding="utf-8") as f:
         content = f.read()
 
     blocks = extract_code_blocks(content)
     if not blocks:
-        print(f"No drawlib code blocks found in '{markdown_path}'.")
+        print(f"No drawlib code blocks found in '{target_path}'.")
         return
 
     if not target:
-        print(f"Available drawlib code blocks in '{markdown_path}':")
+        print(f"Available drawlib code blocks in '{target_path}':")
         print(f"{'Index':<7} {'Line':<7} {'File Target':<28} {'Header Options'}")
         print("-" * 65)
         for b in blocks:
@@ -588,22 +645,42 @@ def show_code_block(markdown_path: str, target: Optional[str] = None, config_pat
                 break
 
     if not selected_block:
-        print(f"Error: Could not find block matching '{target}' in '{markdown_path}'.", file=sys.stderr)
+        print(f"Error: Could not find block matching '{target}' in '{target_path}'.", file=sys.stderr)
         sys.exit(1)
 
     target_rel_path = f"{doc_base_name}_images/{selected_block.file_name}"
-    print(f"Executing block #{selected_block.index} (L{selected_block.line_number} -> {target_rel_path})...")
+    print(
+        f"Executing block #{selected_block.index} (L{selected_block.line_number} -> {target_rel_path})"
+        + (" with grid overlay..." if grid else "...")
+    )
 
     processor = DrawlibBlockProcessor(config_path=config_path)
     with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp:
         tmp_path = tmp.name
 
+    base, ext = os.path.splitext(tmp_path)
+    grid_path = f"{base}_grid{ext}"
+
+    abs_doc = os.path.abspath(target_path)
+    doc_dir = os.path.dirname(abs_doc)
+    orig_cwd = os.getcwd()
+    sys_path_added = False
+
     try:
-        processor.render_block_to_file(selected_block.code, tmp_path, source_filename=markdown_path)
-        print(f"Rendered successfully to temp file: {tmp_path}")
+        os.chdir(doc_dir)
+        if doc_dir not in sys.path:
+            sys.path.insert(0, doc_dir)
+            sys_path_added = True
+
+        processor.render_block_to_file(selected_block.code, tmp_path, source_filename=abs_doc, grid=grid)
+        display_path = grid_path if (grid and os.path.exists(grid_path)) else tmp_path
+        print(f"Rendered successfully to temp file: {display_path}")
         from PIL import Image
 
-        img = Image.open(tmp_path)
-        img.show()
+        img = Image.open(display_path)
+        if os.environ.get("DRAWLIB_SHOW_NO_DISPLAY") != "1":
+            img.show()
     finally:
-        pass
+        os.chdir(orig_cwd)
+        if sys_path_added and doc_dir in sys.path:
+            sys.path.remove(doc_dir)
