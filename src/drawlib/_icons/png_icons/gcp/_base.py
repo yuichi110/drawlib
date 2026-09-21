@@ -7,20 +7,16 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Package for icon() function and icon modules."""
+"""GCP icon provider configuration and writer."""
 
-from drawlib._icons.font_icons import (
-    icon,
-    icon_phosphor,
-    phosphor,
-)
-from drawlib._icons.png_icons import (
-    gcp,
+from __future__ import annotations
+
+from drawlib._icons.png_icons._base import PngIconProvider
+
+GCP_PROVIDER = PngIconProvider(
+    name="gcp",
+    package_name="icon_gcp",
+    asset_subdir="icons/gcp",
 )
 
-__all__ = [
-    "gcp",
-    "icon",
-    "icon_phosphor",
-    "phosphor",
-]
+_write = GCP_PROVIDER.write

@@ -9,4 +9,8 @@
 
 """PNG icons internal package."""
 
-__all__: list[str] = []
+from drawlib._icons.png_icons import gcp
+
+__all__ = [
+    "gcp",
+]

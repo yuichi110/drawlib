@@ -99,6 +99,19 @@ def gen_icon_gcp(
         run_command(norm_cmd, desc="Normalizing Google Cloud diagram icons...")
         console.print("[bold green]✓ Google Cloud icons normalized successfully![/bold green]")
 
+    if not download_only and not normalize_only:
+        manifest_file = Path(dest_dir) / "manifest.json"
+        code_cmd = [
+            "uv",
+            "run",
+            "python",
+            "tools/scripts/generate_icon_gcp_code.py",
+            "--manifest-file",
+            str(manifest_file),
+        ]
+        run_command(code_cmd, desc="Generating Google Cloud icon Python bindings...")
+        console.print("[bold green]✓ Google Cloud icon bindings generated successfully![/bold green]")
+
 
 if __name__ == "__main__":
     app()

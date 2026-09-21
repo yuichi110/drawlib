@@ -7,20 +7,6 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Package for icon() function and icon modules."""
+"""GCP PNG icon package."""
 
-from drawlib._icons.font_icons import (
-    icon,
-    icon_phosphor,
-    phosphor,
-)
-from drawlib._icons.png_icons import (
-    gcp,
-)
-
-__all__ = [
-    "gcp",
-    "icon",
-    "icon_phosphor",
-    "phosphor",
-]
+from drawlib._icons.png_icons.gcp._generated import *  # noqa: F403
