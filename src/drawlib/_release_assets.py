@@ -80,6 +80,7 @@ class ReleaseAssetPackageName(StrEnum):
     FONT_THAI_NOTO_SANS = "font_thai_noto_sans"
     FONT_THAI_NOTO_SERIF = "font_thai_noto_serif"
     ICON_PHOSPHOR = "icon_phosphor"
+    ICON_GCP = "icon_gcp"
 
 
 class ReleaseAssetPackage(BaseModel):
@@ -98,7 +99,9 @@ class ReleaseAssetPackage(BaseModel):
     model_config = ConfigDict(frozen=True)
 
     name: ReleaseAssetPackageName = Field(description="Unique package identifier, e.g. 'font_roboto'.")
-    category: Literal["font", "icon"] = Field(description="Category of the asset package ('font' or 'icon').")
+    category: Literal["font", "icon"] = Field(
+        description="Category of the asset package ('font' or 'icon').",
+    )
     archive_name: str = Field(description="ZIP archive file name, e.g. 'font_roboto.zip'.")
     archive_sha256: str = Field(description="SHA-256 hex digest of the ZIP archive file.")
     source_rel_path: str = Field(
@@ -177,13 +180,13 @@ class ReleaseAssetPackage(BaseModel):
             with urllib.request.urlopen(req) as resp:  # noqa: S310
                 data: bytes = resp.read()
         except Exception as e:
-            raise RuntimeError(f"Failed to download asset package '{self.name}' from '{url}': {e}") from e
+            msg = f"Failed to download asset package '{self.name}' from '{url}': {e}"
+            raise RuntimeError(msg) from e
 
         actual_sha256 = hashlib.sha256(data).hexdigest()
         if actual_sha256.lower() != self.archive_sha256.lower():
-            raise RuntimeError(
-                f"Checksum mismatch for '{self.archive_name}': expected {self.archive_sha256}, got {actual_sha256}"
-            )
+            msg = f"Checksum mismatch for '{self.archive_name}': expected {self.archive_sha256}, got {actual_sha256}"
+            raise RuntimeError(msg)
 
         local_dir = self.get_local_dir()
         local_dir.mkdir(parents=True, exist_ok=True)
@@ -191,7 +194,8 @@ class ReleaseAssetPackage(BaseModel):
             with zipfile.ZipFile(io.BytesIO(data)) as zf:
                 zf.extractall(local_dir)
         except Exception as e:
-            raise RuntimeError(f"Failed to extract asset package '{self.archive_name}' to '{local_dir}': {e}") from e
+            msg = f"Failed to extract asset package '{self.archive_name}' to '{local_dir}': {e}"
+            raise RuntimeError(msg) from e
 
 
 class AssetManifestItem(BaseModel):
@@ -281,6 +285,7 @@ class ReleaseAssetPackages(BaseModel):
     font_thai_noto_sans: ReleaseAssetPackage
     font_thai_noto_serif: ReleaseAssetPackage
     icon_phosphor: ReleaseAssetPackage
+    icon_gcp: ReleaseAssetPackage
 
     def __getitem__(self, key: str | ReleaseAssetPackageName) -> ReleaseAssetPackage:
         """Access package by its identifier string or enum.
@@ -817,6 +822,275 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "version.txt",
         ],
     ),
+    icon_gcp=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_GCP,
+        category="icon",
+        archive_name="icon_gcp.zip",
+        archive_sha256="34e400995bfdc6cae891c01bab2cabfb4b368f0a12f7b09042b7570fbe0ae989",
+        source_rel_path="icons/gcp",
+        target_rel_path="icons/gcp",
+        files=[
+            "access_context_manager.png",
+            "administration.png",
+            "advanced_agent_modeling.png",
+            "advanced_solutions_lab.png",
+            "agent_assist.png",
+            "ai_hub.png",
+            "ai_hypercomputer.png",
+            "ai_platform.png",
+            "ai_platform_unified.png",
+            "alloydb.png",
+            "analytics_hub.png",
+            "anthos.png",
+            "anthos_config_management.png",
+            "anthos_service_mesh.png",
+            "api.png",
+            "api_analytics.png",
+            "api_monetization.png",
+            "apigee.png",
+            "apigee_api_platform.png",
+            "apigee_sense.png",
+            "app_engine.png",
+            "artifact_registry.png",
+            "asset_inventory.png",
+            "assured_workloads.png",
+            "automl.png",
+            "automl_natural_language.png",
+            "automl_tables.png",
+            "automl_translation.png",
+            "automl_video_intelligence.png",
+            "automl_vision.png",
+            "bare_metal_solutions.png",
+            "batch.png",
+            "beyondcorp.png",
+            "bigquery.png",
+            "bigtable.png",
+            "billing.png",
+            "binary_authorization.png",
+            "catalog.png",
+            "category_agents.png",
+            "category_ai_machine_learning.png",
+            "category_business_intelligence.png",
+            "category_collaboration.png",
+            "category_compute.png",
+            "category_containers.png",
+            "category_data_analytics.png",
+            "category_databases.png",
+            "category_developer_tools.png",
+            "category_devops.png",
+            "category_hybrid_multicloud.png",
+            "category_integration_services.png",
+            "category_management_tools.png",
+            "category_maps_geospatial.png",
+            "category_marketplace.png",
+            "category_media_services.png",
+            "category_migration.png",
+            "category_mixed_reality.png",
+            "category_networking.png",
+            "category_observability.png",
+            "category_operations.png",
+            "category_security_identity.png",
+            "category_serverless_computing.png",
+            "category_storage.png",
+            "category_web3.png",
+            "category_web_mobile.png",
+            "certificate_authority_service.png",
+            "certificate_manager.png",
+            "cloud_api_gateway.png",
+            "cloud_apis.png",
+            "cloud_armor.png",
+            "cloud_asset_inventory.png",
+            "cloud_audit_logs.png",
+            "cloud_build.png",
+            "cloud_cdn.png",
+            "cloud_code.png",
+            "cloud_composer.png",
+            "cloud_data_fusion.png",
+            "cloud_deploy.png",
+            "cloud_deployment_manager.png",
+            "cloud_dns.png",
+            "cloud_domains.png",
+            "cloud_ekm.png",
+            "cloud_endpoints.png",
+            "cloud_external_ip_addresses.png",
+            "cloud_firewall_rules.png",
+            "cloud_for_marketing.png",
+            "cloud_functions.png",
+            "cloud_generic.png",
+            "cloud_gpu.png",
+            "cloud_healthcare_api.png",
+            "cloud_healthcare_marketplace.png",
+            "cloud_hsm.png",
+            "cloud_ids.png",
+            "cloud_inference_api.png",
+            "cloud_interconnect.png",
+            "cloud_jobs_api.png",
+            "cloud_load_balancing.png",
+            "cloud_logging.png",
+            "cloud_media_edge.png",
+            "cloud_monitoring.png",
+            "cloud_nat.png",
+            "cloud_natural_language_api.png",
+            "cloud_network.png",
+            "cloud_ops.png",
+            "cloud_optimization_ai.png",
+            "cloud_optimization_ai_fleet_routing_api.png",
+            "cloud_router.png",
+            "cloud_routes.png",
+            "cloud_run.png",
+            "cloud_run_for_anthos.png",
+            "cloud_scheduler.png",
+            "cloud_security_scanner.png",
+            "cloud_shell.png",
+            "cloud_spanner.png",
+            "cloud_sql.png",
+            "cloud_storage.png",
+            "cloud_tasks.png",
+            "cloud_test_lab.png",
+            "cloud_tpu.png",
+            "cloud_translation_api.png",
+            "cloud_vision_api.png",
+            "cloud_vpn.png",
+            "compute_engine.png",
+            "configuration_management.png",
+            "connectivity_test.png",
+            "connectors.png",
+            "contact_center_ai.png",
+            "container_optimized_os.png",
+            "container_registry.png",
+            "data_catalog.png",
+            "data_labeling.png",
+            "data_layers.png",
+            "data_loss_prevention_api.png",
+            "data_qna.png",
+            "data_studio.png",
+            "data_transfer.png",
+            "database_migration_service.png",
+            "dataflow.png",
+            "datalab.png",
+            "dataplex.png",
+            "datapol.png",
+            "dataprep.png",
+            "dataproc.png",
+            "dataproc_metastore.png",
+            "datashare.png",
+            "datastore.png",
+            "datastream.png",
+            "debugger.png",
+            "developer_portal.png",
+            "dialogflow.png",
+            "dialogflow_cx.png",
+            "dialogflow_insights.png",
+            "distributed_cloud.png",
+            "document_ai.png",
+            "early_access_center.png",
+            "error_reporting.png",
+            "eventarc.png",
+            "filestore.png",
+            "financial_services_marketplace.png",
+            "firestore.png",
+            "fleet_engine.png",
+            "free_trial.png",
+            "functions.png",
+            "game_servers.png",
+            "gce.png",
+            "gce_systems_management.png",
+            "gcs.png",
+            "genomics.png",
+            "gke.png",
+            "gke_on_prem.png",
+            "google_cloud_marketplace.png",
+            "google_kubernetes_engine.png",
+            "google_maps_platform.png",
+            "healthcare_nlp_api.png",
+            "home.png",
+            "hyperdisk.png",
+            "iam.png",
+            "identity_and_access_management.png",
+            "identity_aware_proxy.png",
+            "identity_platform.png",
+            "iot_core.png",
+            "iot_edge.png",
+            "key_access_justifications.png",
+            "key_management_service.png",
+            "kms.png",
+            "kuberun.png",
+            "launcher.png",
+            "local_ssd.png",
+            "looker.png",
+            "managed_service_for_microsoft_active_directory.png",
+            "mandiant.png",
+            "manifest.json",
+            "media_translation_api.png",
+            "memorystore.png",
+            "migrate_for_anthos.png",
+            "migrate_for_compute_engine.png",
+            "my_cloud.png",
+            "network_connectivity_center.png",
+            "network_intelligence_center.png",
+            "network_security.png",
+            "network_tiers.png",
+            "network_topology.png",
+            "onboarding.png",
+            "os_configuration_management.png",
+            "os_inventory_management.png",
+            "os_patch_management.png",
+            "partner_interconnect.png",
+            "partner_portal.png",
+            "performance_dashboard.png",
+            "permissions.png",
+            "persistent_disk.png",
+            "phishing_protection.png",
+            "policy_analyzer.png",
+            "premium_network_tier.png",
+            "private_connectivity.png",
+            "private_service_connect.png",
+            "producer_portal.png",
+            "profiler.png",
+            "project.png",
+            "pubsub.png",
+            "quantum_engine.png",
+            "quotas.png",
+            "real_world_insights.png",
+            "recommendations_ai.png",
+            "release_notes.png",
+            "retail_api.png",
+            "risk_manager.png",
+            "runtime_config.png",
+            "secret_manager.png",
+            "security.png",
+            "security_command_center.png",
+            "security_health_advisor.png",
+            "security_key_enforcement.png",
+            "security_operations.png",
+            "service_discovery.png",
+            "speech_to_text.png",
+            "stackdriver.png",
+            "standard_network_tier.png",
+            "stream_suite.png",
+            "support.png",
+            "tensorflow_enterprise.png",
+            "text_to_speech.png",
+            "threat_intelligence.png",
+            "tools_for_powershell.png",
+            "trace.png",
+            "traffic_director.png",
+            "transfer.png",
+            "transfer_appliance.png",
+            "user_preferences.png",
+            "vertex_ai.png",
+            "vertexai.png",
+            "video_intelligence_api.png",
+            "virtual_private_cloud.png",
+            "visual_inspection.png",
+            "vmware_engine.png",
+            "vpc.png",
+            "web_risk.png",
+            "web_security_scanner.png",
+            "workflows.png",
+            "workload_identity_pool.png",
+        ],
+    ),
 )
 
 
@@ -908,12 +1182,13 @@ def find_package_for_icon_path(icon_file_path: str) -> ReleaseAssetPackage | Non
     """Identify which asset package contains a given icon resource path.
 
     Args:
-        icon_file_path: Relative icon path (e.g. 'phosphor/thin.ttf' or 'fonticons/phosphor/thin.ttf').
+        icon_file_path: Relative icon path
+            (e.g. 'phosphor/thin.ttf', 'fonticons/phosphor/thin.ttf', 'icons/gcp/gce.png').
 
     Returns:
         ReleaseAssetPackage | None: The containing package if matched, otherwise None.
     """
-    normalized = icon_file_path.strip("/").removeprefix("fonticons/")
+    normalized = icon_file_path.strip("/").removeprefix("fonticons/").removeprefix("icons/")
     family = normalized.split("/")[0] if "/" in normalized else normalized
     target_name = f"icon_{family}"
     return RELEASE_ASSET_PACKAGES.get(target_name)
@@ -923,13 +1198,16 @@ def find_package_for_resource_path(resource_path: str) -> ReleaseAssetPackage | 
     """Identify which asset package contains a given resource path (font or icon).
 
     Args:
-        resource_path: Relative resource path (e.g. 'fonts/roboto/regular.ttf', 'fonticons/phosphor/thin.ttf').
+        resource_path: Relative resource path
+            (e.g. 'fonts/roboto/regular.ttf', 'fonticons/phosphor/thin.ttf', 'icons/gcp/gce.png').
 
     Returns:
         ReleaseAssetPackage | None: The containing package if matched, otherwise None.
     """
     norm = resource_path.strip("/")
     if norm.startswith("fonticons/") or norm.startswith("phosphor/"):
+        return find_package_for_icon_path(norm)
+    if norm.startswith("icons/") or norm.startswith("gcp/"):
         return find_package_for_icon_path(norm)
     return find_package_for_font_path(norm)
 

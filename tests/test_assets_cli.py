@@ -157,3 +157,10 @@ def test_cli_assets_remote_mocked() -> None:
         assert result.exit_code == 0
         assert "font_roboto" in result.output
         assert "Synchronized" in result.output
+
+
+def test_cli_assets_sync_check() -> None:
+    """Test 'assets sync --check' passes on current release assets."""
+    result = runner.invoke(app, ["sync", "--check"])
+    assert result.exit_code == 0
+    assert "is up-to-date and in sync" in result.output

@@ -34,6 +34,7 @@ from tools.scripts.release_assets_tool import (
     build_package_zip,
     resolve_github_token,
 )
+from tools.scripts.sync_release_assets import scan_asset_packages, sync_release_assets
 
 app = typer.Typer(
     name="assets",
@@ -75,7 +76,7 @@ def _select_packages(package_name: Optional[ReleaseAssetPackageName]) -> list[Re
 
 @app.command("list")
 def list_local_packages() -> None:
-    """List all 47 locally defined release asset packages, files, and expected hashes."""
+    """List all locally defined release asset packages, files, and expected hashes."""
     packages = get_all_release_asset_packages()
     table = Table(
         title=f"Defined Release Asset Packages ({len(packages)})",
@@ -96,6 +97,47 @@ def list_local_packages() -> None:
     console.print()
     console.print(table)
     console.print()
+
+
+@app.command("sync")
+def sync_assets_command(
+    tag: Optional[str] = typer.Option(
+        None,
+        "--tag",
+        "-t",
+        help="Release tag version (defaults to auto-resolving 'v0.3').",
+    ),
+    check: bool = typer.Option(
+        False,
+        "--check",
+        "-c",
+        help="Check whether src/drawlib/_release_assets.py is synchronized without modifying it.",
+    ),
+) -> None:
+    """Scan release_assets/ directory, calculate deterministic hashes, and synchronize _release_assets.py."""
+    resolved_tag = _resolve_tag(tag)
+    assets_dir = _resolve_assets_dir(resolved_tag)
+    target_py = Path("src/drawlib/_release_assets.py")
+
+    console.print(f"[bold cyan]Scanning release assets in '{assets_dir}'...[/bold cyan]")
+    packages = scan_asset_packages(assets_dir)
+    console.print(f"Found [bold green]{len(packages)}[/bold green] package(s).")
+
+    if check:
+        is_synced = sync_release_assets(assets_dir, target_py, tag=resolved_tag, check=True)
+        if not is_synced:
+            err_console.print(
+                "[bold red]Error: src/drawlib/_release_assets.py is NOT in sync with release_assets/."
+                " Run './dcli assets sync' to update.[/bold red]"
+            )
+            raise typer.Exit(code=1)
+        console.print("[bold green]✓ src/drawlib/_release_assets.py is up-to-date and in sync![/bold green]")
+        return
+
+    sync_release_assets(assets_dir, target_py, tag=resolved_tag, check=False)
+    console.print(
+        f"[bold green]★ Successfully synchronized {len(packages)} packages into {target_py}![/bold green]"
+    )
 
 
 @app.command("build")

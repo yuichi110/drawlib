@@ -33,7 +33,14 @@ def _find_package_for_file_path(file_path: str) -> ReleaseAssetPackage | None:
     if "/fonticons/" in normalized:
         sub = "fonticons/" + normalized.split("/fonticons/", 1)[1]
         return find_package_for_resource_path(sub)
-    if normalized.startswith("fonts/") or normalized.startswith("fonticons/"):
+    if "/icons/" in normalized:
+        sub = "icons/" + normalized.split("/icons/", 1)[1]
+        return find_package_for_resource_path(sub)
+    if (
+        normalized.startswith("fonts/")
+        or normalized.startswith("fonticons/")
+        or normalized.startswith("icons/")
+    ):
         return find_package_for_resource_path(normalized)
     return None
 

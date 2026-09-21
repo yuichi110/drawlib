@@ -72,6 +72,14 @@ class TestPackageResolution:
         assert pkg_with_prefix is not None
         assert pkg_with_prefix.name == "icon_phosphor"
 
+        pkg_gcp = find_package_for_icon_path("icons/gcp/compute_engine.png")
+        assert pkg_gcp is not None
+        assert pkg_gcp.name == "icon_gcp"
+
+        pkg_gcp2 = find_package_for_icon_path("gcp/gke.png")
+        assert pkg_gcp2 is not None
+        assert pkg_gcp2.name == "icon_gcp"
+
         assert find_package_for_icon_path("unknown/icon.ttf") is None
 
     def test_find_package_for_resource_path(self):
@@ -88,6 +96,10 @@ class TestPackageResolution:
         assert icon_pkg2 is not None
         assert icon_pkg2.name == "icon_phosphor"
 
+        icon_gcp = find_package_for_resource_path("icons/gcp/compute_engine.png")
+        assert icon_gcp is not None
+        assert icon_gcp.name == "icon_gcp"
+
     def test_find_package_for_file_path(self):
         """Verify file path mapping in download module."""
         pkg1 = _find_package_for_file_path("/path/to/drawlib/_assets/fonts/roboto/regular.ttf")
@@ -97,6 +109,10 @@ class TestPackageResolution:
         pkg2 = _find_package_for_file_path("C:\\drawlib\\_assets\\fonticons\\phosphor\\bold.ttf")
         assert pkg2 is not None
         assert pkg2.name == "icon_phosphor"
+
+        pkg3 = _find_package_for_file_path("/path/to/drawlib/_assets/icons/gcp/compute_engine.png")
+        assert pkg3 is not None
+        assert pkg3.name == "icon_gcp"
 
         assert _find_package_for_file_path("/non_assets_path/arbitrary/file.txt") is None
 
@@ -204,7 +220,7 @@ class TestDownloadAndExtract:
         assert target_file.read_bytes() == b"downloaded"
 
     def test_download_all_release_assets(self):
-        """Test download_all_release_assets iterates over all 47 packages."""
+        """Test download_all_release_assets iterates over all 48 packages."""
         with patch("drawlib._release_assets.ReleaseAssetPackage.download_and_extract") as mock_dl:
             download_all_release_assets()
-            assert mock_dl.call_count == 47
+            assert mock_dl.call_count == 48

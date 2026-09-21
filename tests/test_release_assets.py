@@ -48,11 +48,17 @@ def test_get_font_asset_packages() -> None:
 def test_get_icon_asset_packages() -> None:
     """Test retrieving icon asset packages."""
     icons = get_icon_asset_packages()
-    assert len(icons) >= 1
+    assert len(icons) >= 2
     phosphor = next((pkg for pkg in icons if pkg.name == "icon_phosphor"), None)
     assert phosphor is not None
     assert phosphor.category == "icon"
     assert phosphor.archive_name == "icon_phosphor.zip"
+
+    gcp = next((pkg for pkg in icons if pkg.name == "icon_gcp"), None)
+    assert gcp is not None
+    assert gcp.category == "icon"
+    assert gcp.archive_name == "icon_gcp.zip"
+    assert len(gcp.files) >= 200
 
 
 def test_get_all_release_asset_packages() -> None:
@@ -118,7 +124,7 @@ def test_asset_manifest_serialization() -> None:
 def test_release_asset_packages_container() -> None:
     """Test ReleaseAssetPackages container attributes, indexing, and methods."""
     assert isinstance(RELEASE_ASSET_PACKAGES, ReleaseAssetPackages)
-    assert len(RELEASE_ASSET_PACKAGES) == 47
+    assert len(RELEASE_ASSET_PACKAGES) == 48
 
     # Direct attribute access with full IDE autocompletion
     roboto = RELEASE_ASSET_PACKAGES.font_roboto
@@ -130,10 +136,16 @@ def test_release_asset_packages_container() -> None:
     assert phosphor.name == "icon_phosphor"
     assert phosphor.category == "icon"
 
+    gcp = RELEASE_ASSET_PACKAGES.icon_gcp
+    assert gcp.name == "icon_gcp"
+    assert gcp.category == "icon"
+
     # Dict-like item access via string key and enum key
     assert RELEASE_ASSET_PACKAGES["font_roboto"] == roboto
     assert RELEASE_ASSET_PACKAGES[ReleaseAssetPackageName.FONT_ROBOTO] == roboto
     assert RELEASE_ASSET_PACKAGES["icon_phosphor"] == phosphor
+    assert RELEASE_ASSET_PACKAGES["icon_gcp"] == gcp
+    assert RELEASE_ASSET_PACKAGES[ReleaseAssetPackageName.ICON_GCP] == gcp
 
     with pytest.raises(KeyError):
         _ = RELEASE_ASSET_PACKAGES["unknown_package"]
@@ -141,24 +153,28 @@ def test_release_asset_packages_container() -> None:
     # Safe get method
     assert RELEASE_ASSET_PACKAGES.get("font_roboto") == roboto
     assert RELEASE_ASSET_PACKAGES.get(ReleaseAssetPackageName.FONT_ROBOTO) == roboto
+    assert RELEASE_ASSET_PACKAGES.get("icon_gcp") == gcp
     assert RELEASE_ASSET_PACKAGES.get("unknown_package") is None
 
     # Containment
     assert "font_roboto" in RELEASE_ASSET_PACKAGES
     assert ReleaseAssetPackageName.FONT_ROBOTO in RELEASE_ASSET_PACKAGES
+    assert "icon_gcp" in RELEASE_ASSET_PACKAGES
+    assert ReleaseAssetPackageName.ICON_GCP in RELEASE_ASSET_PACKAGES
     assert "unknown_package" not in RELEASE_ASSET_PACKAGES
 
     # Keys, values, items, all
-    assert len(RELEASE_ASSET_PACKAGES.keys()) == 47
-    assert len(RELEASE_ASSET_PACKAGES.values()) == 47
-    assert len(RELEASE_ASSET_PACKAGES.items()) == 47
-    assert len(RELEASE_ASSET_PACKAGES.all()) == 47
+    assert len(RELEASE_ASSET_PACKAGES.keys()) == 48
+    assert len(RELEASE_ASSET_PACKAGES.values()) == 48
+    assert len(RELEASE_ASSET_PACKAGES.items()) == 48
+    assert len(RELEASE_ASSET_PACKAGES.all()) == 48
 
 
 def test_release_asset_package_name_enum() -> None:
     """Test ReleaseAssetPackageName enum values and string conversion."""
     assert ReleaseAssetPackageName.FONT_ROBOTO == "font_roboto"
     assert ReleaseAssetPackageName.ICON_PHOSPHOR == "icon_phosphor"
+    assert ReleaseAssetPackageName.ICON_GCP == "icon_gcp"
     assert str(ReleaseAssetPackageName.FONT_ROBOTO) == "font_roboto"
 
     # Find package by enum

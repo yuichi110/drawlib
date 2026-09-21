@@ -13,6 +13,7 @@ Execute `./dcli` with no arguments to print all available toolsets:
 ```text
 * assets:   Release asset management for GitHub Releases
   - ./dcli assets list
+  - ./dcli assets sync [--tag VER] [--check]
   - ./dcli assets build [PACKAGE] [--tag VER]
   - ./dcli assets remote [--tag VER]
   - ./dcli assets upload [PACKAGE] [--tag VER] [--force] [--dry-run]
