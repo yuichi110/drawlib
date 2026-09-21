@@ -22,8 +22,8 @@ from drawlib._core.l2_models import Dimage
 from drawlib._core.l3_styles import Colors, Style
 from drawlib._diagrams.architecture._renderer import _apply_edge_padding
 from drawlib.diagrams.architecture import (
+    ArchitectureDiagram,
     CustomIcon,
-    Diagram,
     Edge,
     GcpIcon,
     Junction,
@@ -186,7 +186,7 @@ class TestArchitectureJunctionAndEdge:
 
     def test_edge_add_point(self) -> None:
         """Verify edge.add_point adds waypoint and returns connected Junction."""
-        d = Diagram()
+        d = ArchitectureDiagram()
         n1 = d.add(Node(text="A"), (0.0, 0.0))
         n2 = d.add(Node(text="B"), (50.0, 0.0))
         edge = d.connect(n1, n2)
@@ -208,7 +208,7 @@ class TestArchitectureJunctionAndEdge:
 
     def test_connect_methods_propagate_padding(self) -> None:
         """Verify all connect methods forward the padding argument to Edge."""
-        d = Diagram()
+        d = ArchitectureDiagram()
         n1 = d.add(Node(text="A"), (10.0, 10.0))
         n2 = d.add(Node(text="B"), (30.0, 10.0))
         grp = d.add(NodeGroup(title="G"), (50.0, 10.0))
@@ -249,7 +249,7 @@ class TestArchitectureJunctionAndEdge:
 
     def test_node_fork(self) -> None:
         """Verify node.fork creates junction and multiple connecting edges."""
-        d = Diagram()
+        d = ArchitectureDiagram()
         src = d.add(Node(text="Client"), (10.0, 50.0))
         t1 = d.add(Node(text="API 1"), (60.0, 70.0))
         t2 = d.add(Node(text="API 2"), (60.0, 30.0))
@@ -269,7 +269,7 @@ class TestArchitectureDiagramEndToEnd:
         """Verify rendering complete GCP VPC architecture diagram on canvas."""
         canvas.initialize()
 
-        d = Diagram(title="GCP Architecture")
+        d = ArchitectureDiagram(title="GCP Architecture")
         vpc = d.add(NodeGroup(title="VPC Network", padding=6.0), (10.0, 10.0))
         subnet = vpc.add(NodeGroup(title="us-central1 Subnet", padding=4.0), (5.0, 5.0))
 
@@ -297,7 +297,7 @@ class TestArchitectureDiagramEndToEnd:
         pil_img = Image.new("RGBA", (64, 64), (100, 150, 200, 255))
         custom_icon = CustomIcon(pil_img)
 
-        d = Diagram(title="Microservices")
+        d = ArchitectureDiagram(title="Microservices")
         client = d.add(Node("Browser", icon=PhosphorIcon.BROWSER, icon_size=8.0), (15.0, 50.0))
         gateway = d.add(
             Node(
@@ -324,7 +324,7 @@ class TestArchitectureDiagramEndToEnd:
     def test_diagram_rendering_with_edge_padding(self) -> None:
         """Verify diagram rendering with edge padding succeeds without errors."""
         canvas.initialize()
-        d = Diagram()
+        d = ArchitectureDiagram()
         n1 = d.add(Node("A", icon=PhosphorIcon.BROWSER), (20.0, 50.0))
         n2 = d.add(Node("B", icon=PhosphorIcon.DATABASE), (80.0, 50.0))
         d.connect(n1, n2, padding=3.0)

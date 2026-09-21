@@ -298,6 +298,14 @@
 <li>Python &gt;= 3.11 is now required.</li>
 <li>Package modules are directly accessible (e.g. <code>drawlib.canvas</code>, <code>drawlib.shapes</code>, <code>drawlib.smartarts</code>).</li>
 <li>The legacy <code>dsart</code> facade is removed in favor of direct imports from <code>drawlib.smartarts</code> (e.g., <code>from drawlib.smartarts import Table, SourceCode, bubblespeech</code>).</li>
+<li>In <code>drawlib.diagrams</code>, the generic <code>Diagram</code> class has been renamed to specific names:
+<ul>
+<li><code>drawlib.diagrams.architecture.ArchitectureDiagram</code></li>
+<li><code>drawlib.diagrams.sequence.SequenceDiagram</code></li>
+<li><code>drawlib.diagrams.er.ERDiagram</code></li>
+<li>These can now also be imported directly from <code>drawlib.diagrams</code> (e.g., <code>from drawlib.diagrams import ArchitectureDiagram, ERDiagram, SequenceDiagram</code>).</li>
+</ul>
+</li>
 </ul>
 <h1>Version 0.2.3</h1>
 <h2>Release data: 2024/09/08</h2>

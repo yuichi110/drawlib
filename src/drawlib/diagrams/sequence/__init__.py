@@ -14,21 +14,21 @@ from __future__ import annotations
 from drawlib._diagrams.architecture._icons import CustomIcon, GcpIcon, PhosphorIcon
 from drawlib._diagrams.sequence import (
     Block,
-    Diagram,
     Message,
     Note,
     Participant,
     ParticipantGroup,
+    SequenceDiagram,
 )
 
 __all__ = [
     "Block",
     "CustomIcon",
-    "Diagram",
     "GcpIcon",
     "Message",
     "Note",
     "Participant",
     "ParticipantGroup",
     "PhosphorIcon",
+    "SequenceDiagram",
 ]

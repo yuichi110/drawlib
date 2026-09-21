@@ -17,7 +17,7 @@ from drawlib._diagrams.sequence._types import NotePosition
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
-    from drawlib._diagrams.sequence._diagram import Diagram
+    from drawlib._diagrams.sequence._diagram import SequenceDiagram
     from drawlib._diagrams.sequence._participant import Participant
 
 
@@ -49,7 +49,7 @@ class Note:
         self.pos = pos
         self.style = style
         self.textstyle = textstyle
-        self._diagram: Diagram | None = None
+        self._diagram: SequenceDiagram | None = None
 
     def set_text(self, text: str) -> Note:
         """Set note content text.

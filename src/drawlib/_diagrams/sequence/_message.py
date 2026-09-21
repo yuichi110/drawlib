@@ -17,7 +17,7 @@ from drawlib._diagrams.sequence._types import ArrowType, PaddingType
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
-    from drawlib._diagrams.sequence._diagram import Diagram
+    from drawlib._diagrams.sequence._diagram import SequenceDiagram
     from drawlib._diagrams.sequence._participant import Participant
 
 
@@ -59,7 +59,7 @@ class Message:
         self.textstyle = textstyle
         self.padding = padding
         self.number: int | None = None
-        self._diagram: Diagram | None = None
+        self._diagram: SequenceDiagram | None = None
 
     @property
     def is_self_call(self) -> bool:

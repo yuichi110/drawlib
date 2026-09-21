@@ -18,7 +18,7 @@ from drawlib._diagrams.architecture._types import ArrowType, Connectable, Paddin
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
-    from drawlib._diagrams.architecture._diagram import Diagram
+    from drawlib._diagrams.architecture._diagram import ArchitectureDiagram
     from drawlib._diagrams.architecture._junction import Junction
 
 
@@ -58,7 +58,7 @@ class Edge:
         self.textstyle = textstyle
         self.padding = padding
         self._waypoints: list[tuple[float, float]] = []
-        self._diagram: Diagram | None = None
+        self._diagram: ArchitectureDiagram | None = None
 
     @property
     def waypoints(self) -> list[tuple[float, float]]:

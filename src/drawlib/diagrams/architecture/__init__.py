@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from drawlib._diagrams.architecture._diagram import Diagram
+from drawlib._diagrams.architecture._diagram import ArchitectureDiagram
 from drawlib._diagrams.architecture._edge import Edge
 from drawlib._diagrams.architecture._group import NodeGroup
 from drawlib._diagrams.architecture._icons import CustomIcon, GcpIcon, PhosphorIcon
@@ -20,8 +20,8 @@ from drawlib._diagrams.architecture._node import Node
 from drawlib.diagrams.architecture import icons
 
 __all__ = [
+    "ArchitectureDiagram",
     "CustomIcon",
-    "Diagram",
     "Edge",
     "GcpIcon",
     "Junction",

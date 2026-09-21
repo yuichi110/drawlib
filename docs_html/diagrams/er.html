@@ -295,19 +295,19 @@ canvas.initialize()
 erd = ERDiagram(title=&quot;E-Commerce Core Schema&quot;)
 
 # 1. Define Entities
-users = erd.add(Entity(name=&quot;users&quot;, width=25.0), xy=(20.0, 50.0))
+users = erd.add(Entity(name=&quot;users&quot;, width=26.0), xy=(18.0, 50.0))
 users.add_column(&quot;id&quot;, type=&quot;INT&quot;, pk=True)
 users.add_column(&quot;email&quot;, type=&quot;VARCHAR(255)&quot;, nullable=False)
 users.add_column(&quot;name&quot;, type=&quot;VARCHAR(100)&quot;)
 users.add_column(&quot;created_at&quot;, type=&quot;TIMESTAMP&quot;)
 
-orders = erd.add(Entity(name=&quot;orders&quot;, width=25.0), xy=(50.0, 50.0))
+orders = erd.add(Entity(name=&quot;orders&quot;, width=26.0), xy=(50.0, 50.0))
 orders.add_column(&quot;id&quot;, type=&quot;INT&quot;, pk=True)
 orders.add_column(&quot;user_id&quot;, type=&quot;INT&quot;, fk=True)
 orders.add_column(&quot;order_date&quot;, type=&quot;DATE&quot;)
 orders.add_column(&quot;total_amount&quot;, type=&quot;DECIMAL(10,2)&quot;)
 
-items = erd.add(Entity(name=&quot;order_items&quot;, width=25.0), xy=(80.0, 50.0))
+items = erd.add(Entity(name=&quot;order_items&quot;, width=26.0), xy=(82.0, 50.0))
 items.add_column(&quot;id&quot;, type=&quot;INT&quot;, pk=True)
 items.add_column(&quot;order_id&quot;, type=&quot;INT&quot;, fk=True)
 items.add_column(&quot;product_name&quot;, type=&quot;VARCHAR(100)&quot;)

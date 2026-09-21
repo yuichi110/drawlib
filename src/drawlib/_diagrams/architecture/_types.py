@@ -19,7 +19,7 @@ from PIL.Image import Image
 from drawlib._core.l2_models import Dimage
 
 if TYPE_CHECKING:
-    from drawlib._diagrams.architecture._diagram import Diagram
+    from drawlib._diagrams.architecture._diagram import ArchitectureDiagram
     from drawlib._diagrams.architecture._group import NodeGroup
     from drawlib._diagrams.architecture._icons import CustomIcon, GcpIcon, PhosphorIcon
     from drawlib._diagrams.architecture._junction import Junction
@@ -58,4 +58,4 @@ IconType = Union[
     None,
 ]
 
-DiagramT = TypeVar("DiagramT", bound="Diagram")
+DiagramT = TypeVar("DiagramT", bound="ArchitectureDiagram")

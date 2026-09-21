@@ -31,6 +31,11 @@
 - Python >= 3.11 is now required.
 - Package modules are directly accessible (e.g. `drawlib.canvas`, `drawlib.shapes`, `drawlib.smartarts`).
 - The legacy `dsart` facade is removed in favor of direct imports from `drawlib.smartarts` (e.g., `from drawlib.smartarts import Table, SourceCode, bubblespeech`).
+- In `drawlib.diagrams`, the generic `Diagram` class has been renamed to specific names:
+  - `drawlib.diagrams.architecture.ArchitectureDiagram`
+  - `drawlib.diagrams.sequence.SequenceDiagram`
+  - `drawlib.diagrams.er.ERDiagram`
+  - These can now also be imported directly from `drawlib.diagrams` (e.g., `from drawlib.diagrams import ArchitectureDiagram, ERDiagram, SequenceDiagram`).
 
 
 

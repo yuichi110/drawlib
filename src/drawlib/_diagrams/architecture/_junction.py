@@ -18,7 +18,7 @@ from drawlib._diagrams.architecture._types import ArrowType, Connectable, Paddin
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
-    from drawlib._diagrams.architecture._diagram import Diagram
+    from drawlib._diagrams.architecture._diagram import ArchitectureDiagram
     from drawlib._diagrams.architecture._edge import Edge
     from drawlib._diagrams.architecture._group import NodeGroup
 
@@ -33,7 +33,7 @@ class Junction:
             xy: Local coordinate (x, y) of the junction point.
         """
         self._local_xy = (float(xy[0]), float(xy[1]))
-        self._diagram: Diagram | None = None
+        self._diagram: ArchitectureDiagram | None = None
         self._parent_group: NodeGroup | None = None
 
     @property

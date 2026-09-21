@@ -12,7 +12,7 @@
 from __future__ import annotations
 
 from drawlib._diagrams.sequence._block import Block
-from drawlib._diagrams.sequence._diagram import Diagram
+from drawlib._diagrams.sequence._diagram import SequenceDiagram
 from drawlib._diagrams.sequence._group import ParticipantGroup
 from drawlib._diagrams.sequence._message import Message
 from drawlib._diagrams.sequence._note import Note
@@ -20,9 +20,9 @@ from drawlib._diagrams.sequence._participant import Participant
 
 __all__ = [
     "Block",
-    "Diagram",
     "Message",
     "Note",
     "Participant",
     "ParticipantGroup",
+    "SequenceDiagram",
 ]

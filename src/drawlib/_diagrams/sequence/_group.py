@@ -15,7 +15,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
-    from drawlib._diagrams.sequence._diagram import Diagram
+    from drawlib._diagrams.sequence._diagram import SequenceDiagram
     from drawlib._diagrams.sequence._participant import Participant
 
 
@@ -42,7 +42,7 @@ class ParticipantGroup:
         self.style = style
         self.textstyle = textstyle
         self._participants: list[Participant] = []
-        self._diagram: Diagram | None = None
+        self._diagram: SequenceDiagram | None = None
 
     @property
     def participants(self) -> list[Participant]:

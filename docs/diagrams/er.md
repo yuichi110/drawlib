@@ -30,19 +30,19 @@ canvas.initialize()
 erd = ERDiagram(title="E-Commerce Core Schema")
 
 # 1. Define Entities
-users = erd.add(Entity(name="users", width=25.0), xy=(20.0, 50.0))
+users = erd.add(Entity(name="users", width=26.0), xy=(18.0, 50.0))
 users.add_column("id", type="INT", pk=True)
 users.add_column("email", type="VARCHAR(255)", nullable=False)
 users.add_column("name", type="VARCHAR(100)")
 users.add_column("created_at", type="TIMESTAMP")
 
-orders = erd.add(Entity(name="orders", width=25.0), xy=(50.0, 50.0))
+orders = erd.add(Entity(name="orders", width=26.0), xy=(50.0, 50.0))
 orders.add_column("id", type="INT", pk=True)
 orders.add_column("user_id", type="INT", fk=True)
 orders.add_column("order_date", type="DATE")
 orders.add_column("total_amount", type="DECIMAL(10,2)")
 
-items = erd.add(Entity(name="order_items", width=25.0), xy=(80.0, 50.0))
+items = erd.add(Entity(name="order_items", width=26.0), xy=(82.0, 50.0))
 items.add_column("id", type="INT", pk=True)
 items.add_column("order_id", type="INT", fk=True)
 items.add_column("product_name", type="VARCHAR(100)")

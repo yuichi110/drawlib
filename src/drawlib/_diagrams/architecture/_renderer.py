@@ -34,18 +34,18 @@ from drawlib.shapes import rectangle as canvas_rectangle
 from drawlib.text import text as canvas_text
 
 if TYPE_CHECKING:
-    from drawlib._diagrams.architecture._diagram import Diagram
+    from drawlib._diagrams.architecture._diagram import ArchitectureDiagram
     from drawlib._diagrams.architecture._edge import Edge
 
 
 def _resolve_coordinates(
-    diagram: Diagram,
+    diagram: ArchitectureDiagram,
     base_xy: tuple[float, float],
 ) -> tuple[dict[Connectable, tuple[float, float]], list[NodeGroup], list[Node], list[Junction]]:
     """Resolve hierarchical coordinates for all items in the diagram.
 
     Args:
-        diagram: Diagram container instance.
+        diagram: ArchitectureDiagram container instance.
         base_xy: (x, y) placement on the canvas.
 
     Returns:
@@ -482,7 +482,7 @@ def _render_nodes(
         _render_node_label(node, nx, ny)
 
 
-def draw_diagram(diagram: Diagram, xy: tuple[float, float] = (0.0, 0.0)) -> None:
+def draw_diagram(diagram: ArchitectureDiagram, xy: tuple[float, float] = (0.0, 0.0)) -> None:
     """Execute complete 2-pass drawing pipeline for an architecture diagram."""
     base_xy = (float(xy[0]), float(xy[1]))
     canvas_xy_map, all_groups, all_nodes, _ = _resolve_coordinates(diagram, base_xy)

@@ -19,7 +19,7 @@ from drawlib._diagrams.sequence._types import ArrowType, IconType, TextPosition
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
-    from drawlib._diagrams.sequence._diagram import Diagram
+    from drawlib._diagrams.sequence._diagram import SequenceDiagram
     from drawlib._diagrams.sequence._message import Message
     from drawlib._diagrams.sequence._note import Note
 
@@ -69,7 +69,7 @@ class Participant:
         self.lifeline_style = lifeline_style
 
         self._fixed_x: float | None = None
-        self._diagram: Diagram | None = None
+        self._diagram: SequenceDiagram | None = None
         self._activations: list[tuple[int, int | None]] = []
 
     def set_x(self, x: float) -> Participant:

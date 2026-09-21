@@ -19,13 +19,13 @@ from drawlib._core.l3_styles import Colors, Style
 from drawlib.diagrams.sequence import (
     Block,
     CustomIcon,
-    Diagram,
     GcpIcon,
     Message,
     Note,
     Participant,
     ParticipantGroup,
     PhosphorIcon,
+    SequenceDiagram,
 )
 
 
@@ -122,7 +122,7 @@ class TestSequenceNoteAndBlock:
 
     def test_block_context_manager(self) -> None:
         """Verify Block context manager records boundary events in Diagram."""
-        d = Diagram()
+        d = SequenceDiagram()
         client = d.add(Participant("Client"))
         server = d.add(Participant("Server"))
 
@@ -141,7 +141,7 @@ class TestSequenceNoteAndBlock:
 
     def test_participant_group(self) -> None:
         """Verify ParticipantGroup clustering box."""
-        d = Diagram()
+        d = SequenceDiagram()
         group = d.add_group(ParticipantGroup("Internal Cluster", padding=6.0))
         p1 = group.add(Participant("Service Alpha"))
         p2 = group.add(Participant("Service Beta"))
@@ -157,7 +157,7 @@ class TestSequenceDiagramLifecycle:
 
     def test_autonumbering(self) -> None:
         """Verify automatic sequential numbering of message arrows."""
-        d = Diagram(autonumber=True)
+        d = SequenceDiagram(autonumber=True)
         p1 = d.add(Participant("A"))
         p2 = d.add(Participant("B"))
 
@@ -171,7 +171,7 @@ class TestSequenceDiagramLifecycle:
 
     def test_activations(self) -> None:
         """Verify participant lifeline activation tracking."""
-        d = Diagram()
+        d = SequenceDiagram()
         client = d.add(Participant("Client"))
         server = d.add(Participant("Server"))
 
@@ -195,7 +195,7 @@ class TestSequenceDiagramRenderingEndToEnd:
         """Verify full sequence diagram rendering to canvas and saving as PNG."""
         canvas.initialize()
 
-        d = Diagram(title="OAuth2 Authentication Flow", autonumber=True)
+        d = SequenceDiagram(title="OAuth2 Authentication Flow", autonumber=True)
 
         user = d.add(Participant("User", icon=PhosphorIcon.USER, icon_size=8.0))
         client = d.add(Participant("SPA Client", icon=PhosphorIcon.BROWSER, icon_size=8.0))
@@ -237,7 +237,7 @@ class TestSequenceDiagramRenderingEndToEnd:
         pil_img = Image.new("RGBA", (64, 64), (80, 140, 220, 255))
         custom_icon = CustomIcon(pil_img)
 
-        d = Diagram(title="Microservices Event Stream")
+        d = SequenceDiagram(title="Microservices Event Stream")
 
         backend = d.add_group(
             ParticipantGroup(

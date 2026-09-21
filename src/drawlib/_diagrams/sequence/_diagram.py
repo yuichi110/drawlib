@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Diagram container class implementation for sequence diagrams."""
+"""SequenceDiagram container class implementation for sequence diagrams."""
 
 from __future__ import annotations
 
@@ -28,7 +28,7 @@ if TYPE_CHECKING:
     from drawlib._diagrams.sequence._participant import Participant
 
 
-class Diagram:
+class SequenceDiagram:
     """Top-level container and timeline manager for sequence diagrams."""
 
     def __init__(
@@ -43,7 +43,7 @@ class Diagram:
         style: Style | None = None,
         title_style: Style | None = None,
     ) -> None:
-        """Initialize Diagram.
+        """Initialize SequenceDiagram.
 
         Args:
             title: Diagram title.

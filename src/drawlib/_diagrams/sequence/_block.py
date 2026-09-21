@@ -18,7 +18,7 @@ from drawlib._diagrams.sequence._types import BlockType
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
-    from drawlib._diagrams.sequence._diagram import Diagram
+    from drawlib._diagrams.sequence._diagram import SequenceDiagram
     from drawlib._diagrams.sequence._participant import Participant
 
 
@@ -29,7 +29,7 @@ class Block:
         self,
         block_type: BlockType,
         label: str = "",
-        diagram: Diagram | None = None,
+        diagram: SequenceDiagram | None = None,
         style: Style | None = None,
         textstyle: Style | None = None,
     ) -> None:
@@ -38,7 +38,7 @@ class Block:
         Args:
             block_type: Type of block ("loop", "alt", "else", "opt", "par", etc.).
             label: Text description shown in the frame header.
-            diagram: Parent Diagram instance.
+            diagram: Parent SequenceDiagram instance.
             style: Optional Style object for the boundary box.
             textstyle: Optional Style object for the label text.
         """

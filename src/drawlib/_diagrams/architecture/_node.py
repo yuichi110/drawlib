@@ -26,7 +26,7 @@ from drawlib._diagrams.architecture._types import (
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
-    from drawlib._diagrams.architecture._diagram import Diagram
+    from drawlib._diagrams.architecture._diagram import ArchitectureDiagram
     from drawlib._diagrams.architecture._edge import Edge
     from drawlib._diagrams.architecture._group import NodeGroup
 
@@ -73,7 +73,7 @@ class Node:
         self.textstyle = textstyle
 
         self._local_xy: tuple[float, float] = (0.0, 0.0)
-        self._diagram: Diagram | None = None
+        self._diagram: ArchitectureDiagram | None = None
         self._parent_group: NodeGroup | None = None
 
     @property

@@ -12,5 +12,15 @@
 from __future__ import annotations
 
 from drawlib._diagrams import architecture, er, sequence
+from drawlib._diagrams.architecture import ArchitectureDiagram
+from drawlib._diagrams.er import ERDiagram
+from drawlib._diagrams.sequence import SequenceDiagram
 
-__all__ = ["architecture", "er", "sequence"]
+__all__ = [
+    "ArchitectureDiagram",
+    "ERDiagram",
+    "SequenceDiagram",
+    "architecture",
+    "er",
+    "sequence",
+]

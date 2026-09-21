@@ -11,7 +11,7 @@ Sequence diagrams consist of 6 primary building blocks:
 
 | Component | Class | Description |
 |---|---|---|
-| **Container** | `Diagram` | Manages participant lifelines, chronological timeline steps, auto-layout, and rendering. |
+| **Container** | `SequenceDiagram` | Manages participant lifelines, chronological timeline steps, auto-layout, and rendering. |
 | **Participant** | `Participant` | An actor, microservice, or system component with a vertical lifeline. |
 | **Message** | `Message` | A horizontal interaction arrow (`request()`, `reply()`, `connect()`, or self-call). |
 | **Annotation** | `Note` | A sticky callout card placed beside a lifeline or spanning across multiple participants. |
@@ -28,11 +28,11 @@ In Drawlib, message semantics are expressed through clear grammatical verbs:
 
 ```drawlib 650px center caption:"Basic Request-Reply Flow"
 from drawlib import canvas
-from drawlib.diagrams.sequence import Diagram, Participant, PhosphorIcon
+from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
 
-d = Diagram(title="Client-Server Authentication Flow")
+d = SequenceDiagram(title="Client-Server Authentication Flow")
 
 user = d.add(Participant("User", icon=PhosphorIcon.USER, icon_size=8.0))
 client = d.add(Participant("Web Browser", icon=PhosphorIcon.BROWSER, icon_size=8.0))
@@ -64,11 +64,11 @@ You can specify `is_async=True` to indicate non-blocking, asynchronous events (s
 
 ```drawlib 650px center caption:"Synchronous vs Asynchronous Messages"
 from drawlib import canvas
-from drawlib.diagrams.sequence import Diagram, Participant, PhosphorIcon
+from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
 
-d = Diagram(title="Sync vs Async Interactions")
+d = SequenceDiagram(title="Sync vs Async Interactions")
 
 client = d.add(Participant("Client", icon=PhosphorIcon.DESKTOP, icon_size=8.0))
 queue = d.add(Participant("Message Queue", icon=PhosphorIcon.STACK, icon_size=8.0))
@@ -92,11 +92,11 @@ When two entities establish a persistent, two-way communication channel (e.g. We
 
 ```drawlib 650px center caption:"Bidirectional Stream"
 from drawlib import canvas
-from drawlib.diagrams.sequence import Diagram, Participant, PhosphorIcon
+from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
 
-d = Diagram(title="WebSocket Communication")
+d = SequenceDiagram(title="WebSocket Communication")
 
 client = d.add(Participant("Client App", icon=PhosphorIcon.DEVICE_MOBILE, icon_size=8.0))
 server = d.add(Participant("Gateway Server", icon=PhosphorIcon.CLOUD, icon_size=8.0))
@@ -116,11 +116,11 @@ When a participant calls itself (`p.request(p, label)`), Drawlib automatically r
 
 ```drawlib 650px center caption:"Self-Invocation Loop"
 from drawlib import canvas
-from drawlib.diagrams.sequence import Diagram, Participant, PhosphorIcon
+from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
 
-d = Diagram(title="Internal Processing")
+d = SequenceDiagram(title="Internal Processing")
 
 client = d.add(Participant("Client", icon=PhosphorIcon.DESKTOP, icon_size=8.0))
 auth = d.add(Participant("Auth Server", icon=PhosphorIcon.SHIELD_CHECK, icon_size=8.0))
@@ -146,11 +146,11 @@ Notes provide informative context alongside lifelines or across multiple partici
 
 ```drawlib 650px center caption:"Sticky Notes Beside and Across Lifelines"
 from drawlib import canvas
-from drawlib.diagrams.sequence import Diagram, Participant, PhosphorIcon
+from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
 
-d = Diagram(title="Annotated Workflow")
+d = SequenceDiagram(title="Annotated Workflow")
 
 sender = d.add(Participant("Sender", icon=PhosphorIcon.USER, icon_size=8.0))
 receiver = d.add(Participant("Receiver", icon=PhosphorIcon.ROBOT, icon_size=8.0))
@@ -181,11 +181,11 @@ Conditional logic, alternative flows, and loops are defined naturally using Pyth
 
 ```drawlib 650px center caption:"Loops and Conditional Blocks"
 from drawlib import canvas
-from drawlib.diagrams.sequence import Diagram, Participant, PhosphorIcon
+from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
 
-d = Diagram(title="Transaction Processing Flow")
+d = SequenceDiagram(title="Transaction Processing Flow")
 
 client = d.add(Participant("Client", icon=PhosphorIcon.DESKTOP, icon_size=8.0))
 gateway = d.add(Participant("Payment Gateway", icon=PhosphorIcon.CREDIT_CARD, icon_size=8.0))
@@ -215,15 +215,15 @@ You can visually highlight when an entity is actively executing by calling `p.ac
 
 ### 6.2 Autonumbering (`autonumber=True`)
 
-Setting `autonumber=True` on `Diagram` automatically prepends sequential numbers (`1.`, `2.`, `3.`, ...) to all message labels in chronological order.
+Setting `autonumber=True` on `SequenceDiagram` automatically prepends sequential numbers (`1.`, `2.`, `3.`, ...) to all message labels in chronological order.
 
 ```drawlib 650px center caption:"Activation Bars and Autonumbering"
 from drawlib import canvas
-from drawlib.diagrams.sequence import Diagram, Participant, PhosphorIcon
+from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
 
-d = Diagram(title="Order Execution Service", autonumber=True)
+d = SequenceDiagram(title="Order Execution Service", autonumber=True)
 
 user = d.add(Participant("User", icon=PhosphorIcon.USER, icon_size=8.0))
 app = d.add(Participant("Order API", icon=PhosphorIcon.SHOPPING_CART, icon_size=8.0))
@@ -252,12 +252,12 @@ Here is a full production example combining participant groups (`ParticipantGrou
 ```drawlib 700px center caption:"Production Microservices Pipeline"
 from drawlib import canvas
 from drawlib._core.l3_styles import Colors, Style
-from drawlib.diagrams.sequence import Diagram, GcpIcon, Participant, ParticipantGroup, PhosphorIcon
+from drawlib.diagrams.sequence import SequenceDiagram, GcpIcon, Participant, ParticipantGroup, PhosphorIcon
 
 canvas.initialize()
 canvas.config(width=115, height=115)
 
-d = Diagram(title="Microservices Cloud Processing Pipeline", autonumber=True)
+d = SequenceDiagram(title="Microservices Cloud Processing Pipeline", autonumber=True)
 
 # Participant boundary group for internal cluster
 backend = d.add_group(

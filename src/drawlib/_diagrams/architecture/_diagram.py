@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Diagram class implementation for architecture diagrams."""
+"""ArchitectureDiagram class implementation for architecture diagrams."""
 
 from __future__ import annotations
 
@@ -25,7 +25,7 @@ if TYPE_CHECKING:
     from drawlib._diagrams.architecture._junction import Junction
 
 
-class Diagram:
+class ArchitectureDiagram:
     """Top-level container for architecture diagrams."""
 
     def __init__(
@@ -35,7 +35,7 @@ class Diagram:
         height: float | None = None,
         style: Style | None = None,
     ) -> None:
-        """Initialize Diagram.
+        """Initialize ArchitectureDiagram.
 
         Args:
             title: Optional diagram title.

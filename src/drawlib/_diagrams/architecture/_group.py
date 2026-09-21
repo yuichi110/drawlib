@@ -18,7 +18,7 @@ from drawlib._diagrams.architecture._types import ArrowType, Connectable, Diagra
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
-    from drawlib._diagrams.architecture._diagram import Diagram
+    from drawlib._diagrams.architecture._diagram import ArchitectureDiagram
     from drawlib._diagrams.architecture._edge import Edge
 
 
@@ -53,7 +53,7 @@ class NodeGroup:
 
         self._items: list[tuple[DiagramItem, tuple[float, float]]] = []
         self._local_xy: tuple[float, float] = (0.0, 0.0)
-        self._diagram: Diagram | None = None
+        self._diagram: ArchitectureDiagram | None = None
         self._parent_group: NodeGroup | None = None
 
     @property
@@ -88,7 +88,7 @@ class NodeGroup:
 
         return item
 
-    def _propagate_diagram(self, diagram: Diagram | None) -> None:
+    def _propagate_diagram(self, diagram: ArchitectureDiagram | None) -> None:
         """Propagate diagram reference recursively to all children."""
         self._diagram = diagram
         for item, _ in self._items:

@@ -36,7 +36,7 @@ from drawlib.shapes import rectangle as canvas_rectangle
 from drawlib.text import text as canvas_text
 
 if TYPE_CHECKING:
-    from drawlib._diagrams.sequence._diagram import Diagram
+    from drawlib._diagrams.sequence._diagram import SequenceDiagram
 
 
 def _parse_diagram_padding(padding: DiagramPadding) -> tuple[float, float, float, float]:
@@ -127,7 +127,7 @@ def _estimate_note_size(note: Note) -> tuple[float, float]:
 
 
 def _compute_x_coordinates(
-    diagram: Diagram,
+    diagram: SequenceDiagram,
     pad_left: float,
 ) -> dict[Participant, float]:
     """Calculate X position for each participant lifeline."""
@@ -173,7 +173,7 @@ def _compute_x_coordinates(
 
 
 def _compute_timeline_y(  # noqa: C901
-    diagram: Diagram,
+    diagram: SequenceDiagram,
 ) -> tuple[
     float,
     dict[object, float],
@@ -267,7 +267,7 @@ def _handle_tuple_event(
 
 
 def _resolve_activations(
-    diagram: Diagram,
+    diagram: SequenceDiagram,
     step_y_record: list[float],
     total_rel_y: float,
 ) -> dict[Participant, list[tuple[float, float]]]:
@@ -286,7 +286,7 @@ def _resolve_activations(
     return resolved
 
 
-def _compute_diagram_size(diagram: Diagram) -> tuple[float, float]:
+def _compute_diagram_size(diagram: SequenceDiagram) -> tuple[float, float]:
     """Compute diagram overall dimensions."""
     pad_top, pad_right, pad_bottom, pad_left = _parse_diagram_padding(diagram.padding)
     participant_x_map = _compute_x_coordinates(diagram, pad_left)
@@ -677,7 +677,7 @@ def _render_blocks(
         )
 
 
-def draw_sequence_diagram(diagram: Diagram, xy: tuple[float, float] = (0.0, 0.0)) -> None:
+def draw_sequence_diagram(diagram: SequenceDiagram, xy: tuple[float, float] = (0.0, 0.0)) -> None:
     """Execute complete 2-pass drawing pipeline for a sequence diagram."""
     bx, by = float(xy[0]), float(xy[1])
     pad_top, pad_right, pad_bottom, pad_left = _parse_diagram_padding(diagram.padding)
