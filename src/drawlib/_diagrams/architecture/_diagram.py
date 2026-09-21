@@ -17,7 +17,7 @@ import drawlib._diagrams.architecture._edge as _edge_module
 import drawlib._diagrams.architecture._group as _group_module
 import drawlib._diagrams.architecture._junction as _junction_module
 import drawlib._diagrams.architecture._renderer as _renderer_module
-from drawlib._diagrams.architecture._types import ArrowType, Connectable, DiagramItem, ItemT, RoutingType
+from drawlib._diagrams.architecture._types import ArrowType, Connectable, DiagramItem, ItemT, PaddingType, RoutingType
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
@@ -103,6 +103,7 @@ class Diagram:
         arrow: ArrowType = "->",
         routing: RoutingType = "orthogonal",
         style: Style | None = None,
+        padding: PaddingType = 0.0,
     ) -> Edge:
         """Create and register an edge between two connectables.
 
@@ -113,6 +114,7 @@ class Diagram:
             arrow: Arrowhead direction ("->", "<-", "<->", "-").
             routing: Path routing strategy ("orthogonal", "direct", "curved").
             style: Optional Style object for the line.
+            padding: Gap distance between nodes and line ends (float or (start, end) tuple).
 
         Returns:
             Edge: Newly created edge.
@@ -124,6 +126,7 @@ class Diagram:
             arrow=arrow,
             routing=routing,
             style=style,
+            padding=padding,
         )
         self.add_edge(edge)
         return edge

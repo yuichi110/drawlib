@@ -15,7 +15,14 @@ from typing import TYPE_CHECKING
 
 import drawlib._diagrams.architecture._edge as _edge_module
 import drawlib._diagrams.architecture._junction as _junction_module
-from drawlib._diagrams.architecture._types import ArrowType, Connectable, IconType, RoutingType, TextPosition
+from drawlib._diagrams.architecture._types import (
+    ArrowType,
+    Connectable,
+    IconType,
+    PaddingType,
+    RoutingType,
+    TextPosition,
+)
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
@@ -174,6 +181,7 @@ class Node:
         arrow: ArrowType = "->",
         routing: RoutingType = "orthogonal",
         style: Style | None = None,
+        padding: PaddingType = 0.0,
     ) -> Edge:
         """Connect this node to a target element.
 
@@ -183,6 +191,7 @@ class Node:
             arrow: Arrowhead direction ("->", "<-", "<->", "-").
             routing: Path routing strategy ("orthogonal", "direct", "curved").
             style: Optional Style object for the line.
+            padding: Gap distance between nodes and line ends (float or (start, end) tuple).
 
         Returns:
             Edge: Created connection object.
@@ -194,6 +203,7 @@ class Node:
             arrow=arrow,
             routing=routing,
             style=style,
+            padding=padding,
         )
         if self._diagram is not None:
             self._diagram.add_edge(edge)
@@ -207,6 +217,7 @@ class Node:
         at_x: float | None = None,
         at_y: float | None = None,
         style: Style | None = None,
+        padding: PaddingType = 0.0,
     ) -> list[Edge]:
         """Branch from this node to multiple targets via an intermediate junction.
 
@@ -215,6 +226,7 @@ class Node:
             at_x: Optional X coordinate for the branch junction.
             at_y: Optional Y coordinate for the branch junction.
             style: Optional Style object for all connections.
+            padding: Gap distance between nodes and line ends.
 
         Returns:
             list[Edge]: Created edges connecting this node to targets via the junction.
@@ -227,7 +239,9 @@ class Node:
         if self._diagram is not None:
             self._diagram.add(j, (jx, jy))
 
-        edges = [self.connect(j, arrow="-", style=style)]
+        start_pad = padding if isinstance(padding, (int, float)) else padding[0]
+        end_pad = padding if isinstance(padding, (int, float)) else padding[1]
+        edges = [self.connect(j, arrow="-", style=style, padding=(start_pad, 0.0))]
         for tgt in targets:
-            edges.append(j.connect(tgt, style=style))
+            edges.append(j.connect(tgt, style=style, padding=(0.0, end_pad)))
         return edges

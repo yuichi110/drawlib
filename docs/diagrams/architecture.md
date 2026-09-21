@@ -134,6 +134,40 @@ d.draw(xy=(5.0, 5.0))
 
 
 
+### 4.2 Group Boundaries as Connectables
+
+`NodeGroup` is a first-class `Connectable`. You can connect a group's boundary directly to a `Node`, another `NodeGroup`, or a `Junction`. The line automatically anchors to the appropriate edge of the boundary box:
+
+
+
+```python
+from drawlib import canvas
+from drawlib.diagrams.architecture import Diagram, Node, NodeGroup, PhosphorIcon
+
+canvas.initialize()
+
+d = Diagram()
+
+# Subnet group
+subnet = d.add(NodeGroup(title="Private Subnet", padding=6.0), (10.0, 20.0))
+db = subnet.add(Node("Database", icon=PhosphorIcon.DATABASE, icon_size=8.0), (15.0, 25.0))
+
+# External element
+gateway = d.add(Node("Internet Gateway", icon=PhosphorIcon.GLOBE, icon_size=8.0), (70.0, 45.0))
+
+# Connect from the group boundary to the gateway
+subnet.connect(gateway, label="VPC Peering")
+
+d.draw(xy=(5.0, 5.0))
+```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="architecture_images/4.png" alt="architecture_4" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Connecting Directly to/from a Group Boundary</figcaption>
+</figure>
+
+
+
 ---
 
 ## 5. Connections and Routing (`Edge` & `Junction`)
@@ -166,7 +200,7 @@ d.draw(xy=(5.0, 5.0))
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="architecture_images/4.png" alt="architecture_4" style="width: 650px; max-width: 100%;" />
+  <img src="architecture_images/5.png" alt="architecture_5" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">One-to-Many Branching with fork()</figcaption>
 </figure>
 
@@ -201,8 +235,51 @@ d.draw(xy=(5.0, 5.0))
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="architecture_images/5.png" alt="architecture_5" style="width: 650px; max-width: 100%;" />
+  <img src="architecture_images/6.png" alt="architecture_6" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Branching via edge.add_point()</figcaption>
+</figure>
+
+
+
+### 5.3 Edge Padding (`padding`)
+
+By default, connection lines anchor directly onto the outer boundary of nodes or groups. You can configure `padding` to leave a clean gap between components and connection line endpoints or arrowheads:
+
+- **Symmetric padding**: `padding=2.5` leaves 2.5 coordinate units of margin at both endpoints.
+- **Asymmetric padding**: `padding=(start_pad, end_pad)` sets independent margins for the source and target.
+
+`padding` is supported across all connection methods:
+- `d.connect(source, target, padding=2.0)`
+- `source.connect(target, padding=(1.0, 3.0))`
+- `edge.set_padding(2.0)`
+- `node.fork(targets, padding=2.0)` (automatically protects junction endpoints while applying padding to nodes)
+
+
+
+```python
+from drawlib import canvas
+from drawlib.diagrams.architecture import Diagram, Node, PhosphorIcon
+
+canvas.initialize()
+
+d = Diagram(title="Edge Padding Comparison")
+
+# Without padding (line touches boundary)
+n1 = d.add(Node("No Padding", icon=PhosphorIcon.DATABASE, icon_size=8.0), (20.0, 65.0))
+n2 = d.add(Node("Target A", icon=PhosphorIcon.DESKTOP, icon_size=8.0), (75.0, 65.0))
+d.connect(n1, n2, label="padding=0.0")
+
+# With symmetric padding
+n3 = d.add(Node("With Padding", icon=PhosphorIcon.DATABASE, icon_size=8.0), (20.0, 25.0))
+n4 = d.add(Node("Target B", icon=PhosphorIcon.DESKTOP, icon_size=8.0), (75.0, 25.0))
+d.connect(n3, n4, label="padding=2.5", padding=2.5)
+
+d.draw(xy=(5.0, 5.0))
+```
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="architecture_images/7.png" alt="architecture_7" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Edge Padding Comparison</figcaption>
 </figure>
 
 
@@ -278,7 +355,7 @@ d.draw(xy=(5.0, 5.0))
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="architecture_images/6.png" alt="architecture_6" style="width: 700px; max-width: 100%;" />
+  <img src="architecture_images/8.png" alt="architecture_8" style="width: 700px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Production Multi-Tier Cloud Architecture</figcaption>
 </figure>
 

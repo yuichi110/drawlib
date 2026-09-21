@@ -373,6 +373,31 @@ d.draw(xy=(5.0, 5.0))
   <img src="architecture_images/3.png" alt="architecture_3" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Nested NodeGroups with Auto-Padding</figcaption>
 </figure>
+<h3>4.2 Group Boundaries as Connectables</h3>
+<p><code>NodeGroup</code> is a first-class <code>Connectable</code>. You can connect a group's boundary directly to a <code>Node</code>, another <code>NodeGroup</code>, or a <code>Junction</code>. The line automatically anchors to the appropriate edge of the boundary box:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.architecture import Diagram, Node, NodeGroup, PhosphorIcon
+
+canvas.initialize()
+
+d = Diagram()
+
+# Subnet group
+subnet = d.add(NodeGroup(title=&quot;Private Subnet&quot;, padding=6.0), (10.0, 20.0))
+db = subnet.add(Node(&quot;Database&quot;, icon=PhosphorIcon.DATABASE, icon_size=8.0), (15.0, 25.0))
+
+# External element
+gateway = d.add(Node(&quot;Internet Gateway&quot;, icon=PhosphorIcon.GLOBE, icon_size=8.0), (70.0, 45.0))
+
+# Connect from the group boundary to the gateway
+subnet.connect(gateway, label=&quot;VPC Peering&quot;)
+
+d.draw(xy=(5.0, 5.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="architecture_images/4.png" alt="architecture_4" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Connecting Directly to/from a Group Boundary</figcaption>
+</figure>
 <hr />
 <h2>5. Connections and Routing (<code>Edge</code> &amp; <code>Junction</code>)</h2>
 <p>Connections between nodes support both <strong>orthogonal</strong> (right-angle) and <strong>direct</strong> routing, as well as explicit intermediate waypoints.</p>
@@ -396,7 +421,7 @@ lb.fork([api1, api2, api3], at_x=45.0)
 d.draw(xy=(5.0, 5.0))
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="architecture_images/4.png" alt="architecture_4" style="width: 650px; max-width: 100%;" />
+  <img src="architecture_images/5.png" alt="architecture_5" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">One-to-Many Branching with fork()</figcaption>
 </figure>
 <h3>5.2 Dynamic Waypoint Branching with <code>edge.add_point()</code></h3>
@@ -422,8 +447,44 @@ junction.connect(sub2)
 d.draw(xy=(5.0, 5.0))
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="architecture_images/5.png" alt="architecture_5" style="width: 650px; max-width: 100%;" />
+  <img src="architecture_images/6.png" alt="architecture_6" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Branching via edge.add_point()</figcaption>
+</figure>
+<h3>5.3 Edge Padding (<code>padding</code>)</h3>
+<p>By default, connection lines anchor directly onto the outer boundary of nodes or groups. You can configure <code>padding</code> to leave a clean gap between components and connection line endpoints or arrowheads:</p>
+<ul>
+<li><strong>Symmetric padding</strong>: <code>padding=2.5</code> leaves 2.5 coordinate units of margin at both endpoints.</li>
+<li><strong>Asymmetric padding</strong>: <code>padding=(start_pad, end_pad)</code> sets independent margins for the source and target.</li>
+</ul>
+<p><code>padding</code> is supported across all connection methods:</p>
+<ul>
+<li><code>d.connect(source, target, padding=2.0)</code></li>
+<li><code>source.connect(target, padding=(1.0, 3.0))</code></li>
+<li><code>edge.set_padding(2.0)</code></li>
+<li><code>node.fork(targets, padding=2.0)</code> (automatically protects junction endpoints while applying padding to nodes)</li>
+</ul>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.architecture import Diagram, Node, PhosphorIcon
+
+canvas.initialize()
+
+d = Diagram(title=&quot;Edge Padding Comparison&quot;)
+
+# Without padding (line touches boundary)
+n1 = d.add(Node(&quot;No Padding&quot;, icon=PhosphorIcon.DATABASE, icon_size=8.0), (20.0, 65.0))
+n2 = d.add(Node(&quot;Target A&quot;, icon=PhosphorIcon.DESKTOP, icon_size=8.0), (75.0, 65.0))
+d.connect(n1, n2, label=&quot;padding=0.0&quot;)
+
+# With symmetric padding
+n3 = d.add(Node(&quot;With Padding&quot;, icon=PhosphorIcon.DATABASE, icon_size=8.0), (20.0, 25.0))
+n4 = d.add(Node(&quot;Target B&quot;, icon=PhosphorIcon.DESKTOP, icon_size=8.0), (75.0, 25.0))
+d.connect(n3, n4, label=&quot;padding=2.5&quot;, padding=2.5)
+
+d.draw(xy=(5.0, 5.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="architecture_images/7.png" alt="architecture_7" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Edge Padding Comparison</figcaption>
 </figure>
 <hr />
 <h2>6. Icons and Custom Images</h2>
@@ -484,7 +545,7 @@ d.connect(gke1, gcs, label=&quot;Uploads&quot;)
 d.draw(xy=(5.0, 5.0))
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="architecture_images/6.png" alt="architecture_6" style="width: 700px; max-width: 100%;" />
+  <img src="architecture_images/8.png" alt="architecture_8" style="width: 700px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Production Multi-Tier Cloud Architecture</figcaption>
 </figure>
 <hr />

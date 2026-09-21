@@ -107,6 +107,31 @@ vm2 = subnet.add(Node("App Server 2", icon=GcpIcon.COMPUTE_ENGINE, icon_size=8.0
 d.draw(xy=(5.0, 5.0))
 ```
 
+### 4.2 Group Boundaries as Connectables
+
+`NodeGroup` is a first-class `Connectable`. You can connect a group's boundary directly to a `Node`, another `NodeGroup`, or a `Junction`. The line automatically anchors to the appropriate edge of the boundary box:
+
+```drawlib 650px center caption:"Connecting Directly to/from a Group Boundary"
+from drawlib import canvas
+from drawlib.diagrams.architecture import Diagram, Node, NodeGroup, PhosphorIcon
+
+canvas.initialize()
+
+d = Diagram()
+
+# Subnet group
+subnet = d.add(NodeGroup(title="Private Subnet", padding=6.0), (10.0, 20.0))
+db = subnet.add(Node("Database", icon=PhosphorIcon.DATABASE, icon_size=8.0), (15.0, 25.0))
+
+# External element
+gateway = d.add(Node("Internet Gateway", icon=PhosphorIcon.GLOBE, icon_size=8.0), (70.0, 45.0))
+
+# Connect from the group boundary to the gateway
+subnet.connect(gateway, label="VPC Peering")
+
+d.draw(xy=(5.0, 5.0))
+```
+
 ---
 
 ## 5. Connections and Routing (`Edge` & `Junction`)
@@ -158,6 +183,40 @@ main_edge = d.connect(src, sub1, label="Event Stream")
 # Branch off the stream at (50.0, 50.0)
 junction = main_edge.add_point((50.0, 50.0))
 junction.connect(sub2)
+
+d.draw(xy=(5.0, 5.0))
+```
+
+### 5.3 Edge Padding (`padding`)
+
+By default, connection lines anchor directly onto the outer boundary of nodes or groups. You can configure `padding` to leave a clean gap between components and connection line endpoints or arrowheads:
+
+- **Symmetric padding**: `padding=2.5` leaves 2.5 coordinate units of margin at both endpoints.
+- **Asymmetric padding**: `padding=(start_pad, end_pad)` sets independent margins for the source and target.
+
+`padding` is supported across all connection methods:
+- `d.connect(source, target, padding=2.0)`
+- `source.connect(target, padding=(1.0, 3.0))`
+- `edge.set_padding(2.0)`
+- `node.fork(targets, padding=2.0)` (automatically protects junction endpoints while applying padding to nodes)
+
+```drawlib 650px center caption:"Edge Padding Comparison"
+from drawlib import canvas
+from drawlib.diagrams.architecture import Diagram, Node, PhosphorIcon
+
+canvas.initialize()
+
+d = Diagram(title="Edge Padding Comparison")
+
+# Without padding (line touches boundary)
+n1 = d.add(Node("No Padding", icon=PhosphorIcon.DATABASE, icon_size=8.0), (20.0, 65.0))
+n2 = d.add(Node("Target A", icon=PhosphorIcon.DESKTOP, icon_size=8.0), (75.0, 65.0))
+d.connect(n1, n2, label="padding=0.0")
+
+# With symmetric padding
+n3 = d.add(Node("With Padding", icon=PhosphorIcon.DATABASE, icon_size=8.0), (20.0, 25.0))
+n4 = d.add(Node("Target B", icon=PhosphorIcon.DESKTOP, icon_size=8.0), (75.0, 25.0))
+d.connect(n3, n4, label="padding=2.5", padding=2.5)
 
 d.draw(xy=(5.0, 5.0))
 ```

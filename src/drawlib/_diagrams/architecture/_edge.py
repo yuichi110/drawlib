@@ -14,7 +14,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import drawlib._diagrams.architecture._junction as _junction_module
-from drawlib._diagrams.architecture._types import ArrowType, Connectable, RoutingType
+from drawlib._diagrams.architecture._types import ArrowType, Connectable, PaddingType, RoutingType
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
@@ -34,6 +34,7 @@ class Edge:
         routing: RoutingType = "orthogonal",
         style: Style | None = None,
         textstyle: Style | None = None,
+        padding: PaddingType = 0.0,
     ) -> None:
         """Initialize Edge.
 
@@ -45,6 +46,7 @@ class Edge:
             routing: Line path routing style ("orthogonal", "direct", "curved").
             style: Style object for the line (color, width, dash style).
             textstyle: Style object for the label text.
+            padding: Gap distance between nodes and line ends (float or (start, end) tuple).
         """
         self.start = start
         self.end = end
@@ -54,6 +56,7 @@ class Edge:
         self.routing = routing
         self.style = style
         self.textstyle = textstyle
+        self.padding = padding
         self._waypoints: list[tuple[float, float]] = []
         self._diagram: Diagram | None = None
 
@@ -152,4 +155,16 @@ class Edge:
             Edge: self for method chaining.
         """
         self.textstyle = textstyle
+        return self
+
+    def set_padding(self, padding: PaddingType) -> Edge:
+        """Set gap padding between nodes and line ends.
+
+        Args:
+            padding: Gap distance (float for both ends, or (start, end) tuple).
+
+        Returns:
+            Edge: self for method chaining.
+        """
+        self.padding = padding
         return self

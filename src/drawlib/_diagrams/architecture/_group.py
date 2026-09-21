@@ -14,7 +14,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import drawlib._diagrams.architecture._edge as _edge_module
-from drawlib._diagrams.architecture._types import ArrowType, Connectable, DiagramItem, ItemT, RoutingType
+from drawlib._diagrams.architecture._types import ArrowType, Connectable, DiagramItem, ItemT, PaddingType, RoutingType
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
@@ -172,6 +172,7 @@ class NodeGroup:
         arrow: ArrowType = "->",
         routing: RoutingType = "orthogonal",
         style: Style | None = None,
+        padding: PaddingType = 0.0,
     ) -> Edge:
         """Connect this group's boundary to a target element.
 
@@ -181,6 +182,7 @@ class NodeGroup:
             arrow: Arrowhead direction ("->", "<-", "<->", "-").
             routing: Path routing strategy ("orthogonal", "direct", "curved").
             style: Optional Style object for the line.
+            padding: Gap distance between nodes and line ends (float or (start, end) tuple).
 
         Returns:
             Edge: Created connection object.
@@ -192,6 +194,7 @@ class NodeGroup:
             arrow=arrow,
             routing=routing,
             style=style,
+            padding=padding,
         )
         if self._diagram is not None:
             self._diagram.add_edge(edge)

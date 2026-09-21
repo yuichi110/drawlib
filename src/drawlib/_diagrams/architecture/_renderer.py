@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import math
 from pathlib import Path
 from typing import TYPE_CHECKING, Literal
 
@@ -25,7 +26,7 @@ from drawlib._diagrams.architecture._group import NodeGroup
 from drawlib._diagrams.architecture._icons import CustomIcon, GcpIcon, PhosphorIcon
 from drawlib._diagrams.architecture._junction import Junction
 from drawlib._diagrams.architecture._node import Node
-from drawlib._diagrams.architecture._types import Connectable, DiagramItem, IconType
+from drawlib._diagrams.architecture._types import Connectable, DiagramItem, IconType, PaddingType
 from drawlib.images import image as canvas_image
 from drawlib.lines import line as canvas_line
 from drawlib.lines import lines as canvas_lines
@@ -226,6 +227,85 @@ def _compute_edge_points(
     return [start_pt, end_pt]
 
 
+def _parse_padding(padding: PaddingType) -> tuple[float, float]:
+    """Extract (start_pad, end_pad) from PaddingType."""
+    if isinstance(padding, (int, float)):
+        val = float(padding)
+        return val, val
+    return float(padding[0]), float(padding[1])
+
+
+def _apply_segment_padding(
+    p0: tuple[float, float],
+    p1: tuple[float, float],
+    start_pad: float,
+    end_pad: float,
+) -> list[tuple[float, float]]:
+    """Trim a 2-point segment by start and end padding."""
+    dist = math.hypot(p1[0] - p0[0], p1[1] - p0[1])
+    if dist < 1e-6:
+        return [p0, p1]
+
+    if start_pad + end_pad >= dist:
+        scale = (dist * 0.9) / (start_pad + end_pad)
+        sp = start_pad * scale
+        ep = end_pad * scale
+    else:
+        sp = start_pad
+        ep = end_pad
+
+    dx = (p1[0] - p0[0]) / dist
+    dy = (p1[1] - p0[1]) / dist
+    new_p0 = (p0[0] + dx * sp, p0[1] + dy * sp)
+    new_p1 = (p1[0] - dx * ep, p1[1] - dy * ep)
+    return [new_p0, new_p1]
+
+
+def _apply_edge_padding(
+    pts: list[tuple[float, float]],
+    padding: PaddingType,
+) -> list[tuple[float, float]]:
+    """Shorten the start and end of an edge path by padding distance.
+
+    Args:
+        pts: List of (x, y) coordinates along the edge polyline.
+        padding: Padding value (single float or (start_pad, end_pad) tuple).
+
+    Returns:
+        New list of (x, y) coordinates with padding applied to endpoints.
+    """
+    if len(pts) < 2:
+        return pts
+
+    start_pad, end_pad = _parse_padding(padding)
+    if start_pad <= 0.0 and end_pad <= 0.0:
+        return pts
+
+    if len(pts) == 2:
+        return _apply_segment_padding(pts[0], pts[1], start_pad, end_pad)
+
+    result = list(pts)
+    if start_pad > 0.0:
+        p0, p1 = result[0], result[1]
+        dist_start = math.hypot(p1[0] - p0[0], p1[1] - p0[1])
+        if dist_start > 1e-6:
+            sp = min(start_pad, dist_start * 0.9)
+            dx = (p1[0] - p0[0]) / dist_start
+            dy = (p1[1] - p0[1]) / dist_start
+            result[0] = (p0[0] + dx * sp, p0[1] + dy * sp)
+
+    if end_pad > 0.0:
+        p_prev, p_last = result[-2], result[-1]
+        dist_end = math.hypot(p_last[0] - p_prev[0], p_last[1] - p_prev[1])
+        if dist_end > 1e-6:
+            ep = min(end_pad, dist_end * 0.9)
+            dx = (p_prev[0] - p_last[0]) / dist_end
+            dy = (p_prev[1] - p_last[1]) / dist_end
+            result[-1] = (p_last[0] + dx * ep, p_last[1] + dy * ep)
+
+    return result
+
+
 def _draw_single_edge(
     edge: Edge,
     canvas_xy_map: dict[Connectable, tuple[float, float]],
@@ -242,6 +322,7 @@ def _draw_single_edge(
     start_pt, end_pt, orientation = _resolve_connection_endpoints(edge.start, edge.end, start_canvas_xy, end_canvas_xy)
     applied_style = default_edge_style.merge(edge.style) if edge.style else default_edge_style
     pts = _compute_edge_points(start_pt, end_pt, orientation, edge.waypoints, edge.routing, base_xy)
+    pts = _apply_edge_padding(pts, edge.padding)
 
     arrowhead: Literal["", "->", "<-", "<->"] = ""
     if edge.arrow == "->":

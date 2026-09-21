@@ -38,6 +38,9 @@ RoutingType = Literal["orthogonal", "direct", "curved"]
 # Arrowhead configuration
 ArrowType = Union[Literal["->", "<-", "<->", "-"], str]
 
+# Edge padding type (float or (start_padding, end_padding))
+PaddingType = Union[float, tuple[float, float]]
+
 # Node label placement relative to icon
 TextPosition = Literal["bottom", "top", "left", "right"]
 

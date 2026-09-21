@@ -20,6 +20,7 @@ import drawlib.diagrams.architecture.icons as arch_icons
 from drawlib import canvas
 from drawlib._core.l2_models import Dimage
 from drawlib._core.l3_styles import Colors, Style
+from drawlib._diagrams.architecture._renderer import _apply_edge_padding
 from drawlib.diagrams.architecture import (
     CustomIcon,
     Diagram,
@@ -195,6 +196,57 @@ class TestArchitectureJunctionAndEdge:
         assert (25.0, 0.0) in edge.waypoints
         assert j in d.items
 
+    def test_edge_padding_properties(self) -> None:
+        """Verify edge padding parameter and fluent setter."""
+        n1 = Node(text="A")
+        n2 = Node(text="B")
+        edge = Edge(start=n1, end=n2, padding=2.0)
+        assert edge.padding == 2.0
+
+        edge.set_padding((1.0, 3.0))
+        assert edge.padding == (1.0, 3.0)
+
+    def test_connect_methods_propagate_padding(self) -> None:
+        """Verify all connect methods forward the padding argument to Edge."""
+        d = Diagram()
+        n1 = d.add(Node(text="A"), (10.0, 10.0))
+        n2 = d.add(Node(text="B"), (30.0, 10.0))
+        grp = d.add(NodeGroup(title="G"), (50.0, 10.0))
+
+        e1 = d.connect(n1, n2, padding=1.5)
+        assert e1.padding == 1.5
+
+        e2 = n1.connect(n2, padding=(1.0, 2.0))
+        assert e2.padding == (1.0, 2.0)
+
+        e3 = grp.connect(n1, padding=2.5)
+        assert e3.padding == 2.5
+
+        j = e1.add_point((20.0, 10.0))
+        e4 = j.connect(n2, padding=0.5)
+        assert e4.padding == 0.5
+
+    def test_apply_edge_padding_direct(self) -> None:
+        """Verify _apply_edge_padding calculation on 2-point and polyline edges."""
+        # Zero padding
+        pts = [(0.0, 0.0), (10.0, 0.0)]
+        assert _apply_edge_padding(pts, 0.0) == [(0.0, 0.0), (10.0, 0.0)]
+
+        # Symmetric float padding on horizontal line
+        padded = _apply_edge_padding([(0.0, 0.0), (10.0, 0.0)], 2.0)
+        assert padded == pytest.approx([(2.0, 0.0), (8.0, 0.0)])
+
+        # Asymmetric tuple padding
+        padded_asym = _apply_edge_padding([(0.0, 0.0), (10.0, 0.0)], (1.0, 3.0))
+        assert padded_asym == pytest.approx([(1.0, 0.0), (7.0, 0.0)])
+
+        # Polyline (3 points)
+        pts3 = [(0.0, 0.0), (10.0, 0.0), (10.0, 10.0)]
+        padded3 = _apply_edge_padding(pts3, 2.0)
+        assert padded3[0] == pytest.approx((2.0, 0.0))
+        assert padded3[1] == (10.0, 0.0)
+        assert padded3[2] == pytest.approx((10.0, 8.0))
+
     def test_node_fork(self) -> None:
         """Verify node.fork creates junction and multiple connecting edges."""
         d = Diagram()
@@ -202,9 +254,12 @@ class TestArchitectureJunctionAndEdge:
         t1 = d.add(Node(text="API 1"), (60.0, 70.0))
         t2 = d.add(Node(text="API 2"), (60.0, 30.0))
 
-        edges = src.fork([t1, t2], at_x=35.0)
+        edges = src.fork([t1, t2], at_x=35.0, padding=1.5)
         assert len(edges) == 3
         assert len(d.edges) == 3
+        assert edges[0].padding == (1.5, 0.0)
+        assert edges[1].padding == (0.0, 1.5)
+        assert edges[2].padding == (0.0, 1.5)
 
 
 class TestArchitectureDiagramEndToEnd:
@@ -262,6 +317,21 @@ class TestArchitectureDiagramEndToEnd:
 
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "test_microservices.png"
+            canvas.save(str(out_file))
+            assert out_file.exists()
+            assert out_file.stat().st_size > 0
+
+    def test_diagram_rendering_with_edge_padding(self) -> None:
+        """Verify diagram rendering with edge padding succeeds without errors."""
+        canvas.initialize()
+        d = Diagram()
+        n1 = d.add(Node("A", icon=PhosphorIcon.BROWSER), (20.0, 50.0))
+        n2 = d.add(Node("B", icon=PhosphorIcon.DATABASE), (80.0, 50.0))
+        d.connect(n1, n2, padding=3.0)
+        d.draw()
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            out_file = Path(tmpdir) / "test_padding.png"
             canvas.save(str(out_file))
             assert out_file.exists()
             assert out_file.stat().st_size > 0
