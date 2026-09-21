@@ -23,8 +23,6 @@ from typing import Callable, List, ParamSpec, Tuple, TypeVar, Union
 
 from pydantic import ConfigDict, InstanceOf, validate_call
 
-import drawlib._assets.fonticons
-import drawlib._assets.fonts
 from drawlib._core.l1_core._common import get_package_root_path, is_path_under
 from drawlib._core.l1_core._decorator import guarded
 from drawlib._core.l1_core._logging import logger

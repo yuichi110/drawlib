@@ -11,18 +11,31 @@
 
 import os
 
-from drawlib._core.l1_core._const import FONT_DIR_PATH, FONT_ICON_DIR_PATH
+from drawlib._core.l1_core._const import (
+    ASSETS_DIR_PATH,
+    FONT_DIR_PATH,
+    FONT_ICON_DIR_PATH,
+    ICON_DIR_PATH,
+)
 
 
 class TestConst:
     """Test cases for constants in _const.py."""
 
-    def test_font_dir_path_exists(self):
-        """Test FONT_DIR_PATH is a valid existing directory path."""
-        assert os.path.exists(FONT_DIR_PATH)
-        assert os.path.isdir(FONT_DIR_PATH)
+    def test_assets_dir_path(self):
+        """Test ASSETS_DIR_PATH is a valid existing directory path."""
+        assert os.path.exists(ASSETS_DIR_PATH)
+        assert os.path.isdir(ASSETS_DIR_PATH)
 
-    def test_font_icon_dir_path_exists(self):
-        """Test FONT_ICON_DIR_PATH is a valid existing directory path."""
-        assert os.path.exists(FONT_ICON_DIR_PATH)
-        assert os.path.isdir(FONT_ICON_DIR_PATH)
+    def test_font_dir_path(self):
+        """Test FONT_DIR_PATH points to the fonts directory under ASSETS_DIR_PATH."""
+        assert FONT_DIR_PATH == os.path.join(ASSETS_DIR_PATH, "fonts")
+
+    def test_font_icon_dir_path(self):
+        """Test FONT_ICON_DIR_PATH points to the fonticons directory under ASSETS_DIR_PATH."""
+        assert FONT_ICON_DIR_PATH == os.path.join(ASSETS_DIR_PATH, "fonticons")
+
+    def test_icon_dir_path(self):
+        """Test ICON_DIR_PATH points to the icons directory under ASSETS_DIR_PATH."""
+        assert ICON_DIR_PATH == os.path.join(ASSETS_DIR_PATH, "icons")
+

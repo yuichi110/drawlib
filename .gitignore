@@ -4,12 +4,9 @@
 .pypirc
 
 # assets
-src/drawlib/assets/**/fonticons/*
-!src/drawlib/assets/**/fonticons/__init__.py
-src/drawlib/assets/**/fonts/*
-!src/drawlib/assets/**/fonts/__init__.py
-src/drawlib/_assets/icons/*
-!src/drawlib/_assets/icons/__init__.py
+src/drawlib/_assets/*
+!src/drawlib/_assets/__init__.py
+
 
 # output of generators
 output_codes/*

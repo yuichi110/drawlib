@@ -14,7 +14,7 @@ from __future__ import annotations
 import os
 from urllib.parse import urljoin
 
-import drawlib._assets.fonticons
+import drawlib._assets
 from drawlib import ASSET_VERSION
 from drawlib._core.l2_types import (
     TypeAngle,
@@ -69,7 +69,7 @@ class FontIconProvider:
             raise ValueError(f"Font style '{font}' not found for icon provider '{self.name}'.")
 
         paths = [p for p in resource.path.split("/") if p]
-        dir_path = os.path.dirname(drawlib._assets.fonticons.__file__)
+        dir_path = os.path.join(os.path.dirname(drawlib._assets.__file__), self.asset_subdir)
         abs_path = os.path.join(dir_path, *paths)
 
         url = urljoin(

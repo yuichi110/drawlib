@@ -11,8 +11,9 @@
 
 import os
 
-import drawlib._assets.fonticons
-import drawlib._assets.fonts
+import drawlib._assets
 
-FONT_DIR_PATH = os.path.dirname(drawlib._assets.fonts.__file__)
-FONT_ICON_DIR_PATH = os.path.dirname(drawlib._assets.fonticons.__file__)
+ASSETS_DIR_PATH = os.path.dirname(drawlib._assets.__file__)
+FONT_DIR_PATH = os.path.join(ASSETS_DIR_PATH, "fonts")
+FONT_ICON_DIR_PATH = os.path.join(ASSETS_DIR_PATH, "fonticons")
+ICON_DIR_PATH = os.path.join(ASSETS_DIR_PATH, "icons")
