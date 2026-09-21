@@ -220,9 +220,9 @@ class Edge:
 
 ---
 
-### 3.6. `GcpIcon` and `PhosphorIcon` (EnumStr)
+### 3.6. `GcpIcon`, `PhosphorIcon`, and `CustomIcon`
 
-Type-safe string enumerations inheriting from `str, Enum` for IDE auto-completion and static analysis:
+- **`GcpIcon`** and **`PhosphorIcon`**: Type-safe string enumerations inheriting from `str, Enum` for IDE auto-completion and static analysis:
 
 ```python
 class GcpIcon(str, Enum):
@@ -242,6 +242,17 @@ class PhosphorIcon(str, Enum):
     GLOBE = "globe"
     # ... derived from drawlib._icons.font_icons.phosphor
 ```
+
+- **`CustomIcon`**: Allows explicitly wrapping custom images, file paths, or Drawlib `Dimage` instances:
+
+```python
+class CustomIcon:
+    def __init__(self, image: str | Path | Dimage | Image.Image) -> None:
+        """Initialize CustomIcon with a file path, Dimage, or PIL Image."""
+        ...
+```
+
+*Note: `Node(icon=...)` accepts `GcpIcon`, `PhosphorIcon`, `CustomIcon`, `Dimage`, image file path strings, or custom drawing callables.*
 
 ---
 
