@@ -59,14 +59,17 @@ text(xy=(75, 20), text="Rectangle", style=Style(text_color=Colors.White, text_si
 - [GridLayout Component](./smartarts/gridlayout.md)
 - [Pyramid Component](./smartarts/pyramid.md)
 
-### 4. Preset Styles
+### 4. Architecture Diagrams
+- [Architecture Diagrams Guide](./diagrams/architecture.md)
+
+### 5. Preset Styles
 - [Official Default Preset Styles](./preset_styles/official_default.md)
 - [Official Essentials Preset Styles](./preset_styles/official_essentials.md)
 - [Official Monochrome Preset Styles](./preset_styles/official_monochrome.md)
 - [Advanced Preset Styles Topics](./preset_styles/advanced_topics.md)
 - [Creating Custom Preset Styles](./preset_styles/create.md)
 
-### 5. Advanced Topics
+### 6. Advanced Topics
 - [Colors System](./advanced_topics/color.md)
 - [Fonts System](./advanced_topics/font.md)
 - [Dimage Image Processing](./advanced_topics/dimage.md)

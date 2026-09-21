@@ -1,0 +1,498 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Diagrams</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">drawlib</a>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="architecture.html">Architecture Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with PresetStyles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Architecture Diagrams</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Architecture Diagrams</h1>
+<p><code>drawlib.diagrams.architecture</code> provides a declarative, pure-Python architecture diagramming framework.
+Unlike external tools that rely on Graphviz or static automatic layout engines, Drawlib gives you precise coordinate control, seamless integration with Drawlib's icon libraries (GCP and Phosphor), custom image support, and full access to Drawlib's <code>Style</code> system.</p>
+<hr />
+<h2>1. Core Concepts</h2>
+<p>Architecture diagrams consist of 5 primary components:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Class</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Container</strong></td>
+<td><code>Diagram</code></td>
+<td>Top-level container managing nodes, groups, edges, and rendering.</td>
+</tr>
+<tr>
+<td><strong>Vertex</strong></td>
+<td><code>Node</code></td>
+<td>An entity or service (server, database, user). <code>(x, y)</code> sets the <strong>icon center</strong>.</td>
+</tr>
+<tr>
+<td><strong>Boundary</strong></td>
+<td><code>NodeGroup</code></td>
+<td>A cluster or boundary box (VPC, Subnet, Region) that automatically bounds its children.</td>
+</tr>
+<tr>
+<td><strong>Connection</strong></td>
+<td><code>Edge</code></td>
+<td>A connection line between components with routing, arrowheads, and labels.</td>
+</tr>
+<tr>
+<td><strong>Waypoint</strong></td>
+<td><code>Junction</code></td>
+<td>A lightweight connectable point for multi-way branching and bus lines.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Quick Start</h2>
+<p>Below is a simple client-server architecture diagram connecting an end user to an API server and a database:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.architecture import Diagram, Node, PhosphorIcon
+
+canvas.initialize()
+
+d = Diagram(title=&quot;Web Application Architecture&quot;)
+
+# Add nodes (coordinates specify the icon center)
+client = d.add(Node(&quot;Client Browser&quot;, icon=PhosphorIcon.BROWSER, icon_size=8.0), (20.0, 50.0))
+server = d.add(Node(&quot;API Gateway&quot;, icon=PhosphorIcon.CPU, icon_size=8.0), (50.0, 50.0))
+db = d.add(Node(&quot;Database&quot;, icon=PhosphorIcon.DATABASE, icon_size=8.0), (80.0, 50.0))
+
+# Connect nodes
+d.connect(client, server, label=&quot;HTTPS&quot;)
+d.connect(server, db, label=&quot;SQL&quot;)
+
+d.draw(xy=(5.0, 5.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="architecture_images/1.png" alt="architecture_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Basic Client-Server Architecture</figcaption>
+</figure>
+<hr />
+<h2>3. Node Coordinates and Label Positioning</h2>
+<h3>3.1 Icon-Centric Coordinates</h3>
+<p>In Drawlib architecture diagrams, <strong>the <code>(x, y)</code> coordinate of a <code>Node</code> strictly specifies the center of its icon</strong>.
+The text label is positioned relative to the icon and does not shift the icon's position. This guarantees that:</p>
+<ul>
+<li>Aligned nodes maintain perfectly straight horizontal and vertical connection lines.</li>
+<li>Changing or translating label text never breaks existing wire routing.</li>
+</ul>
+<h3>3.2 Label Placement</h3>
+<p>You can place labels on any side of the icon using <code>text_position</code>:</p>
+<ul>
+<li><code>&quot;bottom&quot;</code> (default): Centered below the icon.</li>
+<li><code>&quot;top&quot;</code>: Centered above the icon.</li>
+<li><code>&quot;left&quot;</code>: Aligned to the left of the icon.</li>
+<li><code>&quot;right&quot;</code>: Aligned to the right of the icon.</li>
+</ul>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.architecture import Diagram, Node, PhosphorIcon
+
+canvas.initialize()
+
+d = Diagram()
+
+d.add(Node(&quot;Bottom Label&quot;, icon=PhosphorIcon.CLOUD, icon_size=8.0, text_position=&quot;bottom&quot;), (20.0, 60.0))
+d.add(Node(&quot;Top Label&quot;, icon=PhosphorIcon.CLOUD, icon_size=8.0, text_position=&quot;top&quot;), (50.0, 60.0))
+d.add(Node(&quot;Left Label&quot;, icon=PhosphorIcon.CLOUD, icon_size=8.0, text_position=&quot;left&quot;), (20.0, 25.0))
+d.add(Node(&quot;Right Label&quot;, icon=PhosphorIcon.CLOUD, icon_size=8.0, text_position=&quot;right&quot;), (70.0, 25.0))
+
+d.draw(xy=(5.0, 5.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="architecture_images/2.png" alt="architecture_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Node Label Positioning Options</figcaption>
+</figure>
+<hr />
+<h2>4. Groups and Boundaries (<code>NodeGroup</code>)</h2>
+<p><code>NodeGroup</code> represents logical or network boundaries, such as a VPC network, Kubernetes cluster, or availability zone.</p>
+<h3>4.1 Automatic Bounding Box Calculation</h3>
+<p><code>NodeGroup</code> automatically computes its bounding box to enclose all child nodes and nested groups, applying configurable <code>padding</code>:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.architecture import Diagram, GcpIcon, Node, NodeGroup
+
+canvas.initialize()
+
+d = Diagram(title=&quot;Network Isolation&quot;)
+
+# Outer boundary
+vpc = d.add(NodeGroup(title=&quot;VPC Network&quot;, padding=6.0), (10.0, 10.0))
+
+# Nested subnet
+subnet = vpc.add(NodeGroup(title=&quot;Private Subnet&quot;, padding=5.0), (10.0, 10.0))
+vm1 = subnet.add(Node(&quot;App Server 1&quot;, icon=GcpIcon.COMPUTE_ENGINE, icon_size=8.0), (15.0, 50.0))
+vm2 = subnet.add(Node(&quot;App Server 2&quot;, icon=GcpIcon.COMPUTE_ENGINE, icon_size=8.0), (15.0, 20.0))
+
+d.draw(xy=(5.0, 5.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="architecture_images/3.png" alt="architecture_3" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Nested NodeGroups with Auto-Padding</figcaption>
+</figure>
+<hr />
+<h2>5. Connections and Routing (<code>Edge</code> &amp; <code>Junction</code>)</h2>
+<p>Connections between nodes support both <strong>orthogonal</strong> (right-angle) and <strong>direct</strong> routing, as well as explicit intermediate waypoints.</p>
+<h3>5.1 One-to-Many Branching with <code>node.fork()</code></h3>
+<p>The <code>node.fork()</code> method provides a clean shortcut for 1-to-N branching via an internal <code>Junction</code>:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.architecture import Diagram, GcpIcon, Node, PhosphorIcon
+
+canvas.initialize()
+
+d = Diagram(title=&quot;Load Balancing Fan-Out&quot;)
+
+lb = d.add(Node(&quot;Load Balancer&quot;, icon=PhosphorIcon.ARROWS_SPLIT, icon_size=8.0), (20.0, 50.0))
+api1 = d.add(Node(&quot;Service Alpha&quot;, icon=GcpIcon.CLOUD_RUN, icon_size=8.0), (70.0, 75.0))
+api2 = d.add(Node(&quot;Service Beta&quot;, icon=GcpIcon.CLOUD_RUN, icon_size=8.0), (70.0, 50.0))
+api3 = d.add(Node(&quot;Service Gamma&quot;, icon=GcpIcon.CLOUD_RUN, icon_size=8.0), (70.0, 25.0))
+
+# Branch at X = 45.0
+lb.fork([api1, api2, api3], at_x=45.0)
+
+d.draw(xy=(5.0, 5.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="architecture_images/4.png" alt="architecture_4" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">One-to-Many Branching with fork()</figcaption>
+</figure>
+<h3>5.2 Dynamic Waypoint Branching with <code>edge.add_point()</code></h3>
+<p>You can turn any point along an edge into a branching junction using <code>edge.add_point(xy)</code>:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.architecture import Diagram, Node, PhosphorIcon
+
+canvas.initialize()
+
+d = Diagram()
+
+src = d.add(Node(&quot;Publisher&quot;, icon=PhosphorIcon.BROADCAST, icon_size=8.0), (15.0, 50.0))
+sub1 = d.add(Node(&quot;Consumer 1&quot;, icon=PhosphorIcon.DESKTOP, icon_size=8.0), (80.0, 70.0))
+sub2 = d.add(Node(&quot;Consumer 2&quot;, icon=PhosphorIcon.DESKTOP, icon_size=8.0), (80.0, 30.0))
+
+# Main stream connection
+main_edge = d.connect(src, sub1, label=&quot;Event Stream&quot;)
+
+# Branch off the stream at (50.0, 50.0)
+junction = main_edge.add_point((50.0, 50.0))
+junction.connect(sub2)
+
+d.draw(xy=(5.0, 5.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="architecture_images/5.png" alt="architecture_5" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Branching via edge.add_point()</figcaption>
+</figure>
+<hr />
+<h2>6. Icons and Custom Images</h2>
+<h3>6.1 Built-in Icon Sets</h3>
+<ul>
+<li><strong><code>GcpIcon</code></strong>: 259 official Google Cloud Platform service icons (<code>GcpIcon.COMPUTE_ENGINE</code>, <code>GcpIcon.CLOUD_SQL</code>, <code>GcpIcon.BIGQUERY</code>, etc.).</li>
+<li><strong><code>PhosphorIcon</code></strong>: 1531 modern interface and system icons (<code>PhosphorIcon.USER</code>, <code>PhosphorIcon.DATABASE</code>, <code>PhosphorIcon.BROWSER</code>, etc.).</li>
+</ul>
+<h3>6.2 Custom Icons (<code>CustomIcon</code>)</h3>
+<p>You can wrap any external image (file path, <code>Dimage</code>, or PIL <code>Image</code>) in a <code>CustomIcon</code>:</p>
+<pre><code class="language-python">from PIL import Image
+from drawlib.diagrams.architecture import CustomIcon, Node
+
+# From file path
+custom_1 = CustomIcon(&quot;assets/my_custom_service.png&quot;)
+
+# From PIL Image
+pil_image = Image.open(&quot;assets/logo.png&quot;)
+custom_2 = CustomIcon(pil_image)
+
+node = Node(&quot;Custom Service&quot;, icon=custom_1, icon_size=10.0)
+</code></pre>
+<hr />
+<h2>7. Complete Production Architecture Example</h2>
+<p>Here is a full multi-tier GCP VPC cloud architecture example combining nested subnets, official GCP icons, orthogonal bus lines, and custom styled labels:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.architecture import Diagram, GcpIcon, Node, NodeGroup, PhosphorIcon
+
+canvas.initialize()
+
+d = Diagram(title=&quot;GCP Production Cloud Architecture&quot;)
+
+# VPC Network boundary
+vpc = d.add(NodeGroup(title=&quot;VPC Network (10.0.0.0/16)&quot;, padding=7.0), (8.0, 10.0))
+
+# Public Subnet
+public_subnet = vpc.add(NodeGroup(title=&quot;Public Subnet (10.0.1.0/24)&quot;, padding=5.0), (5.0, 5.0))
+lb = public_subnet.add(Node(&quot;Cloud Load Balancer&quot;, icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=8.0), (15.0, 40.0))
+
+# Private Subnet
+private_subnet = vpc.add(NodeGroup(title=&quot;Private Subnet (10.0.2.0/24)&quot;, padding=5.0), (35.0, 5.0))
+gke1 = private_subnet.add(Node(&quot;App Pod 1&quot;, icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), (15.0, 60.0))
+gke2 = private_subnet.add(Node(&quot;App Pod 2&quot;, icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), (15.0, 20.0))
+
+# External elements
+user = d.add(Node(&quot;End User&quot;, icon=PhosphorIcon.USER, icon_size=8.0), (5.0, 50.0))
+cloud_sql = d.add(Node(&quot;Cloud SQL\n(PostgreSQL)&quot;, icon=GcpIcon.CLOUD_SQL, icon_size=8.0), (82.0, 50.0))
+gcs = d.add(Node(&quot;Cloud Storage\n(Assets)&quot;, icon=GcpIcon.CLOUD_STORAGE, icon_size=8.0), (82.0, 20.0))
+
+# Connection flows
+d.connect(user, lb, label=&quot;HTTPS&quot;)
+d.connect(lb, gke1, label=&quot;Traffic&quot;)
+d.connect(lb, gke2, label=&quot;Traffic&quot;)
+d.connect(gke1, cloud_sql, label=&quot;Read/Write&quot;)
+d.connect(gke2, cloud_sql, label=&quot;Read/Write&quot;)
+d.connect(gke1, gcs, label=&quot;Uploads&quot;)
+
+d.draw(xy=(5.0, 5.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="architecture_images/6.png" alt="architecture_6" style="width: 700px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Production Multi-Tier Cloud Architecture</figcaption>
+</figure>
+<hr />
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>
