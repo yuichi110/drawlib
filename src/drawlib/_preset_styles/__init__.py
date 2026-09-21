@@ -7,10 +7,10 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Private theme package for drawlib."""
+"""Private preset_styles package for drawlib."""
 
-from drawlib._theme._models import ThemePreset
-from drawlib._theme._officials import (
+from drawlib._preset_styles._models import PresetStyles
+from drawlib._preset_styles._officials import (
     get_default_styles,
     get_essentials_styles,
     get_monochrome_styles,
@@ -19,7 +19,7 @@ from drawlib._theme._officials import (
 )
 
 __all__ = [
-    "ThemePreset",
+    "PresetStyles",
     "get_default_styles",
     "get_essentials_styles",
     "get_monochrome_styles",

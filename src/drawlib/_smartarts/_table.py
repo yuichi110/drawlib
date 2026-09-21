@@ -30,7 +30,7 @@ from drawlib._core.l3_styles import (
     Style,
 )
 from drawlib._core.l4_canvas import line, rectangle
-from drawlib._theme import get_style
+from drawlib._preset_styles import get_style
 
 
 class _CellStyleOrder(BaseModel):

@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creating Custom Presets with ThemePreset</title>
+    <title>Creating Custom Presets with PresetStyles</title>
     
     <link rel="stylesheet" href="../style.css">
     
@@ -182,7 +182,7 @@
                     </li>
                     
                     <li class="nav-item active">
-                        <a href="create.html">Creating Custom Presets with ThemePreset</a>
+                        <a href="create.html">Creating Custom Presets with PresetStyles</a>
                     </li>
                     
                     <li class="nav-item ">
@@ -237,16 +237,16 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Creating Custom Presets with ThemePreset</span>
+                    <span class="crumb active">Creating Custom Presets with PresetStyles</span>
                 </div>
             </header>
             <main class="main-content">
                 <p>========================================</p>
-<h1>Creating Custom Presets with ThemePreset</h1>
-<p>Drawlib provides official style presets (<code>default</code>, <code>essentials</code>, <code>monochrome</code>), but you can also define custom style presets for your project using <code>ThemePreset</code>.</p>
-<p>A <code>ThemePreset</code> is a dataclass containing <code>Style</code> objects for key style roles.</p>
-<h1>ThemePreset Definition</h1>
-<p><code>ThemePreset</code> accepts the following attributes:</p>
+<h1>Creating Custom Presets with PresetStyles</h1>
+<p>Drawlib provides official style presets (<code>default</code>, <code>essentials</code>, <code>monochrome</code>), but you can also define custom style presets for your project using <code>PresetStyles</code>.</p>
+<p>A <code>PresetStyles</code> is a dataclass containing <code>Style</code> objects for key style roles.</p>
+<h1>PresetStyles Definition</h1>
+<p><code>PresetStyles</code> accepts the following attributes:</p>
 <ul>
 <li><code>primary</code>: Primary style object.</li>
 <li><code>light</code>: Light style object.</li>
@@ -261,11 +261,11 @@
 <p>Here is an example of creating a custom preset:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors140
-from drawlib.preset_styles import ThemePreset
+from drawlib.preset_styles import PresetStyles
 from drawlib.shapes import circle, rectangle
 from drawlib.types import Style
 
-custom_preset = ThemePreset(
+custom_preset = PresetStyles(
     primary=Style(fill_color=Colors140.Turquoise, line_color=Colors140.DarkBlue, line_width=2),
     light=Style(fill_color=Colors140.LightCyan, line_color=Colors140.DarkBlue, line_width=1),
     bold=Style(fill_color=Colors140.Turquoise, line_color=Colors140.DarkBlue, line_width=4),
@@ -287,11 +287,11 @@ save()
 <p>Executing this code produces the following image:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors140
-from drawlib.preset_styles import ThemePreset
+from drawlib.preset_styles import PresetStyles
 from drawlib.shapes import circle, rectangle
 from drawlib.types import Style
 
-custom_preset = ThemePreset(
+custom_preset = PresetStyles(
     primary=Style(fill_color=Colors140.Turquoise, line_color=Colors140.DarkBlue, line_width=2),
     light=Style(fill_color=Colors140.LightCyan, line_color=Colors140.DarkBlue, line_width=1),
     bold=Style(fill_color=Colors140.Turquoise, line_color=Colors140.DarkBlue, line_width=4),
@@ -310,7 +310,7 @@ save()
 <div class="drawlib-image" style="text-align: center;">
   <img src="create_images/2.png" alt="create_2" style="width: 600px; max-width: 100%;" />
 </div>
-<pre><code>Custom ThemePreset execution
+<pre><code>Custom PresetStyles execution
 </code></pre>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

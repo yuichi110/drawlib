@@ -16,7 +16,7 @@ from drawlib._core.l2_models import FontFile
 from drawlib._core.l3_fonts import FontSansSerif
 from drawlib._core.l3_styles import Colors, Style
 from drawlib._core.l4_canvas_utils._text import TextUtil
-from drawlib._theme import get_style
+from drawlib._preset_styles import get_style
 
 
 class TestTextUtil:

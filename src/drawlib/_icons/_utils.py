@@ -11,7 +11,7 @@
 
 from drawlib._core.l2_models import StaticContainer
 from drawlib._core.l3_styles import SYSTEM_DEFAULT_ICON_STYLE, Style
-from drawlib._theme import get_style
+from drawlib._preset_styles import get_style
 
 
 class IconUtil(StaticContainer):

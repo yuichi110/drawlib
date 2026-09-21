@@ -43,7 +43,7 @@ from drawlib._core.l3_fonts import (
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import image
 from drawlib._core.l4_canvas_utils import ColorUtil
-from drawlib._theme import get_style
+from drawlib._preset_styles import get_style
 
 PYGMENTS_LINENUM_TEXT_COLOR: Final[TypeColor] = (136, 136, 102)
 PYGMENTS_LINENUM_BACKGROUND_COLOR: Final[TypeColor] = (238, 238, 221)

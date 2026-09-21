@@ -125,16 +125,16 @@ save()
 
 
 
-# Accessing Official Theme Presets
+# Accessing Official Style Presets
 
-Drawlib includes three official theme presets: `default`, `essentials`, and `monochrome`.
-You can access full `ThemePreset` objects using `get_styles()` or the dedicated functions:
+Drawlib includes three official style presets: `default`, `essentials`, and `monochrome`.
+You can access full `PresetStyles` objects using `get_styles()` or the dedicated functions:
 
 - `get_styles("default")` / `get_default_styles()`
 - `get_styles("essentials")` / `get_essentials_styles()`
 - `get_styles("monochrome")` / `get_monochrome_styles()`
 
-Each `ThemePreset` instance contains `primary`, `light`, `bold`, `flat`, `solid`, and `dashed` `Style` attributes.
+Each `PresetStyles` instance contains `primary`, `light`, `bold`, `flat`, `solid`, and `dashed` `Style` attributes.
 
 Example:
 

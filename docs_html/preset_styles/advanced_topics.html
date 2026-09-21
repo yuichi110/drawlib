@@ -182,7 +182,7 @@
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="create.html">Creating Custom Presets with ThemePreset</a>
+                        <a href="create.html">Creating Custom Presets with PresetStyles</a>
                     </li>
                     
                     <li class="nav-item ">
@@ -332,15 +332,15 @@ save()
 <div class="drawlib-image" style="text-align: center;">
   <img src="advanced_topics_images/4.png" alt="advanced_topics_4" style="width: 600px; max-width: 100%;" />
 </div>
-<h1>Accessing Official Theme Presets</h1>
-<p>Drawlib includes three official theme presets: <code>default</code>, <code>essentials</code>, and <code>monochrome</code>.
-You can access full <code>ThemePreset</code> objects using <code>get_styles()</code> or the dedicated functions:</p>
+<h1>Accessing Official Style Presets</h1>
+<p>Drawlib includes three official style presets: <code>default</code>, <code>essentials</code>, and <code>monochrome</code>.
+You can access full <code>PresetStyles</code> objects using <code>get_styles()</code> or the dedicated functions:</p>
 <ul>
 <li><code>get_styles(&quot;default&quot;)</code> / <code>get_default_styles()</code></li>
 <li><code>get_styles(&quot;essentials&quot;)</code> / <code>get_essentials_styles()</code></li>
 <li><code>get_styles(&quot;monochrome&quot;)</code> / <code>get_monochrome_styles()</code></li>
 </ul>
-<p>Each <code>ThemePreset</code> instance contains <code>primary</code>, <code>light</code>, <code>bold</code>, <code>flat</code>, <code>solid</code>, and <code>dashed</code> <code>Style</code> attributes.</p>
+<p>Each <code>PresetStyles</code> instance contains <code>primary</code>, <code>light</code>, <code>bold</code>, <code>flat</code>, <code>solid</code>, and <code>dashed</code> <code>Style</code> attributes.</p>
 <p>Example:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.preset_styles import get_styles

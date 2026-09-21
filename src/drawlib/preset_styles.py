@@ -9,8 +9,8 @@
 
 """Public preset_styles module for drawlib."""
 
-from drawlib._theme import (
-    ThemePreset,
+from drawlib._preset_styles import (
+    PresetStyles,
     get_default_styles,
     get_essentials_styles,
     get_monochrome_styles,
@@ -19,7 +19,7 @@ from drawlib._theme import (
 )
 
 __all__ = [
-    "ThemePreset",
+    "PresetStyles",
     "get_default_styles",
     "get_essentials_styles",
     "get_monochrome_styles",

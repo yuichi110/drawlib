@@ -1,14 +1,14 @@
 ========================================
 
-# Creating Custom Presets with ThemePreset
+# Creating Custom Presets with PresetStyles
 
-Drawlib provides official style presets (`default`, `essentials`, `monochrome`), but you can also define custom style presets for your project using `ThemePreset`.
+Drawlib provides official style presets (`default`, `essentials`, `monochrome`), but you can also define custom style presets for your project using `PresetStyles`.
 
-A `ThemePreset` is a dataclass containing `Style` objects for key style roles.
+A `PresetStyles` is a dataclass containing `Style` objects for key style roles.
 
-# ThemePreset Definition
+# PresetStyles Definition
 
-`ThemePreset` accepts the following attributes:
+`PresetStyles` accepts the following attributes:
 
 - `primary`: Primary style object.
 - `light`: Light style object.
@@ -26,11 +26,11 @@ Here is an example of creating a custom preset:
 ```drawlib
 from drawlib.canvas import config, save
 from drawlib.colors import Colors140
-from drawlib.preset_styles import ThemePreset
+from drawlib.preset_styles import PresetStyles
 from drawlib.shapes import circle, rectangle
 from drawlib.types import Style
 
-custom_preset = ThemePreset(
+custom_preset = PresetStyles(
     primary=Style(fill_color=Colors140.Turquoise, line_color=Colors140.DarkBlue, line_width=2),
     light=Style(fill_color=Colors140.LightCyan, line_color=Colors140.DarkBlue, line_width=1),
     bold=Style(fill_color=Colors140.Turquoise, line_color=Colors140.DarkBlue, line_width=4),
@@ -52,11 +52,11 @@ Executing this code produces the following image:
 ```drawlib 600px center
 from drawlib.canvas import config, save
 from drawlib.colors import Colors140
-from drawlib.preset_styles import ThemePreset
+from drawlib.preset_styles import PresetStyles
 from drawlib.shapes import circle, rectangle
 from drawlib.types import Style
 
-custom_preset = ThemePreset(
+custom_preset = PresetStyles(
     primary=Style(fill_color=Colors140.Turquoise, line_color=Colors140.DarkBlue, line_width=2),
     light=Style(fill_color=Colors140.LightCyan, line_color=Colors140.DarkBlue, line_width=1),
     bold=Style(fill_color=Colors140.Turquoise, line_color=Colors140.DarkBlue, line_width=4),
@@ -73,7 +73,7 @@ rectangle(xy=(75, 20), width=20, height=20, style=custom_preset.bold)
 save()
 ```
 
-    Custom ThemePreset execution
+    Custom PresetStyles execution
 
 ---
 

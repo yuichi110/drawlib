@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Theme models module."""
+"""Preset styles models module."""
 
 from __future__ import annotations
 
@@ -19,8 +19,8 @@ from drawlib._core.l3_styles import Style
 
 
 @dataclass
-class ThemePreset:
-    """Represents a collection of Style presets and settings for a theme."""
+class PresetStyles:
+    """Represents a collection of Style presets and settings."""
 
     primary: Style
     light: Style

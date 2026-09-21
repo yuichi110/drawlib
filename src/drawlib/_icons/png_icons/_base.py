@@ -21,8 +21,8 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import image
+from drawlib._preset_styles import get_style
 from drawlib._release_assets import RELEASE_ASSET_PACKAGES, ReleaseAssetPackage, ensure_asset_available
-from drawlib._theme import get_style
 
 
 class PngIconProvider:

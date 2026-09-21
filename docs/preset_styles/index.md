@@ -10,7 +10,7 @@ The **Preset Styles** section covers Drawlib's built-in style presets and custom
 - [Official Essentials Preset Styles](./official_essentials.md): Essentials style catalog and color variations.
 - [Official Monochrome Preset Styles](./official_monochrome.md): Monochrome style catalog and color variations.
 - [Advanced Preset Styles Topics](./advanced_topics.md): Advanced style retrieval and preset merging.
-- [Creating Custom Presets](./create.md): Creating custom style presets using `ThemePreset`.
+- [Creating Custom Presets](./create.md): Creating custom style presets using `PresetStyles`.
 
 ---
 

@@ -9,8 +9,9 @@
 
 import pytest
 
-from drawlib._theme import (
-    ThemePreset,
+from drawlib import preset_styles
+from drawlib._preset_styles import (
+    PresetStyles,
     get_default_styles,
     get_essentials_styles,
     get_monochrome_styles,
@@ -30,17 +31,18 @@ class TestThemeUnit:
     """Unit tests for theme presets and get_styles."""
 
     def test_theme_presets(self) -> None:
-        """Verifies get_styles returns valid ThemePreset objects."""
+        """Verifies get_styles returns valid PresetStyles objects."""
         default = get_styles("default")
         essentials = get_styles("essentials")
         monochrome = get_styles("monochrome")
 
-        assert isinstance(default, ThemePreset)
-        assert isinstance(essentials, ThemePreset)
-        assert isinstance(monochrome, ThemePreset)
+        assert isinstance(default, PresetStyles)
+        assert isinstance(essentials, PresetStyles)
+        assert isinstance(monochrome, PresetStyles)
         assert get_default_styles() == default
         assert get_essentials_styles() == essentials
         assert get_monochrome_styles() == monochrome
+        assert not hasattr(preset_styles, "ThemePreset")
 
     def test_get_style_resolution(self) -> None:
         """Verifies get_style resolves None, Style instance, and string preset names."""

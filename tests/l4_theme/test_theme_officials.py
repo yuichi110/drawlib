@@ -7,8 +7,8 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-from drawlib._theme import (
-    ThemePreset,
+from drawlib._preset_styles import (
+    PresetStyles,
     get_default_styles,
     get_essentials_styles,
     get_monochrome_styles,
@@ -25,15 +25,15 @@ OUTPUT_DIR_MONOCHROME = "../../output_tests/l4_theme/monochrome/"
 
 
 def test_official_theme_generators() -> None:
-    """Verifies that all three official theme generation functions return valid ThemePreset instances."""
+    """Verifies that all three official theme generation functions return valid PresetStyles instances."""
     default_theme = get_default_styles()
-    assert isinstance(default_theme, ThemePreset)
+    assert isinstance(default_theme, PresetStyles)
 
     essentials_theme = get_essentials_styles()
-    assert isinstance(essentials_theme, ThemePreset)
+    assert isinstance(essentials_theme, PresetStyles)
 
     monochrome_theme = get_monochrome_styles()
-    assert isinstance(monochrome_theme, ThemePreset)
+    assert isinstance(monochrome_theme, PresetStyles)
 
 
 def test_essentials_fill() -> None:

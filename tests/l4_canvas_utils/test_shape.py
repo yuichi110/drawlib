@@ -13,7 +13,7 @@ from matplotlib.text import Text
 
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas_utils._shape import ShapeUtil
-from drawlib._theme import get_style
+from drawlib._preset_styles import get_style
 
 
 class TestShapeUtil:

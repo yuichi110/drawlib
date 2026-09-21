@@ -16,7 +16,7 @@ from drawlib._core.l2_types import TypeArrowHead
 from drawlib._core.l3_styles import SYSTEM_DEFAULT_LINE_STYLE, Style
 from drawlib._core.l4_canvas_utils._colors import ColorUtil
 from drawlib._core.l4_canvas_utils._utils import get_dict_value_none_keys_removed
-from drawlib._theme import get_style
+from drawlib._preset_styles import get_style
 
 
 class LineUtil(StaticContainer):

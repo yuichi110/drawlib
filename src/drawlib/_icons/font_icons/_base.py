@@ -26,7 +26,7 @@ from drawlib._core.l3_external import download_if_not_exist
 from drawlib._core.l3_fonts import FontMetadata, FontResource
 from drawlib._core.l3_styles import Style
 from drawlib._icons.font_icons._font_icon import font_icon
-from drawlib._theme import get_style
+from drawlib._preset_styles import get_style
 
 
 class FontIconProvider:

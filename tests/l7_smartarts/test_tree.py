@@ -9,7 +9,7 @@
 
 """Unit and integration tests for TreeNode smart art hierarchical rendering."""
 
-from drawlib._theme import get_style
+from drawlib._preset_styles import get_style
 from drawlib.canvas import clear, save
 from drawlib.icons import phosphor
 from drawlib.smartarts import dsart

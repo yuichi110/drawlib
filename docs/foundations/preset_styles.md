@@ -18,7 +18,7 @@ Here are the key concepts of drawlib's preset styles system:
 - Official presets are available (`"default"`, `"essentials"`, `"monochrome"`).
 - You can retrieve style objects using `get_style(name)`.
 - Preset style names can be passed directly as strings to `style` parameters.
-- Custom presets can be defined using `ThemePreset`.
+- Custom presets can be defined using `PresetStyles`.
 
 # Official Style Presets
 

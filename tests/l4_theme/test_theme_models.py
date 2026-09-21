@@ -11,14 +11,14 @@ import dataclasses
 
 from drawlib._core.l3_fonts import FontSourceCode
 from drawlib._core.l3_styles import Style
-from drawlib._theme._models import ThemePreset
+from drawlib._preset_styles._models import PresetStyles
 
 
-class TestThemePreset:
-    """Unit tests for the ThemePreset dataclass."""
+class TestPresetStyles:
+    """Unit tests for the PresetStyles dataclass."""
 
-    def test_theme_preset_instantiation(self) -> None:
-        """Verifies successful instantiation of ThemePreset with valid arguments."""
+    def test_preset_styles_instantiation(self) -> None:
+        """Verifies successful instantiation of PresetStyles with valid arguments."""
         primary = Style(fill_color=(0, 0, 255, 1.0))
         light = Style(fill_color=(100, 100, 255, 1.0))
         bold = Style(fill_color=(0, 0, 150, 1.0))
@@ -26,7 +26,7 @@ class TestThemePreset:
         solid = Style(line_style="solid")
         dashed = Style(line_style="dashed")
 
-        preset = ThemePreset(
+        preset = PresetStyles(
             primary=primary,
             light=light,
             bold=bold,

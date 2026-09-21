@@ -22,19 +22,19 @@ from drawlib._core.l3_styles import (
     ColorsThemeMonochrome,
     Style,
 )
-from drawlib._theme._models import ThemePreset
+from drawlib._preset_styles._models import PresetStyles
 
 
-def get_default_styles() -> ThemePreset:
+def get_default_styles() -> PresetStyles:
     """Generate default theme preset.
 
     Returns:
-        ThemePreset: Default theme preset.
+        PresetStyles: Default theme preset.
     """
     blue = ColorsThemeDefault.Blue
     black = ColorsThemeDefault.Black
 
-    return ThemePreset(
+    return PresetStyles(
         primary=Style(
             text_color=blue,
             fill_color=blue,
@@ -95,16 +95,16 @@ def get_default_styles() -> ThemePreset:
     )
 
 
-def get_essentials_styles() -> ThemePreset:
+def get_essentials_styles() -> PresetStyles:
     """Generate essentials theme preset.
 
     Returns:
-        ThemePreset: Essentials theme preset.
+        PresetStyles: Essentials theme preset.
     """
     charcoal = ColorsThemeEssentials.Charcoal
     lightblue = ColorsThemeEssentials.LightBlue
 
-    return ThemePreset(
+    return PresetStyles(
         primary=Style(
             text_color=lightblue,
             fill_color=lightblue,
@@ -165,16 +165,16 @@ def get_essentials_styles() -> ThemePreset:
     )
 
 
-def get_monochrome_styles() -> ThemePreset:
+def get_monochrome_styles() -> PresetStyles:
     """Generate monochrome theme preset.
 
     Returns:
-        ThemePreset: Monochrome theme preset.
+        PresetStyles: Monochrome theme preset.
     """
     black = ColorsThemeMonochrome.Black
     white = ColorsThemeMonochrome.White
 
-    return ThemePreset(
+    return PresetStyles(
         primary=Style(
             text_color=black,
             fill_color=white,
@@ -237,14 +237,14 @@ def get_monochrome_styles() -> ThemePreset:
 
 def get_styles(
     name: Literal["default", "essentials", "monochrome"] = "default",
-) -> ThemePreset:
+) -> PresetStyles:
     """Get theme preset by name.
 
     Args:
         name: Theme name ("default", "essentials", "monochrome").
 
     Returns:
-        ThemePreset: Theme preset object.
+        PresetStyles: Theme preset object.
     """
     if name == "default":
         return get_default_styles()
