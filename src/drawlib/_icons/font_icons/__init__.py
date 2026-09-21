@@ -10,9 +10,9 @@
 """Font icons internal package."""
 
 from drawlib._icons.font_icons import phosphor
-from drawlib._icons.font_icons._icon import icon
+from drawlib._icons.font_icons._font_icon import font_icon
 
 __all__ = [
-    "icon",
+    "font_icon",
     "phosphor",
 ]

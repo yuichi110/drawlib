@@ -12,8 +12,8 @@
 import sys
 
 from drawlib._icons import (
+    font_icon,
     gcp,
-    icon,
     phosphor,
 )
 
@@ -22,7 +22,7 @@ sys.modules["drawlib.icons.phosphor"] = phosphor
 sys.modules["drawlib.icons.gcp"] = gcp
 
 __all__ = [
+    "font_icon",
     "gcp",
-    "icon",
     "phosphor",
 ]

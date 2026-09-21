@@ -7,26 +7,27 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Unit and integration tests for custom icon drawing."""
+"""Unit and integration tests for custom font icon drawing."""
 
 import os
 
+from drawlib import icons
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
-from drawlib.icons import icon
+from drawlib.icons import font_icon
 from drawlib.types import Style
 
 FONT_AWESOME_FREE = os.path.normpath(os.path.join(os.path.dirname(__file__), "../assets/fontawesome-free/brands.ttf"))
-OUTPUT_DIR = "../../output_tests/l6_icons/icon/"
+OUTPUT_DIR = "../../output_tests/l6_icons/font_icon/"
 
 
-class TestCanvasIcon:
-    """Tests for the custom icon drawing method."""
+class TestCanvasFontIcon:
+    """Tests for the custom font icon drawing method."""
 
-    def test_icon(self) -> None:
-        """Verify custom icon drawing with font path, color, and center alignment."""
+    def test_font_icon(self) -> None:
+        """Verify custom font icon drawing with font path, color, and center alignment."""
         clear()
-        icon(
+        font_icon(
             xy=(50, 50),
             width=20,
             code="\uf1a0",
@@ -38,3 +39,5 @@ class TestCanvasIcon:
             ),
         )
         save(f"{OUTPUT_DIR}test_icon.png")
+
+        assert not hasattr(icons, "icon")

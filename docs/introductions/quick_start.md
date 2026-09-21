@@ -394,7 +394,7 @@ Drawlib offers convenient icon modules and functions for drawing icons:
 
 * `phosphor`: General vector font icons from Phosphor Icons (https://phosphoricons.com).
 * `gcp`: Official Google Cloud Platform diagram and architecture icons.
-* `icon()`: Low-level function for custom font icon files.
+* `font_icon()`: Low-level function for custom font icon files.
 
 Here's an example using phosphor:
 
@@ -455,11 +455,11 @@ save()
 
 
 
-    icon() and phosphor draw icons
+    phosphor and font_icon() draw icons
 
 As demonstrated, the function name determines the icon to be drawn, while the `Style` object can be adjusted to modify color, style, and other attributes.
 
-For detailed instructions on using the icon() function, please refer to the icon documentation. 
+For detailed instructions on using the font_icon() function, please refer to the icon documentation. 
 This topic is beyond the scope of this quick start guide.
 
 

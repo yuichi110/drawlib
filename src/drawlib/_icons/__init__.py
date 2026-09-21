@@ -7,10 +7,10 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Package for icon() function and icon modules."""
+"""Package for font_icon() function and icon modules."""
 
 from drawlib._icons.font_icons import (
-    icon,
+    font_icon,
     phosphor,
 )
 from drawlib._icons.png_icons import (
@@ -18,7 +18,7 @@ from drawlib._icons.png_icons import (
 )
 
 __all__ = [
+    "font_icon",
     "gcp",
-    "icon",
     "phosphor",
 ]

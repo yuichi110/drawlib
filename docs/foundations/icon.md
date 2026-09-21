@@ -5,7 +5,7 @@
 
 If you're looking to enhance your illustrations with icons, drawlib offers several methods to achieve this. 
 You can utilize the `image()` function by providing an icon image file of your choice. 
-Alternatively, you can use `icon()` along with dedicated `Icon Modules` for drawing icons directly.
+Alternatively, you can use `font_icon()` along with dedicated `Icon Modules` for drawing icons directly.
 
 
 # Icon Modules
@@ -401,12 +401,12 @@ save()
     Sample GCP cloud architecture diagram
 
 
-# icon()
+# font_icon()
 
 
 
-`icon()` is a versatile function for displaying font icons. 
-Internally, icon modules utilize icon().
+`font_icon()` is a versatile function for displaying font icons. 
+Internally, font icon modules utilize font_icon().
 
 The function arguments are:
 
@@ -424,7 +424,7 @@ Let's explore its usage with FontAwesome Free:
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.icons import icon
+from drawlib.icons import font_icon
 from drawlib.text import text
 
 width = 100
@@ -444,17 +444,17 @@ google_pay = "\ue079"
 
 x = width / 7
 y = height / 2
-icon(xy=(x, y), width=10, code=google, file=file_brand)
-icon(xy=(x * 2, y), width=10, code=gmail, file=file_regular)
-icon(xy=(x * 3, y), width=10, code=google_map, file=file_solid, angle=270)
+font_icon(xy=(x, y), width=10, code=google, file=file_brand)
+font_icon(xy=(x * 2, y), width=10, code=gmail, file=file_regular)
+font_icon(xy=(x * 3, y), width=10, code=google_map, file=file_solid, angle=270)
 text(xy=(x * 3, y - 10), text="angle 270")
-icon(
+font_icon(
     xy=(x * 4, y),
     width=10,
     code=google_drive,
     file=file_brand,
 )
-icon(
+font_icon(
     xy=(x * 5, y),
     width=10,
     code=google_play,
@@ -476,7 +476,7 @@ Executing this code generates the following image:
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.icons import icon
+from drawlib.icons import font_icon
 from drawlib.text import text
 
 width = 100
@@ -496,17 +496,17 @@ google_pay = "\ue079"
 
 x = width / 7
 y = height / 2
-icon(xy=(x, y), width=10, code=google, file=file_brand)
-icon(xy=(x * 2, y), width=10, code=gmail, file=file_regular)
-icon(xy=(x * 3, y), width=10, code=google_map, file=file_solid, angle=270)
+font_icon(xy=(x, y), width=10, code=google, file=file_brand)
+font_icon(xy=(x * 2, y), width=10, code=gmail, file=file_regular)
+font_icon(xy=(x * 3, y), width=10, code=google_map, file=file_solid, angle=270)
 text(xy=(x * 3, y - 10), text="angle 270")
-icon(
+font_icon(
     xy=(x * 4, y),
     width=10,
     code=google_drive,
     file=file_brand,
 )
-icon(
+font_icon(
     xy=(x * 5, y),
     width=10,
     code=google_play,

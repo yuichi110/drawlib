@@ -25,7 +25,7 @@ from drawlib._core.l2_types import (
 from drawlib._core.l3_external import download_if_not_exist
 from drawlib._core.l3_fonts import FontMetadata, FontResource
 from drawlib._core.l3_styles import Style
-from drawlib._icons.font_icons._icon import icon
+from drawlib._icons.font_icons._font_icon import font_icon
 from drawlib._theme import get_style
 
 
@@ -128,7 +128,7 @@ class FontIconProvider:
             md5_hash=font_metadata.md5,
         )
 
-        icon(
+        font_icon(
             xy=xy,
             width=width,
             code=code,

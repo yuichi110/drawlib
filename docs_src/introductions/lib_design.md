@@ -26,7 +26,7 @@ Drawlib is structured around the following APIs:
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto
-from drawlib.icons import icon, phosphor
+from drawlib.icons import font_icon, phosphor
 from drawlib.images import image
 from drawlib.lines import line, line_curved
 from drawlib.shapes import circle, rectangle, shape
@@ -93,7 +93,7 @@ def top():
 bottom()
 
 for i, t in enumerate([
-    ("icon", ["icon()", "phosphor.*()"], ["Style"]),
+    ("icon", ["font_icon()", "phosphor.*()"], ["Style"]),
     ("image", ["image()"], ["Style"]),
     ("line", ["line()", "line_curved()", "..."], ["Style"]),
     ("shape", ["circle()", "rectangle()", "..."], ["Style"]),

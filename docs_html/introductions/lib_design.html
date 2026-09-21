@@ -259,7 +259,7 @@ IDEs can assist by providing quick access to classes, functions, and their optio
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto
-from drawlib.icons import icon, phosphor
+from drawlib.icons import font_icon, phosphor
 from drawlib.images import image
 from drawlib.lines import line, line_curved
 from drawlib.shapes import circle, rectangle, shape
@@ -326,7 +326,7 @@ def top():
 bottom()
 
 for i, t in enumerate([
-    (&quot;icon&quot;, [&quot;icon()&quot;, &quot;phosphor.*()&quot;], [&quot;Style&quot;]),
+    (&quot;icon&quot;, [&quot;font_icon()&quot;, &quot;phosphor.*()&quot;], [&quot;Style&quot;]),
     (&quot;image&quot;, [&quot;image()&quot;], [&quot;Style&quot;]),
     (&quot;line&quot;, [&quot;line()&quot;, &quot;line_curved()&quot;, &quot;...&quot;], [&quot;Style&quot;]),
     (&quot;shape&quot;, [&quot;circle()&quot;, &quot;rectangle()&quot;, &quot;...&quot;], [&quot;Style&quot;]),

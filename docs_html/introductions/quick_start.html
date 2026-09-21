@@ -505,7 +505,7 @@ If you're unfamiliar with Font Icons, I recommend checking out FontAwesome first
 <ul>
 <li><code>phosphor</code>: General vector font icons from Phosphor Icons (https://phosphoricons.com).</li>
 <li><code>gcp</code>: Official Google Cloud Platform diagram and architecture icons.</li>
-<li><code>icon()</code>: Low-level function for custom font icon files.</li>
+<li><code>font_icon()</code>: Low-level function for custom font icon files.</li>
 </ul>
 <p>Here's an example using phosphor:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
@@ -549,10 +549,10 @@ save()
 <div class="drawlib-image" style="text-align: center;">
   <img src="quick_start_images/8.png" alt="quick_start_8" style="width: 600px; max-width: 100%;" />
 </div>
-<pre><code>icon() and phosphor draw icons
+<pre><code>phosphor and font_icon() draw icons
 </code></pre>
 <p>As demonstrated, the function name determines the icon to be drawn, while the <code>Style</code> object can be adjusted to modify color, style, and other attributes.</p>
-<p>For detailed instructions on using the icon() function, please refer to the icon documentation.
+<p>For detailed instructions on using the font_icon() function, please refer to the icon documentation.
 This topic is beyond the scope of this quick start guide.</p>
 <h1>Drawing image</h1>
 <p>The <code>image()</code> function draws the provided image onto the Canvas at the specified xy coordinates and width.

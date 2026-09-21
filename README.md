@@ -300,10 +300,10 @@ If you're unfamiliar with Font Icons, I recommend checking out FontAwesome first
 
 Drawlib offers two methods for drawing icons:
 
-- Using the ``icon()`` function.
+- Using the ``font_icon()`` function.
 - Utilizing the ``phosphor`` module and its functions.
 
-If you wish to draw an icon using your own font icon file, you can employ the icon() function. 
+If you wish to draw an icon using your own font icon file, you can employ the font_icon() function. 
 For instance, if you want to utilize FontAwesome (which is not supported by default), you need to provide the file and drawing parameters to this function.
 
 The phosphor module provides embedded font icons and functions for drawing them. 
