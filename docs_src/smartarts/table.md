@@ -3,16 +3,16 @@
 # Table
 
 
-Class `dsart.Table` is used for drawing table.
+Class `Table` is used for drawing table.
 
 
 ```drawlib 600px center
 from drawlib.canvas import config, save
-from drawlib.smartarts import Table, dsart
+from drawlib.smartarts import Table
 
 config(width=100, height=50, grid=True)
 
-t1 = dsart.Table()
+t1 = Table()
 t1.draw(
     xy=(5, 45),
     width=40,
@@ -43,7 +43,7 @@ You can draw pyramid with these procedure.
 
 
 
-## ``dsart.Table()``
+## ``Table()``
 
 
 Initialize instance. No args.

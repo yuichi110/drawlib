@@ -12,7 +12,7 @@
 from drawlib._preset_styles import get_style
 from drawlib.canvas import clear, save
 from drawlib.icons import phosphor
-from drawlib.smartarts import dsart
+from drawlib.smartarts import TreeNode
 
 OUTPUT_DIR = "../../output_tests/l7_smartarts/tree/"
 
@@ -23,7 +23,7 @@ class TestTree:
     def test_tree_default(self) -> None:
         """Verify standard TreeNode hierarchy rendering with custom styled child nodes."""
         clear()
-        tn = dsart.TreeNode
+        tn = TreeNode
         t = tn(
             "Root",
             default_textstyle="",
@@ -61,7 +61,7 @@ class TestTree:
     def test_tree_with_icon_item_decorators(self) -> None:
         """Verify TreeNode hierarchy rendering including registered icon drawing decorators."""
         clear()
-        tn = dsart.TreeNode
+        tn = TreeNode
         tn.register_drawing_item(
             name="py_file",
             location="before",

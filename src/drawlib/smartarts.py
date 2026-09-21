@@ -11,6 +11,7 @@
 
 from drawlib._smartarts import (
     BoxList,
+    BoxTreeNode,
     BulletPoints,
     GridLayout,
     Pyramid,
@@ -18,17 +19,16 @@ from drawlib._smartarts import (
     Table,
     TreeNode,
     bubblespeech,
-    dsart,
 )
 
 __all__ = [
-    "Table",
-    "SourceCode",
-    "TreeNode",
     "BoxList",
-    "Pyramid",
+    "BoxTreeNode",
     "BulletPoints",
     "GridLayout",
+    "Pyramid",
+    "SourceCode",
+    "Table",
+    "TreeNode",
     "bubblespeech",
-    "dsart",
 ]

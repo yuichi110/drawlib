@@ -251,17 +251,17 @@
             <main class="main-content">
                 <p>=============</p>
 <h1>BulletPoints</h1>
-<p>Class <code>dsart.BulletPoints</code> is used for drawing bullet points.</p>
+<p>Class <code>BulletPoints</code> is used for drawing bullet points.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.lines import line
-from drawlib.smartarts import BulletPoints, dsart
+from drawlib.smartarts import BulletPoints
 from drawlib.text import text
 
 config(width=100, height=50, grid=True)
 
 
 def center():
-    bp = dsart.BulletPoints(vertical_margin=4, indent_width=4)
+    bp = BulletPoints(vertical_margin=4, indent_width=4)
     bp.add(&quot;Type of Drawlib shapes&quot;)
     bp.set_indent(1)
     bp.add(&quot;Circle Like Shapes&quot;)
@@ -312,7 +312,7 @@ save()
 </code></pre>
 <p>As you can see, you can control text style and bullet point styles.</p>
 <h1>API Specification</h1>
-<h2><code>dsart.BulletPoints()</code></h2>
+<h2><code>BulletPoints()</code></h2>
 <p>Args:</p>
 <ul>
 <li>vertical_margin (float): The vertical space between bullet points.</li>

@@ -251,13 +251,13 @@
             <main class="main-content">
                 <p>=============</p>
 <h1>Table</h1>
-<p>Class <code>dsart.Table</code> is used for drawing table.</p>
+<p>Class <code>Table</code> is used for drawing table.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.smartarts import Table, dsart
+from drawlib.smartarts import Table
 
 config(width=100, height=50, grid=True)
 
-t1 = dsart.Table()
+t1 = Table()
 t1.draw(
     xy=(5, 45),
     width=40,
@@ -285,7 +285,7 @@ save()
 <li>Draw table with providing coordinate, size and matrix table data</li>
 </ol>
 <h1>API Specification</h1>
-<h2><code>dsart.Table()</code></h2>
+<h2><code>Table()</code></h2>
 <p>Initialize instance. No args.</p>
 <h2><code>clear_styles()</code></h2>
 <p>Clear all styles. No args.</p>

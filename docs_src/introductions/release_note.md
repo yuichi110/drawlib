@@ -26,7 +26,8 @@
 ## Requirements & Breaking changes
 
 - Python >= 3.11 is now required.
-- Package import path migrated to `from drawlib.apis import *`.
+- Package modules are directly accessible (e.g. `drawlib.canvas`, `drawlib.shapes`, `drawlib.smartarts`).
+- The legacy `dsart` facade is removed in favor of direct imports from `drawlib.smartarts` (e.g., `from drawlib.smartarts import Table, SourceCode, bubblespeech`).
 
 
 

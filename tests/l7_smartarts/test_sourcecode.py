@@ -11,7 +11,7 @@
 
 from drawlib.canvas import clear, save
 from drawlib.fonts import FontSourceCode
-from drawlib.smartarts import dsart
+from drawlib.smartarts import SourceCode
 
 OUTPUT_DIR = "../../output_tests/l7_smartarts/sourcecode/"
 
@@ -45,7 +45,7 @@ class TestSourceCode:
     def test_sourcecode_default(self) -> None:
         """Verify SourceCode rendering with default style and python syntax."""
         clear()
-        sc = dsart.SourceCode(
+        sc = SourceCode(
             language="python",
             style="default",
         )
@@ -66,7 +66,7 @@ class TestSourceCode:
             (70, 35, "github-dark"),
             (70, 60, "rrt"),
         ]:
-            sc = dsart.SourceCode(
+            sc = SourceCode(
                 language="python",
                 style=style,  # type: ignore
                 font=FontSourceCode.ROBOTO_MONO,
@@ -82,7 +82,7 @@ class TestSourceCode:
             (5, 35, "algol_nu"),
             (5, 65, "friendly_grayscale"),
         ]:
-            sc = dsart.SourceCode(
+            sc = SourceCode(
                 language="python",
                 style=style,  # type: ignore
                 font=FontSourceCode.ROBOTO_MONO,
@@ -104,7 +104,7 @@ class TestSourceCode:
             (70, 35, "github-dark"),
             (70, 60, "rrt"),
         ]:
-            sc = dsart.SourceCode(
+            sc = SourceCode(
                 language="python",
                 style=style,  # type: ignore
                 font=FontSourceCode.COURIER,
@@ -114,5 +114,5 @@ class TestSourceCode:
 
     def test_sourcecode_get_text(self) -> None:
         """Verify static method get_text reads local files correctly relative to execution context."""
-        text = dsart.SourceCode.get_text("__init__.py").strip()
+        text = SourceCode.get_text("__init__.py").strip()
         assert text == init_content

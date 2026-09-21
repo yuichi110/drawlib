@@ -3,20 +3,20 @@
 # BulletPoints
 
 
-Class `dsart.BulletPoints` is used for drawing bullet points.
+Class `BulletPoints` is used for drawing bullet points.
 
 
 ```drawlib 600px center
 from drawlib.canvas import config, save
 from drawlib.lines import line
-from drawlib.smartarts import BulletPoints, dsart
+from drawlib.smartarts import BulletPoints
 from drawlib.text import text
 
 config(width=100, height=50, grid=True)
 
 
 def center():
-    bp = dsart.BulletPoints(vertical_margin=4, indent_width=4)
+    bp = BulletPoints(vertical_margin=4, indent_width=4)
     bp.add("Type of Drawlib shapes")
     bp.set_indent(1)
     bp.add("Circle Like Shapes")
@@ -71,7 +71,7 @@ As you can see, you can control text style and bullet point styles.
 
 
 
-## ``dsart.BulletPoints()``
+## ``BulletPoints()``
 
 
 Args:

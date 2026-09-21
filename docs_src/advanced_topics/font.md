@@ -15,7 +15,7 @@ Here's an overview of the supported Font Classes:
     - `FontSansSerif`: Specifically SanSerif fonts for Alphabet characters.
     - `FontSerif`: Specifically Serif fonts for Alphabet characters.
     - `FontMonoSpace`: Monospace fonts, where each character occupies the same amount of horizontal space.
-    - `FontSourcecode`:  A subset of FontMonoSpace fonts, optimized for source code display using `dsart.sourcecode()`.
+    - `FontSourcecode`:  A subset of FontMonoSpace fonts, optimized for source code display using `SourceCode`.
     - `FontRoboto`: Fonts from the Roboto family, tailored for Alphabet characters.
 
 - Local Language Fonts

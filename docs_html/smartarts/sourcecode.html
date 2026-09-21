@@ -259,7 +259,7 @@ This feature leverages pygments to generate visually enhanced source code images
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontSourceCode
 from drawlib.shapes import circle
-from drawlib.smartarts import SourceCode, dsart
+from drawlib.smartarts import SourceCode
 from drawlib.types import Style
 
 CODE = &quot;&quot;&quot;
@@ -280,13 +280,13 @@ save()
 
 config(width=100, height=50)
 
-sc1 = dsart.SourceCode(
+sc1 = SourceCode(
     language=&quot;python&quot;,
     style=&quot;default&quot;,
 )
 sc1.draw((25, 25), width=40, code=CODE)
 
-sc2 = dsart.SourceCode(
+sc2 = SourceCode(
     style=&quot;monokai&quot;,
     font=FontSourceCode.ROBOTO_MONO,
     show_linenum=True,
@@ -300,7 +300,7 @@ save()
 <div class="drawlib-image">
   <img src="sourcecode_images/1.png" alt="sourcecode_1" />
 </div>
-<p>In the example above, the <code>dsart.SourceCode</code> instance is configured with options such as:</p>
+<p>In the example above, the <code>SourceCode</code> instance is configured with options such as:</p>
 <ul>
 <li>language: Specifies the programming language (automatically detected if not provided).</li>
 <li>style: Defines the syntax highlighting style (e.g., monokai).</li>
@@ -323,7 +323,7 @@ But it takes <code>code</code> argument instead of <code>image</code> argument.<
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontSourceCode
 from drawlib.shapes import circle
-from drawlib.smartarts import SourceCode, dsart
+from drawlib.smartarts import SourceCode
 from drawlib.types import Style
 
 CODE = &quot;&quot;&quot;
@@ -344,13 +344,13 @@ save()
 
 config(width=100, height=50)
 
-sc1 = dsart.SourceCode(
+sc1 = SourceCode(
     language=&quot;python&quot;,
     style=&quot;default&quot;,
 )
 sc1.draw((25, 25), width=40, code=CODE)
 
-sc2 = dsart.SourceCode(
+sc2 = SourceCode(
     style=&quot;monokai&quot;,
     font=FontSourceCode.ROBOTO_MONO,
     show_linenum=True,
@@ -386,7 +386,7 @@ Here are list of supported styles:</p>
 <p>Here are output of Source Code styles.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.fonts import FontSourceCode
-from drawlib.smartarts import SourceCode, dsart
+from drawlib.smartarts import SourceCode
 from drawlib.text import text
 from drawlib.types import Style
 
@@ -419,7 +419,7 @@ for style in [
     &quot;algol_nu&quot;,
     &quot;friendly_grayscale&quot;,
 ]:
-    sc = dsart.SourceCode(
+    sc = SourceCode(
         language=&quot;python&quot;,
         style=style,
         font=FontSourceCode.ROBOTO_MONO,
@@ -444,7 +444,7 @@ save()
 <pre><code>image2.png
 </code></pre>
 <h1>get_text()</h1>
-<p>To retrieve the text content directly from a code file, you can use the <code>dsart.SourceCode.get_text()</code> method provided by SourceCode.
+<p>To retrieve the text content directly from a code file, you can use the <code>SourceCode.get_text()</code> method provided by SourceCode.
 This function allows you to specify a file path relative to the code file's location.</p>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

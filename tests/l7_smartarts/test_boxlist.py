@@ -10,7 +10,7 @@
 """Unit and integration tests for BoxList smart art."""
 
 from drawlib.canvas import clear, save
-from drawlib.smartarts import dsart
+from drawlib.smartarts import BoxList
 
 OUTPUT_DIR = "../../output_tests/l7_smartarts/boxlist/"
 
@@ -21,7 +21,7 @@ class TestBoxList:
     def test_boxlist_default_horizontal_left(self) -> None:
         """Verify BoxList drawing with default horizontal alignment starting from left."""
         clear()
-        b = dsart.BoxList("solid", "")
+        b = BoxList("solid", "")
         b.extend(["1", "2"])
         b.append("3", "red_solid_bold", "red_bold")
         b.append("4")
@@ -31,7 +31,7 @@ class TestBoxList:
     def test_boxlist_horizontal_right(self) -> None:
         """Verify BoxList drawing with horizontal alignment starting from right."""
         clear()
-        b = dsart.BoxList("solid", "")
+        b = BoxList("solid", "")
         b.extend(["1", "2"])
         b.append("3", "red_solid_bold", "red_bold")
         b.append("4")
@@ -41,7 +41,7 @@ class TestBoxList:
     def test_boxlist_vertical_bottom(self) -> None:
         """Verify BoxList drawing with vertical alignment starting from bottom."""
         clear()
-        b = dsart.BoxList("solid", "")
+        b = BoxList("solid", "")
         b.extend(["1", "2"])
         b.append("3", "red_solid_bold", "red_bold")
         b.append("4")
@@ -51,7 +51,7 @@ class TestBoxList:
     def test_boxlist_vertical_top(self) -> None:
         """Verify BoxList drawing with vertical alignment starting from top."""
         clear()
-        b = dsart.BoxList("solid", "")
+        b = BoxList("solid", "")
         b.extend(["1", "2"])
         b.append("3", "red_solid_bold", "red_bold")
         b.append("4")

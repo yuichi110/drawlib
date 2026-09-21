@@ -9,7 +9,6 @@
 
 """Package for smart arts modules."""
 
-from drawlib._smartarts import _dsart as dsart
 from drawlib._smartarts._boxlist import BoxList
 from drawlib._smartarts._boxtree import BoxTreeNode
 from drawlib._smartarts._bubblespeech import bubblespeech
@@ -30,5 +29,4 @@ __all__ = [
     "Table",
     "TreeNode",
     "bubblespeech",
-    "dsart",
 ]

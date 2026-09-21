@@ -15,7 +15,7 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontSourceCode
 from drawlib.shapes import circle
-from drawlib.smartarts import SourceCode, dsart
+from drawlib.smartarts import SourceCode
 from drawlib.types import Style
 
 CODE = """
@@ -36,13 +36,13 @@ save()
 
 config(width=100, height=50)
 
-sc1 = dsart.SourceCode(
+sc1 = SourceCode(
     language="python",
     style="default",
 )
 sc1.draw((25, 25), width=40, code=CODE)
 
-sc2 = dsart.SourceCode(
+sc2 = SourceCode(
     style="monokai",
     font=FontSourceCode.ROBOTO_MONO,
     show_linenum=True,
@@ -54,7 +54,7 @@ sc2.draw((75, 25), width=40, code=CODE, style=Style(line_width=2, line_color=Col
 save()
 ```
 
-In the example above, the `dsart.SourceCode` instance is configured with options such as:
+In the example above, the `SourceCode` instance is configured with options such as:
 
 - language: Specifies the programming language (automatically detected if not provided).
 - style: Defines the syntax highlighting style (e.g., monokai).
@@ -82,7 +82,7 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontSourceCode
 from drawlib.shapes import circle
-from drawlib.smartarts import SourceCode, dsart
+from drawlib.smartarts import SourceCode
 from drawlib.types import Style
 
 CODE = """
@@ -103,13 +103,13 @@ save()
 
 config(width=100, height=50)
 
-sc1 = dsart.SourceCode(
+sc1 = SourceCode(
     language="python",
     style="default",
 )
 sc1.draw((25, 25), width=40, code=CODE)
 
-sc2 = dsart.SourceCode(
+sc2 = SourceCode(
     style="monokai",
     font=FontSourceCode.ROBOTO_MONO,
     show_linenum=True,
@@ -151,7 +151,7 @@ Here are output of Source Code styles.
 ```drawlib 600px center
 from drawlib.canvas import config, save
 from drawlib.fonts import FontSourceCode
-from drawlib.smartarts import SourceCode, dsart
+from drawlib.smartarts import SourceCode
 from drawlib.text import text
 from drawlib.types import Style
 
@@ -184,7 +184,7 @@ for style in [
     "algol_nu",
     "friendly_grayscale",
 ]:
-    sc = dsart.SourceCode(
+    sc = SourceCode(
         language="python",
         style=style,
         font=FontSourceCode.ROBOTO_MONO,
@@ -211,7 +211,7 @@ save()
 # get_text()
 
 
-To retrieve the text content directly from a code file, you can use the `dsart.SourceCode.get_text()` method provided by SourceCode. 
+To retrieve the text content directly from a code file, you can use the `SourceCode.get_text()` method provided by SourceCode. 
 This function allows you to specify a file path relative to the code file's location.
 
 ---

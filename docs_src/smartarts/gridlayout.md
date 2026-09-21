@@ -3,17 +3,17 @@
 # GridLayout
 
 
-Class `dsart.GridLayout` draws smart art grid layouted rectangles.
+Class `GridLayout` draws smart art grid layouted rectangles.
 
 
 ```drawlib 600px center
 from drawlib.canvas import config, save
-from drawlib.smartarts import GridLayout, dsart
+from drawlib.smartarts import GridLayout
 from drawlib.text import text
 
 config(width=100, height=50, grid=True)
 
-gl1 = dsart.GridLayout(num_column=7, num_row=3)
+gl1 = GridLayout(num_column=7, num_row=3)
 gl1.add(position=(0, 0), width=5, height=1, text="Host OS")
 gl1.add(position=(0, 1), width=5, height=1, text="Python")
 gl1.add(position=(0, 2), width=1, height=1, text="D")
@@ -26,7 +26,7 @@ gl1.add(position=(6, 2), width=1, height=1, text="b")
 gl1.draw((5, 10), width=40, height=20, margin=1)
 text((25, 5), text="Grid Layout: Column 7, Row 3.")
 
-gl2 = dsart.GridLayout(num_column=7, num_row=3, default_r=1, default_style="solid")
+gl2 = GridLayout(num_column=7, num_row=3, default_r=1, default_style="solid")
 gl2.add(position=(0, 0), width=7, height=1, text="Host OS", style="blue", textstyle="white", text_xy_shift=(10, 0))
 gl2.add(position=(0, 1), width=7, height=1, text="Python", style="green", textstyle="white", text_xy_shift=(-10, 0))
 gl2.add(position=(0, 2), width=1, height=1, text="D")
@@ -56,7 +56,7 @@ You can draw grid layout with these procedure.
 
 
 
-## dsart.GridLayout()
+## GridLayout()
 
 
 Initializes a GridLayout instance.

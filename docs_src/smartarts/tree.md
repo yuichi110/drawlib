@@ -3,19 +3,19 @@
 # Tree
 
 
-Class `dsart.Tree` draws smart art tree which is similar to `tree` command output.
+Class `Tree` draws smart art tree which is similar to `tree` command output.
 
 
 ```drawlib 600px center
 from drawlib.canvas import config, save
 from drawlib.icons import phosphor
-from drawlib.smartarts import TreeNode, dsart
+from drawlib.smartarts import TreeNode
 from drawlib.text import text
 from drawlib.preset_styles import get_style
 
 config(width=100, height=50, grid=True)
 
-tree1 = dsart.TreeNode(
+tree1 = TreeNode(
     "Root",
     default_textstyle="",
     default_linestyle="light",
@@ -23,24 +23,24 @@ tree1 = dsart.TreeNode(
     default_line_horizontal_length=2,
     default_line_vertical_margin=5,
     children=[
-        dsart.TreeNode(
+        TreeNode(
             "Child1",
             children=[
-                dsart.TreeNode(
+                TreeNode(
                     "Child1-1",
                     children=[
-                        dsart.TreeNode("Child1-1-1"),
+                        TreeNode("Child1-1-1"),
                     ],
                 ),
-                dsart.TreeNode("Child1-2", textstyle="red"),
+                TreeNode("Child1-2", textstyle="red"),
             ],
         ),
-        dsart.TreeNode(
+        TreeNode(
             text="Child2",
             default_textstyle="blue",
             children=[
-                dsart.TreeNode("Child2-1"),
-                dsart.TreeNode("Child2-2"),
+                TreeNode("Child2-1"),
+                TreeNode("Child2-2"),
             ],
         ),
     ],
@@ -48,7 +48,7 @@ tree1 = dsart.TreeNode(
 tree1.draw((10, 42.5))
 
 
-dsart.TreeNode.register_drawing_item(
+TreeNode.register_drawing_item(
     name="py_file",
     location="before",
     padding_width=5,
@@ -56,7 +56,7 @@ dsart.TreeNode.register_drawing_item(
     style=get_style(),
     args={"width": 4},
 )
-dsart.TreeNode.register_drawing_item(
+TreeNode.register_drawing_item(
     name="png_file",
     location="before",
     padding_width=5,
@@ -65,7 +65,7 @@ dsart.TreeNode.register_drawing_item(
     args={"width": 4},
 )
 
-tree2 = dsart.TreeNode(
+tree2 = TreeNode(
     "Root",
     default_textstyle="",
     default_linestyle="light",
@@ -73,20 +73,20 @@ tree2 = dsart.TreeNode(
     default_line_horizontal_length=2,
     default_line_vertical_margin=5,
     children=[
-        dsart.TreeNode(
+        TreeNode(
             "Child1",
             children=[
-                dsart.TreeNode(
+                TreeNode(
                     "Child1-1",
                 ).set_drawing_item("py_file"),
-                dsart.TreeNode("Child1-2").set_drawing_item("png_file"),
+                TreeNode("Child1-2").set_drawing_item("png_file"),
             ],
         ),
-        dsart.TreeNode(
+        TreeNode(
             "Child2",
             children=[
-                dsart.TreeNode("Child2-1").set_drawing_item("py_file"),
-                dsart.TreeNode("Child2-2").set_drawing_item("png_file"),
+                TreeNode("Child2-1").set_drawing_item("py_file"),
+                TreeNode("Child2-2").set_drawing_item("png_file"),
             ],
         ),
     ],
@@ -113,7 +113,7 @@ You can draw tree with these procedure.
 
 
 
-## ``dsart.Tree()``
+## ``Tree()``
 
 
 Initializes a TreeNode instance with specific text, styles, and optional children.

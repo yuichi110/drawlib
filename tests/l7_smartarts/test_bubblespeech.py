@@ -11,7 +11,7 @@
 
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
-from drawlib.smartarts import dsart
+from drawlib.smartarts import bubblespeech
 from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l7_smartarts/bubblespeech/"
@@ -23,7 +23,7 @@ class TestBubblespeech:
     def test_tail_left(self) -> None:
         """Verify bubblespeech tail rendered on the left edge."""
         clear()
-        dsart.bubblespeech(
+        bubblespeech(
             xy=(30, 30),
             width=50,
             height=40,
@@ -37,7 +37,7 @@ class TestBubblespeech:
     def test_tail_top(self) -> None:
         """Verify bubblespeech tail rendered on the top edge."""
         clear()
-        dsart.bubblespeech(
+        bubblespeech(
             xy=(30, 30),
             width=50,
             height=40,
@@ -51,7 +51,7 @@ class TestBubblespeech:
     def test_tail_right(self) -> None:
         """Verify bubblespeech tail rendered on the right edge."""
         clear()
-        dsart.bubblespeech(
+        bubblespeech(
             xy=(30, 30),
             width=50,
             height=40,
@@ -65,7 +65,7 @@ class TestBubblespeech:
     def test_tail_bottom(self) -> None:
         """Verify bubblespeech tail rendered on the bottom edge."""
         clear()
-        dsart.bubblespeech(
+        bubblespeech(
             xy=(30, 30),
             width=50,
             height=40,
@@ -79,7 +79,7 @@ class TestBubblespeech:
     def test_with_text_and_style(self) -> None:
         """Verify bubblespeech drawing with formatted text and custom Style."""
         clear()
-        dsart.bubblespeech(
+        bubblespeech(
             xy=(30, 30),
             width=50,
             height=40,

@@ -251,14 +251,14 @@
             <main class="main-content">
                 <p>=============</p>
 <h1>GridLayout</h1>
-<p>Class <code>dsart.GridLayout</code> draws smart art grid layouted rectangles.</p>
+<p>Class <code>GridLayout</code> draws smart art grid layouted rectangles.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.smartarts import GridLayout, dsart
+from drawlib.smartarts import GridLayout
 from drawlib.text import text
 
 config(width=100, height=50, grid=True)
 
-gl1 = dsart.GridLayout(num_column=7, num_row=3)
+gl1 = GridLayout(num_column=7, num_row=3)
 gl1.add(position=(0, 0), width=5, height=1, text=&quot;Host OS&quot;)
 gl1.add(position=(0, 1), width=5, height=1, text=&quot;Python&quot;)
 gl1.add(position=(0, 2), width=1, height=1, text=&quot;D&quot;)
@@ -271,7 +271,7 @@ gl1.add(position=(6, 2), width=1, height=1, text=&quot;b&quot;)
 gl1.draw((5, 10), width=40, height=20, margin=1)
 text((25, 5), text=&quot;Grid Layout: Column 7, Row 3.&quot;)
 
-gl2 = dsart.GridLayout(num_column=7, num_row=3, default_r=1, default_style=&quot;solid&quot;)
+gl2 = GridLayout(num_column=7, num_row=3, default_r=1, default_style=&quot;solid&quot;)
 gl2.add(position=(0, 0), width=7, height=1, text=&quot;Host OS&quot;, style=&quot;blue&quot;, textstyle=&quot;white&quot;, text_xy_shift=(10, 0))
 gl2.add(position=(0, 1), width=7, height=1, text=&quot;Python&quot;, style=&quot;green&quot;, textstyle=&quot;white&quot;, text_xy_shift=(-10, 0))
 gl2.add(position=(0, 2), width=1, height=1, text=&quot;D&quot;)
@@ -297,7 +297,7 @@ save()
 <li>Draw pyramid with specified position, size and alignment.</li>
 </ol>
 <h1>API Specification</h1>
-<h2>dsart.GridLayout()</h2>
+<h2>GridLayout()</h2>
 <p>Initializes a GridLayout instance.</p>
 <p>Args:</p>
 <ul>

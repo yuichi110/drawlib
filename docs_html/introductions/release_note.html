@@ -286,7 +286,8 @@
 <h2>Requirements &amp; Breaking changes</h2>
 <ul>
 <li>Python &gt;= 3.11 is now required.</li>
-<li>Package import path migrated to <code>from drawlib.apis import *</code>.</li>
+<li>Package modules are directly accessible (e.g. <code>drawlib.canvas</code>, <code>drawlib.shapes</code>, <code>drawlib.smartarts</code>).</li>
+<li>The legacy <code>dsart</code> facade is removed in favor of direct imports from <code>drawlib.smartarts</code> (e.g., <code>from drawlib.smartarts import Table, SourceCode, bubblespeech</code>).</li>
 </ul>
 <h1>Version 0.2.3</h1>
 <h2>Release data: 2024/09/08</h2>

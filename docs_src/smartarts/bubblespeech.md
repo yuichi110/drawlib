@@ -4,7 +4,7 @@
 
 
 The Bubblespeech feature in Drawlib allows you to create irregular bubble-shaped speech graphics, often used in illustrations. 
-It's implemented within the `dsart` module as part of the Smart Art functions, offering advanced shape drawing capabilities.
+It's implemented within the `smartarts` module as part of the Smart Art functions, offering advanced shape drawing capabilities.
 
 Here's an example of using Bubblespeech in Drawlib:
 
@@ -12,12 +12,12 @@ Here's an example of using Bubblespeech in Drawlib:
 ```drawlib
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
-from drawlib.smartarts import bubblespeech, dsart
+from drawlib.smartarts import bubblespeech
 from drawlib.text import text
 from drawlib.types import Style
 
 config(width=100, height=50)
-dsart.bubblespeech(
+bubblespeech(
     xy=(30, 10),
     width=50,
     height=30,
@@ -38,12 +38,12 @@ This function call draws a bubble speech shape with a tail starting from the rig
 ```drawlib 600px center
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
-from drawlib.smartarts import bubblespeech, dsart
+from drawlib.smartarts import bubblespeech
 from drawlib.text import text
 from drawlib.types import Style
 
 config(width=100, height=50)
-dsart.bubblespeech(
+bubblespeech(
     xy=(30, 10),
     width=50,
     height=30,
@@ -77,12 +77,12 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
 from drawlib.lines import line
 from drawlib.shapes import circle
-from drawlib.smartarts import bubblespeech, dsart
+from drawlib.smartarts import bubblespeech
 from drawlib.text import text
 from drawlib.types import Style
 
 config(width=100, height=50)
-dsart.bubblespeech(
+bubblespeech(
     xy=(30, 10),
     width=50,
     height=30,

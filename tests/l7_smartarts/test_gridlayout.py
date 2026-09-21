@@ -10,7 +10,7 @@
 """Unit and integration tests for GridLayout smart art."""
 
 from drawlib.canvas import clear, save
-from drawlib.smartarts import dsart
+from drawlib.smartarts import GridLayout
 
 OUTPUT_DIR = "../../output_tests/l7_smartarts/gridlayout/"
 
@@ -21,7 +21,7 @@ class TestGridLayout:
     def test_gridlayout_default(self) -> None:
         """Verify basic GridLayout item positioning and spanned cells."""
         clear()
-        gl = dsart.GridLayout(3, 3, 2, default_style="solid")
+        gl = GridLayout(3, 3, 2, default_style="solid")
         gl.add((0, 0), 1, 1, text="A")
         gl.add((0, 1), 1, 1, text="B")
         gl.add((0, 2), 1, 1, text="C")
@@ -33,7 +33,7 @@ class TestGridLayout:
     def test_gridlayout_text_angle(self) -> None:
         """Verify GridLayout cells containing rotated text."""
         clear()
-        gl = dsart.GridLayout(3, 3, 2, default_style="solid")
+        gl = GridLayout(3, 3, 2, default_style="solid")
         gl.add((0, 0), 1, 1, text="A", textangle=270)
         gl.add((0, 1), 1, 1, text="B", textangle=90)
         gl.add((0, 2), 1, 1, text="C")
@@ -45,7 +45,7 @@ class TestGridLayout:
     def test_gridlayout_text_shift(self) -> None:
         """Verify GridLayout cells containing offset/shifted text positions."""
         clear()
-        gl = dsart.GridLayout(3, 3, 2, default_style="solid")
+        gl = GridLayout(3, 3, 2, default_style="solid")
         gl.add((0, 0), 1, 1, text="A", text_xy_shift=(3, 3))
         gl.add((0, 1), 1, 1, text="B", text_xy_shift=(-3, -3))
         gl.add((0, 2), 1, 1, text="C")
@@ -57,7 +57,7 @@ class TestGridLayout:
     def test_gridlayout_outer_style(self) -> None:
         """Verify GridLayout drawing with solid/rounded outer frame styles."""
         clear()
-        gl = dsart.GridLayout(3, 3, 2, default_style="solid")
+        gl = GridLayout(3, 3, 2, default_style="solid")
         gl.add((0, 0), 1, 1, text="A")
         gl.add((0, 1), 1, 1, text="B")
         gl.add((0, 2), 1, 1, text="C")

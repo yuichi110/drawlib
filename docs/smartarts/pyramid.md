@@ -3,25 +3,25 @@
 # Pyramid
 
 
-Class `dsart.Pyramid` draws smart art pyramid with custom style and orientation.
+Class `Pyramid` draws smart art pyramid with custom style and orientation.
 
 
 
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.smartarts import Pyramid, dsart
+from drawlib.smartarts import Pyramid
 from drawlib.text import text
 
 config(width=100, height=50, grid=True)
 
-p1 = dsart.Pyramid()
+p1 = Pyramid()
 p1.add(text="A")
 p1.add(text="B")
 p1.add(text="C")
 p1.draw((5, 5), width=40, height=40, margin=3)
 
-p1 = dsart.Pyramid(default_style="solid", default_textangle=270)
+p1 = Pyramid(default_style="solid", default_textangle=270)
 p1.add(text="A")
 p1.add(text="B", style="red_flat", textstyle="white")
 p1.add(text="C")
@@ -50,7 +50,7 @@ You can draw pyramid with these procedure.
 
 
 
-## ``dsart.Pyramid()``
+## ``Pyramid()``
 
 
 Initialize instance.

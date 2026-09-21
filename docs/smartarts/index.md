@@ -4,7 +4,7 @@
 
 
 Smart Arts are an advanced drawing feature in Drawlib, inspired by PowerPoint's Smart Art. 
-These features are implemented within the `dsart` module. 
+These features are implemented within the `smartarts` module. 
 
 Below is an index of available Smart Arts with brief descriptions:
 

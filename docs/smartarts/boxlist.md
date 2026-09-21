@@ -11,22 +11,22 @@ Here is examples of BoxList.
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.smartarts import BoxList, dsart
+from drawlib.smartarts import BoxList
 
 config(width=100, height=50)
 
-b1 = dsart.BoxList(default_text_style="white")
+b1 = BoxList(default_text_style="white")
 b1.extend(["1", "2", "3", "4"])
 b1.draw(xy=(10, 35), box_width=8, box_height=6)
 
 
-b2 = dsart.BoxList(default_box_style="solid", default_text_style="")
+b2 = BoxList(default_box_style="solid", default_text_style="")
 b2.extend(["1", "2"])
 b2.append("3", box_style="red_solid_bold", text_style="red_bold")
 b2.extend(["4", "", ""])
 b2.draw(xy=(10, 10), box_width=8, box_height=6)
 
-b3 = dsart.BoxList(default_text_style="white")
+b3 = BoxList(default_text_style="white")
 b3.extend(["1", "2", "3", "4"])
 b3.draw(xy=(75, 10), box_width=8, box_height=6, align="bottom")
 
@@ -61,22 +61,22 @@ Here is an example code.
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.smartarts import BoxList, dsart
+from drawlib.smartarts import BoxList
 
 config(width=100, height=50)
 
-b1 = dsart.BoxList(default_text_style="white")
+b1 = BoxList(default_text_style="white")
 b1.extend(["1", "2", "3", "4"])
 b1.draw(xy=(10, 35), box_width=8, box_height=6)
 
 
-b2 = dsart.BoxList(default_box_style="solid", default_text_style="")
+b2 = BoxList(default_box_style="solid", default_text_style="")
 b2.extend(["1", "2"])
 b2.append("3", box_style="red_solid_bold", text_style="red_bold")
 b2.extend(["4", "", ""])
 b2.draw(xy=(10, 10), box_width=8, box_height=6)
 
-b3 = dsart.BoxList(default_text_style="white")
+b3 = BoxList(default_text_style="white")
 b3.extend(["1", "2", "3", "4"])
 b3.draw(xy=(75, 10), box_width=8, box_height=6, align="bottom")
 
@@ -94,22 +94,22 @@ This function call draws a bubble speech shape with a tail starting from the rig
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.smartarts import BoxList, dsart
+from drawlib.smartarts import BoxList
 
 config(width=100, height=50)
 
-b1 = dsart.BoxList(default_text_style="white")
+b1 = BoxList(default_text_style="white")
 b1.extend(["1", "2", "3", "4"])
 b1.draw(xy=(10, 35), box_width=8, box_height=6)
 
 
-b2 = dsart.BoxList(default_box_style="solid", default_text_style="")
+b2 = BoxList(default_box_style="solid", default_text_style="")
 b2.extend(["1", "2"])
 b2.append("3", box_style="red_solid_bold", text_style="red_bold")
 b2.extend(["4", "", ""])
 b2.draw(xy=(10, 10), box_width=8, box_height=6)
 
-b3 = dsart.BoxList(default_text_style="white")
+b3 = BoxList(default_text_style="white")
 b3.extend(["1", "2", "3", "4"])
 b3.draw(xy=(75, 10), box_width=8, box_height=6, align="bottom")
 
@@ -143,22 +143,22 @@ Each BoxList location depends on args `xy` of function `draw`.
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.smartarts import BoxList, dsart
+from drawlib.smartarts import BoxList
 
 config(width=100, height=50)
 
-b1 = dsart.BoxList(default_text_style="white")
+b1 = BoxList(default_text_style="white")
 b1.extend(["1", "2", "3", "4"])
 b1.draw(xy=(10, 35), box_width=8, box_height=6)
 
 
-b2 = dsart.BoxList(default_box_style="solid", default_text_style="")
+b2 = BoxList(default_box_style="solid", default_text_style="")
 b2.extend(["1", "2"])
 b2.append("3", box_style="red_solid_bold", text_style="red_bold")
 b2.extend(["4", "", ""])
 b2.draw(xy=(10, 10), box_width=8, box_height=6)
 
-b3 = dsart.BoxList(default_text_style="white")
+b3 = BoxList(default_text_style="white")
 b3.extend(["1", "2", "3", "4"])
 b3.draw(xy=(75, 10), box_width=8, box_height=6, align="bottom")
 
