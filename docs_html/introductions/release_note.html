@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Release Note of 0.2.*</title>
+    <title>Release Notes</title>
     
     <link rel="stylesheet" href="../style.css">
     
@@ -182,7 +182,7 @@
                     </li>
                     
                     <li class="nav-item active">
-                        <a href="release_note.html">Release Note of 0.2.*</a>
+                        <a href="release_note.html">Release Notes</a>
                     </li>
                     
                     <li class="nav-item ">
@@ -245,12 +245,49 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Release Note of 0.2.*</span>
+                    <span class="crumb active">Release Notes</span>
                 </div>
             </header>
             <main class="main-content">
                 <p>=======================</p>
-<h1>Release Note of 0.2.*</h1>
+<h1>Release Notes</h1>
+<h1>Version 0.3.0</h1>
+<h2>Release date: 2026/09/21</h2>
+<h2>New features</h2>
+<ul>
+<li><strong>Modern Flat Package Architecture</strong>:
+<ul>
+<li>Refactored library layout from legacy version-namespaced structure to standard flat package (<code>drawlib</code>).</li>
+<li>Unified public interface via <code>drawlib.apis</code> facade.</li>
+</ul>
+</li>
+<li><strong>Built-in Document Builder</strong>:
+<ul>
+<li>Added native Markdown / HTML document compiler (<code>drawlib doc-builder</code> and <code>build_document()</code>).</li>
+<li>Automatically compiles markdown with <code>drawlib</code> code blocks into responsive HTML, rendered Markdown, or PDF.</li>
+</ul>
+</li>
+<li><strong>Headless PDF Export</strong>:
+<ul>
+<li>PDF generation uses existing system Chromium-based browsers (Chrome, Chromium, Edge) without requiring Playwright.</li>
+</ul>
+</li>
+<li><strong>On-Demand Release Assets</strong>:
+<ul>
+<li>Assets such as icon sets and fonts are downloaded dynamically from GitHub Releases (<code>v0.3</code>), significantly reducing the PyPI package footprint.</li>
+</ul>
+</li>
+<li><strong>Unified Developer CLI (<code>dcli</code>)</strong>:
+<ul>
+<li>Integrated CLI tooling for linting (<code>ruff</code>), type checking (<code>ty</code>), asset management, and documentation builds.</li>
+</ul>
+</li>
+</ul>
+<h2>Requirements &amp; Breaking changes</h2>
+<ul>
+<li>Python &gt;= 3.11 is now required.</li>
+<li>Package import path migrated to <code>from drawlib.apis import *</code>.</li>
+</ul>
 <h1>Version 0.2.3</h1>
 <h2>Release data: 2024/09/08</h2>
 <h2>Commit: <code>4cc6e6e &lt;https://github.com/yuichi110/drawlib/commit/4cc6e6ef2a72baeaf7e5405988d20f551e2eae3a&gt;</code>_</h2>

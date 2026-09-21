@@ -2,6 +2,7 @@
 
 # package system
 .pypirc
+uv.lock
 
 # assets
 src/drawlib/_assets/*

@@ -13,7 +13,8 @@ import os
 
 import pytest
 
-from drawlib._tools.doc_builder import build_document, build_documents
+from drawlib._tools.doc_builder import build_document, build_documents, exporter_pdf
+from drawlib._tools.doc_builder.exporter_pdf import export_html_to_pdf, find_system_browser
 
 
 def test_build_document_markdown_to_html(tmp_path) -> None:
@@ -202,6 +203,9 @@ def test_build_document_css_modes(tmp_path) -> None:
 
 def test_build_document_pdf_embedded_images(tmp_path) -> None:
     """Test PDF compilation embeds images directly in PDF and creates zero external PNG files."""
+    if not find_system_browser():
+        pytest.skip("Chrome/Chromium/Edge browser not found for PDF export test.")
+
     src_dir = tmp_path / "src_docs"
     out_dir = tmp_path / "dist_pdf"
     src_dir.mkdir()
@@ -226,6 +230,15 @@ circle((50, 50), radius=15)
     png_files = list(out_dir.glob("*.png"))
     assert len(png_files) == 0
     assert not (out_dir / "style.css").exists()
+
+
+def test_export_html_to_pdf_missing_browser(monkeypatch, tmp_path) -> None:
+    """Test friendly error message is raised when no compatible browser is found."""
+    monkeypatch.setattr(exporter_pdf, "find_system_browser", lambda: None)
+
+    out_pdf = tmp_path / "out.pdf"
+    with pytest.raises(RuntimeError, match="No compatible browser \\(Google Chrome, Chromium, or Microsoft Edge\\)"):
+        export_html_to_pdf("<h1>Test</h1>", str(out_pdf))
 
 
 def test_build_document_missing_image_warning(tmp_path, capsys) -> None:

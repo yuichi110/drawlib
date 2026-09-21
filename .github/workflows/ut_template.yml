@@ -9,44 +9,47 @@ on:
         required: true
         default: 'ubuntu-latest'
         type: string
-          
+
       python_version:
         description: 'Python version'
         required: true
-        default: '3.9'
+        default: '3.12'
         type: string
-          
+
       install_from:
         description: 'Where you get the lib'
         required: true
         default: 'github'
         type: string
-          
+
       branch:
         description: 'Branch to run tests on'
         required: true
         default: 'main'
         type: string
-        
+
       lib_version:
         description: 'Lib version. Ignored when you get it from github'
         required: true
         default: 'latest'
         type: string
-        
 
 jobs:
   unit-test:
     runs-on: ${{ inputs.os }}
     steps:
-    
     - name: Check out repository code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         ref: ${{ inputs.branch }}
 
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+      with:
+        enable-cache: true
+
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ inputs.python_version }}
 
@@ -57,71 +60,44 @@ jobs:
         echo "Python version: ${{ inputs.python_version }}"
         echo "Installing from: ${{ inputs.install_from }}"
         echo "Library version: ${{ inputs.lib_version }}"
-        if [ "${{ inputs.lib_version }}" == "latest" ]; then
-            lib_version=`python scripts/pypi_tools.py --get_latest_version`
-            echo Resolved: "$lib_version"
-        fi
         echo "Branch: ${{ inputs.branch }}"
-        
-    - name: Install dependencies
+
+    - name: Install dependencies and drawlib
       shell: bash
       run: |
-
         if [ "${{ inputs.install_from }}" == "github" ]; then
-            echo '# curl -sSL https://install.python-poetry.org | python -'
-            curl -sSL https://install.python-poetry.org | python -
-            
-            if [ "${{ inputs.os }}" == "ubuntu-latest" ]; then
-                echo '# /home/runner/.local/bin/poetry self add poetry-plugin-export'
-                /home/runner/.local/bin/poetry self add poetry-plugin-export
-                echo '# /home/runner/.local/bin/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes'
-                /home/runner/.local/bin/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes
-                
-            elif [ "${{ inputs.os }}" == "windows-latest" ]; then
-                echo '# C:/Users/runneradmin/AppData/Roaming/Python/Scripts/poetry self add poetry-plugin-export'
-                C:/Users/runneradmin/AppData/Roaming/Python/Scripts/poetry self add poetry-plugin-export
-                echo '# C:/Users/runneradmin/AppData/Roaming/Python/Scripts/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes'
-                C:/Users/runneradmin/AppData/Roaming/Python/Scripts/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes
-                
-            elif [ "${{ inputs.os }}" == "macos-latest" ]; then
-                echo '# /Users/runner/.local/bin/poetry self add poetry-plugin-export'
-                /Users/runner/.local/bin/poetry self add poetry-plugin-export
-                echo '/Users/runner/.local/bin/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes'
-                /Users/runner/.local/bin/poetry export --dev -f requirements.txt --output requirements.txt --without-hashes
-                
-            else
-                echo OS is not supported: "${{ inputs.install_from }}"
-                exit 1
-            fi
-
-            echo '# pip install -r requirements.txt'
-            pip install -r requirements.txt
+          echo "Syncing dependencies with uv..."
+          uv sync
 
         elif [ "${{ inputs.install_from }}" == "pypi" ]; then
-            echo '# rm -rf ./drawlib'
-            rm -rf ./drawlib
-            
-            echo '# pip install pytest pytest-cov ruff pyright'
-            pip install pytest pytest-cov ruff pyright
-          
-            if [ "${{ inputs.lib_version }}" == "latest" ]; then
-                lib_version=`python scripts/pypi_tools.py --get_latest_version`
-                echo '# pip install drawlib=='"$lib_version"
-                pip install drawlib=="$lib_version"
-                
-            else
-                echo '# pip install drawlib=="${{ inputs.lib_version }}"'
-                pip install drawlib=="${{ inputs.lib_version }}"
-            fi
-                
-        else
-            echo install_from is not supported: "${{ inputs.install_from }}"
-            exit 1
-        fi
+          echo "Resolving version..."
+          if [ "${{ inputs.lib_version }}" == "latest" ]; then
+            LIB_VER=$(python tools/scripts/pypi_tools.py --get_latest_version)
+            echo "Latest version: $LIB_VER"
+          else
+            LIB_VER="${{ inputs.lib_version }}"
+          fi
 
+          # Rename src/ to prevent local import instead of installed package
+          if [ -d "src" ]; then
+            mv src _src_backup
+          fi
+
+          echo "Installing drawlib==$LIB_VER from PyPI via uv..."
+          uv venv
+          uv pip install "drawlib==$LIB_VER" pytest pytest-cov tomlkit
+
+        else
+          echo "install_from is not supported: ${{ inputs.install_from }}"
+          exit 1
+        fi
 
     - name: Run unit test
       shell: bash
       run: |
-        echo '# pytest -s --cov=drawlib tests/'
-        pytest -s --cov=drawlib tests/
+        if [ "${{ inputs.install_from }}" == "github" ]; then
+          uv run pytest -s --cov=drawlib tests/
+        else
+          uv run pytest -s tests/
+        fi
+

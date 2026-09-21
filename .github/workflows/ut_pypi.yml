@@ -8,22 +8,19 @@ on:
         description: 'Branch'
         required: true
         default: 'main'
-        type: choice
-        options:
-          - 'main'
-          - 'prototyping'
+        type: string
       lib_version:
         description: 'Lib version'
         required: true
         default: 'latest'
         type: string
-        
+
 jobs:
   matrix-test:
     strategy:
       matrix:
         os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-        python_version: ["3.9", "3.10", "3.11", "3.12"]
+        python_version: ["3.11", "3.12", "3.13"]
     uses: ./.github/workflows/ut_template.yml
     with:
       os: "${{ matrix.os }}"
@@ -31,3 +28,4 @@ jobs:
       install_from: 'pypi'
       branch: "${{ github.event.inputs.branch }}"
       lib_version: "${{ github.event.inputs.lib_version }}"
+

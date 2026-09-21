@@ -1,53 +1,56 @@
 name: "ut from:github, os:all"
-run-name: python=${{ github.event.inputs.python_version }}, branch=${{ github.event.inputs.branch }}
+run-name: python=${{ inputs.python_version || '3.12' }}, branch=${{ inputs.branch || github.ref_name }}
 
 on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       python_version:
-        description: 'Python'
+        description: 'Python version'
         required: true
-        default: '3.9'
+        default: '3.12'
         type: choice
         options:
-          - '3.9'
-          - '3.10'
           - '3.11'
           - '3.12'
+          - '3.13'
 
       branch:
         description: 'Branch'
         required: true
         default: 'main'
-        type: choice
-        options:
-          - 'main'
-          - 'prototyping'
-  
+        type: string
+
 jobs:
-  ubuntu-latest:      
+  ubuntu-latest:
     uses: ./.github/workflows/ut_template.yml
     with:
       os: 'ubuntu-latest'
-      python_version: "${{ github.event.inputs.python_version }}"
+      python_version: "${{ inputs.python_version || '3.12' }}"
       install_from: 'github'
-      branch: "${{ github.event.inputs.branch }}"
+      branch: "${{ inputs.branch || github.ref_name }}"
       lib_version: 'latest'
 
-  windows-latest:      
+  windows-latest:
     uses: ./.github/workflows/ut_template.yml
     with:
       os: 'windows-latest'
-      python_version: "${{ github.event.inputs.python_version }}"
+      python_version: "${{ inputs.python_version || '3.12' }}"
       install_from: 'github'
-      branch: "${{ github.event.inputs.branch }}"
+      branch: "${{ inputs.branch || github.ref_name }}"
       lib_version: 'latest'
 
-  macos-latest:      
+  macos-latest:
     uses: ./.github/workflows/ut_template.yml
     with:
       os: 'macos-latest'
-      python_version: "${{ github.event.inputs.python_version }}"
+      python_version: "${{ inputs.python_version || '3.12' }}"
       install_from: 'github'
-      branch: "${{ github.event.inputs.branch }}"
+      branch: "${{ inputs.branch || github.ref_name }}"
       lib_version: 'latest'
+

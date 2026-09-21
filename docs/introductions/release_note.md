@@ -1,6 +1,32 @@
 =======================
 
-# Release Note of 0.2.*
+# Release Notes
+
+
+
+# Version 0.3.0
+
+## Release date: 2026/09/21
+
+## New features
+
+- **Modern Flat Package Architecture**:
+  - Refactored library layout from legacy version-namespaced structure to standard flat package (`drawlib`).
+  - Unified public interface via `drawlib.apis` facade.
+- **Built-in Document Builder**:
+  - Added native Markdown / HTML document compiler (`drawlib doc-builder` and `build_document()`).
+  - Automatically compiles markdown with `drawlib` code blocks into responsive HTML, rendered Markdown, or PDF.
+- **Headless PDF Export**:
+  - PDF generation uses existing system Chromium-based browsers (Chrome, Chromium, Edge) without requiring Playwright.
+- **On-Demand Release Assets**:
+  - Assets such as icon sets and fonts are downloaded dynamically from GitHub Releases (`v0.3`), significantly reducing the PyPI package footprint.
+- **Unified Developer CLI (`dcli`)**:
+  - Integrated CLI tooling for linting (`ruff`), type checking (`ty`), asset management, and documentation builds.
+
+## Requirements & Breaking changes
+
+- Python >= 3.11 is now required.
+- Package import path migrated to `from drawlib.apis import *`.
 
 
 

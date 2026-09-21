@@ -13,19 +13,20 @@ from __future__ import annotations
 
 import argparse
 import sys
-import urllib.request
 from pathlib import Path
 
 project_root = Path(__file__).parent.parent.parent.resolve()
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
+from drawlib._release_assets import (  # noqa: E402
+    DEFAULT_RELEASE_TAG,
+    RELEASE_ASSET_PACKAGES,
+    ReleaseAssetPackageName,
+)
 from tools.scripts.utils import cd_to_project_root  # noqa: E402
 
 PHOSPHOR_CSS_LOCAL = Path("release_assets/v0.3/fonticons/phosphor/regular.css")
-PHOSPHOR_CSS_REMOTE = (
-    "https://raw.githubusercontent.com/yuichi110/drawlib_assets/main/assets/v0_2/fonticons/phosphor/regular.css"
-)
 DEFAULT_OUTPUT_FILE = Path("src/drawlib/_icons/font_icons/phosphor/_generated.py")
 
 PHOSPHOR_HEAD = '''# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
@@ -98,8 +99,11 @@ def parse_css_icons(css_text: str) -> dict[str, str]:
     return icons
 
 
-def load_phosphor_icons() -> dict[str, str]:
-    """Load Phosphor icon definitions from local asset CSS or remote fallback.
+def load_phosphor_icons(tag: str = DEFAULT_RELEASE_TAG) -> dict[str, str]:
+    """Load Phosphor icon definitions from local asset CSS or GitHub Releases.
+
+    Args:
+        tag: Release tag name to download package from if missing. Defaults to DEFAULT_RELEASE_TAG.
 
     Returns:
         Dictionary mapping icon name to hex codepoints.
@@ -108,23 +112,25 @@ def load_phosphor_icons() -> dict[str, str]:
         print(f"[*] Reading Phosphor CSS from local asset: {PHOSPHOR_CSS_LOCAL}")
         css_text = PHOSPHOR_CSS_LOCAL.read_text(encoding="utf-8")
     else:
-        print(f"[*] Fetching Phosphor CSS from remote: {PHOSPHOR_CSS_REMOTE}")
-        req = urllib.request.Request(PHOSPHOR_CSS_REMOTE, headers={"User-Agent": "Mozilla/5.0"})
-        with urllib.request.urlopen(req) as resp:
-            css_text = resp.read().decode("utf-8")
+        print(f"[*] Downloading Phosphor icon package from GitHub Releases ({tag})...")
+        pkg = RELEASE_ASSET_PACKAGES[ReleaseAssetPackageName.ICON_PHOSPHOR]
+        pkg.download_and_extract(tag=tag)
+        css_file = pkg.get_local_dir() / "regular.css"
+        css_text = css_file.read_text(encoding="utf-8")
 
     icons = parse_css_icons(css_text)
     print(f"[✓] Loaded {len(icons)} Phosphor icon definitions.")
     return icons
 
 
-def generate_phosphor_code(output_path: Path) -> None:
+def generate_phosphor_code(output_path: Path, tag: str = DEFAULT_RELEASE_TAG) -> None:
     """Generate Phosphor icon module code and write directly to destination.
 
     Args:
         output_path: Target Python file path.
+        tag: Release tag name for downloading asset if missing.
     """
-    icons = load_phosphor_icons()
+    icons = load_phosphor_icons(tag=tag)
 
     chunks: list[str] = [PHOSPHOR_HEAD.strip()]
     for icon_name in sorted(icons.keys()):
@@ -156,9 +162,15 @@ def main() -> None:
         default=DEFAULT_OUTPUT_FILE,
         help=f"Target file path (default: {DEFAULT_OUTPUT_FILE}).",
     )
+    parser.add_argument(
+        "--tag",
+        type=str,
+        default=DEFAULT_RELEASE_TAG,
+        help=f"Release tag for downloading asset if missing (default: {DEFAULT_RELEASE_TAG}).",
+    )
     args = parser.parse_args()
 
-    generate_phosphor_code(output_path=args.output)
+    generate_phosphor_code(output_path=args.output, tag=args.tag)
 
 
 if __name__ == "__main__":
