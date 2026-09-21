@@ -59,8 +59,9 @@ text(xy=(75, 20), text="Rectangle", style=Style(text_color=Colors.White, text_si
 - [GridLayout Component](./smartarts/gridlayout.md)
 - [Pyramid Component](./smartarts/pyramid.md)
 
-### 4. Architecture Diagrams
+### 4. Diagrams
 - [Architecture Diagrams Guide](./diagrams/architecture.md)
+- [Sequence Diagrams Guide](./diagrams/sequence.md)
 
 ### 5. Preset Styles
 - [Official Default Preset Styles](./preset_styles/official_default.md)

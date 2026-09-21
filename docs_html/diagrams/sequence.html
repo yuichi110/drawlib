@@ -1,0 +1,581 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequence Diagrams</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">drawlib</a>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="architecture.html">Architecture Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="sequence.html">Sequence Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Note of 0.2.*</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with PresetStyles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Sequence Diagrams</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Sequence Diagrams</h1>
+<p><code>drawlib.diagrams.sequence</code> provides a declarative, pure-Python sequence diagramming framework.
+Unlike external text-to-diagram engines that rely on cryptic ASCII notation (<code>-&gt;&gt;</code>, <code>--&gt;&gt;</code>, <code>-)</code>), Drawlib gives you clean, Pythonic method verbs (<code>request()</code>, <code>reply()</code>, <code>connect()</code>), automatic top-to-bottom timeline pacing, structured condition blocks via Python <code>with</code> statements, and seamless integration with Drawlib's vector canvas and icon ecosystems.</p>
+<hr />
+<h2>1. Core Concepts</h2>
+<p>Sequence diagrams consist of 6 primary building blocks:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Class</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Container</strong></td>
+<td><code>Diagram</code></td>
+<td>Manages participant lifelines, chronological timeline steps, auto-layout, and rendering.</td>
+</tr>
+<tr>
+<td><strong>Participant</strong></td>
+<td><code>Participant</code></td>
+<td>An actor, microservice, or system component with a vertical lifeline.</td>
+</tr>
+<tr>
+<td><strong>Message</strong></td>
+<td><code>Message</code></td>
+<td>A horizontal interaction arrow (<code>request()</code>, <code>reply()</code>, <code>connect()</code>, or self-call).</td>
+</tr>
+<tr>
+<td><strong>Annotation</strong></td>
+<td><code>Note</code></td>
+<td>A sticky callout card placed beside a lifeline or spanning across multiple participants.</td>
+</tr>
+<tr>
+<td><strong>Frame Block</strong></td>
+<td><code>Block</code></td>
+<td>A boundary box for condition branches (<code>alt</code> / <code>else_</code>), loops (<code>loop</code>), or optionals (<code>opt</code>).</td>
+</tr>
+<tr>
+<td><strong>Group Box</strong></td>
+<td><code>ParticipantGroup</code></td>
+<td>A header clustering box enclosing a group of participant cards (e.g. <code>box &quot;Internal VPC&quot;</code>).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Quick Start: Request &amp; Reply</h2>
+<p>In Drawlib, message semantics are expressed through clear grammatical verbs:</p>
+<ul>
+<li><strong><code>a.request(b, label)</code></strong>: Synchronous call or invocation (solid line with arrow <code>―▶</code>).</li>
+<li><strong><code>b.reply(a, label)</code></strong>: Response or return value (dashed line with arrow <code>---▶</code>).</li>
+</ul>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.sequence import Diagram, Participant, PhosphorIcon
+
+canvas.initialize()
+
+d = Diagram(title=&quot;Client-Server Authentication Flow&quot;)
+
+user = d.add(Participant(&quot;User&quot;, icon=PhosphorIcon.USER, icon_size=8.0))
+client = d.add(Participant(&quot;Web Browser&quot;, icon=PhosphorIcon.BROWSER, icon_size=8.0))
+server = d.add(Participant(&quot;API Server&quot;, icon=PhosphorIcon.CPU, icon_size=8.0))
+db = d.add(Participant(&quot;Database&quot;, icon=PhosphorIcon.DATABASE, icon_size=8.0))
+
+# 1. User initiates login
+user.request(client, &quot;Click Login&quot;)
+client.request(server, &quot;POST /api/login&quot;)
+
+# 2. Server queries DB and returns response
+server.request(db, &quot;SELECT * FROM users&quot;)
+db.reply(server, &quot;User Record&quot;)
+
+# 3. Server returns JWT and client updates view
+server.reply(client, &quot;200 OK (JWT Token)&quot;)
+client.reply(user, &quot;Render Dashboard&quot;)
+
+d.draw(xy=(5.0, 5.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="sequence_images/1.png" alt="sequence_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Basic Request-Reply Flow</figcaption>
+</figure>
+<hr />
+<h2>3. Message Types and Arrows</h2>
+<h3>3.1 Synchronous vs Asynchronous</h3>
+<p>You can specify <code>is_async=True</code> to indicate non-blocking, asynchronous events (such as event streaming or queue worker dispatches). Asynchronous messages are rendered with open stick arrowheads (<code>―&gt;</code> or <code>---&gt;</code>):</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.sequence import Diagram, Participant, PhosphorIcon
+
+canvas.initialize()
+
+d = Diagram(title=&quot;Sync vs Async Interactions&quot;)
+
+client = d.add(Participant(&quot;Client&quot;, icon=PhosphorIcon.DESKTOP, icon_size=8.0))
+queue = d.add(Participant(&quot;Message Queue&quot;, icon=PhosphorIcon.STACK, icon_size=8.0))
+worker = d.add(Participant(&quot;Worker Pod&quot;, icon=PhosphorIcon.GEAR, icon_size=8.0))
+
+# Synchronous request (solid filled arrow)
+client.request(queue, &quot;Enqueue Job&quot;)
+
+# Asynchronous dispatch (solid open stick arrow)
+queue.request(worker, &quot;Dispatch Event&quot;, is_async=True)
+
+# Asynchronous acknowledgment (dashed open stick arrow)
+worker.reply(queue, &quot;Ack Task&quot;, is_async=True)
+
+d.draw(xy=(5.0, 5.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="sequence_images/2.png" alt="sequence_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Synchronous vs Asynchronous Messages</figcaption>
+</figure>
+<h3>3.2 Bidirectional Connections (<code>&lt;-&gt;</code>)</h3>
+<p>When two entities establish a persistent, two-way communication channel (e.g. WebSocket connection, bidirectional gRPC stream, or keep-alive synchronization) without drawing redundant round trips, use <code>a.connect(b, arrow=&quot;&lt;-&gt;&quot;)</code>:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.sequence import Diagram, Participant, PhosphorIcon
+
+canvas.initialize()
+
+d = Diagram(title=&quot;WebSocket Communication&quot;)
+
+client = d.add(Participant(&quot;Client App&quot;, icon=PhosphorIcon.DEVICE_MOBILE, icon_size=8.0))
+server = d.add(Participant(&quot;Gateway Server&quot;, icon=PhosphorIcon.CLOUD, icon_size=8.0))
+
+client.request(server, &quot;HTTP Upgrade: websocket&quot;)
+server.reply(client, &quot;101 Switching Protocols&quot;)
+
+# Bidirectional persistent communication
+client.connect(server, &quot;Bidirectional JSON Stream&quot;, arrow=&quot;&lt;-&gt;&quot;)
+
+d.draw(xy=(5.0, 5.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="sequence_images/3.png" alt="sequence_3" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Bidirectional Stream</figcaption>
+</figure>
+<h3>3.3 Self-Calls (Internal Processing)</h3>
+<p>When a participant calls itself (<code>p.request(p, label)</code>), Drawlib automatically routes the message as an orthogonal 3-segment loop returning to the same lifeline:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.sequence import Diagram, Participant, PhosphorIcon
+
+canvas.initialize()
+
+d = Diagram(title=&quot;Internal Processing&quot;)
+
+client = d.add(Participant(&quot;Client&quot;, icon=PhosphorIcon.DESKTOP, icon_size=8.0))
+auth = d.add(Participant(&quot;Auth Server&quot;, icon=PhosphorIcon.SHIELD_CHECK, icon_size=8.0))
+
+client.request(auth, &quot;Submit Credentials&quot;)
+
+# Self-call loop
+auth.request(auth, &quot;Verify Password Hash&quot;)
+
+auth.reply(client, &quot;Token Issued&quot;)
+
+d.draw(xy=(5.0, 5.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="sequence_images/4.png" alt="sequence_4" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Self-Invocation Loop</figcaption>
+</figure>
+<hr />
+<h2>4. Sticky Note Annotations (<code>Note</code>)</h2>
+<p>Notes provide informative context alongside lifelines or across multiple participants:</p>
+<ul>
+<li><strong><code>p.note(&quot;...&quot;, pos=&quot;right&quot;)</code></strong> (default): Placed to the right of the participant's lifeline.</li>
+<li><strong><code>p.note(&quot;...&quot;, pos=&quot;left&quot;)</code></strong>: Placed to the left of the participant's lifeline.</li>
+<li><strong><code>d.note(&quot;...&quot;, over=[p1, p2])</code></strong>: Spans centered across multiple lifelines.</li>
+</ul>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.sequence import Diagram, Participant, PhosphorIcon
+
+canvas.initialize()
+
+d = Diagram(title=&quot;Annotated Workflow&quot;)
+
+sender = d.add(Participant(&quot;Sender&quot;, icon=PhosphorIcon.USER, icon_size=8.0))
+receiver = d.add(Participant(&quot;Receiver&quot;, icon=PhosphorIcon.ROBOT, icon_size=8.0))
+
+# Note on single participant
+sender.note(&quot;Generate RSA keypair&quot;, pos=&quot;left&quot;)
+
+sender.request(receiver, &quot;Send Public Key&quot;)
+
+# Note across multiple participants
+d.note(&quot;Shared secret negotiated via Diffie-Hellman&quot;, over=[sender, receiver])
+
+receiver.reply(sender, &quot;Handshake Complete&quot;)
+
+d.draw(xy=(5.0, 5.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="sequence_images/5.png" alt="sequence_5" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Sticky Notes Beside and Across Lifelines</figcaption>
+</figure>
+<hr />
+<h2>5. Structured Frames (<code>Block</code> with Python <code>with</code>)</h2>
+<p>Conditional logic, alternative flows, and loops are defined naturally using Python's <code>with</code> statement. The code indentation mirrors the nested boundary frames in the rendered diagram:</p>
+<ul>
+<li><strong><code>with d.loop(&quot;Condition&quot;):</code></strong>: Loop / repeated sequence.</li>
+<li><strong><code>with d.alt(&quot;Condition A&quot;):</code></strong> and <strong><code>with d.else_(&quot;Condition B&quot;):</code></strong>: Alternative branches.</li>
+<li><strong><code>with d.opt(&quot;Condition&quot;):</code></strong>: Optional execution block.</li>
+<li><strong><code>with d.par(&quot;Description&quot;):</code></strong>: Parallel concurrent steps.</li>
+</ul>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.sequence import Diagram, Participant, PhosphorIcon
+
+canvas.initialize()
+
+d = Diagram(title=&quot;Transaction Processing Flow&quot;)
+
+client = d.add(Participant(&quot;Client&quot;, icon=PhosphorIcon.DESKTOP, icon_size=8.0))
+gateway = d.add(Participant(&quot;Payment Gateway&quot;, icon=PhosphorIcon.CREDIT_CARD, icon_size=8.0))
+bank = d.add(Participant(&quot;Bank API&quot;, icon=PhosphorIcon.BANK, icon_size=8.0))
+
+client.request(gateway, &quot;Process Payment ($100)&quot;)
+
+with d.loop(&quot;Retry up to 3 times on timeout&quot;):
+    gateway.request(bank, &quot;Authorize Charge&quot;)
+    bank.reply(gateway, &quot;Status Result&quot;)
+
+with d.alt(&quot;Sufficient Funds&quot;):
+    gateway.reply(client, &quot;200 OK (Payment Approved)&quot;)
+with d.else_(&quot;Insufficient Balance&quot;):
+    gateway.reply(client, &quot;402 Payment Required&quot;)
+
+d.draw(xy=(5.0, 5.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="sequence_images/6.png" alt="sequence_6" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Loops and Conditional Blocks</figcaption>
+</figure>
+<hr />
+<h2>6. Activation Bars and Autonumbering</h2>
+<h3>6.1 Activation Bars (<code>activate()</code> / <code>deactivate()</code>)</h3>
+<p>You can visually highlight when an entity is actively executing by calling <code>p.activate()</code> and <code>p.deactivate()</code>. Drawlib draws a slender execution rectangle along the lifeline during the active span.</p>
+<h3>6.2 Autonumbering (<code>autonumber=True</code>)</h3>
+<p>Setting <code>autonumber=True</code> on <code>Diagram</code> automatically prepends sequential numbers (<code>1.</code>, <code>2.</code>, <code>3.</code>, ...) to all message labels in chronological order.</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.sequence import Diagram, Participant, PhosphorIcon
+
+canvas.initialize()
+
+d = Diagram(title=&quot;Order Execution Service&quot;, autonumber=True)
+
+user = d.add(Participant(&quot;User&quot;, icon=PhosphorIcon.USER, icon_size=8.0))
+app = d.add(Participant(&quot;Order API&quot;, icon=PhosphorIcon.SHOPPING_CART, icon_size=8.0))
+inventory = d.add(Participant(&quot;Inventory&quot;, icon=PhosphorIcon.PACKAGE, icon_size=8.0))
+
+user.request(app, &quot;Place Order&quot;)
+
+# App begins active processing
+app.activate()
+app.request(inventory, &quot;Reserve Items&quot;)
+inventory.reply(app, &quot;Items Reserved&quot;)
+
+app.request(app, &quot;Calculate Tax &amp; Total&quot;)
+app.reply(user, &quot;Order Confirmation&quot;)
+app.deactivate()
+
+d.draw(xy=(5.0, 5.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="sequence_images/7.png" alt="sequence_7" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Activation Bars and Autonumbering</figcaption>
+</figure>
+<hr />
+<h2>7. Complete Microservices Architecture Example</h2>
+<p>Here is a full production example combining participant groups (<code>ParticipantGroup</code>), GCP icons, sticky notes, conditional branches, and custom styling:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib._core.l3_styles import Colors, Style
+from drawlib.diagrams.sequence import Diagram, GcpIcon, Participant, ParticipantGroup, PhosphorIcon
+
+canvas.initialize()
+canvas.config(width=115, height=115)
+
+d = Diagram(title=&quot;Microservices Cloud Processing Pipeline&quot;, autonumber=True)
+
+# Participant boundary group for internal cluster
+backend = d.add_group(
+    ParticipantGroup(
+        title=&quot;Google Cloud VPC&quot;,
+        padding=4.0,
+        style=Style(fill_color=(242, 246, 255, 0.4), line_color=Colors.Gray, line_style=&quot;dashed&quot;),
+    )
+)
+api = backend.add(Participant(&quot;Cloud Run\n(Gateway)&quot;, icon=GcpIcon.CLOUD_RUN, icon_size=8.0))
+worker = backend.add(Participant(&quot;GKE Pod\n(Worker)&quot;, icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0))
+db = backend.add(Participant(&quot;Cloud SQL\n(Database)&quot;, icon=GcpIcon.CLOUD_SQL, icon_size=8.0))
+
+# External client
+client = d.add(Participant(&quot;Web Client&quot;, icon=PhosphorIcon.BROWSER, icon_size=8.0))
+
+# Request flow
+client.request(api, &quot;POST /api/v1/jobs&quot;)
+api.activate()
+
+api.request(db, &quot;Check Rate Limit&quot;)
+db.reply(api, &quot;Limit OK&quot;)
+
+api.note(&quot;Task payload queued in Pub/Sub&quot;, pos=&quot;right&quot;)
+
+api.request(worker, &quot;Dispatch Async Job&quot;, is_async=True)
+worker.reply(api, &quot;Ack&quot;, is_async=True)
+
+api.reply(client, &quot;202 Accepted (Job ID)&quot;)
+api.deactivate()
+
+# Worker processing inside loop
+with d.loop(&quot;Process batches of 100 items&quot;):
+    worker.request(db, &quot;Batch Insert Rows&quot;)
+    db.reply(worker, &quot;Success&quot;)
+
+d.draw(xy=(5.0, 5.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="sequence_images/8.png" alt="sequence_8" style="width: 700px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Production Microservices Pipeline</figcaption>
+</figure>
+<hr />
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>
