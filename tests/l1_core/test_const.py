@@ -38,4 +38,3 @@ class TestConst:
     def test_icon_dir_path(self):
         """Test ICON_DIR_PATH points to the icons directory under ASSETS_DIR_PATH."""
         assert ICON_DIR_PATH == os.path.join(ASSETS_DIR_PATH, "icons")
-
