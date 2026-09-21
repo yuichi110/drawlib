@@ -1,0 +1,3066 @@
+{
+  "format_version": "1.0",
+  "provider": "gcp",
+  "created_at": "2026-09-21T00:38:28.128285+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_primary_icons": 252,
+  "total_aliases": 8,
+  "total_files": 258,
+  "files": {
+    "access_context_manager.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/access_context_manager/access_context_manager.png",
+      "size_bytes": 40242,
+      "sha256": "9c1cc0654afa2da34e7a57adcd595acd0388313b8e3adf0cb31635516a7698ad",
+      "bbox": [
+        27,
+        27,
+        485,
+        485
+      ]
+    },
+    "administration.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/administration/administration.png",
+      "size_bytes": 5186,
+      "sha256": "3f854d6b01a8fcf82018997ffc4d53d43763797c0ba5c353da0f363fb26acf2d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "advanced_agent_modeling.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/advanced_agent_modeling/advanced_agent_modeling.png",
+      "size_bytes": 27868,
+      "sha256": "20facd9e67b02ff0d04fed5f3c8e444deb799376476572d95f7bcda000c30fdd",
+      "bbox": [
+        82,
+        26,
+        429,
+        486
+      ]
+    },
+    "advanced_solutions_lab.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/advanced_solutions_lab/advanced_solutions_lab.png",
+      "size_bytes": 92649,
+      "sha256": "ad6ad2fc013839737db69a494bab9dd7487bd30f0f5e925cb360669988c1ca89",
+      "bbox": [
+        61,
+        26,
+        450,
+        486
+      ]
+    },
+    "agent_assist.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/agent_assist/agent_assist.png",
+      "size_bytes": 28440,
+      "sha256": "7541dc109361d3dfdc79092792fd54a9f2e94fd9453ef6ff163d47e936f4cda3",
+      "bbox": [
+        81,
+        26,
+        430,
+        486
+      ]
+    },
+    "ai_hub.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/ai_hub/ai_hub.png",
+      "size_bytes": 47861,
+      "sha256": "0dbb5ec1948b1bf19abd2dc825f18bcdcd4a45fd2c489f16dc69627aa825327a",
+      "bbox": [
+        56,
+        26,
+        456,
+        486
+      ]
+    },
+    "ai_hypercomputer.png": {
+      "source_category": "core_products",
+      "source_file": "core_products/AI Hypercomputer/PNG/AIHypercomputer-512-color.png",
+      "size_bytes": 51338,
+      "sha256": "eb9fe11729b25354b0ed857b2a0586c3f22cebea5c7f895bef277c684a7d7102",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "ai_platform.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/ai_platform/ai_platform.png",
+      "size_bytes": 33023,
+      "sha256": "74f99b09f989942b6c9d5122ebf6f3f6dcf61d127dc48d3b56b8692882131abb",
+      "bbox": [
+        26,
+        55,
+        486,
+        457
+      ]
+    },
+    "ai_platform_unified.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/ai_platform_unified/ai_platform_unified.png",
+      "size_bytes": 51118,
+      "sha256": "60551eb24de65dd3a1025af05ba910f9f7161d1f244bbe82eeed589ae947064b",
+      "bbox": [
+        67,
+        26,
+        444,
+        486
+      ]
+    },
+    "alloydb.png": {
+      "source_category": "core_products",
+      "source_file": "core_products/AlloyDB/PNG/AlloyDB-512-color.png",
+      "size_bytes": 57372,
+      "sha256": "e8927a04c34748dc888dae3229008b1834324ecf05c2c18a6ac494eaf434a77d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "analytics_hub.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/analytics_hub/analytics_hub.png",
+      "size_bytes": 59304,
+      "sha256": "b47843e3699174510d721b7ba68c642fd932648a01523728f23c0472fcf0dfac",
+      "bbox": [
+        26,
+        83,
+        486,
+        429
+      ]
+    },
+    "anthos.png": {
+      "source_category": "core_products",
+      "source_file": "core_products/Anthos/PNG/Anthos-512-color.png",
+      "size_bytes": 60282,
+      "sha256": "e041531f1f7e1eab5fe22d97b7e4db426cb669e699f3c2ef8ab4b51bd0eca446",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "anthos_config_management.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/anthos_config_management/anthos_config_management.png",
+      "size_bytes": 52954,
+      "sha256": "e72425bd50a6e1538241f617563dd335758919326664ae8e48b3fdce7a5c9bc0",
+      "bbox": [
+        54,
+        26,
+        458,
+        486
+      ]
+    },
+    "anthos_service_mesh.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/anthos_service_mesh/anthos_service_mesh.png",
+      "size_bytes": 70163,
+      "sha256": "df7a2c1d1fa2c7e253f64150fe8eca2913ad506e0b1d3f533b938f78ae268cd3",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "api.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/api/api.png",
+      "size_bytes": 10260,
+      "sha256": "46f4e9bf16bada5fc498aac4153231b303fdefcc22899cf08c420dbf6030adcc",
+      "bbox": [
+        26,
+        137,
+        486,
+        374
+      ]
+    },
+    "api_analytics.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/api_analytics/api_analytics.png",
+      "size_bytes": 46666,
+      "sha256": "82aae012cdd7ddccefc06a2565e6a93a7c71c0c0924b4b986d4c7b6e8c6f0b9a",
+      "bbox": [
+        26,
+        146,
+        486,
+        365
+      ]
+    },
+    "api_monetization.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/api_monetization/api_monetization.png",
+      "size_bytes": 36752,
+      "sha256": "ed597a8a43cf41d1bf5968e54909e7c95b37103a7d6eb4454ab3daca51d148bb",
+      "bbox": [
+        46,
+        26,
+        466,
+        486
+      ]
+    },
+    "apigee.png": {
+      "source_category": "core_products",
+      "source_file": "core_products/Apigee/PNG/Apigee-512-color.png",
+      "size_bytes": 79758,
+      "sha256": "718aad4dc057f62c8298591d87c992e7eec8375fc9ace391c390291aa8d738a7",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "apigee_api_platform.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/apigee_api_platform/apigee_api_platform.png",
+      "size_bytes": 70948,
+      "sha256": "90fef41be9de0693826b16c2aef82506028624b5bc5384d90b956783e47f78c4",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "apigee_sense.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/apigee_sense/apigee_sense.png",
+      "size_bytes": 59994,
+      "sha256": "a00dde7d2b457cd7225f140d226a40e7fe456f14849280aec31521ed2d6da437",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "app_engine.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/app_engine/app_engine.png",
+      "size_bytes": 48684,
+      "sha256": "823971eba777a60d1b73fcf42da07f118a80b520ec24525c878bee381aa9cb82",
+      "bbox": [
+        26,
+        71,
+        486,
+        440
+      ]
+    },
+    "artifact_registry.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/artifact_registry/artifact_registry.png",
+      "size_bytes": 45769,
+      "sha256": "6ebfdf3bf3be5aa4f6e6d8e40a48bf79dfb5d888eb4b4aede6638e0b8f177ed1",
+      "bbox": [
+        26,
+        54,
+        486,
+        458
+      ]
+    },
+    "asset_inventory.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/asset_inventory/asset_inventory.png",
+      "size_bytes": 64470,
+      "sha256": "d5f7d070fce188c637a4a9479370d10151e41265d7d4e0c88e954fd2140c3b4f",
+      "bbox": [
+        26,
+        71,
+        486,
+        440
+      ]
+    },
+    "assured_workloads.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/assured_workloads/assured_workloads.png",
+      "size_bytes": 31429,
+      "sha256": "d17e302a413b9e847cac8c28898eeba634e945d4e2896e1eb9e0578f01b91d75",
+      "bbox": [
+        27,
+        26,
+        486,
+        485
+      ]
+    },
+    "automl.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/automl/automl.png",
+      "size_bytes": 37630,
+      "sha256": "52289f8e589d7da912af18471ac2a83fec82197da38d56650b5cb8d147ef2a2f",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
+      ]
+    },
+    "automl_natural_language.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/automl_natural_language/automl_natural_language.png",
+      "size_bytes": 28295,
+      "sha256": "b4cff1bb762ea5b4f2075a6121339b08e470cf148ca38e7a7539070b302a530a",
+      "bbox": [
+        27,
+        47,
+        486,
+        465
+      ]
+    },
+    "automl_tables.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/automl_tables/automl_tables.png",
+      "size_bytes": 32454,
+      "sha256": "0d1abc9d969637bb5a9da853988e3e824dfb8883ee54aa51f5c83bf0c943cd46",
+      "bbox": [
+        27,
+        46,
+        485,
+        465
+      ]
+    },
+    "automl_translation.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/automl_translation/automl_translation.png",
+      "size_bytes": 35154,
+      "sha256": "39c88268e4d81c573ef9e5b7a59427615be9b5c142db7b65a04463dcbec49358",
+      "bbox": [
+        27,
+        46,
+        485,
+        465
+      ]
+    },
+    "automl_video_intelligence.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/automl_video_intelligence/automl_video_intelligence.png",
+      "size_bytes": 31396,
+      "sha256": "6f69ffc36b8c363de4bc990ff404b6a08110e76887dc577eb2c2492c99be1c34",
+      "bbox": [
+        27,
+        46,
+        485,
+        465
+      ]
+    },
+    "automl_vision.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/automl_vision/automl_vision.png",
+      "size_bytes": 28481,
+      "sha256": "6452338ba98566239f84921ad58beb45d84e92725b68c5cd1afeef1000ba681e",
+      "bbox": [
+        27,
+        46,
+        485,
+        465
+      ]
+    },
+    "bare_metal_solutions.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/bare_metal_solutions/bare_metal_solutions.png",
+      "size_bytes": 54680,
+      "sha256": "5fd522d681f7c46186c72ea734c404f15cdc41ed27049e00bd98299a0afbffff",
+      "bbox": [
+        37,
+        26,
+        474,
+        486
+      ]
+    },
+    "batch.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/batch/batch.png",
+      "size_bytes": 44453,
+      "sha256": "e1f9ae0bed3dd5383f73028f36f4f9051d7bf56f6be920a8528abb73c5bdeb92",
+      "bbox": [
+        26,
+        102,
+        486,
+        410
+      ]
+    },
+    "beyondcorp.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/beyondcorp/beyondcorp.png",
+      "size_bytes": 47044,
+      "sha256": "126045acfbc04e2209ea303d5cc43a17492c53e5b962e5daee4b711b4f8126c9",
+      "bbox": [
+        40,
+        26,
+        472,
+        486
+      ]
+    },
+    "bigquery.png": {
+      "source_category": "core_products",
+      "source_file": "core_products/BigQuery/PNG/BigQuery-512-color.png",
+      "size_bytes": 46352,
+      "sha256": "9fd543cbdc7588655366d752f04995f689153cb48fe3dd86a69c0946b025dee2",
+      "bbox": [
+        26,
+        26,
+        485,
+        485
+      ]
+    },
+    "bigtable.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/bigtable/bigtable.png",
+      "size_bytes": 81386,
+      "sha256": "958e10c114bd5fe8ed1e4ea57a00b861ccb77c6377d23404ed29cf72f2b2ae56",
+      "bbox": [
+        49,
+        26,
+        463,
+        486
+      ]
+    },
+    "billing.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/billing/billing.png",
+      "size_bytes": 5506,
+      "sha256": "aafec5247dcd2b3854e72c19cd89fbd76ea3e41645a99502a6337b47d72be667",
+      "bbox": [
+        26,
+        98,
+        486,
+        414
+      ]
+    },
+    "binary_authorization.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/binary_authorization/binary_authorization.png",
+      "size_bytes": 40774,
+      "sha256": "77c49ebf00e995c8a24356052115e5e4f03f9a731a49f32e0692f91dd7a77570",
+      "bbox": [
+        108,
+        26,
+        404,
+        486
+      ]
+    },
+    "catalog.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/catalog/catalog.png",
+      "size_bytes": 17727,
+      "sha256": "89cb86bf9f55f4047330a565e68fbf91f45c70b4e1f652f5fa375fca24bd6029",
+      "bbox": [
+        26,
+        35,
+        486,
+        477
+      ]
+    },
+    "category_agents.png": {
+      "source_category": "category",
+      "source_file": "category/Agents/PNG/Agents-512-color.png",
+      "size_bytes": 79150,
+      "sha256": "68779fc8dc5e30d2524e9aacc8679eef0f7c20579013821fd5edc663b530517b",
+      "bbox": [
+        26,
+        26,
+        486,
+        485
+      ]
+    },
+    "category_ai_machine_learning.png": {
+      "source_category": "category",
+      "source_file": "category/AI _ Machine Learning/PNG/AIMachineLearning-512-color.png",
+      "size_bytes": 55044,
+      "sha256": "09ae6792788b1ee9c338465c0b6daa1413a5dc12a4276cba14092fd1957ec42b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_business_intelligence.png": {
+      "source_category": "category",
+      "source_file": "category/Business Intelligence/PNG/BusinessIntelligence-512-color.png",
+      "size_bytes": 30192,
+      "sha256": "cd9ed55e6a27321717bb65b4178e877138fe222e2621db930ca03c220c1ef49d",
+      "bbox": [
+        26,
+        27,
+        486,
+        486
+      ]
+    },
+    "category_collaboration.png": {
+      "source_category": "category",
+      "source_file": "category/Collaboration/PNG/Collaboration-512-color.png",
+      "size_bytes": 43571,
+      "sha256": "99f16ed4dbfb393cf9c10fb81ae738d8a5aa08e2b6010a90de2c31868f961a9d",
+      "bbox": [
+        26,
+        97,
+        486,
+        415
+      ]
+    },
+    "category_compute.png": {
+      "source_category": "category",
+      "source_file": "category/Compute/PNG/Compute-512-color.png",
+      "size_bytes": 22041,
+      "sha256": "db638c86ba8eacb3a20639e27bf812b1b8682aa324a8fdbe31b41cd27183ceda",
+      "bbox": [
+        88,
+        26,
+        424,
+        486
+      ]
+    },
+    "category_containers.png": {
+      "source_category": "category",
+      "source_file": "category/Containers/PNG/Containers-512-color.png",
+      "size_bytes": 43512,
+      "sha256": "0cb1c814192c8763db415a0e17c9338ac8feec0efdcda6c4687f3264844ddb4e",
+      "bbox": [
+        57,
+        26,
+        454,
+        486
+      ]
+    },
+    "category_data_analytics.png": {
+      "source_category": "category",
+      "source_file": "category/Data Analytics/PNG/DataAnalytics-512-color.png",
+      "size_bytes": 53391,
+      "sha256": "2f2dda97257aaba93cba416eb59f9592e32073a2e96891db274e8f547ad12390",
+      "bbox": [
+        27,
+        26,
+        486,
+        485
+      ]
+    },
+    "category_databases.png": {
+      "source_category": "category",
+      "source_file": "category/Databases/PNG/Databases-512-color.png",
+      "size_bytes": 45932,
+      "sha256": "eaed7135f01e45bdb1f0d4ffeb16ce106354dd95d8e7563624fdf77342032d0a",
+      "bbox": [
+        88,
+        26,
+        423,
+        486
+      ]
+    },
+    "category_developer_tools.png": {
+      "source_category": "category",
+      "source_file": "category/Developer Tools/PNG/Developer_Tools-512-color.png",
+      "size_bytes": 56709,
+      "sha256": "6f659f94868e1adceacbf41f8451d7b045e84c7e87a6b09503ad207c41de4a79",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_devops.png": {
+      "source_category": "category",
+      "source_file": "category/DevOps/PNG/DevOps-512-color.png",
+      "size_bytes": 36614,
+      "sha256": "46dd8556f85d7667785026d8644c57f7a8bc2ee725c8e5b6b4f8568a91d9e46f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_hybrid_multicloud.png": {
+      "source_category": "category",
+      "source_file": "category/Hybrid & Multicloud/PNG/HybridMulticloud-512-color.png",
+      "size_bytes": 33417,
+      "sha256": "8a5596ca5a34f7fea83381060b0598fb54e6b41fe10b186e5be018cd81c43d59",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_integration_services.png": {
+      "source_category": "category",
+      "source_file": "category/Integration Services/PNG/IntegrationServices-512-color.png",
+      "size_bytes": 19855,
+      "sha256": "c88838ec6e79093b651397908964358ae90d49a84b60d3373912c6eccdf2a50b",
+      "bbox": [
+        89,
+        26,
+        422,
+        486
+      ]
+    },
+    "category_management_tools.png": {
+      "source_category": "category",
+      "source_file": "category/Management Tools/PNG/ManagementTools-512-color.png",
+      "size_bytes": 45552,
+      "sha256": "4e630f43c408f84f8ac8c27df0940f9702329babd85b8e0ce71976c3291335d9",
+      "bbox": [
+        26,
+        26,
+        486,
+        485
+      ]
+    },
+    "category_maps_geospatial.png": {
+      "source_category": "category",
+      "source_file": "category/Maps & Geospatial/PNG/MapsGeospatial-512-color.png",
+      "size_bytes": 55558,
+      "sha256": "7f0afa60c73e8bc0a4069634279ab2460cbde1d83b13c324d719bee218752c1b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_marketplace.png": {
+      "source_category": "category",
+      "source_file": "category/Marketplace/PNG/Marketplace-512-color.png",
+      "size_bytes": 32629,
+      "sha256": "dcc9a1692abefe6640acb1513be243a9be9550f5307357a1d790fd5b1e1ca8cc",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "category_media_services.png": {
+      "source_category": "category",
+      "source_file": "category/Media Services/PNG/MediaServices-512-color.png",
+      "size_bytes": 50831,
+      "sha256": "8792f029e478103d506cd95185696c71c9b68bab210af0bbe12ed0bd348d73ae",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_migration.png": {
+      "source_category": "category",
+      "source_file": "category/Migration/PNG/Migration-512-color.png",
+      "size_bytes": 19173,
+      "sha256": "5d3b22b763de40dc83a9089b3bd5c40fc263b524e4d83f4145c0a36b318308c0",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_mixed_reality.png": {
+      "source_category": "category",
+      "source_file": "category/Mixed Reality/PNG/MixedReality-512-color.png",
+      "size_bytes": 32661,
+      "sha256": "464f0cdbc44912bc9a229851bbf470b8825a2b6bebd035104054fe911f3213c3",
+      "bbox": [
+        26,
+        88,
+        486,
+        424
+      ]
+    },
+    "category_networking.png": {
+      "source_category": "category",
+      "source_file": "category/Networking/PNG/Networking-512-color.png",
+      "size_bytes": 64913,
+      "sha256": "96f53ce958c2bcefd2b81ae49924370500d344161d99a1264eab4fb86b32d98a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_observability.png": {
+      "source_category": "category",
+      "source_file": "category/Observability/PNG/Observability-512-color.png",
+      "size_bytes": 12062,
+      "sha256": "489b2ea6b7c3a6cadfea236c59d930e570f921e4afcc0dc1fb0dd057940c60bd",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_operations.png": {
+      "source_category": "category",
+      "source_file": "category/Operations/PNG/Operations-512-color.png",
+      "size_bytes": 57859,
+      "sha256": "78ae9bb6a21340f45a83d159f498d1c62b9a03d6492989e7414191537d275598",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_security_identity.png": {
+      "source_category": "category",
+      "source_file": "category/Security Identity/PNG/SecurityIdentity-512-color.png",
+      "size_bytes": 59442,
+      "sha256": "c2a98b933a51b6edb946dab380bc1925e92aa8c1cfafe4eee65714c17a766e00",
+      "bbox": [
+        50,
+        26,
+        462,
+        486
+      ]
+    },
+    "category_serverless_computing.png": {
+      "source_category": "category",
+      "source_file": "category/Serverless Computing/PNG/ServerlessComputing-512-color.png",
+      "size_bytes": 38288,
+      "sha256": "4a73494090cf12a042be1209161b05bba0ce3d83ddc54bcb800fd237136e69e4",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_storage.png": {
+      "source_category": "category",
+      "source_file": "category/Storage/PNG/Storage-512-color.png",
+      "size_bytes": 6719,
+      "sha256": "a9d2c82dfc137a684f33c9835abffd0402244b613eece77a79c9b0f45122c330",
+      "bbox": [
+        89,
+        26,
+        423,
+        486
+      ]
+    },
+    "category_web3.png": {
+      "source_category": "category",
+      "source_file": "category/Web3/PNG/Web3-512-color.png",
+      "size_bytes": 25549,
+      "sha256": "4435cfcb263ec9f7c1bb25833d0cd4976f1ac97dba8a046bc3effb65aa640388",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "category_web_mobile.png": {
+      "source_category": "category",
+      "source_file": "category/Web & Mobile/PNG/WebMobile-512-color.png",
+      "size_bytes": 11697,
+      "sha256": "64409a7fd1b49374d92a60334b91b8bbb8ee082eec935b8039b4fd04cb40e4ee",
+      "bbox": [
+        26,
+        26,
+        486,
+        485
+      ]
+    },
+    "certificate_authority_service.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/certificate_authority_service/certificate_authority_service.png",
+      "size_bytes": 32855,
+      "sha256": "ccc0f626bbc3b4c13c8ee1bcbfbdeb8660733b1c7cd45ded1543debeb2ebe55f",
+      "bbox": [
+        69,
+        26,
+        443,
+        486
+      ]
+    },
+    "certificate_manager.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/certificate_manager/certificate_manager.png",
+      "size_bytes": 26771,
+      "sha256": "55ea666b2b94debb9464358c371651438f952cea634f0a18a5536dbc6b1be530",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_api_gateway.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_api_gateway/cloud_api_gateway.png",
+      "size_bytes": 29602,
+      "sha256": "795c6a4fcfee97154774669794ac64042476cd7d40fed7d30b78448749ad4395",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "cloud_apis.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_apis/cloud_apis.png",
+      "size_bytes": 44632,
+      "sha256": "5f62a5b6410993359596823698a0fba8f4571559ed5c5c0bac72850f1fac8d58",
+      "bbox": [
+        27,
+        27,
+        485,
+        485
+      ]
+    },
+    "cloud_armor.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_armor/cloud_armor.png",
+      "size_bytes": 58166,
+      "sha256": "8f4cc651d6846b90e211f33eb60d190af1a7e8c7f0c2f7fa28514288133ef6cb",
+      "bbox": [
+        66,
+        27,
+        445,
+        486
+      ]
+    },
+    "cloud_asset_inventory.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_asset_inventory/cloud_asset_inventory.png",
+      "size_bytes": 59488,
+      "sha256": "db4de5a175478b49854a165696686a2c7a3f12df6385ed392c8c8f95e47a63a5",
+      "bbox": [
+        26,
+        71,
+        486,
+        440
+      ]
+    },
+    "cloud_audit_logs.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_audit_logs/cloud_audit_logs.png",
+      "size_bytes": 55307,
+      "sha256": "cb1fbdebed4c694bceffe6ed8614aa2ba08b7bd7d3974abec1974df1283fbdb7",
+      "bbox": [
+        26,
+        27,
+        486,
+        485
+      ]
+    },
+    "cloud_build.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_build/cloud_build.png",
+      "size_bytes": 46170,
+      "sha256": "60282615d9b1581088e714bb9f9525b923e6889e4e03059feda51b9563c97d34",
+      "bbox": [
+        53,
+        26,
+        459,
+        486
+      ]
+    },
+    "cloud_cdn.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_cdn/cloud_cdn.png",
+      "size_bytes": 35104,
+      "sha256": "96bf3a9fc6676751fcfc227c9e83704dec4f6095d39c3f52d03872dc53aa2e11",
+      "bbox": [
+        27,
+        27,
+        485,
+        485
+      ]
+    },
+    "cloud_code.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_code/cloud_code.png",
+      "size_bytes": 44204,
+      "sha256": "66d629190537ac33652a46611314b95b81811d3cd59b04c186b3ec1cabbcd773",
+      "bbox": [
+        27,
+        104,
+        485,
+        407
+      ]
+    },
+    "cloud_composer.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_composer/cloud_composer.png",
+      "size_bytes": 3735,
+      "sha256": "7c23edf19ce0ebcbaacf2ebc0cf776d7659fde43b8ba407c18663106a6b921f9",
+      "bbox": [
+        87,
+        26,
+        424,
+        486
+      ]
+    },
+    "cloud_data_fusion.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_data_fusion/cloud_data_fusion.png",
+      "size_bytes": 11991,
+      "sha256": "c7671983fc43313ba5b2c6fefd40bc69bcc3dff85b8179281152c1e993754e20",
+      "bbox": [
+        27,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_deploy.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_deploy/cloud_deploy.png",
+      "size_bytes": 32008,
+      "sha256": "99a6b91002d1d1bd8bdd59bbb19795ccdd3f4118ed76688ddaa9d3f47d7edd3e",
+      "bbox": [
+        46,
+        26,
+        466,
+        485
+      ]
+    },
+    "cloud_deployment_manager.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_deployment_manager/cloud_deployment_manager.png",
+      "size_bytes": 24283,
+      "sha256": "783a4681d9b8790a39410dcb87562d60b89cd069ede482c590ad9dd4f09ecd89",
+      "bbox": [
+        26,
+        38,
+        486,
+        474
+      ]
+    },
+    "cloud_dns.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_dns/cloud_dns.png",
+      "size_bytes": 4939,
+      "sha256": "d98588cd3cd167a2bae2b476352a6018197a4ee31ebf5060d0488131437b956f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_domains.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_domains/cloud_domains.png",
+      "size_bytes": 41304,
+      "sha256": "7a55c027b0c68c2b4f7caa15af989124aa3b2a6eb46709f48affa8041cf3e68c",
+      "bbox": [
+        26,
+        109,
+        486,
+        403
+      ]
+    },
+    "cloud_ekm.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_ekm/cloud_ekm.png",
+      "size_bytes": 19214,
+      "sha256": "4f7ead74936c58776d67d219c98a82ce4385429f3b4d01a2a5c944b549f93e50",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_endpoints.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_endpoints/cloud_endpoints.png",
+      "size_bytes": 33163,
+      "sha256": "0ee64255127bfa57734a10af8f3921966fe0e3c9a2f2e9fb37a3e598c181f594",
+      "bbox": [
+        27,
+        118,
+        486,
+        394
+      ]
+    },
+    "cloud_external_ip_addresses.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_external_ip_addresses/cloud_external_ip_addresses.png",
+      "size_bytes": 6974,
+      "sha256": "e8f45084d2e8fc6b1582f00a03d239140f39d7a1a67c241ae677f33ec033ac7b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_firewall_rules.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_firewall_rules/cloud_firewall_rules.png",
+      "size_bytes": 4536,
+      "sha256": "79ccaf85e330219d98ea19572487de4f3bd3652234fe4534905d9b53fd12a74f",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "cloud_for_marketing.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_for_marketing/cloud_for_marketing.png",
+      "size_bytes": 53367,
+      "sha256": "fc6e47c7675d2eef6d4b4d0bd2e238915486cc9964defa5a18d58904452910a0",
+      "bbox": [
+        26,
+        95,
+        486,
+        416
+      ]
+    },
+    "cloud_functions.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_functions/cloud_functions.png",
+      "size_bytes": 38633,
+      "sha256": "50b50f380e67d9acad22a787e5fb348599b59cff21e8c1d2b07f16135de5f103",
+      "bbox": [
+        26,
+        27,
+        486,
+        486
+      ]
+    },
+    "cloud_generic.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_generic/cloud_generic.png",
+      "size_bytes": 15307,
+      "sha256": "9e1fc76348617a60dab75648ffc21eb4ba31275f0c0e20822868cd88c6c82284",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_gpu.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_gpu/cloud_gpu.png",
+      "size_bytes": 16089,
+      "sha256": "9e23545225cd1a5a8bcc1a766726f69a9d22f694588c32572dbfd8ac6a4feb0f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_healthcare_api.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_healthcare_api/cloud_healthcare_api.png",
+      "size_bytes": 28416,
+      "sha256": "ba96fbf5c8652c32fe95c3f1074264dfb6e1d92e36113d17e7917d203dafee27",
+      "bbox": [
+        72,
+        26,
+        440,
+        485
+      ]
+    },
+    "cloud_healthcare_marketplace.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_healthcare_marketplace/cloud_healthcare_marketplace.png",
+      "size_bytes": 6288,
+      "sha256": "43d274bc18a7456647f0e1abcd29fb6e9a99542a88784e7e9e082f60f0458ac4",
+      "bbox": [
+        108,
+        26,
+        404,
+        486
+      ]
+    },
+    "cloud_hsm.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_hsm/cloud_hsm.png",
+      "size_bytes": 54943,
+      "sha256": "e31cc8b8b83cf4ba11085f12cf0b592595cedb66080eee045edd0c8c10326b45",
+      "bbox": [
+        103,
+        26,
+        408,
+        486
+      ]
+    },
+    "cloud_ids.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_ids/cloud_ids.png",
+      "size_bytes": 70323,
+      "sha256": "16a8fd119494784bdc7c65256f6e6e8f2e5af64b3d7f16c1a2eeaa81434363f2",
+      "bbox": [
+        27,
+        66,
+        485,
+        445
+      ]
+    },
+    "cloud_inference_api.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_inference_api/cloud_inference_api.png",
+      "size_bytes": 12555,
+      "sha256": "16508e1ff646c02ad917bdefdf287dc66c4ce7d362ca583fb09b345b1bccb174",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_interconnect.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_interconnect/cloud_interconnect.png",
+      "size_bytes": 3175,
+      "sha256": "e474bba5be6f999ecf8d40a3de1577d9e3acbb308652109e4741869d753ceb21",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
+      ]
+    },
+    "cloud_jobs_api.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_jobs_api/cloud_jobs_api.png",
+      "size_bytes": 31137,
+      "sha256": "b1aecd5df60956f3f51f4b7c2bdae8a8ca187df32daadaccb7362566b3eaf01a",
+      "bbox": [
+        26,
+        28,
+        486,
+        484
+      ]
+    },
+    "cloud_load_balancing.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_load_balancing/cloud_load_balancing.png",
+      "size_bytes": 5525,
+      "sha256": "516da6c4a055b8f3aa29fc54ff5c4e18e1beb50920d6d40afec3ed4a0e212f07",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_logging.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_logging/cloud_logging.png",
+      "size_bytes": 4022,
+      "sha256": "357901fda3986a4f9374d9d159487380a3fee7d2a96d76ba19026d1c86214508",
+      "bbox": [
+        26,
+        38,
+        486,
+        474
+      ]
+    },
+    "cloud_media_edge.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_media_edge/cloud_media_edge.png",
+      "size_bytes": 69544,
+      "sha256": "c4b2a6335b67736d4ab5e125f1fc3cd5c13904862603e4591127811a1c8fe35a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_monitoring.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_monitoring/cloud_monitoring.png",
+      "size_bytes": 20910,
+      "sha256": "62c4a31f621ae13436722f987e7bd38e16960855286f26ea281d224c43c4d7ab",
+      "bbox": [
+        26,
+        100,
+        486,
+        411
+      ]
+    },
+    "cloud_nat.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_nat/cloud_nat.png",
+      "size_bytes": 41585,
+      "sha256": "c05f2779a48cd3914e8ea7cbdfd3cc2380ceac67aeb2a0b134de553403b5a5f1",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "cloud_natural_language_api.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_natural_language_api/cloud_natural_language_api.png",
+      "size_bytes": 6175,
+      "sha256": "01709e98032b61e92868f734bee64d5ccb4955da790a0918a03b10eb0e3760c3",
+      "bbox": [
+        26,
+        72,
+        486,
+        440
+      ]
+    },
+    "cloud_network.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_network/cloud_network.png",
+      "size_bytes": 32745,
+      "sha256": "0f13ab37a5ce8cbf1322285042f4132df72c753fd4b3d4eada1fa6383d00e6b5",
+      "bbox": [
+        26,
+        41,
+        486,
+        471
+      ]
+    },
+    "cloud_ops.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_ops/cloud_ops.png",
+      "size_bytes": 62997,
+      "sha256": "a7dfed29be37f5c048b2fc76850a6aa62e4801a8733dac98367b4f25668db8af",
+      "bbox": [
+        26,
+        33,
+        486,
+        478
+      ]
+    },
+    "cloud_optimization_ai.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_optimization_ai/cloud_optimization_ai.png",
+      "size_bytes": 66629,
+      "sha256": "c91fb48789fe3ee7d451b6f3ffb53d18b6dd5b5727548d580837c7eec8b63678",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_optimization_ai_fleet_routing_api.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_optimization_ai_-_fleet_routing_api/cloud_optimization_ai_-_fleet_routing_api.png",
+      "size_bytes": 54667,
+      "sha256": "f6b9abdeab3aca19ea973690bf9f19b337a5f3b2cf10e82326186a8292e3dc58",
+      "bbox": [
+        26,
+        30,
+        486,
+        481
+      ]
+    },
+    "cloud_router.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_router/cloud_router.png",
+      "size_bytes": 25315,
+      "sha256": "c55521d5294f84bc9382a2b187c665da0205412b6cff9bea5229a52a1b7110eb",
+      "bbox": [
+        26,
+        27,
+        486,
+        485
+      ]
+    },
+    "cloud_routes.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_routes/cloud_routes.png",
+      "size_bytes": 35793,
+      "sha256": "2ca92c185376cc1ac5dfac3fc6f370f32e48dc4005745271689c266a87bf8034",
+      "bbox": [
+        26,
+        34,
+        486,
+        477
+      ]
+    },
+    "cloud_run.png": {
+      "source_category": "core_products",
+      "source_file": "core_products/Cloud Run/PNG/CloudRun-512-color-rgb.png",
+      "size_bytes": 58979,
+      "sha256": "b604a1f572e11e899b9a4c7ccb0aecf3dd57acf7a1bbebcbcd33dd1d5144b198",
+      "bbox": [
+        27,
+        26,
+        486,
+        485
+      ]
+    },
+    "cloud_run_for_anthos.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_run_for_anthos/cloud_run_for_anthos.png",
+      "size_bytes": 63525,
+      "sha256": "4fec7b0a0b3929cc29e65076628031e5f56c1ad4a55fc70d2d2220dc77a067b1",
+      "bbox": [
+        26,
+        40,
+        485,
+        472
+      ]
+    },
+    "cloud_scheduler.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_scheduler/cloud_scheduler.png",
+      "size_bytes": 70483,
+      "sha256": "56f7d28ce23399d73ecc1d3bfb3070877ac676d2932080672ea4cab7478fab35",
+      "bbox": [
+        37,
+        26,
+        475,
+        486
+      ]
+    },
+    "cloud_security_scanner.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_security_scanner/cloud_security_scanner.png",
+      "size_bytes": 54796,
+      "sha256": "2a0aa1b10a1c73a681924b79a9bca3fd8a330402755240280071bbf8e71504cb",
+      "bbox": [
+        26,
+        56,
+        486,
+        455
+      ]
+    },
+    "cloud_shell.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_shell/cloud_shell.png",
+      "size_bytes": 22606,
+      "sha256": "65c4a17351f61af16c10cfc6bb6208788f44b5c817a46b3a72ae557bee857265",
+      "bbox": [
+        26,
+        41,
+        486,
+        470
+      ]
+    },
+    "cloud_spanner.png": {
+      "source_category": "core_products",
+      "source_file": "core_products/Cloud Spanner/PNG/CloudSpanner-512-color.png",
+      "size_bytes": 33659,
+      "sha256": "8a149deccc3e88d1163b4be188b06c7ee67359c3f510871614973a12d782076c",
+      "bbox": [
+        26,
+        43,
+        486,
+        468
+      ]
+    },
+    "cloud_sql.png": {
+      "source_category": "core_products",
+      "source_file": "core_products/Cloud SQL/PNG/CloudSQL-512-color.png",
+      "size_bytes": 81554,
+      "sha256": "220f6047112e16ea900e9fb049bb41b8151717f42966d7d41969ea138ade7d45",
+      "bbox": [
+        27,
+        26,
+        486,
+        485
+      ]
+    },
+    "cloud_storage.png": {
+      "source_category": "core_products",
+      "source_file": "core_products/Cloud Storage/PNG/Cloud_Storage-512-color.png",
+      "size_bytes": 16210,
+      "sha256": "9579a0d83333bc7e70b87687858487300590ddd522df16a3f4aa014013414661",
+      "bbox": [
+        27,
+        26,
+        486,
+        485
+      ]
+    },
+    "cloud_tasks.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_tasks/cloud_tasks.png",
+      "size_bytes": 3410,
+      "sha256": "91f8f78885a94567099c004d9db97989de2bbc6a6d1531ef5f74c0cdcca0a564",
+      "bbox": [
+        26,
+        76,
+        486,
+        435
+      ]
+    },
+    "cloud_test_lab.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_test_lab/cloud_test_lab.png",
+      "size_bytes": 65822,
+      "sha256": "6ee4e3ff23253262bee74007c1be9bc5afbec0ab2cd17c624accc6c87e57aa2b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_tpu.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_tpu/cloud_tpu.png",
+      "size_bytes": 40020,
+      "sha256": "646426317e171a9eb18d939e9054cb2a066e24b98e037463c17e5c8f20e0f6bd",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloud_translation_api.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_translation_api/cloud_translation_api.png",
+      "size_bytes": 36851,
+      "sha256": "6a2c596f84522fc5d6dca1d76b8edcf96ca551f7e6869d160d4d1e0919ac3872",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
+      ]
+    },
+    "cloud_vision_api.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_vision_api/cloud_vision_api.png",
+      "size_bytes": 42182,
+      "sha256": "c5765c10049b4ba80a2558fc90dcfe255bbb27013deffbd7696e193a6afa5b5a",
+      "bbox": [
+        27,
+        72,
+        485,
+        440
+      ]
+    },
+    "cloud_vpn.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/cloud_vpn/cloud_vpn.png",
+      "size_bytes": 13628,
+      "sha256": "e4f4c920b8d6766ced947cd0e2e3965eca4d793f2fa51ccf54f94a05948ce3da",
+      "bbox": [
+        49,
+        26,
+        462,
+        486
+      ]
+    },
+    "compute_engine.png": {
+      "source_category": "core_products",
+      "source_file": "core_products/Compute Engine/PNG/ComputeEngine-512-color.png",
+      "size_bytes": 20590,
+      "sha256": "56698b714fcd880beb73e605768b428d3380d8b9485334bdd61e3a17295623c0",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "configuration_management.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/configuration_management/configuration_management.png",
+      "size_bytes": 39891,
+      "sha256": "7f077a52accff4cf71c105145d1c6d9d6c97bb4e1da9a04dec1237999a8b582e",
+      "bbox": [
+        28,
+        26,
+        483,
+        486
+      ]
+    },
+    "connectivity_test.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/connectivity_test/connectivity_test.png",
+      "size_bytes": 34952,
+      "sha256": "3a5c976e5f534a2bb11e9da178d27f89130b2a906c3a5e490caa64ab48335887",
+      "bbox": [
+        42,
+        26,
+        469,
+        486
+      ]
+    },
+    "connectors.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/connectors/connectors.png",
+      "size_bytes": 46951,
+      "sha256": "2c0df1f815b4794757d8a2e21a820018a600d388bba879a38571930db2286a38",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "contact_center_ai.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/contact_center_ai/contact_center_ai.png",
+      "size_bytes": 30665,
+      "sha256": "cc3aacb361968cc85d2708ebc48267b3d241b5f00ae6941205dc5b60a0e620a5",
+      "bbox": [
+        81,
+        26,
+        430,
+        486
+      ]
+    },
+    "container_optimized_os.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/container_optimized_os/container_optimized_os.png",
+      "size_bytes": 62204,
+      "sha256": "5c7d74466215bbec9b190a582553dbf5339a89c2ae6f51ec611fb088c71411dd",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "container_registry.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/container_registry/container_registry.png",
+      "size_bytes": 44043,
+      "sha256": "4a7760f1eb3dca8f45b042105aa0a3eb92d7460785ec628506c5140bd1f3bd7e",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
+      ]
+    },
+    "data_catalog.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/data_catalog/data_catalog.png",
+      "size_bytes": 39607,
+      "sha256": "ad3dd3cf84a02a074109876d1e42c00e20acf5ab381d8c767513d36467be048c",
+      "bbox": [
+        27,
+        36,
+        485,
+        475
+      ]
+    },
+    "data_labeling.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/data_labeling/data_labeling.png",
+      "size_bytes": 31144,
+      "sha256": "6b4d392a97842be27e7610e5a96e706d8459308e2434b99cc0fce4a719a3dee5",
+      "bbox": [
+        26,
+        72,
+        486,
+        440
+      ]
+    },
+    "data_layers.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/data_layers/data_layers.png",
+      "size_bytes": 60378,
+      "sha256": "538614b8db41ebba60b06e5fe85e3f969c0146d0879b8330a06a48f41945792c",
+      "bbox": [
+        26,
+        48,
+        486,
+        464
+      ]
+    },
+    "data_loss_prevention_api.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/data_loss_prevention_api/data_loss_prevention_api.png",
+      "size_bytes": 49535,
+      "sha256": "90c2e6596520547ac364cc71f5aea24a319db6dcec4a0232436fe2c71d4469b9",
+      "bbox": [
+        26,
+        86,
+        486,
+        425
+      ]
+    },
+    "data_qna.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/data_qna/data_qna.png",
+      "size_bytes": 9444,
+      "sha256": "1b789becaaaae37edfe8fb873f89e4d3445cb2d6eadc2dd87bdfcf78c1fd2333",
+      "bbox": [
+        26,
+        48,
+        486,
+        464
+      ]
+    },
+    "data_studio.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/data_studio/data_studio.png",
+      "size_bytes": 24471,
+      "sha256": "4c450ce8d1ae37c8dc5b5d6f8c83f06ccaddd48973e305e54b394d887fe3b3cd",
+      "bbox": [
+        26,
+        45,
+        486,
+        466
+      ]
+    },
+    "data_transfer.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/data_transfer/data_transfer.png",
+      "size_bytes": 37198,
+      "sha256": "b4cd67514cc9c3a28284da6894a96bc0e8f94f98bb59ac36427f1a9a2e5e4a07",
+      "bbox": [
+        26,
+        66,
+        486,
+        445
+      ]
+    },
+    "database_migration_service.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/database_migration_service/database_migration_service.png",
+      "size_bytes": 60992,
+      "sha256": "e11f247348421777a3102f7498f77b2ca2c8dafe760102560cbdceaa053215c5",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "dataflow.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/dataflow/dataflow.png",
+      "size_bytes": 55314,
+      "sha256": "13eaadfb7d9d29c01402dd9c8378a8e8d838af76cf3638c994e624be91c25fbc",
+      "bbox": [
+        89,
+        26,
+        422,
+        486
+      ]
+    },
+    "datalab.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/datalab/datalab.png",
+      "size_bytes": 30135,
+      "sha256": "b4db6aba85c750c8e549461fc8b86b27bf0306b5dcccdb3a315ca64bf2e405ee",
+      "bbox": [
+        108,
+        26,
+        404,
+        486
+      ]
+    },
+    "dataplex.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/dataplex/dataplex.png",
+      "size_bytes": 56176,
+      "sha256": "b661543a14a2422304ebf8471870d76e9120b9eb7b17d6b433da85b45d31b67a",
+      "bbox": [
+        43,
+        26,
+        469,
+        486
+      ]
+    },
+    "datapol.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/datapol/datapol.png",
+      "size_bytes": 40328,
+      "sha256": "b070bab0e71e6702e40938fe81831658e61a1d56aa02ebf19c9358e74e933720",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "dataprep.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/dataprep/dataprep.png",
+      "size_bytes": 27471,
+      "sha256": "ae25ea7f59c48233901ea4d13ecd5a860c9c022b2e3a48682fe8ade53d0e7075",
+      "bbox": [
+        46,
+        26,
+        465,
+        486
+      ]
+    },
+    "dataproc.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/dataproc/dataproc.png",
+      "size_bytes": 58686,
+      "sha256": "1fe9eaa4881e1bdc48bb46410ee06b1f0429e74aa4d5589c10634b7bce986eaa",
+      "bbox": [
+        26,
+        42,
+        486,
+        470
+      ]
+    },
+    "dataproc_metastore.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/dataproc_metastore/dataproc_metastore.png",
+      "size_bytes": 39759,
+      "sha256": "8d17fee970d8f92f784062590a42575665543e40f001c6d6703be98ad612c2ba",
+      "bbox": [
+        26,
+        62,
+        486,
+        449
+      ]
+    },
+    "datashare.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/datashare/datashare.png",
+      "size_bytes": 45894,
+      "sha256": "b8f5180fd29f7fc804a12f8560dd0737dbe8f1a18201b07c92fde589f094c7da",
+      "bbox": [
+        34,
+        26,
+        477,
+        486
+      ]
+    },
+    "datastore.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/datastore/datastore.png",
+      "size_bytes": 17946,
+      "sha256": "59bcdc9da5770c8a2a6ebf963a78a02ccaedbfd66831ab056a1df19a14a55cef",
+      "bbox": [
+        26,
+        95,
+        486,
+        417
+      ]
+    },
+    "datastream.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/datastream/datastream.png",
+      "size_bytes": 38563,
+      "sha256": "b26fb4332ca39b884c5bce1f5accbcf5c1a4146b80466bbcdc057998410958fc",
+      "bbox": [
+        26,
+        43,
+        486,
+        468
+      ]
+    },
+    "debugger.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/debugger/debugger.png",
+      "size_bytes": 16288,
+      "sha256": "229570b14f05f23f8d77a6f8f8d48a0d84829162b857e058b641ec13a517e97f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "developer_portal.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/developer_portal/developer_portal.png",
+      "size_bytes": 36185,
+      "sha256": "3b778f6232201b8b80e8f76cbd8f0beb7eb3ba6270f4a31ab0a2bda53ee36bed",
+      "bbox": [
+        27,
+        93,
+        485,
+        418
+      ]
+    },
+    "dialogflow.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/dialogflow/dialogflow.png",
+      "size_bytes": 31336,
+      "sha256": "d29d59ea293d3b82640f8f83154eb54cf1a1da1c073b847b1d1399a636e201ba",
+      "bbox": [
+        70,
+        26,
+        441,
+        486
+      ]
+    },
+    "dialogflow_cx.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/dialogflow_cx/dialogflow_cx.png",
+      "size_bytes": 30579,
+      "sha256": "f2ba4ee9f72d325647c1e5b3a2366efe51b292b6b3e6c68053e7bb62a74b44f1",
+      "bbox": [
+        81,
+        26,
+        431,
+        486
+      ]
+    },
+    "dialogflow_insights.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/dialogflow_insights/dialogflow_insights.png",
+      "size_bytes": 29544,
+      "sha256": "9e655d5b0a8d0500845f9131038f073a977cfb58afb811e810cce3ebcd8aea29",
+      "bbox": [
+        81,
+        26,
+        431,
+        486
+      ]
+    },
+    "distributed_cloud.png": {
+      "source_category": "core_products",
+      "source_file": "core_products/Distributed Cloud/PNG/DistributedCloud-512-color.png",
+      "size_bytes": 25596,
+      "sha256": "20317364760e7c652e4064fbd744c53afbdfd44d67d2a8a2b133c5ba33bfdb01",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "document_ai.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/document_ai/document_ai.png",
+      "size_bytes": 23353,
+      "sha256": "03efa735e5e9695e054df42211e9f6bd376e991c5642c8d3e7fd5233c4194b90",
+      "bbox": [
+        70,
+        26,
+        441,
+        486
+      ]
+    },
+    "early_access_center.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/early_access_center/early_access_center.png",
+      "size_bytes": 26252,
+      "sha256": "395ac2d885a637d54a3b7ceb353fa4dd7791f4c836103d0a87af96bbed3bbab3",
+      "bbox": [
+        26,
+        51,
+        486,
+        459
+      ]
+    },
+    "error_reporting.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/error_reporting/error_reporting.png",
+      "size_bytes": 43523,
+      "sha256": "f9746f7f13af1bd9b7bee7f7cd6242f9896cec032a08400e9c4e8b2e214f3820",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "eventarc.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/eventarc/eventarc.png",
+      "size_bytes": 69177,
+      "sha256": "c8a2e4a113958c09512171d4fb1109f7ef6e973963e94613841a545756c636b1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "filestore.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/filestore/filestore.png",
+      "size_bytes": 8712,
+      "sha256": "8eb2f0e582783638e96441e69d976f463a486e8c0e116d24eac30bb54ffa8a6d",
+      "bbox": [
+        26,
+        72,
+        486,
+        440
+      ]
+    },
+    "financial_services_marketplace.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/financial_services_marketplace/financial_services_marketplace.png",
+      "size_bytes": 23852,
+      "sha256": "0033e811f9b09901ca6f2b4a2b8686fa18c37887536ba34c6f577fcd9d12b700",
+      "bbox": [
+        94,
+        26,
+        418,
+        486
+      ]
+    },
+    "firestore.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/firestore/firestore.png",
+      "size_bytes": 38864,
+      "sha256": "b1fd16731f180f1da0814ad8f57665a711cc4620b90be3f331bcea24f16f45d2",
+      "bbox": [
+        49,
+        26,
+        462,
+        485
+      ]
+    },
+    "fleet_engine.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/fleet_engine/fleet_engine.png",
+      "size_bytes": 77031,
+      "sha256": "eff8dc001e38301516ed0c32dc6635f15e8f16f1d3832f3458e6d68ce750bf78",
+      "bbox": [
+        38,
+        26,
+        474,
+        486
+      ]
+    },
+    "free_trial.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/free_trial/free_trial.png",
+      "size_bytes": 17314,
+      "sha256": "b3b63035ecba08a99e09c7aea3b6c6b09d480d91a62ddae1559327a4bd04893f",
+      "bbox": [
+        26,
+        43,
+        486,
+        468
+      ]
+    },
+    "game_servers.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/game_servers/game_servers.png",
+      "size_bytes": 29254,
+      "sha256": "65453e8f1ce990eaaf6a4a0cb9f6bb1b6b961567c11b62c87df40693cc932218",
+      "bbox": [
+        35,
+        26,
+        477,
+        486
+      ]
+    },
+    "gce_systems_management.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/gce_systems_management/gce_systems_management.png",
+      "size_bytes": 52162,
+      "sha256": "e7964942a220865781be3c4b3b94844ef9ec0a5c2dd11cb19e59ac70450f1a8b",
+      "bbox": [
+        26,
+        43,
+        486,
+        468
+      ]
+    },
+    "genomics.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/genomics/genomics.png",
+      "size_bytes": 36413,
+      "sha256": "aa5d446bdc2fbeadf0f77c148bc4f35f83e02ab3244453a10c2cc568d9194fec",
+      "bbox": [
+        26,
+        42,
+        486,
+        470
+      ]
+    },
+    "gke.png": {
+      "source_category": "alias",
+      "alias_to": "google_kubernetes_engine.png",
+      "size_bytes": 51909,
+      "sha256": "a4f88b46897af2a81a721bf422ef295ab4829421f657f914802ae321ebecadb9"
+    },
+    "gke_on_prem.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/gke_on-prem/gke_on-prem.png",
+      "size_bytes": 70861,
+      "sha256": "46d7877db63b2a5530fddcf3a10fe7aa01c23d88a486c360a704401fcab45eae",
+      "bbox": [
+        32,
+        26,
+        479,
+        486
+      ]
+    },
+    "google_cloud_marketplace.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/google_cloud_marketplace/google_cloud_marketplace.png",
+      "size_bytes": 31622,
+      "sha256": "db07efd45eadde4053cd200327ecf8a6558049ff46a8a4851fccd21d18f42216",
+      "bbox": [
+        43,
+        26,
+        468,
+        486
+      ]
+    },
+    "google_kubernetes_engine.png": {
+      "source_category": "alias",
+      "alias_to": "gke.png",
+      "size_bytes": 51909,
+      "sha256": "a4f88b46897af2a81a721bf422ef295ab4829421f657f914802ae321ebecadb9"
+    },
+    "google_maps_platform.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/google_maps_platform/google_maps_platform.png",
+      "size_bytes": 38055,
+      "sha256": "31122be6b1dc863ecc66af71017636e01bd9c06191e98d30babcc313a63beb02",
+      "bbox": [
+        95,
+        26,
+        417,
+        486
+      ]
+    },
+    "healthcare_nlp_api.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/healthcare_nlp_api/healthcare_nlp_api.png",
+      "size_bytes": 17675,
+      "sha256": "761b20dae8a98ebfe01d2d5ac9c416097247e6df8ddfbd688c09d5fae4e706c3",
+      "bbox": [
+        26,
+        53,
+        486,
+        459
+      ]
+    },
+    "home.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/home/home.png",
+      "size_bytes": 23909,
+      "sha256": "2b7c4b1e36fb5b7256456e5a9ff644fdd77db9a7e011ae3d890dd8d7ef0bdf69",
+      "bbox": [
+        26,
+        42,
+        486,
+        470
+      ]
+    },
+    "hyperdisk.png": {
+      "source_category": "core_products",
+      "source_file": "core_products/Hyperdisk/PNG/Hyperdisk-512-color.png",
+      "size_bytes": 64181,
+      "sha256": "0f28a21babb73bc439981788eabdf482dce497643131c222b285a912b3e6c6f0",
+      "bbox": [
+        26,
+        26,
+        486,
+        485
+      ]
+    },
+    "identity_and_access_management.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/identity_and_access_management/identity_and_access_management.png",
+      "size_bytes": 35392,
+      "sha256": "c21c9007396724c98f5d95f9c92e49754699713e185572fe1f4af39c4f67e24e",
+      "bbox": [
+        66,
+        26,
+        445,
+        486
+      ]
+    },
+    "identity_aware_proxy.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/identity-aware_proxy/identity-aware_proxy.png",
+      "size_bytes": 42323,
+      "sha256": "2ad0cc34ae5b26a31c8bc9908d8b7c2bf39dcc93e217b53ee38db9f9f2aec4f9",
+      "bbox": [
+        26,
+        136,
+        485,
+        375
+      ]
+    },
+    "identity_platform.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/identity_platform/identity_platform.png",
+      "size_bytes": 40018,
+      "sha256": "723a98fd3e0df6184742277e24da88862a323c3ccd5ebc5fa3d0acae681969c5",
+      "bbox": [
+        57,
+        26,
+        455,
+        486
+      ]
+    },
+    "iot_core.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/iot_core/iot_core.png",
+      "size_bytes": 45609,
+      "sha256": "f27b551339c43770962e987174784e425a11a9519d354d09155d45e7029eafce",
+      "bbox": [
+        31,
+        26,
+        481,
+        486
+      ]
+    },
+    "iot_edge.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/iot_edge/iot_edge.png",
+      "size_bytes": 35909,
+      "sha256": "c2be98291b580951bf88b42b91d9b744200815b784db8905a6f3ef8f8289b27b",
+      "bbox": [
+        26,
+        72,
+        486,
+        440
+      ]
+    },
+    "key_access_justifications.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/key_access_justifications/key_access_justifications.png",
+      "size_bytes": 50346,
+      "sha256": "5c35bc201d144eb65644743eaacf242f608e9305cff807cc1c209bfcc99a390f",
+      "bbox": [
+        33,
+        26,
+        479,
+        486
+      ]
+    },
+    "key_management_service.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/key_management_service/key_management_service.png",
+      "size_bytes": 33891,
+      "sha256": "e70960649e7d58a54f04e98dddfcfb834c1c5ec750c3ce4c254d2c86ff120c87",
+      "bbox": [
+        67,
+        26,
+        445,
+        486
+      ]
+    },
+    "kuberun.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/kuberun/kuberun.png",
+      "size_bytes": 47820,
+      "sha256": "dd7151885e677224fd1f5cd6c173d3fc76e104442b93d0b6f8a495e8ec9f107d",
+      "bbox": [
+        26,
+        71,
+        486,
+        441
+      ]
+    },
+    "launcher.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/launcher/launcher.png",
+      "size_bytes": 38074,
+      "sha256": "d7c430f0bc60bc1f7a67a2a0579f847234e7f13dcf7c68efd7d23f23cff0ba8c",
+      "bbox": [
+        39,
+        26,
+        472,
+        486
+      ]
+    },
+    "local_ssd.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/local_ssd/local_ssd.png",
+      "size_bytes": 53345,
+      "sha256": "c7219fdec5fe82d569fbb020c745f30dda8bb4061a893b61b458a81a98156253",
+      "bbox": [
+        43,
+        26,
+        469,
+        486
+      ]
+    },
+    "looker.png": {
+      "source_category": "core_products",
+      "source_file": "core_products/Looker/PNG/Looker-512-color.png",
+      "size_bytes": 42785,
+      "sha256": "9ffdb157eaf9b822cd50e58fff0512ea6e560ba70317c9481cd6eafa9d188a98",
+      "bbox": [
+        88,
+        26,
+        423,
+        486
+      ]
+    },
+    "managed_service_for_microsoft_active_directory.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/managed_service_for_microsoft_active_directory/managed_service_for_microsoft_active_directory.png",
+      "size_bytes": 46135,
+      "sha256": "8d6a2288f3fa2012077c69ed54b29c8242cef4311dfe6f7413cc15219ecfb77a",
+      "bbox": [
+        49,
+        26,
+        462,
+        486
+      ]
+    },
+    "mandiant.png": {
+      "source_category": "core_products",
+      "source_file": "core_products/Mandiant/PNG/Mandiant-512-color.png",
+      "size_bytes": 52917,
+      "sha256": "a9594bfb7cdbec0ee72bfa3a6b9a6c1d2da93db71cbe0e1b406b009599255177",
+      "bbox": [
+        43,
+        26,
+        468,
+        486
+      ]
+    },
+    "media_translation_api.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/media_translation_api/media_translation_api.png",
+      "size_bytes": 33246,
+      "sha256": "ca8e2ef075245600442800362457cf4ef4d0509671709ae879d843897b31e0ab",
+      "bbox": [
+        26,
+        37,
+        486,
+        476
+      ]
+    },
+    "memorystore.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/memorystore/memorystore.png",
+      "size_bytes": 16997,
+      "sha256": "af7b502fb538262d6238106a8126d99bdc6a0dee007b8a0c72a4311c756abcf2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "migrate_for_anthos.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/migrate_for_anthos/migrate_for_anthos.png",
+      "size_bytes": 51439,
+      "sha256": "bf5759f35c2d7b6bbdbe8bde9cf9dd0997211e6b9059e346ca38a984dc550ffa",
+      "bbox": [
+        26,
+        36,
+        486,
+        475
+      ]
+    },
+    "migrate_for_compute_engine.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/migrate_for_compute_engine/migrate_for_compute_engine.png",
+      "size_bytes": 27440,
+      "sha256": "6c55a34bbad464d2a38ea22ce5c18177a14fe145fd931e79c2acd8c4624be671",
+      "bbox": [
+        26,
+        28,
+        486,
+        483
+      ]
+    },
+    "my_cloud.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/my_cloud/my_cloud.png",
+      "size_bytes": 28565,
+      "sha256": "464e103ba1af2a0b704280e2bb303354ce29843964491574568a247c1e1a0875",
+      "bbox": [
+        26,
+        105,
+        486,
+        407
+      ]
+    },
+    "network_connectivity_center.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/network_connectivity_center/network_connectivity_center.png",
+      "size_bytes": 84493,
+      "sha256": "9e10afe9413239d291675d6430cf9ebac55ab9330c037970e5e2637092e93023",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "network_intelligence_center.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/network_intelligence_center/network_intelligence_center.png",
+      "size_bytes": 55120,
+      "sha256": "f11fd9ab86801a6778c4b8a9c8392e6f2e5f7a6c4492696fc7febed99c12805d",
+      "bbox": [
+        26,
+        45,
+        486,
+        466
+      ]
+    },
+    "network_security.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/network_security/network_security.png",
+      "size_bytes": 36823,
+      "sha256": "77aecf060a06b317cabbc5f1fd6882ebd1f94df59d9c881b257612c7a3e6e2e7",
+      "bbox": [
+        72,
+        26,
+        440,
+        486
+      ]
+    },
+    "network_tiers.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/network_tiers/network_tiers.png",
+      "size_bytes": 43932,
+      "sha256": "c6e810b84205ac0a82cd4d5659bcf4f10b0862c902bf253a546ed19dffb34ca9",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "network_topology.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/network_topology/network_topology.png",
+      "size_bytes": 40312,
+      "sha256": "4fb9c15ecf7adbb4a30f5377cb3d62a4016f36fda798e3be8b2a0186d22f08f6",
+      "bbox": [
+        26,
+        48,
+        486,
+        463
+      ]
+    },
+    "onboarding.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/onboarding/onboarding.png",
+      "size_bytes": 32355,
+      "sha256": "ee65bc27769b0c9ac39be07def62808e1670893cc881af94d6f1bba0b597bfb4",
+      "bbox": [
+        26,
+        68,
+        486,
+        444
+      ]
+    },
+    "os_configuration_management.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/os_configuration_management/os_configuration_management.png",
+      "size_bytes": 40130,
+      "sha256": "4b08b86250db1e14c8013f95eb2180e9e62573d641c95e9dcde7de30402205bf",
+      "bbox": [
+        48,
+        26,
+        464,
+        486
+      ]
+    },
+    "os_inventory_management.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/os_inventory_management/os_inventory_management.png",
+      "size_bytes": 36818,
+      "sha256": "cbe8ed108b3f61a66a224b0257c6e0279e2b4a87204df2bee34b755713766a9d",
+      "bbox": [
+        52,
+        26,
+        460,
+        486
+      ]
+    },
+    "os_patch_management.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/os_patch_management/os_patch_management.png",
+      "size_bytes": 48575,
+      "sha256": "e508b8c8e8cf5c7039ddbd719b46c9ec96be45d0f36813f01832aa8b692b13eb",
+      "bbox": [
+        58,
+        26,
+        453,
+        486
+      ]
+    },
+    "partner_interconnect.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/partner_interconnect/partner_interconnect.png",
+      "size_bytes": 5429,
+      "sha256": "584e33b8c9af5fcfae3b6d2ae4edb4870d6ef6930b727f4ffd47dddae263fd37",
+      "bbox": [
+        26,
+        100,
+        486,
+        411
+      ]
+    },
+    "partner_portal.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/partner_portal/partner_portal.png",
+      "size_bytes": 46663,
+      "sha256": "a1ce158dd6e9458e6d9a71c7ea21bbaf51eaeaa89c1742965fa62d87943e37e5",
+      "bbox": [
+        32,
+        26,
+        480,
+        486
+      ]
+    },
+    "performance_dashboard.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/performance_dashboard/performance_dashboard.png",
+      "size_bytes": 39623,
+      "sha256": "07587a5de8b528f6cb2e5e95dc59717c8d07e2e1dfcf72a26c395a454b91d3f5",
+      "bbox": [
+        26,
+        91,
+        486,
+        420
+      ]
+    },
+    "permissions.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/permissions/permissions.png",
+      "size_bytes": 20792,
+      "sha256": "4dbc76dcc16d199b827465c6c9907686a6516f7c5624d2f16175e53151419457",
+      "bbox": [
+        26,
+        26,
+        486,
+        485
+      ]
+    },
+    "persistent_disk.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/persistent_disk/persistent_disk.png",
+      "size_bytes": 3009,
+      "sha256": "14f0c370450cfecbbe821d72ac68aecf894af56c67cd1dab8688d54bc39ecc1a",
+      "bbox": [
+        74,
+        26,
+        437,
+        486
+      ]
+    },
+    "phishing_protection.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/phishing_protection/phishing_protection.png",
+      "size_bytes": 55541,
+      "sha256": "b9aedeb747a143825bd60dff680ada46633c12c5a2e8c9e8ca35f13fd431cfbd",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
+      ]
+    },
+    "policy_analyzer.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/policy_analyzer/policy_analyzer.png",
+      "size_bytes": 27534,
+      "sha256": "198d7350c6274a1ae7a110e90416596e0c8052b4d23900367d3df734fa5899b3",
+      "bbox": [
+        70,
+        26,
+        442,
+        486
+      ]
+    },
+    "premium_network_tier.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/premium_network_tier/premium_network_tier.png",
+      "size_bytes": 30460,
+      "sha256": "839d687be0ede609fe7be12d868407f34f704e7374cca26ad007b4b59ce7f026",
+      "bbox": [
+        26,
+        141,
+        486,
+        371
+      ]
+    },
+    "private_connectivity.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/private_connectivity/private_connectivity.png",
+      "size_bytes": 25990,
+      "sha256": "07bc2bd9175d51de6c328a606b2cc17189d8dad23c244d503eebe30214bc821e",
+      "bbox": [
+        26,
+        83,
+        486,
+        428
+      ]
+    },
+    "private_service_connect.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/private_service_connect/private_service_connect.png",
+      "size_bytes": 30068,
+      "sha256": "f92d6656f73e323d1ac04e868fe6568042be20f0d584d9b02a7bc0f45e0fa361",
+      "bbox": [
+        26,
+        119,
+        486,
+        391
+      ]
+    },
+    "producer_portal.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/producer_portal/producer_portal.png",
+      "size_bytes": 9131,
+      "sha256": "ba22b0e5c66b6321a2e6830ac4241042843373ba656d0e622b4da2ae303679e1",
+      "bbox": [
+        27,
+        57,
+        486,
+        455
+      ]
+    },
+    "profiler.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/profiler/profiler.png",
+      "size_bytes": 50296,
+      "sha256": "774477a965c75a908f915c5cec56e73467ce0fcc4dc71dceaf9a212ffb4da4aa",
+      "bbox": [
+        65,
+        26,
+        447,
+        486
+      ]
+    },
+    "project.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/project/project.png",
+      "size_bytes": 36328,
+      "sha256": "d64748cad6eda56c4d94affbb4e8276775521d585c97725f1a647b935e1aad5b",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "pubsub.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/pubsub/pubsub.png",
+      "size_bytes": 42231,
+      "sha256": "4a94ab77a95863372e724c34a1dad996e36e398b95a7dddf64f332f3c6d09d4a",
+      "bbox": [
+        45,
+        26,
+        466,
+        486
+      ]
+    },
+    "quantum_engine.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/quantum_engine/quantum_engine.png",
+      "size_bytes": 7424,
+      "sha256": "9e0922f57f6ddd4be9538e9ffc3c9d2f8aabb79c3dbd0ab044f4edec1a419660",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "quotas.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/quotas/quotas.png",
+      "size_bytes": 6009,
+      "sha256": "926603670a74d0f9ed89f979186469cf705a8ff34ea430860420cf27b93e9c34",
+      "bbox": [
+        71,
+        26,
+        440,
+        486
+      ]
+    },
+    "real_world_insights.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/real-world_insights/real-world_insights.png",
+      "size_bytes": 41101,
+      "sha256": "c774f9e6e0b9269da2505254c6b82a6d562e2b00d69d22a5f66c891046d96286",
+      "bbox": [
+        26,
+        54,
+        486,
+        457
+      ]
+    },
+    "recommendations_ai.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/recommendations_ai/recommendations_ai.png",
+      "size_bytes": 17159,
+      "sha256": "18458e1a98793ba75b0bf862bcf8f521997182ff673452324dab5dfa33ee2109",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "release_notes.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/release_notes/release_notes.png",
+      "size_bytes": 20441,
+      "sha256": "ab9318dd21cd10f5a583f55c72c3ff71e47d1db299147040e268738c96ab4ac0",
+      "bbox": [
+        38,
+        26,
+        473,
+        486
+      ]
+    },
+    "retail_api.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/retail_api/retail_api.png",
+      "size_bytes": 37857,
+      "sha256": "67590cf6c0fd321c907088eba24b58a1f35e5335cea77cec9727254a5165d255",
+      "bbox": [
+        27,
+        31,
+        486,
+        481
+      ]
+    },
+    "risk_manager.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/risk_manager/risk_manager.png",
+      "size_bytes": 55425,
+      "sha256": "b3a15e54512c4dce71a2db793182c6519ba84dafaac9fcf256527cc1c85d21b2",
+      "bbox": [
+        30,
+        26,
+        481,
+        486
+      ]
+    },
+    "runtime_config.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/runtime_config/runtime_config.png",
+      "size_bytes": 4246,
+      "sha256": "5269b80ea3bd606398cd27b9a7b458927a22dbf29a1380f7e1d00e7f53af57c8",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "secret_manager.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/secret_manager/secret_manager.png",
+      "size_bytes": 23400,
+      "sha256": "ee0e874ed8a83f513eecdd38dbe46ac25843f3550999e89242e8d2f39d6688b0",
+      "bbox": [
+        26,
+        119,
+        486,
+        392
+      ]
+    },
+    "security.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/security/security.png",
+      "size_bytes": 26833,
+      "sha256": "9032c0ad3eba179a0ebcea90e0b7c746378eabfdd6884e6aa49dc92c2c5017a6",
+      "bbox": [
+        68,
+        26,
+        444,
+        486
+      ]
+    },
+    "security_command_center.png": {
+      "source_category": "core_products",
+      "source_file": "core_products/Security Command Center/PNG/SecurityCommandCenter-512-color.png",
+      "size_bytes": 39639,
+      "sha256": "b64f9d017f1b34be87b3f09918b6bcd4f9b537fd66a2420be54c27cf9ab02d71",
+      "bbox": [
+        43,
+        26,
+        469,
+        486
+      ]
+    },
+    "security_health_advisor.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/security_health_advisor/security_health_advisor.png",
+      "size_bytes": 42316,
+      "sha256": "304299c719b0a3ac11201bbcfb18ba7e0c9ee458c8f842925802b33a0195a805",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
+      ]
+    },
+    "security_key_enforcement.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/security_key_enforcement/security_key_enforcement.png",
+      "size_bytes": 30790,
+      "sha256": "b1613402068cd71d355e6f435b0ba0f4725939c7ecc0c1c2ec15c39944fb876a",
+      "bbox": [
+        75,
+        26,
+        436,
+        486
+      ]
+    },
+    "security_operations.png": {
+      "source_category": "core_products",
+      "source_file": "core_products/Security Operations/PNG/SecOps-512-color-rgb.png",
+      "size_bytes": 39506,
+      "sha256": "74decc8d095e4ed62f1d7d55370e5b281244e46962cc03e2b7644a7178d4317e",
+      "bbox": [
+        43,
+        26,
+        468,
+        486
+      ]
+    },
+    "service_discovery.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/service_discovery/service_discovery.png",
+      "size_bytes": 65483,
+      "sha256": "6f41dc689f1eb5f3fc84a2088aaacf6ac8adc8b03552f940be25680c04e97572",
+      "bbox": [
+        43,
+        26,
+        468,
+        486
+      ]
+    },
+    "speech_to_text.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/speech-to-text/speech-to-text.png",
+      "size_bytes": 3590,
+      "sha256": "d27228f1574c00c3f2cd871a0b928e74b94dd2502078656580fadb07f4c5e0b0",
+      "bbox": [
+        49,
+        26,
+        462,
+        486
+      ]
+    },
+    "stackdriver.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/stackdriver/stackdriver.png",
+      "size_bytes": 34990,
+      "sha256": "534dcd08ba0e430e866570787e845faf5850d5edfad36a41736e1713fc717e60",
+      "bbox": [
+        26,
+        55,
+        486,
+        456
+      ]
+    },
+    "standard_network_tier.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/standard_network_tier/standard_network_tier.png",
+      "size_bytes": 30254,
+      "sha256": "5c9f91163f2f9d9cfe8404306d8e2d4adb4a7b983732e7617c8f5df23bfc4cd4",
+      "bbox": [
+        26,
+        140,
+        486,
+        372
+      ]
+    },
+    "stream_suite.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/stream_suite/stream_suite.png",
+      "size_bytes": 26461,
+      "sha256": "8c118c4b52591e7003fedad4def5b9053980a0f0c001f654da9663594fc83f34",
+      "bbox": [
+        26,
+        77,
+        486,
+        435
+      ]
+    },
+    "support.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/support/support.png",
+      "size_bytes": 8658,
+      "sha256": "cc1eb6ffab5b83a738361078066ec45d94f180c7fd0782617fa36776858cee94",
+      "bbox": [
+        34,
+        26,
+        478,
+        486
+      ]
+    },
+    "tensorflow_enterprise.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/tensorflow_enterprise/tensorflow_enterprise.png",
+      "size_bytes": 26839,
+      "sha256": "9872cf785eb20bb1976cad040d2fc3a080e412d0775bff0eca8f9eb9510ec048",
+      "bbox": [
+        50,
+        26,
+        461,
+        486
+      ]
+    },
+    "text_to_speech.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/text-to-speech/text-to-speech.png",
+      "size_bytes": 16749,
+      "sha256": "01b22526eca1a50e5698343e5f98f087e7042c037a172157ea8adb167d18e18e",
+      "bbox": [
+        26,
+        64,
+        486,
+        447
+      ]
+    },
+    "threat_intelligence.png": {
+      "source_category": "core_products",
+      "source_file": "core_products/Threat Intelligence/PNG/ThreatIntelligence-512-color.png",
+      "size_bytes": 82330,
+      "sha256": "1a24e55bd91e344c81137883dfe6d09f098de60ee6970ae9f9513043ab30426c",
+      "bbox": [
+        26,
+        26,
+        485,
+        485
+      ]
+    },
+    "tools_for_powershell.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/tools_for_powershell/tools_for_powershell.png",
+      "size_bytes": 40410,
+      "sha256": "28d03dfe756ac3a5ad2ad1315c7ea842115af332ed43b29d77907c24e37a0e44",
+      "bbox": [
+        26,
+        126,
+        486,
+        385
+      ]
+    },
+    "trace.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/trace/trace.png",
+      "size_bytes": 2614,
+      "sha256": "a6875838ae7e64919db6ba53627e318ebbf13f0caf34af2b66be31d258139e76",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "traffic_director.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/traffic_director/traffic_director.png",
+      "size_bytes": 27968,
+      "sha256": "8c45ecb67ae5dd2d4e3febb494e1d1338360d2141fb94195016a41844d8f10b2",
+      "bbox": [
+        27,
+        27,
+        485,
+        485
+      ]
+    },
+    "transfer.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/transfer/transfer.png",
+      "size_bytes": 21111,
+      "sha256": "61910f89f7f9e2a2323ab0db7cf16ac72928c08fa08ea4d3d4ade1c04fa6530e",
+      "bbox": [
+        38,
+        26,
+        473,
+        486
+      ]
+    },
+    "transfer_appliance.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/transfer_appliance/transfer_appliance.png",
+      "size_bytes": 16229,
+      "sha256": "b5b58b5a34a95a697cccbd62f2d513842a974ff5739558f96ae55985334d6142",
+      "bbox": [
+        26,
+        131,
+        486,
+        380
+      ]
+    },
+    "user_preferences.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/user_preferences/user_preferences.png",
+      "size_bytes": 33383,
+      "sha256": "f1a785bdbe9467e88f45ecc48110e5e418c3fcbfdc9f1832ce2c0f1a5cfa5e9c",
+      "bbox": [
+        32,
+        26,
+        480,
+        486
+      ]
+    },
+    "vertex_ai.png": {
+      "source_category": "core_products",
+      "source_file": "core_products/Vertex AI/PNG/VertexAI-512-color.png",
+      "size_bytes": 44732,
+      "sha256": "d4af13c9b256ea7601cf5d6d4d4b97fcdb5e90bd60e9c82d15b024f44c043f30",
+      "bbox": [
+        42,
+        26,
+        469,
+        486
+      ]
+    },
+    "vertexai.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/vertexai/vertexai.png",
+      "size_bytes": 67070,
+      "sha256": "1d6fbbf81e3418a937c632754ae80a7db27867ac88ed7f68ceb6329f9d8e4192",
+      "bbox": [
+        55,
+        26,
+        457,
+        486
+      ]
+    },
+    "video_intelligence_api.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/video_intelligence_api/video_intelligence_api.png",
+      "size_bytes": 23943,
+      "sha256": "37b61db9d485315f7ef1376d6669b5f968bfe61361d9ec4ec5c59817dcba98d7",
+      "bbox": [
+        26,
+        95,
+        486,
+        416
+      ]
+    },
+    "virtual_private_cloud.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/virtual_private_cloud/virtual_private_cloud.png",
+      "size_bytes": 5706,
+      "sha256": "80d4a0becb5b5924effbaa5fe5573e56635fce23d5fc868db1956f3491b5facf",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "visual_inspection.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/visual_inspection/visual_inspection.png",
+      "size_bytes": 35770,
+      "sha256": "e0b3b5465c2c95bc208726bbdb5792cc552520e20b9ada2a2995d539af47d2f5",
+      "bbox": [
+        26,
+        72,
+        486,
+        440
+      ]
+    },
+    "vmware_engine.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/vmware_engine/vmware_engine.png",
+      "size_bytes": 22187,
+      "sha256": "4db9ffa9393f44094c1a2c15a9c639cc50e774f42b6445be494c95d9459f4b5a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "web_risk.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/web_risk/web_risk.png",
+      "size_bytes": 28154,
+      "sha256": "6b57fef622346475ff747573523c7f39cce572627308592dc446893cd8cb2b83",
+      "bbox": [
+        26,
+        72,
+        486,
+        440
+      ]
+    },
+    "web_security_scanner.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/web_security_scanner/web_security_scanner.png",
+      "size_bytes": 49300,
+      "sha256": "39df1ced0f01b9c05a975291c01b80ed07de7c9bb0356848878fd38b50396f14",
+      "bbox": [
+        26,
+        57,
+        486,
+        455
+      ]
+    },
+    "workflows.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/workflows/workflows.png",
+      "size_bytes": 39292,
+      "sha256": "e33529130d46b6baf6f72113d9aa52df0b7082c8db73f161d3f4b1e301ed0d89",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "workload_identity_pool.png": {
+      "source_category": "legacy",
+      "source_file": "legacy/workload_identity_pool/workload_identity_pool.png",
+      "size_bytes": 10903,
+      "sha256": "f6cfbbe396189934bbeb4b3bb6a1c9b21f4cd88c0da18f1fb977c66e589a182b",
+      "bbox": [
+        26,
+        97,
+        486,
+        415
+      ]
+    },
+    "gce.png": {
+      "source_category": "alias",
+      "alias_to": "compute_engine.png",
+      "size_bytes": 20590,
+      "sha256": "56698b714fcd880beb73e605768b428d3380d8b9485334bdd61e3a17295623c0"
+    },
+    "gcs.png": {
+      "source_category": "alias",
+      "alias_to": "cloud_storage.png",
+      "size_bytes": 16210,
+      "sha256": "9579a0d83333bc7e70b87687858487300590ddd522df16a3f4aa014013414661"
+    },
+    "iam.png": {
+      "source_category": "alias",
+      "alias_to": "identity_and_access_management.png",
+      "size_bytes": 35392,
+      "sha256": "c21c9007396724c98f5d95f9c92e49754699713e185572fe1f4af39c4f67e24e"
+    },
+    "vpc.png": {
+      "source_category": "alias",
+      "alias_to": "virtual_private_cloud.png",
+      "size_bytes": 5706,
+      "sha256": "80d4a0becb5b5924effbaa5fe5573e56635fce23d5fc868db1956f3491b5facf"
+    },
+    "kms.png": {
+      "source_category": "alias",
+      "alias_to": "key_management_service.png",
+      "size_bytes": 33891,
+      "sha256": "e70960649e7d58a54f04e98dddfcfb834c1c5ec750c3ce4c254d2c86ff120c87"
+    },
+    "functions.png": {
+      "source_category": "alias",
+      "alias_to": "cloud_functions.png",
+      "size_bytes": 38633,
+      "sha256": "50b50f380e67d9acad22a787e5fb348599b59cff21e8c1d2b07f16135de5f103"
+    }
+  }
+}
