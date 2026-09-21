@@ -1,0 +1,572 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flow Diagrams</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">drawlib</a>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="architecture.html">Architecture Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="er.html">ER Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="flow.html">Flow Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="sequence.html">Sequence Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Notes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with PresetStyles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Flow Diagrams</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Flow Diagrams</h1>
+<p><code>drawlib.diagrams.flow</code> provides a declarative, pure-Python flowchart and business process workflow diagramming module within <code>drawlib</code>.
+It adheres to standard flowchart conventions (ISO 5807 / JIS X 0121) and supports cross-functional swimlane diagrams.</p>
+<hr />
+<h2>1. Core Concepts</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Class</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Container</strong></td>
+<td><code>FlowDiagram</code></td>
+<td>Top-level container managing nodes, swimlanes, junctions, and connections.</td>
+</tr>
+<tr>
+<td><strong>Action Step</strong></td>
+<td><code>Process</code></td>
+<td>Rectangular task or action block (<code>shape_type=&quot;process&quot;</code>).</td>
+</tr>
+<tr>
+<td><strong>Decision</strong></td>
+<td><code>Decision</code></td>
+<td>Rhombus / diamond shape representing a conditional branch (<code>shape_type=&quot;decision&quot;</code>).</td>
+</tr>
+<tr>
+<td><strong>Terminal</strong></td>
+<td><code>Start</code> / <code>End</code></td>
+<td>Rounded stadium (pill) shape marking the start or end of a flow.</td>
+</tr>
+<tr>
+<td><strong>Input / Output</strong></td>
+<td><code>Data</code></td>
+<td>Parallelogram representing data input, output, or documents (<code>shape_type=&quot;data&quot;</code>).</td>
+</tr>
+<tr>
+<td><strong>Waypoint / Tap</strong></td>
+<td><code>Junction</code></td>
+<td>Zero-size connectable point <code>(x, y)</code> for T-junction branching and wire taps.</td>
+</tr>
+<tr>
+<td><strong>Swimlane</strong></td>
+<td><code>Lane</code></td>
+<td>Column or row background boundary with a header card for grouping roles or actors.</td>
+</tr>
+<tr>
+<td><strong>Connection</strong></td>
+<td><code>FlowEdge</code></td>
+<td>Directed or undirected connection line with orthogonal routing, arrowheads, and labels.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Quick Start</h2>
+<p>Below is a typical flowchart with input, conditional branching (Yes/No), and a loopback path:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.flow import (
+    Data,
+    Decision,
+    End,
+    FlowDiagram,
+    Process,
+    Start,
+)
+
+canvas.initialize()
+
+flow = FlowDiagram(title=&quot;User Registration Flow&quot;)
+
+# 1. Add nodes (coordinates specify shape center)
+start = flow.add(Start(&quot;Start&quot;), xy=(50.0, 90.0))
+input_email = flow.add(Data(&quot;Enter Email&quot;), xy=(50.0, 75.0))
+check_exist = flow.add(Decision(&quot;Already\nRegistered?&quot;), xy=(50.0, 55.0))
+send_mail = flow.add(Process(&quot;Send Confirmation&quot;), xy=(50.0, 35.0))
+show_error = flow.add(Process(&quot;Show Error&quot;), xy=(82.0, 55.0))
+end = flow.add(End(&quot;End&quot;), xy=(50.0, 15.0))
+
+# 2. Connect steps
+start.connect(input_email)
+input_email.connect(check_exist)
+
+# Decision branches
+check_exist.connect(send_mail, label=&quot;No&quot;, start_side=&quot;bottom&quot;, end_side=&quot;top&quot;)
+check_exist.connect(show_error, label=&quot;Yes&quot;, start_side=&quot;right&quot;, end_side=&quot;left&quot;)
+
+# Loopback to input step
+show_error.connect(input_email, start_side=&quot;top&quot;, end_side=&quot;right&quot;)
+
+send_mail.connect(end)
+
+flow.draw()
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="flow_images/1.png" alt="flow_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">User Registration Flow</figcaption>
+</figure>
+<hr />
+<h2>3. Node Geometries and Arguments</h2>
+<p>All nodes in <code>drawlib.diagrams.flow</code> derive from <code>FlowNode</code> and follow Drawlib's standard shape argument conventions:</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>text</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Text centered inside the geometric shape (multiline supported with <code>\n</code>).</td>
+</tr>
+<tr>
+<td><code>width</code></td>
+<td><code>float</code></td>
+<td><code>24.0</code> (<code>20.0</code> for Start/End, <code>22.0</code> for Decision)</td>
+<td>Width of the node boundary.</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td><code>float</code></td>
+<td><code>12.0</code> (<code>10.0</code> for Start/End, <code>14.0</code> for Decision)</td>
+<td>Height of the node boundary.</td>
+</tr>
+<tr>
+<td><code>r</code></td>
+<td><code>float</code></td>
+<td><code>0.0</code> (<code>5.0</code> for Start/End)</td>
+<td>Corner radius for rounded corners.</td>
+</tr>
+<tr>
+<td><code>style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Fill color, border stroke width, and border color.</td>
+</tr>
+<tr>
+<td><code>textstyle</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Typography style (font, color, bold, alignment).</td>
+</tr>
+<tr>
+<td><code>textsize</code></td>
+<td><code>float | None</code></td>
+<td><code>None</code></td>
+<td>Font size shorthand.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.colors import Colors140
+from drawlib.diagrams.flow import (
+    Data,
+    Decision,
+    End,
+    FlowDiagram,
+    Process,
+    Start,
+)
+from drawlib.types import Style
+
+canvas.initialize()
+
+flow = FlowDiagram(title=&quot;Supported Flowchart Symbols&quot;)
+
+flow.add(Start(&quot;Start / End&quot;), xy=(20.0, 70.0))
+flow.add(Process(&quot;Process / Task&quot;), xy=(50.0, 70.0))
+flow.add(Data(&quot;Data (I/O)&quot;), xy=(80.0, 70.0))
+
+decision_style = Style(
+    fill_color=Colors140.LightYellow,
+    line_color=Colors140.DarkGoldenRod,
+    line_width=2.0,
+)
+flow.add(Decision(&quot;Decision\nCondition&quot;, style=decision_style), xy=(50.0, 35.0))
+
+flow.draw()
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="flow_images/2.png" alt="flow_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Standard Flowchart Shape Types</figcaption>
+</figure>
+<hr />
+<h2>4. Branching and Junctions</h2>
+<h3>4.1 Decision Branching (Yes / No)</h3>
+<p>Branching paths can be defined using explicit connection sides (<code>start_side</code>, <code>end_side</code>) and labels:</p>
+<pre><code class="language-python">decision = flow.add(Decision(&quot;Is Valid?&quot;), xy=(50.0, 60.0))
+on_success = flow.add(Process(&quot;Proceed&quot;), xy=(50.0, 35.0))
+on_failure = flow.add(Process(&quot;Handle Error&quot;), xy=(80.0, 60.0))
+
+decision.connect(on_success, label=&quot;Yes&quot;, start_side=&quot;bottom&quot;, end_side=&quot;top&quot;)
+decision.connect(on_failure, label=&quot;No&quot;, start_side=&quot;right&quot;, end_side=&quot;left&quot;)
+</code></pre>
+<h3>4.2 T-Junctions and Intermediate Branch Points</h3>
+<p>Use <code>flow.junction(xy)</code> or <code>edge.add_point(xy)</code> to create branch junctions (identical to <code>ArchitectureDiagram</code>):</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.flow import (
+    Decision,
+    End,
+    FlowDiagram,
+    Process,
+    Start,
+)
+
+canvas.initialize()
+
+flow = FlowDiagram(title=&quot;Order Dispatch Routing&quot;)
+
+start = flow.add(Start(&quot;New Order&quot;), xy=(50.0, 85.0))
+check = flow.add(Decision(&quot;Express?&quot;), xy=(50.0, 65.0))
+
+# Create a waypoint junction below the decision
+j = flow.junction(xy=(50.0, 48.0))
+check.connect(j)
+
+# Branch out from the junction
+air = flow.add(Process(&quot;Air Freight&quot;), xy=(25.0, 32.0))
+ground = flow.add(Process(&quot;Ground Truck&quot;), xy=(75.0, 32.0))
+
+j.connect(air, label=&quot;Yes&quot;, routing=&quot;orthogonal&quot;)
+j.connect(ground, label=&quot;No&quot;, routing=&quot;orthogonal&quot;)
+
+# Merge into End
+end = flow.add(End(&quot;Delivered&quot;), xy=(50.0, 15.0))
+air.connect(end, start_side=&quot;bottom&quot;, end_side=&quot;left&quot;)
+ground.connect(end, start_side=&quot;bottom&quot;, end_side=&quot;right&quot;)
+
+start.connect(check)
+flow.draw()
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="flow_images/3.png" alt="flow_3" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Branching and Merging with Junctions</figcaption>
+</figure>
+<hr />
+<h2>5. Cross-Functional Swimlanes</h2>
+<p>Swimlanes separate steps into columns or rows representing departments, actors, or microservices.</p>
+<h3>5.1 Global Coordinate Alignment</h3>
+<p>In <code>FlowDiagram</code>, swimlanes act as a clean background and boundary layer on top of a unified global coordinate system.
+This allows tasks across different lanes to be effortlessly aligned along the same horizontal line ($Y$ coordinate):</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.flow import (
+    Decision,
+    End,
+    FlowDiagram,
+    Process,
+    Start,
+)
+
+canvas.initialize()
+
+flow = FlowDiagram(title=&quot;Expense Approval Workflow&quot;, width=100.0, height=100.0)
+
+# 1. Define vertical lanes (columns from left to right)
+flow.add_lane(&quot;Employee&quot;, width=30.0)
+flow.add_lane(&quot;Line Manager&quot;, width=35.0)
+flow.add_lane(&quot;Finance Dept&quot;, width=35.0)
+
+# 2. Add nodes (Y coordinates align corresponding steps horizontally)
+submit = flow.add(Start(&quot;Submit Expense&quot;), xy=(15.0, 85.0))
+review = flow.add(Process(&quot;Review Receipt&quot;), xy=(47.5, 85.0))
+decision = flow.add(Decision(&quot;Amount &lt; $500?&quot;), xy=(47.5, 62.0))
+
+j = flow.junction(xy=(47.5, 45.0))
+decision.connect(j)
+
+auto_pay = flow.add(Process(&quot;Disburse Payment&quot;), xy=(82.5, 45.0))
+manual_audit = flow.add(Process(&quot;Manual Audit&quot;), xy=(82.5, 25.0))
+end = flow.add(End(&quot;Close Claim&quot;), xy=(15.0, 45.0))
+
+# 3. Connect cross-lane steps
+submit.connect(review)
+review.connect(decision)
+j.connect(auto_pay, label=&quot;Yes&quot;)
+j.connect(manual_audit, label=&quot;No&quot;, start_side=&quot;bottom&quot;, end_side=&quot;left&quot;)
+auto_pay.connect(end, label=&quot;Receipt Sent&quot;)
+manual_audit.connect(auto_pay, start_side=&quot;top&quot;, end_side=&quot;bottom&quot;)
+
+flow.draw()
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="flow_images/4.png" alt="flow_4" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Cross-Functional Swimlane Approval Flow</figcaption>
+</figure>
+<h3>5.2 Horizontal Swimlanes</h3>
+<p>Set <code>lane_orientation=&quot;horizontal&quot;</code> to lay out lanes as rows from top to bottom:</p>
+<pre><code class="language-python">flow = FlowDiagram(title=&quot;Warehouse Pipeline&quot;, lane_orientation=&quot;horizontal&quot;, width=100.0, height=60.0)
+
+flow.add_lane(&quot;Storefront&quot;, height=30.0)
+flow.add_lane(&quot;Warehouse&quot;, height=30.0)
+
+order = flow.add(Start(&quot;New Order&quot;), xy=(20.0, 45.0))
+pack = flow.add(Process(&quot;Pack Items&quot;), xy=(50.0, 15.0))
+ship = flow.add(End(&quot;Ship Order&quot;), xy=(80.0, 15.0))
+
+order.connect(pack)
+pack.connect(ship)
+</code></pre>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

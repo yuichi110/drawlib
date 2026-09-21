@@ -94,6 +94,10 @@
                     </li>
                     
                     <li class="nav-item ">
+                        <a href="../diagrams/flow.html">Flow Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
                         <a href="../diagrams/sequence.html">Sequence Diagrams</a>
                     </li>
                     
@@ -277,6 +281,13 @@
 <li>Automatic right-angled orthogonal routing, column-level anchoring, and custom styling.</li>
 </ul>
 </li>
+<li><strong>Flow Diagrams (<code>drawlib.diagrams.flow</code>)</strong>:
+<ul>
+<li>Declarative flowchart and workflow diagramming module adhering to standard flowchart symbols (ISO 5807 / JIS X 0121).</li>
+<li>Shape-centric nodes (<code>Process</code>, <code>Decision</code>, <code>Start</code>, <code>End</code>, <code>Data</code>) inheriting Drawlib shape styling.</li>
+<li>First-class T-junction branching/merging (<code>Junction</code>) and flat global coordinate swimlanes (<code>Lane</code>).</li>
+</ul>
+</li>
 <li><strong>Headless PDF Export</strong>:
 <ul>
 <li>PDF generation uses existing system Chromium-based browsers (Chrome, Chromium, Edge) without requiring Playwright.</li>
@@ -298,12 +309,13 @@
 <li>Python &gt;= 3.11 is now required.</li>
 <li>Package modules are directly accessible (e.g. <code>drawlib.canvas</code>, <code>drawlib.shapes</code>, <code>drawlib.smartarts</code>).</li>
 <li>The legacy <code>dsart</code> facade is removed in favor of direct imports from <code>drawlib.smartarts</code> (e.g., <code>from drawlib.smartarts import Table, SourceCode, bubblespeech</code>).</li>
-<li>In <code>drawlib.diagrams</code>, the generic <code>Diagram</code> class has been renamed to specific names:
+<li>In <code>drawlib.diagrams</code>, diagram classes are uniformly named:
 <ul>
 <li><code>drawlib.diagrams.architecture.ArchitectureDiagram</code></li>
-<li><code>drawlib.diagrams.sequence.SequenceDiagram</code></li>
 <li><code>drawlib.diagrams.er.ERDiagram</code></li>
-<li>These can now also be imported directly from <code>drawlib.diagrams</code> (e.g., <code>from drawlib.diagrams import ArchitectureDiagram, ERDiagram, SequenceDiagram</code>).</li>
+<li><code>drawlib.diagrams.flow.FlowDiagram</code></li>
+<li><code>drawlib.diagrams.sequence.SequenceDiagram</code></li>
+<li>These can now also be imported directly from <code>drawlib.diagrams</code> (e.g., <code>from drawlib.diagrams import ArchitectureDiagram, ERDiagram, FlowDiagram, SequenceDiagram</code>).</li>
 </ul>
 </li>
 </ul>
