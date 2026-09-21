@@ -7,30 +7,28 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Helper script for generating icon phosphor codes.
+"""Helper script for generating Phosphor icon python bindings."""
 
-This code generate codes for writing fonticon functions.
-They are created at "output_codes" directory.
-Please move them to appropriate code location of drawlib package.
-"""
+from __future__ import annotations
 
-import os
+import argparse
+import sys
 import urllib.request
-from typing import Dict
+from pathlib import Path
 
-from utils import cd_to_project_root
+project_root = Path(__file__).parent.parent.parent.resolve()
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
 
-#
-# Phosphor
-#
+from tools.scripts.utils import cd_to_project_root  # noqa: E402
 
-PHOSPHOR_URL_BASE = "https://raw.githubusercontent.com/yuichi110/drawlib_assets/main/assets/v0_2/fonticons/phosphor/"
-ASSETS_URL_BASE = "https://raw.githubusercontent.com/yuichi110/drawlib_assets/main/assets/v0_2/fonticons/"
-OUTPUT_DIR = "output_codes"
-OUTPUT_FILE = "phosphor.py"
+PHOSPHOR_CSS_LOCAL = Path("release_assets/v0.3/fonticons/phosphor/regular.css")
+PHOSPHOR_CSS_REMOTE = (
+    "https://raw.githubusercontent.com/yuichi110/drawlib_assets/main/assets/v0_2/fonticons/phosphor/regular.css"
+)
+DEFAULT_OUTPUT_FILE = Path("src/drawlib/_icons/font_icons/phosphor/_generated.py")
 
-PHOSPHOR_HEAD = '''
-# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+PHOSPHOR_HEAD = '''# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
 #
 # This software is licensed under the Apache License, Version 2.0.
 # For more information, please visit: https://github.com/yuichi110/drawlib
@@ -43,160 +41,18 @@ PHOSPHOR_HEAD = '''
 
 from __future__ import annotations
 
-import os
-from enum import Enum
-from typing import Optional, Tuple, Union
-from urllib.parse import urljoin
-
-import drawlib._assets.fonticons
-from drawlib.v0_2 import ASSET_VERSION
-from drawlib._core.core.fonts import FontMetadata
-from drawlib._core.core.fonts_resource import FontResource
-from drawlib._core.core.model import Style
-from drawlib._core.core.theme import dtheme
-from drawlib._core.download import download_if_not_exist
-from drawlib._core.icons.util import icon
-from drawlib._core.types import TypeAngle, TypeCoordinate, TypePosFloat, TypeStr
-from drawlib._core.util import guarded
-
-
-class _Fonts(str, Enum):
-    THIN = "thin"
-    LIGHT = "light"
-    REGULAR = "regular"
-    BOLD = "bold"
-    FILL = "fill"
-
-
-_DEFAULT_STYLE = _Fonts.THIN.value
-
-_FONT_RESOURCE: dict[str, FontResource] = {
-    _Fonts.THIN: FontResource(
-        path="phosphor/thin.ttf",
-        md5="9ca0acf8bc84ec2421f96f835017f321",
-    ),
-    _Fonts.LIGHT: FontResource(
-        path="phosphor/light.ttf",
-        md5="6c53da4ecc310dd5dbcfafe3d916a346",
-    ),
-    _Fonts.REGULAR: FontResource(
-        path="phosphor/regular.ttf",
-        md5="c2ecd49d10b76c3f9b9c072966cc0c3c",
-    ),
-    _Fonts.BOLD: FontResource(
-        path="phosphor/bold.ttf",
-        md5="4f59e81563e413635c57d78338d33b92",
-    ),
-    _Fonts.FILL: FontResource(
-        path="phosphor/fill.ttf",
-        md5="612af00267f5e8a429531399700db66e",
-    ),
-}
-
-
-def _get_font_metadata(font: _Fonts | str) -> FontMetadata:
-    """Resolve full metadata for a given Phosphor font style.
-
-    Args:
-        font (_Fonts | str): The font style (e.g., 'thin', 'light', 'regular', 'bold', 'fill').
-
-    Returns:
-        FontMetadata: Resolved metadata including absolute path and URL.
-
-    Raises:
-        ValueError: If the font style is not found in _FONT_RESOURCE.
-
-    """
-    resource = _FONT_RESOURCE.get(font)
-    if not resource:
-        raise ValueError(f"Font {font} not found in _FONT_RESOURCE.")
-
-    paths = [p for p in resource.path.split("/") if p]
-
-    # Construct the local font path
-    dir_path = os.path.dirname(drawlib._assets.fonticons.__file__)
-    abs_path = os.path.join(dir_path, *paths)
-
-    # Construct the URL
-    url = urljoin(
-        f"https://raw.githubusercontent.com/yuichi110/drawlib_assets/main/assets/{ASSET_VERSION}/fonticons/",
-        "/".join(paths),
-    )
-
-    return FontMetadata(
-        path=resource.path,
-        abs_path=abs_path,
-        url=url,
-        md5=resource.md5,
-    )
-
-
-def _write(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    code: str,
-    angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
-) -> None:
-    """Draw a Phosphor icon at the specified position with given parameters.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon center.
-        width: Width of the icon.
-        code: Identifier or code of the icon.
-        angle: Angle of rotation (default is 0.0).
-        style: Style of the icon as an Style object, string, or None.
-            Defaults to None, which uses the default style.
-
-    Raises:
-        ValueError: If an unsupported style type is passed to 'style'.
-
-    """
-    # None -> Style
-    if style is None:
-        style_obj = dtheme.iconstyles.get().copy()
-    # str -> Style
-    elif isinstance(style, str):
-        style_obj = dtheme.iconstyles.get(style).copy()
-    # Style
-    else:
-        style_obj = style.copy()
-
-    # set Style.style if it is None
-    if style_obj.style is None:
-        style_obj.style = _DEFAULT_STYLE
-
-    # validate Style.style
-    if style_obj.style not in _Fonts:
-        raise ValueError(f'icon_phosphor does not support style "{style_obj.style}".')
-
-    # set icon file path
-    font_metadata = _get_font_metadata(style_obj.style)
-
-    # download if not exist
-    download_if_not_exist(
-        file_path=font_metadata.abs_path,
-        download_url=font_metadata.url,
-        md5_hash=font_metadata.md5,
-    )
-
-    # draw phosphor icon with generic function
-    icon(
-        xy=xy,
-        width=width,
-        code=code,
-        file=font_metadata.abs_path,
-        angle=angle,
-        style=style_obj,
-    )
-
-
-#
-# Auto generated code from here ###
-#
+from drawlib._core.l1_core import guarded
+from drawlib._core.l2_types import (
+    TypeAngle,
+    TypeCoordinate,
+    TypePosFloat,
+    TypeStr,
+)
+from drawlib._core.l3_styles import Style
+from drawlib._icons.font_icons.phosphor._base import _write
 '''
 
-PHOSPHOR_TEMPLATE = '''
+PHOSPHOR_FUNCTION_TEMPLATE = '''
 @guarded
 def {function_name}(
     xy: TypeCoordinate,
@@ -218,84 +74,92 @@ def {function_name}(
 '''
 
 
-class IconCodeGeneratorPhosphor:
-    """Code generator."""
+def parse_css_icons(css_text: str) -> dict[str, str]:
+    """Parse icon name and Unicode codepoint mapping from Phosphor CSS.
 
-    def __init__(self) -> None:
-        """Init."""
-        self._bold_dict: Dict[str, str] = {}
-        self._duotone_dict: Dict[str, str] = {}
-        self._fill_dict: Dict[str, str] = {}
-        self._light_dict: Dict[str, str] = {}
-        self._regular_dict: Dict[str, str] = {}
-        self._thin_dict: Dict[str, str] = {}
+    Args:
+        css_text: Raw CSS content.
 
-    def run(self) -> None:
-        """Generate code."""
-        self._load(self._thin_dict, PHOSPHOR_URL_BASE + "thin.css")
-        self._load(self._light_dict, PHOSPHOR_URL_BASE + "light.css")
-        self._load(self._regular_dict, PHOSPHOR_URL_BASE + "regular.css")
-        self._load(self._bold_dict, PHOSPHOR_URL_BASE + "bold.css")
-        self._load(self._fill_dict, PHOSPHOR_URL_BASE + "fill.css")
+    Returns:
+        Dictionary mapping icon name to hex code string (e.g. 'airplane' -> 'e002').
+    """
+    icons: dict[str, str] = {}
+    key = ""
+    for line in css_text.splitlines():
+        line = line.strip()
+        if line.startswith(".ph") and line.endswith(":before {"):
+            words = line.split(".")
+            key = words[2][3:-9]
+        elif key:
+            words = line.split(":")
+            value = words[1].strip()[2:-2]
+            icons[key] = value
+            key = ""
+    return icons
 
-        # check whether code points are exactly same
-        # at version 2.1, all code points are same.
-        if self._regular_dict != self._thin_dict:
-            raise ValueError("regular and thin dicts are not same.")
-        if self._regular_dict != self._light_dict:
-            raise ValueError("regular and light dicts are not same.")
-        if self._regular_dict != self._bold_dict:
-            raise ValueError("regular and bold dicts are not same.")
-        if self._regular_dict != self._fill_dict:
-            raise ValueError("regular and fill dicts are not same.")
 
-        self._write()
+def load_phosphor_icons() -> dict[str, str]:
+    """Load Phosphor icon definitions from local asset CSS or remote fallback.
 
-    @staticmethod
-    def _load(font_dict: Dict, font_css_url: str) -> None:
-        with urllib.request.urlopen(font_css_url) as response:  # noqa: S310
-            text = response.read().decode("utf-8")
-        lines = text.splitlines()
+    Returns:
+        Dictionary mapping icon name to hex codepoints.
+    """
+    if PHOSPHOR_CSS_LOCAL.exists():
+        print(f"[*] Reading Phosphor CSS from local asset: {PHOSPHOR_CSS_LOCAL}")
+        css_text = PHOSPHOR_CSS_LOCAL.read_text(encoding="utf-8")
+    else:
+        print(f"[*] Fetching Phosphor CSS from remote: {PHOSPHOR_CSS_REMOTE}")
+        req = urllib.request.Request(PHOSPHOR_CSS_REMOTE, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req) as resp:
+            css_text = resp.read().decode("utf-8")
 
-        key = ""
-        for line in lines:
-            line = line.strip()
+    icons = parse_css_icons(css_text)
+    print(f"[✓] Loaded {len(icons)} Phosphor icon definitions.")
+    return icons
 
-            if line.startswith(".ph") and line.endswith(":before {"):
-                # key line
-                words = line.split(".")
-                key = words[2][3:-9]
 
-            elif key:
-                words = line.split(":")
-                value = words[1].strip()[2:-2]
-                font_dict[key] = value
-                key = ""
+def generate_phosphor_code(output_path: Path) -> None:
+    """Generate Phosphor icon module code and write directly to destination.
 
-    def _write(self) -> None:
-        # add head
-        code_chunks: list[str] = [PHOSPHOR_HEAD.strip()]
+    Args:
+        output_path: Target Python file path.
+    """
+    icons = load_phosphor_icons()
 
-        # add functions
-        for icon_name, icon_code in self._regular_dict.items():
-            function_name = icon_name.replace("-", "_")
-            function_text = PHOSPHOR_TEMPLATE.format(
-                function_name=function_name,
-                icon_name=icon_name,
-                icon_code=icon_code,
-            )
-            code_chunks.append(function_text.strip())
+    chunks: list[str] = [PHOSPHOR_HEAD.strip()]
+    for icon_name in sorted(icons.keys()):
+        icon_code = icons[icon_name]
+        function_name = icon_name.replace("-", "_")
+        func_text = PHOSPHOR_FUNCTION_TEMPLATE.format(
+            function_name=function_name,
+            icon_name=icon_name,
+            icon_code=icon_code,
+        )
+        chunks.append(func_text.strip())
 
-        # combine them with 2 new lines
-        code_text = "\n\n\n".join(code_chunks)
+    full_code = "\n\n\n".join(chunks) + "\n"
 
-        # write to file
-        os.makedirs(OUTPUT_DIR, exist_ok=True)
-        with open(os.path.join(OUTPUT_DIR, OUTPUT_FILE), mode="w", encoding="utf8") as fout:
-            fout.write(code_text)
-            fout.write("\n")  # last new line
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(full_code, encoding="utf-8")
+    print(f"[✓] Generated Phosphor icon code directly at: {output_path}")
+
+
+def main() -> None:
+    """CLI entry point for generating Phosphor icon code."""
+    cd_to_project_root()
+
+    parser = argparse.ArgumentParser(description="Generate Phosphor icon Python bindings.")
+    parser.add_argument(
+        "--output",
+        "-o",
+        type=Path,
+        default=DEFAULT_OUTPUT_FILE,
+        help=f"Target file path (default: {DEFAULT_OUTPUT_FILE}).",
+    )
+    args = parser.parse_args()
+
+    generate_phosphor_code(output_path=args.output)
 
 
 if __name__ == "__main__":
-    cd_to_project_root()
-    IconCodeGeneratorPhosphor().run()
+    main()

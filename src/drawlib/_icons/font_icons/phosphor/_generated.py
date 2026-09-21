@@ -11,13 +11,6 @@
 
 from __future__ import annotations
 
-import os
-from enum import Enum
-from typing import Optional, Tuple, Union
-from urllib.parse import urljoin
-
-import drawlib._assets.fonticons
-from drawlib import ASSET_VERSION
 from drawlib._core.l1_core import guarded
 from drawlib._core.l2_types import (
     TypeAngle,
@@ -25,147 +18,8 @@ from drawlib._core.l2_types import (
     TypePosFloat,
     TypeStr,
 )
-from drawlib._core.l3_external import download_if_not_exist
-from drawlib._core.l3_fonts import FontMetadata, FontResource
 from drawlib._core.l3_styles import Style
-from drawlib._icons._icon import icon
-from drawlib._theme import get_style
-
-
-class _Fonts(str, Enum):
-    THIN = "thin"
-    LIGHT = "light"
-    REGULAR = "regular"
-    BOLD = "bold"
-    FILL = "fill"
-
-
-_DEFAULT_STYLE = _Fonts.THIN.value
-
-_FONT_RESOURCE: dict[str, FontResource] = {
-    _Fonts.THIN: FontResource(
-        path="phosphor/thin.ttf",
-        md5="9ca0acf8bc84ec2421f96f835017f321",
-    ),
-    _Fonts.LIGHT: FontResource(
-        path="phosphor/light.ttf",
-        md5="6c53da4ecc310dd5dbcfafe3d916a346",
-    ),
-    _Fonts.REGULAR: FontResource(
-        path="phosphor/regular.ttf",
-        md5="c2ecd49d10b76c3f9b9c072966cc0c3c",
-    ),
-    _Fonts.BOLD: FontResource(
-        path="phosphor/bold.ttf",
-        md5="4f59e81563e413635c57d78338d33b92",
-    ),
-    _Fonts.FILL: FontResource(
-        path="phosphor/fill.ttf",
-        md5="612af00267f5e8a429531399700db66e",
-    ),
-}
-
-
-def _get_font_metadata(font: _Fonts | str) -> FontMetadata:
-    """Resolve full metadata for a given Phosphor font style.
-
-    Args:
-        font (_Fonts | str): The font style (e.g., 'thin', 'light', 'regular', 'bold', 'fill').
-
-    Returns:
-        FontMetadata: Resolved metadata including absolute path and URL.
-
-    Raises:
-        ValueError: If the font style is not found in _FONT_RESOURCE.
-
-    """
-    resource = _FONT_RESOURCE.get(font)
-    if not resource:
-        raise ValueError(f"Font {font} not found in _FONT_RESOURCE.")
-
-    paths = [p for p in resource.path.split("/") if p]
-
-    # Construct the local font path
-    dir_path = os.path.dirname(drawlib._assets.fonticons.__file__)
-    abs_path = os.path.join(dir_path, *paths)
-
-    # Construct the URL
-    url = urljoin(
-        f"https://raw.githubusercontent.com/yuichi110/drawlib_assets/main/assets/{ASSET_VERSION}/fonticons/",
-        "/".join(paths),
-    )
-
-    return FontMetadata(
-        path=resource.path,
-        abs_path=abs_path,
-        url=url,
-        md5=resource.md5,
-    )
-
-
-def _write(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    code: str,
-    angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
-) -> None:
-    """Draw a Phosphor icon at the specified position with given parameters.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon center.
-        width: Width of the icon.
-        code: Identifier or code of the icon.
-        angle: Angle of rotation (default is 0.0).
-        style: Style of the icon as an Style object, string, or None.
-            Defaults to None, which uses the default style.
-
-    Raises:
-        ValueError: If an unsupported style type is passed to 'style'.
-
-    """
-    # None -> Style
-    if style is None:
-        style_obj = get_style().copy()
-    # str -> Style
-    elif isinstance(style, str):
-        style_obj = get_style(style).copy()
-    # Style
-    else:
-        style_obj = style.copy()
-
-    # set Style.icon_style if it is None
-    if style_obj.icon_style is None:
-        style_obj.icon_style = _DEFAULT_STYLE
-
-    # validate Style.icon_style
-    if style_obj.icon_style not in _Fonts:
-        raise ValueError(f'icon_phosphor does not support style "{style_obj.icon_style}".')
-
-    # set icon file path
-    font_metadata = _get_font_metadata(style_obj.icon_style)
-
-    # download if not exist
-    download_if_not_exist(
-        file_path=font_metadata.abs_path,
-        download_url=font_metadata.url,
-        md5_hash=font_metadata.md5,
-    )
-
-    # draw phosphor icon with generic function
-    icon(
-        xy=xy,
-        width=width,
-        code=code,
-        file=font_metadata.abs_path,
-        angle=angle,
-        style=style_obj,
-    )
-
-
-#
-# Auto generated code from here ###
-#
+from drawlib._icons.font_icons.phosphor._base import _write
 
 
 @guarded
@@ -186,6 +40,26 @@ def acorn(
 
     """
     _write(xy=xy, width=width, code="\ueb9a", angle=angle, style=style)
+
+
+@guarded
+def activity(
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: Style | TypeStr | None = None,
+) -> None:
+    """Draws a Phosphor icon representing an activity.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
+        style: Style of the icon as an Style object, string, or None.
+
+    """
+    _write(xy=xy, width=width, code="\ue000", angle=angle, style=style)
 
 
 @guarded
@@ -946,6 +820,46 @@ def archive(
 
     """
     _write(xy=xy, width=width, code="\ue00c", angle=angle, style=style)
+
+
+@guarded
+def archive_box(
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: Style | TypeStr | None = None,
+) -> None:
+    """Draws a Phosphor icon representing an archive-box.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
+        style: Style of the icon as an Style object, string, or None.
+
+    """
+    _write(xy=xy, width=width, code="\ue00e", angle=angle, style=style)
+
+
+@guarded
+def archive_tray(
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: Style | TypeStr | None = None,
+) -> None:
+    """Draws a Phosphor icon representing an archive-tray.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
+        style: Style of the icon as an Style object, string, or None.
+
+    """
+    _write(xy=xy, width=width, code="\ue010", angle=angle, style=style)
 
 
 @guarded
@@ -2969,26 +2883,6 @@ def asclepius(
 
 
 @guarded
-def caduceus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
-) -> None:
-    """Draws a Phosphor icon representing an caduceus.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
-
-    """
-    _write(xy=xy, width=width, code="\uee34", angle=angle, style=style)
-
-
-@guarded
 def asterisk(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4729,26 +4623,6 @@ def box_arrow_down(
 
 
 @guarded
-def archive_box(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
-) -> None:
-    """Draws a Phosphor icon representing an archive-box.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
-
-    """
-    _write(xy=xy, width=width, code="\ue00e", angle=angle, style=style)
-
-
-@guarded
 def box_arrow_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5306,6 +5180,26 @@ def cactus(
 
     """
     _write(xy=xy, width=width, code="\ue918", angle=angle, style=style)
+
+
+@guarded
+def caduceus(
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: Style | TypeStr | None = None,
+) -> None:
+    """Draws a Phosphor icon representing an caduceus.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
+        style: Style of the icon as an Style object, string, or None.
+
+    """
+    _write(xy=xy, width=width, code="\uee34", angle=angle, style=style)
 
 
 @guarded
@@ -7626,6 +7520,86 @@ def circle_notch(
 
     """
     _write(xy=xy, width=width, code="\ueb44", angle=angle, style=style)
+
+
+@guarded
+def circle_wavy(
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: Style | TypeStr | None = None,
+) -> None:
+    """Draws a Phosphor icon representing an circle-wavy.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
+        style: Style of the icon as an Style object, string, or None.
+
+    """
+    _write(xy=xy, width=width, code="\ue604", angle=angle, style=style)
+
+
+@guarded
+def circle_wavy_check(
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: Style | TypeStr | None = None,
+) -> None:
+    """Draws a Phosphor icon representing an circle-wavy-check.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
+        style: Style of the icon as an Style object, string, or None.
+
+    """
+    _write(xy=xy, width=width, code="\ue606", angle=angle, style=style)
+
+
+@guarded
+def circle_wavy_question(
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: Style | TypeStr | None = None,
+) -> None:
+    """Draws a Phosphor icon representing an circle-wavy-question.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
+        style: Style of the icon as an Style object, string, or None.
+
+    """
+    _write(xy=xy, width=width, code="\ue608", angle=angle, style=style)
+
+
+@guarded
+def circle_wavy_warning(
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: Style | TypeStr | None = None,
+) -> None:
+    """Draws a Phosphor icon representing an circle-wavy-warning.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
+        style: Style of the icon as an Style object, string, or None.
+
+    """
+    _write(xy=xy, width=width, code="\ue60c", angle=angle, style=style)
 
 
 @guarded
@@ -11769,26 +11743,6 @@ def file_dashed(
 
 
 @guarded
-def file_dotted(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
-) -> None:
-    """Draws a Phosphor icon representing an file-dotted.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
-
-    """
-    _write(xy=xy, width=width, code="\ue704", angle=angle, style=style)
-
-
-@guarded
 def file_doc(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11806,6 +11760,26 @@ def file_doc(
 
     """
     _write(xy=xy, width=width, code="\ueb1e", angle=angle, style=style)
+
+
+@guarded
+def file_dotted(
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: Style | TypeStr | None = None,
+) -> None:
+    """Draws a Phosphor icon representing an file-dotted.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
+        style: Style of the icon as an Style object, string, or None.
+
+    """
+    _write(xy=xy, width=width, code="\ue704", angle=angle, style=style)
 
 
 @guarded
@@ -11956,26 +11930,6 @@ def file_magnifying_glass(
     style: Style | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an file-magnifying-glass.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
-
-    """
-    _write(xy=xy, width=width, code="\ue238", angle=angle, style=style)
-
-
-@guarded
-def file_search(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
-) -> None:
-    """Draws a Phosphor icon representing an file-search.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -12146,6 +12100,26 @@ def file_rs(
 
     """
     _write(xy=xy, width=width, code="\ueb28", angle=angle, style=style)
+
+
+@guarded
+def file_search(
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: Style | TypeStr | None = None,
+) -> None:
+    """Draws a Phosphor icon representing an file-search.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
+        style: Style of the icon as an Style object, string, or None.
+
+    """
+    _write(xy=xy, width=width, code="\ue238", angle=angle, style=style)
 
 
 @guarded
@@ -13049,26 +13023,6 @@ def folder(
 
 
 @guarded
-def folder_notch(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
-) -> None:
-    """Draws a Phosphor icon representing an folder-notch.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
-
-    """
-    _write(xy=xy, width=width, code="\ue24a", angle=angle, style=style)
-
-
-@guarded
 def folder_dashed(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13149,6 +13103,26 @@ def folder_minus(
 
 
 @guarded
+def folder_notch(
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: Style | TypeStr | None = None,
+) -> None:
+    """Draws a Phosphor icon representing an folder-notch.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
+        style: Style of the icon as an Style object, string, or None.
+
+    """
+    _write(xy=xy, width=width, code="\ue24a", angle=angle, style=style)
+
+
+@guarded
 def folder_notch_minus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13166,26 +13140,6 @@ def folder_notch_minus(
 
     """
     _write(xy=xy, width=width, code="\ue254", angle=angle, style=style)
-
-
-@guarded
-def folder_open(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
-) -> None:
-    """Draws a Phosphor icon representing an folder-open.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
-
-    """
-    _write(xy=xy, width=width, code="\ue256", angle=angle, style=style)
 
 
 @guarded
@@ -13209,13 +13163,13 @@ def folder_notch_open(
 
 
 @guarded
-def folder_plus(
+def folder_notch_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
     style: Style | TypeStr | None = None,
 ) -> None:
-    """Draws a Phosphor icon representing an folder-plus.
+    """Draws a Phosphor icon representing an folder-notch-plus.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -13229,13 +13183,33 @@ def folder_plus(
 
 
 @guarded
-def folder_notch_plus(
+def folder_open(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
     style: Style | TypeStr | None = None,
 ) -> None:
-    """Draws a Phosphor icon representing an folder-notch-plus.
+    """Draws a Phosphor icon representing an folder-open.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
+        style: Style of the icon as an Style object, string, or None.
+
+    """
+    _write(xy=xy, width=width, code="\ue256", angle=angle, style=style)
+
+
+@guarded
+def folder_plus(
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: Style | TypeStr | None = None,
+) -> None:
+    """Draws a Phosphor icon representing an folder-plus.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -16289,26 +16263,6 @@ def infinity(
 
 
 @guarded
-def lemniscate(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
-) -> None:
-    """Draws a Phosphor icon representing an lemniscate.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
-
-    """
-    _write(xy=xy, width=width, code="\ue634", angle=angle, style=style)
-
-
-@guarded
 def info(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16906,6 +16860,26 @@ def lego_smiley(
 
     """
     _write(xy=xy, width=width, code="\ue8c7", angle=angle, style=style)
+
+
+@guarded
+def lemniscate(
+    xy: TypeCoordinate,
+    width: TypePosFloat,
+    angle: TypeAngle = 0.0,
+    style: Style | TypeStr | None = None,
+) -> None:
+    """Draws a Phosphor icon representing an lemniscate.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
+        style: Style of the icon as an Style object, string, or None.
+
+    """
+    _write(xy=xy, width=width, code="\ue634", angle=angle, style=style)
 
 
 @guarded
@@ -22629,26 +22603,6 @@ def pulse(
 
 
 @guarded
-def activity(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
-) -> None:
-    """Draws a Phosphor icon representing an activity.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
-
-    """
-    _write(xy=xy, width=width, code="\ue000", angle=angle, style=style)
-
-
-@guarded
 def push_pin(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23769,26 +23723,6 @@ def seal(
 
 
 @guarded
-def circle_wavy(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
-) -> None:
-    """Draws a Phosphor icon representing an circle-wavy.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
-
-    """
-    _write(xy=xy, width=width, code="\ue604", angle=angle, style=style)
-
-
-@guarded
 def seal_check(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23796,26 +23730,6 @@ def seal_check(
     style: Style | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an seal-check.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
-
-    """
-    _write(xy=xy, width=width, code="\ue606", angle=angle, style=style)
-
-
-@guarded
-def circle_wavy_check(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
-) -> None:
-    """Draws a Phosphor icon representing an circle-wavy-check.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -23869,26 +23783,6 @@ def seal_question(
 
 
 @guarded
-def circle_wavy_question(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
-) -> None:
-    """Draws a Phosphor icon representing an circle-wavy-question.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
-
-    """
-    _write(xy=xy, width=width, code="\ue608", angle=angle, style=style)
-
-
-@guarded
 def seal_warning(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23896,26 +23790,6 @@ def seal_warning(
     style: Style | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an seal-warning.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
-
-    """
-    _write(xy=xy, width=width, code="\ue60c", angle=angle, style=style)
-
-
-@guarded
-def circle_wavy_warning(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
-) -> None:
-    """Draws a Phosphor icon representing an circle-wavy-warning.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -28656,26 +28530,6 @@ def tray_arrow_down(
     style: Style | TypeStr | None = None,
 ) -> None:
     """Draws a Phosphor icon representing an tray-arrow-down.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
-
-    """
-    _write(xy=xy, width=width, code="\ue010", angle=angle, style=style)
-
-
-@guarded
-def archive_tray(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
-) -> None:
-    """Draws a Phosphor icon representing an archive-tray.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.

@@ -9,12 +9,20 @@
 
 """Public icons module for drawlib."""
 
+import sys
+
 from drawlib._icons import (
     icon,
     icon_phosphor,
+    phosphor,
 )
+
+# Allow submodule style imports: `import drawlib.icons.phosphor`
+sys.modules["drawlib.icons.phosphor"] = phosphor
+sys.modules["drawlib.icons.icon_phosphor"] = icon_phosphor
 
 __all__ = [
     "icon",
     "icon_phosphor",
+    "phosphor",
 ]

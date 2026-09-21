@@ -11,7 +11,7 @@
 
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
-from drawlib.icons import icon_phosphor
+from drawlib.icons import icon_phosphor, phosphor
 from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l6_icons/icon_phosphor/"
@@ -54,3 +54,9 @@ class TestCanvasPhosphor:
         icon_phosphor.google_logo(xy=(25, 75), width=20, style="green")
         icon_phosphor.google_logo(xy=(75, 25), width=20, style="red")
         save(f"{OUTPUT_DIR}test_theme.png")
+
+    def test_phosphor_flat_import(self) -> None:
+        """Verify Phosphor icon drawing via flat drawlib.icons.phosphor import."""
+        clear()
+        phosphor.google_logo(xy=(50, 50), width=20)
+        assert phosphor.google_logo == icon_phosphor.google_logo

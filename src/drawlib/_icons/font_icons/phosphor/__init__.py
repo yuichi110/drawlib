@@ -7,16 +7,6 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Package for icon() function and icon modules."""
+"""Phosphor font icon package."""
 
-from drawlib._icons.font_icons import (
-    icon,
-    icon_phosphor,
-    phosphor,
-)
-
-__all__ = [
-    "icon",
-    "icon_phosphor",
-    "phosphor",
-]
+from drawlib._icons.font_icons.phosphor._generated import *  # noqa: F403
