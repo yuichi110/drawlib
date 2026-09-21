@@ -22,6 +22,7 @@ from drawlib._core.l2_types import (
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import image
 from drawlib._release_assets import RELEASE_ASSET_PACKAGES, ReleaseAssetPackage, ensure_asset_available
+from drawlib._theme import get_style
 
 
 class PngIconProvider:
@@ -98,11 +99,25 @@ class PngIconProvider:
             angle: Rotation angle in degrees (default 0.0).
             style: Style object, style name string, or None.
         """
+        # Icons default to transparent background and borderless frame (line_width=0)
+        # unless line_width is explicitly specified in style.
+        applied_style: Style
+        if style is None:
+            applied_style = Style(line_width=0)
+        elif isinstance(style, Style):
+            applied_style = style.copy()
+            if applied_style.line_width is None:
+                applied_style.line_width = 0
+        else:
+            applied_style = get_style(style).copy()
+            if applied_style.line_width is None:
+                applied_style.line_width = 0
+
         abs_path = self.get_icon_path(name)
         image(
             xy=xy,
             width=width,
             image=abs_path,
             angle=angle,
-            style=style,
+            style=applied_style,
         )

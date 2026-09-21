@@ -247,14 +247,16 @@
 You can utilize the <code>image()</code> function by providing an icon image file of your choice.
 Alternatively, you can use <code>icon()</code> along with dedicated <code>Icon Modules</code> for drawing icons directly.</p>
 <h1>Icon Modules</h1>
-<p>We've curated a selection of icons for your convenience, available in drawlib now.</p>
+<p>We've curated a selection of icons for your convenience, available in drawlib now:</p>
 <ul>
-<li><code>icon_phosphor</code>: Derived from Phosphor Icons (https://phosphoricons.com)</li>
+<li><code>phosphor</code> (or <code>icon_phosphor</code>): Derived from Phosphor Icons (https://phosphoricons.com). Provides ~1,500 vector font icons.</li>
+<li><code>gcp</code>: Official Google Cloud Platform diagram and architecture icons. Provides 250+ full-color service and category icons.</li>
 </ul>
-<p>Each icon within these modules is defined as a function, allowing you to draw specific icons by simply calling their respective function.
-Let's explore with examples:</p>
+<p>Each icon within these modules is defined as a function, allowing you to draw specific icons by simply calling their respective function.</p>
+<h2>Phosphor Icons</h2>
+<p>Let's explore with examples using <code>phosphor</code>:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.text import text
 
 width = 100
@@ -263,13 +265,13 @@ config(width=width, height=height)
 
 x = width / 7
 y = height / 2
-icon_phosphor.airplane_taxiing(xy=(x, y), width=10)
-icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10)
-icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10)
-icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10)
-icon_phosphor.airplane(xy=(x * 5, y), width=10, angle=270)
+phosphor.airplane_taxiing(xy=(x, y), width=10)
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10)
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10)
+phosphor.airplane_tilt(xy=(x * 4, y), width=10)
+phosphor.airplane(xy=(x * 5, y), width=10, angle=270)
 text(xy=(x * 5, y - 10), text=&quot;angle 270&quot;)
-icon_phosphor.airplane_landing(xy=(x * 6, y), width=10)
+phosphor.airplane_landing(xy=(x * 6, y), width=10)
 
 save()
 </code></pre>
@@ -285,7 +287,7 @@ save()
 </ul>
 <p>Executing this code yields the following image:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.text import text
 
 width = 100
@@ -294,23 +296,274 @@ config(width=width, height=height)
 
 x = width / 7
 y = height / 2
-icon_phosphor.airplane_taxiing(xy=(x, y), width=10)
-icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10)
-icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10)
-icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10)
-icon_phosphor.airplane(xy=(x * 5, y), width=10, angle=270)
+phosphor.airplane_taxiing(xy=(x, y), width=10)
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10)
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10)
+phosphor.airplane_tilt(xy=(x * 4, y), width=10)
+phosphor.airplane(xy=(x * 5, y), width=10, angle=270)
 text(xy=(x * 5, y - 10), text=&quot;angle 270&quot;)
-icon_phosphor.airplane_landing(xy=(x * 6, y), width=10)
+phosphor.airplane_landing(xy=(x * 6, y), width=10)
 
 save()
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
   <img src="icon_images/2.png" alt="icon_2" style="width: 600px; max-width: 100%;" />
 </div>
-<pre><code>icon_phosphor's icons
+<pre><code>phosphor's icons
 </code></pre>
 <p>You see lots of variation of only airplane.
-<code>icon_phosphor</code> has around 1500 icons.</p>
+<code>phosphor</code> has around 1,500 icons.</p>
+<h2>Google Cloud Platform Icons (gcp)</h2>
+<p>Drawlib provides official Google Cloud Platform diagram icons via <code>drawlib.icons.gcp</code>.
+These icons are official high-resolution multi-color graphics representing GCP services and product categories, designed for clean and professional cloud architecture diagrams.</p>
+<h3>Basic Usage</h3>
+<p>Every GCP icon is defined as a function directly under <code>gcp</code>.
+They accept standard coordinate, width, angle, and style arguments:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.icons import gcp
+from drawlib.text import text
+
+width = 100
+height = 45
+config(width=width, height=height)
+
+x = width / 5
+y = height / 2 + 5
+gcp.compute_engine(xy=(x, y), width=10)
+text(xy=(x, y - 10), text=&quot;compute_engine&quot;, size=10)
+
+gcp.cloud_storage(xy=(x * 2, y), width=10)
+text(xy=(x * 2, y - 10), text=&quot;cloud_storage&quot;, size=10)
+
+gcp.cloud_run(xy=(x * 3, y), width=10)
+text(xy=(x * 3, y - 10), text=&quot;cloud_run&quot;, size=10)
+
+gcp.bigquery(xy=(x * 4, y), width=10)
+text(xy=(x * 4, y - 10), text=&quot;bigquery&quot;, size=10)
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="icon_images/3.png" alt="icon_3" />
+</div>
+<p>Executing this code generates the following image:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.icons import gcp
+from drawlib.text import text
+
+width = 100
+height = 45
+config(width=width, height=height)
+
+x = width / 5
+y = height / 2 + 5
+gcp.compute_engine(xy=(x, y), width=10)
+text(xy=(x, y - 10), text=&quot;compute_engine&quot;, size=10)
+
+gcp.cloud_storage(xy=(x * 2, y), width=10)
+text(xy=(x * 2, y - 10), text=&quot;cloud_storage&quot;, size=10)
+
+gcp.cloud_run(xy=(x * 3, y), width=10)
+text(xy=(x * 3, y - 10), text=&quot;cloud_run&quot;, size=10)
+
+gcp.bigquery(xy=(x * 4, y), width=10)
+text(xy=(x * 4, y - 10), text=&quot;bigquery&quot;, size=10)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="icon_images/4.png" alt="icon_4" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>Common GCP service icons
+</code></pre>
+<p>Popular GCP services also provide common abbreviation aliases:</p>
+<ul>
+<li><code>gcp.gcs</code> -&gt; <code>gcp.cloud_storage</code></li>
+<li><code>gcp.gke</code> -&gt; <code>gcp.google_kubernetes_engine</code></li>
+<li><code>gcp.gce</code> -&gt; <code>gcp.compute_engine</code></li>
+<li><code>gcp.bq</code> -&gt; <code>gcp.bigquery</code></li>
+</ul>
+<h3>Styling GCP Icons</h3>
+<p>Unlike font icons which render in monochrome by default, GCP icons render in their official full-color design on a transparent background.
+You can customize them using <code>drawlib.types.Style</code>:</p>
+<ul>
+<li><code>fill_alpha</code>: Controls transparency (from <code>0.0</code> for fully transparent to <code>1.0</code> for opaque).</li>
+<li><code>fill_color</code>: Applies a solid silhouette mask over the icon artwork.</li>
+<li><code>line_color</code>, <code>line_width</code>, <code>line_style</code>: Draws an optional border outline around the icon frame.</li>
+<li><code>text_halign</code>, <code>text_valign</code>: Adjusts anchor alignment relative to <code>xy</code>.</li>
+</ul>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.icons import gcp
+from drawlib.text import text
+from drawlib.types import Style
+
+width = 100
+height = 50
+config(width=width, height=height)
+
+x = width / 5
+y = height / 2 + 5
+
+# 1. Default multi-color artwork
+gcp.cloud_run(xy=(x, y), width=10)
+text(xy=(x, y - 10), text=&quot;Default&quot;, size=10)
+
+# 2. Angle rotation
+gcp.cloud_run(xy=(x * 2, y), width=10, angle=45)
+text(xy=(x * 2, y - 10), text=&quot;angle=45&quot;, size=10)
+
+# 3. Alpha transparency
+gcp.cloud_run(xy=(x * 3, y), width=10, style=Style(fill_alpha=0.35))
+text(xy=(x * 3, y - 10), text=&quot;fill_alpha=0.35&quot;, size=10)
+
+# 4. Color tint / silhouette mask
+gcp.cloud_run(xy=(x * 4, y), width=10, style=Style(fill_color=Colors.Red))
+text(xy=(x * 4, y - 10), text=&quot;fill_color=Red&quot;, size=10)
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="icon_images/5.png" alt="icon_5" />
+</div>
+<p>Executing this code generates the following image:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.icons import gcp
+from drawlib.text import text
+from drawlib.types import Style
+
+width = 100
+height = 50
+config(width=width, height=height)
+
+x = width / 5
+y = height / 2 + 5
+
+# 1. Default multi-color artwork
+gcp.cloud_run(xy=(x, y), width=10)
+text(xy=(x, y - 10), text=&quot;Default&quot;, size=10)
+
+# 2. Angle rotation
+gcp.cloud_run(xy=(x * 2, y), width=10, angle=45)
+text(xy=(x * 2, y - 10), text=&quot;angle=45&quot;, size=10)
+
+# 3. Alpha transparency
+gcp.cloud_run(xy=(x * 3, y), width=10, style=Style(fill_alpha=0.35))
+text(xy=(x * 3, y - 10), text=&quot;fill_alpha=0.35&quot;, size=10)
+
+# 4. Color tint / silhouette mask
+gcp.cloud_run(xy=(x * 4, y), width=10, style=Style(fill_color=Colors.Red))
+text(xy=(x * 4, y - 10), text=&quot;fill_color=Red&quot;, size=10)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="icon_images/6.png" alt="icon_6" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>GCP icon styling variations
+</code></pre>
+<h3>Cloud Architecture Diagram Example</h3>
+<p>Here is an end-to-end example demonstrating how GCP icons can be combined with shapes and connectors to build clear architecture diagrams:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.icons import gcp, phosphor
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.text import text
+from drawlib.types import Style
+
+config(width=100, height=60)
+
+# Cloud boundary
+rectangle(
+    xy=(63, 30),
+    width=66,
+    height=50,
+    r=2,
+    style=Style(fill_color=Colors.White, line_color=Colors.Gray, line_style=&quot;dashed&quot;, line_width=1.5),
+)
+text(xy=(45, 51), text=&quot;Google Cloud Project&quot;, size=10, style=Style(text_color=Colors.Gray))
+
+# Client / User
+phosphor.user(xy=(14, 30), width=10)
+text(xy=(14, 20), text=&quot;Client&quot;, size=9)
+
+# Cloud Services
+gcp.cloud_load_balancing(xy=(38, 30), width=10)
+text(xy=(38, 20), text=&quot;Load Balancer&quot;, size=9)
+
+gcp.cloud_run(xy=(62, 30), width=10)
+text(xy=(62, 20), text=&quot;Cloud Run&quot;, size=9)
+
+gcp.cloud_sql(xy=(86, 40), width=9)
+text(xy=(86, 32), text=&quot;Cloud SQL&quot;, size=8)
+
+gcp.cloud_storage(xy=(86, 20), width=9)
+text(xy=(86, 12), text=&quot;Cloud Storage&quot;, size=8)
+
+# Connectors
+line(xy1=(20, 30), xy2=(32, 30), arrowhead=&quot;-&gt;&quot;)
+line(xy1=(44, 30), xy2=(56, 30), arrowhead=&quot;-&gt;&quot;)
+line(xy1=(68, 33), xy2=(80, 39), arrowhead=&quot;-&gt;&quot;)
+line(xy1=(68, 27), xy2=(80, 21), arrowhead=&quot;-&gt;&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image">
+  <img src="icon_images/7.png" alt="icon_7" />
+</div>
+<p>Executing this code generates the following architecture diagram:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.icons import gcp, phosphor
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.text import text
+from drawlib.types import Style
+
+config(width=100, height=60)
+
+# Cloud boundary
+rectangle(
+    xy=(63, 30),
+    width=66,
+    height=50,
+    r=2,
+    style=Style(fill_color=Colors.White, line_color=Colors.Gray, line_style=&quot;dashed&quot;, line_width=1.5),
+)
+text(xy=(45, 51), text=&quot;Google Cloud Project&quot;, size=10, style=Style(text_color=Colors.Gray))
+
+# Client / User
+phosphor.user(xy=(14, 30), width=10)
+text(xy=(14, 20), text=&quot;Client&quot;, size=9)
+
+# Cloud Services
+gcp.cloud_load_balancing(xy=(38, 30), width=10)
+text(xy=(38, 20), text=&quot;Load Balancer&quot;, size=9)
+
+gcp.cloud_run(xy=(62, 30), width=10)
+text(xy=(62, 20), text=&quot;Cloud Run&quot;, size=9)
+
+gcp.cloud_sql(xy=(86, 40), width=9)
+text(xy=(86, 32), text=&quot;Cloud SQL&quot;, size=8)
+
+gcp.cloud_storage(xy=(86, 20), width=9)
+text(xy=(86, 12), text=&quot;Cloud Storage&quot;, size=8)
+
+# Connectors
+line(xy1=(20, 30), xy2=(32, 30), arrowhead=&quot;-&gt;&quot;)
+line(xy1=(44, 30), xy2=(56, 30), arrowhead=&quot;-&gt;&quot;)
+line(xy1=(68, 33), xy2=(80, 39), arrowhead=&quot;-&gt;&quot;)
+line(xy1=(68, 27), xy2=(80, 21), arrowhead=&quot;-&gt;&quot;)
+
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="icon_images/8.png" alt="icon_8" style="width: 600px; max-width: 100%;" />
+</div>
+<pre><code>Sample GCP cloud architecture diagram
+</code></pre>
 <h1>icon()</h1>
 <p><code>icon()</code> is a versatile function for displaying font icons.
 Internally, icon modules utilize icon().</p>
@@ -366,7 +619,7 @@ icon(
 save()
 </code></pre>
 <div class="drawlib-image">
-  <img src="icon_images/3.png" alt="icon_3" />
+  <img src="icon_images/9.png" alt="icon_9" />
 </div>
 <p>Executing this code generates the following image:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
@@ -411,7 +664,7 @@ icon(
 save()
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="icon_images/4.png" alt="icon_4" style="width: 600px; max-width: 100%;" />
+  <img src="icon_images/10.png" alt="icon_10" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>FontAwesome-Free icons
 </code></pre>
@@ -453,7 +706,7 @@ text(xy=(x * 5 + 5, y - 10), text=&quot;align left,bottom&quot;)
 save()
 </code></pre>
 <div class="drawlib-image">
-  <img src="icon_images/5.png" alt="icon_5" />
+  <img src="icon_images/11.png" alt="icon_11" />
 </div>
 <p>Executing this code generates the following image:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
@@ -480,7 +733,7 @@ text(xy=(x * 5 + 5, y - 10), text=&quot;align left,bottom&quot;)
 save()
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="icon_images/6.png" alt="icon_6" style="width: 600px; max-width: 100%;" />
+  <img src="icon_images/12.png" alt="icon_12" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>icons with Style.
 </code></pre>
@@ -504,7 +757,7 @@ icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=&quot;green_flat&quot
 save()
 </code></pre>
 <div class="drawlib-image">
-  <img src="icon_images/7.png" alt="icon_7" />
+  <img src="icon_images/13.png" alt="icon_13" />
 </div>
 <p>Icon supports the following styles exclusively:</p>
 <ul>
@@ -529,7 +782,7 @@ icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=&quot;green_flat&quot
 save()
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="icon_images/8.png" alt="icon_8" style="width: 600px; max-width: 100%;" />
+  <img src="icon_images/14.png" alt="icon_14" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>icon with theme's style
 </code></pre>

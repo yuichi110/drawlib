@@ -501,16 +501,13 @@ You can overrides primary style with secondary style easily. Please take a look 
 <p>Drawing an icon is similar to drawing an image.
 However, while an image typically refers to a png/jpeg picture, drawlib's icon is a Font Icon.
 If you're unfamiliar with Font Icons, I recommend checking out FontAwesome first.</p>
-<p>Drawlib version 0.1 offers two methods for drawing icons:</p>
+<p>Drawlib offers convenient icon modules and functions for drawing icons:</p>
 <ul>
-<li>Using the <code>icon()</code> function.</li>
-<li>Utilizing the <code>icon_phosphor</code> module and its functions.</li>
+<li><code>phosphor</code> (or <code>icon_phosphor</code>): General vector font icons from Phosphor Icons (https://phosphoricons.com).</li>
+<li><code>gcp</code>: Official Google Cloud Platform diagram and architecture icons.</li>
+<li><code>icon()</code>: Low-level function for custom font icon files.</li>
 </ul>
-<p>If you wish to draw an icon using your own font icon file, you can employ the icon() function.
-For instance, if you want to utilize FontAwesome (which is not supported by default), you need to provide the file and drawing parameters to this function.</p>
-<p>The icon_phosphor module provides embedded font icons and functions for drawing them.
-It leverages Phosphor (https://phosphoricons.com), which offers icons that are easy to use and facilitate &quot;Illustration as Code&quot; since they are accessible to anyone.</p>
-<p>Here's an example using icon_phosphor:</p>
+<p>Here's an example using phosphor:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.icons import icon_phosphor

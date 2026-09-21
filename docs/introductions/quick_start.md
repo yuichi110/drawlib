@@ -390,18 +390,13 @@ Drawing an icon is similar to drawing an image.
 However, while an image typically refers to a png/jpeg picture, drawlib's icon is a Font Icon. 
 If you're unfamiliar with Font Icons, I recommend checking out FontAwesome first.
 
-Drawlib version 0.1 offers two methods for drawing icons:
+Drawlib offers convenient icon modules and functions for drawing icons:
 
-* Using the `icon()` function.
-* Utilizing the `icon_phosphor` module and its functions.
+* `phosphor` (or `icon_phosphor`): General vector font icons from Phosphor Icons (https://phosphoricons.com).
+* `gcp`: Official Google Cloud Platform diagram and architecture icons.
+* `icon()`: Low-level function for custom font icon files.
 
-If you wish to draw an icon using your own font icon file, you can employ the icon() function. 
-For instance, if you want to utilize FontAwesome (which is not supported by default), you need to provide the file and drawing parameters to this function.
-
-The icon_phosphor module provides embedded font icons and functions for drawing them. 
-It leverages Phosphor (https://phosphoricons.com), which offers icons that are easy to use and facilitate "Illustration as Code" since they are accessible to anyone.
-
-Here's an example using icon_phosphor:
+Here's an example using phosphor:
 
 
 
