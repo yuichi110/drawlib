@@ -16,6 +16,9 @@
 - **Built-in Document Builder**:
   - Added native Markdown / HTML document compiler (`drawlib doc-builder` and `build_document()`).
   - Automatically compiles markdown with `drawlib` code blocks into responsive HTML, rendered Markdown, or PDF.
+- **ER Diagrams (`drawlib.diagrams.er`)**:
+  - Declarative Entity-Relationship diagrams with full support for IE (Crow's Foot) notation.
+  - Automatic right-angled orthogonal routing, column-level anchoring, and custom styling.
 - **Headless PDF Export**:
   - PDF generation uses existing system Chromium-based browsers (Chrome, Chromium, Edge) without requiring Playwright.
 - **On-Demand Release Assets**:

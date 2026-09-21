@@ -1,0 +1,561 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ER Diagrams</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">drawlib</a>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="architecture.html">Architecture Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="er.html">ER Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="sequence.html">Sequence Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Notes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with PresetStyles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">ER Diagrams</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>ER Diagrams</h1>
+<p><code>drawlib.diagrams.er</code> provides a declarative, pure-Python Entity-Relationship (ER) diagramming framework.
+It adheres strictly to <strong>IE Notation (Information Engineering / Crow's Foot notation)</strong>—the global de-facto standard for relational database modeling.</p>
+<hr />
+<h2>1. Core Concepts</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Class</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Container</strong></td>
+<td><code>ERDiagram</code></td>
+<td>Top-level container managing entities, relationships, canvas sizing, and rendering.</td>
+</tr>
+<tr>
+<td><strong>Table</strong></td>
+<td><code>Entity</code></td>
+<td>Represents a database table. <code>(x, y)</code> sets the <strong>center</strong> of the entity card.</td>
+</tr>
+<tr>
+<td><strong>Connection</strong></td>
+<td><code>Relationship</code></td>
+<td>An edge connecting two entities with Crow's Foot multiplicity markers.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Quick Start</h2>
+<p>Below is a relational schema modeling customers, orders, and order items:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.er import ERDiagram, Entity
+
+canvas.initialize()
+
+erd = ERDiagram(title=&quot;E-Commerce Core Schema&quot;)
+
+# 1. Define Entities
+users = erd.add(Entity(name=&quot;users&quot;, width=25.0), xy=(20.0, 50.0))
+users.add_column(&quot;id&quot;, type=&quot;INT&quot;, pk=True)
+users.add_column(&quot;email&quot;, type=&quot;VARCHAR(255)&quot;, nullable=False)
+users.add_column(&quot;name&quot;, type=&quot;VARCHAR(100)&quot;)
+users.add_column(&quot;created_at&quot;, type=&quot;TIMESTAMP&quot;)
+
+orders = erd.add(Entity(name=&quot;orders&quot;, width=25.0), xy=(50.0, 50.0))
+orders.add_column(&quot;id&quot;, type=&quot;INT&quot;, pk=True)
+orders.add_column(&quot;user_id&quot;, type=&quot;INT&quot;, fk=True)
+orders.add_column(&quot;order_date&quot;, type=&quot;DATE&quot;)
+orders.add_column(&quot;total_amount&quot;, type=&quot;DECIMAL(10,2)&quot;)
+
+items = erd.add(Entity(name=&quot;order_items&quot;, width=25.0), xy=(80.0, 50.0))
+items.add_column(&quot;id&quot;, type=&quot;INT&quot;, pk=True)
+items.add_column(&quot;order_id&quot;, type=&quot;INT&quot;, fk=True)
+items.add_column(&quot;product_name&quot;, type=&quot;VARCHAR(100)&quot;)
+items.add_column(&quot;quantity&quot;, type=&quot;INT&quot;)
+items.add_column(&quot;price&quot;, type=&quot;DECIMAL(10,2)&quot;)
+
+# 2. Connect Relationships
+# users (1) to orders (0 or more)
+users.connect(
+    orders,
+    cardinality=&quot;1:*&quot;,
+    start_side=&quot;right&quot;,
+    end_side=&quot;left&quot;,
+    start_column=&quot;id&quot;,
+    end_column=&quot;user_id&quot;,
+    label=&quot;places&quot;,
+)
+
+# orders (1) to items (1 or more)
+orders.connect(
+    items,
+    cardinality=&quot;1:1..*&quot;,
+    start_side=&quot;right&quot;,
+    end_side=&quot;left&quot;,
+    start_column=&quot;id&quot;,
+    end_column=&quot;order_id&quot;,
+    label=&quot;contains&quot;,
+)
+
+erd.draw(xy=(0.0, 0.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="er_images/1.png" alt="er_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">E-Commerce Schema ER Diagram</figcaption>
+</figure>
+<hr />
+<h2>3. Entity Configuration</h2>
+<h3>3.1 Adding Columns</h3>
+<p>Columns can be added individually with <code>add_column()</code> or in batch using <code>add_columns()</code>:</p>
+<pre><code class="language-python">entity = Entity(name=&quot;products&quot;, width=26.0)
+
+# Individual addition (fluent API)
+entity.add_column(&quot;id&quot;, type=&quot;INT&quot;, pk=True)
+entity.add_column(&quot;sku&quot;, type=&quot;VARCHAR(64)&quot;, nullable=False)
+
+# Batch addition
+entity.add_columns([
+    (&quot;price&quot;, &quot;DECIMAL(10,2)&quot;),
+    (&quot;stock&quot;, &quot;INT&quot;, False, False, True),  # (name, type, pk, fk, nullable)
+])
+</code></pre>
+<h3>3.2 Sizing and Blank Margins</h3>
+<p>The placement coordinate <code>xy=(cx, cy)</code> in <code>erd.add(entity, xy=...)</code> defines the <strong>center</strong> of the entity.</p>
+<p>Entities automatically compute their height based on the number of columns. You can also specify an explicit fixed <code>height</code> (or <code>size=(width, height)</code>). If the specified <code>height</code> is larger than the content, the extra vertical space is left as a clean, blank background area:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.er import ERDiagram, Entity
+
+canvas.initialize()
+
+erd = ERDiagram()
+
+# Specify a fixed height larger than content
+categories = erd.add(Entity(name=&quot;categories&quot;, width=24.0, height=22.0), xy=(30.0, 50.0))
+categories.add_column(&quot;id&quot;, type=&quot;INT&quot;, pk=True)
+categories.add_column(&quot;name&quot;, type=&quot;VARCHAR(50)&quot;)
+
+products = erd.add(Entity(name=&quot;products&quot;, width=24.0, height=22.0), xy=(70.0, 50.0))
+products.add_column(&quot;id&quot;, type=&quot;INT&quot;, pk=True)
+products.add_column(&quot;category_id&quot;, type=&quot;INT&quot;, fk=True)
+products.add_column(&quot;title&quot;, type=&quot;VARCHAR(100)&quot;)
+
+categories.connect(products, cardinality=&quot;1:*&quot;, start_side=&quot;right&quot;, end_side=&quot;left&quot;)
+
+erd.draw()
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="er_images/2.png" alt="er_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Fixed-Size Entity with Blank Area</figcaption>
+</figure>
+<hr />
+<h2>4. Cardinality Notations (IE / Crow's Foot)</h2>
+<p>Drawlib provides strict type support via <code>Literal</code> for standard IE Crow's Foot cardinalities:</p>
+<table>
+<thead>
+<tr>
+<th>Cardinality</th>
+<th>Start Marker</th>
+<th>End Marker</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&quot;1:*&quot;</code></td>
+<td>Exactly 1 (<code>||</code>)</td>
+<td>Zero or more (<code>o&lt;</code>)</td>
+<td>Standard One-to-Many (default)</td>
+</tr>
+<tr>
+<td><code>&quot;1:1&quot;</code></td>
+<td>Exactly 1 (<code>||</code>)</td>
+<td>Exactly 1 (<code>||</code>)</td>
+<td>One-to-One</td>
+</tr>
+<tr>
+<td><code>&quot;1:1..*&quot;</code></td>
+<td>Exactly 1 (<code>||</code>)</td>
+<td>One or more (<code>|&lt;</code>)</td>
+<td>Mandatory Child</td>
+</tr>
+<tr>
+<td><code>&quot;1:0..1&quot;</code></td>
+<td>Exactly 1 (<code>||</code>)</td>
+<td>Zero or one (<code>o|</code>)</td>
+<td>Optional One-to-One</td>
+</tr>
+<tr>
+<td><code>&quot;0..1:1&quot;</code></td>
+<td>Zero or one (<code>o|</code>)</td>
+<td>Exactly 1 (<code>||</code>)</td>
+<td>Optional Parent</td>
+</tr>
+<tr>
+<td><code>&quot;0..1:*&quot;</code></td>
+<td>Zero or one (<code>o|</code>)</td>
+<td>Zero or more (<code>o&lt;</code>)</td>
+<td>Optional One-to-Many</td>
+</tr>
+<tr>
+<td><code>&quot;*:*&quot;</code></td>
+<td>Zero or more (<code>o&lt;</code>)</td>
+<td>Zero or more (<code>o&lt;</code>)</td>
+<td>Many-to-Many</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.er import ERDiagram, Entity, Cardinality
+
+canvas.initialize()
+
+cardinalities: list[Cardinality] = [
+    &quot;1:*&quot;,
+    &quot;1:1&quot;,
+    &quot;1:1..*&quot;,
+    &quot;1:0..1&quot;,
+    &quot;*:*&quot;,
+]
+
+erd = ERDiagram(title=&quot;Crow's Foot Cardinality Variations&quot;)
+
+for idx, card in enumerate(cardinalities):
+    y = 80.0 - idx * 14.0
+    src = erd.add(Entity(name=f&quot;Parent_{idx}&quot;, width=20.0, height=8.0), xy=(25.0, y))
+    src.add_column(&quot;id&quot;, type=&quot;INT&quot;, pk=True)
+
+    tgt = erd.add(Entity(name=f&quot;Child_{idx}&quot;, width=20.0, height=8.0), xy=(75.0, y))
+    tgt.add_column(&quot;ref_id&quot;, type=&quot;INT&quot;, fk=True)
+
+    src.connect(tgt, cardinality=card, label=card)
+
+erd.draw()
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="er_images/3.png" alt="er_3" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Supported IE Crow's Foot Cardinalities</figcaption>
+</figure>
+<hr />
+<h2>5. Routing and Anchoring</h2>
+<h3>5.1 Orthogonal Routing</h3>
+<p>By default, relationships use smart right-angled (orthogonal) routing (<code>routing=&quot;orthogonal&quot;</code>), generating clean Z-bends and L-bends. You can also specify <code>routing=&quot;direct&quot;</code> for direct straight lines.</p>
+<h3>5.2 Attachment Sides</h3>
+<p>Sides can be explicitly chosen using <code>start_side</code> and <code>end_side</code>:</p>
+<ul>
+<li><code>&quot;left&quot;</code>, <code>&quot;right&quot;</code>, <code>&quot;top&quot;</code>, <code>&quot;bottom&quot;</code>, or <code>&quot;auto&quot;</code> (default).</li>
+</ul>
+<p>When <code>&quot;auto&quot;</code> is used, Drawlib automatically determines the nearest opposite sides based on relative entity positions.</p>
+<h3>5.3 Column-Level Anchoring</h3>
+<p>To connect a relationship directly to specific columns, pass <code>start_column</code> and/or <code>end_column</code>. When connecting from the left or right side, the edge aligns with the vertical center of the designated column row:</p>
+<pre><code class="language-python">users.connect(
+    orders,
+    cardinality=&quot;1:*&quot;,
+    start_side=&quot;right&quot;,
+    end_side=&quot;left&quot;,
+    start_column=&quot;id&quot;,       # Line connects to 'id' row in users
+    end_column=&quot;user_id&quot;,    # Line connects to 'user_id' row in orders
+)
+</code></pre>
+<hr />
+<h2>6. Custom Styling</h2>
+<p>Entities and relationships fully integrate with Drawlib's <code>Style</code> class:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib._core.l3_styles import Colors, Style
+from drawlib.diagrams.er import ERDiagram, Entity
+
+canvas.initialize()
+
+erd = ERDiagram(
+    title=&quot;Custom Styled Schema&quot;,
+    style=Style(fill_color=Colors.White),
+)
+
+# Custom header colors
+departments = erd.add(
+    Entity(
+        name=&quot;departments&quot;,
+        width=26.0,
+        header_style=Style(fill_color=Colors.Navy, text_color=Colors.White),
+    ),
+    xy=(25.0, 50.0),
+)
+departments.add_column(&quot;dept_no&quot;, type=&quot;CHAR(4)&quot;, pk=True)
+departments.add_column(&quot;dept_name&quot;, type=&quot;VARCHAR(40)&quot;)
+
+employees = erd.add(
+    Entity(
+        name=&quot;employees&quot;,
+        width=26.0,
+        header_style=Style(fill_color=Colors.Teal, text_color=Colors.White),
+    ),
+    xy=(75.0, 50.0),
+)
+employees.add_column(&quot;emp_no&quot;, type=&quot;INT&quot;, pk=True)
+employees.add_column(&quot;dept_no&quot;, type=&quot;CHAR(4)&quot;, fk=True)
+employees.add_column(&quot;first_name&quot;, type=&quot;VARCHAR(14)&quot;)
+employees.add_column(&quot;last_name&quot;, type=&quot;VARCHAR(16)&quot;)
+
+departments.connect(
+    employees,
+    cardinality=&quot;1:*&quot;,
+    start_side=&quot;right&quot;,
+    end_side=&quot;left&quot;,
+    start_column=&quot;dept_no&quot;,
+    end_column=&quot;dept_no&quot;,
+    label=&quot;employs&quot;,
+    style=Style(line_color=Colors.Navy, line_width=2.0),
+)
+
+erd.draw()
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="er_images/4.png" alt="er_4" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Custom Styled ER Diagram</figcaption>
+</figure>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>
