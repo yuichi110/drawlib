@@ -9,9 +9,13 @@
 
 """Unit and integration tests for Phosphor icons drawing."""
 
+import importlib
+
+from drawlib import icons
+from drawlib._icons.font_icons import phosphor as phosphor_internal
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
-from drawlib.icons import icon_phosphor, phosphor
+from drawlib.icons import phosphor
 from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l6_icons/icon_phosphor/"
@@ -25,11 +29,11 @@ class TestCanvasPhosphor:
         clear()
 
         # Representative icon: google_logo
-        icon_phosphor.google_logo(xy=(50, 50), width=20)
+        phosphor.google_logo(xy=(50, 50), width=20)
         save(f"{OUTPUT_DIR}test_basic.png")
 
         clear()
-        icon_phosphor.google_logo(
+        phosphor.google_logo(
             xy=(50, 50),
             width=20,
             style=Style(icon_style="fill", text_color=Colors.Red),
@@ -39,7 +43,7 @@ class TestCanvasPhosphor:
     def test_phosphor_icon_angle(self) -> None:
         """Verify Phosphor icon drawing combined with a rotation angle."""
         clear()
-        icon_phosphor.google_logo(
+        phosphor.google_logo(
             xy=(50, 50),
             width=20,
             angle=45,
@@ -50,13 +54,17 @@ class TestCanvasPhosphor:
     def test_phosphor_icon_theme(self) -> None:
         """Verify Phosphor icon drawing with theme color overrides."""
         clear()
-        icon_phosphor.google_logo(xy=(25, 25), width=20, style="blue")
-        icon_phosphor.google_logo(xy=(25, 75), width=20, style="green")
-        icon_phosphor.google_logo(xy=(75, 25), width=20, style="red")
+        phosphor.google_logo(xy=(25, 25), width=20, style="blue")
+        phosphor.google_logo(xy=(25, 75), width=20, style="green")
+        phosphor.google_logo(xy=(75, 25), width=20, style="red")
         save(f"{OUTPUT_DIR}test_theme.png")
 
     def test_phosphor_flat_import(self) -> None:
         """Verify Phosphor icon drawing via flat drawlib.icons.phosphor import."""
         clear()
         phosphor.google_logo(xy=(50, 50), width=20)
-        assert phosphor.google_logo == icon_phosphor.google_logo
+        phosphor_submodule = importlib.import_module("drawlib.icons.phosphor")
+
+        assert phosphor.google_logo == phosphor_submodule.google_logo
+        assert phosphor.google_logo == phosphor_internal.google_logo
+        assert not hasattr(icons, "icon_phosphor")

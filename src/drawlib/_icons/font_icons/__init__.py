@@ -12,10 +12,7 @@
 from drawlib._icons.font_icons import phosphor
 from drawlib._icons.font_icons._icon import icon
 
-icon_phosphor = phosphor
-
 __all__ = [
     "icon",
-    "icon_phosphor",
     "phosphor",
 ]

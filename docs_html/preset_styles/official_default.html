@@ -312,7 +312,7 @@ You can use <code>ColorsThemeDefault</code> to retrieve RGB codes by their names
 If the color, type, and weight are default, they may not appear in the style name.</p>
 <p>Let's take a look at a matrix with the blue color as an example:</p>
 <pre><code class="language-python">from drawlib.canvas import save
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.preset_styles import get_style
 from drawlib.shapes import circle
@@ -355,7 +355,7 @@ def draw_content():
 
             if style_type in [&quot;&quot;, &quot;flat&quot;]:
                 circle((x - 4, y), 4, style=style)
-                icon_phosphor.heart((x + 4.5, y - 0.5), width=8, style=style)
+                phosphor.heart((x + 4.5, y - 0.5), width=8, style=style)
             else:
                 circle((x, y), 4, style=style)
 

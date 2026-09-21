@@ -10,7 +10,7 @@ Class `dsart.Tree` draws smart art tree which is similar to `tree` command outpu
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode, dsart
 from drawlib.text import text
 from drawlib.preset_styles import get_style
@@ -54,7 +54,7 @@ dsart.TreeNode.register_drawing_item(
     name="py_file",
     location="before",
     padding_width=5,
-    function=icon_phosphor.file_py,
+    function=phosphor.file_py,
     style=get_style(),
     args={"width": 4},
 )
@@ -62,7 +62,7 @@ dsart.TreeNode.register_drawing_item(
     name="png_file",
     location="before",
     padding_width=5,
-    function=icon_phosphor.file_png,
+    function=phosphor.file_png,
     style=get_style("red"),
     args={"width": 4},
 )

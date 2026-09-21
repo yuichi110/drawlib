@@ -157,7 +157,7 @@ Here's an example of aligning items horizontally and vertically:
 ```drawlib
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.images import image
 from drawlib.shapes import chevron, circle, parallelogram, rectangle, regularpolygon, star
 from drawlib.text import text
@@ -177,7 +177,7 @@ rectangle((x1, y2), width=20, height=10, angle=45)
 star((x1, y3), 5, 15, 6, angle=45)
 
 image((x2, y1), width=20, image="python.png", angle=315)
-icon_phosphor.heart((x2, y2), 10, angle=315)
+phosphor.heart((x2, y2), 10, angle=315)
 text((x2, y3), "Drawlib", angle=315, style=Style(text_size=24))
 
 chevron((x3, y1), 35, 10, corner_angle=45, angle=45)
@@ -199,7 +199,7 @@ However, `(center, center)` is straightforward.
 ```drawlib 600px center
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.images import image
 from drawlib.shapes import chevron, circle, parallelogram, rectangle, regularpolygon, star
 from drawlib.text import text
@@ -219,7 +219,7 @@ rectangle((x1, y2), width=20, height=10, angle=45)
 star((x1, y3), 5, 15, 6, angle=45)
 
 image((x2, y1), width=20, image="python.png", angle=315)
-icon_phosphor.heart((x2, y2), 10, angle=315)
+phosphor.heart((x2, y2), 10, angle=315)
 text((x2, y3), "Drawlib", angle=315, style=Style(text_size=24))
 
 chevron((x3, y1), 35, 10, corner_angle=45, angle=45)

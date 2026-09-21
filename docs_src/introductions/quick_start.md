@@ -348,7 +348,7 @@ If you're unfamiliar with Font Icons, I recommend checking out FontAwesome first
 
 Drawlib offers convenient icon modules and functions for drawing icons:
 
-* `phosphor` (or `icon_phosphor`): General vector font icons from Phosphor Icons (https://phosphoricons.com).
+* `phosphor`: General vector font icons from Phosphor Icons (https://phosphoricons.com).
 * `gcp`: Official Google Cloud Platform diagram and architecture icons.
 * `icon()`: Low-level function for custom font icon files.
 
@@ -358,13 +358,13 @@ Here's an example using phosphor:
 ```drawlib
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.types import Style
 
 config(width=100, height=60, grid=True)
 
-icon_phosphor.airplane((25, 30), width=20)
-icon_phosphor.coffee(
+phosphor.airplane((25, 30), width=20)
+phosphor.coffee(
     xy=(75, 30),
     width=20,
     angle=45,
@@ -380,13 +380,13 @@ This code generates the following output image:
 ```drawlib 600px center
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.types import Style
 
 config(width=100, height=60, grid=True)
 
-icon_phosphor.airplane((25, 30), width=20)
-icon_phosphor.coffee(
+phosphor.airplane((25, 30), width=20)
+phosphor.coffee(
     xy=(75, 30),
     width=20,
     angle=45,
@@ -397,7 +397,7 @@ save()
 ```
 
 
-    icon() and icon_phosphor draw icons
+    icon() and phosphor draw icons
 
 As demonstrated, the function name determines the icon to be drawn, while the `Style` object can be adjusted to modify color, style, and other attributes.
 

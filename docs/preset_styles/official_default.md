@@ -91,7 +91,7 @@ Let's take a look at a matrix with the blue color as an example:
 
 ```python 600px center
 from drawlib.canvas import save
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.preset_styles import get_style
 from drawlib.shapes import circle
@@ -134,7 +134,7 @@ def draw_content():
 
             if style_type in ["", "flat"]:
                 circle((x - 4, y), 4, style=style)
-                icon_phosphor.heart((x + 4.5, y - 0.5), width=8, style=style)
+                phosphor.heart((x + 4.5, y - 0.5), width=8, style=style)
             else:
                 circle((x, y), 4, style=style)
 

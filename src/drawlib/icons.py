@@ -14,18 +14,15 @@ import sys
 from drawlib._icons import (
     gcp,
     icon,
-    icon_phosphor,
     phosphor,
 )
 
 # Allow submodule style imports: `import drawlib.icons.phosphor`, `import drawlib.icons.gcp`
 sys.modules["drawlib.icons.phosphor"] = phosphor
-sys.modules["drawlib.icons.icon_phosphor"] = icon_phosphor
 sys.modules["drawlib.icons.gcp"] = gcp
 
 __all__ = [
     "gcp",
     "icon",
-    "icon_phosphor",
     "phosphor",
 ]

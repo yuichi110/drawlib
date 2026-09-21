@@ -11,7 +11,7 @@
 
 from drawlib._theme import get_style
 from drawlib.canvas import clear, save
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.smartarts import dsart
 
 OUTPUT_DIR = "../../output_tests/l7_smartarts/tree/"
@@ -66,7 +66,7 @@ class TestTree:
             name="py_file",
             location="before",
             padding_width=5,
-            function=icon_phosphor.file_py,
+            function=phosphor.file_py,
             style=get_style(),
             args={"width": 4},
         )

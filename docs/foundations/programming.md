@@ -26,7 +26,7 @@ Let's compare some example code with different alignments.
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
 from drawlib.types import Style
@@ -39,7 +39,7 @@ text(
     "Drawlib",
     style=Style(text_size=24, text_halign="left", text_valign="bottom"),
 )
-icon_phosphor.heart(
+phosphor.heart(
     (45, 70),
     width=10,
     style=Style(text_halign="left", text_valign="bottom"),
@@ -56,7 +56,7 @@ text(
     "Drawlib",
     style=Style(text_size=24, text_halign="center", text_valign="center"),
 )
-icon_phosphor.heart(
+phosphor.heart(
     (50, 25),
     width=10,
     style=Style(text_halign="center", text_valign="center"),
@@ -81,7 +81,7 @@ Before diving into the code, let's examine the output image.
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
 from drawlib.types import Style
@@ -94,7 +94,7 @@ text(
     "Drawlib",
     style=Style(text_size=24, text_halign="left", text_valign="bottom"),
 )
-icon_phosphor.heart(
+phosphor.heart(
     (45, 70),
     width=10,
     style=Style(text_halign="left", text_valign="bottom"),
@@ -111,7 +111,7 @@ text(
     "Drawlib",
     style=Style(text_size=24, text_halign="center", text_valign="center"),
 )
-icon_phosphor.heart(
+phosphor.heart(
     (50, 25),
     width=10,
     style=Style(text_halign="center", text_valign="center"),
@@ -169,7 +169,7 @@ In this example, we use variables to align items horizontally.
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
 from drawlib.types import Style
@@ -184,7 +184,7 @@ y = height / 2
 
 # center center align
 text((margin_x, y), "Drawlib", style=Style(text_size=24))
-icon_phosphor.heart((margin_x * 2, y), width=10)
+phosphor.heart((margin_x * 2, y), width=10)
 circle((margin_x * 3, y), radius=5)
 
 save()
@@ -204,7 +204,7 @@ Executing this code generate below image.
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
 from drawlib.types import Style
@@ -219,7 +219,7 @@ y = height / 2
 
 # center center align
 text((margin_x, y), "Drawlib", style=Style(text_size=24))
-icon_phosphor.heart((margin_x * 2, y), width=10)
+phosphor.heart((margin_x * 2, y), width=10)
 circle((margin_x * 3, y), radius=5)
 
 save()
@@ -243,7 +243,7 @@ Let's change the canvas height to `50` and add a rectangle at last.
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
@@ -258,7 +258,7 @@ y = height / 2
 
 # center center align
 text((margin_x, y), "Drawlib", style=Style(text_size=24))
-icon_phosphor.heart((margin_x * 2, y), width=10)
+phosphor.heart((margin_x * 2, y), width=10)
 circle((margin_x * 3, y), radius=5)
 rectangle((margin_x * 4, y), width=10, height=10)
 
@@ -277,7 +277,7 @@ Using a variable for y simplifies the code. However, the x variable makes the co
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
@@ -292,7 +292,7 @@ y = height / 2
 
 # center center align
 text((margin_x, y), "Drawlib", style=Style(text_size=24))
-icon_phosphor.heart((margin_x * 2, y), width=10)
+phosphor.heart((margin_x * 2, y), width=10)
 circle((margin_x * 3, y), radius=5)
 rectangle((margin_x * 4, y), width=10, height=10)
 

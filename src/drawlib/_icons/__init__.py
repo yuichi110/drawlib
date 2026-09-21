@@ -11,7 +11,6 @@
 
 from drawlib._icons.font_icons import (
     icon,
-    icon_phosphor,
     phosphor,
 )
 from drawlib._icons.png_icons import (
@@ -21,6 +20,5 @@ from drawlib._icons.png_icons import (
 __all__ = [
     "gcp",
     "icon",
-    "icon_phosphor",
     "phosphor",
 ]

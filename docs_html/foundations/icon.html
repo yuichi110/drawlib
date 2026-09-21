@@ -249,7 +249,7 @@ Alternatively, you can use <code>icon()</code> along with dedicated <code>Icon M
 <h1>Icon Modules</h1>
 <p>We've curated a selection of icons for your convenience, available in drawlib now:</p>
 <ul>
-<li><code>phosphor</code> (or <code>icon_phosphor</code>): Derived from Phosphor Icons (https://phosphoricons.com). Provides ~1,500 vector font icons.</li>
+<li><code>phosphor</code>: Derived from Phosphor Icons (https://phosphoricons.com). Provides ~1,500 vector font icons.</li>
 <li><code>gcp</code>: Official Google Cloud Platform diagram and architecture icons. Provides 250+ full-color service and category icons.</li>
 </ul>
 <p>Each icon within these modules is defined as a function, allowing you to draw specific icons by simply calling their respective function.</p>
@@ -684,7 +684,7 @@ Therefore, drawlib does not currently provide an icon module for it.</p>
 <p>Let's illustrate this with an example:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
 from drawlib.types import Style
@@ -695,11 +695,11 @@ config(width=width, height=height)
 
 x = width / 7
 y = height / 2
-icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style=Style(text_color=Colors.Red))
-icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Style(icon_style=&quot;thin&quot;))
-icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Style(icon_style=&quot;bold&quot;))
-icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Style(icon_style=&quot;fill&quot;))
-icon_phosphor.airplane(xy=(x * 5, y), width=10, style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;))
+phosphor.airplane_taxiing(xy=(x, y), width=10, style=Style(text_color=Colors.Red))
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Style(icon_style=&quot;thin&quot;))
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Style(icon_style=&quot;bold&quot;))
+phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Style(icon_style=&quot;fill&quot;))
+phosphor.airplane(xy=(x * 5, y), width=10, style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;))
 circle(xy=(x * 5, y), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
 text(xy=(x * 5 + 5, y - 10), text=&quot;align left,bottom&quot;)
 
@@ -711,7 +711,7 @@ save()
 <p>Executing this code generates the following image:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
 from drawlib.types import Style
@@ -722,11 +722,11 @@ config(width=width, height=height)
 
 x = width / 7
 y = height / 2
-icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style=Style(text_color=Colors.Red))
-icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Style(icon_style=&quot;thin&quot;))
-icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Style(icon_style=&quot;bold&quot;))
-icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Style(icon_style=&quot;fill&quot;))
-icon_phosphor.airplane(xy=(x * 5, y), width=10, style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;))
+phosphor.airplane_taxiing(xy=(x, y), width=10, style=Style(text_color=Colors.Red))
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Style(icon_style=&quot;thin&quot;))
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Style(icon_style=&quot;bold&quot;))
+phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Style(icon_style=&quot;fill&quot;))
+phosphor.airplane(xy=(x * 5, y), width=10, style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;))
 circle(xy=(x * 5, y), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
 text(xy=(x * 5 + 5, y - 10), text=&quot;align left,bottom&quot;)
 
@@ -742,7 +742,7 @@ save()
 You can specify them by names.</p>
 <p>Here is an examples.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 
 width = 100
 height = 50
@@ -750,10 +750,10 @@ config(width=width, height=height)
 
 x = width / 7
 y = height / 2
-icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style=&quot;green&quot;)
-icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=&quot;red_light&quot;)
-icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=&quot;blue_bold&quot;)
-icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=&quot;green_flat&quot;)
+phosphor.airplane_taxiing(xy=(x, y), width=10, style=&quot;green&quot;)
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=&quot;red_light&quot;)
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=&quot;blue_bold&quot;)
+phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=&quot;green_flat&quot;)
 save()
 </code></pre>
 <div class="drawlib-image">
@@ -767,7 +767,7 @@ save()
 </ul>
 <p>Line style solid and dashed are not supported.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 
 width = 100
 height = 50
@@ -775,10 +775,10 @@ config(width=width, height=height)
 
 x = width / 7
 y = height / 2
-icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style=&quot;green&quot;)
-icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=&quot;red_light&quot;)
-icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=&quot;blue_bold&quot;)
-icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=&quot;green_flat&quot;)
+phosphor.airplane_taxiing(xy=(x, y), width=10, style=&quot;green&quot;)
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=&quot;red_light&quot;)
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=&quot;blue_bold&quot;)
+phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=&quot;green_flat&quot;)
 save()
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">

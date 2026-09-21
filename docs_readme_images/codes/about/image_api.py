@@ -76,7 +76,7 @@ bottom()
 
 for i, t in enumerate(
     [
-        ("icon", ["icon()", "icon_phosphor()"], ["Style"]),
+        ("icon", ["icon()", "phosphor.*()"], ["Style"]),
         ("image", ["image()"], ["Style"]),
         ("line", ["line()", "line_curved()", "..."], ["Style"]),
         ("shape", ["circle()", "rectangle()", "..."], ["Style"]),

@@ -14,7 +14,7 @@ from drawlib._theme import (
     get_monochrome_styles,
 )
 from drawlib.canvas import save
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
@@ -56,17 +56,17 @@ def test_monochrome_icon_text_lightbold() -> None:
     y2 = 50
     y3 = 80
 
-    icon_phosphor.airplane((x1, y1), width=20, style=theme.light)
-    icon_phosphor.airplane((x2, y1), width=20, style=theme.primary)
-    icon_phosphor.airplane((x3, y1), width=20, style=theme.bold)
+    phosphor.airplane((x1, y1), width=20, style=theme.light)
+    phosphor.airplane((x2, y1), width=20, style=theme.primary)
+    phosphor.airplane((x3, y1), width=20, style=theme.bold)
 
     text((x1, y2), "Hello Drawlib1", style=theme.light)
     text((x2, y2), "Hello Drawlib1", style=theme.primary)
     text((x3, y2), "Hello Drawlib1", style=theme.bold)
 
-    icon_phosphor.airplane((x1, y3), width=20, style=theme.flat)
-    icon_phosphor.airplane((x2, y3), width=20, style=theme.solid)
-    icon_phosphor.airplane((x3, y3), width=20, style=theme.dashed)
+    phosphor.airplane((x1, y3), width=20, style=theme.flat)
+    phosphor.airplane((x2, y3), width=20, style=theme.solid)
+    phosphor.airplane((x3, y3), width=20, style=theme.dashed)
 
     save(f"{OUTPUT_DIR_MONOCHROME}test_icon_text_lightbold.png")
 

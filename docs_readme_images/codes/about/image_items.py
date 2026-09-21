@@ -10,7 +10,7 @@
 from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontJapanese, FontSansSerif, FontSerif
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.images import Dimage, image
 from drawlib.lines import line, line_curved, lines, lines_curved
 from drawlib.shapes import arrow, circle, ellipse, rectangle, star
@@ -36,15 +36,15 @@ def draw_icon():
     y = 52
     w = 8
     text((x1, y), "Icon", style=title_style)
-    icon_phosphor.airplane_taxiing((30, y), width=w, style=icon_thin)
-    icon_phosphor.airplane_takeoff(xy=(40, y), width=w, style=icon_thin)
-    icon_phosphor.airplane_in_flight(
+    phosphor.airplane_taxiing((30, y), width=w, style=icon_thin)
+    phosphor.airplane_takeoff(xy=(40, y), width=w, style=icon_thin)
+    phosphor.airplane_in_flight(
         xy=(50, y), width=w, style=Style(text_color=Colors140.Red, icon_style="thin")
     )
-    icon_phosphor.airplane_tilt(xy=(60, y), width=w, style=icon_thin)
-    icon_phosphor.airplane(xy=(70, y), width=w, angle=270, style=icon_thin)
-    icon_phosphor.airplane_landing(xy=(80, y), width=w, style=icon_thin)
-    icon_phosphor.airplane_taxiing(
+    phosphor.airplane_tilt(xy=(60, y), width=w, style=icon_thin)
+    phosphor.airplane(xy=(70, y), width=w, angle=270, style=icon_thin)
+    phosphor.airplane_landing(xy=(80, y), width=w, style=icon_thin)
+    phosphor.airplane_taxiing(
         (90, y), width=w, style=Style(icon_style="fill", text_color=Colors140.Red)
     )
 

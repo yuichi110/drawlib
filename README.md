@@ -301,23 +301,23 @@ If you're unfamiliar with Font Icons, I recommend checking out FontAwesome first
 Drawlib offers two methods for drawing icons:
 
 - Using the ``icon()`` function.
-- Utilizing the ``icon_phosphor`` module and its functions.
+- Utilizing the ``phosphor`` module and its functions.
 
 If you wish to draw an icon using your own font icon file, you can employ the icon() function. 
 For instance, if you want to utilize FontAwesome (which is not supported by default), you need to provide the file and drawing parameters to this function.
 
-The icon_phosphor module provides embedded font icons and functions for drawing them. 
+The phosphor module provides embedded font icons and functions for drawing them. 
 It leverages Phosphor (https://phosphoricons.com), which offers icons that are easy to use and facilitate "Illustration as Code" since they are accessible to anyone.
 
-Here's an example using icon_phosphor:
+Here's an example using phosphor:
 
 ```python
 from drawlib.apis import *
 
 config(width=100, height=60, grid=True)
 
-icon_phosphor.airplane((25, 30), width=20)
-icon_phosphor.coffee(
+phosphor.airplane((25, 30), width=20)
+phosphor.coffee(
     xy=(75, 30),
     width=20,
     angle=45,

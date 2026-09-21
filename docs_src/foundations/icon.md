@@ -13,7 +13,7 @@ Alternatively, you can use `icon()` along with dedicated `Icon Modules` for draw
 
 We've curated a selection of icons for your convenience, available in drawlib now:
 
-* `phosphor` (or `icon_phosphor`): Derived from Phosphor Icons (https://phosphoricons.com). Provides ~1,500 vector font icons.
+* `phosphor`: Derived from Phosphor Icons (https://phosphoricons.com). Provides ~1,500 vector font icons.
 * `gcp`: Official Google Cloud Platform diagram and architecture icons. Provides 250+ full-color service and category icons.
 
 Each icon within these modules is defined as a function, allowing you to draw specific icons by simply calling their respective function. 
@@ -481,7 +481,7 @@ Let's illustrate this with an example:
 ```drawlib
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
 from drawlib.types import Style
@@ -492,11 +492,11 @@ config(width=width, height=height)
 
 x = width / 7
 y = height / 2
-icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style=Style(text_color=Colors.Red))
-icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Style(icon_style="thin"))
-icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Style(icon_style="bold"))
-icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Style(icon_style="fill"))
-icon_phosphor.airplane(xy=(x * 5, y), width=10, style=Style(text_halign="left", text_valign="bottom"))
+phosphor.airplane_taxiing(xy=(x, y), width=10, style=Style(text_color=Colors.Red))
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Style(icon_style="thin"))
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Style(icon_style="bold"))
+phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Style(icon_style="fill"))
+phosphor.airplane(xy=(x * 5, y), width=10, style=Style(text_halign="left", text_valign="bottom"))
 circle(xy=(x * 5, y), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
 text(xy=(x * 5 + 5, y - 10), text="align left,bottom")
 
@@ -509,7 +509,7 @@ Executing this code generates the following image:
 ```drawlib 600px center
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
 from drawlib.types import Style
@@ -520,11 +520,11 @@ config(width=width, height=height)
 
 x = width / 7
 y = height / 2
-icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style=Style(text_color=Colors.Red))
-icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Style(icon_style="thin"))
-icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Style(icon_style="bold"))
-icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Style(icon_style="fill"))
-icon_phosphor.airplane(xy=(x * 5, y), width=10, style=Style(text_halign="left", text_valign="bottom"))
+phosphor.airplane_taxiing(xy=(x, y), width=10, style=Style(text_color=Colors.Red))
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Style(icon_style="thin"))
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Style(icon_style="bold"))
+phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Style(icon_style="fill"))
+phosphor.airplane(xy=(x * 5, y), width=10, style=Style(text_halign="left", text_valign="bottom"))
 circle(xy=(x * 5, y), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
 text(xy=(x * 5 + 5, y - 10), text="align left,bottom")
 
@@ -547,7 +547,7 @@ Here is an examples.
 
 ```drawlib
 from drawlib.canvas import config, save
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 
 width = 100
 height = 50
@@ -555,10 +555,10 @@ config(width=width, height=height)
 
 x = width / 7
 y = height / 2
-icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style="green")
-icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style="red_light")
-icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style="blue_bold")
-icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style="green_flat")
+phosphor.airplane_taxiing(xy=(x, y), width=10, style="green")
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style="red_light")
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style="blue_bold")
+phosphor.airplane_tilt(xy=(x * 4, y), width=10, style="green_flat")
 save()
 ```
 
@@ -573,7 +573,7 @@ Line style solid and dashed are not supported.
 
 ```drawlib 600px center
 from drawlib.canvas import config, save
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 
 width = 100
 height = 50
@@ -581,10 +581,10 @@ config(width=width, height=height)
 
 x = width / 7
 y = height / 2
-icon_phosphor.airplane_taxiing(xy=(x, y), width=10, style="green")
-icon_phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style="red_light")
-icon_phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style="blue_bold")
-icon_phosphor.airplane_tilt(xy=(x * 4, y), width=10, style="green_flat")
+phosphor.airplane_taxiing(xy=(x, y), width=10, style="green")
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style="red_light")
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style="blue_bold")
+phosphor.airplane_tilt(xy=(x * 4, y), width=10, style="green_flat")
 save()
 ```
 

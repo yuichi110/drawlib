@@ -10,7 +10,7 @@
 from drawlib.canvas import config, save
 from drawlib.colors import Colors140
 from drawlib.fonts import FontRoboto, FontSourceCode
-from drawlib.icons import icon_phosphor
+from drawlib.icons import phosphor
 from drawlib.images import image
 from drawlib.shapes import arrow
 from drawlib.smartarts import SourceCode
@@ -27,7 +27,7 @@ def upper():
         text="Drawlib",
         style=Style(text_size=28, text_font=FontRoboto.ROBOTO_BOLD),
     )
-    icon_phosphor.heart(
+    phosphor.heart(
         xy=(38, y),
         width=7,
         style=Style(text_color=Colors140.Pink, icon_style="fill"),
@@ -56,10 +56,10 @@ def middle():
 def lower():
     y = 6
     style = Style(text_size=20, text_font=FontRoboto.ROBOTO_REGULAR)
-    icon_phosphor.file_py(xy=(15, y), width=5)
+    phosphor.file_py(xy=(15, y), width=5)
     text((28, y), "Python Code", style=style)
     text((55, y), "to", style=style)
-    icon_phosphor.file_image(xy=(72, y), width=5)
+    phosphor.file_image(xy=(72, y), width=5)
     text((83, y), "Illustration", style=style)
 
 
