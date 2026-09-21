@@ -17,7 +17,7 @@ from tools.dcli.common import console, run_command
 
 app = typer.Typer(
     name="gen",
-    help="Code generation utilities for phosphor icons.",
+    help="Code generation and asset utilities for icons.",
     no_args_is_help=True,
 )
 
@@ -35,6 +35,35 @@ def gen_icon() -> None:
         desc="Generating Phosphor icon code...",
     )
     console.print("[bold green]✓ Icon code generated successfully![/bold green]")
+
+
+@app.command("icon-gcp")
+def gen_icon_gcp(
+    output_dir: str = typer.Option(
+        "original_assets/gcp",
+        "--output-dir",
+        "-o",
+        help="Destination directory for original GCP assets.",
+    ),
+    no_archives: bool = typer.Option(
+        False,
+        "--no-archives",
+        help="Do not keep downloaded raw .zip archives in _archives/.",
+    ),
+    no_docs: bool = typer.Option(
+        False,
+        "--no-docs",
+        help="Do not download official overview guide PDF.",
+    ),
+) -> None:
+    """Download and extract official Google Cloud architecture diagram icons into original_assets/gcp."""
+    cmd = ["uv", "run", "python", "tools/scripts/download_gcp_icons.py", "--output-dir", output_dir]
+    if no_archives:
+        cmd.append("--no-archives")
+    if no_docs:
+        cmd.append("--no-docs")
+    run_command(cmd, desc="Downloading official Google Cloud diagram icons...")
+    console.print("[bold green]✓ Google Cloud icons downloaded successfully![/bold green]")
 
 
 if __name__ == "__main__":

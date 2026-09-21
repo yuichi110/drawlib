@@ -33,6 +33,7 @@ Execute `./dcli` with no arguments to print all available toolsets:
   - ./dcli docs serve [-p PORT]
 * gen:      Code generation utilities
   - ./dcli gen icon
+  - ./dcli gen icon-gcp [--output-dir DIR]
 * pypi:     PyPI publishing and version management
   - ./dcli pypi list-versions [--test-pypi]
   - ./dcli pypi latest [--test-pypi]
