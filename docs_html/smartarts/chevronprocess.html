@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pie & Donut Chart Guide</title>
+    <title>ChevronProcess</title>
     
     <link rel="stylesheet" href="../style.css">
     
@@ -30,7 +30,7 @@
                 <ul class="nav-list">
                     
                     <li class="nav-item ">
-                        <a href="index.html">Charts Overview</a>
+                        <a href="../charts/index.html">Charts Overview</a>
                     </li>
                     
                     <li class="nav-item ">
@@ -46,7 +46,7 @@
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../smartarts/index.html">About Smart Arts</a>
+                        <a href="index.html">About Smart Arts</a>
                     </li>
                     
                     <li class="nav-item ">
@@ -90,27 +90,27 @@
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="area.html">Area Chart Guide</a>
+                        <a href="../charts/area.html">Area Chart Guide</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="bar.html">Bar Chart Guide</a>
+                        <a href="../charts/bar.html">Bar Chart Guide</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="gantt.html">Gantt Chart Guide</a>
+                        <a href="../charts/gantt.html">Gantt Chart Guide</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="line.html">Line Chart Guide</a>
-                    </li>
-                    
-                    <li class="nav-item active">
-                        <a href="pie.html">Pie & Donut Chart Guide</a>
+                        <a href="../charts/line.html">Line Chart Guide</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="radar.html">Radar Chart Guide</a>
+                        <a href="../charts/pie.html">Pie & Donut Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../charts/radar.html">Radar Chart Guide</a>
                     </li>
                     
                     <li class="nav-item ">
@@ -242,43 +242,43 @@
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../smartarts/boxlist.html">BoxList</a>
+                        <a href="boxlist.html">BoxList</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                        <a href="bubblespeech.html">Bubblespeech</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                        <a href="bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="chevronprocess.html">ChevronProcess</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../smartarts/chevronprocess.html">ChevronProcess</a>
+                        <a href="gridlayout.html">GridLayout</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                        <a href="mindmap.html">MindMap</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../smartarts/mindmap.html">MindMap</a>
+                        <a href="pyramid.html">Pyramid</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                        <a href="sourcecode.html">SourceCode</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                        <a href="table.html">Table</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../smartarts/table.html">Table</a>
-                    </li>
-                    
-                    <li class="nav-item ">
-                        <a href="../smartarts/tree.html">Tree</a>
+                        <a href="tree.html">Tree</a>
                     </li>
                     
                 </ul>
@@ -289,187 +289,75 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Pie & Donut Chart Guide</span>
+                    <span class="crumb active">ChevronProcess</span>
                 </div>
             </header>
             <main class="main-content">
-                <h1>Pie &amp; Donut Chart Guide</h1>
-<p><code>drawlib.charts.PieChart</code> provides modern 2D pie and donut charts for proportional data visualization. Slices, labels, and legends are automatically formatted and laid out with fine-grained control over center badges, exploded sectors, and typography.</p>
-<hr />
-<h2>1. Quick Start: Standard Pie Chart</h2>
-<p>Create a clean pie chart showing proportional breakdown with automatic percentage labels and legends:</p>
+                <p>=============</p>
+<h1>ChevronProcess</h1>
+<p>Class <code>ChevronProcess</code> renders sequential chevron (arrowhead block) process diagrams, ideal for pipelines, project phases, and operational procedures.</p>
 <pre><code class="language-python">from drawlib import canvas
-from drawlib.charts import PieChart
+from drawlib._core.l3_styles import Style
+from drawlib.smartarts import ChevronProcess
 
 canvas.initialize()
 
-chart = PieChart(
-    radius=28.0,
-    title=&quot;Browser Market Share (2026)&quot;,
-    legend_position=&quot;right&quot;,
-)
-chart.add_slice(&quot;Chrome&quot;, 65.2)
-chart.add_slice(&quot;Safari&quot;, 18.8)
-chart.add_slice(&quot;Edge&quot;, 9.4)
-chart.add_slice(&quot;Firefox&quot;, 4.3)
-chart.add_slice(&quot;Other&quot;, 2.3)
-chart.draw(xy=(10.0, 15.0))
+# 1. Multi-phase pipeline with titles and descriptions
+cp1 = ChevronProcess(spacing=1.5)
+cp1.append(&quot;Requirements&quot;, description=&quot;Scope &amp; Specs&quot;)
+cp1.append(&quot;Architecture&quot;, description=&quot;Design &amp; ADRs&quot;)
+cp1.append(&quot;Implementation&quot;, description=&quot;Code &amp; Tests&quot;)
+cp1.append(&quot;Verification&quot;, description=&quot;E2E &amp; Load&quot;)
+cp1.append(&quot;Deployment&quot;, description=&quot;Canary 100%&quot;)
+cp1.draw(xy=(5.0, 55.0), width=90.0, height=15.0)
+
+# 2. Pentagonal flat-start process with custom highlight
+cp2 = ChevronProcess(flat_left_end=True, corner_angle=50.0, spacing=2.0)
+cp2.append(&quot;1. Discover&quot;)
+cp2.append(&quot;2. Define&quot;)
+cp2.append(&quot;3. Develop&quot;, style=Style(fill_color=(239, 68, 68, 1.0), line_width=1.5))
+cp2.append(&quot;4. Deliver&quot;)
+cp2.draw(xy=(10.0, 30.0), width=80.0, height=12.0)
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="pie_images/1.png" alt="pie_1" style="width: 650px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">Browser Market Share</figcaption>
+  <img src="chevronprocess_images/1.png" alt="chevronprocess_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Chevron Process Examples</figcaption>
 </figure>
 <hr />
-<h2>2. Donut Chart with Center Badge</h2>
-<p>Set <code>hole_ratio</code> (e.g. <code>0.6</code>) to turn any pie chart into a donut chart, and display summary metrics or KPIs in the center with <code>center_text</code>:</p>
+<h2>1. Quick Start</h2>
+<p>Create a sequential chevron flow:</p>
 <pre><code class="language-python">from drawlib import canvas
-from drawlib.charts import PieChart
+from drawlib.smartarts import ChevronProcess
 
 canvas.initialize()
 
-chart = PieChart(
-    radius=28.0,
-    hole_ratio=0.6,
-    center_text=&quot;$250M\nTotal&quot;,
-    title=&quot;Revenue by Division&quot;,
-    legend_position=&quot;right&quot;,
-)
-chart.add_slice(&quot;Cloud&quot;, 125.0)
-chart.add_slice(&quot;Hardware&quot;, 75.0)
-chart.add_slice(&quot;Services&quot;, 50.0)
-chart.draw(xy=(10.0, 15.0))
-</code></pre>
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="pie_images/2.png" alt="pie_2" style="width: 650px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">Revenue Breakdown Donut</figcaption>
-</figure>
-<hr />
-<h2>3. Exploded Slices &amp; Custom Placement</h2>
-<p>Highlight important segments by setting <code>explode</code> on individual slices, and reposition the legend to the bottom:</p>
-<pre><code class="language-python">from drawlib import canvas
-from drawlib.charts import PieChart
+process = ChevronProcess(spacing=1.5)
+process.append(&quot;Phase 1&quot;, description=&quot;Planning&quot;)
+process.append(&quot;Phase 2&quot;, description=&quot;Execution&quot;)
+process.append(&quot;Phase 3&quot;, description=&quot;Review&quot;)
 
-canvas.initialize()
-
-chart = PieChart(
-    radius=28.0,
-    title=&quot;Project Budget Allocation&quot;,
-    legend_position=&quot;bottom&quot;,
-)
-chart.add_slice(&quot;R&amp;D&quot;, 45.0, explode=3.0)
-chart.add_slice(&quot;Marketing&quot;, 25.0)
-chart.add_slice(&quot;Operations&quot;, 20.0)
-chart.add_slice(&quot;Contingency&quot;, 10.0)
-chart.draw(xy=(20.0, 10.0))
+process.draw(xy=(5.0, 45.0), width=90.0, height=14.0)
 </code></pre>
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="pie_images/3.png" alt="pie_3" style="width: 650px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">Budget Allocation with Exploded Slice</figcaption>
-</figure>
 <hr />
-<h2>4. API Reference</h2>
-<h3><code>PieChart</code></h3>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>radius</code></td>
-<td><code>float</code></td>
-<td><code>20.0</code></td>
-<td>Outer radius of the pie circle.</td>
-</tr>
-<tr>
-<td><code>title</code></td>
-<td><code>str</code></td>
-<td><code>&quot;&quot;</code></td>
-<td>Chart title displayed at the top.</td>
-</tr>
-<tr>
-<td><code>title_style</code></td>
-<td><code>Style | None</code></td>
-<td><code>None</code></td>
-<td>Optional typography Style for title text.</td>
-</tr>
-<tr>
-<td><code>hole_ratio</code></td>
-<td><code>float</code></td>
-<td><code>0.0</code></td>
-<td>Inner hole ratio (0.0 for solid pie, 0.1–0.9 for donut ring).</td>
-</tr>
-<tr>
-<td><code>center_text</code></td>
-<td><code>str</code></td>
-<td><code>&quot;&quot;</code></td>
-<td>Summary text or KPI metric rendered inside the donut hole.</td>
-</tr>
-<tr>
-<td><code>center_text_style</code></td>
-<td><code>Style | None</code></td>
-<td><code>None</code></td>
-<td>Optional typography Style for center text.</td>
-</tr>
-<tr>
-<td><code>start_angle</code></td>
-<td><code>float</code></td>
-<td><code>90.0</code></td>
-<td>Starting orientation in degrees (90.0 is 12 o'clock).</td>
-</tr>
-<tr>
-<td><code>clockwise</code></td>
-<td><code>bool</code></td>
-<td><code>True</code></td>
-<td>Whether slices progress in clockwise direction.</td>
-</tr>
-<tr>
-<td><code>show_values</code></td>
-<td><code>bool</code></td>
-<td><code>True</code></td>
-<td>Whether to print percentage labels on slices (&gt;= 4% share).</td>
-</tr>
-<tr>
-<td><code>value_format</code></td>
-<td><code>str | Callable</code></td>
-<td><code>&quot;{:.1f}%&quot;</code></td>
-<td>Format string or callable formatting slice labels.</td>
-</tr>
-<tr>
-<td><code>value_label_style</code></td>
-<td><code>Style | None</code></td>
-<td><code>None</code></td>
-<td>Optional Style for slice value labels.</td>
-</tr>
-<tr>
-<td><code>legend_position</code></td>
-<td><code>&quot;auto&quot;</code> | <code>&quot;top&quot;</code> | <code>&quot;bottom&quot;</code> | <code>&quot;right&quot;</code> | <code>&quot;none&quot;</code></td>
-<td><code>&quot;right&quot;</code></td>
-<td>Position of the legend box.</td>
-</tr>
-<tr>
-<td><code>width</code></td>
-<td><code>float | None</code></td>
-<td><code>None</code></td>
-<td>Optional total container width override.</td>
-</tr>
-<tr>
-<td><code>height</code></td>
-<td><code>float | None</code></td>
-<td><code>None</code></td>
-<td>Optional total container height override.</td>
-</tr>
-</tbody>
-</table>
+<h2>2. API Specification</h2>
+<h3><code>ChevronProcess()</code></h3>
+<p>Initialize a ChevronProcess instance.</p>
+<p><strong>Args:</strong></p>
+<ul>
+<li><code>corner_angle</code> (<code>float</code>): Angle of the arrowhead point in degrees (between 10.0 and 80.0). Defaults to <code>60.0</code>.</li>
+<li><code>spacing</code> (<code>float</code>): Horizontal gap between consecutive chevrons. Defaults to <code>1.5</code>.</li>
+<li><code>flat_left_end</code> (<code>bool</code>): Whether the first chevron has a flat vertical left edge instead of an indentation. Defaults to <code>False</code>.</li>
+<li><code>default_style</code> (<code>str | Style | None</code>): Default background style for chevrons. If <code>None</code>, colors from <code>palette</code> are applied automatically.</li>
+<li><code>default_textstyle</code> (<code>str | Style | None</code>): Default style for primary title text.</li>
+<li><code>default_description_style</code> (<code>str | Style | None</code>): Default style for secondary description text.</li>
+<li><code>palette</code> (<code>Sequence[tuple[int, int, int]] | None</code>): Optional sequence of colors to automatically style consecutive steps.</li>
+</ul>
 <h3>Methods</h3>
 <ul>
-<li><code>add_slice(name: str, value: float, color=None, style=None, explode=0.0) -&gt; PieSlice</code>: Add a slice segment to the chart.</li>
-<li><code>get_size() -&gt; tuple[float, float]</code>: Return the total calculated (width, height) bounding dimensions.</li>
-<li><code>draw(xy: tuple[float, float] = (0.0, 0.0)) -&gt; None</code>: Render the chart onto the canvas.</li>
+<li><code>append(text, description=&quot;&quot;, style=None, textstyle=None, description_style=None)</code>: Append a step to the chevron process.</li>
+<li><code>extend(texts, descriptions=None)</code>: Append multiple steps at once.</li>
+<li><code>insert(index, text, description=&quot;&quot;, style=None, textstyle=None, description_style=None)</code>: Insert a step at the specified index.</li>
+<li><code>draw(xy, width=90.0, height=12.0, item_width=None)</code>: Draw the chevron process on the canvas starting at bottom-left coordinate <code>xy</code>.</li>
 </ul>
 
             </main>

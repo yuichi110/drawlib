@@ -13,6 +13,7 @@ from drawlib._smartarts._boxlist import BoxList
 from drawlib._smartarts._boxtree import BoxTreeNode
 from drawlib._smartarts._bubblespeech import bubblespeech
 from drawlib._smartarts._bulletpoints import BulletPoints
+from drawlib._smartarts._chevronprocess import ChevronProcess
 from drawlib._smartarts._gridlayout import GridLayout
 from drawlib._smartarts._mindmap import MindMapNode
 from drawlib._smartarts._pyramid import Pyramid
@@ -24,6 +25,7 @@ __all__ = [
     "BoxList",
     "BoxTreeNode",
     "BulletPoints",
+    "ChevronProcess",
     "GridLayout",
     "MindMapNode",
     "Pyramid",

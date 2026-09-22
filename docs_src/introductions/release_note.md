@@ -23,6 +23,8 @@
   - Declarative flowchart and workflow diagramming module adhering to standard flowchart symbols (ISO 5807 / JIS X 0121).
   - Shape-centric nodes (`Process`, `Decision`, `Start`, `End`, `Data`) inheriting Drawlib shape styling.
   - First-class T-junction branching/merging (`Junction`) and flat global coordinate swimlanes (`Lane`).
+- **SmartArts (`drawlib.smartarts`)**:
+  - Added `ChevronProcess`: Sequential chevron (arrowhead block) process pipelines with supporting descriptions, customizable arrowhead angles, auto-palette theming, and flat-start options.
 - **Charts Module (`drawlib.charts`)**:
   - Pure-Python declarative charting engine without external visualization dependencies.
   - Features `BarChart` (vertical/horizontal, grouped/stacked), `LineChart` (straight/smooth curves, custom markers), `AreaChart` (overlapping and cumulative stacked areas), `PieChart` (solid pie, donut rings with center KPI badges, exploded slices), `RadarChart` (spider webs, concentric circular rings), and `GanttChart` (project roadmaps, progress bars, sections, milestones, dependency arrows).
