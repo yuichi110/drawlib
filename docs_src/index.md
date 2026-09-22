@@ -61,6 +61,7 @@ text(xy=(75, 20), text="Rectangle", style=Style(text_color=Colors.White, text_si
 
 ### 4. Diagrams
 - [Architecture Diagrams Guide](./diagrams/architecture.md)
+- [Class Diagrams Guide](./diagrams/class_diagram.md)
 - [ER Diagrams Guide](./diagrams/er.md)
 - [Flow Diagrams Guide](./diagrams/flow.md)
 - [Sequence Diagrams Guide](./diagrams/sequence.md)

@@ -19,6 +19,10 @@
 - **ER Diagrams (`drawlib.diagrams.er`)**:
   - Declarative Entity-Relationship diagrams with full support for IE (Crow's Foot) notation.
   - Automatic right-angled orthogonal routing, column-level anchoring, and custom styling.
+- **UML Class Diagrams (`drawlib.diagrams.class_diagram`)**:
+  - Declarative UML Class diagramming with 3-compartment class cards, stereotypes (`«interface»`), abstract classes, and typed attributes/methods.
+  - Intuitive verb-based connection methods: `inherit()`, `realize()`, `composite()`, `aggregate()`, `associate()`, `depend()`.
+  - Full UML 2.0 marker support: hollow generalization triangles, solid/hollow aggregation diamonds, open dependency arrows, multiplicities, role names, and boundary-clipped routing.
 - **Flow Diagrams (`drawlib.diagrams.flow`)**:
   - Declarative flowchart and workflow diagramming module adhering to standard flowchart symbols (ISO 5807 / JIS X 0121).
   - Shape-centric nodes (`Process`, `Decision`, `Start`, `End`, `Data`) inheriting Drawlib shape styling.

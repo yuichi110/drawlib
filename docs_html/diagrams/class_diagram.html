@@ -1,0 +1,880 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Diagrams</title>
+    
+    <style>
+:root {
+    --rtd-brand-color: #2980b9;
+    --rtd-brand-dark: #1b5e8a;
+    --rtd-text-color: #404040;
+    --rtd-bg-color: #edf0f2;
+    --rtd-content-bg: #ffffff;
+    --rtd-border-color: #e1e4e5;
+    --rtd-code-bg: #f8f8f8;
+    --rtd-inline-code-bg: #ecf0f1;
+    --rtd-inline-code-color: #e74c3c;
+    --rtd-note-bg: #e7f2fa;
+    --rtd-note-border: #6ab0de;
+    --rtd-font: "Lato", "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+    --rtd-mono-font: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --rtd-brand-color: #3498db;
+        --rtd-text-color: #d1d5db;
+        --rtd-bg-color: #121212;
+        --rtd-content-bg: #1e1e1e;
+        --rtd-border-color: #333333;
+        --rtd-code-bg: #262626;
+        --rtd-inline-code-bg: #2d3748;
+        --rtd-inline-code-color: #f56565;
+        --rtd-note-bg: #1a365d;
+        --rtd-note-border: #3182ce;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--rtd-font);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--rtd-text-color);
+    background-color: var(--rtd-bg-color);
+    margin: 0;
+    padding: 2rem 1rem;
+}
+
+.main-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: var(--rtd-content-bg);
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 8px;
+    padding: 2.5rem 3rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--rtd-font);
+    color: #2c3e50;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+@media (prefers-color-scheme: dark) {
+    h1, h2, h3, h4, h5, h6 {
+        color: #e2e8f0;
+    }
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--rtd-border-color);
+}
+
+h2 {
+    font-size: 1.6rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--rtd-border-color);
+}
+
+h3 {
+    font-size: 1.3rem;
+}
+
+a {
+    color: var(--rtd-brand-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--rtd-brand-dark);
+    text-decoration: underline;
+}
+
+code {
+    font-family: var(--rtd-mono-font);
+    font-size: 0.88em;
+    background-color: var(--rtd-inline-code-bg);
+    color: var(--rtd-inline-code-color);
+    padding: 0.15rem 0.35rem;
+    border-radius: 3px;
+    border: 1px solid var(--rtd-border-color);
+}
+
+pre {
+    background-color: var(--rtd-code-bg);
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 4px;
+    padding: 1rem;
+    overflow-x: auto;
+    font-size: 0.9em;
+    line-height: 1.45;
+}
+
+pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+}
+
+blockquote {
+    margin: 1.5rem 0;
+    padding: 0.8rem 1.2rem;
+    background-color: var(--rtd-note-bg);
+    border-left: 4px solid var(--rtd-note-border);
+    color: var(--rtd-text-color);
+    border-radius: 0 4px 4px 0;
+}
+
+blockquote p {
+    margin: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+}
+
+th, td {
+    border: 1px solid var(--rtd-border-color);
+    padding: 0.65rem 0.9rem;
+    text-align: left;
+}
+
+th {
+    background-color: var(--rtd-brand-color);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.drawlib-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: #ffffff;
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+@media (prefers-color-scheme: dark) {
+    .drawlib-image {
+        background-color: #262626;
+    }
+}
+
+.drawlib-image img, .drawlib-image svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.footer {
+    margin-top: 3rem;
+    border-top: 1px solid var(--rtd-border-color);
+    padding-top: 1.5rem;
+    font-size: 0.85rem;
+    color: #888;
+    text-align: center;
+}
+    </style>
+    
+    <style>
+        /* drawlib Original Signature Theme (default.css) */
+:root {
+    --rtd-sidebar-bg: #0f172a;
+    --rtd-sidebar-header: #4f46e5;
+    --rtd-sidebar-text: #94a3b8;
+    --rtd-sidebar-hover: #1e293b;
+    --rtd-sidebar-active: #334155;
+    --rtd-brand-color: #6366f1;
+    --rtd-brand-dark: #4338ca;
+    --rtd-text-color: #334155;
+    --rtd-bg-color: #f8fafc;
+    --rtd-content-bg: #ffffff;
+    --rtd-border-color: #e2e8f0;
+    --rtd-code-bg: #f1f5f9;
+    --rtd-inline-code-bg: #e2e8f0;
+    --rtd-inline-code-color: #4f46e5;
+    --rtd-note-bg: #eef2ff;
+    --rtd-note-border: #6366f1;
+    --rtd-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --rtd-mono-font: "JetBrains Mono", "Fira Code", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --sidebar-width: 280px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --rtd-sidebar-bg: #030712;
+        --rtd-sidebar-header: #3730a3;
+        --rtd-sidebar-text: #64748b;
+        --rtd-sidebar-hover: #111827;
+        --rtd-sidebar-active: #1e1b4b;
+        --rtd-brand-color: #818cf8;
+        --rtd-brand-dark: #6366f1;
+        --rtd-text-color: #e2e8f0;
+        --rtd-bg-color: #090d16;
+        --rtd-content-bg: #0f172a;
+        --rtd-border-color: #1e293b;
+        --rtd-code-bg: #1e293b;
+        --rtd-inline-code-bg: #1e1b4b;
+        --rtd-inline-code-color: #a5b4fc;
+        --rtd-note-bg: #1e1b4b;
+        --rtd-note-border: #6366f1;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--rtd-font);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--rtd-text-color);
+    background-color: var(--rtd-bg-color);
+    margin: 0;
+    padding: 0;
+}
+
+.doc-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--rtd-sidebar-bg);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    border-right: 1px solid var(--rtd-border-color);
+}
+
+.sidebar-header {
+    background-color: var(--rtd-sidebar-header);
+    padding: 1.5rem 1.5rem;
+    text-align: center;
+}
+
+.sidebar-brand {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    display: block;
+}
+
+.sidebar-brand:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.sidebar-menu {
+    padding: 1.25rem 0;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.sidebar-heading {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.5rem 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item a {
+    color: var(--rtd-sidebar-text);
+    display: block;
+    padding: 0.65rem 1.5rem;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+    border-left: 3px solid transparent;
+}
+
+.nav-item a:hover {
+    background-color: var(--rtd-sidebar-hover);
+    color: #ffffff;
+}
+
+.nav-item.active a {
+    background-color: var(--rtd-sidebar-active);
+    color: #ffffff;
+    font-weight: 600;
+    border-left-color: var(--rtd-brand-color);
+}
+
+.content-wrapper {
+    flex: 1;
+    background-color: var(--rtd-content-bg);
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.top-bar {
+    background-color: var(--rtd-content-bg);
+    border-bottom: 1px solid var(--rtd-border-color);
+    padding: 1rem 2.5rem;
+    font-size: 0.9rem;
+}
+
+.breadcrumbs {
+    color: #94a3b8;
+}
+
+.crumb {
+    color: var(--rtd-brand-color);
+    font-weight: 600;
+}
+
+.crumb.active {
+    color: var(--rtd-text-color);
+    font-weight: 400;
+}
+
+.crumb-separator {
+    margin: 0 0.4rem;
+    color: #cbd5e1;
+}
+
+.main-content {
+    padding: 2.5rem 3rem 4rem 3rem;
+    max-width: 960px;
+    flex: 1;
+}
+
+.main-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    background-color: var(--rtd-content-bg);
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 12px;
+    padding: 3rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--rtd-font);
+    color: #1e293b;
+    margin-top: 2.2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+@media (prefers-color-scheme: dark) {
+    h1, h2, h3, h4, h5, h6 {
+        color: #f1f5f9;
+    }
+}
+
+h1 {
+    font-size: 2.25rem;
+    margin-top: 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--rtd-border-color);
+}
+
+h2 {
+    font-size: 1.65rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rtd-border-color);
+}
+
+h3 {
+    font-size: 1.35rem;
+}
+
+a {
+    color: var(--rtd-brand-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    color: var(--rtd-brand-dark);
+    text-decoration: underline;
+}
+
+code {
+    font-family: var(--rtd-mono-font);
+    font-size: 0.88em;
+    background-color: var(--rtd-inline-code-bg);
+    color: var(--rtd-inline-code-color);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+pre {
+    background-color: var(--rtd-code-bg);
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 8px;
+    padding: 1.25rem;
+    overflow-x: auto;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+}
+
+blockquote {
+    margin: 1.5rem 0;
+    padding: 1rem 1.25rem;
+    background-color: var(--rtd-note-bg);
+    border-left: 4px solid var(--rtd-note-border);
+    color: var(--rtd-text-color);
+    border-radius: 0 8px 8px 0;
+}
+
+blockquote p {
+    margin: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+}
+
+th, td {
+    border: 1px solid var(--rtd-border-color);
+    padding: 0.75rem 1rem;
+    text-align: left;
+}
+
+th {
+    background-color: var(--rtd-brand-color);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.drawlib-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1.25rem;
+    background-color: #ffffff;
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+@media (prefers-color-scheme: dark) {
+    .drawlib-image {
+        background-color: #0f172a;
+    }
+}
+
+.drawlib-image img, .drawlib-image svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.footer {
+    border-top: 1px solid var(--rtd-border-color);
+    padding: 1.75rem 2.5rem;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .doc-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .main-content {
+        padding: 1.5rem;
+    }
+}
+
+    </style>
+    
+    
+</head>
+<body>
+    <div class="main-container">
+        <main class="main-content">
+            <h1>Class Diagrams</h1>
+<p><code>drawlib.diagrams.class_diagram</code> provides a declarative, pure-Python UML Class diagramming framework.
+It supports standard UML 2.0 notations including three-compartment class cards (name, attributes, methods), stereotypes, abstract classes, and all 6 standard UML relationship types with intuitive verb-based connection methods.</p>
+<hr />
+<h2>1. Core Concepts</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Class</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Container</strong></td>
+<td><code>ClassDiagram</code></td>
+<td>Top-level container managing classes, relationships, canvas sizing, and rendering.</td>
+</tr>
+<tr>
+<td><strong>Class Node</strong></td>
+<td><code>ClassNode</code></td>
+<td>Represents a class, abstract class, or interface. <code>(x, y)</code> sets the <strong>center</strong> of the card.</td>
+</tr>
+<tr>
+<td><strong>Relationship</strong></td>
+<td><code>ClassRelationship</code></td>
+<td>An edge connecting two classes with UML markers (triangles, diamonds, arrows).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Quick Start</h2>
+<p>Below is a domain model illustrating an e-commerce payment and order flow:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
+
+canvas.initialize()
+
+cd = ClassDiagram(title=&quot;E-Commerce Domain Model&quot;)
+
+# 1. Define Class Nodes
+user = cd.add(ClassNode(name=&quot;User&quot;, width=28.0), xy=(22.0, 60.0))
+user.add_attribute(&quot;id&quot;, type=&quot;int&quot;, is_public=True)
+user.add_attribute(&quot;name&quot;, type=&quot;str&quot;, is_public=True)
+user.add_attribute(&quot;password_hash&quot;, type=&quot;str&quot;, is_public=False)
+user.add_method(&quot;login&quot;, params=&quot;password: str&quot;, return_type=&quot;bool&quot;)
+user.add_method(&quot;logout&quot;, return_type=&quot;void&quot;)
+
+customer = cd.add(ClassNode(name=&quot;Customer&quot;, width=28.0), xy=(22.0, 20.0))
+customer.add_attribute(&quot;address&quot;, type=&quot;str&quot;)
+customer.add_attribute(&quot;phone&quot;, type=&quot;str&quot;)
+customer.add_method(&quot;checkout&quot;, return_type=&quot;Order&quot;)
+
+order = cd.add(ClassNode(name=&quot;Order&quot;, width=28.0), xy=(75.0, 20.0))
+order.add_attribute(&quot;order_id&quot;, type=&quot;str&quot;)
+order.add_attribute(&quot;total&quot;, type=&quot;float&quot;)
+order.add_method(&quot;calculate_tax&quot;, return_type=&quot;float&quot;)
+order.add_method(&quot;pay&quot;, return_type=&quot;bool&quot;)
+
+payment_service = cd.add(
+    ClassNode(name=&quot;PaymentService&quot;, stereotype=&quot;interface&quot;, width=30.0),
+    xy=(75.0, 60.0),
+)
+payment_service.add_method(&quot;process_payment&quot;, params=&quot;amount: float&quot;, return_type=&quot;bool&quot;)
+
+# 2. Connect with Intuitive Verb Methods
+# Customer inherits User (Generalization)
+customer.inherit(user, start_side=&quot;top&quot;, end_side=&quot;bottom&quot;)
+
+# Customer composes Order (Whole to Part)
+customer.composite(
+    order,
+    start_side=&quot;right&quot;,
+    end_side=&quot;left&quot;,
+    start_multiplicity=&quot;1&quot;,
+    end_multiplicity=&quot;*&quot;,
+    label=&quot;places&quot;,
+)
+
+# Order depends on PaymentService (Dependency)
+order.depend(payment_service, start_side=&quot;top&quot;, end_side=&quot;bottom&quot;, label=&quot;uses&quot;)
+
+cd.draw(xy=(0.0, 0.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="class_diagram_images/1.png" alt="class_diagram_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">E-Commerce Domain Class Diagram</figcaption>
+</figure>
+<hr />
+<h2>3. ClassNode Configuration</h2>
+<h3>3.1 Adding Attributes</h3>
+<p>Attributes can be added individually via <code>add_attribute()</code> or in batch using <code>add_attributes()</code>.
+By default, <code>is_public=True</code> prepends <code>+</code>, while <code>is_public=False</code> prepends <code>-</code>. Explicit symbols (<code>+</code>, <code>-</code>, <code>#</code>, <code>~</code>) can also be specified:</p>
+<pre><code class="language-python">class_node = ClassNode(name=&quot;Account&quot;)
+
+# Individual addition (fluent API)
+class_node.add_attribute(&quot;id&quot;, type=&quot;int&quot;, is_public=True)        # &quot;+ id: int&quot;
+class_node.add_attribute(&quot;balance&quot;, type=&quot;float&quot;, is_public=False)  # &quot;- balance: float&quot;
+class_node.add_attribute(&quot;token&quot;, visibility=&quot;#&quot;)                 # &quot;# token&quot;
+class_node.add_attribute(&quot;count&quot;, type=&quot;int&quot;, is_static=True, default_value=&quot;0&quot;) # &quot;+ count: int = 0 {static}&quot;
+
+# Batch addition
+class_node.add_attributes([
+    (&quot;email&quot;, &quot;str&quot;, True),
+    (&quot;secret_key&quot;, &quot;str&quot;, False),
+])
+</code></pre>
+<h3>3.2 Adding Methods</h3>
+<p>Methods can be added individually via <code>add_method()</code> or in batch using <code>add_methods()</code>:</p>
+<pre><code class="language-python">class_node = ClassNode(name=&quot;OrderService&quot;)
+
+class_node.add_method(&quot;create&quot;, params=&quot;cart: Cart&quot;, return_type=&quot;Order&quot;)
+class_node.add_method(&quot;validate&quot;, params=&quot;order: Order&quot;, return_type=&quot;bool&quot;, is_public=False)
+class_node.add_method(&quot;get_instance&quot;, return_type=&quot;OrderService&quot;, is_static=True)
+class_node.add_method(&quot;process&quot;, return_type=&quot;void&quot;, is_abstract=True)
+</code></pre>
+<h3>3.3 Stereotypes and Abstract Classes</h3>
+<ul>
+<li><strong>Stereotype</strong>: Pass <code>stereotype=&quot;interface&quot;</code> or <code>stereotype=&quot;enumeration&quot;</code> to display <code>«stereotype»</code> above the class name.</li>
+<li><strong>Abstract Class</strong>: Pass <code>is_abstract=True</code> to indicate an abstract class (displays <code>«abstract»</code> in the header).</li>
+</ul>
+<pre><code class="language-python">interface_node = ClassNode(name=&quot;Repository&quot;, stereotype=&quot;interface&quot;)
+abstract_node = ClassNode(name=&quot;BaseEntity&quot;, is_abstract=True)
+</code></pre>
+<hr />
+<h2>4. Relationship Types and Verb Methods</h2>
+<p>Drawlib provides intuitive verb methods on <code>ClassNode</code> to create UML relationships directly:</p>
+<table>
+<thead>
+<tr>
+<th>Verb Method</th>
+<th>UML Relationship</th>
+<th>Line Style</th>
+<th>Marker</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>child.inherit(parent)</code></td>
+<td><strong>Inheritance</strong> (Generalization)</td>
+<td>Solid</td>
+<td>Hollow Triangle (at parent)</td>
+<td>Superclass / Subclass relationship</td>
+</tr>
+<tr>
+<td><code>impl.realize(iface)</code></td>
+<td><strong>Realization</strong> (Implementation)</td>
+<td>Dashed</td>
+<td>Hollow Triangle (at interface)</td>
+<td>Interface realization</td>
+</tr>
+<tr>
+<td><code>whole.composite(part)</code></td>
+<td><strong>Composition</strong></td>
+<td>Solid</td>
+<td>Filled Diamond (at whole)</td>
+<td>Strong ownership; part dies with whole</td>
+</tr>
+<tr>
+<td><code>whole.aggregate(part)</code></td>
+<td><strong>Aggregation</strong></td>
+<td>Solid</td>
+<td>Hollow Diamond (at whole)</td>
+<td>Shared ownership / part-whole</td>
+</tr>
+<tr>
+<td><code>c1.associate(c2)</code></td>
+<td><strong>Association</strong></td>
+<td>Solid</td>
+<td>None (or Open Arrow if <code>directed=True</code>)</td>
+<td>Structural relationship</td>
+</tr>
+<tr>
+<td><code>client.depend(supplier)</code></td>
+<td><strong>Dependency</strong></td>
+<td>Dashed</td>
+<td>Open Arrow (at supplier)</td>
+<td>Client uses / depends on supplier</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode, RelationshipType
+
+canvas.initialize()
+
+types: list[RelationshipType] = [
+    &quot;inheritance&quot;,
+    &quot;realization&quot;,
+    &quot;composition&quot;,
+    &quot;aggregation&quot;,
+    &quot;association&quot;,
+    &quot;dependency&quot;,
+]
+
+cd = ClassDiagram(title=&quot;UML Relationship Types Gallery&quot;)
+
+for idx, rel_type in enumerate(types):
+    y = 78.0 - idx * 12.0
+    src = cd.add(ClassNode(name=f&quot;Source_{idx}&quot;, width=22.0, height=7.0), xy=(25.0, y))
+    tgt = cd.add(ClassNode(name=f&quot;Target_{idx}&quot;, width=22.0, height=7.0), xy=(75.0, y))
+
+    src.connect(
+        tgt,
+        relationship_type=rel_type,
+        start_side=&quot;right&quot;,
+        end_side=&quot;left&quot;,
+        label=rel_type,
+        start_multiplicity=&quot;1&quot; if rel_type in {&quot;composition&quot;, &quot;aggregation&quot;} else &quot;&quot;,
+        end_multiplicity=&quot;*&quot; if rel_type in {&quot;composition&quot;, &quot;aggregation&quot;} else &quot;&quot;,
+    )
+
+cd.draw()
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="class_diagram_images/2.png" alt="class_diagram_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">All 6 UML Relationship Types</figcaption>
+</figure>
+<hr />
+<h2>5. Multiplicities, Roles, and Labels</h2>
+<p>Relationships support UML multiplicity strings, role names, and central labels:</p>
+<ul>
+<li><code>start_multiplicity</code>: e.g. <code>&quot;1&quot;</code>, <code>&quot;0..1&quot;</code></li>
+<li><code>end_multiplicity</code>: e.g. <code>&quot;*&quot;</code>, <code>&quot;1..*&quot;</code>, <code>&quot;0..*&quot;</code></li>
+<li><code>start_role</code>: e.g. <code>&quot;+owner&quot;</code>, <code>&quot;publisher&quot;</code></li>
+<li><code>end_role</code>: e.g. <code>&quot;+subscribers&quot;</code>, <code>&quot;listener&quot;</code></li>
+<li><code>label</code>: Text badge displayed centered along the connection line</li>
+</ul>
+<pre><code class="language-python">publisher.associate(
+    subscriber,
+    start_multiplicity=&quot;1&quot;,
+    end_multiplicity=&quot;*&quot;,
+    start_role=&quot;pub&quot;,
+    end_role=&quot;+subs&quot;,
+    label=&quot;notifies&quot;,
+    directed=True,
+)
+</code></pre>
+<hr />
+<h2>6. Routing and Anchoring</h2>
+<h3>6.1 Orthogonal vs Direct Routing</h3>
+<ul>
+<li><code>routing=&quot;orthogonal&quot;</code> (default): Smart right-angled routing with clean right-angle bends.</li>
+<li><code>routing=&quot;direct&quot;</code>: Draws straight lines directly connecting classes. The line endpoints are automatically clipped at the exact outer boundary of each class card.</li>
+</ul>
+<h3>6.2 Attachment Sides</h3>
+<p>Sides can be explicitly set with <code>start_side</code> and <code>end_side</code>:</p>
+<ul>
+<li><code>&quot;left&quot;</code>, <code>&quot;right&quot;</code>, <code>&quot;top&quot;</code>, <code>&quot;bottom&quot;</code>, or <code>&quot;auto&quot;</code> (default).</li>
+</ul>
+<p>When <code>&quot;auto&quot;</code> is used, Drawlib automatically chooses the nearest complementary sides based on relative coordinates.</p>
+<hr />
+<h2>7. Custom Styling</h2>
+<p>Classes and relationships fully integrate with Drawlib's <code>Style</code> class:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib._core.l3_styles import Colors, Style
+from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
+
+canvas.initialize()
+
+cd = ClassDiagram(
+    title=&quot;Custom Styled Payment Architecture&quot;,
+    style=Style(fill_color=Colors.White),
+)
+
+processor = cd.add(
+    ClassNode(
+        name=&quot;PaymentProcessor&quot;,
+        stereotype=&quot;interface&quot;,
+        width=30.0,
+        header_style=Style(fill_color=Colors.Teal, text_color=Colors.White),
+    ),
+    xy=(50.0, 65.0),
+)
+processor.add_method(&quot;process_payment&quot;, params=&quot;amount: float&quot;, return_type=&quot;bool&quot;)
+
+stripe = cd.add(
+    ClassNode(
+        name=&quot;StripeService&quot;,
+        width=26.0,
+        header_style=Style(fill_color=Colors.Navy, text_color=Colors.White),
+    ),
+    xy=(25.0, 22.0),
+)
+stripe.add_attribute(&quot;api_key&quot;, type=&quot;str&quot;, is_public=False)
+stripe.add_method(&quot;process_payment&quot;, params=&quot;amount: float&quot;, return_type=&quot;bool&quot;)
+
+paypal = cd.add(
+    ClassNode(
+        name=&quot;PayPalService&quot;,
+        width=26.0,
+        header_style=Style(fill_color=Colors.Blue, text_color=Colors.White),
+    ),
+    xy=(75.0, 22.0),
+)
+paypal.add_attribute(&quot;client_id&quot;, type=&quot;str&quot;, is_public=False)
+paypal.add_method(&quot;process_payment&quot;, params=&quot;amount: float&quot;, return_type=&quot;bool&quot;)
+
+stripe.realize(
+    processor,
+    routing=&quot;direct&quot;,
+    style=Style(line_color=Colors.Navy, line_width=2.0),
+    padding=1.0,
+)
+paypal.realize(
+    processor,
+    routing=&quot;direct&quot;,
+    style=Style(line_color=Colors.Blue, line_width=2.0),
+    padding=1.0,
+)
+
+cd.draw()
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="class_diagram_images/3.png" alt="class_diagram_3" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Styled UML Class Diagram</figcaption>
+</figure>
+
+        </main>
+    </div>
+</body>
+</html>
