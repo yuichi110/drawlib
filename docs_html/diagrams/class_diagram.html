@@ -15,546 +15,301 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Class Diagrams</title>
     
-    <style>
-:root {
-    --rtd-brand-color: #2980b9;
-    --rtd-brand-dark: #1b5e8a;
-    --rtd-text-color: #404040;
-    --rtd-bg-color: #edf0f2;
-    --rtd-content-bg: #ffffff;
-    --rtd-border-color: #e1e4e5;
-    --rtd-code-bg: #f8f8f8;
-    --rtd-inline-code-bg: #ecf0f1;
-    --rtd-inline-code-color: #e74c3c;
-    --rtd-note-bg: #e7f2fa;
-    --rtd-note-border: #6ab0de;
-    --rtd-font: "Lato", "proxima-nova", "Helvetica Neue", Arial, sans-serif;
-    --rtd-mono-font: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --rtd-brand-color: #3498db;
-        --rtd-text-color: #d1d5db;
-        --rtd-bg-color: #121212;
-        --rtd-content-bg: #1e1e1e;
-        --rtd-border-color: #333333;
-        --rtd-code-bg: #262626;
-        --rtd-inline-code-bg: #2d3748;
-        --rtd-inline-code-color: #f56565;
-        --rtd-note-bg: #1a365d;
-        --rtd-note-border: #3182ce;
-    }
-}
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    font-family: var(--rtd-font);
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--rtd-text-color);
-    background-color: var(--rtd-bg-color);
-    margin: 0;
-    padding: 2rem 1rem;
-}
-
-.main-container {
-    max-width: 900px;
-    margin: 0 auto;
-    background-color: var(--rtd-content-bg);
-    border: 1px solid var(--rtd-border-color);
-    border-radius: 8px;
-    padding: 2.5rem 3rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--rtd-font);
-    color: #2c3e50;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
-}
-
-@media (prefers-color-scheme: dark) {
-    h1, h2, h3, h4, h5, h6 {
-        color: #e2e8f0;
-    }
-}
-
-h1 {
-    font-size: 2.2rem;
-    margin-top: 0;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--rtd-border-color);
-}
-
-h2 {
-    font-size: 1.6rem;
-    padding-bottom: 0.3rem;
-    border-bottom: 1px solid var(--rtd-border-color);
-}
-
-h3 {
-    font-size: 1.3rem;
-}
-
-a {
-    color: var(--rtd-brand-color);
-    text-decoration: none;
-}
-
-a:hover {
-    color: var(--rtd-brand-dark);
-    text-decoration: underline;
-}
-
-code {
-    font-family: var(--rtd-mono-font);
-    font-size: 0.88em;
-    background-color: var(--rtd-inline-code-bg);
-    color: var(--rtd-inline-code-color);
-    padding: 0.15rem 0.35rem;
-    border-radius: 3px;
-    border: 1px solid var(--rtd-border-color);
-}
-
-pre {
-    background-color: var(--rtd-code-bg);
-    border: 1px solid var(--rtd-border-color);
-    border-radius: 4px;
-    padding: 1rem;
-    overflow-x: auto;
-    font-size: 0.9em;
-    line-height: 1.45;
-}
-
-pre code {
-    background-color: transparent;
-    color: inherit;
-    padding: 0;
-    border: none;
-}
-
-blockquote {
-    margin: 1.5rem 0;
-    padding: 0.8rem 1.2rem;
-    background-color: var(--rtd-note-bg);
-    border-left: 4px solid var(--rtd-note-border);
-    color: var(--rtd-text-color);
-    border-radius: 0 4px 4px 0;
-}
-
-blockquote p {
-    margin: 0;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1.5rem 0;
-    font-size: 0.95rem;
-}
-
-th, td {
-    border: 1px solid var(--rtd-border-color);
-    padding: 0.65rem 0.9rem;
-    text-align: left;
-}
-
-th {
-    background-color: var(--rtd-brand-color);
-    color: #ffffff;
-    font-weight: 600;
-}
-
-tr:nth-child(even) {
-    background-color: rgba(0, 0, 0, 0.02);
-}
-
-.drawlib-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 2rem 0;
-    padding: 1rem;
-    background-color: #ffffff;
-    border: 1px solid var(--rtd-border-color);
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-@media (prefers-color-scheme: dark) {
-    .drawlib-image {
-        background-color: #262626;
-    }
-}
-
-.drawlib-image img, .drawlib-image svg {
-    max-width: 100%;
-    height: auto;
-}
-
-.footer {
-    margin-top: 3rem;
-    border-top: 1px solid var(--rtd-border-color);
-    padding-top: 1.5rem;
-    font-size: 0.85rem;
-    color: #888;
-    text-align: center;
-}
-    </style>
-    
-    <style>
-        /* drawlib Original Signature Theme (default.css) */
-:root {
-    --rtd-sidebar-bg: #0f172a;
-    --rtd-sidebar-header: #4f46e5;
-    --rtd-sidebar-text: #94a3b8;
-    --rtd-sidebar-hover: #1e293b;
-    --rtd-sidebar-active: #334155;
-    --rtd-brand-color: #6366f1;
-    --rtd-brand-dark: #4338ca;
-    --rtd-text-color: #334155;
-    --rtd-bg-color: #f8fafc;
-    --rtd-content-bg: #ffffff;
-    --rtd-border-color: #e2e8f0;
-    --rtd-code-bg: #f1f5f9;
-    --rtd-inline-code-bg: #e2e8f0;
-    --rtd-inline-code-color: #4f46e5;
-    --rtd-note-bg: #eef2ff;
-    --rtd-note-border: #6366f1;
-    --rtd-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    --rtd-mono-font: "JetBrains Mono", "Fira Code", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    --sidebar-width: 280px;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --rtd-sidebar-bg: #030712;
-        --rtd-sidebar-header: #3730a3;
-        --rtd-sidebar-text: #64748b;
-        --rtd-sidebar-hover: #111827;
-        --rtd-sidebar-active: #1e1b4b;
-        --rtd-brand-color: #818cf8;
-        --rtd-brand-dark: #6366f1;
-        --rtd-text-color: #e2e8f0;
-        --rtd-bg-color: #090d16;
-        --rtd-content-bg: #0f172a;
-        --rtd-border-color: #1e293b;
-        --rtd-code-bg: #1e293b;
-        --rtd-inline-code-bg: #1e1b4b;
-        --rtd-inline-code-color: #a5b4fc;
-        --rtd-note-bg: #1e1b4b;
-        --rtd-note-border: #6366f1;
-    }
-}
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    font-family: var(--rtd-font);
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--rtd-text-color);
-    background-color: var(--rtd-bg-color);
-    margin: 0;
-    padding: 0;
-}
-
-.doc-layout {
-    display: flex;
-    min-height: 100vh;
-}
-
-.sidebar {
-    width: var(--sidebar-width);
-    background-color: var(--rtd-sidebar-bg);
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    z-index: 100;
-    border-right: 1px solid var(--rtd-border-color);
-}
-
-.sidebar-header {
-    background-color: var(--rtd-sidebar-header);
-    padding: 1.5rem 1.5rem;
-    text-align: center;
-}
-
-.sidebar-brand {
-    color: #ffffff;
-    font-size: 1.5rem;
-    font-weight: 800;
-    text-decoration: none;
-    letter-spacing: 0.5px;
-    display: block;
-}
-
-.sidebar-brand:hover {
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.sidebar-menu {
-    padding: 1.25rem 0;
-    overflow-y: auto;
-    flex: 1;
-}
-
-.sidebar-heading {
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 0.5rem 1.5rem;
-    margin-top: 0.5rem;
-}
-
-.nav-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.nav-item a {
-    color: var(--rtd-sidebar-text);
-    display: block;
-    padding: 0.65rem 1.5rem;
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: background-color 0.15s ease, color 0.15s ease;
-    border-left: 3px solid transparent;
-}
-
-.nav-item a:hover {
-    background-color: var(--rtd-sidebar-hover);
-    color: #ffffff;
-}
-
-.nav-item.active a {
-    background-color: var(--rtd-sidebar-active);
-    color: #ffffff;
-    font-weight: 600;
-    border-left-color: var(--rtd-brand-color);
-}
-
-.content-wrapper {
-    flex: 1;
-    background-color: var(--rtd-content-bg);
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-}
-
-.top-bar {
-    background-color: var(--rtd-content-bg);
-    border-bottom: 1px solid var(--rtd-border-color);
-    padding: 1rem 2.5rem;
-    font-size: 0.9rem;
-}
-
-.breadcrumbs {
-    color: #94a3b8;
-}
-
-.crumb {
-    color: var(--rtd-brand-color);
-    font-weight: 600;
-}
-
-.crumb.active {
-    color: var(--rtd-text-color);
-    font-weight: 400;
-}
-
-.crumb-separator {
-    margin: 0 0.4rem;
-    color: #cbd5e1;
-}
-
-.main-content {
-    padding: 2.5rem 3rem 4rem 3rem;
-    max-width: 960px;
-    flex: 1;
-}
-
-.main-container {
-    max-width: 900px;
-    margin: 2rem auto;
-    background-color: var(--rtd-content-bg);
-    border: 1px solid var(--rtd-border-color);
-    border-radius: 12px;
-    padding: 3rem;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--rtd-font);
-    color: #1e293b;
-    margin-top: 2.2rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-}
-
-@media (prefers-color-scheme: dark) {
-    h1, h2, h3, h4, h5, h6 {
-        color: #f1f5f9;
-    }
-}
-
-h1 {
-    font-size: 2.25rem;
-    margin-top: 0;
-    padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--rtd-border-color);
-}
-
-h2 {
-    font-size: 1.65rem;
-    padding-bottom: 0.4rem;
-    border-bottom: 1px solid var(--rtd-border-color);
-}
-
-h3 {
-    font-size: 1.35rem;
-}
-
-a {
-    color: var(--rtd-brand-color);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-a:hover {
-    color: var(--rtd-brand-dark);
-    text-decoration: underline;
-}
-
-code {
-    font-family: var(--rtd-mono-font);
-    font-size: 0.88em;
-    background-color: var(--rtd-inline-code-bg);
-    color: var(--rtd-inline-code-color);
-    padding: 0.2rem 0.4rem;
-    border-radius: 4px;
-    font-weight: 500;
-}
-
-pre {
-    background-color: var(--rtd-code-bg);
-    border: 1px solid var(--rtd-border-color);
-    border-radius: 8px;
-    padding: 1.25rem;
-    overflow-x: auto;
-    font-size: 0.9em;
-    line-height: 1.5;
-}
-
-pre code {
-    background-color: transparent;
-    color: inherit;
-    padding: 0;
-    border: none;
-}
-
-blockquote {
-    margin: 1.5rem 0;
-    padding: 1rem 1.25rem;
-    background-color: var(--rtd-note-bg);
-    border-left: 4px solid var(--rtd-note-border);
-    color: var(--rtd-text-color);
-    border-radius: 0 8px 8px 0;
-}
-
-blockquote p {
-    margin: 0;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1.5rem 0;
-    font-size: 0.95rem;
-}
-
-th, td {
-    border: 1px solid var(--rtd-border-color);
-    padding: 0.75rem 1rem;
-    text-align: left;
-}
-
-th {
-    background-color: var(--rtd-brand-color);
-    color: #ffffff;
-    font-weight: 600;
-}
-
-tr:nth-child(even) {
-    background-color: rgba(0, 0, 0, 0.02);
-}
-
-.drawlib-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 2rem 0;
-    padding: 1.25rem;
-    background-color: #ffffff;
-    border: 1px solid var(--rtd-border-color);
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-}
-
-@media (prefers-color-scheme: dark) {
-    .drawlib-image {
-        background-color: #0f172a;
-    }
-}
-
-.drawlib-image img, .drawlib-image svg {
-    max-width: 100%;
-    height: auto;
-}
-
-.footer {
-    border-top: 1px solid var(--rtd-border-color);
-    padding: 1.75rem 2.5rem;
-    font-size: 0.85rem;
-    color: #94a3b8;
-    text-align: center;
-}
-
-@media (max-width: 768px) {
-    .doc-layout {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        width: 100%;
-    }
-
-    .main-content {
-        padding: 1.5rem;
-    }
-}
-
-    </style>
-    
+    <link rel="stylesheet" href="../style.css">
     
 </head>
 <body>
-    <div class="main-container">
-        <main class="main-content">
-            <h1>Class Diagrams</h1>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">drawlib</a>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="../charts/index.html">Charts Overview</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../charts/area.html">Area Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../charts/bar.html">Bar Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../charts/gantt.html">Gantt Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../charts/line.html">Line Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../charts/pie.html">Pie & Donut Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../charts/radar.html">Radar Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../charts/scatter.html">Scatter Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="architecture.html">Architecture Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="class_diagram.html">Class Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="er.html">ER Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="flow.html">Flow Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="sequence.html">Sequence Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="state_diagram.html">State Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Notes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with PresetStyles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/chevronprocess.html">ChevronProcess</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/cycle.html">Cycle</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/mindmap.html">MindMap</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Class Diagrams</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Class Diagrams</h1>
 <p><code>drawlib.diagrams.class_diagram</code> provides a declarative, pure-Python UML Class diagramming framework.
 It supports standard UML 2.0 notations including three-compartment class cards (name, attributes, methods), stereotypes, abstract classes, and all 6 standard UML relationship types with intuitive verb-based connection methods.</p>
 <hr />
@@ -874,7 +629,9 @@ cd.draw()
   <figcaption class="drawlib-caption">Styled UML Class Diagram</figcaption>
 </figure>
 
-        </main>
+            </main>
+        </div>
     </div>
+    
 </body>
 </html>

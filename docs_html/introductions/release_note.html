@@ -138,6 +138,10 @@
                     </li>
                     
                     <li class="nav-item ">
+                        <a href="../diagrams/state_diagram.html">State Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
                         <a href="../foundations/build_many.html">Building many images</a>
                     </li>
                     
@@ -336,6 +340,13 @@
 <li>Full UML 2.0 marker support: hollow generalization triangles, solid/hollow aggregation diamonds, open dependency arrows, multiplicities, role names, and boundary-clipped routing.</li>
 </ul>
 </li>
+<li><strong>State Diagrams (<code>drawlib.diagrams.state_diagram</code>)</strong>:
+<ul>
+<li>Declarative Statechart and Finite State Machine (FSM) diagramming module.</li>
+<li>Support for 5 node shapes (<code>&quot;box&quot;</code>, <code>&quot;oval&quot;</code>, <code>&quot;circle&quot;</code>, <code>&quot;double_circle&quot;</code>, <code>&quot;text_only&quot;</code>), internal activity compartments (<code>entry</code>, <code>do</code>, <code>exit</code>), and pseudo-states (<code>InitialState</code>, <code>FinalState</code>, <code>ChoiceState</code>, <code>ForkJoinState</code>).</li>
+<li>Native curved arc transitions (<code>line_curved</code>) with <code>bend</code> control, automatic self-transition loops (<code>A ↺ A</code>), bidirectional pairs (<code>A ⇄ B</code>), and formal label formatting (<code>event [guard] / action</code>).</li>
+</ul>
+</li>
 <li><strong>Flow Diagrams (<code>drawlib.diagrams.flow</code>)</strong>:
 <ul>
 <li>Declarative flowchart and workflow diagramming module adhering to standard flowchart symbols (ISO 5807 / JIS X 0121).</li>
@@ -369,6 +380,13 @@
 <li><strong>Unified Developer CLI (<code>dcli</code>)</strong>:
 <ul>
 <li>Integrated CLI tooling for linting (<code>ruff</code>), type checking (<code>ty</code>), asset management, and documentation builds.</li>
+</ul>
+</li>
+<li><strong>Single Block Image Export &amp; CLI Preview Enhancements</strong>:
+<ul>
+<li>Added <code>drawlib export</code> CLI command for extracting and rendering a single illustration from Python scripts or Markdown files directly to an image file.</li>
+<li>Full support for <code>--config</code> (<code>-c</code>) to apply custom document themes and settings, <code>--output</code> (<code>-o</code>) for explicit destination path, and <code>--grid</code> (<code>-g</code>) for coordinate overlay.</li>
+<li>Added <code>-o</code> / <code>--output</code> support to <code>drawlib show</code> for headless environments and automated scripts, suppressing GUI display when output path is specified.</li>
 </ul>
 </li>
 </ul>

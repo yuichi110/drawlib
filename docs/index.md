@@ -74,6 +74,7 @@ text(xy=(75, 20), text="Rectangle", style=Style(text_color=Colors.White, text_si
 - [ER Diagrams Guide](./diagrams/er.md)
 - [Flow Diagrams Guide](./diagrams/flow.md)
 - [Sequence Diagrams Guide](./diagrams/sequence.md)
+- [State Diagrams Guide](./diagrams/state_diagram.md)
 
 ### 5. Charts
 - [Charts Overview](./charts/index.md)

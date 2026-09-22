@@ -138,6 +138,10 @@
                     </li>
                     
                     <li class="nav-item ">
+                        <a href="../diagrams/state_diagram.html">State Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
                         <a href="../foundations/build_many.html">Building many images</a>
                     </li>
                     
@@ -438,6 +442,54 @@ drawlib show doc.md diagram.png
 <pre><code class="language-bash">drawlib show doc.md 1 --grid
 # Shorthand:
 drawlib show doc.md 1 -g
+</code></pre>
+<h3>Saving Directly to File (<code>-o</code> / <code>--output</code>)</h3>
+<p>If you want to save the previewed image directly to a designated file path instead of opening a GUI preview window, specify the <code>-o</code> or <code>--output</code> option:</p>
+<pre><code class="language-bash">drawlib show my_drawing.py -o output.png
+drawlib show doc.md 1 -o preview.png
+</code></pre>
+<p>When <code>-o</code> / <code>--output</code> is specified, the GUI window is suppressed and the image is written directly to the target location.</p>
+<h1>Exporting Single Illustrations with <code>drawlib export</code></h1>
+<p>The <code>drawlib export</code> command extracts and renders a single illustration from either a standalone Python script or a Markdown document into an image file. It is specifically designed for:</p>
+<ul>
+<li>Automated workflows and CI/CD pipelines without GUI displays.</li>
+<li>Headless environments or AI agent interactions where inspecting a specific visual artifact is required.</li>
+<li>Quick extraction of a single diagram from a large Markdown document without running a full document build.</li>
+</ul>
+<h2>Basic Syntax</h2>
+<pre><code class="language-bash">drawlib export &lt;file&gt; [target] [-o &lt;output_path&gt;] [-c &lt;config_path&gt;] [-g]
+</code></pre>
+<ul>
+<li><code>&lt;file&gt;</code>: Path to a Python script (<code>.py</code>) or Markdown file (<code>.md</code>).</li>
+<li><code>[target]</code>: Block index (1-based, e.g., <code>1</code>) or target image filename (e.g., <code>diagram.png</code>) when targeting a Markdown document. If omitted for a Markdown file, available blocks are listed.</li>
+<li><code>-o</code>, <code>--output &lt;path&gt;</code>: Destination path for the exported image (defaults to <code>&lt;input_stem&gt;_export.png</code> if omitted).</li>
+<li><code>-c</code>, <code>--config &lt;path&gt;</code>: Path to custom configuration script (such as <code>config.py</code>) that sets themes, styles, or canvas defaults.</li>
+<li><code>-g</code>, <code>--grid</code>: Overlay coordinate grid lines and axes on the exported image.</li>
+</ul>
+<h2>Listing Markdown Code Blocks</h2>
+<p>Running <code>drawlib export</code> with only a Markdown file lists all <code>drawlib</code> blocks without rendering:</p>
+<pre><code class="language-bash">drawlib export doc.md
+</code></pre>
+<h2>Exporting from Markdown Code Blocks</h2>
+<p>Export by block index (1-based):</p>
+<pre><code class="language-bash">drawlib export doc.md 1 -o doc_images/intro.png
+</code></pre>
+<p>Export by target image name:</p>
+<pre><code class="language-bash">drawlib export doc.md diagram.png -o doc_images/diagram.png
+</code></pre>
+<h2>Exporting from Standalone Python Scripts</h2>
+<pre><code class="language-bash">drawlib export my_drawing.py -o output.png
+</code></pre>
+<h2>Applying Custom Configuration (<code>--config</code> / <code>-c</code>)</h2>
+<p>When your documentation relies on a global <code>config.py</code> (e.g., for custom color themes, fonts, or drawing options), supply it using <code>-c</code> or <code>--config</code>:</p>
+<pre><code class="language-bash">drawlib export doc.md 1 -c config.py -o rendered_1.png
+</code></pre>
+<p>This runs the code block within the exact shared execution context and configuration established by <code>config.py</code>, guaranteeing identical visual output to a full document build (<code>drawlib doc-builder</code>).</p>
+<h2>Exporting with Coordinate Grid (<code>--grid</code> / <code>-g</code>)</h2>
+<p>Overlay coordinate axes and grid lines on the output image during drafting or layout adjustments:</p>
+<pre><code class="language-bash">drawlib export doc.md 1 --grid -o debug_grid.png
+# Shorthand:
+drawlib export doc.md 1 -g -o debug_grid.png
 </code></pre>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
