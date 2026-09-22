@@ -15,6 +15,7 @@ from drawlib._charts._common._types import (
     BarMode,
     ColorType,
     FormatterType,
+    GridShape,
     LegendPosition,
     Orientation,
     PointShape,
@@ -23,6 +24,7 @@ from drawlib._charts._common._types import (
 from drawlib._charts.bar_chart import BarChart, BarSeries
 from drawlib._charts.line_chart import AreaChart, AreaSeries, LineChart, LineSeries
 from drawlib._charts.pie_chart import PieChart, PieSlice
+from drawlib._charts.radar_chart import RadarChart, RadarSeries, RaderChart
 
 __all__ = [
     "AreaChart",
@@ -34,6 +36,7 @@ __all__ = [
     "BarSeries",
     "ColorType",
     "FormatterType",
+    "GridShape",
     "LegendPosition",
     "LineChart",
     "LineSeries",
@@ -41,5 +44,8 @@ __all__ = [
     "PieChart",
     "PieSlice",
     "PointShape",
+    "RadarChart",
+    "RadarSeries",
+    "RaderChart",
     "ScaleType",
 ]

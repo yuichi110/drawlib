@@ -19,6 +19,7 @@ from drawlib._charts import (
     BarSeries,
     ColorType,
     FormatterType,
+    GridShape,
     LegendPosition,
     LineChart,
     LineSeries,
@@ -26,6 +27,9 @@ from drawlib._charts import (
     PieChart,
     PieSlice,
     PointShape,
+    RadarChart,
+    RadarSeries,
+    RaderChart,
     ScaleType,
 )
 
@@ -39,6 +43,7 @@ __all__ = [
     "BarSeries",
     "ColorType",
     "FormatterType",
+    "GridShape",
     "LegendPosition",
     "LineChart",
     "LineSeries",
@@ -46,5 +51,8 @@ __all__ = [
     "PieChart",
     "PieSlice",
     "PointShape",
+    "RadarChart",
+    "RadarSeries",
+    "RaderChart",
     "ScaleType",
 ]

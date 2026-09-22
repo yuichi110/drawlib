@@ -1,0 +1,479 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radar Chart Guide</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">drawlib</a>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Charts Overview</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="area.html">Area Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="bar.html">Bar Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line.html">Line Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="pie.html">Pie & Donut Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="radar.html">Radar Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/architecture.html">Architecture Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/er.html">ER Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/flow.html">Flow Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/sequence.html">Sequence Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Notes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with PresetStyles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/mindmap.html">MindMap</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Radar Chart Guide</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Radar Chart Guide</h1>
+<p><code>drawlib.charts.RadarChart</code> provides 2D radar (spider web) charts for multivariate performance analysis, skill evaluation, and multi-dimensional profile comparison.</p>
+<hr />
+<h2>1. Quick Start: Character Attributes Comparison</h2>
+<p>Compare multiple profiles across symmetric radial dimensions with polygon gridlines and automatic legend layout:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.charts import RadarChart
+
+canvas.initialize()
+
+chart = RadarChart(
+    categories=[&quot;Speed&quot;, &quot;Power&quot;, &quot;Defense&quot;, &quot;Agility&quot;, &quot;Stamina&quot;],
+    radius=26.0,
+    title=&quot;Character Attributes Comparison&quot;,
+    legend_position=&quot;right&quot;,
+)
+chart.add_series(&quot;Warrior&quot;, [85, 90, 80, 60, 75])
+chart.add_series(&quot;Rogue&quot;, [95, 65, 50, 95, 70])
+chart.draw(xy=(10.0, 10.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="radar_images/1.png" alt="radar_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Character Attributes Comparison</figcaption>
+</figure>
+<hr />
+<h2>2. Circular Grid &amp; Data Values</h2>
+<p>Use <code>grid_shape=&quot;circle&quot;</code> for concentric circular contours, customize <code>line_style=&quot;dashed&quot;</code>, and show numeric labels at each vertex with <code>show_values=True</code>:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.charts import RadarChart
+
+canvas.initialize()
+
+chart = RadarChart(
+    categories=[&quot;Usability&quot;, &quot;Performance&quot;, &quot;Security&quot;, &quot;Reliability&quot;, &quot;Maintainability&quot;],
+    radius=26.0,
+    grid_shape=&quot;circle&quot;,
+    levels=4,
+    max_value=100.0,
+    title=&quot;Product Quality Evaluation&quot;,
+    legend_position=&quot;bottom&quot;,
+    show_values=True,
+)
+chart.add_series(&quot;Product A&quot;, [90, 85, 95, 80, 75])
+chart.add_series(&quot;Product B&quot;, [70, 95, 80, 90, 85], line_style=&quot;dashed&quot;)
+chart.draw(xy=(15.0, 6.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="radar_images/2.png" alt="radar_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Product Quality Evaluation</figcaption>
+</figure>
+<hr />
+<h2>3. API Reference</h2>
+<h3><code>RadarChart</code></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>categories</code></td>
+<td><code>list[str]</code></td>
+<td>Required</td>
+<td>List of dimension/axis names (minimum 3).</td>
+</tr>
+<tr>
+<td><code>radius</code></td>
+<td><code>float</code></td>
+<td><code>25.0</code></td>
+<td>Radius of the outer web boundary.</td>
+</tr>
+<tr>
+<td><code>min_value</code></td>
+<td><code>float</code></td>
+<td><code>0.0</code></td>
+<td>Value at the center origin point.</td>
+</tr>
+<tr>
+<td><code>max_value</code></td>
+<td><code>float | None</code></td>
+<td><code>None</code></td>
+<td>Value at the outer perimeter. If None, calculated from data.</td>
+</tr>
+<tr>
+<td><code>levels</code></td>
+<td><code>int</code></td>
+<td><code>5</code></td>
+<td>Number of concentric grid rings.</td>
+</tr>
+<tr>
+<td><code>grid_shape</code></td>
+<td><code>&quot;polygon&quot;</code> | <code>&quot;circle&quot;</code></td>
+<td><code>&quot;polygon&quot;</code></td>
+<td>Shape of concentric gridlines.</td>
+</tr>
+<tr>
+<td><code>show_grid_labels</code></td>
+<td><code>bool</code></td>
+<td><code>True</code></td>
+<td>Whether to display scale numbers along reference spoke.</td>
+</tr>
+<tr>
+<td><code>grid_label_format</code></td>
+<td><code>str | Callable | None</code></td>
+<td><code>None</code></td>
+<td>Formatter for grid scale values.</td>
+</tr>
+<tr>
+<td><code>grid_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Style overriding concentric gridlines.</td>
+</tr>
+<tr>
+<td><code>spoke_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Style overriding radial spoke lines.</td>
+</tr>
+<tr>
+<td><code>category_label_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Style overriding category label typography.</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Chart title displayed at the top.</td>
+</tr>
+<tr>
+<td><code>title_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Style overriding title typography.</td>
+</tr>
+<tr>
+<td><code>legend_position</code></td>
+<td><code>&quot;auto&quot;</code> | <code>&quot;top&quot;</code> | <code>&quot;bottom&quot;</code> | <code>&quot;right&quot;</code> | <code>&quot;none&quot;</code></td>
+<td><code>&quot;right&quot;</code></td>
+<td>Position of legend box.</td>
+</tr>
+<tr>
+<td><code>show_values</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>Whether to print numeric values next to series vertices.</td>
+</tr>
+<tr>
+<td><code>value_format</code></td>
+<td><code>str | Callable | None</code></td>
+<td><code>None</code></td>
+<td>Formatter for vertex values.</td>
+</tr>
+<tr>
+<td><code>value_label_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Style overriding vertex value typography.</td>
+</tr>
+<tr>
+<td><code>width</code></td>
+<td><code>float | None</code></td>
+<td><code>None</code></td>
+<td>Optional container width override.</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td><code>float | None</code></td>
+<td><code>None</code></td>
+<td>Optional container height override.</td>
+</tr>
+</tbody>
+</table>
+<h3>Methods</h3>
+<ul>
+<li><code>add_series(name: str, values: list[float], color=None, fill_alpha=0.25, line_width=2.0, line_style=&quot;solid&quot;, show_points=True, point_shape=&quot;circle&quot;, point_size=0.8, style=None) -&gt; RadarSeries</code>: Register a data polygon.</li>
+<li><code>get_size() -&gt; tuple[float, float]</code>: Calculate overall bounding box dimensions.</li>
+<li><code>draw(xy: tuple[float, float] = (0.0, 0.0)) -&gt; None</code>: Render chart onto canvas.</li>
+</ul>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -40,3 +40,6 @@ AreaMode = Literal["overlap", "stack"]
 
 # Line pattern style
 LineStyle = Literal["solid", "dashed", "dotted", "dashdot"]
+
+# Radar chart grid shape
+GridShape = Literal["polygon", "circle"]

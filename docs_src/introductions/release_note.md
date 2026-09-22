@@ -25,7 +25,7 @@
   - First-class T-junction branching/merging (`Junction`) and flat global coordinate swimlanes (`Lane`).
 - **Charts Module (`drawlib.charts`)**:
   - Pure-Python declarative charting engine without external visualization dependencies.
-  - Features `BarChart` (vertical/horizontal, grouped/stacked), `LineChart` (straight/smooth curves, custom markers), `AreaChart` (overlapping and cumulative stacked areas), and `PieChart` (solid pie, donut rings with center KPI badges, exploded slices).
+  - Features `BarChart` (vertical/horizontal, grouped/stacked), `LineChart` (straight/smooth curves, custom markers), `AreaChart` (overlapping and cumulative stacked areas), `PieChart` (solid pie, donut rings with center KPI badges, exploded slices), and `RadarChart` (spider webs, concentric circular rings, multi-profile evaluations).
   - First-class support for logarithmic scales, fully customizable ticks/gridlines, and automatic legend layout.
 - **Headless PDF Export**:
   - PDF generation uses existing system Chromium-based browsers (Chrome, Chromium, Edge) without requiring Playwright.
