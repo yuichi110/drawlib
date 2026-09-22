@@ -575,8 +575,8 @@ s1.to(s2, event=&quot;resume&quot;, bend=0.3)
 # Backward transition curves downward
 s2.to(s1, event=&quot;pause&quot;, bend=0.3)
 
-# Self-transition loop curving around the top-right corner
-s2.to(s2, event=&quot;heartbeat&quot;, action=&quot;ack()&quot;)
+# Self-transition loop on top boundary
+s2.loop(side=&quot;top&quot;, event=&quot;heartbeat&quot;, action=&quot;ack()&quot;)
 
 sd.draw(xy=(0.0, 0.0))
 </code></pre>
@@ -584,9 +584,57 @@ sd.draw(xy=(0.0, 0.0))
   <img src="state_diagram_images/4.png" alt="state_diagram_4" style="width: 650px; max-width: 100%;" />
   <figcaption class="drawlib-caption">Bidirectional Curved Transitions</figcaption>
 </figure>
-<h3>6.3 Self-Transitions</h3>
-<p>Calling <code>state.to(state)</code> creates a self-transition loop.
-By default, the loop departs from the top boundary, sweeps across the corner, and returns to the right boundary with its label clearly positioned outside the corner.</p>
+<h3>6.3 Self-Transitions (<code>loop()</code>)</h3>
+<p>Self-transitions can be declared explicitly via <code>state.loop()</code>:</p>
+<pre><code class="language-python"># Standard top loop
+running.loop(side=&quot;top&quot;, event=&quot;heartbeat&quot;, action=&quot;ack()&quot;)
+
+# Customize dimensions and side
+running.loop(side=&quot;right&quot;, width=12.0, height=8.0, label=&quot;tick&quot;)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>side</code></td>
+<td><code>str</code></td>
+<td><code>&quot;top&quot;</code></td>
+<td>Attachment side (<code>&quot;top&quot;</code>, <code>&quot;bottom&quot;</code>, <code>&quot;left&quot;</code>, <code>&quot;right&quot;</code>, <code>&quot;top_right&quot;</code>, etc.).</td>
+</tr>
+<tr>
+<td><code>width</code></td>
+<td><code>float | None</code></td>
+<td>auto</td>
+<td>Width of the loop ellipse. Defaults to height, proportional, or standard.</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td><code>float | None</code></td>
+<td>auto</td>
+<td>Height of the loop ellipse. Defaults to width, proportional, or standard.</td>
+</tr>
+<tr>
+<td><code>ratio</code></td>
+<td><code>float</code></td>
+<td><code>0.88</code></td>
+<td>Arc coverage ratio along the ellipse circumference (~88%).</td>
+</tr>
+<tr>
+<td><code>label</code> / <code>event</code> / <code>guard</code> / <code>action</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Transition label elements.</td>
+</tr>
+</tbody>
+</table>
+<p>Calling <code>state.to(state, ...)</code> is also supported and automatically delegates to <code>state.loop()</code>.</p>
 
             </main>
         </div>

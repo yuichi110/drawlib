@@ -24,7 +24,29 @@ ShapeType = Literal[
 ]
 
 # Side attachment on state borders
-Side = Literal["left", "right", "top", "bottom", "auto"]
+Side = Literal[
+    "left",
+    "right",
+    "top",
+    "bottom",
+    "auto",
+    "top_right",
+    "top_left",
+    "bottom_right",
+    "bottom_left",
+]
+
+# Self-loop placement side
+LoopSide = Literal[
+    "top",
+    "bottom",
+    "left",
+    "right",
+    "top_right",
+    "top_left",
+    "bottom_right",
+    "bottom_left",
+]
 
 # Line routing strategy
 RoutingType = Literal["curved", "orthogonal", "direct"]

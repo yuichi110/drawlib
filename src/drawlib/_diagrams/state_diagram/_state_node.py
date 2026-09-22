@@ -15,6 +15,7 @@ from typing import TYPE_CHECKING, Literal
 
 import drawlib._diagrams.state_diagram._transition as _transition_module
 from drawlib._diagrams.state_diagram._types import (
+    LoopSide,
     PaddingType,
     RoutingType,
     ShapeType,
@@ -103,6 +104,53 @@ class StateNodeBase:
             return (cx + half_w, cy)
         return (cx, cy)
 
+    def loop(
+        self,
+        side: LoopSide = "top",
+        label: str = "",
+        event: str = "",
+        guard: str = "",
+        action: str = "",
+        width: float | None = None,
+        height: float | None = None,
+        ratio: float = 0.88,
+        style: Style | None = None,
+    ) -> StateTransition:
+        """Create and register a self-transition loop on this state.
+
+        Args:
+            side: Attachment side for loop ('top', 'bottom', 'left', 'right',
+                  'top_right', 'top_left', 'bottom_right', 'bottom_left'). Default is 'top'.
+            label: Optional full transition label string. Overrides event/guard/action if specified.
+            event: Trigger event name (e.g. 'heartbeat', 'tick').
+            guard: Guard condition text (automatically formatted as '[guard]').
+            action: Effect / action text (automatically formatted as '/ action').
+            width: Optional width of loop ellipse. Defaults to height, proportional size, or standard.
+            height: Optional height of loop ellipse. Defaults to width, proportional size, or standard.
+            ratio: Arc coverage ratio along ellipse circumference (default 0.88).
+            style: Optional Style object overriding edge color, width, and dash style.
+
+        Returns:
+            StateTransition: Newly created self-loop transition edge.
+        """
+        trans = _transition_module.StateTransition(
+            start=self,
+            end=self,
+            label=label,
+            event=event,
+            guard=guard,
+            action=action,
+            style=style,
+            loop_side=side,
+            loop_width=width,
+            loop_height=height,
+            loop_ratio=ratio,
+            is_loop=True,
+        )
+        if self._diagram is not None:
+            self._diagram.add_transition(trans)
+        return trans
+
     def to(
         self,
         target: StateNodeBase,
@@ -135,6 +183,17 @@ class StateNodeBase:
         Returns:
             StateTransition: Newly created transition edge.
         """
+        if target is self:
+            chosen_side: LoopSide = start_side if start_side != "auto" else "top"
+            return self.loop(
+                side=chosen_side,
+                label=label,
+                event=event,
+                guard=guard,
+                action=action,
+                style=style,
+            )
+
         trans = _transition_module.StateTransition(
             start=self,
             end=target,

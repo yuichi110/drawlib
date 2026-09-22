@@ -208,6 +208,7 @@ class CanvasLineFeature(CanvasBase):
         linewidth: TypePosFloat | None = None,
         arrowhead: TypeArrowHead = "",
         style: Style | TypeStr | None = None,
+        ccw: bool = True,
     ) -> None:
         """Draw arc line on ellipse.
 
@@ -217,24 +218,32 @@ class CanvasLineFeature(CanvasBase):
             height: float: The height of the ellipse
             angle_start: float: The starting angle of the arc in degrees (default is 0).
             angle_end: float: The ending angle of the arc in degrees (default is 180).
-            angle (float): The angle of ellipse.
+            angle: float: The angle of ellipse.
             arrowhead: Literal["->", "<-", "<->", "-"] | str: Optional arrowhead style ("", "->", "<-", "<->").
             linewidth: float | None: Optional width of the line.
             style: Style | str | None: Optional line style.
+            ccw: bool: Counter-clockwise direction if True, clockwise if False (default is True).
 
         Returns:
             None
         """
         style = LineUtil.format_style(style)
 
-        if angle_start > angle_end:
-            angle_start = -1 * (360 - angle_start)
+        diff = angle_end - angle_start
+        if ccw:
+            while diff < 0:
+                diff += 360
+        else:
+            while diff > 0:
+                diff -= 360
+        effective_angle_end = angle_start + diff
+
         path_points = LineArcHelper.get_ellipse_path_points(
             xy,
             width,
             height,
             angle_start,
-            angle_end,
+            effective_angle_end,
         )
 
         if angle != 0:
@@ -418,67 +427,31 @@ class LineArcHelper:
     ) -> list[TypeCoordinate | tuple[TypeCoordinate, TypeCoordinate, TypeCoordinate]]:
         """Internal function"""
         diff = angle_end - angle_start
-        if abs(diff) > 270:
-            # having +2 for avoiding situation next_mid_angle == angle_end
-            step = int(diff / 3)
-        elif abs(diff) > 135:
-            step = int(diff / 2)
-        else:
+        if diff == 0:
+            return [cls.get_point_on_ellipse(xy, width, height, angle_start)]
+
+        sweep = abs(diff)
+        num_segments = max(1, math.ceil(sweep / 90.0))
+        step = diff / num_segments
+
+        path_points: list[TypeCoordinate | tuple[TypeCoordinate, TypeCoordinate, TypeCoordinate]] = []
+        start: TypeCoordinate | None = None
+        for i in range(num_segments):
+            a_start = angle_start + i * step
+            a_end = angle_start + (i + 1) * step
             p1, p2, p3, p4 = cls.bezier_ellipse_arc_approximation(
                 xy,
                 width,
                 height,
-                angle_start,
-                angle_end,
+                a_start,
+                a_end,
             )
-            return [p1, (p2, p3, p4)]
-        if diff >= 0:
-            diff += 2
-        else:
-            diff -= 2
+            if start is None:
+                start = p1
+            path_points.append((p2, p3, p4))
 
-        i = 0
-        start = None
-        path_points = []
-        while True:
-            last_mid_angle = angle_start + step * i
-            next_mid_angle = angle_start + step * (i + 1)
-
-            if angle_start < angle_end:
-                # anti clock wise
-                is_last = next_mid_angle > angle_end
-            else:
-                # clock wise
-                is_last = angle_end > next_mid_angle
-
-            if is_last:
-                p1, p2, p3, p4 = cls.bezier_ellipse_arc_approximation(
-                    xy,
-                    width,
-                    height,
-                    last_mid_angle,
-                    angle_end,
-                )
-                if start is None:
-                    start = p1
-                path_points.append((p2, p3, p4))
-                break
-
-            else:
-                p1, p2, p3, p4 = cls.bezier_ellipse_arc_approximation(
-                    xy,
-                    width,
-                    height,
-                    last_mid_angle,
-                    next_mid_angle,
-                )
-                if start is None:
-                    start = p1
-                path_points.append((p2, p3, p4))
-
-            i += 1
-
-        path_points.insert(0, start)
+        if start is not None:
+            path_points.insert(0, start)
         return path_points
 
     @classmethod

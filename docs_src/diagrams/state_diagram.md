@@ -222,13 +222,30 @@ s1.to(s2, event="resume", bend=0.3)
 # Backward transition curves downward
 s2.to(s1, event="pause", bend=0.3)
 
-# Self-transition loop curving around the top-right corner
-s2.to(s2, event="heartbeat", action="ack()")
+# Self-transition loop on top boundary
+s2.loop(side="top", event="heartbeat", action="ack()")
 
 sd.draw(xy=(0.0, 0.0))
 ```
 
-### 6.3 Self-Transitions
+### 6.3 Self-Transitions (`loop()`)
 
-Calling `state.to(state)` creates a self-transition loop.
-By default, the loop departs from the top boundary, sweeps across the corner, and returns to the right boundary with its label clearly positioned outside the corner.
+Self-transitions can be declared explicitly via `state.loop()`:
+
+```python
+# Standard top loop
+running.loop(side="top", event="heartbeat", action="ack()")
+
+# Customize dimensions and side
+running.loop(side="right", width=12.0, height=8.0, label="tick")
+```
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `side` | `str` | `"top"` | Attachment side (`"top"`, `"bottom"`, `"left"`, `"right"`, `"top_right"`, etc.). |
+| `width` | `float \| None` | auto | Width of the loop ellipse. Defaults to height, proportional, or standard. |
+| `height` | `float \| None` | auto | Height of the loop ellipse. Defaults to width, proportional, or standard. |
+| `ratio` | `float` | `0.88` | Arc coverage ratio along the ellipse circumference (~88%). |
+| `label` / `event` / `guard` / `action` | `str` | `""` | Transition label elements. |
+
+Calling `state.to(state, ...)` is also supported and automatically delegates to `state.loop()`.

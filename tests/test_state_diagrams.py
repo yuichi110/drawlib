@@ -193,6 +193,36 @@ class TestStateTransition:
         assert t_self.is_self_transition is True
         assert t_other.is_self_transition is False
 
+    def test_loop_transition(self) -> None:
+        """Verify self-loop transition properties."""
+        s = State("LoopState")
+        t = s.loop(side="right", label="tick", width=14.0, height=8.0, ratio=0.85)
+        assert t.is_self_transition is True
+        assert t.is_loop is True
+        assert t.loop_side == "right"
+        assert t.loop_width == 14.0
+        assert t.loop_height == 8.0
+        assert t.loop_ratio == 0.85
+        assert t.effective_label == "tick"
+
+    def test_loop_defaults(self) -> None:
+        """Verify default parameters for self-loop."""
+        s = State("DefaultLoop")
+        t = s.loop()
+        assert t.is_self_transition is True
+        assert t.loop_side == "top"
+        assert t.loop_width is None
+        assert t.loop_height is None
+        assert t.loop_ratio == 0.88
+
+    def test_to_self_delegates_to_loop(self) -> None:
+        """Verify state.to(state) creates a self-loop transition."""
+        s = State("SelfTo")
+        t = s.to(s, event="retry", start_side="bottom")
+        assert t.is_self_transition is True
+        assert t.loop_side == "bottom"
+        assert t.effective_label == "retry"
+
     def test_invalid_parameters(self) -> None:
         """Verify invalid side and routing values raise ValueError."""
         s1 = State("A")

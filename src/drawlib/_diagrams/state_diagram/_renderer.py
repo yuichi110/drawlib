@@ -16,6 +16,7 @@ from typing import TYPE_CHECKING, Literal
 
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Colors, Style
+from drawlib._core.l4_canvas._line import LineArcHelper
 from drawlib._diagrams.state_diagram._state_node import (
     ChoiceState,
     FinalState,
@@ -477,11 +478,17 @@ def _render_transition(
         _render_normal_transition(trans, canvas_xy_map)
 
 
-_CORNER_SIGNS: dict[str, tuple[float, float]] = {
-    "top_right": (1.0, 1.0),
-    "top_left": (-1.0, 1.0),
-    "bottom_right": (1.0, -1.0),
-    "bottom_left": (-1.0, -1.0),
+_LOOP_SIDE_CONFIG: dict[
+    str, tuple[float, float, float, Literal["left", "center", "right"], Literal["top", "center", "bottom"]]
+] = {
+    "top": (90.0, 0.0, 1.0, "center", "bottom"),
+    "bottom": (270.0, 0.0, -1.0, "center", "top"),
+    "right": (0.0, 1.0, 0.0, "left", "center"),
+    "left": (180.0, -1.0, 0.0, "right", "center"),
+    "top_right": (45.0, 1.0, 1.0, "left", "bottom"),
+    "top_left": (135.0, -1.0, 1.0, "right", "bottom"),
+    "bottom_right": (-45.0, 1.0, -1.0, "left", "top"),
+    "bottom_left": (-135.0, -1.0, -1.0, "right", "top"),
 }
 
 _CORNER_MAP: dict[tuple[Side, Side], str] = {
@@ -500,158 +507,109 @@ def _resolve_self_loop_orientation(start_side: Side, end_side: Side) -> str:
     """Resolve self-transition loop orientation (corner name or side name)."""
     if (start_side, end_side) in _CORNER_MAP:
         return _CORNER_MAP[(start_side, end_side)]
-    if start_side in {"top", "bottom", "left", "right"}:
+    if start_side in {"top", "bottom", "left", "right", "top_right", "top_left", "bottom_right", "bottom_left"}:
         return start_side
-    if end_side in {"top", "bottom", "left", "right"}:
+    if end_side in {"top", "bottom", "left", "right", "top_right", "top_left", "bottom_right", "bottom_left"}:
         return end_side
     return "top_right"
 
 
-def _draw_corner_loop(
+def _compute_loop_geometry(
     node: StateNodeBase,
     center: tuple[float, float],
-    corner: str,
-    loop_size: float,
-    routing: str,
-    edge_style: Style,
-) -> tuple[tuple[float, float], Literal["left", "center", "right"], Literal["top", "center", "bottom"]]:
-    """Draw corner self-transition loop and return label position and alignment."""
+    side: str,
+    w_l: float,
+    h_l: float,
+    ratio: float,
+) -> tuple[
+    tuple[float, float],
+    float,
+    tuple[float, float],
+    Literal["left", "center", "right"],
+    Literal["top", "center", "bottom"],
+]:
+    """Calculate loop center coordinate, center angle, and label position/alignment."""
     cx, cy = center
     hw = node.effective_width / 2.0
     hh = node.effective_height / 2.0
-    sx, sy = _CORNER_SIGNS.get(corner, (1.0, 1.0))
 
-    p0 = _get_node_border_point(node, center, (cx + sx * hw * 0.35, cy + sy * (hh + 10.0)), side="auto")
-    p3 = _get_node_border_point(node, center, (cx + sx * (hw + 10.0), cy + sy * hh * 0.35), side="auto")
-    vert_peak = (cx + sx * hw * 0.75, cy + sy * (hh + loop_size))
-    horiz_peak = (cx + sx * (hw + loop_size), cy + sy * hh * 0.75)
+    gap_deg = (1.0 - ratio) * 360.0
+    half_gap_rad = math.radians(gap_deg / 2.0)
+    cos_gap = math.cos(half_gap_rad)
 
-    if routing == "orthogonal":
-        pts = [
-            p0,
-            (p0[0], cy + sy * (hh + loop_size)),
-            (cx + sx * (hw + loop_size), cy + sy * (hh + loop_size)),
-            (cx + sx * (hw + loop_size), p3[1]),
-            p3,
-        ]
-        canvas_lines_curved(pts, r=2.5, arrowhead="->", style=edge_style)
+    cfg = _LOOP_SIDE_CONFIG.get(side, _LOOP_SIDE_CONFIG["top"])
+    center_angle, dx_sign, dy_sign, halign, valign = cfg
+
+    is_corner = side in {"top_right", "top_left", "bottom_right", "bottom_left"}
+    if is_corner:
+        is_curved = getattr(node, "shape", "box") in {"circle", "double_circle", "oval"}
+        scale = 0.70710678 if is_curved else 1.0
+        dist_x = (w_l / 2.0) * cos_gap * 0.70710678
+        dist_y = (h_l / 2.0) * cos_gap * 0.70710678
+        loop_cx = cx + dx_sign * (hw * scale + dist_x)
+        loop_cy = cy + dy_sign * (hh * scale + dist_y)
+        label_x = loop_cx + dx_sign * (w_l / 2.0 + 2.0) * 0.70710678
+        label_y = loop_cy + dy_sign * (h_l / 2.0 + 2.0) * 0.70710678
     else:
-        canvas_lines_bezier(
-            p0,
-            path_points=[
-                ((p0[0], p0[1] + sy * loop_size * 0.6), (vert_peak[0] - sx * loop_size * 0.4, vert_peak[1]), vert_peak),
-                (
-                    (vert_peak[0] + sx * loop_size * 0.45, vert_peak[1]),
-                    (horiz_peak[0], horiz_peak[1] + sy * loop_size * 0.45),
-                    horiz_peak,
-                ),
-                ((horiz_peak[0], horiz_peak[1] - sy * loop_size * 0.4), (p3[0] + sx * loop_size * 0.6, p3[1]), p3),
-            ],
-            arrowhead="->",
-            style=edge_style,
-        )
+        loop_cx = cx + dx_sign * (hw + (w_l / 2.0) * cos_gap)
+        loop_cy = cy + dy_sign * (hh + (h_l / 2.0) * cos_gap)
+        label_x = loop_cx + dx_sign * (w_l / 2.0 + 2.0)
+        label_y = loop_cy + dy_sign * (h_l / 2.0 + 2.0)
 
-    label_pos = (horiz_peak[0] + sx * 1.8, horiz_peak[1] + sy * 0.5)
-    text_halign: Literal["left", "center", "right"] = "left" if sx > 0 else "right"
-    text_valign: Literal["top", "center", "bottom"] = "center"
-    return label_pos, text_halign, text_valign
-
-
-def _draw_side_loop(
-    center: tuple[float, float],
-    hw: float,
-    hh: float,
-    side: str,
-    loop_size: float,
-    routing: str,
-    edge_style: Style,
-) -> tuple[tuple[float, float], Literal["left", "center", "right"], Literal["top", "center", "bottom"]]:
-    """Draw side self-transition loop and return label position and alignment."""
-    cx, cy = center
-    if side in {"top", "bottom"}:
-        sy = 1.0 if side == "top" else -1.0
-        sep = min(hw * 0.5, 4.0)
-        p0 = (cx - sep, cy + sy * hh)
-        p3 = (cx + sep, cy + sy * hh)
-        if routing == "orthogonal":
-            pts = [p0, (p0[0], cy + sy * (hh + loop_size)), (p3[0], cy + sy * (hh + loop_size)), p3]
-            canvas_lines_curved(pts, r=2.0, arrowhead="->", style=edge_style)
-        else:
-            canvas_lines_bezier(
-                p0,
-                path_points=[((p0[0], p0[1] + sy * loop_size * 0.9), (p3[0], p3[1] + sy * loop_size * 0.9), p3)],
-                arrowhead="->",
-                style=edge_style,
-            )
-        label_pos = (cx, cy + sy * (hh + loop_size + 1.5))
-        text_halign: Literal["left", "center", "right"] = "center"
-        text_valign: Literal["top", "center", "bottom"] = "bottom" if sy > 0 else "top"
-        return label_pos, text_halign, text_valign
-
-    sx = 1.0 if side == "right" else -1.0
-    sep = min(hh * 0.5, 3.0)
-    p0 = (cx + sx * hw, cy + sep)
-    p3 = (cx + sx * hw, cy - sep)
-    if routing == "orthogonal":
-        pts = [p0, (cx + sx * (hw + loop_size), p0[1]), (cx + sx * (hw + loop_size), p3[1]), p3]
-        canvas_lines_curved(pts, r=2.0, arrowhead="->", style=edge_style)
-    else:
-        canvas_lines_bezier(
-            p0,
-            path_points=[((p0[0] + sx * loop_size * 0.9, p0[1]), (p3[0] + sx * loop_size * 0.9, p3[1]), p3)],
-            arrowhead="->",
-            style=edge_style,
-        )
-    label_pos = (cx + sx * (hw + loop_size + 1.8), cy)
-    text_halign = "left" if sx > 0 else "right"
-    text_valign = "center"
-    return label_pos, text_halign, text_valign
+    return (loop_cx, loop_cy), center_angle, (label_x, label_y), halign, valign
 
 
 def _render_self_transition(
     trans: StateTransition,
     canvas_xy_map: dict[StateNodeBase, tuple[float, float]],
 ) -> None:
-    """Render a self-transition loop curving around a corner or along a side.
+    """Render a self-transition loop curving along a side or corner using an ellipse arc.
 
     Args:
-        trans: StateTransition instance where start is end.
+        trans: StateTransition instance where start is end or is_loop is True.
         canvas_xy_map: Mapping of state nodes to canvas coordinates.
     """
     node = trans.start
     center = canvas_xy_map[node]
-    cx, cy = center
     hw = node.effective_width / 2.0
     hh = node.effective_height / 2.0
 
-    base_size = max(5.0, min(hw, hh) * 0.75)
-    scale = max(0.4, 1.0 + trans.bend) if trans.bend != 0.0 else 1.0
-    loop_size = base_size * scale
+    if trans.loop_width is not None and trans.loop_height is not None:
+        w_l = trans.loop_width
+        h_l = trans.loop_height
+    elif trans.loop_width is not None:
+        w_l = trans.loop_width
+        h_l = trans.loop_width
+    elif trans.loop_height is not None:
+        w_l = trans.loop_height
+        h_l = trans.loop_height
+    else:
+        base = max(8.0, min(hw, hh) * 0.9)
+        w_l = base
+        h_l = base
+
+    ratio = trans.loop_ratio if 0.5 <= trans.loop_ratio <= 0.98 else 0.88
+    side = trans.loop_side if trans.is_loop else _resolve_self_loop_orientation(trans.start_side, trans.end_side)
+
+    loop_xy, center_angle, label_pos, text_halign, text_valign = _compute_loop_geometry(
+        node=node,
+        center=center,
+        side=side,
+        w_l=w_l,
+        h_l=h_l,
+        ratio=ratio,
+    )
 
     base_style = Style(line_color=_DEFAULT_EDGE_COLOR, line_width=1.5)
     edge_style = base_style.merge(trans.style) if trans.style is not None else base_style
 
-    orientation = _resolve_self_loop_orientation(trans.start_side, trans.end_side)
+    gap_deg = (1.0 - ratio) * 360.0
+    base_angle = center_angle - 180.0
+    a_start = base_angle + gap_deg / 2.0
+    a_end = base_angle + 360.0 - gap_deg / 2.0
 
-    if orientation in _CORNER_SIGNS:
-        label_pos, text_halign, text_valign = _draw_corner_loop(
-            node=node,
-            center=center,
-            corner=orientation,
-            loop_size=loop_size,
-            routing=trans.routing,
-            edge_style=edge_style,
-        )
-    else:
-        label_pos, text_halign, text_valign = _draw_side_loop(
-            center=center,
-            hw=hw,
-            hh=hh,
-            side=orientation,
-            loop_size=loop_size,
-            routing=trans.routing,
-            edge_style=edge_style,
-        )
+    pts = LineArcHelper.get_ellipse_path_points(loop_xy, w_l, h_l, a_start, a_end)
+    canvas_lines_bezier(pts[0], path_points=pts[1:], arrowhead="->", style=edge_style)  # type: ignore
 
     label = trans.effective_label
     if label:
