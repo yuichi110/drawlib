@@ -23,6 +23,8 @@ from drawlib._charts import (
     LineChart,
     LineSeries,
     Orientation,
+    PieChart,
+    PieSlice,
     PointShape,
     ScaleType,
 )
@@ -41,6 +43,8 @@ __all__ = [
     "LineChart",
     "LineSeries",
     "Orientation",
+    "PieChart",
+    "PieSlice",
     "PointShape",
     "ScaleType",
 ]

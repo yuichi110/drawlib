@@ -12,6 +12,7 @@ Built completely on pure-Python drawing primitives, charts integrate seamlessly 
 | **Bar Chart** | [`BarChart`](./bar.md) | Vertical and horizontal column/bar charts with grouped and stacked modes, customizable grid/ticks, and logarithmic scales. |
 | **Line Chart** | [`LineChart`](./line.md) | Continuous metric and trend lines with support for smooth splines, custom markers, and logarithmic axes. |
 | **Area Chart** | [`AreaChart`](./area.md) | Volume and capacity trend visualization supporting semi-transparent overlapping layers and cumulative stacked areas. |
+| **Pie Chart** | [`PieChart`](./pie.md) | Proportional data visualization supporting solid pie charts, donut rings with center KPI badges, and exploded slices. |
 
 ---
 

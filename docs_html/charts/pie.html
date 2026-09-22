@@ -1,0 +1,468 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pie & Donut Chart Guide</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">drawlib</a>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Charts Overview</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="area.html">Area Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="bar.html">Bar Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line.html">Line Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="pie.html">Pie & Donut Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/architecture.html">Architecture Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/er.html">ER Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/flow.html">Flow Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/sequence.html">Sequence Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Notes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with PresetStyles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/mindmap.html">MindMap</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Pie & Donut Chart Guide</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Pie &amp; Donut Chart Guide</h1>
+<p><code>drawlib.charts.PieChart</code> provides modern 2D pie and donut charts for proportional data visualization. Slices, labels, and legends are automatically formatted and laid out with fine-grained control over center badges, exploded sectors, and typography.</p>
+<hr />
+<h2>1. Quick Start: Standard Pie Chart</h2>
+<p>Create a clean pie chart showing proportional breakdown with automatic percentage labels and legends:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.charts import PieChart
+
+canvas.initialize()
+
+chart = PieChart(
+    radius=28.0,
+    title=&quot;Browser Market Share (2026)&quot;,
+    legend_position=&quot;right&quot;,
+)
+chart.add_slice(&quot;Chrome&quot;, 65.2)
+chart.add_slice(&quot;Safari&quot;, 18.8)
+chart.add_slice(&quot;Edge&quot;, 9.4)
+chart.add_slice(&quot;Firefox&quot;, 4.3)
+chart.add_slice(&quot;Other&quot;, 2.3)
+chart.draw(xy=(10.0, 15.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="pie_images/1.png" alt="pie_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Browser Market Share</figcaption>
+</figure>
+<hr />
+<h2>2. Donut Chart with Center Badge</h2>
+<p>Set <code>hole_ratio</code> (e.g. <code>0.6</code>) to turn any pie chart into a donut chart, and display summary metrics or KPIs in the center with <code>center_text</code>:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.charts import PieChart
+
+canvas.initialize()
+
+chart = PieChart(
+    radius=28.0,
+    hole_ratio=0.6,
+    center_text=&quot;$250M\nTotal&quot;,
+    title=&quot;Revenue by Division&quot;,
+    legend_position=&quot;right&quot;,
+)
+chart.add_slice(&quot;Cloud&quot;, 125.0)
+chart.add_slice(&quot;Hardware&quot;, 75.0)
+chart.add_slice(&quot;Services&quot;, 50.0)
+chart.draw(xy=(10.0, 15.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="pie_images/2.png" alt="pie_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Revenue Breakdown Donut</figcaption>
+</figure>
+<hr />
+<h2>3. Exploded Slices &amp; Custom Placement</h2>
+<p>Highlight important segments by setting <code>explode</code> on individual slices, and reposition the legend to the bottom:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.charts import PieChart
+
+canvas.initialize()
+
+chart = PieChart(
+    radius=28.0,
+    title=&quot;Project Budget Allocation&quot;,
+    legend_position=&quot;bottom&quot;,
+)
+chart.add_slice(&quot;R&amp;D&quot;, 45.0, explode=3.0)
+chart.add_slice(&quot;Marketing&quot;, 25.0)
+chart.add_slice(&quot;Operations&quot;, 20.0)
+chart.add_slice(&quot;Contingency&quot;, 10.0)
+chart.draw(xy=(20.0, 10.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="pie_images/3.png" alt="pie_3" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Budget Allocation with Exploded Slice</figcaption>
+</figure>
+<hr />
+<h2>4. API Reference</h2>
+<h3><code>PieChart</code></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>radius</code></td>
+<td><code>float</code></td>
+<td><code>20.0</code></td>
+<td>Outer radius of the pie circle.</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Chart title displayed at the top.</td>
+</tr>
+<tr>
+<td><code>title_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Optional typography Style for title text.</td>
+</tr>
+<tr>
+<td><code>hole_ratio</code></td>
+<td><code>float</code></td>
+<td><code>0.0</code></td>
+<td>Inner hole ratio (0.0 for solid pie, 0.1–0.9 for donut ring).</td>
+</tr>
+<tr>
+<td><code>center_text</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Summary text or KPI metric rendered inside the donut hole.</td>
+</tr>
+<tr>
+<td><code>center_text_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Optional typography Style for center text.</td>
+</tr>
+<tr>
+<td><code>start_angle</code></td>
+<td><code>float</code></td>
+<td><code>90.0</code></td>
+<td>Starting orientation in degrees (90.0 is 12 o'clock).</td>
+</tr>
+<tr>
+<td><code>clockwise</code></td>
+<td><code>bool</code></td>
+<td><code>True</code></td>
+<td>Whether slices progress in clockwise direction.</td>
+</tr>
+<tr>
+<td><code>show_values</code></td>
+<td><code>bool</code></td>
+<td><code>True</code></td>
+<td>Whether to print percentage labels on slices (&gt;= 4% share).</td>
+</tr>
+<tr>
+<td><code>value_format</code></td>
+<td><code>str | Callable</code></td>
+<td><code>&quot;{:.1f}%&quot;</code></td>
+<td>Format string or callable formatting slice labels.</td>
+</tr>
+<tr>
+<td><code>value_label_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Optional Style for slice value labels.</td>
+</tr>
+<tr>
+<td><code>legend_position</code></td>
+<td><code>&quot;auto&quot;</code> | <code>&quot;top&quot;</code> | <code>&quot;bottom&quot;</code> | <code>&quot;right&quot;</code> | <code>&quot;none&quot;</code></td>
+<td><code>&quot;right&quot;</code></td>
+<td>Position of the legend box.</td>
+</tr>
+<tr>
+<td><code>width</code></td>
+<td><code>float | None</code></td>
+<td><code>None</code></td>
+<td>Optional total container width override.</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td><code>float | None</code></td>
+<td><code>None</code></td>
+<td>Optional total container height override.</td>
+</tr>
+</tbody>
+</table>
+<h3>Methods</h3>
+<ul>
+<li><code>add_slice(name: str, value: float, color=None, style=None, explode=0.0) -&gt; PieSlice</code>: Add a slice segment to the chart.</li>
+<li><code>get_size() -&gt; tuple[float, float]</code>: Return the total calculated (width, height) bounding dimensions.</li>
+<li><code>draw(xy: tuple[float, float] = (0.0, 0.0)) -&gt; None</code>: Render the chart onto the canvas.</li>
+</ul>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>
