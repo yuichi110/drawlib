@@ -10,10 +10,23 @@
 """Internal charts package."""
 
 from drawlib._charts._common._axis import Axis
-from drawlib._charts._common._types import BarMode, ColorType, FormatterType, LegendPosition, Orientation, ScaleType
+from drawlib._charts._common._types import (
+    AreaMode,
+    BarMode,
+    ColorType,
+    FormatterType,
+    LegendPosition,
+    Orientation,
+    PointShape,
+    ScaleType,
+)
 from drawlib._charts.bar_chart import BarChart, BarSeries
+from drawlib._charts.line_chart import AreaChart, AreaSeries, LineChart, LineSeries
 
 __all__ = [
+    "AreaChart",
+    "AreaMode",
+    "AreaSeries",
     "Axis",
     "BarChart",
     "BarMode",
@@ -21,6 +34,9 @@ __all__ = [
     "ColorType",
     "FormatterType",
     "LegendPosition",
+    "LineChart",
+    "LineSeries",
     "Orientation",
+    "PointShape",
     "ScaleType",
 ]

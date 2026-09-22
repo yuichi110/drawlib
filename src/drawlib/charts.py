@@ -10,6 +10,9 @@
 """Public charts module for drawlib."""
 
 from drawlib._charts import (
+    AreaChart,
+    AreaMode,
+    AreaSeries,
     Axis,
     BarChart,
     BarMode,
@@ -17,11 +20,17 @@ from drawlib._charts import (
     ColorType,
     FormatterType,
     LegendPosition,
+    LineChart,
+    LineSeries,
     Orientation,
+    PointShape,
     ScaleType,
 )
 
 __all__ = [
+    "AreaChart",
+    "AreaMode",
+    "AreaSeries",
     "Axis",
     "BarChart",
     "BarMode",
@@ -29,6 +38,9 @@ __all__ = [
     "ColorType",
     "FormatterType",
     "LegendPosition",
+    "LineChart",
+    "LineSeries",
     "Orientation",
+    "PointShape",
     "ScaleType",
 ]

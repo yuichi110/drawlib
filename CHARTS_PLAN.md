@@ -1,212 +1,232 @@
-# Architecture & Implementation Plan: Charts Module (`drawlib.charts`)
+# Architecture & Implementation Plan: Charts Expansion Module (`drawlib.charts`)
 
 ## 1. Overview & Goals
-- **Purpose**: Provide a declarative, pure-Python data visualization and charting module within `drawlib` designed specifically for documents, slide presentations, and technical reports.
+- **Purpose**: Provide a comprehensive, vector-grade, pure-Python data visualization library within `drawlib` designed for technical documents, slides, and system architecture presentations.
 - **Key Design Principles**:
-  - **Component-Oriented (Illustration as Code)**: Charts are independent components placed at an arbitrary canvas coordinate `xy` with `(width, height)`, coexisting seamlessly with diagrams, shapes, and smartarts.
-  - **Object-Oriented Builder Flow**: Follows Drawlib's standard pattern: instantiate a container (`BarChart(...)`), add series elements (`add_series(...)`), and render via `draw(xy)`.
-  - **First-Class Customizable Axis & Scales**:
-    - Linear and **Logarithmic (Log Scale)** modes.
-    - Explicit tick values, tick steps, and minimum/maximum overrides.
-    - Rich formatting via format strings (e.g. `"{:g} ms"`, `"${:,.0f}"`) or custom functions.
-    - Full styling control over gridlines, axis lines, and tick typography.
-  - **Automatic Legends & Layout**: Legend boxes, axis ticks, gridlines, and scales are calculated and rendered automatically without manual layout arithmetic.
-  - **Decoupled Architecture**: Built 100% on Drawlib `_core` drawing primitives (`rectangle`, `line`, `lines`, `text`) without heavy third-party visualization dependencies.
-  - **Modern, Publication-Ready Defaults**: Clean typography, pleasant modern palettes (Slate, Indigo, Emerald, Amber, Rose), and subtle gridlines right out of the box.
+  - **Component-Oriented (Illustration as Code)**: Charts are self-contained components anchored at `xy` on the canvas with explicit width and height, coexisting naturally with diagrams, smartarts, and shapes.
+  - **Object-Oriented Builder Flow**: Consistent usage pattern across all charts: instantiate container (`SomethingChart(...)`), register series or slices (`add_series(...)` / `add_slice(...)`), configure axes, and render via `draw(xy)`.
+  - **Reusability & DRY Foundation**: Maximum reuse of `_charts/_common/` modules (`Axis` with Nice Numbers/Log Scale, `render_legend`, `DEFAULT_CHART_PALETTE`).
+  - **Zero External Data-Viz Dependencies**: Built 100% on Drawlib's core drawing primitives (`line`, `lines`, `rectangle`, `circle`, `wedge`, `polygon`, `text`).
 
 ---
 
-## 2. Package Architecture
-
-Following Drawlib's single-package architecture (matching `smartarts.py`):
+## 2. Target Chart Family & Architecture
 
 ```text
 src/drawlib/
 ├── _charts/
-│   ├── __init__.py                 # Internal charts export
-│   ├── _common/                    # Shared charting components
-│   │   ├── __init__.py
-│   │   ├── _types.py               # Orientation, BarMode, LegendPosition, ScaleType, etc.
-│   │   ├── _axis.py                # Axis model, Nice-numbers algorithm, Log scale, tick generation
-│   │   └── _legend.py              # Automatic legend layout and card rendering
+│   ├── _common/                       # Shared Foundation
+│   │   ├── _types.py                  # Shared types & chart enums
+│   │   ├── _axis.py                   # Axis model, Nice Numbers, Log Scale
+│   │   └── _legend.py                 # Automatic legend layout & rendering
 │   │
-│   └── bar_chart/                  # Phase 1: Bar Chart implementation
-│       ├── __init__.py
-│       ├── _series.py              # BarSeries model (name, values, color, style)
-│       ├── _chart.py               # BarChart container class with x_axis & y_axis
-│       └── _renderer.py            # BarChart coordinate mapping and rendering
+│   ├── bar_chart/                     # [Complete] BarChart
+│   │   ├── _chart.py, _series.py, _renderer.py
+│   │
+│   ├── line_chart/                    # [Phase 1] LineChart & AreaChart
+│   │   ├── _base.py                   # Shared Cartesian line/area base container
+│   │   ├── _line.py                   # LineChart
+│   │   ├── _area.py                   # AreaChart (overlap & stacked area)
+│   │   ├── _series.py                 # LineSeries, AreaSeries
+│   │   └── _renderer.py               # Polyline, smooth curve, area polygon renderer
+│   │
+│   ├── pie_chart/                     # [Phase 2] PieChart & DonutChart
+│   │   ├── _slice.py                  # PieSlice model (name, value, color, explode)
+│   │   ├── _chart.py                  # PieChart container (radius, hole_ratio, center_text)
+│   │   └── _renderer.py               # Wedge sector drawing, text positioning, legend
+│   │
+│   └── radar_chart/                   # [Phase 3] RadarChart
+│       ├── _series.py                 # RadarSeries model
+│       ├── _chart.py                  # RadarChart container (categories, radius, concentric ticks)
+│       └── _renderer.py               # Regular polygon grid, radial lines, closed polygon fill
 │
-├── charts.py                       # Public facade (re-exports BarChart, Axis, etc.)
-└── __init__.py                     # Registers `charts` as a top-level module
+├── charts.py                          # Public facade (BarChart, LineChart, AreaChart, PieChart, RadarChart)
+└── __init__.py                        # Module registry
 ```
 
 ---
 
-## 3. Public API Specification (Phase 1: BarChart)
+## 3. Detailed Specifications
 
-### 3.1. Simple Single-Series Bar Chart
+### 3.1. LineChart (折れ線グラフ)
 
+#### Concept
+- Visualizes continuous trends, timeseries, and multi-series benchmark comparisons.
+- Full reuse of `Axis` (X category axis, Y linear/log value axis) and `Legend`.
+
+#### Usage Example
 ```python
 from drawlib import canvas
-from drawlib.charts import BarChart
-from drawlib.colors import Colors140
+from drawlib.charts import LineChart
 
 canvas.initialize()
 
-chart = BarChart(
-    title="Quarterly Active Users (M)",
-    categories=["Q1", "Q2", "Q3", "Q4"],
-    width=50.0,
-    height=35.0,
-)
-chart.add_series("Users", [12.5, 18.2, 24.0, 31.5], color=Colors140.SteelBlue)
-
-chart.draw(xy=(25.0, 32.5))
-```
-
-### 3.2. Grouped Bar Chart with Automatic Legend
-
-```python
-from drawlib import canvas
-from drawlib.charts import BarChart
-from drawlib.colors import Colors140
-
-canvas.initialize()
-
-chart = BarChart(
-    title="Quarterly Sales by Region ($M)",
-    categories=["Q1", "Q2", "Q3", "Q4"],
-    bar_mode="group",  # "group" or "stack"
-    width=60.0,
-    height=40.0,
+chart = LineChart(
+    categories=["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    width=80,
+    height=55,
+    title="Monthly Active Users (Thousands)",
+    show_points=True,  # Plot markers at data points
+    point_shape="circle",  # "circle", "square", "none"
+    point_size=1.2,
+    smooth=False,  # Straight line vs smooth spline
+    show_values=False,
+    legend_position="auto",
 )
 
-# Legends are automatically generated from added series!
-chart.add_series("North America", [45, 60, 75, 90], color=Colors140.RoyalBlue)
-chart.add_series("Europe", [30, 42, 55, 68], color=Colors140.MediumSeaGreen)
-chart.add_series("Asia", [20, 35, 52, 74], color=Colors140.DarkOrange)
+chart.add_series("2023", [120, 145, 190, 240, 310, 390])
+chart.add_series("2024", [150, 195, 270, 360, 480, 620])
 
-chart.draw(xy=(20.0, 30.0))
-```
-
-### 3.3. Customizable Ticks & Log Scale (Benchmark Example)
-
-```python
-from drawlib import canvas
-from drawlib.charts import BarChart
-from drawlib.colors import Colors140
-from drawlib.types import Style
-
-canvas.initialize()
-
-chart = BarChart(
-    title="Query Latency Benchmark",
-    categories=["P50", "P95", "P99", "P99.9"],
-    width=55.0,
-    height=40.0,
-)
-
-# 1. Configure Value Axis (Log Scale & Custom Ticks)
-chart.y_axis.scale = "log"
-chart.y_axis.min_value = 1.0
-chart.y_axis.max_value = 10000.0
-chart.y_axis.ticks = [1, 10, 100, 1000, 10000]
-chart.y_axis.format = "{:g} ms"
-
-# 2. Appearance Customization
-chart.y_axis.grid_style = Style(line_color=Colors140.LightSlateGray, line_style="dashed", line_width=0.8)
-chart.y_axis.tick_label_style = Style(text_size=10, text_color=Colors140.DarkSlateGray)
-
-# 3. Add Series
-chart.add_series("PostgreSQL", [2.1, 15.4, 180.0, 3200.0], color=Colors140.CornflowerBlue)
-chart.add_series("In-Memory Cache", [0.2, 0.5, 1.2, 8.5], color=Colors140.MediumSeaGreen)
-
-chart.draw(xy=(20.0, 30.0))
-```
-
-### 3.4. Stacked Horizontal Bar Chart
-
-```python
-from drawlib import canvas
-from drawlib.charts import BarChart
-from drawlib.colors import Colors140
-
-canvas.initialize()
-
-chart = BarChart(
-    title="Project Resource Allocation (Hours)",
-    categories=["Sprint 1", "Sprint 2", "Sprint 3"],
-    orientation="horizontal",  # horizontal bars
-    bar_mode="stack",          # stacked segments
-    width=65.0,
-    height=35.0,
-)
-
-chart.add_series("Development", [120, 140, 110], color=Colors140.CornflowerBlue)
-chart.add_series("Testing", [40, 50, 60], color=Colors140.LightCoral)
-chart.add_series("Design", [30, 20, 15], color=Colors140.MediumPurple)
-
-chart.draw(xy=(17.5, 32.5))
+chart.configure_y_axis(unit="k", show_grid=True)
+chart.draw(xy=(10.0, 20.0))
 ```
 
 ---
 
-## 4. Detailed Component Design
+### 3.2. AreaChart (面グラフ)
 
-### 4.1. Axis Model & Scaling Engine (`_common/_axis.py`)
-- **`Axis` Class**:
-  - `scale: Literal["linear", "log"] = "linear"`
-  - `min_value: float | None = None`
-  - `max_value: float | None = None`
-  - `ticks: list[float] | None = None` (explicit tick positions)
-  - `tick_step: float | None = None` (explicit tick intervals)
-  - `format: str | Callable[[float], str] | None = None` (formatter function or string)
-  - `unit: str = ""` (axis unit / label)
-  - `show_grid: bool = True`
-  - `grid_style: Style | None = None`
-  - `show_axis_line: bool = True`
-  - `line_style: Style | None = None`
-  - `show_ticks: bool = True`
-  - `tick_label_style: Style | None = None`
-  - `tick_label_angle: float = 0.0`
-- **Scaling Algorithms**:
-  - `Linear`: Nice Numbers algorithm ($1, 2, 2.5, 5, 10 \times 10^n$).
-  - `Logarithmic`: Power of 10 intervals ($10^0, 10^1, 10^2, 10^3, \dots$) with positive clamping.
+#### Concept
+- Standalone top-level class sharing the underlying engine with `LineChart`.
+- Specialized for volume trends, capacity saturation, and resource allocation over time.
+- Supports both **overlapping semi-transparent areas** (`mode="overlap"`) and **cumulative stacked areas** (`mode="stack"`).
 
-### 4.2. Legend Auto-Layout Engine (`_common/_legend.py`)
-- Automatically generates horizontal or vertical legend boxes for $\ge 2$ series.
-- Color swatch chip + series name typography.
+#### Usage Example
+```python
+from drawlib import canvas
+from drawlib.charts import AreaChart
 
-### 4.3. BarChart Container & Series (`bar_chart/_chart.py`, `_series.py`)
-- **`BarSeries`**: Dataclass (`name`, `values`, `color`, `style`).
-- **`BarChart`**:
-  - `x_axis: Axis` (Category Axis for vertical, Value Axis for horizontal)
-  - `y_axis: Axis` (Value Axis for vertical, Category Axis for horizontal)
-  - Helper methods: `configure_y_axis(...)`, `configure_x_axis(...)`.
-  - `bar_width_ratio: float = 0.7`
-  - `r: float = 0.0` (bar corner radius)
-  - `show_values: bool = False` (values displayed above/inside bars)
+canvas.initialize()
 
-### 4.4. Rendering Pipeline (`bar_chart/_renderer.py`)
-1. **Layer 0**: Background card and chart title.
-2. **Layer 1**: Automatic Legend box.
-3. **Layer 2**: Value axis gridlines and main axis line.
-4. **Layer 3**: Bar geometries (grouped or stacked, linear or log scaled) + optional value labels.
-5. **Layer 4**: Category labels and formatted value tick labels.
+chart = AreaChart(
+    categories=["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+    width=80,
+    height=55,
+    title="Inbound vs Outbound Network Traffic",
+    mode="overlap",  # "overlap" or "stack"
+    fill_alpha=0.35,  # Default transparency for filled polygons
+    show_points=False,
+)
+
+chart.add_series("Inbound", [120, 160, 480, 850, 780, 340])
+chart.add_series("Outbound", [80, 110, 320, 520, 490, 210])
+
+chart.configure_y_axis(unit="MB/s", show_grid=True)
+chart.draw(xy=(10.0, 20.0))
+```
 
 ---
 
-## 5. Implementation Roadmap
+### 3.3. PieChart (円・ドーナツグラフ)
 
-- [ ] **Phase 1: Common Infrastructure (`_charts/_common/`)**
-  - Implement `_types.py`, `_axis.py` (with linear & log scale), `_legend.py`.
-- [ ] **Phase 2: Bar Chart Core & Facade**
-  - Implement `_series.py`, `_chart.py`, `_renderer.py`.
-  - Expose `BarChart` and `Axis` in `drawlib.charts` and `src/drawlib/__init__.py`.
-- [ ] **Phase 3: Unit & Integration Tests**
-  - Implement `tests/test_bar_chart.py` (ticks, log scale, linear, grouped, stacked, horizontal).
-  - Verify with `./dcli check all` and `pytest`.
-- [ ] **Phase 4: Documentation & Guide**
-  - Create `docs_src/charts/bar.md`.
-  - Update `docs_src/index.md` navigation and release notes.
-  - Compile docs via `./dcli docs build`.
+#### Concept
+- Visualizes proportional shares and composition breakdown.
+- Automatically transitions into a **Donut Chart** when `hole_ratio > 0.0`.
+- Supports slice explosion, percentage formatting, and center KPI callouts.
+
+#### Usage Example
+```python
+from drawlib import canvas
+from drawlib.charts import PieChart
+
+canvas.initialize()
+
+chart = PieChart(
+    radius=22.0,
+    title="Cloud Infrastructure Cost Breakdown",
+    hole_ratio=0.55,  # Donut hole (0.0 = solid pie)
+    center_text="Total\n$14,200",  # Centered badge for donut chart
+    show_values=True,  # Display percentages
+    value_format="{:.1f}%",
+    start_angle=90.0,  # 12 o'clock starting position
+    legend_position="right",
+)
+
+chart.add_slice("Compute (EC2/EKS)", 52.0)
+chart.add_slice("Storage (S3/EBS)", 24.0)
+chart.add_slice("Database (RDS)", 16.0)
+chart.add_slice("Networking", 8.0, explode=2.0)  # Emphasized slice
+
+chart.draw(xy=(25.0, 25.0))
+```
+
+---
+
+### 3.4. RadarChart (レーダーチャート)
+
+#### Concept
+- Visualizes multivariate comparisons across 3 or more metric axes.
+- Essential for architecture trade-off evaluation, tech stack comparisons, and non-functional requirements.
+- Concentric polygon or circular gridlines with radial axis spokes.
+
+#### Usage Example
+```python
+from drawlib import canvas
+from drawlib.charts import RadarChart
+
+canvas.initialize()
+
+chart = RadarChart(
+    categories=["Throughput", "Latency", "Scalability", "Security", "Cost Efficiency"],
+    radius=22.0,
+    title="Database Architecture Evaluation",
+    fill_alpha=0.25,
+    show_points=True,
+    legend_position="top",
+)
+
+chart.add_series("PostgreSQL", [85, 90, 75, 95, 80])
+chart.add_series("DynamoDB", [95, 85, 95, 75, 70])
+
+chart.configure_axis(
+    min_value=0.0,
+    max_value=100.0,
+    ticks=[20.0, 40.0, 60.0, 80.0, 100.0],
+    show_grid=True,
+)
+
+chart.draw(xy=(25.0, 25.0))
+```
+
+---
+
+## 4. Implementation Phases
+
+### Phase 1: LineChart & AreaChart
+1. **Core Models**:
+   - `_charts/line_chart/_base.py`: Base container class managing data coordinates and boundaries.
+   - `_charts/line_chart/_series.py`: `LineSeries` and `AreaSeries`.
+   - `_charts/line_chart/_line.py`: `LineChart` implementation.
+   - `_charts/line_chart/_area.py`: `AreaChart` implementation with `overlap` and `stack` algorithms.
+2. **Renderer (`_renderer.py`)**:
+   - Path interpolation (straight segment & smooth spline).
+   - Area polygon construction (connecting data points to baseline or previous stacked series).
+   - Point marker drawing (`circle`, `square`).
+3. **Tests (`tests/test_line_chart.py`, `tests/test_area_chart.py`)**:
+   - Coordinate calculations, multi-series, log scale, and rendering tests.
+4. **Documentation & Verification**:
+   - `docs_src/charts/line.md`, `docs_src/charts/area.md`.
+   - `./dcli check all`, `./dcli test all`, `./dcli docs build`.
+
+### Phase 2: PieChart
+1. **Models & Renderer (`_charts/pie_chart/`)**:
+   - Slice angle calculation ($\theta_i = 360^\circ \times \frac{v_i}{\sum v}$).
+   - Wedge primitive rendering with optional hole cutout (`hole_ratio`).
+   - Label angle positioning and leader lines if crowded.
+2. **Tests & Docs**:
+   - `tests/test_pie_chart.py`, `docs_src/charts/pie.md`.
+
+### Phase 3: RadarChart
+1. **Models & Renderer (`_charts/radar_chart/`)**:
+   - Polar-to-Cartesian transformation ($x = r \cos \theta, y = r \sin \theta$).
+   - N-gon concentric gridline generation.
+   - Closed semi-transparent polygon rendering per series.
+2. **Tests & Docs**:
+   - `tests/test_radar_chart.py`, `docs_src/charts/radar.md`.
+
+---
+
+## 5. Verification Checklist for Each Phase
+- [ ] `./dcli check all` (Ruff, Ty, Docstrings) passes with 0 errors.
+- [ ] Pytest unit and integration tests pass 100%.
+- [ ] `./dcli docs build` compiles all markdown codeblocks into clear PNG images.
+- [ ] Visual inspection confirms high typographic quality and balance.

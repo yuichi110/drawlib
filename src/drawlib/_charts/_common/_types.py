@@ -31,3 +31,12 @@ FormatterType = Union[str, Callable[[float], str], None]
 
 # Color specification type: RGB or RGBA tuple
 ColorType = Union[tuple[int, int, int], tuple[int, int, int, float]]
+
+# Data point marker shape
+PointShape = Literal["circle", "square", "none"]
+
+# Area chart layout mode
+AreaMode = Literal["overlap", "stack"]
+
+# Line pattern style
+LineStyle = Literal["solid", "dashed", "dotted", "dashdot"]
