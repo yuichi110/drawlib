@@ -13,7 +13,9 @@ from drawlib._tools.doc_builder import (
     build,
     build_document,
     build_documents,
+    export_code_block,
     export_default_template,
+    show_code_block,
     validate_template,
 )
 
@@ -21,6 +23,8 @@ __all__ = [
     "build",
     "build_document",
     "build_documents",
+    "export_code_block",
     "export_default_template",
+    "show_code_block",
     "validate_template",
 ]

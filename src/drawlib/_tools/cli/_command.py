@@ -30,6 +30,7 @@ from drawlib._core.l3_external import purge_font_cache
 from drawlib._core.l4_canvas import clear
 from drawlib._tools.doc_builder import (
     build_document,
+    export_code_block,
     export_default_template,
     show_code_block,
     validate_template,
@@ -139,6 +140,24 @@ def call_command() -> None:
                 traceback.print_exc()
             sys.exit(1)
 
+    # handle export subcommand
+    if argparser.is_export_command():
+        export_args = argparser.get_export_args()
+        try:
+            export_code_block(
+                file_path=export_args.file,
+                target=export_args.target,
+                output_path=export_args.output,
+                config_path=export_args.config,
+                grid=export_args.grid,
+            )
+            sys.exit(0)
+        except Exception as e:
+            print(f"Export Error: {e}", file=sys.stderr)
+            if logging_mode in {"verbose", "developer"}:
+                traceback.print_exc()
+            sys.exit(1)
+
     # handle show subcommand
     if argparser.is_show_command():
         show_args = argparser.get_show_args()
@@ -148,6 +167,7 @@ def call_command() -> None:
                 target=show_args.target,
                 config_path=show_args.config,
                 grid=show_args.grid,
+                output_path=show_args.output,
             )
             sys.exit(0)
         except Exception as e:
@@ -426,6 +446,11 @@ class DrawlibArgParser:
             help="Index (e.g. 1) or file specifier (e.g. my_image.png) of the code block (for Markdown files).",
         )
         show_parser.add_argument(
+            "-o",
+            "--output",
+            help="Save output image to file path without opening GUI viewer.",
+        )
+        show_parser.add_argument(
             "-g",
             "--grid",
             action="store_true",
@@ -434,6 +459,38 @@ class DrawlibArgParser:
         show_parser.add_argument(
             "--config",
             help="Path to Python config/setup script (e.g. config.py).",
+        )
+
+        # export subcommand parser
+        export_parser = argparse.ArgumentParser(
+            prog="drawlib export",
+            description="Execute and export a drawlib code block to an image file.",
+        )
+        export_parser.add_argument(
+            "file",
+            help="Target Markdown file path (.md) or Python script path (.py).",
+        )
+        export_parser.add_argument(
+            "target",
+            nargs="?",
+            default=None,
+            help="Index (e.g. 1) or file specifier (e.g. my_image.png) of the code block (for Markdown files).",
+        )
+        export_parser.add_argument(
+            "-o",
+            "--output",
+            help="Output image file or directory path.",
+        )
+        export_parser.add_argument(
+            "-c",
+            "--config",
+            help="Path to Python config/setup script (e.g. config.py).",
+        )
+        export_parser.add_argument(
+            "-g",
+            "--grid",
+            action="store_true",
+            help="Export canvas with coordinate grid overlaid.",
         )
 
         # batch subcommand parser
@@ -477,16 +534,19 @@ class DrawlibArgParser:
         self._serve_parser = serve_parser
         self._template_parser = template_parser
         self._show_parser = show_parser
+        self._export_parser = export_parser
         self._batch_parser = batch_parser
         self._is_build = False
         self._is_serve = False
         self._is_template = False
         self._is_show = False
+        self._is_export = False
         self._is_batch = False
         self._build_args: Optional[argparse.Namespace] = None
         self._serve_args: Optional[argparse.Namespace] = None
         self._template_args: Optional[argparse.Namespace] = None
         self._show_args: Optional[argparse.Namespace] = None
+        self._export_args: Optional[argparse.Namespace] = None
         self._batch_args: Optional[argparse.Namespace] = None
         self._positional_args: Optional[List[str]] = None
         self._name_args: Optional[argparse.Namespace] = None
@@ -529,16 +589,29 @@ class DrawlibArgParser:
             self._is_serve = False
             self._is_template = False
             self._is_show = True
+            self._is_export = False
             self._is_batch = False
             global_args, _ = self._main_parser.parse_known_args(sys.argv[1:idx])
             self._name_args = global_args
             self._show_args = self._show_parser.parse_args(sys.argv[idx + 1 :])
+        elif "export" in sys.argv[1:]:
+            idx = sys.argv.index("export")
+            self._is_build = False
+            self._is_serve = False
+            self._is_template = False
+            self._is_show = False
+            self._is_export = True
+            self._is_batch = False
+            global_args, _ = self._main_parser.parse_known_args(sys.argv[1:idx])
+            self._name_args = global_args
+            self._export_args = self._export_parser.parse_args(sys.argv[idx + 1 :])
         elif "batch" in sys.argv[1:]:
             idx = sys.argv.index("batch")
             self._is_build = False
             self._is_serve = False
             self._is_template = False
             self._is_show = False
+            self._is_export = False
             self._is_batch = True
             global_args, _ = self._main_parser.parse_known_args(sys.argv[1:idx])
             self._name_args = global_args
@@ -548,6 +621,7 @@ class DrawlibArgParser:
             self._is_serve = False
             self._is_template = False
             self._is_show = False
+            self._is_export = False
             self._is_batch = False
             args = self._main_parser.parse_args()
             self._name_args = args
@@ -609,6 +683,20 @@ class DrawlibArgParser:
             raise ValueError("Not a show command")
         return self._show_args
 
+    def is_export_command(self) -> bool:
+        """Check if export subcommand was called."""
+        if not self._is_export and self._name_args is None and self._export_args is None:
+            self.parse()
+        return self._is_export
+
+    def get_export_args(self) -> argparse.Namespace:
+        """Get parsed arguments for export subcommand."""
+        if self._export_args is None:
+            self.parse()
+        if self._export_args is None:
+            raise ValueError("Not an export command")
+        return self._export_args
+
     def is_batch_command(self) -> bool:
         """Check if batch subcommand was called."""
         if not self._is_batch and self._name_args is None and self._batch_args is None:
@@ -623,6 +711,18 @@ class DrawlibArgParser:
             raise ValueError("Not a batch command")
         return self._batch_args
 
+    @property
+    def _is_subcommand(self) -> bool:
+        """Check if any subcommand was executed."""
+        return any([
+            self._is_build,
+            self._is_serve,
+            self._is_template,
+            self._is_show,
+            self._is_export,
+            self._is_batch,
+        ])
+
     def is_show_version(self) -> bool:
         """Check if the version option is specified.
 
@@ -633,7 +733,7 @@ class DrawlibArgParser:
             bool: True if version option is specified, False otherwise.
 
         """
-        if self._is_build or self._is_serve or self._is_template or self._is_show or self._is_batch:
+        if self._is_subcommand:
             return False
         if self._name_args is None:
             self.parse()
@@ -649,7 +749,7 @@ class DrawlibArgParser:
             bool: True if purge font cache option is specified, False otherwise.
 
         """
-        if self._is_build or self._is_serve or self._is_template or self._is_show or self._is_batch:
+        if self._is_subcommand:
             return False
         if self._name_args is None:
             self.parse()
@@ -669,7 +769,7 @@ class DrawlibArgParser:
         Raises:
             ValueError: If conflicting logging options are specified.
         """
-        if self._is_build or self._is_serve or self._is_template or self._is_show or self._is_batch:
+        if self._is_subcommand:
             return "normal"
         if self._name_args is None:
             raise ValueError("Parsed arguments unavailable.")

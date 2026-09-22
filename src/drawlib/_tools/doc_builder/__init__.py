@@ -19,7 +19,12 @@ from drawlib._tools.doc_builder.exporter_html import get_default_css, render_htm
 from drawlib._tools.doc_builder.exporter_md import write_rendered_markdown
 from drawlib._tools.doc_builder.exporter_pdf import export_html_to_pdf
 from drawlib._tools.doc_builder.parser_md import parse_markdown_to_html
-from drawlib._tools.doc_builder.processor import DrawlibBlockProcessor, extract_code_blocks, show_code_block
+from drawlib._tools.doc_builder.processor import (
+    DrawlibBlockProcessor,
+    export_code_block,
+    extract_code_blocks,
+    show_code_block,
+)
 from drawlib._tools.doc_builder.template import export_default_template, validate_template
 
 
@@ -536,6 +541,7 @@ __all__ = [
     "build",
     "build_document",
     "build_documents",
+    "export_code_block",
     "export_default_template",
     "extract_code_blocks",
     "show_code_block",

@@ -44,6 +44,10 @@
   - Assets such as icon sets and fonts are downloaded dynamically from GitHub Releases (`v0.3`), significantly reducing the PyPI package footprint.
 - **Unified Developer CLI (`dcli`)**:
   - Integrated CLI tooling for linting (`ruff`), type checking (`ty`), asset management, and documentation builds.
+- **Single Block Image Export & CLI Preview Enhancements**:
+  - Added `drawlib export` CLI command for extracting and rendering a single illustration from Python scripts or Markdown files directly to an image file.
+  - Full support for `--config` (`-c`) to apply custom document themes and settings, `--output` (`-o`) for explicit destination path, and `--grid` (`-g`) for coordinate overlay.
+  - Added `-o` / `--output` support to `drawlib show` for headless environments and automated scripts, suppressing GUI display when output path is specified.
 
 ## Requirements & Breaking changes
 

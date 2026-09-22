@@ -209,6 +209,87 @@ drawlib show doc.md 1 --grid
 drawlib show doc.md 1 -g
 ```
 
+### Saving Directly to File (`-o` / `--output`)
+
+If you want to save the previewed image directly to a designated file path instead of opening a GUI preview window, specify the `-o` or `--output` option:
+
+```bash
+drawlib show my_drawing.py -o output.png
+drawlib show doc.md 1 -o preview.png
+```
+
+When `-o` / `--output` is specified, the GUI window is suppressed and the image is written directly to the target location.
+
+
+# Exporting Single Illustrations with `drawlib export`
+
+The `drawlib export` command extracts and renders a single illustration from either a standalone Python script or a Markdown document into an image file. It is specifically designed for:
+
+- Automated workflows and CI/CD pipelines without GUI displays.
+- Headless environments or AI agent interactions where inspecting a specific visual artifact is required.
+- Quick extraction of a single diagram from a large Markdown document without running a full document build.
+
+## Basic Syntax
+
+```bash
+drawlib export <file> [target] [-o <output_path>] [-c <config_path>] [-g]
+```
+
+- `<file>`: Path to a Python script (`.py`) or Markdown file (`.md`).
+- `[target]`: Block index (1-based, e.g., `1`) or target image filename (e.g., `diagram.png`) when targeting a Markdown document. If omitted for a Markdown file, available blocks are listed.
+- `-o`, `--output <path>`: Destination path for the exported image (defaults to `<input_stem>_export.png` if omitted).
+- `-c`, `--config <path>`: Path to custom configuration script (such as `config.py`) that sets themes, styles, or canvas defaults.
+- `-g`, `--grid`: Overlay coordinate grid lines and axes on the exported image.
+
+## Listing Markdown Code Blocks
+
+Running `drawlib export` with only a Markdown file lists all `drawlib` blocks without rendering:
+
+```bash
+drawlib export doc.md
+```
+
+## Exporting from Markdown Code Blocks
+
+Export by block index (1-based):
+
+```bash
+drawlib export doc.md 1 -o doc_images/intro.png
+```
+
+Export by target image name:
+
+```bash
+drawlib export doc.md diagram.png -o doc_images/diagram.png
+```
+
+## Exporting from Standalone Python Scripts
+
+```bash
+drawlib export my_drawing.py -o output.png
+```
+
+## Applying Custom Configuration (`--config` / `-c`)
+
+When your documentation relies on a global `config.py` (e.g., for custom color themes, fonts, or drawing options), supply it using `-c` or `--config`:
+
+```bash
+drawlib export doc.md 1 -c config.py -o rendered_1.png
+```
+
+This runs the code block within the exact shared execution context and configuration established by `config.py`, guaranteeing identical visual output to a full document build (`drawlib doc-builder`).
+
+## Exporting with Coordinate Grid (`--grid` / `-g`)
+
+Overlay coordinate axes and grid lines on the output image during drafting or layout adjustments:
+
+```bash
+drawlib export doc.md 1 --grid -o debug_grid.png
+# Shorthand:
+drawlib export doc.md 1 -g -o debug_grid.png
+```
+
 ---
 
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
+
