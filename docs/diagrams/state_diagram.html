@@ -1,0 +1,839 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Diagrams</title>
+    
+    <style>
+:root {
+    --rtd-brand-color: #2980b9;
+    --rtd-brand-dark: #1b5e8a;
+    --rtd-text-color: #404040;
+    --rtd-bg-color: #edf0f2;
+    --rtd-content-bg: #ffffff;
+    --rtd-border-color: #e1e4e5;
+    --rtd-code-bg: #f8f8f8;
+    --rtd-inline-code-bg: #ecf0f1;
+    --rtd-inline-code-color: #e74c3c;
+    --rtd-note-bg: #e7f2fa;
+    --rtd-note-border: #6ab0de;
+    --rtd-font: "Lato", "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+    --rtd-mono-font: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --rtd-brand-color: #3498db;
+        --rtd-text-color: #d1d5db;
+        --rtd-bg-color: #121212;
+        --rtd-content-bg: #1e1e1e;
+        --rtd-border-color: #333333;
+        --rtd-code-bg: #262626;
+        --rtd-inline-code-bg: #2d3748;
+        --rtd-inline-code-color: #f56565;
+        --rtd-note-bg: #1a365d;
+        --rtd-note-border: #3182ce;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--rtd-font);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--rtd-text-color);
+    background-color: var(--rtd-bg-color);
+    margin: 0;
+    padding: 2rem 1rem;
+}
+
+.main-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: var(--rtd-content-bg);
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 8px;
+    padding: 2.5rem 3rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--rtd-font);
+    color: #2c3e50;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+@media (prefers-color-scheme: dark) {
+    h1, h2, h3, h4, h5, h6 {
+        color: #e2e8f0;
+    }
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--rtd-border-color);
+}
+
+h2 {
+    font-size: 1.6rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--rtd-border-color);
+}
+
+h3 {
+    font-size: 1.3rem;
+}
+
+a {
+    color: var(--rtd-brand-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--rtd-brand-dark);
+    text-decoration: underline;
+}
+
+code {
+    font-family: var(--rtd-mono-font);
+    font-size: 0.88em;
+    background-color: var(--rtd-inline-code-bg);
+    color: var(--rtd-inline-code-color);
+    padding: 0.15rem 0.35rem;
+    border-radius: 3px;
+    border: 1px solid var(--rtd-border-color);
+}
+
+pre {
+    background-color: var(--rtd-code-bg);
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 4px;
+    padding: 1rem;
+    overflow-x: auto;
+    font-size: 0.9em;
+    line-height: 1.45;
+}
+
+pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+}
+
+blockquote {
+    margin: 1.5rem 0;
+    padding: 0.8rem 1.2rem;
+    background-color: var(--rtd-note-bg);
+    border-left: 4px solid var(--rtd-note-border);
+    color: var(--rtd-text-color);
+    border-radius: 0 4px 4px 0;
+}
+
+blockquote p {
+    margin: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+}
+
+th, td {
+    border: 1px solid var(--rtd-border-color);
+    padding: 0.65rem 0.9rem;
+    text-align: left;
+}
+
+th {
+    background-color: var(--rtd-brand-color);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.drawlib-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: #ffffff;
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+@media (prefers-color-scheme: dark) {
+    .drawlib-image {
+        background-color: #262626;
+    }
+}
+
+.drawlib-image img, .drawlib-image svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.footer {
+    margin-top: 3rem;
+    border-top: 1px solid var(--rtd-border-color);
+    padding-top: 1.5rem;
+    font-size: 0.85rem;
+    color: #888;
+    text-align: center;
+}
+    </style>
+    
+    <style>
+        /* drawlib Original Signature Theme (default.css) */
+:root {
+    --rtd-sidebar-bg: #0f172a;
+    --rtd-sidebar-header: #4f46e5;
+    --rtd-sidebar-text: #94a3b8;
+    --rtd-sidebar-hover: #1e293b;
+    --rtd-sidebar-active: #334155;
+    --rtd-brand-color: #6366f1;
+    --rtd-brand-dark: #4338ca;
+    --rtd-text-color: #334155;
+    --rtd-bg-color: #f8fafc;
+    --rtd-content-bg: #ffffff;
+    --rtd-border-color: #e2e8f0;
+    --rtd-code-bg: #f1f5f9;
+    --rtd-inline-code-bg: #e2e8f0;
+    --rtd-inline-code-color: #4f46e5;
+    --rtd-note-bg: #eef2ff;
+    --rtd-note-border: #6366f1;
+    --rtd-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --rtd-mono-font: "JetBrains Mono", "Fira Code", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --sidebar-width: 280px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --rtd-sidebar-bg: #030712;
+        --rtd-sidebar-header: #3730a3;
+        --rtd-sidebar-text: #64748b;
+        --rtd-sidebar-hover: #111827;
+        --rtd-sidebar-active: #1e1b4b;
+        --rtd-brand-color: #818cf8;
+        --rtd-brand-dark: #6366f1;
+        --rtd-text-color: #e2e8f0;
+        --rtd-bg-color: #090d16;
+        --rtd-content-bg: #0f172a;
+        --rtd-border-color: #1e293b;
+        --rtd-code-bg: #1e293b;
+        --rtd-inline-code-bg: #1e1b4b;
+        --rtd-inline-code-color: #a5b4fc;
+        --rtd-note-bg: #1e1b4b;
+        --rtd-note-border: #6366f1;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--rtd-font);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--rtd-text-color);
+    background-color: var(--rtd-bg-color);
+    margin: 0;
+    padding: 0;
+}
+
+.doc-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--rtd-sidebar-bg);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    border-right: 1px solid var(--rtd-border-color);
+}
+
+.sidebar-header {
+    background-color: var(--rtd-sidebar-header);
+    padding: 1.5rem 1.5rem;
+    text-align: center;
+}
+
+.sidebar-brand {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    display: block;
+}
+
+.sidebar-brand:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.sidebar-menu {
+    padding: 1.25rem 0;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.sidebar-heading {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.5rem 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item a {
+    color: var(--rtd-sidebar-text);
+    display: block;
+    padding: 0.65rem 1.5rem;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+    border-left: 3px solid transparent;
+}
+
+.nav-item a:hover {
+    background-color: var(--rtd-sidebar-hover);
+    color: #ffffff;
+}
+
+.nav-item.active a {
+    background-color: var(--rtd-sidebar-active);
+    color: #ffffff;
+    font-weight: 600;
+    border-left-color: var(--rtd-brand-color);
+}
+
+.content-wrapper {
+    flex: 1;
+    background-color: var(--rtd-content-bg);
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.top-bar {
+    background-color: var(--rtd-content-bg);
+    border-bottom: 1px solid var(--rtd-border-color);
+    padding: 1rem 2.5rem;
+    font-size: 0.9rem;
+}
+
+.breadcrumbs {
+    color: #94a3b8;
+}
+
+.crumb {
+    color: var(--rtd-brand-color);
+    font-weight: 600;
+}
+
+.crumb.active {
+    color: var(--rtd-text-color);
+    font-weight: 400;
+}
+
+.crumb-separator {
+    margin: 0 0.4rem;
+    color: #cbd5e1;
+}
+
+.main-content {
+    padding: 2.5rem 3rem 4rem 3rem;
+    max-width: 960px;
+    flex: 1;
+}
+
+.main-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    background-color: var(--rtd-content-bg);
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 12px;
+    padding: 3rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--rtd-font);
+    color: #1e293b;
+    margin-top: 2.2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+@media (prefers-color-scheme: dark) {
+    h1, h2, h3, h4, h5, h6 {
+        color: #f1f5f9;
+    }
+}
+
+h1 {
+    font-size: 2.25rem;
+    margin-top: 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--rtd-border-color);
+}
+
+h2 {
+    font-size: 1.65rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rtd-border-color);
+}
+
+h3 {
+    font-size: 1.35rem;
+}
+
+a {
+    color: var(--rtd-brand-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    color: var(--rtd-brand-dark);
+    text-decoration: underline;
+}
+
+code {
+    font-family: var(--rtd-mono-font);
+    font-size: 0.88em;
+    background-color: var(--rtd-inline-code-bg);
+    color: var(--rtd-inline-code-color);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+pre {
+    background-color: var(--rtd-code-bg);
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 8px;
+    padding: 1.25rem;
+    overflow-x: auto;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+}
+
+blockquote {
+    margin: 1.5rem 0;
+    padding: 1rem 1.25rem;
+    background-color: var(--rtd-note-bg);
+    border-left: 4px solid var(--rtd-note-border);
+    color: var(--rtd-text-color);
+    border-radius: 0 8px 8px 0;
+}
+
+blockquote p {
+    margin: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+}
+
+th, td {
+    border: 1px solid var(--rtd-border-color);
+    padding: 0.75rem 1rem;
+    text-align: left;
+}
+
+th {
+    background-color: var(--rtd-brand-color);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.drawlib-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1.25rem;
+    background-color: #ffffff;
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+@media (prefers-color-scheme: dark) {
+    .drawlib-image {
+        background-color: #0f172a;
+    }
+}
+
+.drawlib-image img, .drawlib-image svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.footer {
+    border-top: 1px solid var(--rtd-border-color);
+    padding: 1.75rem 2.5rem;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .doc-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .main-content {
+        padding: 1.5rem;
+    }
+}
+
+    </style>
+    
+    
+</head>
+<body>
+    <div class="main-container">
+        <main class="main-content">
+            <h1>State Diagrams</h1>
+<p><code>drawlib.diagrams.state_diagram</code> provides a declarative, pure-Python framework for UML Statecharts and Finite State Machine (FSM) diagrams.
+It supports standard UML 2.0 notations, including rounded state cards with internal action compartments (<code>entry</code>, <code>do</code>, <code>exit</code>), automaton circular shapes, pseudo-states (initial, final, choice, fork/join), and curved arc transitions.</p>
+<hr />
+<h2>1. Core Concepts</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Class</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Container</strong></td>
+<td><code>StateDiagram</code></td>
+<td>Top-level container managing states, pseudo-states, transitions, and canvas layout.</td>
+</tr>
+<tr>
+<td><strong>State Node</strong></td>
+<td><code>State</code></td>
+<td>State node supporting 5 shapes: <code>&quot;box&quot;</code>, <code>&quot;oval&quot;</code>, <code>&quot;circle&quot;</code>, <code>&quot;double_circle&quot;</code>, and <code>&quot;text_only&quot;</code>.</td>
+</tr>
+<tr>
+<td><strong>Initial State</strong></td>
+<td><code>InitialState</code></td>
+<td>UML initial pseudo-state (solid filled circle).</td>
+</tr>
+<tr>
+<td><strong>Final State</strong></td>
+<td><code>FinalState</code></td>
+<td>UML final state (bullseye: outer ring with inner solid circle).</td>
+</tr>
+<tr>
+<td><strong>Choice Node</strong></td>
+<td><code>ChoiceState</code></td>
+<td>Branching decision pseudo-state (diamond shape).</td>
+</tr>
+<tr>
+<td><strong>Fork / Join</strong></td>
+<td><code>ForkJoinState</code></td>
+<td>Synchronization bar for concurrent transitions (<code>&quot;horizontal&quot;</code> or <code>&quot;vertical&quot;</code>).</td>
+</tr>
+<tr>
+<td><strong>Transition Edge</strong></td>
+<td><code>StateTransition</code></td>
+<td>Directed transition edge created via <code>node.to(target, ...)</code>. Supports event, guard, action, and curved arc routing.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Quick Start</h2>
+<p>Below is a state machine illustrating an authentication and session lifecycle:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.state_diagram import (
+    ChoiceState,
+    FinalState,
+    InitialState,
+    State,
+    StateDiagram,
+)
+
+canvas.config(width=140, height=70)
+
+sd = StateDiagram(title=&quot;Session Lifecycle State Machine&quot;)
+
+# 1. Define States and Pseudo-States
+init = sd.add(InitialState(), xy=(12.0, 35.0))
+
+idle = sd.add(
+    State(
+        &quot;Idle&quot;,
+        shape=&quot;box&quot;,
+        entry=&quot;reset_timer()&quot;,
+        do=&quot;display_prompt()&quot;,
+    ),
+    xy=(34.0, 35.0),
+)
+
+authenticating = sd.add(ChoiceState(name=&quot;valid?&quot;), xy=(70.0, 35.0))
+
+active = sd.add(
+    State(
+        &quot;Active&quot;,
+        shape=&quot;box&quot;,
+        entry=&quot;start_heartbeat()&quot;,
+        do=&quot;process_requests()&quot;,
+        exit=&quot;flush_logs()&quot;,
+    ),
+    xy=(102.0, 35.0),
+)
+
+final = sd.add(FinalState(), xy=(130.0, 35.0))
+
+# 2. Connect States with .to()
+init.to(idle)
+
+# Idle to Choice (Curved upward)
+idle.to(authenticating, event=&quot;login&quot;, guard=&quot;creds_present&quot;, bend=0.25)
+
+# Choice outcomes
+authenticating.to(active, guard=&quot;success&quot;)
+authenticating.to(idle, guard=&quot;failure&quot;, bend=0.25)
+
+# Self-transition loop on Active
+active.to(active, event=&quot;keepalive&quot;, action=&quot;extend_lease()&quot;)
+
+# Active to Final
+active.to(final, event=&quot;logout&quot;)
+
+sd.draw(xy=(0.0, 0.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="state_diagram_images/1.png" alt="state_diagram_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Session State Machine Diagram</figcaption>
+</figure>
+<hr />
+<h2>3. Node Visual Shapes</h2>
+<p><code>State</code> supports 5 distinct shape types via the <code>shape</code> parameter:</p>
+<table>
+<thead>
+<tr>
+<th>Shape</th>
+<th>Value</th>
+<th>Typical Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Box</strong> (default)</td>
+<td><code>&quot;box&quot;</code></td>
+<td>UML state with rounded corners and optional action compartments.</td>
+</tr>
+<tr>
+<td><strong>Oval</strong></td>
+<td><code>&quot;oval&quot;</code></td>
+<td>Capsule / rounded pill shape for simplified diagrams or UI flows.</td>
+</tr>
+<tr>
+<td><strong>Circle</strong></td>
+<td><code>&quot;circle&quot;</code></td>
+<td>Automaton / DFA / NFA states. Transparent background by default.</td>
+</tr>
+<tr>
+<td><strong>Double Circle</strong></td>
+<td><code>&quot;double_circle&quot;</code></td>
+<td>Automaton accepting / terminal states. Transparent background by default.</td>
+</tr>
+<tr>
+<td><strong>Text Only</strong></td>
+<td><code>&quot;text_only&quot;</code></td>
+<td>Borderless text state for annotations or minimalist diagrams.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.state_diagram import State, StateDiagram
+
+canvas.config(width=120, height=50)
+
+sd = StateDiagram(title=&quot;Supported State Node Shapes&quot;)
+
+s_box = sd.add(State(&quot;Box Shape&quot;, shape=&quot;box&quot;), xy=(18.0, 22.0))
+s_oval = sd.add(State(&quot;Oval Shape&quot;, shape=&quot;oval&quot;), xy=(46.0, 22.0))
+s_circle = sd.add(State(&quot;q0&quot;, shape=&quot;circle&quot;), xy=(74.0, 22.0))
+s_double = sd.add(State(&quot;q1 (Accept)&quot;, shape=&quot;double_circle&quot;), xy=(102.0, 22.0))
+
+s_box.to(s_oval, event=&quot;e1&quot;)
+s_oval.to(s_circle, event=&quot;e2&quot;)
+s_circle.to(s_double, event=&quot;match&quot;)
+
+sd.draw(xy=(0.0, 0.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="state_diagram_images/2.png" alt="state_diagram_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">State Node Shapes Comparison</figcaption>
+</figure>
+<hr />
+<h2>4. Internal Actions (Entry, Do, Exit)</h2>
+<p>In UML Statecharts, a state can declare internal actions that do not trigger transitions:</p>
+<ul>
+<li><code>entry</code>: Executed immediately upon entering the state.</li>
+<li><code>do</code>: Ongoing activity performed while in the state.</li>
+<li><code>exit</code>: Executed immediately prior to exiting the state.</li>
+</ul>
+<p>These can be passed during initialization or chained with <code>add_action()</code>:</p>
+<pre><code class="language-python">state = State(
+    &quot;Processing&quot;,
+    entry=&quot;init_socket()&quot;,
+    do=&quot;read_stream()&quot;,
+    exit=&quot;close_socket()&quot;,
+)
+
+# Chaining custom actions
+state.add_action(&quot;custom&quot;, &quot;notify_observers()&quot;)
+</code></pre>
+<p>When actions are present, the state card is automatically rendered with a distinct header compartment and divider line.</p>
+<hr />
+<h2>5. Pseudo-States</h2>
+<p>UML pseudo-states control the flow of execution:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.state_diagram import (
+    ChoiceState,
+    FinalState,
+    ForkJoinState,
+    InitialState,
+    State,
+    StateDiagram,
+)
+
+canvas.config(width=120, height=70)
+
+sd = StateDiagram(title=&quot;UML Pseudo-States Showcase&quot;)
+
+init = sd.add(InitialState(), xy=(12.0, 35.0))
+fork = sd.add(ForkJoinState(orientation=&quot;vertical&quot;, length=20.0), xy=(28.0, 35.0))
+
+task1 = sd.add(State(&quot;Task 1&quot;, shape=&quot;box&quot;), xy=(56.0, 48.0))
+task2 = sd.add(State(&quot;Task 2&quot;, shape=&quot;box&quot;), xy=(56.0, 22.0))
+
+join = sd.add(ForkJoinState(orientation=&quot;vertical&quot;, length=20.0), xy=(84.0, 35.0))
+final = sd.add(FinalState(), xy=(106.0, 35.0))
+
+init.to(fork)
+fork.to(task1)
+fork.to(task2)
+task1.to(join)
+task2.to(join)
+join.to(final)
+
+sd.draw(xy=(0.0, 0.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="state_diagram_images/3.png" alt="state_diagram_3" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">UML Pseudo-States Example</figcaption>
+</figure>
+<hr />
+<h2>6. Transitions and Arc Routing</h2>
+<h3>6.1 Structured Labels (<code>event</code>, <code>guard</code>, <code>action</code>)</h3>
+<p>Transitions support formal UML label syntax:
+<code>event [guard] / action</code></p>
+<pre><code class="language-python"># Automatically formatted as &quot;submit [valid_token] / persist()&quot;
+idle.to(active, event=&quot;submit&quot;, guard=&quot;valid_token&quot;, action=&quot;persist()&quot;)
+
+# Explicit full label override
+idle.to(active, label=&quot;Custom label text&quot;)
+</code></pre>
+<h3>6.2 Curved Arcs &amp; Bidirectional Transitions</h3>
+<p>When two states transition back and forth, setting <code>bend</code> creates elegant curved arcs:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.diagrams.state_diagram import State, StateDiagram
+
+canvas.config(width=110, height=65)
+
+sd = StateDiagram(title=&quot;Bidirectional Arcs &amp; Self-Transitions&quot;)
+
+s1 = sd.add(State(&quot;Suspended&quot;, shape=&quot;box&quot;), xy=(28.0, 32.0))
+s2 = sd.add(State(&quot;Running&quot;, shape=&quot;box&quot;), xy=(75.0, 32.0))
+
+# Forward transition curves upward
+s1.to(s2, event=&quot;resume&quot;, bend=0.3)
+
+# Backward transition curves downward
+s2.to(s1, event=&quot;pause&quot;, bend=0.3)
+
+# Self-transition loop curving around the top-right corner
+s2.to(s2, event=&quot;heartbeat&quot;, action=&quot;ack()&quot;)
+
+sd.draw(xy=(0.0, 0.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="state_diagram_images/4.png" alt="state_diagram_4" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Bidirectional Curved Transitions</figcaption>
+</figure>
+<h3>6.3 Self-Transitions</h3>
+<p>Calling <code>state.to(state)</code> creates a self-transition loop.
+By default, the loop departs from the top boundary, sweeps across the corner, and returns to the right boundary with its label clearly positioned outside the corner.</p>
+
+        </main>
+    </div>
+</body>
+</html>
