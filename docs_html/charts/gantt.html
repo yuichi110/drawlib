@@ -1,0 +1,482 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gantt Chart Guide</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">drawlib</a>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Charts Overview</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="area.html">Area Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="bar.html">Bar Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="gantt.html">Gantt Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="line.html">Line Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="pie.html">Pie & Donut Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="radar.html">Radar Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/architecture.html">Architecture Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/er.html">ER Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/flow.html">Flow Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/sequence.html">Sequence Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Notes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with PresetStyles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/mindmap.html">MindMap</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Gantt Chart Guide</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Gantt Chart Guide</h1>
+<p><code>drawlib.charts.GanttChart</code> provides declarative, vector-grade Gantt schedule charts for project roadmaps, release planning, and workflow timelines.</p>
+<p>Drawing inspiration from sequence diagrams, <code>GanttChart</code> structures timeline columns horizontally along the X-axis while sequentially stacking task rows, section banners, and milestones downwards along the Y-axis.</p>
+<hr />
+<h2>1. Quick Start: Project Roadmap</h2>
+<p>Create a multi-phase project schedule with tasks, sections, progress bars, milestones, and dependencies:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.charts import GanttChart
+
+canvas.initialize()
+
+chart = GanttChart(
+    columns=[&quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;],
+    width=90.0,
+    height=55.0,
+    title=&quot;Product Engineering Roadmap (2026)&quot;,
+    header_height=6.0,
+)
+
+chart.add_section(&quot;Planning &amp; Architecture&quot;)
+t1 = chart.add_task(&quot;Requirements Spec&quot;, start=&quot;Apr&quot;, end=0.75, progress=1.0)
+t2 = chart.add_task(&quot;System Architecture&quot;, start=1.25, end=1.9, progress=0.7)
+
+chart.add_section(&quot;Implementation &amp; QA&quot;)
+t3 = chart.add_task(&quot;Frontend UI&quot;, start=2.25, end=3.75, progress=0.4)
+chart.add_task(&quot;Backend Services&quot;, start=2.1, end=3.6, progress=0.55)
+chart.add_task(&quot;Integration &amp; QA&quot;, start=3.85, end=&quot;Aug&quot;, progress=0.0)
+
+chart.add_milestone(&quot;Alpha Release&quot;, at=&quot;Jul&quot;)
+chart.add_dependency(t1, t2)
+chart.add_dependency(t2, t3)
+chart.add_marker(at=1.5, label=&quot;Current (Mid-May)&quot;)
+
+chart.draw(xy=(5.0, 20.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="gantt_images/1.png" alt="gantt_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Project Roadmap Schedule</figcaption>
+</figure>
+<hr />
+<h2>2. Sprint Planning &amp; Custom Colors</h2>
+<p>Specify numerical or sprint offsets, customize bar colors and corner rounding:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.charts import GanttChart
+
+canvas.initialize()
+
+chart = GanttChart(
+    columns=[&quot;Sprint 1&quot;, &quot;Sprint 2&quot;, &quot;Sprint 3&quot;, &quot;Sprint 4&quot;],
+    width=88.0,
+    height=42.0,
+    title=&quot;Core Engine Sprints&quot;,
+    bar_radius=1.2,
+    show_zebra=False,
+)
+
+t1 = chart.add_task(&quot;Database Schema&quot;, start=0.0, end=1.5, progress=1.0, color=(59, 130, 246))
+t2 = chart.add_task(&quot;API Gateway&quot;, start=1.0, end=3.0, progress=0.6, color=(16, 185, 129))
+t3 = chart.add_task(&quot;Performance Tuning&quot;, start=2.5, end=4.0, progress=0.2, color=(245, 158, 11))
+
+chart.add_dependency(t1, t2)
+chart.add_milestone(&quot;Beta Code Freeze&quot;, at=3.0)
+
+chart.draw(xy=(6.0, 25.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="gantt_images/2.png" alt="gantt_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Sprint Schedule</figcaption>
+</figure>
+<hr />
+<h2>3. API Reference</h2>
+<h3><code>GanttChart</code></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>columns</code></td>
+<td><code>list[str]</code></td>
+<td>Required</td>
+<td>Ordered timeline interval labels along the horizontal X-axis.</td>
+</tr>
+<tr>
+<td><code>width</code></td>
+<td><code>float</code></td>
+<td><code>90.0</code></td>
+<td>Overall bounding box width.</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td><code>float | None</code></td>
+<td><code>None</code></td>
+<td>Overall bounding box height. If None, calculated from row count.</td>
+</tr>
+<tr>
+<td><code>row_height</code></td>
+<td><code>float</code></td>
+<td><code>4.5</code></td>
+<td>Height per task or section row.</td>
+</tr>
+<tr>
+<td><code>header_height</code></td>
+<td><code>float</code></td>
+<td><code>5.5</code></td>
+<td>Height of the top column header band.</td>
+</tr>
+<tr>
+<td><code>label_width</code></td>
+<td><code>float</code></td>
+<td><code>24.0</code></td>
+<td>Horizontal width allocated for the left task name column.</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Chart title displayed at the top.</td>
+</tr>
+<tr>
+<td><code>title_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Style overriding title typography.</td>
+</tr>
+<tr>
+<td><code>header_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Style overriding header background and borders.</td>
+</tr>
+<tr>
+<td><code>grid_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Style overriding vertical timeline gridlines.</td>
+</tr>
+<tr>
+<td><code>task_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Default Style for task bars.</td>
+</tr>
+<tr>
+<td><code>section_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Default Style for section divider rows.</td>
+</tr>
+<tr>
+<td><code>show_vertical_grid</code></td>
+<td><code>bool</code></td>
+<td><code>True</code></td>
+<td>Whether to draw vertical column boundary lines.</td>
+</tr>
+<tr>
+<td><code>show_zebra</code></td>
+<td><code>bool</code></td>
+<td><code>True</code></td>
+<td>Whether to alternate row background colors.</td>
+</tr>
+<tr>
+<td><code>bar_radius</code></td>
+<td><code>float</code></td>
+<td><code>0.8</code></td>
+<td>Corner radius for task bars.</td>
+</tr>
+</tbody>
+</table>
+<h3>Methods</h3>
+<ul>
+<li><code>add_task(name: str, start: str | float, end: str | float, progress=0.0, color=None, style=None, show_progress_text=True) -&gt; GanttTask</code>: Add a task bar spanning start to end.</li>
+<li><code>add_section(name: str, style=None) -&gt; GanttSection</code>: Add a full-width category section banner.</li>
+<li><code>add_milestone(name: str, at: str | float, color=None, style=None) -&gt; GanttMilestone</code>: Add a zero-duration diamond milestone marker.</li>
+<li><code>add_marker(at: str | float, label=&quot;&quot;, color=None, style=None) -&gt; GanttMarker</code>: Add a vertical reference line across all rows (e.g. today).</li>
+<li><code>add_dependency(from_task: GanttTask, to_task: GanttTask, color=None, style=None) -&gt; GanttDependency</code>: Draw an orthogonal arrow linking predecessor and successor tasks.</li>
+<li><code>get_size() -&gt; tuple[float, float]</code>: Return calculated (width, height) bounding dimensions.</li>
+<li><code>draw(xy: tuple[float, float] = (0.0, 0.0)) -&gt; None</code>: Render the Gantt chart onto the canvas.</li>
+</ul>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

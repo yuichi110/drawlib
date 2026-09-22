@@ -81,6 +81,7 @@ text(xy=(75, 20), text="Rectangle", style=Style(text_color=Colors.White, text_si
 - [Area Chart Guide](./charts/area.md)
 - [Pie & Donut Chart Guide](./charts/pie.md)
 - [Radar Chart Guide](./charts/radar.md)
+- [Gantt Chart Guide](./charts/gantt.md)
 
 ### 6. Preset Styles
 - [Official Default Preset Styles](./preset_styles/official_default.md)

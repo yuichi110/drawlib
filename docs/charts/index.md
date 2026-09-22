@@ -14,6 +14,7 @@ Built completely on pure-Python drawing primitives, charts integrate seamlessly 
 | **Area Chart** | [`AreaChart`](./area.md) | Volume and capacity trend visualization supporting semi-transparent overlapping layers and cumulative stacked areas. |
 | **Pie Chart** | [`PieChart`](./pie.md) | Proportional data visualization supporting solid pie charts, donut rings with center KPI badges, and exploded slices. |
 | **Radar Chart** | [`RadarChart`](./radar.md) | Multivariate performance and profile evaluation supporting polygon spider webs, circular rings, and custom scales. |
+| **Gantt Chart** | [`GanttChart`](./gantt.md) | Project roadmap and schedule timelines with task bars, progress ratios, sections, milestones, and dependency arrows. |
 
 ---
 

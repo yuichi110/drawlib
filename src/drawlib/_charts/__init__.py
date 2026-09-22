@@ -22,6 +22,14 @@ from drawlib._charts._common._types import (
     ScaleType,
 )
 from drawlib._charts.bar_chart import BarChart, BarSeries
+from drawlib._charts.gantt_chart import (
+    GanttChart,
+    GanttDependency,
+    GanttMarker,
+    GanttMilestone,
+    GanttSection,
+    GanttTask,
+)
 from drawlib._charts.line_chart import AreaChart, AreaSeries, LineChart, LineSeries
 from drawlib._charts.pie_chart import PieChart, PieSlice
 from drawlib._charts.radar_chart import RadarChart, RadarSeries, RaderChart
@@ -36,6 +44,12 @@ __all__ = [
     "BarSeries",
     "ColorType",
     "FormatterType",
+    "GanttChart",
+    "GanttDependency",
+    "GanttMarker",
+    "GanttMilestone",
+    "GanttSection",
+    "GanttTask",
     "GridShape",
     "LegendPosition",
     "LineChart",
