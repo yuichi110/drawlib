@@ -57,3 +57,23 @@ class TestBoxList:
         b.append("4")
         b.draw((10, 90), 8, 6, "top")
         save(f"{OUTPUT_DIR}test_boxlist_top.png")
+
+    def test_boxlist_item_operations(self) -> None:
+        """Verify item manipulation methods (append, insert, extend) work properly."""
+        b = BoxList()
+        b.append("item1")
+        assert len(b._list) == 1
+        assert b._list[0].text == "item1"
+        assert not b._list[0].is_custom_style
+
+        b.extend(["item2", "item3"])
+        assert len(b._list) == 3
+        assert b._list[1].text == "item2"
+        assert b._list[2].text == "item3"
+
+        b.insert(1, "inserted", box_style="red")
+        assert len(b._list) == 4
+        assert b._list[1].text == "inserted"
+        assert b._list[1].is_custom_style
+        assert b._list[2].text == "item2"
+        assert b._list[3].text == "item3"

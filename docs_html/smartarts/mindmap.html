@@ -1,0 +1,464 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindMap</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">drawlib</a>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/architecture.html">Architecture Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/er.html">ER Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/flow.html">Flow Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/sequence.html">Sequence Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Notes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with PresetStyles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="mindmap.html">MindMap</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">MindMap</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <p>=============</p>
+<h1>MindMap</h1>
+<p>Class <code>MindMapNode</code> draws hierarchical mind map and tree diagrams.
+It supports:</p>
+<ul>
+<li>3 node shapes: <code>&quot;rectangle&quot;</code> (rounded corners supported), <code>&quot;oval&quot;</code>, and <code>&quot;none&quot;</code> (text-only).</li>
+<li>4 branch directions: <code>&quot;bottom&quot;</code>, <code>&quot;top&quot;</code>, <code>&quot;left&quot;</code>, and <code>&quot;right&quot;</code>.</li>
+<li>Multi-directional branching from a single root node (classic mind map layout).</li>
+<li>Clean orthogonal right-angled connections via automatically placed junctions.</li>
+<li>Root-centered positioning for precise coordinate control.</li>
+<li>Fine-grained position tuning using <code>xy_shift</code>.</li>
+</ul>
+<p>Here is an example of a multi-directional mind map:</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.smartarts import MindMapNode
+
+config(width=150, height=80)
+
+root = MindMapNode(
+    &quot;Main Concept&quot;,
+    shape=&quot;oval&quot;,
+    size=(24, 10),
+    style=&quot;bold&quot;,
+    textstyle=&quot;white&quot;,
+    children=[
+        # Right branches
+        MindMapNode(
+            &quot;Pros&quot;,
+            branch=&quot;right&quot;,
+            shape=&quot;rectangle&quot;,
+            size=(16, 7),
+            style=&quot;solid&quot;,
+            line_length=6,
+            children=[
+                MindMapNode(&quot;Fast Development&quot;, shape=&quot;none&quot;),
+                MindMapNode(&quot;Clean Aesthetics&quot;, shape=&quot;none&quot;),
+            ],
+        ),
+        # Left branches
+        MindMapNode(
+            &quot;Cons&quot;,
+            branch=&quot;left&quot;,
+            shape=&quot;rectangle&quot;,
+            size=(16, 7),
+            style=&quot;solid&quot;,
+            line_length=6,
+            children=[
+                MindMapNode(&quot;Learning Curve&quot;, shape=&quot;none&quot;),
+            ],
+        ),
+        # Top branch
+        MindMapNode(
+            &quot;Goals&quot;,
+            branch=&quot;top&quot;,
+            shape=&quot;rectangle&quot;,
+            size=(16, 7),
+            style=&quot;solid&quot;,
+        ),
+        # Bottom branch with custom shift
+        MindMapNode(
+            &quot;Next Steps&quot;,
+            branch=&quot;bottom&quot;,
+            shape=&quot;rectangle&quot;,
+            size=(20, 7),
+            style=&quot;solid&quot;,
+            xy_shift=(0, -2),
+        ),
+    ],
+    default_line_length=6,
+)
+
+root.draw(xy=(75, 40))
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="mindmap_images/1.png" alt="mindmap_1" style="width: 600px; max-width: 100%;" />
+</div>
+<hr />
+<h1>Quick Start: Organizational Hierarchy (Bottom-up &amp; Top-down)</h1>
+<p><code>MindMapNode</code> can also be used as a top-down or bottom-up organizational hierarchy tree.
+Specifying <code>branch=&quot;bottom&quot;</code> on the root creates a standard top-down organization chart.</p>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.smartarts import MindMapNode
+
+config(width=100, height=60)
+
+root = MindMapNode(
+    &quot;CEO&quot;,
+    shape=&quot;rectangle&quot;,
+    size=(20, 8),
+    style=&quot;solid_bold&quot;,
+    children=[
+        MindMapNode(
+            &quot;CTO&quot;,
+            children=[
+                MindMapNode(&quot;Dev Team&quot;, shape=&quot;none&quot;),
+                MindMapNode(&quot;QA Team&quot;, shape=&quot;none&quot;),
+            ],
+        ),
+        MindMapNode(
+            &quot;CFO&quot;,
+            children=[
+                MindMapNode(&quot;Accounting&quot;, shape=&quot;none&quot;),
+            ],
+        ),
+    ],
+)
+
+root.draw(xy=(50, 50), branch=&quot;bottom&quot;)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="mindmap_images/2.png" alt="mindmap_2" style="width: 600px; max-width: 100%;" />
+</div>
+<hr />
+<h1>Node Shapes</h1>
+<p>Each node can have one of three shapes:</p>
+<ul>
+<li><code>&quot;rectangle&quot;</code>: A rectangular box. Supports corner rounding using <code>r</code>.</li>
+<li><code>&quot;oval&quot;</code>: An elliptical node. Ideal for the central root theme.</li>
+<li><code>&quot;none&quot;</code>: Text-only node without border or background fill. Useful for leaf topics.</li>
+</ul>
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.smartarts import MindMapNode
+
+config(width=100, height=35)
+
+root = MindMapNode(
+    &quot;Central Topic&quot;,
+    shape=&quot;oval&quot;,
+    size=(24, 10),
+    style=&quot;bold&quot;,
+    textstyle=&quot;white&quot;,
+    children=[
+        MindMapNode(&quot;Rectangle Box&quot;, branch=&quot;right&quot;, shape=&quot;rectangle&quot;, size=(22, 8), style=&quot;solid&quot;),
+        MindMapNode(&quot;Text Only Leaf&quot;, branch=&quot;right&quot;, shape=&quot;none&quot;),
+    ],
+)
+
+root.draw(xy=(30, 18), branch=&quot;right&quot;)
+save()
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="mindmap_images/3.png" alt="mindmap_3" style="width: 600px; max-width: 100%;" />
+</div>
+<hr />
+<h1>Branch Directions</h1>
+<p>Nodes can branch in 4 directions:</p>
+<ul>
+<li><code>&quot;bottom&quot;</code>: Branches downwards (Top-to-bottom hierarchy).</li>
+<li><code>&quot;top&quot;</code>: Branches upwards (Bottom-to-top hierarchy).</li>
+<li><code>&quot;right&quot;</code>: Branches towards the right (Standard mind map right side).</li>
+<li><code>&quot;left&quot;</code>: Branches towards the left (Standard mind map left side).</li>
+</ul>
+<p>Children inherit their parent's branch direction unless explicitly overridden.</p>
+<hr />
+<h1>API Specification</h1>
+<h2><code>MindMapNode()</code></h2>
+<p>Initializes a mind map node.</p>
+<p>Args:</p>
+<ul>
+<li><code>text</code> (str): Text content displayed in this node.</li>
+<li><code>branch</code> (Literal[&quot;bottom&quot;, &quot;top&quot;, &quot;left&quot;, &quot;right&quot;], optional): Branch expansion direction.</li>
+<li><code>shape</code> (Literal[&quot;rectangle&quot;, &quot;oval&quot;, &quot;none&quot;], optional): Shape of this node. Defaults to <code>&quot;rectangle&quot;</code>.</li>
+<li><code>size</code> (Tuple[float, float], optional): Size of the node as <code>(width, height)</code>. Defaults to <code>(20.0, 8.0)</code>.</li>
+<li><code>style</code> (Union[str, Style], optional): Style for node shape fill and border.</li>
+<li><code>r</code> (float, optional): Corner radius when <code>shape=&quot;rectangle&quot;</code>.</li>
+<li><code>textstyle</code> (Union[str, Style], optional): Style for text.</li>
+<li><code>linestyle</code> (Union[str, Style], optional): Style for connecting lines.</li>
+<li><code>horizontal_margin</code> (float, optional): Horizontal margin between sibling subtrees.</li>
+<li><code>vertical_margin</code> (float, optional): Vertical margin between sibling subtrees.</li>
+<li><code>line_length</code> (float, optional): Distance between parent and child hierarchy levels.</li>
+<li><code>xy_shift</code> (Tuple[float, float], optional): Coordinate offset <code>(dx, dy)</code> to adjust node position.</li>
+<li><code>children</code> (List[MindMapNode], optional): List of child <code>MindMapNode</code> instances.</li>
+<li><code>default_branch</code> (Literal[&quot;bottom&quot;, &quot;top&quot;, &quot;left&quot;, &quot;right&quot;], optional): Default branch direction for descendants.</li>
+<li><code>default_shape</code> (Literal[&quot;rectangle&quot;, &quot;oval&quot;, &quot;none&quot;], optional): Default shape for descendants.</li>
+<li><code>default_size</code> (Tuple[float, float], optional): Default size for descendants.</li>
+<li><code>default_style</code> (Union[str, Style], optional): Default style for descendants.</li>
+<li><code>default_r</code> (float, optional): Default corner radius for descendants.</li>
+<li><code>default_textstyle</code> (Union[str, Style], optional): Default text style for descendants.</li>
+<li><code>default_linestyle</code> (Union[str, Style], optional): Default line style for descendants.</li>
+<li><code>default_horizontal_margin</code> (float, optional): Default horizontal margin for descendants.</li>
+<li><code>default_vertical_margin</code> (float, optional): Default vertical margin for descendants.</li>
+<li><code>default_line_length</code> (float, optional): Default line length for descendants.</li>
+</ul>
+<h2><code>draw()</code></h2>
+<p>Draws the mind map tree rooted at this node.</p>
+<p>Args:</p>
+<ul>
+<li><code>xy</code> (Tuple[float, float]): The center coordinates (x, y) of this root node's box.</li>
+<li><code>branch</code> (Literal[&quot;bottom&quot;, &quot;top&quot;, &quot;left&quot;, &quot;right&quot;], optional): Default branch direction for children. Defaults to <code>&quot;bottom&quot;</code>.</li>
+</ul>
+<hr />
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

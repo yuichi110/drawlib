@@ -10,7 +10,9 @@
 
 """BoxList implementation module."""
 
-from typing import List, Literal
+from __future__ import annotations
+
+from typing import Literal
 
 from pydantic import BaseModel
 
@@ -20,7 +22,7 @@ from drawlib._core.l2_types import (
     TypePosFloat,
     TypeStr,
 )
-from drawlib._core.l3_styles import Colors, Style
+from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import rectangle
 from drawlib._preset_styles import get_style
 
@@ -35,13 +37,7 @@ class _Item(BaseModel):
 
 
 class BoxList:
-    """A class to draw a list of boxes with text, supporting highlighting of certain boxes.
-
-    Args:
-        default_box_style (Union[str, Style, None]): The style for the boxes.
-        default_text_style (Union[str, Style, None]): The style for the text inside the boxes.
-
-    """
+    """A class to draw a list of boxes with text, supporting highlighting of certain boxes."""
 
     @guarded
     def __init__(
@@ -52,9 +48,8 @@ class BoxList:
         """Initialize BoxList.
 
         Args:
-            default_box_style (Union[str, Style, None]): The style for the boxes.
-            default_text_style (Union[str, Style, None]): The style for the text inside the boxes.
-
+            default_box_style: The default style for the boxes.
+            default_text_style: The default style for the text inside the boxes.
         """
         default_box_style = get_style(default_box_style)
         default_box_style.text_halign = "center"
@@ -64,7 +59,7 @@ class BoxList:
         default_text_style = get_style(default_text_style)
         self._default_text_style = default_text_style
 
-        self._list: List[_Item] = []
+        self._list: list[_Item] = []
 
     @guarded
     def append(
@@ -73,6 +68,13 @@ class BoxList:
         box_style: TypeStr | Style | None = None,
         text_style: TypeStr | Style | None = None,
     ) -> None:
+        """Append a box item to the list.
+
+        Args:
+            text: Text to display in the box.
+            box_style: Style for the box.
+            text_style: Style for the text inside the box.
+        """
         self.extend([text], box_style=box_style, text_style=text_style)
 
     @guarded
@@ -83,6 +85,14 @@ class BoxList:
         box_style: TypeStr | Style | None = None,
         text_style: TypeStr | Style | None = None,
     ) -> None:
+        """Insert a box item at the specified index.
+
+        Args:
+            index: Index where the item should be inserted.
+            text: Text to display in the box.
+            box_style: Style for the box.
+            text_style: Style for the text inside the box.
+        """
         is_custom_style = box_style is not None or text_style is not None
 
         box_style_resolved = get_style(box_style) if box_style is not None else self._default_box_style
@@ -99,23 +109,21 @@ class BoxList:
     @guarded
     def extend(
         self,
-        texts: List[TypeStr],
+        texts: list[TypeStr],
         box_style: TypeStr | Style | None = None,
         text_style: TypeStr | Style | None = None,
     ) -> None:
+        """Extend the list with multiple box items.
+
+        Args:
+            texts: List of text strings to add as boxes.
+            box_style: Style for the boxes.
+            text_style: Style for the text inside the boxes.
+        """
         is_custom_style = box_style is not None or text_style is not None
 
         box_style_resolved = get_style(box_style) if box_style is not None else self._default_box_style
         text_style_resolved = get_style(text_style) if text_style is not None else self._default_text_style
-
-        for text in texts:
-            item = _Item(
-                text=text,
-                box_style=box_style_resolved,
-                text_style=text_style_resolved,
-                is_custom_style=is_custom_style,
-            )
-            self._list.append(item)
 
         for text in texts:
             item = _Item(
@@ -134,15 +142,13 @@ class BoxList:
         box_height: TypePosFloat,
         align: Literal["left", "right", "bottom", "top"] = "left",
     ) -> None:
-        """Draws a list of boxes at the specified location.
+        """Draw a list of boxes at the specified location.
 
         Args:
-            xy (Tuple[float, float]): The starting point (x, y) to draw the list of boxes.
-            box_width (float): The width of each box.
-            box_height (float): The height of each box.
-            align (Literal["left", "right", "bottom", "top"]):
-                    The alignment of the boxes relative to the starting point.
-
+            xy: The starting point (x, y) to draw the list of boxes.
+            box_width: The width of each box.
+            box_height: The height of each box.
+            align: The alignment of the boxes relative to the starting point.
         """
         for index, item in enumerate(self._list):
             if item.is_custom_style:
