@@ -23,6 +23,10 @@
   - Declarative flowchart and workflow diagramming module adhering to standard flowchart symbols (ISO 5807 / JIS X 0121).
   - Shape-centric nodes (`Process`, `Decision`, `Start`, `End`, `Data`) inheriting Drawlib shape styling.
   - First-class T-junction branching/merging (`Junction`) and flat global coordinate swimlanes (`Lane`).
+- **Charts Module (`drawlib.charts`)**:
+  - Pure-Python declarative charting engine without external visualization dependencies.
+  - Initial release features `BarChart` supporting vertical/horizontal orientations, grouped/stacked modes, customizable axes/ticks, and logarithmic scales.
+  - Automatic legend layout and nice-number tick calculation.
 - **Headless PDF Export**:
   - PDF generation uses existing system Chromium-based browsers (Chrome, Chromium, Edge) without requiring Playwright.
 - **On-Demand Release Assets**:

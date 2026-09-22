@@ -1,0 +1,469 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar Chart Guide</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">drawlib</a>
+            </div>
+            <div class="sidebar-menu">
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="nav-list">
+                    
+                    <li class="nav-item ">
+                        <a href="index.html">Charts Overview</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/index.html">Foundations Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../index.html">Welcome to the Drawlib Documentation!</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/index.html">Preset Styles Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/index.html">About Smart Arts</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/cli_options.html">CLI and Options</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/color.html">Color Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/debug.html">Debugging errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/dimage.html">Dimage</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/disable_lint.html">Disable Lint/Type-Check errors</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/example_flow.html">Example of Documentation Build Flow</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/font.html">Font Classes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/settings.html">Library Settings</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../advanced_topics/util.html">Utility Functions</a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a href="bar.html">Bar Chart Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/architecture.html">Architecture Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/er.html">ER Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/flow.html">Flow Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../diagrams/sequence.html">Sequence Diagrams</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/build_many.html">Building many images</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/canvas.html">Canvas</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/coordinate_align.html">Coordinate and Alignment</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/icon.html">Drawing Icons</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/image.html">Drawing Image</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line.html">Drawing line</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/line_style.html">Line Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/preset_styles.html">Preset Styles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/programming.html">Coding Best Practices</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape.html">Drawing Shape</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_arrow.html">Drawing Arrow Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_circle.html">Drawing Circle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_rectangle.html">Drawing Rectangle Like Shapes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shape_style.html">Shape Style</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/shapes.html">Shapes Guide</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../foundations/text.html">Drawing Text</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/about.html">About drawlib</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/install.html">Install</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/lib_design.html">Drawlib from a High Perspective</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/links.html">Links</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/other_version_docs.html">Other Version Documentation</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/quick_start.html">Quick Start</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../introductions/release_note.html">Release Notes</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/advanced_topics.html">Advanced Preset Styles Topics</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/create.html">Creating Custom Presets with PresetStyles</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/boxlist.html">BoxList</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bubblespeech.html">Bubblespeech</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/bulletpoints.html">BulletPoints</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/gridlayout.html">GridLayout</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/mindmap.html">MindMap</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/pyramid.html">Pyramid</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/sourcecode.html">SourceCode</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/table.html">Table</a>
+                    </li>
+                    
+                    <li class="nav-item ">
+                        <a href="../smartarts/tree.html">Tree</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Bar Chart Guide</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Bar Chart Guide</h1>
+<p><code>drawlib.charts.BarChart</code> provides flexible vertical and horizontal bar charts with support for grouping, stacking, custom ticks, and logarithmic scales.</p>
+<hr />
+<h2>1. Quick Start: Grouped Bar Chart</h2>
+<p>A vertical grouped bar chart compares multiple series across categories:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.charts import BarChart
+
+canvas.initialize()
+
+chart = BarChart(
+    categories=[&quot;2021&quot;, &quot;2022&quot;, &quot;2023&quot;, &quot;2024&quot;],
+    width=80,
+    height=60,
+    title=&quot;Annual Revenue by Product&quot;,
+    show_values=True,
+)
+chart.add_series(&quot;Cloud Platform&quot;, [42.0, 68.0, 95.0, 130.0])
+chart.add_series(&quot;On-Premises&quot;, [55.0, 50.0, 42.0, 35.0])
+chart.configure_y_axis(unit=&quot;M$&quot;, show_grid=True)
+chart.draw(xy=(10.0, 20.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="bar_images/1.png" alt="bar_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Annual Revenue Comparison</figcaption>
+</figure>
+<hr />
+<h2>2. Horizontal Stacked Bar Chart</h2>
+<p>Horizontal stacked bars are ideal for visualizing resource breakdowns, survey responses, or task distributions:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.charts import BarChart
+
+canvas.initialize()
+
+chart = BarChart(
+    categories=[&quot;Frontend&quot;, &quot;Backend&quot;, &quot;Data Pipeline&quot;],
+    width=80,
+    height=55,
+    orientation=&quot;horizontal&quot;,
+    bar_mode=&quot;stack&quot;,
+    title=&quot;Server Resource Breakdown&quot;,
+    show_values=True,
+)
+chart.add_series(&quot;CPU&quot;, [25.0, 40.0, 15.0])
+chart.add_series(&quot;Memory&quot;, [45.0, 35.0, 50.0])
+chart.add_series(&quot;Disk I/O&quot;, [10.0, 20.0, 30.0])
+chart.configure_x_axis(unit=&quot;%&quot;)
+chart.draw(xy=(10.0, 20.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="bar_images/2.png" alt="bar_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Resource Allocation</figcaption>
+</figure>
+<hr />
+<h2>3. Logarithmic Scale Benchmark</h2>
+<p>For latency measurements, algorithmic complexity, or exponential data across several orders of magnitude, set <code>scale=&quot;log&quot;</code> on the value axis:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.charts import BarChart
+
+canvas.initialize()
+
+chart = BarChart(
+    categories=[&quot;In-Memory Cache&quot;, &quot;SSD Cache&quot;, &quot;SQL Database&quot;, &quot;External API&quot;],
+    width=80,
+    height=60,
+    title=&quot;Query Latency Comparison&quot;,
+    show_values=True,
+)
+chart.add_series(&quot;Latency&quot;, [0.05, 1.2, 35.0, 850.0])
+chart.configure_y_axis(scale=&quot;log&quot;, unit=&quot;ms&quot;)
+chart.draw(xy=(10.0, 20.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="bar_images/3.png" alt="bar_3" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Query Latency (Log Scale)</figcaption>
+</figure>
+<hr />
+<h2>4. Custom Ticks &amp; Formatting</h2>
+<p>You can customize ticks, intervals, unit labels, and number formatting via <code>configure_y_axis</code> or <code>configure_x_axis</code>:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib._core.l3_styles import Style
+from drawlib.charts import BarChart
+
+canvas.initialize()
+
+chart = BarChart(
+    categories=[&quot;Q1&quot;, &quot;Q2&quot;, &quot;Q3&quot;, &quot;Q4&quot;],
+    width=75,
+    height=55,
+    title=&quot;Quarterly Budget Fulfillment&quot;,
+    r=1.5,
+    show_values=True,
+)
+chart.add_series(
+    &quot;Fulfillment&quot;,
+    [65.0, 85.0, 110.0, 140.0],
+    style=Style(fill_color=(79, 70, 229, 0.9), line_color=(67, 56, 202, 1.0), line_width=1.0),
+)
+chart.configure_y_axis(
+    ticks=[0.0, 50.0, 100.0, 150.0],
+    format=&quot;{:.0f}%&quot;,
+    show_grid=True,
+)
+chart.draw(xy=(12.5, 20.0))
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="bar_images/4.png" alt="bar_4" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Custom Ticks and Formatting</figcaption>
+</figure>
+<hr />
+<h2>5. API Reference</h2>
+<h3><code>BarChart</code></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>categories</code></td>
+<td><code>list[str]</code></td>
+<td>Required</td>
+<td>Names of category bins along the category axis.</td>
+</tr>
+<tr>
+<td><code>width</code></td>
+<td><code>float</code></td>
+<td><code>80.0</code></td>
+<td>Chart bounding width.</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td><code>float</code></td>
+<td><code>50.0</code></td>
+<td>Chart bounding height.</td>
+</tr>
+<tr>
+<td><code>orientation</code></td>
+<td><code>&quot;vertical&quot;</code> | <code>&quot;horizontal&quot;</code></td>
+<td><code>&quot;vertical&quot;</code></td>
+<td>Direction of bars.</td>
+</tr>
+<tr>
+<td><code>bar_mode</code></td>
+<td><code>&quot;group&quot;</code> | <code>&quot;stack&quot;</code></td>
+<td><code>&quot;group&quot;</code></td>
+<td>Grouped side-by-side or stacked on top.</td>
+</tr>
+<tr>
+<td><code>bar_width_ratio</code></td>
+<td><code>float</code></td>
+<td><code>0.7</code></td>
+<td>Relative thickness ratio within category slot (0.0 - 1.0).</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Chart title displayed at the top.</td>
+</tr>
+<tr>
+<td><code>legend_position</code></td>
+<td><code>&quot;auto&quot;</code> | <code>&quot;top&quot;</code> | <code>&quot;bottom&quot;</code> | <code>&quot;right&quot;</code> | <code>&quot;none&quot;</code></td>
+<td><code>&quot;auto&quot;</code></td>
+<td>Position of series legend. Automatically omitted if 1 series.</td>
+</tr>
+<tr>
+<td><code>r</code></td>
+<td><code>float</code></td>
+<td><code>0.0</code></td>
+<td>Corner radius for bars.</td>
+</tr>
+<tr>
+<td><code>show_values</code></td>
+<td><code>bool</code></td>
+<td><code>False</code></td>
+<td>Whether to render numerical text labels on bars.</td>
+</tr>
+</tbody>
+</table>
+<h3>Methods</h3>
+<ul>
+<li><code>add_series(name: str, values: list[float], color: ColorType | None = None, style: Style | None = None) -&gt; BarSeries</code></li>
+<li><code>configure_y_axis(...) -&gt; Axis</code></li>
+<li><code>configure_x_axis(...) -&gt; Axis</code></li>
+<li><code>draw(xy: tuple[float, float] = (0.0, 0.0)) -&gt; None</code></li>
+</ul>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

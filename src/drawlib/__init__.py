@@ -99,6 +99,7 @@ except ValueError as e:
 
 from drawlib import (  # noqa: E402
     canvas,
+    charts,
     colors,
     diagrams,
     doc_builder,
@@ -124,6 +125,7 @@ __all__ = [
     "REPOSITORY",
     "README",
     "canvas",
+    "charts",
     "colors",
     "diagrams",
     "doc_builder",

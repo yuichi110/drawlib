@@ -74,14 +74,18 @@ text(xy=(75, 20), text="Rectangle", style=Style(text_color=Colors.White, text_si
 - [Flow Diagrams Guide](./diagrams/flow.md)
 - [Sequence Diagrams Guide](./diagrams/sequence.md)
 
-### 5. Preset Styles
+### 5. Charts
+- [Charts Overview](./charts/index.md)
+- [Bar Chart Guide](./charts/bar.md)
+
+### 6. Preset Styles
 - [Official Default Preset Styles](./preset_styles/official_default.md)
 - [Official Essentials Preset Styles](./preset_styles/official_essentials.md)
 - [Official Monochrome Preset Styles](./preset_styles/official_monochrome.md)
 - [Advanced Preset Styles Topics](./preset_styles/advanced_topics.md)
 - [Creating Custom Preset Styles](./preset_styles/create.md)
 
-### 6. Advanced Topics
+### 7. Advanced Topics
 - [Colors System](./advanced_topics/color.md)
 - [Fonts System](./advanced_topics/font.md)
 - [Dimage Image Processing](./advanced_topics/dimage.md)
