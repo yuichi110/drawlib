@@ -27,7 +27,7 @@
   - Added `ChevronProcess`: Sequential chevron (arrowhead block) process pipelines with supporting descriptions, customizable arrowhead angles, auto-palette theming, and flat-start options.
 - **Charts Module (`drawlib.charts`)**:
   - Pure-Python declarative charting engine without external visualization dependencies.
-  - Features `BarChart` (vertical/horizontal, grouped/stacked), `LineChart` (straight/smooth curves, custom markers), `AreaChart` (overlapping and cumulative stacked areas), `PieChart` (solid pie, donut rings with center KPI badges, exploded slices), `RadarChart` (spider webs, concentric circular rings), and `GanttChart` (project roadmaps, progress bars, sections, milestones, dependency arrows).
+  - Features `BarChart` (vertical/horizontal, grouped/stacked), `LineChart` (straight/smooth curves, custom markers), `AreaChart` (overlapping and cumulative stacked areas), `PieChart` (solid pie, donut rings with center KPI badges, exploded slices), `RadarChart` (spider webs, concentric circular rings), `ScatterChart` (2D scatter and bubble plots, custom markers, individual and series points), and `GanttChart` (project roadmaps, progress bars, sections, milestones, dependency arrows).
   - First-class support for logarithmic scales, fully customizable ticks/gridlines, and automatic legend layout.
 - **Headless PDF Export**:
   - PDF generation uses existing system Chromium-based browsers (Chrome, Chromium, Edge) without requiring Playwright.

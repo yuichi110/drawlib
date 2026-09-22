@@ -37,6 +37,9 @@ from drawlib._charts import (
     RadarSeries,
     RaderChart,
     ScaleType,
+    ScatterChart,
+    ScatterPoint,
+    ScatterSeries,
 )
 
 __all__ = [
@@ -67,4 +70,7 @@ __all__ = [
     "RadarSeries",
     "RaderChart",
     "ScaleType",
+    "ScatterChart",
+    "ScatterPoint",
+    "ScatterSeries",
 ]

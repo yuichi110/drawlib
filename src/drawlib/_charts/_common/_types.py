@@ -33,7 +33,7 @@ FormatterType = Union[str, Callable[[float], str], None]
 ColorType = Union[tuple[int, int, int], tuple[int, int, int, float]]
 
 # Data point marker shape
-PointShape = Literal["circle", "square", "none"]
+PointShape = Literal["circle", "square", "rhombus", "triangle", "none"]
 
 # Area chart layout mode
 AreaMode = Literal["overlap", "stack"]
