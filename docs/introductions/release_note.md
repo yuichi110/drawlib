@@ -25,6 +25,7 @@
   - First-class T-junction branching/merging (`Junction`) and flat global coordinate swimlanes (`Lane`).
 - **SmartArts (`drawlib.smartarts`)**:
   - Added `ChevronProcess`: Sequential chevron (arrowhead block) process pipelines with supporting descriptions, customizable arrowhead angles, auto-palette theming, and flat-start options.
+  - Added `Cycle`: Circular and cyclical process diagrams (PDCA, life cycles, radial cycles with center topic, circular arc arrows, and circle/rectangle node shapes).
 - **Charts Module (`drawlib.charts`)**:
   - Pure-Python declarative charting engine without external visualization dependencies.
   - Features `BarChart` (vertical/horizontal, grouped/stacked), `LineChart` (straight/smooth curves, custom markers), `AreaChart` (overlapping and cumulative stacked areas), `PieChart` (solid pie, donut rings with center KPI badges, exploded slices), `RadarChart` (spider webs, concentric circular rings), `ScatterChart` (2D scatter and bubble plots, custom markers, individual and series points), and `GanttChart` (project roadmaps, progress bars, sections, milestones, dependency arrows).

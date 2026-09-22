@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GridLayout</title>
+    <title>Cycle</title>
     
     <link rel="stylesheet" href="../style.css">
     
@@ -261,11 +261,11 @@
                         <a href="chevronprocess.html">ChevronProcess</a>
                     </li>
                     
-                    <li class="nav-item ">
+                    <li class="nav-item active">
                         <a href="cycle.html">Cycle</a>
                     </li>
                     
-                    <li class="nav-item active">
+                    <li class="nav-item ">
                         <a href="gridlayout.html">GridLayout</a>
                     </li>
                     
@@ -297,108 +297,114 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">GridLayout</span>
+                    <span class="crumb active">Cycle</span>
                 </div>
             </header>
             <main class="main-content">
                 <p>=============</p>
-<h1>GridLayout</h1>
-<p>Class <code>GridLayout</code> draws smart art grid layouted rectangles.</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.smartarts import GridLayout
-from drawlib.text import text
+<h1>Cycle</h1>
+<p>Class <code>Cycle</code> renders circular and cyclical process diagrams, perfect for continuous workflows such as PDCA loops, agile iterations, life cycles, and feedback mechanisms.</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.smartarts import Cycle
 
-config(width=100, height=50, grid=True)
+canvas.initialize()
 
-gl1 = GridLayout(num_column=7, num_row=3)
-gl1.add(position=(0, 0), width=5, height=1, text=&quot;Host OS&quot;)
-gl1.add(position=(0, 1), width=5, height=1, text=&quot;Python&quot;)
-gl1.add(position=(0, 2), width=1, height=1, text=&quot;D&quot;)
-gl1.add(position=(1, 2), width=1, height=1, text=&quot;r&quot;)
-gl1.add(position=(2, 2), width=1, height=1, text=&quot;a&quot;)
-gl1.add(position=(3, 2), width=1, height=1, text=&quot;w&quot;)
-gl1.add(position=(4, 2), width=1, height=1, text=&quot;l&quot;)
-gl1.add(position=(5, 2), width=1, height=1, text=&quot;i&quot;)
-gl1.add(position=(6, 2), width=1, height=1, text=&quot;b&quot;)
-gl1.draw((5, 10), width=40, height=20, margin=1)
-text((25, 5), text=&quot;Grid Layout: Column 7, Row 3.&quot;)
-
-gl2 = GridLayout(num_column=7, num_row=3, default_r=1, default_style=&quot;solid&quot;)
-gl2.add(position=(0, 0), width=7, height=1, text=&quot;Host OS&quot;, style=&quot;blue&quot;, textstyle=&quot;white&quot;, text_xy_shift=(10, 0))
-gl2.add(position=(0, 1), width=7, height=1, text=&quot;Python&quot;, style=&quot;green&quot;, textstyle=&quot;white&quot;, text_xy_shift=(-10, 0))
-gl2.add(position=(0, 2), width=1, height=1, text=&quot;D&quot;)
-gl2.add(position=(1, 2), width=1, height=1, text=&quot;r&quot;)
-gl2.add(position=(2, 2), width=1, height=1, text=&quot;a&quot;, textangle=90)
-gl2.add(position=(3, 2), width=1, height=1, text=&quot;w&quot;, textangle=180)
-gl2.add(position=(4, 2), width=1, height=1, text=&quot;l&quot;, textangle=270)
-gl2.add(position=(5, 2), width=1, height=1, text=&quot;i&quot;)
-gl2.add(position=(6, 2), width=1, height=1, text=&quot;b&quot;)
-gl2.draw((55, 10), width=40, height=20, margin=1, outer_style=&quot;solid&quot;, outer_r=1)
-
-save()
+# Classic PDCA cycle with center topic and matching arc arrows
+cycle = Cycle(
+    center_text=&quot;PDCA&quot;,
+    center_description=&quot;Loop&quot;,
+    center_radius=11.0,
+    node_radius=9.0,
+    arrow_width=2.2,
+    arrow_head_width=4.8,
+)
+cycle.append(&quot;Plan&quot;, description=&quot;Set goals&quot;)
+cycle.append(&quot;Do&quot;, description=&quot;Execute&quot;)
+cycle.append(&quot;Check&quot;, description=&quot;Evaluate&quot;)
+cycle.append(&quot;Act&quot;, description=&quot;Improve&quot;)
+cycle.draw(xy=(50.0, 50.0), radius=32.0)
 </code></pre>
-<div class="drawlib-image" style="text-align: center;">
-  <img src="gridlayout_images/1.png" alt="gridlayout_1" style="width: 600px; max-width: 100%;" />
-</div>
-<pre><code>image1.png
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="cycle_images/1.png" alt="cycle_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Classic PDCA Circular Cycle</figcaption>
+</figure>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.smartarts import Cycle
+
+canvas.initialize()
+
+# Continuous product lifecycle with rounded rectangle blocks
+cycle = Cycle(
+    node_shape=&quot;rectangle&quot;,
+    node_size=(18.0, 9.0),
+    arrow_width=2.0,
+    arrow_head_width=4.5,
+    arrow_color_mode=&quot;monochrome&quot;,
+)
+cycle.append(&quot;Discover&quot;, description=&quot;User research&quot;)
+cycle.append(&quot;Design&quot;, description=&quot;Architecture &amp; UI&quot;)
+cycle.append(&quot;Build&quot;, description=&quot;Code &amp; tests&quot;)
+cycle.append(&quot;Test&quot;, description=&quot;QA &amp; validation&quot;)
+cycle.append(&quot;Deploy&quot;, description=&quot;Canary release&quot;)
+cycle.draw(xy=(50.0, 50.0), radius=34.0)
 </code></pre>
-<p>You can draw grid layout with these procedure.</p>
-<ol>
-<li>Initialize instance with specifying number of columns and rows.</li>
-<li>Add grid layout items with optional custom style</li>
-<li>Draw pyramid with specified position, size and alignment.</li>
-</ol>
-<h1>API Specification</h1>
-<h2>GridLayout()</h2>
-<p>Initializes a GridLayout instance.</p>
-<p>Args:</p>
-<ul>
-<li>num_column (int): The number of columns in the grid.</li>
-<li>num_row (int): The number of rows in the grid.</li>
-<li>default_r (int, optional): The default radius for the rectangles. Defaults to 0.</li>
-<li>default_style (Union[str, Style, None], optional): The default style for the rectangles. Can be a string key, a Style object, or None. Defaults to None.</li>
-<li>default_textstyle (Union[str, Style, None], optional): The default text style for the rectangles. Can be a string key, a Style object, or None. Defaults to None.</li>
-<li>default_textangle (Optional[float], optional): The default angle for the text inside the rectangles. If None, no angle is applied. Defaults to None.</li>
-</ul>
-<h2>add()</h2>
-<p>Add an item to the grid layout.</p>
-<p>Args:</p>
-<ul>
-<li>position (Tuple[int, int]): Cell start (column, row) point.</li>
-<li>width (int): How many column cells.</li>
-<li>height (int): How many row cells.</li>
-<li>r (Optional[int], optional): The radius of the item. Default is None, which uses the default radius.</li>
-<li>style (Union[str, Style, None], optional): The style of the item. Can be a string key for a predefined style, a Style object, or None to use the default style.</li>
-<li>text (str, optional): The text associated with the item. Default is an empty string.</li>
-<li>textstyle (Union[str, Style, None], optional): The text style of the item. Can be a string key for a predefined text style, a Style object, or None to use the default text style.</li>
-<li>textangle (Optional[float], optional): The angle of the text. Default is None, which is same to 0.</li>
-<li>text_xy_shift (Optional[Tuple[float, float]], optional): The XY shift of the text. Default is None, which is same to (0, 0).</li>
-</ul>
-<h2>draw()</h2>
-<p>Draw the grid layout.</p>
-<p>Args:</p>
-<ul>
-<li>xy (Tuple[float, float]): The x and y coordinates of the top-left corner of the grid.</li>
-<li>width (float): The total width of the grid.</li>
-<li>height (float): The total height of the grid.</li>
-<li>margin (float): The margin between grid items.</li>
-<li>outer_r (int, optional): The radius for the outer grid border. Default is 0.</li>
-<li>outer_style (Union[str, Style, None], optional): The style for the outer grid border. Can be a string key for a predefined style, a Style object, or None.</li>
-</ul>
-<h2>draw_flexible()</h2>
-<p>Draw the grid layout with flexible column widths and row heights.</p>
-<p>Args:</p>
-<ul>
-<li>xy (Tuple[float, float]): The x and y coordinates of the top-left corner of the grid.</li>
-<li>column_widths (List[float]): The widths of each column.</li>
-<li>column_margins (List[float]): The margins between columns.</li>
-<li>row_heights (List[float]): The heights of each row.</li>
-<li>row_margins (List[float]): The margins between rows.</li>
-<li>outer_r (int, optional): The radius for the outer grid border. Default is 0.</li>
-<li>outer_style (Union[str, Style, None], optional): The style for the outer grid border. Can be a string key for a predefined style, a Style object, or None.</li>
-</ul>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="cycle_images/2.png" alt="cycle_2" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">5-Stage Lifecycle with Rectangle Nodes</figcaption>
+</figure>
 <hr />
-<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
+<h2>1. Quick Start</h2>
+<p>Create a circular workflow diagram:</p>
+<pre><code class="language-python">from drawlib import canvas
+from drawlib.smartarts import Cycle
+
+canvas.initialize()
+
+cycle = Cycle()
+cycle.append(&quot;Plan&quot;, description=&quot;Define goals&quot;)
+cycle.append(&quot;Do&quot;, description=&quot;Implement&quot;)
+cycle.append(&quot;Check&quot;, description=&quot;Review&quot;)
+cycle.append(&quot;Act&quot;, description=&quot;Scale&quot;)
+
+cycle.draw(xy=(50.0, 50.0), radius=32.0)
+</code></pre>
+<hr />
+<h2>2. API Specification</h2>
+<h3><code>Cycle()</code></h3>
+<p>Initialize a Cycle SmartArt instance.</p>
+<p><strong>Args:</strong></p>
+<ul>
+<li><code>clockwise</code> (<code>bool</code>): Whether the cycle flows clockwise (<code>True</code>) or counter-clockwise (<code>False</code>). Defaults to <code>True</code>.</li>
+<li><code>start_angle</code> (<code>float</code>): Angle in degrees for the first node (<code>0</code> is right, <code>90</code> is top). Defaults to <code>90.0</code>.</li>
+<li><code>node_shape</code> (<code>Literal[&quot;circle&quot;, &quot;rectangle&quot;, &quot;none&quot;]</code>): Shape of step nodes. Defaults to <code>&quot;circle&quot;</code>.</li>
+<li><code>node_radius</code> (<code>float</code>): Radius of step circles when <code>node_shape</code> is <code>&quot;circle&quot;</code>. Defaults to <code>8.0</code>.</li>
+<li><code>node_size</code> (<code>tuple[float, float]</code>): Width and height <code>(w, h)</code> when <code>node_shape</code> is <code>&quot;rectangle&quot;</code>. Defaults to <code>(18.0, 10.0)</code>.</li>
+<li><code>description_placement</code> (<code>Literal[&quot;inside&quot;, &quot;outside&quot;]</code>): Placement of description text. Defaults to <code>&quot;inside&quot;</code>.</li>
+<li><code>arrow_type</code> (<code>Literal[&quot;arc&quot;, &quot;line&quot;, &quot;none&quot;]</code>): Style of connecting arrows (<code>&quot;arc&quot;</code> for curved block arrow, <code>&quot;line&quot;</code> for arc line, or <code>&quot;none&quot;</code>). Defaults to <code>&quot;arc&quot;</code>.</li>
+<li><code>arrow_width</code> (<code>float</code>): Tail thickness of block arrow or line width of arc line arrow. Defaults to <code>2.0</code>.</li>
+<li><code>arrow_head_width</code> (<code>float</code>): Head width of block arrow. Defaults to <code>4.5</code>.</li>
+<li><code>arrow_color_mode</code> (<code>Literal[&quot;monochrome&quot;, &quot;match_source&quot;, &quot;match_target&quot;]</code>): Arrow color resolution. Defaults to <code>&quot;match_source&quot;</code>.</li>
+<li><code>arrow_gap</code> (<code>float</code>): Distance margin between arrow endpoints and step nodes. Defaults to <code>2.5</code>.</li>
+<li><code>default_style</code> (<code>str | Style | None</code>): Default style for step nodes. If <code>None</code>, palette colors are automatically applied.</li>
+<li><code>default_textstyle</code> (<code>str | Style | None</code>): Default style for primary title text.</li>
+<li><code>default_description_style</code> (<code>str | Style | None</code>): Default style for secondary description text.</li>
+<li><code>default_arrow_style</code> (<code>str | Style | None</code>): Default style for connecting arrows.</li>
+<li><code>palette</code> (<code>Sequence[tuple[int, int, int]] | None</code>): Optional sequence of colors to style consecutive steps.</li>
+<li><code>center_text</code> (<code>str</code>): Optional title text for the center node (creating a Radial Cycle).</li>
+<li><code>center_description</code> (<code>str</code>): Optional description text for the center node.</li>
+<li><code>center_radius</code> (<code>float</code>): Radius of the center circle. Defaults to <code>10.0</code>.</li>
+<li><code>center_style</code> (<code>str | Style | None</code>): Custom style for the center node circle.</li>
+<li><code>center_textstyle</code> (<code>str | Style | None</code>): Custom style for the center node title.</li>
+<li><code>center_description_style</code> (<code>str | Style | None</code>): Custom style for the center node description text.</li>
+</ul>
+<h3>Methods</h3>
+<ul>
+<li><code>append(text, description=&quot;&quot;, style=None, textstyle=None, description_style=None, arrow_style=None)</code>: Append a step to the cycle.</li>
+<li><code>extend(texts, descriptions=None)</code>: Append multiple steps at once.</li>
+<li><code>insert(index, text, description=&quot;&quot;, style=None, textstyle=None, description_style=None, arrow_style=None)</code>: Insert a step at the specified index.</li>
+<li><code>set_center(text, description=&quot;&quot;, radius=None, style=None, textstyle=None, description_style=None)</code>: Configure the optional center node for a Radial Cycle.</li>
+<li><code>draw(xy, radius=35.0, align=&quot;center&quot;)</code>: Draw the cycle on the canvas at <code>xy</code>.</li>
+</ul>
 
             </main>
         </div>
