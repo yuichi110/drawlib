@@ -353,6 +353,8 @@ def _compile_single_html_file(
                         root_index_nav = nav
             if root_index_nav is not None:
                 index_rel_url = os.path.relpath(root_index_nav["dest_abs"], dest_dir)
+            elif nav_list:
+                index_rel_url = os.path.relpath(nav_list[0]["dest_abs"], dest_dir)
 
             for nav in nav_list:
                 rel_url = os.path.relpath(nav["dest_abs"], dest_dir)
