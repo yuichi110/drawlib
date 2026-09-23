@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import sys
 import traceback
-from typing import Annotated, Optional
+from typing import Annotated, Literal, Optional
 
 import typer
 from rich.console import Console
@@ -40,14 +40,14 @@ cache_app = typer.Typer(
 
 template_app = typer.Typer(
     name="template",
-    help="List, export, or validate Jinja2 HTML templates.",
+    help="Manage built-in Jinja2 templates for HTML and PDF.",
     no_args_is_help=True,
     context_settings=_HELP_CTX,
 )
 
 css_app = typer.Typer(
     name="css",
-    help="List or export built-in CSS style presets.",
+    help="Manage built-in CSS style presets for HTML and PDF.",
     no_args_is_help=True,
     context_settings=_HELP_CTX,
 )
@@ -143,13 +143,28 @@ def cmd_cache_download(
 
 
 # ---------------------------------------------------------------------------
-# drawlib template {list, export, validate}
+# drawlib template {html, pdf, list, export, validate}
 # ---------------------------------------------------------------------------
-@template_app.command("list")
-def cmd_template_list() -> None:
-    """List available built-in Jinja2 HTML templates."""
-    items = list_templates()
-    table = Table(title="Built-in HTML Templates", header_style="bold cyan")
+template_html_app = typer.Typer(
+    name="html",
+    help="List, export, or validate built-in HTML templates (html_templates).",
+    no_args_is_help=True,
+    context_settings=_HELP_CTX,
+)
+template_pdf_app = typer.Typer(
+    name="pdf",
+    help="List, export, or validate built-in PDF templates (pdf_templates).",
+    no_args_is_help=True,
+    context_settings=_HELP_CTX,
+)
+template_app.add_typer(template_html_app, name="html")
+template_app.add_typer(template_pdf_app, name="pdf")
+
+
+def _run_template_list(target: Literal["html", "pdf"]) -> None:
+    items = list_templates(target=target)
+    title = f"Built-in {target.upper()} Templates ({target}_templates)"
+    table = Table(title=title, header_style="bold cyan")
     table.add_column("Preset Name", style="bold yellow")
     table.add_column("Template File")
     table.add_column("Description")
@@ -158,55 +173,38 @@ def cmd_template_list() -> None:
     console.print(table)
 
 
-@template_app.command("export")
-def cmd_template_export(
-    name_or_output: Annotated[
-        Optional[str],
-        typer.Argument(
-            help="Built-in template preset ('sidebar', 'simple') or output file path (default: 'sidebar')."
-        ),
-    ] = None,
-    output: Annotated[
-        Optional[str],
-        typer.Option("-o", "--output", help="Destination file path (default: template.html.j2)."),
-    ] = None,
-    name: Annotated[
-        Optional[str],
-        typer.Option("-n", "--name", help="Built-in template preset name ('sidebar' or 'simple')."),
-    ] = None,
+def _run_template_export(
+    target: Literal["html", "pdf"],
+    name_or_output: Optional[str],
+    output: Optional[str],
+    name: Optional[str],
 ) -> None:
-    """Export a built-in HTML template ('sidebar' or 'simple') to a local file."""
     try:
-        preset_names = {t["name"] for t in list_templates()} | {"standalone"}
+        default_preset = "default" if target == "pdf" else "sidebar"
+        default_dest = "pdf_template.html.j2" if target == "pdf" else "template.html.j2"
+        preset_names = {t["name"] for t in list_templates(target=target)} | {"standalone", "simple"}
         if name is not None:
             preset = name
-            dest = output or name_or_output or "template.html.j2"
+            dest = output or name_or_output or default_dest
         elif name_or_output is None:
-            preset = "sidebar"
-            dest = output or "template.html.j2"
+            preset = default_preset
+            dest = output or default_dest
         elif name_or_output in preset_names:
             preset = name_or_output
-            dest = output or "template.html.j2"
+            dest = output or default_dest
         else:
-            preset = "sidebar"
+            preset = default_preset
             dest = output or name_or_output
 
-        out_file = export_template(name=preset, output=dest)
-        print(f"Successfully exported template '{preset}' to: {out_file}")
+        out_file = export_template(name=preset, output=dest, target=target)
+        print(f"Successfully exported {target.upper()} template '{preset}' to: {out_file}")
     except Exception as e:
         _handle_cmd_error("Template Error", e)
 
 
-@template_app.command("validate")
-def cmd_template_validate(
-    template_file: Annotated[
-        str,
-        typer.Argument(help="Path to Jinja2 HTML template file to validate."),
-    ],
-) -> None:
-    """Validate a Jinja2 template file for syntax and required placeholders."""
+def _run_template_validate(target: Literal["html", "pdf"], template_file: str) -> None:
     try:
-        is_valid, msgs = validate_template(template_file)
+        is_valid, msgs = validate_template(template_file, target=target)
         for msg in msgs:
             print(msg)
         if not is_valid:
@@ -217,14 +215,95 @@ def cmd_template_validate(
         _handle_cmd_error("Template Error", e)
 
 
+@template_html_app.command("list")
+def cmd_template_html_list() -> None:
+    """List available built-in HTML templates (sidebar, simple)."""
+    _run_template_list("html")
+
+
+@template_html_app.command("export")
+def cmd_template_html_export(
+    name_or_output: Annotated[
+        Optional[str],
+        typer.Argument(help="HTML template preset ('sidebar', 'simple') or output file path."),
+    ] = None,
+    output: Annotated[
+        Optional[str],
+        typer.Option("-o", "--output", help="Destination file path (default: template.html.j2)."),
+    ] = None,
+    name: Annotated[
+        Optional[str],
+        typer.Option("-n", "--name", help="HTML template preset name ('sidebar' or 'simple')."),
+    ] = None,
+) -> None:
+    """Export a built-in HTML template ('sidebar' or 'simple') to a local file."""
+    _run_template_export("html", name_or_output, output, name)
+
+
+@template_html_app.command("validate")
+def cmd_template_html_validate(
+    template_file: Annotated[str, typer.Argument(help="Path to Jinja2 HTML template file to validate.")],
+) -> None:
+    """Validate a custom Jinja2 HTML template file."""
+    _run_template_validate("html", template_file)
+
+
+@template_pdf_app.command("list")
+def cmd_template_pdf_list() -> None:
+    """List available built-in PDF templates (default, book)."""
+    _run_template_list("pdf")
+
+
+@template_pdf_app.command("export")
+def cmd_template_pdf_export(
+    name_or_output: Annotated[
+        Optional[str],
+        typer.Argument(help="PDF template preset ('default', 'book') or output file path."),
+    ] = None,
+    output: Annotated[
+        Optional[str],
+        typer.Option("-o", "--output", help="Destination file path (default: pdf_template.html.j2)."),
+    ] = None,
+    name: Annotated[
+        Optional[str],
+        typer.Option("-n", "--name", help="PDF template preset name ('default' or 'book')."),
+    ] = None,
+) -> None:
+    """Export a built-in PDF template ('default' or 'book') to a local file."""
+    _run_template_export("pdf", name_or_output, output, name)
+
+
+@template_pdf_app.command("validate")
+def cmd_template_pdf_validate(
+    template_file: Annotated[str, typer.Argument(help="Path to Jinja2 PDF template file to validate.")],
+) -> None:
+    """Validate a custom Jinja2 PDF template file."""
+    _run_template_validate("pdf", template_file)
+
+
 # ---------------------------------------------------------------------------
-# drawlib css {list, export}
+# drawlib css {html, pdf}
 # ---------------------------------------------------------------------------
-@css_app.command("list")
-def cmd_css_list() -> None:
-    """List available built-in CSS style presets."""
-    items = list_css()
-    table = Table(title="Built-in CSS Presets", header_style="bold cyan")
+css_html_app = typer.Typer(
+    name="html",
+    help="List or export built-in HTML CSS presets (html_css).",
+    no_args_is_help=True,
+    context_settings=_HELP_CTX,
+)
+css_pdf_app = typer.Typer(
+    name="pdf",
+    help="List or export built-in PDF CSS presets (pdf_css).",
+    no_args_is_help=True,
+    context_settings=_HELP_CTX,
+)
+css_app.add_typer(css_html_app, name="html")
+css_app.add_typer(css_pdf_app, name="pdf")
+
+
+def _run_css_list(target: Literal["html", "pdf"]) -> None:
+    items = list_css(target=target)
+    title = f"Built-in {target.upper()} CSS Presets ({target}_css)"
+    table = Table(title=title, header_style="bold cyan")
     table.add_column("Preset Name", style="bold yellow")
     table.add_column("CSS File")
     table.add_column("Description")
@@ -233,13 +312,45 @@ def cmd_css_list() -> None:
     console.print(table)
 
 
-@css_app.command("export")
-def cmd_css_export(
+def _run_css_export(
+    target: Literal["html", "pdf"],
+    name_or_output: Optional[str],
+    output: Optional[str],
+    name: Optional[str],
+) -> None:
+    try:
+        default_dest = "pdf_style.css" if target == "pdf" else "style.css"
+        preset_names = {c["name"] for c in list_css(target=target)}
+        if name is not None:
+            preset = name
+            dest = output or name_or_output or default_dest
+        elif name_or_output is None:
+            preset = "default"
+            dest = output or default_dest
+        elif name_or_output in preset_names:
+            preset = name_or_output
+            dest = output or default_dest
+        else:
+            preset = "default"
+            dest = output or name_or_output
+
+        out_file = export_css(name=preset, output=dest, target=target)
+        print(f"Successfully exported {target.upper()} CSS preset '{preset}' to: {out_file}")
+    except Exception as e:
+        _handle_cmd_error("CSS Error", e)
+
+
+@css_html_app.command("list")
+def cmd_css_html_list() -> None:
+    """List available built-in HTML CSS presets (default, google, github, minimal, monochrome)."""
+    _run_css_list("html")
+
+
+@css_html_app.command("export")
+def cmd_css_html_export(
     name_or_output: Annotated[
         Optional[str],
-        typer.Argument(
-            help="Built-in CSS preset ('default', 'github', 'minimal', 'monochrome') or output file path."
-        ),
+        typer.Argument(help="HTML CSS preset ('default', 'google', 'github', 'minimal', 'monochrome') or output path."),
     ] = None,
     output: Annotated[
         Optional[str],
@@ -247,29 +358,36 @@ def cmd_css_export(
     ] = None,
     name: Annotated[
         Optional[str],
-        typer.Option("-n", "--name", help="Built-in CSS preset name ('default', 'github', 'minimal', 'monochrome')."),
+        typer.Option("-n", "--name", help="HTML CSS preset name."),
     ] = None,
 ) -> None:
-    """Export a built-in CSS preset to a local file for customization."""
-    try:
-        preset_names = {c["name"] for c in list_css()}
-        if name is not None:
-            preset = name
-            dest = output or name_or_output or "style.css"
-        elif name_or_output is None:
-            preset = "default"
-            dest = output or "style.css"
-        elif name_or_output in preset_names:
-            preset = name_or_output
-            dest = output or "style.css"
-        else:
-            preset = "default"
-            dest = output or name_or_output
+    """Export a built-in HTML CSS preset to a local file."""
+    _run_css_export("html", name_or_output, output, name)
 
-        out_file = export_css(name=preset, output=dest)
-        print(f"Successfully exported CSS preset '{preset}' to: {out_file}")
-    except Exception as e:
-        _handle_cmd_error("CSS Error", e)
+
+@css_pdf_app.command("list")
+def cmd_css_pdf_list() -> None:
+    """List available built-in PDF CSS presets (default, google, github, minimal, monochrome)."""
+    _run_css_list("pdf")
+
+
+@css_pdf_app.command("export")
+def cmd_css_pdf_export(
+    name_or_output: Annotated[
+        Optional[str],
+        typer.Argument(help="PDF CSS preset ('default', 'google', 'github', 'minimal', 'monochrome') or output path."),
+    ] = None,
+    output: Annotated[
+        Optional[str],
+        typer.Option("-o", "--output", help="Destination CSS file path (default: pdf_style.css)."),
+    ] = None,
+    name: Annotated[
+        Optional[str],
+        typer.Option("-n", "--name", help="PDF CSS preset name."),
+    ] = None,
+) -> None:
+    """Export a built-in PDF CSS preset to a local file."""
+    _run_css_export("pdf", name_or_output, output, name)
 
 
 # ---------------------------------------------------------------------------

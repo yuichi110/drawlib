@@ -27,32 +27,53 @@ def run_drawlib_cli(args: list[str], cwd: str) -> subprocess.CompletedProcess[st
 
 
 def test_cli_template_list_and_export(tmp_path) -> None:
-    """Test drawlib template list and export subcommands."""
-    res_list = run_drawlib_cli(["template", "list"], cwd=str(tmp_path))
-    assert res_list.returncode == 0
-    assert "sidebar" in res_list.stdout
-    assert "simple" in res_list.stdout
+    """Test drawlib template html/pdf list and export subcommands."""
+    res_html_list = run_drawlib_cli(["template", "html", "list"], cwd=str(tmp_path))
+    assert res_html_list.returncode == 0
+    assert "sidebar" in res_html_list.stdout
+    assert "simple" in res_html_list.stdout
+
+    res_pdf_list = run_drawlib_cli(["template", "pdf", "list"], cwd=str(tmp_path))
+    assert res_pdf_list.returncode == 0
+    assert "default" in res_pdf_list.stdout
+    assert "book" in res_pdf_list.stdout
 
     out_file = tmp_path / "exported.html.j2"
-    res = run_drawlib_cli(["template", "export", str(out_file)], cwd=str(tmp_path))
-
+    res = run_drawlib_cli(["template", "html", "export", str(out_file)], cwd=str(tmp_path))
     assert res.returncode == 0
-    assert "Successfully exported template" in res.stdout
+    assert "Successfully exported HTML template" in res.stdout
     assert out_file.exists()
+
+    out_pdf_file = tmp_path / "exported_pdf.html.j2"
+    res_pdf = run_drawlib_cli(["template", "pdf", "export", "book", "-o", str(out_pdf_file)], cwd=str(tmp_path))
+    assert res_pdf.returncode == 0
+    assert "Successfully exported PDF template" in res_pdf.stdout
+    assert out_pdf_file.exists()
 
 
 def test_cli_css_list_and_export(tmp_path) -> None:
-    """Test drawlib css list and export subcommands."""
-    res_list = run_drawlib_cli(["css", "list"], cwd=str(tmp_path))
-    assert res_list.returncode == 0
-    assert "default" in res_list.stdout
-    assert "github" in res_list.stdout
+    """Test drawlib css html/pdf list and export subcommands."""
+    res_html_list = run_drawlib_cli(["css", "html", "list"], cwd=str(tmp_path))
+    assert res_html_list.returncode == 0
+    assert "default" in res_html_list.stdout
+    assert "google" in res_html_list.stdout
+
+    res_pdf_list = run_drawlib_cli(["css", "pdf", "list"], cwd=str(tmp_path))
+    assert res_pdf_list.returncode == 0
+    assert "default" in res_pdf_list.stdout
+    assert "google" in res_pdf_list.stdout
 
     out_css = tmp_path / "exported.css"
-    res = run_drawlib_cli(["css", "export", str(out_css), "-n", "github"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["css", "html", "export", str(out_css), "-n", "github"], cwd=str(tmp_path))
     assert res.returncode == 0
-    assert "Successfully exported CSS" in res.stdout
+    assert "Successfully exported HTML CSS" in res.stdout
     assert out_css.exists()
+
+    out_pdf_css = tmp_path / "exported_pdf.css"
+    res_pdf = run_drawlib_cli(["css", "pdf", "export", str(out_pdf_css), "-n", "google"], cwd=str(tmp_path))
+    assert res_pdf.returncode == 0
+    assert "Successfully exported PDF CSS" in res_pdf.stdout
+    assert out_pdf_css.exists()
 
 
 def test_cli_cache_list(tmp_path) -> None:
@@ -63,14 +84,17 @@ def test_cli_cache_list(tmp_path) -> None:
 
 
 def test_cli_template_validate(tmp_path) -> None:
-    """Test drawlib template validate subcommand."""
+    """Test drawlib template html/pdf validate subcommands."""
     tmpl = tmp_path / "valid.html.j2"
     tmpl.write_text("<html><body>{{ body | safe }}</body></html>", encoding="utf-8")
 
-    res = run_drawlib_cli(["template", "validate", str(tmpl)], cwd=str(tmp_path))
+    res_html = run_drawlib_cli(["template", "html", "validate", str(tmpl)], cwd=str(tmp_path))
+    assert res_html.returncode == 0
+    assert "is valid" in res_html.stdout
 
-    assert res.returncode == 0
-    assert "is valid" in res.stdout
+    res_pdf = run_drawlib_cli(["template", "pdf", "validate", str(tmpl)], cwd=str(tmp_path))
+    assert res_pdf.returncode == 0
+    assert "is valid" in res_pdf.stdout
 
 
 def test_cli_build_html_with_custom_template(tmp_path) -> None:

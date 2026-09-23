@@ -208,6 +208,32 @@ tr:nth-child(even) {
     color: #888;
     text-align: center;
 }
+
+@media print {
+    html, body {
+        background-color: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow-x: hidden !important;
+    }
+    .main-container, .main-content {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+    }
+    pre, pre code {
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+        word-break: break-word !important;
+        overflow: visible !important;
+        overflow-x: visible !important;
+        font-size: 0.82em;
+    }
+}
     </style>
     {% if custom_css %}
     <style>

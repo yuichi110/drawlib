@@ -7,13 +7,17 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Public HTML template management module for drawlib.tools."""
+"""Public HTML and PDF template management module for drawlib.tools."""
 
 from __future__ import annotations
 
 from drawlib._tools.doc_builder import (
     export_default_template,
+    export_html_template,
+    export_pdf_template,
     export_template,
+    list_html_templates,
+    list_pdf_templates,
     list_templates,
     validate_template,
 )
@@ -25,8 +29,12 @@ validate = validate_template
 __all__ = [
     "export",
     "export_default_template",
+    "export_html_template",
+    "export_pdf_template",
     "export_template",
     "list",
+    "list_html_templates",
+    "list_pdf_templates",
     "list_templates",
     "validate",
     "validate_template",

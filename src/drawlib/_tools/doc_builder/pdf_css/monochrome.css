@@ -1,0 +1,98 @@
+/*
+ * Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+ *
+ * This software is licensed under the Apache License, Version 2.0.
+ * For more information, please visit: https://github.com/yuichi110/drawlib
+ *
+ * This software is provided "as is", without warranty of any kind,
+ * express or implied, including but not limited to the warranties of
+ * merchantability, fitness for a particular purpose and noninfringement.
+ */
+
+/* Monochrome Print/PDF Theme for drawlib build pdf */
+
+@page {
+    size: A4;
+    margin: 18mm 16mm;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+html, body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: #000000;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+hr {
+    display: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #000000;
+    margin-top: 1.5rem;
+    margin-bottom: 0.7rem;
+    break-after: avoid;
+}
+
+a {
+    color: #000000;
+    text-decoration: underline;
+}
+
+code, pre {
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+pre {
+    background-color: #f4f4f4;
+    border: 1px solid #000000;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.82em;
+    line-height: 1.5;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    overflow: visible !important;
+    break-inside: avoid;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2rem 0;
+    break-inside: avoid;
+}
+
+th, td {
+    border: 1px solid #000000;
+    padding: 0.55rem 0.85rem;
+}
+
+.drawlib-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1.4rem 0;
+    padding: 0.9rem;
+    border: 1px solid #000000;
+    break-inside: avoid;
+}
+
+.drawlib-image img {
+    max-width: 100%;
+    max-height: 360px;
+}
+
+.drawlib-caption {
+    margin-top: 0.5rem;
+    font-size: 0.82rem;
+    color: #222222;
+}

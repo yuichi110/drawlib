@@ -7,11 +7,18 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Public CSS preset management module for drawlib.tools."""
+"""Public HTML and PDF CSS preset management module for drawlib.tools."""
 
 from __future__ import annotations
 
-from drawlib._tools.doc_builder import export_css, list_css
+from drawlib._tools.doc_builder import (
+    export_css,
+    export_html_css,
+    export_pdf_css,
+    list_css,
+    list_html_css,
+    list_pdf_css,
+)
 
 list = list_css  # noqa: A001
 export = export_css
@@ -19,6 +26,10 @@ export = export_css
 __all__ = [
     "export",
     "export_css",
+    "export_html_css",
+    "export_pdf_css",
     "list",
     "list_css",
+    "list_html_css",
+    "list_pdf_css",
 ]

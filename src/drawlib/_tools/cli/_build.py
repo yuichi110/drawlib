@@ -145,11 +145,14 @@ def cmd_build_html(
     ] = "png",
     css: Annotated[
         Optional[str],
-        typer.Option("--css", help="CSS preset (default, github, minimal, monochrome) or custom .css file path."),
+        typer.Option(
+            "--css",
+            help="HTML CSS preset (default, google, github, minimal, monochrome) or custom .css file path.",
+        ),
     ] = None,
     template: Annotated[
         Optional[str],
-        typer.Option("-t", "--template", help="Template preset (sidebar, simple) or custom .html.j2 file path."),
+        typer.Option("-t", "--template", help="HTML template preset (sidebar, simple) or custom .html.j2 file path."),
     ] = None,
     config: Annotated[
         Optional[str],
@@ -202,11 +205,14 @@ def cmd_build_pdf(
     ] = None,
     css: Annotated[
         Optional[str],
-        typer.Option("--css", help="CSS preset (default, github, minimal, monochrome) or custom .css file path."),
+        typer.Option(
+            "--css",
+            help="PDF CSS preset (default, google, github, minimal, monochrome) or custom .css file path.",
+        ),
     ] = None,
     template: Annotated[
         Optional[str],
-        typer.Option("-t", "--template", help="Template preset (simple, sidebar) or custom .html.j2 file path."),
+        typer.Option("-t", "--template", help="PDF template preset (default, book) or custom .html.j2 file path."),
     ] = None,
     config: Annotated[
         Optional[str],

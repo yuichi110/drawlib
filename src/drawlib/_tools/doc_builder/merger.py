@@ -19,7 +19,7 @@ import sys
 from typing import List, Optional
 
 from drawlib._tools.doc_builder.detector import detect_document_type
-from drawlib._tools.doc_builder.exporter_html import render_html_document
+from drawlib._tools.doc_builder.exporter_html import render_pdf_document
 from drawlib._tools.doc_builder.parser_md import parse_markdown_to_html
 from drawlib._tools.doc_builder.processor import DrawlibBlockProcessor
 from drawlib._tools.doc_builder.progress import (
@@ -301,13 +301,11 @@ def build_merged_html(
         body_parts.extend(chapters_html)
     combined_body = "\n\n".join(body_parts)
 
-    full_html = render_html_document(
+    full_html = render_pdf_document(
         body_html=combined_body,
         title=inferred_title or "Drawlib Document",
         custom_css_path=css_path,
-        css_href=None,
-        nav_items=[],
-        template_path=template_path or "simple",
+        template_path=template_path or "default",
     )
 
     return full_html, file_list

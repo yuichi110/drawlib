@@ -40,11 +40,16 @@ def test_public_tools_facade_exports() -> None:
 
 
 def test_list_and_export_templates(tmp_path) -> None:
-    """Test listing and exporting built-in Jinja2 templates."""
-    templates = list_templates()
-    names = [t["name"] for t in templates]
-    assert "sidebar" in names
-    assert "simple" in names
+    """Test listing and exporting built-in HTML and PDF Jinja2 templates."""
+    html_templates = list_templates(target="html")
+    html_names = [t["name"] for t in html_templates]
+    assert "sidebar" in html_names
+    assert "simple" in html_names
+
+    pdf_templates = list_templates(target="pdf")
+    pdf_names = [t["name"] for t in pdf_templates]
+    assert "default" in pdf_names
+    assert "book" in pdf_names
 
     out_file = tmp_path / "custom_template.html.j2"
     result_path = export_default_template(str(out_file))
@@ -55,25 +60,40 @@ def test_list_and_export_templates(tmp_path) -> None:
     assert "{{ body | safe }}" in content or "{{ body }}" in content
 
     simple_file = tmp_path / "simple_template.html.j2"
-    export_template(name="simple", output=str(simple_file))
+    export_template(name="simple", output=str(simple_file), target="html")
     assert simple_file.exists()
+
+    pdf_file = tmp_path / "book_template.html.j2"
+    export_template(name="book", output=str(pdf_file), target="pdf")
+    assert pdf_file.exists()
 
 
 def test_list_and_export_css(tmp_path) -> None:
-    """Test listing and exporting built-in CSS style presets."""
-    presets = list_css()
-    names = [p["name"] for p in presets]
-    assert "default" in names
-    assert "google" in names
-    assert "github" in names
-    assert "minimal" in names
-    assert "monochrome" in names
+    """Test listing and exporting built-in HTML and PDF CSS style presets."""
+    html_presets = list_css(target="html")
+    html_names = [p["name"] for p in html_presets]
+    assert "default" in html_names
+    assert "google" in html_names
+    assert "github" in html_names
+    assert "minimal" in html_names
+    assert "monochrome" in html_names
+
+    pdf_presets = list_css(target="pdf")
+    pdf_names = [p["name"] for p in pdf_presets]
+    assert "default" in pdf_names
+    assert "google" in pdf_names
+    assert "github" in pdf_names
 
     out_css = tmp_path / "github_theme.css"
-    res = export_css(name="github", output=str(out_css))
+    res = export_css(name="github", output=str(out_css), target="html")
     assert os.path.exists(res)
     assert out_css.exists()
     assert len(out_css.read_text(encoding="utf-8")) > 0
+
+    out_pdf_css = tmp_path / "google_pdf.css"
+    res_pdf = export_css(name="google", output=str(out_pdf_css), target="pdf")
+    assert os.path.exists(res_pdf)
+    assert out_pdf_css.exists()
 
 
 def test_validate_template_valid(tmp_path) -> None:
