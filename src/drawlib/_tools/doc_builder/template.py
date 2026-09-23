@@ -34,6 +34,10 @@ BUILTIN_CSS_PRESETS: Dict[str, Dict[str, str]] = {
         "file": "default.css",
         "description": "Modern responsive documentation theme with clean typography.",
     },
+    "google": {
+        "file": "google.css",
+        "description": "Clean editorial Google Blog (The Keyword) & Material Design style.",
+    },
     "github": {
         "file": "github.css",
         "description": "GitHub-flavored Markdown style with familiar code block and table formatting.",

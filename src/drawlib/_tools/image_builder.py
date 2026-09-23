@@ -11,7 +11,10 @@
 
 from __future__ import annotations
 
+import ast
+import contextlib
 import importlib.util
+import io
 import os
 import runpy
 import sys
@@ -27,6 +30,7 @@ from drawlib._core.l1_core import (
     logger,
 )
 from drawlib._core.l4_canvas import clear
+from drawlib._tools.doc_builder.progress import FileBuildProgress, format_duplicate_output_error
 from drawlib._utils import dutil_canvas
 
 
@@ -72,12 +76,108 @@ class DrawlibExecuter:
         self._image_format: Optional[Literal["png", "webp", "jpg", "pdf"]] = image_format
         self._grid = grid
         self._topdir_path: str = ""
+        self._current_source_label: str = ""
+        self._runtime_seen_outputs: dict[str, str] = {}
+
+    def _resolve_static_save_target(
+        self,
+        script_path: str,
+        call_file: Optional[str],
+        call_format: Optional[str],
+    ) -> str:
+        """Resolve the output file path that a static `save(file, format)` call in `script_path` will write."""
+        eff_format = self._image_format if self._image_format else call_format
+        if self._output_file is not None:
+            target = os.path.abspath(self._output_file)
+            if eff_format:
+                stem, _ = os.path.splitext(target)
+                target = f"{stem}.{eff_format}"
+            return os.path.abspath(target)
+
+        output_dir = os.path.abspath(self._output_dir) if self._output_dir else None
+        if call_file is None:
+            ext = eff_format or "png"
+            target_dir = output_dir if output_dir is not None else os.path.dirname(os.path.abspath(script_path))
+            stem = os.path.splitext(os.path.basename(script_path))[0]
+            return os.path.abspath(os.path.join(target_dir, f"{stem}.{ext}"))
+
+        eff_file = f"{os.path.splitext(call_file)[0]}.{eff_format}" if eff_format else call_file
+        if output_dir is not None and not os.path.isabs(eff_file):
+            return os.path.abspath(os.path.join(output_dir, eff_file))
+        if os.path.isabs(eff_file):
+            return os.path.abspath(eff_file)
+        return os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(script_path)), eff_file))
+
+    @staticmethod
+    def _parse_static_save_call(node: ast.Call) -> Optional[tuple[Optional[str], Optional[str]]]:
+        """Extract static `(call_file, call_format)` from an AST `save(...)` call node, or None if not static."""
+        is_save = (isinstance(node.func, ast.Name) and node.func.id == "save") or (
+            isinstance(node.func, ast.Attribute) and node.func.attr == "save"
+        )
+        if not is_save:
+            return None
+
+        call_file: Optional[str] = None
+        call_format: Optional[str] = None
+
+        for idx, arg in enumerate(node.args[:2]):
+            if not isinstance(arg, ast.Constant) or not (isinstance(arg.value, str) or arg.value is None):
+                return None
+            if idx == 0:
+                call_file = arg.value
+            else:
+                call_format = arg.value
+
+        for kw in node.keywords:
+            if kw.arg not in {"file", "format"}:
+                continue
+            if not isinstance(kw.value, ast.Constant) or not (
+                isinstance(kw.value.value, str) or kw.value.value is None
+            ):
+                return None
+            if kw.arg == "file":
+                call_file = kw.value.value
+            else:
+                call_format = kw.value.value
+
+        return call_file, call_format
+
+    def _check_duplicate_outputs(
+        self,
+        file_paths: Sequence[str],
+        display_names: Sequence[str],
+    ) -> None:
+        """Pre-check all target Python scripts via AST for duplicate output image paths before execution."""
+        seen_outputs: dict[str, str] = {}
+        for file_path, disp_name in zip(file_paths, display_names):
+            try:
+                with open(file_path, "r", encoding="utf-8") as f:
+                    tree = ast.parse(f.read(), filename=file_path)
+            except (OSError, SyntaxError) as exc:
+                logger.debug(f"Skipping static AST check for {file_path}: {exc}")
+                continue
+
+            for node in ast.walk(tree):
+                if not isinstance(node, ast.Call):
+                    continue
+                parsed = self._parse_static_save_call(node)
+                if parsed is None:
+                    continue
+                call_file, call_format = parsed
+                target_abs = self._resolve_static_save_target(file_path, call_file, call_format)
+                src_label = f"{disp_name} (line {node.lineno})"
+                if target_abs in seen_outputs:
+                    raise ValueError(
+                        format_duplicate_output_error(target_abs, seen_outputs[target_abs], src_label)
+                    )
+                seen_outputs[target_abs] = src_label
 
     def _create_wrapped_save(
         self,
         orig_canvas_save: Callable[..., None],
+        canvas_inst: drawlib._core.l4_canvas._canvas.Canvas,
     ) -> Callable[..., None]:
-        """Create a wrapped save function that applies output file and format overrides."""
+        """Create a wrapped save function that applies output overrides and guards against duplicate outputs."""
 
         def _wrapped_save(
             file: Optional[str] = None,
@@ -91,12 +191,25 @@ class DrawlibExecuter:
                 if eff_format:
                     stem, _ = os.path.splitext(target)
                     target = f"{stem}.{eff_format}"
-                orig_canvas_save(file=target, format=eff_format)
+                eff_file: Optional[str] = target
             elif file is not None and eff_format:
                 stem, _ = os.path.splitext(file)
-                orig_canvas_save(file=f"{stem}.{eff_format}", format=eff_format)
+                eff_file = f"{stem}.{eff_format}"
             else:
-                orig_canvas_save(file=file, format=eff_format)
+                eff_file = file
+
+            resolved_abs = os.path.abspath(canvas_inst._get_save_file_path(eff_file, eff_format))
+            current_src = self._current_source_label or "<script>"
+            if resolved_abs in self._runtime_seen_outputs:
+                raise ValueError(
+                    format_duplicate_output_error(
+                        resolved_abs,
+                        self._runtime_seen_outputs[resolved_abs],
+                        current_src,
+                    )
+                )
+            self._runtime_seen_outputs[resolved_abs] = current_src
+            orig_canvas_save(file=eff_file, format=eff_format)
 
         return _wrapped_save
 
@@ -107,13 +220,30 @@ class DrawlibExecuter:
         if os.path.isfile(path):
             if not path.endswith(".py"):
                 raise ValueError(f'Unable to run "{path}"')
+            single_name = f"/{os.path.basename(path)}"
+            self._check_duplicate_outputs([path], [single_name])
+            self._current_source_label = single_name
+            progress = FileBuildProgress(1, 1, file_name=single_name, name_width=len(single_name))
+            progress.update(0, 1, done=False)
             self._exec_module(path)
+            progress.update(1, 1, done=True)
             return
 
-        file_paths = self._get_python_files(path)
-        for file_path in file_paths:
-            if not os.path.basename(file_path).startswith("__"):
-                self._exec_module(file_path)
+        file_paths = [
+            fp for fp in self._get_python_files(path) if not os.path.basename(fp).startswith("__")
+        ]
+        total_files = len(file_paths)
+        display_names = [
+            "/" + os.path.relpath(fp, path).replace(os.sep, "/") for fp in file_paths
+        ]
+        self._check_duplicate_outputs(file_paths, display_names)
+        name_width = max((len(n) for n in display_names), default=0)
+        for idx, (file_path, disp_name) in enumerate(zip(file_paths, display_names), start=1):
+            self._current_source_label = disp_name
+            progress = FileBuildProgress(idx, total_files, file_name=disp_name, name_width=name_width)
+            progress.update(0, 1, done=False)
+            self._exec_module(file_path)
+            progress.update(1, 1, done=True)
 
     @guarded
     def execute(self, file_or_directory: str) -> None:
@@ -134,14 +264,13 @@ class DrawlibExecuter:
         orig_canvas_save = canvas_inst.save
         orig_core_save = drawlib._core.l4_canvas._canvas.save
         orig_canvas_mod_save = getattr(drawlib.canvas, "save", None)
-        need_save_override = bool(self._output_file or self._image_format)
+        self._runtime_seen_outputs.clear()
 
         try:
-            if need_save_override:
-                wrapped = self._create_wrapped_save(orig_canvas_save)
-                canvas_inst.save = wrapped  # ty: ignore
-                drawlib._core.l4_canvas._canvas.save = wrapped  # ty: ignore
-                drawlib.canvas.save = wrapped  # ty: ignore
+            wrapped = self._create_wrapped_save(orig_canvas_save, canvas_inst)
+            canvas_inst.save = wrapped  # ty: ignore
+            drawlib._core.l4_canvas._canvas.save = wrapped  # ty: ignore
+            drawlib.canvas.save = wrapped  # ty: ignore
 
             path = get_script_relative_path(file_or_directory)
             if not os.path.exists(path):
@@ -149,11 +278,10 @@ class DrawlibExecuter:
 
             self._execute_target_path(path)
         finally:
-            if need_save_override:
-                canvas_inst.save = orig_canvas_save  # ty: ignore
-                drawlib._core.l4_canvas._canvas.save = orig_core_save  # type: ignore[assignment]
-                if orig_canvas_mod_save is not None:
-                    drawlib.canvas.save = orig_canvas_mod_save  # type: ignore[assignment]
+            canvas_inst.save = orig_canvas_save  # ty: ignore
+            drawlib._core.l4_canvas._canvas.save = orig_core_save  # type: ignore[assignment]
+            if orig_canvas_mod_save is not None:
+                drawlib.canvas.save = orig_canvas_mod_save  # type: ignore[assignment]
             if self._grid:
                 dutil_settings.set_force_grid(False)
             if self._output_dir is not None:
@@ -257,7 +385,11 @@ class DrawlibExecuter:
         try:
             self._prepare_canvas_for_module()
             logger.info(f"    - {file_path}")
-            mspec.loader.exec_module(module)
+            if dutil_settings.get_logging_mode() not in {"verbose", "developer"}:
+                with contextlib.redirect_stdout(io.StringIO()):
+                    mspec.loader.exec_module(module)
+            else:
+                mspec.loader.exec_module(module)
             sys.modules[name] = module
 
         except Exception as e:
@@ -325,6 +457,28 @@ class DrawlibExecuter:
                 sys.modules[name] = module
 
 
+def _collect_target_py_files(
+    target_list: Sequence[str],
+    executer: DrawlibExecuter,
+) -> tuple[List[str], List[str]]:
+    """Resolve valid target paths and collect all Python files across those targets."""
+    resolved_targets: List[str] = []
+    all_py_files: List[str] = []
+    for target_file in target_list:
+        if not os.path.isfile(target_file) and not os.path.isdir(target_file):
+            logger.warning(f'ignore arg "{target_file}" since it is not a file/dir path')
+            continue
+        realpath = os.path.realpath(os.path.abspath(target_file))
+        resolved_targets.append(realpath)
+        if os.path.isfile(realpath) and realpath.endswith(".py"):
+            all_py_files.append(realpath)
+        elif os.path.isdir(realpath):
+            all_py_files.extend(
+                fp for fp in executer._get_python_files(realpath) if not os.path.basename(fp).startswith("__")
+            )
+    return resolved_targets, all_py_files
+
+
 def build_image(
     inputs: Union[str, Sequence[str]],
     output: Optional[str] = None,
@@ -380,15 +534,15 @@ def build_image(
         grid=grid,
     )
 
-    executed: List[str] = []
-    for target_file in target_list:
-        if not os.path.isfile(target_file) and not os.path.isdir(target_file):
-            msg = f'ignore arg "{target_file}" since it is not a file/dir path'
-            logger.warning(msg)
-            continue
+    resolved_targets, all_py_files = _collect_target_py_files(target_list, executer)
+    if len(all_py_files) > 1:
+        common = os.path.commonpath(all_py_files)
+        base_root = common if os.path.isdir(common) else os.path.dirname(common)
+        all_disp = ["/" + os.path.relpath(fp, base_root).replace(os.sep, "/") for fp in all_py_files]
+        executer._check_duplicate_outputs(all_py_files, all_disp)
 
-        abspath = os.path.abspath(target_file)
-        realpath = os.path.realpath(abspath)
+    executed: List[str] = []
+    for realpath in resolved_targets:
         executer.execute(realpath)
         executed.append(realpath)
 

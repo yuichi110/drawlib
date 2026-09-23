@@ -22,6 +22,11 @@ from drawlib._tools.doc_builder.detector import detect_document_type
 from drawlib._tools.doc_builder.exporter_html import render_html_document
 from drawlib._tools.doc_builder.parser_md import parse_markdown_to_html
 from drawlib._tools.doc_builder.processor import DrawlibBlockProcessor
+from drawlib._tools.doc_builder.progress import (
+    FileBuildProgress,
+    check_document_output_duplicates,
+    format_duplicate_output_error,
+)
 
 
 def _extract_title(content: str, filename: str, is_md: bool) -> str:
@@ -161,12 +166,39 @@ def build_merged_html(
     chapters_html: List[str] = []
     toc_entries: List[tuple[str, str]] = []
     inferred_title: Optional[str] = title
+    total_files = len(file_list)
+    if len(inputs) == 1 and os.path.isdir(os.path.abspath(inputs[0])):
+        base_root = os.path.abspath(inputs[0])
+    elif len(file_list) > 1:
+        common = os.path.commonpath(file_list)
+        base_root = common if os.path.isdir(common) else os.path.dirname(common)
+    else:
+        base_root = os.path.dirname(file_list[0]) if file_list else ""
+    display_names = [
+        "/" + os.path.relpath(s_abs, base_root).replace(os.sep, "/") for s_abs in file_list
+    ]
+    seen_sources: dict[str, str] = {}
+    for s_abs, disp_name in zip(file_list, display_names):
+        if s_abs in seen_sources:
+            raise ValueError(format_duplicate_output_error(s_abs, seen_sources[s_abs], disp_name))
+        seen_sources[s_abs] = disp_name
+    check_document_output_duplicates(
+        tasks=[(s_abs, "", s_abs.lower().endswith((".md", ".markdown"))) for s_abs in file_list],
+        display_names=display_names,
+        image_format="png",
+        embed_images=False,
+    )
+    name_width = max((len(n) for n in display_names), default=0)
 
-    for idx, src_abs in enumerate(file_list, start=1):
+    for idx, (src_abs, disp_name) in enumerate(zip(file_list, display_names), start=1):
         with open(src_abs, "r", encoding="utf-8") as f:
             content = f.read()
 
         doc_info = detect_document_type(src_abs, content)
+        total_steps = max(doc_info.block_count, 1)
+        progress = FileBuildProgress(idx, total_files, file_name=disp_name, name_width=name_width)
+        progress.update(0, total_steps, done=False)
+
         src_dir = os.path.dirname(src_abs)
         doc_base_name = os.path.splitext(os.path.basename(src_abs))[0]
         chapter_title = _extract_title(content, os.path.basename(src_abs), doc_info.is_markdown)
@@ -196,6 +228,7 @@ def build_merged_html(
                     image_format="png",
                     embed_images=True,
                     source_filename=src_abs,
+                    progress_callback=progress.as_callback(),
                 )
                 chapter_body = parse_markdown_to_html(processed_md)
             elif doc_info.doc_type == "markdown":
@@ -209,6 +242,7 @@ def build_merged_html(
                     image_format="png",
                     embed_images=True,
                     source_filename=src_abs,
+                    progress_callback=progress.as_callback(),
                 )
                 chapter_body = _extract_html_body(processed_html) if doc_info.is_full_html else processed_html
             else:
@@ -237,6 +271,7 @@ def build_merged_html(
 
         break_style = ' style="page-break-before: always; break-before: page;"' if (page_break and idx > 1) else ""
         chapters_html.append(f'<section id="{anchor_id}" class="pdf-chapter"{break_style}>\n{chapter_body}\n</section>')
+        progress.update(total_steps, total_steps, done=True)
 
     body_parts: List[str] = []
     if toc and len(toc_entries) > 0:

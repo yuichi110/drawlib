@@ -29,6 +29,10 @@ from drawlib._tools.doc_builder.processor import (
     extract_code_blocks,
     show_code_block,
 )
+from drawlib._tools.doc_builder.progress import (
+    FileBuildProgress,
+    check_document_output_duplicates,
+)
 from drawlib._tools.doc_builder.template import (
     export_css,
     export_default_template,
@@ -113,6 +117,7 @@ def _compile_single_markdown_file(
     image_format: str,
     config_path: Optional[str],
     processor: Optional[DrawlibBlockProcessor] = None,
+    progress: Optional[FileBuildProgress] = None,
 ) -> DrawlibBlockProcessor | None:
     """Compile a single Markdown file into rendered Markdown."""
     with open(src_abs, "r", encoding="utf-8") as f:
@@ -120,10 +125,15 @@ def _compile_single_markdown_file(
 
     _validate_markdown_images(src_abs, content)
     doc_info: DocumentInputInfo = detect_document_type(src_abs, content)
+    total_steps = max(doc_info.block_count, 1)
+    if progress is not None:
+        progress.update(0, total_steps, done=False)
 
     os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
     if doc_info.doc_type == "markdown":
         write_rendered_markdown(content, dest_abs)
+        if progress is not None:
+            progress.update(total_steps, total_steps, done=True)
         return processor
 
     if processor is None:
@@ -148,12 +158,16 @@ def _compile_single_markdown_file(
             image_format=image_format,
             use_markdown_syntax=True,
             source_filename=src_abs,
+            progress_callback=progress.as_callback() if progress is not None else None,
         )
         write_rendered_markdown(rendered_md, dest_abs)
     finally:
         os.chdir(orig_cwd)
         if sys_path_added and src_dir in sys.path:
             sys.path.remove(src_dir)
+
+    if progress is not None:
+        progress.update(total_steps, total_steps, done=True)
 
     return processor
 
@@ -192,6 +206,8 @@ def build_markdown(
     if os.path.isdir(input_abs):
         out_dir_abs = os.path.abspath(output) if output else input_abs
         processor: Optional[DrawlibBlockProcessor] = None
+        md_tasks: list[tuple[str, str]] = []
+        asset_tasks: list[tuple[str, str]] = []
 
         for root, dirnames, files in os.walk(input_abs):
             if out_dir_abs != input_abs:
@@ -217,18 +233,36 @@ def build_markdown(
                             f'Refusing to overwrite input source file "{src_abs}". '
                             "Please specify a different output directory using -o / --output."
                         )
-                    processor = _compile_single_markdown_file(
-                        src_abs=src_abs,
-                        dest_abs=dest_abs,
-                        image_format=image_format,
-                        config_path=config,
-                        processor=processor,
-                    )
+                    md_tasks.append((src_abs, dest_abs))
                 elif not fname.endswith((".html", ".htm")):
                     dest_abs = os.path.join(out_dir_abs, rel_path)
                     if src_abs != dest_abs:
-                        os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
-                        shutil.copy2(src_abs, dest_abs)
+                        asset_tasks.append((src_abs, dest_abs))
+
+        for src_abs, dest_abs in asset_tasks:
+            os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
+            shutil.copy2(src_abs, dest_abs)
+
+        total_files = len(md_tasks)
+        display_names = [
+            "/" + os.path.relpath(s_abs, input_abs).replace(os.sep, "/") for s_abs, _ in md_tasks
+        ]
+        check_document_output_duplicates(
+            tasks=[(s_abs, d_abs, True) for s_abs, d_abs in md_tasks],
+            display_names=display_names,
+            image_format=image_format,
+            embed_images=False,
+        )
+        name_width = max((len(n) for n in display_names), default=0)
+        for idx, ((src_abs, dest_abs), disp_name) in enumerate(zip(md_tasks, display_names), start=1):
+            processor = _compile_single_markdown_file(
+                src_abs=src_abs,
+                dest_abs=dest_abs,
+                image_format=image_format,
+                config_path=config,
+                processor=processor,
+                progress=FileBuildProgress(idx, total_files, file_name=disp_name, name_width=name_width),
+            )
 
         return out_dir_abs
 
@@ -253,11 +287,19 @@ def build_markdown(
             "Please specify a different output path using -o / --output."
         )
 
+    single_name = f"/{os.path.basename(input_abs)}"
+    check_document_output_duplicates(
+        tasks=[(input_abs, dest_abs, True)],
+        display_names=[single_name],
+        image_format=image_format,
+        embed_images=False,
+    )
     _compile_single_markdown_file(
         src_abs=input_abs,
         dest_abs=dest_abs,
         image_format=image_format,
         config_path=config,
+        progress=FileBuildProgress(1, 1, file_name=single_name, name_width=len(single_name)),
     )
     return dest_abs
 
@@ -272,12 +314,17 @@ def _compile_single_html_file(
     nav_list: Optional[list[dict[str, str]]],
     template_path: Optional[str],
     processor: Optional[DrawlibBlockProcessor] = None,
+    progress: Optional[FileBuildProgress] = None,
 ) -> DrawlibBlockProcessor | None:
     """Compile a single Markdown or HTML file into HTML."""
     with open(src_abs, "r", encoding="utf-8") as f:
         content = f.read()
 
     doc_info = detect_document_type(src_abs, content)
+    total_steps = max(doc_info.block_count, 1)
+    if progress is not None:
+        progress.update(0, total_steps, done=False)
+
     if doc_info.is_markdown:
         _validate_markdown_images(src_abs, content)
 
@@ -306,6 +353,7 @@ def _compile_single_html_file(
                 image_format=image_format,
                 embed_images=False,
                 source_filename=src_abs,
+                progress_callback=progress.as_callback() if progress is not None else None,
             )
             body_html = parse_markdown_to_html(processed_text)
         elif doc_info.doc_type == "markdown":
@@ -320,11 +368,14 @@ def _compile_single_html_file(
                 image_format=image_format,
                 embed_images=False,
                 source_filename=src_abs,
+                progress_callback=progress.as_callback() if progress is not None else None,
             )
             if doc_info.is_full_html and template_path is None:
                 os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
                 with open(dest_abs, "w", encoding="utf-8") as f:
                     f.write(processed_html)
+                if progress is not None:
+                    progress.update(total_steps, total_steps, done=True)
                 return processor
             body_html = processed_html
         else:
@@ -332,6 +383,8 @@ def _compile_single_html_file(
                 os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
                 with open(dest_abs, "w", encoding="utf-8") as f:
                     f.write(content)
+                if progress is not None:
+                    progress.update(total_steps, total_steps, done=True)
                 return processor
             body_html = content
 
@@ -383,6 +436,9 @@ def _compile_single_html_file(
         os.chdir(orig_cwd)
         if sys_path_added and src_dir in sys.path:
             sys.path.remove(src_dir)
+
+    if progress is not None:
+        progress.update(total_steps, total_steps, done=True)
 
     return processor
 
@@ -442,6 +498,9 @@ def build_html(
                 f.write(get_default_css(custom_css_path=css))
 
         processor: Optional[DrawlibBlockProcessor] = None
+        html_tasks: list[tuple[str, str, bool]] = []
+        asset_tasks: list[tuple[str, str]] = []
+
         for root, dirnames, files in os.walk(input_abs):
             if out_dir_abs != input_abs:
                 dirnames[:] = [
@@ -461,43 +520,49 @@ def build_html(
                 if fname.endswith(".md") or fname.endswith(".markdown"):
                     rel_base, _ = os.path.splitext(rel_path)
                     dest_abs = os.path.join(out_dir_abs, rel_base + ".html")
-                    rel_css_href = (
-                        os.path.relpath(style_css_path, os.path.dirname(dest_abs)) if style_css_path else None
-                    )
-                    processor = _compile_single_html_file(
-                        src_abs=src_abs,
-                        dest_abs=dest_abs,
-                        image_format=image_format,
-                        config_path=config,
-                        css_path=css,
-                        css_href=rel_css_href,
-                        nav_list=nav_list,
-                        template_path=template,
-                        processor=processor,
-                    )
+                    html_tasks.append((src_abs, dest_abs, True))
                 elif fname.endswith((".html", ".htm")):
                     dest_abs = os.path.join(out_dir_abs, rel_path)
                     if src_abs == dest_abs:
                         continue
-                    rel_css_href = (
-                        os.path.relpath(style_css_path, os.path.dirname(dest_abs)) if style_css_path else None
-                    )
-                    processor = _compile_single_html_file(
-                        src_abs=src_abs,
-                        dest_abs=dest_abs,
-                        image_format=image_format,
-                        config_path=config,
-                        css_path=css,
-                        css_href=rel_css_href,
-                        nav_list=None,
-                        template_path=template,
-                        processor=processor,
-                    )
+                    html_tasks.append((src_abs, dest_abs, False))
                 else:
                     dest_abs = os.path.join(out_dir_abs, rel_path)
                     if src_abs != dest_abs:
-                        os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
-                        shutil.copy2(src_abs, dest_abs)
+                        asset_tasks.append((src_abs, dest_abs))
+
+        total_files = len(html_tasks)
+        display_names = [
+            "/" + os.path.relpath(s_abs, input_abs).replace(os.sep, "/") for s_abs, _, _ in html_tasks
+        ]
+        check_document_output_duplicates(
+            tasks=html_tasks,
+            display_names=display_names,
+            image_format=image_format,
+            embed_images=False,
+        )
+
+        for src_abs, dest_abs in asset_tasks:
+            os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
+            shutil.copy2(src_abs, dest_abs)
+
+        name_width = max((len(n) for n in display_names), default=0)
+        for idx, ((src_abs, dest_abs, is_md), disp_name) in enumerate(zip(html_tasks, display_names), start=1):
+            rel_css_href = (
+                os.path.relpath(style_css_path, os.path.dirname(dest_abs)) if style_css_path else None
+            )
+            processor = _compile_single_html_file(
+                src_abs=src_abs,
+                dest_abs=dest_abs,
+                image_format=image_format,
+                config_path=config,
+                css_path=css,
+                css_href=rel_css_href,
+                nav_list=nav_list if is_md else None,
+                template_path=template,
+                processor=processor,
+                progress=FileBuildProgress(idx, total_files, file_name=disp_name, name_width=name_width),
+            )
 
         return out_dir_abs
 
@@ -519,6 +584,15 @@ def build_html(
             "Please specify a different output path using -o / --output."
         )
 
+    single_name = f"/{os.path.basename(input_abs)}"
+    is_md_single = os.path.splitext(input_abs)[1].lower() in {".md", ".markdown"}
+    check_document_output_duplicates(
+        tasks=[(input_abs, dest_abs, is_md_single)],
+        display_names=[single_name],
+        image_format=image_format,
+        embed_images=False,
+    )
+
     rel_css_href: Optional[str] = None
     if css_mode != "embed":
         style_css_path = os.path.join(os.path.dirname(dest_abs), "style.css")
@@ -536,6 +610,7 @@ def build_html(
         css_href=rel_css_href,
         nav_list=None,
         template_path=template,
+        progress=FileBuildProgress(1, 1, file_name=single_name, name_width=len(single_name)),
     )
     return dest_abs
 

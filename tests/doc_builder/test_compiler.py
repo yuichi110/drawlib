@@ -300,3 +300,33 @@ def test_build_document_missing_image_warning(tmp_path, capsys) -> None:
     build_document(input_path=str(doc), output_path=str(out))
     captured = capsys.readouterr()
     assert "WARNING: Image 'missing_test_image.png'" in captured.err
+
+
+def test_build_html_duplicate_document_outputs_error(tmp_path) -> None:
+    """Test pre-check raises ValueError when two source files map to the same HTML output file."""
+    src_dir = tmp_path / "src_dup"
+    out_dir = tmp_path / "out_dup"
+    src_dir.mkdir()
+    (src_dir / "topic.md").write_text("# Topic MD\n", encoding="utf-8")
+    (src_dir / "topic.html").write_text("<h1>Topic HTML</h1>\n", encoding="utf-8")
+
+    with pytest.raises(ValueError, match="Duplicate output file detected") as exc_info:
+        build_html(input_path=str(src_dir), output_path=str(out_dir))
+    assert "/topic.md" in str(exc_info.value)
+    assert "/topic.html" in str(exc_info.value)
+
+
+def test_build_html_duplicate_block_image_outputs_error(tmp_path) -> None:
+    """Test pre-check raises ValueError when two drawlib blocks write to the same image file."""
+    doc = tmp_path / "guide.md"
+    doc.write_text(
+        "# Guide\n```drawlib file:same.png\ncircle((50, 50), 10)\n```\n"
+        "```drawlib file:same.png\ncircle((50, 50), 20)\n```\n",
+        encoding="utf-8",
+    )
+    out = tmp_path / "guide.html"
+
+    with pytest.raises(ValueError, match="Duplicate output file detected") as exc_info:
+        build_html(input_path=str(doc), output_path=str(out))
+    assert "block #1" in str(exc_info.value)
+    assert "block #2" in str(exc_info.value)

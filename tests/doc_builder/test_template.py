@@ -64,6 +64,7 @@ def test_list_and_export_css(tmp_path) -> None:
     presets = list_css()
     names = [p["name"] for p in presets]
     assert "default" in names
+    assert "google" in names
     assert "github" in names
     assert "minimal" in names
     assert "monochrome" in names

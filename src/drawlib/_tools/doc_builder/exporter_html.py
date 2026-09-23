@@ -28,7 +28,7 @@ def get_default_css(custom_css_path: Optional[str] = None) -> str:
     styles_dir = os.path.join(os.path.dirname(__file__), "css")
 
     # Built-in presets
-    if custom_css_path in {"default", "github", "monochrome", "minimal"}:
+    if custom_css_path in {"default", "google", "github", "monochrome", "minimal"}:
         preset_file = os.path.join(styles_dir, f"{custom_css_path}.css")
         if os.path.exists(preset_file):
             with open(preset_file, "r", encoding="utf-8") as f:

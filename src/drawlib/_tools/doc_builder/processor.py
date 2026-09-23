@@ -12,17 +12,24 @@
 from __future__ import annotations
 
 import base64
+import contextlib
+import io
 import os
 import re
 import shlex
 import sys
 import tempfile
+import warnings
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional
 
+import drawlib._core.l4_canvas._canvas
+import drawlib.canvas
+from drawlib._core.l1_core import dutil_settings
 from drawlib._tools.doc_builder.config import load_config
 from drawlib._tools.doc_builder.detector import detect_document_type
-from drawlib.canvas import clear, save
+from drawlib._utils import dutil_canvas
+from drawlib.canvas import save
 
 
 @dataclass
@@ -111,9 +118,6 @@ class DrawlibBlockProcessor:
             source_filename (str): Name used for code compilation traceback reporting.
             shared_globals (Optional[Dict[str, Any]]): Shared execution globals dictionary.
         """
-        import drawlib._core.l4_canvas._canvas
-        import drawlib.canvas
-
         canvas_inst = drawlib._core.l4_canvas._canvas.canvas
         orig_canvas_save = canvas_inst.save
         orig_core_save = drawlib._core.l4_canvas._canvas.save
@@ -122,7 +126,7 @@ class DrawlibBlockProcessor:
         def _no_op_save(*args: Any, **kwargs: Any) -> None:  # noqa: ANN401
             pass
 
-        clear()
+        dutil_canvas.initialize()
         compiled = compile(code, filename=source_filename, mode="exec")
 
         exec_globals = shared_globals if shared_globals is not None else {}
@@ -132,7 +136,13 @@ class DrawlibBlockProcessor:
             canvas_inst.save = _no_op_save  # type: ignore[assignment]
             drawlib._core.l4_canvas._canvas.save = _no_op_save  # type: ignore[assignment]
             drawlib.canvas.save = _no_op_save  # type: ignore[assignment]
-            exec(compiled, exec_globals)
+            with warnings.catch_warnings():
+                if dutil_settings.get_logging_mode() not in {"verbose", "developer"}:
+                    warnings.filterwarnings("ignore", message=r"Glyph .* missing from font", category=UserWarning)
+                    with contextlib.redirect_stdout(io.StringIO()):
+                        exec(compiled, exec_globals)
+                else:
+                    exec(compiled, exec_globals)
         except Exception as e:
             print(f"Error executing drawlib code block: {e}\nCode:\n{code}", file=sys.stderr)
             raise
@@ -157,15 +167,19 @@ class DrawlibBlockProcessor:
             source_filename (str): Name used for code compilation traceback reporting.
             grid (Optional[bool]): Whether to overlay coordinate grid on output image.
         """
+        if self.config_path:
+            load_config(config_path=self.config_path, shared_globals=self.shared_globals)
+
         self._exec_code_block(code, source_filename=source_filename, shared_globals=self.shared_globals)
 
         target_abs_path = os.path.abspath(target_file_path)
         os.makedirs(os.path.dirname(target_abs_path), exist_ok=True)
         if grid is True:
-            import drawlib._core.l4_canvas._canvas
-
             drawlib._core.l4_canvas._canvas.canvas._grid = True
-        save(target_abs_path)
+        with warnings.catch_warnings():
+            if dutil_settings.get_logging_mode() not in {"verbose", "developer"}:
+                warnings.filterwarnings("ignore", message=r"Glyph .* missing from font", category=UserWarning)
+            save(target_abs_path)
 
     def render_block_to_data_url(
         self,
@@ -318,6 +332,7 @@ class DrawlibBlockProcessor:
         use_markdown_syntax: bool = False,
         embed_images: bool = False,
         source_filename: str = "<drawlib_block>",
+        progress_callback: Optional[Callable[[int, int, bool], None]] = None,
     ) -> str:
         """Process Markdown text and replace ```drawlib blocks with rendered images.
 
@@ -329,6 +344,7 @@ class DrawlibBlockProcessor:
             use_markdown_syntax (bool): If True, output Markdown image syntax (![alt](path)) instead of HTML img tags.
             embed_images (bool): If True, embed images directly as Data URLs without saving files.
             source_filename (str): Path of source markdown file used for code execution context.
+            progress_callback (Optional[Callable[[int, int, bool], None]]): Progress callback `(step, total, done)`.
 
         Returns:
             str: Processed Markdown text with img tags or Markdown image links.
@@ -338,6 +354,7 @@ class DrawlibBlockProcessor:
 
         prepend_newline = not markdown_text.startswith("\n")
         text_to_search = "\n" + markdown_text if prepend_newline else markdown_text
+        total_blocks = len(pattern.findall(text_to_search))
 
         def replacer(match: re.Match[str]) -> str:
             nonlocal block_counter
@@ -351,6 +368,8 @@ class DrawlibBlockProcessor:
                 data_url = self.render_block_to_data_url(code, image_format=eff_format, source_filename=source_filename)
                 alt = f"{doc_base_name}_{block_counter}"
                 wrapper = self._format_image_wrapper(data_url, alt, options)
+                if progress_callback is not None:
+                    progress_callback(block_counter, total_blocks, False)
                 return f"\n\n```python\n{code}\n```\n\n{wrapper}\n\n"
 
             rel_img_path, target_img_path = _resolve_block_image_paths(
@@ -362,6 +381,8 @@ class DrawlibBlockProcessor:
             )
 
             self.render_block_to_file(code, target_img_path, source_filename=source_filename)
+            if progress_callback is not None:
+                progress_callback(block_counter, total_blocks, False)
 
             has_custom_options = bool(
                 options.width or options.height or options.align or options.caption or options.css_class
@@ -383,6 +404,7 @@ class DrawlibBlockProcessor:
         image_format: str = "png",
         embed_images: bool = False,
         source_filename: str = "<drawlib_block>",
+        progress_callback: Optional[Callable[[int, int, bool], None]] = None,
     ) -> str:
         """Process HTML text and replace <script type="text/drawlib"> blocks with rendered images.
 
@@ -393,6 +415,7 @@ class DrawlibBlockProcessor:
             image_format (str): Image format ('png' or 'webp'). Default is 'png'.
             embed_images (bool): If True, embed images directly as Data URLs without saving files.
             source_filename (str): Path of source HTML file used for code execution context.
+            progress_callback (Optional[Callable[[int, int, bool], None]]): Progress callback `(step, total, done)`.
 
         Returns:
             str: Processed HTML text with img tags.
@@ -402,6 +425,7 @@ class DrawlibBlockProcessor:
             re.DOTALL | re.IGNORECASE,
         )
         block_counter = 0
+        total_blocks = len(pattern_script.findall(html_text))
 
         def replacer_script(match: re.Match[str]) -> str:
             nonlocal block_counter
@@ -415,6 +439,8 @@ class DrawlibBlockProcessor:
                 data_url = self.render_block_to_data_url(code, image_format=eff_format, source_filename=source_filename)
                 alt = f"{doc_base_name}_{block_counter}"
                 wrapper = self._format_image_wrapper(data_url, alt, options)
+                if progress_callback is not None:
+                    progress_callback(block_counter, total_blocks, False)
                 return f'<pre><code class="language-python">{code}</code></pre>\n{wrapper}'
 
             rel_img_path, target_img_path = _resolve_block_image_paths(
@@ -426,6 +452,8 @@ class DrawlibBlockProcessor:
             )
 
             self.render_block_to_file(code, target_img_path, source_filename=source_filename)
+            if progress_callback is not None:
+                progress_callback(block_counter, total_blocks, False)
             wrapper = self._format_image_wrapper(rel_img_path, f"{doc_base_name}_{block_counter}", options)
             return f'<pre><code class="language-python">{code}</code></pre>\n{wrapper}'
 
