@@ -16,6 +16,7 @@ import contextlib
 import importlib.util
 import io
 import os
+import re
 import runpy
 import sys
 import traceback
@@ -30,6 +31,7 @@ from drawlib._core.l1_core import (
     logger,
 )
 from drawlib._core.l4_canvas import clear
+from drawlib._tools.doc_builder.build_cache import BuildImageCache, hash_file
 from drawlib._tools.doc_builder.progress import FileBuildProgress, format_duplicate_output_error
 from drawlib._utils import dutil_canvas
 
@@ -49,6 +51,8 @@ class DrawlibExecuter:
         output_file: Optional[str] = None,
         image_format: Optional[Literal["png", "webp", "jpg", "pdf"]] = None,
         grid: bool = False,
+        no_cache: bool = False,
+        target_roots: Optional[Sequence[str]] = None,
     ) -> None:
         """Initialize a DrawlibExecuter instance.
 
@@ -63,6 +67,8 @@ class DrawlibExecuter:
             output_file (Optional[str]): Optional explicit output file path when executing a single script.
             image_format (Optional[Literal["png", "webp", "jpg", "pdf"]]): Optional image format override.
             grid (bool): Whether to generate coordinate grid overlaid images in addition to normal images.
+            no_cache (bool): If True, disable reading/writing the SQLite build image cache.
+            target_roots (Optional[Sequence[str]]): Optional base directory paths for preserving subdirectories.
 
         Raises:
             ValueError: If mode is not one of ["none", "auto_clear", "auto_initialize"].
@@ -71,16 +77,54 @@ class DrawlibExecuter:
             raise ValueError(f'Arg mode is "{mode}". But it must be one of ["none", "auto_clear", "auto_initialize"].')
         self._mode = mode
         self._config_path = config_path
+        self._config_hash = hash_file(config_path)
         self._output_dir = output_dir
         self._output_file = output_file
         self._image_format: Optional[Literal["png", "webp", "jpg", "pdf"]] = image_format
         self._grid = grid
+        self._no_cache = no_cache
+        self._cache = BuildImageCache(enabled=not no_cache)
+        self._current_cache_info: Optional[tuple[str, str, str, str]] = None
         self._topdir_path: str = ""
+        self._target_roots: list[str] = [os.path.abspath(r) for r in target_roots] if target_roots else []
+        self._current_target_root: str = ""
         self._current_source_label: str = ""
         self._current_progress: Optional[FileBuildProgress] = None
         self._current_save_step: int = 0
         self._current_total_saves: int = 1
         self._runtime_seen_outputs: dict[str, str] = {}
+
+    def set_target_roots(self, roots: Sequence[str]) -> None:
+        """Set base target directory roots for preserving relative subdirectory output structure."""
+        self._target_roots = [os.path.abspath(r) for r in roots]
+
+    def _get_effective_output_dir(self, script_path: str) -> Optional[str]:
+        """Compute the effective output directory for a script, preserving subdirectories if under a target dir."""
+        if not self._output_dir:
+            return None
+        abs_output_dir = os.path.abspath(self._output_dir)
+        abs_script_dir = os.path.dirname(os.path.abspath(script_path))
+
+        candidate_roots: list[str] = []
+        if self._current_target_root:
+            candidate_roots.append(self._current_target_root)
+        if self._target_roots:
+            candidate_roots.extend(self._target_roots)
+
+        for root in candidate_roots:
+            if not os.path.isdir(root):
+                continue
+            abs_root = os.path.abspath(root)
+            try:
+                rel = os.path.relpath(abs_script_dir, abs_root)
+            except ValueError:
+                continue
+            if not rel.startswith("..") and rel != ".":
+                return os.path.abspath(os.path.join(abs_output_dir, rel))
+            if rel == ".":
+                return abs_output_dir
+
+        return abs_output_dir
 
     def _resolve_static_save_target(
         self,
@@ -97,16 +141,20 @@ class DrawlibExecuter:
                 target = f"{stem}.{eff_format}"
             return os.path.abspath(target)
 
-        output_dir = os.path.abspath(self._output_dir) if self._output_dir else None
+        effective_output_dir = self._get_effective_output_dir(script_path)
         if call_file is None:
             ext = eff_format or "png"
-            target_dir = output_dir if output_dir is not None else os.path.dirname(os.path.abspath(script_path))
+            target_dir = (
+                effective_output_dir
+                if effective_output_dir is not None
+                else os.path.dirname(os.path.abspath(script_path))
+            )
             stem = os.path.splitext(os.path.basename(script_path))[0]
             return os.path.abspath(os.path.join(target_dir, f"{stem}.{ext}"))
 
         eff_file = f"{os.path.splitext(call_file)[0]}.{eff_format}" if eff_format else call_file
-        if output_dir is not None and not os.path.isabs(eff_file):
-            return os.path.abspath(os.path.join(output_dir, eff_file))
+        if effective_output_dir is not None and not os.path.isabs(eff_file):
+            return os.path.abspath(os.path.join(effective_output_dir, eff_file))
         if os.path.isabs(eff_file):
             return os.path.abspath(eff_file)
         return os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(script_path)), eff_file))
@@ -224,6 +272,24 @@ class DrawlibExecuter:
                 )
             self._runtime_seen_outputs[resolved_abs] = current_src
             orig_canvas_save(file=eff_file, format=eff_format)
+            if self._current_cache_info is not None and os.path.isfile(resolved_abs):
+                c_key, c_code_hash, c_cfg_hash, c_ext = self._current_cache_info
+                base_stem, ext_dot = os.path.splitext(resolved_abs)
+                grid_candidate = f"{base_stem}_grid{ext_dot}"
+                with open(resolved_abs, "rb") as f_img:
+                    img_bytes = f_img.read()
+                grid_bytes = None
+                if os.path.isfile(grid_candidate):
+                    with open(grid_candidate, "rb") as f_grid:
+                        grid_bytes = f_grid.read()
+                self._cache.put(
+                    cache_key=c_key,
+                    code_hash=c_code_hash,
+                    config_hash=c_cfg_hash,
+                    image_format=c_ext,
+                    image_blob=img_bytes,
+                    grid_blob=grid_bytes,
+                )
             self._current_save_step += 1
             if self._current_progress is not None:
                 self._current_progress.update(
@@ -234,8 +300,121 @@ class DrawlibExecuter:
 
         return _wrapped_save
 
+    @staticmethod
+    def _has_local_imports(tree: ast.AST, script_dir: str, topdir_path: str) -> bool:
+        """Check whether the AST imports any local Python modules from script_dir or topdir_path."""
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                for alias in node.names:
+                    top_mod = alias.name.split(".")[0]
+                    if os.path.exists(os.path.join(script_dir, f"{top_mod}.py")) or (
+                        topdir_path and os.path.exists(os.path.join(topdir_path, top_mod))
+                    ):
+                        return True
+            elif isinstance(node, ast.ImportFrom):
+                if node.level > 0:
+                    return True
+                if node.module:
+                    top_mod = node.module.split(".")[0]
+                    if os.path.exists(os.path.join(script_dir, f"{top_mod}.py")) or (
+                        topdir_path and os.path.exists(os.path.join(topdir_path, top_mod))
+                    ):
+                        return True
+        return False
+
+    def _extract_single_static_save(
+        self,
+        tree: ast.AST,
+        script_dir: str,
+    ) -> Optional[tuple[Optional[str], Optional[str]]]:
+        """Extract static save arguments if script has no local module imports, else None."""
+        if self._has_local_imports(tree, script_dir, self._topdir_path):
+            return None
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Call):
+                res = self._parse_static_save_call(node)
+                if res is not None:
+                    return res
+        return None
+
+    def _restore_cached_image(
+        self,
+        target_abs: str,
+        ext: str,
+        need_grid: bool,
+        cache_key: str,
+    ) -> bool:
+        """Restore normal and optional grid images from cache to disk if available."""
+        cached_entry = self._cache.get(cache_key, image_format=ext)
+        if cached_entry is None:
+            return False
+
+        norm_bytes, grid_bytes = cached_entry
+        if need_grid and grid_bytes is None:
+            return False
+
+        os.makedirs(os.path.dirname(target_abs), exist_ok=True)
+        with open(target_abs, "wb") as f_out:
+            f_out.write(norm_bytes)
+        if need_grid and grid_bytes is not None:
+            base_stem, ext_dot = os.path.splitext(target_abs)
+            with open(f"{base_stem}_grid{ext_dot}", "wb") as f_grid_out:
+                f_grid_out.write(grid_bytes)
+
+        self._runtime_seen_outputs[target_abs] = self._current_source_label or "<script>"
+        self._current_save_step += 1
+        if self._current_progress is not None:
+            self._current_progress.update(
+                self._current_save_step,
+                max(self._current_total_saves, self._current_save_step),
+                done=False,
+            )
+        return True
+
+    def _try_cache_or_prepare(self, file_path: str, total_saves: int) -> bool:
+        """Attempt to restore a single-save script output from cache or prepare cache metadata for storing."""
+        self._current_cache_info = None
+        if self._no_cache or self._mode not in {"auto_clear", "auto_initialize"} or total_saves != 1:
+            return False
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                code = f.read()
+            tree = ast.parse(code, filename=file_path)
+        except (OSError, SyntaxError):
+            return False
+
+        script_dir = os.path.dirname(os.path.abspath(file_path))
+        parsed_save = None if "grid_only" in code else self._extract_single_static_save(tree, script_dir)
+        if parsed_save is None:
+            return False
+
+        call_file, call_format = parsed_save
+        target_abs = self._resolve_static_save_target(file_path, call_file, call_format)
+        ext = os.path.splitext(target_abs)[1].lower().lstrip(".")
+        if ext not in {"png", "webp"}:
+            return False
+
+        need_grid = (
+            self._grid
+            or dutil_settings.get_force_grid()
+            or bool(re.search(r"\bgrid\s*=\s*True\b", code))
+        )
+        cache_key, code_hash = self._cache.compute_keys(
+            code=code,
+            config_hash=self._config_hash,
+            context_dir=script_dir,
+        )
+        if self._restore_cached_image(target_abs, ext, need_grid, cache_key):
+            return True
+
+        self._current_cache_info = (cache_key, code_hash, self._config_hash, ext)
+        return False
+
     def _execute_target_path(self, path: str) -> None:
         """Execute a resolved Python file or directory path."""
+        self._current_target_root = (
+            os.path.abspath(path) if os.path.isdir(path) else os.path.dirname(os.path.abspath(path))
+        )
         self._add_topdir_to_syspath(path)
         logger.info("Execute python files")
         if os.path.isfile(path):
@@ -247,6 +426,10 @@ class DrawlibExecuter:
             self._current_source_label = single_name
             self._current_save_step = 0
             self._current_total_saves = total_saves
+            eff_out = self._get_effective_output_dir(path)
+            if eff_out is not None:
+                dutil_settings.set_output_dir(eff_out)
+                os.makedirs(eff_out, exist_ok=True)
             progress = FileBuildProgress(
                 1,
                 1,
@@ -256,7 +439,9 @@ class DrawlibExecuter:
             )
             self._current_progress = progress
             progress.update(0, total_saves, done=False)
-            self._exec_module(path)
+            if not self._try_cache_or_prepare(path, total_saves):
+                self._exec_module(path)
+            self._current_cache_info = None
             final_saves = max(total_saves, self._current_save_step)
             progress.update(final_saves, final_saves, done=True)
             self._current_progress = None
@@ -278,6 +463,10 @@ class DrawlibExecuter:
             self._current_source_label = disp_name
             self._current_save_step = 0
             self._current_total_saves = total_saves
+            eff_out = self._get_effective_output_dir(file_path)
+            if eff_out is not None:
+                dutil_settings.set_output_dir(eff_out)
+                os.makedirs(eff_out, exist_ok=True)
             progress = FileBuildProgress(
                 idx,
                 total_files,
@@ -287,7 +476,9 @@ class DrawlibExecuter:
             )
             self._current_progress = progress
             progress.update(0, total_saves, done=False)
-            self._exec_module(file_path)
+            if not self._try_cache_or_prepare(file_path, total_saves):
+                self._exec_module(file_path)
+            self._current_cache_info = None
             final_saves = max(total_saves, self._current_save_step)
             progress.update(final_saves, final_saves, done=True)
             self._current_progress = None
@@ -333,6 +524,7 @@ class DrawlibExecuter:
                 dutil_settings.set_force_grid(False)
             if self._output_dir is not None:
                 dutil_settings.set_output_dir(None)
+            self._current_target_root = ""
 
     def _add_topdir_to_syspath(self, path: str) -> None:
         """Add the top directory of the specified path to the Python sys.path."""
@@ -415,7 +607,7 @@ class DrawlibExecuter:
 
     def _exec_module(self, file_path: str) -> None:
         """Execute the specified Python module file."""
-        if self._is_module_loaded(file_path):
+        if self._is_module_loaded(file_path) and self._current_cache_info is None:
             logger.info(f"    - {file_path}")
             return
 
@@ -526,6 +718,44 @@ def _collect_target_py_files(
     return resolved_targets, all_py_files
 
 
+def _normalize_build_inputs_and_output(
+    target_list: Sequence[str],
+    output: Optional[str],
+) -> tuple[List[str], Optional[str], Optional[str]]:
+    """Normalize input targets and resolve output directory/file destinations."""
+    targets = list(target_list)
+    if len(targets) == 1 and os.path.isdir(targets[0]) and output is None:
+        candidate_codes = os.path.join(targets[0], "codes")
+        candidate_images = os.path.join(targets[0], "images")
+        if os.path.isdir(candidate_codes):
+            targets = [candidate_codes]
+            output = candidate_images
+
+    output_dir: Optional[str] = None
+    output_file: Optional[str] = None
+    if output:
+        ext = os.path.splitext(output)[1].lower()
+        is_single = len(targets) == 1 and os.path.isfile(targets[0])
+        if is_single and ext in {".png", ".webp", ".jpg", ".jpeg", ".pdf"} and not os.path.isdir(output):
+            output_file = output
+        else:
+            output_dir = output
+
+    return targets, output_dir, output_file
+
+
+def _resolve_execution_mode(
+    disable_auto_clear: bool,
+    enable_auto_initialize: bool,
+) -> Literal["none", "auto_clear", "auto_initialize"]:
+    """Resolve canvas execution mode from CLI flags."""
+    if disable_auto_clear:
+        return "none"
+    if enable_auto_initialize:
+        return "auto_initialize"
+    return "auto_clear"
+
+
 def build_image(
     inputs: Union[str, Sequence[str]],
     output: Optional[str] = None,
@@ -534,6 +764,7 @@ def build_image(
     grid: bool = False,
     disable_auto_clear: bool = False,
     enable_auto_initialize: bool = False,
+    no_cache: bool = False,
 ) -> List[str]:
     """Execute one or more Python drawing scripts or directories to generate images.
 
@@ -545,6 +776,7 @@ def build_image(
         grid (bool): Whether to save companion *_grid.<ext> images with coordinate grid overlaid.
         disable_auto_clear (bool): Disable clearing canvas per executing drawing code file.
         enable_auto_initialize (bool): Enable full canvas re-initialization per executing drawing code file.
+        no_cache (bool): If True, disable reading/writing the SQLite build image cache.
 
     Returns:
         List[str]: List of executed target paths.
@@ -552,26 +784,13 @@ def build_image(
     Raises:
         ValueError: If no valid target files or directories are provided.
     """
-    target_list: List[str] = [inputs] if isinstance(inputs, str) else list(inputs)
-    if not target_list:
+    raw_targets: List[str] = [inputs] if isinstance(inputs, str) else list(inputs)
+    if not raw_targets:
         raise ValueError("No input files or directories specified for build_image.")
 
-    exec_mode: Literal["none", "auto_clear", "auto_initialize"] = "auto_clear"
-    if disable_auto_clear:
-        exec_mode = "none"
-    elif enable_auto_initialize:
-        exec_mode = "auto_initialize"
-
-    output_dir: Optional[str] = None
-    output_file: Optional[str] = None
-    if output:
-        ext = os.path.splitext(output)[1].lower()
-        is_single_file = len(target_list) == 1 and os.path.isfile(target_list[0])
-        if is_single_file and ext in {".png", ".webp", ".jpg", ".jpeg", ".pdf"} and not os.path.isdir(output):
-            output_file = output
-        else:
-            output_dir = output
-
+    target_list, output_dir, output_file = _normalize_build_inputs_and_output(raw_targets, output)
+    exec_mode = _resolve_execution_mode(disable_auto_clear, enable_auto_initialize)
+    target_roots = [os.path.abspath(t) for t in target_list if os.path.isdir(t)]
     executer = DrawlibExecuter(
         mode=exec_mode,
         config_path=config,
@@ -579,9 +798,12 @@ def build_image(
         output_file=output_file,
         image_format=format,
         grid=grid,
+        no_cache=no_cache,
+        target_roots=target_roots,
     )
 
     resolved_targets, all_py_files = _collect_target_py_files(target_list, executer)
+    executer.set_target_roots([t for t in resolved_targets if os.path.isdir(t)])
     if len(all_py_files) > 1:
         common = os.path.commonpath(all_py_files)
         base_root = common if os.path.isdir(common) else os.path.dirname(common)

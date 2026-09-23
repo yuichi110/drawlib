@@ -17,6 +17,7 @@ import shutil
 import sys
 from typing import List, Optional, Sequence, Union
 
+from drawlib._tools.doc_builder.build_cache import BuildImageCache
 from drawlib._tools.doc_builder.detector import DocType, DocumentInputInfo, detect_document_type
 from drawlib._tools.doc_builder.exporter_html import get_default_css, render_html_document
 from drawlib._tools.doc_builder.exporter_md import write_rendered_markdown
@@ -126,6 +127,8 @@ def _compile_single_markdown_file(
     config_path: Optional[str],
     processor: Optional[DrawlibBlockProcessor] = None,
     progress: Optional[FileBuildProgress] = None,
+    no_cache: bool = False,
+    cache: Optional[BuildImageCache] = None,
 ) -> DrawlibBlockProcessor | None:
     """Compile a single Markdown file into rendered Markdown."""
     with open(src_abs, "r", encoding="utf-8") as f:
@@ -145,7 +148,7 @@ def _compile_single_markdown_file(
         return processor
 
     if processor is None:
-        processor = DrawlibBlockProcessor(config_path=config_path)
+        processor = DrawlibBlockProcessor(config_path=config_path, no_cache=no_cache, cache=cache)
 
     src_dir = os.path.dirname(src_abs)
     output_dir = os.path.dirname(dest_abs)
@@ -185,6 +188,7 @@ def build_markdown(
     output: Optional[str] = None,
     image_format: str = "png",
     config: Optional[str] = None,
+    no_cache: bool = False,
     *,
     output_path: Optional[str] = None,
     config_path: Optional[str] = None,
@@ -196,6 +200,7 @@ def build_markdown(
         output (Optional[str]): Destination file or directory path.
         image_format (str): Image output format ('png' or 'webp'). Defaults to 'png'.
         config (Optional[str]): Optional Python configuration script path.
+        no_cache (bool): If True, disable reading/writing the SQLite build image cache.
         output_path (Optional[str]): Alias for output.
         config_path (Optional[str]): Alias for config.
 
@@ -210,6 +215,8 @@ def build_markdown(
     input_abs = os.path.abspath(input_path)
     if not os.path.exists(input_abs):
         raise ValueError(f'Input path "{input_abs}" does not exist.')
+
+    cache = BuildImageCache(enabled=not no_cache)
 
     if os.path.isdir(input_abs):
         out_dir_abs = os.path.abspath(output) if output else input_abs
@@ -277,6 +284,8 @@ def build_markdown(
                     name_width=name_width,
                     image_width=image_width,
                 ),
+                no_cache=no_cache,
+                cache=cache,
             )
 
         return out_dir_abs
@@ -321,6 +330,8 @@ def build_markdown(
             name_width=len(single_name),
             image_width=len(str(max(max_blocks, 0))),
         ),
+        no_cache=no_cache,
+        cache=cache,
     )
     return dest_abs
 
@@ -336,6 +347,8 @@ def _compile_single_html_file(
     template_path: Optional[str],
     processor: Optional[DrawlibBlockProcessor] = None,
     progress: Optional[FileBuildProgress] = None,
+    no_cache: bool = False,
+    cache: Optional[BuildImageCache] = None,
 ) -> DrawlibBlockProcessor | None:
     """Compile a single Markdown or HTML file into HTML."""
     with open(src_abs, "r", encoding="utf-8") as f:
@@ -350,7 +363,7 @@ def _compile_single_html_file(
         _validate_markdown_images(src_abs, content)
 
     if doc_info.has_drawlib and processor is None:
-        processor = DrawlibBlockProcessor(config_path=config_path)
+        processor = DrawlibBlockProcessor(config_path=config_path, no_cache=no_cache, cache=cache)
 
     src_dir = os.path.dirname(src_abs)
     output_dir = os.path.dirname(dest_abs)
@@ -366,7 +379,7 @@ def _compile_single_html_file(
 
         if doc_info.doc_type == "markdown_drawlib":
             if processor is None:
-                processor = DrawlibBlockProcessor(config_path=config_path)
+                processor = DrawlibBlockProcessor(config_path=config_path, no_cache=no_cache, cache=cache)
             processed_text = processor.process_markdown(
                 content,
                 doc_base_name=doc_base_name,
@@ -381,7 +394,7 @@ def _compile_single_html_file(
             body_html = parse_markdown_to_html(content)
         elif doc_info.doc_type == "html_drawlib":
             if processor is None:
-                processor = DrawlibBlockProcessor(config_path=config_path)
+                processor = DrawlibBlockProcessor(config_path=config_path, no_cache=no_cache, cache=cache)
             processed_html = processor.process_html(
                 content,
                 doc_base_name=doc_base_name,
@@ -471,6 +484,7 @@ def build_html(
     css: Optional[str] = None,
     template: Optional[str] = None,
     config: Optional[str] = None,
+    no_cache: bool = False,
     *,
     css_mode: str = "external",
     output_path: Optional[str] = None,
@@ -487,6 +501,7 @@ def build_html(
         css (Optional[str]): CSS preset name ('default', 'github', 'minimal', 'monochrome') or .css file path.
         template (Optional[str]): Template preset ('sidebar', 'simple') or .html.j2 file path.
         config (Optional[str]): Optional Python configuration script path.
+        no_cache (bool): If True, disable reading/writing the SQLite build image cache.
         css_mode (str): CSS mode ('external' by default, or 'embed' if overridden internally).
         output_path (Optional[str]): Alias for output.
         css_path (Optional[str]): Alias for css.
@@ -506,6 +521,8 @@ def build_html(
     input_abs = os.path.abspath(input_path)
     if not os.path.exists(input_abs):
         raise ValueError(f'Input path "{input_abs}" does not exist.')
+
+    cache = BuildImageCache(enabled=not no_cache)
 
     if os.path.isdir(input_abs):
         out_dir_abs = os.path.abspath(output) if output else input_abs
@@ -590,6 +607,8 @@ def build_html(
                     name_width=name_width,
                     image_width=image_width,
                 ),
+                no_cache=no_cache,
+                cache=cache,
             )
 
         return out_dir_abs
@@ -645,6 +664,8 @@ def build_html(
             name_width=len(single_name),
             image_width=len(str(max(max_blocks, 0))),
         ),
+        no_cache=no_cache,
+        cache=cache,
     )
     return dest_abs
 
@@ -658,6 +679,7 @@ def build_pdf(
     css: Optional[str] = None,
     template: Optional[str] = None,
     config: Optional[str] = None,
+    no_cache: bool = False,
     *,
     toc: Optional[bool] = None,
     output_path: Optional[str] = None,
@@ -677,6 +699,7 @@ def build_pdf(
         css (Optional[str]): CSS preset name or file path.
         template (Optional[str]): Jinja2 HTML template preset or file path.
         config (Optional[str]): Optional Python configuration script path.
+        no_cache (bool): If True, disable reading/writing the SQLite build image cache.
         toc (Optional[bool]): Backward-compatible alias for generate_index.
         output_path (Optional[str]): Alias for output.
         css_path (Optional[str]): Alias for css.
@@ -704,6 +727,7 @@ def build_pdf(
         config_path=config,
         css_path=css,
         template_path=template,
+        no_cache=no_cache,
     )
 
     if output:

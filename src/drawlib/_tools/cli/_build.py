@@ -80,6 +80,10 @@ def cmd_build_image(
             help="Enable initializing canvas per executing drawing code files.",
         ),
     ] = False,
+    no_cache: Annotated[
+        bool,
+        typer.Option("--no-cache", help="Disable reading and writing the SQLite build image cache."),
+    ] = False,
 ) -> None:
     """Execute one or more Python drawing scripts (.py) or package directories to generate images."""
     try:
@@ -91,10 +95,14 @@ def cmd_build_image(
             grid=grid,
             disable_auto_clear=disable_auto_clear,
             enable_auto_initialize=enable_auto_initialize,
+            no_cache=no_cache,
         )
         print(f"Successfully executed image build for {len(executed)} target(s).")
     except Exception as e:
         _handle_build_error("Build Image Error", e)
+
+
+build_app.command("images", help="Alias for 'build image'.")(cmd_build_image)
 
 
 @build_app.command("markdown")
@@ -115,6 +123,10 @@ def cmd_build_markdown(
         Optional[str],
         typer.Option("-c", "--config", help="Path to Python config/setup script (e.g. config.py)."),
     ] = None,
+    no_cache: Annotated[
+        bool,
+        typer.Option("--no-cache", help="Disable reading and writing the SQLite build image cache."),
+    ] = False,
 ) -> None:
     """Compile Markdown file or directory containing drawlib code blocks into rendered Markdown."""
     try:
@@ -123,6 +135,7 @@ def cmd_build_markdown(
             output=output,
             image_format=image_format,
             config=config,
+            no_cache=no_cache,
         )
         print(f"Successfully compiled Markdown document(s): {out_file}")
     except Exception as e:
@@ -158,6 +171,10 @@ def cmd_build_html(
         Optional[str],
         typer.Option("-c", "--config", help="Path to Python config/setup script (e.g. config.py)."),
     ] = None,
+    no_cache: Annotated[
+        bool,
+        typer.Option("--no-cache", help="Disable reading and writing the SQLite build image cache."),
+    ] = False,
 ) -> None:
     """Compile Markdown/HTML file or directory into a static HTML page or multi-page website."""
     try:
@@ -168,6 +185,7 @@ def cmd_build_html(
             css=css,
             template=template,
             config=config,
+            no_cache=no_cache,
         )
         print(f"Successfully compiled HTML document(s): {out_file}")
     except Exception as e:
@@ -218,6 +236,10 @@ def cmd_build_pdf(
         Optional[str],
         typer.Option("-c", "--config", help="Path to Python config/setup script (e.g. config.py)."),
     ] = None,
+    no_cache: Annotated[
+        bool,
+        typer.Option("--no-cache", help="Disable reading and writing the SQLite build image cache."),
+    ] = False,
 ) -> None:
     """Merge one or more Markdown/HTML files or directories into a single HTML and export to PDF."""
     try:
@@ -230,6 +252,7 @@ def cmd_build_pdf(
             css=css,
             template=template,
             config=config,
+            no_cache=no_cache,
         )
         print(f"Successfully compiled PDF document: {out_file}")
     except Exception as e:

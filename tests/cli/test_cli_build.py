@@ -149,3 +149,82 @@ def test_cli_build_overwrite_error(tmp_path) -> None:
 
     assert res.returncode != 0
     assert "Refusing to overwrite input source file" in res.stderr or "Refusing to overwrite" in res.stdout
+
+
+def test_cli_build_images_alias(tmp_path) -> None:
+    """Test CLI build images alias command executes Python script."""
+    script = tmp_path / "simple.py"
+    script.write_text(
+        """from drawlib.canvas import save
+from drawlib.shapes import circle
+
+circle((50, 50), radius=10)
+save()
+""",
+        encoding="utf-8",
+    )
+
+    res = run_drawlib_cli(["build", "images", str(script)], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert (tmp_path / "simple.png").exists()
+
+
+def test_cli_build_images_subdirectories(tmp_path) -> None:
+    """Test CLI build images preserves subdirectory structure under output directory."""
+    codes_dir = tmp_path / "codes"
+    sub_a = codes_dir / "about"
+    sub_b = codes_dir / "qs"
+    sub_a.mkdir(parents=True)
+    sub_b.mkdir(parents=True)
+
+    (sub_a / "img_a.py").write_text(
+        """from drawlib.canvas import save
+from drawlib.shapes import circle
+
+circle((50, 50), radius=10)
+save()
+""",
+        encoding="utf-8",
+    )
+    (sub_b / "img_b.py").write_text(
+        """from drawlib.canvas import save
+from drawlib.shapes import circle
+
+circle((30, 30), radius=10)
+save()
+""",
+        encoding="utf-8",
+    )
+
+    out_images = tmp_path / "images"
+    res = run_drawlib_cli(
+        ["build", "images", str(codes_dir), "-o", str(out_images)],
+        cwd=str(tmp_path),
+    )
+    assert res.returncode == 0
+    assert (out_images / "about" / "img_a.png").exists()
+    assert (out_images / "qs" / "img_b.png").exists()
+
+
+def test_cli_build_images_auto_detect(tmp_path) -> None:
+    """Test CLI build images auto-detects codes/ and routes to images/ when given root directory."""
+    root_dir = tmp_path / "readme_assets"
+    sub_codes = root_dir / "codes" / "feature"
+    sub_codes.mkdir(parents=True)
+
+    (sub_codes / "feat.py").write_text(
+        """from drawlib.canvas import save
+from drawlib.shapes import circle
+
+circle((50, 50), radius=15)
+save()
+""",
+        encoding="utf-8",
+    )
+
+    res = run_drawlib_cli(
+        ["build", "images", str(root_dir)],
+        cwd=str(tmp_path),
+    )
+    assert res.returncode == 0
+    assert (root_dir / "images" / "feature" / "feat.png").exists()

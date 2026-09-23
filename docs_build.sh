@@ -27,4 +27,8 @@ echo "=== Building Quickstart PDF (docs_src_quickstart_pdf/ -> quickstart.pdf) =
 uv run drawlib build pdf docs_src_quickstart_pdf/ -o quickstart.pdf --generate-index --css google
 
 echo ""
+echo "=== Building README images (docs_readme_images/codes/ -> docs_readme_images/images/) ==="
+uv run drawlib build images docs_readme_images/codes/ -o docs_readme_images/images/
+
+echo ""
 echo "Documentation build completed successfully!"

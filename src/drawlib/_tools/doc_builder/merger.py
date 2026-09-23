@@ -18,6 +18,7 @@ import re
 import sys
 from typing import List, Optional
 
+from drawlib._tools.doc_builder.build_cache import BuildImageCache
 from drawlib._tools.doc_builder.detector import detect_document_type
 from drawlib._tools.doc_builder.exporter_html import render_pdf_document
 from drawlib._tools.doc_builder.parser_md import parse_markdown_to_html
@@ -129,6 +130,7 @@ def build_merged_html(
     config_path: Optional[str] = None,
     css_path: Optional[str] = None,
     template_path: Optional[str] = None,
+    no_cache: bool = False,
     *,
     toc: Optional[bool] = None,
 ) -> tuple[str, List[str]]:
@@ -143,6 +145,7 @@ def build_merged_html(
         config_path (Optional[str]): Optional Python config script path.
         css_path (Optional[str]): Optional CSS preset name or file path.
         template_path (Optional[str]): Optional Jinja2 HTML template path.
+        no_cache (bool): If True, disable reading/writing the SQLite build image cache.
         toc (Optional[bool]): Backward-compatible alias for generate_index.
 
     Returns:
@@ -151,6 +154,7 @@ def build_merged_html(
     if toc is not None:
         generate_index = toc
     file_list = expand_input_files(inputs)
+    cache = BuildImageCache(enabled=not no_cache)
     processor: Optional[DrawlibBlockProcessor] = None
 
     chapter_anchors: dict[str, str] = {}
@@ -216,7 +220,7 @@ def build_merged_html(
         toc_entries.append((anchor_id, chapter_title))
 
         if doc_info.has_drawlib and processor is None:
-            processor = DrawlibBlockProcessor(config_path=config_path)
+            processor = DrawlibBlockProcessor(config_path=config_path, no_cache=no_cache, cache=cache)
 
         orig_cwd = os.getcwd()
         sys_path_added = False
@@ -228,7 +232,7 @@ def build_merged_html(
 
             if doc_info.doc_type == "markdown_drawlib":
                 if processor is None:
-                    processor = DrawlibBlockProcessor(config_path=config_path)
+                    processor = DrawlibBlockProcessor(config_path=config_path, no_cache=no_cache, cache=cache)
                 processed_md = processor.process_markdown(
                     content,
                     doc_base_name=doc_base_name,
@@ -242,7 +246,7 @@ def build_merged_html(
                 chapter_body = parse_markdown_to_html(content)
             elif doc_info.doc_type == "html_drawlib":
                 if processor is None:
-                    processor = DrawlibBlockProcessor(config_path=config_path)
+                    processor = DrawlibBlockProcessor(config_path=config_path, no_cache=no_cache, cache=cache)
                 processed_html = processor.process_html(
                     content,
                     doc_base_name=doc_base_name,

@@ -26,6 +26,7 @@ from typing import Any, Callable, Dict, List, Optional
 import drawlib._core.l4_canvas._canvas
 import drawlib.canvas
 from drawlib._core.l1_core import dutil_settings
+from drawlib._tools.doc_builder.build_cache import BuildImageCache, hash_file
 from drawlib._tools.doc_builder.config import load_config
 from drawlib._tools.doc_builder.detector import detect_document_type
 from drawlib._utils import dutil_canvas
@@ -94,14 +95,26 @@ def _resolve_block_image_paths(
 class DrawlibBlockProcessor:
     """Processor that replaces drawlib code blocks in Markdown/HTML with rendered PNG/WebP images."""
 
-    def __init__(self, config_path: Optional[str] = None) -> None:
-        """Initialize processor with shared globals.
+    def __init__(
+        self,
+        config_path: Optional[str] = None,
+        no_cache: bool = False,
+        cache: Optional[BuildImageCache] = None,
+    ) -> None:
+        """Initialize processor with shared globals and SQLite build image cache.
 
         Args:
             config_path (Optional[str]): Optional path to Python config script.
+            no_cache (bool): If True, disable reading/writing the SQLite build image cache.
+            cache (Optional[BuildImageCache]): Optional shared BuildImageCache instance.
         """
         self.shared_globals: Dict[str, Any] = {}
         self.config_path = config_path
+        self.config_hash = hash_file(config_path)
+        self.no_cache = no_cache
+        self._cache: BuildImageCache = (
+            cache if cache is not None else BuildImageCache(enabled=not no_cache)
+        )
 
         load_config(config_path=config_path, shared_globals=self.shared_globals)
 
@@ -167,12 +180,41 @@ class DrawlibBlockProcessor:
             source_filename (str): Name used for code compilation traceback reporting.
             grid (Optional[bool]): Whether to overlay coordinate grid on output image.
         """
+        target_abs_path = os.path.abspath(target_file_path)
+        stem, ext_dot = os.path.splitext(target_abs_path)
+        fmt = "webp" if ext_dot.lower() == ".webp" else "png"
+        grid_abs_path = f"{stem}_grid{ext_dot}"
+
+        use_cache = self._cache.enabled and grid is None
+        cache_key = ""
+        code_hash = ""
+        if use_cache:
+            context_dir = (
+                os.path.dirname(os.path.abspath(source_filename))
+                if source_filename != "<drawlib_block>" and os.path.exists(source_filename)
+                else os.getcwd()
+            )
+            cache_key, code_hash = self._cache.compute_keys(
+                code=code,
+                config_hash=self.config_hash,
+                context_dir=context_dir,
+            )
+            cached = self._cache.get(cache_key, image_format=fmt)
+            if cached is not None:
+                normal_bytes, grid_bytes = cached
+                os.makedirs(os.path.dirname(target_abs_path), exist_ok=True)
+                with open(target_abs_path, "wb") as f:
+                    f.write(normal_bytes)
+                if grid_bytes is not None:
+                    with open(grid_abs_path, "wb") as gf:
+                        gf.write(grid_bytes)
+                return
+
         if self.config_path:
             load_config(config_path=self.config_path, shared_globals=self.shared_globals)
 
         self._exec_code_block(code, source_filename=source_filename, shared_globals=self.shared_globals)
 
-        target_abs_path = os.path.abspath(target_file_path)
         os.makedirs(os.path.dirname(target_abs_path), exist_ok=True)
         if grid is True:
             drawlib._core.l4_canvas._canvas.canvas._grid = True
@@ -180,6 +222,22 @@ class DrawlibBlockProcessor:
             if dutil_settings.get_logging_mode() not in {"verbose", "developer"}:
                 warnings.filterwarnings("ignore", message=r"Glyph .* missing from font", category=UserWarning)
             save(target_abs_path)
+
+        if use_cache and os.path.isfile(target_abs_path):
+            with open(target_abs_path, "rb") as f:
+                normal_bytes = f.read()
+            grid_bytes: Optional[bytes] = None
+            if os.path.isfile(grid_abs_path):
+                with open(grid_abs_path, "rb") as gf:
+                    grid_bytes = gf.read()
+            self._cache.put(
+                cache_key=cache_key,
+                code_hash=code_hash,
+                config_hash=self.config_hash,
+                image_format=fmt,
+                image_blob=normal_bytes,
+                grid_blob=grid_bytes,
+            )
 
     def render_block_to_data_url(
         self,
