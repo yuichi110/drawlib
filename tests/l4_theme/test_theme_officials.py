@@ -8,6 +8,9 @@
 # merchantability, fitness for a particular purpose and noninfringement.
 
 from drawlib._preset_styles import (
+    DefaultStyles,
+    EssentialsStyles,
+    MonochromeStyles,
     PresetStyles,
     get_default_styles,
     get_essentials_styles,
@@ -27,12 +30,15 @@ OUTPUT_DIR_MONOCHROME = "../../output_tests/l4_theme/monochrome/"
 def test_official_theme_generators() -> None:
     """Verifies that all three official theme generation functions return valid PresetStyles instances."""
     default_theme = get_default_styles()
+    assert isinstance(default_theme, DefaultStyles)
     assert isinstance(default_theme, PresetStyles)
 
     essentials_theme = get_essentials_styles()
+    assert isinstance(essentials_theme, EssentialsStyles)
     assert isinstance(essentials_theme, PresetStyles)
 
     monochrome_theme = get_monochrome_styles()
+    assert isinstance(monochrome_theme, MonochromeStyles)
     assert isinstance(monochrome_theme, PresetStyles)
 
 

@@ -11,6 +11,9 @@ import pytest
 
 from drawlib import preset_styles
 from drawlib._preset_styles import (
+    DefaultStyles,
+    EssentialsStyles,
+    MonochromeStyles,
     PresetStyles,
     get_default_styles,
     get_essentials_styles,
@@ -36,8 +39,11 @@ class TestThemeUnit:
         essentials = get_styles("essentials")
         monochrome = get_styles("monochrome")
 
+        assert isinstance(default, DefaultStyles)
         assert isinstance(default, PresetStyles)
+        assert isinstance(essentials, EssentialsStyles)
         assert isinstance(essentials, PresetStyles)
+        assert isinstance(monochrome, MonochromeStyles)
         assert isinstance(monochrome, PresetStyles)
         assert get_default_styles() == default
         assert get_essentials_styles() == essentials
@@ -62,7 +68,7 @@ class TestThemeUnit:
     def test_invalid_theme_name(self) -> None:
         """Verifies get_styles raises ValueError for invalid theme name."""
         with pytest.raises(ValueError, match="is not supported"):
-            get_styles("invalid_theme")  # type: ignore
+            get_styles("invalid_theme")
 
 
 def test_default_fill() -> None:

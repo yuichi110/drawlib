@@ -311,9 +311,9 @@
             <main class="main-content">
                 <h1>Creating Custom Presets with PresetStyles</h1>
 <p>Drawlib provides official style presets (<code>default</code>, <code>essentials</code>, <code>monochrome</code>), but you can also define custom style presets for your project using <code>PresetStyles</code>.</p>
-<p>A <code>PresetStyles</code> is a dataclass containing <code>Style</code> objects for key style roles.</p>
+<p>A <code>BasePresetStyles</code> (or <code>PresetStyles</code>) is a Pydantic model containing <code>Style</code> objects for key style roles.</p>
 <h1>PresetStyles Definition</h1>
-<p><code>PresetStyles</code> accepts the following attributes:</p>
+<p><code>PresetStyles</code> accepts common style roles as attributes:</p>
 <ul>
 <li><code>primary</code>: Primary style object.</li>
 <li><code>light</code>: Light style object.</li>
@@ -325,7 +325,7 @@
 <li><code>sourcecode_font</code> (optional): Default font for code rendering.</li>
 </ul>
 <h1>Defining a Custom Preset</h1>
-<p>Here is an example of creating a custom preset:</p>
+<p>You can instantiate <code>PresetStyles</code> directly with custom styles:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors140
 from drawlib.preset_styles import PresetStyles
@@ -377,7 +377,29 @@ save()
 <div class="drawlib-image" style="text-align: center;">
   <img src="create_images/2.png" alt="create_2" style="width: 600px; max-width: 100%;" />
 </div>
-<pre><code>Custom PresetStyles execution
+<h1>Custom Subclassing with BasePresetStyles</h1>
+<p>Because <code>BasePresetStyles</code> is a Pydantic <code>BaseModel</code>, you can define custom classes with arbitrary style names to get complete IDE autocompletion and iteration support:</p>
+<pre><code class="language-python">from drawlib.types import BasePresetStyles, Style
+
+
+class MyCloudStyles(BasePresetStyles):
+    vpc: Style
+    subnet: Style
+    gateway: Style
+
+
+styles = MyCloudStyles(
+    vpc=Style(line_color=(0, 100, 200), line_width=2),
+    subnet=Style(line_color=(50, 150, 250), line_width=1),
+    gateway=Style(line_color=(200, 100, 0), line_width=2),
+)
+
+# Access with full IDE autocompletion
+circle((50, 50), radius=20, style=styles.vpc)
+
+# Iterate over all styles
+for name, style in styles:
+    print(name, style)
 </code></pre>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

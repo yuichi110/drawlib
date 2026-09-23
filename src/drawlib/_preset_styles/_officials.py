@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Literal, overload
 
 from drawlib._core.l3_fonts import Font, FontSourceCode
 from drawlib._core.l3_styles import (
@@ -22,19 +22,25 @@ from drawlib._core.l3_styles import (
     ColorsThemeMonochrome,
     Style,
 )
-from drawlib._preset_styles._models import PresetStyles
+from drawlib._preset_styles._models import (
+    BasePresetStyles,
+    DefaultStyles,
+    EssentialsStyles,
+    MonochromeStyles,
+    PresetStyles,
+)
 
 
-def get_default_styles() -> PresetStyles:
+def get_default_styles() -> DefaultStyles:
     """Generate default theme preset.
 
     Returns:
-        PresetStyles: Default theme preset.
+        DefaultStyles: Default theme preset.
     """
     blue = ColorsThemeDefault.Blue
     black = ColorsThemeDefault.Black
 
-    return PresetStyles(
+    return DefaultStyles(
         primary=Style(
             text_color=blue,
             fill_color=blue,
@@ -95,16 +101,16 @@ def get_default_styles() -> PresetStyles:
     )
 
 
-def get_essentials_styles() -> PresetStyles:
+def get_essentials_styles() -> EssentialsStyles:
     """Generate essentials theme preset.
 
     Returns:
-        PresetStyles: Essentials theme preset.
+        EssentialsStyles: Essentials theme preset.
     """
     charcoal = ColorsThemeEssentials.Charcoal
     lightblue = ColorsThemeEssentials.LightBlue
 
-    return PresetStyles(
+    return EssentialsStyles(
         primary=Style(
             text_color=lightblue,
             fill_color=lightblue,
@@ -165,16 +171,16 @@ def get_essentials_styles() -> PresetStyles:
     )
 
 
-def get_monochrome_styles() -> PresetStyles:
+def get_monochrome_styles() -> MonochromeStyles:
     """Generate monochrome theme preset.
 
     Returns:
-        PresetStyles: Monochrome theme preset.
+        MonochromeStyles: Monochrome theme preset.
     """
     black = ColorsThemeMonochrome.Black
     white = ColorsThemeMonochrome.White
 
-    return PresetStyles(
+    return MonochromeStyles(
         primary=Style(
             text_color=black,
             fill_color=white,
@@ -235,16 +241,32 @@ def get_monochrome_styles() -> PresetStyles:
     )
 
 
+@overload
+def get_styles(name: Literal["default"] = "default") -> DefaultStyles: ...
+
+
+@overload
+def get_styles(name: Literal["essentials"]) -> EssentialsStyles: ...
+
+
+@overload
+def get_styles(name: Literal["monochrome"]) -> MonochromeStyles: ...
+
+
+@overload
+def get_styles(name: str) -> BasePresetStyles: ...
+
+
 def get_styles(
-    name: Literal["default", "essentials", "monochrome"] = "default",
-) -> PresetStyles:
+    name: Literal["default", "essentials", "monochrome"] | str = "default",
+) -> BasePresetStyles:
     """Get theme preset by name.
 
     Args:
         name: Theme name ("default", "essentials", "monochrome").
 
     Returns:
-        PresetStyles: Theme preset object.
+        BasePresetStyles: Theme preset object.
     """
     if name == "default":
         return get_default_styles()

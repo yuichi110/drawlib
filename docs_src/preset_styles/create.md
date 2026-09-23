@@ -2,11 +2,11 @@
 
 Drawlib provides official style presets (`default`, `essentials`, `monochrome`), but you can also define custom style presets for your project using `PresetStyles`.
 
-A `PresetStyles` is a dataclass containing `Style` objects for key style roles.
+A `BasePresetStyles` (or `PresetStyles`) is a Pydantic model containing `Style` objects for key style roles.
 
 # PresetStyles Definition
 
-`PresetStyles` accepts the following attributes:
+`PresetStyles` accepts common style roles as attributes:
 
 - `primary`: Primary style object.
 - `light`: Light style object.
@@ -19,7 +19,7 @@ A `PresetStyles` is a dataclass containing `Style` objects for key style roles.
 
 # Defining a Custom Preset
 
-Here is an example of creating a custom preset:
+You can instantiate `PresetStyles` directly with custom styles:
 
 ```drawlib
 from drawlib.canvas import config, save
@@ -71,7 +71,33 @@ rectangle(xy=(75, 20), width=20, height=20, style=custom_preset.bold)
 save()
 ```
 
-    Custom PresetStyles execution
+# Custom Subclassing with BasePresetStyles
+
+Because `BasePresetStyles` is a Pydantic `BaseModel`, you can define custom classes with arbitrary style names to get complete IDE autocompletion and iteration support:
+
+```python
+from drawlib.types import BasePresetStyles, Style
+
+
+class MyCloudStyles(BasePresetStyles):
+    vpc: Style
+    subnet: Style
+    gateway: Style
+
+
+styles = MyCloudStyles(
+    vpc=Style(line_color=(0, 100, 200), line_width=2),
+    subnet=Style(line_color=(50, 150, 250), line_width=1),
+    gateway=Style(line_color=(200, 100, 0), line_width=2),
+)
+
+# Access with full IDE autocompletion
+circle((50, 50), radius=20, style=styles.vpc)
+
+# Iterate over all styles
+for name, style in styles:
+    print(name, style)
+```
 
 ---
 

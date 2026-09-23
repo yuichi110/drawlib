@@ -10,6 +10,10 @@
 """Public preset_styles module for drawlib."""
 
 from drawlib._preset_styles import (
+    BasePresetStyles,
+    DefaultStyles,
+    EssentialsStyles,
+    MonochromeStyles,
     PresetStyles,
     get_default_styles,
     get_essentials_styles,
@@ -19,6 +23,10 @@ from drawlib._preset_styles import (
 )
 
 __all__ = [
+    "BasePresetStyles",
+    "DefaultStyles",
+    "EssentialsStyles",
+    "MonochromeStyles",
     "PresetStyles",
     "get_default_styles",
     "get_essentials_styles",
