@@ -49,7 +49,7 @@ def check_document_output_duplicates(
     display_names: Sequence[str],
     image_format: str = "png",
     embed_images: bool = False,
-) -> None:
+) -> int:
     """Pre-check all document tasks and drawlib code blocks for duplicate output file paths.
 
     Args:
@@ -58,12 +58,16 @@ def check_document_output_duplicates(
         image_format (str): Default image format ('png' or 'webp').
         embed_images (bool): True if images are embedded as Data URLs (no image files written).
 
+    Returns:
+        int: Maximum number of drawlib image blocks in any single document in `tasks`.
+
     Raises:
         ValueError: If any two documents or drawlib blocks resolve to the same output file path.
     """
     seen_outputs: dict[str, str] = {}
+    max_blocks = 0
 
-    for (src_abs, dest_abs, _), disp_name in zip(tasks, display_names):
+    for (_, dest_abs, _), disp_name in zip(tasks, display_names):
         if dest_abs:
             norm_dest = os.path.abspath(dest_abs)
             if norm_dest in seen_outputs:
@@ -71,9 +75,6 @@ def check_document_output_duplicates(
                     format_duplicate_output_error(norm_dest, seen_outputs[norm_dest], disp_name)
                 )
             seen_outputs[norm_dest] = disp_name
-
-    if embed_images:
-        return
 
     for (src_abs, dest_abs, is_md), disp_name in zip(tasks, display_names):
         try:
@@ -83,6 +84,11 @@ def check_document_output_duplicates(
             continue
 
         blocks = extract_code_blocks(content, is_html=not is_md)
+        max_blocks = max(max_blocks, len(blocks))
+
+        if embed_images:
+            continue
+
         output_dir = os.path.dirname(os.path.abspath(dest_abs)) if dest_abs else os.path.dirname(src_abs)
         doc_base_name = (
             os.path.splitext(os.path.basename(dest_abs))[0]
@@ -106,6 +112,8 @@ def check_document_output_duplicates(
                 )
             seen_outputs[norm_img] = block_label
 
+    return max_blocks
+
 
 def format_progress_line(
     file_index: int,
@@ -115,38 +123,46 @@ def format_progress_line(
     done: bool = False,
     file_name: str = "",
     name_width: int = 0,
+    image_width: int = 1,
 ) -> str:
-    """Format a single per-file progress line: `<file_index>/<total_files> <padded_file_name>: <bar> <percent>%`.
+    """Format a single per-file progress line: `file:x/y <padded_file_name> images:x/y : <bar> <percent>%`.
 
     Args:
         file_index (int): 1-based index of the current file.
         total_files (int): Total number of files in the build.
-        completed_steps (int): Number of completed blocks/steps in the current file.
-        total_steps (int): Total number of blocks/steps in the current file.
+        completed_steps (int): Number of completed blocks/images in the current file.
+        total_steps (int): Total number of blocks/images in the current file.
         done (bool): True if the current file has completely finished building.
         file_name (str): Display file path (e.g. `/dir/file.py`).
-        name_width (int): Width to pad `file_name` to so colons align vertically.
+        name_width (int): Width to pad `file_name` to so columns align vertically.
+        image_width (int): Digit width for `images:x/y` counts so colons align vertically.
 
     Returns:
-        str: Formatted progress string (e.g. `1/2 /file.py    : #################### 100%`).
+        str: Formatted progress string (e.g. `file: 1/17 /file.md     images: 2/ 2 : #################### 100%`).
     """
     idx_width = len(str(max(total_files, 1)))
-    file_col = f"{file_index:>{idx_width}}/{total_files}"
+    file_col = f"file:{file_index:>{idx_width}}/{total_files}"
     width = max(name_width, len(file_name))
-    name_col = f" {file_name:<{width}}:" if file_name else ""
+    name_col = f" {file_name:<{width}}" if file_name else ""
+    img_w = max(image_width, len(str(max(total_steps, completed_steps, 0))), 1)
+    img_col = f" images:{completed_steps:>{img_w}}/{total_steps:>{img_w}}"
 
     if done:
         bar = "#" * BAR_WIDTH
         pct = 100
     else:
-        ratio = max(0.0, min(1.0, completed_steps / max(total_steps, 1)))
+        ratio = (
+            max(0.0, min(1.0, completed_steps / total_steps))
+            if total_steps > 0
+            else 0.0
+        )
         pct = int(round(ratio * 100))
         if pct >= 100:
             pct = 99
         filled = min(BAR_WIDTH - 1, int(BAR_WIDTH * ratio))
         bar = ("#" * filled) + "." + (" " * (BAR_WIDTH - filled - 1))
 
-    return f"{file_col}{name_col} {bar} {pct:>3d}%"
+    return f"{file_col}{name_col}{img_col} : {bar} {pct:>3d}%"
 
 
 class FileBuildProgress:
@@ -158,12 +174,14 @@ class FileBuildProgress:
         total_files: int,
         file_name: str = "",
         name_width: int = 0,
+        image_width: int = 1,
     ) -> None:
         """Initialize progress tracker for `file_index` / `total_files`."""
         self.file_index = file_index
         self.total_files = total_files
         self.file_name = file_name
         self.name_width = name_width
+        self.image_width = image_width
         self._quiet = dutil_settings.get_logging_mode() == "quiet"
         self._is_tty = hasattr(sys.stdout, "isatty") and sys.stdout.isatty()
 
@@ -171,8 +189,8 @@ class FileBuildProgress:
         """Render progress update to stdout.
 
         Args:
-            completed_steps (int): Completed blocks/steps in the current file.
-            total_steps (int): Total blocks/steps in the current file.
+            completed_steps (int): Completed blocks/images in the current file.
+            total_steps (int): Total blocks/images in the current file.
             done (bool): True when the file is 100% complete.
         """
         if self._quiet:
@@ -186,6 +204,7 @@ class FileBuildProgress:
             done=done,
             file_name=self.file_name,
             name_width=self.name_width,
+            image_width=self.image_width,
         )
 
         if self._is_tty:

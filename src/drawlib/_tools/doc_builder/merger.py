@@ -182,21 +182,28 @@ def build_merged_html(
         if s_abs in seen_sources:
             raise ValueError(format_duplicate_output_error(s_abs, seen_sources[s_abs], disp_name))
         seen_sources[s_abs] = disp_name
-    check_document_output_duplicates(
+    max_blocks = check_document_output_duplicates(
         tasks=[(s_abs, "", s_abs.lower().endswith((".md", ".markdown"))) for s_abs in file_list],
         display_names=display_names,
         image_format="png",
         embed_images=False,
     )
     name_width = max((len(n) for n in display_names), default=0)
+    image_width = len(str(max(max_blocks, 0)))
 
     for idx, (src_abs, disp_name) in enumerate(zip(file_list, display_names), start=1):
         with open(src_abs, "r", encoding="utf-8") as f:
             content = f.read()
 
         doc_info = detect_document_type(src_abs, content)
-        total_steps = max(doc_info.block_count, 1)
-        progress = FileBuildProgress(idx, total_files, file_name=disp_name, name_width=name_width)
+        total_steps = doc_info.block_count
+        progress = FileBuildProgress(
+            idx,
+            total_files,
+            file_name=disp_name,
+            name_width=name_width,
+            image_width=image_width,
+        )
         progress.update(0, total_steps, done=False)
 
         src_dir = os.path.dirname(src_abs)

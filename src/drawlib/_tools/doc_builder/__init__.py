@@ -125,7 +125,7 @@ def _compile_single_markdown_file(
 
     _validate_markdown_images(src_abs, content)
     doc_info: DocumentInputInfo = detect_document_type(src_abs, content)
-    total_steps = max(doc_info.block_count, 1)
+    total_steps = doc_info.block_count
     if progress is not None:
         progress.update(0, total_steps, done=False)
 
@@ -247,13 +247,14 @@ def build_markdown(
         display_names = [
             "/" + os.path.relpath(s_abs, input_abs).replace(os.sep, "/") for s_abs, _ in md_tasks
         ]
-        check_document_output_duplicates(
+        max_blocks = check_document_output_duplicates(
             tasks=[(s_abs, d_abs, True) for s_abs, d_abs in md_tasks],
             display_names=display_names,
             image_format=image_format,
             embed_images=False,
         )
         name_width = max((len(n) for n in display_names), default=0)
+        image_width = len(str(max(max_blocks, 0)))
         for idx, ((src_abs, dest_abs), disp_name) in enumerate(zip(md_tasks, display_names), start=1):
             processor = _compile_single_markdown_file(
                 src_abs=src_abs,
@@ -261,7 +262,13 @@ def build_markdown(
                 image_format=image_format,
                 config_path=config,
                 processor=processor,
-                progress=FileBuildProgress(idx, total_files, file_name=disp_name, name_width=name_width),
+                progress=FileBuildProgress(
+                    idx,
+                    total_files,
+                    file_name=disp_name,
+                    name_width=name_width,
+                    image_width=image_width,
+                ),
             )
 
         return out_dir_abs
@@ -288,7 +295,7 @@ def build_markdown(
         )
 
     single_name = f"/{os.path.basename(input_abs)}"
-    check_document_output_duplicates(
+    max_blocks = check_document_output_duplicates(
         tasks=[(input_abs, dest_abs, True)],
         display_names=[single_name],
         image_format=image_format,
@@ -299,7 +306,13 @@ def build_markdown(
         dest_abs=dest_abs,
         image_format=image_format,
         config_path=config,
-        progress=FileBuildProgress(1, 1, file_name=single_name, name_width=len(single_name)),
+        progress=FileBuildProgress(
+            1,
+            1,
+            file_name=single_name,
+            name_width=len(single_name),
+            image_width=len(str(max(max_blocks, 0))),
+        ),
     )
     return dest_abs
 
@@ -321,7 +334,7 @@ def _compile_single_html_file(
         content = f.read()
 
     doc_info = detect_document_type(src_abs, content)
-    total_steps = max(doc_info.block_count, 1)
+    total_steps = doc_info.block_count
     if progress is not None:
         progress.update(0, total_steps, done=False)
 
@@ -535,7 +548,7 @@ def build_html(
         display_names = [
             "/" + os.path.relpath(s_abs, input_abs).replace(os.sep, "/") for s_abs, _, _ in html_tasks
         ]
-        check_document_output_duplicates(
+        max_blocks = check_document_output_duplicates(
             tasks=html_tasks,
             display_names=display_names,
             image_format=image_format,
@@ -547,6 +560,7 @@ def build_html(
             shutil.copy2(src_abs, dest_abs)
 
         name_width = max((len(n) for n in display_names), default=0)
+        image_width = len(str(max(max_blocks, 0)))
         for idx, ((src_abs, dest_abs, is_md), disp_name) in enumerate(zip(html_tasks, display_names), start=1):
             rel_css_href = (
                 os.path.relpath(style_css_path, os.path.dirname(dest_abs)) if style_css_path else None
@@ -561,7 +575,13 @@ def build_html(
                 nav_list=nav_list if is_md else None,
                 template_path=template,
                 processor=processor,
-                progress=FileBuildProgress(idx, total_files, file_name=disp_name, name_width=name_width),
+                progress=FileBuildProgress(
+                    idx,
+                    total_files,
+                    file_name=disp_name,
+                    name_width=name_width,
+                    image_width=image_width,
+                ),
             )
 
         return out_dir_abs
@@ -586,7 +606,7 @@ def build_html(
 
     single_name = f"/{os.path.basename(input_abs)}"
     is_md_single = os.path.splitext(input_abs)[1].lower() in {".md", ".markdown"}
-    check_document_output_duplicates(
+    max_blocks = check_document_output_duplicates(
         tasks=[(input_abs, dest_abs, is_md_single)],
         display_names=[single_name],
         image_format=image_format,
@@ -610,7 +630,13 @@ def build_html(
         css_href=rel_css_href,
         nav_list=None,
         template_path=template,
-        progress=FileBuildProgress(1, 1, file_name=single_name, name_width=len(single_name)),
+        progress=FileBuildProgress(
+            1,
+            1,
+            file_name=single_name,
+            name_width=len(single_name),
+            image_width=len(str(max(max_blocks, 0))),
+        ),
     )
     return dest_abs
 

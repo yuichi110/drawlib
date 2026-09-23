@@ -77,6 +77,9 @@ class DrawlibExecuter:
         self._grid = grid
         self._topdir_path: str = ""
         self._current_source_label: str = ""
+        self._current_progress: Optional[FileBuildProgress] = None
+        self._current_save_step: int = 0
+        self._current_total_saves: int = 1
         self._runtime_seen_outputs: dict[str, str] = {}
 
     def _resolve_static_save_target(
@@ -146,20 +149,29 @@ class DrawlibExecuter:
         self,
         file_paths: Sequence[str],
         display_names: Sequence[str],
-    ) -> None:
-        """Pre-check all target Python scripts via AST for duplicate output image paths before execution."""
+    ) -> dict[str, int]:
+        """Pre-check all target Python scripts via AST for duplicate output image paths and count saves per file."""
         seen_outputs: dict[str, str] = {}
+        save_counts: dict[str, int] = {}
         for file_path, disp_name in zip(file_paths, display_names):
+            count = 0
             try:
                 with open(file_path, "r", encoding="utf-8") as f:
                     tree = ast.parse(f.read(), filename=file_path)
             except (OSError, SyntaxError) as exc:
                 logger.debug(f"Skipping static AST check for {file_path}: {exc}")
+                save_counts[file_path] = 0
                 continue
 
             for node in ast.walk(tree):
                 if not isinstance(node, ast.Call):
                     continue
+                is_save = (isinstance(node.func, ast.Name) and node.func.id == "save") or (
+                    isinstance(node.func, ast.Attribute) and node.func.attr == "save"
+                )
+                if not is_save:
+                    continue
+                count += 1
                 parsed = self._parse_static_save_call(node)
                 if parsed is None:
                     continue
@@ -171,6 +183,8 @@ class DrawlibExecuter:
                         format_duplicate_output_error(target_abs, seen_outputs[target_abs], src_label)
                     )
                 seen_outputs[target_abs] = src_label
+            save_counts[file_path] = count
+        return save_counts
 
     def _create_wrapped_save(
         self,
@@ -210,6 +224,13 @@ class DrawlibExecuter:
                 )
             self._runtime_seen_outputs[resolved_abs] = current_src
             orig_canvas_save(file=eff_file, format=eff_format)
+            self._current_save_step += 1
+            if self._current_progress is not None:
+                self._current_progress.update(
+                    self._current_save_step,
+                    max(self._current_total_saves, self._current_save_step),
+                    done=False,
+                )
 
         return _wrapped_save
 
@@ -221,12 +242,24 @@ class DrawlibExecuter:
             if not path.endswith(".py"):
                 raise ValueError(f'Unable to run "{path}"')
             single_name = f"/{os.path.basename(path)}"
-            self._check_duplicate_outputs([path], [single_name])
+            save_counts = self._check_duplicate_outputs([path], [single_name])
+            total_saves = save_counts.get(path, 0)
             self._current_source_label = single_name
-            progress = FileBuildProgress(1, 1, file_name=single_name, name_width=len(single_name))
-            progress.update(0, 1, done=False)
+            self._current_save_step = 0
+            self._current_total_saves = total_saves
+            progress = FileBuildProgress(
+                1,
+                1,
+                file_name=single_name,
+                name_width=len(single_name),
+                image_width=len(str(max(total_saves, 0))),
+            )
+            self._current_progress = progress
+            progress.update(0, total_saves, done=False)
             self._exec_module(path)
-            progress.update(1, 1, done=True)
+            final_saves = max(total_saves, self._current_save_step)
+            progress.update(final_saves, final_saves, done=True)
+            self._current_progress = None
             return
 
         file_paths = [
@@ -236,14 +269,28 @@ class DrawlibExecuter:
         display_names = [
             "/" + os.path.relpath(fp, path).replace(os.sep, "/") for fp in file_paths
         ]
-        self._check_duplicate_outputs(file_paths, display_names)
+        save_counts = self._check_duplicate_outputs(file_paths, display_names)
+        max_saves = max(save_counts.values(), default=0)
+        image_width = len(str(max(max_saves, 0)))
         name_width = max((len(n) for n in display_names), default=0)
         for idx, (file_path, disp_name) in enumerate(zip(file_paths, display_names), start=1):
+            total_saves = save_counts.get(file_path, 0)
             self._current_source_label = disp_name
-            progress = FileBuildProgress(idx, total_files, file_name=disp_name, name_width=name_width)
-            progress.update(0, 1, done=False)
+            self._current_save_step = 0
+            self._current_total_saves = total_saves
+            progress = FileBuildProgress(
+                idx,
+                total_files,
+                file_name=disp_name,
+                name_width=name_width,
+                image_width=image_width,
+            )
+            self._current_progress = progress
+            progress.update(0, total_saves, done=False)
             self._exec_module(file_path)
-            progress.update(1, 1, done=True)
+            final_saves = max(total_saves, self._current_save_step)
+            progress.update(final_saves, final_saves, done=True)
+            self._current_progress = None
 
     @guarded
     def execute(self, file_or_directory: str) -> None:
