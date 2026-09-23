@@ -80,7 +80,7 @@ def export_template(name: str = "sidebar", output: str = "template.html.j2") -> 
         available = ", ".join(BUILTIN_TEMPLATES.keys())
         raise ValueError(f"Unknown template preset '{name}'. Available presets: {available}")
 
-    templates_dir = os.path.join(os.path.dirname(__file__), "html_templates")
+    templates_dir = os.path.join(os.path.dirname(__file__), "templates")
     filename = BUILTIN_TEMPLATES[normalized]["file"]
     src_path = os.path.join(templates_dir, filename)
 
@@ -188,7 +188,7 @@ def export_css(name: str = "default", output: str = "style.css") -> str:
         available = ", ".join(BUILTIN_CSS_PRESETS.keys())
         raise ValueError(f"Unknown CSS preset '{name}'. Available presets: {available}")
 
-    styles_dir = os.path.join(os.path.dirname(__file__), "html_styles")
+    styles_dir = os.path.join(os.path.dirname(__file__), "css")
     filename = BUILTIN_CSS_PRESETS[name]["file"]
     src_path = os.path.join(styles_dir, filename)
 

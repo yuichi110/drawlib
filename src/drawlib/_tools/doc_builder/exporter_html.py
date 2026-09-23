@@ -25,7 +25,7 @@ def get_default_css(custom_css_path: Optional[str] = None) -> str:
     Returns:
         str: Complete CSS content string.
     """
-    styles_dir = os.path.join(os.path.dirname(__file__), "html_styles")
+    styles_dir = os.path.join(os.path.dirname(__file__), "css")
 
     # Built-in presets
     if custom_css_path in {"default", "github", "monochrome", "minimal"}:
@@ -71,7 +71,7 @@ def render_html_document(
     Returns:
         str: Complete HTML string.
     """
-    templates_dir = os.path.join(os.path.dirname(__file__), "html_templates")
+    templates_dir = os.path.join(os.path.dirname(__file__), "templates")
     builtin_env = Environment(loader=FileSystemLoader(templates_dir))
 
     if template_path in {"simple", "standalone"}:
