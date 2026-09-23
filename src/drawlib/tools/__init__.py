@@ -7,40 +7,50 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Public doc_builder module for drawlib."""
+"""Public tools package for drawlib."""
 
+from __future__ import annotations
+
+from drawlib._tools.cache_manager import clear_cache, download_cache, list_cache
 from drawlib._tools.doc_builder import (
-    build,
-    build_document,
-    build_documents,
     build_html,
     build_markdown,
     build_pdf,
     detect_document_type,
     export_code_block,
     export_css,
-    export_default_template,
     export_template,
     list_css,
     list_templates,
     show_code_block,
     validate_template,
 )
+from drawlib._tools.http_server import serve_docs
+from drawlib._tools.image_builder import build_image
+from drawlib.tools import build, cache, css, export, serve, show, template
 
 __all__ = [
     "build",
-    "build_document",
-    "build_documents",
     "build_html",
+    "build_image",
     "build_markdown",
     "build_pdf",
+    "cache",
+    "clear_cache",
+    "css",
     "detect_document_type",
+    "download_cache",
+    "export",
     "export_code_block",
     "export_css",
-    "export_default_template",
     "export_template",
+    "list_cache",
     "list_css",
     "list_templates",
+    "serve",
+    "serve_docs",
+    "show",
     "show_code_block",
+    "template",
     "validate_template",
 ]

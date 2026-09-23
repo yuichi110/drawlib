@@ -9,7 +9,7 @@
 
 # ruff: noqa: S404, S603
 
-"""Integration tests using subprocess to verify drawlib CLI batch command."""
+"""Integration tests using subprocess to verify drawlib build image CLI subcommand."""
 
 import os
 import subprocess
@@ -34,8 +34,8 @@ def run_drawlib_cli(args: list[str], cwd: str) -> subprocess.CompletedProcess[st
     return subprocess.run(cmd, cwd=cwd, env=env, capture_output=True, text=True, check=False)
 
 
-def test_cli_batch_single_file(tmp_path) -> None:
-    """Test batch command executing a single Python file."""
+def test_cli_build_image_single_file(tmp_path) -> None:
+    """Test build image command executing a single Python file."""
     script = tmp_path / "test_img.py"
     script.write_text(
         """from drawlib.canvas import config, save
@@ -48,14 +48,33 @@ save()
         encoding="utf-8",
     )
 
-    res = run_drawlib_cli(["batch", str(script)], cwd=str(tmp_path))
+    res = run_drawlib_cli(["build", "image", str(script)], cwd=str(tmp_path))
     assert res.returncode == 0
-    assert "Successfully executed batch drawing" in res.stdout
+    assert "Successfully executed image build" in res.stdout
     assert (tmp_path / "test_img.png").exists()
 
 
-def test_cli_batch_directory_package(tmp_path) -> None:
-    """Test batch command executing a directory structured as a Python package."""
+def test_cli_build_image_with_format(tmp_path) -> None:
+    """Test build image command with -f / --format option."""
+    script = tmp_path / "test_webp.py"
+    script.write_text(
+        """from drawlib.canvas import config, save
+from drawlib.shapes import circle
+
+config(width=100, height=100)
+circle((50, 50), radius=20)
+save()
+""",
+        encoding="utf-8",
+    )
+
+    res = run_drawlib_cli(["build", "image", str(script), "-f", "webp"], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert (tmp_path / "test_webp.webp").exists()
+
+
+def test_cli_build_image_directory_package(tmp_path) -> None:
+    """Test build image command executing a directory structured as a Python package."""
     pkg_dir = tmp_path / "pkg"
     pkg_dir.mkdir()
     (pkg_dir / "__init__.py").write_text("", encoding="utf-8")
@@ -80,14 +99,14 @@ save()
         encoding="utf-8",
     )
 
-    res = run_drawlib_cli(["batch", str(pkg_dir)], cwd=str(tmp_path))
+    res = run_drawlib_cli(["build", "image", str(pkg_dir)], cwd=str(tmp_path))
     assert res.returncode == 0
     assert (pkg_dir / "img1.png").exists()
     assert (pkg_dir / "img2.png").exists()
 
 
-def test_cli_batch_directory_standalone(tmp_path) -> None:
-    """Test batch command executing a directory without __init__.py."""
+def test_cli_build_image_directory_standalone(tmp_path) -> None:
+    """Test build image command executing a directory without __init__.py."""
     dir_path = tmp_path / "standalone"
     dir_path.mkdir()
     (dir_path / "stand1.py").write_text(
@@ -101,13 +120,13 @@ save()
         encoding="utf-8",
     )
 
-    res = run_drawlib_cli(["batch", str(dir_path)], cwd=str(tmp_path))
+    res = run_drawlib_cli(["build", "image", str(dir_path)], cwd=str(tmp_path))
     assert res.returncode == 0
     assert (dir_path / "stand1.png").exists()
 
 
-def test_cli_batch_with_output_dir(tmp_path) -> None:
-    """Test batch command with -o/--output-dir redirecting saved images."""
+def test_cli_build_image_with_output(tmp_path) -> None:
+    """Test build image command with -o / --output redirecting saved images."""
     scripts_dir = tmp_path / "scripts"
     out_dir = tmp_path / "output_images"
     scripts_dir.mkdir()
@@ -124,14 +143,14 @@ save()
         encoding="utf-8",
     )
 
-    res = run_drawlib_cli(["batch", str(scripts_dir), "-o", str(out_dir)], cwd=str(tmp_path))
+    res = run_drawlib_cli(["build", "image", str(scripts_dir), "-o", str(out_dir)], cwd=str(tmp_path))
     assert res.returncode == 0
     assert (out_dir / "img_out.png").exists()
     assert not (scripts_dir / "img_out.png").exists()
 
 
-def test_cli_batch_with_config(tmp_path) -> None:
-    """Test batch command with --config script applied before drawing."""
+def test_cli_build_image_with_config(tmp_path) -> None:
+    """Test build image command with --config script applied before drawing."""
     scripts_dir = tmp_path / "scripts"
     scripts_dir.mkdir()
     cfg_file = tmp_path / "custom_config.py"
@@ -153,15 +172,15 @@ save()
     )
 
     res = run_drawlib_cli(
-        ["batch", str(scripts_dir), "--config", str(cfg_file)],
+        ["build", "image", str(scripts_dir), "--config", str(cfg_file)],
         cwd=str(tmp_path),
     )
     assert res.returncode == 0
     assert (scripts_dir / "img_cfg.png").exists()
 
 
-def test_cli_batch_single_file_with_grid(tmp_path) -> None:
-    """Test batch command executing a single Python file with --grid option."""
+def test_cli_build_image_single_file_with_grid(tmp_path) -> None:
+    """Test build image command executing a single Python file with --grid option."""
     script = tmp_path / "test_batch_grid.py"
     script.write_text(
         """from drawlib.canvas import config, save
@@ -174,15 +193,15 @@ save()
         encoding="utf-8",
     )
 
-    res = run_drawlib_cli(["batch", str(script), "--grid"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["build", "image", str(script), "--grid"], cwd=str(tmp_path))
     assert res.returncode == 0
-    assert "Successfully executed batch drawing" in res.stdout
+    assert "Successfully executed image build" in res.stdout
     assert (tmp_path / "test_batch_grid.png").exists()
     assert (tmp_path / "test_batch_grid_grid.png").exists()
 
 
-def test_cli_batch_single_file_with_grid_short(tmp_path) -> None:
-    """Test batch command executing a single Python file with -g shorthand."""
+def test_cli_build_image_single_file_with_grid_short(tmp_path) -> None:
+    """Test build image command executing a single Python file with -g shorthand."""
     script = tmp_path / "test_batch_g.py"
     script.write_text(
         """from drawlib.canvas import config, save
@@ -195,15 +214,15 @@ save()
         encoding="utf-8",
     )
 
-    res = run_drawlib_cli(["batch", str(script), "-g"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["build", "image", str(script), "-g"], cwd=str(tmp_path))
     assert res.returncode == 0
-    assert "Successfully executed batch drawing" in res.stdout
+    assert "Successfully executed image build" in res.stdout
     assert (tmp_path / "test_batch_g.png").exists()
     assert (tmp_path / "test_batch_g_grid.png").exists()
 
 
-def test_cli_batch_directory_with_grid(tmp_path) -> None:
-    """Test batch command executing a directory with --grid option."""
+def test_cli_build_image_directory_with_grid(tmp_path) -> None:
+    """Test build image command executing a directory with --grid option."""
     pkg_dir = tmp_path / "pkg_grid"
     pkg_dir.mkdir()
     (pkg_dir / "__init__.py").write_text("", encoding="utf-8")
@@ -218,27 +237,7 @@ save()
         encoding="utf-8",
     )
 
-    res = run_drawlib_cli(["batch", str(pkg_dir), "--grid"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["build", "image", str(pkg_dir), "--grid"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert (pkg_dir / "img1.png").exists()
     assert (pkg_dir / "img1_grid.png").exists()
-
-
-def test_cli_legacy_with_grid(tmp_path) -> None:
-    """Test legacy command execution with --grid option."""
-    script = tmp_path / "test_legacy_grid.py"
-    script.write_text(
-        """from drawlib.canvas import config, save
-from drawlib.shapes import circle
-
-config(width=100, height=100)
-circle((50, 50), radius=20)
-save()
-""",
-        encoding="utf-8",
-    )
-
-    res = run_drawlib_cli([str(script), "--grid"], cwd=str(tmp_path))
-    assert res.returncode == 0
-    assert (tmp_path / "test_legacy_grid.png").exists()
-    assert (tmp_path / "test_legacy_grid_grid.png").exists()

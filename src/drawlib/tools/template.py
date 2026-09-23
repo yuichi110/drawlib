@@ -7,15 +7,27 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""CLI command module re-exporting call_command and DrawlibExecuter."""
+"""Public HTML template management module for drawlib.tools."""
 
 from __future__ import annotations
 
-from drawlib._tools.cli._app import app, call_command
-from drawlib._tools.image_builder import DrawlibExecuter
+from drawlib._tools.doc_builder import (
+    export_default_template,
+    export_template,
+    list_templates,
+    validate_template,
+)
+
+list = list_templates  # noqa: A001
+export = export_template
+validate = validate_template
 
 __all__ = [
-    "DrawlibExecuter",
-    "app",
-    "call_command",
+    "export",
+    "export_default_template",
+    "export_template",
+    "list",
+    "list_templates",
+    "validate",
+    "validate_template",
 ]

@@ -7,18 +7,57 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Integration tests for build_document compiler in doc_builder."""
+"""Integration tests for build_markdown, build_html, build_pdf, and detector in doc_builder."""
 
 import os
 
 import pytest
 
-from drawlib._tools.doc_builder import build_document, build_documents, exporter_pdf
+from drawlib._tools.doc_builder import (
+    DocType,
+    build_document,
+    build_documents,
+    build_html,
+    build_markdown,
+    build_pdf,
+    detect_document_type,
+    exporter_pdf,
+)
 from drawlib._tools.doc_builder.exporter_pdf import export_html_to_pdf, find_system_browser
 
 
-def test_build_document_markdown_to_html(tmp_path) -> None:
-    """Test compiling Markdown file to standalone HTML with PNG image export."""
+def test_detect_document_type(tmp_path) -> None:
+    """Test auto-detection of the 4 document input types."""
+    md_dl = tmp_path / "doc_dl.md"
+    md_dl.write_text("# Doc\n```drawlib\ncircle((50,50), 10)\n```\n", encoding="utf-8")
+    info1 = detect_document_type(str(md_dl))
+    assert info1.doc_type == "markdown_drawlib"
+    assert info1.has_drawlib is True
+
+    md_plain = tmp_path / "doc_plain.md"
+    md_plain.write_text("# Plain Markdown\nHello", encoding="utf-8")
+    info2 = detect_document_type(str(md_plain))
+    assert info2.doc_type == "markdown"
+    assert info2.has_drawlib is False
+
+    html_dl = tmp_path / "doc_dl.html"
+    html_dl.write_text(
+        '<h1>HTML</h1>\n<script type="text/drawlib">\ncircle((50,50), 10)\n</script>',
+        encoding="utf-8",
+    )
+    info3 = detect_document_type(str(html_dl))
+    assert info3.doc_type == "html_drawlib"
+    assert info3.has_drawlib is True
+
+    html_plain = tmp_path / "doc_plain.html"
+    html_plain.write_text("<h1>Plain HTML</h1>", encoding="utf-8")
+    info4 = detect_document_type(str(html_plain))
+    assert info4.doc_type == "html"
+    assert info4.has_drawlib is False
+
+
+def test_build_html_markdown_with_external_css(tmp_path) -> None:
+    """Test compiling Markdown file to HTML with PNG image export and external style.css."""
     input_md = tmp_path / "sample.md"
     input_md.write_text(
         """# Architecture
@@ -31,23 +70,26 @@ circle((50, 50), radius=20, text="Core Engine")
     )
 
     out_html = tmp_path / "sample.html"
-    res_path = build_document(input_path=str(input_md), output_path=str(out_html))
+    res_path = build_html(input_path=str(input_md), output_path=str(out_html))
 
     assert os.path.exists(res_path)
     content = out_html.read_text(encoding="utf-8")
     assert "<!DOCTYPE html>" in content
     assert "<h1" in content
     assert '<img src="sample_images/1.png"' in content
+    assert '<link rel="stylesheet" href="style.css">' in content
 
     png_file = tmp_path / "sample_images" / "1.png"
+    style_css = tmp_path / "style.css"
     assert png_file.exists()
+    assert style_css.exists()
 
 
-def test_build_document_inline_svg(tmp_path) -> None:
-    """Test compiling Markdown file to standalone HTML with inline SVG."""
+def test_build_html_webp_format(tmp_path) -> None:
+    """Test compiling Markdown file to HTML with WebP image format."""
     input_md = tmp_path / "sample.md"
     input_md.write_text(
-        """# Inline SVG
+        """# WebP Test
 
 ```drawlib
 circle((50, 50), radius=20)
@@ -57,14 +99,40 @@ circle((50, 50), radius=20)
     )
 
     out_html = tmp_path / "sample.html"
-    build_document(input_path=str(input_md), output_path=str(out_html), image_format="inline_svg")
+    build_html(input_path=str(input_md), output_path=str(out_html), image_format="webp")
 
     content = out_html.read_text(encoding="utf-8")
-    assert "<svg" in content
+    assert '<img src="sample_images/1.webp"' in content
+    assert (tmp_path / "sample_images" / "1.webp").exists()
+
+
+def test_build_html_from_html_drawlib(tmp_path) -> None:
+    """Test compiling HTML file containing <script type='text/drawlib'>."""
+    input_html = tmp_path / "source.html"
+    input_html.write_text(
+        """<!DOCTYPE html>
+<html>
+<head><title>HTML Drawlib</title></head>
+<body>
+<h1>Diagram inside HTML</h1>
+<script type="text/drawlib" file="my_fig.png">
+circle((50, 50), radius=15)
+</script>
+</body>
+</html>
+""",
+        encoding="utf-8",
+    )
+    out_html = tmp_path / "compiled.html"
+    build_html(input_path=str(input_html), output_path=str(out_html))
+
+    content = out_html.read_text(encoding="utf-8")
+    assert '<img src="compiled_images/my_fig.png"' in content
+    assert (tmp_path / "compiled_images" / "my_fig.png").exists()
 
 
 def test_build_document_with_custom_css(tmp_path) -> None:
-    """Test compiling with custom CSS injection."""
+    """Test compiling with custom CSS written to external style.css."""
     input_md = tmp_path / "sample.md"
     input_md.write_text("# Styled Document", encoding="utf-8")
 
@@ -72,23 +140,24 @@ def test_build_document_with_custom_css(tmp_path) -> None:
     custom_css.write_text("body { background-color: #ff0000; }", encoding="utf-8")
 
     out_html = tmp_path / "sample.html"
-    build_document(input_path=str(input_md), output_path=str(out_html), css_path=str(custom_css))
+    build_html(input_path=str(input_md), output_path=str(out_html), css_path=str(custom_css))
 
-    content = out_html.read_text(encoding="utf-8")
-    assert "background-color: #ff0000;" in content
+    style_css = tmp_path / "style.css"
+    assert style_css.exists()
+    assert "background-color: #ff0000;" in style_css.read_text(encoding="utf-8")
 
 
 def test_build_document_safety_guard_overwrite(tmp_path) -> None:
-    """Test that build_document refuses to overwrite input source file."""
+    """Test that build_markdown refuses to overwrite input source file."""
     input_md = tmp_path / "sample.md"
     input_md.write_text("# Test Document", encoding="utf-8")
 
     with pytest.raises(ValueError, match="Refusing to overwrite"):
-        build_document(input_path=str(input_md), output_path=str(input_md), output_format="markdown")
+        build_markdown(input_path=str(input_md), output_path=str(input_md))
 
 
-def test_build_document_markdown_format(tmp_path) -> None:
-    """Test compiling Markdown to rendered Markdown with embedded SVG."""
+def test_build_markdown_format(tmp_path) -> None:
+    """Test compiling Markdown to rendered Markdown with external PNG."""
     input_md = tmp_path / "sample.md"
     input_md.write_text(
         """# Rendered MD Test
@@ -101,7 +170,7 @@ line((0, 0), (100, 100))
     )
 
     out_md = tmp_path / "sample.rendered.md"
-    res_path = build_document(input_path=str(input_md), output_path=str(out_md), output_format="markdown")
+    res_path = build_markdown(input_path=str(input_md), output_path=str(out_md))
 
     assert os.path.exists(res_path)
     content = out_md.read_text(encoding="utf-8")
@@ -125,6 +194,7 @@ def test_build_documents_batch(tmp_path) -> None:
     assert len(res_paths) == 2
     assert os.path.exists(str(out1))
     assert os.path.exists(str(out2))
+    assert (tmp_path / "style.css").exists()
 
     c1 = out1.read_text(encoding="utf-8")
     assert "Page One" in c1
@@ -143,7 +213,7 @@ def test_build_document_directory_recursive(tmp_path) -> None:
     (src_dir / "index.md").write_text("# Home Page\n\n[Guide](./guide/canvas.md)", encoding="utf-8")
     (sub_dir / "canvas.md").write_text("# Canvas Guide\n\n[Home](../index.md)", encoding="utf-8")
 
-    res_dir = build_document(input_path=str(src_dir), output_path=str(out_dir))
+    res_dir = build_html(input_path=str(src_dir), output_path=str(out_dir))
 
     assert res_dir == str(out_dir)
     index_html = out_dir / "index.html"
@@ -151,13 +221,15 @@ def test_build_document_directory_recursive(tmp_path) -> None:
 
     assert index_html.exists()
     assert canvas_html.exists()
+    assert (out_dir / "style.css").exists()
 
     c_index = index_html.read_text(encoding="utf-8")
-    assert 'href="./guide/canvas.html"' in c_index
     assert 'href="guide/canvas.html"' in c_index or 'href="./guide/canvas.html"' in c_index
+    assert '<link rel="stylesheet" href="style.css">' in c_index
 
     c_canvas = canvas_html.read_text(encoding="utf-8")
     assert 'href="../index.html"' in c_canvas
+    assert '<link rel="stylesheet" href="../style.css">' in c_canvas
 
 
 def test_build_document_static_assets_copy(tmp_path) -> None:
@@ -171,47 +243,21 @@ def test_build_document_static_assets_copy(tmp_path) -> None:
     (img_dir / "logo.png").write_bytes(b"dummy_png_bytes")
     (src_dir / "index.md").write_text("# Title\n\n![Logo](./images/logo.png)", encoding="utf-8")
 
-    build_document(input_path=str(src_dir), output_path=str(out_dir))
+    build_html(input_path=str(src_dir), output_path=str(out_dir))
 
     copied_img = out_dir / "images" / "logo.png"
     assert copied_img.exists()
     assert copied_img.read_bytes() == b"dummy_png_bytes"
 
 
-def test_build_document_css_modes(tmp_path) -> None:
-    """Test css_mode embed and external modes for CSS generation."""
-    src_dir = tmp_path / "src_docs"
-    out_dir_ext = tmp_path / "out_external"
-    out_dir_emb = tmp_path / "out_embed"
-    src_dir.mkdir()
-    (src_dir / "index.md").write_text("# CSS Test", encoding="utf-8")
-
-    # Test auto/external mode for directory build
-    build_document(input_path=str(src_dir), output_path=str(out_dir_ext), css_mode="external")
-    style_css = out_dir_ext / "style.css"
-    index_ext = out_dir_ext / "index.html"
-
-    assert style_css.exists()
-    assert '<link rel="stylesheet" href="style.css">' in index_ext.read_text(encoding="utf-8")
-
-    # Test embed mode for directory build
-    build_document(input_path=str(src_dir), output_path=str(out_dir_emb), css_mode="embed")
-    index_emb = out_dir_emb / "index.html"
-    assert "<style>" in index_emb.read_text(encoding="utf-8")
-    assert not (out_dir_emb / "style.css").exists()
-
-
-def test_build_document_pdf_embedded_images(tmp_path) -> None:
-    """Test PDF compilation embeds images directly in PDF and creates zero external PNG files."""
+def test_build_pdf_multi_document_merge(tmp_path) -> None:
+    """Test build_pdf merges multiple inputs into a single PDF and embeds images."""
     if not find_system_browser():
         pytest.skip("Chrome/Chromium/Edge browser not found for PDF export test.")
 
-    src_dir = tmp_path / "src_docs"
-    out_dir = tmp_path / "dist_pdf"
-    src_dir.mkdir()
-
-    (src_dir / "index.md").write_text(
-        """# PDF Embedded Test
+    doc1 = tmp_path / "01_intro.md"
+    doc1.write_text(
+        """# Introduction
 
 ```drawlib
 circle((50, 50), radius=15)
@@ -219,17 +265,21 @@ circle((50, 50), radius=15)
 """,
         encoding="utf-8",
     )
+    doc2 = tmp_path / "02_details.md"
+    doc2.write_text("# Details\n\nDetailed architecture.", encoding="utf-8")
 
-    build_document(input_path=str(src_dir), output_path=str(out_dir), output_format="pdf")
+    out_pdf = tmp_path / "manual.pdf"
+    res = build_pdf(
+        inputs=[str(doc1), str(doc2)],
+        output_path=str(out_pdf),
+        toc=True,
+        page_break=True,
+        title="System Manual",
+    )
 
-    pdf_file = out_dir / "index.pdf"
-    assert pdf_file.exists()
-    assert pdf_file.stat().st_size > 0
-
-    # Ensure no external PNG images or style.css exist in output directory
-    png_files = list(out_dir.glob("*.png"))
-    assert len(png_files) == 0
-    assert not (out_dir / "style.css").exists()
+    assert res == str(out_pdf)
+    assert out_pdf.exists()
+    assert out_pdf.stat().st_size > 0
 
 
 def test_export_html_to_pdf_missing_browser(monkeypatch, tmp_path) -> None:

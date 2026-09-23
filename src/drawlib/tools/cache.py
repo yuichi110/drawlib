@@ -7,10 +7,23 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""HTTP server package for drawlib documentation preview."""
+"""Public cache management module for drawlib.tools."""
 
-from drawlib._tools.http_server.server import run_server, scan_broken_links
+from __future__ import annotations
 
-serve_docs = run_server
+from drawlib._tools.cache_manager import clear_cache, download_cache, list_cache
 
-__all__ = ["run_server", "scan_broken_links", "serve_docs"]
+clear = clear_cache
+purge = clear_cache
+list = list_cache  # noqa: A001
+download = download_cache
+
+__all__ = [
+    "clear",
+    "clear_cache",
+    "download",
+    "download_cache",
+    "list",
+    "list_cache",
+    "purge",
+]

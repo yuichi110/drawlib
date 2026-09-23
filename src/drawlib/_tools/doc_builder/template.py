@@ -7,41 +7,103 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Template export and validation utilities for drawlib doc_builder."""
+"""Template and CSS preset listing, export, and validation utilities for drawlib doc_builder."""
+
+from __future__ import annotations
 
 import os
 import shutil
-from typing import List, Tuple
+from typing import Dict, List, Tuple
 
 import jinja2
 import jinja2.meta
 
+BUILTIN_TEMPLATES: Dict[str, Dict[str, str]] = {
+    "sidebar": {
+        "file": "sidebar.html.j2",
+        "description": "Multi-page documentation layout with collapsible left sidebar navigation.",
+    },
+    "simple": {
+        "file": "simple.html.j2",
+        "description": "Standalone single-column document layout without sidebar.",
+    },
+}
 
-def export_default_template(output_path: str = "template.html.j2", template_name: str = "sidebar") -> str:
-    """Export built-in HTML template (sidebar or simple) to target file path.
+BUILTIN_CSS_PRESETS: Dict[str, Dict[str, str]] = {
+    "default": {
+        "file": "default.css",
+        "description": "Modern responsive documentation theme with clean typography.",
+    },
+    "github": {
+        "file": "github.css",
+        "description": "GitHub-flavored Markdown style with familiar code block and table formatting.",
+    },
+    "minimal": {
+        "file": "minimal.css",
+        "description": "Lightweight, distraction-free minimalist typography.",
+    },
+    "monochrome": {
+        "file": "monochrome.css",
+        "description": "High-contrast black-and-white style suited for printing and formal publications.",
+    },
+}
+
+
+def list_templates() -> List[Dict[str, str]]:
+    """Return metadata for all built-in Jinja2 HTML templates.
+
+    Returns:
+        List[Dict[str, str]]: List of dicts with keys 'name', 'file', and 'description'.
+    """
+    return [
+        {"name": name, "file": meta["file"], "description": meta["description"]}
+        for name, meta in BUILTIN_TEMPLATES.items()
+    ]
+
+
+def export_template(name: str = "sidebar", output: str = "template.html.j2") -> str:
+    """Export a built-in HTML template ('sidebar' or 'simple') to a target file path.
 
     Args:
-        output_path (str): File path to save the exported template. Defaults to 'template.html.j2'.
-        template_name (str): Name of built-in template to export ('sidebar', 'simple').
-            Defaults to 'sidebar'.
+        name (str): Name of built-in template ('sidebar' or 'simple'). Defaults to 'sidebar'.
+        output (str): Destination file path. Defaults to 'template.html.j2'.
 
     Returns:
         str: Absolute file path of the exported template.
 
     Raises:
+        ValueError: If template name is unknown.
         FileNotFoundError: If built-in template file is missing.
     """
+    normalized = "simple" if name == "standalone" else name
+    if normalized not in BUILTIN_TEMPLATES:
+        available = ", ".join(BUILTIN_TEMPLATES.keys())
+        raise ValueError(f"Unknown template preset '{name}'. Available presets: {available}")
+
     templates_dir = os.path.join(os.path.dirname(__file__), "html_templates")
-    filename = "simple.html.j2" if template_name in {"simple", "standalone"} else "sidebar.html.j2"
-    default_template_path = os.path.join(templates_dir, filename)
+    filename = BUILTIN_TEMPLATES[normalized]["file"]
+    src_path = os.path.join(templates_dir, filename)
 
-    if not os.path.exists(default_template_path):
-        raise FileNotFoundError(f"Built-in template not found at '{default_template_path}'.")
+    if not os.path.exists(src_path):
+        raise FileNotFoundError(f"Built-in template not found at '{src_path}'.")
 
-    dest_abs = os.path.abspath(output_path)
+    dest_abs = os.path.abspath(output)
     os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
-    shutil.copy2(default_template_path, dest_abs)
+    shutil.copy2(src_path, dest_abs)
     return dest_abs
+
+
+def export_default_template(output_path: str = "template.html.j2", template_name: str = "sidebar") -> str:
+    """Export built-in HTML template (alias for export_template for backward compatibility).
+
+    Args:
+        output_path (str): File path to save the exported template.
+        template_name (str): Name of built-in template to export ('sidebar' or 'simple').
+
+    Returns:
+        str: Absolute file path of the exported template.
+    """
+    return export_template(name=template_name, output=output_path)
 
 
 def validate_template(template_path: str) -> Tuple[bool, List[str]]:
@@ -94,3 +156,46 @@ def validate_template(template_path: str) -> Tuple[bool, List[str]]:
         messages.append(f"Note: Template does not reference recommended variables: {joined}.")
 
     return True, messages
+
+
+def list_css() -> List[Dict[str, str]]:
+    """Return metadata for all built-in CSS presets.
+
+    Returns:
+        List[Dict[str, str]]: List of dicts with keys 'name', 'file', and 'description'.
+    """
+    return [
+        {"name": name, "file": meta["file"], "description": meta["description"]}
+        for name, meta in BUILTIN_CSS_PRESETS.items()
+    ]
+
+
+def export_css(name: str = "default", output: str = "style.css") -> str:
+    """Export a built-in CSS preset ('default', 'github', 'minimal', 'monochrome') to a target file path.
+
+    Args:
+        name (str): Name of built-in CSS preset. Defaults to 'default'.
+        output (str): Destination file path. Defaults to 'style.css'.
+
+    Returns:
+        str: Absolute file path of the exported CSS file.
+
+    Raises:
+        ValueError: If CSS preset name is unknown.
+        FileNotFoundError: If built-in CSS file is missing.
+    """
+    if name not in BUILTIN_CSS_PRESETS:
+        available = ", ".join(BUILTIN_CSS_PRESETS.keys())
+        raise ValueError(f"Unknown CSS preset '{name}'. Available presets: {available}")
+
+    styles_dir = os.path.join(os.path.dirname(__file__), "html_styles")
+    filename = BUILTIN_CSS_PRESETS[name]["file"]
+    src_path = os.path.join(styles_dir, filename)
+
+    if not os.path.exists(src_path):
+        raise FileNotFoundError(f"Built-in CSS file not found at '{src_path}'.")
+
+    dest_abs = os.path.abspath(output)
+    os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
+    shutil.copy2(src_path, dest_abs)
+    return dest_abs

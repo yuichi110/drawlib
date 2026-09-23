@@ -7,15 +7,45 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Unit tests for template export, validation, and custom HTML template rendering."""
+"""Unit tests for template, CSS, and drawlib.tools public API facade."""
 
 import os
 
-from drawlib._tools.doc_builder import build_document, export_default_template, validate_template
+from drawlib.tools.build import build_html, build_image, build_markdown, build_pdf
+from drawlib.tools.cache import clear_cache, download_cache, list_cache
+from drawlib.tools.css import export_css, list_css
+from drawlib.tools.export import export_code_block
+from drawlib.tools.serve import serve_docs
+from drawlib.tools.show import show_code_block
+from drawlib.tools.template import export_default_template, export_template, list_templates, validate_template
 
 
-def test_export_default_template(tmp_path) -> None:
-    """Test exporting default template to a file."""
+def test_public_tools_facade_exports() -> None:
+    """Verify all drawlib.tools public facade functions are callable."""
+    assert callable(build_image)
+    assert callable(build_markdown)
+    assert callable(build_html)
+    assert callable(build_pdf)
+    assert callable(clear_cache)
+    assert callable(list_cache)
+    assert callable(download_cache)
+    assert callable(list_css)
+    assert callable(export_css)
+    assert callable(list_templates)
+    assert callable(export_template)
+    assert callable(validate_template)
+    assert callable(serve_docs)
+    assert callable(show_code_block)
+    assert callable(export_code_block)
+
+
+def test_list_and_export_templates(tmp_path) -> None:
+    """Test listing and exporting built-in Jinja2 templates."""
+    templates = list_templates()
+    names = [t["name"] for t in templates]
+    assert "sidebar" in names
+    assert "simple" in names
+
     out_file = tmp_path / "custom_template.html.j2"
     result_path = export_default_template(str(out_file))
 
@@ -23,6 +53,26 @@ def test_export_default_template(tmp_path) -> None:
     assert out_file.exists()
     content = out_file.read_text(encoding="utf-8")
     assert "{{ body | safe }}" in content or "{{ body }}" in content
+
+    simple_file = tmp_path / "simple_template.html.j2"
+    export_template(name="simple", output=str(simple_file))
+    assert simple_file.exists()
+
+
+def test_list_and_export_css(tmp_path) -> None:
+    """Test listing and exporting built-in CSS style presets."""
+    presets = list_css()
+    names = [p["name"] for p in presets]
+    assert "default" in names
+    assert "github" in names
+    assert "minimal" in names
+    assert "monochrome" in names
+
+    out_css = tmp_path / "github_theme.css"
+    res = export_css(name="github", output=str(out_css))
+    assert os.path.exists(res)
+    assert out_css.exists()
+    assert len(out_css.read_text(encoding="utf-8")) > 0
 
 
 def test_validate_template_valid(tmp_path) -> None:
@@ -74,7 +124,7 @@ def test_build_document_custom_template(tmp_path) -> None:
     input_md.write_text("# Custom Template Page\n\nHello Custom Template!", encoding="utf-8")
 
     out_html = tmp_path / "doc.html"
-    res_path = build_document(input_path=str(input_md), output_path=str(out_html), template_path=str(custom_tmpl))
+    res_path = build_html(input_path=str(input_md), output_path=str(out_html), template_path=str(custom_tmpl))
 
     assert os.path.exists(res_path)
     content = out_html.read_text(encoding="utf-8")

@@ -9,15 +9,19 @@
 
 """Document compiler package for drawlib."""
 
+from __future__ import annotations
+
 import os
 import re
 import shutil
 import sys
-from typing import Optional
+from typing import List, Optional, Sequence, Union
 
+from drawlib._tools.doc_builder.detector import DocType, DocumentInputInfo, detect_document_type
 from drawlib._tools.doc_builder.exporter_html import get_default_css, render_html_document
 from drawlib._tools.doc_builder.exporter_md import write_rendered_markdown
 from drawlib._tools.doc_builder.exporter_pdf import export_html_to_pdf
+from drawlib._tools.doc_builder.merger import build_merged_html
 from drawlib._tools.doc_builder.parser_md import parse_markdown_to_html
 from drawlib._tools.doc_builder.processor import (
     DrawlibBlockProcessor,
@@ -25,7 +29,14 @@ from drawlib._tools.doc_builder.processor import (
     extract_code_blocks,
     show_code_block,
 )
-from drawlib._tools.doc_builder.template import export_default_template, validate_template
+from drawlib._tools.doc_builder.template import (
+    export_css,
+    export_default_template,
+    export_template,
+    list_css,
+    list_templates,
+    validate_template,
+)
 
 
 def _validate_markdown_images(src_abs: str, content: str) -> None:
@@ -96,107 +107,242 @@ def _build_directory_nav_list(input_abs: str, out_dir_abs: str) -> list[dict[str
     return nav_list
 
 
-def _get_single_file_nav_items(doc_dir: str, active_filename: str) -> list[dict[str, object]]:
-    """Build navigation items list for Markdown files in a single flat directory."""
-    items: list[dict[str, object]] = []
-    if not os.path.isdir(doc_dir):
-        return items
-
-    filenames = sorted(os.listdir(doc_dir))
-    if "index.md" in filenames:
-        filenames.remove("index.md")
-        filenames.insert(0, "index.md")
-
-    for fname in filenames:
-        if fname.endswith(".md") or fname.endswith(".markdown"):
-            file_path = os.path.join(doc_dir, fname)
-            try:
-                with open(file_path, "r", encoding="utf-8") as f:
-                    content = f.read()
-                title = _extract_title(content, fname)
-            except Exception:
-                title = os.path.splitext(fname)[0].replace("_", " ").title()
-
-            html_name = os.path.splitext(fname)[0] + ".html"
-            items.append({
-                "title": title,
-                "url": html_name,
-                "active": (fname == active_filename),
-            })
-    return items
-
-
-def _compile_single_file(
+def _compile_single_markdown_file(
     src_abs: str,
     dest_abs: str,
-    output_format: Optional[str] = None,
-    image_format: str = "png",
-    config_path: Optional[str] = None,
-    css_path: Optional[str] = None,
-    css_href: Optional[str] = None,
-    nav_list: Optional[list[dict[str, str]]] = None,
-    template_path: Optional[str] = None,
-) -> None:
-    """Internal helper to compile a single source file to target output path."""
-    fmt = output_format.lower() if output_format else None
-    if not fmt:
-        if dest_abs.endswith(".pdf"):
-            fmt = "pdf"
-        elif dest_abs.endswith(".md") or dest_abs.endswith(".markdown"):
-            fmt = "markdown"
-        else:
-            fmt = "html"
-
+    image_format: str,
+    config_path: Optional[str],
+    processor: Optional[DrawlibBlockProcessor] = None,
+) -> DrawlibBlockProcessor | None:
+    """Compile a single Markdown file into rendered Markdown."""
     with open(src_abs, "r", encoding="utf-8") as f:
         content = f.read()
 
-    processor = DrawlibBlockProcessor(config_path=config_path)
-    is_md = src_abs.endswith(".md") or src_abs.endswith(".markdown")
-    if is_md:
-        _validate_markdown_images(src_abs, content)
-    doc_base_name = os.path.splitext(os.path.basename(dest_abs))[0]
-    output_dir = os.path.dirname(dest_abs)
+    _validate_markdown_images(src_abs, content)
+    doc_info: DocumentInputInfo = detect_document_type(src_abs, content)
 
-    if fmt == "markdown":
-        rendered_md = (
-            processor.process_markdown(
+    os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
+    if doc_info.doc_type == "markdown":
+        write_rendered_markdown(content, dest_abs)
+        return processor
+
+    if processor is None:
+        processor = DrawlibBlockProcessor(config_path=config_path)
+
+    src_dir = os.path.dirname(src_abs)
+    output_dir = os.path.dirname(dest_abs)
+    doc_base_name = os.path.splitext(os.path.basename(dest_abs))[0]
+
+    orig_cwd = os.getcwd()
+    sys_path_added = False
+    try:
+        os.chdir(src_dir)
+        if src_dir not in sys.path:
+            sys.path.insert(0, src_dir)
+            sys_path_added = True
+
+        rendered_md = processor.process_markdown(
+            content,
+            doc_base_name=doc_base_name,
+            output_dir=output_dir,
+            image_format=image_format,
+            use_markdown_syntax=True,
+            source_filename=src_abs,
+        )
+        write_rendered_markdown(rendered_md, dest_abs)
+    finally:
+        os.chdir(orig_cwd)
+        if sys_path_added and src_dir in sys.path:
+            sys.path.remove(src_dir)
+
+    return processor
+
+
+def build_markdown(
+    input_path: str,
+    output: Optional[str] = None,
+    image_format: str = "png",
+    config: Optional[str] = None,
+    *,
+    output_path: Optional[str] = None,
+    config_path: Optional[str] = None,
+) -> str:
+    """Compile a Markdown file or directory containing drawlib code blocks into standard rendered Markdown.
+
+    Args:
+        input_path (str): Input Markdown (.md) file or directory path.
+        output (Optional[str]): Destination file or directory path.
+        image_format (str): Image output format ('png' or 'webp'). Defaults to 'png'.
+        config (Optional[str]): Optional Python configuration script path.
+        output_path (Optional[str]): Alias for output.
+        config_path (Optional[str]): Alias for config.
+
+    Returns:
+        str: Absolute path of generated Markdown file or directory.
+
+    Raises:
+        ValueError: If input path does not exist, is not Markdown, or overwrites source.
+    """
+    output = output or output_path
+    config = config or config_path
+    input_abs = os.path.abspath(input_path)
+    if not os.path.exists(input_abs):
+        raise ValueError(f'Input path "{input_abs}" does not exist.')
+
+    if os.path.isdir(input_abs):
+        out_dir_abs = os.path.abspath(output) if output else input_abs
+        processor: Optional[DrawlibBlockProcessor] = None
+
+        for root, dirnames, files in os.walk(input_abs):
+            if out_dir_abs != input_abs:
+                dirnames[:] = [
+                    d
+                    for d in dirnames
+                    if not (
+                        os.path.abspath(os.path.join(root, d)) == out_dir_abs
+                        or os.path.abspath(os.path.join(root, d)).startswith(out_dir_abs + os.sep)
+                    )
+                ]
+            for fname in sorted(files):
+                if fname.startswith("."):
+                    continue
+                src_abs = os.path.join(root, fname)
+                rel_path = os.path.relpath(src_abs, input_abs)
+                if fname.endswith(".md") or fname.endswith(".markdown"):
+                    rel_base, _ = os.path.splitext(rel_path)
+                    ext = ".md" if out_dir_abs != input_abs else ".rendered.md"
+                    dest_abs = os.path.join(out_dir_abs, rel_base + ext)
+                    if src_abs == dest_abs:
+                        raise ValueError(
+                            f'Refusing to overwrite input source file "{src_abs}". '
+                            "Please specify a different output directory using -o / --output."
+                        )
+                    processor = _compile_single_markdown_file(
+                        src_abs=src_abs,
+                        dest_abs=dest_abs,
+                        image_format=image_format,
+                        config_path=config,
+                        processor=processor,
+                    )
+                elif not fname.endswith((".html", ".htm")):
+                    dest_abs = os.path.join(out_dir_abs, rel_path)
+                    if src_abs != dest_abs:
+                        os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
+                        shutil.copy2(src_abs, dest_abs)
+
+        return out_dir_abs
+
+    ext = os.path.splitext(input_abs)[1].lower()
+    if ext not in {".md", ".markdown"}:
+        raise ValueError(f'Input file "{input_abs}" is not a Markdown file (.md).')
+
+    if output:
+        if os.path.isdir(output) or output.endswith(os.sep) or output.endswith("/"):
+            out_dir = os.path.abspath(output)
+            base_name = os.path.splitext(os.path.basename(input_abs))[0]
+            dest_abs = os.path.join(out_dir, f"{base_name}.md")
+        else:
+            dest_abs = os.path.abspath(output)
+    else:
+        base_name = os.path.splitext(input_abs)[0]
+        dest_abs = f"{base_name}.rendered.md"
+
+    if input_abs == dest_abs:
+        raise ValueError(
+            f'Refusing to overwrite input source file "{input_abs}". '
+            "Please specify a different output path using -o / --output."
+        )
+
+    _compile_single_markdown_file(
+        src_abs=input_abs,
+        dest_abs=dest_abs,
+        image_format=image_format,
+        config_path=config,
+    )
+    return dest_abs
+
+
+def _compile_single_html_file(
+    src_abs: str,
+    dest_abs: str,
+    image_format: str,
+    config_path: Optional[str],
+    css_path: Optional[str],
+    css_href: Optional[str],
+    nav_list: Optional[list[dict[str, str]]],
+    template_path: Optional[str],
+    processor: Optional[DrawlibBlockProcessor] = None,
+) -> DrawlibBlockProcessor | None:
+    """Compile a single Markdown or HTML file into HTML."""
+    with open(src_abs, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    doc_info = detect_document_type(src_abs, content)
+    if doc_info.is_markdown:
+        _validate_markdown_images(src_abs, content)
+
+    if doc_info.has_drawlib and processor is None:
+        processor = DrawlibBlockProcessor(config_path=config_path)
+
+    src_dir = os.path.dirname(src_abs)
+    output_dir = os.path.dirname(dest_abs)
+    doc_base_name = os.path.splitext(os.path.basename(dest_abs))[0]
+
+    orig_cwd = os.getcwd()
+    sys_path_added = False
+    try:
+        os.chdir(src_dir)
+        if src_dir not in sys.path:
+            sys.path.insert(0, src_dir)
+            sys_path_added = True
+
+        if doc_info.doc_type == "markdown_drawlib":
+            if processor is None:
+                processor = DrawlibBlockProcessor(config_path=config_path)
+            processed_text = processor.process_markdown(
                 content,
                 doc_base_name=doc_base_name,
                 output_dir=output_dir,
                 image_format=image_format,
-                use_markdown_syntax=True,
-                source_filename=src_abs,
-            )
-            if is_md
-            else content
-        )
-        write_rendered_markdown(rendered_md, dest_abs)
-    elif fmt in {"html", "pdf"}:
-        embed_images = fmt == "pdf"
-        if is_md:
-            processed_text = processor.process_markdown(
-                content,
-                doc_base_name=doc_base_name,
-                output_dir=output_dir if not embed_images else None,
-                image_format=image_format,
-                embed_images=embed_images,
+                embed_images=False,
                 source_filename=src_abs,
             )
             body_html = parse_markdown_to_html(processed_text)
-        else:
-            body_html = processor.process_html(
+        elif doc_info.doc_type == "markdown":
+            body_html = parse_markdown_to_html(content)
+        elif doc_info.doc_type == "html_drawlib":
+            if processor is None:
+                processor = DrawlibBlockProcessor(config_path=config_path)
+            processed_html = processor.process_html(
                 content,
                 doc_base_name=doc_base_name,
-                output_dir=output_dir if not embed_images else None,
+                output_dir=output_dir,
                 image_format=image_format,
-                embed_images=embed_images,
+                embed_images=False,
                 source_filename=src_abs,
             )
+            if doc_info.is_full_html and template_path is None:
+                os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
+                with open(dest_abs, "w", encoding="utf-8") as f:
+                    f.write(processed_html)
+                return processor
+            body_html = processed_html
+        else:
+            if doc_info.is_full_html and template_path is None:
+                os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
+                with open(dest_abs, "w", encoding="utf-8") as f:
+                    f.write(content)
+                return processor
+            body_html = content
 
-        doc_title = _extract_title(content, os.path.basename(src_abs)) if is_md else os.path.basename(src_abs)
+        doc_title = (
+            _extract_title(content, os.path.basename(src_abs))
+            if doc_info.is_markdown
+            else os.path.basename(src_abs)
+        )
 
         index_rel_url = "index.html"
-        if is_md and nav_list:
+        if doc_info.is_markdown and nav_list:
             doc_nav_items: list[dict[str, object]] = []
             dest_dir = os.path.dirname(dest_abs)
 
@@ -229,117 +375,239 @@ def _compile_single_file(
         )
 
         os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
-        if fmt == "html":
-            with open(dest_abs, "w", encoding="utf-8") as f:
-                f.write(full_html)
-        else:
-            export_html_to_pdf(full_html, dest_abs)
+        with open(dest_abs, "w", encoding="utf-8") as f:
+            f.write(full_html)
+    finally:
+        os.chdir(orig_cwd)
+        if sys_path_added and src_dir in sys.path:
+            sys.path.remove(src_dir)
+
+    return processor
 
 
-def _build_directory(
-    input_abs: str,
-    output_path: Optional[str],
-    output_format: Optional[str],
-    image_format: str,
-    css_mode: str,
-    config_path: Optional[str],
-    css_path: Optional[str],
+def build_html(
+    input_path: str,
+    output: Optional[str] = None,
+    image_format: str = "png",
+    css: Optional[str] = None,
+    template: Optional[str] = None,
+    config: Optional[str] = None,
+    *,
+    css_mode: str = "external",
+    output_path: Optional[str] = None,
+    css_path: Optional[str] = None,
     template_path: Optional[str] = None,
+    config_path: Optional[str] = None,
 ) -> str:
-    """Internal helper to recursively process and compile a directory of documents."""
-    out_dir_abs = os.path.abspath(output_path) if output_path else input_abs
-    nav_list = _build_directory_nav_list(input_abs, out_dir_abs)
+    """Compile a Markdown/HTML file or directory into HTML with an external style.css stylesheet.
 
-    if output_format == "pdf":
-        actual_css_mode = "embed"
+    Args:
+        input_path (str): Input Markdown (.md), HTML (.html), or directory path.
+        output (Optional[str]): Destination file or directory path.
+        image_format (str): Image output format ('png' or 'webp'). Defaults to 'png'.
+        css (Optional[str]): CSS preset name ('default', 'github', 'minimal', 'monochrome') or .css file path.
+        template (Optional[str]): Template preset ('sidebar', 'simple') or .html.j2 file path.
+        config (Optional[str]): Optional Python configuration script path.
+        css_mode (str): CSS mode ('external' by default, or 'embed' if overridden internally).
+        output_path (Optional[str]): Alias for output.
+        css_path (Optional[str]): Alias for css.
+        template_path (Optional[str]): Alias for template.
+        config_path (Optional[str]): Alias for config.
+
+    Returns:
+        str: Absolute path of generated HTML file or directory.
+
+    Raises:
+        ValueError: If input path does not exist or output overwrites source file.
+    """
+    output = output or output_path
+    css = css or css_path
+    template = template or template_path
+    config = config or config_path
+    input_abs = os.path.abspath(input_path)
+    if not os.path.exists(input_abs):
+        raise ValueError(f'Input path "{input_abs}" does not exist.')
+
+    if os.path.isdir(input_abs):
+        out_dir_abs = os.path.abspath(output) if output else input_abs
+        nav_list = _build_directory_nav_list(input_abs, out_dir_abs)
+
+        style_css_path: Optional[str] = None
+        if css_mode != "embed":
+            style_css_path = os.path.join(out_dir_abs, "style.css")
+            os.makedirs(os.path.dirname(style_css_path), exist_ok=True)
+            with open(style_css_path, "w", encoding="utf-8") as f:
+                f.write(get_default_css(custom_css_path=css))
+
+        processor: Optional[DrawlibBlockProcessor] = None
+        for root, dirnames, files in os.walk(input_abs):
+            if out_dir_abs != input_abs:
+                dirnames[:] = [
+                    d
+                    for d in dirnames
+                    if not (
+                        os.path.abspath(os.path.join(root, d)) == out_dir_abs
+                        or os.path.abspath(os.path.join(root, d)).startswith(out_dir_abs + os.sep)
+                    )
+                ]
+            for fname in sorted(files):
+                if fname.startswith("."):
+                    continue
+                src_abs = os.path.join(root, fname)
+                rel_path = os.path.relpath(src_abs, input_abs)
+
+                if fname.endswith(".md") or fname.endswith(".markdown"):
+                    rel_base, _ = os.path.splitext(rel_path)
+                    dest_abs = os.path.join(out_dir_abs, rel_base + ".html")
+                    rel_css_href = (
+                        os.path.relpath(style_css_path, os.path.dirname(dest_abs)) if style_css_path else None
+                    )
+                    processor = _compile_single_html_file(
+                        src_abs=src_abs,
+                        dest_abs=dest_abs,
+                        image_format=image_format,
+                        config_path=config,
+                        css_path=css,
+                        css_href=rel_css_href,
+                        nav_list=nav_list,
+                        template_path=template,
+                        processor=processor,
+                    )
+                elif fname.endswith((".html", ".htm")):
+                    dest_abs = os.path.join(out_dir_abs, rel_path)
+                    if src_abs == dest_abs:
+                        continue
+                    rel_css_href = (
+                        os.path.relpath(style_css_path, os.path.dirname(dest_abs)) if style_css_path else None
+                    )
+                    processor = _compile_single_html_file(
+                        src_abs=src_abs,
+                        dest_abs=dest_abs,
+                        image_format=image_format,
+                        config_path=config,
+                        css_path=css,
+                        css_href=rel_css_href,
+                        nav_list=None,
+                        template_path=template,
+                        processor=processor,
+                    )
+                else:
+                    dest_abs = os.path.join(out_dir_abs, rel_path)
+                    if src_abs != dest_abs:
+                        os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
+                        shutil.copy2(src_abs, dest_abs)
+
+        return out_dir_abs
+
+    if output:
+        if os.path.isdir(output) or output.endswith(os.sep) or output.endswith("/"):
+            out_dir = os.path.abspath(output)
+            base_name = os.path.splitext(os.path.basename(input_abs))[0]
+            dest_abs = os.path.join(out_dir, f"{base_name}.html")
+        else:
+            dest_abs = os.path.abspath(output)
     else:
-        actual_css_mode = "external" if css_mode == "auto" else css_mode
+        base_name = os.path.splitext(input_abs)[0]
+        ext = os.path.splitext(input_abs)[1].lower()
+        dest_abs = f"{base_name}.rendered.html" if ext in {".html", ".htm"} else f"{base_name}.html"
 
-    style_css_path: Optional[str] = None
-    if actual_css_mode == "external":
-        style_css_path = os.path.join(out_dir_abs, "style.css")
+    if input_abs == dest_abs:
+        raise ValueError(
+            f'Refusing to overwrite input source file "{input_abs}". '
+            "Please specify a different output path using -o / --output."
+        )
+
+    rel_css_href: Optional[str] = None
+    if css_mode != "embed":
+        style_css_path = os.path.join(os.path.dirname(dest_abs), "style.css")
         os.makedirs(os.path.dirname(style_css_path), exist_ok=True)
         with open(style_css_path, "w", encoding="utf-8") as f:
-            f.write(get_default_css(custom_css_path=css_path))
+            f.write(get_default_css(custom_css_path=css))
+        rel_css_href = "style.css"
 
-    for root, dirnames, files in os.walk(input_abs):
-        if out_dir_abs != input_abs:
-            dirnames[:] = [
-                d
-                for d in dirnames
-                if not (
-                    os.path.abspath(os.path.join(root, d)) == out_dir_abs
-                    or os.path.abspath(os.path.join(root, d)).startswith(out_dir_abs + os.sep)
-                )
-            ]
-        for fname in sorted(files):
-            if fname.startswith("."):
-                continue
+    _compile_single_html_file(
+        src_abs=input_abs,
+        dest_abs=dest_abs,
+        image_format=image_format,
+        config_path=config,
+        css_path=css,
+        css_href=rel_css_href,
+        nav_list=None,
+        template_path=template,
+    )
+    return dest_abs
 
-            src_abs = os.path.join(root, fname)
-            rel_path = os.path.relpath(src_abs, input_abs)
 
-            if fname.endswith(".md") or fname.endswith(".markdown"):
-                rel_base, _ = os.path.splitext(rel_path)
-                if output_format == "pdf":
-                    ext = ".pdf"
-                elif output_format == "markdown":
-                    ext = ".md" if out_dir_abs != input_abs else ".rendered.md"
-                else:
-                    ext = ".html"
+def build_pdf(
+    inputs: Union[str, Sequence[str]],
+    output: Optional[str] = None,
+    page_break: bool = True,
+    toc: bool = False,
+    title: Optional[str] = None,
+    css: Optional[str] = None,
+    template: Optional[str] = None,
+    config: Optional[str] = None,
+    *,
+    output_path: Optional[str] = None,
+    css_path: Optional[str] = None,
+    template_path: Optional[str] = None,
+    config_path: Optional[str] = None,
+) -> str:
+    """Merge one or more Markdown/HTML files or directories into a single HTML and export to PDF.
 
-                dest_abs = os.path.join(out_dir_abs, rel_base + ext)
+    Args:
+        inputs (Union[str, Sequence[str]]): One or more input file or directory paths.
+        output (Optional[str]): Destination PDF file path. Defaults to '<first_input_stem>.pdf'.
+        page_break (bool): Insert CSS page breaks between merged chapters. Defaults to True.
+        toc (bool): Generate a Table of Contents at the start of the PDF. Defaults to False.
+        title (Optional[str]): Document title override.
+        css (Optional[str]): CSS preset name or file path.
+        template (Optional[str]): Jinja2 HTML template preset or file path.
+        config (Optional[str]): Optional Python configuration script path.
+        output_path (Optional[str]): Alias for output.
+        css_path (Optional[str]): Alias for css.
+        template_path (Optional[str]): Alias for template.
+        config_path (Optional[str]): Alias for config.
 
-                if src_abs == dest_abs:
-                    raise ValueError(
-                        f'Refusing to overwrite input source file "{src_abs}". '
-                        "Please specify a different output directory using -o / --output."
-                    )
+    Returns:
+        str: Absolute path of generated PDF file.
+    """
+    output = output or output_path
+    css = css or css_path
+    template = template or template_path
+    config = config or config_path
+    input_list: List[str] = [inputs] if isinstance(inputs, str) else list(inputs)
+    if not input_list:
+        raise ValueError("At least one input file or directory must be specified for build_pdf.")
 
-                rel_css_href = os.path.relpath(style_css_path, os.path.dirname(dest_abs)) if style_css_path else None
+    merged_html, file_list = build_merged_html(
+        inputs=input_list,
+        title=title,
+        page_break=page_break,
+        toc=toc,
+        config_path=config,
+        css_path=css,
+        template_path=template,
+    )
 
-                _compile_single_file(
-                    src_abs=src_abs,
-                    dest_abs=dest_abs,
-                    output_format=output_format,
-                    image_format=image_format,
-                    config_path=config_path,
-                    css_path=css_path,
-                    css_href=rel_css_href,
-                    nav_list=nav_list,
-                    template_path=template_path,
-                )
+    if output:
+        if os.path.isdir(output) or output.endswith(os.sep) or output.endswith("/"):
+            first_stem = os.path.splitext(os.path.basename(file_list[0]))[0]
+            dest_abs = os.path.abspath(os.path.join(output, f"{first_stem}.pdf"))
+        else:
+            dest_abs = os.path.abspath(output)
+    else:
+        first_input = os.path.abspath(input_list[0])
+        if os.path.isdir(first_input):
+            dir_name = os.path.basename(first_input.rstrip(os.sep)) or "document"
+            dest_abs = os.path.join(os.path.dirname(first_input), f"{dir_name}.pdf")
+        else:
+            base_name = os.path.splitext(first_input)[0]
+            dest_abs = f"{base_name}.pdf"
 
-            elif fname.endswith(".html"):
-                dest_abs = os.path.join(out_dir_abs, rel_path)
-                if src_abs == dest_abs:
-                    continue
-
-                rel_css_href = os.path.relpath(style_css_path, os.path.dirname(dest_abs)) if style_css_path else None
-
-                _compile_single_file(
-                    src_abs=src_abs,
-                    dest_abs=dest_abs,
-                    output_format=output_format,
-                    image_format=image_format,
-                    config_path=config_path,
-                    css_path=css_path,
-                    css_href=rel_css_href,
-                    nav_list=None,
-                    template_path=template_path,
-                )
-
-            else:
-                if output_format == "pdf":
-                    continue
-                dest_abs = os.path.join(out_dir_abs, rel_path)
-                if src_abs == dest_abs:
-                    continue
-
-                os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
-                shutil.copy2(src_abs, dest_abs)
-
-    return out_dir_abs
+    os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
+    export_html_to_pdf(merged_html, dest_abs)
+    return dest_abs
 
 
 def build_document(
@@ -347,47 +615,12 @@ def build_document(
     output_path: Optional[str] = None,
     output_format: Optional[str] = None,
     image_format: str = "png",
-    css_mode: str = "auto",
+    css_mode: str = "external",
     config_path: Optional[str] = None,
     css_path: Optional[str] = None,
     template_path: Optional[str] = None,
 ) -> str:
-    """Compile input Markdown/HTML file or directory with drawlib code blocks into HTML, PDF, or Markdown.
-
-    Args:
-        input_path (str): Path to input file (.md, .html) or directory.
-        output_path (Optional[str]): Path to output file or directory.
-        output_format (Optional[str]): Output format: 'html', 'pdf', or 'markdown'.
-        image_format (str): Image format for code blocks: 'png', 'svg', or 'inline_svg'. Default is 'png'.
-        css_mode (str): CSS styling mode: 'auto', 'embed', or 'external'. Default is 'auto'.
-        config_path (Optional[str]): Path to Python config script.
-        css_path (Optional[str]): Path to custom CSS file for HTML styling.
-        template_path (Optional[str]): Optional path to custom Jinja2 HTML template.
-
-    Returns:
-        str: Absolute path of generated output file or directory.
-
-    Raises:
-        ValueError: If input path does not exist, or output path overwrites input source file.
-    """
-    input_abs = os.path.abspath(input_path)
-    if not os.path.exists(input_abs):
-        raise ValueError(f'Input path "{input_abs}" does not exist.')
-
-    # Recursive directory compilation
-    if os.path.isdir(input_abs):
-        return _build_directory(
-            input_abs=input_abs,
-            output_path=output_path,
-            output_format=output_format,
-            image_format=image_format,
-            css_mode=css_mode,
-            config_path=config_path,
-            css_path=css_path,
-            template_path=template_path,
-        )
-
-    # Single file compilation
+    """Compile input Markdown/HTML file or directory into HTML, PDF, or Markdown (backward-compatible wrapper)."""
     fmt = output_format.lower() if output_format else None
     if not fmt:
         if output_path and output_path.endswith(".pdf"):
@@ -397,156 +630,139 @@ def build_document(
         else:
             fmt = "html"
 
-    if output_path:
-        if os.path.isdir(output_path) or output_path.endswith(os.sep) or output_path.endswith("/"):
-            out_dir = os.path.abspath(output_path)
-            base_name = os.path.splitext(os.path.basename(input_abs))[0]
-            ext = ".pdf" if fmt == "pdf" else (".rendered.md" if fmt == "markdown" else ".html")
-            dest_abs = os.path.join(out_dir, base_name + ext)
-        else:
-            dest_abs = os.path.abspath(output_path)
-    else:
-        base_name = os.path.splitext(input_abs)[0]
-        ext = ".pdf" if fmt == "pdf" else (".rendered.md" if fmt == "markdown" else ".html")
-        dest_abs = f"{base_name}{ext}"
-
-    if input_abs == dest_abs:
-        raise ValueError(
-            f'Refusing to overwrite input source file "{input_abs}". '
-            "Please specify a different output path using -o / --output."
+    if fmt == "markdown":
+        return build_markdown(
+            input_path=input_path,
+            output=output_path,
+            image_format=image_format,
+            config=config_path,
         )
-
-    actual_css_mode = "embed" if css_mode == "auto" else css_mode
-    style_css_path: Optional[str] = None
-    if actual_css_mode == "external":
-        dest_dir = os.path.dirname(dest_abs)
-        style_css_path = os.path.join(dest_dir, "style.css")
-        os.makedirs(dest_dir, exist_ok=True)
-        with open(style_css_path, "w", encoding="utf-8") as f:
-            f.write(get_default_css(custom_css_path=css_path))
-
-    rel_css_href = os.path.relpath(style_css_path, os.path.dirname(dest_abs)) if style_css_path else None
-
-    _compile_single_file(
-        src_abs=input_abs,
-        dest_abs=dest_abs,
-        output_format=fmt,
+    if fmt == "pdf":
+        return build_pdf(
+            inputs=[input_path],
+            output=output_path,
+            css=css_path,
+            template=template_path,
+            config=config_path,
+        )
+    return build_html(
+        input_path=input_path,
+        output=output_path,
         image_format=image_format,
-        config_path=config_path,
-        css_path=css_path,
-        css_href=rel_css_href,
-        nav_list=None,
-        template_path=template_path,
+        css=css_path,
+        template=template_path,
+        config=config_path,
+        css_mode=css_mode,
     )
-    return dest_abs
 
 
-def build_documents(
-    targets: list[tuple[str, str] | str],
-    output_dir: Optional[str] = None,
+def build(
+    input_path: str,
+    output_path: Optional[str] = None,
     output_format: Optional[str] = None,
     image_format: str = "png",
-    css_mode: str = "auto",
+    css_mode: str = "external",
     config_path: Optional[str] = None,
     css_path: Optional[str] = None,
     template_path: Optional[str] = None,
-) -> list[str]:
-    """Compile multiple target Markdown/HTML documents with unified navigation.
+) -> str:
+    """Alias for build_document."""
+    return build_document(
+        input_path=input_path,
+        output_path=output_path,
+        output_format=output_format,
+        image_format=image_format,
+        css_mode=css_mode,
+        config_path=config_path,
+        css_path=css_path,
+        template_path=template_path,
+    )
 
-    Args:
-        targets (list[tuple[str, str] | str]): List of target files or (input_path, output_path) tuples.
-        output_dir (Optional[str]): Default directory for outputs if targets are single input paths.
-        output_format (Optional[str]): Output format: 'html', 'pdf', or 'markdown'.
-        image_format (str): Image format for code blocks: 'png', 'svg', or 'inline_svg'. Default is 'png'.
-        css_mode (str): CSS styling mode: 'auto', 'embed', or 'external'. Default is 'auto'.
-        config_path (Optional[str]): Path to Python config script.
-        css_path (Optional[str]): Path to custom CSS file for HTML styling.
-        template_path (Optional[str]): Optional path to custom Jinja2 HTML template.
 
-    Returns:
-        list[str]: List of absolute paths of generated output files.
-    """
-    normalized_targets: list[tuple[str, str]] = []
-
-    for item in targets:
-        if isinstance(item, tuple):
-            src_abs = os.path.abspath(item[0])
-            dest_abs = os.path.abspath(item[1])
-        else:
-            src_abs = os.path.abspath(item)
-            fname = os.path.basename(src_abs)
-            base_name, _ = os.path.splitext(fname)
-            ext = ".pdf" if output_format == "pdf" else (".rendered.md" if output_format == "markdown" else ".html")
-            if output_dir:
-                dest_abs = os.path.abspath(os.path.join(output_dir, base_name + ext))
-            else:
-                dest_abs = os.path.abspath(os.path.join(os.path.dirname(src_abs), base_name + ext))
-        normalized_targets.append((src_abs, dest_abs))
-
-    global_nav_items: list[dict[str, str]] = []
-    for src_abs, dest_abs in normalized_targets:
-        if src_abs.endswith(".md") or src_abs.endswith(".markdown"):
-            try:
-                with open(src_abs, "r", encoding="utf-8") as f:
-                    content = f.read()
-                title = _extract_title(content, os.path.basename(src_abs))
-            except Exception:
-                title = os.path.splitext(os.path.basename(src_abs))[0].title()
-
-            global_nav_items.append({
-                "title": title,
+def build_documents(
+    input_dir: Optional[str] = None,
+    output_dir: Optional[str] = None,
+    output_format: str = "html",
+    image_format: str = "png",
+    css_mode: str = "external",
+    config_path: Optional[str] = None,
+    css_path: Optional[str] = None,
+    template_path: Optional[str] = None,
+    *,
+    targets: Optional[Sequence[tuple[str, str]]] = None,
+) -> List[str]:
+    """Compile all documents in a directory or a list of (src, dest) target pairs."""
+    if targets is not None:
+        nav_list: list[dict[str, str]] = []
+        for src_p, dest_p in targets:
+            src_abs = os.path.abspath(src_p)
+            dest_abs = os.path.abspath(dest_p)
+            with open(src_abs, "r", encoding="utf-8") as f:
+                content = f.read()
+            nav_list.append({
+                "title": _extract_title(content, os.path.basename(src_abs)),
                 "src_abs": src_abs,
                 "dest_abs": dest_abs,
             })
 
-    actual_css_mode = "external" if (css_mode == "external" or (css_mode == "auto" and output_dir)) else "embed"
-    style_css_path: Optional[str] = None
-    if actual_css_mode == "external" and output_dir:
-        out_dir_abs = os.path.abspath(output_dir)
-        style_css_path = os.path.join(out_dir_abs, "style.css")
-        os.makedirs(out_dir_abs, exist_ok=True)
-        with open(style_css_path, "w", encoding="utf-8") as f:
-            f.write(get_default_css(custom_css_path=css_path))
+        result_paths: List[str] = []
+        processor: Optional[DrawlibBlockProcessor] = None
+        for src_p, dest_p in targets:
+            src_abs = os.path.abspath(src_p)
+            dest_abs = os.path.abspath(dest_p)
+            style_css_path = os.path.join(os.path.dirname(dest_abs), "style.css")
+            os.makedirs(os.path.dirname(style_css_path), exist_ok=True)
+            with open(style_css_path, "w", encoding="utf-8") as f:
+                f.write(get_default_css(custom_css_path=css_path))
+            processor = _compile_single_html_file(
+                src_abs=src_abs,
+                dest_abs=dest_abs,
+                image_format=image_format,
+                config_path=config_path,
+                css_path=css_path,
+                css_href="style.css",
+                nav_list=nav_list,
+                template_path=template_path,
+                processor=processor,
+            )
+            result_paths.append(dest_abs)
+        return result_paths
 
-    compiled_paths: list[str] = []
+    if not input_dir:
+        raise ValueError("Either input_dir or targets must be provided to build_documents.")
 
-    for src_abs, dest_abs in normalized_targets:
-        if not os.path.exists(src_abs):
-            raise ValueError(f'Input file "{src_abs}" does not exist.')
-        if src_abs == dest_abs:
-            raise ValueError(f'Refusing to overwrite input source file "{src_abs}".')
-
-        rel_css_href = os.path.relpath(style_css_path, os.path.dirname(dest_abs)) if style_css_path else None
-
-        _compile_single_file(
-            src_abs=src_abs,
-            dest_abs=dest_abs,
-            output_format=output_format,
-            image_format=image_format,
-            config_path=config_path,
-            css_path=css_path,
-            css_href=rel_css_href,
-            nav_list=global_nav_items if (src_abs.endswith(".md") or src_abs.endswith(".markdown")) else None,
-            template_path=template_path,
-        )
-        compiled_paths.append(dest_abs)
-
-    return compiled_paths
-
-
-build = build_document
+    out = build_document(
+        input_path=input_dir,
+        output_path=output_dir,
+        output_format=output_format,
+        image_format=image_format,
+        css_mode=css_mode,
+        config_path=config_path,
+        css_path=css_path,
+        template_path=template_path,
+    )
+    return [out]
 
 
 __all__ = [
+    "DocType",
+    "DocumentInputInfo",
+    "DrawlibBlockProcessor",
     "build",
     "build_document",
     "build_documents",
+    "build_html",
+    "build_markdown",
+    "build_merged_html",
+    "build_pdf",
+    "detect_document_type",
     "export_code_block",
+    "export_css",
     "export_default_template",
+    "export_template",
     "extract_code_blocks",
+    "list_css",
+    "list_templates",
     "show_code_block",
     "validate_template",
-    "DrawlibBlockProcessor",
-    "parse_markdown_to_html",
-    "render_html_document",
 ]

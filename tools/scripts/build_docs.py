@@ -18,7 +18,7 @@ src_dir = str(project_root / "src")
 if src_dir not in sys.path:
     sys.path.insert(0, src_dir)
 
-from drawlib.doc_builder import build  # noqa: E402
+from drawlib.tools.build import build_html, build_markdown  # noqa: E402
 
 
 def build_docs() -> None:
@@ -33,10 +33,10 @@ def build_docs() -> None:
         shutil.rmtree(docs_html_dir)
 
     print(f"Building Markdown docs for GitHub: {docs_src_dir} -> {docs_dir}")
-    build(input_path=str(docs_src_dir), output_path=str(docs_dir), output_format="markdown")
+    build_markdown(input_path=str(docs_src_dir), output=str(docs_dir))
 
     print(f"Building HTML docs for Web: {docs_src_dir} -> {docs_html_dir}")
-    build(input_path=str(docs_src_dir), output_path=str(docs_html_dir), output_format="html", css_path="default")
+    build_html(input_path=str(docs_src_dir), output=str(docs_html_dir), css="default")
 
     print("\nDocumentation build completed successfully!")
 

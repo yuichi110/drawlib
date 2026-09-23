@@ -112,6 +112,7 @@ from drawlib import (  # noqa: E402
     shapes,
     smartarts,
     text,
+    tools,
     types,
 )
 
@@ -138,5 +139,6 @@ __all__ = [
     "shapes",
     "smartarts",
     "text",
+    "tools",
     "types",
 ]

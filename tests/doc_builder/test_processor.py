@@ -9,36 +9,33 @@
 
 """Unit tests for DrawlibBlockProcessor in doc_builder."""
 
-import os
-import tempfile
-
-import pytest
-
-from drawlib._tools.doc_builder.processor import DrawlibBlockProcessor
+from drawlib._tools.doc_builder.processor import DrawlibBlockProcessor, extract_code_blocks
 
 
-def test_block_processor_render_block(tmp_path) -> None:
-    """Test single drawlib block rendering and caching."""
-    cache_dir = tmp_path / ".cache"
-    processor = DrawlibBlockProcessor(cache_dir=str(cache_dir))
+def test_block_processor_render_block_to_file_and_data_url(tmp_path) -> None:
+    """Test single drawlib block rendering into PNG and WebP files and Data URLs."""
+    processor = DrawlibBlockProcessor()
 
     code = "circle((50, 50), radius=20)"
-    svg1 = processor.render_block(code)
+    png_path = tmp_path / "out.png"
+    processor.render_block_to_file(code, str(png_path))
+    assert png_path.exists()
+    assert png_path.read_bytes().startswith(b"\x89PNG")
 
-    assert "<svg" in svg1
-    assert "</svg>" in svg1
+    webp_path = tmp_path / "out.webp"
+    processor.render_block_to_file(code, str(webp_path))
+    assert webp_path.exists()
+    assert webp_path.read_bytes().startswith(b"RIFF")
 
-    # Second render should hit cache
-    svg2 = processor.render_block(code)
-    assert svg1 == svg2
+    data_url = processor.render_block_to_data_url(code, image_format="png")
+    assert data_url.startswith("data:image/png;base64,")
 
 
 def test_block_processor_markdown_replacement(tmp_path) -> None:
     """Test replacing ```drawlib blocks in Markdown with PNG image tags."""
-    cache_dir = tmp_path / ".cache"
     out_dir = tmp_path / "out"
     out_dir.mkdir()
-    processor = DrawlibBlockProcessor(cache_dir=str(cache_dir))
+    processor = DrawlibBlockProcessor()
 
     md_input = """# Test Title
 
@@ -58,6 +55,28 @@ Footer
     assert (out_dir / "my_doc_images" / "1.png").exists()
 
 
+def test_block_processor_html_script_tag(tmp_path) -> None:
+    """Test processing <script type="text/drawlib"> tags with file attribute."""
+    out_dir = tmp_path / "out"
+    out_dir.mkdir()
+    processor = DrawlibBlockProcessor()
+
+    html_input = """<h1>HTML Document</h1>
+<script type="text/drawlib" width="400px" align="center" caption="HTML Diagram" file="custom_diag.png">
+circle((50, 50), radius=15)
+</script>
+"""
+    blocks = extract_code_blocks(html_input, is_html=True)
+    assert len(blocks) == 1
+    assert blocks[0].file_name == "custom_diag.png"
+    assert blocks[0].options.width == "400px"
+    assert blocks[0].options.caption == "HTML Diagram"
+
+    processed_html = processor.process_html(html_input, doc_base_name="page", output_dir=str(out_dir))
+    assert '<img src="page_images/custom_diag.png"' in processed_html
+    assert (out_dir / "page_images" / "custom_diag.png").exists()
+
+
 def test_block_processor_with_config(tmp_path) -> None:
     """Test that functions/variables defined in config.py are accessible in drawlib blocks."""
     config_file = tmp_path / "config.py"
@@ -69,26 +88,31 @@ def draw_my_node(label: str) -> None:
         encoding="utf-8",
     )
 
-    cache_dir = tmp_path / ".cache"
-    processor = DrawlibBlockProcessor(config_path=str(config_file), cache_dir=str(cache_dir))
+    out_dir = tmp_path / "out"
+    out_dir.mkdir()
+    processor = DrawlibBlockProcessor(config_path=str(config_file))
 
     md_input = """
 ```drawlib
 draw_my_node("Configured Node")
 ```
 """
-    processed_md = processor.process_markdown(md_input, image_format="inline_svg")
+    processed_md = processor.process_markdown(
+        md_input,
+        image_format="webp",
+        doc_base_name="cfg_doc",
+        output_dir=str(out_dir),
+    )
 
-    assert "<svg" in processed_md
-    assert "Configured Node" in processed_md
+    assert 'src="cfg_doc_images/1.webp"' in processed_md
+    assert (out_dir / "cfg_doc_images" / "1.webp").exists()
 
 
 def test_block_processor_ignore_explicit_save(tmp_path) -> None:
     """Test that explicit save() calls inside drawlib blocks are ignored and do not create unwanted files."""
-    cache_dir = tmp_path / ".cache"
     out_dir = tmp_path / "out"
     out_dir.mkdir()
-    processor = DrawlibBlockProcessor(cache_dir=str(cache_dir))
+    processor = DrawlibBlockProcessor()
 
     ignored_file = tmp_path / "should_not_be_created.png"
     md_input = f"""
@@ -108,15 +132,14 @@ save(r"{ignored_file}")
 
 def test_block_processor_space_separated_options(tmp_path) -> None:
     """Test parsing space-separated key:value and shorthand block options."""
-    cache_dir = tmp_path / ".cache"
     out_dir = tmp_path / "out"
     out_dir.mkdir()
-    processor = DrawlibBlockProcessor(cache_dir=str(cache_dir))
+    processor = DrawlibBlockProcessor()
 
-    opts1 = processor._parse_block_info("400px center format:svg caption:'My Chart'")
+    opts1 = processor._parse_block_info("400px center format:webp caption:'My Chart'")
     assert opts1.width == "400px"
     assert opts1.align == "center"
-    assert opts1.format == "svg"
+    assert opts1.format == "webp"
     assert opts1.caption == "My Chart"
 
     opts2 = processor._parse_block_info("w:500 h:300 align:right class:hero-img")

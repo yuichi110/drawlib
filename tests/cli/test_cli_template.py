@@ -9,7 +9,7 @@
 
 # ruff: noqa: S404, S603
 
-"""Integration tests using subprocess to verify drawlib template CLI subcommands."""
+"""Integration tests using subprocess to verify drawlib template, css, and cache CLI subcommands."""
 
 import os
 import subprocess
@@ -26,14 +26,40 @@ def run_drawlib_cli(args: list[str], cwd: str) -> subprocess.CompletedProcess[st
     return subprocess.run(cmd, cwd=cwd, env=env, capture_output=True, text=True, check=False)
 
 
-def test_cli_template_export(tmp_path) -> None:
-    """Test drawlib template export subcommand."""
+def test_cli_template_list_and_export(tmp_path) -> None:
+    """Test drawlib template list and export subcommands."""
+    res_list = run_drawlib_cli(["template", "list"], cwd=str(tmp_path))
+    assert res_list.returncode == 0
+    assert "sidebar" in res_list.stdout
+    assert "simple" in res_list.stdout
+
     out_file = tmp_path / "exported.html.j2"
     res = run_drawlib_cli(["template", "export", str(out_file)], cwd=str(tmp_path))
 
     assert res.returncode == 0
-    assert "Successfully exported default template" in res.stdout
+    assert "Successfully exported template" in res.stdout
     assert out_file.exists()
+
+
+def test_cli_css_list_and_export(tmp_path) -> None:
+    """Test drawlib css list and export subcommands."""
+    res_list = run_drawlib_cli(["css", "list"], cwd=str(tmp_path))
+    assert res_list.returncode == 0
+    assert "default" in res_list.stdout
+    assert "github" in res_list.stdout
+
+    out_css = tmp_path / "exported.css"
+    res = run_drawlib_cli(["css", "export", str(out_css), "-n", "github"], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert "Successfully exported CSS" in res.stdout
+    assert out_css.exists()
+
+
+def test_cli_cache_list(tmp_path) -> None:
+    """Test drawlib cache list subcommand."""
+    res = run_drawlib_cli(["cache", "list"], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert "Package" in res.stdout or "font" in res.stdout
 
 
 def test_cli_template_validate(tmp_path) -> None:
@@ -47,8 +73,8 @@ def test_cli_template_validate(tmp_path) -> None:
     assert "is valid" in res.stdout
 
 
-def test_cli_build_with_custom_template(tmp_path) -> None:
-    """Test drawlib build --template subcommand."""
+def test_cli_build_html_with_custom_template(tmp_path) -> None:
+    """Test drawlib build html --template subcommand."""
     tmpl = tmp_path / "custom.html.j2"
     tmpl.write_text("<html><body class='cli-custom'>{{ body | safe }}</body></html>", encoding="utf-8")
 
@@ -56,7 +82,10 @@ def test_cli_build_with_custom_template(tmp_path) -> None:
     input_md.write_text("# CLI Custom Template Test", encoding="utf-8")
     out_html = tmp_path / "sample.html"
 
-    res = run_drawlib_cli(["build", str(input_md), "-o", str(out_html), "-t", str(tmpl)], cwd=str(tmp_path))
+    res = run_drawlib_cli(
+        ["build", "html", str(input_md), "-o", str(out_html), "-t", str(tmpl)],
+        cwd=str(tmp_path),
+    )
 
     assert res.returncode == 0
     assert out_html.exists()

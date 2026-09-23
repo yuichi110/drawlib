@@ -7,10 +7,15 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""HTTP server package for drawlib documentation preview."""
+"""Public illustration block export module for drawlib.tools."""
 
-from drawlib._tools.http_server.server import run_server, scan_broken_links
+from __future__ import annotations
 
-serve_docs = run_server
+from drawlib._tools.doc_builder import export_code_block
 
-__all__ = ["run_server", "scan_broken_links", "serve_docs"]
+export_block = export_code_block
+
+__all__ = [
+    "export_block",
+    "export_code_block",
+]
