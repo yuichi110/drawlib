@@ -29,22 +29,27 @@ from drawlib.tools.template import export_template, list_templates, validate_tem
 
 console = Console()
 
+_HELP_CTX = {"help_option_names": ["-h", "--help"]}
+
 cache_app = typer.Typer(
     name="cache",
     help="Manage cached font and icon assets.",
     no_args_is_help=True,
+    context_settings=_HELP_CTX,
 )
 
 template_app = typer.Typer(
     name="template",
     help="List, export, or validate Jinja2 HTML templates.",
     no_args_is_help=True,
+    context_settings=_HELP_CTX,
 )
 
 css_app = typer.Typer(
     name="css",
     help="List or export built-in CSS style presets.",
     no_args_is_help=True,
+    context_settings=_HELP_CTX,
 )
 
 

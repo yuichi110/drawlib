@@ -28,6 +28,7 @@ build_app = typer.Typer(
     name="build",
     help="Compile Python scripts or Markdown/HTML documents into images, Markdown, HTML, or PDF.",
     no_args_is_help=True,
+    context_settings={"help_option_names": ["-h", "--help"]},
 )
 
 console = Console()
