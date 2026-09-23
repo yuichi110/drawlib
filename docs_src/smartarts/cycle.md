@@ -1,5 +1,3 @@
-=============
-
 # Cycle
 
 Class `Cycle` renders circular and cyclical process diagrams, perfect for continuous workflows such as PDCA loops, agile iterations, life cycles, and feedback mechanisms.

@@ -1,5 +1,3 @@
-=============================
-
 # Official Theme: essentials
 
 

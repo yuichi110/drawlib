@@ -1,5 +1,3 @@
-=============
-
 # ChevronProcess
 
 Class `ChevronProcess` renders sequential chevron (arrowhead block) process diagrams, ideal for pipelines, project phases, and operational procedures.

@@ -1,5 +1,3 @@
-=============================
-
 # Drawing Rectangle Like Shapes
 
 

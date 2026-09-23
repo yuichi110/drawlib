@@ -1,5 +1,3 @@
-========================================
-
 # Creating Custom Presets with PresetStyles
 
 Drawlib provides official style presets (`default`, `essentials`, `monochrome`), but you can also define custom style presets for your project using `PresetStyles`.

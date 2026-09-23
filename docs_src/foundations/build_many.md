@@ -1,5 +1,3 @@
-======================
-
 # Building many images
 
 

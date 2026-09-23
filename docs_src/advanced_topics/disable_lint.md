@@ -1,5 +1,3 @@
-=================================
-
 # Disable Lint/Type-Check errors
 
 

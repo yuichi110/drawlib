@@ -1,5 +1,3 @@
-==========================
-
 # Coordinate and Alignment
 
 

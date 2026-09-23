@@ -1,5 +1,3 @@
-==============================
-
 # Other Version Documentation
 
 

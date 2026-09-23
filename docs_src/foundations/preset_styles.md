@@ -1,5 +1,3 @@
-==================
-
 # Preset Styles
 
 Drawlib provides a preset styles feature under `drawlib.preset_styles`.
