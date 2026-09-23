@@ -645,12 +645,13 @@ def build_pdf(
     inputs: Union[str, Sequence[str]],
     output: Optional[str] = None,
     page_break: bool = True,
-    toc: bool = False,
+    generate_index: bool = False,
     title: Optional[str] = None,
     css: Optional[str] = None,
     template: Optional[str] = None,
     config: Optional[str] = None,
     *,
+    toc: Optional[bool] = None,
     output_path: Optional[str] = None,
     css_path: Optional[str] = None,
     template_path: Optional[str] = None,
@@ -662,11 +663,13 @@ def build_pdf(
         inputs (Union[str, Sequence[str]]): One or more input file or directory paths.
         output (Optional[str]): Destination PDF file path. Defaults to '<first_input_stem>.pdf'.
         page_break (bool): Insert CSS page breaks between merged chapters. Defaults to True.
-        toc (bool): Generate a Table of Contents at the start of the PDF. Defaults to False.
+        generate_index (bool): Generate an index (Table of Contents) between the 1st and 2nd
+            documents of the PDF. Defaults to False.
         title (Optional[str]): Document title override.
         css (Optional[str]): CSS preset name or file path.
         template (Optional[str]): Jinja2 HTML template preset or file path.
         config (Optional[str]): Optional Python configuration script path.
+        toc (Optional[bool]): Backward-compatible alias for generate_index.
         output_path (Optional[str]): Alias for output.
         css_path (Optional[str]): Alias for css.
         template_path (Optional[str]): Alias for template.
@@ -675,6 +678,8 @@ def build_pdf(
     Returns:
         str: Absolute path of generated PDF file.
     """
+    if toc is not None:
+        generate_index = toc
     output = output or output_path
     css = css or css_path
     template = template or template_path
@@ -687,7 +692,7 @@ def build_pdf(
         inputs=input_list,
         title=title,
         page_break=page_break,
-        toc=toc,
+        generate_index=generate_index,
         config_path=config,
         css_path=css,
         template_path=template,

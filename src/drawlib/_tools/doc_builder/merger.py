@@ -112,13 +112,7 @@ def expand_input_files(inputs: List[str]) -> List[str]:
                     if ext in {".md", ".markdown", ".html", ".htm"}:
                         dir_files.append(os.path.join(root, fname))
 
-            def _sort_key(p: str) -> tuple[int, str]:
-                base = os.path.basename(p).lower()
-                if base in {"index.md", "index.markdown", "index.html", "index.htm"}:
-                    return (0, p)
-                return (1, p)
-
-            dir_files.sort(key=_sort_key)
+            dir_files.sort()
             collected.extend(dir_files)
 
     if not collected:
@@ -131,10 +125,12 @@ def build_merged_html(
     inputs: List[str],
     title: Optional[str] = None,
     page_break: bool = True,
-    toc: bool = False,
+    generate_index: bool = False,
     config_path: Optional[str] = None,
     css_path: Optional[str] = None,
     template_path: Optional[str] = None,
+    *,
+    toc: Optional[bool] = None,
 ) -> tuple[str, List[str]]:
     """Compile and merge one or more Markdown/HTML inputs into a single standalone HTML document.
 
@@ -142,14 +138,18 @@ def build_merged_html(
         inputs (List[str]): Ordered list of input file or directory paths.
         title (Optional[str]): Document title override. Defaults to first chapter's H1 title.
         page_break (bool): Whether to insert CSS page breaks between merged documents. Defaults to True.
-        toc (bool): Whether to generate a Table of Contents at the start of the merged document. Defaults to False.
+        generate_index (bool): Whether to generate an index (Table of Contents) and insert it
+            between the 1st and 2nd documents. Defaults to False.
         config_path (Optional[str]): Optional Python config script path.
         css_path (Optional[str]): Optional CSS preset name or file path.
         template_path (Optional[str]): Optional Jinja2 HTML template path.
+        toc (Optional[bool]): Backward-compatible alias for generate_index.
 
     Returns:
         tuple[str, List[str]]: (merged_full_html_string, ordered_source_files).
     """
+    if toc is not None:
+        generate_index = toc
     file_list = expand_input_files(inputs)
     processor: Optional[DrawlibBlockProcessor] = None
 
@@ -281,16 +281,24 @@ def build_merged_html(
         progress.update(total_steps, total_steps, done=True)
 
     body_parts: List[str] = []
-    if toc and len(toc_entries) > 0:
+    index_entries = toc_entries[1:]
+    if generate_index and len(index_entries) > 0:
         toc_items = "\n".join(
-            f'    <li><a href="#{anc}">{t_title}</a></li>' for anc, t_title in toc_entries
+            f'    <li><a href="#{anc}">{t_title}</a></li>' for anc, t_title in index_entries
         )
-        toc_break = ' style="page-break-after: always; break-after: page;"' if page_break else ""
-        body_parts.append(
+        toc_break = (
+            ' style="page-break-before: always; break-before: page; page-break-after: always; break-after: page;"'
+            if page_break
+            else ""
+        )
+        toc_html = (
             f'<nav class="pdf-toc"{toc_break}>\n  <h2>Table of Contents</h2>\n  <ul>\n{toc_items}\n  </ul>\n</nav>'
         )
-
-    body_parts.extend(chapters_html)
+        body_parts.append(chapters_html[0])
+        body_parts.append(toc_html)
+        body_parts.extend(chapters_html[1:])
+    else:
+        body_parts.extend(chapters_html)
     combined_body = "\n\n".join(body_parts)
 
     full_html = render_html_document(

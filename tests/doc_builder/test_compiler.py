@@ -24,6 +24,7 @@ from drawlib._tools.doc_builder import (
     exporter_pdf,
 )
 from drawlib._tools.doc_builder.exporter_pdf import export_html_to_pdf, find_system_browser
+from drawlib._tools.doc_builder.merger import build_merged_html
 
 
 def test_detect_document_type(tmp_path) -> None:
@@ -330,3 +331,31 @@ def test_build_html_duplicate_block_image_outputs_error(tmp_path) -> None:
         build_html(input_path=str(doc), output_path=str(out))
     assert "block #1" in str(exc_info.value)
     assert "block #2" in str(exc_info.value)
+
+
+def test_build_merged_html_filename_order_and_generate_index(tmp_path) -> None:
+    """Test directory files merge strictly in filename order and index is placed between 1st and 2nd files."""
+    pdf_src = tmp_path / "pdf_src"
+    pdf_src.mkdir()
+    (pdf_src / "02-install.md").write_text("# 2. Installation\n", encoding="utf-8")
+    (pdf_src / "00-cover.md").write_text("# Drawlib Cover\n", encoding="utf-8")
+    (pdf_src / "01-about.md").write_text("# 1. About Drawlib\n", encoding="utf-8")
+
+    html, files = build_merged_html([str(pdf_src)], generate_index=True)
+    assert [os.path.basename(f) for f in files] == [
+        "00-cover.md",
+        "01-about.md",
+        "02-install.md",
+    ]
+    pos_cover = html.index('id="chapter-1-00-cover"')
+    pos_toc = html.index('<nav class="pdf-toc"')
+    pos_about = html.index('id="chapter-2-01-about"')
+    pos_install = html.index('id="chapter-3-02-install"')
+    assert pos_cover < pos_toc < pos_about < pos_install
+    toc_section = html[pos_toc:pos_about]
+    assert "Drawlib Cover" not in toc_section
+    assert 'href="#chapter-1-00-cover"' not in toc_section
+    assert "1. About Drawlib" in toc_section
+    assert "2. Installation" in toc_section
+    assert "page-break-before: always" in toc_section
+    assert "page-break-after: always" in toc_section

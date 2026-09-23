@@ -188,9 +188,13 @@ def cmd_build_pdf(
         bool,
         typer.Option("--page-break/--no-page-break", help="Insert CSS page breaks between merged chapters."),
     ] = True,
-    toc: Annotated[
+    generate_index: Annotated[
         bool,
-        typer.Option("--toc/--no-toc", help="Generate a Table of Contents at the beginning of the PDF."),
+        typer.Option(
+            "--generate-index/--no-generate-index",
+            "--toc/--no-toc",
+            help="Generate an index (Table of Contents) and insert it between the 1st and 2nd documents.",
+        ),
     ] = False,
     title: Annotated[
         Optional[str],
@@ -215,7 +219,7 @@ def cmd_build_pdf(
             inputs=inputs,
             output=output,
             page_break=page_break,
-            toc=toc,
+            generate_index=generate_index,
             title=title,
             css=css,
             template=template,
