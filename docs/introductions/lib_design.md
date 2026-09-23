@@ -1,5 +1,3 @@
-=================================
-
 # Drawlib from a High Perspective
 
 

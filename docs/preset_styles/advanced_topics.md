@@ -1,5 +1,3 @@
-=================
-
 # Advanced Preset Styles Topics
 
 In this section, we cover advanced topics for working with preset styles in `drawlib.preset_styles`.

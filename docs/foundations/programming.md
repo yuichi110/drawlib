@@ -1,5 +1,3 @@
-=======================
-
 # Coding Best Practices
 
 

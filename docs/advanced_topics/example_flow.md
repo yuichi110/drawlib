@@ -1,5 +1,3 @@
-====================================
-
 # Example of Documentation Build Flow
 
 

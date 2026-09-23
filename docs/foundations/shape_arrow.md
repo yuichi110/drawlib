@@ -1,5 +1,3 @@
-======================
-
 # Drawing Arrow Shapes
 
 
