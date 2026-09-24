@@ -65,7 +65,11 @@ def test_cli_css_list_and_export(tmp_path) -> None:
     res_pdf_list = run_drawlib_cli(["css", "pdf", "list"], cwd=str(tmp_path))
     assert res_pdf_list.returncode == 0
     assert "default" in res_pdf_list.stdout
+    assert "default-dark" in res_pdf_list.stdout
+    assert "default-auto" not in res_pdf_list.stdout
     assert "google" in res_pdf_list.stdout
+    assert "google-dark" in res_pdf_list.stdout
+    assert "google-auto" not in res_pdf_list.stdout
 
     out_css = tmp_path / "exported.css"
     res = run_drawlib_cli(["css", "html", "export", str(out_css), "-n", "github"], cwd=str(tmp_path))
@@ -78,6 +82,13 @@ def test_cli_css_list_and_export(tmp_path) -> None:
     assert res_pdf.returncode == 0
     assert "Successfully exported PDF CSS" in res_pdf.stdout
     assert out_pdf_css.exists()
+
+    # Reject auto preset in PDF export CLI
+    res_err = run_drawlib_cli(
+        ["css", "pdf", "export", str(tmp_path / "err.css"), "-n", "default-auto"],
+        cwd=str(tmp_path),
+    )
+    assert res_err.returncode != 0
 
 
 def test_cli_cache_list(tmp_path) -> None:

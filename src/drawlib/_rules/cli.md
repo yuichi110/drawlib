@@ -20,7 +20,7 @@ drawlib build images script_dir/ -o image_dir/
 Key Options:
 - `-o`, `--output <path>`: Destination output file or directory path.
 - `-c`, `--config <path>`: Path to custom configuration script (e.g. `config.py`).
-- `--css <name|path>`: Built-in CSS theme (`default`, `minimal`, `google`, `monochrome`, `github`) or custom CSS path.
+- `--css <name|path>`: Built-in CSS theme or custom CSS path. HTML: `default`, `default-dark`, `default-auto`, `google`, `google-dark`, `google-auto`, `github`, `minimal`, `monochrome`. PDF: `default`, `default-dark`, `google`, `google-dark`, `github`, `minimal`, `monochrome`.
 - `--no-cache`: Force clean execution by ignoring SQLite image cache.
 
 ## 2. Embedded Markdown Code Blocks (```drawlib)

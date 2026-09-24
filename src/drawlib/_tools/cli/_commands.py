@@ -369,7 +369,7 @@ def cmd_css_html_export(
 
 @css_pdf_app.command("list")
 def cmd_css_pdf_list() -> None:
-    """List available built-in PDF CSS presets (default, google, github, minimal, monochrome)."""
+    """List available built-in PDF CSS presets (default, google, default-dark, google-dark, etc.)."""
     _run_css_list("pdf")
 
 
@@ -377,7 +377,9 @@ def cmd_css_pdf_list() -> None:
 def cmd_css_pdf_export(
     name_or_output: Annotated[
         Optional[str],
-        typer.Argument(help="PDF CSS preset ('default', 'google', 'github', 'minimal', 'monochrome') or output path."),
+        typer.Argument(
+            help="PDF CSS preset ('default', 'google', 'google-dark', 'default-dark', ...) or output path."
+        ),
     ] = None,
     output: Annotated[
         Optional[str],

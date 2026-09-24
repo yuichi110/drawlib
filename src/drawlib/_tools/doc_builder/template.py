@@ -86,9 +86,17 @@ BUILTIN_PDF_CSS_PRESETS: Dict[str, Dict[str, str]] = {
         "file": "default.css",
         "description": "Modern print/PDF typography with line-wrapped code and A4 pagination.",
     },
+    "default-dark": {
+        "file": "default-dark.css",
+        "description": "Modern print/PDF dark theme with deep slate & indigo palette.",
+    },
     "google": {
         "file": "google.css",
         "description": "Google editorial print/PDF theme with line-wrapped code and clean pagination.",
+    },
+    "google-dark": {
+        "file": "google-dark.css",
+        "description": "Google editorial print/PDF dark theme with Material Dark palette.",
     },
     "github": {
         "file": "github.css",
@@ -294,9 +302,7 @@ def export_css(
         FileNotFoundError: If built-in CSS file is missing.
     """
     if target == "pdf":
-        if name in {"default-dark", "default-auto"}:
-            normalized = "default"
-        elif name in {"google-pdf", "google-dark", "google-auto"}:
+        if name == "google-pdf":
             normalized = "google"
         else:
             normalized = name
@@ -309,7 +315,8 @@ def export_css(
 
     if normalized not in registry:
         available = ", ".join(registry.keys())
-        raise ValueError(f"Unknown {target.upper()} CSS preset '{name}'. Available presets: {available}")
+        msg = f"Unknown or unsupported {target.upper()} CSS preset '{name}'. Available presets: {available}"
+        raise ValueError(msg)
 
     filename = registry[normalized]["file"]
     src_path = os.path.join(styles_dir, filename)

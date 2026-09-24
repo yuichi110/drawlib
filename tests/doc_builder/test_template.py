@@ -11,6 +11,8 @@
 
 import os
 
+import pytest
+
 from drawlib.tools.build import build_html, build_image, build_markdown, build_pdf
 from drawlib.tools.cache import clear_cache, download_cache, list_cache
 from drawlib.tools.css import export_css, list_css
@@ -85,8 +87,14 @@ def test_list_and_export_css(tmp_path) -> None:
     pdf_presets = list_css(target="pdf")
     pdf_names = [p["name"] for p in pdf_presets]
     assert "default" in pdf_names
+    assert "default-dark" in pdf_names
+    assert "default-auto" not in pdf_names
     assert "google" in pdf_names
+    assert "google-dark" in pdf_names
+    assert "google-auto" not in pdf_names
     assert "github" in pdf_names
+    assert "minimal" in pdf_names
+    assert "monochrome" in pdf_names
 
     out_css = tmp_path / "github_theme.css"
     res = export_css(name="github", output=str(out_css), target="html")
@@ -135,14 +143,24 @@ def test_list_and_export_css(tmp_path) -> None:
     content_def_auto = out_default_auto.read_text(encoding="utf-8")
     assert "prefers-color-scheme: dark" in content_def_auto
 
-    # Test PDF graceful mapping for variants
+    # Test PDF variants
     out_pdf_dark = tmp_path / "google_pdf_dark.css"
     export_css(name="google-dark", output=str(out_pdf_dark), target="pdf")
     assert out_pdf_dark.exists()
+    content_google_pdf_dark = out_pdf_dark.read_text(encoding="utf-8")
+    assert "--rtd-bg-color: #202124;" in content_google_pdf_dark
 
     out_def_pdf_dark = tmp_path / "default_pdf_dark.css"
     export_css(name="default-dark", output=str(out_def_pdf_dark), target="pdf")
     assert out_def_pdf_dark.exists()
+    content_def_pdf_dark = out_def_pdf_dark.read_text(encoding="utf-8")
+    assert "--rtd-bg-color: #090d16;" in content_def_pdf_dark
+
+    # PDF rejects auto presets
+    with pytest.raises(ValueError, match="Unknown or unsupported PDF CSS preset"):
+        export_css(name="default-auto", output=str(tmp_path / "err.css"), target="pdf")
+    with pytest.raises(ValueError, match="Unknown or unsupported PDF CSS preset"):
+        export_css(name="google-auto", output=str(tmp_path / "err.css"), target="pdf")
 
 
 def test_validate_template_valid(tmp_path) -> None:

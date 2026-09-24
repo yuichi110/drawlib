@@ -14,6 +14,8 @@ from typing import Any, Dict, List, Literal, Optional
 
 from jinja2 import Environment, FileSystemLoader
 
+from drawlib._tools.doc_builder.template import BUILTIN_HTML_CSS_PRESETS, BUILTIN_PDF_CSS_PRESETS
+
 
 def get_default_css(
     custom_css_path: Optional[str] = None,
@@ -22,55 +24,42 @@ def get_default_css(
     """Get complete theme CSS content string for HTML ('html_css') or PDF ('pdf_css').
 
     Args:
-        custom_css_path (Optional[str]): Built-in CSS preset name ('default', 'default-dark', 'default-auto',
-            'google', 'google-dark', 'google-auto', 'github', 'monochrome', 'minimal') or path to custom CSS file.
+        custom_css_path (Optional[str]): Built-in CSS preset name or path to custom CSS file.
         target (Literal["html", "pdf"]): Target format ('html' or 'pdf'). Defaults to 'html'.
 
     Returns:
         str: Complete CSS content string.
+
+    Raises:
+        ValueError: If specified CSS preset name is unknown or unsupported for the target format.
     """
     subdir = "pdf_css" if target == "pdf" else "html_css"
     styles_dir = os.path.join(os.path.dirname(__file__), subdir)
+    registry = BUILTIN_PDF_CSS_PRESETS if target == "pdf" else BUILTIN_HTML_CSS_PRESETS
 
-    if target == "pdf":
-        if custom_css_path in {"default", "default-dark", "default-auto"}:
-            normalized_preset = "default"
-        elif custom_css_path in {"google", "google-pdf", "google-dark", "google-auto"}:
-            normalized_preset = "google"
-        else:
-            normalized_preset = custom_css_path
-    else:
-        normalized_preset = custom_css_path
+    if not custom_css_path:
+        default_file = os.path.join(styles_dir, "default.css")
+        if os.path.exists(default_file):
+            with open(default_file, "r", encoding="utf-8") as f:
+                return f.read()
+        return ""
 
-    # Built-in presets
-    if normalized_preset in {
-        "default",
-        "default-dark",
-        "default-auto",
-        "google",
-        "google-dark",
-        "google-auto",
-        "github",
-        "monochrome",
-        "minimal",
-    }:
-        preset_file = os.path.join(styles_dir, f"{normalized_preset}.css")
+    # Check if custom file path exists
+    if os.path.exists(custom_css_path):
+        with open(custom_css_path, "r", encoding="utf-8") as f:
+            return f.read()
+
+    # Check built-in presets
+    normalized = "google" if (target == "pdf" and custom_css_path == "google-pdf") else custom_css_path
+    if normalized in registry:
+        preset_file = os.path.join(styles_dir, registry[normalized]["file"])
         if os.path.exists(preset_file):
             with open(preset_file, "r", encoding="utf-8") as f:
                 return f.read()
 
-    # Custom file path
-    if custom_css_path and os.path.exists(custom_css_path):
-        with open(custom_css_path, "r", encoding="utf-8") as f:
-            return f.read()
-
-    # Fallback to built-in default.css
-    default_file = os.path.join(styles_dir, "default.css")
-    if os.path.exists(default_file):
-        with open(default_file, "r", encoding="utf-8") as f:
-            return f.read()
-
-    return ""
+    available = ", ".join(registry.keys())
+    msg = f"Unknown or unsupported {target.upper()} CSS preset '{custom_css_path}'. Available presets: {available}"
+    raise ValueError(msg)
 
 
 def get_pdf_css(custom_css_path: Optional[str] = None) -> str:
