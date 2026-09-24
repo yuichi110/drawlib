@@ -334,19 +334,9 @@ config(width=100, height=50)
 circle((50, 25), radius=15)
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="preset_styles_images/1.png" alt="preset_styles_1" />
-</div>
 <p>Executing this code yields the following image:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.shapes import circle
-
-config(width=100, height=50)
-circle((50, 25), radius=15)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="preset_styles_images/2.png" alt="preset_styles_2" style="width: 600px; max-width: 100%;" />
+  <img src="preset_styles_images/1.png" alt="preset_styles_1" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>Default preset style
 </code></pre>
@@ -395,43 +385,9 @@ text((80, text_y), text='style=&quot;red&quot;', style=&quot;red&quot;)
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="preset_styles_images/3.png" alt="preset_styles_3" />
-</div>
 <p>Executing this code produces the following image:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.lines import line
-from drawlib.shapes import circle
-from drawlib.text import text
-
-config(width=100, height=50)
-line_y = 40
-text_y = 10
-
-# default style
-line((13, line_y), (27, line_y))
-circle((20, 25), radius=8)
-text((20, text_y), text=&quot;no style&quot;)
-
-# blue style
-line((33, line_y), (47, line_y), style=&quot;blue&quot;)
-circle((40, 25), radius=8, style=&quot;blue&quot;)
-text((40, text_y), text='style=&quot;blue&quot;', style=&quot;blue&quot;)
-
-# green style
-line((53, line_y), (67, line_y), style=&quot;green&quot;)
-circle((60, 25), radius=8, style=&quot;green&quot;)
-text((60, text_y), text='style=&quot;green&quot;', style=&quot;green&quot;)
-
-# red style
-line((73, line_y), (87, line_y), style=&quot;red&quot;)
-circle((80, 25), radius=8, style=&quot;red&quot;)
-text((80, text_y), text='style=&quot;red&quot;', style=&quot;red&quot;)
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="preset_styles_images/4.png" alt="preset_styles_4" style="width: 600px; max-width: 100%;" />
+  <img src="preset_styles_images/2.png" alt="preset_styles_2" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>Specifying preset style by name
 </code></pre>
@@ -477,35 +433,9 @@ circle((85, 25), radius=8, style=&quot;dashed&quot;)
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="preset_styles_images/5.png" alt="preset_styles_5" />
-</div>
 <p>Executing this code results in the following image:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.lines import line
-from drawlib.shapes import circle
-from drawlib.text import text
-
-config(width=100, height=50)
-line_y = 40
-text_y = 10
-
-line((8, line_y), (22, line_y), style=&quot;blue&quot;)
-circle((15, 25), radius=8, style=&quot;blue&quot;)
-
-line((31, line_y), (45, line_y), style=&quot;blue_solid&quot;)
-circle((38, 25), radius=8, style=&quot;blue_solid&quot;)
-
-line((55, line_y), (69, line_y), style=&quot;blue_bold&quot;)
-circle((62, 25), radius=8, style=&quot;blue_bold&quot;)
-
-line((78, line_y), (92, line_y), style=&quot;dashed&quot;)
-circle((85, 25), radius=8, style=&quot;dashed&quot;)
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="preset_styles_images/6.png" alt="preset_styles_6" style="width: 500px; max-width: 100%;" />
+  <img src="preset_styles_images/3.png" alt="preset_styles_3" style="width: 500px; max-width: 100%;" />
 </div>
 <pre><code>Style type and weight variations
 </code></pre>

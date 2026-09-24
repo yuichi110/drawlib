@@ -19,7 +19,7 @@ It adheres strictly to **IE Notation (Information Engineering / Crow's Foot nota
 
 Below is a relational schema modeling customers, orders, and order items:
 
-```drawlib 650px center caption:"E-Commerce Schema ER Diagram"
+```drawlib show-code 650px center caption:"E-Commerce Schema ER Diagram"
 from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity
 
@@ -101,7 +101,7 @@ The placement coordinate `xy=(cx, cy)` in `erd.add(entity, xy=...)` defines the 
 
 Entities automatically compute their height based on the number of columns. You can also specify an explicit fixed `height` (or `size=(width, height)`). If the specified `height` is larger than the content, the extra vertical space is left as a clean, blank background area:
 
-```drawlib 650px center caption:"Fixed-Size Entity with Blank Area"
+```drawlib show-code 650px center caption:"Fixed-Size Entity with Blank Area"
 from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity
 
@@ -140,7 +140,7 @@ Drawlib provides strict type support via `Literal` for standard IE Crow's Foot c
 | `"0..1:*"` | Zero or one (`o\|`) | Zero or more (`o<`) | Optional One-to-Many |
 | `"*:*"` | Zero or more (`o<`) | Zero or more (`o<`) | Many-to-Many |
 
-```drawlib 650px center caption:"Supported IE Crow's Foot Cardinalities"
+```drawlib show-code 650px center caption:"Supported IE Crow's Foot Cardinalities"
 from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity, Cardinality
 
@@ -205,7 +205,7 @@ users.connect(
 
 Entities and relationships fully integrate with Drawlib's `Style` class:
 
-```drawlib 650px center caption:"Custom Styled ER Diagram"
+```drawlib show-code 650px center caption:"Custom Styled ER Diagram"
 from drawlib import canvas
 from drawlib._core.l3_styles import Colors, Style
 from drawlib.diagrams.er import ERDiagram, Entity

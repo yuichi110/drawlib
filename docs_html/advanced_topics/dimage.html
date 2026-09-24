@@ -325,24 +325,11 @@ image((30, 25), 25, im_linux)
 image((70, 25), 25, im_linux)
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="dimage_images/1.png" alt="dimage_1" />
-</div>
 <p>In this example, <code>im_linux</code> loads <code>linux.png</code> once into memory.
 Passing <code>im_linux</code> to <code>image()</code> multiple times reuses the pre-loaded image efficiently.</p>
 <p>Here is the output:</p>
-<pre><code class="language-python">from drawlib._core.l2_models_._dimage import Dimage
-from drawlib.canvas import config, save
-from drawlib.images import image
-
-config(width=100, height=50)
-im_linux = Dimage(&quot;linux.png&quot;)
-image((30, 25), 25, im_linux)
-image((70, 25), 25, im_linux)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="dimage_images/2.png" alt="dimage_2" style="width: 600px; max-width: 100%;" />
+  <img src="dimage_images/1.png" alt="dimage_1" style="width: 600px; max-width: 100%;" />
 </div>
 <p>Not only can you reuse images loaded from files, but you can also reuse images you have modified with effects.
 If you repeatedly use some images, we recommend using this feature as well.</p>
@@ -395,39 +382,13 @@ text((75, 10), f&quot;width={width}, height={new_height}&quot;)
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="dimage_images/3.png" alt="dimage_3" />
-</div>
 <p>In this example, we retrieve the original image dimensions using <code>get_image_size()</code>.
 And then resize the image using <code>resize()</code>.
 We keep original width, but new height is half of original.
 Finally, the resized image is drawn with <code>image()</code> function.</p>
 <p>Here is the output:</p>
-<pre><code class="language-python">from drawlib._core.l2_models_._dimage import Dimage
-from drawlib.canvas import config, save
-from drawlib.images import image
-from drawlib.text import text
-
-config(width=100, height=50, dpi=200)
-
-# original
-original_image = Dimage(&quot;linux.png&quot;)
-image((25, 30), 20, original_image)
-text((25, 15), &quot;original&quot;)
-width, height = original_image.get_image_size()
-text((25, 10), f&quot;width={width}, height={height}&quot;)
-
-# resize
-new_height = int(height / 2)
-resized_image = original_image.resize(width, new_height)
-image((75, 30), 20, resized_image)
-text((75, 15), &quot;resize()&quot;)
-text((75, 10), f&quot;width={width}, height={new_height}&quot;)
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="dimage_images/4.png" alt="dimage_4" style="width: 600px; max-width: 100%;" />
+  <img src="dimage_images/2.png" alt="dimage_2" style="width: 600px; max-width: 100%;" />
 </div>
 <p>resize</p>
 <h1>Crop</h1>
@@ -465,40 +426,12 @@ text((75, 10), &quot;crop()&quot;)
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="dimage_images/5.png" alt="dimage_5" />
-</div>
 <p>In this example, we calculate the cropping parameters to keep the center 50% of the image.
 We then use the <code>crop()</code> method to apply the cropping operation to the Dimage object.
 Finally, the cropped image can be used in drawing operations with <code>image()</code>.</p>
 <p>Here is the output:</p>
-<pre><code class="language-python">from drawlib._core.l2_models_._dimage import Dimage
-from drawlib.canvas import config, save
-from drawlib.images import image
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=50, dpi=200)
-
-# original
-original_image = Dimage(&quot;linux.png&quot;)
-image((25, 25), 20, original_image, style=Style(line_width=1))
-text((25, 10), &quot;original&quot;)
-width, height = original_image.get_image_size()
-
-# trimming
-x_start = int(width / 4)
-crop_width = int(width / 2)
-y_start = int(height / 4)
-crop_height = int(height / 2)
-cropped_image = original_image.crop(x_start, y_start, crop_width, crop_height)
-image((75, 25), 20, cropped_image, style=Style(line_width=1))
-text((75, 10), &quot;crop()&quot;)
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="dimage_images/6.png" alt="dimage_6" style="width: 600px; max-width: 100%;" />
+  <img src="dimage_images/3.png" alt="dimage_3" style="width: 600px; max-width: 100%;" />
 </div>
 <p>crop()</p>
 <h1>Flip Horizontally and Vertically</h1>
@@ -530,34 +463,9 @@ text((80, 10), &quot;flip()&quot;)
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="dimage_images/7.png" alt="dimage_7" />
-</div>
 <p>Here is the output:</p>
-<pre><code class="language-python">from drawlib._core.l2_models_._dimage import Dimage
-from drawlib.canvas import config, save
-from drawlib.images import image
-from drawlib.text import text
-
-config(width=100, height=50, dpi=200)
-
-# original
-original_image = Dimage(&quot;linux.png&quot;)
-image((20, 25), 20, original_image)
-text((20, 10), &quot;original&quot;)
-
-# mirror
-image((50, 25), 20, original_image.mirror())
-text((50, 10), &quot;mirror()&quot;)
-
-# flip
-image((80, 25), 20, original_image.flip())
-text((80, 10), &quot;flip()&quot;)
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="dimage_images/8.png" alt="dimage_8" style="width: 600px; max-width: 100%;" />
+  <img src="dimage_images/4.png" alt="dimage_4" style="width: 600px; max-width: 100%;" />
 </div>
 <h1>Change color</h1>
 <p>Drawlib provides several functions to modify the color of images:</p>
@@ -588,34 +496,9 @@ text((80, 10), &quot;sepia()&quot;)
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="dimage_images/9.png" alt="dimage_9" />
-</div>
 <p>Here is the output.</p>
-<pre><code class="language-python">from drawlib._core.l2_models_._dimage import Dimage
-from drawlib.canvas import config, save
-from drawlib.images import image
-from drawlib.text import text
-
-config(width=100, height=50, dpi=200)
-
-# original
-original_image = Dimage(&quot;linux.png&quot;)
-image((20, 25), 20, original_image)
-text((20, 10), &quot;original&quot;)
-
-# grayscale
-image((50, 25), 20, Dimage(&quot;linux.png&quot;).grayscale())
-text((50, 10), &quot;grayscale()&quot;)
-
-# sepia
-image((80, 25), 20, original_image.sepia())
-text((80, 10), &quot;sepia()&quot;)
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="dimage_images/10.png" alt="dimage_10" style="width: 600px; max-width: 100%;" />
+  <img src="dimage_images/5.png" alt="dimage_5" style="width: 600px; max-width: 100%;" />
 </div>
 <ul>
 <li><code>brightness()</code>:  Adjusts the brightness of the image</li>
@@ -640,30 +523,9 @@ text((80, 10), &quot;brightness(2.0)&quot;)
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="dimage_images/11.png" alt="dimage_11" />
-</div>
 <p>Here is an output.</p>
-<pre><code class="language-python">from drawlib._core.l2_models_._dimage import Dimage
-from drawlib.canvas import config, save
-from drawlib.images import image
-from drawlib.text import text
-
-config(width=100, height=50, dpi=200)
-
-image((20, 25), 20, Dimage(&quot;linux.png&quot;).brightness(0.5))
-text((20, 10), &quot;brightness(0.5)&quot;)
-
-image((50, 25), 20, Dimage(&quot;linux.png&quot;).brightness(1.0))
-text((50, 10), &quot;brightness(1.0): Original&quot;)
-
-image((80, 25), 20, Dimage(&quot;linux.png&quot;).brightness(2.0))
-text((80, 10), &quot;brightness(2.0)&quot;)
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="dimage_images/12.png" alt="dimage_12" style="width: 600px; max-width: 100%;" />
+  <img src="dimage_images/6.png" alt="dimage_6" style="width: 600px; max-width: 100%;" />
 </div>
 <ul>
 <li><code>invert()</code>: Reverses the RGB values of the image</li>
@@ -709,52 +571,9 @@ text((80, 10), &quot;colorize()&quot;, style=tstyle)
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="dimage_images/13.png" alt="dimage_13" />
-</div>
 <p>Here is the output.</p>
-<pre><code class="language-python">from drawlib._core.l2_models_._dimage import Dimage
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.images import image
-from drawlib.shapes import rectangle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=50, dpi=200, background_color=Colors.Gray)
-tstyle = Style(text_color=Colors.White)
-
-# invert
-image((20, 25), 20, Dimage(&quot;linux.png&quot;).invert())
-text((20, 10), &quot;invert()&quot;, style=tstyle)
-
-# brightness
-image(
-    (50, 25),
-    20,
-    Dimage(&quot;linux.png&quot;).colorize(
-        from_black_to=Colors.Blue,
-        from_white_to=Colors.Red,
-    ),
-)
-text((50, 10), &quot;colorize()&quot;, style=tstyle)
-
-# invert (rectangle is just background)
-image(
-    (80, 25),
-    20,
-    Dimage(&quot;linux.png&quot;).colorize(
-        from_black_to=Colors.Blue,
-        from_white_to=Colors.Red,
-        from_mid_to=Colors.Green,
-    ),
-)
-text((80, 10), &quot;colorize()&quot;, style=tstyle)
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="dimage_images/14.png" alt="dimage_14" style="width: 600px; max-width: 100%;" />
+  <img src="dimage_images/7.png" alt="dimage_7" style="width: 600px; max-width: 100%;" />
 </div>
 <h1>Apply Effects</h1>
 <p>You can apply various effects to images using Drawlib:</p>
@@ -781,30 +600,9 @@ text((80, 10), &quot;blur()&quot;)
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="dimage_images/15.png" alt="dimage_15" />
-</div>
 <p>Here is the output.</p>
-<pre><code class="language-python">from drawlib._core.l2_models_._dimage import Dimage
-from drawlib.canvas import config, save
-from drawlib.images import image
-from drawlib.text import text
-
-config(width=100, height=50, dpi=200)
-
-image((20, 25), 20, Dimage(&quot;linux.png&quot;).mosaic(8))
-text((20, 10), &quot;mosaic(8)&quot;)
-
-image((50, 25), 20, Dimage(&quot;linux.png&quot;).mosaic(16))
-text((50, 10), &quot;mosaic(16)&quot;)
-
-image((80, 25), 20, Dimage(&quot;linux.png&quot;).blur())
-text((80, 10), &quot;blur()&quot;)
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="dimage_images/16.png" alt="dimage_16" style="width: 600px; max-width: 100%;" />
+  <img src="dimage_images/8.png" alt="dimage_8" style="width: 600px; max-width: 100%;" />
 </div>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

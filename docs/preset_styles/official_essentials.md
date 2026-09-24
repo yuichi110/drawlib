@@ -122,8 +122,6 @@ You can use `ColorsEssentials` to retrieve RGB codes by their names.
 Here is a list of style names.
 
 
-
-
 ```python
 from drawlib.types import Style
 
@@ -416,10 +414,6 @@ from drawlib.types import Style
 # | Text           | x     | x           | x          |            |             |                   |                  |              |                    |                   |
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
 ```
-
-![official_essentials_1](official_essentials_images/1.png)
-
-
 
 ---
 

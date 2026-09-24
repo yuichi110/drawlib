@@ -350,6 +350,44 @@ th {
     text-align: center;
 }
 
+details.drawlib-code-details {
+    margin: 1rem 0 2rem 0;
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 12px;
+    background-color: var(--rtd-code-bg);
+    overflow: hidden;
+}
+
+.drawlib-image + details.drawlib-code-details {
+    margin-top: -1.25rem;
+}
+
+details.drawlib-code-details summary {
+    padding: 0.6rem 1.2rem;
+    font-family: var(--rtd-font);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--rtd-muted-color);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+details.drawlib-code-details summary:hover {
+    color: var(--rtd-heading-color);
+    background-color: var(--rtd-surface-bg);
+}
+
+details.drawlib-code-details[open] summary {
+    border-bottom: 1px solid var(--rtd-border-color);
+}
+
+details.drawlib-code-details pre {
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
 .footer {
     border-top: 1px solid var(--rtd-border-color);
     padding: 2rem 3.5rem;
@@ -383,7 +421,7 @@ th {
         overflow-x: hidden !important;
     }
 
-    .sidebar, .top-bar, .footer, hr {
+    .sidebar, .top-bar, .footer, hr, .drawlib-code-details {
         display: none !important;
     }
 

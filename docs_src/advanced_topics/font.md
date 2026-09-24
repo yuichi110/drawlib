@@ -48,7 +48,7 @@ The `FontFile` class in Drawlib allows users to utilize custom fonts for renderi
 Here's how you can use the FontFile class in your Python code:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.text import text
 from drawlib.types import Style

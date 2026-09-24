@@ -334,23 +334,9 @@ image(xy=(75, 25), width=30, image=&quot;python.png&quot;)
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="image_images/1.png" alt="image_1" />
-</div>
 <p>Executing this code generates the following output:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.images import image
-
-config(width=100, height=50, grid_only=True)
-
-image(xy=(15, 25), width=10, image=&quot;python.png&quot;)
-image(xy=(40, 25), width=20, image=&quot;python.png&quot;)
-image(xy=(75, 25), width=30, image=&quot;python.png&quot;)
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="image_images/2.png" alt="image_2" style="width: 600px; max-width: 100%;" />
+  <img src="image_images/1.png" alt="image_1" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>image1.png
 </code></pre>
@@ -398,9 +384,6 @@ text((85, 5), &quot;angle: 45&quot;)
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="image_images/3.png" alt="image_3" />
-</div>
 <p>The first image changes alignment.
 Default alignment is center,center, but left,bottom might be useful sometimes.</p>
 <p>Changing image border line and add color for transparent part at 2nd example.
@@ -408,39 +391,8 @@ Default is no border, no fill.</p>
 <p>The 3rd example changes angle of image.
 With specifying preset style <code>&quot;green_solid&quot;</code>.</p>
 <p>Executing code generates this output.</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.images import image
-from drawlib.shapes import circle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=50, grid_only=True)
-
-image(
-    xy=(10, 25),
-    width=10,
-    image=&quot;python.png&quot;,
-    style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
-)
-circle((10, 25), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
-text((15, 20), &quot;align: left,bottom&quot;)
-
-image(
-    xy=(40, 25),
-    width=20,
-    image=&quot;python.png&quot;,
-    style=Style(line_width=2, line_style=&quot;dashed&quot;, line_color=Colors.Red, fill_color=Colors.Gray),
-)
-text((40, 10), &quot;border: red,dot,width2&quot;)
-
-image(xy=(75, 25), width=30, image=&quot;python.png&quot;, angle=45, style=&quot;green_solid&quot;)
-text((85, 5), &quot;angle: 45&quot;)
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="image_images/4.png" alt="image_4" style="width: 600px; max-width: 100%;" />
+  <img src="image_images/2.png" alt="image_2" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>image with styles
 </code></pre>
@@ -474,9 +426,6 @@ pil_image = PIL.Image.open(file_path)
 image(xy=(80, 25), width=20, image=pil_image)
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="image_images/5.png" alt="image_5" />
-</div>
 <p>Both instances are passed to arg <code>image</code>.
 Function <code>image()</code> will handle them correctly.</p>
 <p>Both instances are passed to the image argument, and image() handles them correctly.</p>
@@ -484,32 +433,8 @@ Function <code>image()</code> will handle them correctly.</p>
 Drawlib functions always interpret paths relative to the script's location.
 But PIL function doesn't.
 This utility function adjusts the path rule to match drawlib's conventions.</p>
-<pre><code class="language-python">import PIL.Image
-from drawlib._core.l2_models_._dimage import Dimage
-from drawlib._utils import dutil_script
-from drawlib.canvas import config, save
-from drawlib.images import image
-
-file_path = dutil_script.get_relative_path(&quot;python.png&quot;)
-print(file_path)
-# /Users/yuichi/GitHub/drawlib_docs/v0_1/docs/source/manual/foundations/image/python.png
-
-config(width=100, height=50, grid_only=True)
-
-# specify file
-image(xy=(20, 25), width=20, image=&quot;python.png&quot;)
-
-# specify Dimage
-dimage = Dimage(&quot;python.png&quot;)
-image(xy=(50, 25), width=20, image=dimage)
-
-# specify PIL Image
-pil_image = PIL.Image.open(file_path)
-image(xy=(80, 25), width=20, image=pil_image)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="image_images/6.png" alt="image_6" style="width: 500px; max-width: 100%;" />
+  <img src="image_images/3.png" alt="image_3" style="width: 500px; max-width: 100%;" />
 </div>
 <pre><code>image3.png
 </code></pre>

@@ -23,7 +23,7 @@ Architecture diagrams consist of 5 primary components:
 
 Below is a simple client-server architecture diagram connecting an end user to an API server and a database:
 
-```drawlib 650px center caption:"Basic Client-Server Architecture"
+```drawlib show-code 650px center caption:"Basic Client-Server Architecture"
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 
@@ -62,7 +62,7 @@ You can place labels on any side of the icon using `text_position`:
 - `"left"`: Aligned to the left of the icon.
 - `"right"`: Aligned to the right of the icon.
 
-```drawlib 650px center caption:"Node Label Positioning Options"
+```drawlib show-code 650px center caption:"Node Label Positioning Options"
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 
@@ -88,7 +88,7 @@ d.draw(xy=(5.0, 5.0))
 
 `NodeGroup` automatically computes its bounding box to enclose all child nodes and nested groups, applying configurable `padding`:
 
-```drawlib 650px center caption:"Nested NodeGroups with Auto-Padding"
+```drawlib show-code 650px center caption:"Nested NodeGroups with Auto-Padding"
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup
 
@@ -111,7 +111,7 @@ d.draw(xy=(5.0, 5.0))
 
 `NodeGroup` is a first-class `Connectable`. You can connect a group's boundary directly to a `Node`, another `NodeGroup`, or a `Junction`. The line automatically anchors to the appropriate edge of the boundary box:
 
-```drawlib 650px center caption:"Connecting Directly to/from a Group Boundary"
+```drawlib show-code 650px center caption:"Connecting Directly to/from a Group Boundary"
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
 
@@ -142,7 +142,7 @@ Connections between nodes support both **orthogonal** (right-angle) and **direct
 
 The `node.fork()` method provides a clean shortcut for 1-to-N branching via an internal `Junction`:
 
-```drawlib 650px center caption:"One-to-Many Branching with fork()"
+```drawlib show-code 650px center caption:"One-to-Many Branching with fork()"
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, PhosphorIcon
 
@@ -165,7 +165,7 @@ d.draw(xy=(5.0, 5.0))
 
 You can turn any point along an edge into a branching junction using `edge.add_point(xy)`:
 
-```drawlib 650px center caption:"Branching via edge.add_point()"
+```drawlib show-code 650px center caption:"Branching via edge.add_point()"
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 
@@ -200,7 +200,7 @@ By default, connection lines anchor directly onto the outer boundary of nodes or
 - `edge.set_padding(2.0)`
 - `node.fork(targets, padding=2.0)` (automatically protects junction endpoints while applying padding to nodes)
 
-```drawlib 650px center caption:"Edge Padding Comparison"
+```drawlib show-code 650px center caption:"Edge Padding Comparison"
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 
@@ -253,7 +253,7 @@ node = Node("Custom Service", icon=custom_1, icon_size=10.0)
 
 Here is a full multi-tier GCP VPC cloud architecture example combining nested subnets, official GCP icons, orthogonal bus lines, and custom styled labels:
 
-```drawlib 700px center caption:"Production Multi-Tier Cloud Architecture"
+```drawlib show-code 700px center caption:"Production Multi-Tier Cloud Architecture"
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 

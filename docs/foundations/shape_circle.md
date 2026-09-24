@@ -33,8 +33,6 @@ The `circle()` function draws a circle and takes the following arguments:
 Let's explore two examples.
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
@@ -45,10 +43,6 @@ circle(xy=(25, 25), radius=15)
 circle(xy=(75, 25), radius=20, angle=45, text="circle")
 save()
 ```
-
-![shape_circle_1](shape_circle_images/1.png)
-
-
 
 The circle shape itself does not have an angle effect, but the text inside does.
 
@@ -57,19 +51,8 @@ Executing the above script generates the following output:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import circle
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-circle(xy=(25, 25), radius=15)
-circle(xy=(75, 25), radius=20, angle=45, text="circle")
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_circle_images/2.png" alt="shape_circle_2" style="width: 600px; max-width: 100%;" />
+  <img src="shape_circle_images/1.png" alt="shape_circle_1" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -98,8 +81,6 @@ This function takes these arguments.
 Let's explore two examples.
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import donuts
@@ -110,10 +91,6 @@ donuts(xy=(25, 25), radius=15, width=5)
 donuts(xy=(75, 25), radius=20, width=10, angle=45, text="donuts")
 save()
 ```
-
-![shape_circle_3](shape_circle_images/3.png)
-
-
 
 By adjusting the `radius` and `width` arguments, you can control the size and thickness of the donut shape.
 Executing the above script generates donut shapes with centered text, showing the usage of various arguments.
@@ -121,19 +98,8 @@ Executing the above script generates donut shapes with centered text, showing th
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import donuts
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-donuts(xy=(25, 25), radius=15, width=5)
-donuts(xy=(75, 25), radius=20, width=10, angle=45, text="donuts")
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_circle_images/4.png" alt="shape_circle_4" style="width: 600px; max-width: 100%;" />
+  <img src="shape_circle_images/2.png" alt="shape_circle_2" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -169,8 +135,6 @@ There are three angle-related arguments:
 Let's explore two examples.
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import fan
@@ -188,10 +152,6 @@ fan(
 )
 save()
 ```
-
-![shape_circle_5](shape_circle_images/5.png)
-
-
 
 By adjusting the from_angle, to_angle, and angle arguments, you can create and position the fan shape as desired.
 
@@ -203,26 +163,8 @@ Executing the above script generates fan shapes with centered text, showing the 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import fan
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-fan(xy=(25, 25), radius=15, angle_start=0, angle_end=135)
-fan(
-    xy=(75, 25),
-    radius=20,
-    angle_start=0,
-    angle_end=135,
-    angle=45,
-    text="fan",
-)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_circle_images/6.png" alt="shape_circle_6" style="width: 600px; max-width: 100%;" />
+  <img src="shape_circle_images/3.png" alt="shape_circle_3" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -252,8 +194,6 @@ This function takes these arguments.
 Here are two examples demonstrating the use of `regularpolygon()`:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import polygon, regularpolygon
@@ -264,29 +204,14 @@ regularpolygon(xy=(25, 25), radius=15, num_vertex=5)
 regularpolygon(xy=(75, 25), radius=20, num_vertex=6, angle=45, text="regular polygon")
 save()
 ```
-
-![shape_circle_7](shape_circle_images/7.png)
-
-
 
 Executing the above script generates regular polygons with centered text, demonstrating the usage of various arguments.
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import polygon, regularpolygon
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-regularpolygon(xy=(25, 25), radius=15, num_vertex=5)
-regularpolygon(xy=(75, 25), radius=20, num_vertex=6, angle=45, text="regular polygon")
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_circle_images/8.png" alt="shape_circle_8" style="width: 600px; max-width: 100%;" />
+  <img src="shape_circle_images/4.png" alt="shape_circle_4" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -318,8 +243,6 @@ This function takes these arguments.
 Here are two examples demonstrating the use of `star()`:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import star
@@ -330,10 +253,6 @@ star(xy=(25, 25), num_vertex=5, radius_ext=15, radius_int=5)
 star(xy=(75, 25), num_vertex=9, radius_ext=20, radius_int=7.5, angle=45, text="star")
 save()
 ```
-
-![shape_circle_9](shape_circle_images/9.png)
-
-
 
 The `star()` function allows you to specify the number of external vertices to create stars of different shapes and sizes.
 Executing the above script generates stars with centered text, demonstrating the usage of various arguments.
@@ -341,19 +260,8 @@ Executing the above script generates stars with centered text, demonstrating the
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import star
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-star(xy=(25, 25), num_vertex=5, radius_ext=15, radius_int=5)
-star(xy=(75, 25), num_vertex=9, radius_ext=20, radius_int=7.5, angle=45, text="star")
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_circle_images/10.png" alt="shape_circle_10" style="width: 600px; max-width: 100%;" />
+  <img src="shape_circle_images/5.png" alt="shape_circle_5" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -383,8 +291,6 @@ This function takes these arguments.
 Here is an example demonstrating the use of `wedge()`:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import wedge
@@ -403,37 +309,14 @@ wedge(
 )
 save()
 ```
-
-![shape_circle_11](shape_circle_images/11.png)
-
-
 
 Executing the above script generates a wedge shape with centered text, demonstrating the usage of various arguments.
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import wedge
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-wedge(xy=(25, 25), radius=15, width=5, angle_start=0, angle_end=135)
-wedge(
-    xy=(75, 25),
-    radius=20,
-    width=10,
-    angle_start=0,
-    angle_end=135,
-    angle=45,
-    text="wedge",
-)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_circle_images/12.png" alt="shape_circle_12" style="width: 600px; max-width: 100%;" />
+  <img src="shape_circle_images/6.png" alt="shape_circle_6" style="width: 600px; max-width: 100%;" />
 </div>
 
 

@@ -10,6 +10,13 @@ Below is a succinct overview of drawlib's canvas architecture:
 
 
 
+<div class="drawlib-image" style="text-align: center;">
+  <img src="canvas_images/1.png" alt="canvas_1" style="width: 600px; max-width: 100%;" />
+</div>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
 ```python
 from copy import deepcopy
 from drawlib.canvas import config, save
@@ -136,9 +143,7 @@ center_to_right()
 save()
 ```
 
-<div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/1.png" alt="canvas_1" style="width: 600px; max-width: 100%;" />
-</div>
+</details>
 
 
 
@@ -209,8 +214,6 @@ Enabling the grid is straightforward; simply set the grid option to True.
 By default, this option is set to `False`. Below is an example code snippet:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
@@ -219,10 +222,6 @@ config(width=100, height=50, grid=True)
 circle((50, 25), radius=20)
 save()
 ```
-
-![canvas_2](canvas_images/2.png)
-
-
 
 Executing this code will generate two files:
 
@@ -237,17 +236,8 @@ The former image without the grid:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import circle
-
-config(width=100, height=50, grid=True)
-circle((50, 25), radius=20)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/3.png" alt="canvas_3" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/2.png" alt="canvas_2" style="width: 450px; max-width: 100%;" />
 </div>
 
 
@@ -270,8 +260,6 @@ To avoid repeatedly enabling/disabling the grid in your code, you can export bot
 If you only require the grid illustration, you can use the `grid_only=True` option instead:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
@@ -280,27 +268,14 @@ config(width=100, height=50, grid_only=True)
 circle((50, 25), radius=20)
 save()
 ```
-
-![canvas_4](canvas_images/4.png)
-
-
 
 This code will generate an image with grid lines but without the additional grid version file (image_grid2_grid.png).
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import circle
-
-config(width=100, height=50, grid_only=True)
-circle((50, 25), radius=20)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/5.png" alt="canvas_5" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/3.png" alt="canvas_3" style="width: 450px; max-width: 100%;" />
 </div>
 
 
@@ -316,8 +291,6 @@ To apply a specific line style to the grid, provide a `Style` object to the foll
 Here's an example code snippet demonstrating the use of grid styles:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -334,10 +307,6 @@ config(
 circle((50, 25), radius=20)
 save()
 ```
-
-![canvas_6](canvas_images/6.png)
-
-
 
 This code will generate an image with the grid displayed using the provided line style. 
 Note that providing a grid_style automatically sets the grid option to True, but you can override this by explicitly setting `grid=False`.
@@ -345,25 +314,8 @@ Note that providing a grid_style automatically sets the grid option to True, but
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.shapes import circle
-from drawlib.types import Style
-
-config(
-    width=100,
-    height=50,
-    grid_only=True,
-    grid_style=Style(line_width=1, line_color=Colors.Red, line_style="dashed"),
-    grid_centerstyle=Style(line_width=2, line_color=Colors.Blue, line_style="dashed"),
-)
-circle((50, 25), radius=20)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/7.png" alt="canvas_7" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/4.png" alt="canvas_4" style="width: 450px; max-width: 100%;" />
 </div>
 
 
@@ -398,8 +350,6 @@ Let's explore how changing the size affects the output.
 Below is a code snippet with `config(width=100, height=100, ...)`:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
@@ -415,34 +365,14 @@ circle(
 )
 save()
 ```
-
-![canvas_8](canvas_images/8.png)
-
-
 
 Executing this code generates the following image:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import circle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=100, grid_only=True)
-circle(
-    (50, 50),
-    radius=30,
-    text="(50,50)",
-    textstyle=Style(text_size=36),
-)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/9.png" alt="canvas_9" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/5.png" alt="canvas_5" style="width: 450px; max-width: 100%;" />
 </div>
 
 
@@ -453,8 +383,6 @@ save()
 Now, let's adjust the size to `config(width=200, height=200, ...)`:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
@@ -470,34 +398,14 @@ circle(
 )
 save()
 ```
-
-![canvas_10](canvas_images/10.png)
-
-
 
 This change results in a new image:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import circle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=200, height=200, grid_only=True)
-circle(
-    (50, 50),
-    radius=30,
-    text="(50,50)",
-    textstyle=Style(text_size=36),
-)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/11.png" alt="canvas_11" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/6.png" alt="canvas_6" style="width: 450px; max-width: 100%;" />
 </div>
 
 
@@ -510,8 +418,6 @@ You can either increase the width or decrease the height.
 In the following example, we set the canvas coordinate size to full HD (1920x1080):
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
@@ -527,34 +433,14 @@ circle(
 )
 save()
 ```
-
-![canvas_12](canvas_images/12.png)
-
-
 
 This produces the image below:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import circle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=1920, height=1080, grid_only=True)
-circle(
-    (960, 540),
-    radius=300,
-    text="(960,540)",
-    textstyle=Style(text_size=36),
-)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/13.png" alt="canvas_13" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/7.png" alt="canvas_7" style="width: 450px; max-width: 100%;" />
 </div>
 
 
@@ -606,8 +492,6 @@ For instance, 10 inches x 100 DPI equals 1000 pixels, whereas 10 inches x 200 DP
 Let's demonstrate this with an example:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
@@ -623,34 +507,14 @@ circle(
 )
 save()
 ```
-
-![canvas_14](canvas_images/14.png)
-
-
 
 Executing this code generates the following image:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import circle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=100, dpi=200, grid_only=True)
-circle(
-    (50, 50),
-    radius=30,
-    text="(50,50)",
-    textstyle=Style(text_size=36),
-)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/15.png" alt="canvas_15" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/8.png" alt="canvas_8" style="width: 450px; max-width: 100%;" />
 </div>
 
 
@@ -689,8 +553,6 @@ You can adjust these settings directly using `config()`.
 Let's look at an example:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors140
@@ -700,10 +562,6 @@ config(background_color=Colors140.Orange, background_alpha=0.2)
 circle((50, 50), radius=30)
 save()
 ```
-
-![canvas_16](canvas_images/16.png)
-
-
 
 In this example, we've configured the background color to orange with an alpha value of 0.2. 
 Executing this code generates the following output:
@@ -711,18 +569,8 @@ Executing this code generates the following output:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors140
-from drawlib.shapes import circle
-
-config(background_color=Colors140.Orange, background_alpha=0.2)
-circle((50, 50), radius=30)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/17.png" alt="canvas_17" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/9.png" alt="canvas_9" style="width: 450px; max-width: 100%;" />
 </div>
 
 
@@ -757,8 +605,6 @@ If you wish to save the image with a specific name, you can use the `file` optio
 Here's an example:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
@@ -767,10 +613,6 @@ config(width=100, height=50)
 circle((50, 25), radius=20)
 save(file="myimage.webp")
 ```
-
-![canvas_18](canvas_images/18.png)
-
-
 
 Executing this code generates the following image:
 
@@ -801,8 +643,6 @@ It behaves almost the same as save() without options, but you can specify the fi
 Here's an example:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
@@ -811,27 +651,14 @@ config(width=100, height=50)
 circle((50, 25), radius=20)
 save(format="jpg")
 ```
-
-![canvas_19](canvas_images/19.png)
-
-
 
 This code generate this file.
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import circle
-
-config(width=100, height=50)
-circle((50, 25), radius=20)
-save(format="jpg")
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/20.png" alt="canvas_20" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/10.png" alt="canvas_10" style="width: 450px; max-width: 100%;" />
 </div>
 
 

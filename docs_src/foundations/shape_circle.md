@@ -33,7 +33,7 @@ The `circle()` function draws a circle and takes the following arguments:
 Let's explore two examples.
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
 from drawlib.text import text
@@ -84,7 +84,7 @@ This function takes these arguments.
 Let's explore two examples.
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import donuts
 from drawlib.text import text
@@ -141,7 +141,7 @@ There are three angle-related arguments:
 Let's explore two examples.
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import fan
 from drawlib.text import text
@@ -210,7 +210,7 @@ This function takes these arguments.
 Here are two examples demonstrating the use of `regularpolygon()`:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import polygon, regularpolygon
 from drawlib.text import text
@@ -262,7 +262,7 @@ This function takes these arguments.
 Here are two examples demonstrating the use of `star()`:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import star
 from drawlib.text import text
@@ -313,7 +313,7 @@ This function takes these arguments.
 Here is an example demonstrating the use of `wedge()`:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import wedge
 from drawlib.text import text

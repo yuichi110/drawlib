@@ -76,8 +76,6 @@ You can use `ColorsMonochrome` to retrieve RGB codes by their names.
 Here is a list of style names.
 
 
-
-
 ```python
 from drawlib.types import Style
 
@@ -172,10 +170,6 @@ from drawlib.types import Style
 # | Text           | x     | x           | x          |            |             |                   |                  |              |                    |                   |
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
 ```
-
-![official_monochrome_1](official_monochrome_images/1.png)
-
-
 
 ---
 

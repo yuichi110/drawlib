@@ -21,7 +21,7 @@ A `BasePresetStyles` (or `PresetStyles`) is a Pydantic model containing `Style` 
 
 You can instantiate `PresetStyles` directly with custom styles:
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors140
 from drawlib.preset_styles import PresetStyles

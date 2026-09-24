@@ -18,7 +18,7 @@ Therefore, we provide Color classes. Currently, we offer the following classes:
 Here is an image showing their relationships:
 
 
-```drawlib 600px center
+```drawlib fold-code 600px center
 from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
 from drawlib.lines import line
@@ -386,7 +386,7 @@ Partner Marketing Hub: Google News Color Palette.
 https://partnermarketinghub.withgoogle.com/brands/google-news/visual-identity/color-palette/
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto

@@ -8,7 +8,7 @@
 
 Plot individual data points via `add()` and grouped series via `add_series()`:
 
-```drawlib 650px center caption:"Service Latency vs. Throughput Benchmark"
+```drawlib show-code 650px center caption:"Service Latency vs. Throughput Benchmark"
 from drawlib import canvas
 from drawlib._core.l3_styles import Style
 from drawlib.charts import ScatterChart
@@ -53,7 +53,7 @@ chart.draw(xy=(6.0, 20.0))
 
 Pass 3-tuples `(x, y, radius)` to `add_series()` to represent a third variable using marker size:
 
-```drawlib 650px center caption:"Cloud Workload Performance & Cost"
+```drawlib show-code 650px center caption:"Cloud Workload Performance & Cost"
 from drawlib import canvas
 from drawlib.charts import ScatterChart
 

@@ -20,6 +20,13 @@ Here is an image showing their relationships:
 
 
 
+<div class="drawlib-image" style="text-align: center;">
+  <img src="color_images/1.png" alt="color_1" style="width: 600px; max-width: 100%;" />
+</div>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
@@ -128,9 +135,7 @@ draw_childs()
 save()
 ```
 
-<div class="drawlib-image" style="text-align: center;">
-  <img src="color_images/1.png" alt="color_1" style="width: 600px; max-width: 100%;" />
-</div>
+</details>
 
 
 
@@ -394,8 +399,6 @@ Partner Marketing Hub: Google News Color Palette.
 https://partnermarketinghub.withgoogle.com/brands/google-news/visual-identity/color-palette/
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -463,10 +466,6 @@ text(
 )
 save()
 ```
-
-![color_2](color_images/2.png)
-
-
 
 In this example, we define a color class and use it in image drawing code. 
 Typically, you should define your color class in a styling module and import it into your image code.
@@ -476,76 +475,8 @@ Here is the output:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.fonts import FontRoboto
-from drawlib.shapes import circle, rectangle, triangle, wedge
-from drawlib.text import text
-from drawlib.types import Style
-
-
-# Please define color at styling codes normally.
-class ColorsGoogle(ColorsBase):
-    # From Official Google Color Palette
-    # At Partner Marketing Hub
-    Blue = (23, 78, 166)
-    Red = (165, 14, 14)
-    Orange = (227, 116, 0)
-    Green = (32, 33, 36)
-    MediumBlue = (66, 103, 210)
-    MediumRed = (234, 67, 53)
-    Yellow = (251, 188, 4)
-    MediumGreen = (52, 168, 83)
-    LightBlue = (210, 227, 252)
-    LightRed = (250, 210, 207)
-    LightYellow = (254, 239, 195)
-    LightGreen = (206, 234, 214)
-    LightGrey = (241, 243, 244)
-    Grey = (154, 160, 166)
-    Black = (32, 33, 36)
-
-
-config(width=100, height=50)
-shape_y = 30
-circle(
-    (15, shape_y),
-    radius=10,
-    style=Style(line_width=0, fill_color=ColorsGoogle.MediumBlue),
-)
-triangle(
-    (37.5, shape_y),
-    width=20,
-    height=15,
-    style=Style(line_width=0, fill_color=ColorsGoogle.MediumRed),
-)
-rectangle(
-    (62.5, shape_y),
-    width=18,
-    height=18,
-    style=Style(line_width=0, fill_color=ColorsGoogle.Yellow),
-)
-wedge(
-    (85, shape_y),
-    radius=10,
-    width=5,
-    angle_end=270,
-    style=Style(line_width=0, fill_color=ColorsGoogle.MediumGreen),
-)
-text(
-    (50, 10),
-    "Google Colors",
-    style=Style(
-        text_color=ColorsGoogle.Black,
-        text_size=32,
-        text_font=FontRoboto.ROBOTO_REGULAR,
-    ),
-)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="color_images/3.png" alt="color_3" style="width: 600px; max-width: 100%;" />
+  <img src="color_images/2.png" alt="color_2" style="width: 600px; max-width: 100%;" />
 </div>
 
 

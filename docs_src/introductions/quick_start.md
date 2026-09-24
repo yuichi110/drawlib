@@ -16,7 +16,7 @@ Below is the standard procedure for drawing using Drawlib:
 While detailed explanations will be provided in subsequent documents, let's briefly overview each step with an example.
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.images import image
 from drawlib.lines import line
@@ -234,7 +234,7 @@ Common alignment options include:
 Let's examine these alignment options through an example:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.shapes import circle
@@ -342,7 +342,7 @@ Drawlib offers convenient icon modules and functions for drawing icons:
 Here's an example using phosphor:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
@@ -403,7 +403,7 @@ If you need to adjust the aspect ratio, you can utilize the `Dimage` class, whic
 Here's an example using the `image()` function:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.images import image
 from drawlib.types import Style
@@ -453,7 +453,7 @@ If you wish to modify the image itself, consider utilizing the `Dimage` class, w
 Take a look at this example:
 
 
-```drawlib
+```python
 from drawlib._core.l2_models_._dimage import Dimage
 from drawlib.canvas import config, save
 from drawlib.images import image
@@ -516,7 +516,7 @@ Functions starting with "line" are designed to draw lines from point xy1 to poin
 Let's explore some of these line types:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.lines import line, line_curved, lines
 
@@ -565,7 +565,7 @@ But visual style has less meaning (CSS equivalent), then we will specify it as s
 Consider this example showcasing styling:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line
@@ -653,7 +653,7 @@ When you use it, tasks like positioning your item at a specified xy coordinate a
 Let's explore two examples: a circle-like shape, `star()`, and a rectangle-like shape, `rectangle()`.
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import rectangle, star
 
@@ -700,7 +700,7 @@ Keep in mind that the `text_angle` parameter in `Style` overrides the shape's an
 Let's examine a styling example:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.shapes import rectangle
@@ -793,7 +793,7 @@ With `Style`, you can configure text color, size, font, alignment, and text back
 Let's examine some code examples:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto
@@ -900,7 +900,7 @@ To address this, Drawlib provides preset styles, allowing you to easily apply pr
 Here is an example. Note that the `style` argument takes text values.
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.lines import line
 from drawlib.shapes import circle
@@ -999,7 +999,7 @@ You can check the available style names and color variations in the preset style
 Here's an overview of available styles:
 
 
-```drawlib
+```python
 from drawlib.types import Style
 
 

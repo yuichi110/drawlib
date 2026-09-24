@@ -8,7 +8,7 @@
 
 A vertical grouped bar chart compares multiple series across categories:
 
-```drawlib 650px center caption:"Annual Revenue Comparison"
+```drawlib show-code 650px center caption:"Annual Revenue Comparison"
 from drawlib import canvas
 from drawlib.charts import BarChart
 
@@ -33,7 +33,7 @@ chart.draw(xy=(10.0, 20.0))
 
 Horizontal stacked bars are ideal for visualizing resource breakdowns, survey responses, or task distributions:
 
-```drawlib 650px center caption:"Resource Allocation"
+```drawlib show-code 650px center caption:"Resource Allocation"
 from drawlib import canvas
 from drawlib.charts import BarChart
 
@@ -61,7 +61,7 @@ chart.draw(xy=(10.0, 20.0))
 
 For latency measurements, algorithmic complexity, or exponential data across several orders of magnitude, set `scale="log"` on the value axis:
 
-```drawlib 650px center caption:"Query Latency (Log Scale)"
+```drawlib show-code 650px center caption:"Query Latency (Log Scale)"
 from drawlib import canvas
 from drawlib.charts import BarChart
 
@@ -85,7 +85,7 @@ chart.draw(xy=(10.0, 20.0))
 
 You can customize ticks, intervals, unit labels, and number formatting via `configure_y_axis` or `configure_x_axis`:
 
-```drawlib 650px center caption:"Custom Ticks and Formatting"
+```drawlib show-code 650px center caption:"Custom Ticks and Formatting"
 from drawlib import canvas
 from drawlib._core.l3_styles import Style
 from drawlib.charts import BarChart

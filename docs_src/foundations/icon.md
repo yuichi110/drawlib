@@ -22,7 +22,7 @@ Each icon within these modules is defined as a function, allowing you to draw sp
 Let's explore with examples using `phosphor`:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.icons import phosphor
 from drawlib.text import text
@@ -93,7 +93,7 @@ These icons are official high-resolution multi-color graphics representing GCP s
 Every GCP icon is defined as a function directly under `gcp`. 
 They accept standard coordinate, width, angle, and style arguments:
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.icons import gcp
 from drawlib.text import text
@@ -167,7 +167,7 @@ You can customize them using `drawlib.types.Style`:
 * `line_color`, `line_width`, `line_style`: Draws an optional border outline around the icon frame.
 * `text_halign`, `text_valign`: Adjusts anchor alignment relative to `xy`.
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.icons import gcp
@@ -243,7 +243,7 @@ save()
 
 Here is an end-to-end example demonstrating how GCP icons can be combined with shapes and connectors to build clear architecture diagrams:
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.icons import gcp, phosphor
@@ -362,7 +362,7 @@ The function arguments are:
 Let's explore its usage with FontAwesome Free:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.icons import font_icon
 from drawlib.text import text
@@ -476,7 +476,7 @@ Similar to other drawing elements, the appearance of icons can be customized usi
 Let's illustrate this with an example:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
@@ -543,7 +543,7 @@ You can specify them by names.
 Here is an examples.
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.icons import phosphor
 

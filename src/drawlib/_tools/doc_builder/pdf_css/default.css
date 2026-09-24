@@ -190,3 +190,8 @@ th {
     padding: 0.5rem 0;
     border-bottom: 1px dashed var(--rtd-border-color);
 }
+
+.drawlib-code-details {
+    display: none !important;
+}
+

@@ -8,8 +8,6 @@ This feature leverages pygments to generate visually enhanced source code images
 Here is an example of code:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
@@ -53,10 +51,6 @@ sc2.draw((75, 25), width=40, code=CODE, style=Style(line_width=2, line_color=Col
 
 save()
 ```
-
-![sourcecode_1](sourcecode_images/1.png)
-
-
 
 In the example above, the `SourceCode` instance is configured with options such as:
 
@@ -83,52 +77,8 @@ Executing the code will generate below output:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors, Colors140
-from drawlib.fonts import FontSourceCode
-from drawlib.shapes import circle
-from drawlib.smartarts import SourceCode
-from drawlib.types import Style
-
-CODE = """
-
-config(width=100, height=100)
-circle(
-    xy=(50, 50),
-    radius=30,
-    style=Style(
-        line_style="dashed",
-        line_color=Colors140.BlueViolet,
-        line_width=5,
-        fill_color=Colors140.Turquoise,
-    ),
-)
-save()
-""".strip()
-
-config(width=100, height=50)
-
-sc1 = SourceCode(
-    language="python",
-    style="default",
-)
-sc1.draw((25, 25), width=40, code=CODE)
-
-sc2 = SourceCode(
-    style="monokai",
-    font=FontSourceCode.ROBOTO_MONO,
-    show_linenum=True,
-    linenum_textcolor=Colors140.Black,
-    linenum_bgcolor=Colors140.LightGray,
-)
-sc2.draw((75, 25), width=40, code=CODE, style=Style(line_width=2, line_color=Colors.Red))
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="sourcecode_images/2.png" alt="sourcecode_2" style="width: 600px; max-width: 100%;" />
+  <img src="sourcecode_images/1.png" alt="sourcecode_1" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -161,6 +111,13 @@ Here are output of Source Code styles.
 
 
 
+
+<div class="drawlib-image" style="text-align: center;">
+  <img src="sourcecode_images/2.png" alt="sourcecode_2" style="width: 600px; max-width: 100%;" />
+</div>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
 
 ```python
 from drawlib.canvas import config, save
@@ -218,9 +175,7 @@ for style in [
 save()
 ```
 
-<div class="drawlib-image" style="text-align: center;">
-  <img src="sourcecode_images/3.png" alt="sourcecode_3" style="width: 600px; max-width: 100%;" />
-</div>
+</details>
 
 
 

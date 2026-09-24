@@ -5,7 +5,7 @@ BoxList draws list of texts within boxes.
 Here is examples of BoxList.
 
 
-```drawlib 600px center
+```drawlib show-code 600px center
 from drawlib.canvas import config, save
 from drawlib.smartarts import BoxList
 
@@ -47,7 +47,7 @@ BoxList is used in these procedures.
 Here is an example code.
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.smartarts import BoxList
 
@@ -115,7 +115,7 @@ BoxList supports 4 alignment.
 Each BoxList location depends on args `xy` of function `draw`.
 
 
-```drawlib
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.smartarts import BoxList
 

@@ -46,8 +46,6 @@ For more details and examples, please refer to the Coordinate and Alignment page
 Here are three examples:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
@@ -95,10 +93,6 @@ circle(
 )
 save()
 ```
-
-![shape_style_1](shape_style_images/1.png)
-
-
 
 Left example has non transparent style.
 Center has fcolor transparent.
@@ -107,56 +101,8 @@ Right has alpha value.
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors, Colors140
-from drawlib.shapes import circle, rectangle
-from drawlib.types import Style
-
-config(width=150, height=50)
-
-# left
-rectangle(xy=(25, 25), width=40, height=20)
-circle(
-    xy=(25, 25),
-    radius=15,
-    style=Style(
-        line_width=5,
-        line_color=Colors.Red,
-        line_style="dashed",
-        fill_color=Colors.White,
-    ),
-)
-
-# center
-rectangle(xy=(75, 25), width=40, height=20)
-circle(
-    xy=(75, 25),
-    radius=15,
-    style=Style(
-        line_width=5,
-        line_color=Colors.Red,
-        line_style="dashed",
-        fill_color=Colors.Transparent,
-    ),
-)
-
-# right
-rectangle(xy=(125, 25), width=40, height=20)
-circle(
-    xy=(125, 25),
-    radius=15,
-    style=Style(
-        line_width=0,
-        fill_color=Colors140.Orange,
-        fill_alpha=0.3,
-    ),
-)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_style_images/2.png" alt="shape_style_2" style="width: 600px; max-width: 100%;" />
+  <img src="shape_style_images/1.png" alt="shape_style_1" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -187,8 +133,6 @@ Common `Style` attributes used for shape text include:
 Here are three examples:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -244,10 +188,6 @@ rectangle(
 
 save()
 ```
-
-![shape_style_3](shape_style_images/3.png)
-
-
 
 You can configure text styles.
 But also, you can configure text positioning which you can see right example.
@@ -257,64 +197,8 @@ Below is a figure illustrating these styles:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.fonts import FontSansSerif, FontSerif
-from drawlib.shapes import rectangle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=150, height=50)
-
-# left
-rectangle(
-    xy=(25, 25),
-    width=40,
-    height=20,
-    text="rectangle()",
-    textstyle=Style(
-        text_color=Colors.White,
-        text_size=24,
-        text_font=FontSerif.COURIER_BOLD,
-    ),
-)
-
-
-# center
-rectangle(
-    xy=(75, 25),
-    width=40,
-    height=20,
-    angle=45,
-    text="rectangle()",
-    textstyle=Style(
-        text_color=Colors.White,
-        text_size=24,
-        text_font=FontSansSerif.RALEWAYS_REGULAR,
-    ),
-)
-
-
-# right
-rectangle(
-    xy=(125, 25),
-    width=40,
-    height=20,
-    angle=45,
-    text="rectangle()",
-    textstyle=Style(
-        text_color=Colors.White,
-        text_angle=0,
-        text_xy_shift=(-12, -3),
-    ),
-)
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_style_images/4.png" alt="shape_style_4" style="width: 600px; max-width: 100%;" />
+  <img src="shape_style_images/2.png" alt="shape_style_2" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -354,8 +238,6 @@ When applied to `textstyle`, it controls font weight.
 Here are three examples:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
@@ -391,54 +273,14 @@ circle(
 )
 save()
 ```
-
-![shape_style_5](shape_style_images/5.png)
-
-
 
 Below is a figure illustrating these styles:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import circle
-from drawlib.text import text
-
-config(width=150, height=50)
-
-# left
-circle(
-    xy=(25, 25),
-    radius=15,
-    style="red_flat",
-    text="circle",
-    textstyle="white",
-)
-
-# center
-circle(
-    xy=(75, 25),
-    radius=15,
-    style="blue_solid",
-    text="circle",
-    textstyle="blue_bold",
-)
-
-# right
-circle(
-    xy=(125, 25),
-    radius=15,
-    style="green_dashed_light",
-    text="circle",
-    textstyle="green_light",
-)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_style_images/6.png" alt="shape_style_6" style="width: 600px; max-width: 100%;" />
+  <img src="shape_style_images/3.png" alt="shape_style_3" style="width: 600px; max-width: 100%;" />
 </div>
 
 

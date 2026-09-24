@@ -24,7 +24,7 @@ It adheres to standard flowchart conventions (ISO 5807 / JIS X 0121) and support
 
 Below is a typical flowchart with input, conditional branching (Yes/No), and a loopback path:
 
-```drawlib 650px center caption:"User Registration Flow"
+```drawlib show-code 650px center caption:"User Registration Flow"
 from drawlib import canvas
 from drawlib.diagrams.flow import (
     Data,
@@ -79,7 +79,7 @@ All nodes in `drawlib.diagrams.flow` derive from `FlowNode` and follow Drawlib's
 | `textstyle` | `Style \| None` | `None` | Typography style (font, color, bold, alignment). |
 | `textsize` | `float \| None` | `None` | Font size shorthand. |
 
-```drawlib 650px center caption:"Standard Flowchart Shape Types"
+```drawlib show-code 650px center caption:"Standard Flowchart Shape Types"
 from drawlib import canvas
 from drawlib.colors import Colors140
 from drawlib.diagrams.flow import (
@@ -131,7 +131,7 @@ decision.connect(on_failure, label="No", start_side="right", end_side="left")
 
 Use `flow.junction(xy)` or `edge.add_point(xy)` to create branch junctions (identical to `ArchitectureDiagram`):
 
-```drawlib 650px center caption:"Branching and Merging with Junctions"
+```drawlib show-code 650px center caption:"Branching and Merging with Junctions"
 from drawlib import canvas
 from drawlib.diagrams.flow import (
     Decision,
@@ -179,7 +179,7 @@ Swimlanes separate steps into columns or rows representing departments, actors, 
 In `FlowDiagram`, swimlanes act as a clean background and boundary layer on top of a unified global coordinate system.
 This allows tasks across different lanes to be effortlessly aligned along the same horizontal line ($Y$ coordinate):
 
-```drawlib 650px center caption:"Cross-Functional Swimlane Approval Flow"
+```drawlib show-code 650px center caption:"Cross-Functional Swimlane Approval Flow"
 from drawlib import canvas
 from drawlib.diagrams.flow import (
     Decision,

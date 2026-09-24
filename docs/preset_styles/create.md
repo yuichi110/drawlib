@@ -21,8 +21,6 @@ A `BasePresetStyles` (or `PresetStyles`) is a Pydantic model containing `Style` 
 
 You can instantiate `PresetStyles` directly with custom styles:
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors140
@@ -46,41 +44,13 @@ rectangle(xy=(75, 20), width=20, height=20, style=custom_preset.bold)
 
 save()
 ```
-
-![create_1](create_images/1.png)
-
-
 
 Executing this code produces the following image:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors140
-from drawlib.preset_styles import PresetStyles
-from drawlib.shapes import circle, rectangle
-from drawlib.types import Style
-
-custom_preset = PresetStyles(
-    primary=Style(fill_color=Colors140.Turquoise, line_color=Colors140.DarkBlue, line_width=2),
-    light=Style(fill_color=Colors140.LightCyan, line_color=Colors140.DarkBlue, line_width=1),
-    bold=Style(fill_color=Colors140.Turquoise, line_color=Colors140.DarkBlue, line_width=4),
-    flat=Style(fill_color=Colors140.Turquoise, line_color=None, line_width=0),
-    solid=Style(fill_color=None, line_color=Colors140.DarkBlue, line_width=2),
-    dashed=Style(fill_color=None, line_color=Colors140.DarkBlue, line_width=2, line_style="dashed"),
-)
-
-config(width=100, height=40)
-
-circle(xy=(25, 20), radius=10, style=custom_preset.primary)
-rectangle(xy=(75, 20), width=20, height=20, style=custom_preset.bold)
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="create_images/2.png" alt="create_2" style="width: 600px; max-width: 100%;" />
+  <img src="create_images/1.png" alt="create_1" style="width: 600px; max-width: 100%;" />
 </div>
 
 

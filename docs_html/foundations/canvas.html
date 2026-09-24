@@ -306,6 +306,11 @@
 Once your drawing is complete, you can save it as an image.</p>
 <p>The canvas is a pivotal concept in drawlib, although it remains internal and isn't directly exposed to users.
 Below is a succinct overview of drawlib's canvas architecture:</p>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="canvas_images/1.png" alt="canvas_1" style="width: 600px; max-width: 100%;" />
+</div>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
 <pre><code class="language-python">from copy import deepcopy
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -430,9 +435,7 @@ center_to_right()
 
 save()
 </code></pre>
-<div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/1.png" alt="canvas_1" style="width: 600px; max-width: 100%;" />
-</div>
+</details>
 <pre><code>Canvas architecture
 </code></pre>
 <p>In this architecture, drawlib internally incorporates core functions and methods that are accessible to users through public modules such as <code>drawlib.canvas</code> and <code>drawlib.shapes</code>.
@@ -489,9 +492,6 @@ config(width=100, height=50, grid=True)
 circle((50, 25), radius=20)
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="canvas_images/2.png" alt="canvas_2" />
-</div>
 <p>Executing this code will generate two files:</p>
 <ul>
 <li><code>image_grid1.png</code>: The resulting image without the grid.</li>
@@ -500,15 +500,8 @@ save()
 <p>By default, the file name is the same as the script file name.
 The grid version appends <code>_grid</code> to the file name.</p>
 <p>The former image without the grid:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.shapes import circle
-
-config(width=100, height=50, grid=True)
-circle((50, 25), radius=20)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/3.png" alt="canvas_3" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/2.png" alt="canvas_2" style="width: 450px; max-width: 100%;" />
 </div>
 <pre><code>image_grid1.png
 </code></pre>
@@ -527,19 +520,9 @@ config(width=100, height=50, grid_only=True)
 circle((50, 25), radius=20)
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="canvas_images/4.png" alt="canvas_4" />
-</div>
 <p>This code will generate an image with grid lines but without the additional grid version file (image_grid2_grid.png).</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.shapes import circle
-
-config(width=100, height=50, grid_only=True)
-circle((50, 25), radius=20)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/5.png" alt="canvas_5" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/3.png" alt="canvas_3" style="width: 450px; max-width: 100%;" />
 </div>
 <pre><code>Grid only option generate grid image only
 </code></pre>
@@ -564,28 +547,10 @@ config(
 circle((50, 25), radius=20)
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="canvas_images/6.png" alt="canvas_6" />
-</div>
 <p>This code will generate an image with the grid displayed using the provided line style.
 Note that providing a grid_style automatically sets the grid option to True, but you can override this by explicitly setting <code>grid=False</code>.</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.shapes import circle
-from drawlib.types import Style
-
-config(
-    width=100,
-    height=50,
-    grid_only=True,
-    grid_style=Style(line_width=1, line_color=Colors.Red, line_style=&quot;dashed&quot;),
-    grid_centerstyle=Style(line_width=2, line_color=Colors.Blue, line_style=&quot;dashed&quot;),
-)
-circle((50, 25), radius=20)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/7.png" alt="canvas_7" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/4.png" alt="canvas_4" style="width: 450px; max-width: 100%;" />
 </div>
 <pre><code>Changing grid line
 </code></pre>
@@ -621,26 +586,9 @@ circle(
 )
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="canvas_images/8.png" alt="canvas_8" />
-</div>
 <p>Executing this code generates the following image:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.shapes import circle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=100, grid_only=True)
-circle(
-    (50, 50),
-    radius=30,
-    text=&quot;(50,50)&quot;,
-    textstyle=Style(text_size=36),
-)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/9.png" alt="canvas_9" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/5.png" alt="canvas_5" style="width: 450px; max-width: 100%;" />
 </div>
 <pre><code>width=100, height=100
 </code></pre>
@@ -659,26 +607,9 @@ circle(
 )
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="canvas_images/10.png" alt="canvas_10" />
-</div>
 <p>This change results in a new image:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.shapes import circle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=200, height=200, grid_only=True)
-circle(
-    (50, 50),
-    radius=30,
-    text=&quot;(50,50)&quot;,
-    textstyle=Style(text_size=36),
-)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/11.png" alt="canvas_11" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/6.png" alt="canvas_6" style="width: 450px; max-width: 100%;" />
 </div>
 <pre><code>width=200, height=200
 </code></pre>
@@ -699,26 +630,9 @@ circle(
 )
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="canvas_images/12.png" alt="canvas_12" />
-</div>
 <p>This produces the image below:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.shapes import circle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=1920, height=1080, grid_only=True)
-circle(
-    (960, 540),
-    radius=300,
-    text=&quot;(960,540)&quot;,
-    textstyle=Style(text_size=36),
-)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/13.png" alt="canvas_13" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/7.png" alt="canvas_7" style="width: 450px; max-width: 100%;" />
 </div>
 <pre><code>width=1920, height=1080
 </code></pre>
@@ -764,26 +678,9 @@ circle(
 )
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="canvas_images/14.png" alt="canvas_14" />
-</div>
 <p>Executing this code generates the following image:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.shapes import circle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=100, dpi=200, grid_only=True)
-circle(
-    (50, 50),
-    radius=30,
-    text=&quot;(50,50)&quot;,
-    textstyle=Style(text_size=36),
-)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/15.png" alt="canvas_15" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/8.png" alt="canvas_8" style="width: 450px; max-width: 100%;" />
 </div>
 <pre><code>dpi=200
 </code></pre>
@@ -811,21 +708,10 @@ config(background_color=Colors140.Orange, background_alpha=0.2)
 circle((50, 50), radius=30)
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="canvas_images/16.png" alt="canvas_16" />
-</div>
 <p>In this example, we've configured the background color to orange with an alpha value of 0.2.
 Executing this code generates the following output:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.colors import Colors140
-from drawlib.shapes import circle
-
-config(background_color=Colors140.Orange, background_alpha=0.2)
-circle((50, 50), radius=30)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/17.png" alt="canvas_17" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/9.png" alt="canvas_9" style="width: 450px; max-width: 100%;" />
 </div>
 <pre><code>Background color orange. Alpha 0.2
 </code></pre>
@@ -852,9 +738,6 @@ config(width=100, height=50)
 circle((50, 25), radius=20)
 save(file=&quot;myimage.webp&quot;)
 </code></pre>
-<div class="drawlib-image">
-  <img src="canvas_images/18.png" alt="canvas_18" />
-</div>
 <p>Executing this code generates the following image:</p>
 <p><img src="myimage.webp" alt="myimage.webp" /></p>
 <pre><code>File name: myimage.webp
@@ -881,19 +764,9 @@ config(width=100, height=50)
 circle((50, 25), radius=20)
 save(format=&quot;jpg&quot;)
 </code></pre>
-<div class="drawlib-image">
-  <img src="canvas_images/19.png" alt="canvas_19" />
-</div>
 <p>This code generate this file.</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.shapes import circle
-
-config(width=100, height=50)
-circle((50, 25), radius=20)
-save(format=&quot;jpg&quot;)
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/20.png" alt="canvas_20" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/10.png" alt="canvas_10" style="width: 450px; max-width: 100%;" />
 </div>
 <pre><code>File name: image_save2.jpg
 </code></pre>

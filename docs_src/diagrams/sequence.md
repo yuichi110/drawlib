@@ -26,7 +26,7 @@ In Drawlib, message semantics are expressed through clear grammatical verbs:
 - **`a.request(b, label)`**: Synchronous call or invocation (solid line with arrow `―▶`).
 - **`b.reply(a, label)`**: Response or return value (dashed line with arrow `---▶`).
 
-```drawlib 650px center caption:"Basic Request-Reply Flow"
+```drawlib show-code 650px center caption:"Basic Request-Reply Flow"
 from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
@@ -62,7 +62,7 @@ d.draw(xy=(5.0, 5.0))
 
 You can specify `is_async=True` to indicate non-blocking, asynchronous events (such as event streaming or queue worker dispatches). Asynchronous messages are rendered with open stick arrowheads (`―>` or `--->`):
 
-```drawlib 650px center caption:"Synchronous vs Asynchronous Messages"
+```drawlib show-code 650px center caption:"Synchronous vs Asynchronous Messages"
 from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
@@ -90,7 +90,7 @@ d.draw(xy=(5.0, 5.0))
 
 When two entities establish a persistent, two-way communication channel (e.g. WebSocket connection, bidirectional gRPC stream, or keep-alive synchronization) without drawing redundant round trips, use `a.connect(b, arrow="<->")`:
 
-```drawlib 650px center caption:"Bidirectional Stream"
+```drawlib show-code 650px center caption:"Bidirectional Stream"
 from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
@@ -114,7 +114,7 @@ d.draw(xy=(5.0, 5.0))
 
 When a participant calls itself (`p.request(p, label)`), Drawlib automatically routes the message as an orthogonal 3-segment loop returning to the same lifeline:
 
-```drawlib 650px center caption:"Self-Invocation Loop"
+```drawlib show-code 650px center caption:"Self-Invocation Loop"
 from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
@@ -144,7 +144,7 @@ Notes provide informative context alongside lifelines or across multiple partici
 - **`p.note("...", pos="left")`**: Placed to the left of the participant's lifeline.
 - **`d.note("...", over=[p1, p2])`**: Spans centered across multiple lifelines.
 
-```drawlib 650px center caption:"Sticky Notes Beside and Across Lifelines"
+```drawlib show-code 650px center caption:"Sticky Notes Beside and Across Lifelines"
 from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
@@ -179,7 +179,7 @@ Conditional logic, alternative flows, and loops are defined naturally using Pyth
 - **`with d.opt("Condition"):`**: Optional execution block.
 - **`with d.par("Description"):`**: Parallel concurrent steps.
 
-```drawlib 650px center caption:"Loops and Conditional Blocks"
+```drawlib show-code 650px center caption:"Loops and Conditional Blocks"
 from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
@@ -217,7 +217,7 @@ You can visually highlight when an entity is actively executing by calling `p.ac
 
 Setting `autonumber=True` on `SequenceDiagram` automatically prepends sequential numbers (`1.`, `2.`, `3.`, ...) to all message labels in chronological order.
 
-```drawlib 650px center caption:"Activation Bars and Autonumbering"
+```drawlib show-code 650px center caption:"Activation Bars and Autonumbering"
 from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
@@ -249,7 +249,7 @@ d.draw(xy=(5.0, 5.0))
 
 Here is a full production example combining participant groups (`ParticipantGroup`), GCP icons, sticky notes, conditional branches, and custom styling:
 
-```drawlib 700px center caption:"Production Microservices Pipeline"
+```drawlib show-code 700px center caption:"Production Microservices Pipeline"
 from drawlib import canvas
 from drawlib._core.l3_styles import Colors, Style
 from drawlib.diagrams.sequence import SequenceDiagram, GcpIcon, Participant, ParticipantGroup, PhosphorIcon

@@ -17,7 +17,7 @@ There are these functios
 Here are arrow examples:
 
 
-```drawlib 600px center
+```drawlib show-code 600px center
 from drawlib.canvas import config, save
 from drawlib.fonts import FontRoboto
 from drawlib.shapes import arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u
@@ -74,7 +74,7 @@ All arrow functions have similar argument namings.
 Understanding how to specify arrow size might be useful.
 
 
-```drawlib 600px center
+```drawlib fold-code 600px center
 from drawlib.canvas import config, save
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
@@ -114,7 +114,7 @@ save()
 You can specify arrow direction via arg `head`.
 
 
-```drawlib 600px center
+```drawlib fold-code 600px center
 from drawlib.canvas import config, save
 from drawlib.fonts import FontRoboto
 from drawlib.shapes import arrow
@@ -170,7 +170,7 @@ This function accepts the following arguments:
 Let's explore an example:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.fonts import FontRoboto
 from drawlib.shapes import arrow
@@ -244,7 +244,7 @@ It doesn't support having text inside.
 Let's explore an example:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.fonts import FontRoboto
 from drawlib.lines import lines, lines_curved
@@ -355,7 +355,7 @@ It draw "L" style arrow easily by specifying `width` and `height` and `angle`.
 Let's explore an example:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line, lines
@@ -541,7 +541,7 @@ It draw "U" style arrow easily by specifying `width` and `height` and `angle`.
 Let's explore an example:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line, lines
@@ -732,7 +732,7 @@ Please take care, length of head is specified by `head_angle`.
 Let's explore an example:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line

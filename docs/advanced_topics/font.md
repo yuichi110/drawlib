@@ -48,8 +48,6 @@ The `FontFile` class in Drawlib allows users to utilize custom fonts for renderi
 Here's how you can use the FontFile class in your Python code:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.text import text
@@ -66,35 +64,14 @@ text(
 )
 save()
 ```
-
-![font_1](font_images/1.png)
-
-
 
 Executing this code generate the output:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=50)
-text(
-    (50, 25),
-    "Hello Drawlib!",
-    style=Style(
-        text_size=36,
-        text_font=FontFile("./avenger/regular.ttf"),
-    ),
-)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="font_images/2.png" alt="font_2" style="width: 600px; max-width: 100%;" />
+  <img src="font_images/1.png" alt="font_1" style="width: 600px; max-width: 100%;" />
 </div>
 
 

@@ -315,6 +315,11 @@ IDEs can assist by providing quick access to classes, functions, and their optio
 <li>Preset styles module (<code>drawlib.preset_styles</code>): Provides preset style configurations like <code>PresetStyles</code> and <code>get_style()</code>.</li>
 <li>Advanced classes and functions: These components utilize the aforementioned APIs internally to provide extended functionality.</li>
 </ul>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="lib_design_images/1.png" alt="lib_design_1" style="width: 600px; max-width: 100%;" />
+</div>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto
@@ -404,9 +409,7 @@ top()
 
 save()
 </code></pre>
-<div class="drawlib-image" style="text-align: center;">
-  <img src="lib_design_images/1.png" alt="lib_design_1" style="width: 600px; max-width: 100%;" />
-</div>
+</details>
 <pre><code>image1.png
 </code></pre>
 <p>The image above illustrates Drawlib's core components, categorized into five sections representing its various APIs.

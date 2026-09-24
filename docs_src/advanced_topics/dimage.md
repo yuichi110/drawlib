@@ -22,7 +22,7 @@ You can store a `Dimage` object in a variable and pass it to multiple `image()` 
 Here is an example:
 
 
-```drawlib
+```python
 from drawlib._core.l2_models_._dimage import Dimage
 from drawlib.canvas import config, save
 from drawlib.images import image
@@ -103,7 +103,7 @@ If you want to change the aspect ratio, you need to calculate both the new width
 Here's an example of changing the aspect ratio where we halve the image height:
 
 
-```drawlib
+```python
 from drawlib._core.l2_models_._dimage import Dimage
 from drawlib.canvas import config, save
 from drawlib.images import image
@@ -179,7 +179,7 @@ This method accepts the following arguments:
 Here's an example that keeps the center 50% of the image:
 
 
-```drawlib
+```python
 from drawlib._core.l2_models_._dimage import Dimage
 from drawlib.canvas import config, save
 from drawlib.images import image
@@ -256,7 +256,7 @@ You can easily flip an image using Dimage:
 Here's an example:
 
 
-```drawlib
+```python
 from drawlib._core.l2_models_._dimage import Dimage
 from drawlib.canvas import config, save
 from drawlib.images import image
@@ -320,7 +320,7 @@ Drawlib provides several functions to modify the color of images:
 Here's an example:
 
 
-```drawlib
+```python
 from drawlib._core.l2_models_._dimage import Dimage
 from drawlib.canvas import config, save
 from drawlib.images import image
@@ -380,7 +380,7 @@ A value of `0.0` makes the image completely dark, `1.0` keeps the original brigh
 Here's an example:
 
 
-```drawlib
+```python
 from drawlib._core.l2_models_._dimage import Dimage
 from drawlib.canvas import config, save
 from drawlib.images import image
@@ -428,7 +428,7 @@ save()
 - `colorize()`: Applies colors to a grayscale image. If the image is not grayscaled, it will be automatically grayscaled before colorize.
 
 
-```drawlib
+```python
 from drawlib._core.l2_models_._dimage import Dimage
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -529,7 +529,7 @@ You can apply various effects to images using Drawlib:
 Here's an example:
 
 
-```drawlib
+```python
 from drawlib._core.l2_models_._dimage import Dimage
 from drawlib.canvas import config, save
 from drawlib.images import image

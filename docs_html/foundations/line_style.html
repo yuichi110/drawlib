@@ -368,40 +368,9 @@ line((70, 35), (90, 35), style=Style(line_style=&quot;dashdot&quot;))
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="line_style_images/1.png" alt="line_style_1" />
-</div>
 <p>Running this code produces the following output:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.lines import line
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=40)
-
-text((10, 5), &quot;no style&quot;)
-line((20, 5), (40, 5))
-text((10, 15), &quot;width: 5&quot;)
-line((20, 15), (40, 15), style=Style(line_width=5))
-text((10, 25), &quot;color: Red&quot;)
-line((20, 25), (40, 25), style=Style(line_color=Colors.Red))
-text((10, 35), &quot;alpha: 0.2&quot;)
-line((20, 35), (40, 35), style=Style(fill_alpha=0.2))
-
-text((60, 5), &quot;style: solid\n(default)&quot;)
-line((70, 5), (90, 5), style=Style(line_style=&quot;solid&quot;))
-text((60, 15), &quot;style: dashed&quot;)
-line((70, 15), (90, 15), style=Style(line_style=&quot;dashed&quot;))
-text((60, 25), &quot;style: dotted&quot;)
-line((70, 25), (90, 25), style=Style(line_style=&quot;dotted&quot;))
-text((60, 35), &quot;style: dashdot&quot;)
-line((70, 35), (90, 35), style=Style(line_style=&quot;dashdot&quot;))
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="line_style_images/2.png" alt="line_style_2" style="width: 500px; max-width: 100%;" />
+  <img src="line_style_images/1.png" alt="line_style_1" style="width: 500px; max-width: 100%;" />
 </div>
 <pre><code>lines with styles
 </code></pre>
@@ -459,50 +428,9 @@ line((70, 45), (90, 45), style=LineArrowStyle(hstyle=&quot;&lt;|-|&gt;&quot;))
 save()
 &quot;&quot;&quot;
 </code></pre>
-<div class="drawlib-image">
-  <img src="line_style_images/3.png" alt="line_style_3" />
-</div>
 <p>Executing this code generates the following output:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.lines import line
-from drawlib.text import text
-from drawlib.types import Style
-
-&quot;&quot;&quot;
-config(width=100, height=50)
-
-text((10, 5), &quot;LineArrowStyle()&quot;, style=Style(text_size=14))
-line((20, 5), (40, 5), )
-text((10, 13), &quot;width: 5&quot;)
-line((20, 13), (40, 13), style=LineArrowStyle(lwidth=5))
-text((10, 21), &quot;color: Red&quot;)
-line((20, 21), (40, 21), style=LineArrowStyle(color=Colors.Red))
-text((10, 29), &quot;alpha: 0.2&quot;)
-line((20, 29), (40, 29), style=LineArrowStyle(alpha=0.2))
-text((10, 37), &quot;lstyle: dashed&quot;)
-line((20, 37), (40, 37), style=LineArrowStyle(lstyle=&quot;dashed&quot;))
-text((10, 45), &quot;hscale: 50\n(default: 20)&quot;)
-line((20, 45), (40, 45), style=LineArrowStyle(hscale=50))
-
-text((60, 5), &quot;hstyle: -&gt;\n(default)&quot;)
-line((70, 5), (90, 5), style=LineArrowStyle(hstyle=&quot;-&gt;&quot;))
-text((60, 13), &quot;style: &lt;-&quot;)
-line((70, 13), (90, 13), style=LineArrowStyle(hstyle=&quot;&lt;-&quot;))
-text((60, 21), &quot;style: &lt;-&gt;&quot;)
-line((70, 21), (90, 21), style=LineArrowStyle(hstyle=&quot;&lt;-&gt;&quot;))
-text((60, 29), &quot;style: -|&gt;&quot;)
-line((70, 29), (90, 29), style=LineArrowStyle(hstyle=&quot;-|&gt;&quot;))
-text((60, 37), &quot;style: &lt;|-&quot;)
-line((70, 37), (90, 37), style=LineArrowStyle(hstyle=&quot;&lt;|-&quot;))
-text((60, 45), &quot;style: &lt;|-|&gt;&quot;)
-line((70, 45), (90, 45), style=LineArrowStyle(hstyle=&quot;&lt;|-|&gt;&quot;))
-
-save()
-&quot;&quot;&quot;
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="line_style_images/4.png" alt="line_style_4" style="width: 500px; max-width: 100%;" />
+  <img src="line_style_images/2.png" alt="line_style_2" style="width: 500px; max-width: 100%;" />
 </div>
 <pre><code>arrow lines with styles
 </code></pre>
@@ -555,38 +483,9 @@ line((75, 35), (90, 35), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="line_style_images/5.png" alt="line_style_5" />
-</div>
 <p>Executing this code generates the following output:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.lines import line
-from drawlib.text import text
-
-config(width=100, height=40)
-
-text((12, 5), &quot;no style&quot;)
-line((25, 5), (40, 5))
-text((12, 15), 'style=&quot;red&quot;')
-line((25, 15), (40, 15), style=&quot;red&quot;)
-text((12, 25), 'style=&quot;red_solid&quot;')
-line((25, 25), (40, 25), style=&quot;red_solid&quot;)
-text((12, 35), 'style=&quot;red_dashed&quot;')
-line((25, 35), (40, 35), style=&quot;red_dashed&quot;)
-
-text((60, 5), 'style=&quot;red_solid_light&quot;')
-line((75, 5), (90, 5), arrowhead=&quot;-&gt;&quot;, style=&quot;red_solid_light&quot;)
-text((60, 15), 'style=&quot;red_solid_bold&quot;')
-line((75, 15), (90, 15), arrowhead=&quot;-&gt;&quot;, style=&quot;red_solid_bold&quot;)
-text((60, 25), 'style=&quot;dashed&quot;')
-line((75, 25), (90, 25), arrowhead=&quot;-&gt;&quot;, style=&quot;dashed&quot;)
-text((60, 35), 'style=&quot;bold&quot;')
-line((75, 35), (90, 35), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="line_style_images/6.png" alt="line_style_6" style="width: 500px; max-width: 100%;" />
+  <img src="line_style_images/3.png" alt="line_style_3" style="width: 500px; max-width: 100%;" />
 </div>
 <pre><code>lines with pre-defined style names
 </code></pre>

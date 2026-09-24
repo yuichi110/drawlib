@@ -204,8 +204,6 @@ Please remember, this naming rule is common in other official preset styles as w
 Here is a list of style names:
 
 
-
-
 ```python
 from drawlib.types import Style
 
@@ -277,10 +275,6 @@ from drawlib.types import Style
 # | Text           | x     | x           | x          |            |             |                   |                  |              |                    |                   |
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
 ```
-
-![official_default_1](official_default_images/1.png)
-
-
 
 ---
 

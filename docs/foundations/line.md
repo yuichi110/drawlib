@@ -35,8 +35,6 @@ It requires two mandatory arguments and accepts three optional arguments.
 Let's look at an example:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.lines import line
@@ -45,10 +43,6 @@ config(width=100, height=50)
 line(xy1=(10, 10), xy2=(90, 40))
 save()
 ```
-
-![line_1](line_images/1.png)
-
-
 
 In this example, we draw a line from (10, 10) to (90, 40) without specifying a style. 
 This generates the following output:
@@ -56,17 +50,8 @@ This generates the following output:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.lines import line
-
-config(width=100, height=50)
-line(xy1=(10, 10), xy2=(90, 40))
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="line_images/2.png" alt="line_2" style="width: 600px; max-width: 100%;" />
+  <img src="line_images/1.png" alt="line_1" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -101,8 +86,6 @@ Negative values can also be used for bend, which maintains the length but revers
 Let's check some examples:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.lines import line_curved
@@ -119,35 +102,14 @@ line_curved(xy1=(10, 30), xy2=(90, 30), bend=-0.4)
 text((50, 43), "-0.4")
 save()
 ```
-
-![line_3](line_images/3.png)
-
-
 
 This code generates the following output:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.lines import line_curved
-from drawlib.text import text
-
-config(width=100, height=50)
-line_curved(xy1=(10, 20), xy2=(90, 20), bend=0.4)
-text((50, 7), "0.4")
-line_curved(xy1=(10, 23), xy2=(90, 23), bend=0.2)
-text((50, 18), "0.2")
-line_curved(xy1=(10, 27), xy2=(90, 27), bend=-0.2)
-text((50, 32), "-0.2")
-line_curved(xy1=(10, 30), xy2=(90, 30), bend=-0.4)
-text((50, 43), "-0.4")
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="line_images/4.png" alt="line_4" style="width: 600px; max-width: 100%;" />
+  <img src="line_images/2.png" alt="line_2" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -177,8 +139,6 @@ If you are not familiar with Bézier curves, it is recommended to research and u
 This code generates the following output:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -203,43 +163,14 @@ circle(xy=(90, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=
 
 save()
 ```
-
-![line_5](line_images/5.png)
-
-
 
 It generate this output.
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.lines import line, line_bezier1
-from drawlib.shapes import circle
-from drawlib.types import Style
-
-config(width=100, height=50)
-line_bezier1(xy1=(10, 10), cp=(10, 40), xy2=(40, 40))
-line(xy1=(10, 10), xy2=(10, 40), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(10, 40), xy2=(40, 40), style=Style(line_style="dashed", line_color=Colors.Red))
-circle(xy=(10, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(10, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(40, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-
-line_bezier1(xy1=(60, 40), cp=(90, 40), xy2=(90, 10))
-line(xy1=(60, 40), xy2=(90, 40), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 40), xy2=(90, 10), style=Style(line_style="dashed", line_color=Colors.Red))
-circle(xy=(60, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="line_images/6.png" alt="line_6" style="width: 600px; max-width: 100%;" />
+  <img src="line_images/3.png" alt="line_3" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -269,8 +200,6 @@ If you are not familiar with Bézier curves, it is recommended to research and u
 Here is an example code:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -299,47 +228,14 @@ circle(xy=(90, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=
 
 save()
 ```
-
-![line_7](line_images/7.png)
-
-
 
 Executing this code generates the following output:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.lines import line, line_bezier2
-from drawlib.shapes import circle
-from drawlib.types import Style
-
-config(width=100, height=50)
-line_bezier2(xy1=(10, 10), cp1=(10, 40), cp2=(40, 40), xy2=(40, 10))
-line(xy1=(10, 10), xy2=(10, 40), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(10, 40), xy2=(40, 40), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(40, 40), xy2=(40, 10), style=Style(line_style="dashed", line_color=Colors.Red))
-circle(xy=(10, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(10, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(40, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(40, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-
-line_bezier2(xy1=(60, 40), cp1=(60, 10), cp2=(90, 10), xy2=(90, 40))
-line(xy1=(60, 40), xy2=(60, 10), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(60, 10), xy2=(90, 10), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 10), xy2=(90, 40), style=Style(line_style="dashed", line_color=Colors.Red))
-circle(xy=(60, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(60, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="line_images/8.png" alt="line_8" style="width: 600px; max-width: 100%;" />
+  <img src="line_images/4.png" alt="line_4" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -371,8 +267,6 @@ The `xys` argument differs from the previous functions, but it is simply a list 
 Here is an example code:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.lines import lines
@@ -390,36 +284,14 @@ lines(
 )
 save()
 ```
-
-![line_9](line_images/9.png)
-
-
 
 It generate this output.
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.lines import lines
-
-config(width=100, height=50)
-lines(
-    xys=[
-        (10, 10),
-        (10, 20),
-        (40, 30),
-        (40, 40),
-        (60, 40),
-        (90, 10),
-    ]
-)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="line_images/10.png" alt="line_10" style="width: 600px; max-width: 100%;" />
+  <img src="line_images/5.png" alt="line_5" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -454,8 +326,6 @@ We set almost the same arguments for elements of the path_points.
 Let's see how it works with an example:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -490,10 +360,6 @@ circle(xy=(90, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=
 
 save()
 ```
-
-![line_11](line_images/11.png)
-
-
 
 In this example, we use all three types of tuples as elements of path_points. 
 They will create a straight line, a bezier1 line, and a bezier2 line. 
@@ -503,43 +369,8 @@ Executing this code generates the following output:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.lines import line, lines_bezier
-from drawlib.shapes import circle
-from drawlib.types import Style
-
-config(width=100, height=50)
-
-points = [
-    ((10, 20), (30, 20)),
-    (60, 10),
-    ((60, 40), (90, 40), (90, 10)),
-]
-lines_bezier(xy=(10, 40), path_points=points)
-
-# bezier1 help line
-line(xy1=(10, 40), xy2=(10, 20), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(10, 20), xy2=(30, 20), style=Style(line_style="dashed", line_color=Colors.Red))
-circle(xy=(10, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(10, 20), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(30, 20), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-
-# bezier2 help line
-line(xy1=(60, 10), xy2=(60, 40), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(60, 40), xy2=(90, 40), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 40), xy2=(90, 10), style=Style(line_style="dashed", line_color=Colors.Red))
-circle(xy=(60, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(60, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="line_images/12.png" alt="line_12" style="width: 600px; max-width: 100%;" />
+  <img src="line_images/6.png" alt="line_6" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -584,7 +415,7 @@ save()
 ```
 
 <div class="drawlib-image" style="text-align: center;">
-  <img src="line_images/13.png" alt="line_13" style="width: 600px; max-width: 100%;" />
+  <img src="line_images/7.png" alt="line_7" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -617,8 +448,6 @@ It takes two mandatory arguments and three optional arguments.
 Here is an example code:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -642,42 +471,14 @@ lines_curved(
 circle((90, 10), radius=5)
 save()
 ```
-
-![line_14](line_images/14.png)
-
-
 
 Executing this code generates the following output:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.lines import lines, lines_curved
-from drawlib.shapes import circle
-from drawlib.types import Style
-
-config(width=100, height=50)
-
-circle((10, 40), radius=5)
-lines(
-    [(20, 40), (30, 40), (30, 10), (90, 40), (90, 22)],
-    style=Style(line_color=Colors.Red, line_style="dashed", line_width=1.5),
-)
-lines_curved(
-    [(20, 40), (30, 40), (30, 10), (90, 40), (90, 20)],
-    r=8,
-    width=2.5,
-    arrowhead="->",
-)
-circle((90, 10), radius=5)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="line_images/15.png" alt="line_15" style="width: 600px; max-width: 100%;" />
+  <img src="line_images/8.png" alt="line_8" style="width: 600px; max-width: 100%;" />
 </div>
 
 

@@ -334,21 +334,9 @@ text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, size=24)
 text(xy=(75, 25), text=&quot;こんにちは Drawlib.&quot;, angle=45)
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="text_images/1.png" alt="text_1" />
-</div>
 <p>Below is a figure illustrating these examples:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.text import text
-
-config(width=100, height=50)
-text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;)
-text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, size=24)
-text(xy=(75, 25), text=&quot;こんにちは Drawlib.&quot;, angle=45)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="text_images/2.png" alt="text_2" style="width: 600px; max-width: 100%;" />
+  <img src="text_images/1.png" alt="text_1" style="width: 600px; max-width: 100%;" />
 </div>
 <p>text()</p>
 <p>Drawlib's default preset styles use the multilingual font &quot;Noto Sans CJK Japanese&quot;.
@@ -377,21 +365,9 @@ text_vertical(xy=(35, 25), text=&quot;Hello Drawlib.&quot;, size=12)
 text_vertical(xy=(75, 25), text=&quot;こんにちは Drawlib.&quot;, angle=45)
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="text_images/3.png" alt="text_3" />
-</div>
 <p>Below is a figure illustrating these examples:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.text import text, text_vertical
-
-config(width=100, height=50)
-text_vertical(xy=(15, 25), text=&quot;Hello Drawlib.&quot;)
-text_vertical(xy=(35, 25), text=&quot;Hello Drawlib.&quot;, size=12)
-text_vertical(xy=(75, 25), text=&quot;こんにちは Drawlib.&quot;, angle=45)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="text_images/4.png" alt="text_4" style="width: 600px; max-width: 100%;" />
+  <img src="text_images/2.png" alt="text_2" style="width: 600px; max-width: 100%;" />
 </div>
 <p>text_vertical()</p>
 <p>Please use <code>text_halign=&quot;center&quot;</code> in Style.
@@ -452,49 +428,10 @@ text(
 )
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="text_images/5.png" alt="text_5" />
-</div>
 <p>The left-side example configures alignment and text style, while the right-side example configures text background style.
 Below is a figure illustrating these examples:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.colors import Colors, Colors140
-from drawlib.fonts import FontSerif
-from drawlib.shapes import circle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=50, grid_only=True)
-text(
-    xy=(15, 25),
-    text=&quot;Hello Drawlib.&quot;,
-    style=Style(
-        text_color=Colors140.Turquoise,
-        text_size=24,
-        text_halign=&quot;left&quot;,
-        text_valign=&quot;bottom&quot;,
-        text_font=FontSerif.MERRIWEATHER_REGULAR,
-    ),
-)
-circle(xy=(15, 25), radius=0.5, style=Style(fill_color=Colors.Red, line_width=0))
-text((15, 22), &quot;align: left,bottom&quot;)
-
-text(
-    xy=(75, 25),
-    angle=45,
-    text=&quot;こんにちは Drawlib.&quot;,
-    style=Style(
-        text_color=Colors.White,
-        text_bg_line_width=2,
-        text_bg_line_color=Colors.Red,
-        text_bg_line_style=&quot;dashed&quot;,
-        text_bg_fill_color=Colors.Black,
-    ),
-)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="text_images/6.png" alt="text_6" style="width: 600px; max-width: 100%;" />
+  <img src="text_images/3.png" alt="text_3" style="width: 600px; max-width: 100%;" />
 </div>
 <p>Text with Style</p>
 <p>In our opinion, there are few chances to use text background.
@@ -549,34 +486,9 @@ text(xy=(75, 55), text=&quot;สวัสดี ดรอว์ลิบ&quot;, 
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="text_images/7.png" alt="text_7" />
-</div>
 <p>Below is a figure illustrating these examples:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.fonts import Font, FontJapanese, FontMonoSpace, FontRoboto, FontSansSerif, FontSerif, FontThai
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=60, grid_only=True)
-text(xy=(25, 5), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SANSSERIF_LIGHT))
-text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SANSSERIF_REGULAR))
-text(xy=(25, 25), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SANSSERIF_BOLD))
-text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SERIF_LIGHT))
-text(xy=(25, 45), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SERIF_REGULAR))
-text(xy=(25, 55), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SERIF_BOLD))
-
-text(xy=(75, 5), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=FontRoboto.ROBOTO_REGULAR))
-text(xy=(75, 15), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=FontSansSerif.RALEWAYS_REGULAR))
-text(xy=(75, 25), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=FontSerif.MERRIWEATHER_REGULAR))
-text(xy=(75, 35), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=FontMonoSpace.SOURCECODEPRO_REGULAR))
-text(xy=(75, 45), text=&quot;こんにちは Drawlib.&quot;, style=Style(text_font=FontJapanese.MPLUS1P_REGULAR))
-text(xy=(75, 55), text=&quot;สวัสดี ดรอว์ลิบ&quot;, style=Style(text_font=FontThai.SERIF_REGULAR))
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="text_images/8.png" alt="text_8" style="width: 600px; max-width: 100%;" />
+  <img src="text_images/4.png" alt="text_4" style="width: 600px; max-width: 100%;" />
 </div>
 <p>Fonts</p>
 <p>To change font styles, refer to the preset styles documentation.
@@ -601,27 +513,9 @@ text(
 )
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="text_images/9.png" alt="text_9" />
-</div>
 <p>Below is a figure illustrating these examples:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=50)
-text(
-    (50, 25),
-    &quot;Hello Drawlib!&quot;,
-    style=Style(
-        text_size=36,
-        text_font=FontFile(&quot;./avenger/regular.ttf&quot;),
-    ),
-)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="text_images/10.png" alt="text_10" style="width: 600px; max-width: 100%;" />
+  <img src="text_images/5.png" alt="text_5" style="width: 600px; max-width: 100%;" />
 </div>
 <p>FontFile</p>
 <p>You can check the list of fonts supported by Drawlib in the Font documentation.</p>
@@ -647,22 +541,9 @@ text(xy=(75, 15), text=&quot;Hello Drawlib.&quot;, style=&quot;blue_light&quot;)
 text(xy=(75, 35), text=&quot;Hello Drawlib.&quot;, size=24, style=&quot;green_bold&quot;)
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="text_images/11.png" alt="text_11" />
-</div>
 <p>Below is a figure illustrating these examples:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.text import text
-
-config(width=100, height=50)
-text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;, style=&quot;red&quot;)
-text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, size=12, style=&quot;bold&quot;)
-text(xy=(75, 15), text=&quot;Hello Drawlib.&quot;, style=&quot;blue_light&quot;)
-text(xy=(75, 35), text=&quot;Hello Drawlib.&quot;, size=24, style=&quot;green_bold&quot;)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="text_images/12.png" alt="text_12" style="width: 600px; max-width: 100%;" />
+  <img src="text_images/6.png" alt="text_6" style="width: 600px; max-width: 100%;" />
 </div>
 <p>Pre-defined text styles</p>
 <hr />

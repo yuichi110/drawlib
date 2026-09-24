@@ -45,8 +45,6 @@ This function requires the following arguments:
 Let's explore two examples.
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import arc
@@ -65,10 +63,6 @@ arc(
 )
 save()
 ```
-
-![shape_rectangle_1](shape_rectangle_images/1.png)
-
-
 
 Handling angles is similar to functions like `donuts()`. 
 Please refer to its explanation for more details. 
@@ -77,27 +71,8 @@ Here's an example output:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import arc
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-arc(xy=(25, 25), width=30, height=20, angle_start=0, angle_end=135)
-arc(
-    xy=(75, 25),
-    width=40,
-    height=30,
-    angle_start=0,
-    angle_end=135,
-    angle=45,
-    text="arc",
-)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_rectangle_images/2.png" alt="shape_rectangle_2" style="width: 600px; max-width: 100%;" />
+  <img src="shape_rectangle_images/1.png" alt="shape_rectangle_1" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -129,8 +104,6 @@ This function takes the following arguments:
 Let's explore two examples:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import chevron
@@ -141,10 +114,6 @@ chevron(xy=(25, 25), width=30, height=20, corner_angle=30)
 chevron(xy=(75, 25), width=35, height=25, corner_angle=60, mirror=True, angle=45, text="chevron()")
 save()
 ```
-
-![shape_rectangle_3](shape_rectangle_images/3.png)
-
-
 
 The shape of the chevron is influenced by `corner_angle`. 
 When `mirror` is set to True, the chevron is horizontally reversed. 
@@ -153,19 +122,8 @@ Here is an example output:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import chevron
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-chevron(xy=(25, 25), width=30, height=20, corner_angle=30)
-chevron(xy=(75, 25), width=35, height=25, corner_angle=60, mirror=True, angle=45, text="chevron()")
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_rectangle_images/4.png" alt="shape_rectangle_4" style="width: 600px; max-width: 100%;" />
+  <img src="shape_rectangle_images/2.png" alt="shape_rectangle_2" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -194,8 +152,6 @@ This function accepts the following arguments:
 Let's explore two examples:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import ellipse
@@ -206,29 +162,14 @@ ellipse(xy=(25, 25), width=30, height=20)
 ellipse(xy=(75, 25), width=35, height=25, angle=45, text="ellipse()")
 save()
 ```
-
-![shape_rectangle_5](shape_rectangle_images/5.png)
-
-
 
 Here is an example output:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import ellipse
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-ellipse(xy=(25, 25), width=30, height=20)
-ellipse(xy=(75, 25), width=35, height=25, angle=45, text="ellipse()")
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_rectangle_images/6.png" alt="shape_rectangle_6" style="width: 600px; max-width: 100%;" />
+  <img src="shape_rectangle_images/3.png" alt="shape_rectangle_3" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -260,8 +201,6 @@ This function accepts the following arguments:
 Let's explore two examples.
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import parallelogram
@@ -272,29 +211,14 @@ parallelogram(xy=(25, 25), width=20, height=15, corner_angle=30)
 parallelogram(xy=(75, 25), width=30, height=20, corner_angle=60, angle=45, text="parallelogram()")
 save()
 ```
-
-![shape_rectangle_7](shape_rectangle_images/7.png)
-
-
 
 Here is an example output:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import parallelogram
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-parallelogram(xy=(25, 25), width=20, height=15, corner_angle=30)
-parallelogram(xy=(75, 25), width=30, height=20, corner_angle=60, angle=45, text="parallelogram()")
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_rectangle_images/8.png" alt="shape_rectangle_8" style="width: 600px; max-width: 100%;" />
+  <img src="shape_rectangle_images/4.png" alt="shape_rectangle_4" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -325,8 +249,6 @@ This function accepts the following arguments:
 Let's explore two examples:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import rectangle
@@ -337,29 +259,14 @@ rectangle(xy=(25, 25), width=30, height=20)
 rectangle(xy=(75, 25), width=35, height=25, r=2, angle=45, text="rectangle()")
 save()
 ```
-
-![shape_rectangle_9](shape_rectangle_images/9.png)
-
-
 
 Here is an example output:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import rectangle
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-rectangle(xy=(25, 25), width=30, height=20)
-rectangle(xy=(75, 25), width=35, height=25, r=2, angle=45, text="rectangle()")
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_rectangle_images/10.png" alt="shape_rectangle_10" style="width: 600px; max-width: 100%;" />
+  <img src="shape_rectangle_images/5.png" alt="shape_rectangle_5" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -387,8 +294,6 @@ This function accepts the following arguments:
 Let's explore two examples:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import rhombus
@@ -399,29 +304,14 @@ rhombus(xy=(25, 25), width=20, height=40)
 rhombus(xy=(75, 25), width=40, height=20, angle=45, text="rhombus()")
 save()
 ```
-
-![shape_rectangle_11](shape_rectangle_images/11.png)
-
-
 
 Here is an example output:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import rhombus
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-rhombus(xy=(25, 25), width=20, height=40)
-rhombus(xy=(75, 25), width=40, height=20, angle=45, text="rhombus()")
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_rectangle_images/12.png" alt="shape_rectangle_12" style="width: 600px; max-width: 100%;" />
+  <img src="shape_rectangle_images/6.png" alt="shape_rectangle_6" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -453,8 +343,6 @@ This function takes these arguments.
 Let's explore two examples:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import trapezoid
@@ -473,37 +361,14 @@ trapezoid(
 )
 save()
 ```
-
-![shape_rectangle_13](shape_rectangle_images/13.png)
-
-
 
 Here is an example output:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import trapezoid
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-trapezoid(xy=(25, 25), height=20, bottomedge_width=30, topedge_width=20)
-trapezoid(
-    xy=(75, 25),
-    height=20,
-    bottomedge_width=30,
-    topedge_width=20,
-    topedge_x=0,
-    angle=45,
-    text="trapezoid()",
-)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_rectangle_images/14.png" alt="shape_rectangle_14" style="width: 600px; max-width: 100%;" />
+  <img src="shape_rectangle_images/7.png" alt="shape_rectangle_7" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -534,8 +399,6 @@ This function accepts the following arguments:
 Let's explore two examples:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import rectangle, triangle
@@ -546,29 +409,14 @@ triangle(xy=(25, 25), width=30, height=20)
 triangle(xy=(75, 25), width=35, height=25, topvertex_x=0, angle=45, text="rectangle()")
 save()
 ```
-
-![shape_rectangle_15](shape_rectangle_images/15.png)
-
-
 
 Here is an example output:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import rectangle, triangle
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-triangle(xy=(25, 25), width=30, height=20)
-triangle(xy=(75, 25), width=35, height=25, topvertex_x=0, angle=45, text="rectangle()")
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_rectangle_images/16.png" alt="shape_rectangle_16" style="width: 600px; max-width: 100%;" />
+  <img src="shape_rectangle_images/8.png" alt="shape_rectangle_8" style="width: 600px; max-width: 100%;" />
 </div>
 
 

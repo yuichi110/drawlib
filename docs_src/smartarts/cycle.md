@@ -2,7 +2,7 @@
 
 Class `Cycle` renders circular and cyclical process diagrams, perfect for continuous workflows such as PDCA loops, agile iterations, life cycles, and feedback mechanisms.
 
-```drawlib 650px center caption:"Classic PDCA Circular Cycle"
+```drawlib show-code 650px center caption:"Classic PDCA Circular Cycle"
 from drawlib import canvas
 from drawlib.smartarts import Cycle
 
@@ -24,7 +24,7 @@ cycle.append("Act", description="Improve")
 cycle.draw(xy=(50.0, 50.0), radius=32.0)
 ```
 
-```drawlib 650px center caption:"5-Stage Lifecycle with Rectangle Nodes"
+```drawlib show-code 650px center caption:"5-Stage Lifecycle with Rectangle Nodes"
 from drawlib import canvas
 from drawlib.smartarts import Cycle
 

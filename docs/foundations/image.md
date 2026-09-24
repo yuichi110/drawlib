@@ -28,8 +28,6 @@ Coordinates and alignment work similarly to other drawing elements.
 Let's start with an example:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.images import image
@@ -42,31 +40,14 @@ image(xy=(75, 25), width=30, image="python.png")
 
 save()
 ```
-
-![image_1](image_images/1.png)
-
-
 
 Executing this code generates the following output:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.images import image
-
-config(width=100, height=50, grid_only=True)
-
-image(xy=(15, 25), width=10, image="python.png")
-image(xy=(40, 25), width=20, image="python.png")
-image(xy=(75, 25), width=30, image="python.png")
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="image_images/2.png" alt="image_2" style="width: 600px; max-width: 100%;" />
+  <img src="image_images/1.png" alt="image_1" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -93,8 +74,6 @@ Let's check image styling with example.
 Here is a code which specify stylings.
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -127,10 +106,6 @@ text((85, 5), "angle: 45")
 
 save()
 ```
-
-![image_3](image_images/3.png)
-
-
 
 The first image changes alignment.
 Default alignment is center,center, but left,bottom might be useful sometimes.
@@ -146,41 +121,8 @@ Executing code generates this output.
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.images import image
-from drawlib.shapes import circle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=50, grid_only=True)
-
-image(
-    xy=(10, 25),
-    width=10,
-    image="python.png",
-    style=Style(text_halign="left", text_valign="bottom"),
-)
-circle((10, 25), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
-text((15, 20), "align: left,bottom")
-
-image(
-    xy=(40, 25),
-    width=20,
-    image="python.png",
-    style=Style(line_width=2, line_style="dashed", line_color=Colors.Red, fill_color=Colors.Gray),
-)
-text((40, 10), "border: red,dot,width2")
-
-image(xy=(75, 25), width=30, image="python.png", angle=45, style="green_solid")
-text((85, 5), "angle: 45")
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="image_images/4.png" alt="image_4" style="width: 600px; max-width: 100%;" />
+  <img src="image_images/2.png" alt="image_2" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -202,8 +144,6 @@ While file paths are commonly used, image() also accepts the following image obj
 Here's an example demonstrating how to use these objects:
 
 
-
-
 ```python
 import PIL.Image
 from drawlib._core.l2_models_._dimage import Dimage
@@ -229,10 +169,6 @@ pil_image = PIL.Image.open(file_path)
 image(xy=(80, 25), width=20, image=pil_image)
 save()
 ```
-
-![image_5](image_images/5.png)
-
-
 
 Both instances are passed to arg `image`.
 Function `image()` will handle them correctly.
@@ -247,34 +183,8 @@ This utility function adjusts the path rule to match drawlib's conventions.
 
 
 
-```python
-import PIL.Image
-from drawlib._core.l2_models_._dimage import Dimage
-from drawlib._utils import dutil_script
-from drawlib.canvas import config, save
-from drawlib.images import image
-
-file_path = dutil_script.get_relative_path("python.png")
-print(file_path)
-# /Users/yuichi/GitHub/drawlib_docs/v0_1/docs/source/manual/foundations/image/python.png
-
-config(width=100, height=50, grid_only=True)
-
-# specify file
-image(xy=(20, 25), width=20, image="python.png")
-
-# specify Dimage
-dimage = Dimage("python.png")
-image(xy=(50, 25), width=20, image=dimage)
-
-# specify PIL Image
-pil_image = PIL.Image.open(file_path)
-image(xy=(80, 25), width=20, image=pil_image)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="image_images/6.png" alt="image_6" style="width: 500px; max-width: 100%;" />
+  <img src="image_images/3.png" alt="image_3" style="width: 500px; max-width: 100%;" />
 </div>
 
 

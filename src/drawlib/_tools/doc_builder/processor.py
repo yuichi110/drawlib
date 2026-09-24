@@ -21,7 +21,7 @@ import sys
 import tempfile
 import warnings
 from dataclasses import dataclass
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Literal, Optional
 
 import drawlib._core.l4_canvas._canvas
 import drawlib.canvas
@@ -44,6 +44,7 @@ class DrawlibBlockOptions:
     caption: Optional[str] = None
     css_class: Optional[str] = None
     file: Optional[str] = None
+    code: Literal["hide", "show", "fold"] = "hide"
 
 
 def _resolve_block_image_paths(
@@ -298,6 +299,14 @@ class DrawlibBlockProcessor:
 
             if key_lower == "type":
                 continue
+            elif key_lower == "code":
+                val_code = val_clean.lower()
+                if val_code == "show":
+                    options.code = "show"
+                elif val_code == "fold":
+                    options.code = "fold"
+                elif val_code == "hide":
+                    options.code = "hide"
             elif key_lower in {"width", "w"}:
                 options.width = val_clean if (val_clean.endswith("px") or val_clean.endswith("%")) else f"{val_clean}px"
             elif key_lower in {"height", "h"}:
@@ -319,7 +328,13 @@ class DrawlibBlockProcessor:
                 options.file = val_clean
             elif not key_lower:
                 val_lower = val_clean.lower()
-                if val_lower in {"left", "center", "right"}:
+                if val_lower in {"show-code", "show_code"}:
+                    options.code = "show"
+                elif val_lower in {"fold-code", "fold_code"}:
+                    options.code = "fold"
+                elif val_lower in {"hide-code", "hide_code"}:
+                    options.code = "hide"
+                elif val_lower in {"left", "center", "right"}:
                     options.align = val_lower
                 elif val_lower in {"png", "webp"}:
                     options.format = val_lower
@@ -428,7 +443,18 @@ class DrawlibBlockProcessor:
                 wrapper = self._format_image_wrapper(data_url, alt, options)
                 if progress_callback is not None:
                     progress_callback(block_counter, total_blocks, False)
-                return f"\n\n```python\n{code}\n```\n\n{wrapper}\n\n"
+                if options.code == "show":
+                    return f"\n\n```python\n{code}\n```\n\n{wrapper}\n\n"
+                elif options.code == "fold":
+                    return (
+                        f"\n\n{wrapper}\n\n"
+                        f'<details class="drawlib-code-details">\n'
+                        f"<summary>Source Code</summary>\n\n"
+                        f"```python\n{code}\n```\n\n"
+                        f"</details>\n\n"
+                    )
+                else:
+                    return f"\n\n{wrapper}\n\n"
 
             rel_img_path, target_img_path = _resolve_block_image_paths(
                 options=options,
@@ -446,10 +472,22 @@ class DrawlibBlockProcessor:
                 options.width or options.height or options.align or options.caption or options.css_class
             )
             if use_markdown_syntax and not has_custom_options:
-                return f"\n\n```python\n{code}\n```\n\n![{doc_base_name}_{block_counter}]({rel_img_path})\n\n"
+                img_part = f"![{doc_base_name}_{block_counter}]({rel_img_path})"
+            else:
+                img_part = self._format_image_wrapper(rel_img_path, f"{doc_base_name}_{block_counter}", options)
 
-            wrapper = self._format_image_wrapper(rel_img_path, f"{doc_base_name}_{block_counter}", options)
-            return f"\n\n```python\n{code}\n```\n\n{wrapper}\n\n"
+            if options.code == "show":
+                return f"\n\n```python\n{code}\n```\n\n{img_part}\n\n"
+            elif options.code == "fold":
+                return (
+                    f"\n\n{img_part}\n\n"
+                    f'<details class="drawlib-code-details">\n'
+                    f"<summary>Source Code</summary>\n\n"
+                    f"```python\n{code}\n```\n\n"
+                    f"</details>\n\n"
+                )
+            else:
+                return f"\n\n{img_part}\n\n"
 
         res = pattern.sub(replacer, text_to_search)
         return res[1:] if prepend_newline else res
@@ -499,7 +537,18 @@ class DrawlibBlockProcessor:
                 wrapper = self._format_image_wrapper(data_url, alt, options)
                 if progress_callback is not None:
                     progress_callback(block_counter, total_blocks, False)
-                return f'<pre><code class="language-python">{code}</code></pre>\n{wrapper}'
+                if options.code == "show":
+                    return f'<pre><code class="language-python">{code}</code></pre>\n{wrapper}'
+                elif options.code == "fold":
+                    return (
+                        f"{wrapper}\n"
+                        f'<details class="drawlib-code-details">\n'
+                        f"<summary>Source Code</summary>\n"
+                        f'<pre><code class="language-python">{code}</code></pre>\n'
+                        f"</details>"
+                    )
+                else:
+                    return wrapper
 
             rel_img_path, target_img_path = _resolve_block_image_paths(
                 options=options,
@@ -513,7 +562,18 @@ class DrawlibBlockProcessor:
             if progress_callback is not None:
                 progress_callback(block_counter, total_blocks, False)
             wrapper = self._format_image_wrapper(rel_img_path, f"{doc_base_name}_{block_counter}", options)
-            return f'<pre><code class="language-python">{code}</code></pre>\n{wrapper}'
+            if options.code == "show":
+                return f'<pre><code class="language-python">{code}</code></pre>\n{wrapper}'
+            elif options.code == "fold":
+                return (
+                    f"{wrapper}\n"
+                    f'<details class="drawlib-code-details">\n'
+                    f"<summary>Source Code</summary>\n"
+                    f'<pre><code class="language-python">{code}</code></pre>\n'
+                    f"</details>"
+                )
+            else:
+                return wrapper
 
         return pattern_script.sub(replacer_script, html_text)
 

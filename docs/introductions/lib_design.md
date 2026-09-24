@@ -22,6 +22,13 @@ Drawlib is structured around the following APIs:
 
 
 
+<div class="drawlib-image" style="text-align: center;">
+  <img src="lib_design_images/1.png" alt="lib_design_1" style="width: 600px; max-width: 100%;" />
+</div>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -113,9 +120,7 @@ top()
 save()
 ```
 
-<div class="drawlib-image" style="text-align: center;">
-  <img src="lib_design_images/1.png" alt="lib_design_1" style="width: 600px; max-width: 100%;" />
-</div>
+</details>
 
 
 

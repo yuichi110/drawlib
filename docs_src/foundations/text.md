@@ -31,7 +31,7 @@ We will explain style later, so for now, we will focus on the other arguments.
 Here are three examples:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.text import text
 
@@ -83,7 +83,7 @@ The arguments are exactly the same as those for `text()`.
 Here are three examples:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.text import text, text_vertical
 
@@ -141,7 +141,7 @@ By default, no background is drawn.
 Here are 2 examples.
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontSerif
@@ -269,7 +269,7 @@ And currently, we use Google fonts.
 Here are font examples.
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.fonts import Font, FontJapanese, FontMonoSpace, FontRoboto, FontSansSerif, FontSerif, FontThai
 from drawlib.text import text
@@ -337,7 +337,7 @@ This class can be used in place of the basic font classes and accepts a font fil
 Here is an examples which uses font avenger.
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.text import text
 from drawlib.types import Style
@@ -398,7 +398,7 @@ Each weight type variation includes different font weights:
 Here is an example script that demonstrates the use of pre-defined text styles:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.text import text
 

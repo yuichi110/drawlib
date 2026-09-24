@@ -123,3 +123,8 @@ th {
     font-size: 0.82rem;
     color: #59636e;
 }
+
+.drawlib-code-details {
+    display: none !important;
+}
+

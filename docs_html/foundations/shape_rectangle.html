@@ -351,31 +351,11 @@ arc(
 )
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="shape_rectangle_images/1.png" alt="shape_rectangle_1" />
-</div>
 <p>Handling angles is similar to functions like <code>donuts()</code>.
 Please refer to its explanation for more details.
 Here's an example output:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.shapes import arc
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-arc(xy=(25, 25), width=30, height=20, angle_start=0, angle_end=135)
-arc(
-    xy=(75, 25),
-    width=40,
-    height=30,
-    angle_start=0,
-    angle_end=135,
-    angle=45,
-    text=&quot;arc&quot;,
-)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_rectangle_images/2.png" alt="shape_rectangle_2" style="width: 600px; max-width: 100%;" />
+  <img src="shape_rectangle_images/1.png" alt="shape_rectangle_1" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>arc()
 </code></pre>
@@ -406,23 +386,11 @@ chevron(xy=(25, 25), width=30, height=20, corner_angle=30)
 chevron(xy=(75, 25), width=35, height=25, corner_angle=60, mirror=True, angle=45, text=&quot;chevron()&quot;)
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="shape_rectangle_images/3.png" alt="shape_rectangle_3" />
-</div>
 <p>The shape of the chevron is influenced by <code>corner_angle</code>.
 When <code>mirror</code> is set to True, the chevron is horizontally reversed.
 Here is an example output:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.shapes import chevron
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-chevron(xy=(25, 25), width=30, height=20, corner_angle=30)
-chevron(xy=(75, 25), width=35, height=25, corner_angle=60, mirror=True, angle=45, text=&quot;chevron()&quot;)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_rectangle_images/4.png" alt="shape_rectangle_4" style="width: 600px; max-width: 100%;" />
+  <img src="shape_rectangle_images/2.png" alt="shape_rectangle_2" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>chevron()
 </code></pre>
@@ -450,21 +418,9 @@ ellipse(xy=(25, 25), width=30, height=20)
 ellipse(xy=(75, 25), width=35, height=25, angle=45, text=&quot;ellipse()&quot;)
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="shape_rectangle_images/5.png" alt="shape_rectangle_5" />
-</div>
 <p>Here is an example output:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.shapes import ellipse
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-ellipse(xy=(25, 25), width=30, height=20)
-ellipse(xy=(75, 25), width=35, height=25, angle=45, text=&quot;ellipse()&quot;)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_rectangle_images/6.png" alt="shape_rectangle_6" style="width: 600px; max-width: 100%;" />
+  <img src="shape_rectangle_images/3.png" alt="shape_rectangle_3" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>ellipse()
 </code></pre>
@@ -495,21 +451,9 @@ parallelogram(xy=(25, 25), width=20, height=15, corner_angle=30)
 parallelogram(xy=(75, 25), width=30, height=20, corner_angle=60, angle=45, text=&quot;parallelogram()&quot;)
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="shape_rectangle_images/7.png" alt="shape_rectangle_7" />
-</div>
 <p>Here is an example output:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.shapes import parallelogram
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-parallelogram(xy=(25, 25), width=20, height=15, corner_angle=30)
-parallelogram(xy=(75, 25), width=30, height=20, corner_angle=60, angle=45, text=&quot;parallelogram()&quot;)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_rectangle_images/8.png" alt="shape_rectangle_8" style="width: 600px; max-width: 100%;" />
+  <img src="shape_rectangle_images/4.png" alt="shape_rectangle_4" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>parallelogram()
 </code></pre>
@@ -538,21 +482,9 @@ rectangle(xy=(25, 25), width=30, height=20)
 rectangle(xy=(75, 25), width=35, height=25, r=2, angle=45, text=&quot;rectangle()&quot;)
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="shape_rectangle_images/9.png" alt="shape_rectangle_9" />
-</div>
 <p>Here is an example output:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.shapes import rectangle
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-rectangle(xy=(25, 25), width=30, height=20)
-rectangle(xy=(75, 25), width=35, height=25, r=2, angle=45, text=&quot;rectangle()&quot;)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_rectangle_images/10.png" alt="shape_rectangle_10" style="width: 600px; max-width: 100%;" />
+  <img src="shape_rectangle_images/5.png" alt="shape_rectangle_5" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>rectangle()
 </code></pre>
@@ -579,21 +511,9 @@ rhombus(xy=(25, 25), width=20, height=40)
 rhombus(xy=(75, 25), width=40, height=20, angle=45, text=&quot;rhombus()&quot;)
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="shape_rectangle_images/11.png" alt="shape_rectangle_11" />
-</div>
 <p>Here is an example output:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.shapes import rhombus
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-rhombus(xy=(25, 25), width=20, height=40)
-rhombus(xy=(75, 25), width=40, height=20, angle=45, text=&quot;rhombus()&quot;)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_rectangle_images/12.png" alt="shape_rectangle_12" style="width: 600px; max-width: 100%;" />
+  <img src="shape_rectangle_images/6.png" alt="shape_rectangle_6" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>rhombus()
 </code></pre>
@@ -632,29 +552,9 @@ trapezoid(
 )
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="shape_rectangle_images/13.png" alt="shape_rectangle_13" />
-</div>
 <p>Here is an example output:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.shapes import trapezoid
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-trapezoid(xy=(25, 25), height=20, bottomedge_width=30, topedge_width=20)
-trapezoid(
-    xy=(75, 25),
-    height=20,
-    bottomedge_width=30,
-    topedge_width=20,
-    topedge_x=0,
-    angle=45,
-    text=&quot;trapezoid()&quot;,
-)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_rectangle_images/14.png" alt="shape_rectangle_14" style="width: 600px; max-width: 100%;" />
+  <img src="shape_rectangle_images/7.png" alt="shape_rectangle_7" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>trapezoid()
 </code></pre>
@@ -684,21 +584,9 @@ triangle(xy=(25, 25), width=30, height=20)
 triangle(xy=(75, 25), width=35, height=25, topvertex_x=0, angle=45, text=&quot;rectangle()&quot;)
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="shape_rectangle_images/15.png" alt="shape_rectangle_15" />
-</div>
 <p>Here is an example output:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.shapes import rectangle, triangle
-from drawlib.text import text
-
-config(width=100, height=50, grid_only=True)
-triangle(xy=(25, 25), width=30, height=20)
-triangle(xy=(75, 25), width=35, height=25, topvertex_x=0, angle=45, text=&quot;rectangle()&quot;)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_rectangle_images/16.png" alt="shape_rectangle_16" style="width: 600px; max-width: 100%;" />
+  <img src="shape_rectangle_images/8.png" alt="shape_rectangle_8" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>triangle()
 </code></pre>

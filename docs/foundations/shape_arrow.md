@@ -84,6 +84,13 @@ Understanding how to specify arrow size might be useful.
 
 
 
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_arrow_images/2.png" alt="shape_arrow_2" style="width: 600px; max-width: 100%;" />
+</div>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
 ```python
 from drawlib.canvas import config, save
 from drawlib.fonts import FontRoboto
@@ -113,9 +120,7 @@ text((55, 10), "head_length")
 save()
 ```
 
-<div class="drawlib-image" style="text-align: center;">
-  <img src="shape_arrow_images/2.png" alt="shape_arrow_2" style="width: 600px; max-width: 100%;" />
-</div>
+</details>
 
 
 
@@ -131,6 +136,13 @@ You can specify arrow direction via arg `head`.
 
 
 
+
+<div class="drawlib-image" style="text-align: center;">
+  <img src="shape_arrow_images/3.png" alt="shape_arrow_3" style="width: 600px; max-width: 100%;" />
+</div>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
 
 ```python
 from drawlib.canvas import config, save
@@ -154,9 +166,7 @@ text((80, 15), 'head="<->"')
 save()
 ```
 
-<div class="drawlib-image" style="text-align: center;">
-  <img src="shape_arrow_images/3.png" alt="shape_arrow_3" style="width: 600px; max-width: 100%;" />
-</div>
+</details>
 
 
 
@@ -194,8 +204,6 @@ This function accepts the following arguments:
 Let's explore an example:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.fonts import FontRoboto
@@ -217,40 +225,14 @@ arrow(
 )
 save()
 ```
-
-![shape_arrow_4](shape_arrow_images/4.png)
-
-
 
 Here is an example output:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.fonts import FontRoboto
-from drawlib.shapes import arrow
-from drawlib.text import text
-
-
-config(width=100, height=50, grid_only=True)
-
-arrow((5, 25), (45, 25), tail_width=10, head_width=20, head_length=10)
-arrow(
-    (75, 5),
-    (75, 45),
-    tail_width=10,
-    head_width=20,
-    head_length=10,
-    head="<->",
-    text="arrow()",
-)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_arrow_images/5.png" alt="shape_arrow_5" style="width: 600px; max-width: 100%;" />
+  <img src="shape_arrow_images/4.png" alt="shape_arrow_4" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -282,8 +264,6 @@ It doesn't support having text inside.
 Let's explore an example:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.fonts import FontRoboto
@@ -324,59 +304,14 @@ for dot in [(75, 5), (85, 25), (75, 45)]:
 
 save()
 ```
-
-![shape_arrow_6](shape_arrow_images/6.png)
-
-
 
 Here is an example output:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.fonts import FontRoboto
-from drawlib.lines import lines, lines_curved
-from drawlib.shapes import arrow_polyline, circle
-
-
-
-config(width=100, height=50, grid=True)
-arrow_polyline(
-    [(25, 5), (15, 25), (25, 45)],
-    tail_width=5,
-    head_width=10,
-    head_length=5,
-)
-
-arrow_polyline(
-    [(50, 5), (40, 25), (50, 45)],
-    tail_width=5,
-    head_width=10,
-    head_length=5,
-)
-lines([(50, 5), (40, 25), (50, 45)], style="white_dashed")
-for dot in [(50, 5), (40, 25), (50, 45)]:
-    circle(dot, radius=1, style="red_flat")
-
-arrow_polyline(
-    [(75, 5), (85, 25), (75, 45)],
-    tail_width=5,
-    head_width=10,
-    head_length=5,
-    r=5,
-    head="<->",
-)
-lines_curved([(75, 5), (85, 25), (75, 45)], r=5, style="white_dashed")
-for dot in [(75, 5), (85, 25), (75, 45)]:
-    circle(dot, radius=1, style="red_flat")
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_arrow_images/7.png" alt="shape_arrow_7" style="width: 600px; max-width: 100%;" />
+  <img src="shape_arrow_images/5.png" alt="shape_arrow_5" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -407,8 +342,6 @@ It draw "L" style arrow easily by specifying `width` and `height` and `angle`.
 Let's explore an example:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.fonts import FontRoboto
@@ -486,96 +419,14 @@ text((80, 40), "angle=270")
 
 save()
 ```
-
-![shape_arrow_8](shape_arrow_images/8.png)
-
-
 
 Here is an example output:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.fonts import FontRoboto
-from drawlib.lines import line, lines
-from drawlib.shapes import arrow_l, circle
-from drawlib.text import text
-
-
-
-
-config(width=100, height=50, grid=True)
-arrow_l(
-    xy=(15, 25),
-    width=20,
-    height=30,
-    tail_width=3,
-    head_width=6,
-    head_length=3,
-)
-
-arrow_l(
-    xy=(40, 25),
-    width=20,
-    height=30,
-    tail_width=3,
-    head_width=6,
-    head_length=3,
-    style="white",
-)
-lines([(30, 40), (30, 10), (50, 10)], style="dashed")
-for dot in [(30, 40), (30, 10), (50, 10)]:
-    circle(dot, radius=0.7, style="red_flat")
-
-circle((40, 25), radius=0.7, style="blue_flat")
-line((30, 25), (50, 25), style="blue_dashed", arrowhead="<->")
-text((47.5, 27.5), "width", style="blue")
-line((40, 40), (40, 10), style="blue_dashed", arrowhead="<->")
-text((40, 42.5), "height", style="blue")
-
-arrow_l(
-    xy=(75, 10),
-    width=10,
-    height=15,
-    tail_width=3,
-    head_width=6,
-    head_length=3,
-    angle=90,
-    head="<->",
-)
-text((70, 10), "angle=90")
-
-arrow_l(
-    xy=(75, 25),
-    width=10,
-    height=15,
-    tail_width=3,
-    head_width=6,
-    head_length=3,
-    angle=180,
-    head="<-",
-)
-text((70, 25), "angle=180")
-
-arrow_l(
-    xy=(75, 40),
-    width=10,
-    height=15,
-    tail_width=3,
-    head_width=6,
-    head_length=3,
-    angle=270,
-    head="<-",
-)
-text((80, 40), "angle=270")
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_arrow_images/9.png" alt="shape_arrow_9" style="width: 600px; max-width: 100%;" />
+  <img src="shape_arrow_images/6.png" alt="shape_arrow_6" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -607,8 +458,6 @@ It draw "U" style arrow easily by specifying `width` and `height` and `angle`.
 Let's explore an example:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.fonts import FontRoboto
@@ -686,96 +535,14 @@ text((80, 40), "angle=270")
 
 save()
 ```
-
-![shape_arrow_10](shape_arrow_images/10.png)
-
-
 
 Here is an example output:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.fonts import FontRoboto
-from drawlib.lines import line, lines
-from drawlib.shapes import arrow_u, circle
-from drawlib.text import text
-
-
-
-config(width=100, height=50, grid=True)
-
-arrow_u(
-    xy=(15, 25),
-    width=15,
-    height=30,
-    tail_width=3,
-    head_width=6,
-    head_length=3,
-)
-
-arrow_u(
-    xy=(40, 25),
-    width=15,
-    height=30,
-    tail_width=3,
-    head_width=6,
-    head_length=3,
-    style="white",
-)
-lines([(32.5, 40), (32.5, 10), (47.5, 10), (47.5, 40)], style="dashed")
-for dot in [(32.5, 40), (32.5, 10), (47.5, 10), (47.5, 40)]:
-    circle(dot, radius=0.7, style="red_flat")
-
-circle((40, 25), radius=1, style="blue_flat")
-line((32.5, 25), (47.5, 25), style="blue_dashed", arrowhead="<->")
-text((45, 27.5), "width", style="blue")
-line((40, 40), (40, 10), style="blue_dashed", arrowhead="<->")
-text((40, 42.5), "height", style="blue")
-
-arrow_u(
-    xy=(75, 10),
-    width=8,
-    height=12,
-    tail_width=3,
-    head_width=6,
-    head_length=3,
-    angle=90,
-    head="<->",
-)
-text((70, 10), "angle=90")
-
-arrow_u(
-    xy=(75, 25),
-    width=8,
-    height=12,
-    tail_width=3,
-    head_width=6,
-    head_length=3,
-    angle=180,
-    head="<-",
-)
-text((70, 25), "angle=180")
-
-arrow_u(
-    xy=(75, 40),
-    width=8,
-    height=12,
-    tail_width=3,
-    head_width=6,
-    head_length=3,
-    angle=270,
-    head="<-",
-)
-text((80, 40), "angle=270")
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_arrow_images/11.png" alt="shape_arrow_11" style="width: 600px; max-width: 100%;" />
+  <img src="shape_arrow_images/7.png" alt="shape_arrow_7" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -812,8 +579,6 @@ Please take care, length of head is specified by `head_angle`.
 Let's explore an example:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.fonts import FontRoboto
@@ -899,104 +664,14 @@ text((82.5, 40), 'angle=45\nhead="<-"')
 
 save()
 ```
-
-![shape_arrow_12](shape_arrow_images/12.png)
-
-
 
 Here is an example output:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.fonts import FontRoboto
-from drawlib.lines import line
-from drawlib.shapes import arc, arrow, arrow_arc, circle
-from drawlib.text import text
-
-
-
-config(width=100, height=50, grid=True)
-
-arrow_arc(
-    xy=(15, 25),
-    width=15,
-    height=15,
-    tail_width=3,
-    head_width=6,
-    head_angle=20,
-    angle_start=20,
-    angle_end=340,
-)
-
-arrow_arc(
-    xy=(40, 25),
-    width=15,
-    height=15,
-    tail_width=3,
-    head_width=6,
-    head_angle=20,
-    angle_start=20,
-    angle_end=340,
-    style="white",
-)
-arc(
-    xy=(40, 25),
-    width=15,
-    height=15,
-    # angle_start=20,
-    # angle_end=340,
-    style="dashed",
-)
-circle((40, 25), radius=1, style="blue_flat")
-line((32.5, 25), (47.5, 25), style="blue_dashed", arrowhead="<->")
-text((53, 25), "width", style="blue")
-line((40, 17.5), (40, 32.5), style="blue_dashed", arrowhead="<->")
-text((40, 37.5), "height", style="blue")
-
-for dot in [(47, 27.5), (47, 22.5)]:
-    circle(dot, radius=0.7, style="red_flat")
-
-text((57.5, 29), "angle_start", style="red")
-text((57.5, 21), "angle_end", style="red")
-
-text((32.5, 7.5), 'The arrow is drawn counterclockwise.\nTo draw a clockwise arrow, specify head="<-".')
-
-arrow_arc(
-    xy=(80, 12.5),
-    width=25,
-    height=15,
-    tail_width=3,
-    head_width=6,
-    head_angle=20,
-    angle_start=225,
-    angle_end=135,
-    head="<->",
-)
-text((72.5, 12.5), "width=25, height=15")
-
-arc(xy=(80, 37.5), width=25, height=15, angle=45, style="dashed")
-arrow_arc(
-    xy=(80, 37.5),
-    width=25,
-    height=15,
-    tail_width=3,
-    head_width=6,
-    head_angle=20,
-    angle_start=90,
-    angle_end=270,
-    angle=45,
-    head="<-",
-)
-text((82.5, 40), 'angle=45\nhead="<-"')
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_arrow_images/13.png" alt="shape_arrow_13" style="width: 600px; max-width: 100%;" />
+  <img src="shape_arrow_images/8.png" alt="shape_arrow_8" style="width: 600px; max-width: 100%;" />
 </div>
 
 

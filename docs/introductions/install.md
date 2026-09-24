@@ -116,6 +116,13 @@ Here is a release plan image:
 
 
 
+<div class="drawlib-image" style="text-align: center;">
+  <img src="install_images/1.png" alt="install_1" style="width: 600px; max-width: 100%;" />
+</div>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -200,9 +207,7 @@ arrow(
 save()
 ```
 
-<div class="drawlib-image" style="text-align: center;">
-  <img src="install_images/1.png" alt="install_1" style="width: 600px; max-width: 100%;" />
-</div>
+</details>
 
 
 

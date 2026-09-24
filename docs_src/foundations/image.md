@@ -28,7 +28,7 @@ Coordinates and alignment work similarly to other drawing elements.
 Let's start with an example:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.images import image
 
@@ -79,7 +79,7 @@ Let's check image styling with example.
 Here is a code which specify stylings.
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.images import image
@@ -174,7 +174,7 @@ While file paths are commonly used, image() also accepts the following image obj
 Here's an example demonstrating how to use these objects:
 
 
-```drawlib
+```python
 import PIL.Image
 from drawlib._core.l2_models_._dimage import Dimage
 from drawlib._utils import dutil_script

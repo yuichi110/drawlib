@@ -96,3 +96,8 @@ th, td {
     font-size: 0.82rem;
     color: #222222;
 }
+
+.drawlib-code-details {
+    display: none !important;
+}
+

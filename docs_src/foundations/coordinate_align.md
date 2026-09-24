@@ -15,7 +15,7 @@ Here, `X` represents the x-axis value, and `Y` represents the y-axis value.
 Let's delve into some code examples:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
 
@@ -78,7 +78,7 @@ If alignment isn't specified, `"center"` is applied to both horizontal and verti
 Let's examine the alignment of rectangles with an example code:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.shapes import circle, rectangle
@@ -152,7 +152,7 @@ Consistency is key.
 Here's an example of aligning items horizontally and vertically:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.icons import phosphor

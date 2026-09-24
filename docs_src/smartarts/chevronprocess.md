@@ -2,7 +2,7 @@
 
 Class `ChevronProcess` renders sequential chevron (arrowhead block) process diagrams, ideal for pipelines, project phases, and operational procedures.
 
-```drawlib 650px center caption:"Chevron Process Examples"
+```drawlib show-code 650px center caption:"Chevron Process Examples"
 from drawlib import canvas
 from drawlib._core.l3_styles import Style
 from drawlib.smartarts import ChevronProcess

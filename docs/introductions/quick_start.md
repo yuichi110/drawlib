@@ -16,8 +16,6 @@ Below is the standard procedure for drawing using Drawlib:
 While detailed explanations will be provided in subsequent documents, let's briefly overview each step with an example.
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.images import image
@@ -34,10 +32,6 @@ text((75, 5), "Hello drawlib!")
 
 save()
 ```
-
-![quick_start_1](quick_start_images/1.png)
-
-
 
 Execute this code using the Python command:
 
@@ -52,25 +46,8 @@ After execution, an image file named "image_abstract1.png," corresponding to the
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.images import image
-from drawlib.lines import line
-from drawlib.shapes import circle
-from drawlib.text import text
-
-config(width=100, height=100)
-
-line((10, 10), (90, 90))
-circle((25, 75), radius=20)
-image((75, 25), width=30, image="python.png")
-text((75, 5), "Hello drawlib!")
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="quick_start_images/2.png" alt="quick_start_2" style="width: 450px; max-width: 100%;" />
+  <img src="quick_start_images/1.png" alt="quick_start_1" style="width: 450px; max-width: 100%;" />
 </div>
 
 
@@ -130,25 +107,8 @@ See the output image below:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.images import image
-from drawlib.lines import line
-from drawlib.shapes import circle
-from drawlib.text import text
-
-config(width=200, height=100)
-
-line((10, 10), (90, 90))
-circle((25, 75), radius=20)
-image((75, 25), width=30, image="python.png")
-text((75, 5), "Hello drawlib!")
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="quick_start_images/3.png" alt="quick_start_3" style="width: 600px; max-width: 100%;" />
+  <img src="quick_start_images/2.png" alt="quick_start_2" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -198,25 +158,8 @@ The effects of these adjustments are demonstrated in the following files:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.images import image
-from drawlib.lines import line
-from drawlib.shapes import circle
-from drawlib.text import text
-
-config(width=100, height=100, grid=True)
-
-line((10, 10), (90, 90))
-circle((25, 75), radius=20)
-image((75, 25), width=30, image="python.png")
-text((75, 5), "Hello drawlib!")
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="quick_start_images/4.png" alt="quick_start_4" style="width: 450px; max-width: 100%;" />
+  <img src="quick_start_images/3.png" alt="quick_start_3" style="width: 450px; max-width: 100%;" />
 </div>
 
 
@@ -264,8 +207,6 @@ Common alignment options include:
 Let's examine these alignment options through an example:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -301,10 +242,6 @@ text((75, 10), "Align left,bottom", style=Style(text_color=Colors.Red))
 
 save()
 ```
-
-![quick_start_5](quick_start_images/5.png)
-
-
 
 In this example, horizontal and vertical alignment are specified within the style object, with defaults set to `halign="center"` and `valign="center"`.
 
@@ -313,44 +250,8 @@ The resulting image demonstrates the effects of different alignments:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.shapes import circle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=50, grid_only=True)
-
-circle(
-    xy=(25, 25),
-    radius=10,
-    style=Style(text_halign="center", text_valign="center"),
-)
-circle(
-    xy=(25, 25),
-    radius=1,
-    style=Style(fill_color=Colors.Red, line_color=Colors.Red),
-)
-text((25, 10), "Align center,center", style=Style(text_color=Colors.Red))
-
-circle(
-    xy=(75, 25),
-    radius=10,
-    style=Style(text_halign="left", text_valign="bottom"),
-)
-circle(
-    xy=(75, 25),
-    radius=1,
-    style=Style(fill_color=Colors.Red, line_color=Colors.Red),
-)
-text((75, 10), "Align left,bottom", style=Style(text_color=Colors.Red))
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="quick_start_images/6.png" alt="quick_start_6" style="width: 600px; max-width: 100%;" />
+  <img src="quick_start_images/4.png" alt="quick_start_4" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -386,8 +287,6 @@ Drawlib offers convenient icon modules and functions for drawing icons:
 Here's an example using phosphor:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -406,37 +305,14 @@ phosphor.coffee(
 
 save()
 ```
-
-![quick_start_7](quick_start_images/7.png)
-
-
 
 This code generates the following output image:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.icons import phosphor
-from drawlib.types import Style
-
-config(width=100, height=60, grid=True)
-
-phosphor.airplane((25, 30), width=20)
-phosphor.coffee(
-    xy=(75, 30),
-    width=20,
-    angle=45,
-    style=Style(text_color=Colors.Red, icon_style="fill"),
-)
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="quick_start_images/8.png" alt="quick_start_8" style="width: 600px; max-width: 100%;" />
+  <img src="quick_start_images/5.png" alt="quick_start_5" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -461,8 +337,6 @@ If you need to adjust the aspect ratio, you can utilize the `Dimage` class, whic
 Here's an example using the `image()` function:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.images import image
@@ -481,37 +355,14 @@ image(
 
 save()
 ```
-
-![quick_start_9](quick_start_images/9.png)
-
-
 
 Execute this code using the Python command to get image.
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.images import image
-from drawlib.types import Style
-
-config(width=100, height=50, grid=True)
-
-image(xy=(25, 25), width=20, image="python.png")
-image(
-    xy=(75, 25),
-    width=20,
-    angle=45,
-    image="python.png",
-    style=Style(line_width=1),
-)
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="quick_start_images/10.png" alt="quick_start_10" style="width: 600px; max-width: 100%;" />
+  <img src="quick_start_images/6.png" alt="quick_start_6" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -525,8 +376,6 @@ If you wish to modify the image itself, consider utilizing the `Dimage` class, w
 Take a look at this example:
 
 
-
-
 ```python
 from drawlib._core.l2_models_._dimage import Dimage
 from drawlib.canvas import config, save
@@ -542,10 +391,6 @@ image(xy=(75, 25), width=20, image=dimg)
 
 save()
 ```
-
-![quick_start_11](quick_start_images/11.png)
-
-
 
 The `Dimage` class is a string-like object. 
 Methods for applying effects do not modify the image itself but create a new image object. 
@@ -554,24 +399,8 @@ Therefore, we use method chaining to apply operations such as mirroring (horizon
 
 
 
-```python
-from drawlib._core.l2_models_._dimage import Dimage
-from drawlib.canvas import config, save
-from drawlib.images import image
-
-config(width=100, height=50, grid=True)
-
-
-image(xy=(25, 25), width=20, image="python.png")
-
-dimg = Dimage("python.png").mirror().sepia()
-image(xy=(75, 25), width=20, image=dimg)
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="quick_start_images/12.png" alt="quick_start_12" style="width: 600px; max-width: 100%;" />
+  <img src="quick_start_images/7.png" alt="quick_start_7" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -602,8 +431,6 @@ Functions starting with "line" are designed to draw lines from point xy1 to poin
 Let's explore some of these line types:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.lines import line, line_curved, lines
@@ -617,10 +444,6 @@ lines([(20, 40), (30, 45), (70, 45), (80, 40)])
 
 save()
 ```
-
-![quick_start_13](quick_start_images/13.png)
-
-
 
 The `line_curved()` function draws a line from xy1 to xy2, but the bend parameter allows you to create curved lines. 
 A bend value of 0.2 indicates a curved line 1.2 times longer than a straight line, while a value of -0.2 creates a curve in the opposite direction.
@@ -628,22 +451,8 @@ A bend value of 0.2 indicates a curved line 1.2 times longer than a straight lin
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.lines import line, line_curved, lines
-
-config(width=100, height=50, grid=True)
-
-line((20, 7), (80, 7))
-line_curved((20, 20), (80, 20), bend=0.2)
-line_curved((20, 30), (80, 30), bend=-0.2)
-lines([(20, 40), (30, 45), (70, 45), (80, 40)])
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="quick_start_images/14.png" alt="quick_start_14" style="width: 600px; max-width: 100%;" />
+  <img src="quick_start_images/8.png" alt="quick_start_8" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -665,8 +474,6 @@ But visual style has less meaning (CSS equivalent), then we will specify it as s
 Consider this example showcasing styling:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -687,10 +494,6 @@ line((20, 43), (80, 43), arrowhead="<-", style=Style(arrow_head_scale=50, line_s
 
 save()
 ```
-
-![quick_start_15](quick_start_images/15.png)
-
-
 
 With `Style`, you can configure line width, color, style, and more. 
 Arrow head style is specified in function directry.
@@ -698,29 +501,8 @@ Arrow head style is specified in function directry.
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.lines import line
-from drawlib.types import Style
-
-config(width=100, height=50, grid=True)
-
-line((20, 7), (80, 7))
-line(
-    (20, 16),
-    (80, 16),
-    style=Style(line_style="dashed", line_width=5, line_color=Colors.Red),
-)
-line((20, 25), (80, 25), arrowhead="->")
-line((20, 34), (80, 34), arrowhead="<->")
-line((20, 43), (80, 43), arrowhead="<-", style=Style(arrow_head_scale=50, line_style="dashdot", arrow_head_fill=True))
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="quick_start_images/16.png" alt="quick_start_16" style="width: 600px; max-width: 100%;" />
+  <img src="quick_start_images/9.png" alt="quick_start_9" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -767,8 +549,6 @@ When you use it, tasks like positioning your item at a specified xy coordinate a
 Let's explore two examples: a circle-like shape, `star()`, and a rectangle-like shape, `rectangle()`.
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import rectangle, star
@@ -780,30 +560,14 @@ rectangle((75, 25), width=30, height=20, r=3, angle=45)
 
 save()
 ```
-
-![quick_start_17](quick_start_images/17.png)
-
-
 
 This code generates the following image:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import rectangle, star
-
-config(width=100, height=50, grid=True)
-
-star((25, 25), num_vertex=5, radius_ext=20, radius_int=7.5)
-rectangle((75, 25), width=30, height=20, r=3, angle=45)
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="quick_start_images/18.png" alt="quick_start_18" style="width: 600px; max-width: 100%;" />
+  <img src="quick_start_images/10.png" alt="quick_start_10" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -828,8 +592,6 @@ Keep in mind that the `text_angle` parameter in `Style` overrides the shape's an
 Let's examine a styling example:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -858,47 +620,14 @@ rectangle(
 
 save()
 ```
-
-![quick_start_19](quick_start_images/19.png)
-
-
 
 This code generates the following output:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.shapes import rectangle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=50, grid=True)
-
-rectangle(
-    (25, 25),
-    width=30,
-    height=20,
-    angle=45,
-    text="Hello!",
-    style=Style(line_style="dashed", line_width=5, line_color=Colors.Red, fill_color=Colors.Transparent),
-)
-rectangle(
-    (75, 25),
-    width=30,
-    height=20,
-    angle=45,
-    text="Hello!",
-    textstyle=Style(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
-)
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="quick_start_images/20.png" alt="quick_start_20" style="width: 600px; max-width: 100%;" />
+  <img src="quick_start_images/11.png" alt="quick_start_11" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -935,8 +664,6 @@ With `Style`, you can configure text color, size, font, alignment, and text back
 Let's examine some code examples:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -970,52 +697,14 @@ text(
 )
 save()
 ```
-
-![quick_start_21](quick_start_images/21.png)
-
-
 
 Executing this code yields the following image:
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.fonts import FontRoboto
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=50)
-
-text((50, 7), "Hello drawlib. こんにちは。")
-text(
-    (50, 16),
-    "Hello drawlib. こんにちは。",
-    angle=10,
-    style=Style(text_font=FontRoboto.ROBOTO_REGULAR),
-)
-text(
-    (50, 25),
-    "Hello drawlib.",
-    style=Style(text_font=FontFile("avenger/regular.ttf")),
-)
-text(
-    (50, 34),
-    "Hello drawlib. こんにちは。",
-    style=Style(text_color=Colors.Red, text_size=24),
-)
-text(
-    (50, 43),
-    "Hello drawlib. こんにちは。",
-    style=Style(text_color=Colors.White, text_bg_fill_color=Colors.Black),
-)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="quick_start_images/22.png" alt="quick_start_22" style="width: 600px; max-width: 100%;" />
+  <img src="quick_start_images/12.png" alt="quick_start_12" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -1056,8 +745,6 @@ To address this, Drawlib provides preset styles, allowing you to easily apply pr
 Here is an example. Note that the `style` argument takes text values.
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.lines import line
@@ -1096,10 +783,6 @@ text((x4, text_y), text='style="red_flat"', style="red")
 
 save()
 ```
-
-![quick_start_23](quick_start_images/23.png)
-
-
 
 The style has this syntax: `<color>_<type>_<weight>`. 
 If the type and weight are default, they are not shown in the style name. 
@@ -1108,47 +791,8 @@ Executing this code yields the following image:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.lines import line
-from drawlib.shapes import circle
-from drawlib.text import text
-
-config(width=100, height=50)
-x1 = 12
-x2 = 34
-x3 = 62
-x4 = 88
-line_y = 40
-line_length = 7
-circle_y = 25
-text_y = 10
-
-# blue style
-line((x1 - line_length, line_y), (x1 + line_length, line_y), style="blue")
-circle((x1, circle_y), radius=8, style="blue")
-text((x1, text_y), text="blue", style="blue")
-
-# blue solid style
-line((x2 - line_length, line_y), (x2 + line_length, line_y), style="blue_solid")
-circle((x2, circle_y), radius=8, style="blue_solid")
-text((x2, text_y), text='style="blue_solid"', style="blue")
-
-# green dashed style
-line((x3 - line_length, line_y), (x3 + line_length, line_y), style="green_dashed_bold")
-circle((x3, circle_y), radius=8, style="green_dashed_bold")
-text((x3, text_y), text='style="green_dashed_bold"', style="green_bold")
-
-# red flat style
-line((x4 - line_length, line_y), (x4 + line_length, line_y), style="red")
-circle((x4, circle_y), radius=8, style="red_flat")
-text((x4, text_y), text='style="red_flat"', style="red")
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="quick_start_images/24.png" alt="quick_start_24" style="width: 600px; max-width: 100%;" />
+  <img src="quick_start_images/13.png" alt="quick_start_13" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -1167,8 +811,6 @@ However, the `default` preset styles primarily focus on colors to keep it simple
 You can check the available style names and color variations in the preset styles documentation.
 
 Here's an overview of available styles:
-
-
 
 
 ```python
@@ -1243,10 +885,6 @@ from drawlib.types import Style
 # | Style      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
 # +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
 ```
-
-![quick_start_25](quick_start_images/25.png)
-
-
 
 ---
 

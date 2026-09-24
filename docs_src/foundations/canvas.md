@@ -8,7 +8,7 @@ The canvas is a pivotal concept in drawlib, although it remains internal and isn
 Below is a succinct overview of drawlib's canvas architecture:
 
 
-```drawlib 600px center
+```drawlib fold-code 600px center
 from copy import deepcopy
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -201,7 +201,7 @@ Enabling the grid is straightforward; simply set the grid option to True.
 By default, this option is set to `False`. Below is an example code snippet:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
 
@@ -248,7 +248,7 @@ To avoid repeatedly enabling/disabling the grid in your code, you can export bot
 If you only require the grid illustration, you can use the `grid_only=True` option instead:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
 
@@ -280,7 +280,7 @@ To apply a specific line style to the grid, provide a `Style` object to the foll
 Here's an example code snippet demonstrating the use of grid styles:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.shapes import circle
@@ -348,7 +348,7 @@ Let's explore how changing the size affects the output.
 Below is a code snippet with `config(width=100, height=100, ...)`:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
 from drawlib.text import text
@@ -389,7 +389,7 @@ save()
 Now, let's adjust the size to `config(width=200, height=200, ...)`:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
 from drawlib.text import text
@@ -432,7 +432,7 @@ You can either increase the width or decrease the height.
 In the following example, we set the canvas coordinate size to full HD (1920x1080):
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
 from drawlib.text import text
@@ -514,7 +514,7 @@ For instance, 10 inches x 100 DPI equals 1000 pixels, whereas 10 inches x 200 DP
 Let's demonstrate this with an example:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
 from drawlib.text import text
@@ -583,7 +583,7 @@ You can adjust these settings directly using `config()`.
 Let's look at an example:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors140
 from drawlib.shapes import circle
@@ -637,7 +637,7 @@ If you wish to save the image with a specific name, you can use the `file` optio
 Here's an example:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
 
@@ -675,7 +675,7 @@ It behaves almost the same as save() without options, but you can specify the fi
 Here's an example:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
 

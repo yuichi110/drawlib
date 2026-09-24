@@ -4,6 +4,14 @@ Drawlib is a pure Python drawing library crafted to facilitate **Illustration as
 
 
 
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="index_images/1.png" alt="index_1" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Code makes Illustration</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
 ```python
 from drawlib.canvas import config
 from drawlib.colors import Colors, Colors140
@@ -20,10 +28,7 @@ rectangle(xy=(75, 20), width=24, height=24, style=Style(fill_color=Colors140.Cor
 text(xy=(75, 20), text="Rectangle", style=Style(text_color=Colors.White, text_size=16))
 ```
 
-<figure class="drawlib-image" style="text-align: center;">
-  <img src="index_images/1.png" alt="index_1" style="width: 600px; max-width: 100%;" />
-  <figcaption class="drawlib-caption">Code makes Illustration</figcaption>
-</figure>
+</details>
 
 
 

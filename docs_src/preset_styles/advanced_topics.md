@@ -20,7 +20,7 @@ You can retrieve standard preset styles directly by name:
 
 Example:
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.preset_styles import get_style
 from drawlib.shapes import circle, rectangle
@@ -62,7 +62,7 @@ save()
 
 You can also pass color names (e.g., `"red"`, `"blue"`, `"turquoise"`) or combined names (e.g., `"red_solid_bold"`) to `get_style()`:
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.preset_styles import get_style
 from drawlib.shapes import circle, rectangle
@@ -108,7 +108,7 @@ Each `PresetStyles` instance contains `primary`, `light`, `bold`, `flat`, `solid
 
 Example:
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.preset_styles import get_styles
 from drawlib.shapes import circle, rectangle
@@ -147,7 +147,7 @@ save()
 
 Retrieved `Style` objects can be modified or copied before passing them to drawing functions.
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.preset_styles import get_style

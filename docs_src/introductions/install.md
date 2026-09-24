@@ -114,7 +114,7 @@ Once Drawlib matures, we will move to version "1.0.*" and later.
 Here is a release plan image:
 
 
-```drawlib 600px center
+```drawlib fold-code 600px center
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto

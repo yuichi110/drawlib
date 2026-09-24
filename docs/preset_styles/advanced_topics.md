@@ -20,8 +20,6 @@ You can retrieve standard preset styles directly by name:
 
 Example:
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.preset_styles import get_style
@@ -39,35 +37,13 @@ text((50, 20), "Preset Styles", style=get_style("bold"))
 
 save()
 ```
-
-![advanced_topics_1](advanced_topics_images/1.png)
-
-
 
 Executing this code produces the following output:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_style
-from drawlib.shapes import circle, rectangle
-from drawlib.text import text
-
-config(width=100, height=40)
-
-style_primary = get_style("primary")
-style_bold = get_style("bold")
-
-circle((25, 20), radius=10, style=style_primary)
-rectangle((75, 20), width=20, height=20, style=style_bold)
-text((50, 20), "Preset Styles", style=get_style("bold"))
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="advanced_topics_images/2.png" alt="advanced_topics_2" style="width: 600px; max-width: 100%;" />
+  <img src="advanced_topics_images/1.png" alt="advanced_topics_1" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -76,8 +52,6 @@ save()
 
 You can also pass color names (e.g., `"red"`, `"blue"`, `"turquoise"`) or combined names (e.g., `"red_solid_bold"`) to `get_style()`:
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.preset_styles import get_style
@@ -92,32 +66,13 @@ text((50, 20), "Combined Style", style=get_style("red_bold"))
 
 save()
 ```
-
-![advanced_topics_3](advanced_topics_images/3.png)
-
-
 
 Executing this code produces:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_style
-from drawlib.shapes import circle, rectangle
-from drawlib.text import text
-
-config(width=100, height=40)
-
-circle((25, 20), radius=10, style=get_style("red_flat"))
-rectangle((75, 20), width=20, height=20, style=get_style("blue_dashed_bold"))
-text((50, 20), "Combined Style", style=get_style("red_bold"))
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="advanced_topics_images/4.png" alt="advanced_topics_4" style="width: 600px; max-width: 100%;" />
+  <img src="advanced_topics_images/2.png" alt="advanced_topics_2" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -136,8 +91,6 @@ Each `PresetStyles` instance contains `primary`, `light`, `bold`, `flat`, `solid
 
 Example:
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.preset_styles import get_styles
@@ -153,33 +106,13 @@ rectangle((75, 20), width=20, height=20, style=monochrome.bold)
 
 save()
 ```
-
-![advanced_topics_5](advanced_topics_images/5.png)
-
-
 
 Output:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
-from drawlib.shapes import circle, rectangle
-
-essentials = get_styles("essentials")
-monochrome = get_styles("monochrome")
-
-config(width=100, height=40)
-
-circle((25, 20), radius=10, style=essentials.primary)
-rectangle((75, 20), width=20, height=20, style=monochrome.bold)
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="advanced_topics_images/6.png" alt="advanced_topics_6" style="width: 600px; max-width: 100%;" />
+  <img src="advanced_topics_images/3.png" alt="advanced_topics_3" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -189,8 +122,6 @@ save()
 
 Retrieved `Style` objects can be modified or copied before passing them to drawing functions.
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -205,32 +136,13 @@ config(width=100, height=40)
 text((50, 20), "Customized Style", style=custom_style)
 save()
 ```
-
-![advanced_topics_7](advanced_topics_images/7.png)
-
-
 
 Output:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.preset_styles import get_style
-from drawlib.text import text
-
-custom_style = get_style("blue").copy()
-custom_style.text_size = 28
-custom_style.text_color = Colors.Red
-
-config(width=100, height=40)
-text((50, 20), "Customized Style", style=custom_style)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="advanced_topics_images/8.png" alt="advanced_topics_8" style="width: 600px; max-width: 100%;" />
+  <img src="advanced_topics_images/4.png" alt="advanced_topics_4" style="width: 600px; max-width: 100%;" />
 </div>
 
 

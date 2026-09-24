@@ -52,7 +52,7 @@ It's important to note that whether the arrowhead is present or not carries logi
 Let's explore different line styles through examples.
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line
@@ -142,7 +142,7 @@ You can customize the visual appearance of arrowheads using the following `Style
 Let's see an example:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line
@@ -260,7 +260,7 @@ If the type and weight are default, they may not be explicitly shown in the styl
 Let's look at an example:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.lines import line
 from drawlib.text import text

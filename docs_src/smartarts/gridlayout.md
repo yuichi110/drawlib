@@ -4,7 +4,7 @@
 Class `GridLayout` draws smart art grid layouted rectangles.
 
 
-```drawlib 600px center
+```drawlib show-code 600px center
 from drawlib.canvas import config, save
 from drawlib.smartarts import GridLayout
 from drawlib.text import text

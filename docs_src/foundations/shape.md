@@ -94,7 +94,7 @@ This function accepts the following arguments:
 Let's explore an example:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import polygon
 from drawlib.text import text

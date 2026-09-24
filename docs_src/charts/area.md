@@ -8,7 +8,7 @@
 
 Cumulative stacked areas are ideal for showing how multiple segments contribute to an overall total over time:
 
-```drawlib 650px center caption:"Cumulative Revenue Breakdown"
+```drawlib show-code 650px center caption:"Cumulative Revenue Breakdown"
 from drawlib import canvas
 from drawlib.charts import AreaChart
 
@@ -35,7 +35,7 @@ chart.draw(xy=(10.0, 20.0))
 
 Overlapping areas with transparency allow comparing multiple independent magnitude distributions simultaneously:
 
-```drawlib 650px center caption:"Network Bandwidth"
+```drawlib show-code 650px center caption:"Network Bandwidth"
 from drawlib import canvas
 from drawlib.charts import AreaChart
 

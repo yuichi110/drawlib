@@ -377,60 +377,11 @@ circle(
 )
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="shape_style_images/1.png" alt="shape_style_1" />
-</div>
 <p>Left example has non transparent style.
 Center has fcolor transparent.
 Right has alpha value.</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.colors import Colors, Colors140
-from drawlib.shapes import circle, rectangle
-from drawlib.types import Style
-
-config(width=150, height=50)
-
-# left
-rectangle(xy=(25, 25), width=40, height=20)
-circle(
-    xy=(25, 25),
-    radius=15,
-    style=Style(
-        line_width=5,
-        line_color=Colors.Red,
-        line_style=&quot;dashed&quot;,
-        fill_color=Colors.White,
-    ),
-)
-
-# center
-rectangle(xy=(75, 25), width=40, height=20)
-circle(
-    xy=(75, 25),
-    radius=15,
-    style=Style(
-        line_width=5,
-        line_color=Colors.Red,
-        line_style=&quot;dashed&quot;,
-        fill_color=Colors.Transparent,
-    ),
-)
-
-# right
-rectangle(xy=(125, 25), width=40, height=20)
-circle(
-    xy=(125, 25),
-    radius=15,
-    style=Style(
-        line_width=0,
-        fill_color=Colors140.Orange,
-        fill_alpha=0.3,
-    ),
-)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_style_images/2.png" alt="shape_style_2" style="width: 600px; max-width: 100%;" />
+  <img src="shape_style_images/1.png" alt="shape_style_1" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>Shapes with Style
 </code></pre>
@@ -504,68 +455,11 @@ rectangle(
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="shape_style_images/3.png" alt="shape_style_3" />
-</div>
 <p>You can configure text styles.
 But also, you can configure text positioning which you can see right example.</p>
 <p>Below is a figure illustrating these styles:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.fonts import FontSansSerif, FontSerif
-from drawlib.shapes import rectangle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=150, height=50)
-
-# left
-rectangle(
-    xy=(25, 25),
-    width=40,
-    height=20,
-    text=&quot;rectangle()&quot;,
-    textstyle=Style(
-        text_color=Colors.White,
-        text_size=24,
-        text_font=FontSerif.COURIER_BOLD,
-    ),
-)
-
-
-# center
-rectangle(
-    xy=(75, 25),
-    width=40,
-    height=20,
-    angle=45,
-    text=&quot;rectangle()&quot;,
-    textstyle=Style(
-        text_color=Colors.White,
-        text_size=24,
-        text_font=FontSansSerif.RALEWAYS_REGULAR,
-    ),
-)
-
-
-# right
-rectangle(
-    xy=(125, 25),
-    width=40,
-    height=20,
-    angle=45,
-    text=&quot;rectangle()&quot;,
-    textstyle=Style(
-        text_color=Colors.White,
-        text_angle=0,
-        text_xy_shift=(-12, -3),
-    ),
-)
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_style_images/4.png" alt="shape_style_4" style="width: 600px; max-width: 100%;" />
+  <img src="shape_style_images/2.png" alt="shape_style_2" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>Text in shapes with Style
 </code></pre>
@@ -627,46 +521,9 @@ circle(
 )
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="shape_style_images/5.png" alt="shape_style_5" />
-</div>
 <p>Below is a figure illustrating these styles:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.shapes import circle
-from drawlib.text import text
-
-config(width=150, height=50)
-
-# left
-circle(
-    xy=(25, 25),
-    radius=15,
-    style=&quot;red_flat&quot;,
-    text=&quot;circle&quot;,
-    textstyle=&quot;white&quot;,
-)
-
-# center
-circle(
-    xy=(75, 25),
-    radius=15,
-    style=&quot;blue_solid&quot;,
-    text=&quot;circle&quot;,
-    textstyle=&quot;blue_bold&quot;,
-)
-
-# right
-circle(
-    xy=(125, 25),
-    radius=15,
-    style=&quot;green_dashed_light&quot;,
-    text=&quot;circle&quot;,
-    textstyle=&quot;green_light&quot;,
-)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="shape_style_images/6.png" alt="shape_style_6" style="width: 600px; max-width: 100%;" />
+  <img src="shape_style_images/3.png" alt="shape_style_3" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>Pre-defined preset styles
 </code></pre>

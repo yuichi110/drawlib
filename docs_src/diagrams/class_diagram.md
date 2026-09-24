@@ -19,7 +19,7 @@ It supports standard UML 2.0 notations including three-compartment class cards (
 
 Below is a domain model illustrating an e-commerce payment and order flow:
 
-```drawlib 650px center caption:"E-Commerce Domain Class Diagram"
+```drawlib show-code 650px center caption:"E-Commerce Domain Class Diagram"
 from drawlib import canvas
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 
@@ -135,7 +135,7 @@ Drawlib provides intuitive verb methods on `ClassNode` to create UML relationshi
 | `c1.associate(c2)` | **Association** | Solid | None (or Open Arrow if `directed=True`) | Structural relationship |
 | `client.depend(supplier)` | **Dependency** | Dashed | Open Arrow (at supplier) | Client uses / depends on supplier |
 
-```drawlib 650px center caption:"All 6 UML Relationship Types"
+```drawlib show-code 650px center caption:"All 6 UML Relationship Types"
 from drawlib import canvas
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode, RelationshipType
 
@@ -216,7 +216,7 @@ When `"auto"` is used, Drawlib automatically chooses the nearest complementary s
 
 Classes and relationships fully integrate with Drawlib's `Style` class:
 
-```drawlib 650px center caption:"Styled UML Class Diagram"
+```drawlib show-code 650px center caption:"Styled UML Class Diagram"
 from drawlib import canvas
 from drawlib._core.l3_styles import Colors, Style
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode

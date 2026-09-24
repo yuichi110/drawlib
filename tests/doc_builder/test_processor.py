@@ -159,3 +159,85 @@ circle((50, 50), radius=10)
     assert 'style="width: 400px; max-width: 100%;"' in processed_md
     assert '<figcaption class="drawlib-caption">System Architecture</figcaption>' in processed_md
     assert "</figure>" in processed_md
+
+
+def test_block_processor_code_visibility_modes(tmp_path) -> None:
+    """Test hide, show, and fold code visibility modes in Markdown and HTML."""
+    out_dir = tmp_path / "out"
+    out_dir.mkdir()
+    processor = DrawlibBlockProcessor()
+
+    # 1. Default (no option) -> hide code
+    md_default = """
+```drawlib
+circle((50, 50), radius=10)
+```
+"""
+    res_default = processor.process_markdown(md_default, doc_base_name="default_doc", output_dir=str(out_dir))
+    assert "```python" not in res_default
+    assert "details" not in res_default
+    assert 'src="default_doc_images/1.png"' in res_default
+
+    # 2. show-code -> show code block followed by image
+    md_show = """
+```drawlib show-code
+circle((50, 50), radius=10)
+```
+"""
+    res_show = processor.process_markdown(md_show, doc_base_name="show_doc", output_dir=str(out_dir))
+    assert "```python\ncircle((50, 50), radius=10)\n```" in res_show
+    assert 'src="show_doc_images/1.png"' in res_show
+    # Python code comes before image
+    assert res_show.find("```python") < res_show.find("show_doc_images/1.png")
+
+    # 3. fold-code -> image followed by details tag
+    md_fold = """
+```drawlib fold-code
+circle((50, 50), radius=10)
+```
+"""
+    res_fold = processor.process_markdown(md_fold, doc_base_name="fold_doc", output_dir=str(out_dir))
+    assert '<details class="drawlib-code-details">' in res_fold
+    assert "<summary>Source Code</summary>" in res_fold
+    assert "```python\ncircle((50, 50), radius=10)\n```" in res_fold
+    assert "</details>" in res_fold
+    # Image comes before details
+    assert res_fold.find("fold_doc_images/1.png") < res_fold.find("<details")
+
+    # 4. HTML script tag fold-code and show-code
+    html_input = """
+<script type="text/drawlib" code="fold" file="fold_img.png">
+circle((50, 50), radius=10)
+</script>
+<script type="text/drawlib" code="show" file="show_img.png">
+circle((50, 50), radius=10)
+</script>
+<script type="text/drawlib" file="hide_img.png">
+circle((50, 50), radius=10)
+</script>
+"""
+    res_html = processor.process_html(html_input, doc_base_name="html_doc", output_dir=str(out_dir))
+    assert '<details class="drawlib-code-details">' in res_html
+    assert '<pre><code class="language-python">circle((50, 50), radius=10)</code></pre>' in res_html
+    assert 'src="html_doc_images/fold_img.png"' in res_html
+    assert 'src="html_doc_images/show_img.png"' in res_html
+    assert 'src="html_doc_images/hide_img.png"' in res_html
+
+
+def test_block_processor_code_options_parsing() -> None:
+    """Test parsing code options in _parse_block_info."""
+    processor = DrawlibBlockProcessor()
+
+    assert processor._parse_block_info("").code == "hide"
+    assert processor._parse_block_info("400px center").code == "hide"
+    assert processor._parse_block_info("show-code").code == "show"
+    assert processor._parse_block_info("show_code").code == "show"
+    assert processor._parse_block_info("code:show").code == "show"
+    assert processor._parse_block_info("code=show").code == "show"
+    assert processor._parse_block_info("fold-code").code == "fold"
+    assert processor._parse_block_info("fold_code").code == "fold"
+    assert processor._parse_block_info("code:fold").code == "fold"
+    assert processor._parse_block_info("code=fold").code == "fold"
+    assert processor._parse_block_info("hide-code").code == "hide"
+    assert processor._parse_block_info("code:hide").code == "hide"
+    assert processor._parse_block_info("500px fold-code center").code == "fold"

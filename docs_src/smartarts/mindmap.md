@@ -14,7 +14,7 @@ It supports:
 Here is an example of a multi-directional mind map:
 
 
-```drawlib 600px center
+```drawlib show-code 600px center
 from drawlib.canvas import config, save
 from drawlib.smartarts import MindMapNode
 
@@ -85,7 +85,7 @@ save()
 Specifying `branch="bottom"` on the root creates a standard top-down organization chart.
 
 
-```drawlib 600px center
+```drawlib show-code 600px center
 from drawlib.canvas import config, save
 from drawlib.smartarts import MindMapNode
 
@@ -128,7 +128,7 @@ Each node can have one of three shapes:
 - `"none"`: Text-only node without border or background fill. Useful for leaf topics.
 
 
-```drawlib 600px center
+```drawlib show-code 600px center
 from drawlib.canvas import config, save
 from drawlib.smartarts import MindMapNode
 

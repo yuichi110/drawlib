@@ -4,7 +4,7 @@
 Class `Table` is used for drawing table.
 
 
-```drawlib 600px center
+```drawlib show-code 600px center
 from drawlib.canvas import config, save
 from drawlib.smartarts import Table
 

@@ -4,7 +4,7 @@
 Class `BulletPoints` is used for drawing bullet points.
 
 
-```drawlib 600px center
+```drawlib show-code 600px center
 from drawlib.canvas import config, save
 from drawlib.lines import line
 from drawlib.smartarts import BulletPoints

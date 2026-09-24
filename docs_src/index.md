@@ -2,7 +2,7 @@
 
 Drawlib is a pure Python drawing library crafted to facilitate **Illustration as Code** rather than focusing solely on creating polished illustrations manually.
 
-```drawlib 600px center caption:"Code makes Illustration"
+```drawlib fold-code 600px center caption:"Code makes Illustration"
 from drawlib.canvas import config
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import circle, rectangle

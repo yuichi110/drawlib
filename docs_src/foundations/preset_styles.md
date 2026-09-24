@@ -33,7 +33,7 @@ You can inspect all available styles in a preset using `get_styles()` or preset-
 
 Here is a circle drawn with default styles (no style specified):
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
 
@@ -74,7 +74,7 @@ The `default` preset includes the following primary color style names:
 
 Let's see them in action.
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.lines import line
 from drawlib.shapes import circle
@@ -160,7 +160,7 @@ If the color, type, or weight are default, they can be omitted in the style name
 
 Example:
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.lines import line
 from drawlib.shapes import circle

@@ -20,7 +20,7 @@ Using horizontal and vertical alignment with "center" is often the best approach
 Let's compare some example code with different alignments.
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
@@ -149,7 +149,7 @@ To simplify this process, use variables for coordinates instead of hardcoding va
 In this example, we use variables to align items horizontally.
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
@@ -209,7 +209,7 @@ This approach makes it easy to change the canvas height and add new items.
 Let's change the canvas height to `50` and add a rectangle at last.
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.icons import phosphor
 from drawlib.shapes import circle, rectangle

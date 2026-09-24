@@ -78,3 +78,8 @@ pre {
     font-size: 0.82rem;
     color: #555555;
 }
+
+.drawlib-code-details {
+    display: none !important;
+}
+

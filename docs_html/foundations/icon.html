@@ -334,9 +334,6 @@ phosphor.airplane_landing(xy=(x * 6, y), width=10)
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="icon_images/1.png" alt="icon_1" />
-</div>
 <p>All functions have these args.</p>
 <ul>
 <li><code>xy</code> : coordinate</li>
@@ -345,28 +342,8 @@ save()
 <li><code>style</code> : Accepts string style name or <code>Style</code> object.</li>
 </ul>
 <p>Executing this code yields the following image:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.icons import phosphor
-from drawlib.text import text
-
-width = 100
-height = 50
-config(width=width, height=height)
-
-x = width / 7
-y = height / 2
-phosphor.airplane_taxiing(xy=(x, y), width=10)
-phosphor.airplane_takeoff(xy=(x * 2, y), width=10)
-phosphor.airplane_in_flight(xy=(x * 3, y), width=10)
-phosphor.airplane_tilt(xy=(x * 4, y), width=10)
-phosphor.airplane(xy=(x * 5, y), width=10, angle=270)
-text(xy=(x * 5, y - 10), text=&quot;angle 270&quot;)
-phosphor.airplane_landing(xy=(x * 6, y), width=10)
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="icon_images/2.png" alt="icon_2" style="width: 600px; max-width: 100%;" />
+  <img src="icon_images/1.png" alt="icon_1" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>phosphor's icons
 </code></pre>
@@ -402,36 +379,9 @@ text(xy=(x * 4, y - 10), text=&quot;bigquery&quot;, size=10)
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="icon_images/3.png" alt="icon_3" />
-</div>
 <p>Executing this code generates the following image:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.icons import gcp
-from drawlib.text import text
-
-width = 100
-height = 45
-config(width=width, height=height)
-
-x = width / 5
-y = height / 2 + 5
-gcp.compute_engine(xy=(x, y), width=10)
-text(xy=(x, y - 10), text=&quot;compute_engine&quot;, size=10)
-
-gcp.cloud_storage(xy=(x * 2, y), width=10)
-text(xy=(x * 2, y - 10), text=&quot;cloud_storage&quot;, size=10)
-
-gcp.cloud_run(xy=(x * 3, y), width=10)
-text(xy=(x * 3, y - 10), text=&quot;cloud_run&quot;, size=10)
-
-gcp.bigquery(xy=(x * 4, y), width=10)
-text(xy=(x * 4, y - 10), text=&quot;bigquery&quot;, size=10)
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="icon_images/4.png" alt="icon_4" style="width: 600px; max-width: 100%;" />
+  <img src="icon_images/2.png" alt="icon_2" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>Common GCP service icons
 </code></pre>
@@ -482,43 +432,9 @@ text(xy=(x * 4, y - 10), text=&quot;fill_color=Red&quot;, size=10)
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="icon_images/5.png" alt="icon_5" />
-</div>
 <p>Executing this code generates the following image:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.icons import gcp
-from drawlib.text import text
-from drawlib.types import Style
-
-width = 100
-height = 50
-config(width=width, height=height)
-
-x = width / 5
-y = height / 2 + 5
-
-# 1. Default multi-color artwork
-gcp.cloud_run(xy=(x, y), width=10)
-text(xy=(x, y - 10), text=&quot;Default&quot;, size=10)
-
-# 2. Angle rotation
-gcp.cloud_run(xy=(x * 2, y), width=10, angle=45)
-text(xy=(x * 2, y - 10), text=&quot;angle=45&quot;, size=10)
-
-# 3. Alpha transparency
-gcp.cloud_run(xy=(x * 3, y), width=10, style=Style(fill_alpha=0.35))
-text(xy=(x * 3, y - 10), text=&quot;fill_alpha=0.35&quot;, size=10)
-
-# 4. Color tint / silhouette mask
-gcp.cloud_run(xy=(x * 4, y), width=10, style=Style(fill_color=Colors.Red))
-text(xy=(x * 4, y - 10), text=&quot;fill_color=Red&quot;, size=10)
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="icon_images/6.png" alt="icon_6" style="width: 600px; max-width: 100%;" />
+  <img src="icon_images/3.png" alt="icon_3" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>GCP icon styling variations
 </code></pre>
@@ -569,57 +485,9 @@ line(xy1=(68, 27), xy2=(80, 21), arrowhead=&quot;-&gt;&quot;)
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="icon_images/7.png" alt="icon_7" />
-</div>
 <p>Executing this code generates the following architecture diagram:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.icons import gcp, phosphor
-from drawlib.lines import line
-from drawlib.shapes import rectangle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=60)
-
-# Cloud boundary
-rectangle(
-    xy=(63, 30),
-    width=66,
-    height=50,
-    r=2,
-    style=Style(fill_color=Colors.White, line_color=Colors.Gray, line_style=&quot;dashed&quot;, line_width=1.5),
-)
-text(xy=(45, 51), text=&quot;Google Cloud Project&quot;, size=10, style=Style(text_color=Colors.Gray))
-
-# Client / User
-phosphor.user(xy=(14, 30), width=10)
-text(xy=(14, 20), text=&quot;Client&quot;, size=9)
-
-# Cloud Services
-gcp.cloud_load_balancing(xy=(38, 30), width=10)
-text(xy=(38, 20), text=&quot;Load Balancer&quot;, size=9)
-
-gcp.cloud_run(xy=(62, 30), width=10)
-text(xy=(62, 20), text=&quot;Cloud Run&quot;, size=9)
-
-gcp.cloud_sql(xy=(86, 40), width=9)
-text(xy=(86, 32), text=&quot;Cloud SQL&quot;, size=8)
-
-gcp.cloud_storage(xy=(86, 20), width=9)
-text(xy=(86, 12), text=&quot;Cloud Storage&quot;, size=8)
-
-# Connectors
-line(xy1=(20, 30), xy2=(32, 30), arrowhead=&quot;-&gt;&quot;)
-line(xy1=(44, 30), xy2=(56, 30), arrowhead=&quot;-&gt;&quot;)
-line(xy1=(68, 33), xy2=(80, 39), arrowhead=&quot;-&gt;&quot;)
-line(xy1=(68, 27), xy2=(80, 21), arrowhead=&quot;-&gt;&quot;)
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="icon_images/8.png" alt="icon_8" style="width: 600px; max-width: 100%;" />
+  <img src="icon_images/4.png" alt="icon_4" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>Sample GCP cloud architecture diagram
 </code></pre>
@@ -677,53 +545,9 @@ font_icon(
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="icon_images/9.png" alt="icon_9" />
-</div>
 <p>Executing this code generates the following image:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.icons import font_icon
-from drawlib.text import text
-
-width = 100
-height = 50
-config(width=width, height=height)
-
-file_brand = &quot;fontawesome-free/brands.ttf&quot;
-file_regular = &quot;fontawesome-free/regular.ttf&quot;
-file_solid = &quot;fontawesome-free/solid.ttf&quot;
-
-google = &quot;\uf1a0&quot;
-gmail = &quot;\uf0e0&quot;
-google_map = &quot;\uf3c5&quot;
-google_drive = &quot;\uf3aa&quot;
-google_play = &quot;\uf3ab&quot;
-google_pay = &quot;\ue079&quot;
-
-x = width / 7
-y = height / 2
-font_icon(xy=(x, y), width=10, code=google, file=file_brand)
-font_icon(xy=(x * 2, y), width=10, code=gmail, file=file_regular)
-font_icon(xy=(x * 3, y), width=10, code=google_map, file=file_solid, angle=270)
-text(xy=(x * 3, y - 10), text=&quot;angle 270&quot;)
-font_icon(
-    xy=(x * 4, y),
-    width=10,
-    code=google_drive,
-    file=file_brand,
-)
-font_icon(
-    xy=(x * 5, y),
-    width=10,
-    code=google_play,
-    file=file_brand,
-)
-
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="icon_images/10.png" alt="icon_10" style="width: 600px; max-width: 100%;" />
+  <img src="icon_images/5.png" alt="icon_5" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>FontAwesome-Free icons
 </code></pre>
@@ -764,35 +588,9 @@ text(xy=(x * 5 + 5, y - 10), text=&quot;align left,bottom&quot;)
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="icon_images/11.png" alt="icon_11" />
-</div>
 <p>Executing this code generates the following image:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.icons import phosphor
-from drawlib.shapes import circle
-from drawlib.text import text
-from drawlib.types import Style
-
-width = 100
-height = 50
-config(width=width, height=height)
-
-x = width / 7
-y = height / 2
-phosphor.airplane_taxiing(xy=(x, y), width=10, style=Style(text_color=Colors.Red))
-phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Style(icon_style=&quot;thin&quot;))
-phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Style(icon_style=&quot;bold&quot;))
-phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Style(icon_style=&quot;fill&quot;))
-phosphor.airplane(xy=(x * 5, y), width=10, style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;))
-circle(xy=(x * 5, y), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
-text(xy=(x * 5 + 5, y - 10), text=&quot;align left,bottom&quot;)
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="icon_images/12.png" alt="icon_12" style="width: 600px; max-width: 100%;" />
+  <img src="icon_images/6.png" alt="icon_6" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>icons with Style.
 </code></pre>
@@ -815,9 +613,6 @@ phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=&quot;blue_bold&quot;
 phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=&quot;green_flat&quot;)
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="icon_images/13.png" alt="icon_13" />
-</div>
 <p>Icon supports the following styles exclusively:</p>
 <ul>
 <li>weight of icon: <code>light</code> and <code>bold</code></li>
@@ -825,23 +620,8 @@ save()
 <li>color of icon</li>
 </ul>
 <p>Line style solid and dashed are not supported.</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.icons import phosphor
-
-width = 100
-height = 50
-config(width=width, height=height)
-
-x = width / 7
-y = height / 2
-phosphor.airplane_taxiing(xy=(x, y), width=10, style=&quot;green&quot;)
-phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=&quot;red_light&quot;)
-phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=&quot;blue_bold&quot;)
-phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=&quot;green_flat&quot;)
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="icon_images/14.png" alt="icon_14" style="width: 600px; max-width: 100%;" />
+  <img src="icon_images/7.png" alt="icon_7" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>icon with preset style
 </code></pre>

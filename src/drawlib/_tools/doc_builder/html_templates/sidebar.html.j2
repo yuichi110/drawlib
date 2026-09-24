@@ -317,6 +317,43 @@ tr:nth-child(even) {
     height: auto;
 }
 
+details.drawlib-code-details {
+    margin: 1rem 0 2rem 0;
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 6px;
+    background-color: var(--rtd-code-bg);
+    overflow: hidden;
+}
+
+.drawlib-image + details.drawlib-code-details {
+    margin-top: -1rem;
+}
+
+details.drawlib-code-details summary {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--rtd-sidebar-text, #666);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+details.drawlib-code-details summary:hover {
+    color: var(--rtd-text-color, #111);
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+details.drawlib-code-details[open] summary {
+    border-bottom: 1px solid var(--rtd-border-color);
+}
+
+details.drawlib-code-details pre {
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
 .footer {
     border-top: 1px solid var(--rtd-border-color);
     padding: 1.5rem 2.5rem;
@@ -335,6 +372,12 @@ tr:nth-child(even) {
 
     .main-content {
         padding: 1.5rem;
+    }
+}
+
+@media print {
+    .sidebar, .top-bar, .footer, hr, .drawlib-code-details {
+        display: none !important;
     }
 }
     </style>

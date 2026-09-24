@@ -23,7 +23,7 @@ It supports standard UML 2.0 notations, including rounded state cards with inter
 
 Below is a state machine illustrating an authentication and session lifecycle:
 
-```drawlib 650px center caption:"Session State Machine Diagram"
+```drawlib show-code 650px center caption:"Session State Machine Diagram"
 from drawlib import canvas
 from drawlib.diagrams.state_diagram import (
     ChoiceState,
@@ -98,7 +98,7 @@ sd.draw(xy=(0.0, 0.0))
 | **Double Circle** | `"double_circle"` | Automaton accepting / terminal states. Transparent background by default. |
 | **Text Only** | `"text_only"` | Borderless text state for annotations or minimalist diagrams. |
 
-```drawlib 650px center caption:"State Node Shapes Comparison"
+```drawlib show-code 650px center caption:"State Node Shapes Comparison"
 from drawlib import canvas
 from drawlib.diagrams.state_diagram import State, StateDiagram
 
@@ -150,7 +150,7 @@ When actions are present, the state card is automatically rendered with a distin
 
 UML pseudo-states control the flow of execution:
 
-```drawlib 650px center caption:"UML Pseudo-States Example"
+```drawlib show-code 650px center caption:"UML Pseudo-States Example"
 from drawlib import canvas
 from drawlib.diagrams.state_diagram import (
     ChoiceState,
@@ -205,7 +205,7 @@ idle.to(active, label="Custom label text")
 
 When two states transition back and forth, setting `bend` creates elegant curved arcs:
 
-```drawlib 650px center caption:"Bidirectional Curved Transitions"
+```drawlib show-code 650px center caption:"Bidirectional Curved Transitions"
 from drawlib import canvas
 from drawlib.diagrams.state_diagram import State, StateDiagram
 

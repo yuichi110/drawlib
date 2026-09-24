@@ -35,7 +35,7 @@ It requires two mandatory arguments and accepts three optional arguments.
 Let's look at an example:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.lines import line
 
@@ -87,7 +87,7 @@ Negative values can also be used for bend, which maintains the length but revers
 Let's check some examples:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.lines import line_curved
 from drawlib.text import text
@@ -149,7 +149,7 @@ If you are not familiar with Bézier curves, it is recommended to research and u
 This code generates the following output:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line, line_bezier1
@@ -227,7 +227,7 @@ If you are not familiar with Bézier curves, it is recommended to research and u
 Here is an example code:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line, line_bezier2
@@ -315,7 +315,7 @@ The `xys` argument differs from the previous functions, but it is simply a list 
 Here is an example code:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.lines import lines
 
@@ -384,7 +384,7 @@ We set almost the same arguments for elements of the path_points.
 Let's see how it works with an example:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line, lines_bezier
@@ -466,7 +466,7 @@ save()
 This function can be used to draw curved lines from shape to shape like this:
 
 
-```drawlib 600px center
+```drawlib show-code 600px center
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line, lines_bezier
@@ -525,7 +525,7 @@ It takes two mandatory arguments and three optional arguments.
 Here is an example code:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import lines, lines_curved

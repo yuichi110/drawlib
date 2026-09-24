@@ -46,7 +46,7 @@ For more details and examples, please refer to the Coordinate and Alignment page
 Here are three examples:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import circle, rectangle
@@ -173,7 +173,7 @@ Common `Style` attributes used for shape text include:
 Here are three examples:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.fonts import FontSansSerif, FontSerif
@@ -326,7 +326,7 @@ When applied to `textstyle`, it controls font weight.
 Here are three examples:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
 from drawlib.text import text

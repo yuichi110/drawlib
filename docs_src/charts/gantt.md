@@ -10,7 +10,7 @@ Drawing inspiration from sequence diagrams, `GanttChart` structures timeline col
 
 Create a multi-phase project schedule with tasks, sections, progress bars, milestones, and dependencies:
 
-```drawlib 650px center caption:"Project Roadmap Schedule"
+```drawlib show-code 650px center caption:"Project Roadmap Schedule"
 from drawlib import canvas
 from drawlib.charts import GanttChart
 
@@ -47,7 +47,7 @@ chart.draw(xy=(5.0, 20.0))
 
 Specify numerical or sprint offsets, customize bar colors and corner rounding:
 
-```drawlib 650px center caption:"Sprint Schedule"
+```drawlib show-code 650px center caption:"Sprint Schedule"
 from drawlib import canvas
 from drawlib.charts import GanttChart
 

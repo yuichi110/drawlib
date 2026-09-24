@@ -8,7 +8,7 @@ This feature leverages pygments to generate visually enhanced source code images
 Here is an example of code:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontSourceCode
@@ -146,7 +146,7 @@ Here are list of supported styles:
 Here are output of Source Code styles.
 
 
-```drawlib 600px center
+```drawlib fold-code 600px center
 from drawlib.canvas import config, save
 from drawlib.fonts import FontSourceCode
 from drawlib.smartarts import SourceCode

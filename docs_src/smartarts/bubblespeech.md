@@ -7,7 +7,7 @@ It's implemented within the `smartarts` module as part of the Smart Art function
 Here's an example of using Bubblespeech in Drawlib:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.smartarts import bubblespeech

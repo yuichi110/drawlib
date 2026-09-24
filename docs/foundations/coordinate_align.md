@@ -15,8 +15,6 @@ Here, `X` represents the x-axis value, and `Y` represents the y-axis value.
 Let's delve into some code examples:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
@@ -26,10 +24,6 @@ for i in range(11):
     circle(xy=(i, i), radius=0.2)
 save()
 ```
-
-![coordinate_align_1](coordinate_align_images/1.png)
-
-
 
 In this example, setting `config(width=10, height=10, ...)` implies:
 
@@ -44,18 +38,8 @@ Executing this code generates the following image:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import circle
-
-config(width=10, height=10, grid_only=True)
-for i in range(11):
-    circle(xy=(i, i), radius=0.2)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="coordinate_align_images/2.png" alt="coordinate_align_2" style="width: 600px; max-width: 100%;" />
+  <img src="coordinate_align_images/1.png" alt="coordinate_align_1" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -92,8 +76,6 @@ If alignment isn't specified, `"center"` is applied to both horizontal and verti
 Let's examine the alignment of rectangles with an example code:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -121,10 +103,6 @@ for x, halign in [(15, "left"), (50, "center"), (85, "right")]:
 
 save()
 ```
-
-![coordinate_align_3](coordinate_align_images/3.png)
-
-
 
 In this code, we display nine variations of alignments. 
 The red dot represents "xy", and the inner text indicates the alignment.
@@ -132,36 +110,8 @@ The red dot represents "xy", and the inner text indicates the alignment.
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.shapes import circle, rectangle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=100, grid_only=True)
-
-for x, halign in [(15, "left"), (50, "center"), (85, "right")]:
-    for y, valign in [(15, "bottom"), (50, "center"), (85, "top")]:
-        rectangle(
-            xy=(x, y),
-            width=15,
-            height=15,
-            style=Style(text_halign=halign, text_valign=valign),
-            text=f"({halign}, {valign})",
-            textstyle=Style(text_size=14),
-        )
-        circle(
-            xy=(x, y),
-            radius=1,
-            style=Style(line_color=Colors.Red, fill_color=Colors.Red),
-        )
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="coordinate_align_images/4.png" alt="coordinate_align_4" style="width: 600px; max-width: 100%;" />
+  <img src="coordinate_align_images/2.png" alt="coordinate_align_2" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -180,8 +130,6 @@ Consistency is key.
 Here's an example of aligning items horizontally and vertically:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -218,10 +166,6 @@ for x in [x1, x2, x3]:
 
 save()
 ```
-
-![coordinate_align_5](coordinate_align_images/5.png)
-
-
 
 Each item have different size an angles. 
 If we use alignment like `(left, bottom)`, aligning items becomes complex. 
@@ -230,45 +174,8 @@ However, `(center, center)` is straightforward.
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.icons import phosphor
-from drawlib.images import image
-from drawlib.shapes import chevron, circle, parallelogram, rectangle, regularpolygon, star
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=100, grid_only=True)
-
-x1 = 20
-x2 = 50
-x3 = 80
-y1 = 20
-y2 = 50
-y3 = 80
-
-circle((x1, y1), radius=5)
-rectangle((x1, y2), width=20, height=10, angle=45)
-star((x1, y3), 5, 15, 6, angle=45)
-
-image((x2, y1), width=20, image="python.png", angle=315)
-phosphor.heart((x2, y2), 10, angle=315)
-text((x2, y3), "Drawlib", angle=315, style=Style(text_size=24))
-
-chevron((x3, y1), 35, 10, corner_angle=45, angle=45)
-parallelogram((x3, y2), 15, 10, corner_angle=60, angle=45)
-regularpolygon((x3, y3), num_vertex=6, radius=5, angle=45)
-
-for x in [x1, x2, x3]:
-    for y in [y1, y2, y3]:
-        circle((x, y), 1, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="coordinate_align_images/6.png" alt="coordinate_align_6" style="width: 600px; max-width: 100%;" />
+  <img src="coordinate_align_images/3.png" alt="coordinate_align_3" style="width: 600px; max-width: 100%;" />
 </div>
 
 

@@ -200,6 +200,43 @@ tr:nth-child(even) {
     height: auto;
 }
 
+details.drawlib-code-details {
+    margin: 1rem 0 2rem 0;
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 6px;
+    background-color: var(--rtd-code-bg);
+    overflow: hidden;
+}
+
+.drawlib-image + details.drawlib-code-details {
+    margin-top: -1rem;
+}
+
+details.drawlib-code-details summary {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+details.drawlib-code-details summary:hover {
+    color: #111;
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+details.drawlib-code-details[open] summary {
+    border-bottom: 1px solid var(--rtd-border-color);
+}
+
+details.drawlib-code-details pre {
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
 .footer {
     margin-top: 3rem;
     border-top: 1px solid var(--rtd-border-color);
@@ -232,6 +269,9 @@ tr:nth-child(even) {
         overflow: visible !important;
         overflow-x: visible !important;
         font-size: 0.82em;
+    }
+    .drawlib-code-details {
+        display: none !important;
     }
 }
     </style>

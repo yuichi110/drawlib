@@ -259,3 +259,8 @@ th {
 .pdf-toc li:last-child {
     border-bottom: none;
 }
+
+.drawlib-code-details {
+    display: none !important;
+}
+

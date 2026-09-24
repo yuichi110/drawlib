@@ -20,7 +20,7 @@ Drawlib is structured around the following APIs:
 - Advanced classes and functions: These components utilize the aforementioned APIs internally to provide extended functionality.
 
 
-```drawlib 600px center
+```drawlib fold-code 600px center
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto

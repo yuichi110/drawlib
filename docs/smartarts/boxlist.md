@@ -55,8 +55,6 @@ BoxList is used in these procedures.
 Here is an example code.
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.smartarts import BoxList
@@ -80,42 +78,14 @@ b3.draw(xy=(75, 10), box_width=8, box_height=6, align="bottom")
 
 save()
 ```
-
-![boxlist_2](boxlist_images/2.png)
-
-
 
 This function call draws a bubble speech shape with a tail starting from the right edge, beginning at 30% from the bottom, extending to 70% along its path.
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.smartarts import BoxList
-
-config(width=100, height=50)
-
-b1 = BoxList(default_text_style="white")
-b1.extend(["1", "2", "3", "4"])
-b1.draw(xy=(10, 35), box_width=8, box_height=6)
-
-
-b2 = BoxList(default_box_style="solid", default_text_style="")
-b2.extend(["1", "2"])
-b2.append("3", box_style="red_solid_bold", text_style="red_bold")
-b2.extend(["4", "", ""])
-b2.draw(xy=(10, 10), box_width=8, box_height=6)
-
-b3 = BoxList(default_text_style="white")
-b3.extend(["1", "2", "3", "4"])
-b3.draw(xy=(75, 10), box_width=8, box_height=6, align="bottom")
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="boxlist_images/3.png" alt="boxlist_3" style="width: 600px; max-width: 100%;" />
+  <img src="boxlist_images/2.png" alt="boxlist_2" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -163,7 +133,7 @@ b3.draw(xy=(75, 10), box_width=8, box_height=6, align="bottom")
 save()
 ```
 
-![boxlist_4](boxlist_images/4.png)
+![boxlist_3](boxlist_images/3.png)
 
 
 

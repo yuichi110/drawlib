@@ -4,7 +4,7 @@
 Class `Pyramid` draws smart art pyramid with custom style and orientation.
 
 
-```drawlib 600px center
+```drawlib show-code 600px center
 from drawlib.canvas import config, save
 from drawlib.smartarts import Pyramid
 from drawlib.text import text

@@ -8,7 +8,7 @@
 
 Compare multiple profiles across symmetric radial dimensions with polygon gridlines and automatic legend layout:
 
-```drawlib 650px center caption:"Character Attributes Comparison"
+```drawlib show-code 650px center caption:"Character Attributes Comparison"
 from drawlib import canvas
 from drawlib.charts import RadarChart
 
@@ -31,7 +31,7 @@ chart.draw(xy=(10.0, 10.0))
 
 Use `grid_shape="circle"` for concentric circular contours, customize `line_style="dashed"`, and show numeric labels at each vertex with `show_values=True`:
 
-```drawlib 650px center caption:"Product Quality Evaluation"
+```drawlib show-code 650px center caption:"Product Quality Evaluation"
 from drawlib import canvas
 from drawlib.charts import RadarChart
 

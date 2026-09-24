@@ -4,7 +4,7 @@
 Class `Tree` draws smart art tree which is similar to `tree` command output.
 
 
-```drawlib 600px center
+```drawlib show-code 600px center
 from drawlib.canvas import config, save
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode

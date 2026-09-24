@@ -7,8 +7,6 @@ Instead of focusing solely on creating polished illustrations, Drawlib emphasize
 For instance, consider the following Python code:
 
 
-
-
 ```python
 from drawlib.canvas import save
 from drawlib.colors import Colors140
@@ -27,10 +25,6 @@ circle(
 )
 save()
 ```
-
-![about_1](about_images/1.png)
-
-
 
 Execute it with the following command:
 
@@ -45,27 +39,8 @@ This will generate an image file:
 
 
 
-```python
-from drawlib.canvas import save
-from drawlib.colors import Colors140
-from drawlib.shapes import circle
-from drawlib.types import Style
-
-circle(
-    xy=(50, 50),
-    radius=30,
-    style=Style(
-        line_style="dashed",
-        line_color=Colors140.BlueViolet,
-        line_width=5,
-        fill_color=Colors140.Turquoise,
-    ),
-)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="about_images/2.png" alt="about_2" style="width: 450px; max-width: 100%;" />
+  <img src="about_images/1.png" alt="about_1" style="width: 450px; max-width: 100%;" />
 </div>
 
 

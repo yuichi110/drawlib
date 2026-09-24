@@ -20,8 +20,6 @@ Using horizontal and vertical alignment with "center" is often the best approach
 Let's compare some example code with different alignments.
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.icons import phosphor
@@ -67,64 +65,14 @@ circle(
 
 save()
 ```
-
-![programming_1](programming_images/1.png)
-
-
 
 Before diving into the code, let's examine the output image.
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.icons import phosphor
-from drawlib.shapes import circle
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=100, grid_only=True)
-
-# alignment: horizontally left, vertically bottom
-text(
-    (19, 73),
-    "Drawlib",
-    style=Style(text_size=24, text_halign="left", text_valign="bottom"),
-)
-phosphor.heart(
-    (45, 70),
-    width=10,
-    style=Style(text_halign="left", text_valign="bottom"),
-)
-circle(
-    (70, 70),
-    radius=5,
-    style=Style(text_halign="left", text_valign="bottom"),
-)
-
-# alignment: horizontally center, vertically center
-text(
-    (25, 25),
-    "Drawlib",
-    style=Style(text_size=24, text_halign="center", text_valign="center"),
-)
-phosphor.heart(
-    (50, 25),
-    width=10,
-    style=Style(text_halign="center", text_valign="center"),
-)
-circle(
-    (75, 25),
-    radius=5,
-    style=Style(text_halign="center", text_valign="center"),
-)
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="programming_images/2.png" alt="programming_2" style="width: 600px; max-width: 100%;" />
+  <img src="programming_images/1.png" alt="programming_1" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -163,8 +111,6 @@ To simplify this process, use variables for coordinates instead of hardcoding va
 In this example, we use variables to align items horizontally.
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.icons import phosphor
@@ -187,10 +133,6 @@ circle((margin_x * 3, y), radius=5)
 
 save()
 ```
-
-![programming_3](programming_images/3.png)
-
-
 
 The variable `y` is straightforward, representing half the height. 
 The variable `x` is a bit more complex but ensures equal x margins for the items.
@@ -200,31 +142,8 @@ Executing this code generate below image.
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.icons import phosphor
-from drawlib.shapes import circle
-from drawlib.text import text
-from drawlib.types import Style
-
-width = 100
-height = 100
-config(width=width, height=height, grid_only=True)
-
-num_items = 3
-margin_x = width / (num_items + 1)
-y = height / 2
-
-# center center align
-text((margin_x, y), "Drawlib", style=Style(text_size=24))
-phosphor.heart((margin_x * 2, y), width=10)
-circle((margin_x * 3, y), radius=5)
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="programming_images/4.png" alt="programming_4" style="width: 600px; max-width: 100%;" />
+  <img src="programming_images/2.png" alt="programming_2" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -237,8 +156,6 @@ This approach makes it easy to change the canvas height and add new items.
 Let's change the canvas height to `50` and add a rectangle at last.
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.icons import phosphor
@@ -262,10 +179,6 @@ rectangle((margin_x * 4, y), width=10, height=10)
 
 save()
 ```
-
-![programming_5](programming_images/5.png)
-
-
 
 As you can see, only a few points need modification. 
 Using a variable for y simplifies the code. However, the x variable makes the code slightly more complex. 
@@ -273,32 +186,8 @@ Using a variable for y simplifies the code. However, the x variable makes the co
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.icons import phosphor
-from drawlib.shapes import circle, rectangle
-from drawlib.text import text
-from drawlib.types import Style
-
-width = 100
-height = 50  # <= CHANGED FROM 100 !!
-config(width=width, height=height, grid_only=True)
-
-num_items = 4  # <= CHANGED FROM 3!!
-margin_x = width / (num_items + 1)
-y = height / 2
-
-# center center align
-text((margin_x, y), "Drawlib", style=Style(text_size=24))
-phosphor.heart((margin_x * 2, y), width=10)
-circle((margin_x * 3, y), radius=5)
-rectangle((margin_x * 4, y), width=10, height=10)
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="programming_images/6.png" alt="programming_6" style="width: 600px; max-width: 100%;" />
+  <img src="programming_images/3.png" alt="programming_3" style="width: 600px; max-width: 100%;" />
 </div>
 
 

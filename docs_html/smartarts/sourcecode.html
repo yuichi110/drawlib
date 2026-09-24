@@ -348,9 +348,6 @@ sc2.draw((75, 25), width=40, code=CODE, style=Style(line_width=2, line_color=Col
 
 save()
 </code></pre>
-<div class="drawlib-image">
-  <img src="sourcecode_images/1.png" alt="sourcecode_1" />
-</div>
 <p>In the example above, the <code>SourceCode</code> instance is configured with options such as:</p>
 <ul>
 <li>language: Specifies the programming language (automatically detected if not provided).</li>
@@ -370,50 +367,8 @@ But it takes <code>code</code> argument instead of <code>image</code> argument.<
 <li>style: Style for source code image</li>
 </ul>
 <p>Executing the code will generate below output:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.colors import Colors, Colors140
-from drawlib.fonts import FontSourceCode
-from drawlib.shapes import circle
-from drawlib.smartarts import SourceCode
-from drawlib.types import Style
-
-CODE = &quot;&quot;&quot;
-
-config(width=100, height=100)
-circle(
-    xy=(50, 50),
-    radius=30,
-    style=Style(
-        line_style=&quot;dashed&quot;,
-        line_color=Colors140.BlueViolet,
-        line_width=5,
-        fill_color=Colors140.Turquoise,
-    ),
-)
-save()
-&quot;&quot;&quot;.strip()
-
-config(width=100, height=50)
-
-sc1 = SourceCode(
-    language=&quot;python&quot;,
-    style=&quot;default&quot;,
-)
-sc1.draw((25, 25), width=40, code=CODE)
-
-sc2 = SourceCode(
-    style=&quot;monokai&quot;,
-    font=FontSourceCode.ROBOTO_MONO,
-    show_linenum=True,
-    linenum_textcolor=Colors140.Black,
-    linenum_bgcolor=Colors140.LightGray,
-)
-sc2.draw((75, 25), width=40, code=CODE, style=Style(line_width=2, line_color=Colors.Red))
-
-save()
-</code></pre>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="sourcecode_images/2.png" alt="sourcecode_2" style="width: 600px; max-width: 100%;" />
+  <img src="sourcecode_images/1.png" alt="sourcecode_1" style="width: 600px; max-width: 100%;" />
 </div>
 <pre><code>image1.png
 </code></pre>
@@ -435,6 +390,11 @@ Here are list of supported styles:</p>
 <li>friendly_grayscale</li>
 </ul>
 <p>Here are output of Source Code styles.</p>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="sourcecode_images/2.png" alt="sourcecode_2" style="width: 600px; max-width: 100%;" />
+</div>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.fonts import FontSourceCode
 from drawlib.smartarts import SourceCode
@@ -489,9 +449,7 @@ for style in [
 
 save()
 </code></pre>
-<div class="drawlib-image" style="text-align: center;">
-  <img src="sourcecode_images/3.png" alt="sourcecode_3" style="width: 600px; max-width: 100%;" />
-</div>
+</details>
 <pre><code>image2.png
 </code></pre>
 <h1>get_text()</h1>

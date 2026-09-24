@@ -45,7 +45,7 @@ This function requires the following arguments:
 Let's explore two examples.
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import arc
 from drawlib.text import text
@@ -115,7 +115,7 @@ This function takes the following arguments:
 Let's explore two examples:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import chevron
 from drawlib.text import text
@@ -166,7 +166,7 @@ This function accepts the following arguments:
 Let's explore two examples:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import ellipse
 from drawlib.text import text
@@ -218,7 +218,7 @@ This function accepts the following arguments:
 Let's explore two examples.
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import parallelogram
 from drawlib.text import text
@@ -269,7 +269,7 @@ This function accepts the following arguments:
 Let's explore two examples:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import rectangle
 from drawlib.text import text
@@ -317,7 +317,7 @@ This function accepts the following arguments:
 Let's explore two examples:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import rhombus
 from drawlib.text import text
@@ -369,7 +369,7 @@ This function takes these arguments.
 Let's explore two examples:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import trapezoid
 from drawlib.text import text
@@ -436,7 +436,7 @@ This function accepts the following arguments:
 Let's explore two examples:
 
 
-```drawlib
+```python
 from drawlib.canvas import config, save
 from drawlib.shapes import rectangle, triangle
 from drawlib.text import text

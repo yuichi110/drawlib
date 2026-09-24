@@ -7,8 +7,6 @@ It's implemented within the `smartarts` module as part of the Smart Art function
 Here's an example of using Bubblespeech in Drawlib:
 
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
@@ -31,41 +29,14 @@ bubblespeech(
 )
 save()
 ```
-
-![bubblespeech_1](bubblespeech_images/1.png)
-
-
 
 This function call draws a bubble speech shape with a tail starting from the right edge, beginning at 30% from the bottom, extending to 70% along its path.
 
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
-from drawlib.smartarts import bubblespeech
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=50)
-bubblespeech(
-    xy=(30, 10),
-    width=50,
-    height=30,
-    tail_edge="left",
-    tail_start_ratio=0.2,
-    tail_vertex_xy=(10, 25),
-    tail_end_ratio=0.6,
-    style=Style(line_width=0, fill_color=Colors.Blue),
-    text="Hello Drawlib!",
-    textstyle=Style(text_size=32, text_color=Colors.White),
-)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="bubblespeech_images/2.png" alt="bubblespeech_2" style="width: 600px; max-width: 100%;" />
+  <img src="bubblespeech_images/1.png" alt="bubblespeech_1" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -86,48 +57,8 @@ Please refer the below picture for understanding the parameters.
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors, Colors140
-from drawlib.lines import line
-from drawlib.shapes import circle
-from drawlib.smartarts import bubblespeech
-from drawlib.text import text
-from drawlib.types import Style
-
-config(width=100, height=50)
-bubblespeech(
-    xy=(30, 10),
-    width=50,
-    height=30,
-    tail_edge="left",
-    tail_start_ratio=0.2,
-    tail_vertex_xy=(10, 25),
-    tail_end_ratio=0.6,
-    style=Style(line_width=0, fill_color=Colors140.LightGray),
-    text="Hello Drawlib!",
-    textstyle=Style(text_size=32, text_color=Colors.White),
-)
-
-line((30, 10), (30, 40), style=Style(line_width=2, line_style="dashed", line_color=Colors.Blue))
-text((30, 45), 'tail_edge = "left"')
-circle(xy=(30, 10), radius=1, style=Style(line_width=0, fill_color=Colors.Red))
-text((30, 5), "xy = (30, 10)")
-
-line((27, 10), (27, 16), arrowhead="<->")
-text((13, 13), "tail_from_ratio = 0.2")
-
-circle(xy=(10, 25), radius=1, style=Style(line_width=0, fill_color=Colors.Red))
-text((15, 30), "tail_vertex_xy = (30, 10)")
-
-line((33, 10), (33, 28), arrowhead="<->")
-text((45, 13), "tail_to_ratio = 0.6")
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="bubblespeech_images/3.png" alt="bubblespeech_3" style="width: 600px; max-width: 100%;" />
+  <img src="bubblespeech_images/2.png" alt="bubblespeech_2" style="width: 600px; max-width: 100%;" />
 </div>
 
 

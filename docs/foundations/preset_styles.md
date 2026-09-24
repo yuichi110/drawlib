@@ -33,8 +33,6 @@ You can inspect all available styles in a preset using `get_styles()` or preset-
 
 Here is a circle drawn with default styles (no style specified):
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
@@ -43,26 +41,13 @@ config(width=100, height=50)
 circle((50, 25), radius=15)
 save()
 ```
-
-![preset_styles_1](preset_styles_images/1.png)
-
-
 
 Executing this code yields the following image:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.shapes import circle
-
-config(width=100, height=50)
-circle((50, 25), radius=15)
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="preset_styles_images/2.png" alt="preset_styles_2" style="width: 600px; max-width: 100%;" />
+  <img src="preset_styles_images/1.png" alt="preset_styles_1" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -88,8 +73,6 @@ The `default` preset includes the following primary color style names:
 
 Let's see them in action.
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.lines import line
@@ -122,50 +105,13 @@ text((80, text_y), text='style="red"', style="red")
 
 save()
 ```
-
-![preset_styles_3](preset_styles_images/3.png)
-
-
 
 Executing this code produces the following image:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.lines import line
-from drawlib.shapes import circle
-from drawlib.text import text
-
-config(width=100, height=50)
-line_y = 40
-text_y = 10
-
-# default style
-line((13, line_y), (27, line_y))
-circle((20, 25), radius=8)
-text((20, text_y), text="no style")
-
-# blue style
-line((33, line_y), (47, line_y), style="blue")
-circle((40, 25), radius=8, style="blue")
-text((40, text_y), text='style="blue"', style="blue")
-
-# green style
-line((53, line_y), (67, line_y), style="green")
-circle((60, 25), radius=8, style="green")
-text((60, text_y), text='style="green"', style="green")
-
-# red style
-line((73, line_y), (87, line_y), style="red")
-circle((80, 25), radius=8, style="red")
-text((80, text_y), text='style="red"', style="red")
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="preset_styles_images/4.png" alt="preset_styles_4" style="width: 600px; max-width: 100%;" />
+  <img src="preset_styles_images/2.png" alt="preset_styles_2" style="width: 600px; max-width: 100%;" />
 </div>
 
 
@@ -188,8 +134,6 @@ If the color, type, or weight are default, they can be omitted in the style name
 
 Example:
 
-
-
 ```python
 from drawlib.canvas import config, save
 from drawlib.lines import line
@@ -214,42 +158,13 @@ circle((85, 25), radius=8, style="dashed")
 
 save()
 ```
-
-![preset_styles_5](preset_styles_images/5.png)
-
-
 
 Executing this code results in the following image:
 
 
 
-```python
-from drawlib.canvas import config, save
-from drawlib.lines import line
-from drawlib.shapes import circle
-from drawlib.text import text
-
-config(width=100, height=50)
-line_y = 40
-text_y = 10
-
-line((8, line_y), (22, line_y), style="blue")
-circle((15, 25), radius=8, style="blue")
-
-line((31, line_y), (45, line_y), style="blue_solid")
-circle((38, 25), radius=8, style="blue_solid")
-
-line((55, line_y), (69, line_y), style="blue_bold")
-circle((62, 25), radius=8, style="blue_bold")
-
-line((78, line_y), (92, line_y), style="dashed")
-circle((85, 25), radius=8, style="dashed")
-
-save()
-```
-
 <div class="drawlib-image" style="text-align: center;">
-  <img src="preset_styles_images/6.png" alt="preset_styles_6" style="width: 500px; max-width: 100%;" />
+  <img src="preset_styles_images/3.png" alt="preset_styles_3" style="width: 500px; max-width: 100%;" />
 </div>
 
 

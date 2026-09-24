@@ -8,7 +8,7 @@
 
 Compare continuous metrics over categories or time intervals:
 
-```drawlib 650px center caption:"Monthly Active Users Comparison"
+```drawlib show-code 650px center caption:"Monthly Active Users Comparison"
 from drawlib import canvas
 from drawlib.charts import LineChart
 
@@ -34,7 +34,7 @@ chart.draw(xy=(10.0, 20.0))
 
 Enable `smooth=True` for rounded, fluid curve interpolation, and customize marker shapes (`point_shape="square"` or `"circle"`):
 
-```drawlib 650px center caption:"Server Load Average"
+```drawlib show-code 650px center caption:"Server Load Average"
 from drawlib import canvas
 from drawlib.charts import LineChart
 
@@ -61,7 +61,7 @@ chart.draw(xy=(10.0, 20.0))
 
 Combine `LineChart` with `configure_y_axis(scale="log")` to track exponential growth or wide dynamic ranges:
 
-```drawlib 650px center caption:"Exponential Growth"
+```drawlib show-code 650px center caption:"Exponential Growth"
 from drawlib import canvas
 from drawlib.charts import LineChart
 

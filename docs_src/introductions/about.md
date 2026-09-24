@@ -7,7 +7,7 @@ Instead of focusing solely on creating polished illustrations, Drawlib emphasize
 For instance, consider the following Python code:
 
 
-```drawlib
+```python
 from drawlib.canvas import save
 from drawlib.colors import Colors140
 from drawlib.shapes import circle

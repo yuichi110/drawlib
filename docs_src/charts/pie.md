@@ -8,7 +8,7 @@
 
 Create a clean pie chart showing proportional breakdown with automatic percentage labels and legends:
 
-```drawlib 650px center caption:"Browser Market Share"
+```drawlib show-code 650px center caption:"Browser Market Share"
 from drawlib import canvas
 from drawlib.charts import PieChart
 
@@ -33,7 +33,7 @@ chart.draw(xy=(10.0, 15.0))
 
 Set `hole_ratio` (e.g. `0.6`) to turn any pie chart into a donut chart, and display summary metrics or KPIs in the center with `center_text`:
 
-```drawlib 650px center caption:"Revenue Breakdown Donut"
+```drawlib show-code 650px center caption:"Revenue Breakdown Donut"
 from drawlib import canvas
 from drawlib.charts import PieChart
 
@@ -58,7 +58,7 @@ chart.draw(xy=(10.0, 15.0))
 
 Highlight important segments by setting `explode` on individual slices, and reposition the legend to the bottom:
 
-```drawlib 650px center caption:"Budget Allocation with Exploded Slice"
+```drawlib show-code 650px center caption:"Budget Allocation with Exploded Slice"
 from drawlib import canvas
 from drawlib.charts import PieChart
 

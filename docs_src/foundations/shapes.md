@@ -20,7 +20,7 @@ Circle-like shapes take `xy` as center coordinates and a `radius` parameter.
 - **`star(xy, radius_ext, radius_int, num_vertices)`**: Multi-point star with inner/outer radii.
 - **`wedge(xy, radius, width, from_angle, to_angle)`**: Combined donut sector with inner/outer radii and angles.
 
-```drawlib 500px center caption:"Circle-like Shapes Overview"
+```drawlib show-code 500px center caption:"Circle-like Shapes Overview"
 from drawlib.canvas import config
 from drawlib.colors import Colors140
 from drawlib.shapes import circle, donuts, regularpolygon, star
@@ -81,7 +81,7 @@ Rectangle-like shapes take `xy` as center coordinates, `width`, `height`, and an
 - **`rhombus(xy, width, height)`**: Diamond / rhombus shape.
 - **`parallelogram(xy, width, height)`**: Slanted parallelogram.
 
-```drawlib 500px center caption:"Rectangle-like Shapes and Rotation Angles"
+```drawlib show-code 500px center caption:"Rectangle-like Shapes and Rotation Angles"
 from drawlib.canvas import config
 from drawlib.colors import Colors140
 from drawlib.shapes import chevron, ellipse, rectangle, rhombus, triangle
@@ -143,7 +143,7 @@ chevron(
 
 The `arrow()` function draws a thick block arrow from point `xy1` to point `xy2`.
 
-```drawlib 500px center caption:"Block Arrow from xy1 to xy2"
+```drawlib show-code 500px center caption:"Block Arrow from xy1 to xy2"
 from drawlib.canvas import config
 from drawlib.colors import Colors140
 from drawlib.shapes import arrow
@@ -169,7 +169,7 @@ arrow(
 
 The `polygon()` function connects a sequence of `(x, y)` coordinate points `xys` and fills the interior.
 
-```drawlib 500px center caption:"Custom Polygon Connecting Points"
+```drawlib show-code 500px center caption:"Custom Polygon Connecting Points"
 from drawlib.canvas import config
 from drawlib.colors import Colors140
 from drawlib.shapes import polygon
@@ -196,7 +196,7 @@ Shape appearance is configured using `Style`:
 - **`line_style`**: `"solid"`, `"dashed"`, `"dotted"`, `"dashdot"`.
 - **`fill_alpha`**: Opacity (`0.0` to `1.0`).
 
-```drawlib 500px center caption:"Shape Styling and Border Styles"
+```drawlib show-code 500px center caption:"Shape Styling and Border Styles"
 from drawlib.canvas import config
 from drawlib.colors import Colors140
 from drawlib.shapes import circle, rectangle
