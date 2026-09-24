@@ -27,13 +27,13 @@ from drawlib.shapes import circle
 from drawlib.types import Style
 
 IMAGE_FILE = "../assets/image.png"
-OUTPUT_DIR_DEFAULT = "../../output_tests/l4_theme/default/"
+OUTPUT_DIR_DEFAULT = "../../output_tests/preset_styles/default/"
 
 
-class TestThemeUnit:
-    """Unit tests for theme presets and get_styles."""
+class TestPresetStylesUnit:
+    """Unit tests for preset styles and get_styles."""
 
-    def test_theme_presets(self) -> None:
+    def test_preset_styles(self) -> None:
         """Verifies get_styles returns valid PresetStyles objects."""
         default = get_styles("default")
         essentials = get_styles("essentials")
@@ -65,25 +65,25 @@ class TestThemeUnit:
         assert isinstance(get_style("solid"), Style)
         assert isinstance(get_style("dashed"), Style)
 
-    def test_invalid_theme_name(self) -> None:
-        """Verifies get_styles raises ValueError for invalid theme name."""
+    def test_invalid_style_name(self) -> None:
+        """Verifies get_styles raises ValueError for invalid style name."""
         with pytest.raises(ValueError, match="is not supported"):
-            get_styles("invalid_theme")
+            get_styles("invalid_style")
 
 
 def test_default_fill() -> None:
     """Integrated drawing test for default circles fill."""
-    theme = get_default_styles()
+    styles = get_default_styles()
     circle((25, 25), 10, text="drawlib")
-    circle((25, 50), 10, style=theme.light, text="drawlib")
-    circle((25, 75), 10, style=theme.bold, text="drawlib")
+    circle((25, 50), 10, style=styles.light, text="drawlib")
+    circle((25, 75), 10, style=styles.bold, text="drawlib")
     save(f"{OUTPUT_DIR_DEFAULT}test_fill.png")
 
 
 def test_default_style_images() -> None:
     """Integrated drawing test for default image styles."""
-    theme = get_default_styles()
-    image((25, 25), 20, style=theme.flat, image=IMAGE_FILE)
-    image((25, 50), 20, style=theme.solid, image=IMAGE_FILE)
-    image((25, 75), 20, style=theme.dashed, image=IMAGE_FILE)
+    styles = get_default_styles()
+    image((25, 25), 20, style=styles.flat, image=IMAGE_FILE)
+    image((25, 50), 20, style=styles.solid, image=IMAGE_FILE)
+    image((25, 75), 20, style=styles.dashed, image=IMAGE_FILE)
     save(f"{OUTPUT_DIR_DEFAULT}test_style_images.png")

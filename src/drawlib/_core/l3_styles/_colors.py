@@ -191,8 +191,8 @@ class Colors140(ColorsBase):
     YellowGreen: Final[TypeColorRGB] = (154, 205, 50)
 
 
-class ColorsThemeEssentials(ColorsBase):
-    """Class representing essential theme colors along with a transparent color."""
+class ColorsEssentials(ColorsBase):
+    """Class representing essential colors along with a transparent color."""
 
     Red: Final[TypeColorRGB] = (255, 23, 23)
     LightRed: Final[TypeColorRGB] = (239, 95, 95)
@@ -221,23 +221,29 @@ class ColorsThemeEssentials(ColorsBase):
     Steel: Final[TypeColorRGB] = (96, 96, 143)
 
 
-class ColorsThemeDefault(ColorsBase):
-    """Class representing default theme colors along with a transparent color."""
+class ColorsDefault(ColorsBase):
+    """Class representing default colors along with a transparent color."""
 
-    Red: Final[TypeColorRGB] = ColorsThemeEssentials.LightRed
-    Green: Final[TypeColorRGB] = ColorsThemeEssentials.LightGreen
-    Blue: Final[TypeColorRGB] = ColorsThemeEssentials.LightBlue
-    Black: Final[TypeColorRGB] = ColorsThemeEssentials.Black
-    White: Final[TypeColorRGB] = ColorsThemeEssentials.White
+    Red: Final[TypeColorRGB] = ColorsEssentials.LightRed
+    Green: Final[TypeColorRGB] = ColorsEssentials.LightGreen
+    Blue: Final[TypeColorRGB] = ColorsEssentials.LightBlue
+    Black: Final[TypeColorRGB] = ColorsEssentials.Black
+    White: Final[TypeColorRGB] = ColorsEssentials.White
 
 
-class ColorsThemeMonochrome(ColorsBase):
-    """Class representing monochrome theme colors along with a transparent color."""
+class ColorsMonochrome(ColorsBase):
+    """Class representing monochrome colors along with a transparent color."""
 
-    Black: Final[TypeColorRGB] = ColorsThemeEssentials.Black
-    Charcoal: Final[TypeColorRGB] = ColorsThemeEssentials.Charcoal
-    Graphite: Final[TypeColorRGB] = ColorsThemeEssentials.Graphite
-    Gray: Final[TypeColorRGB] = ColorsThemeEssentials.Gray
-    Silver: Final[TypeColorRGB] = ColorsThemeEssentials.Silver
-    Snow: Final[TypeColorRGB] = ColorsThemeEssentials.Snow
-    White: Final[TypeColorRGB] = ColorsThemeEssentials.White
+    Black: Final[TypeColorRGB] = ColorsEssentials.Black
+    Charcoal: Final[TypeColorRGB] = ColorsEssentials.Charcoal
+    Graphite: Final[TypeColorRGB] = ColorsEssentials.Graphite
+    Gray: Final[TypeColorRGB] = ColorsEssentials.Gray
+    Silver: Final[TypeColorRGB] = ColorsEssentials.Silver
+    Snow: Final[TypeColorRGB] = ColorsEssentials.Snow
+    White: Final[TypeColorRGB] = ColorsEssentials.White
+
+
+# Backward-compatible aliases
+ColorsThemeEssentials = ColorsEssentials
+ColorsThemeDefault = ColorsDefault
+ColorsThemeMonochrome = ColorsMonochrome

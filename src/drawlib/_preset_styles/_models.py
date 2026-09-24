@@ -24,8 +24,8 @@ class BasePresetStyles(BaseModel):
     """Base model for preset styles providing iteration, dictionary-like access, and autocompletion.
 
     Attributes:
-        background_color (TypeColor): Default canvas background color for this theme preset.
-        sourcecode_font (FontSourceCode): Default sourcecode font for this theme preset.
+        background_color (TypeColor): Default canvas background color for this preset style.
+        sourcecode_font (FontSourceCode): Default sourcecode font for this preset style.
     """
 
     model_config = ConfigDict(
@@ -83,7 +83,7 @@ class BasePresetStyles(BaseModel):
 
 
 class DefaultStyles(BasePresetStyles):
-    """Default theme preset styles.
+    """Default preset styles.
 
     Attributes:
         primary (Style): Primary emphasis style.
@@ -103,7 +103,7 @@ class DefaultStyles(BasePresetStyles):
 
 
 class EssentialsStyles(BasePresetStyles):
-    """Essentials theme preset styles.
+    """Essentials preset styles.
 
     Attributes:
         primary (Style): Primary emphasis style.
@@ -123,7 +123,7 @@ class EssentialsStyles(BasePresetStyles):
 
 
 class MonochromeStyles(BasePresetStyles):
-    """Monochrome theme preset styles.
+    """Monochrome preset styles.
 
     Attributes:
         primary (Style): Primary emphasis style.

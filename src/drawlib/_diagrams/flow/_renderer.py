@@ -32,7 +32,7 @@ if TYPE_CHECKING:
     from drawlib._diagrams.flow._diagram import FlowDiagram
     from drawlib._diagrams.flow._edge import FlowEdge
 
-# Default theme colors
+# Default colors
 _DEFAULT_BORDER_COLOR = (71, 85, 105, 1.0)  # Slate-600
 _DEFAULT_FILL_COLOR = (248, 250, 252, 1.0)  # Slate-50
 _DEFAULT_TEXT_COLOR = (30, 41, 59, 1.0)  # Slate-800

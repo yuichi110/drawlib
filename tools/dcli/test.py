@@ -139,16 +139,16 @@ def test_fonts(
     _run_pytest("tests/l3_fonts/", cov=cov)
 
 
-@app.command("theme")
-def test_theme(
+@app.command("preset-styles")
+def test_preset_styles(
     cov: bool = typer.Option(False, "--cov/--no-cov", help="Enable/disable coverage tracking."),
 ) -> None:
-    """Run l4_theme unit tests.
+    """Run preset_styles unit tests.
 
     Args:
         cov: Whether to collect coverage.
     """
-    _run_pytest("tests/l4_theme/", cov=cov)
+    _run_pytest("tests/preset_styles/", cov=cov)
 
 
 @app.command("canvas")

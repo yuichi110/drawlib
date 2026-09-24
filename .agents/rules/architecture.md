@@ -34,7 +34,7 @@ This document describes the project structure and architectural principles of th
 
 ### 3.2. Core Implementation (`core/`)
 The `core/` directory contains internal drawing logic and is not meant to be accessed directly by users.
-- **Layered Structure**: `l1_core`, `l2_models`, `l2_types`, `l3_fonts`, `l3_styles`, `l4_theme`, `l5_canvas`, `l6_icons`, `l7_dutils`, `l7_smartarts`, `l7_umls`.
+- **Layered Structure**: `l1_core`, `l2_models`, `l2_types`, `l3_fonts`, `l3_styles`, `l4_canvas`, `l4_canvas_utils`. (Domain features like `preset_styles`, `icons`, `charts`, `diagrams`, and `smartarts` reside at package level).
 
 ### 3.3. Document Builder (`doc_builder/`)
 - Handles Markdown parsing, `drawlib` code block execution, and HTML/PDF/Markdown compilation (see `.agents/rules/docs.md` for full specifications and workflows).

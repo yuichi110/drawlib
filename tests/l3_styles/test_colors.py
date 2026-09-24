@@ -16,6 +16,9 @@ from drawlib._core.l3_styles._colors import (
     Colors,
     Colors140,
     ColorsBase,
+    ColorsDefault,
+    ColorsEssentials,
+    ColorsMonochrome,
     ColorsThemeDefault,
     ColorsThemeEssentials,
     ColorsThemeMonochrome,
@@ -31,12 +34,18 @@ class TestColors:
             ColorsBase,
             Colors,
             Colors140,
-            ColorsThemeEssentials,
-            ColorsThemeDefault,
-            ColorsThemeMonochrome,
+            ColorsEssentials,
+            ColorsDefault,
+            ColorsMonochrome,
         ]
         for cls in classes:
             assert issubclass(cls, StaticContainer)
+
+    def test_colors_aliases(self):
+        """Test backward-compatible theme aliases."""
+        assert ColorsThemeEssentials is ColorsEssentials
+        assert ColorsThemeDefault is ColorsDefault
+        assert ColorsThemeMonochrome is ColorsMonochrome
 
     def test_colors_static_container_instantiation_raises(self):
         """Test that instantiating any color container class raises TypeError."""
@@ -44,9 +53,9 @@ class TestColors:
             ColorsBase,
             Colors,
             Colors140,
-            ColorsThemeEssentials,
-            ColorsThemeDefault,
-            ColorsThemeMonochrome,
+            ColorsEssentials,
+            ColorsDefault,
+            ColorsMonochrome,
         ]
         for cls in classes:
             with pytest.raises(TypeError, match="cannot be instantiated"):
@@ -65,9 +74,9 @@ class TestColors:
             ColorsBase,
             Colors,
             Colors140,
-            ColorsThemeEssentials,
-            ColorsThemeDefault,
-            ColorsThemeMonochrome,
+            ColorsEssentials,
+            ColorsDefault,
+            ColorsMonochrome,
         ]
         for cls in classes:
             # Get all public attributes that are color tuples

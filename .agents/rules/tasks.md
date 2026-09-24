@@ -28,7 +28,7 @@ Execute `./dcli` with no arguments to print all available toolsets:
   - ./dcli test all [--cov]
   - ./dcli test target <path>
   - ./dcli test cli
-  - ./dcli test core / models / types / styles / fonts / theme / canvas / icons / smartarts / doc-builder
+  - ./dcli test core / models / types / styles / fonts / preset-styles / canvas / icons / smartarts / doc-builder
 * docs:     Documentation generation and local preview
   - ./dcli docs build
   - ./dcli docs serve [-p PORT]

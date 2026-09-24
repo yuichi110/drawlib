@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Module for generating official theme presets."""
+"""Module for generating official preset styles."""
 
 from __future__ import annotations
 
@@ -17,9 +17,9 @@ from drawlib._core.l3_fonts import Font, FontSourceCode
 from drawlib._core.l3_styles import (
     Colors,
     Colors140,
-    ColorsThemeDefault,
-    ColorsThemeEssentials,
-    ColorsThemeMonochrome,
+    ColorsDefault,
+    ColorsEssentials,
+    ColorsMonochrome,
     Style,
 )
 from drawlib._preset_styles._models import (
@@ -32,13 +32,13 @@ from drawlib._preset_styles._models import (
 
 
 def get_default_styles() -> DefaultStyles:
-    """Generate default theme preset.
+    """Generate default preset styles.
 
     Returns:
-        DefaultStyles: Default theme preset.
+        DefaultStyles: Default preset styles.
     """
-    blue = ColorsThemeDefault.Blue
-    black = ColorsThemeDefault.Black
+    blue = ColorsDefault.Blue
+    black = ColorsDefault.Black
 
     return DefaultStyles(
         primary=Style(
@@ -102,13 +102,13 @@ def get_default_styles() -> DefaultStyles:
 
 
 def get_essentials_styles() -> EssentialsStyles:
-    """Generate essentials theme preset.
+    """Generate essentials preset styles.
 
     Returns:
-        EssentialsStyles: Essentials theme preset.
+        EssentialsStyles: Essentials preset styles.
     """
-    charcoal = ColorsThemeEssentials.Charcoal
-    lightblue = ColorsThemeEssentials.LightBlue
+    charcoal = ColorsEssentials.Charcoal
+    lightblue = ColorsEssentials.LightBlue
 
     return EssentialsStyles(
         primary=Style(
@@ -172,13 +172,13 @@ def get_essentials_styles() -> EssentialsStyles:
 
 
 def get_monochrome_styles() -> MonochromeStyles:
-    """Generate monochrome theme preset.
+    """Generate monochrome preset styles.
 
     Returns:
-        MonochromeStyles: Monochrome theme preset.
+        MonochromeStyles: Monochrome preset styles.
     """
-    black = ColorsThemeMonochrome.Black
-    white = ColorsThemeMonochrome.White
+    black = ColorsMonochrome.Black
+    white = ColorsMonochrome.White
 
     return MonochromeStyles(
         primary=Style(
@@ -260,13 +260,13 @@ def get_styles(name: str) -> BasePresetStyles: ...
 def get_styles(
     name: Literal["default", "essentials", "monochrome"] | str = "default",
 ) -> BasePresetStyles:
-    """Get theme preset by name.
+    """Get preset styles by name.
 
     Args:
-        name: Theme name ("default", "essentials", "monochrome").
+        name: Preset styles name ("default", "essentials", "monochrome").
 
     Returns:
-        BasePresetStyles: Theme preset object.
+        BasePresetStyles: Preset styles object.
     """
     if name == "default":
         return get_default_styles()
@@ -274,12 +274,12 @@ def get_styles(
         return get_essentials_styles()
     if name == "monochrome":
         return get_monochrome_styles()
-    raise ValueError(f'Theme "{name}" is not supported.')
+    raise ValueError(f'Preset style "{name}" is not supported.')
 
 
 def _resolve_color(name: str) -> tuple[int, int, int] | tuple[int, int, int, float] | None:
     cap_name = name.capitalize()
-    for colors_cls in (ColorsThemeEssentials, Colors140, Colors):
+    for colors_cls in (ColorsEssentials, Colors140, Colors):
         if hasattr(colors_cls, cap_name):
             return getattr(colors_cls, cap_name)
         if hasattr(colors_cls, name):

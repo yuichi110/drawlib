@@ -12,6 +12,9 @@
 from drawlib._core.l3_styles import (
     Colors,
     Colors140,
+    ColorsDefault,
+    ColorsEssentials,
+    ColorsMonochrome,
     ColorsThemeDefault,
     ColorsThemeEssentials,
     ColorsThemeMonochrome,
@@ -30,6 +33,9 @@ __all__ = [
     # Color Classes
     "Colors",
     "Colors140",
+    "ColorsDefault",
+    "ColorsEssentials",
+    "ColorsMonochrome",
     "ColorsThemeDefault",
     "ColorsThemeEssentials",
     "ColorsThemeMonochrome",

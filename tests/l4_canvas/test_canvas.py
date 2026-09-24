@@ -137,7 +137,7 @@ class TestCanvas:
         assert path2.endswith("test_canvas.png")
 
     def test_set_background(self) -> None:
-        """Verify internal set_background logic with theme colors and overrides."""
+        """Verify internal set_background logic with background colors and overrides."""
         clear()
         config(background_color=Colors.Green, background_alpha=0.8)
         canvas._set_background()

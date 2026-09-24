@@ -81,8 +81,8 @@ class CanvasBase:
         self._width = self.DEFAULT_WIDTH
         self._height = self.DEFAULT_HEIGHT
         self._dpi = self.DEFAULT_DPI
-        self._background_color: TypeColor | None = None  # apply theme default later if no update
-        self._background_alpha: TypeAlpha | None = None  # apply theme default later if no update
+        self._background_color: TypeColor | None = None
+        self._background_alpha: TypeAlpha | None = None
         self._grid = self.DEFAULT_GRID
         self._grid_only = self.DEFAULT_GRID_ONLY
         self._grid_style = self.DEFAULT_GRID_STYLE
@@ -109,8 +109,7 @@ class CanvasBase:
             None
 
         Note:
-            `clear()` does not reset to theme defaults.
-            If you want to reset to default theme, call `config(theme="default")` after `clear()`.
+            `clear()` resets all canvas parameters and drawing states to system defaults.
 
         """
         pyplot.close()

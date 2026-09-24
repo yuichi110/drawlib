@@ -26,7 +26,7 @@ from drawlib._core.l2_types import (
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import (
     Colors,
-    ColorsThemeEssentials,
+    ColorsEssentials,
     Style,
 )
 from drawlib._core.l4_canvas import line, rectangle
@@ -114,17 +114,17 @@ class Table:
             border: bottom only
             """
             self.set_style_cell_evenodd(
-                even_color=ColorsThemeEssentials.Snow,
-                even_textstyle=Style(text_color=ColorsThemeEssentials.Charcoal),
-                odd_color=ColorsThemeEssentials.White,
-                odd_textstyle=Style(text_color=ColorsThemeEssentials.Charcoal),
+                even_color=ColorsEssentials.Snow,
+                even_textstyle=Style(text_color=ColorsEssentials.Charcoal),
+                odd_color=ColorsEssentials.White,
+                odd_textstyle=Style(text_color=ColorsEssentials.Charcoal),
             )
             self.set_style_cell_header(
-                background_color=ColorsThemeEssentials.LightBlue,
-                textstyle=Style(text_color=ColorsThemeEssentials.White, text_font=Font.SANSSERIF_BOLD),
+                background_color=ColorsEssentials.LightBlue,
+                textstyle=Style(text_color=ColorsEssentials.White, text_font=Font.SANSSERIF_BOLD),
             )
             self.set_style_border(
-                bottom=Style(text_color=ColorsThemeEssentials.Charcoal, line_width=1),
+                bottom=Style(text_color=ColorsEssentials.Charcoal, line_width=1),
             )
 
         elif name == "none":
@@ -135,7 +135,7 @@ class Table:
             """
             self.set_style_cell(
                 background_color=Colors.Transparent,
-                textstyle=Style(text_color=ColorsThemeEssentials.Charcoal),
+                textstyle=Style(text_color=ColorsEssentials.Charcoal),
             )
 
         elif name == "monochrome":
@@ -145,17 +145,17 @@ class Table:
             border: bottom only
             """
             self.set_style_cell_evenodd(
-                even_color=ColorsThemeEssentials.Snow,
-                even_textstyle=Style(text_color=ColorsThemeEssentials.Charcoal),
-                odd_color=ColorsThemeEssentials.White,
-                odd_textstyle=Style(text_color=ColorsThemeEssentials.Charcoal),
+                even_color=ColorsEssentials.Snow,
+                even_textstyle=Style(text_color=ColorsEssentials.Charcoal),
+                odd_color=ColorsEssentials.White,
+                odd_textstyle=Style(text_color=ColorsEssentials.Charcoal),
             )
             self.set_style_cell_header(
-                background_color=ColorsThemeEssentials.Graphite,
-                textstyle=Style(text_color=ColorsThemeEssentials.White, text_font=Font.SANSSERIF_BOLD),
+                background_color=ColorsEssentials.Graphite,
+                textstyle=Style(text_color=ColorsEssentials.White, text_font=Font.SANSSERIF_BOLD),
             )
             self.set_style_border(
-                bottom=Style(text_color=ColorsThemeEssentials.Charcoal, line_width=1),
+                bottom=Style(text_color=ColorsEssentials.Charcoal, line_width=1),
             )
 
         elif name == "border_simple":
@@ -165,17 +165,17 @@ class Table:
             border: header1, header2(light), bottom
             """
             self.set_style_cell(
-                background_color=ColorsThemeEssentials.White,
-                textstyle=Style(text_color=ColorsThemeEssentials.Charcoal),
+                background_color=ColorsEssentials.White,
+                textstyle=Style(text_color=ColorsEssentials.Charcoal),
             )
             self.set_style_cell_header(
-                background_color=ColorsThemeEssentials.White,
-                textstyle=Style(text_color=ColorsThemeEssentials.Charcoal, text_font=Font.SANSSERIF_BOLD),
+                background_color=ColorsEssentials.White,
+                textstyle=Style(text_color=ColorsEssentials.Charcoal, text_font=Font.SANSSERIF_BOLD),
             )
             self.set_style_border(
-                top=Style(text_color=ColorsThemeEssentials.Charcoal, line_width=1.5),
-                top2=Style(text_color=ColorsThemeEssentials.Charcoal, line_width=0.75),
-                bottom=Style(text_color=ColorsThemeEssentials.Charcoal, line_width=1.5),
+                top=Style(text_color=ColorsEssentials.Charcoal, line_width=1.5),
+                top2=Style(text_color=ColorsEssentials.Charcoal, line_width=0.75),
+                bottom=Style(text_color=ColorsEssentials.Charcoal, line_width=1.5),
             )
 
         else:

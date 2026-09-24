@@ -41,7 +41,7 @@ if TYPE_CHECKING:
     from drawlib._diagrams.state_diagram._diagram import StateDiagram
     from drawlib._diagrams.state_diagram._transition import StateTransition
 
-# Default color palette (Slate theme)
+# Default color palette (Slate)
 _DEFAULT_BORDER_COLOR = (71, 85, 105, 1.0)  # Slate-600
 _DEFAULT_FILL_COLOR = (248, 250, 252, 1.0)  # Slate-50
 _DEFAULT_TEXT_COLOR = (30, 41, 59, 1.0)  # Slate-800

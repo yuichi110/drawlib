@@ -78,7 +78,7 @@ def get_dimage_from_code(
     This function executes the provided drawlib drawing code in an isolated child process,
     ignoring any save() calls inside the code, and captures the rendered canvas as a Dimage.
     Because execution happens in a separate process, the parent process's canvas state,
-    themes, and matplotlib global settings remain completely unaffected.
+    preset styles, and matplotlib global settings remain completely unaffected.
 
     Args:
         code (str): Drawlib Python drawing code snippet.
