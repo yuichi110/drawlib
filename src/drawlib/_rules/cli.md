@@ -23,7 +23,35 @@ Key Options:
 - `--css <name|path>`: Built-in CSS theme (`default`, `minimal`, `google`, `monochrome`, `github`) or custom CSS path.
 - `--no-cache`: Force clean execution by ignoring SQLite image cache.
 
-## 2. Diagram Export & Inspection (`drawlib export`, `drawlib show`)
+## 2. Embedded Markdown Code Blocks (```drawlib)
+In Markdown documents, embed illustrations using the ````drawlib```` language fence.
+Header options can be specified as space-separated tokens or `key:value` pairs:
+
+````markdown
+```drawlib 600px center show-code caption:"System Architecture"
+from drawlib.canvas import config, save
+from drawlib.shapes import circle
+
+config(width=100, height=50)
+circle((50, 25), radius=15)
+save()
+```
+````
+
+### Block Header Options:
+- **Code Visibility**:
+  - *(Default / omitted)*: Code is hidden; only the rendered image is displayed.
+  - `show-code` (`code:show`, `code=show`): Displays Python code block followed by the rendered image.
+  - `fold-code` (`code:fold`, `code=fold`): Displays rendered image followed by a collapsed `<details>` dropdown with Python code (omitted in PDF export).
+- **Width**: `500px`, `100%`, `w:500px`, or integer `500` (e.g. `500px`).
+- **Height**: `300px`, `h:300px`.
+- **Alignment**: `center`, `left`, `right`, `a:center` (default: `center`).
+- **Caption**: `caption:"Figure Title"` (displayed below image in `<figcaption>`).
+- **Filename**: `file:custom_name.png` (explicit output image filename).
+- **Format**: `format:png`, `format:webp` (default: `png`).
+- **CSS Class**: `class:"shadow rounded"` (custom CSS classes on container).
+
+## 3. Diagram Export & Inspection (`drawlib export`, `drawlib show`)
 Render and verify individual illustrations without GUI popups:
 ```bash
 # List all drawlib code blocks inside a Markdown file:
@@ -39,7 +67,7 @@ drawlib export my_drawing.py -g -o scratch/debug_grid.png
 drawlib show my_drawing.py --grid
 ```
 
-## 3. Cache & Theme Utilities
+## 4. Cache & Theme Utilities
 ```bash
 # Check status of the SQLite image build cache:
 drawlib cache status
@@ -54,7 +82,7 @@ drawlib css list
 drawlib template export custom.j2
 ```
 
-## 4. Project Initialization (`drawlib init`)
+## 5. Project Initialization (`drawlib init`)
 Scaffold starter documentation projects with sample illustrations and working `docs_build.sh` scripts:
 ```bash
 # List available starter project types:

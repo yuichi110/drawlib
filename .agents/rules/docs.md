@@ -69,7 +69,7 @@ circle((50, 50), radius=30)
 Options can be specified as space-separated tokens, `key:value` pairs, or `key=value` pairs:
 
 ````markdown
-```drawlib 500px center caption:"Figure 1: Architecture" file:arch.png
+```drawlib 500px center show-code caption:"Figure 1: Architecture" file:arch.png
 # Code here...
 ```
 ````
@@ -77,13 +77,14 @@ Options can be specified as space-separated tokens, `key:value` pairs, or `key=v
 Supported options:
 | Option | Syntax Examples | Description |
 | :--- | :--- | :--- |
+| **Code Visibility** | `show-code`, `fold-code`, `hide-code`, `code:show`, `code:fold`, `code:hide` | Code display mode. Default: `hide` (renders image only). `show-code` shows Python code followed by image. `fold-code` displays image followed by collapsed `<details>` dropdown (omitted in PDF). |
 | **Width** | `400px`, `100%`, `w:500px`, or integer `400` | Display width of the rendered image in HTML. |
 | **Height** | `300px`, `h:300px` | Display height of the rendered image. |
 | **Alignment** | `center`, `left`, `right`, `a:center` | Image alignment within the document. Default: `center`. |
 | **Filename** | `file:custom_name.png` | Explicit filename for the generated image. (Default: auto-numbered `1.png`, `2.png`). |
 | **Caption** | `caption:"System Overview"` | Caption displayed below the image in a `<figcaption>`. |
 | **CSS Class**| `class:"shadow rounded border"` | Custom CSS classes applied to the figure wrapper. |
-| **Format** | `format:png`, `format:svg`, `format:inline_svg` | Image output format. Default: `png`. |
+| **Format** | `format:png`, `format:webp` | Image output format. Default: `png`. |
 
 ### 3.3. HTML Syntax (Alternative)
 For raw HTML source documents, `<drawlib>` tags or `<script type="text/drawlib">` are also supported:
