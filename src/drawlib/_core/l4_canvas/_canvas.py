@@ -10,10 +10,12 @@
 
 """Canvas implementation module."""
 
+import io
 import os
 from typing import Literal
 
 from matplotlib import pyplot
+from PIL import Image
 
 from drawlib._core.l1_core import (
     dutil_settings,
@@ -21,6 +23,7 @@ from drawlib._core.l1_core import (
     get_script_relative_path,
     guarded,
 )
+from drawlib._core.l2_models import Dimage
 from drawlib._core.l2_types import (
     TypeImageFormat,
     TypeStr,
@@ -79,6 +82,40 @@ class Canvas(
         self._remove_artists_from_ax()  # remove grid
         self._artists = temp_artists
         self._remove_artists_from_ax()  # remove drawing items
+
+    @guarded
+    def get_dimage(self) -> Dimage:
+        """Get the canvas illustration as a Dimage object in memory.
+
+        Renders the current canvas items in-memory and returns the result
+        as a Dimage object without saving to disk.
+
+        Returns:
+            Dimage: The rendered canvas image.
+        """
+        self._set_background()
+        zorder = self._draw_items()
+        self._remove_margin()
+
+        is_grid = self._grid or self._grid_only or dutil_settings.get_force_grid()
+        buf = io.BytesIO()
+
+        if is_grid:
+            temp_artists = self._artists
+            self._artists = []
+            self._draw_grid(zorder)
+            pyplot.savefig(buf, format="png")
+            self._remove_artists_from_ax()  # remove grid
+            self._artists = temp_artists
+            self._remove_artists_from_ax()  # remove drawing items
+        else:
+            pyplot.savefig(buf, format="png")
+            self._remove_artists_from_ax()  # remove drawing items
+
+        buf.seek(0)
+        pil_img = Image.open(buf)
+        pil_img.load()
+        return Dimage(pil_img)
 
     @guarded
     def save(
@@ -284,6 +321,7 @@ canvas = Canvas()
 # basics
 clear = canvas.clear
 config = canvas.config
+get_dimage = canvas.get_dimage
 save = canvas.save
 show = canvas.show
 shape = canvas.shape

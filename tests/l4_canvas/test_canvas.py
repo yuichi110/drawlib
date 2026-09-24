@@ -15,11 +15,12 @@ import pytest
 from matplotlib import pyplot
 
 from drawlib._core.l4_canvas import canvas
-from drawlib.canvas import clear, config, save, show
+from drawlib.canvas import clear, config, get_dimage, save, show
 from drawlib.colors import (
     Colors,
     Colors140,
 )
+from drawlib.images import Dimage, image
 from drawlib.shapes import circle
 from drawlib.types import Style
 
@@ -164,3 +165,39 @@ class TestCanvas:
         circle((50, 50), 10)
         show()
         assert show_called
+
+    def test_get_dimage(self) -> None:
+        """Verify get_dimage renders canvas illustration to a Dimage object in memory."""
+        clear()
+        config(width=100, height=100)
+        circle((50, 50), 30)
+
+        dimg = get_dimage()
+        assert isinstance(dimg, Dimage)
+        width, height = dimg.get_image_size()
+        assert width > 0
+        assert height > 0
+
+        # Verify canvas.get_dimage() method works identically
+        dimg2 = canvas.get_dimage()
+        assert isinstance(dimg2, Dimage)
+        assert dimg2.get_image_size() == (width, height)
+
+        # Verify the returned Dimage can be drawn on a subsequent canvas and captured
+        clear()
+        image((50, 50), width=40, image=dimg)
+        dimg_composed = get_dimage()
+        assert isinstance(dimg_composed, Dimage)
+        assert dimg_composed.get_image_size() == (width, height)
+
+    def test_get_dimage_with_grid(self) -> None:
+        """Verify get_dimage includes grid overlay when grid is enabled."""
+        clear()
+        config(width=100, height=100, grid=True)
+        circle((50, 50), 30)
+
+        dimg = get_dimage()
+        assert isinstance(dimg, Dimage)
+        width, height = dimg.get_image_size()
+        assert width > 0
+        assert height > 0

@@ -10,8 +10,10 @@
 """Public canvas module for drawlib."""
 
 from drawlib._core.l4_canvas import (
+    canvas,
     clear,
     config,
+    get_dimage,
     save,
     show,
 )
@@ -20,8 +22,10 @@ from drawlib._utils._canvas import (
 )
 
 __all__ = [
+    "canvas",
     "clear",
     "config",
+    "get_dimage",
     "initialize",
     "save",
     "show",
