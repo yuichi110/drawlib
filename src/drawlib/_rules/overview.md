@@ -40,6 +40,7 @@ save()
 Execute these commands in the terminal as needed during drawing or verification:
 - `python <script>.py` : Run script and generate image.
 - `drawlib export <script>.py -g -o scratch/check.png` : Export image with coordinate grid overlay.
+- `drawlib init <type> [dest]` : Scaffold starter project (`simple`, `site`, `pdf`).
 - `drawlib rules list` : List all available rule topics.
 - `drawlib rules show <topic>` : Fetch detailed specifications and examples for a topic.
 

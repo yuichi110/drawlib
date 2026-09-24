@@ -22,16 +22,19 @@ from drawlib.types import Style
 
 ## 3. Styling & Options
 - `style`: Preset style string (e.g. `"blue"`, `"red_dashed"`, `"bold"`) or `Style(line_color=..., line_width=..., line_style=...)`.
-- `text`: Centered label text along the line.
-- `textstyle`: Style applied to label text.
+- `arrowhead`: Arrowhead style (`""`, `"->"`, `"<-"`, `"<->"`).
+- `width`: Line thickness override.
 
 ## 4. Minimal Example
 ```python
 from drawlib.canvas import config, save
 from drawlib.lines import line, line_curved
+from drawlib.text import text
 
 config(width=100, height=50)
-line((10, 25), (45, 25), arrowhead="->", style="blue_bold", text="request")
-line_curved((55, 35), (90, 15), bend=0.3, arrowhead="->", style="green_dashed", text="response")
+line((10, 25), (45, 25), arrowhead="->", style="blue_bold")
+text((27.5, 28), "request")
+line_curved((55, 35), (90, 15), bend=0.3, arrowhead="->", style="green_dashed")
+text((72.5, 28), "response")
 save()
 ```

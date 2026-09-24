@@ -53,3 +53,19 @@ drawlib css list
 # Export built-in Jinja2 sidebar template for customization:
 drawlib template export custom.j2
 ```
+
+## 4. Project Initialization (`drawlib init`)
+Scaffold starter documentation projects with sample illustrations and working `docs_build.sh` scripts:
+```bash
+# List available starter project types:
+drawlib init --list
+
+# Initialize single document project in a new folder:
+drawlib init simple my_project/
+
+# Initialize multi-page responsive site directly in current project/repository:
+drawlib init site --here
+
+# Initialize multi-chapter PDF report with Table of Contents:
+drawlib init pdf my_report/
+```

@@ -212,6 +212,7 @@ def build_markdown(
     """
     output = output or output_path
     config = config or config_path
+    config_abs = os.path.abspath(config) if config else None
     input_abs = os.path.abspath(input_path)
     if not os.path.exists(input_abs):
         raise ValueError(f'Input path "{input_abs}" does not exist.')
@@ -275,7 +276,7 @@ def build_markdown(
                 src_abs=src_abs,
                 dest_abs=dest_abs,
                 image_format=image_format,
-                config_path=config,
+                config_path=config_abs,
                 processor=processor,
                 progress=FileBuildProgress(
                     idx,
@@ -322,7 +323,7 @@ def build_markdown(
         src_abs=input_abs,
         dest_abs=dest_abs,
         image_format=image_format,
-        config_path=config,
+        config_path=config_abs,
         progress=FileBuildProgress(
             1,
             1,
@@ -518,6 +519,7 @@ def build_html(
     css = css or css_path
     template = template or template_path
     config = config or config_path
+    config_abs = os.path.abspath(config) if config else None
     input_abs = os.path.abspath(input_path)
     if not os.path.exists(input_abs):
         raise ValueError(f'Input path "{input_abs}" does not exist.')
@@ -594,7 +596,7 @@ def build_html(
                 src_abs=src_abs,
                 dest_abs=dest_abs,
                 image_format=image_format,
-                config_path=config,
+                config_path=config_abs,
                 css_path=css,
                 css_href=rel_css_href,
                 nav_list=nav_list if is_md else None,
@@ -652,7 +654,7 @@ def build_html(
         src_abs=input_abs,
         dest_abs=dest_abs,
         image_format=image_format,
-        config_path=config,
+        config_path=config_abs,
         css_path=css,
         css_href=rel_css_href,
         nav_list=None,
@@ -715,6 +717,7 @@ def build_pdf(
     css = css or css_path
     template = template or template_path
     config = config or config_path
+    config_abs = os.path.abspath(config) if config else None
     input_list: List[str] = [inputs] if isinstance(inputs, str) else list(inputs)
     if not input_list:
         raise ValueError("At least one input file or directory must be specified for build_pdf.")
@@ -724,7 +727,7 @@ def build_pdf(
         title=title,
         page_break=page_break,
         generate_index=generate_index,
-        config_path=config,
+        config_path=config_abs,
         css_path=css,
         template_path=template,
         no_cache=no_cache,
