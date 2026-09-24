@@ -1,4 +1,4 @@
-/* drawlib Google Editorial Theme (google.css)
+/* drawlib Google Editorial Light Theme (google.css)
  * Inspired by https://blog.google/ (The Keyword) & Google Material Design Web
  */
 :root {
@@ -26,31 +26,6 @@
     --rtd-body-font: "Roboto", "Google Sans Text", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     --rtd-mono-font: "Roboto Mono", "JetBrains Mono", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     --sidebar-width: 288px;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --rtd-sidebar-bg: #17181b;
-        --rtd-sidebar-header: #17181b;
-        --rtd-sidebar-text: #bdc1c6;
-        --rtd-sidebar-hover: #282a2d;
-        --rtd-sidebar-active: #1f304d;
-        --rtd-sidebar-active-text: #8ab4f8;
-        --rtd-brand-color: #8ab4f8;
-        --rtd-brand-dark: #aecbfa;
-        --rtd-heading-color: #e8eaed;
-        --rtd-text-color: #bdc1c6;
-        --rtd-muted-color: #9aa0a6;
-        --rtd-bg-color: #202124;
-        --rtd-content-bg: #202124;
-        --rtd-surface-bg: #282a2d;
-        --rtd-border-color: #3c4043;
-        --rtd-code-bg: #17181b;
-        --rtd-inline-code-bg: #303134;
-        --rtd-inline-code-color: #8ab4f8;
-        --rtd-note-bg: #282a2d;
-        --rtd-note-border: #8ab4f8;
-    }
 }
 
 * {
@@ -359,12 +334,6 @@ th {
     background-color: #ffffff;
     border: 1px solid var(--rtd-border-color);
     border-radius: 16px;
-}
-
-@media (prefers-color-scheme: dark) {
-    .drawlib-image {
-        background-color: #17181b;
-    }
 }
 
 .drawlib-image img {

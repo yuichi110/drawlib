@@ -22,8 +22,8 @@ def get_default_css(
     """Get complete theme CSS content string for HTML ('html_css') or PDF ('pdf_css').
 
     Args:
-        custom_css_path (Optional[str]): Built-in CSS preset name ('default', 'google', 'github',
-            'monochrome', 'minimal') or path to custom CSS file.
+        custom_css_path (Optional[str]): Built-in CSS preset name ('default', 'default-dark', 'default-auto',
+            'google', 'google-dark', 'google-auto', 'github', 'monochrome', 'minimal') or path to custom CSS file.
         target (Literal["html", "pdf"]): Target format ('html' or 'pdf'). Defaults to 'html'.
 
     Returns:
@@ -32,10 +32,28 @@ def get_default_css(
     subdir = "pdf_css" if target == "pdf" else "html_css"
     styles_dir = os.path.join(os.path.dirname(__file__), subdir)
 
-    normalized_preset = "google" if (target == "pdf" and custom_css_path == "google-pdf") else custom_css_path
+    if target == "pdf":
+        if custom_css_path in {"default", "default-dark", "default-auto"}:
+            normalized_preset = "default"
+        elif custom_css_path in {"google", "google-pdf", "google-dark", "google-auto"}:
+            normalized_preset = "google"
+        else:
+            normalized_preset = custom_css_path
+    else:
+        normalized_preset = custom_css_path
 
     # Built-in presets
-    if normalized_preset in {"default", "google", "github", "monochrome", "minimal"}:
+    if normalized_preset in {
+        "default",
+        "default-dark",
+        "default-auto",
+        "google",
+        "google-dark",
+        "google-auto",
+        "github",
+        "monochrome",
+        "minimal",
+    }:
         preset_file = os.path.join(styles_dir, f"{normalized_preset}.css")
         if os.path.exists(preset_file):
             with open(preset_file, "r", encoding="utf-8") as f:

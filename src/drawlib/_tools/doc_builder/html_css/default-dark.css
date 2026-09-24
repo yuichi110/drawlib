@@ -1,26 +1,26 @@
-/* drawlib Modern Developer Light Theme (default.css)
+/* drawlib Modern Developer Dark Theme (default-dark.css)
  * Inspired by VitePress (Vue/Vite) & Tailwind CSS documentation
  */
 :root {
-    --rtd-sidebar-bg: #f8fafc;
-    --rtd-sidebar-header: #f8fafc;
-    --rtd-sidebar-text: #475569;
-    --rtd-sidebar-hover: #f1f5f9;
-    --rtd-sidebar-active: #eef2ff;
-    --rtd-sidebar-active-text: #4338ca;
-    --rtd-brand-color: #4f46e5;
-    --rtd-brand-dark: #3730a3;
-    --rtd-heading-color: #0f172a;
-    --rtd-text-color: #334155;
-    --rtd-muted-color: #64748b;
-    --rtd-bg-color: #f8fafc;
-    --rtd-content-bg: #ffffff;
-    --rtd-surface-bg: #f1f5f9;
-    --rtd-border-color: #e2e8f0;
-    --rtd-code-bg: #f8fafc;
-    --rtd-inline-code-bg: #eef2ff;
-    --rtd-inline-code-color: #4338ca;
-    --rtd-note-bg: #eef2ff;
+    --rtd-sidebar-bg: #090d16;
+    --rtd-sidebar-header: #090d16;
+    --rtd-sidebar-text: #94a3b8;
+    --rtd-sidebar-hover: #1e293b;
+    --rtd-sidebar-active: #1e1b4b;
+    --rtd-sidebar-active-text: #a5b4fc;
+    --rtd-brand-color: #818cf8;
+    --rtd-brand-dark: #6366f1;
+    --rtd-heading-color: #f1f5f9;
+    --rtd-text-color: #e2e8f0;
+    --rtd-muted-color: #94a3b8;
+    --rtd-bg-color: #090d16;
+    --rtd-content-bg: #0f172a;
+    --rtd-surface-bg: #1e293b;
+    --rtd-border-color: #1e293b;
+    --rtd-code-bg: #090d16;
+    --rtd-inline-code-bg: #1e1b4b;
+    --rtd-inline-code-color: #a5b4fc;
+    --rtd-note-bg: #1e1b4b;
     --rtd-note-border: #6366f1;
     --rtd-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --rtd-mono-font: "JetBrains Mono", "Fira Code", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -294,7 +294,7 @@ tr:nth-child(even) {
     align-items: center;
     margin: 2rem 0;
     padding: 1.25rem;
-    background-color: #ffffff;
+    background-color: #090d16;
     border: 1px solid var(--rtd-border-color);
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);

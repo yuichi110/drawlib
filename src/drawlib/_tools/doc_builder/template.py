@@ -45,11 +45,27 @@ BUILTIN_TEMPLATES = BUILTIN_HTML_TEMPLATES
 BUILTIN_HTML_CSS_PRESETS: Dict[str, Dict[str, str]] = {
     "default": {
         "file": "default.css",
-        "description": "Modern responsive documentation theme with clean typography.",
+        "description": "Modern developer light theme inspired by VitePress & Tailwind CSS.",
+    },
+    "default-dark": {
+        "file": "default-dark.css",
+        "description": "Modern developer dark theme with deep slate & indigo palette.",
+    },
+    "default-auto": {
+        "file": "default-auto.css",
+        "description": "Modern developer responsive theme switching between light and dark.",
     },
     "google": {
         "file": "google.css",
-        "description": "Clean editorial Google Blog (The Keyword) & Material Design style.",
+        "description": "Clean editorial Google Blog (The Keyword) & Material Design light style.",
+    },
+    "google-dark": {
+        "file": "google-dark.css",
+        "description": "Google editorial dark theme with Material Dark palette.",
+    },
+    "google-auto": {
+        "file": "google-auto.css",
+        "description": "Google editorial responsive theme switching between light and dark.",
     },
     "github": {
         "file": "github.css",
@@ -278,7 +294,12 @@ def export_css(
         FileNotFoundError: If built-in CSS file is missing.
     """
     if target == "pdf":
-        normalized = "google" if name == "google-pdf" else name
+        if name in {"default-dark", "default-auto"}:
+            normalized = "default"
+        elif name in {"google-pdf", "google-dark", "google-auto"}:
+            normalized = "google"
+        else:
+            normalized = name
         registry = BUILTIN_PDF_CSS_PRESETS
         styles_dir = os.path.join(os.path.dirname(__file__), "pdf_css")
     else:

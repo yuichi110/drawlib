@@ -73,7 +73,11 @@ def test_list_and_export_css(tmp_path) -> None:
     html_presets = list_css(target="html")
     html_names = [p["name"] for p in html_presets]
     assert "default" in html_names
+    assert "default-dark" in html_names
+    assert "default-auto" in html_names
     assert "google" in html_names
+    assert "google-dark" in html_names
+    assert "google-auto" in html_names
     assert "github" in html_names
     assert "minimal" in html_names
     assert "monochrome" in html_names
@@ -90,10 +94,55 @@ def test_list_and_export_css(tmp_path) -> None:
     assert out_css.exists()
     assert len(out_css.read_text(encoding="utf-8")) > 0
 
+    # Test google variants
+    out_google_light = tmp_path / "google_light.css"
+    export_css(name="google", output=str(out_google_light), target="html")
+    content_light = out_google_light.read_text(encoding="utf-8")
+    assert "prefers-color-scheme" not in content_light
+    assert "--rtd-bg-color: #ffffff;" in content_light
+
+    out_google_dark = tmp_path / "google_dark.css"
+    export_css(name="google-dark", output=str(out_google_dark), target="html")
+    content_dark = out_google_dark.read_text(encoding="utf-8")
+    assert "prefers-color-scheme" not in content_dark
+    assert "--rtd-bg-color: #202124;" in content_dark
+
+    out_google_auto = tmp_path / "google_auto.css"
+    export_css(name="google-auto", output=str(out_google_auto), target="html")
+    content_auto = out_google_auto.read_text(encoding="utf-8")
+    assert "prefers-color-scheme: dark" in content_auto
+
     out_pdf_css = tmp_path / "google_pdf.css"
     res_pdf = export_css(name="google", output=str(out_pdf_css), target="pdf")
     assert os.path.exists(res_pdf)
     assert out_pdf_css.exists()
+
+    # Test default variants
+    out_default_light = tmp_path / "default_light.css"
+    export_css(name="default", output=str(out_default_light), target="html")
+    content_def_light = out_default_light.read_text(encoding="utf-8")
+    assert "prefers-color-scheme" not in content_def_light
+    assert "--rtd-bg-color: #f8fafc;" in content_def_light
+
+    out_default_dark = tmp_path / "default_dark.css"
+    export_css(name="default-dark", output=str(out_default_dark), target="html")
+    content_def_dark = out_default_dark.read_text(encoding="utf-8")
+    assert "prefers-color-scheme" not in content_def_dark
+    assert "--rtd-bg-color: #090d16;" in content_def_dark
+
+    out_default_auto = tmp_path / "default_auto.css"
+    export_css(name="default-auto", output=str(out_default_auto), target="html")
+    content_def_auto = out_default_auto.read_text(encoding="utf-8")
+    assert "prefers-color-scheme: dark" in content_def_auto
+
+    # Test PDF graceful mapping for variants
+    out_pdf_dark = tmp_path / "google_pdf_dark.css"
+    export_css(name="google-dark", output=str(out_pdf_dark), target="pdf")
+    assert out_pdf_dark.exists()
+
+    out_def_pdf_dark = tmp_path / "default_pdf_dark.css"
+    export_css(name="default-dark", output=str(out_def_pdf_dark), target="pdf")
+    assert out_def_pdf_dark.exists()
 
 
 def test_validate_template_valid(tmp_path) -> None:

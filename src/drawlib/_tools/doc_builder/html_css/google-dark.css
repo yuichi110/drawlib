@@ -1,30 +1,31 @@
-/* drawlib Modern Developer Light Theme (default.css)
- * Inspired by VitePress (Vue/Vite) & Tailwind CSS documentation
+/* drawlib Google Editorial Dark Theme (google-dark.css)
+ * Inspired by https://blog.google/ (The Keyword) & Google Material Design Web
  */
 :root {
-    --rtd-sidebar-bg: #f8fafc;
-    --rtd-sidebar-header: #f8fafc;
-    --rtd-sidebar-text: #475569;
-    --rtd-sidebar-hover: #f1f5f9;
-    --rtd-sidebar-active: #eef2ff;
-    --rtd-sidebar-active-text: #4338ca;
-    --rtd-brand-color: #4f46e5;
-    --rtd-brand-dark: #3730a3;
-    --rtd-heading-color: #0f172a;
-    --rtd-text-color: #334155;
-    --rtd-muted-color: #64748b;
-    --rtd-bg-color: #f8fafc;
-    --rtd-content-bg: #ffffff;
-    --rtd-surface-bg: #f1f5f9;
-    --rtd-border-color: #e2e8f0;
-    --rtd-code-bg: #f8fafc;
-    --rtd-inline-code-bg: #eef2ff;
-    --rtd-inline-code-color: #4338ca;
-    --rtd-note-bg: #eef2ff;
-    --rtd-note-border: #6366f1;
-    --rtd-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    --rtd-mono-font: "JetBrains Mono", "Fira Code", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    --sidebar-width: 280px;
+    --rtd-sidebar-bg: #17181b;
+    --rtd-sidebar-header: #17181b;
+    --rtd-sidebar-text: #bdc1c6;
+    --rtd-sidebar-hover: #282a2d;
+    --rtd-sidebar-active: #1f304d;
+    --rtd-sidebar-active-text: #8ab4f8;
+    --rtd-brand-color: #8ab4f8;
+    --rtd-brand-dark: #aecbfa;
+    --rtd-heading-color: #e8eaed;
+    --rtd-text-color: #bdc1c6;
+    --rtd-muted-color: #9aa0a6;
+    --rtd-bg-color: #202124;
+    --rtd-content-bg: #202124;
+    --rtd-surface-bg: #282a2d;
+    --rtd-border-color: #3c4043;
+    --rtd-code-bg: #17181b;
+    --rtd-inline-code-bg: #303134;
+    --rtd-inline-code-color: #8ab4f8;
+    --rtd-note-bg: #282a2d;
+    --rtd-note-border: #8ab4f8;
+    --rtd-font: "Google Sans", "Product Sans", "Inter", "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --rtd-body-font: "Roboto", "Google Sans Text", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --rtd-mono-font: "Roboto Mono", "JetBrains Mono", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --sidebar-width: 288px;
 }
 
 * {
@@ -32,18 +33,38 @@
 }
 
 body {
-    font-family: var(--rtd-font);
-    font-size: 16px;
-    line-height: 1.6;
+    font-family: var(--rtd-body-font);
+    font-size: 16.5px;
+    line-height: 1.75;
     color: var(--rtd-text-color);
     background-color: var(--rtd-bg-color);
     margin: 0;
     padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle 3px Google 4-color accent bar at the very top of the viewport */
+body::before {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: linear-gradient(
+        90deg,
+        #4285f4 0%,
+        #4285f4 25%,
+        #ea4335 25%,
+        #ea4335 50%,
+        #fbbc04 50%,
+        #fbbc04 75%,
+        #34a853 75%,
+        #34a853 100%
+    );
 }
 
 .doc-layout {
     display: flex;
-    min-height: 100vh;
+    min-height: calc(100vh - 3px);
 }
 
 .sidebar {
@@ -58,7 +79,7 @@ body {
 
 .sidebar-header {
     background-color: var(--rtd-sidebar-header);
-    padding: 1.25rem 1.5rem;
+    padding: 1.35rem 1.75rem;
     border-bottom: 1px solid var(--rtd-border-color);
     text-align: left;
 }
@@ -67,12 +88,23 @@ body {
     font-family: var(--rtd-font);
     color: var(--rtd-heading-color);
     font-size: 1.35rem;
-    font-weight: 700;
+    font-weight: 600;
     text-decoration: none;
     letter-spacing: -0.02em;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+}
+
+.sidebar-brand::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #1a73e8;
+    box-shadow: 14px 0 0 #ea4335, 28px 0 0 #fbbc04, 42px 0 0 #34a853;
+    margin-right: 36px;
 }
 
 .sidebar-brand:hover {
@@ -81,7 +113,7 @@ body {
 }
 
 .sidebar-menu {
-    padding: 1rem 0;
+    padding: 1rem 0.75rem;
     overflow-y: auto;
     flex: 1;
 }
@@ -89,12 +121,12 @@ body {
 .sidebar-heading {
     font-family: var(--rtd-font);
     color: var(--rtd-muted-color);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    padding: 0.5rem 1.5rem;
-    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    margin-top: 0.25rem;
 }
 
 .nav-list {
@@ -107,12 +139,13 @@ body {
     font-family: var(--rtd-font);
     color: var(--rtd-sidebar-text);
     display: block;
-    padding: 0.55rem 1.25rem;
-    margin: 2px 0.5rem;
+    padding: 0.55rem 1rem;
+    margin: 2px 0;
     font-size: 0.92rem;
+    font-weight: 500;
     text-decoration: none;
-    border-radius: 6px;
-    border-left: 3px solid transparent;
+    border-radius: 9999px;
+    border-left: none;
     transition: background-color 0.15s ease, color 0.15s ease;
 }
 
@@ -125,7 +158,6 @@ body {
     background-color: var(--rtd-sidebar-active);
     color: var(--rtd-sidebar-active-text);
     font-weight: 600;
-    border-left-color: var(--rtd-brand-color);
 }
 
 .content-wrapper {
@@ -139,8 +171,8 @@ body {
 .top-bar {
     background-color: var(--rtd-content-bg);
     border-bottom: 1px solid var(--rtd-border-color);
-    padding: 1rem 2.5rem;
-    font-size: 0.9rem;
+    padding: 0.9rem 3.5rem;
+    font-size: 0.85rem;
 }
 
 .breadcrumbs {
@@ -150,59 +182,67 @@ body {
 
 .crumb {
     color: var(--rtd-brand-color);
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .crumb.active {
-    color: var(--rtd-text-color);
+    color: var(--rtd-muted-color);
     font-weight: 400;
 }
 
 .crumb-separator {
-    margin: 0 0.4rem;
+    margin: 0 0.45rem;
     color: var(--rtd-border-color);
 }
 
 .main-content {
-    padding: 2.5rem 3rem 4rem 3rem;
-    max-width: 960px;
+    padding: 3rem 3.5rem 5rem 3.5rem;
+    max-width: 920px;
     flex: 1;
 }
 
 .main-container {
-    max-width: 900px;
-    margin: 2rem auto;
+    max-width: 880px;
+    margin: 2.5rem auto;
     background-color: var(--rtd-content-bg);
     border: 1px solid var(--rtd-border-color);
-    border-radius: 12px;
-    padding: 3rem;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    padding: 3.5rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--rtd-font);
     color: var(--rtd-heading-color);
-    margin-top: 2.2rem;
+    margin-top: 2.5rem;
     margin-bottom: 1rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-weight: 500;
+    letter-spacing: -0.018em;
+    line-height: 1.3;
 }
 
 h1 {
-    font-size: 2.25rem;
+    font-size: 2.5rem;
+    font-weight: 400;
     margin-top: 0;
-    padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--rtd-border-color);
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--rtd-border-color);
 }
 
 h2 {
-    font-size: 1.65rem;
+    font-size: 1.75rem;
+    font-weight: 500;
     padding-bottom: 0.4rem;
-    border-bottom: 1px solid var(--rtd-border-color);
+    border-bottom: none;
 }
 
 h3 {
     font-size: 1.35rem;
+    font-weight: 500;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
 }
 
 a {
@@ -218,22 +258,22 @@ a:hover {
 
 code {
     font-family: var(--rtd-mono-font);
-    font-size: 0.88em;
+    font-size: 0.875em;
     background-color: var(--rtd-inline-code-bg);
     color: var(--rtd-inline-code-color);
-    padding: 0.2rem 0.4rem;
-    border-radius: 4px;
-    font-weight: 500;
+    padding: 0.18rem 0.42rem;
+    border-radius: 6px;
 }
 
 pre {
     background-color: var(--rtd-code-bg);
     border: 1px solid var(--rtd-border-color);
-    border-radius: 8px;
-    padding: 1.25rem;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
     overflow-x: auto;
-    font-size: 0.9em;
-    line-height: 1.5;
+    font-size: 0.88em;
+    line-height: 1.6;
+    margin: 1.5rem 0;
 }
 
 pre code {
@@ -244,12 +284,12 @@ pre code {
 }
 
 blockquote {
-    margin: 1.5rem 0;
-    padding: 1rem 1.25rem;
+    margin: 1.75rem 0;
+    padding: 1.1rem 1.5rem;
     background-color: var(--rtd-note-bg);
     border-left: 4px solid var(--rtd-note-border);
     color: var(--rtd-text-color);
-    border-radius: 0 8px 8px 0;
+    border-radius: 0 12px 12px 0;
 }
 
 blockquote p {
@@ -260,16 +300,16 @@ table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    margin: 1.5rem 0;
-    font-size: 0.95rem;
+    margin: 1.75rem 0;
+    font-size: 0.94rem;
     border: 1px solid var(--rtd-border-color);
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
 }
 
 th, td {
     border-bottom: 1px solid var(--rtd-border-color);
-    padding: 0.75rem 1rem;
+    padding: 0.85rem 1.1rem;
     text-align: left;
 }
 
@@ -284,30 +324,35 @@ th {
     font-weight: 600;
 }
 
-tr:nth-child(even) {
-    background-color: rgba(0, 0, 0, 0.02);
-}
-
 .drawlib-image {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 2rem 0;
-    padding: 1.25rem;
-    background-color: #ffffff;
+    margin: 2.25rem 0;
+    padding: 1.5rem;
+    background-color: #17181b;
     border: 1px solid var(--rtd-border-color);
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    border-radius: 16px;
 }
 
-.drawlib-image img, .drawlib-image svg {
+.drawlib-image img {
     max-width: 100%;
     height: auto;
+    border-radius: 8px;
+}
+
+.drawlib-caption {
+    margin-top: 0.85rem;
+    font-family: var(--rtd-font);
+    font-size: 0.875rem;
+    color: var(--rtd-muted-color);
+    text-align: center;
 }
 
 .footer {
     border-top: 1px solid var(--rtd-border-color);
-    padding: 1.75rem 2.5rem;
+    padding: 2rem 3.5rem;
     font-size: 0.85rem;
     color: var(--rtd-muted-color);
     text-align: center;
@@ -324,8 +369,9 @@ tr:nth-child(even) {
         border-bottom: 1px solid var(--rtd-border-color);
     }
 
-    .main-content {
-        padding: 1.5rem;
+    .top-bar, .main-content, .footer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
     }
 }
 
@@ -349,6 +395,10 @@ tr:nth-child(even) {
         border: none !important;
         box-shadow: none !important;
         overflow: visible !important;
+    }
+
+    h1 {
+        border-bottom: none !important;
     }
 
     pre, pre code {

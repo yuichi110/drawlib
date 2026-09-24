@@ -342,7 +342,7 @@ def _run_css_export(
 
 @css_html_app.command("list")
 def cmd_css_html_list() -> None:
-    """List available built-in HTML CSS presets (default, google, github, minimal, monochrome)."""
+    """List available built-in HTML CSS presets (default, google, google-dark, google-auto, etc.)."""
     _run_css_list("html")
 
 
@@ -350,7 +350,9 @@ def cmd_css_html_list() -> None:
 def cmd_css_html_export(
     name_or_output: Annotated[
         Optional[str],
-        typer.Argument(help="HTML CSS preset ('default', 'google', 'github', 'minimal', 'monochrome') or output path."),
+        typer.Argument(
+            help="HTML CSS preset ('default', 'google', 'google-dark', 'google-auto', 'github', ...) or output path."
+        ),
     ] = None,
     output: Annotated[
         Optional[str],

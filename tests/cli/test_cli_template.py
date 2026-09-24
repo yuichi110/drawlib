@@ -56,7 +56,11 @@ def test_cli_css_list_and_export(tmp_path) -> None:
     res_html_list = run_drawlib_cli(["css", "html", "list"], cwd=str(tmp_path))
     assert res_html_list.returncode == 0
     assert "default" in res_html_list.stdout
+    assert "default-dark" in res_html_list.stdout
+    assert "default-auto" in res_html_list.stdout
     assert "google" in res_html_list.stdout
+    assert "google-dark" in res_html_list.stdout
+    assert "google-auto" in res_html_list.stdout
 
     res_pdf_list = run_drawlib_cli(["css", "pdf", "list"], cwd=str(tmp_path))
     assert res_pdf_list.returncode == 0

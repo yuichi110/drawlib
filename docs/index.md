@@ -37,7 +37,6 @@ text(xy=(75, 20), text="Rectangle", style=Style(text_color=Colors.White, text_si
 - [Library Design Philosophy](./introductions/lib_design.md)
 - [Quick Start Guide](./introductions/quick_start.md)
 - [Release Notes](./introductions/release_note.md)
-- [Other Version Documentation](./introductions/other_version_docs.md)
 - [Useful Links](./introductions/links.md)
 
 ### 2. Foundations
@@ -100,7 +99,6 @@ text(xy=(75, 20), text="Rectangle", style=Style(text_color=Colors.White, text_si
 - [Global Settings](./advanced_topics/settings.md)
 - [CLI Options](./advanced_topics/cli_options.md)
 - [Example Workflow](./advanced_topics/example_flow.md)
-- [API Versioning](./advanced_topics/api_version.md)
 - [Disable Linting](./advanced_topics/disable_lint.md)
 - [Utility Functions](./advanced_topics/util.md)
 

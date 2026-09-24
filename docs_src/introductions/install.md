@@ -27,18 +27,6 @@ The Drawlib package also installs the `drawlib` command, which is useful for bui
 This command calls the Drawlib libraries' script, equivalent to `python -m drawlib`. 
 For more details, refer to the relevant section in the foundation chapter.
 
-In addition to the software (library) version, you can also see the API version. 
-This is because Drawlib supports old APIs (previously released library APIs) in new versions for backward compatibility. 
-You can specify the Drawlib API version like this:
-
-
-```text
-$ python -m drawlib.v0_1 --version
-software=0.1.24
-api=0.1.24
-```
-
-
 
 ## Troubleshooting
 

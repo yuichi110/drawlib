@@ -102,17 +102,6 @@ This import style ensures that you have immediate access to all the latest APIs 
 You can then proceed to import your custom styles and utilities as needed, akin to importing CSS and utility JavaScript code in an HTML header. 
 We will provide detailed explanations on this aspect later.
 
-If you need to use older APIs, you can achieve this by importing them using the following style:
-
-
-```python
-
-```
-
-
-Here, `v0_1` corresponds to version `0.1.*`.
-
-
 
 # Configuring the Canvas Size and DPI
 

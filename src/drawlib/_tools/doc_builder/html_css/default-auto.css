@@ -1,4 +1,4 @@
-/* drawlib Modern Developer Light Theme (default.css)
+/* drawlib Modern Developer Auto (System Adaptive) Theme (default-auto.css)
  * Inspired by VitePress (Vue/Vite) & Tailwind CSS documentation
  */
 :root {
@@ -25,6 +25,31 @@
     --rtd-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --rtd-mono-font: "JetBrains Mono", "Fira Code", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     --sidebar-width: 280px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --rtd-sidebar-bg: #090d16;
+        --rtd-sidebar-header: #090d16;
+        --rtd-sidebar-text: #94a3b8;
+        --rtd-sidebar-hover: #1e293b;
+        --rtd-sidebar-active: #1e1b4b;
+        --rtd-sidebar-active-text: #a5b4fc;
+        --rtd-brand-color: #818cf8;
+        --rtd-brand-dark: #6366f1;
+        --rtd-heading-color: #f1f5f9;
+        --rtd-text-color: #e2e8f0;
+        --rtd-muted-color: #94a3b8;
+        --rtd-bg-color: #090d16;
+        --rtd-content-bg: #0f172a;
+        --rtd-surface-bg: #1e293b;
+        --rtd-border-color: #1e293b;
+        --rtd-code-bg: #090d16;
+        --rtd-inline-code-bg: #1e1b4b;
+        --rtd-inline-code-color: #a5b4fc;
+        --rtd-note-bg: #1e1b4b;
+        --rtd-note-border: #6366f1;
+    }
 }
 
 * {
@@ -298,6 +323,12 @@ tr:nth-child(even) {
     border: 1px solid var(--rtd-border-color);
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+@media (prefers-color-scheme: dark) {
+    .drawlib-image {
+        background-color: #090d16;
+    }
 }
 
 .drawlib-image img, .drawlib-image svg {

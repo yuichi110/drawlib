@@ -50,10 +50,6 @@
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../advanced_topics/api_version.html">Using Old APIs</a>
-                    </li>
-                    
-                    <li class="nav-item ">
                         <a href="../advanced_topics/cli_options.html">CLI and Options</a>
                     </li>
                     
@@ -222,10 +218,6 @@
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="other_version_docs.html">Other Version Documentation</a>
-                    </li>
-                    
-                    <li class="nav-item ">
                         <a href="quick_start.html">Quick Start</a>
                     </li>
                     
@@ -325,13 +317,6 @@ api=0.1.24
 <p>The Drawlib package also installs the <code>drawlib</code> command, which is useful for building many images.
 This command calls the Drawlib libraries' script, equivalent to <code>python -m drawlib</code>.
 For more details, refer to the relevant section in the foundation chapter.</p>
-<p>In addition to the software (library) version, you can also see the API version.
-This is because Drawlib supports old APIs (previously released library APIs) in new versions for backward compatibility.
-You can specify the Drawlib API version like this:</p>
-<pre><code class="language-text">$ python -m drawlib.v0_1 --version
-software=0.1.24
-api=0.1.24
-</code></pre>
 <h2>Troubleshooting</h2>
 <p>Drawlib depends on <code>matplotlib</code>, which requires <code>msvc-runtime</code> on Windows.
 If it is not automatically installed, you may encounter the following error when you try to draw:</p>
