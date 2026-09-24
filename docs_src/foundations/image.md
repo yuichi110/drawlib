@@ -119,7 +119,7 @@ Changing image border line and add color for transparent part at 2nd example.
 Default is no border, no fill.
 
 The 3rd example changes angle of image.
-With specifying theme's style `"green_solid"`.
+With specifying preset style `"green_solid"`.
 
 Executing code generates this output.
 

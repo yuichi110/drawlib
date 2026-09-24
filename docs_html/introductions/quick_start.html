@@ -242,15 +242,15 @@
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                        <a href="../preset_styles/official_default.html">Official Preset Styles: default</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                        <a href="../preset_styles/official_essentials.html">Official Preset Styles: essentials</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                        <a href="../preset_styles/official_monochrome.html">Official Preset Styles: monochrome</a>
                     </li>
                     
                     <li class="nav-item ">
@@ -1063,10 +1063,10 @@ If drawlib doesn't include the font you wish to use, you can provide it to the s
 <p>In the fourth and fifth examples, we've configured text parameters such as color, size, and background.
 These settings may not be particularly complex, but it's important to note that the font size remains constant regardless of changes in canvas width and height.
 Doubling the canvas size won't result in halving the font text size; it remains the same as the original size.</p>
-<h1>Using Official Theme</h1>
+<h1>Using Preset Styles</h1>
 <p>In Drawlib, you can define the style of drawing items using the unified <code>Style</code> class.
 However, specifying styles for each item can be cumbersome and may lead to inconsistency.
-To address this, Drawlib provides a theme and style feature, allowing you to choose a theme and easily apply its styles by name.</p>
+To address this, Drawlib provides preset styles, allowing you to easily apply pre-defined styles by name.</p>
 <p>Here is an example. Note that the <code>style</code> argument takes text values.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.lines import line
@@ -1151,18 +1151,18 @@ save()
 <div class="drawlib-image" style="text-align: center;">
   <img src="quick_start_images/24.png" alt="quick_start_24" style="width: 600px; max-width: 100%;" />
 </div>
-<pre><code>image_theme1.png
+<pre><code>Using preset styles
 </code></pre>
-<p>Drawlib offers several official themes:</p>
+<p>Drawlib offers several official preset styles:</p>
 <ul>
 <li><code>default</code></li>
 <li><code>essentials</code></li>
 <li><code>monochrome</code></li>
 </ul>
-<p>The style naming rules are consistent across all themes.
-However, the <code>default</code> theme default primarily focuses on colors to keep it simple for beginners.
+<p>The style naming rules are consistent across all preset styles.
+However, the <code>default</code> preset styles primarily focus on colors to keep it simple for beginners.
 You can check the available style names and color variations in the preset styles documentation.</p>
-<p>Here's how you can print the available styles in a theme:</p>
+<p>Here's an overview of available styles:</p>
 <pre><code class="language-python">from drawlib.types import Style
 
 

@@ -537,7 +537,7 @@ save()
 # Pre-defined icon styles
 
 
-Drawlib's theme provides pre-defined icon styles.
+Drawlib's preset styles provide pre-defined icon styles.
 You can specify them by names.
 
 Here is an examples.
@@ -587,7 +587,7 @@ save()
 ```
 
 
-    icon with theme's style
+    icon with preset style
 
 ---
 

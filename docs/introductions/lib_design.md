@@ -45,7 +45,7 @@ def bottom():
         height=10,
         r=2,
         style=Style(fill_color=Colors.Transparent),
-        text="Canvas and coordinate system, theme etc.",
+        text="Canvas and coordinate system, preset styles etc.",
         textstyle=shapetextstyle_bold,
     )
 

@@ -1,23 +1,23 @@
-# Official Theme: monochrome
+# Official Preset Styles: monochrome
 
 
-Theme `monochrome` has colors between black and white.
+The `monochrome` preset styles has colors between black and white.
 There are many possibility that printed documents and published books has only black color.
-This theme is useful for those kind of situation.
+These preset styles are useful for those kinds of situations.
 
-The styling rules are the same as those for the `default` theme. 
-If you are unfamiliar with these rules, please refer to the documentation for the default theme first, as this document does not provide detailed styling information.
+The styling rules are the same as those for the `default` preset styles. 
+If you are unfamiliar with these rules, please refer to the documentation for the default preset styles first, as this document does not provide detailed styling information.
 
 
 # Colors
 
 
-Theme `monochrome` posses 7 colors between black and white.
+The `monochrome` preset styles possess 7 colors between black and white.
 
 
 ```python 600px center
 from drawlib.canvas import config, save
-from drawlib.colors import Colors, ColorsThemeMonochrome
+from drawlib.colors import Colors, ColorsMonochrome
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
@@ -30,13 +30,13 @@ text1_y = 15
 text2_y = 10
 
 colors = [
-    ("black", ColorsThemeMonochrome.Black),
-    ("charcoal", ColorsThemeMonochrome.Charcoal),
-    ("graphite", ColorsThemeMonochrome.Graphite),
-    ("gray", ColorsThemeMonochrome.Gray),
-    ("silver", ColorsThemeMonochrome.Silver),
-    ("snow", ColorsThemeMonochrome.Snow),
-    ("white", ColorsThemeMonochrome.White),
+    ("black", ColorsMonochrome.Black),
+    ("charcoal", ColorsMonochrome.Charcoal),
+    ("graphite", ColorsMonochrome.Graphite),
+    ("gray", ColorsMonochrome.Gray),
+    ("silver", ColorsMonochrome.Silver),
+    ("snow", ColorsMonochrome.Snow),
+    ("white", ColorsMonochrome.White),
 ]
 
 for i, (color_name, color) in enumerate(colors):
@@ -55,10 +55,10 @@ save()
 ```
 
 
-    Theme `monochrome` color chart
+    Preset style `monochrome` color chart
 
 Here is a list of the colors. 
-You can use `ColorsThemeMonochrome` to retrieve RGB codes by their names.
+You can use `ColorsMonochrome` to retrieve RGB codes by their names.
 
 - `black`: RGB(0, 0, 0)
 - `charcoal`: RGB(39, 39, 39)

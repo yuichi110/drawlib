@@ -242,15 +242,15 @@
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                        <a href="../preset_styles/official_default.html">Official Preset Styles: default</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                        <a href="../preset_styles/official_essentials.html">Official Preset Styles: essentials</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                        <a href="../preset_styles/official_monochrome.html">Official Preset Styles: monochrome</a>
                     </li>
                     
                     <li class="nav-item ">
@@ -315,7 +315,7 @@
 <li>text(): Function for drawing text</li>
 <li>Style: Unified style class (text styling attributes)</li>
 <li>font: How to specify fonts</li>
-<li>Theme's pre-defined styles</li>
+<li>Pre-defined text styles</li>
 </ul>
 <p>We will explain each of these concepts in this section.</p>
 <h1>text()</h1>
@@ -359,7 +359,7 @@ save()
   <img src="text_images/2.png" alt="text_2" style="width: 600px; max-width: 100%;" />
 </div>
 <p>text()</p>
-<p>Drawlib's default theme uses the multilingual font &quot;Noto Sans CJK Japanese&quot;.
+<p>Drawlib's default preset styles use the multilingual font &quot;Noto Sans CJK Japanese&quot;.
 This is a popular sans-serif font that supports CJK (Chinese, Japanese, Korean) in addition to the alphabet.
 As the font name suggests, it prioritizes Japanese but typically does not conflict with Chinese and Korean.</p>
 <p>Fonts that prioritize Chinese and Korean are also provided.
@@ -633,8 +633,8 @@ save()
 </div>
 <p>FontFile</p>
 <p>You can check the list of fonts supported by Drawlib in the Font documentation.</p>
-<h1>Theme's pre-defined styles</h1>
-<p>Text in Drawlib can utilize pre-defined styles from the theme you select.</p>
+<h1>Pre-defined Text Styles</h1>
+<p>Text in Drawlib can utilize pre-defined styles from the preset styles you select.</p>
 <p>The style syntax is: <code>&lt;color&gt;_&lt;type&gt;_&lt;weight&gt;</code>.
 If the color and weight are default, they are not explicitly shown in the style name.
 However, text styles do not use the type variations that are used for lines and shapes.</p>
@@ -644,7 +644,7 @@ However, text styles do not use the type variations that are used for lines and 
 <li>default: Font weight regular</li>
 <li><code>bold</code>: Font weight bold</li>
 </ul>
-<p>Here is an example script that demonstrates the use of theme-defined text styles:</p>
+<p>Here is an example script that demonstrates the use of pre-defined text styles:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.text import text
 
@@ -672,7 +672,7 @@ save()
 <div class="drawlib-image" style="text-align: center;">
   <img src="text_images/12.png" alt="text_12" style="width: 600px; max-width: 100%;" />
 </div>
-<p>Theme's pre-defined styles</p>
+<p>Pre-defined text styles</p>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
 

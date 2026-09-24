@@ -107,7 +107,7 @@ Here's an overview of the fonts available in the Font class:
     - `SERIF_REGULAR`
     - `SERIF_BOLD`
 
-By default, the Drawlib's default theme uses `Font.SANSSERIF_REGULAR`. 
+By default, Drawlib's default preset styles use `Font.SANSSERIF_REGULAR`. 
 This font choice is based on its standard shape and wide coverage across different languages and populations.
 
 The following image illustrates the fonts available in the Font class:

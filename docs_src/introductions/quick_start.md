@@ -901,12 +901,12 @@ These settings may not be particularly complex, but it's important to note that 
 Doubling the canvas size won't result in halving the font text size; it remains the same as the original size.
 
 
-# Using Official Theme
+# Using Preset Styles
 
 
 In Drawlib, you can define the style of drawing items using the unified `Style` class. 
 However, specifying styles for each item can be cumbersome and may lead to inconsistency. 
-To address this, Drawlib provides a theme and style feature, allowing you to choose a theme and easily apply its styles by name.
+To address this, Drawlib provides preset styles, allowing you to easily apply pre-defined styles by name.
 
 Here is an example. Note that the `style` argument takes text values.
 
@@ -995,19 +995,19 @@ save()
 ```
 
 
-    image_theme1.png
+    Using preset styles
 
-Drawlib offers several official themes:
+Drawlib offers several official preset styles:
 
 - `default`
 - `essentials`
 - `monochrome`
 
-The style naming rules are consistent across all themes. 
-However, the `default` theme default primarily focuses on colors to keep it simple for beginners.
+The style naming rules are consistent across all preset styles. 
+However, the `default` preset styles primarily focus on colors to keep it simple for beginners.
 You can check the available style names and color variations in the preset styles documentation.
 
-Here's how you can print the available styles in a theme:
+Here's an overview of available styles:
 
 
 ```drawlib

@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Official Theme: essentials</title>
+    <title>Official Preset Styles: essentials</title>
     
     <link rel="stylesheet" href="../style.css">
     
@@ -242,15 +242,15 @@
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="official_default.html">Official Theme: default</a>
+                        <a href="official_default.html">Official Preset Styles: default</a>
                     </li>
                     
                     <li class="nav-item active">
-                        <a href="official_essentials.html">Official Theme: essentials</a>
+                        <a href="official_essentials.html">Official Preset Styles: essentials</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="official_monochrome.html">Official Theme: monochrome</a>
+                        <a href="official_monochrome.html">Official Preset Styles: monochrome</a>
                     </li>
                     
                     <li class="nav-item ">
@@ -305,20 +305,20 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Official Theme: essentials</span>
+                    <span class="crumb active">Official Preset Styles: essentials</span>
                 </div>
             </header>
             <main class="main-content">
-                <h1>Official Theme: essentials</h1>
-<p>The <code>essentials</code> theme comprises 25 basic colors.
-We recommend this theme for advanced users as it includes all aspects of the <code>default</code> and <code>monochrome</code> themes.
-If you are looking to customize our themes extensively, essentials serves as an excellent base.</p>
-<p>The styling rules are the same as those for the <code>default</code> theme.
-If you are unfamiliar with these rules, please refer to the documentation for the default theme first, as this document does not provide detailed styling information.</p>
+                <h1>Official Preset Styles: essentials</h1>
+<p>The <code>essentials</code> preset styles comprises 25 basic colors.
+We recommend these preset styles for advanced users as they include all aspects of the <code>default</code> and <code>monochrome</code> preset styles.
+If you are looking to customize our preset styles extensively, essentials serves as an excellent base.</p>
+<p>The styling rules are the same as those for the <code>default</code> preset styles.
+If you are unfamiliar with these rules, please refer to the documentation for the default preset styles first, as this document does not provide detailed styling information.</p>
 <h1>Colors</h1>
-<p>The <code>essentials</code> theme includes 25 colors, encompassing all other themes' colors.</p>
+<p>The <code>essentials</code> preset styles include 25 colors, encompassing all other preset styles' colors.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.colors import Colors, ColorsThemeEssentials
+from drawlib.colors import Colors, ColorsEssentials
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
@@ -347,59 +347,59 @@ def draw_horizon(colors: list[tuple[str, tuple[int, int, int]]], y):
 
 
 draw_horizon([
-    (&quot;red&quot;, ColorsThemeEssentials.Red),
-    (&quot;lightred&quot;, ColorsThemeEssentials.LightRed),
-    (&quot;pink&quot;, ColorsThemeEssentials.Pink),
-    (&quot;brown&quot;, ColorsThemeEssentials.Brown),
-    (&quot;orange&quot;, ColorsThemeEssentials.Orange),
+    (&quot;red&quot;, ColorsEssentials.Red),
+    (&quot;lightred&quot;, ColorsEssentials.LightRed),
+    (&quot;pink&quot;, ColorsEssentials.Pink),
+    (&quot;brown&quot;, ColorsEssentials.Brown),
+    (&quot;orange&quot;, ColorsEssentials.Orange),
 ], 90)
 draw_horizon([
-    (&quot;green&quot;, ColorsThemeEssentials.Green),
-    (&quot;lightgreen&quot;, ColorsThemeEssentials.LightGreen),
-    (&quot;greenyellow&quot;, ColorsThemeEssentials.GreenYellow),
-    (&quot;teal&quot;, ColorsThemeEssentials.Teal),
-    (&quot;olive&quot;, ColorsThemeEssentials.Olive),
+    (&quot;green&quot;, ColorsEssentials.Green),
+    (&quot;lightgreen&quot;, ColorsEssentials.LightGreen),
+    (&quot;greenyellow&quot;, ColorsEssentials.GreenYellow),
+    (&quot;teal&quot;, ColorsEssentials.Teal),
+    (&quot;olive&quot;, ColorsEssentials.Olive),
 ], 70)
 draw_horizon([
-    (&quot;blue&quot;, ColorsThemeEssentials.Blue),
-    (&quot;lightblue&quot;, ColorsThemeEssentials.LightBlue),
-    (&quot;aqua&quot;, ColorsThemeEssentials.Aqua),
-    (&quot;navy&quot;, ColorsThemeEssentials.Navy),
-    (&quot;steel&quot;, ColorsThemeEssentials.Steel),
+    (&quot;blue&quot;, ColorsEssentials.Blue),
+    (&quot;lightblue&quot;, ColorsEssentials.LightBlue),
+    (&quot;aqua&quot;, ColorsEssentials.Aqua),
+    (&quot;navy&quot;, ColorsEssentials.Navy),
+    (&quot;steel&quot;, ColorsEssentials.Steel),
 ], 50)
 draw_horizon([
-    (&quot;yellow&quot;, ColorsThemeEssentials.Yellow),
-    (&quot;purple&quot;, ColorsThemeEssentials.Purple),
-    (&quot;ivory&quot;, ColorsThemeEssentials.Ivory),
-    (&quot;black&quot;, ColorsThemeEssentials.Black),
-    (&quot;charcoal&quot;, ColorsThemeEssentials.Charcoal),
+    (&quot;yellow&quot;, ColorsEssentials.Yellow),
+    (&quot;purple&quot;, ColorsEssentials.Purple),
+    (&quot;ivory&quot;, ColorsEssentials.Ivory),
+    (&quot;black&quot;, ColorsEssentials.Black),
+    (&quot;charcoal&quot;, ColorsEssentials.Charcoal),
 ], 32.5)
 draw_horizon([
-    (&quot;graphite&quot;, ColorsThemeEssentials.Graphite),
-    (&quot;gray&quot;, ColorsThemeEssentials.Gray),
-    (&quot;silver&quot;, ColorsThemeEssentials.Silver),
-    (&quot;snow&quot;, ColorsThemeEssentials.Snow),
-    (&quot;white&quot;, ColorsThemeEssentials.White),
+    (&quot;graphite&quot;, ColorsEssentials.Graphite),
+    (&quot;gray&quot;, ColorsEssentials.Gray),
+    (&quot;silver&quot;, ColorsEssentials.Silver),
+    (&quot;snow&quot;, ColorsEssentials.Snow),
+    (&quot;white&quot;, ColorsEssentials.White),
 ], 15)
 save()
 </code></pre>
-<pre><code>Theme `essentials` color chart
+<pre><code>Preset style `essentials` color chart
 </code></pre>
 <p>Here is a list of the colors.
-You can use <code>ColorsThemeEssentials</code> to retrieve RGB codes by their names.</p>
+You can use <code>ColorsEssentials</code> to retrieve RGB codes by their names.</p>
 <ul>
 <li><code>red</code>: RGB(255, 23, 23)</li>
-<li><code>lightred</code>: RGB(239, 95, 95). Same to <code>red</code> of default theme.</li>
+<li><code>lightred</code>: RGB(239, 95, 95). Same to <code>red</code> of default preset styles.</li>
 <li><code>pink</code>: RGB(239, 63, 239)</li>
 <li><code>brown</code>: RGB(159, 31, 31)</li>
 <li><code>orange</code>: RGB(255, 95, 31)</li>
 <li><code>green</code>: RGB(15, 127, 15)</li>
-<li><code>lightgreen</code>: RGB(79, 191, 79). Same to <code>green</code> of default theme.</li>
+<li><code>lightgreen</code>: RGB(79, 191, 79). Same to <code>green</code> of default preset styles.</li>
 <li><code>greenyellow</code>: RGB(127, 207, 31)</li>
 <li><code>teal</code>: RGB(15, 127, 127)</li>
 <li><code>olive</code>: RGB(127, 127, 31)</li>
 <li><code>blue</code>: RGB(31, 31, 255)</li>
-<li><code>lightblue</code>: RGB(111, 111, 239). Default color of shape fill. Same to <code>blue</code> of default theme.</li>
+<li><code>lightblue</code>: RGB(111, 111, 239). Default color of shape fill. Same to <code>blue</code> of default preset styles.</li>
 <li><code>aqua</code>: RGB(47, 239, 239)</li>
 <li><code>navy</code>: RGB(15, 15, 127)</li>
 <li><code>steel</code>: RGB(96, 96, 143)</li>

@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Official Theme: default</title>
+    <title>Official Preset Styles: default</title>
     
     <link rel="stylesheet" href="../style.css">
     
@@ -242,15 +242,15 @@
                     </li>
                     
                     <li class="nav-item active">
-                        <a href="official_default.html">Official Theme: default</a>
+                        <a href="official_default.html">Official Preset Styles: default</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="official_essentials.html">Official Theme: essentials</a>
+                        <a href="official_essentials.html">Official Preset Styles: essentials</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="official_monochrome.html">Official Theme: monochrome</a>
+                        <a href="official_monochrome.html">Official Preset Styles: monochrome</a>
                     </li>
                     
                     <li class="nav-item ">
@@ -305,17 +305,17 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Official Theme: default</span>
+                    <span class="crumb active">Official Preset Styles: default</span>
                 </div>
             </header>
             <main class="main-content">
-                <h1>Official Theme: default</h1>
-<p>The <code>default</code> theme is the standard Drawlib theme.
+                <h1>Official Preset Styles: default</h1>
+<p>The <code>default</code> preset styles is the standard Drawlib preset styles collection.
 We will explain style naming rule at this document.</p>
 <h1>Colors</h1>
-<p>The <code>default</code> theme includes 5 colors.</p>
+<p>The <code>default</code> preset styles include 5 colors.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.colors import Colors, ColorsThemeDefault
+from drawlib.colors import Colors, ColorsDefault
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
@@ -328,11 +328,11 @@ text1_y = 15
 text2_y = 10
 
 colors = [
-    (&quot;red&quot;, ColorsThemeDefault.Red),
-    (&quot;green&quot;, ColorsThemeDefault.Green),
-    (&quot;blue&quot;, ColorsThemeDefault.Blue),
-    (&quot;black&quot;, ColorsThemeDefault.Black),
-    (&quot;white&quot;, ColorsThemeDefault.White),
+    (&quot;red&quot;, ColorsDefault.Red),
+    (&quot;green&quot;, ColorsDefault.Green),
+    (&quot;blue&quot;, ColorsDefault.Blue),
+    (&quot;black&quot;, ColorsDefault.Black),
+    (&quot;white&quot;, ColorsDefault.White),
 ]
 
 for i, (color_name, color) in enumerate(colors):
@@ -349,10 +349,10 @@ for i, (color_name, color) in enumerate(colors):
 
 save()
 </code></pre>
-<pre><code>Theme `default` color chart
+<pre><code>Preset styles `default` color chart
 </code></pre>
 <p>Here is a list of the colors.
-You can use <code>ColorsThemeDefault</code> to retrieve RGB codes by their names.</p>
+You can use <code>ColorsDefault</code> to retrieve RGB codes by their names.</p>
 <ul>
 <li><code>red</code>: RGB(239, 95, 95)</li>
 <li><code>green</code>: RGB(79, 191, 79)</li>
@@ -362,7 +362,7 @@ You can use <code>ColorsThemeDefault</code> to retrieve RGB codes by their names
 </ul>
 <p>Here is a color chart:</p>
 <h1>Style Types</h1>
-<p>The default theme possesses these style types for all colors:</p>
+<p>The default preset styles possess these style types for all colors:</p>
 <ul>
 <li>default: Has both border and fill color</li>
 <li><code>flat</code>: No border (actually has a white color)</li>
@@ -441,7 +441,7 @@ save()
 </code></pre>
 <pre><code>Style type and width
 </code></pre>
-<p>As you can see, each drawing element is affected by theme style names as follows:</p>
+<p>As you can see, each drawing element is affected by preset style names as follows:</p>
 <ul>
 <li>Shapes: Both style type (flat, solid, dashed) and width/weight (light, bold) work.</li>
 <li>Icons: Line width can be controlled with weight; flat style makes it fill.</li>
@@ -474,7 +474,7 @@ It can be used for items that support filling: icons, images, and shapes.</p>
 <li>flat supports items that can be filled.</li>
 <li>solid and dashed support items that have a line.</li>
 </ul>
-<p>Please remember, this naming rule is common in other official themes as well.</p>
+<p>Please remember, this naming rule is common in other official preset styles as well.</p>
 <h1>Style Names</h1>
 <p>Here is a list of style names:</p>
 <pre><code class="language-python">from drawlib.types import Style

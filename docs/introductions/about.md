@@ -90,7 +90,7 @@ However, managing illustrations poses a challenge since they are typically binar
 Drawlib offers a solution by generating illustrations from pure Python code, allowing you to manage them with version control systems just like any other code.
 
 Drawlib is optimized for drawing a large number of illustrations with a consistent style. 
-This can be easily achieved by creating a theme file (which is simply Python code) and importing it into your illustration codes. 
+This can be easily achieved by defining reusable styles or configuration scripts (which are simply Python code) and importing them into your illustration codes. 
 Here is a typical use case of Drawlib:
 
 
@@ -105,9 +105,9 @@ We first build images using Drawlib, then build the document via Sphinx, and fin
 These images are built by scripts locally for quick verification of the drawing results. 
 To reduce human error and operation costs, we run CI/CD processes when code is committed to the GitHub repository.
 
-Drawlib adopts the theme feature, similar to a slide theme. 
-When you change the theme, the default theme style is automatically applied to all images. 
-If you want to slightly change the style, modifying the theme will affect all images that reference it. 
+Drawlib adopts the preset styles feature, similar to slide templates. 
+When you change the preset styles, the default styles are automatically applied to all images. 
+If you want to slightly change the style, modifying the style definitions will affect all images that reference it. 
 This ensures consistent image styling with minimal effort.
 
 

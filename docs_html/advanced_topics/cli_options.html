@@ -242,15 +242,15 @@
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                        <a href="../preset_styles/official_default.html">Official Preset Styles: default</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                        <a href="../preset_styles/official_essentials.html">Official Preset Styles: essentials</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                        <a href="../preset_styles/official_monochrome.html">Official Preset Styles: monochrome</a>
                     </li>
                     
                     <li class="nav-item ">
@@ -376,7 +376,7 @@ Execute python files
 This behavior is generally suitable for normal use cases.</p>
 <p>However, if you intend to create a single illustration using multiple Python files, this auto clear feature may not be desirable.
 In such cases, you can disable it using <code>--disable_auto_clear</code>.</p>
-<p>The <code>clear()</code> function erases canvas elements while maintaining consistent theme configurations.
+<p>The <code>clear()</code> function erases canvas elements while maintaining existing configurations.
 If you need to completely initialize drawlib per illustration code execution, you can use <code>--enable_auto_initialize</code>.
 This option ensures that drawlib calls <code>dutil_canvas.initialize()</code> every time your code files are executed.</p>
 <p>Typically, you won't need to specify both options.</p>
@@ -462,7 +462,7 @@ drawlib show doc.md 1 -o preview.png
 <li><code>&lt;file&gt;</code>: Path to a Python script (<code>.py</code>) or Markdown file (<code>.md</code>).</li>
 <li><code>[target]</code>: Block index (1-based, e.g., <code>1</code>) or target image filename (e.g., <code>diagram.png</code>) when targeting a Markdown document. If omitted for a Markdown file, available blocks are listed.</li>
 <li><code>-o</code>, <code>--output &lt;path&gt;</code>: Destination path for the exported image (defaults to <code>&lt;input_stem&gt;_export.png</code> if omitted).</li>
-<li><code>-c</code>, <code>--config &lt;path&gt;</code>: Path to custom configuration script (such as <code>config.py</code>) that sets themes, styles, or canvas defaults.</li>
+<li><code>-c</code>, <code>--config &lt;path&gt;</code>: Path to custom configuration script (such as <code>config.py</code>) that sets styles, fonts, or canvas defaults.</li>
 <li><code>-g</code>, <code>--grid</code>: Overlay coordinate grid lines and axes on the exported image.</li>
 </ul>
 <h2>Listing Markdown Code Blocks</h2>
@@ -480,7 +480,7 @@ drawlib show doc.md 1 -o preview.png
 <pre><code class="language-bash">drawlib export my_drawing.py -o output.png
 </code></pre>
 <h2>Applying Custom Configuration (<code>--config</code> / <code>-c</code>)</h2>
-<p>When your documentation relies on a global <code>config.py</code> (e.g., for custom color themes, fonts, or drawing options), supply it using <code>-c</code> or <code>--config</code>:</p>
+<p>When your documentation relies on a global <code>config.py</code> (e.g., for custom styles, fonts, or drawing options), supply it using <code>-c</code> or <code>--config</code>:</p>
 <pre><code class="language-bash">drawlib export doc.md 1 -c config.py -o rendered_1.png
 </code></pre>
 <p>This runs the code block within the exact shared execution context and configuration established by <code>config.py</code>, guaranteeing identical visual output to a full document build (<code>drawlib doc-builder</code>).</p>

@@ -10,10 +10,10 @@ Therefore, we provide Color classes. Currently, we offer the following classes:
 
 - Colors: basic web 16 colors + Transparent
 - Colors140: basic web 140 colors + Transparent
-- ColorsThemeDefault: Colors which are used in theme `default`
-- ColorsThemeEssentials: Colors which are used in theme `essentials`
-- ColorsThemeMonochrome: Colors which are used in theme `monochrome`
-- ColorBase: Base class for creating your own Color class
+- ColorsDefault: Colors which are used in preset style `default`
+- ColorsEssentials: Colors which are used in preset style `essentials`
+- ColorsMonochrome: Colors which are used in preset style `monochrome`
+- ColorsBase: Base class for creating your own Color class
 
 Here is an image showing their relationships:
 
@@ -318,10 +318,10 @@ The `Colors140` class contains the following members:
 
 
 
-# ColorsThemeDefault
+# ColorsDefault
 
 
-The `ColorsThemeDefault` class contains the following members:
+The `ColorsDefault` class contains the following members:
 
 - Red: (239, 95, 95)
 - Green: (79, 191, 79)
@@ -332,10 +332,10 @@ The `ColorsThemeDefault` class contains the following members:
 
 
 
-# ColorsThemeEssentials
+# ColorsEssentials
 
 
-The `ColorsThemeEssentials` class contains the following members:
+The `ColorsEssentials` class contains the following members:
 
 - Red:  (255, 23, 23)
 - LightRed: (239, 95, 95)
@@ -365,10 +365,10 @@ The `ColorsThemeEssentials` class contains the following members:
 
 
 
-# ColorsThemeMonochrome
+# ColorsMonochrome
 
 
-The `ColorsThemeMonochrome` class contains the following members:
+The `ColorsMonochrome` class contains the following members:
 
 - Black: (0, 0, 0)
 - Charcoal: (39, 39, 39)

@@ -92,7 +92,7 @@ This behavior is generally suitable for normal use cases.
 However, if you intend to create a single illustration using multiple Python files, this auto clear feature may not be desirable. 
 In such cases, you can disable it using `--disable_auto_clear`.
 
-The `clear()` function erases canvas elements while maintaining consistent theme configurations. 
+The `clear()` function erases canvas elements while maintaining existing configurations. 
 If you need to completely initialize drawlib per illustration code execution, you can use `--enable_auto_initialize`. 
 This option ensures that drawlib calls `dutil_canvas.initialize()` every time your code files are executed.
 
@@ -236,7 +236,7 @@ drawlib export <file> [target] [-o <output_path>] [-c <config_path>] [-g]
 - `<file>`: Path to a Python script (`.py`) or Markdown file (`.md`).
 - `[target]`: Block index (1-based, e.g., `1`) or target image filename (e.g., `diagram.png`) when targeting a Markdown document. If omitted for a Markdown file, available blocks are listed.
 - `-o`, `--output <path>`: Destination path for the exported image (defaults to `<input_stem>_export.png` if omitted).
-- `-c`, `--config <path>`: Path to custom configuration script (such as `config.py`) that sets themes, styles, or canvas defaults.
+- `-c`, `--config <path>`: Path to custom configuration script (such as `config.py`) that sets styles, fonts, or canvas defaults.
 - `-g`, `--grid`: Overlay coordinate grid lines and axes on the exported image.
 
 ## Listing Markdown Code Blocks
@@ -269,7 +269,7 @@ drawlib export my_drawing.py -o output.png
 
 ## Applying Custom Configuration (`--config` / `-c`)
 
-When your documentation relies on a global `config.py` (e.g., for custom color themes, fonts, or drawing options), supply it using `-c` or `--config`:
+When your documentation relies on a global `config.py` (e.g., for custom styles, fonts, or drawing options), supply it using `-c` or `--config`:
 
 ```bash
 drawlib export doc.md 1 -c config.py -o rendered_1.png

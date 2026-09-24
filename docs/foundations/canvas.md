@@ -145,14 +145,14 @@ save()
 
     Canvas architecture
 
-In this architecture, drawlib internally incorporates core functions and methods that are accessible to users through APIs defined in `drawlib.apis`. 
+In this architecture, drawlib internally incorporates core functions and methods that are accessible to users through public modules such as `drawlib.canvas` and `drawlib.shapes`. 
 When you invoke APIs like `config()`, these functions internally interact with the canvas state.
 
 For example, using the public API `config(width=200, height=100)` triggers an internal method that adjusts the canvas's dimensions to 200 pixels wide and 100 pixels high.
 Similarly, calling the `circle(...)` API invokes an internal method that adds a circle to the canvas.
 
 While it's technically possible to create your own instance of the Canvas and perform drawing operations, this approach isn't recommended.
-This is because functionalities such as file handling and theme settings are integrated with drawlib's internal canvas management. 
+This is because functionalities such as file handling and canvas settings are integrated with drawlib's internal canvas management. 
 Our architecture is designed to ensure:
 
 - Accessibility for users unfamiliar with Python and object-oriented programming.
@@ -195,7 +195,6 @@ The `config()` API in drawlib manages various canvas configurations, encompassin
 * DPI (resolution): Sets the Dots Per Inch for the canvas, influencing image clarity.
 * Grid: Enables a grid overlay on the canvas for visual alignment assistance.
 * Canvas color (background color): Defines the background color of the canvas.
-* Theme: Applies predefined styles across drawings, including item colors and line thicknesses.
 
 We'll start with an exploration of grid settings, as they form the foundational basis and are used in conjunction with other configuration options.
 
@@ -684,9 +683,8 @@ Hence, setting excessively large values such as `dpi=1000` might not be advisabl
 There are situations where you may want to customize the background color of your illustrations, such as placing a black background image on a black background page. 
 In such cases, you can configure the background color and alpha using the `config()` function.
 
-By default, drawlib's background color depends on the adopted theme, but typically, it is white with an alpha value of 1.0 (completely opaque). 
-You can adjust these settings by changing the theme's default background color and alpha. 
-However, it's much simpler and takes precedence to configure them directly using `config()`.
+By default, drawlib's background color is white with an alpha value of 1.0 (completely opaque). 
+You can adjust these settings directly using `config()`.
 
 Let's look at an example:
 

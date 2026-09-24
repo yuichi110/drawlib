@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Official Theme: monochrome</title>
+    <title>Official Preset Styles: monochrome</title>
     
     <link rel="stylesheet" href="../style.css">
     
@@ -242,15 +242,15 @@
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="official_default.html">Official Theme: default</a>
+                        <a href="official_default.html">Official Preset Styles: default</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="official_essentials.html">Official Theme: essentials</a>
+                        <a href="official_essentials.html">Official Preset Styles: essentials</a>
                     </li>
                     
                     <li class="nav-item active">
-                        <a href="official_monochrome.html">Official Theme: monochrome</a>
+                        <a href="official_monochrome.html">Official Preset Styles: monochrome</a>
                     </li>
                     
                     <li class="nav-item ">
@@ -305,20 +305,20 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Official Theme: monochrome</span>
+                    <span class="crumb active">Official Preset Styles: monochrome</span>
                 </div>
             </header>
             <main class="main-content">
-                <h1>Official Theme: monochrome</h1>
-<p>Theme <code>monochrome</code> has colors between black and white.
+                <h1>Official Preset Styles: monochrome</h1>
+<p>The <code>monochrome</code> preset styles has colors between black and white.
 There are many possibility that printed documents and published books has only black color.
-This theme is useful for those kind of situation.</p>
-<p>The styling rules are the same as those for the <code>default</code> theme.
-If you are unfamiliar with these rules, please refer to the documentation for the default theme first, as this document does not provide detailed styling information.</p>
+These preset styles are useful for those kinds of situations.</p>
+<p>The styling rules are the same as those for the <code>default</code> preset styles.
+If you are unfamiliar with these rules, please refer to the documentation for the default preset styles first, as this document does not provide detailed styling information.</p>
 <h1>Colors</h1>
-<p>Theme <code>monochrome</code> posses 7 colors between black and white.</p>
+<p>The <code>monochrome</code> preset styles possess 7 colors between black and white.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.colors import Colors, ColorsThemeMonochrome
+from drawlib.colors import Colors, ColorsMonochrome
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
@@ -331,13 +331,13 @@ text1_y = 15
 text2_y = 10
 
 colors = [
-    (&quot;black&quot;, ColorsThemeMonochrome.Black),
-    (&quot;charcoal&quot;, ColorsThemeMonochrome.Charcoal),
-    (&quot;graphite&quot;, ColorsThemeMonochrome.Graphite),
-    (&quot;gray&quot;, ColorsThemeMonochrome.Gray),
-    (&quot;silver&quot;, ColorsThemeMonochrome.Silver),
-    (&quot;snow&quot;, ColorsThemeMonochrome.Snow),
-    (&quot;white&quot;, ColorsThemeMonochrome.White),
+    (&quot;black&quot;, ColorsMonochrome.Black),
+    (&quot;charcoal&quot;, ColorsMonochrome.Charcoal),
+    (&quot;graphite&quot;, ColorsMonochrome.Graphite),
+    (&quot;gray&quot;, ColorsMonochrome.Gray),
+    (&quot;silver&quot;, ColorsMonochrome.Silver),
+    (&quot;snow&quot;, ColorsMonochrome.Snow),
+    (&quot;white&quot;, ColorsMonochrome.White),
 ]
 
 for i, (color_name, color) in enumerate(colors):
@@ -354,10 +354,10 @@ for i, (color_name, color) in enumerate(colors):
 
 save()
 </code></pre>
-<pre><code>Theme `monochrome` color chart
+<pre><code>Preset style `monochrome` color chart
 </code></pre>
 <p>Here is a list of the colors.
-You can use <code>ColorsThemeMonochrome</code> to retrieve RGB codes by their names.</p>
+You can use <code>ColorsMonochrome</code> to retrieve RGB codes by their names.</p>
 <ul>
 <li><code>black</code>: RGB(0, 0, 0)</li>
 <li><code>charcoal</code>: RGB(39, 39, 39)</li>

@@ -1,23 +1,23 @@
-# Official Theme: essentials
+# Official Preset Styles: essentials
 
 
-The `essentials` theme comprises 25 basic colors. 
-We recommend this theme for advanced users as it includes all aspects of the `default` and `monochrome` themes. 
-If you are looking to customize our themes extensively, essentials serves as an excellent base.
+The `essentials` preset styles comprises 25 basic colors. 
+We recommend these preset styles for advanced users as they include all aspects of the `default` and `monochrome` preset styles. 
+If you are looking to customize our preset styles extensively, essentials serves as an excellent base.
 
-The styling rules are the same as those for the `default` theme. 
-If you are unfamiliar with these rules, please refer to the documentation for the default theme first, as this document does not provide detailed styling information.
+The styling rules are the same as those for the `default` preset styles. 
+If you are unfamiliar with these rules, please refer to the documentation for the default preset styles first, as this document does not provide detailed styling information.
 
 
 # Colors
 
 
-The `essentials` theme includes 25 colors, encompassing all other themes' colors.
+The `essentials` preset styles include 25 colors, encompassing all other preset styles' colors.
 
 
 ```python 600px center
 from drawlib.canvas import config, save
-from drawlib.colors import Colors, ColorsThemeEssentials
+from drawlib.colors import Colors, ColorsEssentials
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
@@ -46,61 +46,61 @@ def draw_horizon(colors: list[tuple[str, tuple[int, int, int]]], y):
 
 
 draw_horizon([
-    ("red", ColorsThemeEssentials.Red),
-    ("lightred", ColorsThemeEssentials.LightRed),
-    ("pink", ColorsThemeEssentials.Pink),
-    ("brown", ColorsThemeEssentials.Brown),
-    ("orange", ColorsThemeEssentials.Orange),
+    ("red", ColorsEssentials.Red),
+    ("lightred", ColorsEssentials.LightRed),
+    ("pink", ColorsEssentials.Pink),
+    ("brown", ColorsEssentials.Brown),
+    ("orange", ColorsEssentials.Orange),
 ], 90)
 draw_horizon([
-    ("green", ColorsThemeEssentials.Green),
-    ("lightgreen", ColorsThemeEssentials.LightGreen),
-    ("greenyellow", ColorsThemeEssentials.GreenYellow),
-    ("teal", ColorsThemeEssentials.Teal),
-    ("olive", ColorsThemeEssentials.Olive),
+    ("green", ColorsEssentials.Green),
+    ("lightgreen", ColorsEssentials.LightGreen),
+    ("greenyellow", ColorsEssentials.GreenYellow),
+    ("teal", ColorsEssentials.Teal),
+    ("olive", ColorsEssentials.Olive),
 ], 70)
 draw_horizon([
-    ("blue", ColorsThemeEssentials.Blue),
-    ("lightblue", ColorsThemeEssentials.LightBlue),
-    ("aqua", ColorsThemeEssentials.Aqua),
-    ("navy", ColorsThemeEssentials.Navy),
-    ("steel", ColorsThemeEssentials.Steel),
+    ("blue", ColorsEssentials.Blue),
+    ("lightblue", ColorsEssentials.LightBlue),
+    ("aqua", ColorsEssentials.Aqua),
+    ("navy", ColorsEssentials.Navy),
+    ("steel", ColorsEssentials.Steel),
 ], 50)
 draw_horizon([
-    ("yellow", ColorsThemeEssentials.Yellow),
-    ("purple", ColorsThemeEssentials.Purple),
-    ("ivory", ColorsThemeEssentials.Ivory),
-    ("black", ColorsThemeEssentials.Black),
-    ("charcoal", ColorsThemeEssentials.Charcoal),
+    ("yellow", ColorsEssentials.Yellow),
+    ("purple", ColorsEssentials.Purple),
+    ("ivory", ColorsEssentials.Ivory),
+    ("black", ColorsEssentials.Black),
+    ("charcoal", ColorsEssentials.Charcoal),
 ], 32.5)
 draw_horizon([
-    ("graphite", ColorsThemeEssentials.Graphite),
-    ("gray", ColorsThemeEssentials.Gray),
-    ("silver", ColorsThemeEssentials.Silver),
-    ("snow", ColorsThemeEssentials.Snow),
-    ("white", ColorsThemeEssentials.White),
+    ("graphite", ColorsEssentials.Graphite),
+    ("gray", ColorsEssentials.Gray),
+    ("silver", ColorsEssentials.Silver),
+    ("snow", ColorsEssentials.Snow),
+    ("white", ColorsEssentials.White),
 ], 15)
 save()
 ```
 
 
-    Theme `essentials` color chart
+    Preset style `essentials` color chart
 
 Here is a list of the colors. 
-You can use `ColorsThemeEssentials` to retrieve RGB codes by their names.
+You can use `ColorsEssentials` to retrieve RGB codes by their names.
 
 - `red`: RGB(255, 23, 23)
-- `lightred`: RGB(239, 95, 95). Same to `red` of default theme.
+- `lightred`: RGB(239, 95, 95). Same to `red` of default preset styles.
 - `pink`: RGB(239, 63, 239)
 - `brown`: RGB(159, 31, 31)
 - `orange`: RGB(255, 95, 31)
 - `green`: RGB(15, 127, 15)
-- `lightgreen`: RGB(79, 191, 79). Same to `green` of default theme.
+- `lightgreen`: RGB(79, 191, 79). Same to `green` of default preset styles.
 - `greenyellow`: RGB(127, 207, 31)
 - `teal`: RGB(15, 127, 127)
 - `olive`: RGB(127, 127, 31)
 - `blue`: RGB(31, 31, 255)
-- `lightblue`: RGB(111, 111, 239). Default color of shape fill. Same to `blue` of default theme.
+- `lightblue`: RGB(111, 111, 239). Default color of shape fill. Same to `blue` of default preset styles.
 - `aqua`: RGB(47, 239, 239)
 - `navy`: RGB(15, 15, 127)
 - `steel`: RGB(96, 96, 143)

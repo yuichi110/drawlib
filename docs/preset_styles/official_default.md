@@ -1,19 +1,19 @@
-# Official Theme: default
+# Official Preset Styles: default
 
 
-The `default` theme is the standard Drawlib theme.
+The `default` preset styles is the standard Drawlib preset styles collection.
 We will explain style naming rule at this document.
 
 
 # Colors
 
 
-The `default` theme includes 5 colors.
+The `default` preset styles include 5 colors.
 
 
 ```python 600px center
 from drawlib.canvas import config, save
-from drawlib.colors import Colors, ColorsThemeDefault
+from drawlib.colors import Colors, ColorsDefault
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
@@ -26,11 +26,11 @@ text1_y = 15
 text2_y = 10
 
 colors = [
-    ("red", ColorsThemeDefault.Red),
-    ("green", ColorsThemeDefault.Green),
-    ("blue", ColorsThemeDefault.Blue),
-    ("black", ColorsThemeDefault.Black),
-    ("white", ColorsThemeDefault.White),
+    ("red", ColorsDefault.Red),
+    ("green", ColorsDefault.Green),
+    ("blue", ColorsDefault.Blue),
+    ("black", ColorsDefault.Black),
+    ("white", ColorsDefault.White),
 ]
 
 for i, (color_name, color) in enumerate(colors):
@@ -49,10 +49,10 @@ save()
 ```
 
 
-    Theme `default` color chart
+    Preset styles `default` color chart
 
 Here is a list of the colors. 
-You can use `ColorsThemeDefault` to retrieve RGB codes by their names.
+You can use `ColorsDefault` to retrieve RGB codes by their names.
 
 - `red`: RGB(239, 95, 95)
 - `green`: RGB(79, 191, 79)
@@ -68,7 +68,7 @@ Here is a color chart:
 # Style Types
 
 
-The default theme possesses these style types for all colors:
+The default preset styles possess these style types for all colors:
 
 - default: Has both border and fill color
 - `flat`: No border (actually has a white color)
@@ -153,7 +153,7 @@ save()
 
     Style type and width
 
-As you can see, each drawing element is affected by theme style names as follows:
+As you can see, each drawing element is affected by preset style names as follows:
 
 - Shapes: Both style type (flat, solid, dashed) and width/weight (light, bold) work.
 - Icons: Line width can be controlled with weight; flat style makes it fill.
@@ -194,7 +194,7 @@ Here is a tip for remembering the rule:
 - flat supports items that can be filled.
 - solid and dashed support items that have a line.
 
-Please remember, this naming rule is common in other official themes as well.
+Please remember, this naming rule is common in other official preset styles as well.
 
 
 

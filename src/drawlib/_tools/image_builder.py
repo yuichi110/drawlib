@@ -608,7 +608,8 @@ class DrawlibExecuter:
     def _exec_module(self, file_path: str) -> None:
         """Execute the specified Python module file."""
         if self._is_module_loaded(file_path) and self._current_cache_info is None:
-            logger.info(f"    - {file_path}")
+            if self._current_progress is None:
+                logger.info(f"    - {file_path}")
             return
 
         name = self._resolve_module_name(file_path)
@@ -617,13 +618,15 @@ class DrawlibExecuter:
             location=file_path,
         )
         if mspec is None or mspec.loader is None:
-            logger.info(f"    - {file_path} : skipped with unknown reason.")
+            if self._current_progress is None:
+                logger.info(f"    - {file_path} : skipped with unknown reason.")
             return
         module = importlib.util.module_from_spec(mspec)
 
         try:
             self._prepare_canvas_for_module()
-            logger.info(f"    - {file_path}")
+            if self._current_progress is None:
+                logger.info(f"    - {file_path}")
             if dutil_settings.get_logging_mode() not in {"verbose", "developer"}:
                 with contextlib.redirect_stdout(io.StringIO()):
                     mspec.loader.exec_module(module)

@@ -41,7 +41,7 @@ class TestCanvasLine:
         line((20, 20), (80, 80), arrowhead="->")
         line((20, 80), (80, 20), arrowhead="<->", style=Style(line_color=Colors.Red, arrow_head_fill=True))
 
-        # Themes
+        # Preset styles
         line((10, 10), (90, 90), style="green")
         line((10, 90), (90, 10), arrowhead="->", style="red")
 
@@ -69,7 +69,7 @@ class TestCanvasLine:
             style=Style(line_style="dashed", line_width=2, line_color=Colors.Red),
         )
 
-        # Theme line curved
+        # Preset style line curved
         line_curved(
             (20, 20),
             (80, 80),

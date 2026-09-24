@@ -8,10 +8,10 @@ This document describes the project structure and architectural principles of th
 
 ## 1. Project Root Structure
 - `src/drawlib/`: The main source code directory.
-  - `apis.py`: The global gateway re-exporting public symbols.
-  - `core/`: Core drawing engine implementation details.
-  - `doc_builder/`: Markdown AST parsing & document compiler module.
-  - `cli/`: Unified command-line interface logic.
+  - Public domain modules: `canvas.py`, `shapes.py`, `lines.py`, `text.py`, `colors.py`, `preset_styles.py`, `icons.py`, `fonts.py`, `types.py`, `images.py`, `charts.py`, `diagrams/`, `smartarts.py`, `math.py`, `doc_builder.py`.
+  - `_core/`: Core drawing engine implementation details (`l1_core`, `l2_models`, `l2_types`, `l3_fonts`, `l3_styles`, `l4_canvas`, `l4_canvas_utils`).
+  - `_preset_styles/`, `_charts/`, `_diagrams/`, `_smartarts/`, `_icons/`, `_umls/`: Domain implementations.
+  - `_tools/`: Tooling including `doc_builder` and CLI entrypoint.
 - `docs_src/`: Source of truth for documentation and technical guides written in Markdown.
 - `docs/`: Generated Markdown documentation for GitHub repository browsing (do not edit directly).
 - `docs_html/`: Generated static HTML site for web hosting (do not edit directly).
@@ -20,21 +20,20 @@ This document describes the project structure and architectural principles of th
 - `pyproject.toml`: Project metadata and tool configurations (Ruff, Pyright, uv).
 
 ## 2. Package Architecture
-`drawlib` follows a flat, single-package architecture (Pattern A):
-- Standard Python package layout (`src/drawlib/`).
+`drawlib` follows a modular Python package layout (`src/drawlib/`):
+- Standard Python package layout.
 - Package releases and versioning are managed via Semantic Versioning in PyPI/Git tags.
-- Three major components reside under `src/drawlib/`: `core` (drawing engine), `doc_builder` (document compiler), and `cli` (command line interface).
+- Public domain facades (`canvas`, `shapes`, `lines`, `colors`, `preset_styles`, etc.) re-export clean interfaces from internal modules.
 
 ## 3. Module Hierarchy (Internal Structure)
 
-### 3.1. Public API (`apis.py`)
-- Located at `src/drawlib/apis.py`.
-- Acts as the main facade exporting symbols intended for end-users.
-- Imports from `drawlib.core` and flattens the export namespace.
+### 3.1. Public Facades
+- Located at `src/drawlib/*.py`.
+- Re-exports domain symbols intended for end-users (`canvas`, `shapes`, `lines`, `text`, `colors`, `preset_styles`, etc.).
 
-### 3.2. Core Implementation (`core/`)
-The `core/` directory contains internal drawing logic and is not meant to be accessed directly by users.
-- **Layered Structure**: `l1_core`, `l2_models`, `l2_types`, `l3_fonts`, `l3_styles`, `l4_canvas`, `l4_canvas_utils`. (Domain features like `preset_styles`, `icons`, `charts`, `diagrams`, and `smartarts` reside at package level).
+### 3.2. Core Implementation (`_core/`)
+The `_core/` directory contains internal drawing logic and is not meant to be accessed directly by users.
+- **Layered Structure**: `l1_core`, `l2_models`, `l2_types`, `l3_fonts`, `l3_styles`, `l4_canvas`, `l4_canvas_utils`. (Domain features like `_preset_styles`, `_icons`, `_charts`, `_diagrams`, and `_smartarts` reside at package level).
 
 ### 3.3. Document Builder (`doc_builder/`)
 - Handles Markdown parsing, `drawlib` code block execution, and HTML/PDF/Markdown compilation (see `.agents/rules/docs.md` for full specifications and workflows).

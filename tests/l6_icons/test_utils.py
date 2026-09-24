@@ -34,8 +34,8 @@ class TestIconUtils:
         assert isinstance(formatted, Style)
 
     def test_format_style_string(self) -> None:
-        """Verify format_style formats from a named string registered in the active theme."""
-        # Using "blue" as a standard registered theme style key
+        """Verify format_style formats from a named string registered in the active preset styles."""
+        # Using "blue" as a standard registered preset style key
         formatted = IconUtil.format_style("blue")
         assert isinstance(formatted, Style)
 

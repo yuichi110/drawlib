@@ -20,7 +20,7 @@ Here are the shape-related attributes of `Style`:
 * `fill_alpha`: Transparency
 
 All of these attributes are optional. 
-If you don't specify values for them, the default theme values are applied.
+If you don't specify values for them, the default preset style values are applied.
 
 
 ## Alignment
@@ -300,10 +300,10 @@ In that example, we also move the text positioning via `text_xy_shift`.
 The x and y values are not absolute coordinates but are relative to the shape's dimensions.
 
 
-# Theme's Pre-defined Styles
+# Pre-defined Preset Styles
 
 
-Shapes can use pre-defined styles from the theme you choose.
+Shapes can use pre-defined styles from the preset styles you choose.
 
 The style syntax is: `<color>_<type>_<weight>`. 
 If the color, type, and weight are default, they are not shown in the style name.
@@ -402,7 +402,7 @@ save()
 ```
 
 
-    Theme's styles
+    Pre-defined preset styles
 
 ---
 

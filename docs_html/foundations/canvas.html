@@ -242,15 +242,15 @@
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                        <a href="../preset_styles/official_default.html">Official Preset Styles: default</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                        <a href="../preset_styles/official_essentials.html">Official Preset Styles: essentials</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                        <a href="../preset_styles/official_monochrome.html">Official Preset Styles: monochrome</a>
                     </li>
                     
                     <li class="nav-item ">
@@ -443,12 +443,12 @@ save()
 </div>
 <pre><code>Canvas architecture
 </code></pre>
-<p>In this architecture, drawlib internally incorporates core functions and methods that are accessible to users through APIs defined in <code>drawlib.apis</code>.
+<p>In this architecture, drawlib internally incorporates core functions and methods that are accessible to users through public modules such as <code>drawlib.canvas</code> and <code>drawlib.shapes</code>.
 When you invoke APIs like <code>config()</code>, these functions internally interact with the canvas state.</p>
 <p>For example, using the public API <code>config(width=200, height=100)</code> triggers an internal method that adjusts the canvas's dimensions to 200 pixels wide and 100 pixels high.
 Similarly, calling the <code>circle(...)</code> API invokes an internal method that adds a circle to the canvas.</p>
 <p>While it's technically possible to create your own instance of the Canvas and perform drawing operations, this approach isn't recommended.
-This is because functionalities such as file handling and theme settings are integrated with drawlib's internal canvas management.
+This is because functionalities such as file handling and canvas settings are integrated with drawlib's internal canvas management.
 Our architecture is designed to ensure:</p>
 <ul>
 <li>Accessibility for users unfamiliar with Python and object-oriented programming.</li>
@@ -483,7 +483,6 @@ By following this recommendation, there's typically no need to explicitly call <
 <li>DPI (resolution): Sets the Dots Per Inch for the canvas, influencing image clarity.</li>
 <li>Grid: Enables a grid overlay on the canvas for visual alignment assistance.</li>
 <li>Canvas color (background color): Defines the background color of the canvas.</li>
-<li>Theme: Applies predefined styles across drawings, including item colors and line thicknesses.</li>
 </ul>
 <p>We'll start with an exploration of grid settings, as they form the foundational basis and are used in conjunction with other configuration options.</p>
 <h2>Configuring Canvas Grid</h2>
@@ -809,9 +808,8 @@ Hence, setting excessively large values such as <code>dpi=1000</code> might not 
 <h2>Configuring Background Color and Alpha</h2>
 <p>There are situations where you may want to customize the background color of your illustrations, such as placing a black background image on a black background page.
 In such cases, you can configure the background color and alpha using the <code>config()</code> function.</p>
-<p>By default, drawlib's background color depends on the adopted theme, but typically, it is white with an alpha value of 1.0 (completely opaque).
-You can adjust these settings by changing the theme's default background color and alpha.
-However, it's much simpler and takes precedence to configure them directly using <code>config()</code>.</p>
+<p>By default, drawlib's background color is white with an alpha value of 1.0 (completely opaque).
+You can adjust these settings directly using <code>config()</code>.</p>
 <p>Let's look at an example:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors140

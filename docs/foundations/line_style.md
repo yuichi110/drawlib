@@ -260,12 +260,12 @@ This example demonstrates lines with different arrowhead styles and visual confi
 
 
 
-# Theme's Pre-Defined Line Styles
+# Pre-defined Line Styles
 
 
 Drawlib provides pre-defined line styles.
 You can provide style via name easily.
-What name you can use depends on theme you choose.
+What name you can use depends on the preset styles you choose.
 
 The style has this syntax: `<color>_<type>_<weight>`. 
 

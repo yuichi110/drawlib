@@ -242,15 +242,15 @@
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../preset_styles/official_default.html">Official Theme: default</a>
+                        <a href="../preset_styles/official_default.html">Official Preset Styles: default</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../preset_styles/official_essentials.html">Official Theme: essentials</a>
+                        <a href="../preset_styles/official_essentials.html">Official Preset Styles: essentials</a>
                     </li>
                     
                     <li class="nav-item ">
-                        <a href="../preset_styles/official_monochrome.html">Official Theme: monochrome</a>
+                        <a href="../preset_styles/official_monochrome.html">Official Preset Styles: monochrome</a>
                     </li>
                     
                     <li class="nav-item ">
@@ -369,7 +369,7 @@ Instead, it is recommended to use predefined style names for styling.</p>
 However, managing illustrations poses a challenge since they are typically binary files rather than text-based.
 Drawlib offers a solution by generating illustrations from pure Python code, allowing you to manage them with version control systems just like any other code.</p>
 <p>Drawlib is optimized for drawing a large number of illustrations with a consistent style.
-This can be easily achieved by creating a theme file (which is simply Python code) and importing it into your illustration codes.
+This can be easily achieved by defining reusable styles or configuration scripts (which are simply Python code) and importing them into your illustration codes.
 Here is a typical use case of Drawlib:</p>
 <p><img src="image_buildmany.png" alt="image_buildmany.png" /></p>
 <pre><code>Build many images at same time
@@ -379,9 +379,9 @@ The build flow is similar to the image above.
 We first build images using Drawlib, then build the document via Sphinx, and finally publish it to the Internet.
 These images are built by scripts locally for quick verification of the drawing results.
 To reduce human error and operation costs, we run CI/CD processes when code is committed to the GitHub repository.</p>
-<p>Drawlib adopts the theme feature, similar to a slide theme.
-When you change the theme, the default theme style is automatically applied to all images.
-If you want to slightly change the style, modifying the theme will affect all images that reference it.
+<p>Drawlib adopts the preset styles feature, similar to slide templates.
+When you change the preset styles, the default styles are automatically applied to all images.
+If you want to slightly change the style, modifying the style definitions will affect all images that reference it.
 This ensures consistent image styling with minimal effort.</p>
 <h1>Because it is Python</h1>
 <p>Many readers of this document might already be familiar with Python.

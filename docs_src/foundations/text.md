@@ -6,7 +6,7 @@ Drawing text requires understanding the following concepts:
 * text(): Function for drawing text
 * Style: Unified style class (text styling attributes)
 * font: How to specify fonts
-* Theme's pre-defined styles
+* Pre-defined text styles
 
 We will explain each of these concepts in this section.
 
@@ -59,7 +59,7 @@ save()
 
    text()
 
-Drawlib's default theme uses the multilingual font "Noto Sans CJK Japanese". 
+Drawlib's default preset styles use the multilingual font "Noto Sans CJK Japanese". 
 This is a popular sans-serif font that supports CJK (Chinese, Japanese, Korean) in addition to the alphabet. 
 As the font name suggests, it prioritizes Japanese but typically does not conflict with Chinese and Korean.
 
@@ -380,10 +380,10 @@ save()
 You can check the list of fonts supported by Drawlib in the Font documentation.
 
 
-# Theme's pre-defined styles
+# Pre-defined Text Styles
 
 
-Text in Drawlib can utilize pre-defined styles from the theme you select.
+Text in Drawlib can utilize pre-defined styles from the preset styles you select.
 
 The style syntax is: `<color>_<type>_<weight>`.
 If the color and weight are default, they are not explicitly shown in the style name.
@@ -395,7 +395,7 @@ Each weight type variation includes different font weights:
 - default: Font weight regular
 - `bold`: Font weight bold
 
-Here is an example script that demonstrates the use of theme-defined text styles:
+Here is an example script that demonstrates the use of pre-defined text styles:
 
 
 ```drawlib
@@ -426,7 +426,7 @@ save()
 ```
 
 
-   Theme's pre-defined styles
+   Pre-defined text styles
 
 ---
 

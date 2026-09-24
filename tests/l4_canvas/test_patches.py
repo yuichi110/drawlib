@@ -51,7 +51,7 @@ class TestCanvasPatches:
         save(f"{OUTPUT_DIR}test_arc.png")
 
     def test_circle(self) -> None:
-        """Verify circle drawing with radius, alignments, custom styles, and themes."""
+        """Verify circle drawing with radius, alignments, custom styles, and preset styles."""
         clear()
 
         # Simple circle
@@ -89,7 +89,7 @@ class TestCanvasPatches:
             ),
         )
 
-        # Themes
+        # Preset styles
         circle(xy=(25, 25), radius=20, style="blue")
         circle(xy=(25, 75), radius=20, style="green")
 
