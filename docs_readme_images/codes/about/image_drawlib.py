@@ -11,13 +11,31 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors140
 from drawlib.fonts import FontRoboto, FontSourceCode
 from drawlib.icons import phosphor
-from drawlib.images import image
+from drawlib.images import get_dimage_from_code, image
 from drawlib.shapes import arrow
 from drawlib.smartarts import SourceCode
 from drawlib.text import text
 from drawlib.types import Style
 
 config(height=60, dpi=200)
+
+INNER_CODE = """from drawlib.canvas import save
+from drawlib.colors import Colors140
+from drawlib.shapes import circle
+from drawlib.types import Style
+
+circle(
+    xy=(50, 50),
+    radius=30,
+    style=Style(
+        line_style="dashed",
+        line_color=Colors140.BlueViolet,
+        line_width=5,
+        fill_color=Colors140.Turquoise,
+    ),
+)
+save()
+"""
 
 
 def upper():
@@ -45,12 +63,12 @@ def middle():
     style = Style(line_width=1, text_valign="bottom")
 
     sc = SourceCode(style="default", font=FontSourceCode.ROBOTO_MONO)
-    text_content = SourceCode.get_text("inside.py")
-    sc.draw((25, image_y), width=40, code=text_content, style=style)
+    sc.draw((25, image_y), width=40, code=INNER_CODE, style=style)
 
     arrow((50, arrow_y), (60, arrow_y), tail_width=5, head_width=10, head_length=5, head="->")
 
-    image((80, image_y), width=31.5, image="inside.png", style=style)
+    inner_dimage = get_dimage_from_code(INNER_CODE)
+    image((80, image_y), width=31.5, image=inner_dimage, style=style)
 
 
 def lower():

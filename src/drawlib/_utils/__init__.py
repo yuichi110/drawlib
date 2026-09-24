@@ -12,11 +12,13 @@
 from drawlib._core.l1_core import dutil_settings
 from drawlib._utils import _canvas as dutil_canvas
 from drawlib._utils import _color as dutil_color
+from drawlib._utils import _image as dutil_image
 from drawlib._utils import _script as dutil_script
 
 __all__ = [
     "dutil_settings",
     "dutil_canvas",
     "dutil_color",
+    "dutil_image",
     "dutil_script",
 ]
