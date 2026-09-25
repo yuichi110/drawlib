@@ -9,6 +9,7 @@
 
 from drawlib._utils import dutil_script
 from drawlib.canvas import clear, save
+from drawlib.colors import Colors
 from drawlib.fonts import (
     Font,
     FontArabic,
@@ -28,23 +29,24 @@ from drawlib.text import text
 from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l3_fonts/thai/"
+BASE_STYLE = Style(text_color=Colors.Black, text_size=16)
 
 
 def test_sans():
     text(
         (50, 10),
         "Hello World. วันนี้อากาศดีจังเลย",
-        style=Style(text_font=FontThai.SANSSERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontThai.SANSSERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. วันนี้อากาศดีจังเลย",
-        style=Style(text_font=FontThai.SANSSERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=FontThai.SANSSERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. วันนี้อากาศดีจังเลย",
-        style=Style(text_font=FontThai.SANSSERIF_BOLD),
+        style=BASE_STYLE.patch(text_font=FontThai.SANSSERIF_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -53,16 +55,16 @@ def test_serif():
     text(
         (50, 10),
         "Hello World. วันนี้อากาศดีจังเลย",
-        style=Style(text_font=FontThai.SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontThai.SERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. วันนี้อากาศดีจังเลย",
-        style=Style(text_font=FontThai.SERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=FontThai.SERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. วันนี้อากาศดีจังเลย",
-        style=Style(text_font=FontThai.SERIF_BOLD),
+        style=BASE_STYLE.patch(text_font=FontThai.SERIF_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

@@ -434,11 +434,13 @@ However, you can define the line style using attributes of <code>Style</code>.</
 </ul>
 <p>Let's explore two examples.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import arc
 from drawlib.text import text
 
+styles = get_styles()
 config(width=100, height=50, grid_only=True)
-arc(xy=(25, 25), width=30, height=20, angle_start=0, angle_end=135)
+arc(xy=(25, 25), width=30, height=20, angle_start=0, angle_end=135, style=styles.primary)
 arc(
     xy=(75, 25),
     width=40,
@@ -447,6 +449,7 @@ arc(
     angle_end=135,
     angle=45,
     text=&quot;arc&quot;,
+    style=styles.primary,
 )
 save()
 </code></pre>
@@ -477,12 +480,23 @@ The shape of the chevron varies based on this parameter.</p>
 </ul>
 <p>Let's explore two examples:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import chevron
 from drawlib.text import text
 
+styles = get_styles()
 config(width=100, height=50, grid_only=True)
-chevron(xy=(25, 25), width=30, height=20, corner_angle=30)
-chevron(xy=(75, 25), width=35, height=25, corner_angle=60, mirror=True, angle=45, text=&quot;chevron()&quot;)
+chevron(xy=(25, 25), width=30, height=20, corner_angle=30, style=styles.primary)
+chevron(
+    xy=(75, 25),
+    width=35,
+    height=25,
+    corner_angle=60,
+    mirror=True,
+    angle=45,
+    text=&quot;chevron()&quot;,
+    style=styles.primary,
+)
 save()
 </code></pre>
 <p>The shape of the chevron is influenced by <code>corner_angle</code>.
@@ -509,12 +523,14 @@ If the width and height are identical, it behaves similarly to the <code>circle(
 </ul>
 <p>Let's explore two examples:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import ellipse
 from drawlib.text import text
 
+styles = get_styles()
 config(width=100, height=50, grid_only=True)
-ellipse(xy=(25, 25), width=30, height=20)
-ellipse(xy=(75, 25), width=35, height=25, angle=45, text=&quot;ellipse()&quot;)
+ellipse(xy=(25, 25), width=30, height=20, style=styles.primary)
+ellipse(xy=(75, 25), width=35, height=25, angle=45, text=&quot;ellipse()&quot;, style=styles.primary)
 save()
 </code></pre>
 <p>Here is an example output:</p>
@@ -542,12 +558,22 @@ Additionally, you can mirror the shape horizontally by setting the <code>mirror<
 </ul>
 <p>Let's explore two examples.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import parallelogram
 from drawlib.text import text
 
+styles = get_styles()
 config(width=100, height=50, grid_only=True)
-parallelogram(xy=(25, 25), width=20, height=15, corner_angle=30)
-parallelogram(xy=(75, 25), width=30, height=20, corner_angle=60, angle=45, text=&quot;parallelogram()&quot;)
+parallelogram(xy=(25, 25), width=20, height=15, corner_angle=30, style=styles.primary)
+parallelogram(
+    xy=(75, 25),
+    width=30,
+    height=20,
+    corner_angle=60,
+    angle=45,
+    text=&quot;parallelogram()&quot;,
+    style=styles.primary,
+)
 save()
 </code></pre>
 <p>Here is an example output:</p>
@@ -573,12 +599,14 @@ It allows you to specify the radius of the rounded corners using the <code>r</co
 </ul>
 <p>Let's explore two examples:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import rectangle
 from drawlib.text import text
 
+styles = get_styles()
 config(width=100, height=50, grid_only=True)
-rectangle(xy=(25, 25), width=30, height=20)
-rectangle(xy=(75, 25), width=35, height=25, r=2, angle=45, text=&quot;rectangle()&quot;)
+rectangle(xy=(25, 25), width=30, height=20, style=styles.primary)
+rectangle(xy=(75, 25), width=35, height=25, r=2, angle=45, text=&quot;rectangle()&quot;, style=styles.primary)
 save()
 </code></pre>
 <p>Here is an example output:</p>
@@ -602,12 +630,14 @@ save()
 </ul>
 <p>Let's explore two examples:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import rhombus
 from drawlib.text import text
 
+styles = get_styles()
 config(width=100, height=50, grid_only=True)
-rhombus(xy=(25, 25), width=20, height=40)
-rhombus(xy=(75, 25), width=40, height=20, angle=45, text=&quot;rhombus()&quot;)
+rhombus(xy=(25, 25), width=20, height=40, style=styles.primary)
+rhombus(xy=(75, 25), width=40, height=20, angle=45, text=&quot;rhombus()&quot;, style=styles.primary)
 save()
 </code></pre>
 <p>Here is an example output:</p>
@@ -635,11 +665,13 @@ The positioning of the top side relative to the bottom side can be adjusted usin
 </ul>
 <p>Let's explore two examples:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import trapezoid
 from drawlib.text import text
 
+styles = get_styles()
 config(width=100, height=50, grid_only=True)
-trapezoid(xy=(25, 25), height=20, bottomedge_width=30, topedge_width=20)
+trapezoid(xy=(25, 25), height=20, bottomedge_width=30, topedge_width=20, style=styles.primary)
 trapezoid(
     xy=(75, 25),
     height=20,
@@ -648,6 +680,7 @@ trapezoid(
     topedge_x=0,
     angle=45,
     text=&quot;trapezoid()&quot;,
+    style=styles.primary,
 )
 save()
 </code></pre>
@@ -675,12 +708,14 @@ If not specified, the triangle is drawn as an isosceles triangle with the top ve
 </ul>
 <p>Let's explore two examples:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import rectangle, triangle
 from drawlib.text import text
 
+styles = get_styles()
 config(width=100, height=50, grid_only=True)
-triangle(xy=(25, 25), width=30, height=20)
-triangle(xy=(75, 25), width=35, height=25, topvertex_x=0, angle=45, text=&quot;rectangle()&quot;)
+triangle(xy=(25, 25), width=30, height=20, style=styles.primary)
+triangle(xy=(75, 25), width=35, height=25, topvertex_x=0, angle=45, text=&quot;rectangle()&quot;, style=styles.primary)
 save()
 </code></pre>
 <p>Here is an example output:</p>

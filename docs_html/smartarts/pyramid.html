@@ -407,15 +407,15 @@ from drawlib.smartarts import Pyramid
 
 config(width=100, height=50)
 
-p1 = Pyramid(default_textstyle=&quot;white&quot;)
+p1 = Pyramid(styles=styles, default_textstyle=styles.white)
 p1.add(text=&quot;A&quot;)
 p1.add(text=&quot;B&quot;)
 p1.add(text=&quot;C&quot;)
 p1.draw((5, 5), width=40, height=40, margin=3)
 
-p2 = Pyramid(default_style=&quot;solid&quot;, default_textangle=270)
+p2 = Pyramid(styles=styles, default_style=styles.solid, default_textangle=270)
 p2.add(text=&quot;A&quot;)
-p2.add(text=&quot;B&quot;, style=&quot;red_flat&quot;, textstyle=&quot;white&quot;)
+p2.add(text=&quot;B&quot;, style=styles.red_flat, textstyle=styles.white)
 p2.add(text=&quot;C&quot;)
 p2.draw((55, 5), width=40, height=40, margin=3, align=&quot;left&quot;)
 </code></pre>
@@ -433,8 +433,9 @@ p2.draw((55, 5), width=40, height=40, margin=3, align=&quot;left&quot;)
 <p>Initialize instance.</p>
 <p>Args</p>
 <ul>
-<li>default_style (Union[str, Style, None], optional): The default style for the pyramid shapes. It can be a string that maps to a <code>Style</code> or a <code>Style</code> instance. Defaults to None.</li>
-<li>default_textstyle (Union[str, Style, None], optional): The default text style for the pyramid shapes. It can be a string that maps to a <code>Style</code> or a <code>Style</code> instance. Defaults to None.</li>
+<li>styles (BasePresetStyles): The preset styles catalog (required).</li>
+<li>default_style (Optional[Style], optional): The default style for the pyramid shapes. Defaults to None.</li>
+<li>default_textstyle (Optional[Style], optional): The default text style for the pyramid shapes. Defaults to None.</li>
 <li>default_textangle (Optional[float], optional): The default rotation angle for the text within the pyramid shapes. Defaults to None.</li>
 <li>default_text_xy_shift (Optional[Tuple[float, float]], optional): The default x and y shift for the text within the pyramid shapes. Defaults to None.</li>
 </ul>
@@ -443,8 +444,8 @@ p2.draw((55, 5), width=40, height=40, margin=3, align=&quot;left&quot;)
 <p>Args:</p>
 <ul>
 <li>text (str): The text associated with the item.</li>
-<li>style (Union[str, Style, None], optional): The style of the item. Can be a string key for a predefined style, a Style object, or None to use the default style.</li>
-<li>textstyle (Union[str, Style, None], optional): The text style of the item. Can be a string key for a predefined text style, a Style object, or None to use the default text style.</li>
+<li>style (Optional[Style], optional): The style of the item. Can be a Style object, or None to use the default style.</li>
+<li>textstyle (Optional[Style], optional): The text style of the item. Can be a Style object, or None to use the default text style.</li>
 <li>textangle (Optional[float], optional): The angle of the text. Default is None, which is same to 0.</li>
 <li>text_xy_shift (Optional[Tuple[float, float]], optional): The XY shift of the text. Default is None, which is same to (0, 0).</li>
 </ul>

@@ -107,16 +107,16 @@ config(width=100, height=50, dpi=200)
 # original
 original_image = Dimage("../_assets/linux.png")
 image((25, 30), 20, original_image)
-text((25, 15), "original")
+text((25, 15), "original", style=styles.primary)
 width, height = original_image.get_image_size()
-text((25, 10), f"width={width}, height={height}")
+text((25, 10), f"width={width}, height={height}", style=styles.primary)
 
 # resize
 new_height = int(height / 2)
 resized_image = original_image.resize(width, new_height)
 image((75, 30), 20, resized_image)
-text((75, 15), "resize()")
-text((75, 10), f"width={width}, height={new_height}")
+text((75, 15), "resize()", style=styles.primary)
+text((75, 10), f"width={width}, height={new_height}", style=styles.primary)
 ```
 
 In this example, we retrieve the original image dimensions using `get_image_size()`.
@@ -159,8 +159,8 @@ config(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage("../_assets/linux.png")
-image((25, 25), 20, original_image, style={"line_width": 1})
-text((25, 10), "original")
+image((25, 25), 20, original_image, style=styles.primary.patch(image_border_width=1))
+text((25, 10), "original", style=styles.primary)
 width, height = original_image.get_image_size()
 
 # trimming
@@ -169,8 +169,8 @@ crop_width = int(width / 2)
 y_start = int(height / 4)
 crop_height = int(height / 2)
 cropped_image = original_image.crop(x_start, y_start, crop_width, crop_height)
-image((75, 25), 20, cropped_image, style={"line_width": 1})
-text((75, 10), "crop()")
+image((75, 25), 20, cropped_image, style=styles.primary.patch(image_border_width=1))
+text((75, 10), "crop()", style=styles.primary)
 ```
 
 In this example, we calculate the cropping parameters to keep the center 50% of the image. 
@@ -211,15 +211,15 @@ config(width=100, height=50, dpi=200)
 # original
 original_image = Dimage("../_assets/linux.png")
 image((20, 25), 20, original_image)
-text((20, 10), "original")
+text((20, 10), "original", style=styles.primary)
 
 # mirror
 image((50, 25), 20, original_image.mirror())
-text((50, 10), "mirror()")
+text((50, 10), "mirror()", style=styles.primary)
 
 # flip
 image((80, 25), 20, original_image.flip())
-text((80, 10), "flip()")
+text((80, 10), "flip()", style=styles.primary)
 ```
 
 Here is the output:
@@ -247,9 +247,8 @@ Here's an example:
 
 
 ```python
-from drawlib.images import Dimage
 from drawlib.canvas import config, save
-from drawlib.images import image
+from drawlib.images import Dimage, image
 from drawlib.text import text
 
 config(width=100, height=50, dpi=200)
@@ -257,15 +256,15 @@ config(width=100, height=50, dpi=200)
 # original
 original_image = Dimage("../_assets/linux.png")
 image((20, 25), 20, original_image)
-text((20, 10), "original")
+text((20, 10), "original", style=styles.primary)
 
 # grayscale
 image((50, 25), 20, Dimage("../_assets/linux.png").grayscale())
-text((50, 10), "grayscale()")
+text((50, 10), "grayscale()", style=styles.primary)
 
 # sepia
 image((80, 25), 20, original_image.sepia())
-text((80, 10), "sepia()")
+text((80, 10), "sepia()", style=styles.primary)
 ```
 
 Here is the output.
@@ -296,13 +295,13 @@ from drawlib.text import text
 config(width=100, height=50, dpi=200)
 
 image((20, 25), 20, Dimage("../_assets/linux.png").brightness(0.5))
-text((20, 10), "brightness(0.5)")
+text((20, 10), "brightness(0.5)", style=styles.primary)
 
 image((50, 25), 20, Dimage("../_assets/linux.png").brightness(1.0))
-text((50, 10), "brightness(1.0): Original")
+text((50, 10), "brightness(1.0): Original", style=styles.primary)
 
 image((80, 25), 20, Dimage("../_assets/linux.png").brightness(2.0))
-text((80, 10), "brightness(2.0)")
+text((80, 10), "brightness(2.0)", style=styles.primary)
 ```
 
 Here is an output.
@@ -331,7 +330,7 @@ config(width=100, height=50, dpi=200, background_color=Colors.Gray)
 
 # invert
 image((20, 25), 20, Dimage("../_assets/linux.png").invert())
-text((20, 10), "invert()", style="white")
+text((20, 10), "invert()", style=styles.white)
 
 # colorize
 image(
@@ -342,7 +341,7 @@ image(
         from_white_to=ColorsDefault.Red,
     ),
 )
-text((50, 10), "colorize()", style="white")
+text((50, 10), "colorize()", style=styles.white)
 
 # colorize 3 colors
 image(
@@ -354,7 +353,7 @@ image(
         from_mid_to=ColorsDefault.Green,
     ),
 )
-text((80, 10), "colorize()", style="white")
+text((80, 10), "colorize()", style=styles.white)
 ```
 
 Here is the output.
@@ -390,13 +389,13 @@ from drawlib.text import text
 config(width=100, height=50, dpi=200)
 
 image((20, 25), 20, Dimage("../_assets/linux.png").mosaic(8))
-text((20, 10), "mosaic(8)")
+text((20, 10), "mosaic(8)", style=styles.primary)
 
 image((50, 25), 20, Dimage("../_assets/linux.png").mosaic(16))
-text((50, 10), "mosaic(16)")
+text((50, 10), "mosaic(16)", style=styles.primary)
 
 image((80, 25), 20, Dimage("../_assets/linux.png").blur())
-text((80, 10), "blur()")
+text((80, 10), "blur()", style=styles.primary)
 ```
 
 Here is the output.

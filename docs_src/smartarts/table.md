@@ -9,7 +9,7 @@ from drawlib.smartarts import Table
 
 config(width=70, height=45)
 
-t1 = Table()
+t1 = Table(styles=styles)
 t1.draw(
     xy=(5, 40),
     width=60,
@@ -26,7 +26,7 @@ t1.draw(
 
 You can draw tables with these procedures:
 
-1. Initialize a `Table` instance.
+1. Initialize a `Table` instance with `styles=styles`.
 2. Optionally customize row, column, or cell styles.
 3. Draw the table with `draw()` providing coordinate, size, and matrix data.
 
@@ -35,10 +35,10 @@ You can draw tables with these procedures:
 
 
 
-## ``Table()``
+## ``Table(*, styles)``
 
 
-Initialize instance. No args.
+Initialize instance. Requires `styles` (e.g. `styles=styles`).
 
 
 

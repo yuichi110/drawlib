@@ -405,8 +405,10 @@
 It's implemented within the <code>smartarts</code> module as part of the Smart Art functions, offering advanced shape drawing capabilities.</p>
 <p>Here's an example of using Bubblespeech in Drawlib:</p>
 <pre><code class="language-python">from drawlib.canvas import config
+from drawlib.preset_styles import get_styles
 from drawlib.smartarts import bubblespeech
 
+styles = get_styles()
 config(width=95, height=52)
 bubblespeech(
     xy=(36, 11),
@@ -416,9 +418,9 @@ bubblespeech(
     tail_start_ratio=0.2,
     tail_vertex_xy=(16, 26),
     tail_end_ratio=0.6,
-    style=&quot;blue_flat&quot;,
+    style=styles.blue_flat,
     text=&quot;Hello Drawlib!&quot;,
-    textstyle=&quot;white&quot;,
+    textstyle=styles.white,
 )
 </code></pre>
 <p>This function call draws a speech bubble with a pointed tail extending from the left edge.</p>

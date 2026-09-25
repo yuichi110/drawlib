@@ -424,12 +424,12 @@ from drawlib.shapes import circle, rectangle
 from drawlib.types import Style
 
 custom_preset = PresetStyles(
-    primary=Style(fill_color=Colors140.Turquoise, line_color=Colors140.DarkBlue, line_width=2),
-    light=Style(fill_color=Colors140.LightCyan, line_color=Colors140.DarkBlue, line_width=1),
-    bold=Style(fill_color=Colors140.Turquoise, line_color=Colors140.DarkBlue, line_width=4),
-    flat=Style(fill_color=Colors140.Turquoise, line_color=None, line_width=0),
-    solid=Style(fill_color=None, line_color=Colors140.DarkBlue, line_width=2),
-    dashed=Style(fill_color=None, line_color=Colors140.DarkBlue, line_width=2, line_style=&quot;dashed&quot;),
+    primary=Style(shape_fill_color=Colors140.Turquoise, shape_line_color=Colors140.DarkBlue, shape_line_width=2),
+    light=Style(shape_fill_color=Colors140.LightCyan, shape_line_color=Colors140.DarkBlue, shape_line_width=1),
+    bold=Style(shape_fill_color=Colors140.Turquoise, shape_line_color=Colors140.DarkBlue, shape_line_width=4),
+    flat=Style(shape_fill_color=Colors140.Turquoise, shape_line_color=Colors140.Turquoise, shape_line_width=0),
+    solid=Style(shape_fill_color=(0, 0, 0, 0.0), shape_line_color=Colors140.DarkBlue, shape_line_width=2),
+    dashed=Style(shape_fill_color=(0, 0, 0, 0.0), shape_line_color=Colors140.DarkBlue, shape_line_width=2, shape_line_style=&quot;dashed&quot;),
 )
 
 config(width=100, height=40)

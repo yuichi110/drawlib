@@ -16,7 +16,7 @@ config(width=100, height=48)
 
 
 def center():
-    bp = BulletPoints(vertical_margin=4, indent_width=4)
+    bp = BulletPoints(styles=styles, vertical_margin=4, indent_width=4)
     bp.add("Types of Drawlib Shapes")
     bp.set_indent(1)
     bp.add("Circle-like Shapes")
@@ -36,23 +36,23 @@ def left():
     x2 = 28
     x3 = 39
 
-    text((x1, 38), "Indent Level 0", style="light")
-    line((x2, 38), (x3, 38), style="dashed_light", arrowhead="->")
-    text((x1, 34), "Indent Level 1", style="light")
-    line((x2, 34), (x3, 34), style="dashed_light", arrowhead="->")
-    text((x1, 30), "Indent Level 2", style="light")
-    line((x2, 30), (x3, 30), style="dashed_light", arrowhead="->")
+    text((x1, 38), "Indent Level 0", style=styles.light)
+    line((x2, 38), (x3, 38), style=styles.dashed, arrowhead="->")
+    text((x1, 34), "Indent Level 1", style=styles.light)
+    line((x2, 34), (x3, 34), style=styles.dashed, arrowhead="->")
+    text((x1, 30), "Indent Level 2", style=styles.light)
+    line((x2, 30), (x3, 30), style=styles.dashed, arrowhead="->")
 
-    line((x2, 21), (44, 22), style="dashed_light", arrowhead="->")
-    line((x2, 19), (48, 14), style="dashed_light", arrowhead="->")
-    text((x1, 20), "bullet_style", style="light")
+    line((x2, 21), (44, 22), style=styles.dashed, arrowhead="->")
+    line((x2, 19), (48, 14), style=styles.dashed, arrowhead="->")
+    text((x1, 20), "bullet_style", style=styles.light)
 
 
 def others():
-    line((74, 38), (74, 34), style="dashed_light", arrowhead="<->")
-    text((86, 36), "vertical_margin", style="light")
-    line((44, 10), (48, 10), style="dashed_light", arrowhead="<->")
-    text((46, 7), "indent_width", style="light")
+    line((74, 38), (74, 34), style=styles.dashed, arrowhead="<->")
+    text((86, 36), "vertical_margin", style=styles.light)
+    line((44, 10), (48, 10), style=styles.dashed, arrowhead="<->")
+    text((46, 7), "indent_width", style=styles.light)
 
 
 center()

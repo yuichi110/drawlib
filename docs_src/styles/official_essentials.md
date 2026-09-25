@@ -20,6 +20,7 @@ from drawlib.canvas import config
 from drawlib.colors import ColorsEssentials
 from drawlib.shapes import rectangle
 from drawlib.text import text
+from drawlib.types import Style
 
 config(width=100, height=95)
 start_x = 12
@@ -38,10 +39,10 @@ def draw_horizon(colors: list[tuple[str, tuple[int, int, int]]], y: float):
             (x, rect_y),
             width=12,
             height=5.5,
-            style={"fill_color": color, "line_width": lwidth, "line_color": (0, 0, 0)},
+            style=Style(shape_fill_color=color, shape_line_width=lwidth, shape_line_color=(0, 0, 0)),
         )
-        text((x, text1_y), color_name, style="bold", size=11)
-        text((x, text2_y), str(color[:3]), size=9)
+        text((x, text1_y), color_name, style=styles.bold.patch(text_size=11))
+        text((x, text2_y), str(color[:3]), style=styles.primary.patch(text_size=9))
 
 
 draw_horizon([

@@ -2,101 +2,109 @@
 
 In this section, we cover advanced topics for working with preset styles in `drawlib.preset_styles`.
 
-# Resolving Styles with `get_style()`
+# Accessing Styles via `get_styles()` or the Global `styles` Catalog
 
-Drawlib provides the `get_style()` function in `drawlib.preset_styles` to dynamically retrieve `Style` instances by preset name, color name, or combined style specification.
+Drawlib provides style presets as catalog objects (`BasePresetStyles`) containing strongly-typed `Style` objects for key roles and colors.
+You can retrieve the styles catalog using `get_styles()`:
 
-## Using Preset Names
+```python
+from drawlib.preset_styles import get_styles
 
-You can retrieve standard preset styles directly by name:
+styles = get_styles()  # default catalog
+```
 
-- `"primary"` (or `""` / `None`): The default primary style.
-- `"light"`: Light line/font weight style.
-- `"bold"`: Bold line/font weight style.
-- `"flat"`: Filled shape with no border line.
-- `"solid"`: Outlined shape with no fill color.
-- `"dashed"`: Outlined shape with dashed line style.
-- `"solid_light"`, `"solid_bold"`, `"dashed_light"`, `"dashed_bold"`: Combinations of line style and weight.
+In `doc_builder` Markdown code blocks, the active `styles` catalog is automatically injected into the global scope.
+
+## Standard Style Roles
+
+You can access standard preset styles directly by attribute or key:
+
+- `styles.primary`: The default primary style.
+- `styles.light`: Light line/font weight style.
+- `styles.bold`: Bold line/font weight style.
+- `styles.flat`: Filled shape with no border line.
+- `styles.solid`: Outlined shape with no fill color.
+- `styles.dashed`: Outlined shape with dashed line style.
 
 Example:
 
 ```python
 from drawlib.canvas import config
-from drawlib.preset_styles import get_style
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
 config(width=100, height=40)
+styles = get_styles()
 
-style_primary = get_style("primary")
-style_bold = get_style("bold")
+style_primary = styles.primary
+style_bold = styles.bold
 
 circle((25, 20), radius=10, style=style_primary)
 rectangle((75, 20), width=20, height=20, style=style_bold)
-text((50, 20), "Preset Styles", style=get_style("bold"))
+text((50, 20), "Preset Styles", style=styles.bold)
 ```
 
 Executing this code produces the following output:
 
 ```drawlib 600px center
 from drawlib.canvas import config
-from drawlib.preset_styles import get_style
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
 config(width=100, height=40)
 
-style_primary = get_style("primary")
-style_bold = get_style("bold")
+style_primary = styles.primary
+style_bold = styles.bold
 
 circle((25, 20), radius=10, style=style_primary)
 rectangle((75, 20), width=20, height=20, style=style_bold)
-text((50, 20), "Preset Styles", style=get_style("bold"))
+text((50, 20), "Preset Styles", style=styles.bold)
 ```
 
 ## Using Color Names and Combinations
 
-You can also pass color names (e.g., `"red"`, `"blue"`, `"turquoise"`) or combined names (e.g., `"red_solid_bold"`) to `get_style()`:
+You can also access color-specific styles (e.g., `styles.red_flat`, `styles.blue_solid`, `styles.red_bold`):
 
 ```python
 from drawlib.canvas import config
-from drawlib.preset_styles import get_style
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
 config(width=100, height=40)
+styles = get_styles()
 
-circle((25, 20), radius=10, style=get_style("red_flat"))
-rectangle((75, 20), width=20, height=20, style=get_style("blue_dashed_bold"))
-text((50, 20), "Combined Style", style=get_style("red_bold"))
+circle((25, 20), radius=10, style=styles.red_flat)
+rectangle((75, 20), width=20, height=20, style=styles.blue_solid)
+text((50, 20), "Combined Style", style=styles.red_bold)
 ```
 
 Executing this code produces:
 
 ```drawlib 600px center
 from drawlib.canvas import config
-from drawlib.preset_styles import get_style
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
 config(width=100, height=40)
 
-circle((25, 20), radius=10, style=get_style("red_flat"))
-rectangle((75, 20), width=20, height=20, style=get_style("blue_dashed_bold"))
-text((50, 20), "Combined Style", style=get_style("red_bold"))
+circle((25, 20), radius=10, style=styles.red_flat)
+rectangle((75, 20), width=20, height=20, style=styles.blue_solid)
+text((50, 20), "Combined Style", style=styles.red_bold)
 ```
 
 
 # Accessing Official Style Presets
 
 Drawlib includes three official style presets: `default`, `essentials`, and `monochrome`.
-You can access full `PresetStyles` objects using `get_styles()` or the dedicated functions:
+You can access full `BasePresetStyles` objects using `get_styles()` or the dedicated functions:
 
 - `get_styles("default")` / `get_default_styles()`
 - `get_styles("essentials")` / `get_essentials_styles()`
 - `get_styles("monochrome")` / `get_monochrome_styles()`
 
-Each `PresetStyles` instance contains `primary`, `light`, `bold`, `flat`, `solid`, and `dashed` `Style` attributes.
+Each `BasePresetStyles` instance contains `primary`, `light`, `bold`, `flat`, `solid`, and `dashed` `Style` attributes.
 
 Example:
 
@@ -131,19 +139,18 @@ rectangle((75, 20), width=20, height=20, style=monochrome.bold)
 ```
 
 
-# Customizing Style Objects
+# Customizing Style Objects with `.patch()`
 
-Retrieved `Style` objects can be modified or copied before passing them to drawing functions.
+Because `Style` objects in Drawlib are immutable (`frozen=True`), styles are customized using the `.patch()` method to create new derived `Style` instances safely:
 
 ```python
 from drawlib.canvas import config
 from drawlib.colors import ColorsDefault
-from drawlib.preset_styles import get_style
+from drawlib.preset_styles import get_styles
 from drawlib.text import text
 
-custom_style = get_style("blue").copy()
-custom_style.text_size = 28
-custom_style.text_color = ColorsDefault.Red
+styles = get_styles()
+custom_style = styles.blue.patch(text_size=28, text_color=ColorsDefault.Red)
 
 config(width=100, height=40)
 text((50, 20), "Customized Style", style=custom_style)
@@ -154,12 +161,9 @@ Output:
 ```drawlib 600px center
 from drawlib.canvas import config
 from drawlib.colors import ColorsDefault
-from drawlib.preset_styles import get_style
 from drawlib.text import text
 
-custom_style = get_style("blue").copy()
-custom_style.text_size = 28
-custom_style.text_color = ColorsDefault.Red
+custom_style = styles.blue.patch(text_size=28, text_color=ColorsDefault.Red)
 
 config(width=100, height=40)
 text((50, 20), "Customized Style", style=custom_style)

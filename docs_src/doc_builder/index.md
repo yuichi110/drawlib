@@ -47,19 +47,19 @@ rectangle(
     width=32,
     height=56,
     r=3,
-    style=Style(fill_color=Colors140.AliceBlue, line_color=blue_primary, line_width=2),
+    style=styles.primary.patch(shape_fill_color=Colors140.AliceBlue, shape_line_color=blue_primary, shape_line_width=2),
 )
-text((22, 61), "Source of Truth", style=Style(text_size=15, text_font=FontRoboto.ROBOTO_BOLD, text_color=blue_primary))
-text((22, 53), "docs_src/*.md", style=Style(text_size=13, text_font=FontRoboto.ROBOTO_BOLD))
+text((22, 61), "Source of Truth", style=styles.primary.patch(text_size=15, text_font=FontRoboto.ROBOTO_BOLD, text_color=blue_primary))
+text((22, 53), "docs_src/*.md", style=styles.primary.patch(text_size=13, text_font=FontRoboto.ROBOTO_BOLD))
 rectangle(
     (22, 31),
     width=26,
     height=24,
     r=2,
-    style=Style(fill_color=Colors.White, line_color=Colors140.LightSteelBlue, line_width=1.5),
+    style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors140.LightSteelBlue, shape_line_width=1.5),
 )
-text((22, 38), "Markdown Text", style=Style(text_size=11, text_color=Colors140.DimGray))
-text((22, 27), "```drawlib\n# Python Code\n```", style=Style(text_size=10, text_color=Colors140.MidnightBlue))
+text((22, 38), "Markdown Text", style=styles.primary.patch(text_size=11, text_color=Colors140.DimGray))
+text((22, 27), "```drawlib\n# Python Code\n```", style=styles.primary.patch(text_size=10, text_color=Colors140.MidnightBlue))
 
 # 2. Engine (Center)
 rectangle(
@@ -67,14 +67,14 @@ rectangle(
     width=34,
     height=44,
     r=4,
-    style=Style(fill_color=Colors140.Lavender, line_color=purple_primary, line_width=2.5),
+    style=styles.primary.patch(shape_fill_color=Colors140.Lavender, shape_line_color=purple_primary, shape_line_width=2.5),
 )
-text((70, 53), "drawlib compiler", style=Style(text_size=15, text_font=FontRoboto.ROBOTO_BOLD, text_color=purple_primary))
-text((70, 43), "drawlib.doc_builder", style=Style(text_size=12, text_font=FontRoboto.ROBOTO_BOLD))
-text((70, 31), "• AST Markdown Parser\n• In-Memory Code Runner\n• Canvas Reset & Isolation", style=Style(text_size=10, text_color=Colors140.DarkSlateGray))
+text((70, 53), "drawlib compiler", style=styles.primary.patch(text_size=15, text_font=FontRoboto.ROBOTO_BOLD, text_color=purple_primary))
+text((70, 43), "drawlib.doc_builder", style=styles.primary.patch(text_size=12, text_font=FontRoboto.ROBOTO_BOLD))
+text((70, 31), "• AST Markdown Parser\n• In-Memory Code Runner\n• Canvas Reset & Isolation", style=styles.primary.patch(text_size=10, text_color=Colors140.DarkSlateGray))
 
 # Connect Source -> Engine
-line((38, 40), (53, 40), arrowhead="->", style=Style(line_width=2.5, line_color=blue_primary))
+line((38, 40), (53, 40), arrowhead="->", style=styles.primary.patch(line_width=2.5, line_color=blue_primary))
 
 # 3. Targets (Right)
 rectangle(
@@ -82,35 +82,35 @@ rectangle(
     width=34,
     height=16,
     r=3,
-    style=Style(fill_color=Colors140.HoneyDew, line_color=green_primary, line_width=2),
+    style=styles.primary.patch(shape_fill_color=Colors140.HoneyDew, shape_line_color=green_primary, shape_line_width=2),
 )
-text((118, 65), "Rendered Markdown", style=Style(text_size=12, text_font=FontRoboto.ROBOTO_BOLD, text_color=green_primary))
-text((118, 57), "docs/ (for GitHub Browsing)", style=Style(text_size=10, text_color=Colors140.DarkSlateGray))
+text((118, 65), "Rendered Markdown", style=styles.primary.patch(text_size=12, text_font=FontRoboto.ROBOTO_BOLD, text_color=green_primary))
+text((118, 57), "docs/ (for GitHub Browsing)", style=styles.primary.patch(text_size=10, text_color=Colors140.DarkSlateGray))
 
 rectangle(
     (118, 40),
     width=34,
     height=16,
     r=3,
-    style=Style(fill_color=Colors140.AliceBlue, line_color=blue_primary, line_width=2),
+    style=styles.primary.patch(shape_fill_color=Colors140.AliceBlue, shape_line_color=blue_primary, shape_line_width=2),
 )
-text((118, 43), "Responsive HTML Site", style=Style(text_size=12, text_font=FontRoboto.ROBOTO_BOLD, text_color=blue_primary))
-text((118, 35), "docs_html/ (Static Website)", style=Style(text_size=10, text_color=Colors140.DarkSlateGray))
+text((118, 43), "Responsive HTML Site", style=styles.primary.patch(text_size=12, text_font=FontRoboto.ROBOTO_BOLD, text_color=blue_primary))
+text((118, 35), "docs_html/ (Static Website)", style=styles.primary.patch(text_size=10, text_color=Colors140.DarkSlateGray))
 
 rectangle(
     (118, 18),
     width=34,
     height=16,
     r=3,
-    style=Style(fill_color=Colors140.Linen, line_color=orange_primary, line_width=2),
+    style=styles.primary.patch(shape_fill_color=Colors140.Linen, shape_line_color=orange_primary, shape_line_width=2),
 )
-text((118, 21), "Headless Vector PDF", style=Style(text_size=12, text_font=FontRoboto.ROBOTO_BOLD, text_color=orange_primary))
-text((118, 13), "docs_pdf/ (Chromium Print)", style=Style(text_size=10, text_color=Colors140.DarkSlateGray))
+text((118, 21), "Headless Vector PDF", style=styles.primary.patch(text_size=12, text_font=FontRoboto.ROBOTO_BOLD, text_color=orange_primary))
+text((118, 13), "docs_pdf/ (Chromium Print)", style=styles.primary.patch(text_size=10, text_color=Colors140.DarkSlateGray))
 
 # Connect Engine -> Targets
-line((87, 48), (101, 62), arrowhead="->", style=Style(line_width=2, line_color=green_primary))
-line((87, 40), (101, 40), arrowhead="->", style=Style(line_width=2, line_color=blue_primary))
-line((87, 32), (101, 18), arrowhead="->", style=Style(line_width=2, line_color=orange_primary))
+line((87, 48), (101, 62), arrowhead="->", style=styles.primary.patch(line_width=2, line_color=green_primary))
+line((87, 40), (101, 40), arrowhead="->", style=styles.primary.patch(line_width=2, line_color=blue_primary))
+line((87, 32), (101, 18), arrowhead="->", style=styles.primary.patch(line_width=2, line_color=orange_primary))
 
 save()
 ```

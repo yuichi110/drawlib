@@ -24,8 +24,8 @@ root = MindMapNode(
     "Main Concept",
     shape="oval",
     size=(24, 10),
-    style="bold",
-    textstyle="white",
+    style=styles.bold,
+    textstyle=styles.white,
     children=[
         # Right branches
         MindMapNode(
@@ -33,7 +33,7 @@ root = MindMapNode(
             branch="right",
             shape="rectangle",
             size=(16, 7),
-            style="solid",
+            style=styles.solid,
             line_length=6,
             children=[
                 MindMapNode("Fast Development", shape="none"),
@@ -46,7 +46,7 @@ root = MindMapNode(
             branch="left",
             shape="rectangle",
             size=(16, 7),
-            style="solid",
+            style=styles.solid,
             line_length=6,
             children=[
                 MindMapNode("Learning Curve", shape="none"),
@@ -58,7 +58,7 @@ root = MindMapNode(
             branch="top",
             shape="rectangle",
             size=(16, 7),
-            style="solid",
+            style=styles.solid,
         ),
         # Bottom branch with custom shift
         MindMapNode(
@@ -66,14 +66,14 @@ root = MindMapNode(
             branch="bottom",
             shape="rectangle",
             size=(20, 7),
-            style="solid",
+            style=styles.solid,
             xy_shift=(0, -2),
         ),
     ],
     default_line_length=6,
 )
 
-root.draw(xy=(75, 40))
+root.draw(xy=(75, 40), styles=styles)
 ```
 
 ---
@@ -94,7 +94,7 @@ root = MindMapNode(
     "CEO",
     shape="rectangle",
     size=(20, 8),
-    style="solid_bold",
+    style=styles.bold,
     children=[
         MindMapNode(
             "CTO",
@@ -112,7 +112,7 @@ root = MindMapNode(
     ],
 )
 
-root.draw(xy=(50, 50), branch="bottom")
+root.draw(xy=(50, 50), branch="bottom", styles=styles)
 ```
 
 ---
@@ -136,15 +136,15 @@ root = MindMapNode(
     "Central Topic",
     shape="oval",
     size=(24, 10),
-    style="bold",
-    textstyle="white",
+    style=styles.bold,
+    textstyle=styles.white,
     children=[
-        MindMapNode("Rectangle Box", branch="right", shape="rectangle", size=(22, 8), style="solid"),
+        MindMapNode("Rectangle Box", branch="right", shape="rectangle", size=(22, 8), style=styles.solid),
         MindMapNode("Text Only Leaf", branch="right", shape="none"),
     ],
 )
 
-root.draw(xy=(30, 18), branch="right")
+root.draw(xy=(30, 18), branch="right", styles=styles)
 ```
 
 ---
@@ -176,10 +176,10 @@ Args:
 - `branch` (Literal["bottom", "top", "left", "right"], optional): Branch expansion direction.
 - `shape` (Literal["rectangle", "oval", "none"], optional): Shape of this node. Defaults to `"rectangle"`.
 - `size` (Tuple[float, float], optional): Size of the node as `(width, height)`. Defaults to `(20.0, 8.0)`.
-- `style` (Union[str, Style], optional): Style for node shape fill and border.
+- `style` (Optional[Style], optional): Style for node shape fill and border.
 - `r` (float, optional): Corner radius when `shape="rectangle"`.
-- `textstyle` (Union[str, Style], optional): Style for text.
-- `linestyle` (Union[str, Style], optional): Style for connecting lines.
+- `textstyle` (Optional[Style], optional): Style for text.
+- `linestyle` (Optional[Style], optional): Style for connecting lines.
 - `horizontal_margin` (float, optional): Horizontal margin between sibling subtrees.
 - `vertical_margin` (float, optional): Vertical margin between sibling subtrees.
 - `line_length` (float, optional): Distance between parent and child hierarchy levels.
@@ -188,10 +188,10 @@ Args:
 - `default_branch` (Literal["bottom", "top", "left", "right"], optional): Default branch direction for descendants.
 - `default_shape` (Literal["rectangle", "oval", "none"], optional): Default shape for descendants.
 - `default_size` (Tuple[float, float], optional): Default size for descendants.
-- `default_style` (Union[str, Style], optional): Default style for descendants.
+- `default_style` (Optional[Style], optional): Default style for descendants.
 - `default_r` (float, optional): Default corner radius for descendants.
-- `default_textstyle` (Union[str, Style], optional): Default text style for descendants.
-- `default_linestyle` (Union[str, Style], optional): Default line style for descendants.
+- `default_textstyle` (Optional[Style], optional): Default text style for descendants.
+- `default_linestyle` (Optional[Style], optional): Default line style for descendants.
 - `default_horizontal_margin` (float, optional): Default horizontal margin for descendants.
 - `default_vertical_margin` (float, optional): Default vertical margin for descendants.
 - `default_line_length` (float, optional): Default line length for descendants.
@@ -205,6 +205,7 @@ Args:
 
 - `xy` (Tuple[float, float]): The center coordinates (x, y) of this root node's box.
 - `branch` (Literal["bottom", "top", "left", "right"], optional): Default branch direction for children. Defaults to `"bottom"`.
+- `styles` (Optional[BasePresetStyles], optional): Preset styles catalog (optional if root node has default styles set).
 
 ---
 

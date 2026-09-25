@@ -323,8 +323,9 @@ Here is a full production example combining participant groups (`ParticipantGrou
 
 ```python
 from drawlib import canvas
-from drawlib._core.l3_styles import Colors, Style
+from drawlib.colors import Colors
 from drawlib.diagrams.sequence import SequenceDiagram, GcpIcon, Participant, ParticipantGroup, PhosphorIcon
+from drawlib.types import Style
 
 canvas.initialize()
 canvas.config(width=106, height=128)
@@ -336,7 +337,11 @@ backend = d.add_group(
     ParticipantGroup(
         title="Google Cloud VPC",
         padding=4.0,
-        style=Style(fill_color=(242, 246, 255, 0.4), line_color=Colors.Gray, line_style="dashed"),
+        style=Style(
+            shape_fill_color=(242, 246, 255, 0.4),
+            shape_line_color=Colors.Gray,
+            shape_line_style="dashed",
+        ),
     )
 )
 api = backend.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, icon_size=8.0))

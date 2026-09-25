@@ -10,8 +10,8 @@ Plot individual data points via `add()` and grouped series via `add_series()`:
 
 ```drawlib show-code 650px center caption:"Service Latency vs. Throughput Benchmark"
 from drawlib import canvas
-from drawlib._core.l3_styles import Style
 from drawlib.charts import ScatterChart
+from drawlib.types import Style
 
 canvas.initialize()
 canvas.config(width=98, height=65)
@@ -26,22 +26,32 @@ chart.configure_y_axis(label="p99 Latency (ms)", unit=" ms", min_value=0)
 
 # Individual data points with labels and custom styles
 chart.add(xy=(100, 12.0), radius=1.2, label="v1.0 Baseline")
-chart.add(xy=(450, 25.0), radius=1.8, style=Style(fill_color=(245, 158, 11, 0.85), line_width=1.0), label="v1.5")
-chart.add(xy=(780, 18.5), radius=2.2, style=Style(fill_color=(16, 185, 129, 0.85), line_width=1.0), label="v2.0 Optimized")
+chart.add(
+    xy=(450, 25.0),
+    radius=1.8,
+    style=Style(shape_fill_color=(245, 158, 11, 0.85), shape_line_width=1.0),
+    label="v1.5",
+)
+chart.add(
+    xy=(780, 18.5),
+    radius=2.2,
+    style=Style(shape_fill_color=(16, 185, 129, 0.85), shape_line_width=1.0),
+    label="v2.0 Optimized",
+)
 
 # Grouped series with legend
 chart.add_series(
     name="Competitor Go",
     data=[(150, 30.0), (300, 42.0), (600, 85.0)],
     shape="square",
-    style=Style(fill_color=(59, 130, 246, 0.75), line_width=0.8),
+    style=Style(shape_fill_color=(59, 130, 246, 0.75), shape_line_width=0.8),
     radius=1.3,
 )
 chart.add_series(
     name="Legacy Java",
     data=[(120, 45.0), (250, 68.0), (500, 130.0)],
     shape="triangle",
-    style=Style(fill_color=(239, 68, 68, 0.75), line_width=0.8),
+    style=Style(shape_fill_color=(239, 68, 68, 0.75), shape_line_width=0.8),
     radius=1.5,
 )
 

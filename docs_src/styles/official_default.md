@@ -16,6 +16,7 @@ from drawlib.canvas import config
 from drawlib.colors import ColorsDefault
 from drawlib.shapes import rectangle
 from drawlib.text import text
+from drawlib.types import Style
 
 config(width=100, height=45)
 start_x = 14
@@ -39,10 +40,10 @@ for i, (color_name, color) in enumerate(colors):
         (x, rect_y),
         width=12,
         height=12,
-        style={"fill_color": color, "line_width": lwidth, "line_color": (0, 0, 0)},
+        style=Style(shape_fill_color=color, shape_line_width=lwidth, shape_line_color=(0, 0, 0)),
     )
-    text((x, text1_y), color_name, style="bold")
-    text((x, text2_y), str(color[:3]), size=11)
+    text((x, text1_y), color_name, style=styles.bold)
+    text((x, text2_y), str(color[:3]), style=styles.primary.patch(text_size=11))
 ```
 
 Here is a list of the colors. 
@@ -82,10 +83,14 @@ Let's take a look at a matrix with the blue color as an example:
 
 
 ```drawlib 650px center caption:"Style type and weight matrix"
+from drawlib.fonts import Font
 from drawlib.icons import phosphor
 from drawlib.lines import line
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import circle
 from drawlib.text import text
+
+styles = get_styles("default")
 
 xs = [28, 48, 68, 88]
 ys = [80, 50, 20]
@@ -95,14 +100,14 @@ def draw_header():
     x0 = 10
     y0 = 92
 
-    text((x0, y0), "weight \\ type", style="red_bold")
-    text((xs[0], y0), "(default)", style="red_bold")
-    text((xs[1], y0), "flat", style="red_bold")
-    text((xs[2], y0), "solid", style="red_bold")
-    text((xs[3], y0), "dashed", style="red_bold")
-    text((x0, ys[0]), "light", style="red_bold")
-    text((x0, ys[1]), "(default)", style="red_bold")
-    text((x0, ys[2]), "bold", style="red_bold")
+    text((x0, y0), "weight \\ type", style=styles.red_bold)
+    text((xs[0], y0), "(default)", style=styles.red_bold)
+    text((xs[1], y0), "flat", style=styles.red_bold)
+    text((xs[2], y0), "solid", style=styles.red_bold)
+    text((xs[3], y0), "dashed", style=styles.red_bold)
+    text((x0, ys[0]), "light", style=styles.red_bold)
+    text((x0, ys[1]), "(default)", style=styles.red_bold)
+    text((x0, ys[2]), "bold", style=styles.red_bold)
 
 
 def draw_content():
@@ -115,17 +120,25 @@ def draw_content():
             y = ys[j]
             st = f"_{style_type}" if style_type != "" else ""
             sw = f"_{style_width}" if style_width != "" else ""
-            style = f"blue{st}{sw}"
+            style_name = f"blue{st}{sw}"
+            if hasattr(styles, style_name):
+                style_obj = getattr(styles, style_name)
+            else:
+                base_style = getattr(styles, f"blue{st}")
+                if style_width == "light":
+                    style_obj = base_style.patch(shape_line_width=0.75, line_width=0.75, icon_style="thin")
+                else:
+                    style_obj = base_style.patch(shape_line_width=2.25, line_width=2.25, icon_style="bold")
 
             if style_type in ["", "flat"]:
-                circle((x - 4, y), 4, style=style)
-                phosphor.heart((x + 4.5, y - 0.5), width=8, style=style)
+                circle((x - 4, y), 4, style=style_obj)
+                phosphor.heart((x + 4.5, y - 0.5), width=8, style=style_obj)
             else:
-                circle((x, y), 4, style=style)
+                circle((x, y), 4, style=style_obj)
 
             if style_type != "flat":
-                line((x - 7.5, y - 8), (x + 7.5, y - 8), style=style)
-            text((x, y - 12), style, size=11)
+                line((x - 7.5, y - 8), (x + 7.5, y - 8), style=style_obj)
+            text((x, y - 12), style_name, style=styles.primary.patch(text_size=11))
 
 
 draw_header()

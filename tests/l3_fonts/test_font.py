@@ -9,6 +9,7 @@
 
 from drawlib._utils import dutil_script
 from drawlib.canvas import clear, save
+from drawlib.colors import Colors
 from drawlib.fonts import (
     Font,
     FontArabic,
@@ -28,43 +29,44 @@ from drawlib.text import text
 from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l3_fonts/font/"
+BASE_STYLE = Style(text_color=Colors.Black, text_size=16)
 
 
 def test_sans():
     text(
         (10, 5),
         "Hello World. あいうえお",
-        style=Style(text_font=Font.SANSSERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=Font.SANSSERIF_LIGHT),
     )
     text(
         (10, 10),
         "Hello World. あいうえお",
-        style=Style(text_font=Font.SANSSERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=Font.SANSSERIF_REGULAR),
     )
     text(
         (10, 15),
         "Hello World. あいうえお",
-        style=Style(text_font=Font.SANSSERIF_BOLD),
+        style=BASE_STYLE.patch(text_font=Font.SANSSERIF_BOLD),
     )
     text(
         (10, 20),
         "CJK Japanese: 今日はいい天気ですね。",
-        style=Style(text_font=Font.SANSSERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=Font.SANSSERIF_REGULAR),
     )
     text(
         (10, 25),
         "CJK Chinese: 今天天气很好。",
-        style=Style(text_font=Font.SANSSERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=Font.SANSSERIF_REGULAR),
     )
     text(
         (10, 30),
         "CJK Korean: 오늘은 날씨가 좋네요。",
-        style=Style(text_font=Font.SANSSERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=Font.SANSSERIF_REGULAR),
     )
     text(
         (10, 35),
         "Thai: วันนี้อากาศดีจังเลย",
-        style=Style(text_font=Font.SANSSERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=Font.SANSSERIF_REGULAR),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -73,36 +75,36 @@ def test_serif():
     text(
         (10, 5),
         "Hello World. あいうえお",
-        style=Style(text_font=Font.SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=Font.SERIF_LIGHT),
     )
     text(
         (10, 10),
         "Hello World. あいうえお",
-        style=Style(text_font=Font.SERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=Font.SERIF_REGULAR),
     )
     text(
         (10, 15),
         "Hello World. あいうえお",
-        style=Style(text_font=Font.SERIF_BOLD),
+        style=BASE_STYLE.patch(text_font=Font.SERIF_BOLD),
     )
     text(
         (10, 20),
         "CJK Japanese: 今日はいい天気ですね。",
-        style=Style(text_font=Font.SERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=Font.SERIF_REGULAR),
     )
     text(
         (10, 25),
         "CJK Chinese: 今天天气很好。",
-        style=Style(text_font=Font.SERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=Font.SERIF_REGULAR),
     )
     text(
         (10, 30),
         "CJK Korean: 오늘은 날씨가 좋네요。",
-        style=Style(text_font=Font.SERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=Font.SERIF_REGULAR),
     )
     text(
         (10, 35),
         "Thai: วันนี้อากาศดีจังเลย",
-        style=Style(text_font=Font.SERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=Font.SERIF_REGULAR),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

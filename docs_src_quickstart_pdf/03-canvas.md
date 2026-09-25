@@ -29,17 +29,17 @@ from drawlib.text import text
 config(width=100, height=50, grid=True)
 
 # Circle at (20, 28)
-circle(xy=(20, 28), radius=12, style="blue")
-text(xy=(20, 8), text="circle((20, 28))", size=10)
+circle(xy=(20, 28), radius=12, style=styles.blue)
+text(xy=(20, 8), text="circle((20, 28))", style=styles.primary, size=10)
 
 # Rectangle at (50, 28)
-rectangle(xy=(50, 28), width=22, height=20, r=2, style="green")
-text(xy=(50, 8), text="rectangle((50, 28))", size=10)
+rectangle(xy=(50, 28), width=22, height=20, r=2, style=styles.green)
+text(xy=(50, 8), text="rectangle((50, 28))", style=styles.primary, size=10)
 
 # Arrow and Line at (80, 28)
-arrow((70, 28), (90, 28), tail_width=4, head_width=10, head_length=6, style="red")
-line((70, 18), (90, 18), arrowhead="<->", style="black")
-text(xy=(80, 8), text="arrow & line", size=10)
+arrow((70, 28), (90, 28), tail_width=4, head_width=10, head_length=6, style=styles.red)
+line((70, 18), (90, 18), arrowhead="<->", style=styles.black)
+text(xy=(80, 8), text="arrow & line", style=styles.primary, size=10)
 ```
 
 ## Coordinate Alignment (`halign` and `valign`)

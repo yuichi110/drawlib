@@ -408,7 +408,7 @@ from drawlib.text import text
 
 config(width=100, height=50)
 
-gl1 = GridLayout(num_column=7, num_row=3, default_textstyle=&quot;white&quot;)
+gl1 = GridLayout(styles=styles, num_column=7, num_row=3, default_textstyle=styles.white)
 gl1.add(position=(0, 0), width=5, height=1, text=&quot;Host OS&quot;)
 gl1.add(position=(0, 1), width=5, height=1, text=&quot;Python&quot;)
 gl1.add(position=(0, 2), width=1, height=1, text=&quot;D&quot;)
@@ -419,11 +419,11 @@ gl1.add(position=(4, 2), width=1, height=1, text=&quot;l&quot;)
 gl1.add(position=(5, 2), width=1, height=1, text=&quot;i&quot;)
 gl1.add(position=(6, 2), width=1, height=1, text=&quot;b&quot;)
 gl1.draw((5, 10), width=40, height=20, margin=1)
-text((25, 5), text=&quot;Grid Layout: Column 7, Row 3.&quot;)
+text((25, 5), text=&quot;Grid Layout: Column 7, Row 3.&quot;, style=styles.bold)
 
-gl2 = GridLayout(num_column=7, num_row=3, default_r=1, default_style=&quot;solid&quot;)
-gl2.add(position=(0, 0), width=7, height=1, text=&quot;Host OS&quot;, style=&quot;blue&quot;, textstyle=&quot;white&quot;, text_xy_shift=(10, 0))
-gl2.add(position=(0, 1), width=7, height=1, text=&quot;Python&quot;, style=&quot;green&quot;, textstyle=&quot;white&quot;, text_xy_shift=(-10, 0))
+gl2 = GridLayout(styles=styles, num_column=7, num_row=3, default_r=1, default_style=styles.solid)
+gl2.add(position=(0, 0), width=7, height=1, text=&quot;Host OS&quot;, style=styles.blue, textstyle=styles.white, text_xy_shift=(10, 0))
+gl2.add(position=(0, 1), width=7, height=1, text=&quot;Python&quot;, style=styles.green, textstyle=styles.white, text_xy_shift=(-10, 0))
 gl2.add(position=(0, 2), width=1, height=1, text=&quot;D&quot;)
 gl2.add(position=(1, 2), width=1, height=1, text=&quot;r&quot;)
 gl2.add(position=(2, 2), width=1, height=1, text=&quot;a&quot;, textangle=90)
@@ -431,7 +431,7 @@ gl2.add(position=(3, 2), width=1, height=1, text=&quot;w&quot;, textangle=180)
 gl2.add(position=(4, 2), width=1, height=1, text=&quot;l&quot;, textangle=270)
 gl2.add(position=(5, 2), width=1, height=1, text=&quot;i&quot;)
 gl2.add(position=(6, 2), width=1, height=1, text=&quot;b&quot;)
-gl2.draw((55, 10), width=40, height=20, margin=1, outer_style=&quot;solid&quot;, outer_r=1)
+gl2.draw((55, 10), width=40, height=20, margin=1, outer_style=styles.solid, outer_r=1)
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
   <img src="gridlayout_images/1.png" alt="gridlayout_1" style="width: 600px; max-width: 100%;" />
@@ -447,11 +447,12 @@ gl2.draw((55, 10), width=40, height=20, margin=1, outer_style=&quot;solid&quot;,
 <p>Initializes a GridLayout instance.</p>
 <p>Args:</p>
 <ul>
+<li>styles (BasePresetStyles): The preset styles catalog (required).</li>
 <li>num_column (int): The number of columns in the grid.</li>
 <li>num_row (int): The number of rows in the grid.</li>
 <li>default_r (int, optional): The default radius for the rectangles. Defaults to 0.</li>
-<li>default_style (Union[str, Style, None], optional): The default style for the rectangles. Can be a string key, a Style object, or None. Defaults to None.</li>
-<li>default_textstyle (Union[str, Style, None], optional): The default text style for the rectangles. Can be a string key, a Style object, or None. Defaults to None.</li>
+<li>default_style (Optional[Style], optional): The default style for the rectangles. Defaults to None.</li>
+<li>default_textstyle (Optional[Style], optional): The default text style for the rectangles. Defaults to None.</li>
 <li>default_textangle (Optional[float], optional): The default angle for the text inside the rectangles. If None, no angle is applied. Defaults to None.</li>
 </ul>
 <h2>add()</h2>
@@ -462,9 +463,9 @@ gl2.draw((55, 10), width=40, height=20, margin=1, outer_style=&quot;solid&quot;,
 <li>width (int): How many column cells.</li>
 <li>height (int): How many row cells.</li>
 <li>r (Optional[int], optional): The radius of the item. Default is None, which uses the default radius.</li>
-<li>style (Union[str, Style, None], optional): The style of the item. Can be a string key for a predefined style, a Style object, or None to use the default style.</li>
+<li>style (Optional[Style], optional): The style of the item. Can be a Style object, or None to use the default style.</li>
 <li>text (str, optional): The text associated with the item. Default is an empty string.</li>
-<li>textstyle (Union[str, Style, None], optional): The text style of the item. Can be a string key for a predefined text style, a Style object, or None to use the default text style.</li>
+<li>textstyle (Optional[Style], optional): The text style of the item. Can be a Style object, or None to use the default text style.</li>
 <li>textangle (Optional[float], optional): The angle of the text. Default is None, which is same to 0.</li>
 <li>text_xy_shift (Optional[Tuple[float, float]], optional): The XY shift of the text. Default is None, which is same to (0, 0).</li>
 </ul>
@@ -477,7 +478,7 @@ gl2.draw((55, 10), width=40, height=20, margin=1, outer_style=&quot;solid&quot;,
 <li>height (float): The total height of the grid.</li>
 <li>margin (float): The margin between grid items.</li>
 <li>outer_r (int, optional): The radius for the outer grid border. Default is 0.</li>
-<li>outer_style (Union[str, Style, None], optional): The style for the outer grid border. Can be a string key for a predefined style, a Style object, or None.</li>
+<li>outer_style (Optional[Style], optional): The style for the outer grid border. Can be a Style object, or None.</li>
 </ul>
 <h2>draw_flexible()</h2>
 <p>Draw the grid layout with flexible column widths and row heights.</p>
@@ -489,7 +490,7 @@ gl2.draw((55, 10), width=40, height=20, margin=1, outer_style=&quot;solid&quot;,
 <li>row_heights (List[float]): The heights of each row.</li>
 <li>row_margins (List[float]): The margins between rows.</li>
 <li>outer_r (int, optional): The radius for the outer grid border. Default is 0.</li>
-<li>outer_style (Union[str, Style, None], optional): The style for the outer grid border. Can be a string key for a predefined style, a Style object, or None.</li>
+<li>outer_style (Optional[Style], optional): The style for the outer grid border. Can be a Style object, or None.</li>
 </ul>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

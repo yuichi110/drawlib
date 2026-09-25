@@ -21,10 +21,8 @@ Here are arrow examples:
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.fonts import FontRoboto
 from drawlib.shapes import arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u
 from drawlib.text import text
-
 
 config(width=100, height=100, grid_only=True)
 
@@ -32,8 +30,8 @@ x1 = 15
 x2 = 35
 x3 = 75
 
-arrow((x1, 20), (x1, 70), tail_width=5, head_width=10, head_length=10)
-text((x1, 15), "arrow()", size=24)
+arrow((x1, 20), (x1, 70), tail_width=5, head_width=10, head_length=10, style=styles.primary)
+text((x1, 15), "arrow()", size=24, style=styles.primary)
 arrow_polyline(
     [(x2, 30), (x2 - 5, 45), (x2 + 5, 60), (x2, 80)],
     tail_width=5,
@@ -41,14 +39,15 @@ arrow_polyline(
     head_length=10,
     head="<->",
     r=5,
+    style=styles.primary,
 )
-text((x2, 85), "arrow_polyline()", size=24)
+text((x2, 85), "arrow_polyline()", size=24, style=styles.primary)
 
-arrow_l((x3, 20), 30, 20, tail_width=5, head_width=10, head_length=10)
-text((x3, 20), "arrow_l()", size=24)
+arrow_l((x3, 20), 30, 20, tail_width=5, head_width=10, head_length=10, style=styles.primary)
+text((x3, 20), "arrow_l()", size=24, style=styles.primary)
 
-arrow_u((x3, 50), 30, 20, tail_width=5, head_width=10, head_length=10, head="<->", r=5)
-text((x3, 55), "arrow_u()", size=24)
+arrow_u((x3, 50), 30, 20, tail_width=5, head_width=10, head_length=10, head="<->", r=5, style=styles.primary)
+text((x3, 55), "arrow_u()", size=24, style=styles.primary)
 
 arrow_arc(
     (x3, 70),
@@ -59,8 +58,9 @@ arrow_arc(
     head_angle=30,
     angle_start=0,
     angle_end=180,
+    style=styles.primary,
 )
-text((x3, 90), "arrow_arc()", size=24)
+text((x3, 90), "arrow_arc()", size=24, style=styles.primary)
 
 save()
 ```
@@ -93,29 +93,26 @@ Understanding how to specify arrow size might be useful.
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import arrow, circle
 from drawlib.text import text
 
-
-
 config(width=100, height=50)
-arrow((20, 25), (80, 25), tail_width=10, head_width=20, head_length=10)
+arrow((20, 25), (80, 25), tail_width=10, head_width=20, head_length=10, style=styles.primary)
 
-circle((20, 25), radius=1, style="red")
-text((27, 25), "xy1", style="white_bold")
-circle((80, 25), radius=1, style="red")
-text((73, 25), "xy2", style="white_bold")
+circle((20, 25), radius=1, style=styles.red)
+text((27, 25), "xy1", style=styles.white_bold)
+circle((80, 25), radius=1, style=styles.red)
+text((73, 25), "xy2", style=styles.white_bold)
 
-line((15, 20), (15, 30), style="dashed", arrowhead="<->")
-text((15, 35), "tail_width")
+line((15, 20), (15, 30), style=styles.dashed, arrowhead="<->")
+text((15, 35), "tail_width", style=styles.primary)
 
-line((85, 15), (85, 35), style="dashed", arrowhead="<->")
-text((85, 40), "head_width")
+line((85, 15), (85, 35), style=styles.dashed, arrowhead="<->")
+text((85, 40), "head_width", style=styles.primary)
 
-line((70, 10), (80, 10), style="dashed", arrowhead="<->")
-text((55, 10), "head_length")
+line((70, 10), (80, 10), style=styles.dashed, arrowhead="<->")
+text((55, 10), "head_length", style=styles.primary)
 
 save()
 ```
@@ -146,22 +143,19 @@ You can specify arrow direction via arg `head`.
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.fonts import FontRoboto
 from drawlib.shapes import arrow
 from drawlib.text import text
 
-
-
 config(width=100, height=50)
 
-arrow((10, 25), (30, 25), tail_width=5, head_width=10, head_length=7, head="->")
-text((20, 15), 'head="->"')
+arrow((10, 25), (30, 25), tail_width=5, head_width=10, head_length=7, head="->", style=styles.primary)
+text((20, 15), 'head="->"', style=styles.primary)
 
-arrow((40, 25), (60, 25), tail_width=5, head_width=10, head_length=7, head="<-")
-text((50, 15), 'head="<-"')
+arrow((40, 25), (60, 25), tail_width=5, head_width=10, head_length=7, head="<-", style=styles.primary)
+text((50, 15), 'head="<-"', style=styles.primary)
 
-arrow((70, 25), (90, 25), tail_width=5, head_width=10, head_length=7, head="<->")
-text((80, 15), 'head="<->"')
+arrow((70, 25), (90, 25), tail_width=5, head_width=10, head_length=7, head="<->", style=styles.primary)
+text((80, 15), 'head="<->"', style=styles.primary)
 
 save()
 ```
@@ -206,14 +200,11 @@ Let's explore an example:
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.fonts import FontRoboto
 from drawlib.shapes import arrow
-from drawlib.text import text
-
 
 config(width=100, height=50, grid_only=True)
 
-arrow((5, 25), (45, 25), tail_width=10, head_width=20, head_length=10)
+arrow((5, 25), (45, 25), tail_width=10, head_width=20, head_length=10, style=styles.primary)
 arrow(
     (75, 5),
     (75, 45),
@@ -222,6 +213,7 @@ arrow(
     head_length=10,
     head="<->",
     text="arrow()",
+    style=styles.primary,
 )
 save()
 ```
@@ -266,11 +258,8 @@ Let's explore an example:
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.fonts import FontRoboto
 from drawlib.lines import lines, lines_curved
 from drawlib.shapes import arrow_polyline, circle
-
-
 
 config(width=100, height=50, grid=True)
 arrow_polyline(
@@ -278,6 +267,7 @@ arrow_polyline(
     tail_width=5,
     head_width=10,
     head_length=5,
+    style=styles.primary,
 )
 
 arrow_polyline(
@@ -285,10 +275,11 @@ arrow_polyline(
     tail_width=5,
     head_width=10,
     head_length=5,
+    style=styles.primary,
 )
-lines([(50, 5), (40, 25), (50, 45)], style="white_dashed")
+lines([(50, 5), (40, 25), (50, 45)], style=styles.white.patch(line_style="dashed"))
 for dot in [(50, 5), (40, 25), (50, 45)]:
-    circle(dot, radius=1, style="red_flat")
+    circle(dot, radius=1, style=styles.red_flat)
 
 arrow_polyline(
     [(75, 5), (85, 25), (75, 45)],
@@ -297,10 +288,11 @@ arrow_polyline(
     head_length=5,
     r=5,
     head="<->",
+    style=styles.primary,
 )
-lines_curved([(75, 5), (85, 25), (75, 45)], r=5, style="white_dashed")
+lines_curved([(75, 5), (85, 25), (75, 45)], r=5, style=styles.white.patch(line_style="dashed"))
 for dot in [(75, 5), (85, 25), (75, 45)]:
-    circle(dot, radius=1, style="red_flat")
+    circle(dot, radius=1, style=styles.red_flat)
 
 save()
 ```
@@ -344,13 +336,9 @@ Let's explore an example:
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.fonts import FontRoboto
 from drawlib.lines import line, lines
 from drawlib.shapes import arrow_l, circle
 from drawlib.text import text
-
-
-
 
 config(width=100, height=50, grid=True)
 arrow_l(
@@ -360,6 +348,7 @@ arrow_l(
     tail_width=3,
     head_width=6,
     head_length=3,
+    style=styles.primary,
 )
 
 arrow_l(
@@ -369,17 +358,17 @@ arrow_l(
     tail_width=3,
     head_width=6,
     head_length=3,
-    style="white",
+    style=styles.white,
 )
-lines([(30, 40), (30, 10), (50, 10)], style="dashed")
+lines([(30, 40), (30, 10), (50, 10)], style=styles.dashed)
 for dot in [(30, 40), (30, 10), (50, 10)]:
-    circle(dot, radius=0.7, style="red_flat")
+    circle(dot, radius=0.7, style=styles.red_flat)
 
-circle((40, 25), radius=0.7, style="blue_flat")
-line((30, 25), (50, 25), style="blue_dashed", arrowhead="<->")
-text((47.5, 27.5), "width", style="blue")
-line((40, 40), (40, 10), style="blue_dashed", arrowhead="<->")
-text((40, 42.5), "height", style="blue")
+circle((40, 25), radius=0.7, style=styles.blue_flat)
+line((30, 25), (50, 25), style=styles.blue_dashed, arrowhead="<->")
+text((47.5, 27.5), "width", style=styles.blue)
+line((40, 40), (40, 10), style=styles.blue_dashed, arrowhead="<->")
+text((40, 42.5), "height", style=styles.blue)
 
 arrow_l(
     xy=(75, 10),
@@ -390,8 +379,9 @@ arrow_l(
     head_length=3,
     angle=90,
     head="<->",
+    style=styles.primary,
 )
-text((70, 10), "angle=90")
+text((70, 10), "angle=90", style=styles.primary)
 
 arrow_l(
     xy=(75, 25),
@@ -402,8 +392,9 @@ arrow_l(
     head_length=3,
     angle=180,
     head="<-",
+    style=styles.primary,
 )
-text((70, 25), "angle=180")
+text((70, 25), "angle=180", style=styles.primary)
 
 arrow_l(
     xy=(75, 40),
@@ -414,8 +405,9 @@ arrow_l(
     head_length=3,
     angle=270,
     head="<-",
+    style=styles.primary,
 )
-text((80, 40), "angle=270")
+text((80, 40), "angle=270", style=styles.primary)
 
 save()
 ```
@@ -460,12 +452,9 @@ Let's explore an example:
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.fonts import FontRoboto
 from drawlib.lines import line, lines
 from drawlib.shapes import arrow_u, circle
 from drawlib.text import text
-
-
 
 config(width=100, height=50, grid=True)
 
@@ -476,6 +465,7 @@ arrow_u(
     tail_width=3,
     head_width=6,
     head_length=3,
+    style=styles.primary,
 )
 
 arrow_u(
@@ -485,17 +475,17 @@ arrow_u(
     tail_width=3,
     head_width=6,
     head_length=3,
-    style="white",
+    style=styles.white,
 )
-lines([(32.5, 40), (32.5, 10), (47.5, 10), (47.5, 40)], style="dashed")
+lines([(32.5, 40), (32.5, 10), (47.5, 10), (47.5, 40)], style=styles.dashed)
 for dot in [(32.5, 40), (32.5, 10), (47.5, 10), (47.5, 40)]:
-    circle(dot, radius=0.7, style="red_flat")
+    circle(dot, radius=0.7, style=styles.red_flat)
 
-circle((40, 25), radius=1, style="blue_flat")
-line((32.5, 25), (47.5, 25), style="blue_dashed", arrowhead="<->")
-text((45, 27.5), "width", style="blue")
-line((40, 40), (40, 10), style="blue_dashed", arrowhead="<->")
-text((40, 42.5), "height", style="blue")
+circle((40, 25), radius=1, style=styles.blue_flat)
+line((32.5, 25), (47.5, 25), style=styles.blue_dashed, arrowhead="<->")
+text((45, 27.5), "width", style=styles.blue)
+line((40, 40), (40, 10), style=styles.blue_dashed, arrowhead="<->")
+text((40, 42.5), "height", style=styles.blue)
 
 arrow_u(
     xy=(75, 10),
@@ -506,8 +496,9 @@ arrow_u(
     head_length=3,
     angle=90,
     head="<->",
+    style=styles.primary,
 )
-text((70, 10), "angle=90")
+text((70, 10), "angle=90", style=styles.primary)
 
 arrow_u(
     xy=(75, 25),
@@ -518,8 +509,9 @@ arrow_u(
     head_length=3,
     angle=180,
     head="<-",
+    style=styles.primary,
 )
-text((70, 25), "angle=180")
+text((68, 25), "angle=180", style=styles.primary.patch(text_halign="right"))
 
 arrow_u(
     xy=(75, 40),
@@ -530,8 +522,9 @@ arrow_u(
     head_length=3,
     angle=270,
     head="<-",
+    style=styles.primary,
 )
-text((80, 40), "angle=270")
+text((82, 40), "angle=270", style=styles.primary.patch(text_halign="left"))
 
 save()
 ```
@@ -546,6 +539,7 @@ Here is an example output:
 </div>
 
 
+```
 
 
 You need to change `angle` and direction of arrow `head` for drawing various style of L arrow. 
@@ -578,13 +572,12 @@ Let's explore an example:
 
 ```python
 from drawlib.canvas import config, save
-from drawlib.fonts import FontRoboto
 from drawlib.lines import line
-from drawlib.shapes import arc, arrow, arrow_arc, circle
+from drawlib.preset_styles import get_styles
+from drawlib.shapes import arc, arrow_arc, circle
 from drawlib.text import text
 
-
-
+styles = get_styles()
 config(width=100, height=50, grid=True)
 
 arrow_arc(
@@ -596,6 +589,7 @@ arrow_arc(
     head_angle=20,
     angle_start=20,
     angle_end=340,
+    style=styles.primary,
 )
 
 arrow_arc(
@@ -607,7 +601,7 @@ arrow_arc(
     head_angle=20,
     angle_start=20,
     angle_end=340,
-    style="white",
+    style=styles.white,
 )
 arc(
     xy=(40, 25),
@@ -615,21 +609,21 @@ arc(
     height=15,
     # angle_start=20,
     # angle_end=340,
-    style="dashed",
+    style=styles.dashed,
 )
-circle((40, 25), radius=1, style="blue_flat")
-line((32.5, 25), (47.5, 25), style="blue_dashed", arrowhead="<->")
-text((53, 25), "width", style="blue")
-line((40, 17.5), (40, 32.5), style="blue_dashed", arrowhead="<->")
-text((40, 37.5), "height", style="blue")
+circle((40, 25), radius=1, style=styles.blue_flat)
+line((32.5, 25), (47.5, 25), style=styles.blue_dashed, arrowhead="<->")
+text((53, 25), "width", style=styles.blue)
+line((40, 17.5), (40, 32.5), style=styles.blue_dashed, arrowhead="<->")
+text((40, 37.5), "height", style=styles.blue)
 
 for dot in [(47, 27.5), (47, 22.5)]:
-    circle(dot, radius=0.7, style="red_flat")
+    circle(dot, radius=0.7, style=styles.red_flat)
 
-text((57.5, 29), "angle_start", style="red")
-text((57.5, 21), "angle_end", style="red")
+text((57.5, 29), "angle_start", style=styles.red)
+text((57.5, 21), "angle_end", style=styles.red)
 
-text((32.5, 7.5), 'The arrow is drawn counterclockwise.\nTo draw a clockwise arrow, specify head="<-".')
+text((32.5, 7.5), 'The arrow is drawn counterclockwise.\nTo draw a clockwise arrow, specify head="<-".', style=styles.primary)
 
 arrow_arc(
     xy=(80, 12.5),
@@ -641,10 +635,11 @@ arrow_arc(
     angle_start=225,
     angle_end=135,
     head="<->",
+    style=styles.primary,
 )
-text((72.5, 12.5), "width=25, height=15")
+text((72.5, 12.5), "width=25, height=15", style=styles.primary)
 
-arc(xy=(80, 37.5), width=25, height=15, angle=45, style="dashed")
+arc(xy=(80, 37.5), width=25, height=15, angle=45, style=styles.dashed)
 arrow_arc(
     xy=(80, 37.5),
     width=25,
@@ -656,8 +651,9 @@ arrow_arc(
     angle_end=270,
     angle=45,
     head="<-",
+    style=styles.primary,
 )
-text((82.5, 40), 'angle=45\nhead="<-"')
+text((82.5, 40), 'angle=45\nhead="<-"', style=styles.primary)
 
 save()
 ```

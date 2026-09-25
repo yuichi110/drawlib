@@ -25,7 +25,6 @@ from drawlib.canvas import config, save
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import Style
 
 config(width=100, height=100, grid_only=True)
 
@@ -33,34 +32,34 @@ config(width=100, height=100, grid_only=True)
 text(
     (19, 73),
     "Drawlib",
-    style=Style(text_size=24, text_halign="left", text_valign="bottom"),
+    style=styles.primary.patch(text_size=24, text_halign="left", text_valign="bottom"),
 )
 phosphor.heart(
     (45, 70),
     width=10,
-    style=Style(text_halign="left", text_valign="bottom"),
+    style=styles.primary.patch(text_halign="left", text_valign="bottom"),
 )
 circle(
     (70, 70),
     radius=5,
-    style=Style(text_halign="left", text_valign="bottom"),
+    style=styles.primary.patch(text_halign="left", text_valign="bottom"),
 )
 
 # alignment: horizontally center, vertically center
 text(
     (25, 25),
     "Drawlib",
-    style=Style(text_size=24, text_halign="center", text_valign="center"),
+    style=styles.primary.patch(text_size=24, text_halign="center", text_valign="center"),
 )
 phosphor.heart(
     (50, 25),
     width=10,
-    style=Style(text_halign="center", text_valign="center"),
+    style=styles.primary,
 )
 circle(
     (75, 25),
     radius=5,
-    style=Style(text_halign="center", text_valign="center"),
+    style=styles.primary,
 )
 
 save()
@@ -116,7 +115,6 @@ from drawlib.canvas import config, save
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import Style
 
 width = 100
 height = 100
@@ -127,9 +125,9 @@ margin_x = width / (num_items + 1)
 y = height / 2
 
 # center center align
-text((margin_x, y), "Drawlib", style=Style(text_size=24))
-phosphor.heart((margin_x * 2, y), width=10)
-circle((margin_x * 3, y), radius=5)
+text((margin_x, y), "Drawlib", style=styles.primary.patch(text_size=24))
+phosphor.heart((margin_x * 2, y), width=10, style=styles.primary)
+circle((margin_x * 3, y), radius=5, style=styles.primary)
 
 save()
 ```
@@ -137,7 +135,7 @@ save()
 The variable `y` is straightforward, representing half the height. 
 The variable `x` is a bit more complex but ensures equal x margins for the items.
 
-Executing this code generate below image.
+Executing this code generates the following image:
 
 
 
@@ -161,7 +159,6 @@ from drawlib.canvas import config, save
 from drawlib.icons import phosphor
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.types import Style
 
 width = 100
 height = 50  # <= CHANGED FROM 100 !!
@@ -172,10 +169,10 @@ margin_x = width / (num_items + 1)
 y = height / 2
 
 # center center align
-text((margin_x, y), "Drawlib", style=Style(text_size=24))
-phosphor.heart((margin_x * 2, y), width=10)
-circle((margin_x * 3, y), radius=5)
-rectangle((margin_x * 4, y), width=10, height=10)
+text((margin_x, y), "Drawlib", style=styles.primary.patch(text_size=24))
+phosphor.heart((margin_x * 2, y), width=10, style=styles.primary)
+circle((margin_x * 3, y), radius=5, style=styles.primary)
+rectangle((margin_x * 4, y), width=10, height=10, style=styles.primary)
 
 save()
 ```

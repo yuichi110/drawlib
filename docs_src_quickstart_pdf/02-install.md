@@ -38,7 +38,6 @@ from drawlib.canvas import config
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import chevron
 from drawlib.text import text
-from drawlib.types import Style
 
 config(width=110, height=36)
 
@@ -56,8 +55,12 @@ for idx, (title_str, sub_str, fill_col) in enumerate(steps):
         width=23,
         height=18,
         corner_angle=50,
-        style=Style(fill_color=fill_col, line_color=Colors.White, line_width=1.5),
+        style=styles.primary.patch(
+            shape_fill_color=fill_col,
+            shape_line_color=Colors.White,
+            shape_line_width=1.5,
+        ),
     )
-    text(xy=(cx, 20), text=title_str, style=Style(text_color=Colors.White, text_size=11))
-    text(xy=(cx, 14), text=sub_str, style=Style(text_color=Colors.White, text_size=9))
+    text(xy=(cx, 20), text=title_str, style=styles.primary.patch(text_color=Colors.White, text_size=11))
+    text(xy=(cx, 14), text=sub_str, style=styles.primary.patch(text_color=Colors.White, text_size=9))
 ```

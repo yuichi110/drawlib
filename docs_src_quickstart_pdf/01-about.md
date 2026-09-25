@@ -15,18 +15,18 @@ Here is a simple example combining a styled circle, rectangle, and text label on
 ```python
 from drawlib.canvas import config, save
 from drawlib.colors import Colors140
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import circle
-from drawlib.types import Style
 
+styles = get_styles()
 config(width=100, height=50)
 circle(
     xy=(50, 25),
     radius=18,
-    style=Style(
-        line_style="dashed",
-        line_color=Colors140.BlueViolet,
-        line_width=3,
-        fill_color=Colors140.Turquoise,
+    style=styles.dashed.patch(
+        shape_line_color=Colors140.BlueViolet,
+        shape_line_width=3,
+        shape_fill_color=Colors140.Turquoise,
     ),
 )
 save()
@@ -39,18 +39,16 @@ from drawlib.canvas import config
 from drawlib.colors import Colors140
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import Style
 
 config(width=100, height=50)
 circle(
     xy=(50, 25),
     radius=18,
-    style=Style(
-        line_style="dashed",
-        line_color=Colors140.BlueViolet,
-        line_width=3,
-        fill_color=Colors140.Turquoise,
+    style=styles.dashed.patch(
+        shape_line_color=Colors140.BlueViolet,
+        shape_line_width=3,
+        shape_fill_color=Colors140.Turquoise,
     ),
 )
-text(xy=(50, 25), text="Hello drawlib!", size=14)
+text(xy=(50, 25), text="Hello drawlib!", style=styles.primary, size=14)
 ```

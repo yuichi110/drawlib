@@ -6,14 +6,14 @@ Class `ChevronProcess` renders sequential chevron (arrowhead block) process diag
 
 ```python
 from drawlib import canvas
-from drawlib._core.l3_styles import Style
 from drawlib.smartarts import ChevronProcess
+from drawlib.types import Style
 
 canvas.initialize()
 canvas.config(width=100, height=52)
 
 # 1. Multi-phase pipeline with titles and descriptions
-cp1 = ChevronProcess(spacing=1.5)
+cp1 = ChevronProcess(styles=styles, spacing=1.5)
 cp1.append("Requirements", description="Scope & Specs")
 cp1.append("Architecture", description="Design & ADRs")
 cp1.append("Implementation", description="Code & Tests")
@@ -22,10 +22,10 @@ cp1.append("Deployment", description="Canary 100%")
 cp1.draw(xy=(5.0, 30.0), width=90.0, height=15.0)
 
 # 2. Pentagonal flat-start process with custom highlight
-cp2 = ChevronProcess(flat_left_end=True, corner_angle=50.0, spacing=2.0)
+cp2 = ChevronProcess(styles=styles, flat_left_end=True, corner_angle=50.0, spacing=2.0)
 cp2.append("1. Discover")
 cp2.append("2. Define")
-cp2.append("3. Develop", style=Style(fill_color=(239, 68, 68, 1.0), line_width=1.5))
+cp2.append("3. Develop", style=styles.primary.patch(shape_fill_color=(239, 68, 68, 1.0), shape_line_width=1.5))
 cp2.append("4. Deliver")
 cp2.draw(xy=(10.0, 10.0), width=80.0, height=12.0)
 ```
@@ -45,11 +45,13 @@ Create a sequential chevron flow:
 
 ```python
 from drawlib import canvas
+from drawlib.preset_styles import get_styles
 from drawlib.smartarts import ChevronProcess
 
+styles = get_styles()
 canvas.initialize()
 
-process = ChevronProcess(spacing=1.5)
+process = ChevronProcess(styles=styles, spacing=1.5)
 process.append("Phase 1", description="Planning")
 process.append("Phase 2", description="Execution")
 process.append("Phase 3", description="Review")

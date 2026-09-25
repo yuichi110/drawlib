@@ -679,8 +679,9 @@ d.draw(xy=(3.0, 3.0))
 <h2>7. Complete Microservices Architecture Example</h2>
 <p>Here is a full production example combining participant groups (<code>ParticipantGroup</code>), GCP icons, sticky notes, conditional branches, and custom styling:</p>
 <pre><code class="language-python">from drawlib import canvas
-from drawlib._core.l3_styles import Colors, Style
+from drawlib.colors import Colors
 from drawlib.diagrams.sequence import SequenceDiagram, GcpIcon, Participant, ParticipantGroup, PhosphorIcon
+from drawlib.types import Style
 
 canvas.initialize()
 canvas.config(width=106, height=128)
@@ -692,7 +693,11 @@ backend = d.add_group(
     ParticipantGroup(
         title=&quot;Google Cloud VPC&quot;,
         padding=4.0,
-        style=Style(fill_color=(242, 246, 255, 0.4), line_color=Colors.Gray, line_style=&quot;dashed&quot;),
+        style=Style(
+            shape_fill_color=(242, 246, 255, 0.4),
+            shape_line_color=Colors.Gray,
+            shape_line_style=&quot;dashed&quot;,
+        ),
     )
 )
 api = backend.add(Participant(&quot;Cloud Run\n(Gateway)&quot;, icon=GcpIcon.CLOUD_RUN, icon_size=8.0))

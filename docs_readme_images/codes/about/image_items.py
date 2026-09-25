@@ -13,13 +13,14 @@ from drawlib.fonts import FontJapanese, FontSansSerif, FontSerif
 from drawlib.icons import phosphor
 from drawlib.images import Dimage, image
 from drawlib.lines import line, line_curved, lines, lines_curved
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import arrow, circle, ellipse, rectangle, star
 from drawlib.text import text
-from drawlib.types import Style
 
+ps = get_styles()
 x1 = 10
-title_style = Style(text_size=24)
-icon_thin = Style(icon_style="thin")
+title_style = ps.primary.patch(text_size=24)
+icon_thin = ps.primary.patch(icon_style="thin")
 
 
 def main():
@@ -39,13 +40,13 @@ def draw_icon():
     phosphor.airplane_taxiing((30, y), width=w, style=icon_thin)
     phosphor.airplane_takeoff(xy=(40, y), width=w, style=icon_thin)
     phosphor.airplane_in_flight(
-        xy=(50, y), width=w, style=Style(text_color=Colors140.Red, icon_style="thin")
+        xy=(50, y), width=w, style=ps.primary.patch(icon_color=Colors140.Red, icon_style="thin")
     )
     phosphor.airplane_tilt(xy=(60, y), width=w, style=icon_thin)
     phosphor.airplane(xy=(70, y), width=w, angle=270, style=icon_thin)
     phosphor.airplane_landing(xy=(80, y), width=w, style=icon_thin)
     phosphor.airplane_taxiing(
-        (90, y), width=w, style=Style(icon_style="fill", text_color=Colors140.Red)
+        (90, y), width=w, style=ps.primary.patch(icon_style="fill", icon_color=Colors140.Red)
     )
 
 
@@ -54,8 +55,8 @@ def draw_image():
     w = 7
     text((x1, y), "Image", style=title_style)
     image((30, y), w, image="linux.png")
-    image((40, y), w, image="linux.png", style=Style(line_width=1))
-    image((50, y), w, image="linux.png", style=Style(fill_color=Colors.Red))
+    image((40, y), w, image="linux.png", style=ps.primary.patch(image_border_width=1))
+    image((50, y), w, image="linux.png", style=ps.primary.patch(image_tint_color=Colors.Red))
     image((60, y), w, image="linux.png", angle=315)
     dimg = Dimage("linux.png")
     image((70, y), w, image=dimg.flip().sepia())
@@ -66,50 +67,50 @@ def draw_image():
 def draw_line():
     y = 29
     text((x1, y), "Line", style=title_style)
-    line((30, y - 4), (30, y + 4))
-    line((40, y - 4), (40, y + 4), arrowhead="->")
-    line((50, y - 4), (50, y + 4), style=Style(line_style="dashed", line_color=Colors.Red))
+    line((30, y - 4), (30, y + 4), style=ps.primary)
+    line((40, y - 4), (40, y + 4), arrowhead="->", style=ps.primary)
+    line((50, y - 4), (50, y + 4), style=ps.dashed.patch(line_color=Colors.Red))
     line(
         (60, y - 4),
         (60, y + 4),
         arrowhead="<->",
-        style=Style(line_color=Colors.Red, arrow_head_fill=True),
+        style=ps.primary.patch(line_color=Colors.Red, line_arrow_head_fill=True),
     )
-    line_curved((69, y - 4), (69, y + 4), bend=-0.3)
-    line_curved((71, y - 4), (71, y + 4), bend=0.3)
+    line_curved((69, y - 4), (69, y + 4), bend=-0.3, style=ps.primary)
+    line_curved((71, y - 4), (71, y + 4), bend=0.3, style=ps.primary)
     lines(
         [(77, y - 4), (83, y - 2), (77, y), (83, y + 2), (77, y + 4)],
-        style=Style(line_style="dotted", line_color=Colors.Red),
+        style=ps.primary.patch(line_style="dotted", line_color=Colors.Red),
     )
-    lines_curved([(87, y - 4), (87, y + 4), (93, y + 4), (93, y - 4)], r=2, arrowhead="->")
+    lines_curved([(87, y - 4), (87, y + 4), (93, y + 4), (93, y - 4)], r=2, arrowhead="->", style=ps.primary)
 
 
 def draw_shape():
     y = 17
     w = 8
     text((x1, y), "Shape", style=title_style)
-    circle((30, y), radius=w / 2)
-    ellipse((40, y), width=w / 2, height=w, style="red_dashed")
-    rectangle((50, y), width=7, height=7, text="rect", textstyle="white")
-    rectangle((60, y), width=7, height=4, angle=315, r=2, style="red_solid")
-    star((70, y), 5, 4, 2)
-    arrow((80, y - 4), (80, y + 4), tail_width=3, head_width=6, head_length=3, style="red_flat")
-    arrow((90, y - 4), (90, y + 4), tail_width=2, head_width=5, head_length=3, head="<->")
+    circle((30, y), radius=w / 2, style=ps.primary)
+    ellipse((40, y), width=w / 2, height=w, style=ps.red_dashed)
+    rectangle((50, y), width=7, height=7, text="rect", style=ps.primary, textstyle=ps.white)
+    rectangle((60, y), width=7, height=4, angle=315, r=2, style=ps.red_solid)
+    star((70, y), 5, 4, 2, style=ps.primary)
+    arrow((80, y - 4), (80, y + 4), tail_width=3, head_width=6, head_length=3, style=ps.red_flat)
+    arrow((90, y - 4), (90, y + 4), tail_width=2, head_width=5, head_length=3, head="<->", style=ps.primary)
 
 
 def draw_text():
     y = 7
     text((x1, y), "Text", style=title_style)
-    text((35, y), "Hello Drawlib!", style=Style(text_font=FontSansSerif.RALEWAYS_REGULAR, text_size=18))
+    text((35, y), "Hello Drawlib!", style=ps.primary.patch(text_font=FontSansSerif.RALEWAYS_REGULAR, text_size=18))
     text(
         (60, y),
         "Hello\nDrawlib!",
-        style=Style(text_font=FontSerif.COURIER_REGULAR, text_size=28, text_color=Colors.Red),
+        style=ps.primary.patch(text_font=FontSerif.COURIER_REGULAR, text_size=28, text_color=Colors.Red),
     )
     text(
         (85, y),
         "こんにちは Drawlib!",
-        style=Style(
+        style=ps.primary.patch(
             text_font=FontJapanese.MPLUS1P_REGULAR,
             text_size=16,
             text_bg_fill_color=Colors.Black,
@@ -120,3 +121,4 @@ def draw_text():
 
 
 main()
+

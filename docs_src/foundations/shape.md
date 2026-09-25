@@ -84,7 +84,7 @@ The start point and end point are automatically connected.
 This function accepts the following arguments:
 
 - xys: List of tuples specifying the points of the polygon [(x1, y1), (x2, y2), ..., (xn, yn)]
-- style (optional): Style of the polygon
+- style: Style of the polygon (required)
 - text (optional): Centered text
 - textstyle (optional): Style of the centered text
 
@@ -94,11 +94,10 @@ Let's explore an example:
 ```python
 from drawlib.canvas import config, save
 from drawlib.shapes import polygon
-from drawlib.text import text
 
 config(width=100, height=50, grid_only=True)
-polygon(xys=[(25, 20), (30, 25), (25, 45), (20, 25)])
-polygon(xys=[(70, 25), (75, 20), (95, 25), (75, 30)], text="polygon()")
+polygon(xys=[(25, 20), (30, 25), (25, 45), (20, 25)], style=styles.primary)
+polygon(xys=[(70, 25), (75, 20), (95, 25), (75, 30)], text="polygon()", style=styles.primary)
 save()
 ```
 
@@ -108,11 +107,10 @@ Here is an example output:
 ```drawlib 600px center
 from drawlib.canvas import config, save
 from drawlib.shapes import polygon
-from drawlib.text import text
 
 config(width=100, height=50, grid_only=True)
-polygon(xys=[(25, 20), (30, 25), (25, 45), (20, 25)])
-polygon(xys=[(70, 25), (75, 20), (95, 25), (75, 30)], text="polygon()")
+polygon(xys=[(25, 20), (30, 25), (25, 45), (20, 25)], style=styles.primary)
+polygon(xys=[(70, 25), (75, 20), (95, 25), (75, 30)], text="polygon()", style=styles.primary)
 save()
 ```
 

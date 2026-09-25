@@ -20,6 +20,7 @@ from drawlib.canvas import config
 from drawlib.colors import ColorsMonochrome
 from drawlib.shapes import rectangle
 from drawlib.text import text
+from drawlib.types import Style
 
 config(width=100, height=45)
 start_x = 11
@@ -45,10 +46,10 @@ for i, (color_name, color) in enumerate(colors):
         (x, rect_y),
         width=10,
         height=10,
-        style={"fill_color": color, "line_width": lwidth, "line_color": (0, 0, 0)},
+        style=Style(shape_fill_color=color, shape_line_width=lwidth, shape_line_color=(0, 0, 0)),
     )
-    text((x, text1_y), color_name, style="bold", size=13)
-    text((x, text2_y), str(color[:3]), size=10)
+    text((x, text1_y), color_name, style=styles.bold.patch(text_size=13))
+    text((x, text2_y), str(color[:3]), style=styles.primary.patch(text_size=10))
 ```
 
 Here is a list of the colors. 

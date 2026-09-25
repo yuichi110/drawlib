@@ -9,11 +9,12 @@
 
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import arrow, circle
 from drawlib.text import text
-from drawlib.types import Style
 
 config(width=100, height=60)
+ps = get_styles()
 
 
 def left():
@@ -22,10 +23,14 @@ def left():
         (x, 30),
         radius=8,
         text="Circle",
-        style=Style(fill_color=Colors.Transparent),
-        textstyle=Style(text_size=18),
+        style=ps.flat.patch(
+            shape_fill_color=Colors.Transparent,
+            shape_line_color=Colors.Black,
+            shape_line_width=1,
+        ),
+        textstyle=ps.primary.patch(text_size=18),
     )
-    text((x, 15), text="Content", style=Style(text_size=24))
+    text((x, 15), text="Content", style=ps.primary.patch(text_size=24))
 
 
 def center():
@@ -37,29 +42,29 @@ def center():
         tail_width=6,
         head_width=14,
         head_length=10,
-        style="green",
+        style=ps.green,
         text="Apply Styles",
         textsize=20,
-        textstyle="white",
+        textstyle=ps.white,
     )
 
 
 def right():
     x = 82
-    circle((x, 49), radius=8, text="Circle", textstyle=Style(text_size=18))
+    circle((x, 49), radius=8, style=ps.primary, text="Circle", textstyle=ps.primary.patch(text_size=18))
     circle(
         (x, 30),
         radius=8,
         text="Circle",
-        style="blue_flat",
-        textstyle=Style(text_color=Colors.White, text_size=18),
+        style=ps.blue_flat,
+        textstyle=ps.primary.patch(text_color=Colors.White, text_size=18),
     )
     circle(
         (x, 11),
         radius=8,
         text="Circle",
-        style="red_solid_bold",
-        textstyle=Style(text_color=Colors.Red, text_size=18),
+        style=ps.red_bold,
+        textstyle=ps.primary.patch(text_color=Colors.Red, text_size=18),
     )
 
 
@@ -67,3 +72,4 @@ left()
 center()
 right()
 save()
+

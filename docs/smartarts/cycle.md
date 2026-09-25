@@ -12,6 +12,7 @@ canvas.initialize()
 
 # Classic PDCA cycle with center topic and matching arc arrows
 cycle = Cycle(
+    styles=styles,
     center_text="PDCA",
     center_description="Loop",
     center_radius=11.0,
@@ -43,6 +44,7 @@ canvas.initialize()
 
 # Continuous product lifecycle with rounded rectangle blocks
 cycle = Cycle(
+    styles=styles,
     node_shape="rectangle",
     node_size=(18.0, 9.0),
     arrow_width=2.0,
@@ -73,11 +75,13 @@ Create a circular workflow diagram:
 
 ```python
 from drawlib import canvas
+from drawlib.preset_styles import get_styles
 from drawlib.smartarts import Cycle
 
 canvas.initialize()
+styles = get_styles()
 
-cycle = Cycle()
+cycle = Cycle(styles=styles)
 cycle.append("Plan", description="Define goals")
 cycle.append("Do", description="Implement")
 cycle.append("Check", description="Review")
@@ -95,6 +99,7 @@ cycle.draw(xy=(50.0, 50.0), radius=32.0)
 Initialize a Cycle SmartArt instance.
 
 **Args:**
+- `styles` (`BasePresetStyles`): Preset styles catalog (required).
 - `clockwise` (`bool`): Whether the cycle flows clockwise (`True`) or counter-clockwise (`False`). Defaults to `True`.
 - `start_angle` (`float`): Angle in degrees for the first node (`0` is right, `90` is top). Defaults to `90.0`.
 - `node_shape` (`Literal["circle", "rectangle", "none"]`): Shape of step nodes. Defaults to `"circle"`.
@@ -106,17 +111,17 @@ Initialize a Cycle SmartArt instance.
 - `arrow_head_width` (`float`): Head width of block arrow. Defaults to `4.5`.
 - `arrow_color_mode` (`Literal["monochrome", "match_source", "match_target"]`): Arrow color resolution. Defaults to `"match_source"`.
 - `arrow_gap` (`float`): Distance margin between arrow endpoints and step nodes. Defaults to `2.5`.
-- `default_style` (`str | Style | None`): Default style for step nodes. If `None`, palette colors are automatically applied.
-- `default_textstyle` (`str | Style | None`): Default style for primary title text.
-- `default_description_style` (`str | Style | None`): Default style for secondary description text.
-- `default_arrow_style` (`str | Style | None`): Default style for connecting arrows.
+- `default_style` (`Style | None`): Default style for step nodes. If `None`, palette colors are automatically applied.
+- `default_textstyle` (`Style | None`): Default style for primary title text.
+- `default_description_style` (`Style | None`): Default style for secondary description text.
+- `default_arrow_style` (`Style | None`): Default style for connecting arrows.
 - `palette` (`Sequence[tuple[int, int, int]] | None`): Optional sequence of colors to style consecutive steps.
 - `center_text` (`str`): Optional title text for the center node (creating a Radial Cycle).
 - `center_description` (`str`): Optional description text for the center node.
 - `center_radius` (`float`): Radius of the center circle. Defaults to `10.0`.
-- `center_style` (`str | Style | None`): Custom style for the center node circle.
-- `center_textstyle` (`str | Style | None`): Custom style for the center node title.
-- `center_description_style` (`str | Style | None`): Custom style for the center node description text.
+- `center_style` (`Style | None`): Custom style for the center node circle.
+- `center_textstyle` (`Style | None`): Custom style for the center node title.
+- `center_description_style` (`Style | None`): Custom style for the center node description text.
 
 ### Methods
 

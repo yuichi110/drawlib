@@ -9,6 +9,7 @@
 
 from drawlib._utils import dutil_script
 from drawlib.canvas import clear, save
+from drawlib.colors import Colors
 from drawlib.fonts import (
     Font,
     FontArabic,
@@ -28,23 +29,24 @@ from drawlib.text import text
 from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l3_fonts/roboto/"
+BASE_STYLE = Style(text_color=Colors.Black, text_size=16)
 
 
 def test_roboto():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=Style(text_font=FontRoboto.ROBOTO_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontRoboto.ROBOTO_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=Style(text_font=FontRoboto.ROBOTO_REGULAR),
+        style=BASE_STYLE.patch(text_font=FontRoboto.ROBOTO_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. あいうえお",
-        style=Style(text_font=FontRoboto.ROBOTO_BOLD),
+        style=BASE_STYLE.patch(text_font=FontRoboto.ROBOTO_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -53,17 +55,17 @@ def test_roboto_serif():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=Style(text_font=FontRoboto.SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontRoboto.SERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=Style(text_font=FontRoboto.SERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=FontRoboto.SERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. あいうえお",
-        style=Style(text_font=FontRoboto.SERIF_BOLD),
+        style=BASE_STYLE.patch(text_font=FontRoboto.SERIF_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -72,17 +74,17 @@ def test_roboto_mono():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=Style(text_font=FontRoboto.MONO_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontRoboto.MONO_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=Style(text_font=FontRoboto.MONO_REGULAR),
+        style=BASE_STYLE.patch(text_font=FontRoboto.MONO_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. あいうえお",
-        style=Style(text_font=FontRoboto.MONO_BOLD),
+        style=BASE_STYLE.patch(text_font=FontRoboto.MONO_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -91,17 +93,17 @@ def test_roboto_condensed():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=Style(text_font=FontRoboto.CONDENSED_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontRoboto.CONDENSED_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=Style(text_font=FontRoboto.CONDENSED_REGULAR),
+        style=BASE_STYLE.patch(text_font=FontRoboto.CONDENSED_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. あいうえお",
-        style=Style(text_font=FontRoboto.CONDENSED_BOLD),
+        style=BASE_STYLE.patch(text_font=FontRoboto.CONDENSED_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -110,16 +112,16 @@ def test_roboto_slab():
     text(
         (50, 10),
         "Hello World. あいうえお",
-        style=Style(text_font=FontRoboto.SLAB_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontRoboto.SLAB_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. あいうえお",
-        style=Style(text_font=FontRoboto.SLAB_REGULAR),
+        style=BASE_STYLE.patch(text_font=FontRoboto.SLAB_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. あいうえお",
-        style=Style(text_font=FontRoboto.SLAB_BOLD),
+        style=BASE_STYLE.patch(text_font=FontRoboto.SLAB_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

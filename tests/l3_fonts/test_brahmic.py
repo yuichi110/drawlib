@@ -9,6 +9,7 @@
 
 from drawlib._utils import dutil_script
 from drawlib.canvas import clear, save
+from drawlib.colors import Colors
 from drawlib.fonts import (
     Font,
     FontArabic,
@@ -28,23 +29,24 @@ from drawlib.text import text
 from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l3_fonts/brahmic/"
+BASE_STYLE = Style(text_color=Colors.Black, text_size=16)
 
 
 def test_bengali_sans():
     text(
         (50, 10),
         "Hello World. যেহেতু মানব পরিবারের সকল সদস্যের সমান ও অবিচ্ছেদ্য অধিকারসমূহ",
-        style=Style(text_font=FontBrahmic.BENGALI_SANSSERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.BENGALI_SANSSERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. যেহেতু মানব পরিবারের সকল সদস্যের সমান ও অবিচ্ছেদ্য অধিকারসমূহ",
-        style=Style(text_font=FontBrahmic.BENGALI_SANSSERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.BENGALI_SANSSERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. যেহেতু মানব পরিবারের সকল সদস্যের সমান ও অবিচ্ছেদ্য অধিকারসমূহ",
-        style=Style(text_font=FontBrahmic.BENGALI_SANSSERIF_BOLD),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.BENGALI_SANSSERIF_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -53,17 +55,17 @@ def test_bengali_serif():
     text(
         (50, 10),
         "Hello World. যেহেতু মানব পরিবারের সকল সদস্যের সমান ও অবিচ্ছেদ্য অধিকারসমূহ",
-        style=Style(text_font=FontBrahmic.BENGALI_SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.BENGALI_SERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. যেহেতু মানব পরিবারের সকল সদস্যের সমান ও অবিচ্ছেদ্য অধিকারসমূহ",
-        style=Style(text_font=FontBrahmic.BENGALI_SERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.BENGALI_SERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. যেহেতু মানব পরিবারের সকল সদস্যের সমান ও অবিচ্ছেদ্য অধিকারসমূহ",
-        style=Style(text_font=FontBrahmic.BENGALI_SERIF_BOLD),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.BENGALI_SERIF_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -72,17 +74,17 @@ def test_devanagari_sans():
     text(
         (50, 10),
         "Hello World. चूंकि मानव परिवार के सभी सदस्यों के जन्मजात गौरव और समान",
-        style=Style(text_font=FontBrahmic.DEVANAGARI_SANSSERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.DEVANAGARI_SANSSERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. चूंकि मानव परिवार के सभी सदस्यों के जन्मजात गौरव और समान",
-        style=Style(text_font=FontBrahmic.DEVANAGARI_SANSSERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.DEVANAGARI_SANSSERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. चूंकि मानव परिवार के सभी सदस्यों के जन्मजात गौरव और समान",
-        style=Style(text_font=FontBrahmic.DEVANAGARI_SANSSERIF_BOLD),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.DEVANAGARI_SANSSERIF_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -91,17 +93,17 @@ def test_devanagari_serif():
     text(
         (50, 10),
         "Hello World. चूंकि मानव परिवार के सभी सदस्यों के जन्मजात गौरव और समान",
-        style=Style(text_font=FontBrahmic.DEVANAGARI_SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.DEVANAGARI_SERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. चूंकि मानव परिवार के सभी सदस्यों के जन्मजात गौरव और समान",
-        style=Style(text_font=FontBrahmic.DEVANAGARI_SERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.DEVANAGARI_SERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. चूंकि मानव परिवार के सभी सदस्यों के जन्मजात गौरव और समान",
-        style=Style(text_font=FontBrahmic.DEVANAGARI_SERIF_BOLD),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.DEVANAGARI_SERIF_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -110,17 +112,17 @@ def test_tamil_sans():
     text(
         (50, 10),
         "Hello World. மனிதக் குடும்பத்தினைச் சேர்ந்த யாவரதும் உள்ளார்ந்த",
-        style=Style(text_font=FontBrahmic.TAMIL_SANSSERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.TAMIL_SANSSERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. மனிதக் குடும்பத்தினைச் சேர்ந்த யாவரதும் உள்ளார்ந்த",
-        style=Style(text_font=FontBrahmic.TAMIL_SANSSERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.TAMIL_SANSSERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. மனிதக் குடும்பத்தினைச் சேர்ந்த யாவரதும் உள்ளார்ந்த",
-        style=Style(text_font=FontBrahmic.TAMIL_SANSSERIF_BOLD),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.TAMIL_SANSSERIF_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -129,17 +131,17 @@ def test_tamil_serif():
     text(
         (50, 10),
         "Hello World. மனிதக் குடும்பத்தினைச் சேர்ந்த யாவரதும் உள்ளார்ந்த",
-        style=Style(text_font=FontBrahmic.TAMIL_SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.TAMIL_SERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. மனிதக் குடும்பத்தினைச் சேர்ந்த யாவரதும் உள்ளார்ந்த",
-        style=Style(text_font=FontBrahmic.TAMIL_SERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.TAMIL_SERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. மனிதக் குடும்பத்தினைச் சேர்ந்த யாவரதும் உள்ளார்ந்த",
-        style=Style(text_font=FontBrahmic.TAMIL_SERIF_BOLD),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.TAMIL_SERIF_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -148,17 +150,17 @@ def test_telugu_sans():
     text(
         (50, 10),
         "Hello World. మానవకుటంబమునందలి వ్యక్తులందరికిని గల ఆజన్మసిద్ధమైన ప్రతిపత్తిని,",
-        style=Style(text_font=FontBrahmic.TELUGU_SANSSERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.TELUGU_SANSSERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. మానవకుటంబమునందలి వ్యక్తులందరికిని గల ఆజన్మసిద్ధమైన ప్రతిపత్తిని,",
-        style=Style(text_font=FontBrahmic.TELUGU_SANSSERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.TELUGU_SANSSERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. మానవకుటంబమునందలి వ్యక్తులందరికిని గల ఆజన్మసిద్ధమైన ప్రతిపత్తిని,",
-        style=Style(text_font=FontBrahmic.TELUGU_SANSSERIF_BOLD),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.TELUGU_SANSSERIF_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
 
@@ -167,16 +169,16 @@ def test_telugu_serif():
     text(
         (50, 10),
         "Hello World. మానవకుటంబమునందలి వ్యక్తులందరికిని గల ఆజన్మసిద్ధమైన ప్రతిపత్తిని,",
-        style=Style(text_font=FontBrahmic.TELUGU_SERIF_LIGHT),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.TELUGU_SERIF_LIGHT),
     )
     text(
         (50, 30),
         "Hello World. మానవకుటంబమునందలి వ్యక్తులందరికిని గల ఆజన్మసిద్ధమైన ప్రతిపత్తిని,",
-        style=Style(text_font=FontBrahmic.TELUGU_SERIF_REGULAR),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.TELUGU_SERIF_REGULAR),
     )
     text(
         (50, 50),
         "Hello World. మానవకుటంబమునందలి వ్యక్తులందరికిని గల ఆజన్మసిద్ధమైన ప్రతిపత్తిని,",
-        style=Style(text_font=FontBrahmic.TELUGU_SERIF_BOLD),
+        style=BASE_STYLE.patch(text_font=FontBrahmic.TELUGU_SERIF_BOLD),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

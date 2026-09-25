@@ -443,19 +443,19 @@ save()
 <ul>
 <li><code>text_halign</code>: Horizontal Align</li>
 <li><code>text_valign</code>: Vertical Align</li>
-<li><code>line_width</code>: Border line width</li>
-<li><code>line_color</code>: Border line color</li>
-<li><code>line_style</code>: Border line style</li>
-<li><code>fill_color</code>: Fill color for transparent part</li>
+<li><code>image_border_width</code>: Border line width</li>
+<li><code>image_border_color</code>: Border line color</li>
+<li><code>image_border_style</code>: Border line style</li>
+<li><code>image_tint_color</code>: Tint color for monochrome masks</li>
+<li><code>image_alpha</code>: Opacity (0.0 to 1.0)</li>
 </ul>
-<p>Let's check image styling with example.
-Here is a code which specify stylings.</p>
+<p>Let's check image styling with an example.
+Here is code that specifies styles:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.images import image
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import Style
 
 config(width=100, height=50, grid_only=True)
 
@@ -463,21 +463,26 @@ image(
     xy=(10, 25),
     width=10,
     image=&quot;../_assets/python.png&quot;,
-    style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
+    style=styles.primary.patch(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
 )
-circle((10, 25), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
-text((15, 20), &quot;align: left,bottom&quot;)
+circle((10, 25), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.Red, shape_line_color=Colors.Red))
+text((15, 20), &quot;align: left,bottom&quot;, style=styles.primary)
 
 image(
     xy=(40, 25),
     width=20,
     image=&quot;../_assets/python.png&quot;,
-    style=Style(line_width=2, line_style=&quot;dashed&quot;, line_color=Colors.Red, fill_color=Colors.Gray),
+    style=styles.primary.patch(
+        image_border_width=2,
+        image_border_style=&quot;dashed&quot;,
+        image_border_color=Colors.Red,
+        image_tint_color=Colors.Gray,
+    ),
 )
-text((40, 10), &quot;border: red,dot,width2&quot;)
+text((40, 10), &quot;border: red,dot,width2&quot;, style=styles.primary)
 
-image(xy=(75, 25), width=30, image=&quot;../_assets/python.png&quot;, angle=45, style=&quot;green_solid&quot;)
-text((85, 5), &quot;angle: 45&quot;)
+image(xy=(75, 25), width=30, image=&quot;../_assets/python.png&quot;, angle=45, style=styles.green_solid)
+text((85, 5), &quot;angle: 45&quot;, style=styles.primary)
 
 save()
 </code></pre>
@@ -486,7 +491,7 @@ Default alignment is center,center, but left,bottom might be useful sometimes.</
 <p>Changing image border line and add color for transparent part at 2nd example.
 Default is no border, no fill.</p>
 <p>The 3rd example changes angle of image.
-With specifying preset style <code>&quot;green_solid&quot;</code>.</p>
+With specifying preset style <code>styles.green_solid</code>.</p>
 <p>Executing code generates this output.</p>
 <div class="drawlib-image" style="text-align: center;">
   <img src="image_images/2.png" alt="image_2" style="width: 600px; max-width: 100%;" />

@@ -18,19 +18,19 @@ from drawlib.smartarts import BoxList
 config(width=100, height=45)
 
 # 1. Horizontal list (Left to Right)
-b1 = BoxList(default_text_style="white")
+b1 = BoxList(styles=styles, default_text_style=styles.white)
 b1.extend(["1", "2", "3", "4"])
 b1.draw(xy=(10, 30), box_width=8, box_height=6)
 
 # 2. Custom box styling & highlighted elements
-b2 = BoxList(default_box_style="solid", default_text_style="")
+b2 = BoxList(styles=styles, default_box_style=styles.solid, default_text_style=styles.primary)
 b2.extend(["1", "2"])
-b2.append("3", box_style="red_solid_bold", text_style="red_bold")
+b2.append("3", box_style=styles.red_bold, text_style=styles.red_bold)
 b2.extend(["4", "", ""])
 b2.draw(xy=(10, 10), box_width=8, box_height=6)
 
 # 3. Vertical list (Bottom to Top)
-b3 = BoxList(default_text_style="white")
+b3 = BoxList(styles=styles, default_text_style=styles.white)
 b3.extend(["1", "2", "3", "4"])
 b3.draw(xy=(75, 10), box_width=8, box_height=6, align="bottom")
 ```

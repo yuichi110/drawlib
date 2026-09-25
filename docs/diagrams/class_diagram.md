@@ -238,14 +238,15 @@ Classes and relationships fully integrate with Drawlib's `Style` class:
 
 ```python
 from drawlib import canvas
-from drawlib._core.l3_styles import Colors, Style
+from drawlib.colors import Colors
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
+from drawlib.types import Style
 
 canvas.initialize()
 
 cd = ClassDiagram(
     title="Custom Styled Payment Architecture",
-    style=Style(fill_color=Colors.White),
+    style=Style(shape_fill_color=Colors.White),
 )
 
 processor = cd.add(
@@ -253,7 +254,7 @@ processor = cd.add(
         name="PaymentProcessor",
         stereotype="interface",
         width=30.0,
-        header_style=Style(fill_color=Colors.Teal, text_color=Colors.White),
+        header_style=Style(shape_fill_color=Colors.Teal, text_color=Colors.White),
     ),
     xy=(50.0, 65.0),
 )
@@ -263,7 +264,7 @@ stripe = cd.add(
     ClassNode(
         name="StripeService",
         width=26.0,
-        header_style=Style(fill_color=Colors.Navy, text_color=Colors.White),
+        header_style=Style(shape_fill_color=Colors.Navy, text_color=Colors.White),
     ),
     xy=(25.0, 22.0),
 )
@@ -274,7 +275,7 @@ paypal = cd.add(
     ClassNode(
         name="PayPalService",
         width=26.0,
-        header_style=Style(fill_color=Colors.Blue, text_color=Colors.White),
+        header_style=Style(shape_fill_color=Colors.Blue, text_color=Colors.White),
     ),
     xy=(75.0, 22.0),
 )

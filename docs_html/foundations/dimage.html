@@ -465,16 +465,16 @@ config(width=100, height=50, dpi=200)
 # original
 original_image = Dimage(&quot;../_assets/linux.png&quot;)
 image((25, 30), 20, original_image)
-text((25, 15), &quot;original&quot;)
+text((25, 15), &quot;original&quot;, style=styles.primary)
 width, height = original_image.get_image_size()
-text((25, 10), f&quot;width={width}, height={height}&quot;)
+text((25, 10), f&quot;width={width}, height={height}&quot;, style=styles.primary)
 
 # resize
 new_height = int(height / 2)
 resized_image = original_image.resize(width, new_height)
 image((75, 30), 20, resized_image)
-text((75, 15), &quot;resize()&quot;)
-text((75, 10), f&quot;width={width}, height={new_height}&quot;)
+text((75, 15), &quot;resize()&quot;, style=styles.primary)
+text((75, 10), f&quot;width={width}, height={new_height}&quot;, style=styles.primary)
 </code></pre>
 <p>In this example, we retrieve the original image dimensions using <code>get_image_size()</code>.
 And then resize the image using <code>resize()</code>.
@@ -502,8 +502,8 @@ config(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage(&quot;../_assets/linux.png&quot;)
-image((25, 25), 20, original_image, style={&quot;line_width&quot;: 1})
-text((25, 10), &quot;original&quot;)
+image((25, 25), 20, original_image, style=styles.primary.patch(image_border_width=1))
+text((25, 10), &quot;original&quot;, style=styles.primary)
 width, height = original_image.get_image_size()
 
 # trimming
@@ -512,8 +512,8 @@ crop_width = int(width / 2)
 y_start = int(height / 4)
 crop_height = int(height / 2)
 cropped_image = original_image.crop(x_start, y_start, crop_width, crop_height)
-image((75, 25), 20, cropped_image, style={&quot;line_width&quot;: 1})
-text((75, 10), &quot;crop()&quot;)
+image((75, 25), 20, cropped_image, style=styles.primary.patch(image_border_width=1))
+text((75, 10), &quot;crop()&quot;, style=styles.primary)
 </code></pre>
 <p>In this example, we calculate the cropping parameters to keep the center 50% of the image.
 We then use the <code>crop()</code> method to apply the cropping operation to the Dimage object.
@@ -538,15 +538,15 @@ config(width=100, height=50, dpi=200)
 # original
 original_image = Dimage(&quot;../_assets/linux.png&quot;)
 image((20, 25), 20, original_image)
-text((20, 10), &quot;original&quot;)
+text((20, 10), &quot;original&quot;, style=styles.primary)
 
 # mirror
 image((50, 25), 20, original_image.mirror())
-text((50, 10), &quot;mirror()&quot;)
+text((50, 10), &quot;mirror()&quot;, style=styles.primary)
 
 # flip
 image((80, 25), 20, original_image.flip())
-text((80, 10), &quot;flip()&quot;)
+text((80, 10), &quot;flip()&quot;, style=styles.primary)
 </code></pre>
 <p>Here is the output:</p>
 <div class="drawlib-image" style="text-align: center;">
@@ -559,9 +559,8 @@ text((80, 10), &quot;flip()&quot;)
 <li><code>sepia()</code>: Applies a sepia tone effect to the image</li>
 </ul>
 <p>Here's an example:</p>
-<pre><code class="language-python">from drawlib.images import Dimage
-from drawlib.canvas import config, save
-from drawlib.images import image
+<pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.images import Dimage, image
 from drawlib.text import text
 
 config(width=100, height=50, dpi=200)
@@ -569,15 +568,15 @@ config(width=100, height=50, dpi=200)
 # original
 original_image = Dimage(&quot;../_assets/linux.png&quot;)
 image((20, 25), 20, original_image)
-text((20, 10), &quot;original&quot;)
+text((20, 10), &quot;original&quot;, style=styles.primary)
 
 # grayscale
 image((50, 25), 20, Dimage(&quot;../_assets/linux.png&quot;).grayscale())
-text((50, 10), &quot;grayscale()&quot;)
+text((50, 10), &quot;grayscale()&quot;, style=styles.primary)
 
 # sepia
 image((80, 25), 20, original_image.sepia())
-text((80, 10), &quot;sepia()&quot;)
+text((80, 10), &quot;sepia()&quot;, style=styles.primary)
 </code></pre>
 <p>Here is the output.</p>
 <div class="drawlib-image" style="text-align: center;">
@@ -595,13 +594,13 @@ from drawlib.text import text
 config(width=100, height=50, dpi=200)
 
 image((20, 25), 20, Dimage(&quot;../_assets/linux.png&quot;).brightness(0.5))
-text((20, 10), &quot;brightness(0.5)&quot;)
+text((20, 10), &quot;brightness(0.5)&quot;, style=styles.primary)
 
 image((50, 25), 20, Dimage(&quot;../_assets/linux.png&quot;).brightness(1.0))
-text((50, 10), &quot;brightness(1.0): Original&quot;)
+text((50, 10), &quot;brightness(1.0): Original&quot;, style=styles.primary)
 
 image((80, 25), 20, Dimage(&quot;../_assets/linux.png&quot;).brightness(2.0))
-text((80, 10), &quot;brightness(2.0)&quot;)
+text((80, 10), &quot;brightness(2.0)&quot;, style=styles.primary)
 </code></pre>
 <p>Here is an output.</p>
 <div class="drawlib-image" style="text-align: center;">
@@ -620,7 +619,7 @@ config(width=100, height=50, dpi=200, background_color=Colors.Gray)
 
 # invert
 image((20, 25), 20, Dimage(&quot;../_assets/linux.png&quot;).invert())
-text((20, 10), &quot;invert()&quot;, style=&quot;white&quot;)
+text((20, 10), &quot;invert()&quot;, style=styles.white)
 
 # colorize
 image(
@@ -631,7 +630,7 @@ image(
         from_white_to=ColorsDefault.Red,
     ),
 )
-text((50, 10), &quot;colorize()&quot;, style=&quot;white&quot;)
+text((50, 10), &quot;colorize()&quot;, style=styles.white)
 
 # colorize 3 colors
 image(
@@ -643,7 +642,7 @@ image(
         from_mid_to=ColorsDefault.Green,
     ),
 )
-text((80, 10), &quot;colorize()&quot;, style=&quot;white&quot;)
+text((80, 10), &quot;colorize()&quot;, style=styles.white)
 </code></pre>
 <p>Here is the output.</p>
 <div class="drawlib-image" style="text-align: center;">
@@ -663,13 +662,13 @@ from drawlib.text import text
 config(width=100, height=50, dpi=200)
 
 image((20, 25), 20, Dimage(&quot;../_assets/linux.png&quot;).mosaic(8))
-text((20, 10), &quot;mosaic(8)&quot;)
+text((20, 10), &quot;mosaic(8)&quot;, style=styles.primary)
 
 image((50, 25), 20, Dimage(&quot;../_assets/linux.png&quot;).mosaic(16))
-text((50, 10), &quot;mosaic(16)&quot;)
+text((50, 10), &quot;mosaic(16)&quot;, style=styles.primary)
 
 image((80, 25), 20, Dimage(&quot;../_assets/linux.png&quot;).blur())
-text((80, 10), &quot;blur()&quot;)
+text((80, 10), &quot;blur()&quot;, style=styles.primary)
 </code></pre>
 <p>Here is the output.</p>
 <div class="drawlib-image" style="text-align: center;">

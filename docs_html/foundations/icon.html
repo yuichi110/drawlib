@@ -423,13 +423,13 @@ config(width=width, height=height)
 
 x = width / 7
 y = height / 2
-phosphor.airplane_taxiing(xy=(x, y), width=10)
-phosphor.airplane_takeoff(xy=(x * 2, y), width=10)
-phosphor.airplane_in_flight(xy=(x * 3, y), width=10)
-phosphor.airplane_tilt(xy=(x * 4, y), width=10)
-phosphor.airplane(xy=(x * 5, y), width=10, angle=270)
-text(xy=(x * 5, y - 10), text=&quot;angle 270&quot;)
-phosphor.airplane_landing(xy=(x * 6, y), width=10)
+phosphor.airplane_taxiing(xy=(x, y), width=10, style=styles.primary)
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=styles.primary)
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=styles.primary)
+phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=styles.primary)
+phosphor.airplane(xy=(x * 5, y), width=10, angle=270, style=styles.primary)
+text(xy=(x * 5, y - 10), text=&quot;angle 270&quot;, style=styles.primary)
+phosphor.airplane_landing(xy=(x * 6, y), width=10, style=styles.primary)
 
 save()
 </code></pre>
@@ -438,7 +438,7 @@ save()
 <li><code>xy</code> : coordinate</li>
 <li><code>width</code> : icon width</li>
 <li><code>angle</code> : angle 0.0~360.0</li>
-<li><code>style</code> : Accepts string style name or <code>Style</code> object.</li>
+<li><code>style</code> : Style object (e.g., <code>styles.primary</code>)</li>
 </ul>
 <p>Executing this code yields the following image:</p>
 <div class="drawlib-image" style="text-align: center;">
@@ -464,17 +464,17 @@ config(width=width, height=height)
 
 x = width / 5
 y = height / 2 + 5
-gcp.compute_engine(xy=(x, y), width=10)
-text(xy=(x, y - 10), text=&quot;compute_engine&quot;, size=10)
+gcp.compute_engine(xy=(x, y), width=10, style=styles.primary)
+text(xy=(x, y - 10), text=&quot;compute_engine&quot;, size=10, style=styles.primary)
 
-gcp.cloud_storage(xy=(x * 2, y), width=10)
-text(xy=(x * 2, y - 10), text=&quot;cloud_storage&quot;, size=10)
+gcp.cloud_storage(xy=(x * 2, y), width=10, style=styles.primary)
+text(xy=(x * 2, y - 10), text=&quot;cloud_storage&quot;, size=10, style=styles.primary)
 
-gcp.cloud_run(xy=(x * 3, y), width=10)
-text(xy=(x * 3, y - 10), text=&quot;cloud_run&quot;, size=10)
+gcp.cloud_run(xy=(x * 3, y), width=10, style=styles.primary)
+text(xy=(x * 3, y - 10), text=&quot;cloud_run&quot;, size=10, style=styles.primary)
 
-gcp.bigquery(xy=(x * 4, y), width=10)
-text(xy=(x * 4, y - 10), text=&quot;bigquery&quot;, size=10)
+gcp.bigquery(xy=(x * 4, y), width=10, style=styles.primary)
+text(xy=(x * 4, y - 10), text=&quot;bigquery&quot;, size=10, style=styles.primary)
 
 save()
 </code></pre>
@@ -495,16 +495,14 @@ save()
 <p>Unlike font icons which render in monochrome by default, GCP icons render in their official full-color design on a transparent background.
 You can customize them using <code>drawlib.types.Style</code>:</p>
 <ul>
-<li><code>fill_alpha</code>: Controls transparency (from <code>0.0</code> for fully transparent to <code>1.0</code> for opaque).</li>
-<li><code>fill_color</code>: Applies a solid silhouette mask over the icon artwork.</li>
-<li><code>line_color</code>, <code>line_width</code>, <code>line_style</code>: Draws an optional border outline around the icon frame.</li>
-<li><code>text_halign</code>, <code>text_valign</code>: Adjusts anchor alignment relative to <code>xy</code>.</li>
+<li><code>image_alpha</code>: Controls transparency (from <code>0.0</code> for fully transparent to <code>1.0</code> for opaque).</li>
+<li><code>image_tint_color</code>: Applies a solid silhouette mask over the icon artwork.</li>
+<li><code>image_border_color</code>, <code>image_border_width</code>, <code>image_border_style</code>: Draws an optional border outline around the icon frame.</li>
 </ul>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.icons import gcp
 from drawlib.text import text
-from drawlib.types import Style
 
 width = 100
 height = 50
@@ -514,20 +512,20 @@ x = width / 5
 y = height / 2 + 5
 
 # 1. Default multi-color artwork
-gcp.cloud_run(xy=(x, y), width=10)
-text(xy=(x, y - 10), text=&quot;Default&quot;, size=10)
+gcp.cloud_run(xy=(x, y), width=10, style=styles.primary)
+text(xy=(x, y - 10), text=&quot;Default&quot;, size=10, style=styles.primary)
 
 # 2. Angle rotation
-gcp.cloud_run(xy=(x * 2, y), width=10, angle=45)
-text(xy=(x * 2, y - 10), text=&quot;angle=45&quot;, size=10)
+gcp.cloud_run(xy=(x * 2, y), width=10, angle=45, style=styles.primary)
+text(xy=(x * 2, y - 10), text=&quot;angle=45&quot;, size=10, style=styles.primary)
 
 # 3. Alpha transparency
-gcp.cloud_run(xy=(x * 3, y), width=10, style=Style(fill_alpha=0.35))
-text(xy=(x * 3, y - 10), text=&quot;fill_alpha=0.35&quot;, size=10)
+gcp.cloud_run(xy=(x * 3, y), width=10, style=styles.primary.patch(image_alpha=0.35))
+text(xy=(x * 3, y - 10), text=&quot;image_alpha=0.35&quot;, size=10, style=styles.primary)
 
 # 4. Color tint / silhouette mask
-gcp.cloud_run(xy=(x * 4, y), width=10, style=Style(fill_color=Colors.Red))
-text(xy=(x * 4, y - 10), text=&quot;fill_color=Red&quot;, size=10)
+gcp.cloud_run(xy=(x * 4, y), width=10, style=styles.primary.patch(image_tint_color=Colors.Red))
+text(xy=(x * 4, y - 10), text=&quot;image_tint_color=Red&quot;, size=10, style=styles.primary)
 
 save()
 </code></pre>
@@ -545,7 +543,6 @@ from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.types import Style
 
 config(width=100, height=60)
 
@@ -555,32 +552,37 @@ rectangle(
     width=66,
     height=50,
     r=2,
-    style=Style(fill_color=Colors.White, line_color=Colors.Gray, line_style=&quot;dashed&quot;, line_width=1.5),
+    style=styles.primary.patch(
+        shape_fill_color=Colors.White,
+        shape_line_color=Colors.Gray,
+        shape_line_style=&quot;dashed&quot;,
+        shape_line_width=1.5,
+    ),
 )
-text(xy=(45, 51), text=&quot;Google Cloud Project&quot;, size=10, style=Style(text_color=Colors.Gray))
+text(xy=(45, 51), text=&quot;Google Cloud Project&quot;, size=10, style=styles.primary.patch(text_color=Colors.Gray))
 
 # Client / User
-phosphor.user(xy=(14, 30), width=10)
-text(xy=(14, 20), text=&quot;Client&quot;, size=9)
+phosphor.user(xy=(14, 30), width=10, style=styles.primary)
+text(xy=(14, 20), text=&quot;Client&quot;, size=9, style=styles.primary)
 
 # Cloud Services
-gcp.cloud_load_balancing(xy=(38, 30), width=10)
-text(xy=(38, 20), text=&quot;Load Balancer&quot;, size=9)
+gcp.cloud_load_balancing(xy=(38, 30), width=10, style=styles.primary)
+text(xy=(38, 20), text=&quot;Load Balancer&quot;, size=9, style=styles.primary)
 
-gcp.cloud_run(xy=(62, 30), width=10)
-text(xy=(62, 20), text=&quot;Cloud Run&quot;, size=9)
+gcp.cloud_run(xy=(62, 30), width=10, style=styles.primary)
+text(xy=(62, 20), text=&quot;Cloud Run&quot;, size=9, style=styles.primary)
 
-gcp.cloud_sql(xy=(86, 40), width=9)
-text(xy=(86, 32), text=&quot;Cloud SQL&quot;, size=8)
+gcp.cloud_sql(xy=(86, 40), width=9, style=styles.primary)
+text(xy=(86, 32), text=&quot;Cloud SQL&quot;, size=8, style=styles.primary)
 
-gcp.cloud_storage(xy=(86, 20), width=9)
-text(xy=(86, 12), text=&quot;Cloud Storage&quot;, size=8)
+gcp.cloud_storage(xy=(86, 20), width=9, style=styles.primary)
+text(xy=(86, 12), text=&quot;Cloud Storage&quot;, size=8, style=styles.primary)
 
 # Connectors
-line(xy1=(20, 30), xy2=(32, 30), arrowhead=&quot;-&gt;&quot;)
-line(xy1=(44, 30), xy2=(56, 30), arrowhead=&quot;-&gt;&quot;)
-line(xy1=(68, 33), xy2=(80, 39), arrowhead=&quot;-&gt;&quot;)
-line(xy1=(68, 27), xy2=(80, 21), arrowhead=&quot;-&gt;&quot;)
+line(xy1=(20, 30), xy2=(32, 30), arrowhead=&quot;-&gt;&quot;, style=styles.primary)
+line(xy1=(44, 30), xy2=(56, 30), arrowhead=&quot;-&gt;&quot;, style=styles.primary)
+line(xy1=(68, 33), xy2=(80, 39), arrowhead=&quot;-&gt;&quot;, style=styles.primary)
+line(xy1=(68, 27), xy2=(80, 21), arrowhead=&quot;-&gt;&quot;, style=styles.primary)
 
 save()
 </code></pre>
@@ -600,7 +602,7 @@ Internally, font icon modules utilize font_icon().</p>
 <li><code>code</code>: Font code representing the icon.</li>
 <li><code>file</code>: Font file used for rendering the icon.</li>
 <li><code>angle</code>: Angle for rotating the icon (optional).</li>
-<li><code>style</code>: Additional style configurations (optional).</li>
+<li><code>style</code>: Style object (required).</li>
 </ul>
 <p>Let's explore its usage with FontAwesome Free:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
@@ -624,21 +626,23 @@ google_pay = &quot;\ue079&quot;
 
 x = width / 7
 y = height / 2
-font_icon(xy=(x, y), width=10, code=google, file=file_brand)
-font_icon(xy=(x * 2, y), width=10, code=gmail, file=file_regular)
-font_icon(xy=(x * 3, y), width=10, code=google_map, file=file_solid, angle=270)
-text(xy=(x * 3, y - 10), text=&quot;angle 270&quot;)
+font_icon(xy=(x, y), width=10, code=google, file=file_brand, style=styles.primary)
+font_icon(xy=(x * 2, y), width=10, code=gmail, file=file_regular, style=styles.primary)
+font_icon(xy=(x * 3, y), width=10, code=google_map, file=file_solid, angle=270, style=styles.primary)
+text(xy=(x * 3, y - 10), text=&quot;angle 270&quot;, style=styles.primary)
 font_icon(
     xy=(x * 4, y),
     width=10,
     code=google_drive,
     file=file_brand,
+    style=styles.primary,
 )
 font_icon(
     xy=(x * 5, y),
     width=10,
     code=google_play,
     file=file_brand,
+    style=styles.primary,
 )
 
 
@@ -657,33 +661,35 @@ Therefore, drawlib does not currently provide an icon module for it.</p>
 <p>Similar to other drawing elements, the appearance of icons can be customized using the <code>Style</code> class, which allows you to control:</p>
 <p><code>Style</code> encompasses these icon-related attributes:</p>
 <ul>
-<li><code>text_halign</code>: Horizontal alignment</li>
-<li><code>text_valign</code>: Vertical alignment</li>
 <li><code>icon_style</code>: Icon style, supports <code>&quot;thin&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;regular&quot;</code>, <code>&quot;bold&quot;</code>, or <code>&quot;fill&quot;</code>. The availability of styles depends on the icon modules.</li>
-<li><code>text_color</code>: Icon color, specified in RGB (0~255, 0~255, 0~255) or RGBA (0~255, 0~255, 0~255, 0.0~1.0). You can utilize helpers like <code>Colors</code> and <code>Colors140</code>.</li>
-<li><code>fill_alpha</code>: Icon transparency, ranging from 0.0 to 1.0, where 0.0 represents total transparency.</li>
+<li><code>icon_color</code>: Icon color, specified in RGB (0~255, 0~255, 0~255) or RGBA (0~255, 0~255, 0~255, 0.0~1.0). You can utilize helpers like <code>Colors</code> and <code>Colors140</code>.</li>
 </ul>
 <p>Let's illustrate this with an example:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
-from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import Style
 
 width = 100
 height = 50
 config(width=width, height=height)
 
-x = width / 7
+x = width / 6
 y = height / 2
-phosphor.airplane_taxiing(xy=(x, y), width=10, style=Style(text_color=Colors.Red))
-phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=Style(icon_style=&quot;thin&quot;))
-phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=Style(icon_style=&quot;bold&quot;))
-phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=Style(icon_style=&quot;fill&quot;))
-phosphor.airplane(xy=(x * 5, y), width=10, style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;))
-circle(xy=(x * 5, y), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
-text(xy=(x * 5 + 5, y - 10), text=&quot;align left,bottom&quot;)
+phosphor.airplane_taxiing(xy=(x, y), width=10, style=styles.primary.patch(icon_color=Colors.Red))
+text(xy=(x, y - 10), text=&quot;Red&quot;, style=styles.primary)
+
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=styles.primary.patch(icon_style=&quot;thin&quot;))
+text(xy=(x * 2, y - 10), text=&quot;thin&quot;, style=styles.primary)
+
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=styles.primary.patch(icon_style=&quot;bold&quot;))
+text(xy=(x * 3, y - 10), text=&quot;bold&quot;, style=styles.primary)
+
+phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=styles.primary.patch(icon_style=&quot;fill&quot;))
+text(xy=(x * 4, y - 10), text=&quot;fill&quot;, style=styles.primary)
+
+phosphor.airplane(xy=(x * 5, y), width=10, style=styles.primary.patch(icon_color=Colors.Blue, icon_style=&quot;bold&quot;))
+text(xy=(x * 5, y - 10), text=&quot;Blue bold&quot;, style=styles.primary)
 
 save()
 </code></pre>
@@ -694,9 +700,8 @@ save()
 <pre><code>icons with Style.
 </code></pre>
 <h1>Pre-defined icon styles</h1>
-<p>Drawlib's preset styles provide pre-defined icon styles.
-You can specify them by names.</p>
-<p>Here is an examples.</p>
+<p>Drawlib's preset styles provide pre-defined icon styles on the <code>styles</code> object.</p>
+<p>Here is an example:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.icons import phosphor
 
@@ -704,21 +709,15 @@ width = 100
 height = 50
 config(width=width, height=height)
 
-x = width / 7
+x = width / 5
 y = height / 2
-phosphor.airplane_taxiing(xy=(x, y), width=10, style=&quot;green&quot;)
-phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=&quot;red_light&quot;)
-phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=&quot;blue_bold&quot;)
-phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=&quot;green_flat&quot;)
+phosphor.airplane_taxiing(xy=(x, y), width=10, style=styles.green)
+phosphor.airplane_takeoff(xy=(x * 2, y), width=10, style=styles.red_bold)
+phosphor.airplane_in_flight(xy=(x * 3, y), width=10, style=styles.blue_flat)
+phosphor.airplane_tilt(xy=(x * 4, y), width=10, style=styles.green_flat)
 save()
 </code></pre>
-<p>Icon supports the following styles exclusively:</p>
-<ul>
-<li>weight of icon: <code>light</code> and <code>bold</code></li>
-<li>fill color: <code>flat</code></li>
-<li>color of icon</li>
-</ul>
-<p>Line style solid and dashed are not supported.</p>
+<p>Executing this code generates the following image:</p>
 <div class="drawlib-image" style="text-align: center;">
   <img src="icon_images/7.png" alt="icon_7" style="width: 600px; max-width: 100%;" />
 </div>

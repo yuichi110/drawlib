@@ -483,8 +483,8 @@ chart.draw(xy=(8.0, 5.0))
 <h2>4. Custom Ticks &amp; Formatting</h2>
 <p>You can customize ticks, intervals, unit labels, and number formatting via <code>configure_y_axis</code> or <code>configure_x_axis</code>:</p>
 <pre><code class="language-python">from drawlib import canvas
-from drawlib._core.l3_styles import Style
 from drawlib.charts import BarChart
+from drawlib.types import Style
 
 canvas.initialize()
 canvas.config(width=88, height=65)
@@ -500,7 +500,11 @@ chart = BarChart(
 chart.add_series(
     &quot;Fulfillment&quot;,
     [65.0, 85.0, 110.0, 140.0],
-    style=Style(fill_color=(79, 70, 229, 0.9), line_color=(67, 56, 202, 1.0), line_width=1.0),
+    style=Style(
+        shape_fill_color=(79, 70, 229, 0.9),
+        shape_line_color=(67, 56, 202, 1.0),
+        shape_line_width=1.0,
+    ),
 )
 chart.configure_y_axis(
     ticks=[0.0, 50.0, 100.0, 150.0],

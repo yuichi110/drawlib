@@ -31,22 +31,47 @@ All top-level CLI commands have direct 1-to-1 functional counterparts in `drawli
 
 ```drawlib 650px center caption:"Architecture: drawlib.tools as the Backend Engine"
 from drawlib.canvas import config
+from drawlib.colors import Colors, Colors140
+from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.types import Style
 
 config(width=140, height=75)
 
 # Outer wrapper: CLI vs Python script
-rectangle((35, 48), width=50, height=36, r=3, style="blue_solid", text="Terminal / Shell\n\n$ drawlib build ...\n$ drawlib export ...", textstyle=Style(text_size=11))
-rectangle((105, 48), width=50, height=36, r=3, style="green_solid", text="Python Code\n\nimport drawlib.tools\ntools.build_html(...)", textstyle=Style(text_size=11))
+rectangle(
+    (35, 48),
+    width=50,
+    height=36,
+    r=3,
+    style=styles.blue_solid,
+    text="Terminal / Shell\n\n$ drawlib build ...\n$ drawlib export ...",
+    textsize=11,
+)
+rectangle(
+    (105, 48),
+    width=50,
+    height=36,
+    r=3,
+    style=styles.green_solid,
+    text="Python Code\n\nimport drawlib.tools\ntools.build_html(...)",
+    textsize=11,
+)
 
 # Arrows pointing to center engine
-line((35, 30), (52, 23), arrowhead="->", style="bold")
-line((105, 30), (88, 23), arrowhead="->", style="bold")
+line((35, 30), (52, 23), arrowhead="->", style=styles.bold)
+line((105, 30), (88, 23), arrowhead="->", style=styles.bold)
 
 # Core engine box at bottom
-rectangle((70, 14), width=64, height=18, r=3, style="purple_flat", text="drawlib.tools Engine\n(Unified Python API)", textstyle="white_bold")
+rectangle(
+    (70, 14),
+    width=64,
+    height=18,
+    r=3,
+    style=styles.flat.patch(shape_fill_color=Colors140.DarkOrchid, shape_line_color=Colors140.DarkOrchid),
+    text="drawlib.tools Engine\n(Unified Python API)",
+    textstyle=styles.primary.patch(text_color=Colors.White, text_font=FontRoboto.ROBOTO_BOLD),
+)
 ```
 
 ---

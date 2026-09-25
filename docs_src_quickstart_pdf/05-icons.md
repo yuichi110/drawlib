@@ -14,15 +14,15 @@ from drawlib.text import text
 config(width=100, height=42)
 
 items = [
-    (16, phosphor.desktop, "desktop", "blue"),
-    (38, phosphor.database, "database", "green"),
-    (60, phosphor.cloud, "cloud", "blue"),
-    (84, phosphor.shield_check, "shield_check", "red"),
+    (16, phosphor.desktop, "desktop", styles.blue),
+    (38, phosphor.database, "database", styles.green),
+    (60, phosphor.cloud, "cloud", styles.blue),
+    (84, phosphor.shield_check, "shield_check", styles.red),
 ]
 
 for x, fn, label, st in items:
     fn(xy=(x, 26), width=11, style=st)
-    text(xy=(x, 10), text=f"phosphor.{label}", size=9)
+    text(xy=(x, 10), text=f"phosphor.{label}", style=styles.primary, size=9)
 ```
 
 ## 2. Google Cloud Platform Icons (`drawlib.icons.gcp`)
@@ -45,9 +45,9 @@ services = [
 ]
 
 for idx, (x, fn, label) in enumerate(services):
-    fn(xy=(x, 26), width=11)
-    text(xy=(x, 10), text=label, size=9)
+    fn(xy=(x, 26), width=11, style=styles.primary)
+    text(xy=(x, 10), text=label, style=styles.primary, size=9)
     if idx < len(services) - 1:
         next_x = services[idx + 1][0]
-        line((x + 8, 26), (next_x - 8, 26), arrowhead="->", style="blue")
+        line((x + 8, 26), (next_x - 8, 26), arrowhead="->", style=styles.blue)
 ```

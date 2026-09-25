@@ -11,12 +11,13 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.types import Style
 
-textstyle_bold = Style(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
-shapetextstyle_bold = Style(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
+ps = get_styles()
+textstyle_bold = ps.primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
+shapetextstyle_bold = ps.primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
 config(width=100, height=60)
 
 
@@ -26,7 +27,11 @@ def bottom():
         width=90,
         height=10,
         r=2,
-        style=Style(fill_color=Colors.Transparent),
+        style=ps.flat.patch(
+            shape_fill_color=Colors.Transparent,
+            shape_line_color=Colors.Black,
+            shape_line_width=1,
+        ),
         text="Canvas and coordinate system, theme etc.",
         textstyle=shapetextstyle_bold,
     )
@@ -38,7 +43,12 @@ def middle(x, width, name, functions, styles):
         width=width,
         height=30,
         r=2,
-        style=Style(text_halign="left", fill_color=Colors.Transparent),
+        style=ps.flat.patch(
+            shape_fill_color=Colors.Transparent,
+            shape_line_color=Colors.Black,
+            shape_line_width=1,
+            text_halign="left",
+        ),
     )
     tx = x + width / 2
     text((tx, 42), name, style=textstyle_bold)
@@ -47,16 +57,16 @@ def middle(x, width, name, functions, styles):
         text(
             (x + 1, 36 - i * 3),
             f"- {function}",
-            style=Style(text_halign="left", text_size=12),
+            style=ps.primary.patch(text_halign="left", text_size=12),
         )
 
-    line((x + 1, 26), (x + width - 1, 26), style=Style(line_style="dashed"))
+    line((x + 1, 26), (x + width - 1, 26), style=ps.dashed)
 
     for i, style in enumerate(styles):
         text(
             (x + 1, 22 - i * 3),
             f"- {style}",
-            style=Style(text_halign="left", text_size=12),
+            style=ps.primary.patch(text_halign="left", text_size=12),
         )
 
 
@@ -66,7 +76,11 @@ def top():
         width=90,
         height=10,
         r=2,
-        style=Style(fill_color=Colors.Transparent),
+        style=ps.flat.patch(
+            shape_fill_color=Colors.Transparent,
+            shape_line_color=Colors.Black,
+            shape_line_width=1,
+        ),
         text="Advanced topics, handle many files etc.",
         textstyle=shapetextstyle_bold,
     )

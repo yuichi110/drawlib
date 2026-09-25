@@ -17,15 +17,15 @@ from drawlib.smartarts import Pyramid
 
 config(width=100, height=48)
 
-p1 = Pyramid()
+p1 = Pyramid(styles=styles)
 p1.add(text="Strategy")
 p1.add(text="Architecture")
 p1.add(text="Implementation")
 p1.draw((6, 5), width=40, height=38, margin=2.5)
 
-p2 = Pyramid(default_style="solid")
-p2.add(text="Vision", style="blue_flat", textstyle="white")
-p2.add(text="Platform", style="green_flat", textstyle="white")
-p2.add(text="Operations", style="red_flat", textstyle="white")
+p2 = Pyramid(default_style=styles.solid, styles=styles)
+p2.add(text="Vision", style=styles.blue_flat, textstyle=styles.white)
+p2.add(text="Platform", style=styles.green_flat, textstyle=styles.white)
+p2.add(text="Operations", style=styles.red_flat, textstyle=styles.white)
 p2.draw((54, 5), width=40, height=38, margin=2.5, align="left")
 ```

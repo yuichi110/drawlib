@@ -421,8 +421,8 @@ root = MindMapNode(
     &quot;Main Concept&quot;,
     shape=&quot;oval&quot;,
     size=(24, 10),
-    style=&quot;bold&quot;,
-    textstyle=&quot;white&quot;,
+    style=styles.bold,
+    textstyle=styles.white,
     children=[
         # Right branches
         MindMapNode(
@@ -430,7 +430,7 @@ root = MindMapNode(
             branch=&quot;right&quot;,
             shape=&quot;rectangle&quot;,
             size=(16, 7),
-            style=&quot;solid&quot;,
+            style=styles.solid,
             line_length=6,
             children=[
                 MindMapNode(&quot;Fast Development&quot;, shape=&quot;none&quot;),
@@ -443,7 +443,7 @@ root = MindMapNode(
             branch=&quot;left&quot;,
             shape=&quot;rectangle&quot;,
             size=(16, 7),
-            style=&quot;solid&quot;,
+            style=styles.solid,
             line_length=6,
             children=[
                 MindMapNode(&quot;Learning Curve&quot;, shape=&quot;none&quot;),
@@ -455,7 +455,7 @@ root = MindMapNode(
             branch=&quot;top&quot;,
             shape=&quot;rectangle&quot;,
             size=(16, 7),
-            style=&quot;solid&quot;,
+            style=styles.solid,
         ),
         # Bottom branch with custom shift
         MindMapNode(
@@ -463,14 +463,14 @@ root = MindMapNode(
             branch=&quot;bottom&quot;,
             shape=&quot;rectangle&quot;,
             size=(20, 7),
-            style=&quot;solid&quot;,
+            style=styles.solid,
             xy_shift=(0, -2),
         ),
     ],
     default_line_length=6,
 )
 
-root.draw(xy=(75, 40))
+root.draw(xy=(75, 40), styles=styles)
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
   <img src="mindmap_images/1.png" alt="mindmap_1" style="width: 600px; max-width: 100%;" />
@@ -488,7 +488,7 @@ root = MindMapNode(
     &quot;CEO&quot;,
     shape=&quot;rectangle&quot;,
     size=(20, 8),
-    style=&quot;solid_bold&quot;,
+    style=styles.bold,
     children=[
         MindMapNode(
             &quot;CTO&quot;,
@@ -506,7 +506,7 @@ root = MindMapNode(
     ],
 )
 
-root.draw(xy=(50, 50), branch=&quot;bottom&quot;)
+root.draw(xy=(50, 50), branch=&quot;bottom&quot;, styles=styles)
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
   <img src="mindmap_images/2.png" alt="mindmap_2" style="width: 600px; max-width: 100%;" />
@@ -528,15 +528,15 @@ root = MindMapNode(
     &quot;Central Topic&quot;,
     shape=&quot;oval&quot;,
     size=(24, 10),
-    style=&quot;bold&quot;,
-    textstyle=&quot;white&quot;,
+    style=styles.bold,
+    textstyle=styles.white,
     children=[
-        MindMapNode(&quot;Rectangle Box&quot;, branch=&quot;right&quot;, shape=&quot;rectangle&quot;, size=(22, 8), style=&quot;solid&quot;),
+        MindMapNode(&quot;Rectangle Box&quot;, branch=&quot;right&quot;, shape=&quot;rectangle&quot;, size=(22, 8), style=styles.solid),
         MindMapNode(&quot;Text Only Leaf&quot;, branch=&quot;right&quot;, shape=&quot;none&quot;),
     ],
 )
 
-root.draw(xy=(30, 18), branch=&quot;right&quot;)
+root.draw(xy=(30, 18), branch=&quot;right&quot;, styles=styles)
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
   <img src="mindmap_images/3.png" alt="mindmap_3" style="width: 600px; max-width: 100%;" />
@@ -561,10 +561,10 @@ root.draw(xy=(30, 18), branch=&quot;right&quot;)
 <li><code>branch</code> (Literal[&quot;bottom&quot;, &quot;top&quot;, &quot;left&quot;, &quot;right&quot;], optional): Branch expansion direction.</li>
 <li><code>shape</code> (Literal[&quot;rectangle&quot;, &quot;oval&quot;, &quot;none&quot;], optional): Shape of this node. Defaults to <code>&quot;rectangle&quot;</code>.</li>
 <li><code>size</code> (Tuple[float, float], optional): Size of the node as <code>(width, height)</code>. Defaults to <code>(20.0, 8.0)</code>.</li>
-<li><code>style</code> (Union[str, Style], optional): Style for node shape fill and border.</li>
+<li><code>style</code> (Optional[Style], optional): Style for node shape fill and border.</li>
 <li><code>r</code> (float, optional): Corner radius when <code>shape=&quot;rectangle&quot;</code>.</li>
-<li><code>textstyle</code> (Union[str, Style], optional): Style for text.</li>
-<li><code>linestyle</code> (Union[str, Style], optional): Style for connecting lines.</li>
+<li><code>textstyle</code> (Optional[Style], optional): Style for text.</li>
+<li><code>linestyle</code> (Optional[Style], optional): Style for connecting lines.</li>
 <li><code>horizontal_margin</code> (float, optional): Horizontal margin between sibling subtrees.</li>
 <li><code>vertical_margin</code> (float, optional): Vertical margin between sibling subtrees.</li>
 <li><code>line_length</code> (float, optional): Distance between parent and child hierarchy levels.</li>
@@ -573,10 +573,10 @@ root.draw(xy=(30, 18), branch=&quot;right&quot;)
 <li><code>default_branch</code> (Literal[&quot;bottom&quot;, &quot;top&quot;, &quot;left&quot;, &quot;right&quot;], optional): Default branch direction for descendants.</li>
 <li><code>default_shape</code> (Literal[&quot;rectangle&quot;, &quot;oval&quot;, &quot;none&quot;], optional): Default shape for descendants.</li>
 <li><code>default_size</code> (Tuple[float, float], optional): Default size for descendants.</li>
-<li><code>default_style</code> (Union[str, Style], optional): Default style for descendants.</li>
+<li><code>default_style</code> (Optional[Style], optional): Default style for descendants.</li>
 <li><code>default_r</code> (float, optional): Default corner radius for descendants.</li>
-<li><code>default_textstyle</code> (Union[str, Style], optional): Default text style for descendants.</li>
-<li><code>default_linestyle</code> (Union[str, Style], optional): Default line style for descendants.</li>
+<li><code>default_textstyle</code> (Optional[Style], optional): Default text style for descendants.</li>
+<li><code>default_linestyle</code> (Optional[Style], optional): Default line style for descendants.</li>
 <li><code>default_horizontal_margin</code> (float, optional): Default horizontal margin for descendants.</li>
 <li><code>default_vertical_margin</code> (float, optional): Default vertical margin for descendants.</li>
 <li><code>default_line_length</code> (float, optional): Default line length for descendants.</li>
@@ -587,6 +587,7 @@ root.draw(xy=(30, 18), branch=&quot;right&quot;)
 <ul>
 <li><code>xy</code> (Tuple[float, float]): The center coordinates (x, y) of this root node's box.</li>
 <li><code>branch</code> (Literal[&quot;bottom&quot;, &quot;top&quot;, &quot;left&quot;, &quot;right&quot;], optional): Default branch direction for children. Defaults to <code>&quot;bottom&quot;</code>.</li>
+<li><code>styles</code> (Optional[BasePresetStyles], optional): Preset styles catalog (optional if root node has default styles set).</li>
 </ul>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

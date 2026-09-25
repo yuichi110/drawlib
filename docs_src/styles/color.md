@@ -28,8 +28,8 @@ y3 = 25
 y4 = 10
 rect_width = 25
 rect_height = 10
-rect_style = Style(fill_color=Colors.White)
-rect_text_style = Style(text_size=18)
+rect_style = styles.white
+rect_text_style = styles.primary.patch(text_size=18)
 
 COLORS_BASE_TEXT = """
 - Transparent = (0, 0, 0, 0.0)
@@ -61,7 +61,7 @@ def draw_base():
     text(
         (7.5, 60),
         COLORS_BASE_TEXT,
-        style=(Style(text_halign="left", text_valign="top")),
+        style=styles.primary.patch(text_halign="left", text_valign="top"),
     )
 
 
@@ -69,12 +69,12 @@ def draw_line_arrows():
     x1 = 40
     x2 = 47.5
     x3 = 55
-    line((x1, y1), (x3, y1), arrowhead="->")
-    text((x2, y1 + 3), "inherit", style=Style(text_size=20))
-    line((x2, y1), (x2, y4))
-    line((x2, y2), (x3, y2), arrowhead="->")
-    line((x2, y3), (x3, y3), arrowhead="->")
-    line((x2, y4), (x3, y4), arrowhead="->")
+    line((x1, y1), (x3, y1), arrowhead="->", style=styles.bold)
+    text((x2, y1 + 3), "inherit", style=styles.primary.patch(text_size=20))
+    line((x2, y1), (x2, y4), style=styles.bold)
+    line((x2, y2), (x3, y2), arrowhead="->", style=styles.bold)
+    line((x2, y3), (x3, y3), arrowhead="->", style=styles.bold)
+    line((x2, y4), (x3, y4), arrowhead="->", style=styles.bold)
 
 
 def draw_childs():
@@ -91,7 +91,7 @@ def draw_childs():
     text(
         (62.5, 60),
         COLORS_TEXT,
-        style=(Style(text_halign="left", text_valign="top")),
+        style=styles.primary.patch(text_halign="left", text_valign="top"),
     )
 
     rectangle(
@@ -103,7 +103,7 @@ def draw_childs():
         textstyle=rect_text_style,
     )
 
-    text((x, y3), "...", style=Style(text_size=32))
+    text((x, y3), "...", style=styles.primary.patch(text_size=32))
 
     rectangle(
         (x, y4),
@@ -383,7 +383,7 @@ from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.shapes import circle, rectangle, triangle, wedge
 from drawlib.text import text
-from drawlib.types import Style
+from drawlib.types import ColorsBase, Style
 
 
 # Please define color at styling codes normally.
@@ -412,31 +412,31 @@ shape_y = 30
 circle(
     (15, shape_y),
     radius=10,
-    style=Style(line_width=0, fill_color=ColorsGoogle.MediumBlue),
+    style=styles.flat.patch(shape_fill_color=ColorsGoogle.MediumBlue),
 )
 triangle(
     (37.5, shape_y),
     width=20,
     height=15,
-    style=Style(line_width=0, fill_color=ColorsGoogle.MediumRed),
+    style=styles.flat.patch(shape_fill_color=ColorsGoogle.MediumRed),
 )
 rectangle(
     (62.5, shape_y),
     width=18,
     height=18,
-    style=Style(line_width=0, fill_color=ColorsGoogle.Yellow),
+    style=styles.flat.patch(shape_fill_color=ColorsGoogle.Yellow),
 )
 wedge(
     (85, shape_y),
     radius=10,
     width=5,
     angle_end=270,
-    style=Style(line_width=0, fill_color=ColorsGoogle.MediumGreen),
+    style=styles.flat.patch(shape_fill_color=ColorsGoogle.MediumGreen),
 )
 text(
     (50, 10),
     "Google Colors",
-    style=Style(
+    style=styles.primary.patch(
         text_color=ColorsGoogle.Black,
         text_size=32,
         text_font=FontRoboto.ROBOTO_REGULAR,
@@ -457,7 +457,7 @@ from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.shapes import circle, rectangle, triangle, wedge
 from drawlib.text import text
-from drawlib.types import Style
+from drawlib.types import ColorsBase, Style
 
 
 # Please define color at styling codes normally.
@@ -486,31 +486,31 @@ shape_y = 30
 circle(
     (15, shape_y),
     radius=10,
-    style=Style(line_width=0, fill_color=ColorsGoogle.MediumBlue),
+    style=styles.flat.patch(shape_fill_color=ColorsGoogle.MediumBlue),
 )
 triangle(
     (37.5, shape_y),
     width=20,
     height=15,
-    style=Style(line_width=0, fill_color=ColorsGoogle.MediumRed),
+    style=styles.flat.patch(shape_fill_color=ColorsGoogle.MediumRed),
 )
 rectangle(
     (62.5, shape_y),
     width=18,
     height=18,
-    style=Style(line_width=0, fill_color=ColorsGoogle.Yellow),
+    style=styles.flat.patch(shape_fill_color=ColorsGoogle.Yellow),
 )
 wedge(
     (85, shape_y),
     radius=10,
     width=5,
     angle_end=270,
-    style=Style(line_width=0, fill_color=ColorsGoogle.MediumGreen),
+    style=styles.flat.patch(shape_fill_color=ColorsGoogle.MediumGreen),
 )
 text(
     (50, 10),
     "Google Colors",
-    style=Style(
+    style=styles.primary.patch(
         text_color=ColorsGoogle.Black,
         text_size=32,
         text_font=FontRoboto.ROBOTO_REGULAR,

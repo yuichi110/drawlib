@@ -460,10 +460,10 @@ p2 = (75, 25)
 dist = get_distance(p1, p2)  # 50.0
 
 # Draw concentric nodes based on computed distance:
-circle(p1, radius=dist / 5, style=&quot;blue_flat&quot;)
-circle(p2, radius=dist / 5, style=&quot;blue_flat&quot;)
-line(p1, p2, arrowhead=&quot;&lt;-&gt;&quot;, style=&quot;dashed&quot;)
-text((50, 32), f&quot;dist = {dist:.0f}&quot;)
+circle(p1, radius=dist / 5, style=styles.blue_flat)
+circle(p2, radius=dist / 5, style=styles.blue_flat)
+line(p1, p2, arrowhead=&quot;&lt;-&gt;&quot;, style=styles.dashed)
+text((50, 32), f&quot;dist = {dist:.0f}&quot;, style=styles.primary)
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
   <img src="math_images/2.png" alt="math_2" style="width: 550px; max-width: 100%;" />
@@ -482,12 +482,12 @@ target = (75, 45)
 angle = get_angle(start, target)
 
 # Baseline and directional vector
-line(start, (85, 15), style=&quot;dashed&quot;)
-line(start, target, arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
-line_arc(start, width=20, height=20, angle_start=0, angle_end=angle)
-circle(start, radius=1.5)
-text((34, 19), f&quot;{angle:.1f}°&quot;)
-text((50, 48), f&quot;angle = {angle:.1f}°&quot;)
+line(start, (85, 15), style=styles.dashed)
+line(start, target, arrowhead=&quot;-&gt;&quot;, style=styles.bold)
+line_arc(start, width=20, height=20, angle_start=0, angle_end=angle, style=styles.primary)
+circle(start, radius=1.5, style=styles.primary)
+text((34, 19), f&quot;{angle:.1f}°&quot;, style=styles.primary)
+text((50, 48), f&quot;angle = {angle:.1f}°&quot;, style=styles.primary)
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
   <img src="math_images/3.png" alt="math_3" style="width: 550px; max-width: 100%;" />
@@ -508,12 +508,12 @@ rectangle(
     xy=(center_x, center_y),
     width=width + 12,
     height=height + 12,
-    style=&quot;dashed&quot;,
+    style=styles.dashed,
 )
 for pt in nodes:
-    circle(pt, radius=2.5, style=&quot;blue_flat&quot;)
-circle((center_x, center_y), radius=1.5, style=&quot;red_flat&quot;)
-text((center_x, center_y - 4), &quot;center&quot;, size=9)
+    circle(pt, radius=2.5, style=styles.blue_flat)
+circle((center_x, center_y), radius=1.5, style=styles.red_flat)
+text((center_x, center_y - 4), &quot;center&quot;, style=styles.primary, size=9)
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
   <img src="math_images/4.png" alt="math_4" style="width: 550px; max-width: 100%;" />

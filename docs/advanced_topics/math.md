@@ -50,10 +50,10 @@ p2 = (75, 25)
 dist = get_distance(p1, p2)  # 50.0
 
 # Draw concentric nodes based on computed distance:
-circle(p1, radius=dist / 5, style="blue_flat")
-circle(p2, radius=dist / 5, style="blue_flat")
-line(p1, p2, arrowhead="<->", style="dashed")
-text((50, 32), f"dist = {dist:.0f}")
+circle(p1, radius=dist / 5, style=styles.blue_flat)
+circle(p2, radius=dist / 5, style=styles.blue_flat)
+line(p1, p2, arrowhead="<->", style=styles.dashed)
+text((50, 32), f"dist = {dist:.0f}", style=styles.primary)
 ```
 
 <div class="drawlib-image" style="text-align: center;">
@@ -79,12 +79,12 @@ target = (75, 45)
 angle = get_angle(start, target)
 
 # Baseline and directional vector
-line(start, (85, 15), style="dashed")
-line(start, target, arrowhead="->", style="bold")
-line_arc(start, width=20, height=20, angle_start=0, angle_end=angle)
-circle(start, radius=1.5)
-text((34, 19), f"{angle:.1f}°")
-text((50, 48), f"angle = {angle:.1f}°")
+line(start, (85, 15), style=styles.dashed)
+line(start, target, arrowhead="->", style=styles.bold)
+line_arc(start, width=20, height=20, angle_start=0, angle_end=angle, style=styles.primary)
+circle(start, radius=1.5, style=styles.primary)
+text((34, 19), f"{angle:.1f}°", style=styles.primary)
+text((50, 48), f"angle = {angle:.1f}°", style=styles.primary)
 ```
 
 <div class="drawlib-image" style="text-align: center;">
@@ -112,12 +112,12 @@ rectangle(
     xy=(center_x, center_y),
     width=width + 12,
     height=height + 12,
-    style="dashed",
+    style=styles.dashed,
 )
 for pt in nodes:
-    circle(pt, radius=2.5, style="blue_flat")
-circle((center_x, center_y), radius=1.5, style="red_flat")
-text((center_x, center_y - 4), "center", size=9)
+    circle(pt, radius=2.5, style=styles.blue_flat)
+circle((center_x, center_y), radius=1.5, style=styles.red_flat)
+text((center_x, center_y - 4), "center", style=styles.primary, size=9)
 ```
 
 <div class="drawlib-image" style="text-align: center;">

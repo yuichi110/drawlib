@@ -406,13 +406,11 @@
 <p>The <code>Style</code> object is used for styling shapes and configuring shape alignment.</p>
 <p>Here are the shape-related attributes of <code>Style</code>:</p>
 <ul>
-<li><code>text_halign</code>: Horizontal alignment of shape</li>
-<li><code>text_valign</code>: Vertical alignment of shape</li>
-<li><code>line_width</code>: Border line width</li>
-<li><code>line_color</code>: Border line color</li>
-<li><code>line_style</code>: Border line style (&quot;solid&quot;, &quot;dashed&quot;, &quot;dotted&quot;, &quot;dashdot&quot;)</li>
-<li><code>fill_color</code>: Fill color</li>
-<li><code>fill_alpha</code>: Transparency</li>
+<li><code>shape_line_width</code>: Border line width</li>
+<li><code>shape_line_color</code>: Border line color</li>
+<li><code>shape_line_style</code>: Border line style (&quot;solid&quot;, &quot;dashed&quot;, &quot;dotted&quot;, &quot;dashdot&quot;)</li>
+<li><code>shape_fill_color</code>: Fill color</li>
+<li><code>shape_fill_alpha</code>: Transparency</li>
 </ul>
 <p>All of these attributes are optional.
 If you don't specify values for them, the default preset style values are applied.</p>
@@ -425,53 +423,54 @@ For more details and examples, please refer to the Coordinate and Alignment page
 <h2>Style</h2>
 <p><code>Style</code> possesses shape styling attributes:</p>
 <ul>
-<li>Line styling: <code>line_width</code>, <code>line_color</code>, <code>line_style</code></li>
-<li>Fill styling: <code>fill_color</code></li>
-<li>Transparency: <code>fill_alpha</code></li>
+<li>Line styling: <code>shape_line_width</code>, <code>shape_line_color</code>, <code>shape_line_style</code></li>
+<li>Fill styling: <code>shape_fill_color</code></li>
+<li>Transparency: <code>shape_fill_alpha</code></li>
 </ul>
 <p>Here are three examples:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import circle, rectangle
-from drawlib.types import Style
 
+styles = get_styles()
 config(width=150, height=50)
 
 # left
-rectangle(xy=(25, 25), width=40, height=20)
+rectangle(xy=(25, 25), width=40, height=20, style=styles.primary)
 circle(
     xy=(25, 25),
     radius=15,
-    style=Style(
-        line_width=5,
-        line_color=Colors.Red,
-        line_style=&quot;dashed&quot;,
-        fill_color=Colors.White,
+    style=styles.primary.patch(
+        shape_line_width=5,
+        shape_line_color=Colors.Red,
+        shape_line_style=&quot;dashed&quot;,
+        shape_fill_color=Colors.White,
     ),
 )
 
 # center
-rectangle(xy=(75, 25), width=40, height=20)
+rectangle(xy=(75, 25), width=40, height=20, style=styles.primary)
 circle(
     xy=(75, 25),
     radius=15,
-    style=Style(
-        line_width=5,
-        line_color=Colors.Red,
-        line_style=&quot;dashed&quot;,
-        fill_color=Colors.Transparent,
+    style=styles.primary.patch(
+        shape_line_width=5,
+        shape_line_color=Colors.Red,
+        shape_line_style=&quot;dashed&quot;,
+        shape_fill_color=Colors.Transparent,
     ),
 )
 
 # right
-rectangle(xy=(125, 25), width=40, height=20)
+rectangle(xy=(125, 25), width=40, height=20, style=styles.primary)
 circle(
     xy=(125, 25),
     radius=15,
-    style=Style(
-        line_width=0,
-        fill_color=Colors140.Orange,
-        fill_alpha=0.3,
+    style=styles.primary.patch(
+        shape_line_width=0,
+        shape_fill_color=Colors140.Orange,
+        shape_fill_alpha=0.3,
     ),
 )
 save()
@@ -484,8 +483,8 @@ Right has alpha value.</p>
 </div>
 <pre><code>Shapes with Style
 </code></pre>
-<p>If you don't need a shape border line, set <code>line_width=0</code>.
-If you don't need a shape fill color, set <code>fill_color=Colors.Transparent</code> or <code>fill_color=Colors.White</code>.
+<p>If you don't need a shape border line, set <code>shape_line_width=0</code>.
+If you don't need a shape fill color, set <code>shape_fill_color=Colors.Transparent</code> or <code>shape_fill_color=Colors.White</code>.
 These are typical shape styling configurations.</p>
 <h1>Styling Text Inside Shapes (textstyle)</h1>
 <p>Text drawn inside a shape via the <code>text</code> parameter is styled using a <code>Style</code> object passed to the <code>textstyle</code> parameter.</p>
@@ -503,10 +502,10 @@ These are typical shape styling configurations.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.fonts import FontSansSerif, FontSerif
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import rectangle
-from drawlib.text import text
-from drawlib.types import Style
 
+styles = get_styles()
 config(width=150, height=50)
 
 # left
@@ -515,7 +514,8 @@ rectangle(
     width=40,
     height=20,
     text=&quot;rectangle()&quot;,
-    textstyle=Style(
+    style=styles.primary,
+    textstyle=styles.primary.patch(
         text_color=Colors.White,
         text_size=24,
         text_font=FontSerif.COURIER_BOLD,
@@ -530,7 +530,8 @@ rectangle(
     height=20,
     angle=45,
     text=&quot;rectangle()&quot;,
-    textstyle=Style(
+    style=styles.primary,
+    textstyle=styles.primary.patch(
         text_color=Colors.White,
         text_size=24,
         text_font=FontSansSerif.RALEWAYS_REGULAR,
@@ -545,7 +546,8 @@ rectangle(
     height=20,
     angle=45,
     text=&quot;rectangle()&quot;,
-    textstyle=Style(
+    style=styles.primary,
+    textstyle=styles.primary.patch(
         text_color=Colors.White,
         text_angle=0,
         text_xy_shift=(-12, -3),
@@ -567,56 +569,50 @@ However, you can override it, as shown in the right example.
 In that example, we also move the text positioning via <code>text_xy_shift</code>.
 The x and y values are not absolute coordinates but are relative to the shape's dimensions.</p>
 <h1>Pre-defined Preset Styles</h1>
-<p>Shapes can use pre-defined styles from the preset styles you choose.</p>
-<p>The style syntax is: <code>&lt;color&gt;_&lt;type&gt;_&lt;weight&gt;</code>.
-If the color, type, and weight are default, they are not shown in the style name.</p>
-<p>Each style type has variations for line and fill styles.
-For shape text, predefined color and weight styles can also be supplied to <code>textstyle</code>.</p>
+<p>Shapes use <code>Style</code> instances provided by preset styles (<code>styles = get_styles()</code>).</p>
+<p>Preset styles provide pre-defined <code>Style</code> objects as attributes on <code>styles</code>, following the naming pattern <code>&lt;color&gt;_&lt;variant&gt;</code>:</p>
 <ul>
-<li>default: Has border and fill color</li>
-<li><code>flat</code>: Has no border</li>
-<li><code>solid</code>: Shape has an outline but no fill</li>
-<li><code>dashed</code>: Dashed outline, no fill</li>
+<li><code>&lt;color&gt;</code>: Default border and fill</li>
+<li><code>&lt;color&gt;_flat</code>: Flat fill, no border</li>
+<li><code>&lt;color&gt;_solid</code>: Outline without fill</li>
+<li><code>&lt;color&gt;_dashed</code>: Dashed outline without fill</li>
+<li><code>&lt;color&gt;_bold</code>: Thicker border and bold text</li>
+<li><code>&lt;color&gt;_light</code>: Thinner border and light text</li>
 </ul>
-<p>Each weight type provides a variation of line width, except <code>flat</code> which has no border line.
-When applied to <code>textstyle</code>, it controls font weight.</p>
-<ul>
-<li><code>light</code>: Half of the default line width; font is light</li>
-<li>default: Regular line width; font is regular</li>
-<li><code>bold</code>: Double the default line width; font is bold</li>
-</ul>
+<p>For shape text, styles can also be supplied to <code>textstyle</code>.</p>
 <p>Here are three examples:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import circle
-from drawlib.text import text
 
+styles = get_styles()
 config(width=150, height=50)
 
 # left
 circle(
     xy=(25, 25),
     radius=15,
-    style=&quot;red_flat&quot;,
+    style=styles.red_flat,
     text=&quot;circle&quot;,
-    textstyle=&quot;white&quot;,
+    textstyle=styles.white,
 )
 
 # center
 circle(
     xy=(75, 25),
     radius=15,
-    style=&quot;blue_solid&quot;,
+    style=styles.blue_solid,
     text=&quot;circle&quot;,
-    textstyle=&quot;blue_bold&quot;,
+    textstyle=styles.blue_bold,
 )
 
 # right
 circle(
     xy=(125, 25),
     radius=15,
-    style=&quot;green_dashed_light&quot;,
+    style=styles.green_dashed,
     text=&quot;circle&quot;,
-    textstyle=&quot;green_light&quot;,
+    textstyle=styles.green,
 )
 save()
 </code></pre>

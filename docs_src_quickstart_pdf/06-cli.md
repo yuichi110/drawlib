@@ -31,20 +31,39 @@ from drawlib.colors import Colors, Colors140
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.types import Style
 
 config(width=110, height=46)
 
 # Source
-rectangle(xy=(20, 23), width=28, height=24, r=2, style=Style(fill_color=Colors140.AliceBlue, line_color=Colors140.RoyalBlue, line_width=2))
-text(xy=(20, 26), text="Markdown + drawlib", size=10)
-text(xy=(20, 19), text="(docs_src/)", size=9)
+rectangle(
+    xy=(20, 23),
+    width=28,
+    height=24,
+    r=2,
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.AliceBlue,
+        shape_line_color=Colors140.RoyalBlue,
+        shape_line_width=2,
+    ),
+)
+text(xy=(20, 26), text="Markdown + drawlib", style=styles.primary, size=10)
+text(xy=(20, 19), text="(docs_src/)", style=styles.primary, size=9)
 
 # Compiler
-rectangle(xy=(56, 23), width=24, height=20, r=2, style=Style(fill_color=Colors140.Turquoise, line_color=Colors.Navy, line_width=2))
-text(xy=(56, 23), text="drawlib build", size=10)
+rectangle(
+    xy=(56, 23),
+    width=24,
+    height=20,
+    r=2,
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.Turquoise,
+        shape_line_color=Colors.Navy,
+        shape_line_width=2,
+    ),
+)
+text(xy=(56, 23), text="drawlib build", style=styles.primary, size=10)
 
-line((34, 23), (44, 23), arrowhead="->", style="blue")
+line((34, 23), (44, 23), arrowhead="->", style=styles.blue)
 
 # Outputs
 outputs = [
@@ -53,7 +72,17 @@ outputs = [
     (10, "quickstart.pdf (PDF)", Colors140.LavenderBlush),
 ]
 for y_pos, label, col in outputs:
-    line((68, 23), (78, y_pos), arrowhead="->", style="blue")
-    rectangle(xy=(93, y_pos), width=28, height=9, r=1.5, style=Style(fill_color=col, line_color=Colors.Navy, line_width=1.5))
-    text(xy=(93, y_pos), text=label, size=9)
+    line((68, 23), (78, y_pos), arrowhead="->", style=styles.blue)
+    rectangle(
+        xy=(93, y_pos),
+        width=28,
+        height=9,
+        r=1.5,
+        style=styles.primary.patch(
+            shape_fill_color=col,
+            shape_line_color=Colors.Navy,
+            shape_line_width=1.5,
+        ),
+    )
+    text(xy=(93, y_pos), text=label, style=styles.primary, size=9)
 ```

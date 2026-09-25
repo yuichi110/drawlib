@@ -425,12 +425,14 @@ Similar to how you shouldn't configure text size in HTML but should do it in CSS
 <p>We will explain style later, so for now, we will focus on the other arguments.
 Here are three examples:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.preset_styles import get_styles
 from drawlib.text import text
 
+styles = get_styles()
 config(width=100, height=50)
-text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;)
-text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, size=24)
-text(xy=(75, 25), text=&quot;こんにちは Drawlib.&quot;, angle=45)
+text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;, style=styles.primary)
+text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, size=24, style=styles.primary)
+text(xy=(75, 25), text=&quot;こんにちは Drawlib.&quot;, angle=45, style=styles.primary)
 save()
 </code></pre>
 <p>Below is a figure illustrating these examples:</p>
@@ -456,12 +458,14 @@ The arguments are exactly the same as those for <code>text()</code>.</p>
 </ul>
 <p>Here are three examples:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.preset_styles import get_styles
 from drawlib.text import text, text_vertical
 
+styles = get_styles()
 config(width=100, height=50)
-text_vertical(xy=(15, 25), text=&quot;Hello Drawlib.&quot;)
-text_vertical(xy=(35, 25), text=&quot;Hello Drawlib.&quot;, size=12)
-text_vertical(xy=(75, 25), text=&quot;こんにちは Drawlib.&quot;, angle=45)
+text_vertical(xy=(15, 25), text=&quot;Hello Drawlib.&quot;, style=styles.primary)
+text_vertical(xy=(35, 25), text=&quot;Hello Drawlib.&quot;, size=12, style=styles.primary)
+text_vertical(xy=(75, 25), text=&quot;こんにちは Drawlib.&quot;, angle=45, style=styles.primary)
 save()
 </code></pre>
 <p>Below is a figure illustrating these examples:</p>
@@ -494,15 +498,16 @@ By default, no background is drawn.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontSerif
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import Style
 
+styles = get_styles()
 config(width=100, height=50, grid_only=True)
 text(
     xy=(15, 25),
     text=&quot;Hello Drawlib.&quot;,
-    style=Style(
+    style=styles.primary.patch(
         text_color=Colors140.Turquoise,
         text_size=24,
         text_halign=&quot;left&quot;,
@@ -510,14 +515,14 @@ text(
         text_font=FontSerif.MERRIWEATHER_REGULAR,
     ),
 )
-circle(xy=(15, 25), radius=0.5, style=Style(fill_color=Colors.Red, line_width=0))
-text((15, 22), &quot;align: left,bottom&quot;)
+circle(xy=(15, 25), radius=0.5, style=styles.red_flat)
+text((15, 22), &quot;align: left,bottom&quot;, style=styles.primary)
 
 text(
     xy=(75, 25),
     angle=45,
     text=&quot;こんにちは Drawlib.&quot;,
-    style=Style(
+    style=styles.primary.patch(
         text_color=Colors.White,
         text_bg_line_width=2,
         text_bg_line_color=Colors.Red,
@@ -565,23 +570,24 @@ And currently, we use Google fonts.</p>
 <p>Here are font examples.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.fonts import Font, FontJapanese, FontMonoSpace, FontRoboto, FontSansSerif, FontSerif, FontThai
+from drawlib.preset_styles import get_styles
 from drawlib.text import text
-from drawlib.types import Style
 
+styles = get_styles()
 config(width=100, height=60, grid_only=True)
-text(xy=(25, 5), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SANSSERIF_LIGHT))
-text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SANSSERIF_REGULAR))
-text(xy=(25, 25), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SANSSERIF_BOLD))
-text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SERIF_LIGHT))
-text(xy=(25, 45), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SERIF_REGULAR))
-text(xy=(25, 55), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=Font.SERIF_BOLD))
+text(xy=(25, 5), text=&quot;Hello Drawlib.&quot;, style=styles.primary.patch(text_font=Font.SANSSERIF_LIGHT))
+text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;, style=styles.primary.patch(text_font=Font.SANSSERIF_REGULAR))
+text(xy=(25, 25), text=&quot;Hello Drawlib.&quot;, style=styles.primary.patch(text_font=Font.SANSSERIF_BOLD))
+text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, style=styles.primary.patch(text_font=Font.SERIF_LIGHT))
+text(xy=(25, 45), text=&quot;Hello Drawlib.&quot;, style=styles.primary.patch(text_font=Font.SERIF_REGULAR))
+text(xy=(25, 55), text=&quot;Hello Drawlib.&quot;, style=styles.primary.patch(text_font=Font.SERIF_BOLD))
 
-text(xy=(75, 5), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=FontRoboto.ROBOTO_REGULAR))
-text(xy=(75, 15), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=FontSansSerif.RALEWAYS_REGULAR))
-text(xy=(75, 25), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=FontSerif.MERRIWEATHER_REGULAR))
-text(xy=(75, 35), text=&quot;Hello Drawlib.&quot;, style=Style(text_font=FontMonoSpace.SOURCECODEPRO_REGULAR))
-text(xy=(75, 45), text=&quot;こんにちは Drawlib.&quot;, style=Style(text_font=FontJapanese.MPLUS1P_REGULAR))
-text(xy=(75, 55), text=&quot;สวัสดี ดรอว์ลิบ&quot;, style=Style(text_font=FontThai.SERIF_REGULAR))
+text(xy=(75, 5), text=&quot;Hello Drawlib.&quot;, style=styles.primary.patch(text_font=FontRoboto.ROBOTO_REGULAR))
+text(xy=(75, 15), text=&quot;Hello Drawlib.&quot;, style=styles.primary.patch(text_font=FontSansSerif.RALEWAYS_REGULAR))
+text(xy=(75, 25), text=&quot;Hello Drawlib.&quot;, style=styles.primary.patch(text_font=FontSerif.MERRIWEATHER_REGULAR))
+text(xy=(75, 35), text=&quot;Hello Drawlib.&quot;, style=styles.primary.patch(text_font=FontMonoSpace.SOURCECODEPRO_REGULAR))
+text(xy=(75, 45), text=&quot;こんにちは Drawlib.&quot;, style=styles.primary.patch(text_font=FontJapanese.MPLUS1P_REGULAR))
+text(xy=(75, 55), text=&quot;สวัสดี ดรอว์ลิบ&quot;, style=styles.primary.patch(text_font=FontThai.SERIF_REGULAR))
 
 save()
 </code></pre>
@@ -598,14 +604,16 @@ However, if you want to use fonts that are not supported, use the <code>FontFile
 This class can be used in place of the basic font classes and accepts a font file as an argument.</p>
 <p>Here is an examples which uses font avenger.</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.fonts import FontFile
+from drawlib.preset_styles import get_styles
 from drawlib.text import text
-from drawlib.types import Style
 
+styles = get_styles()
 config(width=100, height=50)
 text(
     (50, 25),
     &quot;Hello Drawlib!&quot;,
-    style=Style(
+    style=styles.primary.patch(
         text_size=36,
         text_font=FontFile(&quot;../_assets/avenger/regular.ttf&quot;),
     ),
@@ -619,10 +627,9 @@ save()
 <p>FontFile</p>
 <p>You can check the list of fonts supported by Drawlib in the Font documentation.</p>
 <h1>Pre-defined Text Styles</h1>
-<p>Text in Drawlib can utilize pre-defined styles from the preset styles you select.</p>
-<p>The style syntax is: <code>&lt;color&gt;_&lt;type&gt;_&lt;weight&gt;</code>.
-If the color and weight are default, they are not explicitly shown in the style name.
-However, text styles do not use the type variations that are used for lines and shapes.</p>
+<p>Text in Drawlib can utilize pre-defined styles from the preset styles you select (<code>styles = get_styles()</code>).</p>
+<p>The style syntax is: <code>styles.&lt;color&gt;_&lt;weight&gt;</code>.
+If the color and weight are default, they are not explicitly shown in the style name.</p>
 <p>Each weight type variation includes different font weights:</p>
 <ul>
 <li><code>light</code>: Font weight light</li>
@@ -631,13 +638,15 @@ However, text styles do not use the type variations that are used for lines and 
 </ul>
 <p>Here is an example script that demonstrates the use of pre-defined text styles:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
+from drawlib.preset_styles import get_styles
 from drawlib.text import text
 
+styles = get_styles()
 config(width=100, height=50)
-text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;, style=&quot;red&quot;)
-text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, size=12, style=&quot;bold&quot;)
-text(xy=(75, 15), text=&quot;Hello Drawlib.&quot;, style=&quot;blue_light&quot;)
-text(xy=(75, 35), text=&quot;Hello Drawlib.&quot;, size=24, style=&quot;green_bold&quot;)
+text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;, style=styles.red)
+text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, size=12, style=styles.bold)
+text(xy=(75, 15), text=&quot;Hello Drawlib.&quot;, style=styles.light_blue)
+text(xy=(75, 35), text=&quot;Hello Drawlib.&quot;, size=24, style=styles.green_bold)
 save()
 </code></pre>
 <p>Below is a figure illustrating these examples:</p>

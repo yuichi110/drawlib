@@ -419,10 +419,10 @@ from drawlib.text import text
 
 config(width=100, height=100)
 
-line((10, 10), (90, 90))
-circle((25, 75), radius=20)
+line((10, 10), (90, 90), style=styles.primary)
+circle((25, 75), radius=20, style=styles.primary)
 image((75, 25), width=30, image=&quot;../_assets/python.png&quot;)
-text((75, 5), &quot;Hello drawlib!&quot;)
+text((75, 5), &quot;Hello drawlib!&quot;, style=styles.primary)
 
 save()
 </code></pre>
@@ -519,33 +519,32 @@ Common alignment options include:</p>
 from drawlib.colors import Colors
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import Style
 
 config(width=100, height=50, grid_only=True)
 
 circle(
     xy=(25, 25),
     radius=10,
-    style=Style(text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
+    style=styles.primary.patch(text_halign=&quot;center&quot;, text_valign=&quot;center&quot;),
 )
 circle(
     xy=(25, 25),
     radius=1,
-    style=Style(fill_color=Colors.Red, line_color=Colors.Red),
+    style=styles.primary.patch(shape_fill_color=Colors.Red, shape_line_color=Colors.Red),
 )
-text((25, 10), &quot;Align center,center&quot;, style=Style(text_color=Colors.Red))
+text((25, 10), &quot;Align center,center&quot;, style=styles.primary.patch(text_color=Colors.Red))
 
 circle(
     xy=(75, 25),
     radius=10,
-    style=Style(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
+    style=styles.primary.patch(text_halign=&quot;left&quot;, text_valign=&quot;bottom&quot;),
 )
 circle(
     xy=(75, 25),
     radius=1,
-    style=Style(fill_color=Colors.Red, line_color=Colors.Red),
+    style=styles.primary.patch(shape_fill_color=Colors.Red, shape_line_color=Colors.Red),
 )
-text((75, 10), &quot;Align left,bottom&quot;, style=Style(text_color=Colors.Red))
+text((75, 10), &quot;Align left,bottom&quot;, style=styles.primary.patch(text_color=Colors.Red))
 
 save()
 </code></pre>
@@ -578,16 +577,15 @@ If you're unfamiliar with Font Icons, I recommend checking out FontAwesome first
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
-from drawlib.types import Style
 
 config(width=100, height=60, grid=True)
 
-phosphor.airplane((25, 30), width=20)
+phosphor.airplane((25, 30), width=20, style=styles.primary)
 phosphor.coffee(
     xy=(75, 30),
     width=20,
     angle=45,
-    style=Style(text_color=Colors.Red, icon_style=&quot;fill&quot;),
+    style=styles.primary.patch(icon_color=Colors.Red, icon_style=&quot;fill&quot;),
 )
 
 save()
@@ -618,7 +616,7 @@ image(
     width=20,
     angle=45,
     image=&quot;../_assets/python.png&quot;,
-    style=Style(line_width=1),
+    style=styles.primary.patch(image_border_width=1),
 )
 
 save()
@@ -674,10 +672,10 @@ from drawlib.lines import line, line_curved, lines
 
 config(width=100, height=50, grid=True)
 
-line((20, 7), (80, 7))
-line_curved((20, 20), (80, 20), bend=0.2)
-line_curved((20, 30), (80, 30), bend=-0.2)
-lines([(20, 40), (30, 45), (70, 45), (80, 40)])
+line((20, 7), (80, 7), style=styles.primary)
+line_curved((20, 20), (80, 20), bend=0.2, style=styles.primary)
+line_curved((20, 30), (80, 30), bend=-0.2, style=styles.primary)
+lines([(20, 40), (30, 45), (70, 45), (80, 40)], style=styles.primary)
 
 save()
 </code></pre>
@@ -699,19 +697,23 @@ But visual style has less meaning (CSS equivalent), then we will specify it as s
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line
-from drawlib.types import Style
 
 config(width=100, height=50, grid=True)
 
-line((20, 7), (80, 7))
+line((20, 7), (80, 7), style=styles.primary)
 line(
     (20, 16),
     (80, 16),
-    style=Style(line_style=&quot;dashed&quot;, line_width=5, line_color=Colors.Red),
+    style=styles.primary.patch(line_style=&quot;dashed&quot;, line_width=5, line_color=Colors.Red),
 )
-line((20, 25), (80, 25), arrowhead=&quot;-&gt;&quot;)
-line((20, 34), (80, 34), arrowhead=&quot;&lt;-&gt;&quot;)
-line((20, 43), (80, 43), arrowhead=&quot;&lt;-&quot;, style=Style(arrow_head_scale=50, line_style=&quot;dashdot&quot;, arrow_head_fill=True))
+line((20, 25), (80, 25), arrowhead=&quot;-&gt;&quot;, style=styles.primary)
+line((20, 34), (80, 34), arrowhead=&quot;&lt;-&gt;&quot;, style=styles.primary)
+line(
+    (20, 43),
+    (80, 43),
+    arrowhead=&quot;&lt;-&quot;,
+    style=styles.primary.patch(line_arrow_head_scale=50, line_style=&quot;dashdot&quot;, line_arrow_head_fill=True),
+)
 
 save()
 </code></pre>
@@ -758,8 +760,8 @@ from drawlib.shapes import rectangle, star
 
 config(width=100, height=50, grid=True)
 
-star((25, 25), num_vertex=5, radius_ext=20, radius_int=7.5)
-rectangle((75, 25), width=30, height=20, r=3, angle=45)
+star((25, 25), num_vertex=5, radius_ext=20, radius_int=7.5, style=styles.primary)
+rectangle((75, 25), width=30, height=20, r=3, angle=45, style=styles.primary)
 
 save()
 </code></pre>
@@ -783,8 +785,6 @@ Keep in mind that the <code>text_angle</code> parameter in <code>Style</code> ov
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.shapes import rectangle
-from drawlib.text import text
-from drawlib.types import Style
 
 config(width=100, height=50, grid=True)
 
@@ -794,7 +794,9 @@ rectangle(
     height=20,
     angle=45,
     text=&quot;Hello!&quot;,
-    style=Style(line_style=&quot;dashed&quot;, line_width=5, line_color=Colors.Red, fill_color=Colors.Transparent),
+    style=styles.primary.patch(
+        shape_line_style=&quot;dashed&quot;, shape_line_width=5, shape_line_color=Colors.Red, shape_fill_color=Colors.Transparent
+    ),
 )
 rectangle(
     (75, 25),
@@ -802,7 +804,8 @@ rectangle(
     height=20,
     angle=45,
     text=&quot;Hello!&quot;,
-    textstyle=Style(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
+    style=styles.primary,
+    textstyle=styles.primary.patch(text_color=Colors.White, text_size=20, text_xy_shift=(-10, 0), text_angle=0),
 )
 
 save()
@@ -831,33 +834,32 @@ All other text parameters are defined within a <code>Style</code> object.</p>
 <p>Let's examine some code examples:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.colors import Colors
-from drawlib.fonts import FontRoboto
+from drawlib.fonts import FontFile, FontRoboto
 from drawlib.text import text
-from drawlib.types import Style
 
 config(width=100, height=50)
 
-text((50, 7), &quot;Hello drawlib. こんにちは。&quot;)
+text((50, 7), &quot;Hello drawlib. こんにちは。&quot;, style=styles.primary)
 text(
     (50, 16),
     &quot;Hello drawlib.&quot;,
     angle=10,
-    style=Style(text_font=FontRoboto.ROBOTO_REGULAR),
+    style=styles.primary.patch(text_font=FontRoboto.ROBOTO_REGULAR),
 )
 text(
     (50, 25),
     &quot;Hello drawlib.&quot;,
-    style=Style(text_font=FontFile(&quot;../_assets/avenger/regular.ttf&quot;)),
+    style=styles.primary.patch(text_font=FontFile(&quot;../_assets/avenger/regular.ttf&quot;)),
 )
 text(
     (50, 34),
     &quot;Hello drawlib. こんにちは。&quot;,
-    style=Style(text_color=Colors.Red, text_size=24),
+    style=styles.primary.patch(text_color=Colors.Red, text_size=24),
 )
 text(
     (50, 43),
     &quot;Hello drawlib. こんにちは。&quot;,
-    style=Style(text_color=Colors.White, text_bg_fill_color=Colors.Black),
+    style=styles.primary.patch(text_color=Colors.White, text_bg_fill_color=Colors.Black),
 )
 save()
 </code></pre>
@@ -886,7 +888,7 @@ Doubling the canvas size won't result in halving the font text size; it remains 
 <p>In Drawlib, you can define the style of drawing items using the unified <code>Style</code> class.
 However, specifying styles for each item can be cumbersome and may lead to inconsistency.
 To address this, Drawlib provides preset styles, allowing you to easily apply pre-defined styles by name.</p>
-<p>Here is an example. Note that the <code>style</code> argument takes text values.</p>
+<p>Here is an example. In Drawlib, preset styles are accessed as attributes on the <code>styles</code> object:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.lines import line
 from drawlib.shapes import circle
@@ -903,24 +905,24 @@ circle_y = 25
 text_y = 10
 
 # blue style
-line((x1 - line_length, line_y), (x1 + line_length, line_y), style=&quot;blue&quot;)
-circle((x1, circle_y), radius=8, style=&quot;blue&quot;)
-text((x1, text_y), text=&quot;blue&quot;, style=&quot;blue&quot;)
+line((x1 - line_length, line_y), (x1 + line_length, line_y), style=styles.blue)
+circle((x1, circle_y), radius=8, style=styles.blue)
+text((x1, text_y), text=&quot;blue&quot;, style=styles.blue)
 
 # blue solid style
-line((x2 - line_length, line_y), (x2 + line_length, line_y), style=&quot;blue_solid&quot;)
-circle((x2, circle_y), radius=8, style=&quot;blue_solid&quot;)
-text((x2, text_y), text='style=&quot;blue_solid&quot;', style=&quot;blue&quot;)
+line((x2 - line_length, line_y), (x2 + line_length, line_y), style=styles.blue_solid)
+circle((x2, circle_y), radius=8, style=styles.blue_solid)
+text((x2, text_y), text=&quot;styles.blue_solid&quot;, style=styles.blue)
 
 # green dashed style
-line((x3 - line_length, line_y), (x3 + line_length, line_y), style=&quot;green_dashed_bold&quot;)
-circle((x3, circle_y), radius=8, style=&quot;green_dashed_bold&quot;)
-text((x3, text_y), text='style=&quot;green_dashed_bold&quot;', style=&quot;green_bold&quot;)
+line((x3 - line_length, line_y), (x3 + line_length, line_y), style=styles.green_dashed)
+circle((x3, circle_y), radius=8, style=styles.green_dashed)
+text((x3, text_y), text=&quot;styles.green_dashed&quot;, style=styles.green_bold)
 
 # red flat style
-line((x4 - line_length, line_y), (x4 + line_length, line_y), style=&quot;red&quot;)
-circle((x4, circle_y), radius=8, style=&quot;red_flat&quot;)
-text((x4, text_y), text='style=&quot;red_flat&quot;', style=&quot;red&quot;)
+line((x4 - line_length, line_y), (x4 + line_length, line_y), style=styles.red)
+circle((x4, circle_y), radius=8, style=styles.red_flat)
+text((x4, text_y), text=&quot;styles.red_flat&quot;, style=styles.red)
 
 save()
 </code></pre>

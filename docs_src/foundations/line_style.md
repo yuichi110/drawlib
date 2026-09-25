@@ -10,13 +10,13 @@ Drawlib provides six functions for drawing lines and lines with arrowheads:
 * `lines()`
 * `lines_bezier()`
 
-They all share the following optional arguments:
+They all share the following arguments:
 
-- `arrowhead`: Specifies the type of arrowhead. Options are `["", "->", "<-", "<->"]`.
+- `arrowhead`: Specifies the type of arrowhead. Options are `["", "->", "<-", "<->", "-"]`.
 - `width`: Specifies the line width. This should typically be configured within the style, but it is also available as an optional argument.
-- `style`: Defines the line style. Accepts a Style object or a string (style name).
+- `style`: Defines the line style. Requires a `Style` object (e.g., `styles.primary`).
 
-These optional arguments control the line's style. 
+These arguments control the line's style. 
 Regarding line width, you can control it using both the `width` argument and the `style` attribute. 
 We recommend using the style attribute, as it is a visual parameter. 
 If you configure it in the style, you can change the line width by modifying the shared style. 
@@ -33,13 +33,13 @@ The `Style` object has the following attributes for line styling:
 
 * `line_width`: Line width, represented as a float value.
 * `line_color`: Line color, specified in RGB (0~255, 0~255, 0~255) or RGBA (0~255, 0~255, 0~255, 0~1.0). You can use the Color classes for convenience.
-* `fill_alpha`: Line transparency, ranging from 0.0 (totally transparent) to 1.0 (fully opaque).
+* `line_alpha`: Line transparency, ranging from 0.0 (totally transparent) to 1.0 (fully opaque).
 * `line_style`: Line style, which can be one of `["solid", "dashed", "dotted", "dashdot"]`. The default style is solid.
-* `arrow_head_fill`: Arrowhead fill, indicating whether the arrowhead is filled (`True`) or not (`False`). The default is `False`.
-* `arrow_head_scale`: Arrowhead scale, determining the size of the arrowhead. A larger value results in a larger arrowhead. The default scale is `20.0`.
+* `line_arrow_head_fill`: Arrowhead fill, indicating whether the arrowhead is filled (`True`) or not (`False`). The default is `False`.
+* `line_arrow_head_scale`: Arrowhead scale, determining the size of the arrowhead. A larger value results in a larger arrowhead. The default scale is `20.0`.
 
-The first four attributes (`line_width`, `line_color`, `fill_alpha`, `line_style`) affect both lines and lines with arrowheads. 
-The last two attributes (`arrow_head_fill`, `arrow_head_scale`) specifically affect lines with arrowheads.
+The first four attributes (`line_width`, `line_color`, `line_alpha`, `line_style`) affect both lines and lines with arrowheads. 
+The last two attributes (`line_arrow_head_fill`, `line_arrow_head_scale`) specifically affect lines with arrowheads.
 This structure allows for precise control over the appearance of lines and their associated arrowheads within Drawlib.
 
 It's important to note that whether the arrowhead is present or not carries logical meaning, so it is considered a function argument rather than a style attribute.
@@ -57,27 +57,26 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
-from drawlib.types import Style
 
 config(width=100, height=40)
 
-text((10, 5), "no style")
-line((20, 5), (40, 5))
-text((10, 15), "width: 5")
-line((20, 15), (40, 15), style=Style(line_width=5))
-text((10, 25), "color: Red")
-line((20, 25), (40, 25), style=Style(line_color=Colors.Red))
-text((10, 35), "alpha: 0.2")
-line((20, 35), (40, 35), style=Style(fill_alpha=0.2))
+text((10, 5), "primary", style=styles.primary)
+line((20, 5), (40, 5), style=styles.primary)
+text((10, 15), "width: 5", style=styles.primary)
+line((20, 15), (40, 15), style=styles.primary.patch(line_width=5))
+text((10, 25), "color: Red", style=styles.primary)
+line((20, 25), (40, 25), style=styles.primary.patch(line_color=Colors.Red))
+text((10, 35), "alpha: 0.2", style=styles.primary)
+line((20, 35), (40, 35), style=styles.primary.patch(line_alpha=0.2))
 
-text((60, 5), "style: solid\n(default)")
-line((70, 5), (90, 5), style=Style(line_style="solid"))
-text((60, 15), "style: dashed")
-line((70, 15), (90, 15), style=Style(line_style="dashed"))
-text((60, 25), "style: dotted")
-line((70, 25), (90, 25), style=Style(line_style="dotted"))
-text((60, 35), "style: dashdot")
-line((70, 35), (90, 35), style=Style(line_style="dashdot"))
+text((60, 5), "style: solid\n(default)", style=styles.primary)
+line((70, 5), (90, 5), style=styles.primary.patch(line_style="solid"))
+text((60, 15), "style: dashed", style=styles.primary)
+line((70, 15), (90, 15), style=styles.primary.patch(line_style="dashed"))
+text((60, 25), "style: dotted", style=styles.primary)
+line((70, 25), (90, 25), style=styles.primary.patch(line_style="dotted"))
+text((60, 35), "style: dashdot", style=styles.primary)
+line((70, 35), (90, 35), style=styles.primary.patch(line_style="dashdot"))
 
 save()
 ```
@@ -90,27 +89,26 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
-from drawlib.types import Style
 
 config(width=100, height=40)
 
-text((10, 5), "no style")
-line((20, 5), (40, 5))
-text((10, 15), "width: 5")
-line((20, 15), (40, 15), style=Style(line_width=5))
-text((10, 25), "color: Red")
-line((20, 25), (40, 25), style=Style(line_color=Colors.Red))
-text((10, 35), "alpha: 0.2")
-line((20, 35), (40, 35), style=Style(fill_alpha=0.2))
+text((10, 5), "primary", style=styles.primary)
+line((20, 5), (40, 5), style=styles.primary)
+text((10, 15), "width: 5", style=styles.primary)
+line((20, 15), (40, 15), style=styles.primary.patch(line_width=5))
+text((10, 25), "color: Red", style=styles.primary)
+line((20, 25), (40, 25), style=styles.primary.patch(line_color=Colors.Red))
+text((10, 35), "alpha: 0.2", style=styles.primary)
+line((20, 35), (40, 35), style=styles.primary.patch(line_alpha=0.2))
 
-text((60, 5), "style: solid\n(default)")
-line((70, 5), (90, 5), style=Style(line_style="solid"))
-text((60, 15), "style: dashed")
-line((70, 15), (90, 15), style=Style(line_style="dashed"))
-text((60, 25), "style: dotted")
-line((70, 25), (90, 25), style=Style(line_style="dotted"))
-text((60, 35), "style: dashdot")
-line((70, 35), (90, 35), style=Style(line_style="dashdot"))
+text((60, 5), "style: solid\n(default)", style=styles.primary)
+line((70, 5), (90, 5), style=styles.primary.patch(line_style="solid"))
+text((60, 15), "style: dashed", style=styles.primary)
+line((70, 15), (90, 15), style=styles.primary.patch(line_style="dashed"))
+text((60, 25), "style: dotted", style=styles.primary)
+line((70, 25), (90, 25), style=styles.primary.patch(line_style="dotted"))
+text((60, 35), "style: dashdot", style=styles.primary)
+line((70, 35), (90, 35), style=styles.primary.patch(line_style="dashdot"))
 
 save()
 ```
@@ -147,39 +145,36 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
-from drawlib.types import Style
 
-"""
 config(width=100, height=50)
 
-text((10, 5), "LineArrowStyle()", style=Style(text_size=14))
-line((20, 5), (40, 5), )
-text((10, 13), "width: 5")
-line((20, 13), (40, 13), style=LineArrowStyle(lwidth=5))
-text((10, 21), "color: Red")
-line((20, 21), (40, 21), style=LineArrowStyle(color=Colors.Red))
-text((10, 29), "alpha: 0.2")
-line((20, 29), (40, 29), style=LineArrowStyle(alpha=0.2))
-text((10, 37), "lstyle: dashed")
-line((20, 37), (40, 37), style=LineArrowStyle(lstyle="dashed"))
-text((10, 45), "hscale: 50\n(default: 20)")
-line((20, 45), (40, 45), style=LineArrowStyle(hscale=50))
+text((10, 5), "arrowhead ->", style=styles.primary)
+line((20, 5), (40, 5), arrowhead="->", style=styles.primary)
+text((10, 13), "width: 5", style=styles.primary)
+line((20, 13), (40, 13), arrowhead="->", style=styles.primary.patch(line_width=5))
+text((10, 21), "color: Red", style=styles.primary)
+line((20, 21), (40, 21), arrowhead="->", style=styles.primary.patch(line_color=Colors.Red))
+text((10, 29), "alpha: 0.2", style=styles.primary)
+line((20, 29), (40, 29), arrowhead="->", style=styles.primary.patch(line_alpha=0.2))
+text((10, 37), "lstyle: dashed", style=styles.primary)
+line((20, 37), (40, 37), arrowhead="->", style=styles.primary.patch(line_style="dashed"))
+text((10, 45), "head_scale: 40", style=styles.primary)
+line((20, 45), (40, 45), arrowhead="->", style=styles.primary.patch(line_arrow_head_scale=40))
 
-text((60, 5), "hstyle: ->\n(default)")
-line((70, 5), (90, 5), style=LineArrowStyle(hstyle="->"))
-text((60, 13), "style: <-")
-line((70, 13), (90, 13), style=LineArrowStyle(hstyle="<-"))
-text((60, 21), "style: <->")
-line((70, 21), (90, 21), style=LineArrowStyle(hstyle="<->"))
-text((60, 29), "style: -|>")
-line((70, 29), (90, 29), style=LineArrowStyle(hstyle="-|>"))
-text((60, 37), "style: <|-")
-line((70, 37), (90, 37), style=LineArrowStyle(hstyle="<|-"))
-text((60, 45), "style: <|-|>")
-line((70, 45), (90, 45), style=LineArrowStyle(hstyle="<|-|>"))
+text((60, 5), "arrowhead: ->", style=styles.primary)
+line((70, 5), (90, 5), arrowhead="->", style=styles.primary)
+text((60, 13), "arrowhead: <-", style=styles.primary)
+line((70, 13), (90, 13), arrowhead="<-", style=styles.primary)
+text((60, 21), "arrowhead: <->", style=styles.primary)
+line((70, 21), (90, 21), arrowhead="<->", style=styles.primary)
+text((60, 29), 'arrowhead: ""', style=styles.primary)
+line((70, 29), (90, 29), arrowhead="", style=styles.primary)
+text((60, 37), "head_fill: True", style=styles.primary)
+line((70, 37), (90, 37), arrowhead="->", style=styles.primary.patch(line_arrow_head_fill=True))
+text((60, 45), "head_scale: 10", style=styles.primary)
+line((70, 45), (90, 45), arrowhead="->", style=styles.primary.patch(line_arrow_head_scale=10))
 
 save()
-"""
 ```
 
 Executing this code generates the following output:
@@ -190,39 +185,36 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
-from drawlib.types import Style
 
-"""
 config(width=100, height=50)
 
-text((10, 5), "LineArrowStyle()", style=Style(text_size=14))
-line((20, 5), (40, 5), )
-text((10, 13), "width: 5")
-line((20, 13), (40, 13), style=LineArrowStyle(lwidth=5))
-text((10, 21), "color: Red")
-line((20, 21), (40, 21), style=LineArrowStyle(color=Colors.Red))
-text((10, 29), "alpha: 0.2")
-line((20, 29), (40, 29), style=LineArrowStyle(alpha=0.2))
-text((10, 37), "lstyle: dashed")
-line((20, 37), (40, 37), style=LineArrowStyle(lstyle="dashed"))
-text((10, 45), "hscale: 50\n(default: 20)")
-line((20, 45), (40, 45), style=LineArrowStyle(hscale=50))
+text((10, 5), "arrowhead ->", style=styles.primary)
+line((20, 5), (40, 5), arrowhead="->", style=styles.primary)
+text((10, 13), "width: 5", style=styles.primary)
+line((20, 13), (40, 13), arrowhead="->", style=styles.primary.patch(line_width=5))
+text((10, 21), "color: Red", style=styles.primary)
+line((20, 21), (40, 21), arrowhead="->", style=styles.primary.patch(line_color=Colors.Red))
+text((10, 29), "alpha: 0.2", style=styles.primary)
+line((20, 29), (40, 29), arrowhead="->", style=styles.primary.patch(line_alpha=0.2))
+text((10, 37), "lstyle: dashed", style=styles.primary)
+line((20, 37), (40, 37), arrowhead="->", style=styles.primary.patch(line_style="dashed"))
+text((10, 45), "head_scale: 40", style=styles.primary)
+line((20, 45), (40, 45), arrowhead="->", style=styles.primary.patch(line_arrow_head_scale=40))
 
-text((60, 5), "hstyle: ->\n(default)")
-line((70, 5), (90, 5), style=LineArrowStyle(hstyle="->"))
-text((60, 13), "style: <-")
-line((70, 13), (90, 13), style=LineArrowStyle(hstyle="<-"))
-text((60, 21), "style: <->")
-line((70, 21), (90, 21), style=LineArrowStyle(hstyle="<->"))
-text((60, 29), "style: -|>")
-line((70, 29), (90, 29), style=LineArrowStyle(hstyle="-|>"))
-text((60, 37), "style: <|-")
-line((70, 37), (90, 37), style=LineArrowStyle(hstyle="<|-"))
-text((60, 45), "style: <|-|>")
-line((70, 45), (90, 45), style=LineArrowStyle(hstyle="<|-|>"))
+text((60, 5), "arrowhead: ->", style=styles.primary)
+line((70, 5), (90, 5), arrowhead="->", style=styles.primary)
+text((60, 13), "arrowhead: <-", style=styles.primary)
+line((70, 13), (90, 13), arrowhead="<-", style=styles.primary)
+text((60, 21), "arrowhead: <->", style=styles.primary)
+line((70, 21), (90, 21), arrowhead="<->", style=styles.primary)
+text((60, 29), 'arrowhead: ""', style=styles.primary)
+line((70, 29), (90, 29), arrowhead="", style=styles.primary)
+text((60, 37), "head_fill: True", style=styles.primary)
+line((70, 37), (90, 37), arrowhead="->", style=styles.primary.patch(line_arrow_head_fill=True))
+text((60, 45), "head_scale: 10", style=styles.primary)
+line((70, 45), (90, 45), arrowhead="->", style=styles.primary.patch(line_arrow_head_scale=10))
 
 save()
-"""
 ```
 
 
@@ -235,27 +227,8 @@ This example demonstrates lines with different arrowhead styles and visual confi
 # Pre-defined Line Styles
 
 
-Drawlib provides pre-defined line styles.
-You can provide style via name easily.
-What name you can use depends on the preset styles you choose.
-
-The style has this syntax: `<color>_<type>_<weight>`. 
-
-- `<color>`: Specifies the color of the line.
-
-`<type>` is one of thme.
-
-- (default): solid line
-- `solid`: solid line
-- `dashed`: dashed line
-
-`<weight>` is one of them
-
-- (default): regular line width
-- `light`: half of the default width
-- `bold`: double the default width
-
-If the type and weight are default, they may not be explicitly shown in the style name.
+Drawlib provides pre-defined line styles on the `styles` object.
+You can access them as attributes (e.g. `styles.red`, `styles.red_solid`, `styles.red_dashed`, `styles.bold`).
 
 Let's look at an example:
 
@@ -267,23 +240,23 @@ from drawlib.text import text
 
 config(width=100, height=40)
 
-text((12, 5), "no style")
-line((25, 5), (40, 5))
-text((12, 15), 'style="red"')
-line((25, 15), (40, 15), style="red")
-text((12, 25), 'style="red_solid"')
-line((25, 25), (40, 25), style="red_solid")
-text((12, 35), 'style="red_dashed"')
-line((25, 35), (40, 35), style="red_dashed")
+text((12, 5), "styles.primary", style=styles.primary)
+line((25, 5), (40, 5), style=styles.primary)
+text((12, 15), "styles.red", style=styles.primary)
+line((25, 15), (40, 15), style=styles.red)
+text((12, 25), "styles.red_solid", style=styles.primary)
+line((25, 25), (40, 25), style=styles.red_solid)
+text((12, 35), "styles.red_dashed", style=styles.primary)
+line((25, 35), (40, 35), style=styles.red_dashed)
 
-text((60, 5), 'style="red_solid_light"')
-line((75, 5), (90, 5), arrowhead="->", style="red_solid_light")
-text((60, 15), 'style="red_solid_bold"')
-line((75, 15), (90, 15), arrowhead="->", style="red_solid_bold")
-text((60, 25), 'style="dashed"')
-line((75, 25), (90, 25), arrowhead="->", style="dashed")
-text((60, 35), 'style="bold"')
-line((75, 35), (90, 35), arrowhead="->", style="bold")
+text((60, 5), "styles.red_bold", style=styles.primary)
+line((75, 5), (90, 5), arrowhead="->", style=styles.red_bold)
+text((60, 15), "styles.blue_flat", style=styles.primary)
+line((75, 15), (90, 15), arrowhead="->", style=styles.blue_flat)
+text((60, 25), "styles.dashed", style=styles.primary)
+line((75, 25), (90, 25), arrowhead="->", style=styles.dashed)
+text((60, 35), "styles.bold", style=styles.primary)
+line((75, 35), (90, 35), arrowhead="->", style=styles.bold)
 
 save()
 ```
@@ -298,23 +271,23 @@ from drawlib.text import text
 
 config(width=100, height=40)
 
-text((12, 5), "no style")
-line((25, 5), (40, 5))
-text((12, 15), 'style="red"')
-line((25, 15), (40, 15), style="red")
-text((12, 25), 'style="red_solid"')
-line((25, 25), (40, 25), style="red_solid")
-text((12, 35), 'style="red_dashed"')
-line((25, 35), (40, 35), style="red_dashed")
+text((12, 5), "styles.primary", style=styles.primary)
+line((25, 5), (40, 5), style=styles.primary)
+text((12, 15), "styles.red", style=styles.primary)
+line((25, 15), (40, 15), style=styles.red)
+text((12, 25), "styles.red_solid", style=styles.primary)
+line((25, 25), (40, 25), style=styles.red_solid)
+text((12, 35), "styles.red_dashed", style=styles.primary)
+line((25, 35), (40, 35), style=styles.red_dashed)
 
-text((60, 5), 'style="red_solid_light"')
-line((75, 5), (90, 5), arrowhead="->", style="red_solid_light")
-text((60, 15), 'style="red_solid_bold"')
-line((75, 15), (90, 15), arrowhead="->", style="red_solid_bold")
-text((60, 25), 'style="dashed"')
-line((75, 25), (90, 25), arrowhead="->", style="dashed")
-text((60, 35), 'style="bold"')
-line((75, 35), (90, 35), arrowhead="->", style="bold")
+text((60, 5), "styles.red_bold", style=styles.primary)
+line((75, 5), (90, 5), arrowhead="->", style=styles.red_bold)
+text((60, 15), "styles.blue_flat", style=styles.primary)
+line((75, 15), (90, 15), arrowhead="->", style=styles.blue_flat)
+text((60, 25), "styles.dashed", style=styles.primary)
+line((75, 25), (90, 25), arrowhead="->", style=styles.dashed)
+text((60, 35), "styles.bold", style=styles.primary)
+line((75, 35), (90, 35), arrowhead="->", style=styles.bold)
 
 save()
 ```

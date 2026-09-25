@@ -13,11 +13,11 @@ Drawlib provides eight functions for drawing lines:
 * `line_arc()`: Elliptical circular arc line
 
 We will explain each of these functions in detail. 
-They all share the following optional arguments:
+They all share the following arguments:
 
 - `arrowhead`: Specifies the type of arrowhead. Options are `["", "->", "<-", "<->", "-"]`.
 - `width`: Specifies the line width. This should typically be configured within the style, but it is also available as an optional argument.
-- `style`: Defines the line style. Accepts a Style object or a string (style name).
+- `style`: Defines the line style. Requires a `Style` object (e.g., `styles.primary`).
 
 Details on these options will be covered in the next section on line styles (see the following page).
 
@@ -26,13 +26,13 @@ Details on these options will be covered in the next section on line styles (see
 
 
 The `line()` function is the most basic function for drawing lines. 
-It requires two mandatory arguments and accepts three optional arguments.
+It requires three arguments (coordinates and style) and accepts two optional arguments.
 
 * xy1: The start point of the line
 * xy2: The end point of the line
+* style: The style of the line (required)
 * (optional) arrowhead: Specifies the type of arrow head
 * (optional) width: The width of the line
-* (optional) style: The style of the line
 
 Let's look at an example:
 
@@ -42,11 +42,11 @@ from drawlib.canvas import config, save
 from drawlib.lines import line
 
 config(width=100, height=50)
-line(xy1=(10, 10), xy2=(90, 40))
+line(xy1=(10, 10), xy2=(90, 40), style=styles.primary)
 save()
 ```
 
-In this example, we draw a line from (10, 10) to (90, 40) without specifying a style. 
+In this example, we draw a line from (10, 10) to (90, 40) using `styles.primary`. 
 This generates the following output:
 
 
@@ -69,14 +69,14 @@ This generates the following output:
 The `line_curved()` function makes it easy to draw curved lines. 
 While `line_bezier1()` and `line_bezier2()` can also draw curved lines, they require more complex curve control compared to `line_curved()`.
 
-It requires three mandatory arguments and accepts three optional arguments.
+It requires three mandatory arguments and accepts two optional arguments.
 
 * xy1: The start point of the line
 * xy2: The end point of the line
 * bend: The additional length beyond a direct connection, controlling the curvature.
+* style: The style of the line (required)
 * (optional) arrowhead: Specifies the type of arrow head
 * (optional) width: The width of the line
-* (optional) style: The style of the line
 
 For example, suppose xy1 is (10, 10) and xy2 is (10, 20). 
 The distance between these points is 10 units.
@@ -94,14 +94,14 @@ from drawlib.lines import line_curved
 from drawlib.text import text
 
 config(width=100, height=50)
-line_curved(xy1=(10, 20), xy2=(90, 20), bend=0.4)
-text((50, 7), "0.4")
-line_curved(xy1=(10, 23), xy2=(90, 23), bend=0.2)
-text((50, 18), "0.2")
-line_curved(xy1=(10, 27), xy2=(90, 27), bend=-0.2)
-text((50, 32), "-0.2")
-line_curved(xy1=(10, 30), xy2=(90, 30), bend=-0.4)
-text((50, 43), "-0.4")
+line_curved(xy1=(10, 20), xy2=(90, 20), bend=0.4, style=styles.primary)
+text((50, 7), "0.4", style=styles.primary)
+line_curved(xy1=(10, 23), xy2=(90, 23), bend=0.2, style=styles.primary)
+text((50, 18), "0.2", style=styles.primary)
+line_curved(xy1=(10, 27), xy2=(90, 27), bend=-0.2, style=styles.primary)
+text((50, 32), "-0.2", style=styles.primary)
+line_curved(xy1=(10, 30), xy2=(90, 30), bend=-0.4, style=styles.primary)
+text((50, 43), "-0.4", style=styles.primary)
 save()
 ```
 
@@ -125,15 +125,14 @@ This code generates the following output:
 
 
 The `line_bezier1()` function draws a Bézier curve with one control point. 
-It requires three mandatory arguments and accepts three optional arguments.
+It requires four arguments (coordinates, control point, and style) and accepts two optional arguments.
 
 * xy1: The start point of the line
 * cp: The Bézier control point.
 * xy2: The end point of the line
-* bend: The additional length beyond a direct connection, controlling the curvature.
+* style: The style of the line (required)
 * (optional) arrowhead: Specifies the type of arrow head
 * (optional) width: The width of the line
-* (optional) style: The style of the line
 
 Bézier curves are a popular method for drawing smooth, curved lines. 
 If you are not familiar with Bézier curves, it is recommended to research and understand the concept first. 
@@ -146,27 +145,26 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line, line_bezier1
 from drawlib.shapes import circle
-from drawlib.types import Style
 
 config(width=100, height=50)
-line_bezier1(xy1=(10, 10), cp=(10, 40), xy2=(40, 40))
-line(xy1=(10, 10), xy2=(10, 40), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(10, 40), xy2=(40, 40), style=Style(line_style="dashed", line_color=Colors.Red))
-circle(xy=(10, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(10, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(40, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+line_bezier1(xy1=(10, 10), cp=(10, 40), xy2=(40, 40), style=styles.primary)
+line(xy1=(10, 10), xy2=(10, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(40, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(10, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(40, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 
-line_bezier1(xy1=(60, 40), cp=(90, 40), xy2=(90, 10))
-line(xy1=(60, 40), xy2=(90, 40), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 40), xy2=(90, 10), style=Style(line_style="dashed", line_color=Colors.Red))
-circle(xy=(60, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+line_bezier1(xy1=(60, 40), cp=(90, 40), xy2=(90, 10), style=styles.primary)
+line(xy1=(60, 40), xy2=(90, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(90, 40), xy2=(90, 10), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 
 save()
 ```
 
-It generate this output.
+It generates this output.
 
 
 
@@ -185,16 +183,15 @@ It generate this output.
 
 
 The `line_bezier2()` function draws a Bézier curve with two control points. 
-It requires four mandatory arguments and accepts three optional arguments.
+It requires five arguments (coordinates, control points, and style) and accepts two optional arguments.
 
 * xy1: The start point of the line
 * cp1: The first Bézier control point.
-* cp2: The seconde Bézier control point.
+* cp2: The second Bézier control point.
 * xy2: The end point of the line
-* bend: The additional length beyond a direct connection, controlling the curvature.
+* style: The style of the line (required)
 * (optional) arrowhead: Specifies the type of arrow head
 * (optional) width: The width of the line
-* (optional) style: The style of the line
 
 Drawing a Bézier curve with two control points is a popular method for creating smooth, curved lines. 
 If you are not familiar with Bézier curves, it is recommended to research and understand the concept first.
@@ -207,26 +204,25 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line, line_bezier2
 from drawlib.shapes import circle
-from drawlib.types import Style
 
 config(width=100, height=50)
-line_bezier2(xy1=(10, 10), cp1=(10, 40), cp2=(40, 40), xy2=(40, 10))
-line(xy1=(10, 10), xy2=(10, 40), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(10, 40), xy2=(40, 40), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(40, 40), xy2=(40, 10), style=Style(line_style="dashed", line_color=Colors.Red))
-circle(xy=(10, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(10, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(40, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(40, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+line_bezier2(xy1=(10, 10), cp1=(10, 40), cp2=(40, 40), xy2=(40, 10), style=styles.primary)
+line(xy1=(10, 10), xy2=(10, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(40, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(40, 40), xy2=(40, 10), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(10, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(40, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(40, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 
-line_bezier2(xy1=(60, 40), cp1=(60, 10), cp2=(90, 10), xy2=(90, 40))
-line(xy1=(60, 40), xy2=(60, 10), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(60, 10), xy2=(90, 10), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 10), xy2=(90, 40), style=Style(line_style="dashed", line_color=Colors.Red))
-circle(xy=(60, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(60, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+line_bezier2(xy1=(60, 40), cp1=(60, 10), cp2=(90, 10), xy2=(90, 40), style=styles.primary)
+line(xy1=(60, 40), xy2=(60, 10), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(60, 10), xy2=(90, 10), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(90, 10), xy2=(90, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(60, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 
 save()
 ```
@@ -257,12 +253,12 @@ The `line_arc()` function draws a line on the ellipse arc. If the width and heig
 
 
 The `lines()` function draws a line that passes through a series of provided points
-It requires one mandatory arguments and accepts three optional arguments.
+It requires two arguments (coordinates and style) and accepts two optional arguments.
 
 * xys: A list of (x, y) tuples representing the points the line should pass through.
+* style: The style of the line (required)
 * (optional) arrowhead: Specifies the type of arrow head
 * (optional) width: The width of the line
-* (optional) style: The style of the line
 
 The `xys` argument differs from the previous functions, but it is simply a list of (x, y) coordinates, such as `[(10, 10), (20, 40), (30, 10), (40, 40)]`.
 
@@ -282,12 +278,13 @@ lines(
         (40, 40),
         (60, 40),
         (90, 10),
-    ]
+    ],
+    style=styles.primary,
 )
 save()
 ```
 
-It generate this output.
+It generates this output.
 
 
 
@@ -308,13 +305,13 @@ It generate this output.
 The `lines_bezier()` function is similar to `lines()`, but it can draw multiple straight lines, 
 Bézier curves with one control point (bezier1), or Bézier curves with two control points (bezier2) from point to point. 
 
-It takes two mandatory arguments and three optional arguments.
+It takes three arguments (starting point, path points, and style) and two optional arguments.
 
 * xy: The starting point.
 * path_points: A list of tuples defining the path.
+* style: The style of the line (required)
 * (optional) arrowhead: Specifies the type of arrow head
 * (optional) width: The width of the line
-* (optional) style: The style of the line
 
 The `path_points` argument can be complex, as it accepts three types of tuples:
 
@@ -333,7 +330,6 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line, lines_bezier
 from drawlib.shapes import circle
-from drawlib.types import Style
 
 config(width=100, height=50)
 
@@ -342,23 +338,23 @@ points = [
     (60, 10),
     ((60, 40), (90, 40), (90, 10)),
 ]
-lines_bezier(xy=(10, 40), path_points=points)
+lines_bezier(xy=(10, 40), path_points=points, style=styles.primary)
 
 # bezier1 help line
-line(xy1=(10, 40), xy2=(10, 20), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(10, 20), xy2=(30, 20), style=Style(line_style="dashed", line_color=Colors.Red))
-circle(xy=(10, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(10, 20), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(30, 20), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+line(xy1=(10, 40), xy2=(10, 20), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(10, 20), xy2=(30, 20), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(10, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(10, 20), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(30, 20), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 
 # bezier2 help line
-line(xy1=(60, 10), xy2=(60, 40), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(60, 40), xy2=(90, 40), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 40), xy2=(90, 10), style=Style(line_style="dashed", line_color=Colors.Red))
-circle(xy=(60, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(60, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+line(xy1=(60, 10), xy2=(60, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(60, 40), xy2=(90, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(90, 40), xy2=(90, 10), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(60, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(60, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 10), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 
 save()
 ```
@@ -387,11 +383,10 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line, lines_bezier
 from drawlib.shapes import circle
-from drawlib.types import Style
 
 config(width=100, height=50)
 
-circle((10, 40), radius=5)
+circle((10, 40), radius=5, style=styles.primary)
 lines_bezier(
     (20, 40),
     path_points=[
@@ -400,15 +395,16 @@ lines_bezier(
         (90, 20),
     ],
     arrowhead="->",
+    style=styles.primary,
 )
-circle((90, 10), radius=5)
+circle((90, 10), radius=5, style=styles.primary)
 
 # bezier1 help line
-line(xy1=(75, 40), xy2=(90, 40), style=Style(line_style="dashed", line_color=Colors.Red))
-line(xy1=(90, 40), xy2=(90, 25), style=Style(line_style="dashed", line_color=Colors.Red))
-circle(xy=(75, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-circle(xy=(90, 25), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
+line(xy1=(75, 40), xy2=(90, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
+line(xy1=(90, 40), xy2=(90, 25), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
+circle(xy=(75, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 40), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
+circle(xy=(90, 25), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Red))
 ```
 
 <div class="drawlib-image" style="text-align: center;">
@@ -431,13 +427,13 @@ From an argument perspective, this function is almost the same as `lines()`, but
 This automatically applies a bezier1 curve effect to lines with the specified length `r`. 
 If you want to add related curves to all vertices, this function is very useful.
 
-It takes two mandatory arguments and three optional arguments.
+It takes three mandatory arguments and two optional arguments.
 
 * xys: A list of (x, y) tuples representing the points the line should pass through.
 * r: The length of the curve.
+* style: The style of the line (required)
 * (optional) arrowhead: Specifies the type of arrow head
 * (optional) width: The width of the line
-* (optional) style: The style of the line
 
 Here is an example code:
 
@@ -447,22 +443,22 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import lines, lines_curved
 from drawlib.shapes import circle
-from drawlib.types import Style
 
 config(width=100, height=50)
 
-circle((10, 40), radius=5)
+circle((10, 40), radius=5, style=styles.primary)
 lines(
     [(20, 40), (30, 40), (30, 10), (90, 40), (90, 22)],
-    style=Style(line_color=Colors.Red, line_style="dashed", line_width=1.5),
+    style=styles.primary.patch(line_color=Colors.Red, line_style="dashed", line_width=1.5),
 )
 lines_curved(
     [(20, 40), (30, 40), (30, 10), (90, 40), (90, 20)],
     r=8,
     width=2.5,
     arrowhead="->",
+    style=styles.primary,
 )
-circle((90, 10), radius=5)
+circle((90, 10), radius=5, style=styles.primary)
 save()
 ```
 
@@ -494,12 +490,12 @@ It accepts the following arguments:
 * `xy`: Center coordinate `(x, y)` of the ellipse
 * `width`: Total horizontal width of the ellipse
 * `height`: Total vertical height of the ellipse
+* `style`: Line style (required)
 * `angle_start`: Starting angle in degrees (default: `0`)
 * `angle_end`: Ending angle in degrees (default: `180`)
 * `angle`: Overall rotation angle of the ellipse (default: `0`)
 * `arrowhead`: Arrowhead style (`""`, `"->"`, `"<-"`, `"<->"`, `"-"`)
 * `linewidth`: Optional width of the line
-* `style`: Optional line style
 * `ccw`: Counter-clockwise if `True` (default), clockwise if `False`
 
 

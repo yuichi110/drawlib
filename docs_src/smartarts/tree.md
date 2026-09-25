@@ -7,15 +7,14 @@ Class `Tree` draws smart art tree which is similar to `tree` command output.
 ```drawlib show-code 600px center
 from drawlib.canvas import config
 from drawlib.icons import phosphor
-from drawlib.preset_styles import get_style
 from drawlib.smartarts import TreeNode
 
 config(width=100, height=48)
 
 tree1 = TreeNode(
     "Root",
-    default_textstyle="primary",
-    default_linestyle="light",
+    default_textstyle=styles.primary,
+    default_linestyle=styles.light,
     default_line_horizontal_margin=2,
     default_line_horizontal_length=2,
     default_line_vertical_margin=5,
@@ -29,12 +28,12 @@ tree1 = TreeNode(
                         TreeNode("Child1-1-1"),
                     ],
                 ),
-                TreeNode("Child1-2", textstyle="red"),
+                TreeNode("Child1-2", textstyle=styles.red),
             ],
         ),
         TreeNode(
             text="Child2",
-            default_textstyle="blue",
+            default_textstyle=styles.blue,
             children=[
                 TreeNode("Child2-1"),
                 TreeNode("Child2-2"),
@@ -50,7 +49,7 @@ TreeNode.register_drawing_item(
     location="before",
     padding_width=5,
     function=phosphor.file_py,
-    style=get_style(),
+    style=styles.primary,
     args={"width": 4},
 )
 TreeNode.register_drawing_item(
@@ -58,14 +57,14 @@ TreeNode.register_drawing_item(
     location="before",
     padding_width=5,
     function=phosphor.file_png,
-    style=get_style("red"),
+    style=styles.red,
     args={"width": 4},
 )
 
 tree2 = TreeNode(
     "Root",
-    default_textstyle="primary",
-    default_linestyle="light",
+    default_textstyle=styles.primary,
+    default_linestyle=styles.light,
     default_line_horizontal_margin=2,
     default_line_horizontal_length=2,
     default_line_vertical_margin=5,
@@ -115,14 +114,14 @@ Styles are mandatory for root node. Optional for child nodes.
 Args:
 
 - text (str): The text content for the tree node.
-- textstyle (Union[str, Style, None], optional): The text style for the node. It can be a string that maps to a `Style` or a `Style` instance. Defaults to None.
-- linestyle (Union[str, Style, None], optional): The line style for the node. It can be a string that maps to a `Style` or a `Style` instance. Defaults to None.
+- textstyle (Optional[Style], optional): The text style for the node. Defaults to None.
+- linestyle (Optional[Style], optional): The line style for the node. Defaults to None.
 - line_horizontal_margin (Optional[float], optional): The margin for horizontal lines. Defaults to None.
 - line_horizontal_length (Optional[float], optional): The length of horizontal lines. Defaults to None.
 - line_vertical_margin (Optional[float], optional): The margin for vertical lines. Defaults to None.
 - children (Optional[List[TreeNode]], optional): A list of child nodes connected to this node. Defaults to None.
-- default_textstyle (Union[str, Style, None], optional): The default text style for child nodes. Defaults to None.
-- default_linestyle (Union[str, Style, None], optional): The default line style for child nodes. Defaults to None.
+- default_textstyle (Optional[Style], optional): The default text style for child nodes. Defaults to None.
+- default_linestyle (Optional[Style], optional): The default line style for child nodes. Defaults to None.
 - default_line_horizontal_margin (Optional[float], optional): The default horizontal margin for lines of child nodes. Defaults to None.
 - default_line_horizontal_length (Optional[float], optional): The default horizontal length for lines of child nodes. Defaults to None.
 - default_line_vertical_margin (Optional[float], optional): The default vertical margin for lines of child nodes. Defaults to None.
@@ -141,7 +140,7 @@ Args:
 - location (Literal["before", "after"]): The location of the drawing item relative to the text.
 - padding_width (float): The padding width for the drawing item.
 - function (Callable): The function to render the drawing item.
-- style (Union[str, Style]): The style for the drawing item.
+- style (Style): The style for the drawing item.
 - args (dict): The arguments for the function.
 
 

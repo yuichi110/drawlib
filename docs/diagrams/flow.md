@@ -112,9 +112,9 @@ flow.add(Process("Process / Task"), xy=(50.0, 36.0))
 flow.add(Data("Data (I/O)"), xy=(82.0, 36.0))
 
 decision_style = Style(
-    fill_color=Colors140.LightYellow,
-    line_color=Colors140.DarkGoldenRod,
-    line_width=2.0,
+    shape_fill_color=Colors140.LightYellow,
+    shape_line_color=Colors140.DarkGoldenRod,
+    shape_line_width=2.0,
 )
 flow.add(Decision("Decision\nCondition", style=decision_style), xy=(50.0, 15.0))
 

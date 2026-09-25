@@ -409,6 +409,7 @@ canvas.initialize()
 
 # Classic PDCA cycle with center topic and matching arc arrows
 cycle = Cycle(
+    styles=styles,
     center_text=&quot;PDCA&quot;,
     center_description=&quot;Loop&quot;,
     center_radius=11.0,
@@ -433,6 +434,7 @@ canvas.initialize()
 
 # Continuous product lifecycle with rounded rectangle blocks
 cycle = Cycle(
+    styles=styles,
     node_shape=&quot;rectangle&quot;,
     node_size=(18.0, 9.0),
     arrow_width=2.0,
@@ -454,11 +456,13 @@ cycle.draw(xy=(50.0, 50.0), radius=34.0)
 <h2>1. Quick Start</h2>
 <p>Create a circular workflow diagram:</p>
 <pre><code class="language-python">from drawlib import canvas
+from drawlib.preset_styles import get_styles
 from drawlib.smartarts import Cycle
 
 canvas.initialize()
+styles = get_styles()
 
-cycle = Cycle()
+cycle = Cycle(styles=styles)
 cycle.append(&quot;Plan&quot;, description=&quot;Define goals&quot;)
 cycle.append(&quot;Do&quot;, description=&quot;Implement&quot;)
 cycle.append(&quot;Check&quot;, description=&quot;Review&quot;)
@@ -472,6 +476,7 @@ cycle.draw(xy=(50.0, 50.0), radius=32.0)
 <p>Initialize a Cycle SmartArt instance.</p>
 <p><strong>Args:</strong></p>
 <ul>
+<li><code>styles</code> (<code>BasePresetStyles</code>): Preset styles catalog (required).</li>
 <li><code>clockwise</code> (<code>bool</code>): Whether the cycle flows clockwise (<code>True</code>) or counter-clockwise (<code>False</code>). Defaults to <code>True</code>.</li>
 <li><code>start_angle</code> (<code>float</code>): Angle in degrees for the first node (<code>0</code> is right, <code>90</code> is top). Defaults to <code>90.0</code>.</li>
 <li><code>node_shape</code> (<code>Literal[&quot;circle&quot;, &quot;rectangle&quot;, &quot;none&quot;]</code>): Shape of step nodes. Defaults to <code>&quot;circle&quot;</code>.</li>
@@ -483,17 +488,17 @@ cycle.draw(xy=(50.0, 50.0), radius=32.0)
 <li><code>arrow_head_width</code> (<code>float</code>): Head width of block arrow. Defaults to <code>4.5</code>.</li>
 <li><code>arrow_color_mode</code> (<code>Literal[&quot;monochrome&quot;, &quot;match_source&quot;, &quot;match_target&quot;]</code>): Arrow color resolution. Defaults to <code>&quot;match_source&quot;</code>.</li>
 <li><code>arrow_gap</code> (<code>float</code>): Distance margin between arrow endpoints and step nodes. Defaults to <code>2.5</code>.</li>
-<li><code>default_style</code> (<code>str | Style | None</code>): Default style for step nodes. If <code>None</code>, palette colors are automatically applied.</li>
-<li><code>default_textstyle</code> (<code>str | Style | None</code>): Default style for primary title text.</li>
-<li><code>default_description_style</code> (<code>str | Style | None</code>): Default style for secondary description text.</li>
-<li><code>default_arrow_style</code> (<code>str | Style | None</code>): Default style for connecting arrows.</li>
+<li><code>default_style</code> (<code>Style | None</code>): Default style for step nodes. If <code>None</code>, palette colors are automatically applied.</li>
+<li><code>default_textstyle</code> (<code>Style | None</code>): Default style for primary title text.</li>
+<li><code>default_description_style</code> (<code>Style | None</code>): Default style for secondary description text.</li>
+<li><code>default_arrow_style</code> (<code>Style | None</code>): Default style for connecting arrows.</li>
 <li><code>palette</code> (<code>Sequence[tuple[int, int, int]] | None</code>): Optional sequence of colors to style consecutive steps.</li>
 <li><code>center_text</code> (<code>str</code>): Optional title text for the center node (creating a Radial Cycle).</li>
 <li><code>center_description</code> (<code>str</code>): Optional description text for the center node.</li>
 <li><code>center_radius</code> (<code>float</code>): Radius of the center circle. Defaults to <code>10.0</code>.</li>
-<li><code>center_style</code> (<code>str | Style | None</code>): Custom style for the center node circle.</li>
-<li><code>center_textstyle</code> (<code>str | Style | None</code>): Custom style for the center node title.</li>
-<li><code>center_description_style</code> (<code>str | Style | None</code>): Custom style for the center node description text.</li>
+<li><code>center_style</code> (<code>Style | None</code>): Custom style for the center node circle.</li>
+<li><code>center_textstyle</code> (<code>Style | None</code>): Custom style for the center node title.</li>
+<li><code>center_description_style</code> (<code>Style | None</code>): Custom style for the center node description text.</li>
 </ul>
 <h3>Methods</h3>
 <ul>

@@ -207,14 +207,15 @@ Entities and relationships fully integrate with Drawlib's `Style` class:
 
 ```drawlib show-code 650px center caption:"Custom Styled ER Diagram"
 from drawlib import canvas
-from drawlib._core.l3_styles import Colors, Style
+from drawlib.colors import Colors
 from drawlib.diagrams.er import ERDiagram, Entity
+from drawlib.types import Style
 
 canvas.config(width=90, height=48)
 
 erd = ERDiagram(
     title="Custom Styled Schema",
-    style=Style(fill_color=Colors.White),
+    style=Style(shape_fill_color=Colors.White),
 )
 
 # Custom header colors
@@ -222,7 +223,7 @@ departments = erd.add(
     Entity(
         name="departments",
         width=26.0,
-        header_style=Style(fill_color=Colors.Navy, text_color=Colors.White),
+        header_style=Style(shape_fill_color=Colors.Navy, text_color=Colors.White),
     ),
     xy=(20.0, 18.0),
 )
@@ -233,7 +234,7 @@ employees = erd.add(
     Entity(
         name="employees",
         width=26.0,
-        header_style=Style(fill_color=Colors.Teal, text_color=Colors.White),
+        header_style=Style(shape_fill_color=Colors.Teal, text_color=Colors.White),
     ),
     xy=(68.0, 18.0),
 )

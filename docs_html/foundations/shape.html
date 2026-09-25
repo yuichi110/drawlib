@@ -463,18 +463,17 @@ The start point and end point are automatically connected.</p>
 <p>This function accepts the following arguments:</p>
 <ul>
 <li>xys: List of tuples specifying the points of the polygon [(x1, y1), (x2, y2), ..., (xn, yn)]</li>
-<li>style (optional): Style of the polygon</li>
+<li>style: Style of the polygon (required)</li>
 <li>text (optional): Centered text</li>
 <li>textstyle (optional): Style of the centered text</li>
 </ul>
 <p>Let's explore an example:</p>
 <pre><code class="language-python">from drawlib.canvas import config, save
 from drawlib.shapes import polygon
-from drawlib.text import text
 
 config(width=100, height=50, grid_only=True)
-polygon(xys=[(25, 20), (30, 25), (25, 45), (20, 25)])
-polygon(xys=[(70, 25), (75, 20), (95, 25), (75, 30)], text=&quot;polygon()&quot;)
+polygon(xys=[(25, 20), (30, 25), (25, 45), (20, 25)], style=styles.primary)
+polygon(xys=[(70, 25), (75, 20), (95, 25), (75, 30)], text=&quot;polygon()&quot;, style=styles.primary)
 save()
 </code></pre>
 <p>Here is an example output:</p>

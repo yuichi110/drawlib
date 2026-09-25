@@ -9,8 +9,10 @@ Here's an example of using Bubblespeech in Drawlib:
 
 ```python
 from drawlib.canvas import config
+from drawlib.preset_styles import get_styles
 from drawlib.smartarts import bubblespeech
 
+styles = get_styles()
 config(width=95, height=52)
 bubblespeech(
     xy=(36, 11),
@@ -20,9 +22,9 @@ bubblespeech(
     tail_start_ratio=0.2,
     tail_vertex_xy=(16, 26),
     tail_end_ratio=0.6,
-    style="blue_flat",
+    style=styles.blue_flat,
     text="Hello Drawlib!",
-    textstyle="white",
+    textstyle=styles.white,
 )
 ```
 

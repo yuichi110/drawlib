@@ -12,8 +12,11 @@ Here is an example of code:
 from drawlib.canvas import config
 from drawlib.colors import Colors140
 from drawlib.fonts import FontSourceCode
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import circle
 from drawlib.smartarts import SourceCode
+
+styles = get_styles()
 
 CODE = """
 from drawlib.canvas import config
@@ -38,7 +41,7 @@ sc2 = SourceCode(
     linenum_textcolor=Colors140.Black,
     linenum_bgcolor=Colors140.LightGray,
 )
-sc2.draw((75, 25), width=40, code=CODE, style="red_solid")
+sc2.draw((75, 25), width=40, code=CODE, style=styles.red_solid)
 ```
 
 In the example above, the `SourceCode` instance is configured with options such as:
@@ -142,8 +145,8 @@ for style in [
 
     x = xs[ix]
     y = ys[iy]
-    sc.draw(xy=(x, y), width=25, code=CODE, style="solid")
-    text((x, y - 9), text=style)
+    sc.draw(xy=(x, y), width=25, code=CODE, style=styles.solid)
+    text((x, y - 9), text=style, style=styles.bold)
 
     if ix == len(xs) - 1:
         ix = 0

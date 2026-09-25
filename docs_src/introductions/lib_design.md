@@ -16,7 +16,7 @@ Drawlib is structured around the following APIs:
 - Fundamental classes and functions: These include essential canvas manipulation methods such as `save()` and `config()`.
 - Drawing functions: Examples include `circle()` and `line()`.
 - Style class: The unified `Style` class defines the visual appearance of elements (lines, shapes, text, icons, images).
-- Preset styles module (`drawlib.preset_styles`): Provides preset style configurations like `PresetStyles` and `get_style()`.
+- Preset styles module (`drawlib.preset_styles`): Provides preset style configurations like `PresetStyles` and `get_styles()`.
 - Advanced classes and functions: These components utilize the aforementioned APIs internally to provide extended functionality.
 
 
@@ -29,10 +29,9 @@ from drawlib.images import image
 from drawlib.lines import line, line_curved
 from drawlib.shapes import circle, rectangle, shape
 from drawlib.text import text
-from drawlib.types import Style
 
-textstyle_bold = Style(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
-shapetextstyle_bold = Style(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
+textstyle_bold = styles.primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
+shapetextstyle_bold = styles.primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
 config(width=100, height=60, grid=True)
 
 
@@ -42,19 +41,19 @@ def bottom():
         width=90,
         height=10,
         r=2,
-        style=Style(fill_color=Colors.Transparent),
+        style=styles.primary.patch(shape_fill_color=Colors.Transparent),
         text="Canvas and coordinate system, preset styles etc.",
         textstyle=shapetextstyle_bold,
     )
 
 
-def middle(x, width, name, functions, styles):
+def middle(x, width, name, functions, styles_list):
     rectangle(
         (x, 30),
         width=width,
         height=30,
         r=2,
-        style=Style(text_halign="left", fill_color=Colors.Transparent),
+        style=styles.primary.patch(shape_fill_color=Colors.Transparent),
     )
     tx = x + width / 2
     text((tx, 42), name, style=textstyle_bold)
@@ -63,16 +62,16 @@ def middle(x, width, name, functions, styles):
         text(
             (x + 1, 36 - i * 3),
             f"- {function}",
-            style=Style(text_halign="left", text_size=12),
+            style=styles.primary.patch(text_halign="left", text_size=12),
         )
 
-    line((x + 1, 26), (x + width - 1, 26), style=Style(line_style="dashed"))
+    line((x + 1, 26), (x + width - 1, 26), style=styles.primary.patch(line_style="dashed"))
 
-    for i, style in enumerate(styles):
+    for i, s in enumerate(styles_list):
         text(
             (x + 1, 22 - i * 3),
-            f"- {style}",
-            style=Style(text_halign="left", text_size=12),
+            f"- {s}",
+            style=styles.primary.patch(text_halign="left", text_size=12),
         )
 
 
@@ -82,7 +81,7 @@ def top():
         width=90,
         height=10,
         r=2,
-        style=Style(fill_color=Colors.Transparent),
+        style=styles.primary.patch(shape_fill_color=Colors.Transparent),
         text="Advanced topics, handle many files etc.",
         textstyle=shapetextstyle_bold,
     )
@@ -103,8 +102,8 @@ for i, t in enumerate([
     x = start + (width + space) * i
     name = t[0]
     functions = t[1]
-    styles = t[2]
-    middle(x, width, name, functions, styles)
+    styles_list = t[2]
+    middle(x, width, name, functions, styles_list)
 
 top()
 ```

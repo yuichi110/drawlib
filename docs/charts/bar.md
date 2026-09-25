@@ -119,8 +119,8 @@ You can customize ticks, intervals, unit labels, and number formatting via `conf
 
 ```python
 from drawlib import canvas
-from drawlib._core.l3_styles import Style
 from drawlib.charts import BarChart
+from drawlib.types import Style
 
 canvas.initialize()
 canvas.config(width=88, height=65)
@@ -136,7 +136,11 @@ chart = BarChart(
 chart.add_series(
     "Fulfillment",
     [65.0, 85.0, 110.0, 140.0],
-    style=Style(fill_color=(79, 70, 229, 0.9), line_color=(67, 56, 202, 1.0), line_width=1.0),
+    style=Style(
+        shape_fill_color=(79, 70, 229, 0.9),
+        shape_line_color=(67, 56, 202, 1.0),
+        shape_line_width=1.0,
+    ),
 )
 chart.configure_y_axis(
     ticks=[0.0, 50.0, 100.0, 150.0],

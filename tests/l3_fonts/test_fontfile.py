@@ -9,6 +9,7 @@
 
 from drawlib._utils import dutil_script
 from drawlib.canvas import clear, save
+from drawlib.colors import Colors
 from drawlib.fonts import (
     Font,
     FontArabic,
@@ -31,17 +32,18 @@ FONT_AVENGER = "../assets/avenger/regular.ttf"
 FONT_MPLUS1P = "../assets/mplus1p/regular.ttf"
 
 OUTPUT_DIR = "../../output_tests/l3_fonts/font_file/"
+BASE_STYLE = Style(text_color=Colors.Black, text_size=16)
 
 
 def test():
     text(
         (20, 30),
         "Hello World. あいうえお",
-        style=Style(text_font=FontFile(FONT_MPLUS1P)),
+        style=BASE_STYLE.patch(text_font=FontFile(FONT_MPLUS1P)),
     )
     text(
         (20, 70),
         "Hello World. あいうえお",
-        style=Style(text_font=FontFile(FONT_AVENGER)),
+        style=BASE_STYLE.patch(text_font=FontFile(FONT_AVENGER)),
     )
     save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")

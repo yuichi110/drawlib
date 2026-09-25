@@ -1,8 +1,9 @@
 from drawlib.canvas import config, save
 from drawlib.images import image
-from drawlib.types import Style
+from drawlib.preset_styles import get_styles
 
 config(width=100, height=50, grid=True)
+ps = get_styles()
 
 image(xy=(25, 25), width=20, image="python.png")
 image(
@@ -10,7 +11,8 @@ image(
     width=20,
     angle=45,
     image="python.png",
-    style=Style(line_width=1),
+    style=ps.primary.patch(image_border_width=1),
 )
 
 save()
+

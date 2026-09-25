@@ -11,11 +11,20 @@ from drawlib.types import Style
 
 config(width=100, height=40)
 
-circle(xy=(25, 20), radius=12, style=Style(fill_color=Colors140.Turquoise, line_color=Colors.Navy, line_width=2))
-text(xy=(25, 20), text="Circle", style=Style(text_color=Colors.White, text_size=16))
+circle(
+    xy=(25, 20),
+    radius=12,
+    style=styles.primary.patch(shape_fill_color=Colors140.Turquoise, shape_line_color=Colors.Navy, shape_line_width=2),
+)
+text(xy=(25, 20), text="Circle", style=styles.primary.patch(text_color=Colors.White, text_size=16))
 
-rectangle(xy=(75, 20), width=24, height=24, style=Style(fill_color=Colors140.Coral, line_color=Colors.Navy, line_width=2))
-text(xy=(75, 20), text="Rectangle", style=Style(text_color=Colors.White, text_size=16))
+rectangle(
+    xy=(75, 20),
+    width=24,
+    height=24,
+    style=styles.primary.patch(shape_fill_color=Colors140.Coral, shape_line_color=Colors.Navy, shape_line_width=2),
+)
+text(xy=(75, 20), text="Rectangle", style=styles.primary.patch(text_color=Colors.White, text_size=16))
 ```
 
 ---
@@ -46,47 +55,47 @@ from drawlib.types import Style
 config(width=140, height=65)
 
 # Styles
-s_src = "blue_flat"
-s_engine = "purple_flat"
-s_out = "green_flat"
+s_src = styles.blue_flat
+s_engine = styles.purple_flat
+s_out = styles.green_flat
 
-ts_title = Style(text_size=10.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White)
-ts_desc = Style(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.GhostWhite)
-ts_engine_title = Style(text_size=12, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White)
-ts_engine_desc = Style(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.LightSteelBlue)
+ts_title = styles.primary.patch(text_size=10.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White)
+ts_desc = styles.primary.patch(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.GhostWhite)
+ts_engine_title = styles.primary.patch(text_size=12, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White)
+ts_engine_desc = styles.primary.patch(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.LightSteelBlue)
 
 # Section Headers
-text((25, 60), "Source Authoring", style=Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.RoyalBlue))
-text((70, 60), "Drawlib Compiler", style=Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.DarkSlateBlue))
-text((116, 60), "Publication Targets", style=Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.ForestGreen))
+text((25, 60), "Source Authoring", style=styles.primary.patch(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.RoyalBlue))
+text((70, 60), "Drawlib Compiler", style=styles.primary.patch(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.DarkSlateBlue))
+text((116, 60), "Publication Targets", style=styles.primary.patch(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.ForestGreen))
 
 # 1. Source (Left)
 rectangle((25, 33), width=36, height=44, style=s_src, r=2.5)
 text((25, 51.5), "Documentation Source", style=ts_title)
-text((25, 46.5), "Human or AI writes Markdown (.md)", style=Style(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.PaleTurquoise))
+text((25, 46.5), "Human or AI writes Markdown (.md)", style=styles.primary.patch(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.PaleTurquoise))
 
 # Mini editor window inside Source box
-rectangle((25, 29), width=31, height=23, style=Style(fill_color=Colors140.DarkSlateGray, line_color=Colors140.SlateGray, line_width=1), r=1.5)
+rectangle((25, 29), width=31, height=23, style=styles.primary.patch(shape_fill_color=Colors140.DarkSlateGray, shape_line_color=Colors140.SlateGray, shape_line_width=1), r=1.5)
 # Window dots
-circle((13, 37.8), radius=0.7, style=Style(fill_color=Colors140.IndianRed, line_color=Colors.Transparent))
-circle((15.2, 37.8), radius=0.7, style=Style(fill_color=Colors140.SandyBrown, line_color=Colors.Transparent))
-circle((17.4, 37.8), radius=0.7, style=Style(fill_color=Colors140.MediumSeaGreen, line_color=Colors.Transparent))
-text((26, 37.8), "system_guide.md", style=Style(text_size=7, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.LightSteelBlue))
-line((10.5, 36.2), (39.5, 36.2), style=Style(line_color=Colors140.SlateGray, line_width=0.8))
+circle((13, 37.8), radius=0.7, style=styles.primary.patch(shape_fill_color=Colors140.IndianRed, shape_line_color=Colors.Transparent))
+circle((15.2, 37.8), radius=0.7, style=styles.primary.patch(shape_fill_color=Colors140.SandyBrown, shape_line_color=Colors.Transparent))
+circle((17.4, 37.8), radius=0.7, style=styles.primary.patch(shape_fill_color=Colors140.MediumSeaGreen, shape_line_color=Colors.Transparent))
+text((26, 37.8), "system_guide.md", style=styles.primary.patch(text_size=7, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.LightSteelBlue))
+line((10.5, 36.2), (39.5, 36.2), style=styles.bold.patch(line_color=Colors140.SlateGray, line_width=0.8))
 # Editor text
-text((12.5, 27.5), "# System Guide\nArchitecture overview...\n\n```drawlib\nrectangle(...)\n```", style=Style(text_size=6.8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors.White, text_halign="left"))
+text((12.5, 27.5), "# System Guide\nArchitecture overview...\n\n```drawlib\nrectangle(...)\n```", style=styles.primary.patch(text_size=6.8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors.White, text_halign="left"))
 
-text((25, 13.5), "Text + Embedded Illustration Code", style=Style(text_size=7.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.GhostWhite))
+text((25, 13.5), "Text + Embedded Illustration Code", style=styles.primary.patch(text_size=7.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.GhostWhite))
 
 # 2. Engine (Center)
 rectangle((70, 33), width=34, height=44, style=s_engine, r=2.5)
 text((70, 50), "drawlib build", style=ts_engine_title)
-text((70, 43.5), "All-in-One Compiler", style=Style(text_size=9.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.Wheat))
-text((57, 30), "• Parses Markdown AST\n• Executes Python blocks\n• Auto-generates images\n• Resolves internal links", style=Style(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.LightSteelBlue, text_halign="left"))
-text((70, 16), "No External Tools Needed\n(Zero Sphinx / MkDocs)", style=Style(text_size=8, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.Gold))
+text((70, 43.5), "All-in-One Compiler", style=styles.primary.patch(text_size=9.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.Wheat))
+text((57, 30), "• Parses Markdown AST\n• Executes Python blocks\n• Auto-generates images\n• Resolves internal links", style=styles.primary.patch(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.LightSteelBlue, text_halign="left"))
+text((70, 16), "No External Tools Needed\n(Zero Sphinx / MkDocs)", style=styles.primary.patch(text_size=8, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.Gold))
 
 # Arrow Left -> Center
-line((43, 33), (53, 33), arrowhead="->", style="bold")
+line((43, 33), (53, 33), arrowhead="->", style=styles.bold)
 
 # 3. Targets (Right)
 rectangle((116, 49), width=36, height=13, style=s_out, r=1.5)
@@ -102,9 +111,9 @@ text((116, 20), "Headless Vector PDF", style=ts_title)
 text((116, 14.5), "docs_pdf/ (Chromium vector print)", style=ts_desc)
 
 # Arrows Center -> Right targets
-line((87, 45), (98, 49), arrowhead="->", style="bold")
-line((87, 33), (98, 33), arrowhead="->", style="bold")
-line((87, 21), (98, 17), arrowhead="->", style="bold")
+line((87, 45), (98, 49), arrowhead="->", style=styles.bold)
+line((87, 33), (98, 33), arrowhead="->", style=styles.bold)
+line((87, 21), (98, 17), arrowhead="->", style=styles.bold)
 ```
 
 ---
@@ -131,17 +140,17 @@ from drawlib.types import Style
 config(width=140, height=65)
 
 # Styles
-s_repo = "blue_flat"
-s_agent = "purple_flat"
-s_doc = "green_flat"
+s_repo = styles.blue_flat
+s_agent = styles.purple_flat
+s_doc = styles.green_flat
 
-ts_title = Style(text_size=10.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White)
-ts_desc = Style(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.GhostWhite)
+ts_title = styles.primary.patch(text_size=10.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White)
+ts_desc = styles.primary.patch(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.GhostWhite)
 
 # Column Headers
-text((24, 60), "1. Repository Context", style=Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.RoyalBlue))
-text((69, 60), "2. Autonomous AI Agent", style=Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.DarkSlateBlue))
-text((116, 60), "3. Grounded Docs & Diagrams", style=Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.ForestGreen))
+text((24, 60), "1. Repository Context", style=styles.primary.patch(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.RoyalBlue))
+text((69, 60), "2. Autonomous AI Agent", style=styles.primary.patch(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.DarkSlateBlue))
+text((116, 60), "3. Grounded Docs & Diagrams", style=styles.primary.patch(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.ForestGreen))
 
 # 1. Left: Repository Context items
 rectangle((24, 48), width=34, height=13, style=s_repo, r=1.5)
@@ -157,47 +166,47 @@ text((24, 20.5), "Infra & Config", style=ts_title)
 text((24, 15.5), "docker-compose, k8s, env", style=ts_desc)
 
 # Arrows from Repo to Agent
-line((41, 48), (53, 39), arrowhead="->", style="bold")
-line((41, 33), (53, 33), arrowhead="->", style="bold")
-line((41, 18), (53, 27), arrowhead="->", style="bold")
+line((41, 48), (53, 39), arrowhead="->", style=styles.bold)
+line((41, 33), (53, 33), arrowhead="->", style=styles.bold)
+line((41, 18), (53, 27), arrowhead="->", style=styles.bold)
 
 # 2. Center: AI Agent
 rectangle((69, 33), width=32, height=44, style=s_agent, r=2.5)
-circle((69, 45), radius=4.5, style=Style(fill_color=Colors.White, line_color=Colors.Transparent))
-text((69, 45), "AI", style=Style(text_size=10, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.DarkSlateBlue))
-text((69, 37), "Coding Agent", style=Style(text_size=11.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White))
-text((69, 31.5), "Claude Code / Cursor / Copilot", style=Style(text_size=7.5, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.LightSteelBlue))
-text((55, 21), "• Explores codebase & schemas\n• Synthesizes Drawlib code\n• Validates image output (-g)\n• Refines layout autonomously", style=Style(text_size=7.2, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.GhostWhite, text_halign="left"))
+circle((69, 45), radius=4.5, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors.Transparent))
+text((69, 45), "AI", style=styles.primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.DarkSlateBlue))
+text((69, 37), "Coding Agent", style=styles.primary.patch(text_size=11.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White))
+text((69, 31.5), "Claude Code / Cursor / Copilot", style=styles.primary.patch(text_size=7.5, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.LightSteelBlue))
+text((55, 21), "• Explores codebase & schemas\n• Synthesizes Drawlib code\n• Validates image output (-g)\n• Refines layout autonomously", style=styles.primary.patch(text_size=7.2, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.GhostWhite, text_halign="left"))
 
 # Arrow Agent to Output
-line((85, 33), (98, 33), arrowhead="->", style="bold")
+line((85, 33), (98, 33), arrowhead="->", style=styles.bold)
 
 # 3. Right: Delivered Docs & Diagrams
 rectangle((116, 33), width=36, height=44, style=s_doc, r=2.5)
 text((116, 51.5), "Grounded Documentation", style=ts_title)
-text((116, 46.5), "100% In-Sync with Real Code", style=Style(text_size=8, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.PaleTurquoise))
+text((116, 46.5), "100% In-Sync with Real Code", style=styles.primary.patch(text_size=8, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.PaleTurquoise))
 
 # Mini visual card inside doc box
-rectangle((116, 29), width=31, height=23, style=Style(fill_color=Colors.White, line_color=Colors140.SeaGreen, line_width=1), r=1.5)
-text((116, 37.5), "System Architecture & Specs", style=Style(text_size=8, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.SeaGreen))
+rectangle((116, 29), width=31, height=23, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=Colors140.SeaGreen, shape_line_width=1), r=1.5)
+text((116, 37.5), "System Architecture & Specs", style=styles.primary.patch(text_size=8, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.SeaGreen))
 
 # 3 Mini mockup nodes inside card: App -> API -> DB
-rectangle((105, 29), width=7.5, height=6.5, style="blue_flat", r=1)
-text((105, 29), "App", style=Style(text_size=6, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White))
+rectangle((105, 29), width=7.5, height=6.5, style=styles.blue_flat, r=1)
+text((105, 29), "App", style=styles.primary.patch(text_size=6, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White))
 
-line((108.75, 29), (112.25, 29), arrowhead="->", style=Style(line_width=1.2, line_color=Colors140.SlateGray))
+line((108.75, 29), (112.25, 29), arrowhead="->", style=styles.bold.patch(line_width=1.2, line_color=Colors140.SlateGray))
 
-rectangle((116, 29), width=7.5, height=6.5, style="purple_flat", r=1)
-text((116, 29), "API", style=Style(text_size=6, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White))
+rectangle((116, 29), width=7.5, height=6.5, style=styles.purple_flat, r=1)
+text((116, 29), "API", style=styles.primary.patch(text_size=6, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White))
 
-line((119.75, 29), (123.25, 29), arrowhead="->", style=Style(line_width=1.2, line_color=Colors140.SlateGray))
+line((119.75, 29), (123.25, 29), arrowhead="->", style=styles.bold.patch(line_width=1.2, line_color=Colors140.SlateGray))
 
-rectangle((127, 29), width=7.5, height=6.5, style="green_flat", r=1)
-text((127, 29), "DB", style=Style(text_size=6, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White))
+rectangle((127, 29), width=7.5, height=6.5, style=styles.green_flat, r=1)
+text((127, 29), "DB", style=styles.primary.patch(text_size=6, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White))
 
-text((116, 20.5), "ER Diagrams • Sequences • APIs", style=Style(text_size=7, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.DimGray))
+text((116, 20.5), "ER Diagrams • Sequences • APIs", style=styles.primary.patch(text_size=7, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.DimGray))
 
-text((116, 13.5), "Updated in Same Pull Request", style=Style(text_size=7.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.GhostWhite))
+text((116, 13.5), "Updated in Same Pull Request", style=styles.primary.patch(text_size=7.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.GhostWhite))
 ```
 
 ---

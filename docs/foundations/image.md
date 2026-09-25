@@ -62,13 +62,14 @@ Images can be styled using the `Style` class, which includes:
 
 * `text_halign`: Horizontal Align
 * `text_valign`: Vertical Align
-* `line_width`: Border line width
-* `line_color`: Border line color
-* `line_style`: Border line style
-* `fill_color`: Fill color for transparent part
+* `image_border_width`: Border line width
+* `image_border_color`: Border line color
+* `image_border_style`: Border line style
+* `image_tint_color`: Tint color for monochrome masks
+* `image_alpha`: Opacity (0.0 to 1.0)
 
-Let's check image styling with example.
-Here is a code which specify stylings.
+Let's check image styling with an example.
+Here is code that specifies styles:
 
 
 ```python
@@ -77,7 +78,6 @@ from drawlib.colors import Colors
 from drawlib.images import image
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.types import Style
 
 config(width=100, height=50, grid_only=True)
 
@@ -85,21 +85,26 @@ image(
     xy=(10, 25),
     width=10,
     image="../_assets/python.png",
-    style=Style(text_halign="left", text_valign="bottom"),
+    style=styles.primary.patch(text_halign="left", text_valign="bottom"),
 )
-circle((10, 25), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
-text((15, 20), "align: left,bottom")
+circle((10, 25), radius=0.5, style=styles.primary.patch(shape_fill_color=Colors.Red, shape_line_color=Colors.Red))
+text((15, 20), "align: left,bottom", style=styles.primary)
 
 image(
     xy=(40, 25),
     width=20,
     image="../_assets/python.png",
-    style=Style(line_width=2, line_style="dashed", line_color=Colors.Red, fill_color=Colors.Gray),
+    style=styles.primary.patch(
+        image_border_width=2,
+        image_border_style="dashed",
+        image_border_color=Colors.Red,
+        image_tint_color=Colors.Gray,
+    ),
 )
-text((40, 10), "border: red,dot,width2")
+text((40, 10), "border: red,dot,width2", style=styles.primary)
 
-image(xy=(75, 25), width=30, image="../_assets/python.png", angle=45, style="green_solid")
-text((85, 5), "angle: 45")
+image(xy=(75, 25), width=30, image="../_assets/python.png", angle=45, style=styles.green_solid)
+text((85, 5), "angle: 45", style=styles.primary)
 
 save()
 ```
@@ -111,7 +116,7 @@ Changing image border line and add color for transparent part at 2nd example.
 Default is no border, no fill.
 
 The 3rd example changes angle of image.
-With specifying preset style `"green_solid"`.
+With specifying preset style `styles.green_solid`.
 
 Executing code generates this output.
 
