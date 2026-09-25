@@ -49,8 +49,6 @@ text(
     size: float | None = None,
     angle: float = 0,
     style: Style | str | None = None,
-    halign: str = "center",
-    valign: str = "center",
 )
 ```
 
@@ -60,8 +58,7 @@ text(
 - **`size` (float | None)**: Font size in typographical points (default: 16). Can also be controlled via `style`.
 - **`angle` (float)**: Counter-clockwise rotation angle in degrees around the anchor point `xy` (default: 0).
 - **`style` (Style | str | None)**: Predefined style name (e.g. `"bold"`, `"blue_bold"`, `"white"`) or a custom `Style` instance.
-- **`halign` (str)**: Horizontal alignment relative to `xy`. Options: `"left"`, `"center"`, `"right"`. Default is `"center"`.
-- **`valign` (str)**: Vertical alignment relative to `xy`. Options: `"bottom"`, `"center"`, `"top"`. Default is `"center"`.
+  Alignment is controlled via `Style(text_halign="...", text_valign="...")` (`text_halign`: `"left"`, `"center"`, `"right"`; `text_valign`: `"bottom"`, `"center"`, `"top"`).
 
 ### 2.2. `text_vertical()` Specification
 While uncommon in Western languages, vertical text layout is standard in East Asian typography (Japanese, Chinese). `text_vertical()` stacks glyphs vertically from top to bottom.
@@ -107,11 +104,13 @@ halign  │     (x, y) anchor point      │  halign
 | `"center"` | `"top"` | Text hangs downward from `y`; centered horizontally. | Captions placed directly underneath shapes or icons. |
 
 ### 3.2. Alignment Code Example
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
+from drawlib.fonts import Font
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.types import Style
 
 config(width=100, height=60)
 
@@ -120,10 +119,12 @@ anchor = (50, 30)
 circle(anchor, radius=0.8, style="red_flat")
 
 # Text aligned left-bottom from the anchor
-text(anchor, "Left-Bottom", halign="left", valign="bottom", style="blue_bold")
+style_lb = Style(text_halign="left", text_valign="bottom", text_color=Colors.Blue, text_font=Font.SANSSERIF_BOLD)
+text(anchor, "Left-Bottom", style=style_lb)
 
 # Text aligned right-top from the anchor
-text(anchor, "Right-Top", halign="right", valign="top", style="green_bold")
+style_rt = Style(text_halign="right", text_valign="top", text_color=Colors.Green, text_font=Font.SANSSERIF_BOLD)
+text(anchor, "Right-Top", style=style_rt)
 
 save()
 ```
@@ -148,7 +149,7 @@ Text styles follow the convention:
 ### 4.2. Common Built-in Style Strings
 | Style Name | Description | Typical Use |
 | :--- | :--- | :--- |
-| `"regular"` | Default text color, regular font weight | General body text, descriptions |
+| `"primary"` | Default text color, regular font weight | General body text, descriptions |
 | `"bold"` | Default text color, bold font weight | Headings, emphasized terms |
 | `"light"` | Default text color, light font weight | Subtitles, secondary captions |
 | `"white"` | White text, regular weight | Inverted dark backgrounds |
@@ -160,12 +161,12 @@ Text styles follow the convention:
 | `"purple"`, `"purple_bold"` | Purple palette variations | Middleware, specialized engines |
 | `"gray"`, `"gray_bold"`, `"gray_light"` | Muted gray variations | Disabled elements, metadata, timestamps |
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.text import text
 
 config(width=100, height=40)
-text((20, 30), "Standard Regular", style="regular")
+text((20, 30), "Standard Regular", style="primary")
 text((20, 20), "Primary Bold", style="bold")
 text((20, 10), "Muted Gray", style="gray_light")
 
@@ -196,7 +197,7 @@ Drawlib can automatically render a padded background rectangle behind the text b
 - **`text_bg_line_width` (float)**: Border stroke width (set to `0` for borderless background).
 - **`text_bg_line_style` (str)**: Border line pattern (`"solid"`, `"dashed"`, `"dotted"`, `"dashdot"`).
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontSerif
@@ -214,7 +215,7 @@ badge_style = Style(
     text_valign="center",
     text_bg_fill_color=Colors.Navy,
     text_bg_fill_alpha=0.9,
-    text_bg_line_color=Colors.LightBlue,
+    text_bg_line_color=Colors140.LightBlue,
     text_bg_line_width=1.5,
     text_bg_line_style="solid",
 )
@@ -281,12 +282,12 @@ text((50, 25), "Corporate Brand Typography", style=custom_style)
 
 ### 7.1. Behavior & Line Spacing
 - Line spacing is automatically calculated relative to `size` (or `text_size`).
-- The entire multi-line block conforms to the specified `halign` and `valign`.
-  - With `halign="center"`, each line is individually centered.
-  - With `halign="left"`, all lines align flush to the left boundary.
-  - With `halign="right"`, all lines align flush to the right boundary.
+- The entire multi-line block conforms to the specified `text_halign` and `text_valign`.
+  - With `text_halign="center"` (default), each line is individually centered.
+  - With `text_halign="left"`, all lines align flush to the left boundary.
+  - With `text_halign="right"`, all lines align flush to the right boundary.
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.text import text
 
@@ -299,7 +300,7 @@ summary = (
     "Region: us-central1"
 )
 
-text((50, 30), summary, size=12, halign="center", style="bold")
+text((50, 30), summary, size=12, style="bold")
 save()
 ```
 
@@ -309,17 +310,17 @@ save()
 
 The `angle` parameter rotates text counter-clockwise around the specified anchor coordinate `xy`.
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.text import text
 
 config(width=100, height=60)
 
 # Vertical axis label (-90 degrees or 90 degrees)
-text((10, 30), "Request Throughput (req/sec)", size=12, angle=90, halign="center", style="bold")
+text((10, 30), "Request Throughput (req/sec)", size=12, angle=90, style="bold")
 
 # Diagonal watermark / status label (45 degrees)
-text((50, 30), "INTERNAL DRAFT ONLY", size=22, angle=45, halign="center", style="gray_light")
+text((50, 30), "INTERNAL DRAFT ONLY", size=22, angle=45, style="gray_light")
 
 save()
 ```
@@ -331,8 +332,11 @@ save()
 In Drawlib, you rarely need to call `text()` manually to place labels inside boxes or circles.  
 All shape functions (`rectangle`, `circle`, `donuts`, `chevron`, `polygon`, etc.) accept direct text attributes:
 
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
 from drawlib.shapes import circle, rectangle
+
+config(width=110, height=50)
 
 # Text centered automatically inside shapes
 rectangle(
@@ -351,6 +355,8 @@ circle(
     text="Worker Node\n(Active)",
     textstyle="white_bold",
 )
+
+save()
 ```
 
 ### Shape Text Parameters:

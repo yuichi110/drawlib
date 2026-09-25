@@ -179,31 +179,31 @@ from drawlib.diagrams.architecture import CustomIcon, GcpIcon, PhosphorIcon
 ### 3.3 Production Examples
 
 #### Example 3.3.1: Multi-Tier Cloud VPC Network
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 
 canvas.initialize()
-canvas.config(width=110, height=85)
+canvas.config(width=115, height=95)
 
 d = ArchitectureDiagram(title="Production Multi-Tier Cloud VPC")
 
 # Outer VPC Network boundary
-vpc = d.add(NodeGroup(title="VPC Network (10.0.0.0/16)", padding=7.0), xy=(10.0, 10.0))
+vpc = d.add(NodeGroup(title="VPC Network (10.0.0.0/16)", padding=7.0), xy=(10.0, 8.0))
 
 # Public Subnet with Load Balancer
 public_subnet = vpc.add(NodeGroup(title="Public Subnet (10.0.1.0/24)", padding=5.0), xy=(5.0, 5.0))
-lb = public_subnet.add(Node("Cloud Load Balancer", icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=8.0), xy=(15.0, 40.0))
+lb = public_subnet.add(Node("Cloud Load Balancer", icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=8.0), xy=(15.0, 35.0))
 
 # Private Subnet with Application Pods
 private_subnet = vpc.add(NodeGroup(title="Private Subnet (10.0.2.0/24)", padding=5.0), xy=(38.0, 5.0))
-gke1 = private_subnet.add(Node("API Pod 1", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), xy=(15.0, 55.0))
-gke2 = private_subnet.add(Node("API Pod 2", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), xy=(15.0, 25.0))
+gke1 = private_subnet.add(Node("API Pod 1", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), xy=(15.0, 48.0))
+gke2 = private_subnet.add(Node("API Pod 2", icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=8.0), xy=(15.0, 20.0))
 
 # External Actor and Managed Services
-user = d.add(Node("Client User", icon=PhosphorIcon.USER, icon_size=8.0), xy=(5.0, 50.0))
-db = d.add(Node("Cloud SQL\n(PostgreSQL)", icon=GcpIcon.CLOUD_SQL, icon_size=8.0), xy=(85.0, 50.0))
-storage = d.add(Node("Cloud Storage\n(Assets)", icon=GcpIcon.CLOUD_STORAGE, icon_size=8.0), xy=(85.0, 20.0))
+user = d.add(Node("Client User", icon=PhosphorIcon.USER, icon_size=8.0), xy=(5.0, 42.0))
+db = d.add(Node("Cloud SQL\n(PostgreSQL)", icon=GcpIcon.CLOUD_SQL, icon_size=8.0), xy=(85.0, 45.0))
+storage = d.add(Node("Cloud Storage\n(Assets)", icon=GcpIcon.CLOUD_STORAGE, icon_size=8.0), xy=(85.0, 18.0))
 
 # Connections
 d.connect(user, lb, label="HTTPS (443)", padding=2.0)
@@ -216,7 +216,7 @@ d.draw(xy=(5.0, 5.0))
 ```
 
 #### Example 3.3.2: Event-Driven Kafka Streaming Mesh
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
 
@@ -291,7 +291,7 @@ In `FlowDiagram`, swimlanes provide a structured visual background and column/ro
 ### 4.5 Production Examples
 
 #### Example 4.5.1: Cross-Functional Expense Approval Flow
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.flow import Data, Decision, End, FlowDiagram, Process, Start
 
@@ -332,30 +332,30 @@ flow.draw(xy=(5.0, 5.0))
 ```
 
 #### Example 4.5.2: Horizontal Warehouse Order Processing
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
 
 canvas.initialize()
-canvas.config(width=105, height=75)
+canvas.config(width=130, height=80)
 
-flow = FlowDiagram(title="Fulfillment Logistics Pipeline", lane_orientation="horizontal", width=95.0, height=65.0)
+flow = FlowDiagram(title="Fulfillment Logistics Pipeline", lane_orientation="horizontal", width=115.0, height=65.0)
 
-flow.add_lane("Sales Platform", height=32.5)
-flow.add_lane("Distribution Center", height=32.5)
+flow.add_lane("Sales Platform", height=32.5, header_size=22.0)
+flow.add_lane("Distribution Center", height=32.5, header_size=22.0)
 
-order = flow.add(Start("New Purchase"), xy=(18.0, 48.0))
-validate = flow.add(Decision("In Stock?"), xy=(45.0, 48.0))
-cancel = flow.add(End("Cancel & Refund"), xy=(75.0, 48.0))
-pack = flow.add(Process("Pick & Pack"), xy=(45.0, 16.0))
-dispatch = flow.add(End("Ship Carrier"), xy=(75.0, 16.0))
+order = flow.add(Start("New Purchase"), xy=(36.0, 48.0))
+validate = flow.add(Decision("In Stock?"), xy=(62.0, 48.0))
+cancel = flow.add(End("Cancel & Refund"), xy=(92.0, 48.0))
+pack = flow.add(Process("Pick & Pack"), xy=(62.0, 16.0))
+dispatch = flow.add(End("Ship Carrier"), xy=(92.0, 16.0))
 
 order.connect(validate)
 validate.connect(cancel, label="No", start_side="right", end_side="left")
 validate.connect(pack, label="Yes", start_side="bottom", end_side="top")
 pack.connect(dispatch)
 
-flow.draw(xy=(5.0, 5.0))
+flow.draw(xy=(8.0, 5.0))
 ```
 
 ---
@@ -410,13 +410,13 @@ Indented Python `with` statements naturally structure condition frames in the di
 ### 5.3 Production Examples
 
 #### Example 5.3.1: Microservices Order Processing Pipeline
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib._core.l3_styles import Colors, Style
 from drawlib.diagrams.sequence import GcpIcon, Participant, ParticipantGroup, PhosphorIcon, SequenceDiagram
 
 canvas.initialize()
-canvas.config(width=115, height=110)
+canvas.config(width=115, height=135)
 
 d = SequenceDiagram(title="Microservices Distributed Transaction Pipeline", autonumber=True)
 
@@ -462,12 +462,12 @@ d.draw(xy=(5.0, 5.0))
 ```
 
 #### Example 5.3.2: Bidirectional WebSocket Protocol Stream
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
 
 canvas.initialize()
-canvas.config(width=95, height=75)
+canvas.config(width=65, height=80)
 
 d = SequenceDiagram(title="WebSocket Real-Time Live Sync")
 
@@ -579,7 +579,7 @@ sd.draw(xy=(0.0, 0.0))
 ```
 
 #### Example 6.4.2: Concurrent Task Synchronization with Fork and Join
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.state_diagram import FinalState, ForkJoinState, InitialState, State, StateDiagram
 
@@ -653,7 +653,7 @@ All relationship methods support `start_multiplicity` (`"1"`, `"0..1"`), `end_mu
 ### 7.4 Production Examples
 
 #### Example 7.4.1: E-Commerce Domain Model
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 
@@ -697,7 +697,7 @@ cd.draw(xy=(0.0, 0.0))
 ```
 
 #### Example 7.4.2: Observer Design Pattern Implementation
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 
@@ -792,7 +792,7 @@ users.connect(
 ### 8.5 Production Examples
 
 #### Example 8.5.1: Core E-Commerce Relational Schema
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity
 
@@ -842,7 +842,7 @@ erd.draw(xy=(0.0, 0.0))
 ```
 
 #### Example 8.5.2: Multi-Tenant RBAC Security Schema
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity
 

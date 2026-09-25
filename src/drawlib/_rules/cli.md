@@ -162,7 +162,7 @@ drawlib build markdown <INPUT> [OPTIONS]
 To safeguard author source files, `drawlib build markdown` strictly refuses to overwrite source Markdown files in-place (`src_abs == dest_abs`). When compiling a directory, you must specify a separate destination directory (e.g. `-o docs/`). For single files without `-o`, the compiler appends `.rendered.md` by default.
 
 #### Code Visibility in Rendered Markdown:
-- `hide-code` *(default)*: Embedded code block is replaced strictly by the relative image reference: `![alt](images/1.png)`.
+- `hide-code` *(default)*: Embedded code block is replaced strictly by the relative image reference: `![alt](https://example.com/1.png)`.
 - `show-code`: Embedded code block becomes a syntax-highlighted ````python```` block followed by the image reference.
 - `fold-code`: The image reference is displayed first, followed by a collapsed `<details><summary>Source Code</summary>...</details>` block containing the Python source.
 
@@ -744,8 +744,14 @@ AI pair-programming assistants and developers can query these rules at any time 
 ### Subcommands:
 ```text
 drawlib rules
-├── list           List all available rule topics and their descriptions
-└── show [TOPIC]   Display rules, guidelines, and examples for a topic (default: overview)
+├── list                    List all available rule topics and cache status
+├── show [TOPIC]            Display rules and examples (on-demand illustration build)
+│   ├── --rebuild, -r       Force regenerate illustrations even if cached
+│   └── --raw               Display raw Markdown without building or checking cache
+├── build [TOPIC]           Pre-build illustrations into _assets/rules/
+│   ├── --all, -a           Compile illustrations for all topics
+│   └── --force, -f         Force recompile even if up-to-date
+└── clean                   Delete all cached rule documents and generated images
 ```
 
 ---
@@ -768,13 +774,22 @@ drawlib rules
 
 ---
 
-### 9.2 Usage Examples:
+### 9.2 On-Demand Multimodal Illustration Pairing:
+When an AI agent or developer runs `drawlib rules show <topic>`, Drawlib automatically checks if the rendered document and its companion illustration images are cached under `drawlib/_assets/rules/`.
+- **First Call**: If not cached or if source rules were modified, Drawlib compiles code blocks on demand, generates companion PNG illustrations, and injects an agent instruction banner with local image paths.
+- **Subsequent Calls**: Instant retrieval directly from local cache.
+- **Multimodal Grounding**: AI coding assistants can view the companion images using their file viewing tools (`view_file`, etc.) to visually verify geometric layouts, alignments, and aesthetics alongside the Python source code.
+- **PyPI Safety**: All cached rule assets reside inside `_assets/rules/` which is ignored by Git and automatically purged before package publishing, keeping wheel distributions minimal.
+
+### 9.3 Usage Examples:
 ```bash
-drawlib rules list             # List all available rule topics
-drawlib rules show overview    # Display canvas overview and core rules
-drawlib rules show docs_build  # Display documentation build conventions
-drawlib rules show shapes      # Display shapes drawing API rules
-drawlib rules show diagrams    # Display diagram rules (flowchart, sequence, architecture)
+drawlib rules list                        # List all topics and cache status
+drawlib rules show overview               # Display canvas overview and core rules
+drawlib rules show shapes                 # Display shapes API rules (builds on-demand)
+drawlib rules show shapes --rebuild       # Force regenerate illustrations for shapes
+drawlib rules show shapes --raw           # Output raw Markdown source without cache
+drawlib rules build --all                 # Pre-build illustrations for all topics
+drawlib rules clean                       # Delete all cached illustrations and docs
 ```
 
 ---

@@ -311,11 +311,16 @@ def _compute_diagram_size(diagram: SequenceDiagram) -> tuple[float, float]:
     total_w = max_x + last_half_w + right_extra + pad_right
 
     max_header_h = max((p.get_header_size()[1] for p in diagram.participants), default=12.0)
+    group_top_extra = max((g.padding + (5.0 if g.title else 0.0) for g in diagram.groups), default=0.0)
+    group_bottom_extra = max((g.padding for g in diagram.groups), default=0.0)
+    title_extra = 6.0 if diagram.title else 0.0
     timeline_h, _, _, _ = _compute_timeline_y(diagram)
-    total_h = pad_top + max_header_h + timeline_h + 8.0 + pad_bottom
+    total_h = (
+        pad_top + title_extra + group_top_extra + max_header_h + group_bottom_extra + timeline_h + 8.0 + pad_bottom
+    )
 
-    dw = diagram.width if diagram.width is not None else max(total_w, 100.0)
-    dh = diagram.height if diagram.height is not None else max(total_h, 80.0)
+    dw = diagram.width if diagram.width is not None else total_w
+    dh = diagram.height if diagram.height is not None else total_h
     return dw, dh
 
 
@@ -687,10 +692,13 @@ def draw_sequence_diagram(diagram: SequenceDiagram, xy: tuple[float, float] = (0
     timeline_h, event_y_map, block_bounds_y, resolved_acts = _compute_timeline_y(diagram)
 
     max_header_h = max((p.get_header_size()[1] for p in diagram.participants), default=12.0)
-    header_cy = dh - pad_top - max_header_h / 2.0
+    group_top_extra = max((g.padding + (5.0 if g.title else 0.0) for g in diagram.groups), default=0.0)
+    group_bottom_extra = max((g.padding for g in diagram.groups), default=0.0)
+    title_extra = 6.0 if diagram.title else 0.0
+    header_cy = dh - pad_top - title_extra - group_top_extra - max_header_h / 2.0
     y_header_bottom = header_cy - max_header_h / 2.0
-    y_origin_top = y_header_bottom
-    y_lifeline_bottom = pad_bottom + 2.0
+    y_origin_top = y_header_bottom - group_bottom_extra - 2.0
+    y_lifeline_bottom = max(pad_bottom + 2.0, y_origin_top - timeline_h - 4.0)
 
     # Layer 0: Diagram Background
     if diagram.style:
@@ -734,4 +742,4 @@ def draw_sequence_diagram(diagram: SequenceDiagram, xy: tuple[float, float] = (0
         )
         if diagram.title_style:
             title_style = title_style.merge(diagram.title_style)
-        canvas_text(xy=(bx + pad_left, by + dh - pad_top + 2.0), text=diagram.title, style=title_style)
+        canvas_text(xy=(bx + pad_left, by + dh - pad_top - title_extra + 1.0), text=diagram.title, style=title_style)

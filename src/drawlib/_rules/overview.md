@@ -25,13 +25,13 @@ Drawlib treats illustrations as software artifacts governed by the same rigorous
 ### 1.2. Programmatic Layout Patterns
 Unlike GUI tools where every coordinate is dragged by hand, Drawlib code leverages arithmetic and loops to compute perfect alignments:
 
-```python
+```drawlib show-code
 # Pattern A: Horizontal linear distribution with computed gaps
 from drawlib.canvas import config, save
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 
-config(width=120, height=40)
+config(width=140, height=40)
 services = ["Auth API", "Core API", "Billing API", "Notify API"]
 box_w, box_h = 20, 14
 start_x, y, gap = 15, 20, 10
@@ -47,7 +47,7 @@ for i, name in enumerate(services):
 save()
 ```
 
-```python
+```drawlib show-code
 # Pattern B: Radial / Circular distribution using trigonometry
 import math
 from drawlib.canvas import config, save
@@ -68,7 +68,13 @@ for i, label in enumerate(nodes):
     x = center_x + radius * math.cos(angle)
     y = center_y + radius * math.sin(angle)
     circle((x, y), radius=8, style="green_flat", text=label, textstyle="white_bold")
-    line((center_x, center_y), (x, y), arrowhead="->", style="bold")
+
+    # Connect hub edge to satellite edge without cutting through nodes
+    lx1 = center_x + 13 * math.cos(angle)
+    ly1 = center_y + 13 * math.sin(angle)
+    lx2 = center_x + 21 * math.cos(angle)
+    ly2 = center_y + 21 * math.sin(angle)
+    line((lx1, ly1), (lx2, ly2), arrowhead="->", style="bold")
 
 save()
 ```
@@ -231,8 +237,8 @@ In Markdown source files under `docs_src/`, embed illustrations using the ````dr
 ````markdown
 ```drawlib 600px center show-code caption:"System Architecture Overview"
 config(width=120, height=50)
-rectangle((25, 25), width=30, height=20, style="blue_flat", text="Client")
-rectangle((95, 25), width=30, height=20, style="green_flat", text="Service")
+rectangle((25, 25), width=30, height=20, style="blue_flat", text="Client", textstyle="white_bold")
+rectangle((95, 25), width=30, height=20, style="green_flat", text="Service", textstyle="white_bold")
 line((40, 25), (80, 25), arrowhead="->", style="bold")
 ```
 ````
@@ -269,13 +275,17 @@ drawlib serve docs_html/ --check
 When writing or debugging Drawlib code, you can inspect detailed rules, full API signatures, and complete code examples on demand for any domain.
 
 Execute `drawlib rules show <topic>` in your terminal or review the summarized rules below.
+When called, Drawlib automatically compiles illustrations on demand, caches companion PNG images in `drawlib/_assets/rules/`, and provides relative image links that AI coding agents can directly inspect with their image viewing tools (`view_file`) for multimodal spatial verification.
 
 ```bash
-# List all available topics:
+# List all available topics and cache status:
 drawlib rules list
 
-# Show rules for a specific topic:
+# Show rules for a specific topic (builds illustrations on demand):
 drawlib rules show <topic>
+
+# Force recompile illustrations:
+drawlib rules show <topic> --rebuild
 ```
 
 ---

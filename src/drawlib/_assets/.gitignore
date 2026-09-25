@@ -1,0 +1,4 @@
+# Ignore all downloaded fonts, icons, and generated rules images/docs
+*
+!.gitignore
+!__init__.py

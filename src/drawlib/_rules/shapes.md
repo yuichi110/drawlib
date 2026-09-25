@@ -286,7 +286,10 @@ def circle(
 - `angle` does not alter the appearance of a symmetric circle, but rotates embedded text around the center point.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+
+config(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import circle
 from drawlib.types import Style
@@ -303,6 +306,8 @@ circle(
     text="Zone B",
     textstyle=Style(text_color=Colors140.Navy, text_size=12),
 )
+save()
+
 ```
 
 ---
@@ -344,7 +349,11 @@ def donuts(
 - Center text is positioned in the hollow central core.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+
+config(width=100, height=50)
+from drawlib.colors import Colors140
 from drawlib.shapes import donuts
 from drawlib.types import Style
 
@@ -356,10 +365,12 @@ donuts(
     (70, 22),
     radius=17,
     width=6,
-    style=Style(fill_color="purple", line_color="indigo", line_width=2),
+    style=Style(fill_color=Colors140.Purple, line_color=Colors140.Indigo, line_width=2),
     text="78%",
-    textstyle=Style(text_size=14, text_color="white"),
+    textstyle=Style(text_size=14, text_color=Colors140.White),
 )
+save()
+
 ```
 
 ---
@@ -401,7 +412,10 @@ def ellipse(
 - Widely used for database entities (ER diagrams), start/end states in flowcharts, and distributed cache clusters.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+
+config(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import ellipse
 from drawlib.types import Style
@@ -414,11 +428,13 @@ ellipse(
     (70, 22),
     width=38,
     height=18,
-    angle=-25,
+    angle=335,
     style=Style(fill_color=Colors140.AliceBlue, line_color=Colors140.SteelBlue, line_style="dashed", line_width=2),
     text="In-Flight Job",
     textstyle=Style(text_size=11, text_color=Colors140.Navy),
 )
+save()
+
 ```
 
 ---
@@ -464,7 +480,11 @@ def wedge(
 - Ideal for custom gauge meters, donut chart slices, and progress wheels.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+
+config(width=100, height=50)
+from drawlib.colors import Colors140
 from drawlib.shapes import wedge
 from drawlib.types import Style
 
@@ -479,10 +499,12 @@ wedge(
     angle_end=225,
     width=6,
     angle=15,
-    style=Style(fill_color="orange", line_color="darkred", line_width=1.5),
+    style=Style(fill_color=Colors140.Orange, line_color=Colors140.DarkRed, line_width=1.5),
     text="60%",
-    textstyle=Style(text_size=11, text_color="white"),
+    textstyle=Style(text_size=11, text_color=Colors140.White),
 )
+save()
+
 ```
 
 ---
@@ -526,7 +548,10 @@ def fan(
 - Perfect for radar vision cones, camera field-of-view indicators, and pie chart segments.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+
+config(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import fan
 from drawlib.types import Style
@@ -543,6 +568,8 @@ fan(
 
 # 2. Semi-circle gauge backdrop
 fan((75, 15), radius=22, angle_start=0, angle_end=180, style="blue_flat", text="Upper Range")
+save()
+
 ```
 
 ---
@@ -587,25 +614,31 @@ def arc(
 - Set `line_width` to control thickness; set `line_style="dashed"` or `"dotted"` for trajectories.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+
+config(width=100, height=50)
+from drawlib.colors import Colors140
 from drawlib.shapes import arc
 from drawlib.types import Style
 
 # 1. Curved relationship bracket
-arc((30, 22), width=30, height=20, angle_start=30, angle_end=150, style=Style(line_color="navy", line_width=3))
+arc((30, 22), width=30, height=20, angle_start=30, angle_end=150, style=Style(line_color=Colors140.Navy, line_width=3))
 
 # 2. Dashed orbit path with centered status label
 arc(
     (70, 22),
     width=32,
     height=24,
-    angle_start=-45,
+    angle_start=315,
     angle_end=225,
     angle=15,
-    style=Style(line_color="crimson", line_width=2, line_style="dashed"),
+    style=Style(line_color=Colors140.Crimson, line_width=2, line_style="dashed"),
     text="Orbit A",
-    textstyle=Style(text_size=10, text_color="crimson"),
+    textstyle=Style(text_size=10, text_color=Colors140.Crimson),
 )
+save()
+
 ```
 
 ---
@@ -645,10 +678,10 @@ def rectangle(
     ...
 ```
 
-#### Parameter Breakdown
+##### Parameter Breakdown
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `xy` | `tuple[float, float]` | *Required* | Bottom-left coordinate `(min_x, min_y)`. |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the rectangle. |
 | `width` | `float` | *Required* | Width along horizontal axis (must be $> 0$). |
 | `height` | `float` | *Required* | Height along vertical axis (must be $> 0$). |
 | `r` | `float` | `0.0` | Corner rounding radius ($r \ge 0$). Must not exceed $\min(W, H)/2$. |
@@ -659,28 +692,33 @@ def rectangle(
 | `textstyle` | `Style \| str \| None` | `None` | Text formatting style. |
 
 #### Geometric & Alignment Mechanics
-- Default anchor is bottom-left `(x, y)`. Setting `style.text_halign="center"` and `text_valign="center"` makes `xy` the center.
+- Default coordinate `xy` is the geometric center of the shape.
 - Corner rounding `r > 0` constructs smooth quadratic or arc transitions at each vertex.
 - Fundamental building block for system architecture diagrams, UI cards, and network topologies.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+from drawlib.colors import Colors140
 from drawlib.shapes import rectangle
 from drawlib.types import Style
 
+config(width=100, height=50)
+
 # 1. API gateway block with sharp corners
-rectangle((10, 15), width=35, height=20, style="blue_flat", text="API Gateway", textstyle=Style(text_size=11))
+rectangle((28, 25), width=35, height=20, style="blue_flat", text="API Gateway", textstyle=Style(text_size=11))
 
 # 2. Rounded worker card with dashed border
 rectangle(
-    (55, 15),
+    (72, 25),
     width=35,
     height=20,
     r=4,
-    style=Style(fill_color="ghostwhite", line_color="slategray", line_width=2, line_style="dashed"),
+    style=Style(fill_color=Colors140.GhostWhite, line_color=Colors140.SlateGray, line_width=2, line_style="dashed"),
     text="Worker Node",
-    textstyle=Style(text_color="midnightblue", text_size=11),
+    textstyle=Style(text_color=Colors140.MidnightBlue, text_size=11),
 )
+save()
 ```
 
 ---
@@ -708,7 +746,7 @@ def parallelogram(
 #### Parameter Breakdown
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `xy` | `tuple[float, float]` | *Required* | Bottom-left corner of the base edge. |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the parallelogram. |
 | `width` | `float` | *Required* | Length of top and bottom parallel horizontal edges. |
 | `height` | `float` | *Required* | Perpendicular vertical height between base and top. |
 | `corner_angle` | `float` | `60.0` | Bottom-left interior slant angle ($0 < \theta < 180^\circ$). |
@@ -719,28 +757,33 @@ def parallelogram(
 | `textstyle` | `Style \| str \| None` | `None` | Text formatting style. |
 
 #### Geometric & Alignment Mechanics
-- Top edge is horizontally displaced by $\Delta x = \text{height} / \tan(\text{radians}(\text{corner\_angle}))$.
+- Centered at `xy`. Top edge is horizontally displaced by $\Delta x = \text{height} / \tan(\text{radians}(\text{corner\_angle}))$.
 - Standard flowchart symbol for Input / Output operations and streaming event topics.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+from drawlib.colors import Colors140
 from drawlib.shapes import parallelogram
 from drawlib.types import Style
 
+config(width=100, height=50)
+
 # 1. Flowchart I/O block
-parallelogram((10, 15), width=35, height=20, corner_angle=70, style="blue_flat", text="Read Input")
+parallelogram((28, 25), width=35, height=20, corner_angle=70, style="blue_flat", text="Read Input")
 
 # 2. Rotated event stream block
 parallelogram(
-    (55, 15),
+    (72, 25),
     width=35,
     height=20,
     corner_angle=65,
     angle=15,
-    style=Style(fill_color="lightyellow", line_color="goldenrod", line_width=2),
+    style=Style(fill_color=Colors140.LightYellow, line_color=Colors140.GoldenRod, line_width=2),
     text="Kafka Stream",
-    textstyle=Style(text_size=10, text_color="saddlebrown"),
+    textstyle=Style(text_size=10, text_color=Colors140.SaddleBrown),
 )
+save()
 ```
 
 ---
@@ -767,7 +810,7 @@ def rhombus(
 #### Parameter Breakdown
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `xy` | `tuple[float, float]` | *Required* | Bottom-left corner of the bounding box. |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the rhombus. |
 | `width` | `float` | *Required* | Total horizontal diagonal span between left and right vertices. |
 | `height` | `float` | *Required* | Total vertical diagonal span between bottom and top vertices. |
 | `angle` | `float` | `0.0` | Rotation angle in degrees CCW around center. |
@@ -777,27 +820,32 @@ def rhombus(
 | `textstyle` | `Style \| str \| None` | `None` | Text formatting style. |
 
 #### Geometric & Alignment Mechanics
-- Vertices connect $(x + W/2, y)$, $(x + W, y + H/2)$, $(x + W/2, y + H)$, $(x, y + H/2)$.
+- Centered at `xy`. Vertices span symmetrically along horizontal and vertical diagonals.
 - Canonical decision block in flowchart logic diagrams and condition branch points.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+from drawlib.colors import Colors140
 from drawlib.shapes import rhombus
 from drawlib.types import Style
 
+config(width=100, height=50)
+
 # 1. Flowchart decision condition diamond
-rhombus((15, 12), width=32, height=24, style="yellow_flat", text="Is Valid?", textstyle=Style(text_size=10))
+rhombus((28, 25), width=32, height=24, style="yellow_flat", text="Is Valid?", textstyle=Style(text_size=10))
 
 # 2. Rotated status checkpoint
 rhombus(
-    (60, 12),
+    (72, 25),
     width=32,
     height=24,
     angle=20,
-    style=Style(fill_color="mistyrose", line_color="crimson", line_width=2),
+    style=Style(fill_color=Colors140.MistyRose, line_color=Colors140.Crimson, line_width=2),
     text="Audit",
-    textstyle=Style(text_size=11, text_color="darkred"),
+    textstyle=Style(text_size=11, text_color=Colors140.DarkRed),
 )
+save()
 ```
 
 ---
@@ -826,11 +874,11 @@ def trapezoid(
 #### Parameter Breakdown
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `xy` | `tuple[float, float]` | *Required* | Bottom-left vertex of the bottom edge `(x, y)`. |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the trapezoid. |
 | `height` | `float` | *Required* | Perpendicular vertical height ($> 0$). |
 | `bottomedge_width` | `float` | *Required* | Width of the bottom horizontal edge ($> 0$). |
 | `topedge_width` | `float` | *Required* | Width of the top horizontal edge ($> 0$). |
-| `topedge_x` | `float \| None` | `None` | X-offset of top-left vertex from `xy[0]`. Defaults to symmetric isosceles: `(bottomedge_width - topedge_width)/2`. |
+| `topedge_x` | `float \| None` | `None` | X-offset of top-left vertex. Defaults to symmetric isosceles: `(bottomedge_width - topedge_width)/2`. |
 | `angle` | `float` | `0.0` | Rotation angle CCW around center. |
 | `style` | `Style \| str \| None` | `None` | Shape fill and stroke style. |
 | `text` | `str` | `""` | Centered text label. |
@@ -838,17 +886,22 @@ def trapezoid(
 | `textstyle` | `Style \| str \| None` | `None` | Text styling parameters. |
 
 #### Geometric & Alignment Mechanics
+- Centered at `xy`.
 - **Notice**: There is **no `width` parameter**! You must pass `bottomedge_width` and `topedge_width`.
 - Used extensively in neural network architecture diagrams to represent pooling or dimensionality reduction layers.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+from drawlib.colors import Colors140
 from drawlib.shapes import trapezoid
 from drawlib.types import Style
 
+config(width=100, height=50)
+
 # 1. Neural network downsampling / pooling layer
 trapezoid(
-    (10, 15),
+    (28, 25),
     height=20,
     bottomedge_width=36,
     topedge_width=22,
@@ -859,15 +912,16 @@ trapezoid(
 
 # 2. Right-angled projection layer
 trapezoid(
-    (55, 15),
+    (72, 25),
     height=20,
     bottomedge_width=36,
     topedge_width=18,
     topedge_x=0,
-    style=Style(fill_color="lavender", line_color="indigo", line_width=2),
+    style=Style(fill_color=Colors140.Lavender, line_color=Colors140.Indigo, line_width=2),
     text="Proj",
-    textstyle=Style(text_size=10, text_color="indigo"),
+    textstyle=Style(text_size=10, text_color=Colors140.Indigo),
 )
+save()
 ```
 
 ---
@@ -895,10 +949,10 @@ def triangle(
 #### Parameter Breakdown
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `xy` | `tuple[float, float]` | *Required* | Bottom-left corner of the base edge. |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the triangle. |
 | `width` | `float` | *Required* | Horizontal base length ($> 0$). |
 | `height` | `float` | *Required* | Perpendicular vertical height ($> 0$). |
-| `topvertex_x` | `float \| None` | `None` | Horizontal offset of apex from `xy[0]`. Defaults to symmetric apex `width / 2`. |
+| `topvertex_x` | `float \| None` | `None` | Horizontal offset of apex from base left. Defaults to symmetric apex `width / 2`. |
 | `angle` | `float` | `0.0` | Rotation angle CCW around center. |
 | `style` | `Style \| str \| None` | `None` | Shape fill and outline style. |
 | `text` | `str` | `""` | Centered text label. |
@@ -906,26 +960,32 @@ def triangle(
 | `textstyle` | `Style \| str \| None` | `None` | Text styling parameters. |
 
 #### Geometric & Alignment Mechanics
-- Default `topvertex_x=None` produces an isosceles triangle with apex at $(x + W/2, y + H)$.
+- Centered at `xy`.
+- Default `topvertex_x=None` produces an isosceles triangle with apex at center top.
 - Set `topvertex_x=0` for a left-facing right triangle; set `topvertex_x=width` for a right-facing right triangle.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+from drawlib.colors import Colors140
 from drawlib.shapes import triangle
 from drawlib.types import Style
 
+config(width=100, height=50)
+
 # 1. Warning indicator badge
 triangle(
-    (15, 12),
+    (28, 25),
     width=30,
     height=26,
-    style=Style(fill_color="gold", line_color="darkgoldenrod", line_width=2),
+    style=Style(fill_color=Colors140.Gold, line_color=Colors140.DarkGoldenRod, line_width=2),
     text="!",
-    textstyle=Style(text_size=16, text_color="black", text_xy_shift=(0, -3)),
+    textstyle=Style(text_size=16, text_color=Colors140.Black, text_xy_shift=(0, -3)),
 )
 
 # 2. Right-angle ramp element
-triangle((55, 12), width=32, height=26, topvertex_x=0, style="blue_flat", text="Ramp")
+triangle((72, 25), width=32, height=26, topvertex_x=0, style="blue_flat", text="Ramp")
+save()
 ```
 
 ---
@@ -966,7 +1026,11 @@ def regularpolygon(
 - $N=3$ (equilateral triangle), $N=5$ (pentagon), $N=6$ (hexagon / Kubernetes pod), $N=8$ (octagon / stop sign).
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+
+config(width=100, height=50)
+from drawlib.colors import Colors140
 from drawlib.shapes import regularpolygon
 from drawlib.types import Style
 
@@ -979,10 +1043,12 @@ regularpolygon(
     num_vertex=8,
     radius=18,
     angle=22.5,
-    style=Style(fill_color="tomato", line_color="darkred", line_width=2),
+    style=Style(fill_color=Colors140.Tomato, line_color=Colors140.DarkRed, line_width=2),
     text="WAF",
-    textstyle=Style(text_size=12, text_color="white"),
+    textstyle=Style(text_size=12, text_color=Colors140.White),
 )
+save()
+
 ```
 
 ---
@@ -1017,14 +1083,18 @@ def polygon(
 - **Important**: `polygon` has **no `angle` parameter** and **ignores `text_halign`/`text_valign`**. Vertex coordinates directly dictate orientation and position.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+
+config(width=100, height=50)
+from drawlib.colors import Colors140
 from drawlib.shapes import polygon
 from drawlib.types import Style
 
 # 1. Irregular network partition boundary
 polygon(
     [(10, 15), (25, 35), (45, 30), (40, 10), (20, 8)],
-    style=Style(fill_color="aliceblue", line_color="steelblue", line_width=2),
+    style=Style(fill_color=Colors140.AliceBlue, line_color=Colors140.SteelBlue, line_width=2),
     text="VLAN 1",
 )
 
@@ -1034,6 +1104,8 @@ polygon(
     style="green_flat",
     text="Route B",
 )
+save()
+
 ```
 
 ---
@@ -1076,7 +1148,11 @@ def star(
 - Strict validation: `radius_ext > radius_int` (raises `ValueError` otherwise).
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+
+config(width=100, height=50)
+from drawlib.colors import Colors140
 from drawlib.shapes import star
 from drawlib.types import Style
 
@@ -1090,10 +1166,12 @@ star(
     radius_ext=18,
     radius_int=10,
     angle=22.5,
-    style=Style(fill_color="lightcoral", line_color="firebrick", line_width=2),
+    style=Style(fill_color=Colors140.LightCoral, line_color=Colors140.FireBrick, line_width=2),
     text="ALERT",
-    textstyle=Style(text_size=9, text_color="darkred"),
+    textstyle=Style(text_size=9, text_color=Colors140.DarkRed),
 )
+save()
+
 ```
 
 ---
@@ -1135,39 +1213,49 @@ def shape(
 | `textsize` | `float \| str \| None` | `None` | Font size override. |
 | `textstyle` | `Style \| str \| None` | `None` | Text styling parameters. |
 
-#### Path Point Point Segment Types
-- **Straight Segment**: `(dx, dy)` draws a straight line to $(x_{\text{prev}} + dx, y_{\text{prev}} + dy)$.
-- **Quadratic Bezier**: `((cp_dx, cp_dy), (end_dx, end_dy))` where `cp` is control point.
-- **Cubic Bezier**: `((cp1_dx, cp1_dy), (cp2_dx, cp2_dy), (end_dx, end_dy))` with two control points.
+#### Path Point Segment Types
+- `path_points` defines polygon vertices in local coordinate space (relative to origin `(0, 0)`). Drawlib automatically computes the bounding box and centers the resulting shape at `xy`.
+- **Straight Segment**: `(x, y)` draws a straight line vertex.
+- **Quadratic Bezier**: `((cp_x, cp_y), (end_x, end_y))` where `cp` is the control point.
+- **Cubic Bezier**: `((cp1_x, cp1_y), (cp2_x, cp2_y), (end_x, end_y))` with two control points.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+from drawlib.colors import Colors, Colors140
 from drawlib.shapes import shape
 from drawlib.types import Style
 
-# 1. Custom badge with curved top (Quadratic Bezier)
+config(width=100, height=50)
+
+# 1. Custom pentagonal shield badge
 shape(
-    xy=(15, 10),
+    xy=(30, 25),
     path_points=[
-        (30, 0),                            # Base right
-        (0, 20),                            # Right wall up
-        ((-15, 8), (-30, 0)),               # Quadratic curve roof
-        (0, -20),                           # Left wall down
+        (0, 8),
+        (0, 26),
+        (15, 30),
+        (30, 26),
+        (30, 8),
+        (15, 0),
     ],
     style="blue_flat",
     text="Shield",
+    textstyle=Style(text_size=10, text_color=Colors.White),
 )
 
 # 2. Smooth symmetric wave tab (Cubic Bezier)
 shape(
-    xy=(55, 15),
+    xy=(70, 25),
     path_points=[
-        (35, 0),
-        ((5, 10), (15, 10), (20, 0)),      # Cubic wave
-        (-55, 0),
+        (0, 0),
+        (0, 15),
+        ((10, 25), (20, 5), (30, 15)),      # Cubic wave
+        (30, 0),
     ],
-    style=Style(fill_color="lavender", line_color="purple", line_width=1.5),
+    style=Style(fill_color=Colors140.Lavender, line_color=Colors140.Purple, line_width=1.5),
 )
+save()
 ```
 
 ---
@@ -1234,7 +1322,11 @@ def arrow(
 - `text` is rendered directly along the shaft, automatically rotated parallel to the arrow vector.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+
+config(width=100, height=50)
+from drawlib.colors import Colors140
 from drawlib.shapes import arrow
 from drawlib.types import Style
 
@@ -1248,10 +1340,12 @@ arrow(
     tail_width=2.5,
     head_width=7,
     head_length=5,
-    style=Style(fill_color="lightgreen", line_color="forestgreen", line_width=1.5),
+    style=Style(fill_color=Colors140.LightGreen, line_color=Colors140.ForestGreen, line_width=1.5),
     text="200 OK",
-    textstyle=Style(text_size=9, text_color="darkgreen"),
+    textstyle=Style(text_size=9, text_color=Colors140.DarkGreen),
 )
+save()
+
 ```
 
 ---
@@ -1294,7 +1388,11 @@ def arrow_l(
 > **Important**: `arrow_l` **does not accept `text`**. Place external `drawlib.text.text()` labels next to the elbow.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+
+config(width=100, height=50)
+from drawlib.colors import Colors140
 from drawlib.shapes import arrow_l
 from drawlib.types import Style
 
@@ -1310,8 +1408,10 @@ arrow_l(
     head_width=10,
     head_length=7,
     r=5,
-    style=Style(fill_color="mistyrose", line_color="crimson", line_width=2),
+    style=Style(fill_color=Colors140.MistyRose, line_color=Colors140.Crimson, line_width=2),
 )
+save()
+
 ```
 
 ---
@@ -1354,7 +1454,11 @@ def arrow_u(
 > **Important**: `arrow_u` **does not accept `text`**.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+
+config(width=100, height=50)
+from drawlib.colors import Colors140
 from drawlib.shapes import arrow_u
 from drawlib.types import Style
 
@@ -1371,8 +1475,10 @@ arrow_u(
     head_length=7,
     r=4,
     angle=90,
-    style=Style(fill_color="lavender", line_color="purple", line_width=1.5),
+    style=Style(fill_color=Colors140.Lavender, line_color=Colors140.Purple, line_width=1.5),
 )
+save()
+
 ```
 
 ---
@@ -1417,7 +1523,11 @@ def arrow_arc(
 > **Important**: `arrow_arc` **does not accept `text`**.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+
+config(width=100, height=50)
+from drawlib.colors import Colors140
 from drawlib.shapes import arrow_arc
 from drawlib.types import Style
 
@@ -1433,9 +1543,10 @@ arrow_arc(
     angle_end=0,
     tail_width=3,
     head_width=8,
-    head_length=6,
-    style=Style(fill_color="gold", line_color="darkgoldenrod", line_width=1.5),
+    style=Style(fill_color=Colors140.Gold, line_color=Colors140.DarkGoldenRod, line_width=1.5),
 )
+save()
+
 ```
 
 ---
@@ -1472,7 +1583,11 @@ def arrow_polyline(
 > **Important**: `arrow_polyline` **does not accept `text`** or `angle`.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
+
+config(width=100, height=50)
+from drawlib.colors import Colors140
 from drawlib.shapes import arrow_polyline
 from drawlib.types import Style
 
@@ -1493,8 +1608,10 @@ arrow_polyline(
     head_width=7,
     head_length=5,
     r=2,
-    style=Style(fill_color="lightgreen", line_color="forestgreen", line_width=1.5),
+    style=Style(fill_color=Colors140.LightGreen, line_color=Colors140.ForestGreen, line_width=1.5),
 )
+save()
+
 ```
 
 ---
@@ -1522,7 +1639,7 @@ def chevron(
 #### Parameter Breakdown
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `xy` | `tuple[float, float]` | *Required* | Bottom-left corner of the bounding box. |
+| `xy` | `tuple[float, float]` | *Required* | Center coordinate `(x, y)` of the chevron. |
 | `width` | `float` | *Required* | Total horizontal length from rear notch apex to front point. |
 | `height` | `float` | *Required* | Total vertical height. |
 | `corner_angle` | `float` | `60.0` | Point/notch angle in degrees ($0 < \theta < 180^\circ$). |
@@ -1533,18 +1650,22 @@ def chevron(
 | `textstyle` | `Style \| str \| None` | `None` | Text styling parameters. |
 
 #### Geometric & Alignment Mechanics
-- Rear notch depth and forward point apex match, allowing multiple chevrons to tessellate horizontally into pipeline stages.
+- Centered at `xy`. Rear notch depth and forward point apex match, allowing multiple chevrons to tessellate horizontally into pipeline stages.
 
 #### Code Examples
-```python
+```drawlib show-code
+from drawlib.canvas import config, save
 from drawlib.shapes import chevron
 from drawlib.types import Style
 
+config(width=100, height=50)
+
 # 1. CI/CD pipeline stage 1
-chevron((10, 15), width=28, height=20, corner_angle=60, style="blue_flat", text="Build")
+chevron((35, 25), width=30, height=22, corner_angle=60, style="blue_flat", text="Build")
 
 # 2. Consecutive interlocking pipeline stage 2
-chevron((32, 15), width=28, height=20, corner_angle=60, style="green_flat", text="Test")
+chevron((68, 25), width=30, height=22, corner_angle=60, style="green_flat", text="Test")
+save()
 ```
 
 ---
@@ -1555,7 +1676,7 @@ chevron((32, 15), width=28, height=20, corner_angle=60, style="green_flat", text
 
 This pattern illustrates a secure multi-tier virtual private cloud containing public and private subnets, an internet gateway, compute clusters, and a managed database.
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import arrow, circle, ellipse, rectangle
@@ -1563,48 +1684,48 @@ from drawlib.types import Style
 
 config(width=150, height=90)
 
-# 1. AWS VPC Boundary Enclosure
+# 1. AWS VPC Boundary Enclosure (Centered at (75, 45))
 rectangle(
-    (5, 5), width=140, height=80, r=4,
+    (75, 45), width=140, height=80, r=4,
     style=Style(fill_color=Colors140.GhostWhite, line_color=Colors140.RoyalBlue, line_width=2, line_style="dashed"),
     text="VPC (10.0.0.0/16)",
     textstyle=Style(text_size=12, text_color=Colors140.RoyalBlue, text_xy_shift=(-45, 34))
 )
 
 # 2. Internet Gateway
-circle((15, 45), radius=7, style=Style(fill_color=Colors140.MediumPurple, line_color=Colors140.Indigo, line_width=1.5),
+circle((20, 45), radius=7, style=Style(fill_color=Colors140.MediumPurple, line_color=Colors140.Indigo, line_width=1.5),
        text="IGW", textstyle=Style(text_size=10, text_color=Colors.White))
 
 # 3. Public Web Subnet
-rectangle((32, 48), width=48, height=32, r=3,
+rectangle((60, 62), width=48, height=32, r=3,
           style=Style(fill_color=Colors140.HoneyDew, line_color=Colors140.ForestGreen, line_width=1.5),
           text="Public Subnet (DMZ)", textstyle=Style(text_size=10, text_color=Colors140.ForestGreen, text_xy_shift=(-6, 12)))
-rectangle((36, 52), width=18, height=14, r=2, style="blue_flat", text="ALB", textstyle=Style(text_size=10, text_color=Colors.White))
-rectangle((58, 52), width=18, height=14, r=2, style="blue_flat", text="Nginx", textstyle=Style(text_size=10, text_color=Colors.White))
+rectangle((48, 60), width=18, height=14, r=2, style="blue_flat", text="ALB", textstyle=Style(text_size=10, text_color=Colors.White))
+rectangle((72, 60), width=18, height=14, r=2, style="blue_flat", text="Nginx", textstyle=Style(text_size=10, text_color=Colors.White))
 
 # 4. Private App Subnet
-rectangle((32, 10), width=48, height=32, r=3,
+rectangle((60, 26), width=48, height=32, r=3,
           style=Style(fill_color=Colors140.AliceBlue, line_color=Colors140.SteelBlue, line_width=1.5),
           text="Private App Subnet", textstyle=Style(text_size=10, text_color=Colors140.SteelBlue, text_xy_shift=(-8, 12)))
-rectangle((36, 14), width=18, height=14, r=2, style="green_flat", text="Auth\nSvc", textstyle=Style(text_size=9, text_color=Colors.White))
-rectangle((58, 14), width=18, height=14, r=2, style="green_flat", text="Order\nSvc", textstyle=Style(text_size=9, text_color=Colors.White))
+rectangle((48, 24), width=18, height=14, r=2, style="green_flat", text="Auth\nSvc", textstyle=Style(text_size=9, text_color=Colors.White))
+rectangle((72, 24), width=18, height=14, r=2, style="green_flat", text="Order\nSvc", textstyle=Style(text_size=9, text_color=Colors.White))
 
 # 5. Database Tier
-rectangle((92, 15), width=45, height=60, r=3,
+rectangle((118, 45), width=45, height=60, r=3,
           style=Style(fill_color=Colors140.MistyRose, line_color=Colors140.IndianRed, line_width=1.5),
           text="Database Tier (Multi-AZ)", textstyle=Style(text_size=10, text_color=Colors140.DarkRed, text_xy_shift=(0, 25)))
-ellipse((114.5, 52), width=30, height=14,
+ellipse((118, 58), width=30, height=14,
         style=Style(fill_color=Colors140.LightGoldenRodYellow, line_color=Colors140.GoldenRod, line_width=2),
         text="Postgres Primary", textstyle=Style(text_size=9, text_color=Colors.Black))
-ellipse((114.5, 26), width=30, height=14,
+ellipse((118, 32), width=30, height=14,
         style=Style(fill_color=Colors140.WhiteSmoke, line_color=Colors140.DimGray, line_width=1.5),
         text="Read Replica", textstyle=Style(text_size=9, text_color=Colors.Black))
 
 # 6. Connecting Arrows
-arrow((22, 45), (36, 59), tail_width=2, head_width=5, head_length=4, style="gray")
-arrow((54, 59), (58, 59), tail_width=2, head_width=5, head_length=4, style="gray")
-arrow((67, 52), (67, 28), tail_width=2, head_width=5, head_length=4, style="gray")
-arrow((76, 21), (99, 52), tail_width=2, head_width=5, head_length=4, style="gray")
+arrow((27, 45), (39, 58), tail_width=2, head_width=5, head_length=4, style="gray")
+arrow((57, 60), (63, 60), tail_width=2, head_width=5, head_length=4, style="gray")
+arrow((72, 53), (72, 31), tail_width=2, head_width=5, head_length=4, style="gray")
+arrow((81, 24), (102, 58), tail_width=2, head_width=5, head_length=4, style="gray")
 
 save("cloud_architecture.png")
 ```
@@ -1615,7 +1736,7 @@ save("cloud_architecture.png")
 
 Demonstrates message publishers, Kafka message topic queues, consumer groups, and dead-letter queues (DLQ).
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import arrow, donuts, parallelogram, rectangle
@@ -1624,30 +1745,30 @@ from drawlib.types import Style
 config(width=140, height=65)
 
 # Producer
-rectangle((10, 22), width=24, height=20, r=3, style="blue_flat",
+rectangle((20, 32.5), width=24, height=20, r=3, style="blue_flat",
           text="Order\nProducer", textstyle=Style(text_size=11, text_color=Colors.White))
 
 # Event Bus / Kafka Stream Topic (Parallelogram)
-parallelogram((44, 18), width=40, height=28, corner_angle=70,
+parallelogram((64, 32.5), width=40, height=28, corner_angle=70,
               style=Style(fill_color=Colors140.LightSteelBlue, line_color=Colors140.SteelBlue, line_width=2),
               text="orders.events\n(Kafka Topic)", textstyle=Style(text_size=11, text_color=Colors140.MidnightBlue))
 
 # Consumer Group
-rectangle((95, 36), width=32, height=18, r=3, style="green_flat",
+rectangle((115, 45), width=32, height=18, r=3, style="green_flat",
           text="Payment Worker", textstyle=Style(text_size=10, text_color=Colors.White))
-rectangle((95, 10), width=32, height=18, r=3, style="green_flat",
+rectangle((115, 20), width=32, height=18, r=3, style="green_flat",
           text="Inventory Worker", textstyle=Style(text_size=10, text_color=Colors.White))
 
 # Dead Letter Queue (Donuts)
-donuts((64, 4), radius=6, width=2,
+donuts((64, 9), radius=6, width=2,
        style=Style(fill_color=Colors140.IndianRed, line_color=Colors140.DarkRed, line_width=1.5),
        text="DLQ", textstyle=Style(text_size=8, text_color=Colors140.DarkRed))
 
 # Event Flow Arrows
-arrow((34, 32), (47, 32), tail_width=3, head_width=7, head_length=5, style="blue")
-arrow((85, 36), (95, 45), tail_width=2.5, head_width=6, head_length=4, style="green")
-arrow((85, 28), (95, 19), tail_width=2.5, head_width=6, head_length=4, style="green")
-arrow((111, 10), (70, 4), tail_width=2, head_width=5, head_length=4, style="red_dashed")
+arrow((32, 32.5), (44, 32.5), tail_width=3, head_width=7, head_length=5, style="blue")
+arrow((84, 38), (99, 45), tail_width=2.5, head_width=6, head_length=4, style="green")
+arrow((84, 27), (99, 20), tail_width=2.5, head_width=6, head_length=4, style="green")
+arrow((99, 15), (71, 9), tail_width=2, head_width=5, head_length=4, style="red_dashed")
 
 save("event_mesh_architecture.png")
 ```
@@ -1658,50 +1779,50 @@ save("event_mesh_architecture.png")
 
 Demonstrates convolution, pooling, batch normalization, and skip residual connections in machine learning architectures.
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import arrow, arrow_polyline, circle, rectangle, trapezoid
 from drawlib.types import Style
 
-config(width=150, height=50)
+config(width=150, height=55)
 
 # Input Tensor
-rectangle((10, 15), width=16, height=20,
+rectangle((16, 25), width=18, height=22,
           style=Style(fill_color=Colors140.LightGray, line_color=Colors140.DimGray, line_width=1.5),
           text="Input\n3x224x224", textstyle=Style(text_size=8, text_color=Colors.Black))
 
 # Conv2D Layer
-rectangle((34, 12), width=18, height=26, r=2, style="blue_flat",
+rectangle((42, 25), width=20, height=28, r=2, style="blue_flat",
           text="Conv2D\n64 filters", textstyle=Style(text_size=9, text_color=Colors.White))
 
 # Batch Norm & ReLU
-rectangle((58, 15), width=16, height=20, r=2, style="green_flat",
+rectangle((68, 25), width=18, height=22, r=2, style="green_flat",
           text="BN +\nReLU", textstyle=Style(text_size=9, text_color=Colors.White))
 
 # Conv2D Layer 2
-rectangle((80, 12), width=18, height=26, r=2, style="blue_flat",
+rectangle((92, 25), width=20, height=28, r=2, style="blue_flat",
           text="Conv2D\n64 filters", textstyle=Style(text_size=9, text_color=Colors.White))
 
 # Residual Elementwise Add Node
-circle((108, 25), radius=4,
+circle((114, 25), radius=4.5,
        style=Style(fill_color=Colors140.LightGoldenRodYellow, line_color=Colors140.GoldenRod, line_width=1.5),
        text="+", textstyle=Style(text_size=12, text_color=Colors.Black))
 
 # Max Pooling (Trapezoid)
-trapezoid((120, 16), height=18, bottomedge_width=20, topedge_width=12, style="red_flat",
+trapezoid((134, 25), height=20, bottomedge_width=22, topedge_width=14, style="red_flat",
           text="Pool\n/2", textstyle=Style(text_size=8, text_color=Colors.White))
 
 # Forward Feed Connections
-arrow((26, 25), (34, 25), tail_width=1.5, head_width=4, head_length=3, style="gray")
-arrow((52, 25), (58, 25), tail_width=1.5, head_width=4, head_length=3, style="gray")
-arrow((74, 25), (80, 25), tail_width=1.5, head_width=4, head_length=3, style="gray")
-arrow((98, 25), (104, 25), tail_width=1.5, head_width=4, head_length=3, style="gray")
-arrow((112, 25), (120, 25), tail_width=1.5, head_width=4, head_length=3, style="gray")
+arrow((25, 25), (32, 25), tail_width=1.5, head_width=4, head_length=3, style="gray")
+arrow((52, 25), (59, 25), tail_width=1.5, head_width=4, head_length=3, style="gray")
+arrow((77, 25), (82, 25), tail_width=1.5, head_width=4, head_length=3, style="gray")
+arrow((102, 25), (109.5, 25), tail_width=1.5, head_width=4, head_length=3, style="gray")
+arrow((118.5, 25), (123, 25), tail_width=1.5, head_width=4, head_length=3, style="gray")
 
 # ResNet Residual Skip Connection (arrow_polyline)
 arrow_polyline(
-    [(26, 25), (26, 42), (108, 42), (108, 29)],
+    [(42, 39), (42, 47), (114, 47), (114, 29.5)],
     tail_width=1.5, head_width=4, head_length=3, r=3,
     style=Style(fill_color=Colors140.DarkOrange, line_color=Colors140.DarkOrange)
 )
@@ -1715,7 +1836,7 @@ save("cnn_resnet_architecture.png")
 
 Constructs a standard UML state chart featuring initial pseudo-states, rounded composite states, guard conditions, and terminal states.
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import arrow, circle, donuts, rectangle, rhombus
@@ -1727,31 +1848,31 @@ config(width=150, height=60)
 circle((15, 30), radius=5, style=Style(fill_color=Colors.Black, line_width=0))
 
 # State 1: Draft
-rectangle((28, 20), width=24, height=20, r=5, style="blue_flat",
+rectangle((40, 30), width=26, height=20, r=5, style="blue_flat",
           text="DRAFT", textstyle=Style(text_size=10, text_color=Colors.White))
 
 # Choice Decision Pseudostate (Rhombus)
-rhombus((60, 22), width=16, height=16, style="yellow_flat")
+rhombus((70, 30), width=18, height=18, style="yellow_flat")
 
 # State 2: Published
-rectangle((94, 34), width=24, height=18, r=5, style="green_flat",
+rectangle((104, 43), width=26, height=18, r=5, style="green_flat",
           text="PUBLISHED", textstyle=Style(text_size=9, text_color=Colors.White))
 
 # State 3: Rejected
-rectangle((94, 8), width=24, height=18, r=5, style="red_flat",
+rectangle((104, 17), width=26, height=18, r=5, style="red_flat",
           text="REJECTED", textstyle=Style(text_size=9, text_color=Colors.White))
 
 # Terminal State (Bullseye / Donut with inner circle)
-donuts((130, 26), radius=6, width=1.5, style=Style(fill_color=Colors.Black, line_width=0))
-circle((130, 26), radius=3.5, style=Style(fill_color=Colors.Black, line_width=0))
+donuts((136, 30), radius=6, width=1.5, style=Style(fill_color=Colors.Black, line_width=0))
+circle((136, 30), radius=3.5, style=Style(fill_color=Colors.Black, line_width=0))
 
 # Transitions
-arrow((20, 30), (28, 30), tail_width=1.5, head_width=4, head_length=3, style="gray")
-arrow((52, 30), (60, 30), tail_width=1.5, head_width=4, head_length=3, style="gray")
-arrow((72, 36), (94, 43), tail_width=1.5, head_width=4, head_length=3, text="Valid", textstyle=Style(text_size=8), style="green")
-arrow((72, 24), (94, 17), tail_width=1.5, head_width=4, head_length=3, text="Invalid", textstyle=Style(text_size=8), style="red")
-arrow((118, 43), (127, 30), tail_width=1.5, head_width=4, head_length=3, style="gray")
-arrow((118, 17), (127, 22), tail_width=1.5, head_width=4, head_length=3, style="gray")
+arrow((20, 30), (27, 30), tail_width=1.5, head_width=4, head_length=3, style="gray")
+arrow((53, 30), (61, 30), tail_width=1.5, head_width=4, head_length=3, style="gray")
+arrow((78, 35), (91, 43), tail_width=1.5, head_width=4, head_length=3, text="Valid", textstyle=Style(text_size=8), style="green")
+arrow((78, 25), (91, 17), tail_width=1.5, head_width=4, head_length=3, text="Invalid", textstyle=Style(text_size=8), style="red")
+arrow((117, 43), (130, 33), tail_width=1.5, head_width=4, head_length=3, style="gray")
+arrow((117, 17), (130, 27), tail_width=1.5, head_width=4, head_length=3, style="gray")
 
 save("state_machine_schema.png")
 ```
@@ -1762,7 +1883,7 @@ save("state_machine_schema.png")
 
 Demonstrates how human designers and AI coding agents can construct crisp application user interfaces, modals, and KPI telemetry cards using Drawlib primitives.
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import arc, circle, rectangle
@@ -1771,28 +1892,28 @@ from drawlib.types import Style
 config(width=140, height=75)
 
 # Outer Dashboard Frame
-rectangle((5, 5), width=130, height=65, r=4,
+rectangle((70, 37.5), width=130, height=65, r=4,
           style=Style(fill_color=Colors140.WhiteSmoke, line_color=Colors140.LightGray, line_width=1.5))
 
 # KPI Card 1: Server Load
-rectangle((10, 12), width=36, height=50, r=3,
+rectangle((28, 37.5), width=36, height=50, r=3,
           style=Style(fill_color=Colors.White, line_color=Colors140.Gainsboro, line_width=1),
-          text="CPU LOAD\n\n42%", textstyle=Style(text_size=12, text_color=Colors140.DarkSlateGray))
-arc((28, 42), width=20, height=20, angle_start=0, angle_end=220,
+          text="CPU LOAD\n\n42%", textstyle=Style(text_size=12, text_color=Colors140.DarkSlateGray, text_xy_shift=(0, -8)))
+arc((28, 48), width=20, height=20, angle_start=0, angle_end=220,
     style=Style(line_color=Colors140.DodgerBlue, line_width=3))
 
 # KPI Card 2: Memory Usage
-rectangle((52, 12), width=36, height=50, r=3,
+rectangle((70, 37.5), width=36, height=50, r=3,
           style=Style(fill_color=Colors.White, line_color=Colors140.Gainsboro, line_width=1),
-          text="MEMORY\n\n78%", textstyle=Style(text_size=12, text_color=Colors140.DarkSlateGray))
-arc((70, 42), width=20, height=20, angle_start=0, angle_end=280,
+          text="MEMORY\n\n78%", textstyle=Style(text_size=12, text_color=Colors140.DarkSlateGray, text_xy_shift=(0, -8)))
+arc((70, 48), width=20, height=20, angle_start=0, angle_end=280,
     style=Style(line_color=Colors140.MediumSeaGreen, line_width=3))
 
 # KPI Card 3: Network Status
-rectangle((94, 12), width=36, height=50, r=3,
+rectangle((112, 37.5), width=36, height=50, r=3,
           style=Style(fill_color=Colors.White, line_color=Colors140.Gainsboro, line_width=1),
-          text="NETWORK\n\nActive", textstyle=Style(text_size=12, text_color=Colors140.DarkSlateGray))
-circle((112, 42), radius=6,
+          text="NETWORK\n\nActive", textstyle=Style(text_size=12, text_color=Colors140.DarkSlateGray, text_xy_shift=(0, -8)))
+circle((112, 48), radius=6,
        style=Style(fill_color=Colors140.PaleGreen, line_color=Colors140.ForestGreen, line_width=2))
 
 save("dashboard_ui_kit.png")
@@ -1812,21 +1933,21 @@ save("dashboard_ui_kit.png")
 | `wedge`  | Center `(x, y)` | `radius`, `width`, `angle_start/end` | No | Yes | Yes | No |
 | `fan`    | Center `(x, y)` | `radius`, `angle_start/end` | No | Yes | Yes | No |
 | `arc`    | Center `(x, y)` | `width`, `height`, `angle_start/end` | No | Yes | Yes | No |
-| `rectangle` | Bottom-Left `(x, y)` | `width`, `height` | **Yes** | Yes | Yes | No |
-| `parallelogram` | Bottom-Left `(x, y)` | `width`, `height`, `corner_angle` | No | Yes | Yes | No |
-| `rhombus` | Bottom-Left `(x, y)` | `width`, `height` | No | Yes | Yes | No |
-| `trapezoid` | Bottom-Left `(x, y)` | `height`, `bottomedge_width`, `topedge_width` | No | Yes | Yes | No |
-| `triangle` | Bottom-Left `(x, y)` | `width`, `height`, `topvertex_x` | No | Yes | Yes | No |
+| `rectangle` | Center `(x, y)` | `width`, `height` | **Yes** | Yes | Yes | No |
+| `parallelogram` | Center `(x, y)` | `width`, `height`, `corner_angle` | No | Yes | Yes | No |
+| `rhombus` | Center `(x, y)` | `width`, `height` | No | Yes | Yes | No |
+| `trapezoid` | Center `(x, y)` | `height`, `bottomedge_width`, `topedge_width` | No | Yes | Yes | No |
+| `triangle` | Center `(x, y)` | `width`, `height`, `topvertex_x` | No | Yes | Yes | No |
 | `regularpolygon` | Center `(x, y)` | `num_vertex`, `radius` | No | Yes | Yes | No |
 | `polygon` | Vertices `xys` | `xys: list[tuple[float, float]]` | No | **No** | Yes | **Yes** |
 | `star` | Center `(x, y)` | `num_vertex`, `radius_ext`, `radius_int` | No | Yes | Yes | No |
-| `shape` | Origin or Center | `path_points` | Via Bezier | Yes | Yes | No |
+| `shape` | Center `(x, y)` | `path_points` | Via Bezier | Yes | Yes | No |
 | `arrow` | Endpoints `xy1, xy2` | `tail_width`, `head_width`, `head_length` | No | Auto ($\Delta xy$) | Yes | **Yes** |
 | `arrow_polyline` | Vertices `xys` | `tail_width`, `head_width`, `head_length` | **Yes** | Path-driven | **No** | **Yes** |
 | `arrow_arc` | Center `(x, y)` | `width`, `height`, `head_angle` | No | Yes | **No** | **Yes** |
 | `arrow_l` | Center `(x, y)` | `width`, `height`, head/tail dims | **Yes** | Yes | **No** | **Yes** |
 | `arrow_u` | Center `(x, y)` | `width`, `height`, head/tail dims | **Yes** | Yes | **No** | **Yes** |
-| `chevron` | Bottom-Left `(x, y)` | `width`, `height`, `corner_angle` | No | Yes | Yes | No |
+| `chevron` | Center `(x, y)` | `width`, `height`, `corner_angle` | No | Yes | Yes | No |
 
 ---
 

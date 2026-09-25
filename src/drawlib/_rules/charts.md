@@ -201,7 +201,7 @@ DEFAULT_CHART_PALETTE: list[ColorType] = [
 ### 3.4 Production Examples
 
 #### Example 3.4.1: Vertical Grouped Bar Chart with Value Labels
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.charts import BarChart
 
@@ -228,7 +228,7 @@ chart.draw(xy=(10.0, 15.0))
 ```
 
 #### Example 3.4.2: Horizontal Stacked Bar Chart with Resource Breakdown
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.charts import BarChart
 
@@ -256,7 +256,7 @@ chart.draw(xy=(10.0, 15.0))
 ```
 
 #### Example 3.4.3: Logarithmic Scale Latency Benchmark
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.charts import BarChart
 
@@ -317,7 +317,7 @@ chart.draw(xy=(10.0, 12.0))
 ### 4.4 Production Examples
 
 #### Example 4.4.1: Multi-Series Active Users Comparison
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.charts import LineChart
 
@@ -341,7 +341,7 @@ chart.draw(xy=(10.0, 15.0))
 ```
 
 #### Example 4.4.2: Smooth Spline CPU Load with Custom Markers
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.charts import LineChart
 
@@ -408,7 +408,7 @@ chart.draw(xy=(10.0, 15.0))
 ### 5.4 Production Examples
 
 #### Example 5.4.1: Cumulative Stacked Revenue Streams
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.charts import AreaChart
 
@@ -432,7 +432,7 @@ chart.draw(xy=(10.0, 15.0))
 ```
 
 #### Example 5.4.2: Overlapping Network Bandwidth with Custom Alpha
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.charts import AreaChart
 
@@ -501,7 +501,7 @@ chart.draw(xy=(10.0, 15.0))
 ### 6.4 Production Examples
 
 #### Example 6.4.1: Donut Chart with Center Metric
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.charts import PieChart
 
@@ -523,7 +523,7 @@ chart.draw(xy=(10.0, 10.0))
 ```
 
 #### Example 6.4.2: Exploded Slice Allocation
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.charts import PieChart
 
@@ -590,16 +590,16 @@ chart.draw(xy=(15.0, 10.0))
 ### 7.4 Production Examples
 
 #### Example 7.4.1: Software Architecture Non-Functional Attributes
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.charts import RadarChart
 
 canvas.initialize()
-canvas.config(width=100, height=80)
+canvas.config(width=105, height=88)
 
 chart = RadarChart(
     categories=["Scalability", "Reliability", "Security", "Maintainability", "Latency"],
-    radius=28.0,
+    radius=24.0,
     min_value=0.0,
     max_value=100.0,
     levels=5,
@@ -611,11 +611,11 @@ chart = RadarChart(
 )
 chart.add_series("Microservices Architecture", [95, 80, 75, 85, 60], fill_alpha=0.3)
 chart.add_series("Monolithic Architecture", [60, 90, 85, 70, 95], fill_alpha=0.3, line_style="dashed")
-chart.draw(xy=(10.0, 10.0))
+chart.draw(xy=(5.0, 5.0))
 ```
 
 #### Example 7.4.2: Circular Grid Product Evaluation
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.charts import RadarChart
 
@@ -676,7 +676,7 @@ chart.draw(xy=(15.0, 8.0))
 ### 8.4 Production Examples
 
 #### Example 8.4.1: Benchmark Scatter with Labeled Baseline Points
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.charts import ScatterChart
 from drawlib.types import Style
@@ -689,27 +689,27 @@ chart = ScatterChart(
     height=52.0,
     title="Service Throughput vs p99 Latency Benchmark",
 )
-chart.configure_x_axis(label="Throughput (req/sec)", unit=" rps", min_value=0)
-chart.configure_y_axis(label="p99 Latency (ms)", unit=" ms", min_value=0)
+chart.configure_x_axis(label="Throughput (req/sec)", unit=" rps", min_value=0, max_value=1000)
+chart.configure_y_axis(label="p99 Latency (ms)", unit=" ms", min_value=0, max_value=200)
 
-chart.add(xy=(120.0, 12.5), radius=1.5, label="v1.0 Baseline", style=Style(fill_color=(100, 116, 139, 0.9)))
-chart.add(xy=(750.0, 18.0), radius=2.0, label="v2.5 Optimized", style=Style(fill_color=(16, 185, 129, 0.9)))
+chart.add(xy=(100.0, 18.0), radius=1.6, label="v1.0 Baseline", style=Style(fill_color=(100, 116, 139, 0.9)))
+chart.add(xy=(730.0, 35.0), radius=2.2, label="v2.5 Release", style=Style(fill_color=(16, 185, 129, 0.9)))
 
 chart.add_series(
     name="Async Rust Engine",
-    data=[(250, 14.0), (450, 16.5), (650, 17.2), (850, 22.0)],
+    data=[(300, 18.0), (500, 19.5), (700, 21.0), (950, 24.0)],
     shape="circle",
 )
 chart.add_series(
     name="Legacy Threadpool",
-    data=[(100, 25.0), (200, 48.0), (350, 95.0), (500, 160.0)],
+    data=[(150, 40.0), (300, 65.0), (450, 110.0), (600, 165.0)],
     shape="square",
 )
-chart.draw(xy=(10.0, 15.0))
+chart.draw(xy=(10.0, 12.0))
 ```
 
 #### Example 8.4.2: Multidimensional Cloud Cost Bubble Chart
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.charts import ScatterChart
 
@@ -785,7 +785,7 @@ Data models include `GanttTask`, `GanttSection`, `GanttMilestone`, `GanttMarker`
 ### 9.4 Production Examples
 
 #### Example 9.4.1: Engineering Release Roadmap with Dependencies
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.charts import GanttChart
 
@@ -822,7 +822,7 @@ chart.draw(xy=(8.0, 10.0))
 ```
 
 #### Example 9.4.2: Agile Sprint Schedule with Custom Task Colors
-```python
+```drawlib show-code
 from drawlib import canvas
 from drawlib.charts import GanttChart
 

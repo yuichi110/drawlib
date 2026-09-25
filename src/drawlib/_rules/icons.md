@@ -120,7 +120,7 @@ Phosphor provides 5 visual weights for each icon glyph, controlled via `Style(ic
 
 ### 3.3. Code Demonstration of Phosphor Weights
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.icons import phosphor
 from drawlib.text import text
@@ -160,7 +160,7 @@ Phosphor seamlessly maps Drawlib preset strings into appropriate icon weights an
 - `light`: Triggers `icon_style="light"`.
 - `bold`: Triggers `icon_style="bold"`.
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.icons import phosphor
 from drawlib.text import text
@@ -276,7 +276,7 @@ gcp.<service_name>(
 ) -> None
 ```
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.icons import gcp
 from drawlib.text import text
@@ -354,7 +354,7 @@ text_halign  │       (x, y) Center Anchor     │ text_halign
                     text_valign="bottom"
 ```
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
@@ -365,13 +365,13 @@ from drawlib.types import Style
 config(width=100, height=45)
 
 # Center-aligned (default)
-phosphor.server((25, 24), width=12)
+phosphor.hard_drives((25, 24), width=12)
 circle((25, 24), radius=0.6, style="red_flat")
 text((25, 9), "center, center", size=9)
 
 # Bottom-left aligned: icon expands up and right from (x, y)
 align_bl = Style(text_halign="left", text_valign="bottom")
-phosphor.server((65, 18), width=12, style=align_bl)
+phosphor.hard_drives((65, 18), width=12, style=align_bl)
 circle((65, 18), radius=0.6, style="red_flat")
 text((71, 9), "left, bottom", size=9)
 
@@ -382,7 +382,7 @@ save()
 
 The `angle` argument rotates the icon counter-clockwise around its anchor point `xy`:
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.icons import phosphor
 from drawlib.text import text
@@ -476,7 +476,7 @@ In production cloud architecture schemas and workflow diagrams, icons rarely exi
 
 To achieve typographical harmony, place the primary label at an offset of `y - (width / 2) - 3.5` from the icon center:
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.icons import gcp
 from drawlib.text import text
@@ -498,7 +498,7 @@ save()
 
 ### 7.3. Pattern 2: Icon Inside Container Card with Status Badge
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.icons import gcp, phosphor
 from drawlib.shapes import circle, rectangle
@@ -533,7 +533,7 @@ save()
 
 When documenting multi-step pipelines or authorization handshakes (e.g. OAuth2, SAML), pair icons with sequentially numbered badges indicating the order of operations:
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -577,7 +577,7 @@ The following end-to-end examples demonstrate production architectures combining
 
 This architecture features an internet-facing Cloud Armor and Load Balancer tier, scalable Cloud Run microservices, Cloud SQL database storage, Redis caching, and integrated Cloud Monitoring:
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.colors import Colors, from_hex
 from drawlib.icons import gcp, phosphor
@@ -658,7 +658,7 @@ save()
 
 This schema models an IoT ingestion pipeline using Cloud Pub/Sub, stream processing via Cloud Functions, analytical data warehousing in BigQuery, and BI reporting in Looker:
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
@@ -709,11 +709,11 @@ save()
 
 ### 8.3. Hybrid Cloud Infrastructure Schema
 
-Demonstrating seamless interoperability between on-premise infrastructure (FontAwesome servers via `font_icon`) and Google Cloud Interconnect:
+Demonstrating seamless interoperability between on-premise infrastructure (Phosphor vector servers) and Google Cloud Interconnect:
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
-from drawlib.icons import font_icon, gcp
+from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
@@ -727,10 +727,10 @@ text((70, 54), "Hybrid Enterprise On-Premises to GCP Interconnect", style="bold"
 rectangle((30, 26), width=44, height=36, r=2, style="charcoal_solid")
 text((30, 40), "Corporate On-Premises Datacenter", style="charcoal_bold", size=9)
 
-font_icon((20, 24), width=9, code="\uf233", file="fonts/fontawesome-free/solid.ttf", style="charcoal_bold")
+phosphor.hard_drives((20, 24), width=9, style="charcoal_bold")
 text((20, 15), "App Server", size=8)
 
-font_icon((40, 24), width=9, code="\uf1c0", file="fonts/fontawesome-free/solid.ttf", style="charcoal_bold")
+phosphor.database((40, 24), width=9, style="charcoal_bold")
 text((40, 15), "Oracle DB", size=8)
 
 # Cloud Boundary
@@ -760,7 +760,7 @@ save()
 
 This schema illustrates an automated GitOps delivery workflow from source code commit to container deployment in Google Kubernetes Engine:
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line

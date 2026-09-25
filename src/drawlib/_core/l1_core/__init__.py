@@ -13,6 +13,7 @@ from drawlib._core.l1_core._const import (
     FONT_DIR_PATH,
     FONT_ICON_DIR_PATH,
     ICON_DIR_PATH,
+    RULES_DIR_PATH,
 )
 from drawlib._core.l1_core._decorator import guarded
 from drawlib._core.l1_core._logging import logger
@@ -28,6 +29,7 @@ __all__ = [
     "FONT_DIR_PATH",
     "FONT_ICON_DIR_PATH",
     "ICON_DIR_PATH",
+    "RULES_DIR_PATH",
 
     # _decorator.py
     "guarded",

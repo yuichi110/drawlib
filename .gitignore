@@ -7,6 +7,7 @@ uv.lock
 # assets
 src/drawlib/_assets/*
 !src/drawlib/_assets/__init__.py
+!src/drawlib/_assets/.gitignore
 
 
 # output of generators

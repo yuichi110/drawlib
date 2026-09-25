@@ -110,3 +110,35 @@ def test_cli_rules_show_unknown_topic(tmp_path: Path) -> None:
     assert res.returncode == 1
     assert "Error: Unknown rule topic 'unknown_topic'" in res.stderr
     assert "Available topics:" in res.stderr
+
+
+def test_cli_rules_show_raw(tmp_path: Path) -> None:
+    """Test `drawlib rules show --raw` returns raw markdown without the instruction banner."""
+    res = run_drawlib_cli(["rules", "show", "overview", "--raw"], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert "# Drawlib Agent Drawing Guidelines" in res.stdout
+    assert "Instructions for AI Agents & Developers" not in res.stdout
+
+
+def test_cli_rules_show_rebuild_and_clean(tmp_path: Path) -> None:
+    """Test `drawlib rules show --rebuild` caches output and `drawlib rules clean` removes it."""
+    # Build on demand
+    res_show = run_drawlib_cli(["rules", "show", "overview", "--rebuild"], cwd=str(tmp_path))
+    assert res_show.returncode == 0
+    assert "# Drawlib Agent Drawing Guidelines" in res_show.stdout
+    assert "Instructions for AI Agents & Developers" in res_show.stdout
+
+    # Clean cache
+    res_clean = run_drawlib_cli(["rules", "clean"], cwd=str(tmp_path))
+    assert res_clean.returncode == 0
+    assert "Successfully cleaned" in res_clean.stdout
+
+
+def test_cli_rules_build_specific_topic(tmp_path: Path) -> None:
+    """Test `drawlib rules build <topic>` pre-builds illustrations."""
+    res_build = run_drawlib_cli(["rules", "build", "overview", "--force"], cwd=str(tmp_path))
+    assert res_build.returncode == 0
+    assert "Successfully compiled rule topic 'overview'" in res_build.stdout
+
+    # Clean cache after test
+    run_drawlib_cli(["rules", "clean"], cwd=str(tmp_path))

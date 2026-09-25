@@ -17,6 +17,7 @@ from drawlib._core.l1_core import (
     FONT_DIR_PATH,
     FONT_ICON_DIR_PATH,
     ICON_DIR_PATH,
+    RULES_DIR_PATH,
     guarded,
     logger,
 )
@@ -50,8 +51,8 @@ def download_all_assets() -> None:
 
 @guarded
 def purge_font_cache() -> None:
-    """Delete downloaded font and icon file cache."""
-    for dir_path in [FONT_DIR_PATH, FONT_ICON_DIR_PATH, ICON_DIR_PATH]:
+    """Delete downloaded font, icon, and rules cache."""
+    for dir_path in [FONT_DIR_PATH, FONT_ICON_DIR_PATH, ICON_DIR_PATH, RULES_DIR_PATH]:
         if not os.path.exists(dir_path):
             continue
 

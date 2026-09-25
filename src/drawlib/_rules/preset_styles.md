@@ -163,7 +163,7 @@ Specially designed for printed engineering manuals, formal academic papers, pate
   - `solid`: Transparent fill, black border (width 1.5).
   - `dashed`: Transparent fill, black dashed border (width 1.5).
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.preset_styles import get_monochrome_styles
 from drawlib.shapes import rectangle
@@ -352,7 +352,7 @@ Every preset style shortcut string follows a deterministic, composable three-par
 
 ### 5.3. Code Demonstration of Shorthand Variations
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -461,7 +461,7 @@ In enterprise projects and client presentations, you often need custom color pal
 
 You can construct a one-off `PresetStyles` instance directly with custom `Style` objects:
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.colors import Colors140, from_hex
 from drawlib.preset_styles import PresetStyles
@@ -483,7 +483,7 @@ brand_preset = PresetStyles(
     dashed=Style(fill_color=None, line_color=CORP_NAVY, line_width=2.0, line_style="dashed"),
 )
 
-config(width=100, height=40, style=brand_preset)
+config(width=100, height=40, background_color=brand_preset.background_color)
 
 rectangle((30, 20), width=30, height=20, style=brand_preset.primary)
 circle((80, 20), radius=10, style=brand_preset.bold)
@@ -602,7 +602,7 @@ To understand the power of preset styling, consider realistic diagrams combining
 
 The following diagram demonstrates how color and style variations distinguish user ingress, routing, processing, caching, and persistence:
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.colors import Colors, ColorsEssentials
 from drawlib.icons import phosphor
@@ -667,7 +667,7 @@ Preset styles make state transitions intuitive by mapping distinct semantic mean
 - Orange = Paused / Pending Review
 - Red = Failed / Terminated Error State
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
@@ -720,7 +720,7 @@ Multi-element architectures frequently utilize the **Medallion Pattern** (Raw In
 - **Gold / Yellow (`yellow_flat`, `green_solid_bold`)**: Business-level aggregates, feature stores, and BI marts.
 - **Teal / Navy (`teal_solid`, `navy_bold`)**: Query engines, dashboards, and automated ML pipelines.
 
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -918,7 +918,7 @@ Popular Essentials Colors:
 
 ### 11.3. Essential Code Snippets
 
-```python
+```drawlib show-code
 # Standard imports
 from drawlib.canvas import config, save
 from drawlib.colors import Colors, ColorsEssentials, from_hex, with_alpha
@@ -930,15 +930,17 @@ from drawlib.text import text
 config(width=100, height=60)
 
 # 1. Shorthand style usage
-rectangle((25, 30), width=20, height=20, style="blue_flat", text="Flat", textstyle="white")
-rectangle((50, 30), width=20, height=20, style="green_solid_bold", text="Solid", textstyle="green_bold")
-circle((75, 30), radius=10, style="red_dashed", text="Dashed", textstyle="red")
+rectangle((25, 36), width=20, height=20, style="blue_flat", text="Flat", textstyle="white_bold")
+rectangle((50, 36), width=20, height=20, style="green_solid_bold", text="Solid", textstyle="green_bold")
+circle((75, 36), radius=10, style="red_dashed", text="Dashed", textstyle="red_bold")
 
 # 2. Dynamic style retrieval
-accent_style = get_style("teal_bold")
+accent_style = get_style("teal_flat")
+circle((85, 48), radius=5, style=accent_style)
 
-# 3. Canvas background tinting
-config(width=100, height=60, style="monochrome")
+# 3. Dedicated monochrome catalog retrieval
+monochrome = get_styles("monochrome")
+rectangle((50, 12), width=80, height=12, style=monochrome.flat, text="Monochrome Catalog Banner", textstyle="white_bold")
 
 save()
 ```

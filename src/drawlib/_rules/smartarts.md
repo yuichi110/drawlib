@@ -46,7 +46,7 @@ from drawlib.smartarts import (
 Common auxiliary imports required for canvas setup, styling, and colors:
 ```python
 from drawlib.canvas import config, save
-from drawlib.colors import Colors, ColorsEssentials
+from drawlib.colors import Colors, Colors140, ColorsEssentials
 from drawlib.preset_styles import get_style
 from drawlib.types import Style
 ```
@@ -122,9 +122,9 @@ table = Table()
   - `between_rows`: Horizontal separator lines between inner data rows.
 
 ### 3.3 Production Example: Microservice SLA & Availability Table
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
-from drawlib.colors import Colors, ColorsEssentials
+from drawlib.colors import Colors, Colors140, ColorsEssentials
 from drawlib.smartarts import Table
 from drawlib.types import Style
 
@@ -142,8 +142,8 @@ table.set_style_cell_evenodd(
 )
 # SLA highlight (Row 2, Column 3)
 table.set_style_cell(
-    background_color=ColorsEssentials.PaleGreen,
-    textstyle=Style(text_color=ColorsEssentials.ForestGreen, text_size=10, text_weight="bold"),
+    background_color=Colors140.PaleGreen,
+    textstyle=Style(text_color=Colors140.ForestGreen, text_size=10),
     rows=[2],
     columns=[3],
 )
@@ -151,7 +151,7 @@ table.set_style_border(
     top=Style(line_color=ColorsEssentials.Charcoal, line_width=1.5),
     top2=Style(line_color=ColorsEssentials.Charcoal, line_width=1.0),
     bottom=Style(line_color=ColorsEssentials.Charcoal, line_width=1.5),
-    between_rows=Style(line_color=ColorsEssentials.LightGray, line_width=0.5),
+    between_rows=Style(line_color=Colors140.LightGray, line_width=0.5),
 )
 
 sla_data = [
@@ -203,9 +203,9 @@ Register icon functions (e.g. Phosphor icons) before or after node text:
 - `node.set_drawing_item(name)`: Links a node instance to the registered drawing item.
 
 ### 4.4 Production Example: Monorepo Project Structure
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
-from drawlib.colors import ColorsEssentials
+from drawlib.colors import Colors140, ColorsEssentials
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode
 from drawlib.types import Style
@@ -218,7 +218,7 @@ TreeNode.register_drawing_item(
 )
 TreeNode.register_drawing_item(
     name="py_icon", location="before", padding_width=4.5, function=phosphor.file_py,
-    style=Style(line_color=ColorsEssentials.ForestGreen, fill_color=ColorsEssentials.ForestGreen), args={"width": 3.0},
+    style=Style(line_color=Colors140.ForestGreen, fill_color=Colors140.ForestGreen), args={"width": 3.0},
 )
 TreeNode.register_drawing_item(
     name="yaml_icon", location="before", padding_width=4.5, function=phosphor.file_code,
@@ -227,7 +227,7 @@ TreeNode.register_drawing_item(
 
 tree_root = TreeNode(
     "monorepo-root/",
-    default_textstyle=Style(text_size=11, text_weight="bold"),
+    default_textstyle=Style(text_size=11),
     default_linestyle=Style(line_color=ColorsEssentials.Gray, line_width=1.0),
     default_line_horizontal_margin=3.0,
     default_line_horizontal_length=3.0,
@@ -284,9 +284,9 @@ assert BoxTreeNode is MindMapNode
 It accepts all parameters of `MindMapNode` (`text`, `children`, `branch`, `shape="rectangle"`, `size=(w, h)`, `style`, `r`).
 
 ### 5.4 Production Example: Horizontal Service Pipeline & Status Cards
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
-from drawlib.colors import ColorsEssentials
+from drawlib.colors import Colors140, ColorsEssentials
 from drawlib.smartarts import BoxList
 from drawlib.types import Style
 
@@ -294,15 +294,15 @@ config(width=110, height=50)
 
 pipeline = BoxList(
     default_box_style=Style(fill_color=ColorsEssentials.LightBlue, line_color=ColorsEssentials.Charcoal, line_width=1.0),
-    default_text_style=Style(text_color=ColorsEssentials.White, text_size=10, text_weight="bold"),
+    default_text_style=Style(text_color=ColorsEssentials.White, text_size=10),
 )
 pipeline.append("1. Ingestion")
 pipeline.append("2. Validation")
 # Highlighted degraded step
 pipeline.append(
-    "3. ML Inference (High Load)",
-    box_style=Style(fill_color=ColorsEssentials.PaleCoral, line_color=ColorsEssentials.Crimson, line_width=2.0),
-    text_style=Style(text_color=ColorsEssentials.Crimson, text_size=10, text_weight="bold"),
+    "3. ML Inference",
+    box_style=Style(fill_color=Colors140.Crimson, line_color=Colors140.DarkRed, line_width=1.5),
+    text_style=Style(text_color=ColorsEssentials.White, text_size=10),
 )
 pipeline.append("4. Persistence")
 pipeline.append("5. Dispatch")
@@ -359,47 +359,62 @@ MindMapNode(
 - `xy_shift`: Relative `(dx, dy)` offset applied after layout calculation to fine-tune placement or avoid label collisions.
 
 ### 6.4 Production Example: Multi-Directional Architecture Overview
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.colors import ColorsEssentials
+from drawlib.fonts import Font
 from drawlib.smartarts import MindMapNode
 from drawlib.types import Style
 
-config(width=150, height=90)
+config(width=220, height=110)
+
+txt_white = Style(text_color=ColorsEssentials.White, text_size=9, text_font=Font.SANSSERIF_BOLD)
+txt_child = Style(text_size=8.5, text_font=Font.SANSSERIF_BOLD)
+txt_leaf = Style(text_size=9)
 
 root = MindMapNode(
     "Core API Gateway",
     shape="oval",
-    size=(26, 12),
+    size=(28, 12),
     style=Style(fill_color=ColorsEssentials.Graphite, line_color=ColorsEssentials.Charcoal),
-    textstyle=Style(text_color=ColorsEssentials.White, text_weight="bold", text_size=11),
+    textstyle=txt_white,
     default_line_length=12.0,
     default_horizontal_margin=4.0,
     default_vertical_margin=4.0,
     children=[
         MindMapNode(
-            "Client Traffic", branch="left", shape="rectangle", size=(20, 8), style="blue_flat", textstyle="white_bold",
-            children=[MindMapNode("Web App (SPA)", shape="none"), MindMapNode("Mobile iOS/Android", shape="none"), MindMapNode("Public REST API", shape="none")],
-        ),
-        MindMapNode(
-            "Internal Services", branch="right", shape="rectangle", size=(22, 8), style="green_flat", textstyle="white_bold",
+            "Client Traffic", branch="left", shape="rectangle", size=(22, 8), style="blue_flat", textstyle=txt_white,
             children=[
-                MindMapNode("Auth Service", shape="rectangle", size=(16, 6), style="light"),
-                MindMapNode("Billing Engine", shape="rectangle", size=(16, 6), style="light"),
-                MindMapNode("Notification Hub", shape="rectangle", size=(16, 6), style="light"),
+                MindMapNode("Web App (SPA)", shape="none", textstyle=txt_leaf),
+                MindMapNode("Mobile Apps", shape="none", textstyle=txt_leaf),
+                MindMapNode("Public REST API", shape="none", textstyle=txt_leaf),
             ],
         ),
         MindMapNode(
-            "Telemetry Stack", branch="top", shape="rectangle", size=(20, 8), style="purple_flat", textstyle="white_bold",
-            children=[MindMapNode("Prometheus Metrics", shape="none"), MindMapNode("OpenTelemetry Traces", shape="none")],
+            "Internal Services", branch="right", shape="rectangle", size=(24, 8), style="green_flat", textstyle=txt_white,
+            children=[
+                MindMapNode("Auth Service", shape="rectangle", size=(22, 6), style="light", textstyle=txt_child),
+                MindMapNode("Billing Engine", shape="rectangle", size=(22, 6), style="light", textstyle=txt_child),
+                MindMapNode("Notification Hub", shape="rectangle", size=(22, 6), style="light", textstyle=txt_child),
+            ],
         ),
         MindMapNode(
-            "Persistence Tier", branch="bottom", shape="rectangle", size=(20, 8), style="orange_flat", textstyle="white_bold",
-            children=[MindMapNode("PostgreSQL Primary", shape="none"), MindMapNode("Redis Cache Cluster", shape="none")],
+            "Telemetry Stack", branch="top", shape="rectangle", size=(24, 8), style="purple_flat", textstyle=txt_white,
+            children=[
+                MindMapNode("Prometheus Metrics", shape="none", textstyle=txt_leaf),
+                MindMapNode("OpenTelemetry Traces", shape="none", textstyle=txt_leaf),
+            ],
+        ),
+        MindMapNode(
+            "Persistence Tier", branch="bottom", shape="rectangle", size=(24, 8), style="orange_flat", textstyle=txt_white,
+            children=[
+                MindMapNode("PostgreSQL Primary", shape="none", textstyle=txt_leaf),
+                MindMapNode("Redis Cache Cluster", shape="none", textstyle=txt_leaf),
+            ],
         ),
     ],
 )
-root.draw(xy=(75, 45))
+root.draw(xy=(110, 55))
 save()
 ```
 
@@ -437,34 +452,34 @@ ChevronProcess(
   - `item_width`: If provided, overrides automatic width distribution.
 
 ### 7.4 Production Example: Cloud CI/CD Deployment Pipeline
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
-from drawlib.colors import ColorsEssentials
+from drawlib.colors import Colors140, ColorsEssentials
 from drawlib.smartarts import ChevronProcess
 from drawlib.types import Style
 
-config(width=120, height=45)
+config(width=130, height=45)
 
 pipeline = ChevronProcess(
     corner_angle=60.0,
     spacing=2.0,
     flat_left_end=True,
-    default_textstyle=Style(text_size=10, text_weight="bold", text_color=ColorsEssentials.White),
+    default_textstyle=Style(text_size=9.5, text_color=ColorsEssentials.White),
     default_description_style=Style(text_size=8, text_color=ColorsEssentials.Snow),
 )
-pipeline.append("1. Commit", description="Git Hook / Lint", style="gray_flat")
-pipeline.append("2. Build", description="Docker Container", style="blue_flat")
+pipeline.append("1. Commit", description="Lint / Hooks", style="gray_flat")
+pipeline.append("2. Build", description="Docker Image", style="blue_flat")
 # Active Stage Highlight
 pipeline.append(
-    text="3. Security Scan",
-    description="SAST & CVE Audit",
-    style=Style(fill_color=ColorsEssentials.Crimson, line_color=ColorsEssentials.Charcoal, line_width=1.5),
-    textstyle=Style(text_size=10, text_weight="bold", text_color=ColorsEssentials.White),
+    text="3. Security",
+    description="SAST & CVE",
+    style=Style(fill_color=Colors140.Crimson, line_color=ColorsEssentials.Charcoal, line_width=1.5),
+    textstyle=Style(text_size=9.5, text_color=ColorsEssentials.White),
     description_style=Style(text_size=8, text_color=ColorsEssentials.Snow),
 )
-pipeline.append("4. Staging Deploy", description="Integration Test", style="light", textstyle="dark", description_style="gray")
-pipeline.append("5. Production", description="Canary Release", style="light", textstyle="dark", description_style="gray")
-pipeline.draw(xy=(10, 15), width=100.0, height=16.0)
+pipeline.append("4. Staging", description="Integration", style="blue_flat")
+pipeline.append("5. Production", description="Canary Deploy", style="green_flat")
+pipeline.draw(xy=(10, 15), width=110.0, height=16.0)
 save()
 ```
 
@@ -514,9 +529,9 @@ Cycle(
 - `set_center(text, description="", radius=None, style=None, textstyle=None, description_style=None)`: Configures central hub node.
 
 ### 8.4 Production Example: SRE Incident Response Lifecycle
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
-from drawlib.colors import ColorsEssentials
+from drawlib.colors import Colors140, ColorsEssentials
 from drawlib.smartarts import Cycle
 from drawlib.types import Style
 
@@ -531,7 +546,7 @@ incident_cycle = Cycle(
     arrow_width=1.5,
     arrow_head_width=4.0,
     arrow_color_mode="match_source",
-    default_textstyle=Style(text_size=9, text_weight="bold", text_color=ColorsEssentials.White),
+    default_textstyle=Style(text_size=9, text_color=ColorsEssentials.White),
     default_description_style=Style(text_size=7, text_color=ColorsEssentials.Snow),
     description_placement="inside",
 )
@@ -545,9 +560,9 @@ incident_cycle.set_center(
     text="SRE",
     description="Command",
     radius=11.0,
-    style="dark",
-    textstyle=Style(text_color=ColorsEssentials.White, text_weight="bold", text_size=12),
-    description_style=Style(text_color=ColorsEssentials.LightGray, text_size=8),
+    style="charcoal_flat",
+    textstyle=Style(text_color=ColorsEssentials.White, text_size=12),
+    description_style=Style(text_color=Colors140.LightGray, text_size=8),
 )
 incident_cycle.draw(xy=(50, 45), radius=32.0, align="center")
 save()
@@ -596,9 +611,9 @@ grid.add(
 - `draw_flexible(xy, column_widths, column_margins, row_heights, row_margins, outer_r=None, outer_style=None)`: Custom widths and heights for each individual column and row.
 
 ### 9.4 Production Example: Multi-Tier Cloud Software Architecture
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
-from drawlib.colors import ColorsEssentials
+from drawlib.colors import Colors140, ColorsEssentials
 from drawlib.smartarts import GridLayout
 from drawlib.types import Style
 
@@ -670,16 +685,16 @@ pyramid.add(
 - `draw_flexible(xy, width, item_heights, margins, align="bottom", order="vertex_to_base")`: Explicit heights per tier.
 
 ### 10.4 Production Example: Software Testing Pyramid
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
-from drawlib.colors import ColorsEssentials
+from drawlib.colors import Colors140, ColorsEssentials
 from drawlib.smartarts import Pyramid
 from drawlib.types import Style
 
 config(width=100, height=65)
 
-test_pyramid = Pyramid(default_textstyle=Style(text_color=ColorsEssentials.White, text_weight="bold", text_size=10))
-test_pyramid.add("Manual & Exploratory (1%)", style="red_flat")
+test_pyramid = Pyramid(default_textstyle=Style(text_color=ColorsEssentials.White, text_size=10))
+test_pyramid.add("Manual (1%)", style="red_flat", textstyle=Style(text_color=ColorsEssentials.White, text_size=8.5))
 test_pyramid.add("End-to-End UI Tests (9%)", style="orange_flat")
 test_pyramid.add("Integration & Contract Tests (20%)", style="blue_flat")
 test_pyramid.add("Unit Tests (70%)", style="green_flat")
@@ -716,9 +731,9 @@ BulletPoints(
 - `draw(xy: tuple[float, float])`: Renders bullet points starting from `xy`.
 
 ### 11.3 Production Example: Architecture Decision RFC Summary
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
-from drawlib.colors import ColorsEssentials
+from drawlib.colors import Colors140, ColorsEssentials
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
 from drawlib.smartarts import BulletPoints
@@ -732,7 +747,7 @@ bp.set_bullet_style(
 )
 bp.set_bullet_style(
     indent_level=2, function=phosphor.check_circle,
-    style=Style(line_color=ColorsEssentials.ForestGreen, fill_color=ColorsEssentials.ForestGreen), args={"width": 2.0}
+    style=Style(line_color=Colors140.ForestGreen, fill_color=Colors140.ForestGreen), args={"width": 2.0}
 )
 
 bp.set_indent(0)
@@ -782,18 +797,18 @@ SourceCode(
 - `get_text(file: str, strip: bool = True) -> str`: Static utility to load source code from an external file relative to script location.
 
 ### 12.4 Production Example: Embedded Configuration Block
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.shapes import rectangle
 from drawlib.smartarts import SourceCode
 from drawlib.types import Style
 
-config(width=110, height=65)
+config(width=110, height=105)
 
-rectangle(
-    xy=(55, 32.5), width=94, height=55, r=2, style="dark",
-    text="Kubernetes Deployment Spec (v1)", textstyle="white_bold", valign="top",
-)
+# Outer window frame
+rectangle(xy=(55, 52.5), width=96, height=95, r=2, style="charcoal_solid")
+# Header bar
+rectangle(xy=(55, 94), width=96, height=12, r=2, style="charcoal_flat", text="Kubernetes Deployment Spec (v1)", textstyle="white_bold")
 
 k8s_yaml = """apiVersion: apps/v1
 kind: Deployment
@@ -809,12 +824,10 @@ spec:
     spec:
       containers:
       - name: auth
-        image: gcr.io/company/auth:v1.4.2
-        ports:
-        - containerPort: 8080"""
+        image: gcr.io/company/auth:v1.4.2"""
 
 sc = SourceCode(language="yaml", style="monokai", show_linenum=True)
-sc.draw(xy=(55, 27), width=85, code=k8s_yaml)
+sc.draw(xy=(55, 45), width=88, code=k8s_yaml)
 save()
 ```
 
@@ -863,9 +876,9 @@ bubblespeech(
 ```
 
 ### 13.3 Production Example: Architecture Bottleneck Callout
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
-from drawlib.colors import ColorsEssentials
+from drawlib.colors import Colors140, ColorsEssentials
 from drawlib.shapes import rectangle
 from drawlib.smartarts import bubblespeech
 from drawlib.types import Style
@@ -880,9 +893,9 @@ rectangle(
 bubblespeech(
     xy=(55, 30), width=48, height=20, tail_edge="bottom",
     tail_start_ratio=0.15, tail_end_ratio=0.45, tail_vertex_xy=(25, 27),
-    style=Style(fill_color=ColorsEssentials.PaleCoral, line_color=ColorsEssentials.Crimson, line_width=1.5),
+    style=Style(fill_color=Colors140.LightCoral, line_color=Colors140.Crimson, line_width=1.5),
     text="ACTION REQUIRED:\nExceeding IOPS threshold.\nMigrate read replicas to AWS Aurora.",
-    textsize=9, textstyle=Style(text_color=ColorsEssentials.Crimson, text_weight="bold"),
+    textsize=9, textstyle=Style(text_color=Colors140.DarkRed, text_font=Font.SANSSERIF_BOLD),
 )
 save()
 ```
@@ -917,9 +930,9 @@ top_left_y = bottom_y + H
 | `Cycle` (align="center") | Orbit Center `(x, y)` | Pass `(X + R, Y - R)` | Pass `(X + R, Y + R)` |
 
 ### 14.2 Multi-Component Dashboard Integration Example
-```python
+```drawlib show-code
 from drawlib.canvas import config, save
-from drawlib.colors import ColorsEssentials
+from drawlib.colors import Colors140, ColorsEssentials
 from drawlib.smartarts import ChevronProcess, GridLayout, SourceCode, Table
 from drawlib.types import Style
 
