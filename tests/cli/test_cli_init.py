@@ -97,8 +97,15 @@ def test_cli_init_site(tmp_path: Path) -> None:
     assert (dest / "docs_config.py").is_file()
     assert (dest / "docs_build.sh").is_file()
     assert (dest / "docs_src" / "index.md").is_file()
-    assert (dest / "docs_src" / "architecture.md").is_file()
-    assert (dest / "docs_src" / "workflow.md").is_file()
+    assert (dest / "docs_src" / "navbar.md").is_file()
+    assert (dest / "docs_src" / "architecture" / "index.md").is_file()
+    assert (dest / "docs_src" / "workflow" / "index.md").is_file()
+
+    res_build = run_drawlib_cli(["build", "html", "docs_src", "-o", "docs_html"], cwd=str(dest))
+    assert res_build.returncode == 0
+    assert (dest / "docs_html" / "index.html").is_file()
+    assert (dest / "docs_html" / "architecture" / "index.html").is_file()
+    assert (dest / "docs_html" / "workflow" / "index.html").is_file()
 
 
 def test_cli_init_pdf(tmp_path: Path) -> None:

@@ -27,6 +27,7 @@ rules_app = typer.Typer(
 TOPIC_DESCRIPTIONS: Final[dict[str, str]] = {
     "overview": "Canvas lifecycle, coordinate system, core imports, and workflow",
     "cli": "Document compilation, export, preview, and cache CLI commands",
+    "docs_build": "Documentation site structure, navbar rules, scaffolding, and build conventions",
     "shapes": "Rectangles, circles, ellipses, wedges, and polygons",
     "lines": "Straight, curved, and chained lines with arrowheads",
     "text": "Text rendering, formatting, alignment, and fonts",
@@ -53,6 +54,9 @@ def cmd_rules_show(
         topic: The rule topic name to display (e.g. shapes, lines, text).
     """
     selected_topic = "overview" if topic is None else topic.strip().lower()
+
+    if selected_topic in {"doc_build", "docs", "doc"}:
+        selected_topic = "docs_build"
 
     if selected_topic in {"theme", "themes"}:
         print(

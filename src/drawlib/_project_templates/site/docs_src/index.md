@@ -16,5 +16,5 @@ line((62.5, 25), (67.5, 25), arrowhead="->", style="bold")
 ```
 
 Explore the documentation:
-- [Architecture](architecture.md)
-- [Workflow](workflow.md)
+- [Architecture](architecture/index.md)
+- [Workflow](workflow/index.md)

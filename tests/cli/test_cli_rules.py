@@ -53,6 +53,7 @@ def test_cli_rules_list(tmp_path: Path) -> None:
     for topic in [
         "overview",
         "cli",
+        "docs_build",
         "shapes",
         "lines",
         "text",
@@ -70,6 +71,7 @@ def test_cli_rules_list(tmp_path: Path) -> None:
     [
         ("overview", "# Drawlib Agent Drawing Guidelines"),
         ("cli", "# Drawlib CLI Guidelines"),
+        ("docs_build", "# Drawlib Documentation Build Guidelines"),
         ("shapes", "# Drawlib Shapes Guidelines"),
         ("lines", "# Drawlib Lines Guidelines"),
         ("text", "# Drawlib Text Guidelines"),
@@ -93,6 +95,13 @@ def test_cli_rules_show_themes_alias(tmp_path: Path) -> None:
     assert res.returncode == 0
     assert "# Drawlib Preset Styles Guidelines" in res.stdout
     assert "preset_styles" in res.stderr.lower()
+
+
+def test_cli_rules_show_docs_alias(tmp_path: Path) -> None:
+    """Test `drawlib rules show docs` redirects to docs_build."""
+    res = run_drawlib_cli(["rules", "show", "docs"], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert "# Drawlib Documentation Build Guidelines" in res.stdout
 
 
 def test_cli_rules_show_unknown_topic(tmp_path: Path) -> None:
