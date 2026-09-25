@@ -23,14 +23,6 @@ from drawlib._core.l3_styles._colors import (
 from drawlib._core.l3_styles._style_models import (
     Style,
 )
-from drawlib._core.l3_styles._system_default import (
-    SYSTEM_DEFAULT_ICON_STYLE,
-    SYSTEM_DEFAULT_IMAGE_STYLE,
-    SYSTEM_DEFAULT_LINE_STYLE,
-    SYSTEM_DEFAULT_SHAPE_STYLE,
-    SYSTEM_DEFAULT_SHAPE_TEXT_STYLE,
-    SYSTEM_DEFAULT_TEXT_STYLE,
-)
 
 __all__ = [
     # _colors.py
@@ -45,11 +37,4 @@ __all__ = [
     "ColorsThemeMonochrome",
     # _style_models.py
     "Style",
-    # _system_default.py
-    "SYSTEM_DEFAULT_ICON_STYLE",
-    "SYSTEM_DEFAULT_IMAGE_STYLE",
-    "SYSTEM_DEFAULT_LINE_STYLE",
-    "SYSTEM_DEFAULT_SHAPE_STYLE",
-    "SYSTEM_DEFAULT_SHAPE_TEXT_STYLE",
-    "SYSTEM_DEFAULT_TEXT_STYLE",
 ]

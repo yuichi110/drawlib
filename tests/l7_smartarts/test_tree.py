@@ -9,7 +9,7 @@
 
 """Unit and integration tests for TreeNode smart art hierarchical rendering."""
 
-from drawlib._preset_styles import get_style
+from drawlib._preset_styles import get_default_styles
 from drawlib.canvas import clear, save
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode
@@ -23,11 +23,12 @@ class TestTree:
     def test_tree_default(self) -> None:
         """Verify standard TreeNode hierarchy rendering with custom styled child nodes."""
         clear()
+        styles = get_default_styles()
         tn = TreeNode
         t = tn(
             "Root",
-            default_textstyle="",
-            default_linestyle="light",
+            default_textstyle=styles.primary,
+            default_linestyle=styles.light,
             default_line_horizontal_margin=2,
             default_line_horizontal_length=2,
             default_line_vertical_margin=5,
@@ -41,12 +42,12 @@ class TestTree:
                                 tn("Child1-1-1"),
                             ],
                         ),
-                        tn("Child1-2", textstyle="red"),
+                        tn("Child1-2", textstyle=styles.primary.patch(text_color=(255, 0, 0, 1.0))),
                     ],
                 ),
                 tn(
                     text="Child2",
-                    default_textstyle="blue",
+                    default_textstyle=styles.primary.patch(text_color=(0, 0, 255, 1.0)),
                     children=[
                         tn("Child2-1"),
                         tn("Child2-2"),
@@ -61,20 +62,21 @@ class TestTree:
     def test_tree_with_icon_item_decorators(self) -> None:
         """Verify TreeNode hierarchy rendering including registered icon drawing decorators."""
         clear()
+        styles = get_default_styles()
         tn = TreeNode
         tn.register_drawing_item(
             name="py_file",
             location="before",
             padding_width=5,
             function=phosphor.file_py,
-            style=get_style(),
+            style=styles.primary,
             args={"width": 4},
         )
 
         t = tn(
             "Root",
-            default_textstyle="",
-            default_linestyle="",
+            default_textstyle=styles.primary,
+            default_linestyle=styles.solid,
             default_line_horizontal_margin=2,
             default_line_horizontal_length=2,
             default_line_vertical_margin=5,

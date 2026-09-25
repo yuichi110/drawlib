@@ -10,6 +10,7 @@
 """Unit and integration tests for BulletPoints smart art."""
 
 from drawlib.canvas import clear, save
+from drawlib.preset_styles import get_default_styles
 from drawlib.smartarts import BulletPoints
 
 OUTPUT_DIR = "../../output_tests/l7_smartarts/bulletpoints/"
@@ -21,7 +22,8 @@ class TestBulletPoints:
     def test_bulletpoints_default(self) -> None:
         """Verify BulletPoints rendering with multi-level indents."""
         clear()
-        b = BulletPoints(4, 4)
+        styles = get_default_styles()
+        b = BulletPoints(styles=styles, vertical_margin=4, indent_width=4)
         b.add("level 0")
         b.set_indent(1)
         b.add("level 1-1")
@@ -37,7 +39,8 @@ class TestBulletPoints:
     def test_bulletpoints_japanese(self) -> None:
         """Verify BulletPoints rendering using Japanese text at multiple levels."""
         clear()
-        b = BulletPoints(4, 4)
+        styles = get_default_styles()
+        b = BulletPoints(styles=styles, vertical_margin=4, indent_width=4)
         b.add("レベル 0")
         b.set_indent(1)
         b.add("レベル 1-1")

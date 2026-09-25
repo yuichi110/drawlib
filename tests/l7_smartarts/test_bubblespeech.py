@@ -11,8 +11,8 @@
 
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
+from drawlib.preset_styles import get_default_styles
 from drawlib.smartarts import bubblespeech
-from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l7_smartarts/bubblespeech/"
 
@@ -23,6 +23,7 @@ class TestBubblespeech:
     def test_tail_left(self) -> None:
         """Verify bubblespeech tail rendered on the left edge."""
         clear()
+        styles = get_default_styles()
         bubblespeech(
             xy=(30, 30),
             width=50,
@@ -31,12 +32,14 @@ class TestBubblespeech:
             tail_start_ratio=0.2,
             tail_vertex_xy=(10, 50),
             tail_end_ratio=0.6,
+            style=styles.primary,
         )
         save(f"{OUTPUT_DIR}test_tail_left.png")
 
     def test_tail_top(self) -> None:
         """Verify bubblespeech tail rendered on the top edge."""
         clear()
+        styles = get_default_styles()
         bubblespeech(
             xy=(30, 30),
             width=50,
@@ -45,12 +48,14 @@ class TestBubblespeech:
             tail_start_ratio=0.2,
             tail_vertex_xy=(50, 90),
             tail_end_ratio=0.6,
+            style=styles.primary,
         )
         save(f"{OUTPUT_DIR}test_tail_top.png")
 
     def test_tail_right(self) -> None:
         """Verify bubblespeech tail rendered on the right edge."""
         clear()
+        styles = get_default_styles()
         bubblespeech(
             xy=(30, 30),
             width=50,
@@ -59,12 +64,14 @@ class TestBubblespeech:
             tail_start_ratio=0.2,
             tail_vertex_xy=(95, 50),
             tail_end_ratio=0.6,
+            style=styles.primary,
         )
         save(f"{OUTPUT_DIR}test_tail_right.png")
 
     def test_tail_bottom(self) -> None:
         """Verify bubblespeech tail rendered on the bottom edge."""
         clear()
+        styles = get_default_styles()
         bubblespeech(
             xy=(30, 30),
             width=50,
@@ -73,12 +80,14 @@ class TestBubblespeech:
             tail_start_ratio=0.2,
             tail_vertex_xy=(50, 10),
             tail_end_ratio=0.6,
+            style=styles.primary,
         )
         save(f"{OUTPUT_DIR}test_tail_bottom.png")
 
     def test_with_text_and_style(self) -> None:
         """Verify bubblespeech drawing with formatted text and custom Style."""
         clear()
+        styles = get_default_styles()
         bubblespeech(
             xy=(30, 30),
             width=50,
@@ -87,7 +96,8 @@ class TestBubblespeech:
             tail_start_ratio=0.2,
             tail_vertex_xy=(10, 50),
             tail_end_ratio=0.6,
+            style=styles.primary,
             text="Hello Drawlib\nHello Python World!!",
-            textstyle=Style(text_color=Colors.Red, text_size=28),
+            textstyle=styles.primary.patch(text_color=Colors.Red, text_size=28),
         )
         save(f"{OUTPUT_DIR}test_with_text_style.png")

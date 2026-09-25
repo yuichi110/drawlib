@@ -27,7 +27,8 @@ def access_context_manager(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing access context manager.
 
@@ -36,7 +37,7 @@ def access_context_manager(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="access_context_manager", angle=angle, style=style)
@@ -47,7 +48,8 @@ def administration(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing administration.
 
@@ -56,7 +58,7 @@ def administration(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="administration", angle=angle, style=style)
@@ -67,7 +69,8 @@ def advanced_agent_modeling(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing advanced agent modeling.
 
@@ -76,7 +79,7 @@ def advanced_agent_modeling(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="advanced_agent_modeling", angle=angle, style=style)
@@ -87,7 +90,8 @@ def advanced_solutions_lab(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing advanced solutions lab.
 
@@ -96,7 +100,7 @@ def advanced_solutions_lab(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="advanced_solutions_lab", angle=angle, style=style)
@@ -107,7 +111,8 @@ def agent_assist(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing agent assist.
 
@@ -116,7 +121,7 @@ def agent_assist(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="agent_assist", angle=angle, style=style)
@@ -127,7 +132,8 @@ def ai_hub(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing ai hub.
 
@@ -136,7 +142,7 @@ def ai_hub(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="ai_hub", angle=angle, style=style)
@@ -147,7 +153,8 @@ def ai_hypercomputer(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing ai hypercomputer.
 
@@ -156,7 +163,7 @@ def ai_hypercomputer(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="ai_hypercomputer", angle=angle, style=style)
@@ -167,7 +174,8 @@ def ai_platform(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing ai platform.
 
@@ -176,7 +184,7 @@ def ai_platform(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="ai_platform", angle=angle, style=style)
@@ -187,7 +195,8 @@ def ai_platform_unified(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing ai platform unified.
 
@@ -196,7 +205,7 @@ def ai_platform_unified(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="ai_platform_unified", angle=angle, style=style)
@@ -207,7 +216,8 @@ def alloydb(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing alloydb.
 
@@ -216,7 +226,7 @@ def alloydb(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="alloydb", angle=angle, style=style)
@@ -227,7 +237,8 @@ def analytics_hub(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing analytics hub.
 
@@ -236,7 +247,7 @@ def analytics_hub(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="analytics_hub", angle=angle, style=style)
@@ -247,7 +258,8 @@ def anthos(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing anthos.
 
@@ -256,7 +268,7 @@ def anthos(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="anthos", angle=angle, style=style)
@@ -267,7 +279,8 @@ def anthos_config_management(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing anthos config management.
 
@@ -276,7 +289,7 @@ def anthos_config_management(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="anthos_config_management", angle=angle, style=style)
@@ -287,7 +300,8 @@ def anthos_service_mesh(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing anthos service mesh.
 
@@ -296,7 +310,7 @@ def anthos_service_mesh(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="anthos_service_mesh", angle=angle, style=style)
@@ -307,7 +321,8 @@ def api(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing api.
 
@@ -316,7 +331,7 @@ def api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="api", angle=angle, style=style)
@@ -327,7 +342,8 @@ def api_analytics(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing api analytics.
 
@@ -336,7 +352,7 @@ def api_analytics(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="api_analytics", angle=angle, style=style)
@@ -347,7 +363,8 @@ def api_monetization(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing api monetization.
 
@@ -356,7 +373,7 @@ def api_monetization(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="api_monetization", angle=angle, style=style)
@@ -367,7 +384,8 @@ def apigee(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing apigee.
 
@@ -376,7 +394,7 @@ def apigee(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="apigee", angle=angle, style=style)
@@ -387,7 +405,8 @@ def apigee_api_platform(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing apigee api platform.
 
@@ -396,7 +415,7 @@ def apigee_api_platform(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="apigee_api_platform", angle=angle, style=style)
@@ -407,7 +426,8 @@ def apigee_sense(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing apigee sense.
 
@@ -416,7 +436,7 @@ def apigee_sense(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="apigee_sense", angle=angle, style=style)
@@ -427,7 +447,8 @@ def app_engine(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing app engine.
 
@@ -436,7 +457,7 @@ def app_engine(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="app_engine", angle=angle, style=style)
@@ -447,7 +468,8 @@ def artifact_registry(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing artifact registry.
 
@@ -456,7 +478,7 @@ def artifact_registry(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="artifact_registry", angle=angle, style=style)
@@ -467,7 +489,8 @@ def asset_inventory(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing asset inventory.
 
@@ -476,7 +499,7 @@ def asset_inventory(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="asset_inventory", angle=angle, style=style)
@@ -487,7 +510,8 @@ def assured_workloads(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing assured workloads.
 
@@ -496,7 +520,7 @@ def assured_workloads(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="assured_workloads", angle=angle, style=style)
@@ -507,7 +531,8 @@ def automl(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing automl.
 
@@ -516,7 +541,7 @@ def automl(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="automl", angle=angle, style=style)
@@ -527,7 +552,8 @@ def automl_natural_language(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing automl natural language.
 
@@ -536,7 +562,7 @@ def automl_natural_language(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="automl_natural_language", angle=angle, style=style)
@@ -547,7 +573,8 @@ def automl_tables(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing automl tables.
 
@@ -556,7 +583,7 @@ def automl_tables(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="automl_tables", angle=angle, style=style)
@@ -567,7 +594,8 @@ def automl_translation(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing automl translation.
 
@@ -576,7 +604,7 @@ def automl_translation(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="automl_translation", angle=angle, style=style)
@@ -587,7 +615,8 @@ def automl_video_intelligence(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing automl video intelligence.
 
@@ -596,7 +625,7 @@ def automl_video_intelligence(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="automl_video_intelligence", angle=angle, style=style)
@@ -607,7 +636,8 @@ def automl_vision(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing automl vision.
 
@@ -616,7 +646,7 @@ def automl_vision(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="automl_vision", angle=angle, style=style)
@@ -627,7 +657,8 @@ def bare_metal_solutions(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing bare metal solutions.
 
@@ -636,7 +667,7 @@ def bare_metal_solutions(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="bare_metal_solutions", angle=angle, style=style)
@@ -647,7 +678,8 @@ def batch(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing batch.
 
@@ -656,7 +688,7 @@ def batch(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="batch", angle=angle, style=style)
@@ -667,7 +699,8 @@ def beyondcorp(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing beyondcorp.
 
@@ -676,7 +709,7 @@ def beyondcorp(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="beyondcorp", angle=angle, style=style)
@@ -687,7 +720,8 @@ def bigquery(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing bigquery.
 
@@ -696,7 +730,7 @@ def bigquery(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="bigquery", angle=angle, style=style)
@@ -707,7 +741,8 @@ def bigtable(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing bigtable.
 
@@ -716,7 +751,7 @@ def bigtable(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="bigtable", angle=angle, style=style)
@@ -727,7 +762,8 @@ def billing(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing billing.
 
@@ -736,7 +772,7 @@ def billing(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="billing", angle=angle, style=style)
@@ -747,7 +783,8 @@ def binary_authorization(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing binary authorization.
 
@@ -756,7 +793,7 @@ def binary_authorization(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="binary_authorization", angle=angle, style=style)
@@ -767,7 +804,8 @@ def catalog(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing catalog.
 
@@ -776,7 +814,7 @@ def catalog(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="catalog", angle=angle, style=style)
@@ -787,7 +825,8 @@ def category_agents(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category agents.
 
@@ -796,7 +835,7 @@ def category_agents(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_agents", angle=angle, style=style)
@@ -807,7 +846,8 @@ def category_ai_machine_learning(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category ai machine learning.
 
@@ -816,7 +856,7 @@ def category_ai_machine_learning(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_ai_machine_learning", angle=angle, style=style)
@@ -827,7 +867,8 @@ def category_business_intelligence(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category business intelligence.
 
@@ -836,7 +877,7 @@ def category_business_intelligence(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_business_intelligence", angle=angle, style=style)
@@ -847,7 +888,8 @@ def category_collaboration(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category collaboration.
 
@@ -856,7 +898,7 @@ def category_collaboration(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_collaboration", angle=angle, style=style)
@@ -867,7 +909,8 @@ def category_compute(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category compute.
 
@@ -876,7 +919,7 @@ def category_compute(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_compute", angle=angle, style=style)
@@ -887,7 +930,8 @@ def category_containers(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category containers.
 
@@ -896,7 +940,7 @@ def category_containers(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_containers", angle=angle, style=style)
@@ -907,7 +951,8 @@ def category_data_analytics(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category data analytics.
 
@@ -916,7 +961,7 @@ def category_data_analytics(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_data_analytics", angle=angle, style=style)
@@ -927,7 +972,8 @@ def category_databases(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category databases.
 
@@ -936,7 +982,7 @@ def category_databases(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_databases", angle=angle, style=style)
@@ -947,7 +993,8 @@ def category_developer_tools(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category developer tools.
 
@@ -956,7 +1003,7 @@ def category_developer_tools(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_developer_tools", angle=angle, style=style)
@@ -967,7 +1014,8 @@ def category_devops(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category devops.
 
@@ -976,7 +1024,7 @@ def category_devops(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_devops", angle=angle, style=style)
@@ -987,7 +1035,8 @@ def category_hybrid_multicloud(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category hybrid multicloud.
 
@@ -996,7 +1045,7 @@ def category_hybrid_multicloud(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_hybrid_multicloud", angle=angle, style=style)
@@ -1007,7 +1056,8 @@ def category_integration_services(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category integration services.
 
@@ -1016,7 +1066,7 @@ def category_integration_services(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_integration_services", angle=angle, style=style)
@@ -1027,7 +1077,8 @@ def category_management_tools(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category management tools.
 
@@ -1036,7 +1087,7 @@ def category_management_tools(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_management_tools", angle=angle, style=style)
@@ -1047,7 +1098,8 @@ def category_maps_geospatial(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category maps geospatial.
 
@@ -1056,7 +1108,7 @@ def category_maps_geospatial(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_maps_geospatial", angle=angle, style=style)
@@ -1067,7 +1119,8 @@ def category_marketplace(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category marketplace.
 
@@ -1076,7 +1129,7 @@ def category_marketplace(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_marketplace", angle=angle, style=style)
@@ -1087,7 +1140,8 @@ def category_media_services(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category media services.
 
@@ -1096,7 +1150,7 @@ def category_media_services(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_media_services", angle=angle, style=style)
@@ -1107,7 +1161,8 @@ def category_migration(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category migration.
 
@@ -1116,7 +1171,7 @@ def category_migration(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_migration", angle=angle, style=style)
@@ -1127,7 +1182,8 @@ def category_mixed_reality(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category mixed reality.
 
@@ -1136,7 +1192,7 @@ def category_mixed_reality(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_mixed_reality", angle=angle, style=style)
@@ -1147,7 +1203,8 @@ def category_networking(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category networking.
 
@@ -1156,7 +1213,7 @@ def category_networking(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_networking", angle=angle, style=style)
@@ -1167,7 +1224,8 @@ def category_observability(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category observability.
 
@@ -1176,7 +1234,7 @@ def category_observability(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_observability", angle=angle, style=style)
@@ -1187,7 +1245,8 @@ def category_operations(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category operations.
 
@@ -1196,7 +1255,7 @@ def category_operations(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_operations", angle=angle, style=style)
@@ -1207,7 +1266,8 @@ def category_security_identity(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category security identity.
 
@@ -1216,7 +1276,7 @@ def category_security_identity(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_security_identity", angle=angle, style=style)
@@ -1227,7 +1287,8 @@ def category_serverless_computing(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category serverless computing.
 
@@ -1236,7 +1297,7 @@ def category_serverless_computing(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_serverless_computing", angle=angle, style=style)
@@ -1247,7 +1308,8 @@ def category_storage(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category storage.
 
@@ -1256,7 +1318,7 @@ def category_storage(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_storage", angle=angle, style=style)
@@ -1267,7 +1329,8 @@ def category_web3(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category web3.
 
@@ -1276,7 +1339,7 @@ def category_web3(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_web3", angle=angle, style=style)
@@ -1287,7 +1350,8 @@ def category_web_mobile(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing category web mobile.
 
@@ -1296,7 +1360,7 @@ def category_web_mobile(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="category_web_mobile", angle=angle, style=style)
@@ -1307,7 +1371,8 @@ def certificate_authority_service(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing certificate authority service.
 
@@ -1316,7 +1381,7 @@ def certificate_authority_service(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="certificate_authority_service", angle=angle, style=style)
@@ -1327,7 +1392,8 @@ def certificate_manager(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing certificate manager.
 
@@ -1336,7 +1402,7 @@ def certificate_manager(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="certificate_manager", angle=angle, style=style)
@@ -1347,7 +1413,8 @@ def cloud_api_gateway(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud api gateway.
 
@@ -1356,7 +1423,7 @@ def cloud_api_gateway(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_api_gateway", angle=angle, style=style)
@@ -1367,7 +1434,8 @@ def cloud_apis(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud apis.
 
@@ -1376,7 +1444,7 @@ def cloud_apis(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_apis", angle=angle, style=style)
@@ -1387,7 +1455,8 @@ def cloud_armor(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud armor.
 
@@ -1396,7 +1465,7 @@ def cloud_armor(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_armor", angle=angle, style=style)
@@ -1407,7 +1476,8 @@ def cloud_asset_inventory(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud asset inventory.
 
@@ -1416,7 +1486,7 @@ def cloud_asset_inventory(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_asset_inventory", angle=angle, style=style)
@@ -1427,7 +1497,8 @@ def cloud_audit_logs(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud audit logs.
 
@@ -1436,7 +1507,7 @@ def cloud_audit_logs(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_audit_logs", angle=angle, style=style)
@@ -1447,7 +1518,8 @@ def cloud_build(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud build.
 
@@ -1456,7 +1528,7 @@ def cloud_build(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_build", angle=angle, style=style)
@@ -1467,7 +1539,8 @@ def cloud_cdn(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud cdn.
 
@@ -1476,7 +1549,7 @@ def cloud_cdn(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_cdn", angle=angle, style=style)
@@ -1487,7 +1560,8 @@ def cloud_code(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud code.
 
@@ -1496,7 +1570,7 @@ def cloud_code(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_code", angle=angle, style=style)
@@ -1507,7 +1581,8 @@ def cloud_composer(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud composer.
 
@@ -1516,7 +1591,7 @@ def cloud_composer(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_composer", angle=angle, style=style)
@@ -1527,7 +1602,8 @@ def cloud_data_fusion(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud data fusion.
 
@@ -1536,7 +1612,7 @@ def cloud_data_fusion(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_data_fusion", angle=angle, style=style)
@@ -1547,7 +1623,8 @@ def cloud_deploy(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud deploy.
 
@@ -1556,7 +1633,7 @@ def cloud_deploy(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_deploy", angle=angle, style=style)
@@ -1567,7 +1644,8 @@ def cloud_deployment_manager(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud deployment manager.
 
@@ -1576,7 +1654,7 @@ def cloud_deployment_manager(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_deployment_manager", angle=angle, style=style)
@@ -1587,7 +1665,8 @@ def cloud_dns(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud dns.
 
@@ -1596,7 +1675,7 @@ def cloud_dns(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_dns", angle=angle, style=style)
@@ -1607,7 +1686,8 @@ def cloud_domains(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud domains.
 
@@ -1616,7 +1696,7 @@ def cloud_domains(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_domains", angle=angle, style=style)
@@ -1627,7 +1707,8 @@ def cloud_ekm(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud ekm.
 
@@ -1636,7 +1717,7 @@ def cloud_ekm(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_ekm", angle=angle, style=style)
@@ -1647,7 +1728,8 @@ def cloud_endpoints(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud endpoints.
 
@@ -1656,7 +1738,7 @@ def cloud_endpoints(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_endpoints", angle=angle, style=style)
@@ -1667,7 +1749,8 @@ def cloud_external_ip_addresses(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud external ip addresses.
 
@@ -1676,7 +1759,7 @@ def cloud_external_ip_addresses(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_external_ip_addresses", angle=angle, style=style)
@@ -1687,7 +1770,8 @@ def cloud_firewall_rules(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud firewall rules.
 
@@ -1696,7 +1780,7 @@ def cloud_firewall_rules(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_firewall_rules", angle=angle, style=style)
@@ -1707,7 +1791,8 @@ def cloud_for_marketing(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud for marketing.
 
@@ -1716,7 +1801,7 @@ def cloud_for_marketing(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_for_marketing", angle=angle, style=style)
@@ -1727,7 +1812,8 @@ def cloud_functions(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud functions.
 
@@ -1736,7 +1822,7 @@ def cloud_functions(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_functions", angle=angle, style=style)
@@ -1747,7 +1833,8 @@ def cloud_generic(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud generic.
 
@@ -1756,7 +1843,7 @@ def cloud_generic(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_generic", angle=angle, style=style)
@@ -1767,7 +1854,8 @@ def cloud_gpu(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud gpu.
 
@@ -1776,7 +1864,7 @@ def cloud_gpu(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_gpu", angle=angle, style=style)
@@ -1787,7 +1875,8 @@ def cloud_healthcare_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud healthcare api.
 
@@ -1796,7 +1885,7 @@ def cloud_healthcare_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_healthcare_api", angle=angle, style=style)
@@ -1807,7 +1896,8 @@ def cloud_healthcare_marketplace(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud healthcare marketplace.
 
@@ -1816,7 +1906,7 @@ def cloud_healthcare_marketplace(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_healthcare_marketplace", angle=angle, style=style)
@@ -1827,7 +1917,8 @@ def cloud_hsm(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud hsm.
 
@@ -1836,7 +1927,7 @@ def cloud_hsm(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_hsm", angle=angle, style=style)
@@ -1847,7 +1938,8 @@ def cloud_ids(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud ids.
 
@@ -1856,7 +1948,7 @@ def cloud_ids(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_ids", angle=angle, style=style)
@@ -1867,7 +1959,8 @@ def cloud_inference_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud inference api.
 
@@ -1876,7 +1969,7 @@ def cloud_inference_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_inference_api", angle=angle, style=style)
@@ -1887,7 +1980,8 @@ def cloud_interconnect(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud interconnect.
 
@@ -1896,7 +1990,7 @@ def cloud_interconnect(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_interconnect", angle=angle, style=style)
@@ -1907,7 +2001,8 @@ def cloud_jobs_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud jobs api.
 
@@ -1916,7 +2011,7 @@ def cloud_jobs_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_jobs_api", angle=angle, style=style)
@@ -1927,7 +2022,8 @@ def cloud_load_balancing(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud load balancing.
 
@@ -1936,7 +2032,7 @@ def cloud_load_balancing(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_load_balancing", angle=angle, style=style)
@@ -1947,7 +2043,8 @@ def cloud_logging(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud logging.
 
@@ -1956,7 +2053,7 @@ def cloud_logging(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_logging", angle=angle, style=style)
@@ -1967,7 +2064,8 @@ def cloud_media_edge(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud media edge.
 
@@ -1976,7 +2074,7 @@ def cloud_media_edge(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_media_edge", angle=angle, style=style)
@@ -1987,7 +2085,8 @@ def cloud_monitoring(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud monitoring.
 
@@ -1996,7 +2095,7 @@ def cloud_monitoring(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_monitoring", angle=angle, style=style)
@@ -2007,7 +2106,8 @@ def cloud_nat(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud nat.
 
@@ -2016,7 +2116,7 @@ def cloud_nat(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_nat", angle=angle, style=style)
@@ -2027,7 +2127,8 @@ def cloud_natural_language_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud natural language api.
 
@@ -2036,7 +2137,7 @@ def cloud_natural_language_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_natural_language_api", angle=angle, style=style)
@@ -2047,7 +2148,8 @@ def cloud_network(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud network.
 
@@ -2056,7 +2158,7 @@ def cloud_network(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_network", angle=angle, style=style)
@@ -2067,7 +2169,8 @@ def cloud_ops(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud ops.
 
@@ -2076,7 +2179,7 @@ def cloud_ops(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_ops", angle=angle, style=style)
@@ -2087,7 +2190,8 @@ def cloud_optimization_ai(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud optimization ai.
 
@@ -2096,7 +2200,7 @@ def cloud_optimization_ai(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_optimization_ai", angle=angle, style=style)
@@ -2107,7 +2211,8 @@ def cloud_optimization_ai_fleet_routing_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud optimization ai fleet routing api.
 
@@ -2116,7 +2221,7 @@ def cloud_optimization_ai_fleet_routing_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_optimization_ai_fleet_routing_api", angle=angle, style=style)
@@ -2127,7 +2232,8 @@ def cloud_router(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud router.
 
@@ -2136,7 +2242,7 @@ def cloud_router(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_router", angle=angle, style=style)
@@ -2147,7 +2253,8 @@ def cloud_routes(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud routes.
 
@@ -2156,7 +2263,7 @@ def cloud_routes(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_routes", angle=angle, style=style)
@@ -2167,7 +2274,8 @@ def cloud_run(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud run.
 
@@ -2176,7 +2284,7 @@ def cloud_run(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_run", angle=angle, style=style)
@@ -2187,7 +2295,8 @@ def cloud_run_for_anthos(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud run for anthos.
 
@@ -2196,7 +2305,7 @@ def cloud_run_for_anthos(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_run_for_anthos", angle=angle, style=style)
@@ -2207,7 +2316,8 @@ def cloud_scheduler(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud scheduler.
 
@@ -2216,7 +2326,7 @@ def cloud_scheduler(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_scheduler", angle=angle, style=style)
@@ -2227,7 +2337,8 @@ def cloud_security_scanner(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud security scanner.
 
@@ -2236,7 +2347,7 @@ def cloud_security_scanner(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_security_scanner", angle=angle, style=style)
@@ -2247,7 +2358,8 @@ def cloud_shell(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud shell.
 
@@ -2256,7 +2368,7 @@ def cloud_shell(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_shell", angle=angle, style=style)
@@ -2267,7 +2379,8 @@ def cloud_spanner(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud spanner.
 
@@ -2276,7 +2389,7 @@ def cloud_spanner(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_spanner", angle=angle, style=style)
@@ -2287,7 +2400,8 @@ def cloud_sql(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud sql.
 
@@ -2296,7 +2410,7 @@ def cloud_sql(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_sql", angle=angle, style=style)
@@ -2307,7 +2421,8 @@ def cloud_storage(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud storage.
 
@@ -2316,7 +2431,7 @@ def cloud_storage(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_storage", angle=angle, style=style)
@@ -2327,7 +2442,8 @@ def cloud_tasks(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud tasks.
 
@@ -2336,7 +2452,7 @@ def cloud_tasks(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_tasks", angle=angle, style=style)
@@ -2347,7 +2463,8 @@ def cloud_test_lab(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud test lab.
 
@@ -2356,7 +2473,7 @@ def cloud_test_lab(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_test_lab", angle=angle, style=style)
@@ -2367,7 +2484,8 @@ def cloud_tpu(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud tpu.
 
@@ -2376,7 +2494,7 @@ def cloud_tpu(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_tpu", angle=angle, style=style)
@@ -2387,7 +2505,8 @@ def cloud_translation_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud translation api.
 
@@ -2396,7 +2515,7 @@ def cloud_translation_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_translation_api", angle=angle, style=style)
@@ -2407,7 +2526,8 @@ def cloud_vision_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud vision api.
 
@@ -2416,7 +2536,7 @@ def cloud_vision_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_vision_api", angle=angle, style=style)
@@ -2427,7 +2547,8 @@ def cloud_vpn(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing cloud vpn.
 
@@ -2436,7 +2557,7 @@ def cloud_vpn(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="cloud_vpn", angle=angle, style=style)
@@ -2447,7 +2568,8 @@ def compute_engine(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing compute engine.
 
@@ -2456,7 +2578,7 @@ def compute_engine(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="compute_engine", angle=angle, style=style)
@@ -2467,7 +2589,8 @@ def configuration_management(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing configuration management.
 
@@ -2476,7 +2599,7 @@ def configuration_management(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="configuration_management", angle=angle, style=style)
@@ -2487,7 +2610,8 @@ def connectivity_test(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing connectivity test.
 
@@ -2496,7 +2620,7 @@ def connectivity_test(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="connectivity_test", angle=angle, style=style)
@@ -2507,7 +2631,8 @@ def connectors(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing connectors.
 
@@ -2516,7 +2641,7 @@ def connectors(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="connectors", angle=angle, style=style)
@@ -2527,7 +2652,8 @@ def contact_center_ai(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing contact center ai.
 
@@ -2536,7 +2662,7 @@ def contact_center_ai(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="contact_center_ai", angle=angle, style=style)
@@ -2547,7 +2673,8 @@ def container_optimized_os(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing container optimized os.
 
@@ -2556,7 +2683,7 @@ def container_optimized_os(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="container_optimized_os", angle=angle, style=style)
@@ -2567,7 +2694,8 @@ def container_registry(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing container registry.
 
@@ -2576,7 +2704,7 @@ def container_registry(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="container_registry", angle=angle, style=style)
@@ -2587,7 +2715,8 @@ def data_catalog(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing data catalog.
 
@@ -2596,7 +2725,7 @@ def data_catalog(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="data_catalog", angle=angle, style=style)
@@ -2607,7 +2736,8 @@ def data_labeling(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing data labeling.
 
@@ -2616,7 +2746,7 @@ def data_labeling(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="data_labeling", angle=angle, style=style)
@@ -2627,7 +2757,8 @@ def data_layers(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing data layers.
 
@@ -2636,7 +2767,7 @@ def data_layers(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="data_layers", angle=angle, style=style)
@@ -2647,7 +2778,8 @@ def data_loss_prevention_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing data loss prevention api.
 
@@ -2656,7 +2788,7 @@ def data_loss_prevention_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="data_loss_prevention_api", angle=angle, style=style)
@@ -2667,7 +2799,8 @@ def data_qna(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing data qna.
 
@@ -2676,7 +2809,7 @@ def data_qna(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="data_qna", angle=angle, style=style)
@@ -2687,7 +2820,8 @@ def data_studio(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing data studio.
 
@@ -2696,7 +2830,7 @@ def data_studio(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="data_studio", angle=angle, style=style)
@@ -2707,7 +2841,8 @@ def data_transfer(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing data transfer.
 
@@ -2716,7 +2851,7 @@ def data_transfer(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="data_transfer", angle=angle, style=style)
@@ -2727,7 +2862,8 @@ def database_migration_service(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing database migration service.
 
@@ -2736,7 +2872,7 @@ def database_migration_service(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="database_migration_service", angle=angle, style=style)
@@ -2747,7 +2883,8 @@ def dataflow(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing dataflow.
 
@@ -2756,7 +2893,7 @@ def dataflow(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="dataflow", angle=angle, style=style)
@@ -2767,7 +2904,8 @@ def datalab(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing datalab.
 
@@ -2776,7 +2914,7 @@ def datalab(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="datalab", angle=angle, style=style)
@@ -2787,7 +2925,8 @@ def dataplex(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing dataplex.
 
@@ -2796,7 +2935,7 @@ def dataplex(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="dataplex", angle=angle, style=style)
@@ -2807,7 +2946,8 @@ def datapol(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing datapol.
 
@@ -2816,7 +2956,7 @@ def datapol(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="datapol", angle=angle, style=style)
@@ -2827,7 +2967,8 @@ def dataprep(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing dataprep.
 
@@ -2836,7 +2977,7 @@ def dataprep(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="dataprep", angle=angle, style=style)
@@ -2847,7 +2988,8 @@ def dataproc(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing dataproc.
 
@@ -2856,7 +2998,7 @@ def dataproc(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="dataproc", angle=angle, style=style)
@@ -2867,7 +3009,8 @@ def dataproc_metastore(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing dataproc metastore.
 
@@ -2876,7 +3019,7 @@ def dataproc_metastore(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="dataproc_metastore", angle=angle, style=style)
@@ -2887,7 +3030,8 @@ def datashare(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing datashare.
 
@@ -2896,7 +3040,7 @@ def datashare(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="datashare", angle=angle, style=style)
@@ -2907,7 +3051,8 @@ def datastore(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing datastore.
 
@@ -2916,7 +3061,7 @@ def datastore(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="datastore", angle=angle, style=style)
@@ -2927,7 +3072,8 @@ def datastream(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing datastream.
 
@@ -2936,7 +3082,7 @@ def datastream(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="datastream", angle=angle, style=style)
@@ -2947,7 +3093,8 @@ def debugger(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing debugger.
 
@@ -2956,7 +3103,7 @@ def debugger(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="debugger", angle=angle, style=style)
@@ -2967,7 +3114,8 @@ def developer_portal(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing developer portal.
 
@@ -2976,7 +3124,7 @@ def developer_portal(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="developer_portal", angle=angle, style=style)
@@ -2987,7 +3135,8 @@ def dialogflow(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing dialogflow.
 
@@ -2996,7 +3145,7 @@ def dialogflow(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="dialogflow", angle=angle, style=style)
@@ -3007,7 +3156,8 @@ def dialogflow_cx(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing dialogflow cx.
 
@@ -3016,7 +3166,7 @@ def dialogflow_cx(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="dialogflow_cx", angle=angle, style=style)
@@ -3027,7 +3177,8 @@ def dialogflow_insights(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing dialogflow insights.
 
@@ -3036,7 +3187,7 @@ def dialogflow_insights(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="dialogflow_insights", angle=angle, style=style)
@@ -3047,7 +3198,8 @@ def distributed_cloud(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing distributed cloud.
 
@@ -3056,7 +3208,7 @@ def distributed_cloud(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="distributed_cloud", angle=angle, style=style)
@@ -3067,7 +3219,8 @@ def document_ai(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing document ai.
 
@@ -3076,7 +3229,7 @@ def document_ai(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="document_ai", angle=angle, style=style)
@@ -3087,7 +3240,8 @@ def early_access_center(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing early access center.
 
@@ -3096,7 +3250,7 @@ def early_access_center(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="early_access_center", angle=angle, style=style)
@@ -3107,7 +3261,8 @@ def error_reporting(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing error reporting.
 
@@ -3116,7 +3271,7 @@ def error_reporting(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="error_reporting", angle=angle, style=style)
@@ -3127,7 +3282,8 @@ def eventarc(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing eventarc.
 
@@ -3136,7 +3292,7 @@ def eventarc(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="eventarc", angle=angle, style=style)
@@ -3147,7 +3303,8 @@ def filestore(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing filestore.
 
@@ -3156,7 +3313,7 @@ def filestore(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="filestore", angle=angle, style=style)
@@ -3167,7 +3324,8 @@ def financial_services_marketplace(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing financial services marketplace.
 
@@ -3176,7 +3334,7 @@ def financial_services_marketplace(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="financial_services_marketplace", angle=angle, style=style)
@@ -3187,7 +3345,8 @@ def firestore(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing firestore.
 
@@ -3196,7 +3355,7 @@ def firestore(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="firestore", angle=angle, style=style)
@@ -3207,7 +3366,8 @@ def fleet_engine(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing fleet engine.
 
@@ -3216,7 +3376,7 @@ def fleet_engine(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="fleet_engine", angle=angle, style=style)
@@ -3227,7 +3387,8 @@ def free_trial(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing free trial.
 
@@ -3236,7 +3397,7 @@ def free_trial(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="free_trial", angle=angle, style=style)
@@ -3247,7 +3408,8 @@ def functions(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing functions.
 
@@ -3256,7 +3418,7 @@ def functions(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="functions", angle=angle, style=style)
@@ -3267,7 +3429,8 @@ def game_servers(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing game servers.
 
@@ -3276,7 +3439,7 @@ def game_servers(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="game_servers", angle=angle, style=style)
@@ -3287,7 +3450,8 @@ def gce(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing gce.
 
@@ -3296,7 +3460,7 @@ def gce(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="gce", angle=angle, style=style)
@@ -3307,7 +3471,8 @@ def gce_systems_management(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing gce systems management.
 
@@ -3316,7 +3481,7 @@ def gce_systems_management(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="gce_systems_management", angle=angle, style=style)
@@ -3327,7 +3492,8 @@ def gcs(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing gcs.
 
@@ -3336,7 +3502,7 @@ def gcs(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="gcs", angle=angle, style=style)
@@ -3347,7 +3513,8 @@ def genomics(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing genomics.
 
@@ -3356,7 +3523,7 @@ def genomics(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="genomics", angle=angle, style=style)
@@ -3367,7 +3534,8 @@ def gke(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing gke.
 
@@ -3376,7 +3544,7 @@ def gke(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="gke", angle=angle, style=style)
@@ -3387,7 +3555,8 @@ def gke_on_prem(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing gke on prem.
 
@@ -3396,7 +3565,7 @@ def gke_on_prem(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="gke_on_prem", angle=angle, style=style)
@@ -3407,7 +3576,8 @@ def google_cloud_marketplace(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing google cloud marketplace.
 
@@ -3416,7 +3586,7 @@ def google_cloud_marketplace(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="google_cloud_marketplace", angle=angle, style=style)
@@ -3427,7 +3597,8 @@ def google_kubernetes_engine(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing google kubernetes engine.
 
@@ -3436,7 +3607,7 @@ def google_kubernetes_engine(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="google_kubernetes_engine", angle=angle, style=style)
@@ -3447,7 +3618,8 @@ def google_maps_platform(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing google maps platform.
 
@@ -3456,7 +3628,7 @@ def google_maps_platform(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="google_maps_platform", angle=angle, style=style)
@@ -3467,7 +3639,8 @@ def healthcare_nlp_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing healthcare nlp api.
 
@@ -3476,7 +3649,7 @@ def healthcare_nlp_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="healthcare_nlp_api", angle=angle, style=style)
@@ -3487,7 +3660,8 @@ def home(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing home.
 
@@ -3496,7 +3670,7 @@ def home(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="home", angle=angle, style=style)
@@ -3507,7 +3681,8 @@ def hyperdisk(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing hyperdisk.
 
@@ -3516,7 +3691,7 @@ def hyperdisk(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="hyperdisk", angle=angle, style=style)
@@ -3527,7 +3702,8 @@ def iam(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing iam.
 
@@ -3536,7 +3712,7 @@ def iam(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="iam", angle=angle, style=style)
@@ -3547,7 +3723,8 @@ def identity_and_access_management(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing identity and access management.
 
@@ -3556,7 +3733,7 @@ def identity_and_access_management(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="identity_and_access_management", angle=angle, style=style)
@@ -3567,7 +3744,8 @@ def identity_aware_proxy(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing identity aware proxy.
 
@@ -3576,7 +3754,7 @@ def identity_aware_proxy(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="identity_aware_proxy", angle=angle, style=style)
@@ -3587,7 +3765,8 @@ def identity_platform(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing identity platform.
 
@@ -3596,7 +3775,7 @@ def identity_platform(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="identity_platform", angle=angle, style=style)
@@ -3607,7 +3786,8 @@ def iot_core(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing iot core.
 
@@ -3616,7 +3796,7 @@ def iot_core(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="iot_core", angle=angle, style=style)
@@ -3627,7 +3807,8 @@ def iot_edge(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing iot edge.
 
@@ -3636,7 +3817,7 @@ def iot_edge(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="iot_edge", angle=angle, style=style)
@@ -3647,7 +3828,8 @@ def key_access_justifications(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing key access justifications.
 
@@ -3656,7 +3838,7 @@ def key_access_justifications(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="key_access_justifications", angle=angle, style=style)
@@ -3667,7 +3849,8 @@ def key_management_service(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing key management service.
 
@@ -3676,7 +3859,7 @@ def key_management_service(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="key_management_service", angle=angle, style=style)
@@ -3687,7 +3870,8 @@ def kms(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing kms.
 
@@ -3696,7 +3880,7 @@ def kms(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="kms", angle=angle, style=style)
@@ -3707,7 +3891,8 @@ def kuberun(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing kuberun.
 
@@ -3716,7 +3901,7 @@ def kuberun(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="kuberun", angle=angle, style=style)
@@ -3727,7 +3912,8 @@ def launcher(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing launcher.
 
@@ -3736,7 +3922,7 @@ def launcher(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="launcher", angle=angle, style=style)
@@ -3747,7 +3933,8 @@ def local_ssd(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing local ssd.
 
@@ -3756,7 +3943,7 @@ def local_ssd(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="local_ssd", angle=angle, style=style)
@@ -3767,7 +3954,8 @@ def looker(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing looker.
 
@@ -3776,7 +3964,7 @@ def looker(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="looker", angle=angle, style=style)
@@ -3787,7 +3975,8 @@ def managed_service_for_microsoft_active_directory(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing managed service for microsoft active directory.
 
@@ -3796,7 +3985,7 @@ def managed_service_for_microsoft_active_directory(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="managed_service_for_microsoft_active_directory", angle=angle, style=style)
@@ -3807,7 +3996,8 @@ def mandiant(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing mandiant.
 
@@ -3816,7 +4006,7 @@ def mandiant(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="mandiant", angle=angle, style=style)
@@ -3827,7 +4017,8 @@ def media_translation_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing media translation api.
 
@@ -3836,7 +4027,7 @@ def media_translation_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="media_translation_api", angle=angle, style=style)
@@ -3847,7 +4038,8 @@ def memorystore(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing memorystore.
 
@@ -3856,7 +4048,7 @@ def memorystore(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="memorystore", angle=angle, style=style)
@@ -3867,7 +4059,8 @@ def migrate_for_anthos(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing migrate for anthos.
 
@@ -3876,7 +4069,7 @@ def migrate_for_anthos(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="migrate_for_anthos", angle=angle, style=style)
@@ -3887,7 +4080,8 @@ def migrate_for_compute_engine(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing migrate for compute engine.
 
@@ -3896,7 +4090,7 @@ def migrate_for_compute_engine(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="migrate_for_compute_engine", angle=angle, style=style)
@@ -3907,7 +4101,8 @@ def my_cloud(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing my cloud.
 
@@ -3916,7 +4111,7 @@ def my_cloud(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="my_cloud", angle=angle, style=style)
@@ -3927,7 +4122,8 @@ def network_connectivity_center(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing network connectivity center.
 
@@ -3936,7 +4132,7 @@ def network_connectivity_center(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="network_connectivity_center", angle=angle, style=style)
@@ -3947,7 +4143,8 @@ def network_intelligence_center(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing network intelligence center.
 
@@ -3956,7 +4153,7 @@ def network_intelligence_center(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="network_intelligence_center", angle=angle, style=style)
@@ -3967,7 +4164,8 @@ def network_security(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing network security.
 
@@ -3976,7 +4174,7 @@ def network_security(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="network_security", angle=angle, style=style)
@@ -3987,7 +4185,8 @@ def network_tiers(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing network tiers.
 
@@ -3996,7 +4195,7 @@ def network_tiers(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="network_tiers", angle=angle, style=style)
@@ -4007,7 +4206,8 @@ def network_topology(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing network topology.
 
@@ -4016,7 +4216,7 @@ def network_topology(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="network_topology", angle=angle, style=style)
@@ -4027,7 +4227,8 @@ def onboarding(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing onboarding.
 
@@ -4036,7 +4237,7 @@ def onboarding(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="onboarding", angle=angle, style=style)
@@ -4047,7 +4248,8 @@ def os_configuration_management(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing os configuration management.
 
@@ -4056,7 +4258,7 @@ def os_configuration_management(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="os_configuration_management", angle=angle, style=style)
@@ -4067,7 +4269,8 @@ def os_inventory_management(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing os inventory management.
 
@@ -4076,7 +4279,7 @@ def os_inventory_management(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="os_inventory_management", angle=angle, style=style)
@@ -4087,7 +4290,8 @@ def os_patch_management(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing os patch management.
 
@@ -4096,7 +4300,7 @@ def os_patch_management(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="os_patch_management", angle=angle, style=style)
@@ -4107,7 +4311,8 @@ def partner_interconnect(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing partner interconnect.
 
@@ -4116,7 +4321,7 @@ def partner_interconnect(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="partner_interconnect", angle=angle, style=style)
@@ -4127,7 +4332,8 @@ def partner_portal(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing partner portal.
 
@@ -4136,7 +4342,7 @@ def partner_portal(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="partner_portal", angle=angle, style=style)
@@ -4147,7 +4353,8 @@ def performance_dashboard(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing performance dashboard.
 
@@ -4156,7 +4363,7 @@ def performance_dashboard(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="performance_dashboard", angle=angle, style=style)
@@ -4167,7 +4374,8 @@ def permissions(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing permissions.
 
@@ -4176,7 +4384,7 @@ def permissions(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="permissions", angle=angle, style=style)
@@ -4187,7 +4395,8 @@ def persistent_disk(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing persistent disk.
 
@@ -4196,7 +4405,7 @@ def persistent_disk(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="persistent_disk", angle=angle, style=style)
@@ -4207,7 +4416,8 @@ def phishing_protection(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing phishing protection.
 
@@ -4216,7 +4426,7 @@ def phishing_protection(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="phishing_protection", angle=angle, style=style)
@@ -4227,7 +4437,8 @@ def policy_analyzer(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing policy analyzer.
 
@@ -4236,7 +4447,7 @@ def policy_analyzer(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="policy_analyzer", angle=angle, style=style)
@@ -4247,7 +4458,8 @@ def premium_network_tier(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing premium network tier.
 
@@ -4256,7 +4468,7 @@ def premium_network_tier(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="premium_network_tier", angle=angle, style=style)
@@ -4267,7 +4479,8 @@ def private_connectivity(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing private connectivity.
 
@@ -4276,7 +4489,7 @@ def private_connectivity(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="private_connectivity", angle=angle, style=style)
@@ -4287,7 +4500,8 @@ def private_service_connect(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing private service connect.
 
@@ -4296,7 +4510,7 @@ def private_service_connect(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="private_service_connect", angle=angle, style=style)
@@ -4307,7 +4521,8 @@ def producer_portal(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing producer portal.
 
@@ -4316,7 +4531,7 @@ def producer_portal(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="producer_portal", angle=angle, style=style)
@@ -4327,7 +4542,8 @@ def profiler(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing profiler.
 
@@ -4336,7 +4552,7 @@ def profiler(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="profiler", angle=angle, style=style)
@@ -4347,7 +4563,8 @@ def project(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing project.
 
@@ -4356,7 +4573,7 @@ def project(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="project", angle=angle, style=style)
@@ -4367,7 +4584,8 @@ def pubsub(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing pubsub.
 
@@ -4376,7 +4594,7 @@ def pubsub(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="pubsub", angle=angle, style=style)
@@ -4387,7 +4605,8 @@ def quantum_engine(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing quantum engine.
 
@@ -4396,7 +4615,7 @@ def quantum_engine(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="quantum_engine", angle=angle, style=style)
@@ -4407,7 +4626,8 @@ def quotas(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing quotas.
 
@@ -4416,7 +4636,7 @@ def quotas(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="quotas", angle=angle, style=style)
@@ -4427,7 +4647,8 @@ def real_world_insights(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing real world insights.
 
@@ -4436,7 +4657,7 @@ def real_world_insights(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="real_world_insights", angle=angle, style=style)
@@ -4447,7 +4668,8 @@ def recommendations_ai(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing recommendations ai.
 
@@ -4456,7 +4678,7 @@ def recommendations_ai(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="recommendations_ai", angle=angle, style=style)
@@ -4467,7 +4689,8 @@ def release_notes(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing release notes.
 
@@ -4476,7 +4699,7 @@ def release_notes(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="release_notes", angle=angle, style=style)
@@ -4487,7 +4710,8 @@ def retail_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing retail api.
 
@@ -4496,7 +4720,7 @@ def retail_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="retail_api", angle=angle, style=style)
@@ -4507,7 +4731,8 @@ def risk_manager(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing risk manager.
 
@@ -4516,7 +4741,7 @@ def risk_manager(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="risk_manager", angle=angle, style=style)
@@ -4527,7 +4752,8 @@ def runtime_config(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing runtime config.
 
@@ -4536,7 +4762,7 @@ def runtime_config(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="runtime_config", angle=angle, style=style)
@@ -4547,7 +4773,8 @@ def secret_manager(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing secret manager.
 
@@ -4556,7 +4783,7 @@ def secret_manager(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="secret_manager", angle=angle, style=style)
@@ -4567,7 +4794,8 @@ def security(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing security.
 
@@ -4576,7 +4804,7 @@ def security(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="security", angle=angle, style=style)
@@ -4587,7 +4815,8 @@ def security_command_center(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing security command center.
 
@@ -4596,7 +4825,7 @@ def security_command_center(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="security_command_center", angle=angle, style=style)
@@ -4607,7 +4836,8 @@ def security_health_advisor(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing security health advisor.
 
@@ -4616,7 +4846,7 @@ def security_health_advisor(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="security_health_advisor", angle=angle, style=style)
@@ -4627,7 +4857,8 @@ def security_key_enforcement(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing security key enforcement.
 
@@ -4636,7 +4867,7 @@ def security_key_enforcement(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="security_key_enforcement", angle=angle, style=style)
@@ -4647,7 +4878,8 @@ def security_operations(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing security operations.
 
@@ -4656,7 +4888,7 @@ def security_operations(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="security_operations", angle=angle, style=style)
@@ -4667,7 +4899,8 @@ def service_discovery(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing service discovery.
 
@@ -4676,7 +4909,7 @@ def service_discovery(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="service_discovery", angle=angle, style=style)
@@ -4687,7 +4920,8 @@ def speech_to_text(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing speech to text.
 
@@ -4696,7 +4930,7 @@ def speech_to_text(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="speech_to_text", angle=angle, style=style)
@@ -4707,7 +4941,8 @@ def stackdriver(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing stackdriver.
 
@@ -4716,7 +4951,7 @@ def stackdriver(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="stackdriver", angle=angle, style=style)
@@ -4727,7 +4962,8 @@ def standard_network_tier(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing standard network tier.
 
@@ -4736,7 +4972,7 @@ def standard_network_tier(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="standard_network_tier", angle=angle, style=style)
@@ -4747,7 +4983,8 @@ def stream_suite(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing stream suite.
 
@@ -4756,7 +4993,7 @@ def stream_suite(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="stream_suite", angle=angle, style=style)
@@ -4767,7 +5004,8 @@ def support(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing support.
 
@@ -4776,7 +5014,7 @@ def support(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="support", angle=angle, style=style)
@@ -4787,7 +5025,8 @@ def tensorflow_enterprise(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing tensorflow enterprise.
 
@@ -4796,7 +5035,7 @@ def tensorflow_enterprise(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="tensorflow_enterprise", angle=angle, style=style)
@@ -4807,7 +5046,8 @@ def text_to_speech(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing text to speech.
 
@@ -4816,7 +5056,7 @@ def text_to_speech(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="text_to_speech", angle=angle, style=style)
@@ -4827,7 +5067,8 @@ def threat_intelligence(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing threat intelligence.
 
@@ -4836,7 +5077,7 @@ def threat_intelligence(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="threat_intelligence", angle=angle, style=style)
@@ -4847,7 +5088,8 @@ def tools_for_powershell(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing tools for powershell.
 
@@ -4856,7 +5098,7 @@ def tools_for_powershell(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="tools_for_powershell", angle=angle, style=style)
@@ -4867,7 +5109,8 @@ def trace(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing trace.
 
@@ -4876,7 +5119,7 @@ def trace(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="trace", angle=angle, style=style)
@@ -4887,7 +5130,8 @@ def traffic_director(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing traffic director.
 
@@ -4896,7 +5140,7 @@ def traffic_director(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="traffic_director", angle=angle, style=style)
@@ -4907,7 +5151,8 @@ def transfer(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing transfer.
 
@@ -4916,7 +5161,7 @@ def transfer(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="transfer", angle=angle, style=style)
@@ -4927,7 +5172,8 @@ def transfer_appliance(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing transfer appliance.
 
@@ -4936,7 +5182,7 @@ def transfer_appliance(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="transfer_appliance", angle=angle, style=style)
@@ -4947,7 +5193,8 @@ def user_preferences(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing user preferences.
 
@@ -4956,7 +5203,7 @@ def user_preferences(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="user_preferences", angle=angle, style=style)
@@ -4967,7 +5214,8 @@ def vertex_ai(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing vertex ai.
 
@@ -4976,7 +5224,7 @@ def vertex_ai(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="vertex_ai", angle=angle, style=style)
@@ -4987,7 +5235,8 @@ def vertexai(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing vertexai.
 
@@ -4996,7 +5245,7 @@ def vertexai(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="vertexai", angle=angle, style=style)
@@ -5007,7 +5256,8 @@ def video_intelligence_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing video intelligence api.
 
@@ -5016,7 +5266,7 @@ def video_intelligence_api(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="video_intelligence_api", angle=angle, style=style)
@@ -5027,7 +5277,8 @@ def virtual_private_cloud(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing virtual private cloud.
 
@@ -5036,7 +5287,7 @@ def virtual_private_cloud(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="virtual_private_cloud", angle=angle, style=style)
@@ -5047,7 +5298,8 @@ def visual_inspection(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing visual inspection.
 
@@ -5056,7 +5308,7 @@ def visual_inspection(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="visual_inspection", angle=angle, style=style)
@@ -5067,7 +5319,8 @@ def vmware_engine(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing vmware engine.
 
@@ -5076,7 +5329,7 @@ def vmware_engine(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="vmware_engine", angle=angle, style=style)
@@ -5087,7 +5340,8 @@ def vpc(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing vpc.
 
@@ -5096,7 +5350,7 @@ def vpc(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="vpc", angle=angle, style=style)
@@ -5107,7 +5361,8 @@ def web_risk(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing web risk.
 
@@ -5116,7 +5371,7 @@ def web_risk(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="web_risk", angle=angle, style=style)
@@ -5127,7 +5382,8 @@ def web_security_scanner(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing web security scanner.
 
@@ -5136,7 +5392,7 @@ def web_security_scanner(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="web_security_scanner", angle=angle, style=style)
@@ -5147,7 +5403,8 @@ def workflows(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing workflows.
 
@@ -5156,7 +5413,7 @@ def workflows(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="workflows", angle=angle, style=style)
@@ -5167,7 +5424,8 @@ def workload_identity_pool(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a GCP icon representing workload identity pool.
 
@@ -5176,7 +5434,7 @@ def workload_identity_pool(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, name="workload_identity_pool", angle=angle, style=style)

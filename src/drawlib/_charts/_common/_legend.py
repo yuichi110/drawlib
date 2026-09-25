@@ -16,6 +16,7 @@ from typing import TYPE_CHECKING
 from drawlib._charts._common._types import ColorType, LegendPosition
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
+from drawlib.colors import Colors
 from drawlib.shapes import rectangle as canvas_rectangle
 from drawlib.text import text as canvas_text
 
@@ -108,7 +109,7 @@ def render_legend(
         text_valign="center",
     )
     if textstyle is not None:
-        label_style = label_style.merge(textstyle)
+        label_style = label_style.patch(textstyle)
 
     if resolved == "top":
         legend_y = p_max_y + 2.0
@@ -127,7 +128,11 @@ def render_legend(
                 width=swatch_w,
                 height=swatch_h,
                 r=swatch_r,
-                style=Style(fill_color=color, line_width=0),
+                style=Style(
+                    shape_fill_color=color,
+                    shape_line_color=Colors.Transparent,
+                    shape_line_width=0,
+                ),
             )
             # Label
             text_x = cur_x + swatch_w + 0.8
@@ -148,7 +153,11 @@ def render_legend(
                 width=swatch_w,
                 height=swatch_h,
                 r=swatch_r,
-                style=Style(fill_color=color, line_width=0),
+                style=Style(
+                    shape_fill_color=color,
+                    shape_line_color=Colors.Transparent,
+                    shape_line_width=0,
+                ),
             )
             text_x = cur_x + swatch_w + 0.8
             canvas_text(xy=(text_x, legend_y), text=name, style=label_style)
@@ -168,7 +177,11 @@ def render_legend(
                 width=swatch_w,
                 height=swatch_h,
                 r=swatch_r,
-                style=Style(fill_color=color, line_width=0),
+                style=Style(
+                    shape_fill_color=color,
+                    shape_line_color=Colors.Transparent,
+                    shape_line_width=0,
+                ),
             )
             text_x = cur_x + swatch_w + 0.8
             canvas_text(xy=(text_x, item_y), text=name, style=label_style)

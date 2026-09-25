@@ -10,23 +10,17 @@
 """Image utility class for drawlib."""
 
 from drawlib._core.l2_models import StaticContainer
-from drawlib._core.l3_styles import (
-    SYSTEM_DEFAULT_IMAGE_STYLE,
-    Style,
-)
-from drawlib._core.l4_canvas_utils._utils import get_dict_value_none_keys_removed
-from drawlib._preset_styles import get_style
+from drawlib._core.l3_styles import Style
 
 
 class ImageUtil(StaticContainer):
     """A utility class for handling image styles."""
 
     @staticmethod
-    def format_style(style: Style | str | None) -> Style:
-        if style is None or isinstance(style, (Style, str)):
-            formatted_style = get_style(style).copy()
-        else:
-            raise ValueError(f'Arg "style" must be Style or None, but {type(style)} given.')
-
-        formatted_style = SYSTEM_DEFAULT_IMAGE_STYLE.merge(formatted_style)
-        return formatted_style
+    def format_style(style: Style | None = None) -> Style:
+        """Validate and format image style."""
+        if style is None:
+            return Style(image_border_width=0)
+        if not isinstance(style, Style):
+            raise TypeError(f'Arg "style" must be Style or None, but {type(style)} given.')
+        return style

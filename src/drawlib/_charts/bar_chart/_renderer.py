@@ -19,6 +19,7 @@ from drawlib._charts._common._types import ColorType
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
+from drawlib.colors import Colors
 from drawlib.lines import line as canvas_line
 from drawlib.shapes import rectangle as canvas_rectangle
 from drawlib.text import text as canvas_text
@@ -63,7 +64,7 @@ def draw_bar_chart(chart: BarChart, xy: tuple[float, float]) -> None:
             text_valign="center",
         )
         if chart.title_style is not None:
-            title_style = title_style.merge(chart.title_style)
+            title_style = title_style.patch(chart.title_style)
 
         title_y = by + ch - 2.5
         canvas_text(xy=(bx + cw / 2.0, title_y), text=chart.title, style=title_style)
@@ -165,12 +166,13 @@ def _draw_vertical_grid_and_ticks(
     plot_h: float,
 ) -> None:
     """Render horizontal gridlines and numeric tick labels along Y axis."""
-    grid_style = val_axis.grid_style or Style(
+    default_grid_style = Style(
         line_color=_DEFAULT_GRID_COLOR,
         line_width=0.8,
         line_style="dashed",
     )
-    tick_label_style = val_axis.tick_label_style or Style(
+    grid_style = default_grid_style.patch(val_axis.grid_style)
+    default_tick_label_style = Style(
         text_size=9.5,
         text_font=Font.SANSSERIF_REGULAR,
         text_color=_DEFAULT_MUTED_TEXT,
@@ -178,6 +180,7 @@ def _draw_vertical_grid_and_ticks(
         text_valign="center",
         text_angle=val_axis.tick_label_angle,
     )
+    tick_label_style = default_tick_label_style.patch(val_axis.tick_label_style)
 
     for tick in ticks:
         ratio = value_to_ratio(tick, eff_min, eff_max, val_axis.scale)
@@ -198,7 +201,7 @@ def _draw_vertical_category_labels(
     slot_w: float,
 ) -> None:
     """Render category labels below the X baseline."""
-    cat_label_style = chart.x_axis.tick_label_style or Style(
+    default_cat_label_style = Style(
         text_size=10.0,
         text_font=Font.SANSSERIF_REGULAR,
         text_color=_DEFAULT_TEXT_COLOR,
@@ -206,6 +209,7 @@ def _draw_vertical_category_labels(
         text_valign="top",
         text_angle=chart.x_axis.tick_label_angle,
     )
+    cat_label_style = default_cat_label_style.patch(chart.x_axis.tick_label_style)
     for c_idx, cat in enumerate(chart.categories):
         cat_cx = p_min_x + (c_idx + 0.5) * slot_w
         canvas_text(xy=(cat_cx, p_min_y - 1.8), text=cat, style=cat_label_style)
@@ -245,10 +249,12 @@ def _draw_vertical_grouped_bars(
             h = max(0.1, abs(val_ratio - base_ratio) * plot_h)
             bar_cy = p_min_y + ((base_ratio + val_ratio) / 2.0) * plot_h
 
-            bar_style = series.style or Style(
-                fill_color=series_colors[s_idx],
-                line_width=0,
+            default_bar_style = Style(
+                shape_fill_color=series_colors[s_idx],
+                shape_line_color=Colors.Transparent,
+                shape_line_width=0,
             )
+            bar_style = default_bar_style.patch(series.style)
             canvas_rectangle(
                 xy=(bar_cx, bar_cy),
                 width=bar_w,
@@ -295,10 +301,12 @@ def _draw_vertical_stacked_bars(
             h = max(0.1, abs(next_ratio - prev_ratio) * plot_h)
             bar_cy = p_min_y + ((prev_ratio + next_ratio) / 2.0) * plot_h
 
-            bar_style = series.style or Style(
-                fill_color=series_colors[s_idx],
-                line_width=0,
+            default_bar_style = Style(
+                shape_fill_color=series_colors[s_idx],
+                shape_line_color=Colors.Transparent,
+                shape_line_width=0,
             )
+            bar_style = default_bar_style.patch(series.style)
             canvas_rectangle(
                 xy=(cat_cx, bar_cy),
                 width=bar_w,
@@ -334,7 +342,8 @@ def _render_vertical_bars(
     base_ratio = value_to_ratio(base_val, eff_min, eff_max, val_axis.scale)
     base_y = p_min_y + base_ratio * plot_h
     if val_axis.show_axis_line:
-        axis_line_style = val_axis.line_style or Style(line_color=_DEFAULT_AXIS_COLOR, line_width=1.2)
+        default_axis_line_style = Style(line_color=_DEFAULT_AXIS_COLOR, line_width=1.2)
+        axis_line_style = default_axis_line_style.patch(val_axis.line_style)
         canvas_line(xy1=(p_min_x, base_y), xy2=(p_max_x, base_y), style=axis_line_style)
 
     cat_count = len(chart.categories)
@@ -344,13 +353,14 @@ def _render_vertical_bars(
     if not chart.series or cat_count == 0:
         return
 
-    val_label_style = chart.value_label_style or Style(
+    default_val_label_style = Style(
         text_size=9.0,
         text_font=Font.SANSSERIF_BOLD,
         text_color=_DEFAULT_TEXT_COLOR,
         text_halign="center",
         text_valign="bottom",
     )
+    val_label_style = default_val_label_style.patch(chart.value_label_style)
 
     if chart.bar_mode == "group":
         _draw_vertical_grouped_bars(
@@ -391,12 +401,13 @@ def _draw_horizontal_grid_and_ticks(
     plot_w: float,
 ) -> None:
     """Render vertical gridlines and numeric tick labels along X axis."""
-    grid_style = val_axis.grid_style or Style(
+    default_grid_style = Style(
         line_color=_DEFAULT_GRID_COLOR,
         line_width=0.8,
         line_style="dashed",
     )
-    tick_label_style = val_axis.tick_label_style or Style(
+    grid_style = default_grid_style.patch(val_axis.grid_style)
+    default_tick_label_style = Style(
         text_size=9.5,
         text_font=Font.SANSSERIF_REGULAR,
         text_color=_DEFAULT_MUTED_TEXT,
@@ -404,6 +415,7 @@ def _draw_horizontal_grid_and_ticks(
         text_valign="top",
         text_angle=val_axis.tick_label_angle,
     )
+    tick_label_style = default_tick_label_style.patch(val_axis.tick_label_style)
 
     for tick in ticks:
         ratio = value_to_ratio(tick, eff_min, eff_max, val_axis.scale)
@@ -424,7 +436,7 @@ def _draw_horizontal_category_labels(
     slot_h: float,
 ) -> None:
     """Render category labels along Y axis."""
-    cat_label_style = chart.y_axis.tick_label_style or Style(
+    default_cat_label_style = Style(
         text_size=10.0,
         text_font=Font.SANSSERIF_REGULAR,
         text_color=_DEFAULT_TEXT_COLOR,
@@ -432,6 +444,7 @@ def _draw_horizontal_category_labels(
         text_valign="center",
         text_angle=chart.y_axis.tick_label_angle,
     )
+    cat_label_style = default_cat_label_style.patch(chart.y_axis.tick_label_style)
     for c_idx, cat in enumerate(chart.categories):
         cat_cy = p_max_y - (c_idx + 0.5) * slot_h
         canvas_text(xy=(p_min_x - 1.8, cat_cy), text=cat, style=cat_label_style)
@@ -471,10 +484,12 @@ def _draw_horizontal_grouped_bars(
             w = max(0.1, abs(val_ratio - base_ratio) * plot_w)
             bar_cx = p_min_x + ((base_ratio + val_ratio) / 2.0) * plot_w
 
-            bar_style = series.style or Style(
-                fill_color=series_colors[s_idx],
-                line_width=0,
+            default_bar_style = Style(
+                shape_fill_color=series_colors[s_idx],
+                shape_line_color=Colors.Transparent,
+                shape_line_width=0,
             )
+            bar_style = default_bar_style.patch(series.style)
             canvas_rectangle(
                 xy=(bar_cx, bar_cy),
                 width=w,
@@ -521,10 +536,12 @@ def _draw_horizontal_stacked_bars(
             w = max(0.1, abs(next_ratio - prev_ratio) * plot_w)
             bar_cx = p_min_x + ((prev_ratio + next_ratio) / 2.0) * plot_w
 
-            bar_style = series.style or Style(
-                fill_color=series_colors[s_idx],
-                line_width=0,
+            default_bar_style = Style(
+                shape_fill_color=series_colors[s_idx],
+                shape_line_color=Colors.Transparent,
+                shape_line_width=0,
             )
+            bar_style = default_bar_style.patch(series.style)
             canvas_rectangle(
                 xy=(bar_cx, cat_cy),
                 width=w,
@@ -560,7 +577,8 @@ def _render_horizontal_bars(
     base_ratio = value_to_ratio(base_val, eff_min, eff_max, val_axis.scale)
     base_x = p_min_x + base_ratio * plot_w
     if val_axis.show_axis_line:
-        axis_line_style = val_axis.line_style or Style(line_color=_DEFAULT_AXIS_COLOR, line_width=1.2)
+        default_axis_line_style = Style(line_color=_DEFAULT_AXIS_COLOR, line_width=1.2)
+        axis_line_style = default_axis_line_style.patch(val_axis.line_style)
         canvas_line(xy1=(base_x, p_min_y), xy2=(base_x, p_max_y), style=axis_line_style)
 
     cat_count = len(chart.categories)
@@ -570,13 +588,14 @@ def _render_horizontal_bars(
     if not chart.series or cat_count == 0:
         return
 
-    val_label_style = chart.value_label_style or Style(
+    default_val_label_style = Style(
         text_size=9.0,
         text_font=Font.SANSSERIF_BOLD,
         text_color=_DEFAULT_TEXT_COLOR,
         text_halign="left",
         text_valign="center",
     )
+    val_label_style = default_val_label_style.patch(chart.value_label_style)
 
     if chart.bar_mode == "group":
         _draw_horizontal_grouped_bars(

@@ -425,7 +425,7 @@ backend = d.add_group(
     ParticipantGroup(
         title="Google Cloud VPC",
         padding=4.0,
-        style=Style(fill_color=(242, 246, 255, 0.4), line_color=Colors.Gray, line_style="dashed"),
+        style=Style(shape_fill_color=(242, 246, 255, 0.4), shape_line_color=Colors.Gray, shape_line_style="dashed"),
     )
 )
 api = backend.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, icon_size=8.0))
@@ -894,7 +894,7 @@ erd.draw(xy=(0.0, 0.0))
 - **Coordinate Spacing**: Allocate 25–35 coordinate units between related nodes to leave ample space for orthogonal bends, edge labels, and multiplicity badges.
 
 ### 9.2 Visual Hierarchy & Styling
-- **Header Contrast**: For `ClassNode` and `Entity`, set prominent dark header styles with white text (`Style(fill_color=Colors.Navy, text_color=Colors.White)`) to emphasize domain entity titles.
+- **Header Contrast**: For `ClassNode` and `Entity`, set prominent dark header styles with white text (`Style(shape_fill_color=Colors.Navy, text_color=Colors.White)`) to emphasize domain entity titles.
 - **Boundary Differentiation**: Use dashed or semi-transparent styles for `NodeGroup` and `ParticipantGroup` to clearly distinguish network boundaries from concrete computational nodes.
 - **Edge Padding**: Always configure `padding=1.5` to `2.5` on architecture edges when connecting to icons to prevent arrowheads from touching icon glyphs.
 

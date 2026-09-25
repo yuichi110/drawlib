@@ -20,6 +20,7 @@ from drawlib._charts._common._types import ColorType, FormatterType
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
+from drawlib.colors import Colors
 from drawlib.lines import line as canvas_line
 from drawlib.lines import lines as canvas_lines
 from drawlib.shapes import circle as canvas_circle
@@ -96,14 +97,21 @@ def _draw_radar_grid(
     cx, cy = center
     span = eff_max - chart.min_value
 
-    grid_style = chart.grid_style or Style(
+    default_grid_style = Style(
         line_color=_DEFAULT_GRID_COLOR,
         line_width=1.0,
     )
-    spoke_style = chart.spoke_style or Style(
+    grid_style = default_grid_style.patch(chart.grid_style)
+    circle_grid_style = Style(
+        shape_fill_color=Colors.Transparent,
+        shape_line_color=grid_style.line_color if grid_style.line_color is not None else _DEFAULT_GRID_COLOR,
+        shape_line_width=grid_style.line_width if grid_style.line_width is not None else 1.0,
+    )
+    default_spoke_style = Style(
         line_color=_DEFAULT_SPOKE_COLOR,
         line_width=1.0,
     )
+    spoke_style = default_spoke_style.patch(chart.spoke_style)
     scale_label_style = Style(
         text_size=8.5,
         text_font=Font.SANSSERIF_REGULAR,
@@ -122,7 +130,7 @@ def _draw_radar_grid(
             ring_pts = [(cx + ring_r * math.cos(a), cy + ring_r * math.sin(a)) for a in angles]
             canvas_lines(xys=ring_pts + [ring_pts[0]], style=grid_style)
         else:
-            canvas_circle(xy=center, radius=ring_r, style=grid_style)
+            canvas_circle(xy=center, radius=ring_r, style=circle_grid_style)
 
         if chart.show_grid_labels:
             lbl_str = _format_value(chart.grid_label_format, level_val)
@@ -165,13 +173,14 @@ def _draw_category_labels(
         else:
             valign = "center"
 
-        lbl_style = chart.category_label_style or Style(
+        default_lbl_style = Style(
             text_size=10.0,
             text_font=Font.SANSSERIF_BOLD,
             text_color=_DEFAULT_TEXT_COLOR,
             text_halign=halign,
             text_valign=valign,
         )
+        lbl_style = default_lbl_style.patch(chart.category_label_style)
         canvas_text(xy=(lx, ly), text=cat, style=lbl_style)
 
 
@@ -188,13 +197,14 @@ def _draw_series(
     if span <= 0:
         return
 
-    val_label_style = chart.value_label_style or Style(
+    default_val_label_style = Style(
         text_size=9.0,
         text_font=Font.SANSSERIF_BOLD,
         text_color=_DEFAULT_TEXT_COLOR,
         text_halign="center",
         text_valign="bottom",
     )
+    val_label_style = default_val_label_style.patch(chart.value_label_style)
 
     for s_idx, s in enumerate(chart.series):
         if not s.values:
@@ -212,25 +222,27 @@ def _draw_series(
 
         # 1. Filled transparent polygon
         fill_style = Style(
-            fill_color=_with_alpha(color, s.fill_alpha),
-            line_width=0,
+            shape_fill_color=_with_alpha(color, s.fill_alpha),
+            shape_line_color=Colors.Transparent,
+            shape_line_width=0,
         )
         canvas_polygon(xys=pts, style=fill_style)
 
         # 2. Outer border stroke
-        stroke_style = s.style or Style(
+        default_stroke_style = Style(
             line_color=color,
             line_width=s.line_width,
             line_style=s.line_style,
         )
+        stroke_style = default_stroke_style.patch(s.style)
         canvas_lines(xys=pts + [pts[0]], style=stroke_style)
 
         # 3. Vertex markers
         if s.show_points and s.point_shape != "none":
             marker_style = Style(
-                fill_color=(255, 255, 255, 1.0),
-                line_color=color,
-                line_width=1.5,
+                shape_fill_color=(255, 255, 255, 1.0),
+                shape_line_color=color,
+                shape_line_width=1.5,
             )
             for (px, py), val in zip(pts, s.values, strict=False):
                 if s.point_shape == "circle":
@@ -264,13 +276,14 @@ def draw_radar_chart(chart: RadarChart, xy: tuple[float, float]) -> None:
     legend_w, legend_h = get_legend_size(chart.legend_position, series_names, len(chart.series))
 
     if chart.title:
-        t_style = chart.title_style or Style(
+        default_t_style = Style(
             text_size=12.0,
             text_font=Font.SANSSERIF_BOLD,
             text_color=_DEFAULT_TEXT_COLOR,
             text_halign="center",
             text_valign="bottom",
         )
+        t_style = default_t_style.patch(chart.title_style)
         canvas_text(xy=((c_min_x + c_max_x) / 2.0, c_max_y - 3.5), text=chart.title, style=t_style)
 
     # Compute center coordinates based on legend placement

@@ -9,10 +9,9 @@
 
 """Text utility module for canvas operations."""
 
-from typing import Any, Callable
+from typing import Any
 
 from matplotlib.font_manager import FontProperties
-from matplotlib.text import Text
 
 from drawlib._core.l2_models import StaticContainer
 from drawlib._core.l3_external import download_if_not_exist
@@ -22,49 +21,72 @@ from drawlib._core.l3_fonts import (
     get_font_metadata,
 )
 from drawlib._core.l3_styles import (
-    SYSTEM_DEFAULT_SHAPE_TEXT_STYLE,
-    SYSTEM_DEFAULT_TEXT_STYLE,
     Colors,
     Style,
 )
 from drawlib._core.l4_canvas_utils._colors import ColorUtil
 from drawlib._core.l4_canvas_utils._utils import get_dict_value_none_keys_removed
-from drawlib._preset_styles import get_style
 
 
 class TextUtil(StaticContainer):
     """A utility class for handling text styles and options."""
 
     @staticmethod
-    def format_style(style: Style | str | None) -> Style:
-        if style is None or isinstance(style, (Style, str)):
-            formatted_style = get_style(style).copy()
-        else:
-            raise ValueError(f'Arg "style" must be Style or None, but {type(style)} given.')
+    def validate_text_style(style: Style) -> None:
+        """Validate that the required text properties are set in Style.
 
-        system_default = SYSTEM_DEFAULT_TEXT_STYLE.copy()
-        system_default.text_bg_fill_alpha = None
-        system_default.text_bg_line_color = None
-        system_default.text_bg_line_style = None
-        system_default.text_bg_line_width = None
-        system_default.text_bg_fill_color = None
-        formatted_style = system_default.merge(formatted_style)
-        return formatted_style
+        Args:
+            style: The Style instance to validate.
+
+        Raises:
+            ValueError: If any required text property is None.
+        """
+        missing: list[str] = []
+        if style.text_color is None:
+            missing.append("text_color")
+        if style.text_size is None:
+            missing.append("text_size")
+        if style.text_font is None:
+            missing.append("text_font")
+
+        if missing:
+            raise ValueError(
+                f"Text drawing requires attributes {missing}, but they are None in the provided Style."
+            )
+
+    @staticmethod
+    def format_style(style: Style) -> Style:
+        """Validate and format text style.
+
+        Args:
+            style: The Style instance for text drawing.
+
+        Returns:
+            Style: Validated Style instance.
+
+        Raises:
+            TypeError: If style is not a Style instance.
+            ValueError: If required core properties are missing.
+        """
+        if not isinstance(style, Style):
+            raise TypeError(f'Arg "style" must be Style, but {type(style)} given.')
+
+        TextUtil.validate_text_style(style)
+        return style
 
     @staticmethod
     def get_text_options(
         style: Style | None,
     ) -> dict[str, Any]:
-        if style is None:
+        """Extract text options from Style."""
+        if style is None or style.text_color is None:
             return {}
 
-        color_val = style.text_color if style.text_color is not None else style.get_fill_color()
-        color = None if color_val is None else ColorUtil.get_mplot_rgba(color_val)
-
+        color = ColorUtil.get_mplot_rgba(style.text_color)
         options: dict[str, Any] = {
             "color": color,
-            "horizontalalignment": style.text_halign,
-            "verticalalignment": style.text_valign,
+            "horizontalalignment": style.text_halign if style.text_halign is not None else "center",
+            "verticalalignment": style.text_valign if style.text_valign is not None else "center",
         }
 
         return get_dict_value_none_keys_removed(options)
@@ -72,56 +94,31 @@ class TextUtil(StaticContainer):
     @staticmethod
     def get_font_properties(
         style: Style,
-    ) -> FontProperties | None:
+    ) -> FontProperties:
+        """Get matplotlib FontProperties from Style."""
         if not isinstance(style, Style):
-            raise ValueError(f"style must be Style, but {type(style)} given")
-        default = get_style(None)
+            raise TypeError(f"style must be Style, but {type(style)} given")
+
+        if style.text_font is None or style.text_size is None:
+            raise ValueError("text_font and text_size must be set in Style.")
 
         if isinstance(style.text_font, FontFile):
-            size = (
-                style.text_size
-                if style.text_size is not None
-                else (default.text_size if default.text_size is not None else 16)
-            )
-            return FontProperties(size=size, fname=style.text_font.file)
+            return FontProperties(size=style.text_size, fname=style.text_font.file)
 
-        default_font = default.text_font if default.text_font is not None else SYSTEM_DEFAULT_TEXT_STYLE.text_font
-        font_target = style.text_font if style.text_font is not None else default_font
-        size_target = (
-            style.text_size
-            if style.text_size is not None
-            else (default.text_size if default.text_size is not None else 16)
-        )
-
+        font_target = style.text_font
         if not isinstance(font_target, FontBase):
             raise ValueError(f"font {font_target} must be FontBase")
 
         meta = get_font_metadata(font_target)
         file_path, download_url, md5_hash = meta.abs_path, meta.url, meta.md5
         download_if_not_exist(file_path=file_path, download_url=download_url, md5_hash=md5_hash)
-        return FontProperties(size=size_target, fname=file_path)
+        return FontProperties(size=style.text_size, fname=file_path)
 
     @staticmethod
     def get_bbox_dict(
         style: Style | None = None,
     ) -> dict[str, Any] | None:
-        """Convert drawlib's Style to matplotlib's text background options.
-
-        Args:
-            style (Style | None):
-                The Style object containing text background style properties.
-
-        Returns:
-            dict[str, Any] | None: Dictionary of options suitable for matplotlib's text background.
-
-        Notes:
-            - Returns None if style is None or if all background properties are None.
-            - Converts bgfcolor, bglcolor, bglstyle, bglwidth, and bgalpha properties
-              from Style to matplotlib compatible bbox options.
-        """
-        # {} doesn't mean no style.
-        # requires returning None when no style.
-
+        """Convert drawlib's Style to matplotlib's text background options."""
         if style is None:
             return None
 
@@ -131,8 +128,6 @@ class TextUtil(StaticContainer):
                 all_none = False
         if all_none:
             return None
-
-        # background exist
 
         lcolor = None if style.text_bg_line_color is None else ColorUtil.get_mplot_rgba(style.text_bg_line_color)
         fcolor = None if style.text_bg_fill_color is None else ColorUtil.get_mplot_rgba(style.text_bg_fill_color)
@@ -146,11 +141,9 @@ class TextUtil(StaticContainer):
             "boxstyle": "square",
             "facecolor": fcolor,
             "edgecolor": lcolor,
-            "linestyle": style.text_bg_line_style,
-            "linewidth": style.text_bg_line_width,
+            "linestyle": style.text_bg_line_style if style.text_bg_line_style is not None else "solid",
+            "linewidth": style.text_bg_line_width if style.text_bg_line_width is not None else 1.0,
             "alpha": style.text_bg_fill_alpha,
         }
-        if bbox_dict["linewidth"] is None:
-            bbox_dict["linewidth"] = 0
 
         return get_dict_value_none_keys_removed(bbox_dict)

@@ -11,52 +11,36 @@
 import pytest
 from matplotlib.text import Text
 
+from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas_utils._shape import ShapeUtil
-from drawlib._preset_styles import get_style
 
 
 class TestShapeUtil:
     """Unit tests for the ShapeUtil static helper class."""
 
     def test_format_styles(self) -> None:
-        """Verifies format_styles retrieves and merges both shape and text styles, and handles callbacks."""
+        """Verifies format_styles validates shape style and embedded textstyle."""
+        shape_s = Style(shape_fill_color=(255, 0, 0), shape_line_color=(0, 0, 0), shape_line_width=1.0)
+        text_s = Style(text_color=(0, 0, 0), text_size=12, text_font=Font.SANSSERIF_REGULAR)
 
-        def get_shape_style(name: str = "") -> Style:
-            if name == "custom_shape":
-                return Style(line_width=15.0)
-            return Style(line_width=5.0)
+        # 1. With textstyle
+        s, t = ShapeUtil.format_styles(shape_s, text_s)
+        assert s == shape_s
+        assert t == text_s
 
-        def get_text_style(name: str = "") -> Style:
-            if name == "custom_text":
-                return Style(text_size=40)
-            return Style(text_size=20)
+        # 2. Without textstyle (defaults to shape_s)
+        s, t = ShapeUtil.format_styles(shape_s, None)
+        assert s == shape_s
+        assert t == shape_s
 
-        # 1. Test None styles
-        style, textstyle = ShapeUtil.format_styles(None, None, get_shape_style, get_text_style)
-        assert style.line_width == 5.0
-        assert textstyle.text_size == 20
+        # 3. Missing required shape properties raises ValueError
+        with pytest.raises(ValueError, match="Shape drawing requires attributes"):
+            ShapeUtil.format_styles(Style(shape_fill_color=(255, 0, 0)))
 
-        # 2. Test string lookup
-        style, textstyle = ShapeUtil.format_styles("custom_shape", "custom_text", get_shape_style, get_text_style)
-        assert style.line_width == 15.0
-        assert textstyle.text_size == 40
-
-        # 3. Test direct style objects (copied and merged)
-        custom_s = Style(line_width=25.0)
-        custom_t = Style(text_size=50)
-        style, textstyle = ShapeUtil.format_styles(custom_s, custom_t, get_shape_style, get_text_style)
-        assert style.line_width == 25.0
-        assert textstyle.text_size == 50
-        assert style is not custom_s
-        assert textstyle is not custom_t
-
-        # 4. Invalid types raise ValueError
-        with pytest.raises(ValueError):
-            ShapeUtil.format_styles(123, None, get_shape_style, get_text_style)  # type: ignore
-
-        with pytest.raises(ValueError):
-            ShapeUtil.format_styles(None, 123, get_shape_style, get_text_style)  # type: ignore
+        # 4. Invalid types raise TypeError
+        with pytest.raises(TypeError):
+            ShapeUtil.format_styles("primary")  # type: ignore
 
     def test_apply_alignment(self) -> None:
         """Verifies alignment shifting logic for all horizontal and vertical alignment settings."""
@@ -94,33 +78,34 @@ class TestShapeUtil:
 
     def test_get_shape_text(self) -> None:
         """Verifies get_shape_text constructs a matplotlib Text object with rotation and shift offsets."""
-        # 1. Without style
-        t_obj = ShapeUtil.get_shape_text((50.0, 50.0), 30.0, "hello")
+        base_style = Style(text_size=12, text_color=(0, 0, 0), text_font=Font.SANSSERIF_REGULAR)
+
+        # 1. Base style
+        t_obj = ShapeUtil.get_shape_text((50.0, 50.0), 30.0, "hello", style=base_style)
         assert isinstance(t_obj, Text)
         assert t_obj.get_text() == "hello"
         assert t_obj.get_rotation() == 30.0
 
         # 2. With style, custom rotation, flip, and relative xy_shift
-        style = Style(text_size=12, text_angle=45.0, text_flip=True, text_xy_shift=(5.0, 10.0))
+        style = base_style.patch(text_angle=45.0, text_flip=True, text_xy_shift=(5.0, 10.0))
         t_obj = ShapeUtil.get_shape_text((50.0, 50.0), 0.0, "hello", style=style)
         assert t_obj.get_rotation() == 225.0  # (45.0 + 180) % 360
         # shift at angle 0: x + 5, y + 10
         assert t_obj.get_position() == (55.0, 60.0)
 
         # 3. Test absolute shift
-        abs_style = Style(text_xy_abs_shift=(3.0, -3.0))
+        abs_style = base_style.patch(text_xy_abs_shift=(3.0, -3.0))
         t_obj = ShapeUtil.get_shape_text((50.0, 50.0), 0.0, "hello", style=abs_style)
         assert t_obj.get_position() == (53.0, 47.0)
 
     def test_get_shape_options(self) -> None:
         """Verifies get_shape_options maps Style fields to matplotlib patch dictionary format."""
-        # 1. Test None style
-        assert ShapeUtil.get_shape_options(None, default_no_line=True) == {"linewidth": 0}
-        assert ShapeUtil.get_shape_options(None, default_no_line=False) == {}
-
-        # 2. Test mapped options
         style = Style(
-            line_width=2.5, line_style="dashed", line_color=(255, 0, 0), fill_color=(0, 255, 0, 0.5), fill_alpha=0.8
+            shape_line_width=2.5,
+            shape_line_style="dashed",
+            shape_line_color=(255, 0, 0),
+            shape_fill_color=(0, 255, 0, 0.5),
+            shape_fill_alpha=0.8,
         )
         options = ShapeUtil.get_shape_options(style)
         assert options["linewidth"] == 2.5

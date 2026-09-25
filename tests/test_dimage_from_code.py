@@ -16,6 +16,7 @@ import pytest
 from drawlib.canvas import canvas, clear, config
 from drawlib.images import Dimage, get_dimage_from_code, image
 from drawlib.shapes import circle
+from drawlib.types import Style
 
 
 class TestGetDimageFromCode:
@@ -26,9 +27,11 @@ class TestGetDimageFromCode:
         code = """
 from drawlib.canvas import config
 from drawlib.shapes import circle
+from drawlib.types import Style
 
 config(width=100, height=100)
-circle((50, 50), radius=30)
+style = Style(shape_fill_color=(100, 100, 200, 1.0), shape_line_color=(0, 0, 0, 1.0), shape_line_width=1.0)
+circle((50, 50), radius=30, style=style)
 """
         dimg = get_dimage_from_code(code)
         assert isinstance(dimg, Dimage)
@@ -47,9 +50,11 @@ circle((50, 50), radius=30)
         code = f"""
 from drawlib.canvas import config, save
 from drawlib.shapes import circle
+from drawlib.types import Style
 
 config(width=50, height=50)
-circle((25, 25), radius=15)
+style = Style(shape_fill_color=(100, 100, 200, 1.0), shape_line_color=(0, 0, 0, 1.0), shape_line_width=1.0)
+circle((25, 25), radius=15, style=style)
 save(r"{target_file}")
 """
         dimg = get_dimage_from_code(code)
@@ -60,15 +65,20 @@ save(r"{target_file}")
         """Verify executing get_dimage_from_code leaves parent canvas state intact."""
         clear()
         config(width=200, height=100)
-        circle((50, 50), radius=20)
+        shape_style = Style(
+            shape_fill_color=(100, 100, 200, 1.0), shape_line_color=(0, 0, 0, 1.0), shape_line_width=1.0
+        )
+        circle((50, 50), radius=20, style=shape_style)
 
         # Execute code in subprocess with explicit imports
         code = """
 from drawlib.canvas import config
 from drawlib.shapes import rectangle
+from drawlib.types import Style
 
 config(width=50, height=50)
-rectangle((25, 25), width=20, height=20)
+style = Style(shape_fill_color=(100, 100, 200, 1.0), shape_line_color=(0, 0, 0, 1.0), shape_line_width=1.0)
+rectangle((25, 25), width=20, height=20, style=style)
 """
         sub_img = get_dimage_from_code(code)
         assert isinstance(sub_img, Dimage)
@@ -79,7 +89,8 @@ rectangle((25, 25), width=20, height=20)
         assert len(canvas._artists) == 1
 
         # Use the generated sub_img on the parent canvas
-        image((150, 50), width=40, image=sub_img)
+        img_style = Style(image_border_width=0)
+        image((150, 50), width=40, style=img_style, image=sub_img)
         assert len(canvas._artists) > 1
 
     def test_get_dimage_from_code_syntax_error(self) -> None:

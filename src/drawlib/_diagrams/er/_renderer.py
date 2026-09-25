@@ -15,7 +15,7 @@ import math
 from typing import TYPE_CHECKING, Literal
 
 from drawlib._core.l3_fonts import Font
-from drawlib._core.l3_styles import Style
+from drawlib._core.l3_styles import Colors, Style
 from drawlib._diagrams.er._types import Cardinality, RoutingType, Side
 from drawlib.lines import line as canvas_line
 from drawlib.lines import lines as canvas_lines
@@ -54,7 +54,12 @@ def draw_er_diagram(diagram: ERDiagram, base_xy: tuple[float, float]) -> None:
     if diagram.style is not None:
         dw, dh = diagram.get_size()
         bx, by = base_xy
-        canvas_rectangle(xy=(bx + dw / 2.0, by + dh / 2.0), width=dw, height=dh, style=diagram.style)
+        bg_style = Style(
+            shape_fill_color=Colors.White,
+            shape_line_color=Colors.Transparent,
+            shape_line_width=0.0,
+        ).patch(diagram.style)
+        canvas_rectangle(xy=(bx + dw / 2.0, by + dh / 2.0), width=dw, height=dh, style=bg_style)
 
     # 2. Render Diagram Title if specified
     if diagram.title:
@@ -111,24 +116,24 @@ def _render_entity(entity: Entity, canvas_xy: tuple[float, float]) -> None:
 
     # 1. Main Background and Outer Box
     box_style = Style(
-        fill_color=_DEFAULT_BODY_BG,
-        line_color=_DEFAULT_BORDER_COLOR,
-        line_width=1.5,
+        shape_fill_color=_DEFAULT_BODY_BG,
+        shape_line_color=_DEFAULT_BORDER_COLOR,
+        shape_line_width=1.5,
     )
     if entity.style is not None:
-        box_style = box_style.merge(entity.style)
+        box_style = box_style.patch(entity.style)
     canvas_rectangle(xy=(cx, cy), width=w, height=h, style=box_style)
 
     # 2. Header Box & Title Text
     hh = entity.header_height
     header_cy = cy + half_h - hh / 2.0
     header_box_style = Style(
-        fill_color=_DEFAULT_HEADER_BG,
-        line_color=_DEFAULT_HEADER_BG,
-        line_width=1.0,
+        shape_fill_color=_DEFAULT_HEADER_BG,
+        shape_line_color=_DEFAULT_HEADER_BG,
+        shape_line_width=1.0,
     )
     if entity.header_style is not None:
-        header_box_style = header_box_style.merge(entity.header_style)
+        header_box_style = header_box_style.patch(entity.header_style)
     canvas_rectangle(xy=(cx, header_cy), width=w, height=hh, style=header_box_style)
 
     header_text_color = header_box_style.text_color or _DEFAULT_HEADER_TEXT_COLOR
@@ -231,9 +236,10 @@ def _render_entity(entity: Entity, canvas_xy: tuple[float, float]) -> None:
         width=w,
         height=h,
         style=Style(
-            fill_alpha=0.0,
-            line_color=_DEFAULT_BORDER_COLOR,
-            line_width=1.5,
+            shape_fill_color=Colors.Transparent,
+            shape_fill_alpha=0.0,
+            shape_line_color=_DEFAULT_BORDER_COLOR,
+            shape_line_width=1.5,
         ),
     )
 
@@ -301,7 +307,7 @@ def _render_relationship(
         line_width=1.5,
     )
     if rel.style is not None:
-        line_style = line_style.merge(rel.style)
+        line_style = line_style.patch(rel.style)
 
     # Draw main line path
     canvas_lines(xys=path, style=line_style)
@@ -453,9 +459,9 @@ def _render_crows_foot_marker(
 
     marker_style = Style(line_color=color, line_width=lwidth)
     circle_style = Style(
-        fill_color=_DEFAULT_BODY_BG,
-        line_color=color,
-        line_width=lwidth,
+        shape_fill_color=_DEFAULT_BODY_BG,
+        shape_line_color=color,
+        shape_line_width=lwidth,
     )
 
     def draw_tick(distance: float) -> None:

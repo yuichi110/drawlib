@@ -21,6 +21,7 @@ from drawlib.colors import (
     Colors140,
 )
 from drawlib.images import Dimage, image
+from drawlib.preset_styles import get_default_styles
 from drawlib.shapes import circle
 from drawlib.types import Style
 
@@ -37,7 +38,8 @@ class TestCanvas:
             os.remove(target_path)
 
         clear()
-        circle((50, 50), 30)
+        styles = get_default_styles()
+        circle((50, 50), 30, style=styles.primary)
         # Saves to directory of running script with default "png" format
         save()
         # Ensure file got saved
@@ -51,13 +53,16 @@ class TestCanvas:
             os.remove(target_path)
 
         clear()
-        circle((50, 50), 30)
+        styles = get_default_styles()
+        circle((50, 50), 30, style=styles.primary)
         save(format="webp")
         assert os.path.exists(target_path)
         os.remove(target_path)
 
     def test_canvas_config_grid(self) -> None:
         """Verify canvas grid-only and standard save options work correctly."""
+        styles = get_default_styles()
+
         clear()
         config(width=192, height=108, grid_only=True)
         save(f"{OUTPUT_DIR}test_size.png")
@@ -90,42 +95,45 @@ class TestCanvas:
         save(f"{OUTPUT_DIR}test_grid.png")
 
         clear()
-        circle((50, 50), 30)
+        circle((50, 50), 30, style=styles.primary)
         save(f"{OUTPUT_DIR}test_nogrid.png")
 
         clear()
         config(grid=True)
-        circle((50, 50), 30)
+        circle((50, 50), 30, style=styles.primary)
         save(f"{OUTPUT_DIR}test_both.png")
 
     def test_serial_save(self) -> None:
         """Verify multiple saves consecutively maintain isolated drawing updates."""
         clear()
-        circle((25, 25), radius=10)
+        styles = get_default_styles()
+        circle((25, 25), radius=10, style=styles.primary)
         save(f"{OUTPUT_DIR}test_serial_save_1.png")
-        circle((25, 75), radius=10)
+        circle((25, 75), radius=10, style=styles.primary)
         save(f"{OUTPUT_DIR}test_serial_save_2.png")
-        circle((75, 25), radius=10)
+        circle((75, 25), radius=10, style=styles.primary)
         save(f"{OUTPUT_DIR}test_serial_save_3.png")
-        circle((75, 75), radius=10)
+        circle((75, 75), radius=10, style=styles.primary)
         save(f"{OUTPUT_DIR}test_serial_save_4.png")
 
     def test_serial_save_grid(self) -> None:
         """Verify consecutive saves with a grid enabled work properly."""
         clear()
+        styles = get_default_styles()
         config(grid=True)
-        circle((25, 25), radius=10)
+        circle((25, 25), radius=10, style=styles.primary)
         save(f"{OUTPUT_DIR}test_serial_save_grid_1.png")
-        circle((25, 75), radius=10)
+        circle((25, 75), radius=10, style=styles.primary)
         save(f"{OUTPUT_DIR}test_serial_save_grid_2.png")
 
     def test_serial_save_gridonly(self) -> None:
         """Verify consecutive saves with only a grid enabled work properly."""
         clear()
+        styles = get_default_styles()
         config(grid_only=True)
-        circle((25, 25), radius=10)
+        circle((25, 25), radius=10, style=styles.primary)
         save(f"{OUTPUT_DIR}test_serial_save_gridonly_1.png")
-        circle((25, 75), radius=10)
+        circle((25, 75), radius=10, style=styles.primary)
         save(f"{OUTPUT_DIR}test_serial_save_gridonly_2.png")
 
     def test_get_save_file_path(self) -> None:
@@ -154,7 +162,8 @@ class TestCanvas:
         monkeypatch.setattr(pyplot, "show", dummy_show)
 
         clear()
-        circle((50, 50), 10)
+        styles = get_default_styles()
+        circle((50, 50), 10, style=styles.primary)
         show()
         assert show_called
 
@@ -162,15 +171,16 @@ class TestCanvas:
         show_called = False
         clear()
         config(grid=True)
-        circle((50, 50), 10)
+        circle((50, 50), 10, style=styles.primary)
         show()
         assert show_called
 
     def test_get_dimage(self) -> None:
         """Verify get_dimage renders canvas illustration to a Dimage object in memory."""
         clear()
+        styles = get_default_styles()
         config(width=100, height=100)
-        circle((50, 50), 30)
+        circle((50, 50), 30, style=styles.primary)
 
         dimg = get_dimage()
         assert isinstance(dimg, Dimage)
@@ -193,8 +203,9 @@ class TestCanvas:
     def test_get_dimage_with_grid(self) -> None:
         """Verify get_dimage includes grid overlay when grid is enabled."""
         clear()
+        styles = get_default_styles()
         config(width=100, height=100, grid=True)
-        circle((50, 50), 30)
+        circle((50, 50), 30, style=styles.primary)
 
         dimg = get_dimage()
         assert isinstance(dimg, Dimage)

@@ -72,7 +72,12 @@ def draw_state_diagram(diagram: StateDiagram, base_xy: tuple[float, float]) -> N
 
     # 1. Background
     if diagram.style is not None:
-        canvas_rectangle(xy=(center_x, center_y), width=diag_w, height=diag_h, style=diagram.style)
+        bg_style = Style(
+            shape_fill_color=Colors.White,
+            shape_line_color=Colors.Transparent,
+            shape_line_width=0.0,
+        ).patch(diagram.style)
+        canvas_rectangle(xy=(center_x, center_y), width=diag_w, height=diag_h, style=bg_style)
 
     # 2. Title
     if diagram.title:
@@ -165,11 +170,11 @@ def _render_box_state(node: State, center_xy: tuple[float, float]) -> None:
     h = node.effective_height
 
     base_style = Style(
-        fill_color=_DEFAULT_FILL_COLOR,
-        line_color=_DEFAULT_BORDER_COLOR,
-        line_width=1.5,
+        shape_fill_color=_DEFAULT_FILL_COLOR,
+        shape_line_color=_DEFAULT_BORDER_COLOR,
+        shape_line_width=1.5,
     )
-    style = base_style.merge(node.style) if node.style is not None else base_style
+    style = base_style.patch(node.style)
     canvas_rectangle(xy=(cx, cy), width=w, height=h, r=node.r, style=style)
 
     if not node.actions:
@@ -182,7 +187,7 @@ def _render_box_state(node: State, center_xy: tuple[float, float]) -> None:
             text_valign="center",
         )
         if node.style is not None:
-            text_style = text_style.merge(node.style)
+            text_style = text_style.patch(node.style)
         canvas_text(xy=(cx, cy), text=node.name, style=text_style)
         return
 
@@ -201,12 +206,12 @@ def _render_box_state(node: State, center_xy: tuple[float, float]) -> None:
         text_valign="center",
     )
     if node.style is not None:
-        name_style = name_style.merge(node.style)
+        name_style = name_style.patch(node.style)
     canvas_text(xy=(cx, header_cy), text=node.name, style=name_style)
 
     # Divider line
     div_style = Style(
-        line_color=style.line_color if style.line_color is not None else _DEFAULT_BORDER_COLOR,
+        line_color=style.shape_line_color if style.shape_line_color is not None else _DEFAULT_BORDER_COLOR,
         line_width=1.0,
     )
     canvas_line(xy1=(cx - w / 2.0, div_y), xy2=(cx + w / 2.0, div_y), style=div_style)
@@ -238,11 +243,11 @@ def _render_oval_state(node: State, center_xy: tuple[float, float]) -> None:
     h = node.effective_height
 
     base_style = Style(
-        fill_color=_DEFAULT_FILL_COLOR,
-        line_color=_DEFAULT_BORDER_COLOR,
-        line_width=1.5,
+        shape_fill_color=_DEFAULT_FILL_COLOR,
+        shape_line_color=_DEFAULT_BORDER_COLOR,
+        shape_line_width=1.5,
     )
-    style = base_style.merge(node.style) if node.style is not None else base_style
+    style = base_style.patch(node.style)
     canvas_ellipse(xy=(cx, cy), width=w, height=h, style=style)
 
     text_style = Style(
@@ -253,7 +258,7 @@ def _render_oval_state(node: State, center_xy: tuple[float, float]) -> None:
         text_valign="center",
     )
     if node.style is not None:
-        text_style = text_style.merge(node.style)
+        text_style = text_style.patch(node.style)
     canvas_text(xy=(cx, cy), text=node.name, style=text_style)
 
 
@@ -269,11 +274,11 @@ def _render_circle_state(node: State, center_xy: tuple[float, float]) -> None:
 
     # Default background is transparent unless overridden by user style
     base_style = Style(
-        fill_color=Colors.Transparent,
-        line_color=_DEFAULT_BORDER_COLOR,
-        line_width=1.5,
+        shape_fill_color=Colors.Transparent,
+        shape_line_color=_DEFAULT_BORDER_COLOR,
+        shape_line_width=1.5,
     )
-    style = base_style.merge(node.style) if node.style is not None else base_style
+    style = base_style.patch(node.style)
     canvas_circle(xy=(cx, cy), radius=radius, style=style)
 
     text_style = Style(
@@ -284,7 +289,7 @@ def _render_circle_state(node: State, center_xy: tuple[float, float]) -> None:
         text_valign="center",
     )
     if node.style is not None:
-        text_style = text_style.merge(node.style)
+        text_style = text_style.patch(node.style)
     canvas_text(xy=(cx, cy), text=node.name, style=text_style)
 
 
@@ -301,18 +306,22 @@ def _render_double_circle_state(node: State, center_xy: tuple[float, float]) -> 
 
     # Outer circle: transparent background by default unless overridden
     outer_base = Style(
-        fill_color=Colors.Transparent,
-        line_color=_DEFAULT_BORDER_COLOR,
-        line_width=1.5,
+        shape_fill_color=Colors.Transparent,
+        shape_line_color=_DEFAULT_BORDER_COLOR,
+        shape_line_width=1.5,
     )
-    outer_style = outer_base.merge(node.style) if node.style is not None else outer_base
+    outer_style = outer_base.patch(node.style)
     canvas_circle(xy=(cx, cy), radius=r_outer, style=outer_style)
 
     # Inner ring: transparent fill, border matches outer line color
+    inner_line_color = (
+        outer_style.shape_line_color if outer_style.shape_line_color is not None else _DEFAULT_BORDER_COLOR
+    )
+    inner_line_width = outer_style.shape_line_width if outer_style.shape_line_width is not None else 1.5
     inner_style = Style(
-        fill_color=Colors.Transparent,
-        line_color=outer_style.line_color if outer_style.line_color is not None else _DEFAULT_BORDER_COLOR,
-        line_width=outer_style.line_width if outer_style.line_width is not None else 1.5,
+        shape_fill_color=Colors.Transparent,
+        shape_line_color=inner_line_color,
+        shape_line_width=inner_line_width,
     )
     canvas_circle(xy=(cx, cy), radius=r_inner, style=inner_style)
 
@@ -324,7 +333,7 @@ def _render_double_circle_state(node: State, center_xy: tuple[float, float]) -> 
         text_valign="center",
     )
     if node.style is not None:
-        text_style = text_style.merge(node.style)
+        text_style = text_style.patch(node.style)
     canvas_text(xy=(cx, cy), text=node.name, style=text_style)
 
 
@@ -344,7 +353,7 @@ def _render_text_only_state(node: State, center_xy: tuple[float, float]) -> None
         text_valign="center",
     )
     if node.style is not None:
-        text_style = text_style.merge(node.style)
+        text_style = text_style.patch(node.style)
     canvas_text(xy=(cx, cy), text=node.name, style=text_style)
 
 
@@ -357,16 +366,17 @@ def _render_initial_state(node: InitialState, center_xy: tuple[float, float]) ->
     """
     cx, cy = center_xy
     base_style = Style(
-        fill_color=_DEFAULT_SOLID_COLOR,
-        line_color=_DEFAULT_SOLID_COLOR,
-        line_width=1.0,
+        shape_fill_color=_DEFAULT_SOLID_COLOR,
+        shape_line_color=_DEFAULT_SOLID_COLOR,
+        shape_line_width=1.0,
     )
-    style = base_style.merge(node.style) if node.style is not None else base_style
+    style = base_style.patch(node.style)
     canvas_circle(xy=(cx, cy), radius=node.radius, style=style)
 
     if node.name:
         label_style = Style(
             text_size=9,
+            text_font=Font.SANSSERIF_REGULAR,
             text_color=_DEFAULT_MUTED_TEXT_COLOR,
             text_halign="center",
             text_valign="top",
@@ -386,23 +396,24 @@ def _render_final_state(node: FinalState, center_xy: tuple[float, float]) -> Non
     r_inner = r_outer * 0.65
 
     outer_base = Style(
-        fill_color=Colors.Transparent,
-        line_color=_DEFAULT_SOLID_COLOR,
-        line_width=1.5,
+        shape_fill_color=Colors.Transparent,
+        shape_line_color=_DEFAULT_SOLID_COLOR,
+        shape_line_width=1.5,
     )
-    outer_style = outer_base.merge(node.style) if node.style is not None else outer_base
+    outer_style = outer_base.patch(node.style)
     canvas_circle(xy=(cx, cy), radius=r_outer, style=outer_style)
 
     inner_style = Style(
-        fill_color=_DEFAULT_SOLID_COLOR,
-        line_color=_DEFAULT_SOLID_COLOR,
-        line_width=1.0,
+        shape_fill_color=_DEFAULT_SOLID_COLOR,
+        shape_line_color=_DEFAULT_SOLID_COLOR,
+        shape_line_width=1.0,
     )
     canvas_circle(xy=(cx, cy), radius=r_inner, style=inner_style)
 
     if node.name:
         label_style = Style(
             text_size=9,
+            text_font=Font.SANSSERIF_REGULAR,
             text_color=_DEFAULT_MUTED_TEXT_COLOR,
             text_halign="center",
             text_valign="top",
@@ -419,16 +430,17 @@ def _render_choice_state(node: ChoiceState, center_xy: tuple[float, float]) -> N
     """
     cx, cy = center_xy
     base_style = Style(
-        fill_color=_DEFAULT_FILL_COLOR,
-        line_color=_DEFAULT_BORDER_COLOR,
-        line_width=1.5,
+        shape_fill_color=_DEFAULT_FILL_COLOR,
+        shape_line_color=_DEFAULT_BORDER_COLOR,
+        shape_line_width=1.5,
     )
-    style = base_style.merge(node.style) if node.style is not None else base_style
+    style = base_style.patch(node.style)
     canvas_rhombus(xy=(cx, cy), width=node.size, height=node.size, style=style)
 
     if node.name:
         label_style = Style(
             text_size=9,
+            text_font=Font.SANSSERIF_REGULAR,
             text_color=_DEFAULT_MUTED_TEXT_COLOR,
             text_halign="center",
             text_valign="bottom",
@@ -445,16 +457,17 @@ def _render_fork_join_state(node: ForkJoinState, center_xy: tuple[float, float])
     """
     cx, cy = center_xy
     base_style = Style(
-        fill_color=_DEFAULT_SOLID_COLOR,
-        line_color=_DEFAULT_SOLID_COLOR,
-        line_width=1.0,
+        shape_fill_color=_DEFAULT_SOLID_COLOR,
+        shape_line_color=_DEFAULT_SOLID_COLOR,
+        shape_line_width=1.0,
     )
-    style = base_style.merge(node.style) if node.style is not None else base_style
+    style = base_style.patch(node.style)
     canvas_rectangle(xy=(cx, cy), width=node.width, height=node.height, r=0.4, style=style)
 
     if node.name:
         label_style = Style(
             text_size=9,
+            text_font=Font.SANSSERIF_REGULAR,
             text_color=_DEFAULT_MUTED_TEXT_COLOR,
             text_halign="center",
             text_valign="bottom",
@@ -601,7 +614,7 @@ def _render_self_transition(
     )
 
     base_style = Style(line_color=_DEFAULT_EDGE_COLOR, line_width=1.5)
-    edge_style = base_style.merge(trans.style) if trans.style is not None else base_style
+    edge_style = base_style.patch(trans.style)
 
     gap_deg = (1.0 - ratio) * 360.0
     base_angle = center_angle - 180.0
@@ -615,6 +628,7 @@ def _render_self_transition(
     if label:
         label_style = Style(
             text_size=8.5,
+            text_font=Font.SANSSERIF_REGULAR,
             text_color=_DEFAULT_TEXT_COLOR,
             text_halign=text_halign,
             text_valign=text_valign,
@@ -642,7 +656,7 @@ def _render_normal_transition(
     xy2 = _get_node_border_point(trans.end, end_c, start_c, trans.end_side, pad_end)
 
     base_style = Style(line_color=_DEFAULT_EDGE_COLOR, line_width=1.5)
-    edge_style = base_style.merge(trans.style) if trans.style is not None else base_style
+    edge_style = base_style.patch(trans.style)
 
     if trans.routing == "orthogonal":
         _render_orthogonal_transition(xy1, xy2, trans, edge_style)
@@ -674,6 +688,7 @@ def _render_orthogonal_transition(
     if label:
         label_style = Style(
             text_size=8.5,
+            text_font=Font.SANSSERIF_REGULAR,
             text_color=_DEFAULT_TEXT_COLOR,
             text_halign="center",
             text_valign="bottom",
@@ -706,12 +721,20 @@ def _render_curved_or_direct_transition(
     if not label:
         return
 
+    label_style = Style(
+        text_size=8.5,
+        text_font=Font.SANSSERIF_REGULAR,
+        text_color=_DEFAULT_TEXT_COLOR,
+        text_halign="center",
+        text_valign="center",
+    )
+
     # Compute label offset along normal vector
     dx = xy2[0] - xy1[0]
     dy = xy2[1] - xy1[1]
     dist = math.hypot(dx, dy)
     if dist < 1e-6:
-        canvas_text(xy=xy1, text=label)
+        canvas_text(xy=xy1, text=label, style=label_style)
         return
 
     mid_x = (xy1[0] + xy2[0]) / 2.0
@@ -724,12 +747,6 @@ def _render_curved_or_direct_transition(
     label_x = mid_x + norm_x * disp
     label_y = mid_y + norm_y * disp
 
-    label_style = Style(
-        text_size=8.5,
-        text_color=_DEFAULT_TEXT_COLOR,
-        text_halign="center",
-        text_valign="center",
-    )
     canvas_text(xy=(label_x, label_y), text=label, style=label_style)
 
 

@@ -24,8 +24,7 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import canvas
-from drawlib._core.l4_canvas_utils import ShapeUtil
-from drawlib._preset_styles import get_style
+from drawlib._core.l4_canvas_utils import ShapeUtil, TextUtil
 
 
 @guarded
@@ -37,25 +36,26 @@ def bubblespeech(
     tail_start_ratio: TypeAlpha,
     tail_vertex_xy: TypeCoordinate,
     tail_end_ratio: TypeAlpha,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
     text: TypeStr = "",
     textsize: TypeSize | None = None,
-    textstyle: Style | TypeStr | None = None,
+    textstyle: Style | None = None,
 ) -> None:
     """Draw a bubble speech on the canvas.
 
     Args:
-        xy (Tuple[float, float]): The (x, y) coordinates of the bottom-left corner of the bubble.
-        width (float): The width of the bubble.
-        height (float): The height of the bubble.
-        tail_edge (Literal["left", "top", "right", "bottom"]): The edge on which the tail will be positioned.
-        tail_start_ratio (float): The ratio along the edge where the tail starts.
-        tail_vertex_xy (Tuple[float, float]): The (x, y) coordinates of the tail's vertex.
-        tail_end_ratio (float): The ratio along the edge where the tail ends.
-        style (Union[Style, str, None], optional): The style of the bubble. Defaults to None.
-        text (str, optional): The text to display inside the bubble. Defaults to an empty string.
-        textsize (Optional[float], optional): The size of the text. Defaults to None.
-        textstyle (Union[Style, str, None], optional): The style of the text. Defaults to None.
+        xy: The (x, y) coordinates of the bottom-left corner of the bubble.
+        width: The width of the bubble.
+        height: The height of the bubble.
+        tail_edge: The edge on which the tail will be positioned.
+        tail_start_ratio: The ratio along the edge where the tail starts.
+        tail_vertex_xy: The (x, y) coordinates of the tail's vertex.
+        tail_end_ratio: The ratio along the edge where the tail ends.
+        style: The style of the bubble (required).
+        text: The text to display inside the bubble. Defaults to an empty string.
+        textsize: The size of the text. Defaults to None.
+        textstyle: The style of the text. Defaults to None.
 
     Returns:
         None
@@ -65,9 +65,6 @@ def bubblespeech(
         style,
         textstyle,
     )
-
-    if textsize is not None:
-        textstyle.text_size = textsize
 
     if tail_start_ratio > tail_end_ratio:
         raise ValueError("tail_start_ratio must be smaller than tail_end_ratio.")
@@ -101,6 +98,10 @@ def bubblespeech(
     canvas._artists.append(Polygon(xy=xys, closed=True, **options))
 
     if text:
+        effective_textstyle = textstyle if textstyle is not None else style
+        if textsize is not None:
+            effective_textstyle = effective_textstyle.patch(text_size=textsize)
+        TextUtil.validate_text_style(effective_textstyle)
         center_x = x + width / 2
         center_y = y + height / 2
         canvas._artists.append(
@@ -108,6 +109,6 @@ def bubblespeech(
                 xy=(center_x, center_y),
                 text=text,
                 angle=0,
-                style=textstyle,
+                style=effective_textstyle,
             )
         )

@@ -373,7 +373,7 @@ class TestClassDiagramRendering:
 
         cd = ClassDiagram(
             title="Payment Processing",
-            style=Style(fill_color=Colors.White),
+            style=Style(shape_fill_color=Colors.White),
         )
 
         processor = cd.add(
@@ -381,7 +381,7 @@ class TestClassDiagramRendering:
                 name="PaymentProcessor",
                 stereotype="interface",
                 width=30.0,
-                header_style=Style(fill_color=Colors.Teal, text_color=Colors.White),
+                header_style=Style(shape_fill_color=Colors.Teal, text_color=Colors.White),
             ),
             xy=(50.0, 75.0),
         )
@@ -391,7 +391,7 @@ class TestClassDiagramRendering:
             ClassNode(
                 name="StripePayment",
                 width=26.0,
-                header_style=Style(fill_color=Colors.Navy, text_color=Colors.White),
+                header_style=Style(shape_fill_color=Colors.Navy, text_color=Colors.White),
             ),
             xy=(25.0, 30.0),
         )
@@ -402,7 +402,7 @@ class TestClassDiagramRendering:
             ClassNode(
                 name="PayPalPayment",
                 width=26.0,
-                header_style=Style(fill_color=Colors.Blue, text_color=Colors.White),
+                header_style=Style(shape_fill_color=Colors.Blue, text_color=Colors.White),
             ),
             xy=(75.0, 30.0),
         )

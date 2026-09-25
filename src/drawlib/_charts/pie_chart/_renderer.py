@@ -68,13 +68,14 @@ def _draw_pie_slices(
         else chart.radius * 0.65
     )
 
-    val_label_style = chart.value_label_style or Style(
+    default_val_label_style = Style(
         text_size=9.5,
         text_font=Font.SANSSERIF_BOLD,
         text_color=_DEFAULT_WHITE_TEXT,
         text_halign="center",
         text_valign="center",
     )
+    val_label_style = default_val_label_style.patch(chart.value_label_style)
 
     cur_angle = chart.start_angle
     for s_idx, s in enumerate(chart.slices):
@@ -105,11 +106,12 @@ def _draw_pie_slices(
         exp_x = s.explode * math.cos(mid_rad)
         exp_y = s.explode * math.sin(mid_rad)
 
-        slice_style = s.style or Style(
-            fill_color=slice_colors[s_idx],
-            line_color=(255, 255, 255, 1.0),
-            line_width=1.0,
+        default_slice_style = Style(
+            shape_fill_color=slice_colors[s_idx],
+            shape_line_color=(255, 255, 255, 1.0),
+            shape_line_width=1.0,
         )
+        slice_style = default_slice_style.patch(s.style)
 
         canvas_wedge(
             xy=(cx + exp_x, cy + exp_y),
@@ -132,13 +134,14 @@ def _draw_center_badge(chart: PieChart, center: tuple[float, float]) -> None:
     if chart.hole_ratio <= 0.0 or not chart.center_text:
         return
 
-    c_style = chart.center_text_style or Style(
+    default_c_style = Style(
         text_size=11.0,
         text_font=Font.SANSSERIF_BOLD,
         text_color=_DEFAULT_TEXT_COLOR,
         text_halign="center",
         text_valign="center",
     )
+    c_style = default_c_style.patch(chart.center_text_style)
     canvas_text(xy=center, text=chart.center_text, style=c_style)
 
 
@@ -158,13 +161,14 @@ def draw_pie_chart(chart: PieChart, xy: tuple[float, float]) -> None:
     legend_w, legend_h = get_legend_size(chart.legend_position, slice_names, len(chart.slices))
 
     if chart.title:
-        t_style = chart.title_style or Style(
+        default_t_style = Style(
             text_size=12.0,
             text_font=Font.SANSSERIF_BOLD,
             text_color=_DEFAULT_TEXT_COLOR,
             text_halign="center",
             text_valign="bottom",
         )
+        t_style = default_t_style.patch(chart.title_style)
         canvas_text(xy=((c_min_x + c_max_x) / 2.0, c_max_y - 3.5), text=chart.title, style=t_style)
 
     # Compute center coordinates based on legend placement

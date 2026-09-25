@@ -11,7 +11,6 @@ import pytest
 
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas_utils._line import LineUtil
-from drawlib._preset_styles import get_style
 
 
 class TestLineUtil:
@@ -56,24 +55,24 @@ class TestLineUtil:
         assert LineUtil.sanitize_xys(points) == [(0.0, 0.0), (2.0, 2.0)]
 
     def test_format_style(self) -> None:
-        """Verifies format_style merges Style correctly and raises ValueError on invalid types."""
-        # 1. Test None style
-        formatted_none = LineUtil.format_style(None)
-        assert isinstance(formatted_none, Style)
-        assert formatted_none.line_width == get_style().line_width
-
-        # 2. Test string style
-        formatted_str = LineUtil.format_style("primary")
-        assert formatted_str.text_color == get_style("primary").text_color
-
-        # 3. Test Style object
-        custom_style = Style(line_width=8.0)
+        """Verifies format_style validates Style and raises errors on invalid input."""
+        # 1. Test valid Style object
+        custom_style = Style(line_width=8.0, line_color=(255, 0, 0, 1.0))
         formatted_obj = LineUtil.format_style(custom_style)
         assert formatted_obj.line_width == 8.0
+        assert formatted_obj.line_color == (255, 0, 0, 1.0)
 
-        # 4. Test invalid style types raise ValueError
-        with pytest.raises(ValueError):
+        # 2. Test missing required properties raises ValueError
+        with pytest.raises(ValueError, match="Line drawing requires attributes"):
+            LineUtil.format_style(Style(line_width=8.0))
+        with pytest.raises(ValueError, match="Line drawing requires attributes"):
+            LineUtil.format_style(Style(line_color=(255, 0, 0, 1.0)))
+
+        # 3. Test invalid style types raise TypeError
+        with pytest.raises(TypeError):
             LineUtil.format_style(123)  # type: ignore
+        with pytest.raises(TypeError):
+            LineUtil.format_style("primary")  # type: ignore
 
     def test_get_fancyarrowpatch_options(self) -> None:
         """Verifies conversion of Style to matplotlib's FancyArrowPatch options."""
@@ -81,9 +80,9 @@ class TestLineUtil:
             line_width=3.5,
             line_style="dashed",
             line_color=(255, 0, 0),
-            fill_alpha=0.9,
-            arrow_head_scale=15.0,
-            arrow_head_fill=True,
+            line_alpha=0.9,
+            line_arrow_head_scale=15.0,
+            line_arrow_head_fill=True,
         )
 
         # 1. Test without arrowhead ("")
@@ -108,6 +107,6 @@ class TestLineUtil:
         assert options_both_filled["arrowstyle"] == "<|-|>"
 
         # 5. Test with unfilled arrowhead (ahfill = False)
-        unfilled_style = Style(line_width=3.5, line_style="solid", arrow_head_fill=False)
+        unfilled_style = Style(line_width=3.5, line_color=(0, 0, 0), line_style="solid", line_arrow_head_fill=False)
         options_unfilled = LineUtil.get_fancyarrowpatch_options("->", unfilled_style)
         assert options_unfilled["arrowstyle"] == "->"

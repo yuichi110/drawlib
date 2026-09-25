@@ -19,9 +19,13 @@ from drawlib._core.l2_types import (
     TypeFloat,
     TypeStr,
 )
-from drawlib._core.l3_styles import Style
+from drawlib._core.l3_styles import (
+    Colors,
+    ColorsEssentials,
+    Style,
+)
 from drawlib._core.l4_canvas import ellipse, get_charwidth_from_fontsize, line, rectangle
-from drawlib._preset_styles import get_style
+from drawlib._preset_styles import BasePresetStyles
 
 
 class MindMapNode:
@@ -39,10 +43,10 @@ class MindMapNode:
         branch: Literal["bottom", "top", "left", "right"] | None = None,
         shape: Literal["rectangle", "oval", "none"] | None = None,
         size: tuple[TypeFloat, TypeFloat] | None = None,
-        style: TypeStr | Style | None = None,
+        style: Style | None = None,
         r: TypeFloat | None = None,
-        textstyle: TypeStr | Style | None = None,
-        linestyle: TypeStr | Style | None = None,
+        textstyle: Style | None = None,
+        linestyle: Style | None = None,
         horizontal_margin: TypeFloat | None = None,
         vertical_margin: TypeFloat | None = None,
         line_length: TypeFloat | None = None,
@@ -52,23 +56,23 @@ class MindMapNode:
         default_branch: Literal["bottom", "top", "left", "right"] | None = None,
         default_shape: Literal["rectangle", "oval", "none"] | None = None,
         default_size: tuple[TypeFloat, TypeFloat] | None = None,
-        default_style: TypeStr | Style | None = None,
+        default_style: Style | None = None,
         default_r: TypeFloat | None = None,
-        default_textstyle: TypeStr | Style | None = None,
-        default_linestyle: TypeStr | Style | None = None,
+        default_textstyle: Style | None = None,
+        default_linestyle: Style | None = None,
         default_horizontal_margin: TypeFloat | None = None,
         default_vertical_margin: TypeFloat | None = None,
         default_line_length: TypeFloat | None = None,
         # Backward compatibility parameters
         boxsize: tuple[TypeFloat, TypeFloat] | None = None,
-        boxstyle: TypeStr | Style | None = None,
+        boxstyle: Style | None = None,
         box_r: TypeFloat | None = None,
         box_horizontal_margin: TypeFloat | None = None,
         box_vertical_margin: TypeFloat | None = None,
         line_horizontal_length: TypeFloat | None = None,
         line_vertical_length: TypeFloat | None = None,
         default_boxsize: tuple[TypeFloat, TypeFloat] | None = None,
-        default_boxstyle: TypeStr | Style | None = None,
+        default_boxstyle: Style | None = None,
         default_box_r: TypeFloat | None = None,
         default_box_horizontal_margin: TypeFloat | None = None,
         default_box_vertical_margin: TypeFloat | None = None,
@@ -82,10 +86,10 @@ class MindMapNode:
             branch: Branch direction for child nodes ("bottom", "top", "left", "right").
             shape: Shape of this node ("rectangle", "oval", "none").
             size: Size of the node as (width, height).
-            style: Shape style object or preset name.
+            style: Shape style object.
             r: Corner radius when shape is "rectangle".
-            textstyle: Style object or preset name for text.
-            linestyle: Style object or preset name for connecting lines.
+            textstyle: Style object for text.
+            linestyle: Style object for connecting lines.
             horizontal_margin: Horizontal margin between sibling subtrees.
             vertical_margin: Vertical margin between sibling subtrees.
             line_length: Distance between parent and child hierarchy levels.
@@ -124,18 +128,10 @@ class MindMapNode:
         self._size = resolved_size
 
         resolved_style = style if style is not None else boxstyle
-        if isinstance(resolved_style, str):
-            resolved_style = get_style(resolved_style)
         self._style = resolved_style
 
         self._r = r if r is not None else box_r
-
-        if isinstance(textstyle, str):
-            textstyle = get_style(textstyle)
         self._textstyle = textstyle
-
-        if isinstance(linestyle, str):
-            linestyle = get_style(linestyle)
         self._linestyle = linestyle
 
         self._horizontal_margin = horizontal_margin if horizontal_margin is not None else box_horizontal_margin
@@ -157,18 +153,10 @@ class MindMapNode:
         self._default_size = resolved_def_size
 
         resolved_def_style = default_style if default_style is not None else default_boxstyle
-        if isinstance(resolved_def_style, str):
-            resolved_def_style = get_style(resolved_def_style)
         self._default_style = resolved_def_style
 
         self._default_r = default_r if default_r is not None else default_box_r
-
-        if isinstance(default_textstyle, str):
-            default_textstyle = get_style(default_textstyle)
         self._default_textstyle = default_textstyle
-
-        if isinstance(default_linestyle, str):
-            default_linestyle = get_style(default_linestyle)
         self._default_linestyle = default_linestyle
 
         self._default_horizontal_margin = (
@@ -227,6 +215,7 @@ class MindMapNode:
         xy: TypeCoordinate,
         branch: Literal["bottom", "top", "left", "right"] = "bottom",
         *,
+        styles: BasePresetStyles | None = None,
         orientation: Literal["horizontal", "vertical"] | None = None,
         align: Literal["top", "bottom", "center", "left", "right"] | None = None,
     ) -> None:
@@ -237,6 +226,7 @@ class MindMapNode:
         Args:
             xy: Center coordinates (x, y) of the root node.
             branch: Default branch direction for child nodes ("bottom", "top", "left", "right").
+            styles: The preset styles catalog (optional if root node has default styles set).
             orientation: Backward-compatible argument. Maps "horizontal" -> "right", "vertical" -> "bottom".
             align: Backward-compatible argument for alignment.
         """
@@ -245,10 +235,34 @@ class MindMapNode:
         # Baseline defaults
         def_shape: Literal["rectangle", "oval", "none"] = self._default_shape or "rectangle"
         def_size = self._default_size or (20.0, 8.0)
-        def_style = self._default_style or get_style("solid")
+        if self._default_style is not None:
+            def_style = self._default_style
+        elif styles is not None:
+            def_style = styles.solid
+        else:
+            raise ValueError(
+                'Root of MindMapNode must have "default_style" or "styles: BasePresetStyles" must be passed to draw().'
+            )
+
         def_r = 0.0 if self._default_r is None else self._default_r
-        def_textstyle = self._default_textstyle
-        def_linestyle = self._default_linestyle or get_style("solid")
+
+        if self._default_textstyle is not None:
+            def_textstyle = self._default_textstyle
+        elif styles is not None:
+            def_textstyle = styles.solid
+        else:
+            def_textstyle = def_style
+
+        if self._default_linestyle is not None:
+            def_linestyle = self._default_linestyle
+        elif styles is not None:
+            def_linestyle = styles.solid
+        else:
+            raise ValueError(
+                'Root of MindMapNode must have "default_linestyle" '
+                'or "styles: BasePresetStyles" must be passed to draw().'
+            )
+
         def_h_margin = 4.0 if self._default_horizontal_margin is None else self._default_horizontal_margin
         def_v_margin = 4.0 if self._default_vertical_margin is None else self._default_vertical_margin
         def_line_len = 10.0 if self._default_line_length is None else self._default_line_length
@@ -417,10 +431,10 @@ class MindMapNode:
         if (
             shape != "none"
             and explicit_textstyle is None
-            and node_style.fill_color is not None
-            and node_style.fill_color == text_style.text_color
+            and node_style.shape_fill_color is not None
+            and node_style.shape_fill_color == text_style.text_color
         ):
-            text_style = get_style("white")
+            text_style = text_style.patch(text_color=ColorsEssentials.White)
         line_style = self._linestyle or self._default_linestyle or default_linestyle
 
         h_margin = self._horizontal_margin or self._default_horizontal_margin or default_h_margin
@@ -461,11 +475,12 @@ class MindMapNode:
                 textstyle=text_style,
             )
         else:  # shape == "none" (transparent box)
-            transparent_style = node_style.copy()
-            transparent_style.line_width = 0
-            transparent_style.line_color = None
-            transparent_style.fill_color = None
-            transparent_style.fill_alpha = 0
+            transparent_style = node_style.patch(
+                shape_line_width=0,
+                shape_line_color=Colors.Transparent,
+                shape_fill_color=Colors.Transparent,
+                shape_fill_alpha=0.0,
+            )
             rectangle(
                 xy=(cx, cy),
                 width=bw,

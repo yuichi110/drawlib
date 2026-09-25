@@ -19,14 +19,15 @@ from drawlib import ASSET_VERSION
 from drawlib._core.l2_types import (
     TypeAngle,
     TypeCoordinate,
+    TypeIconStyle,
     TypePosFloat,
     TypeStr,
 )
 from drawlib._core.l3_external import download_if_not_exist
 from drawlib._core.l3_fonts import FontMetadata, FontResource
 from drawlib._core.l3_styles import Style
+from drawlib._icons._utils import IconUtil
 from drawlib._icons.font_icons._font_icon import font_icon
-from drawlib._preset_styles import get_style
 
 
 class FontIconProvider:
@@ -36,7 +37,7 @@ class FontIconProvider:
         self,
         name: str,
         font_resources: dict[str, FontResource],
-        default_style: str,
+        default_style: TypeIconStyle,
         asset_subdir: str = "fonticons",
     ) -> None:
         """Initialize FontIconProvider.
@@ -49,7 +50,7 @@ class FontIconProvider:
         """
         self.name = name
         self.font_resources = font_resources
-        self.default_style = default_style
+        self.default_style: TypeIconStyle = default_style
         self.asset_subdir = asset_subdir
 
     def get_font_metadata(self, font: str) -> FontMetadata:
@@ -90,7 +91,8 @@ class FontIconProvider:
         width: TypePosFloat,
         code: str,
         angle: TypeAngle = 0.0,
-        style: Style | TypeStr | None = None,
+        *,
+        style: Style,
     ) -> None:
         """Draw an icon at the specified position using the configured font.
 
@@ -99,20 +101,12 @@ class FontIconProvider:
             width: Width of the icon.
             code: Unicode character or codepoint for the icon glyph.
             angle: Rotation angle in degrees (default 0.0).
-            style: Style object, style name string, or None.
+            style: Style object (required).
 
         Raises:
             ValueError: If an unsupported icon_style is specified.
         """
-        if style is None:
-            style_obj = get_style().copy()
-        elif isinstance(style, str):
-            style_obj = get_style(style).copy()
-        else:
-            style_obj = style.copy()
-
-        if style_obj.icon_style is None:
-            style_obj.icon_style = self.default_style
+        style_obj = IconUtil.format_style(style, default_icon_style=self.default_style)
 
         if style_obj.icon_style not in self.font_resources:
             valid_styles = list(self.font_resources.keys())

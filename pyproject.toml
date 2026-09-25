@@ -143,3 +143,6 @@ reportUnknownArgumentType = "warning"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = [
+    "image_threshold(threshold): custom pixel match threshold for image comparison",
+]

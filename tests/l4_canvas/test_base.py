@@ -13,6 +13,7 @@ import os
 
 import pytest
 
+from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import (
     canvas,
     get_charwidth_from_fontsize,
@@ -26,10 +27,9 @@ from drawlib.colors import (
     Colors,
     Colors140,
 )
+from drawlib.fonts import Font
+from drawlib.preset_styles import get_default_styles
 from drawlib.shapes import polygon, rectangle, shape
-from drawlib.types import (
-    Style,
-)
 
 # ruff: noqa: F403, F405
 
@@ -88,34 +88,43 @@ class TestCanvasBase:
     def test_polygon(self) -> None:
         """Verify drawing a basic polygon with different styles and text."""
         clear()
+        styles = get_default_styles()
+        s_def = styles.primary
+
         # No style
-        polygon(xys=[(10, 10), (10, 50), (80, 30)])
+        polygon(xys=[(10, 10), (10, 50), (80, 30)], style=s_def)
 
         # With alignment and style
         polygon(
             xys=[(10, 10), (10, 50), (80, 30)],
-            style=Style(text_halign="center", text_valign="center"),
+            style=s_def.patch(text_halign="center", text_valign="center"),
         )
 
         # Custom line style
         polygon(
             xys=[(10, 10), (10, 50), (80, 30)],
-            style=Style(line_width=3, line_color=Colors.Red, line_style="dashdot", fill_color=Colors.Green),
+            style=s_def.patch(
+                shape_line_width=3,
+                shape_line_color=Colors.Red,
+                shape_line_style="dashdot",
+                shape_fill_color=Colors.Green,
+            ),
         )
 
         # With text
-        polygon(xys=[(10, 10), (10, 50), (80, 30)], text="Hello Drawlib!!")
+        polygon(xys=[(10, 10), (10, 50), (80, 30)], text="Hello Drawlib!!", style=s_def)
 
         save(f"{OUTPUT_DIR}test_polygon.png")
 
     def test_shape(self) -> None:
         """Verify drawing a generic shape with various path points and styles."""
         clear()
+        styles = get_default_styles()
         # Draw shape with line points
         shape(
             xy=(50, 50),
             path_points=[(0, 0), (10, 0), (10, 10), (0, 10)],
-            style=Style(fill_color=Colors.Blue),
+            style=styles.primary.patch(shape_fill_color=Colors.Blue),
             text="Shape",
         )
         save(f"{OUTPUT_DIR}test_shape.png")
@@ -123,17 +132,21 @@ class TestCanvasBase:
     def test_rectangle(self) -> None:
         """Verify rectangle drawing with regular corners, rounded corners, alignments, and text."""
         clear()
-        # Default
-        rectangle((50, 50), 40, 20, text="Rectangle")
+        styles = get_default_styles()
+        s_def = styles.primary
 
-        # Alignment options
-        rectangle((50, 50), 40, 20, text="Rectangle", style=Style(text_halign="left", text_valign="bottom"))
-        rectangle((50, 50), 40, 20, text="Rectangle", style=Style(text_halign="center", text_valign="center"))
-        rectangle((50, 50), 40, 20, text="Rectangle", style=Style(text_halign="right", text_valign="top"))
+        # Default
+        rectangle((50, 50), 40, 20, text="Rectangle", style=s_def)
+
+        # Alignment options (unfilled/unbordered in original test)
+        s_align = s_def.patch(shape_fill_color=Colors.Transparent, shape_line_width=0)
+        rectangle((50, 50), 40, 20, text="Rectangle", style=s_align.patch(text_halign="left", text_valign="bottom"))
+        rectangle((50, 50), 40, 20, text="Rectangle", style=s_align.patch(text_halign="center", text_valign="center"))
+        rectangle((50, 50), 40, 20, text="Rectangle", style=s_align.patch(text_halign="right", text_valign="top"))
 
         # Different angles
-        rectangle((50, 50), 40, 20, angle=45, text="Rectangle")
-        rectangle((50, 50), 40, 20, angle=90, text="Rectangle")
+        rectangle((50, 50), 40, 20, angle=45, text="Rectangle", style=s_def)
+        rectangle((50, 50), 40, 20, angle=90, text="Rectangle", style=s_def)
 
         # Text shift options
         rectangle(
@@ -142,7 +155,8 @@ class TestCanvasBase:
             20,
             angle=135,
             text="Rectangle",
-            textstyle=Style(text_xy_shift=(10, 5), text_flip=True, text_color=Colors.Red),
+            style=s_def,
+            textstyle=s_def.patch(text_xy_shift=(10, 5), text_flip=True, text_color=Colors.Red),
         )
         rectangle(
             (50, 50),
@@ -150,7 +164,10 @@ class TestCanvasBase:
             20,
             angle=135,
             text="Rectangle",
-            textstyle=Style(text_xy_abs_shift=(10, 5), text_flip=True, text_color=Colors.Red),
+            style=s_def,
+            textstyle=s_def.patch(
+                text_xy_abs_shift=(10, 5), text_flip=True, text_color=Colors.Red
+            ),
         )
 
         # Style & rounded corner (r > 0)
@@ -161,12 +178,12 @@ class TestCanvasBase:
             r=3.0,
             angle=45,
             text="Rectangle",
-            style=Style(
-                line_color=Colors.Blue,
-                fill_color=Colors.Yellow,
-                fill_alpha=0.5,
-                line_style="dashed",
-                line_width=3,
+            style=s_def.patch(
+                shape_line_color=Colors.Blue,
+                shape_fill_color=Colors.Yellow,
+                shape_fill_alpha=0.5,
+                shape_line_style="dashed",
+                shape_line_width=3,
             ),
         )
 
@@ -177,6 +194,7 @@ class TestCanvasBase:
             20,
             text="Rectangle",
             textsize=36,
+            style=s_def,
         )
 
         save(f"{OUTPUT_DIR}test_rectangle.png")

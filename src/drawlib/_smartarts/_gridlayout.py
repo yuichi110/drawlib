@@ -22,7 +22,7 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import rectangle
-from drawlib._preset_styles import get_style
+from drawlib._preset_styles import BasePresetStyles
 
 
 class _GridLayoutItem(BaseModel):
@@ -40,50 +40,46 @@ class GridLayout:
     """Class for rendering multiple rectangles which fit to grid.
 
     Args:
-    num_column (int): The number of columns in the grid.
-    num_row (int): The number of rows in the grid.
-    default_r (int, optional): The default radius for the rectangles. Defaults to 0.
-    default_style (Union[str, Style, None], optional): The default style for the rectangles.
-        Can be a string key, a Style object, or None. Defaults to None.
-    default_textstyle (Union[str, Style, None], optional): The default text style for the rectangles.
-        Can be a string key, a Style object, or None. Defaults to None.
-    default_textangle (Optional[float], optional): The default angle for the text inside the rectangles.
-        If None, no angle is applied. Defaults to None.
+        styles: The preset styles catalog (required).
+        num_column (int): The number of columns in the grid.
+        num_row (int): The number of rows in the grid.
+        default_r (int, optional): The default radius for the rectangles. Defaults to 0.
+        default_style (Style, optional): The default style for the rectangles. Defaults to None.
+        default_textstyle (Style, optional): The default text style for the rectangles. Defaults to None.
+        default_textangle (Optional[float], optional): The default angle for the text inside the rectangles.
+            If None, no angle is applied. Defaults to None.
     """
 
     @guarded
     def __init__(
         self,
+        *,
+        styles: BasePresetStyles,
         num_column: TypePosInt,
         num_row: TypePosInt,
         default_r: TypePosFloat = 0,
-        default_style: TypeStr | Style | None = None,
-        default_textstyle: TypeStr | Style | None = None,
+        default_style: Style | None = None,
+        default_textstyle: Style | None = None,
         default_textangle: TypeAngle | None = None,
     ) -> None:
         """Initializes a GridLayout instance.
 
         Args:
+            styles: The preset styles catalog (required).
             num_column (int): The number of columns in the grid.
             num_row (int): The number of rows in the grid.
             default_r (int, optional): The default radius for the rectangles. Defaults to 0.
-            default_style (Union[str, Style, None], optional): The default style for the rectangles.
-                Can be a string key, a Style object, or None. Defaults to None.
-            default_textstyle (Union[str, Style, None], optional): The default text style for the rectangles.
-                Can be a string key, a Style object, or None. Defaults to None.
+            default_style (Style, optional): The default style for the rectangles. Defaults to None.
+            default_textstyle (Style, optional): The default text style for the rectangles. Defaults to None.
             default_textangle (Optional[float], optional): The default angle for the text inside the rectangles.
                 If None, no angle is applied. Defaults to None.
-
         """
+        self._styles = styles
         self._num_column = num_column
         self._num_row = num_row
         self._default_r = default_r
-        if isinstance(default_style, str):
-            default_style = get_style(default_style)
-        self._default_style = default_style
-        if isinstance(default_textstyle, str):
-            default_textstyle = get_style(default_textstyle)
-        self._default_textstyle = default_textstyle
+        self._default_style = default_style if default_style is not None else styles.primary
+        self._default_textstyle = default_textstyle if default_textstyle is not None else styles.bold
         self._default_textangle = default_textangle
 
         self._items: list[_GridLayoutItem] = []
@@ -95,9 +91,9 @@ class GridLayout:
         width: TypePosInt,
         height: TypePosInt,
         r: TypePosFloat | None = None,
-        style: TypeStr | Style | None = None,
+        style: Style | None = None,
         text: TypeStr = "",
-        textstyle: TypeStr | Style | None = None,
+        textstyle: Style | None = None,
         textangle: TypeAngle | None = None,
         text_xy_shift: TypeCoordinate | None = None,
     ) -> None:
@@ -119,41 +115,29 @@ class GridLayout:
         if row_end >= self._num_row:
             raise ValueError("Grid cell's row start position must be between 0 ~ last-column.")
 
-        if isinstance(style, str):
-            style = get_style(style)
-        if isinstance(textstyle, str):
-            textstyle = get_style(textstyle)
-
         if r is None:
             r = self._default_r
-        if style is None:
-            style = self._default_style
-        if textstyle is None:
-            textstyle = self._default_textstyle
+        resolved_style = style if style is not None else self._default_style
+        resolved_style = resolved_style.patch(text_halign="left", text_valign="bottom")
+        resolved_textstyle = textstyle if textstyle is not None else self._default_textstyle
         if textangle is None:
             textangle = self._default_textangle
 
-        if style is None:
-            style = get_style()
-        else:
-            style = style.copy()
-        style.text_halign = "left"
-        style.text_valign = "bottom"
-
-        if textstyle is None:
-            textstyle = get_style()
+        patch_kwargs: dict = {}
         if textangle is not None:
-            textstyle.text_angle = textangle
+            patch_kwargs["text_angle"] = textangle
         if text_xy_shift is not None:
-            textstyle.text_xy_shift = text_xy_shift
+            patch_kwargs["text_xy_shift"] = text_xy_shift
+        if patch_kwargs:
+            resolved_textstyle = resolved_textstyle.patch(**patch_kwargs)
 
         item = _GridLayoutItem(
             column_range=(column_start, column_end),
             row_range=(row_start, row_end),
             r=r,
             text=text,
-            style=style,
-            textstyle=textstyle,
+            style=resolved_style,
+            textstyle=resolved_textstyle,
         )
         self._items.append(item)
 
@@ -165,7 +149,7 @@ class GridLayout:
         height: TypePosFloat,
         margin: TypePosFloat,
         outer_r: TypePosFloat | None = None,
-        outer_style: TypeStr | Style | None = None,
+        outer_style: Style | None = None,
     ) -> None:
         """Draw the grid layout.
 
@@ -175,9 +159,7 @@ class GridLayout:
             height (float): The total height of the grid.
             margin (float): The margin between grid items.
             outer_r (int, optional): The radius for the outer grid border. Default is 0.
-            outer_style (Union[str, Style, None], optional):
-                    The style for the outer grid border. Can be a string key for a predefined style,
-                    a Style object, or None.
+            outer_style (Style, optional): The style for the outer grid border.
         """
         if outer_style is None:
             column_widths = [(width - margin * (self._num_column - 1)) / self._num_column] * self._num_column
@@ -209,7 +191,7 @@ class GridLayout:
         row_heights: list[TypePosFloat],
         row_margins: list[TypePosFloat],
         outer_r: TypePosFloat | None = None,
-        outer_style: TypeStr | Style | None = None,
+        outer_style: Style | None = None,
     ) -> None:
         """Draw the grid layout with flexible column widths and row heights.
 
@@ -220,9 +202,7 @@ class GridLayout:
             row_heights (List[float]): The heights of each row.
             row_margins (List[float]): The margins between rows.
             outer_r (int, optional): The radius for the outer grid border. Default is 0.
-            outer_style (Union[str, Style, None], optional):
-                    The style for the outer grid border.
-                    Can be a string key for a predefined style, a Style object, or None.
+            outer_style (Style, optional): The style for the outer grid border.
 
         Raises:
             ValueError: If the lengths of column_widths, column_margins, row_heights, or row_margins are incorrect.
@@ -239,12 +219,7 @@ class GridLayout:
 
         # draw outer rectangle
         if outer_style is not None:
-            if isinstance(outer_style, str):
-                outer_style = get_style(outer_style)
-            else:
-                outer_style = outer_style.copy()
-            outer_style.text_halign = "left"
-            outer_style.text_valign = "bottom"
+            outer_style = outer_style.patch(text_halign="left", text_valign="bottom")
             if outer_r is None:
                 outer_r = self._default_r
 

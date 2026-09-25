@@ -116,14 +116,18 @@ config(width=100, height=60)
 
 # Anchor point reference marker
 anchor = (50, 30)
-circle(anchor, radius=0.8, style="red_flat")
+circle(anchor, radius=0.8, style=styles.red_flat)
 
 # Text aligned left-bottom from the anchor
-style_lb = Style(text_halign="left", text_valign="bottom", text_color=Colors.Blue, text_font=Font.SANSSERIF_BOLD)
+style_lb = styles.primary.patch(
+    text_halign="left", text_valign="bottom", text_color=Colors.Blue, text_font=Font.SANSSERIF_BOLD
+)
 text(anchor, "Left-Bottom", style=style_lb)
 
 # Text aligned right-top from the anchor
-style_rt = Style(text_halign="right", text_valign="top", text_color=Colors.Green, text_font=Font.SANSSERIF_BOLD)
+style_rt = styles.primary.patch(
+    text_halign="right", text_valign="top", text_color=Colors.Green, text_font=Font.SANSSERIF_BOLD
+)
 text(anchor, "Right-Top", style=style_rt)
 
 save()
@@ -133,46 +137,35 @@ save()
 
 ## 4. Pre-defined Text Styles
 
-Drawlib provides systematic pre-defined text style strings based on the active theme palette (`ColorsDefault`, `ColorsMonochrome`, `ColorsEssentials`).
+Drawlib provides systematic pre-defined text styles on the active theme styles object (`styles`).
 
-### 4.1. Style Naming Syntax
-Text styles follow the convention:
-```text
-[<color>_]<weight>
-```
-- If `<color>` is omitted, the theme's primary text color (typically dark charcoal `#222222`) is used.
-- Available weight variants:
-  - `light`: Thin, delicate typography.
-  - `regular` (or color name alone, e.g. `"blue"`): Standard regular weight.
-  - `bold`: Emphasized bold weight.
-
-### 4.2. Common Built-in Style Strings
-| Style Name | Description | Typical Use |
-| :--- | :--- | :--- |
-| `"primary"` | Default text color, regular font weight | General body text, descriptions |
-| `"bold"` | Default text color, bold font weight | Headings, emphasized terms |
-| `"light"` | Default text color, light font weight | Subtitles, secondary captions |
-| `"white"` | White text, regular weight | Inverted dark backgrounds |
-| `"white_bold"` | White text, bold weight | Primary container labels (buttons, colored boxes) |
-| `"white_light"`| White text, light weight | Subordinate text inside dark containers |
-| `"blue"`, `"blue_bold"`, `"blue_light"` | Blue palette variations | Interactive elements, links, primary highlights |
-| `"green"`, `"green_bold"`, `"green_light"` | Green palette variations | Success states, active services, approvals |
-| `"red"`, `"red_bold"`, `"red_light"` | Red palette variations | Errors, failure alerts, deletion warnings |
-| `"purple"`, `"purple_bold"` | Purple palette variations | Middleware, specialized engines |
-| `"gray"`, `"gray_bold"`, `"gray_light"` | Muted gray variations | Disabled elements, metadata, timestamps |
+### 4.1. Style Preset Attributes
+Preset styles provide pre-configured typography, weight, and color:
+- Semantic roles:
+  - `styles.primary`: Default text color, regular font weight.
+  - `styles.bold`: Default text color, bold font weight.
+  - `styles.light`: Default text color, light font weight.
+  - `styles.white`: White text, regular weight.
+  - `styles.white_bold`: White text, bold weight.
+- Color variations:
+  - `styles.blue`, `styles.blue_bold`: Blue typography.
+  - `styles.green`, `styles.green_bold`: Green typography.
+  - `styles.red`, `styles.red_bold`: Red typography.
+  - `styles.purple`, `styles.purple_bold`: Purple typography.
+  - `styles.gray`, `styles.gray_bold`: Gray typography.
 
 ```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.text import text
 
 config(width=100, height=40)
-text((20, 30), "Standard Regular", style="primary")
-text((20, 20), "Primary Bold", style="bold")
-text((20, 10), "Muted Gray", style="gray_light")
+text((20, 30), "Standard Regular", style=styles.primary)
+text((20, 20), "Primary Bold", style=styles.bold)
+text((20, 10), "Muted Gray", style=styles.gray)
 
-text((70, 30), "Active Feature", style="blue_bold")
-text((70, 20), "Success Status", style="green_bold")
-text((70, 10), "Critical Warning", style="red_bold")
+text((70, 30), "Active Feature", style=styles.blue_bold)
+text((70, 20), "Success Status", style=styles.green_bold)
+text((70, 10), "Critical Warning", style=styles.red_bold)
 save()
 ```
 
@@ -266,7 +259,7 @@ from drawlib.fonts import FontFile
 from drawlib.text import text
 from drawlib.types import Style
 
-custom_style = Style(
+custom_style = styles.primary.patch(
     text_font=FontFile("assets/fonts/Inter-SemiBold.ttf"),
     text_size=16,
     text_color="#111827",
@@ -300,7 +293,7 @@ summary = (
     "Region: us-central1"
 )
 
-text((50, 30), summary, size=12, style="bold")
+text((50, 30), summary, size=12, style=styles.bold)
 save()
 ```
 
@@ -317,10 +310,10 @@ from drawlib.text import text
 config(width=100, height=60)
 
 # Vertical axis label (-90 degrees or 90 degrees)
-text((10, 30), "Request Throughput (req/sec)", size=12, angle=90, style="bold")
+text((10, 30), "Request Throughput (req/sec)", size=12, angle=90, style=styles.bold)
 
 # Diagonal watermark / status label (45 degrees)
-text((50, 30), "INTERNAL DRAFT ONLY", size=22, angle=45, style="gray_light")
+text((50, 30), "INTERNAL DRAFT ONLY", size=22, angle=45, style=styles.gray)
 
 save()
 ```
@@ -343,17 +336,17 @@ rectangle(
     (30, 25),
     width=28,
     height=16,
-    style="blue_flat",
+    style=styles.blue_flat,
     text="Gateway API",
-    textstyle="white_bold",
+    textstyle=styles.white_bold,
 )
 
 circle(
     (75, 25),
     radius=10,
-    style="green_flat",
+    style=styles.green_flat,
     text="Worker Node\n(Active)",
-    textstyle="white_bold",
+    textstyle=styles.white_bold,
 )
 
 save()
@@ -361,7 +354,7 @@ save()
 
 ### Shape Text Parameters:
 - **`text` (str)**: Content string (supports `\n`).
-- **`textstyle` (str | Style)**: Pre-defined style name (e.g. `"white_bold"`, `"black"`) or custom `Style`.
+- **`textstyle` (Style | None)**: Pre-defined style (e.g. `styles.white_bold`, `styles.bold`) or custom `Style`.
 - **`fontsize` (float | None)**: Direct font size override.
 - **`fontcolor` (tuple | str | None)**: Direct font color override.
 
@@ -372,13 +365,13 @@ save()
 When adding text to Drawlib illustrations:
 
 1. **Hierarchy First**:
-   - Diagram titles: `size=20–24`, `style="bold"`, `halign="center"` at canvas top.
-   - Container / node headers: `size=12–14`, `style="white_bold"` (or `"bold"`).
-   - Metadata / annotations: `size=9–11`, `style="gray"` or `style="gray_light"`.
+   - Diagram titles: `size=20–24`, `style=styles.bold`, `halign="center"` at canvas top.
+   - Container / node headers: `size=12–14`, `textstyle=styles.white_bold` (or `styles.bold`).
+   - Metadata / annotations: `size=9–11`, `style=styles.gray`.
 2. **Avoid Hardcoding Hex Colors**:
-   - Prefer style strings (`"bold"`, `"blue_bold"`, `"white_bold"`) over explicit `#RRGGBB` strings to maintain harmony across light/dark themes.
+   - Prefer style presets (`styles.bold`, `styles.blue_bold`, `styles.white_bold`) over explicit `#RRGGBB` strings to maintain harmony across light/dark themes.
 3. **Prevent Text Collision**:
    - Allow at least 2 coordinate units of margin between shape boundaries and text borders.
    - For long labels, insert explicit `\n` line breaks rather than letting text overflow the shape width.
 4. **Use Shape Text Integration**:
-   - Embed labels directly into `rectangle(..., text="...", textstyle="white_bold")` instead of manually calculating midpoints for a separate `text()` call.
+   - Embed labels directly into `rectangle(..., text="...", textstyle=styles.white_bold)` instead of manually calculating midpoints for a separate `text()` call.

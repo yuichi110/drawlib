@@ -230,9 +230,9 @@ class TestBarChartRendering:
             canvas.initialize()
 
             custom_style = Style(
-                fill_color=(100, 200, 150, 0.8),
-                line_color=(40, 120, 80, 1.0),
-                line_width=1.5,
+                shape_fill_color=(100, 200, 150, 0.8),
+                shape_line_color=(40, 120, 80, 1.0),
+                shape_line_width=1.5,
             )
             chart = BarChart(
                 categories=["Mon", "Tue", "Wed"],

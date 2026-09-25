@@ -314,7 +314,7 @@ class TestStateDiagramRendering:
         # Automaton nodes (circle & double_circle)
         audit = sd.add(State("Audit", shape="oval"), xy=(55.0, 35.0))
         success = sd.add(
-            State("Done", shape="double_circle", style=Style(fill_color=Colors.Green)),
+            State("Done", shape="double_circle", style=Style(shape_fill_color=Colors.Green)),
             xy=(115.0, 35.0),
         )
         final = sd.add(FinalState(), xy=(145.0, 35.0))

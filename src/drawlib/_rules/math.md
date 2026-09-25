@@ -97,14 +97,14 @@ p1 = (30, 20)
 p2 = (90, 60)
 
 # Draw slanted connection
-line(p1, p2, arrowhead="->", style="bold")
+line(p1, p2, arrowhead="->", style=styles.bold)
 
 # Calculate angle and midpoint
 angle = get_angle(p1, p2)
 midpoint = ((p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2 + 3)
 
 # Rotate text along the line
-text(midpoint, "Data Sync (60°)", angle=angle, style="bold")
+text(midpoint, "Data Sync (60°)", angle=angle, style=styles.bold)
 ```
 
 ---
@@ -133,14 +133,16 @@ rectangle(
     width=bw + 28,
     height=bh + 22,
     r=4,
-    style="blue_solid",
+    style=styles.blue_solid,
     text="Kubernetes Worker Nodes",
-    textstyle="bold",
+    textstyle=styles.bold,
 )
 
 # Render nodes on top
 for i, (x, y) in enumerate(nodes, start=1):
-    circle((x, y), radius=7, style="blue_flat", text=f"Pod {i}", textstyle="white_bold")
+    circle((x, y), radius=7, style=styles.blue_flat, text=f"Pod {i}", textstyle=styles.white_bold)
+
+save()
 ```
 
 ### 4.2. Radial Network Hub with Calculated Angles & Distances
@@ -160,7 +162,7 @@ radius = 26
 num_clients = 5
 
 # Central Hub
-circle(hub, radius=12, style="purple_flat", text="Master", textstyle="white_bold")
+circle(hub, radius=12, style=styles.purple_flat, text="Master", textstyle=styles.white_bold)
 
 # Surrounding Worker Nodes
 for i in range(num_clients):
@@ -171,8 +173,10 @@ for i in range(num_clients):
     dist = get_distance(hub, node_xy)
     angle_deg = get_angle(hub, node_xy)
     
-    line(hub, node_xy, style="bold")
-    circle(node_xy, radius=6, style="blue_flat", text=f"N{i+1}", textstyle="white_bold")
+    line(hub, node_xy, style=styles.bold)
+    circle(node_xy, radius=6, style=styles.blue_flat, text=f"N{i+1}", textstyle=styles.white_bold)
+
+save()
 ```
 
 ---

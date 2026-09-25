@@ -59,7 +59,8 @@ def {function_name}(
     xy: TypeCoordinate,
     width: TypePosFloat,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draws a Phosphor icon representing an {icon_name}.
 
@@ -68,7 +69,7 @@ def {function_name}(
             Default alignment is center, center.
         width: Horizontal size of the icon.
         angle: Rotation angle of the icon (0.0 to 360.0 degrees).
-        style: Style of the icon as an Style object, string, or None.
+        style: Style object (required).
 
     """
     _write(xy=xy, width=width, code="\\u{icon_code}", angle=angle, style=style)

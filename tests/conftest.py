@@ -97,7 +97,9 @@ def pytest_runtest_call(item):
         with open(gen_file, "rb") as f:
             gen_bytes = f.read()
 
+        marker = item.get_closest_marker("image_threshold")
+        threshold = float(marker.args[0]) if marker and marker.args else 99.0
         # Verify that the generated image matches the reference answer image
-        assert check_image_match(gen_bytes, correct_file=correct_file), (
+        assert check_image_match(gen_bytes, correct_file=correct_file, threshold=threshold), (
             f"Image match failed for: {gen_file} against expected {correct_file}"
         )

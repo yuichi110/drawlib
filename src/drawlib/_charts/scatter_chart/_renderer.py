@@ -87,18 +87,20 @@ def _draw_y_grid_and_ticks(
     plot_h: float,
 ) -> None:
     """Render horizontal gridlines and numeric tick labels along Y axis."""
-    grid_style = y_axis.grid_style or Style(
+    default_grid_style = Style(
         line_color=_DEFAULT_GRID_COLOR,
         line_width=0.8,
         line_style="dashed",
     )
-    tick_label_style = y_axis.tick_label_style or Style(
+    grid_style = default_grid_style.patch(y_axis.grid_style)
+    default_tick_label_style = Style(
         text_size=9.0,
         text_font=Font.SANSSERIF_REGULAR,
         text_color=_DEFAULT_MUTED_TEXT,
         text_halign="right",
         text_valign="center",
     )
+    tick_label_style = default_tick_label_style.patch(y_axis.tick_label_style)
 
     for tick in ticks:
         ratio = value_to_ratio(tick, eff_min, eff_max, y_axis.scale)
@@ -123,18 +125,20 @@ def _draw_x_grid_and_ticks(
     plot_w: float,
 ) -> None:
     """Render vertical gridlines and numeric tick labels along X axis."""
-    grid_style = x_axis.grid_style or Style(
+    default_grid_style = Style(
         line_color=_DEFAULT_GRID_COLOR,
         line_width=0.8,
         line_style="dashed",
     )
-    tick_label_style = x_axis.tick_label_style or Style(
+    grid_style = default_grid_style.patch(x_axis.grid_style)
+    default_tick_label_style = Style(
         text_size=9.0,
         text_font=Font.SANSSERIF_REGULAR,
         text_color=_DEFAULT_MUTED_TEXT,
         text_halign="center",
         text_valign="top",
     )
+    tick_label_style = default_tick_label_style.patch(x_axis.tick_label_style)
 
     for tick in ticks:
         ratio = value_to_ratio(tick, eff_min, eff_max, x_axis.scale)
@@ -163,14 +167,14 @@ def _draw_axes_lines(
         canvas_line(
             xy1=(p_min_x, p_min_y),
             xy2=(p_max_x, p_min_y),
-            style=x_axis.line_style or axis_stroke,
+            style=axis_stroke.patch(x_axis.line_style),
         )
 
     if y_axis.show_axis_line:
         canvas_line(
             xy1=(p_min_x, p_min_y),
             xy2=(p_min_x, p_max_y),
-            style=y_axis.line_style or axis_stroke,
+            style=axis_stroke.patch(y_axis.line_style),
         )
 
 
@@ -233,24 +237,26 @@ def _collect_all_points(
 
     # Standalone points
     for i, pt in enumerate(chart.points):
-        p_style = pt.style or Style(
-            fill_color=DEFAULT_CHART_PALETTE[i % len(DEFAULT_CHART_PALETTE)],
-            line_color=(255, 255, 255, 0.9),
-            line_width=0.8,
+        base_style = Style(
+            shape_fill_color=DEFAULT_CHART_PALETTE[i % len(DEFAULT_CHART_PALETTE)],
+            shape_line_color=(255, 255, 255, 0.9),
+            shape_line_width=0.8,
         )
+        p_style = base_style.patch(pt.style)
         all_points.append((pt, p_style, pt.shape))
 
     # Series points
     for k, s in enumerate(chart.series):
         s_color = DEFAULT_CHART_PALETTE[(len(chart.points) + k) % len(DEFAULT_CHART_PALETTE)]
         series_colors.append(s_color)
-        default_s_style = s.style or Style(
-            fill_color=s_color,
-            line_color=(255, 255, 255, 0.9),
-            line_width=0.8,
+        base_s_style = Style(
+            shape_fill_color=s_color,
+            shape_line_color=(255, 255, 255, 0.9),
+            shape_line_width=0.8,
         )
+        default_s_style = base_s_style.patch(s.style)
         for pt in s.points:
-            pt_style = pt.style or default_s_style
+            pt_style = default_s_style.patch(pt.style)
             all_points.append((pt, pt_style, pt.shape or s.shape))
 
     return all_points, series_colors
@@ -281,13 +287,14 @@ def _draw_points_and_labels(
         _draw_point_marker(cx, cy, pt.radius, shape, pt_style)
 
         if show_labels and pt.label:
-            l_style = pt.label_style or Style(
+            base_l_style = Style(
                 text_size=8.5,
                 text_font=Font.SANSSERIF_REGULAR,
                 text_color=_DEFAULT_TEXT_COLOR,
                 text_halign="left",
                 text_valign="center",
             )
+            l_style = base_l_style.patch(pt.label_style)
             canvas_text(xy=(cx + pt.radius + 0.8, cy), text=pt.label, style=l_style)
 
 
@@ -335,13 +342,14 @@ def render_scatter_chart(chart: ScatterChart, xy: tuple[float, float]) -> None:
 
     if chart.title:
         title_y = xy[1] + chart_h - 2.5
-        t_style = chart.title_style or Style(
+        base_t_style = Style(
             text_size=12.0,
             text_font=Font.SANSSERIF_BOLD,
             text_color=_DEFAULT_TEXT_COLOR,
             text_halign="center",
             text_valign="center",
         )
+        t_style = base_t_style.patch(chart.title_style)
         canvas_text(xy=((xy[0] + xy[0] + chart_w) / 2.0, title_y), text=chart.title, style=t_style)
 
     _draw_y_grid_and_ticks(chart.y_axis, y_ticks, eff_min_y, eff_max_y, p_min_x, p_min_y, p_max_x, plot_h)

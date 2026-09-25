@@ -41,10 +41,12 @@ def test_cli_show_python_script_default(tmp_path: Path) -> None:
     script = tmp_path / "drawing.py"
     script.write_text(
         """from drawlib.canvas import config, save
+from drawlib.preset_styles import get_default_styles
 from drawlib.shapes import circle
 
+styles = get_default_styles()
 config(width=100, height=100)
-circle((50, 50), radius=20)
+circle((50, 50), radius=20, style=styles.primary)
 save()
 """,
         encoding="utf-8",
@@ -63,10 +65,12 @@ def test_cli_show_python_script_with_grid_long(tmp_path: Path) -> None:
     script = tmp_path / "drawing_grid.py"
     script.write_text(
         """from drawlib.canvas import config, save
+from drawlib.preset_styles import get_default_styles
 from drawlib.shapes import rectangle
 
+styles = get_default_styles()
 config(width=100, height=100)
-rectangle((50, 50), width=40, height=30)
+rectangle((50, 50), width=40, height=30, style=styles.primary)
 save()
 """,
         encoding="utf-8",
@@ -85,10 +89,12 @@ def test_cli_show_python_script_with_grid_short(tmp_path: Path) -> None:
     script = tmp_path / "drawing_grid_short.py"
     script.write_text(
         """from drawlib.canvas import config, save
+from drawlib.preset_styles import get_default_styles
 from drawlib.shapes import rectangle
 
+styles = get_default_styles()
 config(width=100, height=100)
-rectangle((50, 50), width=40, height=30)
+rectangle((50, 50), width=40, height=30, style=styles.primary)
 save()
 """,
         encoding="utf-8",
@@ -109,11 +115,11 @@ def test_cli_show_markdown_list_blocks(tmp_path: Path) -> None:
         """# Sample Document
 
 ```drawlib file:first.png
-circle((30, 30), radius=10)
+circle((30, 30), radius=10, style=styles.primary)
 ```
 
 ```drawlib file:second.png
-rectangle((50, 50), width=20, height=20)
+rectangle((50, 50), width=20, height=20, style=styles.primary)
 ```
 """,
         encoding="utf-8",
@@ -133,7 +139,7 @@ def test_cli_show_markdown_block_by_index(tmp_path: Path) -> None:
         """# Doc
 
 ```drawlib
-circle((50, 50), radius=20)
+circle((50, 50), radius=20, style=styles.primary)
 ```
 """,
         encoding="utf-8",
@@ -154,7 +160,7 @@ def test_cli_show_markdown_block_with_grid(tmp_path: Path) -> None:
         """# Doc
 
 ```drawlib
-circle((50, 50), radius=20)
+circle((50, 50), radius=20, style=styles.primary)
 ```
 """,
         encoding="utf-8",

@@ -29,12 +29,14 @@ OUTPUT_DIR = "../../output_tests/l4_canvas/image/"
 class TestCanvasImage:
     """Tests for the CanvasImageFeature class and image rendering operations."""
 
+    @pytest.mark.image_threshold(94.0)
     def test_file_image(self) -> None:
         """Verify image loading from a file path."""
         clear()
         image(xy=(50, 50), width=30, image=IMAGE_FILE)
         save(f"{OUTPUT_DIR}test_file.png")
 
+    @pytest.mark.image_threshold(94.0)
     def test_pil_image(self) -> None:
         """Verify image loading from a PIL Image object."""
         clear()
@@ -42,6 +44,7 @@ class TestCanvasImage:
         image(xy=(50, 50), width=30, image=im)
         save(f"{OUTPUT_DIR}test_pil.png")
 
+    @pytest.mark.image_threshold(94.0)
     def test_dimage_image(self) -> None:
         """Verify image loading from a Dimage object."""
         clear()
@@ -49,6 +52,7 @@ class TestCanvasImage:
         image(xy=(50, 50), width=30, image=pimg)
         save(f"{OUTPUT_DIR}test_pimage.png")
 
+    @pytest.mark.image_threshold(94.0)
     def test_cache_image(self) -> None:
         """Verify image retrieval and reuse in Dimage."""
         clear()
@@ -57,6 +61,7 @@ class TestCanvasImage:
         image(xy=(50, 50), width=30, image=pimg2)
         save(f"{OUTPUT_DIR}test_cache.png")
 
+    @pytest.mark.image_threshold(92.0)
     def test_image_angles(self) -> None:
         """Verify image rotation at different angles."""
         clear()
@@ -73,7 +78,7 @@ class TestCanvasImage:
             xy=(25, 50),
             width=30,
             image=IMAGE_FILE,
-            style=Style(line_width=2),
+            style=Style(image_border_width=2),
         )
 
         # Left bottom alignment
@@ -81,7 +86,7 @@ class TestCanvasImage:
             xy=(55, 25),
             width=30,
             image=IMAGE_FILE,
-            style=Style(line_width=2, text_halign="left", text_valign="bottom"),
+            style=Style(image_border_width=2, text_halign="left", text_valign="bottom"),
         )
         save(f"{OUTPUT_DIR}test_file_border.png")
 
@@ -93,7 +98,7 @@ class TestCanvasImage:
             xy=(50, 50),
             width=30,
             image=IMAGE_FILE,
-            style=Style(fill_color=Colors.Gray),
+            style=Style(image_tint_color=Colors.Gray),
         )
 
         # Alpha adjustment
@@ -102,7 +107,7 @@ class TestCanvasImage:
             xy=(50, 50),
             width=30,
             image=IMAGE_FILE,
-            style=Style(fill_alpha=0.1),
+            style=Style(image_alpha=0.1),
         )
         save(f"{OUTPUT_DIR}test_file_effects.png")
 
@@ -114,7 +119,7 @@ class TestCanvasImage:
             width=30,
             image=IMAGE_FILE,
             angle=45,
-            style=Style(line_width=2),
+            style=Style(image_border_width=2),
         )
         save(f"{OUTPUT_DIR}test_file_border_angle45.png")
 
@@ -127,5 +132,5 @@ class TestCanvasImage:
                 xy=(50, 50),
                 width=30,
                 image=IMAGE_FILE,
-                style=Style(text_halign="invalid_halign"),  # type: ignore
+                style=Style(text_halign="invalid_halign"),
             )

@@ -7,24 +7,21 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
+"""Canvas image feature module."""
 
-"""Canvas's image feature implementation module."""
-
+import logging
 from typing import Any
 
 import numpy
 from matplotlib import offsetbox
 from numpy.typing import NDArray
-from PIL.Image import Image
+from PIL import Image
 
-from drawlib._core.l1_core import guarded, logger
-from drawlib._core.l2_models import (
-    Dimage,
-)
+from drawlib._core.l1_core import guarded
+from drawlib._core.l2_models import Dimage
 from drawlib._core.l2_types import (
     TypeAngle,
     TypeCoordinate,
-    TypeFloat,
     TypeImageZoom,
     TypePosFloat,
     TypeStr,
@@ -33,147 +30,111 @@ from drawlib._core.l3_styles import Colors, Style
 from drawlib._core.l4_canvas._base import CanvasBase
 from drawlib._core.l4_canvas_utils import ImageUtil
 
+logger = logging.getLogger(__name__)
+
 
 class CanvasImageFeature(CanvasBase):
-    """A class to handle image drawing features on a canvas.
-
-    This class provides methods to draw images with specified styles and transformations
-    on a canvas.
-    """
+    """Canvas image feature class."""
 
     def __init__(self) -> None:
-        """Initialize the CanvasImageFeature object.
-
-        This constructor initializes the CanvasImageFeature object by calling the constructor
-        of its superclass CanvasBase.
-
-        Args:
-            None
-
-        Returns:
-            None
-        """
+        """Initializes an instance of CanvasImageFeature."""
         super().__init__()
 
     @guarded
-    def image(
+    def image(  # noqa: C901
         self,
         xy: TypeCoordinate,
         width: TypePosFloat,
-        image: TypeStr | Image | Dimage,
+        image: TypeStr | Image.Image | Dimage,
         angle: TypeAngle = 0.0,
-        style: Style | TypeStr | None = None,
+        *,
+        style: Style | None = None,
     ) -> None:
         """Draw an image on the canvas.
 
         Args:
             xy (tuple[float, float]): Coordinates of the left bottom corner of the image.
-            width (float): Width of the image. Height is calculated automatically based on image aspect ratio.
-            image (str | Image | Dimage): Path to the image file or PIL Image object or Dimage object.
-            angle (int | float, optional): Rotation angle of the image in degrees (default is 0.0).
-            style (Style | str | None, optional): Style of the image (default is None).
-
-        Returns:
-            None
-
-        Raises:
-            ValueError: If invalid alignment (`style.text_halign` or `style.text_valign`) is provided.
-
-        Notes:
-            - If `style.text_halign` or `style.text_valign` is set to other than "center" and
-              the image is rotated (`angle != 0`), a warning is logged, and alignment is set to "center".
-            - The image is scaled and rotated based on the provided parameters and then added to the canvas as an
-              annotation.
+            width (float): Width of the image. Height is calculated automatically based on aspect ratio.
+            image (str | Image | Dimage): Path to image file, PIL Image, or Dimage object.
+            angle (int | float, optional): Rotation angle in degrees (default is 0.0).
+            style (Style | None, optional): Style of the image. Defaults to None.
         """
         style = ImageUtil.format_style(style)
-
-        # standadize
 
         x, y = xy
         dimg = Dimage(image, copy=True)
 
-        # apply fill effects. Alpha and Border will be applied later.
-        if style.fill_color is not None:
-            dimg = dimg.fill(style.fill_color)
+        if style.image_tint_color is not None:
+            dimg = dimg.fill(style.image_tint_color)
 
-        # get height and zoom
         image_width, image_height = dimg.get_image_size()
         height = image_height / image_width * width
         zoom = self.get_image_zoom_from_width(dimg, width)
 
-        # rotate and shift
         dimg, style = self._rotate_image(dimg, angle, style)
         x, y = self._shift_xy(x, y, dimg, zoom, style)
 
-        # crate drawing object
         im = self._convert_dimg_to_numpyarray(dimg)
-        imagebox = offsetbox.OffsetImage(im, zoom=zoom, alpha=style.fill_alpha)
+        imagebox = offsetbox.OffsetImage(im, zoom=zoom, alpha=style.image_alpha)
         ab = offsetbox.AnnotationBbox(imagebox, (x, y), frameon=False)
 
-        # write image
         self._artists.append(ab)
-
-        # write border
         self._draw_border(xy, width, height, angle, style)
 
     @staticmethod
     def _rotate_image(dimg: Dimage, angle: TypeAngle, style: Style) -> tuple[Dimage, Style]:
-        # rotate image
         if angle == 0:
             return dimg, style
 
         has_wrong_style = False
-        if style.text_halign != "center":
+        patch_kwargs: dict[str, Any] = {}
+        if style.text_halign is not None and style.text_halign != "center":
             has_wrong_style = True
-            style.text_halign = "center"
-        if style.text_valign != "center":
+            patch_kwargs["text_halign"] = "center"
+        if style.text_valign is not None and style.text_valign != "center":
             has_wrong_style = True
-            style.text_valign = "center"
+            patch_kwargs["text_valign"] = "center"
         if has_wrong_style:
             logger.warning("image() with angle only accepts Style alignment center.")
+            style = style.patch(**patch_kwargs)
 
         return dimg._rotate(angle), style
 
     def _shift_xy(self, x: float, y: float, dimg: Dimage, zoom: TypeImageZoom, style: Style) -> TypeCoordinate:
-        if style.text_halign == "center" and style.text_valign == "center":
+        halign = style.text_halign if style.text_halign is not None else "center"
+        valign = style.text_valign if style.text_valign is not None else "center"
+        if halign == "center" and valign == "center":
             return (x, y)
-
-        #
-        # memo. calculation
-        # (image_width / 2) * (zoom / 0.72) * (canvas_width / 100)
-        #   -> image_width * zoom * self._width / 1440
 
         image_width, image_height = dimg.get_image_size()
         x_shift = image_width * zoom * self._width / 1440
         y_shift = image_height * zoom * self._width / 1440
 
-        if style.text_halign == "left":
+        if halign == "left":
             x += x_shift
-        elif style.text_halign == "center":
+        elif halign == "center":
             ...
-        elif style.text_halign == "right":
+        elif halign == "right":
             x -= x_shift
         else:
-            raise ValueError(f'halign "{style.text_halign}" is not supported.')
+            raise ValueError(f'halign "{halign}" is not supported.')
 
-        if style.text_valign == "bottom":
+        if valign == "bottom":
             y += y_shift
-        elif style.text_valign == "center":
+        elif valign == "center":
             ...
-        elif style.text_valign == "top":
+        elif valign == "top":
             y -= y_shift
         else:
-            raise ValueError(f'valign "{style.text_valign}" is not supported.')
+            raise ValueError(f'valign "{valign}" is not supported.')
 
         return (x, y)
 
     @staticmethod
     def _convert_dimg_to_numpyarray(dimg: Dimage) -> NDArray[Any]:
-        # create image drawing object
         pil_image = dimg.get_pil_image()
         im = numpy.array(pil_image)
 
-        # grayscale doesn't work fine on matplotlib. convert to RGBA.
         if im.ndim == 3:
             if im.shape[2] == 2:
                 gray = im[:, :, 0]
@@ -191,19 +152,17 @@ class CanvasImageFeature(CanvasBase):
         angle: TypeAngle,
         style: Style,
     ) -> None:
-        # border
-        if style.line_width is None:
-            return
-        if style.line_width == 0:
+        if style.image_border_width is None or style.image_border_width == 0:
             return
 
+        border_color = style.image_border_color if style.image_border_color is not None else Colors.Black
         shapestyle = Style(
             text_halign=style.text_halign,
             text_valign=style.text_valign,
-            line_style=style.line_style,
-            line_width=style.line_width,
-            line_color=style.line_color,
-            fill_color=Colors.Transparent,
-            fill_alpha=style.fill_alpha,
+            shape_line_style=style.image_border_style if style.image_border_style is not None else "solid",
+            shape_line_width=style.image_border_width,
+            shape_line_color=border_color,
+            shape_fill_color=Colors.Transparent,
+            shape_fill_alpha=style.image_alpha,
         )
         self.rectangle(xy=xy, width=width, height=height, angle=angle, style=shapestyle)

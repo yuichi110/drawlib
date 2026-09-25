@@ -63,18 +63,23 @@ def _draw_enum_icon(
 ) -> None:
     """Draw a phosphor or GCP icon enum."""
     cx, cy = canvas_xy
+    fallback_style = Style(
+        shape_fill_color=Colors.Transparent,
+        shape_line_color=(150, 150, 150, 1.0),
+        shape_line_width=1.0,
+    )
     if isinstance(icon, PhosphorIcon):
         p_name = icon.name.lower()
         if hasattr(phosphor_gen, p_name):
             getattr(phosphor_gen, p_name)(xy=(cx, cy), width=icon_size, style=applied_style)
         else:
-            canvas_rectangle(xy=(cx, cy), width=icon_size, height=icon_size, style=applied_style)
+            canvas_rectangle(xy=(cx, cy), width=icon_size, height=icon_size, style=fallback_style)
     else:
         g_name = icon.name.lower()
         if hasattr(gcp_gen, g_name):
             getattr(gcp_gen, g_name)(xy=(cx, cy), width=icon_size, style=applied_style)
         else:
-            canvas_rectangle(xy=(cx, cy), width=icon_size, height=icon_size, style=applied_style)
+            canvas_rectangle(xy=(cx, cy), width=icon_size, height=icon_size, style=fallback_style)
 
 
 def _draw_image_icon(
@@ -108,7 +113,8 @@ def _draw_icon(
     if icon is None:
         return
 
-    applied_style = icon_style if icon_style is not None else Style(line_width=0)
+    default_style = Style(icon_color=(50, 50, 50, 1.0), image_border_width=0)
+    applied_style = default_style.patch(icon_style)
     if isinstance(icon, (GcpIcon, PhosphorIcon)):
         _draw_enum_icon(icon, canvas_xy, icon_size, applied_style)
     elif isinstance(icon, (CustomIcon, Dimage, Image, str, Path)):
@@ -340,11 +346,7 @@ def _render_lifelines(
     )
     for participant in participants:
         nx = bx + participant_x_map[participant]
-        applied = (
-            default_lifeline_style.merge(participant.lifeline_style)
-            if participant.lifeline_style
-            else default_lifeline_style
-        )
+        applied = default_lifeline_style.patch(participant.lifeline_style)
         canvas_line(
             xy1=(nx, by + y_header_bottom),
             xy2=(nx, by + y_lifeline_bottom),
@@ -362,9 +364,9 @@ def _render_activation_bars(
     """Draw slender execution activation rectangles along lifelines."""
     bx, by = base_xy
     act_style = Style(
-        fill_color=(235, 238, 245, 0.9),
-        line_color=(120, 125, 135, 1.0),
-        line_width=1.0,
+        shape_fill_color=(235, 238, 245, 0.9),
+        shape_line_color=(120, 125, 135, 1.0),
+        shape_line_width=1.0,
     )
     bar_width = 2.4
 
@@ -389,11 +391,11 @@ def _render_participant_header(
     """Render a participant's top card, icon, and label."""
     cx, cy = canvas_xy
     default_card_style = Style(
-        fill_color=(255, 255, 255, 1.0),
-        line_color=(150, 155, 165, 1.0),
-        line_width=1.2,
+        shape_fill_color=(255, 255, 255, 1.0),
+        shape_line_color=(150, 155, 165, 1.0),
+        shape_line_width=1.2,
     )
-    card_style = default_card_style.merge(participant.style) if participant.style else default_card_style
+    card_style = default_card_style.patch(participant.style)
     canvas_rectangle(xy=(cx, cy), width=header_w, height=header_h, style=card_style)
 
     if participant.icon is not None:
@@ -412,7 +414,7 @@ def _render_participant_header(
         text_angle=participant.text_angle,
     )
     if participant.textstyle:
-        text_style = text_style.merge(participant.textstyle)
+        text_style = text_style.patch(participant.textstyle)
 
     if participant.icon is None:
         canvas_text(xy=(cx, cy), text=participant.text, style=text_style)
@@ -449,10 +451,10 @@ def _render_groups(
     """Draw participant grouping boxes around header cards."""
     bx, by = base_xy
     default_group_style = Style(
-        fill_color=(240, 243, 250, 0.4),
-        line_color=(170, 175, 185, 1.0),
-        line_width=1.0,
-        line_style="dashed",
+        shape_fill_color=(240, 243, 250, 0.4),
+        shape_line_color=(170, 175, 185, 1.0),
+        shape_line_width=1.0,
+        shape_line_style="dashed",
     )
     for group in groups:
         if not group.participants:
@@ -469,7 +471,7 @@ def _render_groups(
 
         box_cx = (min_x + max_x) / 2.0
         box_cy = by + header_cy
-        applied = default_group_style.merge(group.style) if group.style else default_group_style
+        applied = default_group_style.patch(group.style)
         canvas_rectangle(xy=(box_cx, box_cy), width=max_x - min_x, height=max_h, style=applied)
 
         if group.title:
@@ -481,7 +483,7 @@ def _render_groups(
                 text_valign="bottom",
             )
             if group.textstyle:
-                title_style = title_style.merge(group.textstyle)
+                title_style = title_style.patch(group.textstyle)
             canvas_text(xy=(min_x + 2.0, box_cy + max_h / 2.0 + 1.0), text=group.title, style=title_style)
 
 
@@ -497,9 +499,9 @@ def _render_single_message(  # noqa: C901
     sx = bx + participant_x_map[message.source]
     tx = bx + participant_x_map[message.target]
 
-    applied_style = default_msg_style.merge(message.style) if message.style else default_msg_style
+    applied_style = default_msg_style.patch(message.style)
     if message.is_reply:
-        applied_style = applied_style.merge(Style(line_style="dashed"))
+        applied_style = applied_style.patch(line_style="dashed")
 
     arrowhead: Literal["", "->", "<-", "<->"]
     if message.arrow == "<->":
@@ -575,7 +577,7 @@ def _render_message_label(lx: float, ly: float, text: str, custom_textstyle: Sty
         text_valign="center",
     )
     if custom_textstyle:
-        label_style = label_style.merge(custom_textstyle)
+        label_style = label_style.patch(custom_textstyle)
     canvas_text(xy=(lx, ly), text=text, style=label_style)
 
 
@@ -588,11 +590,11 @@ def _render_note(
     """Draw a sticky note annotation card."""
     bx, by = base_xy
     default_note_style = Style(
-        fill_color=(255, 252, 235, 0.95),
-        line_color=(220, 210, 160, 1.0),
-        line_width=1.0,
+        shape_fill_color=(255, 252, 235, 0.95),
+        shape_line_color=(220, 210, 160, 1.0),
+        shape_line_width=1.0,
     )
-    applied_style = default_note_style.merge(note.style) if note.style else default_note_style
+    applied_style = default_note_style.patch(note.style)
 
     card_w, card_h = _estimate_note_size(note)
 
@@ -616,7 +618,7 @@ def _render_note(
         text_valign="center",
     )
     if note.textstyle:
-        text_style = text_style.merge(note.textstyle)
+        text_style = text_style.patch(note.textstyle)
     canvas_text(xy=(cx, y), text=note.text, style=text_style)
 
 
@@ -631,10 +633,10 @@ def _render_blocks(
     """Draw framing boundary rectangles and header tabs for condition/loop blocks."""
     bx, by = base_xy
     default_block_style = Style(
-        fill_color=(245, 247, 252, 0.25),
-        line_color=(165, 175, 195, 1.0),
-        line_width=1.0,
-        line_style="dashed",
+        shape_fill_color=(245, 247, 252, 0.25),
+        shape_line_color=(165, 175, 195, 1.0),
+        shape_line_width=1.0,
+        shape_line_style="dashed",
     )
 
     for block in blocks:
@@ -654,7 +656,7 @@ def _render_blocks(
         bw = max_x - min_x
         cx = (min_x + max_x) / 2.0
 
-        applied = default_block_style.merge(block.style) if block.style else default_block_style
+        applied = default_block_style.patch(block.style)
         canvas_rectangle(xy=(cx, cy), width=bw, height=bh, style=applied)
 
         # Draw header tab box
@@ -667,7 +669,11 @@ def _render_blocks(
             xy=(tab_cx, tab_cy),
             width=tab_w,
             height=tab_h,
-            style=Style(fill_color=(235, 240, 250, 0.95), line_color=(165, 175, 195, 1.0), line_width=1.0),
+            style=Style(
+                shape_fill_color=(235, 240, 250, 0.95),
+                shape_line_color=(165, 175, 195, 1.0),
+                shape_line_width=1.0,
+            ),
         )
         canvas_text(
             xy=(tab_cx, tab_cy),
@@ -702,7 +708,12 @@ def draw_sequence_diagram(diagram: SequenceDiagram, xy: tuple[float, float] = (0
 
     # Layer 0: Diagram Background
     if diagram.style:
-        canvas_rectangle(xy=(bx + dw / 2.0, by + dh / 2.0), width=dw, height=dh, style=diagram.style)
+        bg_style = Style(
+            shape_fill_color=Colors.White,
+            shape_line_color=Colors.Transparent,
+            shape_line_width=0.0,
+        ).patch(diagram.style)
+        canvas_rectangle(xy=(bx + dw / 2.0, by + dh / 2.0), width=dw, height=dh, style=bg_style)
 
     # Layer 1: Participant Groups
     _render_groups(diagram.groups, participant_x_map, header_cy, (bx, by))
@@ -741,5 +752,5 @@ def draw_sequence_diagram(diagram: SequenceDiagram, xy: tuple[float, float] = (0
             text_valign="bottom",
         )
         if diagram.title_style:
-            title_style = title_style.merge(diagram.title_style)
+            title_style = title_style.patch(diagram.title_style)
         canvas_text(xy=(bx + pad_left, by + dh - pad_top - title_extra + 1.0), text=diagram.title, style=title_style)

@@ -10,6 +10,7 @@
 """Unit and integration tests for Pyramid smart art."""
 
 from drawlib.canvas import clear, save
+from drawlib.preset_styles import get_default_styles
 from drawlib.smartarts import Pyramid
 
 OUTPUT_DIR = "../../output_tests/l7_smartarts/pyramid/"
@@ -21,7 +22,8 @@ class TestPyramid:
     def test_pyramid_default(self) -> None:
         """Verify basic Pyramid drawing with default vertex order and reversed base-to-vertex order."""
         clear()
-        p = Pyramid(default_style="solid")
+        styles = get_default_styles()
+        p = Pyramid(styles=styles, default_style=styles.solid)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
@@ -32,7 +34,8 @@ class TestPyramid:
     def test_pyramid_align_bottom(self) -> None:
         """Verify Pyramid drawing aligned bottom."""
         clear()
-        p = Pyramid(default_style="solid")
+        styles = get_default_styles()
+        p = Pyramid(styles=styles, default_style=styles.solid)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
@@ -43,7 +46,8 @@ class TestPyramid:
     def test_pyramid_align_top(self) -> None:
         """Verify Pyramid drawing aligned top."""
         clear()
-        p = Pyramid(default_style="solid")
+        styles = get_default_styles()
+        p = Pyramid(styles=styles, default_style=styles.solid)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
@@ -54,7 +58,8 @@ class TestPyramid:
     def test_pyramid_align_left(self) -> None:
         """Verify Pyramid drawing aligned left."""
         clear()
-        p = Pyramid(default_style="solid")
+        styles = get_default_styles()
+        p = Pyramid(styles=styles, default_style=styles.solid)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
@@ -65,7 +70,8 @@ class TestPyramid:
     def test_pyramid_align_right(self) -> None:
         """Verify Pyramid drawing aligned right."""
         clear()
-        p = Pyramid(default_style="solid")
+        styles = get_default_styles()
+        p = Pyramid(styles=styles, default_style=styles.solid)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")

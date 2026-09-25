@@ -24,7 +24,7 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import rectangle
-from drawlib._preset_styles import get_style
+from drawlib._preset_styles import BasePresetStyles
 
 
 class _Item(BaseModel):
@@ -42,21 +42,26 @@ class BoxList:
     @guarded
     def __init__(
         self,
-        default_box_style: TypeStr | Style | None = None,
-        default_text_style: TypeStr | Style | None = None,
+        *,
+        styles: BasePresetStyles,
+        default_box_style: Style | None = None,
+        default_text_style: Style | None = None,
     ) -> None:
         """Initialize BoxList.
 
         Args:
+            styles: The preset styles catalog (required).
             default_box_style: The default style for the boxes.
             default_text_style: The default style for the text inside the boxes.
         """
-        default_box_style = get_style(default_box_style)
-        default_box_style.text_halign = "center"
-        default_box_style.text_valign = "center"
+        self._styles = styles
+        if default_box_style is None:
+            default_box_style = styles.primary
+        default_box_style = default_box_style.patch(text_halign="center", text_valign="center")
         self._default_box_style = default_box_style
 
-        default_text_style = get_style(default_text_style)
+        if default_text_style is None:
+            default_text_style = styles.bold
         self._default_text_style = default_text_style
 
         self._list: list[_Item] = []
@@ -65,8 +70,8 @@ class BoxList:
     def append(
         self,
         text: TypeStr,
-        box_style: TypeStr | Style | None = None,
-        text_style: TypeStr | Style | None = None,
+        box_style: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Append a box item to the list.
 
@@ -82,8 +87,8 @@ class BoxList:
         self,
         index: int,
         text: TypeStr,
-        box_style: TypeStr | Style | None = None,
-        text_style: TypeStr | Style | None = None,
+        box_style: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Insert a box item at the specified index.
 
@@ -95,8 +100,8 @@ class BoxList:
         """
         is_custom_style = box_style is not None or text_style is not None
 
-        box_style_resolved = get_style(box_style) if box_style is not None else self._default_box_style
-        text_style_resolved = get_style(text_style) if text_style is not None else self._default_text_style
+        box_style_resolved = box_style if box_style is not None else self._default_box_style
+        text_style_resolved = text_style if text_style is not None else self._default_text_style
 
         item = _Item(
             text=text,
@@ -110,8 +115,8 @@ class BoxList:
     def extend(
         self,
         texts: list[TypeStr],
-        box_style: TypeStr | Style | None = None,
-        text_style: TypeStr | Style | None = None,
+        box_style: Style | None = None,
+        text_style: Style | None = None,
     ) -> None:
         """Extend the list with multiple box items.
 
@@ -122,8 +127,8 @@ class BoxList:
         """
         is_custom_style = box_style is not None or text_style is not None
 
-        box_style_resolved = get_style(box_style) if box_style is not None else self._default_box_style
-        text_style_resolved = get_style(text_style) if text_style is not None else self._default_text_style
+        box_style_resolved = box_style if box_style is not None else self._default_box_style
+        text_style_resolved = text_style if text_style is not None else self._default_text_style
 
         for text in texts:
             item = _Item(

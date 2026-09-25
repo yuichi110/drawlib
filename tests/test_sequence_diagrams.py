@@ -242,7 +242,9 @@ class TestSequenceDiagramRenderingEndToEnd:
         backend = d.add_group(
             ParticipantGroup(
                 title="Backend VPC",
-                style=Style(fill_color=(240, 245, 255, 0.5), line_color=Colors.Gray, line_style="dashed"),
+                style=Style(
+                    shape_fill_color=(240, 245, 255, 0.5), shape_line_color=Colors.Gray, shape_line_style="dashed"
+                ),
             )
         )
         api = backend.add(Participant("API Gateway", icon=custom_icon, icon_size=8.0))

@@ -9,17 +9,13 @@
 
 """Unit and integration tests for CanvasOriginalArrowFeature shapes."""
 
-import pytest
-
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
+from drawlib.fonts import Font
+from drawlib.preset_styles import get_default_styles, get_styles
 from drawlib.shapes import arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u, ellipse
 from drawlib.text import text
-from drawlib.types import (
-    Style,
-)
-
-# ruff: noqa: F403, F405
+from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l4_canvas/arrow/"
 
@@ -30,19 +26,23 @@ class TestCanvasArrow:
     def test_arrow(self) -> None:
         """Verify standard arrow drawing with different heads, styling, and text."""
         clear()
+        styles = get_default_styles()
+        s_def = styles.primary
+        s_lbl = s_def.patch(text_size=14, text_halign="left")
 
         # Simple arrow
-        text((5, 10), "simple", style=Style(text_size=14, text_halign="left"))
+        text((5, 10), "simple", style=s_lbl)
         arrow(
             (40, 10),
             (90, 10),
             tail_width=5,
             head_width=10,
             head_length=10,
+            style=s_def,
         )
 
         # Arrow with style
-        text((5, 20), "style", style=Style(text_size=14, text_halign="left"))
+        text((5, 20), "style", style=s_lbl)
         arrow(
             (40, 20),
             (90, 20),
@@ -50,15 +50,15 @@ class TestCanvasArrow:
             head_width=10,
             head_length=10,
             style=Style(
-                line_color=Colors.Red,
-                fill_color=Colors.Transparent,
-                line_width=5,
-                line_style="dotted",
+                shape_line_color=Colors.Red,
+                shape_fill_color=Colors.Transparent,
+                shape_line_width=5,
+                shape_line_style="dotted",
             ),
         )
 
         # Arrow with text & flipping/shifting options
-        text((5, 30), "text", style=Style(text_size=14, text_halign="left"))
+        text((5, 30), "text", style=s_lbl)
         arrow(
             (40, 30),
             (90, 30),
@@ -66,8 +66,9 @@ class TestCanvasArrow:
             head_width=10,
             head_length=10,
             text="Hello Drawlib",
+            style=s_def,
         )
-        text((5, 40), "text (flip)", style=Style(text_size=14, text_halign="left"))
+        text((5, 40), "text (flip)", style=s_lbl)
         arrow(
             (40, 40),
             (90, 40),
@@ -75,9 +76,10 @@ class TestCanvasArrow:
             head_width=10,
             head_length=10,
             text="Hello Drawlib",
-            textstyle=Style(text_flip=True),
+            style=s_def,
+            textstyle=s_def.patch(text_flip=True),
         )
-        text((5, 50), "text (shift)", style=Style(text_size=14, text_halign="left"))
+        text((5, 50), "text (shift)", style=s_lbl)
         arrow(
             (40, 50),
             (90, 50),
@@ -86,11 +88,12 @@ class TestCanvasArrow:
             head_length=10,
             head="->",
             text="Hello Drawlib",
-            textstyle=Style(text_xy_shift=(2.5, 2.5)),
+            style=s_def,
+            textstyle=s_def.patch(text_xy_shift=(2.5, 2.5)),
         )
 
         # Other heads
-        text((5, 60), "head <-", style=Style(text_size=14, text_halign="left"))
+        text((5, 60), "head <-", style=s_lbl)
         arrow(
             (40, 60),
             (90, 60),
@@ -98,8 +101,9 @@ class TestCanvasArrow:
             head_width=10,
             head_length=10,
             head="<-",
+            style=s_def,
         )
-        text((5, 70), "head <->", style=Style(text_size=14, text_halign="left"))
+        text((5, 70), "head <->", style=s_lbl)
         arrow(
             (40, 70),
             (90, 70),
@@ -107,10 +111,12 @@ class TestCanvasArrow:
             head_width=10,
             head_length=10,
             head="<->",
+            style=s_def,
         )
 
         # Theme styles
-        text((5, 80), "theme style", style=Style(text_size=14, text_halign="left"))
+        text((5, 80), "theme style", style=s_lbl)
+        styles_essentials = get_styles("essentials")
         arrow(
             (40, 80),
             (90, 80),
@@ -118,15 +124,17 @@ class TestCanvasArrow:
             head_width=10,
             head_length=10,
             head="->",
-            style="blue",
+            style=styles_essentials.blue,
             text="Hello Drawlib",
-            textstyle="white",
+            textstyle=styles_essentials.white.patch(text_color=Colors.White),
         )
         save(f"{OUTPUT_DIR}test_arrow.png")
 
     def test_arrow_polyline(self) -> None:
         """Verify polyline arrow drawing, point duplicates, and head styles."""
         clear()
+        styles = get_default_styles()
+        s_def = styles.primary
 
         # Standard polyline arrow
         arrow_polyline(
@@ -136,6 +144,7 @@ class TestCanvasArrow:
             head_width=5,
             head="->",
             r=5,
+            style=s_def,
         )
 
         # Polyline with duplicated consecutive points
@@ -146,6 +155,7 @@ class TestCanvasArrow:
             head_width=5,
             head="->",
             r=5,
+            style=s_def,
         )
 
         # Polyline with straight slopes (same m)
@@ -156,6 +166,7 @@ class TestCanvasArrow:
             head_width=5,
             head="->",
             r=5,
+            style=s_def,
         )
 
         # Other heads
@@ -166,6 +177,7 @@ class TestCanvasArrow:
             head_width=5,
             head="<-",
             r=5,
+            style=s_def,
         )
         arrow_polyline(
             xys=[(70, 40), (70, 60), (90, 60), (90, 40)],
@@ -174,6 +186,7 @@ class TestCanvasArrow:
             head_width=5,
             head="<->",
             r=5,
+            style=s_def,
         )
 
         save(f"{OUTPUT_DIR}test_arrow_polyline.png")
@@ -181,9 +194,11 @@ class TestCanvasArrow:
     def test_arrow_arc(self) -> None:
         """Verify elliptical arc arrow drawing on circles and ellipses."""
         clear()
+        styles = get_default_styles()
+        s_def = styles.primary
 
         # On circle (quadrant 1)
-        ellipse(xy=(25, 25), width=30, height=30, style="dashed")
+        ellipse(xy=(25, 25), width=30, height=30, style=styles.dashed)
         arrow_arc(
             xy=(25, 25),
             width=30,
@@ -194,10 +209,11 @@ class TestCanvasArrow:
             head="->",
             angle_start=45,
             angle_end=135,
+            style=s_def,
         )
 
         # Other heads & full angles on circles (quadrant 2)
-        ellipse(xy=(25, 75), width=30, height=30, style="dashed")
+        ellipse(xy=(25, 75), width=30, height=30, style=styles.dashed)
         arrow_arc(
             xy=(25, 75),
             width=30,
@@ -208,10 +224,11 @@ class TestCanvasArrow:
             head="<->",
             angle_start=0,
             angle_end=270,
+            style=s_def,
         )
 
         # Ellipse (quadrant 3)
-        ellipse(xy=(75, 25), width=40, height=20, style="dashed")
+        ellipse(xy=(75, 25), width=40, height=20, style=styles.dashed)
         arrow_arc(
             xy=(75, 25),
             width=40,
@@ -222,10 +239,11 @@ class TestCanvasArrow:
             head="->",
             angle_start=45,
             angle_end=135,
+            style=s_def,
         )
 
         # Ellipse with 45 degrees orientation (quadrant 4)
-        ellipse(xy=(75, 75), width=40, height=20, style="dashed", angle=45)
+        ellipse(xy=(75, 75), width=40, height=20, style=styles.dashed, angle=45)
         arrow_arc(
             xy=(75, 75),
             width=40,
@@ -237,6 +255,7 @@ class TestCanvasArrow:
             angle_start=45,
             angle_end=135,
             angle=45,
+            style=s_def,
         )
 
         save(f"{OUTPUT_DIR}test_arrow_arc.png")
@@ -244,6 +263,8 @@ class TestCanvasArrow:
     def test_arrow_l(self) -> None:
         """Verify L-shape arrow drawing and rotation angle options."""
         clear()
+        styles = get_default_styles()
+        s_def = styles.primary
 
         arrow_l(
             (25, 25),
@@ -252,6 +273,7 @@ class TestCanvasArrow:
             tail_width=5,
             head_width=10,
             head_length=10,
+            style=s_def,
         )
 
         arrow_l(
@@ -263,20 +285,52 @@ class TestCanvasArrow:
             head_width=5,
             head="->",
             r=5,
+            style=s_def,
         )
 
         # Angles & other heads
         arrow_l(
-            xy=(75, 25), width=20, height=15, tail_width=2, head_length=3, head_width=5, head="->", r=5, angle=90
+            xy=(75, 25),
+            width=20,
+            height=15,
+            tail_width=2,
+            head_length=3,
+            head_width=5,
+            head="->",
+            r=5,
+            angle=90,
+            style=s_def,
         )
-        arrow_l(xy=(75, 75), width=20, height=15, tail_width=2, head_length=3, head_width=5, head="<-", r=5)
-        arrow_l(xy=(50, 50), width=20, height=15, tail_width=2, head_length=3, head_width=5, head="<->", r=5)
+        arrow_l(
+            xy=(75, 75),
+            width=20,
+            height=15,
+            tail_width=2,
+            head_length=3,
+            head_width=5,
+            head="<-",
+            r=5,
+            style=s_def,
+        )
+        arrow_l(
+            xy=(50, 50),
+            width=20,
+            height=15,
+            tail_width=2,
+            head_length=3,
+            head_width=5,
+            head="<->",
+            r=5,
+            style=s_def,
+        )
 
         save(f"{OUTPUT_DIR}test_arrow_l.png")
 
     def test_arrow_u(self) -> None:
         """Verify U-shape arrow drawing and rotation angle options."""
         clear()
+        styles = get_default_styles()
+        s_def = styles.primary
 
         arrow_u(
             xy=(25, 25),
@@ -287,13 +341,43 @@ class TestCanvasArrow:
             head_width=5,
             head="->",
             r=5,
+            style=s_def,
         )
 
         # Angles & other heads
         arrow_u(
-            xy=(25, 75), width=20, height=15, tail_width=2, head_length=3, head_width=5, head="->", r=5, angle=90
+            xy=(25, 75),
+            width=20,
+            height=15,
+            tail_width=2,
+            head_length=3,
+            head_width=5,
+            head="->",
+            r=5,
+            angle=90,
+            style=s_def,
         )
-        arrow_u(xy=(75, 25), width=20, height=15, tail_width=2, head_length=3, head_width=5, head="<-", r=5)
-        arrow_u(xy=(75, 75), width=20, height=15, tail_width=2, head_length=3, head_width=5, head="<->", r=5)
+        arrow_u(
+            xy=(75, 25),
+            width=20,
+            height=15,
+            tail_width=2,
+            head_length=3,
+            head_width=5,
+            head="<-",
+            r=5,
+            style=s_def,
+        )
+        arrow_u(
+            xy=(75, 75),
+            width=20,
+            height=15,
+            tail_width=2,
+            head_length=3,
+            head_width=5,
+            head="<->",
+            r=5,
+            style=s_def,
+        )
 
         save(f"{OUTPUT_DIR}test_arrow_u.png")

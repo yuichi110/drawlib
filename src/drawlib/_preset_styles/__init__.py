@@ -20,7 +20,6 @@ from drawlib._preset_styles._officials import (
     get_default_styles,
     get_essentials_styles,
     get_monochrome_styles,
-    get_style,
     get_styles,
 )
 
@@ -33,6 +32,5 @@ __all__ = [
     "get_default_styles",
     "get_essentials_styles",
     "get_monochrome_styles",
-    "get_style",
     "get_styles",
 ]

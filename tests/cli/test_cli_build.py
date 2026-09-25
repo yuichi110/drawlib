@@ -44,7 +44,7 @@ def test_cli_build_html_directory_default(tmp_path) -> None:
         """# Main Index
 
 ```drawlib
-circle((50, 50), radius=20)
+circle((50, 50), radius=20, style=styles.primary)
 ```
 """,
         encoding="utf-8",
@@ -78,7 +78,7 @@ def test_cli_build_html_single_file(tmp_path) -> None:
         """# Sample Page
 
 ```drawlib
-rectangle((50, 50), width=40, height=20)
+rectangle((50, 50), width=40, height=20, style=styles.primary)
 ```
 """,
         encoding="utf-8",
@@ -102,7 +102,7 @@ def test_cli_build_html_webp_format(tmp_path) -> None:
         """# WebP Test
 
 ```drawlib
-circle((50, 50), radius=10)
+circle((50, 50), radius=10, style=styles.primary)
 ```
 """,
         encoding="utf-8",
@@ -127,7 +127,7 @@ def test_cli_build_markdown_single_file(tmp_path) -> None:
         """# Markdown Output
 
 ```drawlib
-circle((50, 50), radius=10)
+circle((50, 50), radius=10, style=styles.primary)
 ```
 """,
         encoding="utf-8",
@@ -157,9 +157,11 @@ def test_cli_build_images_alias(tmp_path) -> None:
     script = tmp_path / "simple.py"
     script.write_text(
         """from drawlib.canvas import save
+from drawlib.preset_styles import get_default_styles
 from drawlib.shapes import circle
 
-circle((50, 50), radius=10)
+styles = get_default_styles()
+circle((50, 50), radius=10, style=styles.primary)
 save()
 """,
         encoding="utf-8",
@@ -180,18 +182,22 @@ def test_cli_build_images_subdirectories(tmp_path) -> None:
 
     (sub_a / "img_a.py").write_text(
         """from drawlib.canvas import save
+from drawlib.preset_styles import get_default_styles
 from drawlib.shapes import circle
 
-circle((50, 50), radius=10)
+styles = get_default_styles()
+circle((50, 50), radius=10, style=styles.primary)
 save()
 """,
         encoding="utf-8",
     )
     (sub_b / "img_b.py").write_text(
         """from drawlib.canvas import save
+from drawlib.preset_styles import get_default_styles
 from drawlib.shapes import circle
 
-circle((30, 30), radius=10)
+styles = get_default_styles()
+circle((30, 30), radius=10, style=styles.primary)
 save()
 """,
         encoding="utf-8",
@@ -215,9 +221,11 @@ def test_cli_build_images_auto_detect(tmp_path) -> None:
 
     (sub_codes / "feat.py").write_text(
         """from drawlib.canvas import save
+from drawlib.preset_styles import get_default_styles
 from drawlib.shapes import circle
 
-circle((50, 50), radius=15)
+styles = get_default_styles()
+circle((50, 50), radius=15, style=styles.primary)
 save()
 """,
         encoding="utf-8",

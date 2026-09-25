@@ -30,7 +30,7 @@ from drawlib._core.l3_styles import (
     Style,
 )
 from drawlib._core.l4_canvas import line, rectangle
-from drawlib._preset_styles import get_style
+from drawlib._preset_styles import BasePresetStyles
 
 
 class _CellStyleOrder(BaseModel):
@@ -60,8 +60,13 @@ class Table:
     """A class used to create and manage the style and drawing of a table."""
 
     @guarded
-    def __init__(self) -> None:
-        """Initialize instance"""
+    def __init__(self, *, styles: BasePresetStyles) -> None:
+        """Initialize instance
+
+        Args:
+            styles: The preset styles catalog (required).
+        """
+        self._styles = styles
         self._bs_top: Style | None = None
         self._bs_top2: Style | None = None
         self._bs_bottom: Style | None = None
@@ -100,7 +105,7 @@ class Table:
         """Sets a predefined style for the table based on the given name.
 
         Args:
-            name (Literal["default", "monochrome", "white"]): The name of the predefined style.
+            name (Literal["default", "none", "monochrome", "border_simple"]): The name of the predefined style.
 
         Raises:
             ValueError: If the provided style name is not recognized.
@@ -115,16 +120,16 @@ class Table:
             """
             self.set_style_cell_evenodd(
                 even_color=ColorsEssentials.Snow,
-                even_textstyle=Style(text_color=ColorsEssentials.Charcoal),
+                even_textstyle=self._styles.primary.patch(text_color=ColorsEssentials.Charcoal),
                 odd_color=ColorsEssentials.White,
-                odd_textstyle=Style(text_color=ColorsEssentials.Charcoal),
+                odd_textstyle=self._styles.primary.patch(text_color=ColorsEssentials.Charcoal),
             )
             self.set_style_cell_header(
                 background_color=ColorsEssentials.LightBlue,
-                textstyle=Style(text_color=ColorsEssentials.White, text_font=Font.SANSSERIF_BOLD),
+                textstyle=self._styles.bold.patch(text_color=ColorsEssentials.White, text_font=Font.SANSSERIF_BOLD),
             )
             self.set_style_border(
-                bottom=Style(text_color=ColorsEssentials.Charcoal, line_width=1),
+                bottom=self._styles.solid.patch(line_color=ColorsEssentials.Charcoal, line_width=1),
             )
 
         elif name == "none":
@@ -135,7 +140,7 @@ class Table:
             """
             self.set_style_cell(
                 background_color=Colors.Transparent,
-                textstyle=Style(text_color=ColorsEssentials.Charcoal),
+                textstyle=self._styles.primary.patch(text_color=ColorsEssentials.Charcoal),
             )
 
         elif name == "monochrome":
@@ -146,16 +151,16 @@ class Table:
             """
             self.set_style_cell_evenodd(
                 even_color=ColorsEssentials.Snow,
-                even_textstyle=Style(text_color=ColorsEssentials.Charcoal),
+                even_textstyle=self._styles.primary.patch(text_color=ColorsEssentials.Charcoal),
                 odd_color=ColorsEssentials.White,
-                odd_textstyle=Style(text_color=ColorsEssentials.Charcoal),
+                odd_textstyle=self._styles.primary.patch(text_color=ColorsEssentials.Charcoal),
             )
             self.set_style_cell_header(
                 background_color=ColorsEssentials.Graphite,
-                textstyle=Style(text_color=ColorsEssentials.White, text_font=Font.SANSSERIF_BOLD),
+                textstyle=self._styles.bold.patch(text_color=ColorsEssentials.White, text_font=Font.SANSSERIF_BOLD),
             )
             self.set_style_border(
-                bottom=Style(text_color=ColorsEssentials.Charcoal, line_width=1),
+                bottom=self._styles.solid.patch(line_color=ColorsEssentials.Charcoal, line_width=1),
             )
 
         elif name == "border_simple":
@@ -166,16 +171,16 @@ class Table:
             """
             self.set_style_cell(
                 background_color=ColorsEssentials.White,
-                textstyle=Style(text_color=ColorsEssentials.Charcoal),
+                textstyle=self._styles.primary.patch(text_color=ColorsEssentials.Charcoal),
             )
             self.set_style_cell_header(
                 background_color=ColorsEssentials.White,
-                textstyle=Style(text_color=ColorsEssentials.Charcoal, text_font=Font.SANSSERIF_BOLD),
+                textstyle=self._styles.bold.patch(text_color=ColorsEssentials.Charcoal, text_font=Font.SANSSERIF_BOLD),
             )
             self.set_style_border(
-                top=Style(text_color=ColorsEssentials.Charcoal, line_width=1.5),
-                top2=Style(text_color=ColorsEssentials.Charcoal, line_width=0.75),
-                bottom=Style(text_color=ColorsEssentials.Charcoal, line_width=1.5),
+                top=self._styles.solid.patch(line_color=ColorsEssentials.Charcoal, line_width=1.5),
+                top2=self._styles.solid.patch(line_color=ColorsEssentials.Charcoal, line_width=0.75),
+                bottom=self._styles.solid.patch(line_color=ColorsEssentials.Charcoal, line_width=1.5),
             )
 
         else:
@@ -187,19 +192,14 @@ class Table:
     def set_style_cell_headers(
         self,
         background_color: TypeColor,
-        textstyle: TypeStr | Style,
+        textstyle: Style,
     ) -> None:
         """Sets the style for both column and row headers.
 
         Args:
-            background_color (tuple[int, int, int] | tuple[int, int, int, float]]):
-                    The background color of the headers.
-            textstyle (str | Style):
-                    The text style of the headers. Can be a string key for predefined styles or a Style object.
+            background_color: The background color of the headers.
+            textstyle: The text style of the headers.
         """
-        if isinstance(textstyle, str):
-            textstyle = get_style(textstyle)
-
         self.set_style_cell_rowheader(background_color=background_color, textstyle=textstyle)
         self.set_style_cell_header(background_color=background_color, textstyle=textstyle)
 
@@ -207,21 +207,14 @@ class Table:
     def set_style_cell_header(
         self,
         background_color: TypeColor,
-        textstyle: TypeStr | Style,
+        textstyle: Style,
     ) -> None:
-        """
-        Sets the style for the column header.
+        """Sets the style for the column header.
 
         Args:
-            background_color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
-                    The background color of the column header.
-            textstyle (Union[str, Style]):
-                    The text style of the column header.
-                    Can be a string key for predefined styles or a Style object.
+            background_color: The background color of the column header.
+            textstyle: The text style of the column header.
         """
-        if isinstance(textstyle, str):
-            textstyle = get_style(textstyle)
-
         self.set_style_cell(
             background_color=background_color,
             textstyle=textstyle,
@@ -232,21 +225,14 @@ class Table:
     def set_style_cell_rowheader(
         self,
         background_color: TypeColor,
-        textstyle: TypeStr | Style,
+        textstyle: Style,
     ) -> None:
-        """
-        Sets the style for the row header.
+        """Sets the style for the row header.
 
         Args:
-            background_color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
-                    The background color of the row header.
-            textstyle (Union[str, Style]):
-                    The text style of the row header.
-                    Can be a string key for predefined styles or a Style object.
+            background_color: The background color of the row header.
+            textstyle: The text style of the row header.
         """
-        if isinstance(textstyle, str):
-            textstyle = get_style(textstyle)
-
         self.set_style_cell(
             background_color=background_color,
             textstyle=textstyle,
@@ -257,30 +243,18 @@ class Table:
     def set_style_cell_evenodd(
         self,
         even_color: TypeColor,
-        even_textstyle: TypeStr | Style,
+        even_textstyle: Style,
         odd_color: TypeColor,
-        odd_textstyle: TypeStr | Style,
+        odd_textstyle: Style,
     ) -> None:
-        """
-        Sets alternating styles for even and odd rows.
+        """Sets alternating styles for even and odd rows.
 
         Args:
-            even_color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
-                    The background color for even rows.
-            even_textstyle (Union[str, Style]):
-                    The text style for even rows.
-                    Can be a string key for predefined styles or a Style object.
-            odd_color (Union[Tuple[int, int, int], Tuple[int, int, int, float]]):
-                    The background color for odd rows.
-            odd_textstyle (Union[str, Style]):
-                    The text style for odd rows.
-                    Can be a string key for predefined styles or a Style object.
+            even_color: The background color for even rows.
+            even_textstyle: The text style for even rows.
+            odd_color: The background color for odd rows.
+            odd_textstyle: The text style for odd rows.
         """
-        if isinstance(even_textstyle, str):
-            even_textstyle = get_style(even_textstyle)
-        if isinstance(odd_textstyle, str):
-            odd_textstyle = get_style(odd_textstyle)
-
         self._cell_style_orders.append(
             _CellStyleOrder(
                 order="even_odd",
@@ -295,27 +269,18 @@ class Table:
     def set_style_cell(
         self,
         background_color: TypeColor,
-        textstyle: TypeStr | Style,
+        textstyle: Style,
         rows: list[TypePosInt] | None = None,
         columns: list[TypePosInt] | None = None,
     ) -> None:
-        """
-        Sets the style for specific cells.
+        """Sets the style for specific cells.
 
         Args:
-            background_color (tuple[int, int, int] | tuple[int, int, int, float]):
-                    The background color of the cells.
-            textstyle (str | Style):
-                    The text style of the cells.
-                    Can be a string key for predefined styles or a Style object.
-            rows (Optional[List[int]]):
-                    A list of row indices to apply the style to. If None, applies to all rows.
-            columns (Optional[List[int]]):
-                    A list of column indices to apply the style to. If None, applies to all columns.
+            background_color: The background color of the cells.
+            textstyle: The text style of the cells.
+            rows: A list of row indices to apply the style to. If None, applies to all rows.
+            columns: A list of column indices to apply the style to. If None, applies to all columns.
         """
-        if isinstance(textstyle, str):
-            textstyle = get_style(textstyle)
-
         self._cell_style_orders.append(
             _CellStyleOrder(
                 order="range",
@@ -329,84 +294,37 @@ class Table:
     # border style
 
     @guarded
-    def set_style_border(  # noqa: C901
+    def set_style_border(
         self,
-        top: TypeStr | Style | None = None,
-        top2: TypeStr | Style | None = None,
-        bottom: TypeStr | Style | None = None,
-        left: TypeStr | Style | None = None,
-        left2: TypeStr | Style | None = None,
-        right: TypeStr | Style | None = None,
-        between_columns: TypeStr | Style | None = None,
-        between_rows: TypeStr | Style | None = None,
+        top: Style | None = None,
+        top2: Style | None = None,
+        bottom: Style | None = None,
+        left: Style | None = None,
+        left2: Style | None = None,
+        right: Style | None = None,
+        between_columns: Style | None = None,
+        between_rows: Style | None = None,
     ) -> None:
         """Sets the style for table borders.
 
         Args:
-            top (str | Style | None):
-                    Style for the top border.
-                    Can be a string key for predefined styles or a Style object.
-            top2 (str | Style | None):
-                    Style for the secondary top border.
-                    Can be a string key for predefined styles or a Style object.
-            bottom (str | Style | None):
-                    Style for the bottom border.
-                    Can be a string key for predefined styles or a Style object.
-            left (str | Style | None):
-                    Style for the left border.
-                    Can be a string key for predefined styles or a Style object.
-            left2 (str | Style | None):
-                    Style for the secondary left border.
-                    Can be a string key for predefined styles or a Style object.
-            right (str | Style | None):
-                    Style for the right border.
-                    Can be a string key for predefined styles or a Style object.
-            between_columns (str | Style | None):
-                    Style for borders between columns.
-                    Can be a string key for predefined styles or a Style object.
-            between_rows (str | Style | None):
-                    Style for borders between rows.
-                    Can be a string key for predefined styles or a Style object.
+            top: Style for the top border.
+            top2: Style for the secondary top border.
+            bottom: Style for the bottom border.
+            left: Style for the left border.
+            left2: Style for the secondary left border.
+            right: Style for the right border.
+            between_columns: Style for borders between columns.
+            between_rows: Style for borders between rows.
         """
-        if isinstance(top, str):
-            self._bs_top = get_style(top)
-        elif isinstance(top, Style):
-            self._bs_top = top.copy()
-
-        if isinstance(top2, str):
-            self._bs_top2 = get_style(top2)
-        elif isinstance(top2, Style):
-            self._bs_top2 = top2.copy()
-
-        if isinstance(bottom, str):
-            self._bs_bottom = get_style(bottom)
-        elif isinstance(bottom, Style):
-            self._bs_bottom = bottom.copy()
-
-        if isinstance(left, str):
-            self._bs_left = get_style(left)
-        elif isinstance(left, Style):
-            self._bs_left = left.copy()
-
-        if isinstance(left2, str):
-            self._bs_left2 = get_style(left2)
-        elif isinstance(left2, Style):
-            self._bs_left2 = left2.copy()
-
-        if isinstance(right, str):
-            self._bs_right = get_style(right)
-        elif isinstance(right, Style):
-            self._bs_right = right.copy()
-
-        if isinstance(between_columns, str):
-            self._bs_between_columns = get_style(between_columns)
-        elif isinstance(between_columns, Style):
-            self._bs_between_columns = between_columns.copy()
-
-        if isinstance(between_rows, str):
-            self._bs_between_rows = get_style(between_rows)
-        elif isinstance(between_rows, Style):
-            self._bs_between_rows = between_rows.copy()
+        self._bs_top = top
+        self._bs_top2 = top2
+        self._bs_bottom = bottom
+        self._bs_left = left
+        self._bs_left2 = left2
+        self._bs_right = right
+        self._bs_between_columns = between_columns
+        self._bs_between_rows = between_rows
 
     # draw
 
@@ -455,7 +373,7 @@ class Table:
             data (List[List[Any]]): The data to be displayed in the table.
         """
         # create blank matrix
-        default_textstyle = get_style()
+        default_textstyle = self._styles.primary
         matrix: list[list[_CellInfo]] = []
         for row_data in data:
             row: list[_CellInfo] = []
@@ -591,9 +509,9 @@ class Table:
                     width=width,
                     height=height,
                     style=Style(
-                        line_width=0,
-                        line_color=Colors.Transparent,
-                        fill_color=bg_color,
+                        shape_line_width=0,
+                        shape_line_color=Colors.Transparent,
+                        shape_fill_color=bg_color,
                     ),
                     text=text,
                     textstyle=textstyle,

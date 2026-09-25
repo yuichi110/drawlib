@@ -174,11 +174,11 @@ mono = get_monochrome_styles()
 
 # White box with black outline
 rectangle((30, 20), width=35, height=20, style=mono.primary)
-text((30, 20), "Primary (Outline)")
+text((30, 20), "Primary (Outline)", style=mono.primary)
 
 # Solid black box with white text
 rectangle((80, 20), width=35, height=20, style=mono.flat)
-text((80, 20), "Flat (Filled)", style="white")
+text((80, 20), "Flat (Filled)", style=mono.white_bold)
 
 save()
 ```
@@ -355,10 +355,12 @@ Every preset style shortcut string follows a deterministic, composable three-par
 ```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.lines import line
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import rectangle
 from drawlib.text import text
 
 config(width=140, height=70)
+styles = get_styles("essentials")
 
 # Column positions
 x_coords = [20, 50, 80, 110]
@@ -366,30 +368,30 @@ y_top = 45
 y_bot = 15
 
 # Row 1: Flat fills (no border) vs Solid outlines (no fill)
-rectangle((x_coords[0], y_top), width=24, height=18, style="blue_flat")
-text((x_coords[0], y_top), "blue_flat", style="white")
+rectangle((x_coords[0], y_top), width=24, height=18, style=styles.blue_flat)
+text((x_coords[0], y_top), "blue_flat", style=styles.white_bold)
 
-rectangle((x_coords[1], y_top), width=24, height=18, style="green_flat")
-text((x_coords[1], y_top), "green_flat", style="white")
+rectangle((x_coords[1], y_top), width=24, height=18, style=styles.green_flat)
+text((x_coords[1], y_top), "green_flat", style=styles.white_bold)
 
-rectangle((x_coords[2], y_top), width=24, height=18, style="red_solid")
-text((x_coords[2], y_top), "red_solid", style="red")
+rectangle((x_coords[2], y_top), width=24, height=18, style=styles.red_solid)
+text((x_coords[2], y_top), "red_solid", style=styles.red)
 
-rectangle((x_coords[3], y_top), width=24, height=18, style="purple_dashed")
-text((x_coords[3], y_top), "purple_dashed", style="purple")
+rectangle((x_coords[3], y_top), width=24, height=18, style=styles.purple_dashed)
+text((x_coords[3], y_top), "purple_dashed", style=styles.purple)
 
 # Row 2: Weight variations (light, standard, bold)
-rectangle((x_coords[0], y_bot), width=24, height=18, style="orange_solid_light")
-text((x_coords[0], y_bot), "solid_light", style="orange_light")
+rectangle((x_coords[0], y_bot), width=24, height=18, style=styles.orange_solid)
+text((x_coords[0], y_bot), "solid", style=styles.orange)
 
-rectangle((x_coords[1], y_bot), width=24, height=18, style="orange_solid")
-text((x_coords[1], y_bot), "solid (reg)", style="orange")
+rectangle((x_coords[1], y_bot), width=24, height=18, style=styles.orange_bold)
+text((x_coords[1], y_bot), "bold", style=styles.orange_bold)
 
-rectangle((x_coords[2], y_bot), width=24, height=18, style="orange_solid_bold")
-text((x_coords[2], y_bot), "solid_bold", style="orange_bold")
+rectangle((x_coords[2], y_bot), width=24, height=18, style=styles.orange_flat)
+text((x_coords[2], y_bot), "flat", style=styles.white_bold)
 
 # Connecting line showcasing weight
-line((x_coords[0] - 12, 32), (x_coords[3] + 12, 32), style="charcoal_dashed_bold")
+line((x_coords[0] - 12, 32), (x_coords[3] + 12, 32), style=styles.charcoal_dashed)
 
 save()
 ```
@@ -475,12 +477,12 @@ CORP_GOLD = from_hex("#F4A261")
 
 brand_preset = PresetStyles(
     background_color=(250, 250, 252, 1.0),
-    primary=Style(fill_color=CORP_CYAN, line_color=CORP_NAVY, line_width=2.0),
-    light=Style(fill_color=CORP_CYAN, line_color=CORP_NAVY, line_width=1.0),
-    bold=Style(fill_color=CORP_GOLD, line_color=CORP_NAVY, line_width=3.0),
-    flat=Style(fill_color=CORP_CYAN, line_width=0),
-    solid=Style(fill_color=None, line_color=CORP_NAVY, line_width=2.0),
-    dashed=Style(fill_color=None, line_color=CORP_NAVY, line_width=2.0, line_style="dashed"),
+    primary=Style(shape_fill_color=CORP_CYAN, shape_line_color=CORP_NAVY, shape_line_width=2.0),
+    light=Style(shape_fill_color=CORP_CYAN, shape_line_color=CORP_NAVY, shape_line_width=1.0),
+    bold=Style(shape_fill_color=CORP_GOLD, shape_line_color=CORP_NAVY, shape_line_width=3.0),
+    flat=Style(shape_fill_color=CORP_CYAN, shape_line_width=0.0),
+    solid=Style(shape_fill_color=(0, 0, 0, 0.0), shape_line_color=CORP_NAVY, shape_line_width=2.0),
+    dashed=Style(shape_fill_color=(0, 0, 0, 0.0), shape_line_color=CORP_NAVY, shape_line_width=2.0, shape_line_style="dashed"),
 )
 
 config(width=100, height=40, background_color=brand_preset.background_color)
@@ -611,50 +613,51 @@ from drawlib.shapes import rectangle
 from drawlib.text import text
 
 config(width=140, height=90)
+styles = get_styles("essentials")
 
 # Section Headers
-text((70, 84), "Enterprise E-Commerce Microservices", style="bold", size=18)
-text((70, 78), "Synchronous REST Ingress & Asynchronous Event Bus", style="charcoal_light", size=12)
+text((70, 84), "Enterprise E-Commerce Microservices", style=styles.bold, size=18)
+text((70, 78), "Synchronous REST Ingress & Asynchronous Event Bus", style=styles.charcoal, size=12)
 
 # Subnet / Boundary Containers
-rectangle((70, 42), width=132, height=60, r=4, style="silver_dashed")
-text((22, 68), "Internal VPC (10.0.0.0/16)", style="gray_bold", size=11)
+rectangle((70, 42), width=132, height=60, r=4, style=styles.silver_dashed)
+text((22, 68), "Internal VPC (10.0.0.0/16)", style=styles.gray_bold, size=11)
 
 # Tier 1: External Client & API Gateway
-rectangle((22, 42), width=22, height=30, r=2, style="blue_solid")
-phosphor.user((22, 50), width=9, style="blue")
-text((22, 40), "Client Apps", style="blue_bold", size=11)
-text((22, 33), "Web / Mobile", style="charcoal_light", size=9)
+rectangle((22, 42), width=22, height=30, r=2, style=styles.blue_solid)
+phosphor.user((22, 50), width=9, style=styles.blue)
+text((22, 40), "Client Apps", style=styles.blue_bold, size=11)
+text((22, 33), "Web / Mobile", style=styles.charcoal, size=9)
 
-rectangle((50, 42), width=22, height=30, r=2, style="teal_flat")
-phosphor.cloud((50, 50), width=9, style="white")
-text((50, 40), "API Gateway", style="white_bold", size=11)
-text((50, 33), "Rate Limiting", style="white", size=9)
+rectangle((50, 42), width=22, height=30, r=2, style=styles.teal_flat)
+phosphor.cloud((50, 50), width=9, style=styles.white_bold)
+text((50, 40), "API Gateway", style=styles.white_bold, size=11)
+text((50, 33), "Rate Limiting", style=styles.white, size=9)
 
 # Tier 2: Backend Core Services
-rectangle((80, 53), width=24, height=18, r=2, style="green_solid_bold")
-text((80, 56), "Order Service", style="green_bold", size=11)
-text((80, 48), "gRPC :8081", style="charcoal_light", size=9)
+rectangle((80, 53), width=24, height=18, r=2, style=styles.green_bold)
+text((80, 56), "Order Service", style=styles.green_bold, size=11)
+text((80, 48), "gRPC :8081", style=styles.charcoal, size=9)
 
-rectangle((80, 27), width=24, height=18, r=2, style="green_solid_bold")
-text((80, 30), "Payment Service", style="green_bold", size=11)
-text((80, 22), "gRPC :8082", style="charcoal_light", size=9)
+rectangle((80, 27), width=24, height=18, r=2, style=styles.green_bold)
+text((80, 30), "Payment Service", style=styles.green_bold, size=11)
+text((80, 22), "gRPC :8082", style=styles.charcoal, size=9)
 
 # Tier 3: Asynchronous Pub/Sub Queue & Storage
-rectangle((114, 53), width=22, height=18, r=2, style="purple_flat")
-phosphor.broadcast((114, 56), width=7, style="white")
-text((114, 48), "Kafka Broker", style="white_bold", size=10)
+rectangle((114, 53), width=22, height=18, r=2, style=styles.purple_flat)
+phosphor.broadcast((114, 56), width=7, style=styles.white_bold)
+text((114, 48), "Kafka Broker", style=styles.white_bold, size=10)
 
-rectangle((114, 27), width=22, height=18, r=2, style="navy_solid")
-phosphor.database((114, 31), width=7, style="navy")
-text((114, 22), "PostgreSQL HA", style="navy_bold", size=10)
+rectangle((114, 27), width=22, height=18, r=2, style=styles.navy_solid)
+phosphor.database((114, 31), width=7, style=styles.navy)
+text((114, 22), "PostgreSQL HA", style=styles.navy_bold, size=10)
 
 # Connectors with semantic weights
-line((33, 42), (39, 42), arrowhead="->", style="blue_bold")
-line((61, 46), (68, 53), arrowhead="->", style="charcoal")
-line((61, 38), (68, 27), arrowhead="->", style="charcoal")
-line((92, 53), (103, 53), arrowhead="->", style="purple_dashed_bold")
-line((92, 27), (103, 27), arrowhead="<->", style="navy_bold")
+line((33, 42), (39, 42), arrowhead="->", style=styles.blue_bold)
+line((61, 46), (68, 53), arrowhead="->", style=styles.charcoal)
+line((61, 38), (68, 27), arrowhead="->", style=styles.charcoal)
+line((92, 53), (103, 53), arrowhead="->", style=styles.purple_dashed)
+line((92, 27), (103, 27), arrowhead="<->", style=styles.navy_bold)
 
 save()
 ```
@@ -674,39 +677,40 @@ from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
 config(width=130, height=50)
+styles = get_styles("essentials")
 
 # Start State
-circle((15, 25), radius=5, style="blue_flat")
-text((15, 14), "Initial", style="blue_bold", size=10)
+circle((15, 25), radius=5, style=styles.blue_flat)
+text((15, 14), "Initial", style=styles.blue_bold, size=10)
 
 # Processing State
-rectangle((45, 25), width=22, height=16, r=3, style="green_solid_bold")
-text((45, 27), "Validating", style="green_bold", size=11)
-text((45, 20), "Worker Poll", style="charcoal_light", size=9)
+rectangle((45, 25), width=22, height=16, r=3, style=styles.green_bold)
+text((45, 27), "Validating", style=styles.green_bold, size=11)
+text((45, 20), "Worker Poll", style=styles.charcoal, size=9)
 
 # Decision Branches: Success vs Failure
-rectangle((80, 36), width=22, height=14, r=3, style="green_flat")
-text((80, 36), "Processed", style="white_bold", size=10)
+rectangle((80, 36), width=22, height=14, r=3, style=styles.green_flat)
+text((80, 36), "Processed", style=styles.white_bold, size=10)
 
-rectangle((80, 14), width=22, height=14, r=3, style="red_flat")
-text((80, 14), "Rejected", style="white_bold", size=10)
+rectangle((80, 14), width=22, height=14, r=3, style=styles.red_flat)
+text((80, 14), "Rejected", style=styles.white_bold, size=10)
 
 # Final State
-circle((115, 36), radius=5, style="green_solid_bold")
-circle((115, 36), radius=3.2, style="green_flat")
-text((115, 24), "Completed", style="green_bold", size=10)
+circle((115, 36), radius=5, style=styles.green_bold)
+circle((115, 36), radius=3.2, style=styles.green_flat)
+text((115, 24), "Completed", style=styles.green_bold, size=10)
 
 # Transitions
-line((20, 25), (34, 25), arrowhead="->", style="charcoal_bold")
-text((27, 28), "submit", style="charcoal_light", size=9)
+line((20, 25), (34, 25), arrowhead="->", style=styles.charcoal_bold)
+text((27, 28), "submit", style=styles.charcoal, size=9)
 
-line((56, 29), (69, 36), arrowhead="->", style="green_bold")
-text((60, 37), "valid", style="green", size=9)
+line((56, 29), (69, 36), arrowhead="->", style=styles.green_bold)
+text((60, 37), "valid", style=styles.green, size=9)
 
-line((56, 21), (69, 14), arrowhead="->", style="red_bold")
-text((60, 13), "invalid", style="red", size=9)
+line((56, 21), (69, 14), arrowhead="->", style=styles.red_bold)
+text((60, 13), "invalid", style=styles.red, size=9)
 
-line((91, 36), (110, 36), arrowhead="->", style="green_bold")
+line((91, 36), (110, 36), arrowhead="->", style=styles.green_bold)
 
 save()
 ```
@@ -728,49 +732,50 @@ from drawlib.shapes import rectangle
 from drawlib.text import text
 
 config(width=150, height=85)
+styles = get_styles("essentials")
 
 # Architecture Title & Subtitle
-text((75, 78), "Enterprise Medallion Data Lakehouse Architecture", style="bold", size=18)
-text((75, 72), "Multi-Tier Ingestion, Delta Lake Curation, & BI Analytics", style="charcoal_light", size=11)
+text((75, 78), "Enterprise Medallion Data Lakehouse Architecture", style=styles.bold, size=18)
+text((75, 72), "Multi-Tier Ingestion, Delta Lake Curation, & BI Analytics", style=styles.charcoal, size=11)
 
 # Tier 1: Ingestion Sources
-rectangle((20, 40), width=22, height=44, r=2, style="orange_solid")
-phosphor.broadcast((20, 54), width=7, style="orange")
-text((20, 46), "IoT / CDC", style="orange_bold", size=10)
-phosphor.file_csv((20, 34), width=7, style="orange")
-text((20, 26), "Batch Files", style="orange_bold", size=10)
+rectangle((20, 40), width=22, height=44, r=2, style=styles.orange_solid)
+phosphor.broadcast((20, 54), width=7, style=styles.orange)
+text((20, 46), "IoT / CDC", style=styles.orange_bold, size=10)
+phosphor.file_csv((20, 34), width=7, style=styles.orange)
+text((20, 26), "Batch Files", style=styles.orange_bold, size=10)
 
 # Tier 2: Bronze Layer (Raw Storage)
-rectangle((52, 40), width=24, height=44, r=2, style="brown_flat")
-phosphor.database((52, 53), width=8, style="white")
-text((52, 43), "Bronze Tier", style="white_bold", size=11)
-text((52, 36), "Raw Append", style="white", size=9)
-text((52, 28), "Parquet / JSON", style="white", size=8)
+rectangle((52, 40), width=24, height=44, r=2, style=styles.brown_flat)
+phosphor.database((52, 53), width=8, style=styles.white_bold)
+text((52, 43), "Bronze Tier", style=styles.white_bold, size=11)
+text((52, 36), "Raw Append", style=styles.white, size=9)
+text((52, 28), "Parquet / JSON", style=styles.white, size=8)
 
 # Tier 3: Silver Layer (Cleaned & Enriched)
-rectangle((86, 40), width=24, height=44, r=2, style="steel_solid_bold")
-phosphor.check_circle((86, 53), width=8, style="steel")
-text((86, 43), "Silver Tier", style="steel_bold", size=11)
-text((86, 36), "Cleaned / Joined", style="charcoal", size=9)
-text((86, 28), "Delta Tables", style="charcoal_light", size=8)
+rectangle((86, 40), width=24, height=44, r=2, style=styles.steel_bold)
+phosphor.check_circle((86, 53), width=8, style=styles.steel)
+text((86, 43), "Silver Tier", style=styles.steel_bold, size=11)
+text((86, 36), "Cleaned / Joined", style=styles.charcoal, size=9)
+text((86, 28), "Delta Tables", style=styles.charcoal, size=8)
 
 # Tier 4: Gold Layer (Business Aggregates)
-rectangle((120, 52), width=24, height=22, r=2, style="green_flat")
-phosphor.chart_bar((120, 58), width=7, style="white")
-text((120, 49), "Gold Marts", style="white_bold", size=10)
-text((120, 44), "Star Schemas", style="white", size=8)
+rectangle((120, 52), width=24, height=22, r=2, style=styles.green_flat)
+phosphor.chart_bar((120, 58), width=7, style=styles.white_bold)
+text((120, 49), "Gold Marts", style=styles.white_bold, size=10)
+text((120, 44), "Star Schemas", style=styles.white, size=8)
 
 # Tier 5: Consumers (ML & BI)
-rectangle((120, 25), width=24, height=22, r=2, style="teal_solid_bold")
-phosphor.cpu((120, 31), width=7, style="teal")
-text((120, 22), "ML Models", style="teal_bold", size=10)
-text((120, 17), "Serving API", style="charcoal_light", size=8)
+rectangle((120, 25), width=24, height=22, r=2, style=styles.teal_bold)
+phosphor.cpu((120, 31), width=7, style=styles.teal)
+text((120, 22), "ML Models", style=styles.teal_bold, size=10)
+text((120, 17), "Serving API", style=styles.charcoal, size=8)
 
 # Connectors with Flow Arrows
-line((31, 40), (40, 40), arrowhead="->", style="orange_bold")
-line((64, 40), (74, 40), arrowhead="->", style="charcoal_bold")
-line((98, 45), (108, 52), arrowhead="->", style="green_bold")
-line((98, 35), (108, 25), arrowhead="->", style="teal_bold")
+line((31, 40), (40, 40), arrowhead="->", style=styles.orange_bold)
+line((64, 40), (74, 40), arrowhead="->", style=styles.charcoal_bold)
+line((98, 45), (108, 52), arrowhead="->", style=styles.green_bold)
+line((98, 35), (108, 25), arrowhead="->", style=styles.teal_bold)
 
 save()
 ```
@@ -922,25 +927,27 @@ Popular Essentials Colors:
 # Standard imports
 from drawlib.canvas import config, save
 from drawlib.colors import Colors, ColorsEssentials, from_hex, with_alpha
-from drawlib.preset_styles import BasePresetStyles, get_style, get_styles
+from drawlib.preset_styles import BasePresetStyles, get_styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
+
+styles = get_styles("essentials")
 
 # Initialize canvas with default or custom catalog
 config(width=100, height=60)
 
-# 1. Shorthand style usage
-rectangle((25, 36), width=20, height=20, style="blue_flat", text="Flat", textstyle="white_bold")
-rectangle((50, 36), width=20, height=20, style="green_solid_bold", text="Solid", textstyle="green_bold")
-circle((75, 36), radius=10, style="red_dashed", text="Dashed", textstyle="red_bold")
+# 1. Preset style usage
+rectangle((25, 36), width=20, height=20, style=styles.blue_flat, text="Flat", textstyle=styles.white_bold)
+rectangle((50, 36), width=20, height=20, style=styles.green_bold, text="Solid", textstyle=styles.green_bold)
+circle((75, 36), radius=10, style=styles.red_dashed, text="Dashed", textstyle=styles.red_bold)
 
-# 2. Dynamic style retrieval
-accent_style = get_style("teal_flat")
+# 2. Dynamic style retrieval via key lookup
+accent_style = styles["teal_flat"]
 circle((85, 48), radius=5, style=accent_style)
 
 # 3. Dedicated monochrome catalog retrieval
 monochrome = get_styles("monochrome")
-rectangle((50, 12), width=80, height=12, style=monochrome.flat, text="Monochrome Catalog Banner", textstyle="white_bold")
+rectangle((50, 12), width=80, height=12, style=monochrome.flat, text="Monochrome Catalog Banner", textstyle=monochrome.white_bold)
 
 save()
 ```

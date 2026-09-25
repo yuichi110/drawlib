@@ -21,7 +21,6 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import image
-from drawlib._preset_styles import get_style
 from drawlib._release_assets import RELEASE_ASSET_PACKAGES, ReleaseAssetPackage, ensure_asset_available
 
 
@@ -88,7 +87,8 @@ class PngIconProvider:
         width: TypePosFloat,
         name: str,
         angle: TypeAngle = 0.0,
-        style: Style | TypeStr | None = None,
+        *,
+        style: Style,
     ) -> None:
         """Draw an icon at the specified position using canvas image().
 
@@ -97,21 +97,14 @@ class PngIconProvider:
             width: Width of the icon.
             name: Base name of the icon file (without .png).
             angle: Rotation angle in degrees (default 0.0).
-            style: Style object, style name string, or None.
+            style: Style object (required).
         """
-        # Icons default to transparent background and borderless frame (line_width=0)
-        # unless line_width is explicitly specified in style.
-        applied_style: Style
-        if style is None:
-            applied_style = Style(line_width=0)
-        elif isinstance(style, Style):
-            applied_style = style.copy()
-            if applied_style.line_width is None:
-                applied_style.line_width = 0
-        else:
-            applied_style = get_style(style).copy()
-            if applied_style.line_width is None:
-                applied_style.line_width = 0
+        if not isinstance(style, Style):
+            raise TypeError(f'Arg "style" must be Style, but {type(style)} given.')
+
+        applied_style = style
+        if applied_style.image_border_width is None:
+            applied_style = applied_style.patch(image_border_width=0)
 
         abs_path = self.get_icon_path(name)
         image(

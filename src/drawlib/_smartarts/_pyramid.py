@@ -23,7 +23,7 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import trapezoid, triangle
-from drawlib._preset_styles import get_style
+from drawlib._preset_styles import BasePresetStyles
 
 
 class _PyramidItem(BaseModel):
@@ -45,32 +45,25 @@ class Pyramid:
     @guarded
     def __init__(
         self,
-        default_style: TypeStr | Style | None = None,
-        default_textstyle: TypeStr | Style | None = None,
+        *,
+        styles: BasePresetStyles,
+        default_style: Style | None = None,
+        default_textstyle: Style | None = None,
         default_textangle: TypeAngle | None = None,
         default_text_xy_shift: TypeCoordinate | None = None,
     ) -> None:
         """Initializes a Pyramid instance with optional default styles and settings.
 
         Args:
-            default_style (Union[str, Style, None], optional): The default
-                style for the pyramid shapes. It can be a string that maps to a
-                `Style` or a `Style` instance. Defaults to None.
-            default_textstyle (Union[str, Style, None], optional): The
-                default text style for the pyramid shapes. It can be a string that
-                maps to a `Style` or a `Style` instance. Defaults to None.
-            default_textangle (Optional[float], optional): The default rotation
-                angle for the text within the pyramid shapes. Defaults to None.
-            default_text_xy_shift (Optional[Tuple[float, float]], optional): The
-                default x and y shift for the text within the pyramid shapes.
-                Defaults to None.
+            styles: The preset styles catalog (required).
+            default_style: The default style for the pyramid shapes. Defaults to None.
+            default_textstyle: The default text style for the pyramid shapes. Defaults to None.
+            default_textangle: The default rotation angle for the text within the pyramid shapes. Defaults to None.
+            default_text_xy_shift: The default x and y shift for the text within the pyramid shapes. Defaults to None.
         """
-        if isinstance(default_style, str):
-            default_style = get_style(default_style)
-        self._default_style = default_style
-        if isinstance(default_textstyle, str):
-            default_textstyle = get_style(default_textstyle)
-        self._default_textstyle = default_textstyle
+        self._styles = styles
+        self._default_style = default_style if default_style is not None else styles.primary
+        self._default_textstyle = default_textstyle if default_textstyle is not None else styles.bold
         self._default_textangle = default_textangle
         self._default_text_xy_shift = default_text_xy_shift
 
@@ -80,48 +73,31 @@ class Pyramid:
     def add(  # noqa: C901
         self,
         text: TypeStr,
-        style: TypeStr | Style | None = None,
-        textstyle: TypeStr | Style | None = None,
+        style: Style | None = None,
+        textstyle: Style | None = None,
         textangle: TypeAngle | None = None,
         text_xy_shift: TypeCoordinate | None = None,
     ) -> None:
-        # string style to Style class
-        if isinstance(style, str):
-            style = get_style(style)
-        if isinstance(textstyle, str):
-            textstyle = get_style(textstyle)
+        resolved_style = style if style is not None else self._default_style
+        resolved_textstyle = textstyle if textstyle is not None else self._default_textstyle
 
-        # apply default if args are None
-        if style is None:
-            style = self._default_style
-        if textstyle is None:
-            textstyle = self._default_textstyle
-
-        # apply align to shape style
-        if style is None:
-            style = get_style()
-        else:
-            style = style.copy()
-
-        # apply angle and shift to shape text style
-        if textstyle is None:
-            textstyle = get_style()
-        else:
-            textstyle = textstyle.copy()
         if textangle is None:
             textangle = self._default_textangle
-        if textangle is not None:
-            textstyle.text_angle = textangle
         if text_xy_shift is None:
             text_xy_shift = self._default_text_xy_shift
-        if text_xy_shift is not None:
-            textstyle.text_xy_abs_shift = text_xy_shift
 
-        # push
+        patch_kwargs: dict = {}
+        if textangle is not None:
+            patch_kwargs["text_angle"] = textangle
+        if text_xy_shift is not None:
+            patch_kwargs["text_xy_abs_shift"] = text_xy_shift
+        if patch_kwargs:
+            resolved_textstyle = resolved_textstyle.patch(**patch_kwargs)
+
         item = _PyramidItem(
             text=text,
-            style=style,
-            textstyle=textstyle,
+            style=resolved_style,
+            textstyle=resolved_textstyle,
         )
         self._items.append(item)
 
@@ -220,9 +196,7 @@ class Pyramid:
         current_height = 0
         for i, item in enumerate(items):
             text = item.text
-            style = item.style
-            style.text_halign = "center"
-            style.text_valign = "bottom"
+            style = item.style.patch(text_halign="center", text_valign="bottom")
             textstyle = item.textstyle
 
             is_last = i == len(items) - 1
@@ -269,10 +243,10 @@ class Pyramid:
         current_height = 0
         for i, item in enumerate(items):
             text = item.text
-            style = item.style
-            style.text_halign = "center"
-            style.text_valign = "bottom"
-            textstyle = item.textstyle
+            style = item.style.patch(text_halign="center", text_valign="bottom")
+            textstyle = item.textstyle.patch(
+                text_angle=item.textstyle.text_angle if item.textstyle.text_angle is not None else 0,
+            )
 
             is_last = i == len(items) - 1
             if is_last:
@@ -280,8 +254,6 @@ class Pyramid:
                 item_width = ratio * width
                 item_height = item_heights[i]
                 y = xy[1] + height - current_height - item_height
-                if textstyle.text_angle is None:
-                    textstyle.text_angle = 0
                 triangle(
                     (x, y),
                     width=item_width,
@@ -323,13 +295,10 @@ class Pyramid:
         current_height = 0
         for i, item in enumerate(items):
             text = item.text
-            style = item.style
-            style.text_halign = "center"
-            style.text_valign = "center"
-            textstyle = item.textstyle
-
-            if textstyle.text_angle is None:
-                textstyle.text_angle = 0
+            style = item.style.patch(text_halign="center", text_valign="center")
+            textstyle = item.textstyle.patch(
+                text_angle=item.textstyle.text_angle if item.textstyle.text_angle is not None else 0,
+            )
 
             is_last = i == len(items) - 1
             if is_last:
@@ -379,12 +348,10 @@ class Pyramid:
         current_height = 0
         for i, item in enumerate(items):
             text = item.text
-            style = item.style
-            style.text_halign = "center"
-            style.text_valign = "center"
-            textstyle = item.textstyle
-            if textstyle.text_angle is None:
-                textstyle.text_angle = 0
+            style = item.style.patch(text_halign="center", text_valign="center")
+            textstyle = item.textstyle.patch(
+                text_angle=item.textstyle.text_angle if item.textstyle.text_angle is not None else 0,
+            )
 
             is_last = i == len(items) - 1
             if is_last:

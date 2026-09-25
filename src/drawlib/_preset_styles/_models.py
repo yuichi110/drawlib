@@ -36,6 +36,14 @@ class BasePresetStyles(BaseModel):
     background_color: TypeColor = (255, 255, 255, 1.0)
     sourcecode_font: FontSourceCode = FontSourceCode.SOURCECODEPRO
 
+    # Core semantic roles required across all preset catalogs
+    primary: Style
+    light: Style
+    bold: Style
+    flat: Style
+    solid: Style
+    dashed: Style
+
     def __iter__(self) -> Generator[tuple[str, Any], None, None]:
         """Yield (field_name, field_value) pairs for all fields in the preset style model.
 
@@ -83,17 +91,9 @@ class BasePresetStyles(BaseModel):
 
 
 class DefaultStyles(BasePresetStyles):
-    """Default preset styles.
+    """Default preset styles with complete typing for IDE autocompletion."""
 
-    Attributes:
-        primary (Style): Primary emphasis style.
-        light (Style): Light / subtle line style.
-        bold (Style): Bold / heavy line style.
-        flat (Style): Flat filled style with no border.
-        solid (Style): Transparent fill style with solid border.
-        dashed (Style): Transparent fill style with dashed border.
-    """
-
+    # Semantic roles
     primary: Style
     light: Style
     bold: Style
@@ -101,39 +101,51 @@ class DefaultStyles(BasePresetStyles):
     solid: Style
     dashed: Style
 
+    # Blue
+    blue: Style
+    blue_flat: Style
+    blue_solid: Style
+    blue_bold: Style
+    blue_light: Style
+    blue_dashed: Style
 
-class EssentialsStyles(BasePresetStyles):
-    """Essentials preset styles.
+    # Red
+    red: Style
+    red_flat: Style
+    red_solid: Style
+    red_bold: Style
+    red_light: Style
+    red_dashed: Style
 
-    Attributes:
-        primary (Style): Primary emphasis style.
-        light (Style): Light / subtle line style.
-        bold (Style): Bold / heavy line style.
-        flat (Style): Flat filled style with no border.
-        solid (Style): Transparent fill style with solid border.
-        dashed (Style): Transparent fill style with dashed border.
-    """
+    # Green
+    green: Style
+    green_flat: Style
+    green_solid: Style
+    green_bold: Style
+    green_light: Style
+    green_dashed: Style
 
-    primary: Style
-    light: Style
-    bold: Style
-    flat: Style
-    solid: Style
-    dashed: Style
+    # Black
+    black: Style
+    black_flat: Style
+    black_solid: Style
+    black_bold: Style
+    black_light: Style
+    black_dashed: Style
+
+    # White
+    white: Style
+    white_flat: Style
+    white_solid: Style
+    white_bold: Style
+    white_light: Style
+    white_dashed: Style
 
 
 class MonochromeStyles(BasePresetStyles):
-    """Monochrome preset styles.
+    """Monochrome preset styles with complete typing for IDE autocompletion."""
 
-    Attributes:
-        primary (Style): Primary emphasis style.
-        light (Style): Light / subtle line style.
-        bold (Style): Bold / heavy line style.
-        flat (Style): Flat filled style with no border.
-        solid (Style): Transparent fill style with solid border.
-        dashed (Style): Transparent fill style with dashed border.
-    """
-
+    # Semantic roles
     primary: Style
     light: Style
     bold: Style
@@ -141,6 +153,203 @@ class MonochromeStyles(BasePresetStyles):
     solid: Style
     dashed: Style
 
+    # Colors: black, charcoal, graphite, gray, silver, snow, white
+    black: Style
+    black_flat: Style
+    black_solid: Style
+    black_bold: Style
+    black_light: Style
+    black_dashed: Style
 
-# Backward compatibility alias
+    charcoal: Style
+    charcoal_flat: Style
+    charcoal_solid: Style
+    charcoal_bold: Style
+    charcoal_light: Style
+    charcoal_dashed: Style
+
+    graphite: Style
+    graphite_flat: Style
+    graphite_solid: Style
+    graphite_bold: Style
+    graphite_light: Style
+    graphite_dashed: Style
+
+    gray: Style
+    gray_flat: Style
+    gray_solid: Style
+    gray_bold: Style
+    gray_light: Style
+    gray_dashed: Style
+
+    silver: Style
+    silver_flat: Style
+    silver_solid: Style
+    silver_bold: Style
+    silver_light: Style
+    silver_dashed: Style
+
+    snow: Style
+    snow_flat: Style
+    snow_solid: Style
+    snow_bold: Style
+    snow_light: Style
+    snow_dashed: Style
+
+    white: Style
+    white_flat: Style
+    white_solid: Style
+    white_bold: Style
+    white_light: Style
+    white_dashed: Style
+
+
+class EssentialsStyles(BasePresetStyles):
+    """Essentials preset styles with complete typing for IDE autocompletion."""
+
+    # Semantic roles
+    primary: Style
+    light: Style
+    bold: Style
+    flat: Style
+    solid: Style
+    dashed: Style
+
+    # Popular essentials colors
+    red: Style
+    red_flat: Style
+    red_solid: Style
+    red_bold: Style
+    red_dashed: Style
+
+    light_red: Style
+    light_red_flat: Style
+    light_red_solid: Style
+    light_red_bold: Style
+
+    green: Style
+    green_flat: Style
+    green_solid: Style
+    green_bold: Style
+    green_dashed: Style
+
+    light_green: Style
+    light_green_flat: Style
+    light_green_solid: Style
+    light_green_bold: Style
+
+    blue: Style
+    blue_flat: Style
+    blue_solid: Style
+    blue_bold: Style
+    blue_dashed: Style
+
+    light_blue: Style
+    light_blue_flat: Style
+    light_blue_solid: Style
+    light_blue_bold: Style
+
+    yellow: Style
+    yellow_flat: Style
+    yellow_solid: Style
+    yellow_bold: Style
+
+    purple: Style
+    purple_flat: Style
+    purple_solid: Style
+    purple_bold: Style
+    purple_dashed: Style
+
+    orange: Style
+    orange_flat: Style
+    orange_solid: Style
+    orange_bold: Style
+    orange_dashed: Style
+
+    navy: Style
+    navy_flat: Style
+    navy_solid: Style
+    navy_bold: Style
+    navy_dashed: Style
+
+    pink: Style
+    pink_flat: Style
+    pink_solid: Style
+    pink_bold: Style
+
+    charcoal: Style
+    charcoal_flat: Style
+    charcoal_solid: Style
+    charcoal_bold: Style
+    charcoal_dashed: Style
+
+    graphite: Style
+    graphite_flat: Style
+    graphite_solid: Style
+    graphite_bold: Style
+
+    gray: Style
+    gray_flat: Style
+    gray_solid: Style
+    gray_bold: Style
+    gray_dashed: Style
+
+    silver: Style
+    silver_flat: Style
+    silver_solid: Style
+    silver_bold: Style
+    silver_dashed: Style
+
+    snow: Style
+    snow_flat: Style
+    snow_solid: Style
+    snow_bold: Style
+
+    teal: Style
+    teal_flat: Style
+    teal_solid: Style
+    teal_bold: Style
+    teal_dashed: Style
+
+    olive: Style
+    olive_flat: Style
+    olive_solid: Style
+    olive_bold: Style
+
+    brown: Style
+    brown_flat: Style
+    brown_solid: Style
+    brown_bold: Style
+
+    black: Style
+    black_flat: Style
+    black_solid: Style
+    black_bold: Style
+
+    white: Style
+    white_flat: Style
+    white_solid: Style
+    white_bold: Style
+
+    aqua: Style
+    aqua_flat: Style
+    aqua_solid: Style
+    aqua_bold: Style
+
+    green_yellow: Style
+    green_yellow_flat: Style
+    green_yellow_solid: Style
+    green_yellow_bold: Style
+
+    ivory: Style
+    ivory_flat: Style
+    ivory_solid: Style
+    ivory_bold: Style
+
+    steel: Style
+    steel_flat: Style
+    steel_solid: Style
+    steel_bold: Style
+
+
 PresetStyles = BasePresetStyles

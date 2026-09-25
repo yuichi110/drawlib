@@ -35,7 +35,6 @@ from drawlib._core.l4_canvas._patches import CanvasPatchesFeature
 from drawlib._core.l4_canvas._polygon import CanvasOriginalPolygonFeature
 from drawlib._core.l4_canvas._text import CanvasTextFeature
 from drawlib._core.l4_canvas_utils import ColorUtil
-from drawlib._preset_styles import get_style
 
 
 class Canvas(

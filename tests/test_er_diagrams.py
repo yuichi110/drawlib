@@ -274,7 +274,7 @@ class TestERDiagramRendering:
 
         erd = ERDiagram(
             title="Styled ERD",
-            style=Style(fill_color=Colors.White),
+            style=Style(shape_fill_color=Colors.White),
         )
 
         # Entity with excess height -> extra space left blank
@@ -283,7 +283,7 @@ class TestERDiagramRendering:
                 name="authors",
                 width=24.0,
                 height=25.0,
-                header_style=Style(fill_color=Colors.Navy, text_color=Colors.White),
+                header_style=Style(shape_fill_color=Colors.Navy, text_color=Colors.White),
             ),
             xy=(25.0, 50.0),
         )
@@ -295,7 +295,7 @@ class TestERDiagramRendering:
                 name="books",
                 width=24.0,
                 height=25.0,
-                header_style=Style(fill_color=Colors.Teal, text_color=Colors.White),
+                header_style=Style(shape_fill_color=Colors.Teal, text_color=Colors.White),
             ),
             xy=(75.0, 50.0),
         )

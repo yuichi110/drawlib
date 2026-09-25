@@ -31,7 +31,7 @@ from drawlib._core.l4_canvas import circle as canvas_circle
 from drawlib._core.l4_canvas import line_arc as canvas_line_arc
 from drawlib._core.l4_canvas import rectangle as canvas_rectangle
 from drawlib._core.l4_canvas import text as canvas_text
-from drawlib._preset_styles import get_style
+from drawlib._preset_styles import BasePresetStyles
 
 
 class _CycleItem:
@@ -60,6 +60,8 @@ class Cycle:
     @guarded
     def __init__(
         self,
+        *,
+        styles: BasePresetStyles,
         clockwise: bool = True,
         start_angle: TypeAngle = 90.0,
         node_shape: Literal["circle", "rectangle", "none"] = "circle",
@@ -71,21 +73,22 @@ class Cycle:
         arrow_head_width: TypePosFloat = 4.5,
         arrow_color_mode: Literal["monochrome", "match_source", "match_target"] = "match_source",
         arrow_gap: TypePosFloat = 2.5,
-        default_style: str | Style | None = None,
-        default_textstyle: str | Style | None = None,
-        default_description_style: str | Style | None = None,
-        default_arrow_style: str | Style | None = None,
+        default_style: Style | None = None,
+        default_textstyle: Style | None = None,
+        default_description_style: Style | None = None,
+        default_arrow_style: Style | None = None,
         palette: Sequence[TypeColor] | None = None,
         center_text: TypeStr = "",
         center_description: TypeStr = "",
         center_radius: TypePosFloat = 10.0,
-        center_style: str | Style | None = None,
-        center_textstyle: str | Style | None = None,
-        center_description_style: str | Style | None = None,
+        center_style: Style | None = None,
+        center_textstyle: Style | None = None,
+        center_description_style: Style | None = None,
     ) -> None:
         """Initialize Cycle SmartArt.
 
         Args:
+            styles: The preset styles catalog (required).
             clockwise: Whether the process flows clockwise (True) or counter-clockwise (False).
                 Defaults to True.
             start_angle: Angle in degrees for the first node (0 is right, 90 is top). Defaults to 90.0.
@@ -113,6 +116,7 @@ class Cycle:
             center_textstyle: Custom style for the center node title.
             center_description_style: Custom style for the center node description text.
         """
+        self._styles = styles
         self._clockwise = bool(clockwise)
         self._start_angle = float(start_angle)
         self._node_shape = node_shape
@@ -124,21 +128,21 @@ class Cycle:
         self._arrow_head_width = float(arrow_head_width)
         self._arrow_color_mode = arrow_color_mode
         self._arrow_gap = float(arrow_gap)
-        self._default_style = get_style(default_style) if default_style is not None else None
-        self._default_textstyle = get_style(default_textstyle) if default_textstyle is not None else None
+        self._default_style = default_style if default_style is not None else styles.primary
+        self._default_textstyle = default_textstyle if default_textstyle is not None else styles.bold
         self._default_description_style = (
-            get_style(default_description_style) if default_description_style is not None else None
+            default_description_style if default_description_style is not None else styles.light
         )
-        self._default_arrow_style = get_style(default_arrow_style) if default_arrow_style is not None else None
+        self._default_arrow_style = default_arrow_style if default_arrow_style is not None else styles.solid
         self._palette = list(palette) if palette is not None else None
 
         self._center_text = center_text
         self._center_description = center_description
         self._center_radius = float(center_radius)
-        self._center_style = get_style(center_style) if center_style is not None else None
-        self._center_textstyle = get_style(center_textstyle) if center_textstyle is not None else None
+        self._center_style = center_style if center_style is not None else styles.flat
+        self._center_textstyle = center_textstyle if center_textstyle is not None else styles.bold
         self._center_description_style = (
-            get_style(center_description_style) if center_description_style is not None else None
+            center_description_style if center_description_style is not None else styles.light
         )
 
         self._items: list[_CycleItem] = []
@@ -153,33 +157,28 @@ class Cycle:
         self,
         text: TypeStr,
         description: TypeStr = "",
-        style: str | Style | None = None,
-        textstyle: str | Style | None = None,
-        description_style: str | Style | None = None,
-        arrow_style: str | Style | None = None,
+        style: Style | None = None,
+        textstyle: Style | None = None,
+        description_style: Style | None = None,
+        arrow_style: Style | None = None,
     ) -> None:
         """Append a step to the cycle.
 
         Args:
             text: Primary step title text.
             description: Optional supporting description text.
-            style: Custom Style or preset string for this step node.
-            textstyle: Custom Style or preset string for the title text.
-            description_style: Custom Style or preset string for the description text.
-            arrow_style: Custom Style or preset string for the arrow following this step.
+            style: Custom Style for this step node.
+            textstyle: Custom Style for the title text.
+            description_style: Custom Style for the description text.
+            arrow_style: Custom Style for the arrow following this step.
         """
-        resolved_style = get_style(style) if style is not None else None
-        resolved_textstyle = get_style(textstyle) if textstyle is not None else None
-        resolved_desc_style = get_style(description_style) if description_style is not None else None
-        resolved_arrow_style = get_style(arrow_style) if arrow_style is not None else None
-
         item = _CycleItem(
             text=text,
             description=description,
-            style=resolved_style,
-            textstyle=resolved_textstyle,
-            description_style=resolved_desc_style,
-            arrow_style=resolved_arrow_style,
+            style=style,
+            textstyle=textstyle,
+            description_style=description_style,
+            arrow_style=arrow_style,
         )
         self._items.append(item)
 
@@ -205,10 +204,10 @@ class Cycle:
         index: int,
         text: TypeStr,
         description: TypeStr = "",
-        style: str | Style | None = None,
-        textstyle: str | Style | None = None,
-        description_style: str | Style | None = None,
-        arrow_style: str | Style | None = None,
+        style: Style | None = None,
+        textstyle: Style | None = None,
+        description_style: Style | None = None,
+        arrow_style: Style | None = None,
     ) -> None:
         """Insert a step at the specified index.
 
@@ -216,23 +215,18 @@ class Cycle:
             index: Position index to insert the step.
             text: Primary step title text.
             description: Optional supporting description text.
-            style: Custom Style or preset string for this step node.
-            textstyle: Custom Style or preset string for the title text.
-            description_style: Custom Style or preset string for the description text.
-            arrow_style: Custom Style or preset string for the arrow following this step.
+            style: Custom Style for this step node.
+            textstyle: Custom Style for the title text.
+            description_style: Custom Style for the description text.
+            arrow_style: Custom Style for the arrow following this step.
         """
-        resolved_style = get_style(style) if style is not None else None
-        resolved_textstyle = get_style(textstyle) if textstyle is not None else None
-        resolved_desc_style = get_style(description_style) if description_style is not None else None
-        resolved_arrow_style = get_style(arrow_style) if arrow_style is not None else None
-
         item = _CycleItem(
             text=text,
             description=description,
-            style=resolved_style,
-            textstyle=resolved_textstyle,
-            description_style=resolved_desc_style,
-            arrow_style=resolved_arrow_style,
+            style=style,
+            textstyle=textstyle,
+            description_style=description_style,
+            arrow_style=arrow_style,
         )
         self._items.insert(index, item)
 
@@ -242,9 +236,9 @@ class Cycle:
         text: TypeStr,
         description: TypeStr = "",
         radius: TypePosFloat | None = None,
-        style: str | Style | None = None,
-        textstyle: str | Style | None = None,
-        description_style: str | Style | None = None,
+        style: Style | None = None,
+        textstyle: Style | None = None,
+        description_style: Style | None = None,
     ) -> None:
         """Configure the optional center node for a Radial Cycle.
 
@@ -252,20 +246,20 @@ class Cycle:
             text: Center node title text.
             description: Optional supporting description for the center node.
             radius: Radius of the center circle. If None, retains current center_radius.
-            style: Custom Style or preset string for the center circle.
-            textstyle: Custom Style or preset string for the center title text.
-            description_style: Custom Style or preset string for the center description text.
+            style: Custom Style for the center circle.
+            textstyle: Custom Style for the center title text.
+            description_style: Custom Style for the center description text.
         """
         self._center_text = text
         self._center_description = description
         if radius is not None:
             self._center_radius = float(radius)
         if style is not None:
-            self._center_style = get_style(style)
+            self._center_style = style
         if textstyle is not None:
-            self._center_textstyle = get_style(textstyle)
+            self._center_textstyle = textstyle
         if description_style is not None:
-            self._center_description_style = get_style(description_style)
+            self._center_description_style = description_style
 
     @guarded
     def draw(
@@ -426,9 +420,10 @@ class Cycle:
         palette = self._palette if self._palette is not None else DEFAULT_CHART_PALETTE
         color = palette[index % len(palette)]
         return Style(
-            fill_color=color,
-            line_color=(255, 255, 255, 1.0),
-            line_width=1.5,
+            shape_fill_color=color,
+            shape_line_color=(255, 255, 255, 1.0),
+            shape_line_width=1.5,
+            shape_line_style="solid",
         )
 
     def _resolve_arrow_style(self, from_idx: int, to_idx: int) -> Style:
@@ -443,16 +438,25 @@ class Cycle:
 
         if self._arrow_color_mode == "match_source":
             from_style = self._resolve_item_style(item, from_idx)
-            color = from_style.fill_color or palette[from_idx % len(palette)]
+            color = from_style.shape_fill_color or palette[from_idx % len(palette)]
         elif self._arrow_color_mode == "match_target":
             to_style = self._resolve_item_style(self._items[to_idx], to_idx)
-            color = to_style.fill_color or palette[to_idx % len(palette)]
+            color = to_style.shape_fill_color or palette[to_idx % len(palette)]
         else:
             color = (170, 170, 170, 0.9)
 
         if self._arrow_type == "arc":
-            return Style(fill_color=color, line_width=0)
-        return Style(line_color=color, line_width=self._arrow_width)
+            return Style(
+                shape_fill_color=color,
+                shape_line_color=color,
+                shape_line_width=0,
+                shape_line_style="solid",
+            )
+        return Style(
+            line_color=color,
+            line_width=self._arrow_width,
+            line_style="solid",
+        )
 
     def _draw_item_texts(
         self,
@@ -544,9 +548,10 @@ class Cycle:
     def _draw_center_node(self, cx: float, cy: float) -> None:
         """Render the center node for Radial Cycle diagrams."""
         c_style = self._center_style or Style(
-            fill_color=(245, 247, 250, 1.0),
-            line_color=(185, 195, 210, 1.0),
-            line_width=1.5,
+            shape_fill_color=(245, 247, 250, 1.0),
+            shape_line_color=(185, 195, 210, 1.0),
+            shape_line_width=1.5,
+            shape_line_style="solid",
         )
         canvas_circle(xy=(cx, cy), radius=self._center_radius, style=c_style)
 

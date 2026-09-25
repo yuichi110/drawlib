@@ -45,7 +45,7 @@ def test_official_preset_style_generators() -> None:
 def test_essentials_fill() -> None:
     """Integrated drawing test for essentials circle filling styles."""
     styles = get_essentials_styles()
-    circle((25, 25), 10, text="drawlib")
+    circle((25, 25), 10, style=styles.flat, text="drawlib")
     circle((25, 50), 10, style=styles.primary, text="drawlib")
     circle((25, 75), 10, style=styles.light, text="drawlib")
     circle((75, 25), 10, style=styles.bold, text="drawlib")

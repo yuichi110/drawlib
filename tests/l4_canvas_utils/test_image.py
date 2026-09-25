@@ -9,31 +9,27 @@
 
 import pytest
 
-from drawlib._core.l3_styles import SYSTEM_DEFAULT_IMAGE_STYLE, Style
+from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas_utils._image import ImageUtil
-from drawlib._preset_styles import get_style
 
 
 class TestImageUtil:
     """Unit tests for the ImageUtil static helper class."""
 
     def test_format_style(self) -> None:
-        """Verifies format_style merges Style correctly and validates input types."""
-        # 1. Test None style (returns default style merged with system default)
+        """Verifies format_style handles Style and validates input types."""
+        # 1. Test None style (returns Style with image_border_width=0)
         formatted_none = ImageUtil.format_style(None)
         assert isinstance(formatted_none, Style)
-        assert formatted_none.line_width == get_style().line_width
+        assert formatted_none.image_border_width == 0
 
-        # 2. Test string style
-        formatted_str = ImageUtil.format_style("primary")
-        assert formatted_str.line_color == get_style("primary").line_color
-
-        # 3. Test Style object (creates deep copy and merges)
-        custom_style = Style(line_width=10.0)
+        # 2. Test Style object
+        custom_style = Style(image_border_width=10.0)
         formatted_obj = ImageUtil.format_style(custom_style)
-        assert formatted_obj.line_width == 10.0
-        assert formatted_obj is not custom_style  # Verify different instance (copied)
+        assert formatted_obj.image_border_width == 10.0
 
-        # 4. Test invalid style types raise ValueError
-        with pytest.raises(ValueError):
+        # 3. Test invalid style types raise TypeError
+        with pytest.raises(TypeError):
             ImageUtil.format_style(123)  # type: ignore
+        with pytest.raises(TypeError):
+            ImageUtil.format_style("primary")  # type: ignore

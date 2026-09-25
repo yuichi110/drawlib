@@ -25,7 +25,6 @@ from drawlib._core.l2_types import (
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import line, text
-from drawlib._preset_styles import get_style
 
 
 class _TreeNodeDrawingItem(BaseModel):
@@ -52,14 +51,14 @@ class TreeNode:
     def __init__(
         self,
         text: TypeStr,
-        textstyle: TypeStr | Style | None = None,
-        linestyle: TypeStr | Style | None = None,
+        textstyle: Style | None = None,
+        linestyle: Style | None = None,
         line_horizontal_margin: TypePosFloat | None = None,
         line_horizontal_length: TypePosFloat | None = None,
         line_vertical_margin: TypePosFloat | None = None,
         children: list[TreeNode] | None = None,
-        default_textstyle: TypeStr | Style | None = None,
-        default_linestyle: TypeStr | Style | None = None,
+        default_textstyle: Style | None = None,
+        default_linestyle: Style | None = None,
         default_line_horizontal_margin: TypePosFloat | None = None,
         default_line_horizontal_length: TypePosFloat | None = None,
         default_line_vertical_margin: TypePosFloat | None = None,
@@ -69,34 +68,21 @@ class TreeNode:
         Styles are mandatory for root node. Optional for child nodes.
 
         Args:
-            text (str): The text content for the tree node.
-            textstyle (str | Style | None): The text style for the node.
-                It can be a string that maps to a `Style` or a `Style` instance. Defaults to None.
-            linestyle (str | Style | None): The line style for the node.
-                It can be a string that maps to a `Style` or a `Style` instance. Defaults to None.
-            line_horizontal_margin (float | None): The margin for horizontal lines. Defaults to None.
-            line_horizontal_length (float | None): The length of horizontal lines. Defaults to None.
-            line_vertical_margin (Optional[float], optional): The margin for vertical lines. Defaults to None.
-            children (Optional[List[TreeNode]], optional):
-                A list of child nodes connected to this node. Defaults to None.
-            default_textstyle (Union[str, Style, None], optional):
-                The default text style for child nodes. Defaults to None.
-            default_linestyle (Union[str, Style, None], optional):
-                The default line style for child nodes. Defaults to None.
-            default_line_horizontal_margin (Optional[float], optional):
-                The default horizontal margin for lines of child nodes. Defaults to None.
-            default_line_horizontal_length (Optional[float], optional):
-                The default horizontal length for lines of child nodes. Defaults to None.
-            default_line_vertical_margin (Optional[float], optional):
-                The default vertical margin for lines of child nodes. Defaults to None.
+            text: The text content for the tree node.
+            textstyle: The text style for the node.
+            linestyle: The line style for the node.
+            line_horizontal_margin: The margin for horizontal lines. Defaults to None.
+            line_horizontal_length: The length of horizontal lines. Defaults to None.
+            line_vertical_margin: The margin for vertical lines. Defaults to None.
+            children: A list of child nodes connected to this node. Defaults to None.
+            default_textstyle: The default text style for child nodes. Defaults to None.
+            default_linestyle: The default line style for child nodes. Defaults to None.
+            default_line_horizontal_margin: The default horizontal margin for lines of child nodes. Defaults to None.
+            default_line_horizontal_length: The default horizontal length for lines of child nodes. Defaults to None.
+            default_line_vertical_margin: The default vertical margin for lines of child nodes. Defaults to None.
         """
         self._text = text
-
-        if isinstance(textstyle, str):
-            textstyle = get_style(textstyle)
         self._textstyle = textstyle
-        if isinstance(linestyle, str):
-            linestyle = get_style(linestyle)
         self._linestyle = linestyle
 
         self._line_horizontal_margin = line_horizontal_margin
@@ -108,11 +94,7 @@ class TreeNode:
         else:
             self._children: list[TreeNode] = children
 
-        if isinstance(default_textstyle, str):
-            default_textstyle = get_style(default_textstyle)
         self._default_textstyle: Style | None = default_textstyle
-        if isinstance(default_linestyle, str):
-            default_linestyle = get_style(default_linestyle)
         self._default_linestyle: Style | None = default_linestyle
 
         self._default_line_horizontal_margin: float | None = default_line_horizontal_margin
@@ -145,8 +127,7 @@ class TreeNode:
         Returns:
             TreeNode: The current tree node instance.
         """
-        style.text_halign = "left"
-        style.text_valign = "center"
+        style = style.patch(text_halign="left", text_valign="center")
 
         item = _TreeNodeDrawingItem(
             location=location,
@@ -258,8 +239,8 @@ class TreeNode:
             line_vertical_margin = default_line_vertical_margin
 
         # draw text
+        textstyle = textstyle.patch(text_halign="left")
         if self._drawing_item_name is None:
-            textstyle.text_halign = "left"
             text(xy=xy, text=self._text, style=textstyle)
 
         else:
@@ -271,11 +252,9 @@ class TreeNode:
                 args["style"] = drawing_item.style
                 drawing_item.function(**args)
 
-                textstyle.text_halign = "left"
                 text(xy=(xy[0] + drawing_item.padding_width, xy[1]), text=self._text, style=textstyle)
 
             else:
-                textstyle.text_halign = "left"
                 text(xy=xy, text=self._text, style=textstyle)
 
                 args = drawing_item.args

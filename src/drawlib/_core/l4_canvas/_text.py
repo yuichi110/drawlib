@@ -15,8 +15,6 @@ from drawlib._core.l1_core import guarded, logger
 from drawlib._core.l2_types import (
     TypeAngle,
     TypeCoordinate,
-    TypeFloat,
-    TypePosFloat,
     TypeSize,
     TypeStr,
 )
@@ -29,12 +27,7 @@ class CanvasTextFeature(CanvasBase):
     """A class for adding text features to a canvas using matplotlib."""
 
     def __init__(self) -> None:
-        """Initializes a CanvasTextFeature object.
-
-        Initializes an instance of CanvasTextFeature by calling the constructor
-        of its superclass, CanvasBase.
-
-        """
+        """Initializes a CanvasTextFeature object."""
         super().__init__()
 
     @guarded
@@ -42,28 +35,23 @@ class CanvasTextFeature(CanvasBase):
         self,
         xy: TypeCoordinate,
         text: TypeStr,
+        *,
+        style: Style,
         size: TypeSize | None = None,
         angle: TypeAngle = 0.0,
-        style: Style | TypeStr | None = None,
     ) -> None:
         """Draw text on the canvas.
 
         Args:
             xy: Coordinates (x, y) of the text anchor point.
             text: Text string to be displayed.
-            size (optional): Font size of the text.
+            style: Style of the text (required).
+            size (optional): Font size of the text override.
             angle (optional): Rotation angle of the text (in degrees).
-            style (optional): Style of the text.
-
-        Returns:
-            None
-
         """
-        # validate args
-
         style = TextUtil.format_style(style)
         if size is not None:
-            style.text_size = size
+            style = style.patch(text_size=size)
 
         options = TextUtil.get_text_options(style)
         fp = TextUtil.get_font_properties(style)
@@ -87,29 +75,25 @@ class CanvasTextFeature(CanvasBase):
         self,
         xy: TypeCoordinate,
         text: TypeStr,
+        *,
+        style: Style,
         size: TypeSize | None = None,
         angle: TypeAngle = 0.0,
-        style: Style | None = None,
     ) -> None:
         """Draw vertical text on the canvas.
 
         Args:
             xy: Coordinates (x, y) of the text anchor point.
             text: Text string to be displayed vertically.
-            size (optional): Font size of the text.
+            style: Style of the text (required).
+            size (optional): Font size of the text override.
             angle (optional): Rotation angle of the text (in degrees).
-            style (optional): Style of the text.
-
-        Returns:
-            None
-
         """
-        # validate args
         style = TextUtil.format_style(style)
 
         if style.text_halign != "center":
             logger.warning("Style.halign must be center on text_vertical(). Fix halign.")
-            style.text_halign = "center"
+            style = style.patch(text_halign="center")
 
         vertical_text = "\n".join(text)
         self.text(xy=xy, text=vertical_text, size=size, angle=angle, style=style)

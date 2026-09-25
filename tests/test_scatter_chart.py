@@ -17,6 +17,7 @@ from pathlib import Path
 from drawlib import canvas
 from drawlib._core.l3_styles import Style
 from drawlib.charts import ScatterChart
+from drawlib.preset_styles import get_default_styles
 
 
 class TestScatterChartUnit:
@@ -102,9 +103,10 @@ class TestScatterChartRendering:
             chart.configure_y_axis(label="Response Time (ms)", min_value=0)
 
             # Standalone points with labels
+            styles = get_default_styles()
             chart.add(xy=(100, 15.0), radius=1.2, label="v1.0 Baseline")
-            chart.add(xy=(500, 28.0), radius=1.8, style="red_flat", label="v1.5")
-            chart.add(xy=(900, 19.5), radius=2.2, style="blue_flat", label="v2.0")
+            chart.add(xy=(500, 28.0), radius=1.8, style=styles.red_flat, label="v1.5")
+            chart.add(xy=(900, 19.5), radius=2.2, style=styles.blue_flat, label="v2.0")
 
             # Named series
             chart.add_series(
@@ -160,7 +162,7 @@ class TestScatterChartRendering:
             canvas.initialize()
 
             chart = ScatterChart(width=70.0, height=45.0)
-            c_style = Style(line_width=1.5, fill_color=(16, 185, 129, 0.7))
+            c_style = Style(shape_line_width=1.5, shape_fill_color=(16, 185, 129, 0.7), shape_line_color=(0, 0, 0, 1.0))
             chart.add(xy=(1, 2), shape="triangle", style=c_style, radius=2.0)
             chart.add(xy=(3, 4), shape="rhombus", radius=2.0)
             chart.add(xy=(5, 6), shape="square", radius=2.0)

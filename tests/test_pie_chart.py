@@ -34,7 +34,7 @@ class TestPieSlice:
 
     def test_slice_custom_attributes(self) -> None:
         """Test custom color, style, and explode on PieSlice."""
-        style = Style(fill_color=(100, 150, 200, 1.0))
+        style = Style(shape_fill_color=(100, 150, 200, 1.0))
         s = PieSlice("Desktop", 55.0, color=(200, 100, 50), style=style, explode=2.5)
         assert s.name == "Desktop"
         assert s.value == 55.0

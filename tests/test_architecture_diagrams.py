@@ -304,7 +304,7 @@ class TestArchitectureDiagramEndToEnd:
                 "Custom Gateway",
                 icon=custom_icon,
                 icon_size=10.0,
-                style=Style(fill_color=Colors.White, line_color=Colors.Gray, line_width=1.0),
+                style=Style(shape_fill_color=Colors.White, shape_line_color=Colors.Gray, shape_line_width=1.0),
             ),
             (45.0, 50.0),
         )

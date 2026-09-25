@@ -55,13 +55,15 @@ When tasked with generating or updating Drawlib diagrams, execute this self-corr
 ```python
 from drawlib.canvas import clear, config, save
 from drawlib.lines import line
+from drawlib.preset_styles import get_styles
 from drawlib.shapes import rectangle
 from drawlib.text import text
 
+styles = get_styles()
 config(width=120, height=50)
-rectangle((30, 25), width=28, height=16, style="blue_flat", text="Service A", textstyle="white_bold")
-rectangle((90, 25), width=28, height=16, style="green_flat", text="Service B", textstyle="white_bold")
-line((44, 25), (76, 25), arrowhead="->", style="bold")
+rectangle((30, 25), width=28, height=16, style=styles.blue_flat, text="Service A", textstyle=styles.white_bold)
+rectangle((90, 25), width=28, height=16, style=styles.green_flat, text="Service B", textstyle=styles.white_bold)
+line((44, 25), (76, 25), arrowhead="->", style=styles.bold)
 save()
 ```
 
@@ -125,9 +127,9 @@ Embed illustrations in standard Markdown files (`docs_src/*.md`):
 ````markdown
 ```drawlib fold-code 600px center caption:"System Architecture"
 config(width=120, height=50)
-rectangle((30, 25), width=25, height=15, style="blue_flat", text="Client")
-rectangle((90, 25), width=25, height=15, style="green_flat", text="API Gateway")
-line((42.5, 25), (77.5, 25), arrowhead="->", style="bold")
+rectangle((30, 25), width=25, height=15, style=styles.blue_flat, text="Client")
+rectangle((90, 25), width=25, height=15, style=styles.green_flat, text="API Gateway")
+line((42.5, 25), (77.5, 25), arrowhead="->", style=styles.bold)
 ```
 ````
 

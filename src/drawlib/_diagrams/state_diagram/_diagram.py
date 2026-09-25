@@ -84,7 +84,7 @@ class StateDiagram:
             if isinstance(item, State):
                 item.custom_height = True
         if style is not None:
-            item.style = style if item.style is None else item.style.merge(style)
+            item.style = style if item.style is None else item.style.patch(style)
 
         if item not in self.states:
             self.states.append(item)

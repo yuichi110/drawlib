@@ -29,30 +29,31 @@ def font_icon(
     code: TypeStr,
     file: TypeStr,
     angle: TypeAngle = 0.0,
-    style: Style | TypeStr | None = None,
+    *,
+    style: Style,
 ) -> None:
     """Draw an icon from the provided icon font.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates where the icon will be drawn.
-            Default alignment is left and bottom if angle is not specified, center if specified.
+            Default alignment is center.
         width: The width of the icon.
         code: The Unicode character or code point of the icon glyph to be drawn.
         file: The path to the font file.
         angle: The rotation angle of the icon in degrees, ranging from 0.0 to 360.0. Defaults to 0.0.
-        style: The style of the icon, including alignment and color properties. Defaults to None.
+        style: The style of the icon (required).
 
     """
     style_obj = IconUtil.format_style(style)
     font_size = get_fontsize_from_charwidth(width)
 
-    # convert Style to Style
+    # convert Style to Style for text rendering
     textstyle = Style(
-        text_color=style_obj.text_color,
+        text_color=style_obj.icon_color,
         text_size=font_size,
         text_font=FontFile(file),
-        text_halign=style_obj.text_halign,
-        text_valign=style_obj.text_valign,
+        text_halign="center",
+        text_valign="center",
     )
 
     # draw icon as text

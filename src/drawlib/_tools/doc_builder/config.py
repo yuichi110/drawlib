@@ -40,7 +40,8 @@ def load_config(config_path: Optional[str], shared_globals: Dict[str, Any]) -> N
         "from drawlib.colors import *\n"
         "from drawlib.types import *\n"
         "from drawlib.math import *\n"
-        "from drawlib.doc_builder import *\n",
+        "from drawlib.doc_builder import *\n"
+        "styles = get_styles('essentials')\n",
         shared_globals,
     )
 

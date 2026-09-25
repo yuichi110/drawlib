@@ -18,7 +18,6 @@ from drawlib._preset_styles import (
     get_default_styles,
     get_essentials_styles,
     get_monochrome_styles,
-    get_style,
     get_styles,
 )
 from drawlib.canvas import save
@@ -50,20 +49,15 @@ class TestPresetStylesUnit:
         assert get_monochrome_styles() == monochrome
         assert not hasattr(preset_styles, "ThemePreset")
 
-    def test_get_style_resolution(self) -> None:
-        """Verifies get_style resolves None, Style instance, and string preset names."""
-        st = get_style(None)
-        assert isinstance(st, Style)
-
-        custom_st = Style(fill_color=(255, 0, 0, 1.0))
-        assert get_style(custom_st) == custom_st
-
-        assert isinstance(get_style("primary"), Style)
-        assert isinstance(get_style("light"), Style)
-        assert isinstance(get_style("bold"), Style)
-        assert isinstance(get_style("flat"), Style)
-        assert isinstance(get_style("solid"), Style)
-        assert isinstance(get_style("dashed"), Style)
+    def test_preset_style_attributes(self) -> None:
+        """Verifies PresetStyles provides required style attributes."""
+        styles = get_default_styles()
+        assert isinstance(styles.primary, Style)
+        assert isinstance(styles.light, Style)
+        assert isinstance(styles.bold, Style)
+        assert isinstance(styles.flat, Style)
+        assert isinstance(styles.solid, Style)
+        assert isinstance(styles.dashed, Style)
 
     def test_invalid_style_name(self) -> None:
         """Verifies get_styles raises ValueError for invalid style name."""
@@ -74,7 +68,7 @@ class TestPresetStylesUnit:
 def test_default_fill() -> None:
     """Integrated drawing test for default circles fill."""
     styles = get_default_styles()
-    circle((25, 25), 10, text="drawlib")
+    circle((25, 25), 10, style=styles.primary, text="drawlib")
     circle((25, 50), 10, style=styles.light, text="drawlib")
     circle((25, 75), 10, style=styles.bold, text="drawlib")
     save(f"{OUTPUT_DIR_DEFAULT}test_fill.png")

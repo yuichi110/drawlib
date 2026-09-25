@@ -27,7 +27,7 @@ class TestCanvasGcp:
     def test_gcp_icon_basic_drawing(self) -> None:
         """Verify basic GCP icon drawing."""
         clear()
-        gcp.compute_engine(xy=(50, 50), width=20)
+        gcp.compute_engine(xy=(50, 50), width=20, style=Style())
         save(f"{OUTPUT_DIR}test_basic.png")
 
     def test_gcp_icon_angle(self) -> None:
@@ -37,6 +37,7 @@ class TestCanvasGcp:
             xy=(50, 50),
             width=20,
             angle=45,
+            style=Style(),
         )
         save(f"{OUTPUT_DIR}test_angle45.png")
 
@@ -47,34 +48,34 @@ class TestCanvasGcp:
         gcp.compute_engine(
             xy=(25, 25),
             width=20,
-            style=Style(fill_alpha=0.4),
+            style=Style(image_alpha=0.4),
         )
         # Silhouette fill color
         gcp.compute_engine(
             xy=(75, 75),
             width=20,
-            style=Style(fill_color=Colors.Red),
+            style=Style(image_tint_color=Colors.Red),
         )
         # Border
         gcp.gke(
             xy=(25, 75),
             width=20,
-            style=Style(line_color=Colors.Blue, line_width=2),
+            style=Style(image_border_color=Colors.Blue, image_border_width=2),
         )
         save(f"{OUTPUT_DIR}test_styles.png")
 
     def test_gcp_aliases(self) -> None:
         """Verify common short GCP alias functions."""
         clear()
-        gcp.gce(xy=(25, 50), width=15)
-        gcp.gke(xy=(50, 50), width=15)
-        gcp.gcs(xy=(75, 50), width=15)
+        gcp.gce(xy=(25, 50), width=15, style=Style())
+        gcp.gke(xy=(50, 50), width=15, style=Style())
+        gcp.gcs(xy=(75, 50), width=15, style=Style())
         save(f"{OUTPUT_DIR}test_aliases.png")
 
     def test_gcp_flat_import(self) -> None:
         """Verify GCP icon drawing via drawlib.icons.gcp import."""
         clear()
-        gcp.compute_engine(xy=(50, 50), width=25)
+        gcp.compute_engine(xy=(50, 50), width=25, style=Style())
         save(f"{OUTPUT_DIR}test_flat_import.png")
         assert gcp.compute_engine == gcp_internal.compute_engine
 

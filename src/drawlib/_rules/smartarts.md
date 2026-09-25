@@ -130,28 +130,28 @@ from drawlib.types import Style
 
 config(width=120, height=65)
 
-table = Table()
+table = Table(styles=styles)
 table.clear_styles()
 
-table.set_style_cell_header(background_color=ColorsEssentials.Graphite, textstyle="white_bold")
+table.set_style_cell_header(background_color=ColorsEssentials.Graphite, textstyle=styles.white_bold)
 table.set_style_cell_evenodd(
     even_color=ColorsEssentials.Snow,
-    even_textstyle=Style(text_color=ColorsEssentials.Charcoal, text_size=10),
+    even_textstyle=styles.primary.patch(text_color=ColorsEssentials.Charcoal, text_size=10),
     odd_color=ColorsEssentials.White,
-    odd_textstyle=Style(text_color=ColorsEssentials.Charcoal, text_size=10),
+    odd_textstyle=styles.primary.patch(text_color=ColorsEssentials.Charcoal, text_size=10),
 )
 # SLA highlight (Row 2, Column 3)
 table.set_style_cell(
     background_color=Colors140.PaleGreen,
-    textstyle=Style(text_color=Colors140.ForestGreen, text_size=10),
+    textstyle=styles.primary.patch(text_color=Colors140.ForestGreen, text_size=10),
     rows=[2],
     columns=[3],
 )
 table.set_style_border(
-    top=Style(line_color=ColorsEssentials.Charcoal, line_width=1.5),
-    top2=Style(line_color=ColorsEssentials.Charcoal, line_width=1.0),
-    bottom=Style(line_color=ColorsEssentials.Charcoal, line_width=1.5),
-    between_rows=Style(line_color=Colors140.LightGray, line_width=0.5),
+    top=styles.primary.patch(line_color=ColorsEssentials.Charcoal, line_width=1.5),
+    top2=styles.primary.patch(line_color=ColorsEssentials.Charcoal, line_width=1.0),
+    bottom=styles.primary.patch(line_color=ColorsEssentials.Charcoal, line_width=1.5),
+    between_rows=styles.primary.patch(line_color=Colors140.LightGray, line_width=0.5),
 )
 
 sla_data = [
@@ -214,21 +214,21 @@ config(width=110, height=70)
 
 TreeNode.register_drawing_item(
     name="dir_icon", location="before", padding_width=4.5, function=phosphor.folder,
-    style=Style(line_color=ColorsEssentials.LightBlue, fill_color=ColorsEssentials.LightBlue), args={"width": 3.0},
+    style=styles.primary.patch(icon_color=ColorsEssentials.LightBlue), args={"width": 3.0},
 )
 TreeNode.register_drawing_item(
     name="py_icon", location="before", padding_width=4.5, function=phosphor.file_py,
-    style=Style(line_color=Colors140.ForestGreen, fill_color=Colors140.ForestGreen), args={"width": 3.0},
+    style=styles.primary.patch(icon_color=Colors140.ForestGreen), args={"width": 3.0},
 )
 TreeNode.register_drawing_item(
     name="yaml_icon", location="before", padding_width=4.5, function=phosphor.file_code,
-    style=Style(line_color=ColorsEssentials.Graphite, fill_color=ColorsEssentials.Graphite), args={"width": 3.0},
+    style=styles.primary.patch(icon_color=ColorsEssentials.Graphite), args={"width": 3.0},
 )
 
 tree_root = TreeNode(
     "monorepo-root/",
-    default_textstyle=Style(text_size=11),
-    default_linestyle=Style(line_color=ColorsEssentials.Gray, line_width=1.0),
+    default_textstyle=styles.primary.patch(text_size=11),
+    default_linestyle=styles.primary.patch(line_color=ColorsEssentials.Gray, line_width=1.0),
     default_line_horizontal_margin=3.0,
     default_line_horizontal_length=3.0,
     default_line_vertical_margin=6.0,
@@ -293,22 +293,23 @@ from drawlib.types import Style
 config(width=110, height=50)
 
 pipeline = BoxList(
-    default_box_style=Style(fill_color=ColorsEssentials.LightBlue, line_color=ColorsEssentials.Charcoal, line_width=1.0),
-    default_text_style=Style(text_color=ColorsEssentials.White, text_size=10),
+    styles=styles,
+    default_box_style=styles.primary.patch(shape_fill_color=ColorsEssentials.LightBlue, shape_line_color=ColorsEssentials.Charcoal, shape_line_width=1.0),
+    default_text_style=styles.white_bold.patch(text_size=10),
 )
 pipeline.append("1. Ingestion")
 pipeline.append("2. Validation")
 # Highlighted degraded step
 pipeline.append(
     "3. ML Inference",
-    box_style=Style(fill_color=Colors140.Crimson, line_color=Colors140.DarkRed, line_width=1.5),
-    text_style=Style(text_color=ColorsEssentials.White, text_size=10),
+    box_style=styles.primary.patch(shape_fill_color=Colors140.Crimson, shape_line_color=Colors140.DarkRed, shape_line_width=1.5),
+    text_style=styles.white_bold.patch(text_size=10),
 )
 pipeline.append("4. Persistence")
 pipeline.append("5. Dispatch")
 pipeline.draw(xy=(8, 30), box_width=18, box_height=10, align="left")
 
-status_list = BoxList(default_box_style="gray_flat", default_text_style="white_bold")
+status_list = BoxList(styles=styles, default_box_style=styles.gray_flat, default_text_style=styles.white_bold)
 status_list.extend(["Cluster A: OK", "Cluster B: OK", "Cluster C: WARN"])
 status_list.draw(xy=(8, 5), box_width=25, box_height=6, align="left")
 save()
@@ -368,22 +369,22 @@ from drawlib.types import Style
 
 config(width=220, height=110)
 
-txt_white = Style(text_color=ColorsEssentials.White, text_size=9, text_font=Font.SANSSERIF_BOLD)
-txt_child = Style(text_size=8.5, text_font=Font.SANSSERIF_BOLD)
-txt_leaf = Style(text_size=9)
+txt_white = styles.primary.patch(text_color=ColorsEssentials.White, text_size=9, text_font=Font.SANSSERIF_BOLD)
+txt_child = styles.primary.patch(text_size=8.5, text_font=Font.SANSSERIF_BOLD)
+txt_leaf = styles.primary.patch(text_size=9)
 
 root = MindMapNode(
     "Core API Gateway",
     shape="oval",
     size=(28, 12),
-    style=Style(fill_color=ColorsEssentials.Graphite, line_color=ColorsEssentials.Charcoal),
+    style=styles.primary.patch(shape_fill_color=ColorsEssentials.Graphite, shape_line_color=ColorsEssentials.Charcoal),
     textstyle=txt_white,
     default_line_length=12.0,
     default_horizontal_margin=4.0,
     default_vertical_margin=4.0,
     children=[
         MindMapNode(
-            "Client Traffic", branch="left", shape="rectangle", size=(22, 8), style="blue_flat", textstyle=txt_white,
+            "Client Traffic", branch="left", shape="rectangle", size=(22, 8), style=styles.blue_flat, textstyle=txt_white,
             children=[
                 MindMapNode("Web App (SPA)", shape="none", textstyle=txt_leaf),
                 MindMapNode("Mobile Apps", shape="none", textstyle=txt_leaf),
@@ -391,22 +392,22 @@ root = MindMapNode(
             ],
         ),
         MindMapNode(
-            "Internal Services", branch="right", shape="rectangle", size=(24, 8), style="green_flat", textstyle=txt_white,
+            "Internal Services", branch="right", shape="rectangle", size=(24, 8), style=styles.green_flat, textstyle=txt_white,
             children=[
-                MindMapNode("Auth Service", shape="rectangle", size=(22, 6), style="light", textstyle=txt_child),
-                MindMapNode("Billing Engine", shape="rectangle", size=(22, 6), style="light", textstyle=txt_child),
-                MindMapNode("Notification Hub", shape="rectangle", size=(22, 6), style="light", textstyle=txt_child),
+                MindMapNode("Auth Service", shape="rectangle", size=(22, 6), style=styles.light, textstyle=txt_child),
+                MindMapNode("Billing Engine", shape="rectangle", size=(22, 6), style=styles.light, textstyle=txt_child),
+                MindMapNode("Notification Hub", shape="rectangle", size=(22, 6), style=styles.light, textstyle=txt_child),
             ],
         ),
         MindMapNode(
-            "Telemetry Stack", branch="top", shape="rectangle", size=(24, 8), style="purple_flat", textstyle=txt_white,
+            "Telemetry Stack", branch="top", shape="rectangle", size=(24, 8), style=styles.purple_flat, textstyle=txt_white,
             children=[
                 MindMapNode("Prometheus Metrics", shape="none", textstyle=txt_leaf),
                 MindMapNode("OpenTelemetry Traces", shape="none", textstyle=txt_leaf),
             ],
         ),
         MindMapNode(
-            "Persistence Tier", branch="bottom", shape="rectangle", size=(24, 8), style="orange_flat", textstyle=txt_white,
+            "Persistence Tier", branch="bottom", shape="rectangle", size=(24, 8), style=styles.orange_flat, textstyle=txt_white,
             children=[
                 MindMapNode("PostgreSQL Primary", shape="none", textstyle=txt_leaf),
                 MindMapNode("Redis Cache Cluster", shape="none", textstyle=txt_leaf),
@@ -414,7 +415,7 @@ root = MindMapNode(
         ),
     ],
 )
-root.draw(xy=(110, 55))
+root.draw(xy=(110, 55), styles=styles)
 save()
 ```
 
@@ -461,24 +462,25 @@ from drawlib.types import Style
 config(width=130, height=45)
 
 pipeline = ChevronProcess(
+    styles=styles,
     corner_angle=60.0,
     spacing=2.0,
     flat_left_end=True,
-    default_textstyle=Style(text_size=9.5, text_color=ColorsEssentials.White),
-    default_description_style=Style(text_size=8, text_color=ColorsEssentials.Snow),
+    default_textstyle=styles.white_bold.patch(text_size=9.5),
+    default_description_style=styles.white.patch(text_size=8, text_color=ColorsEssentials.Snow),
 )
-pipeline.append("1. Commit", description="Lint / Hooks", style="gray_flat")
-pipeline.append("2. Build", description="Docker Image", style="blue_flat")
+pipeline.append("1. Commit", description="Lint / Hooks", style=styles.gray_flat)
+pipeline.append("2. Build", description="Docker Image", style=styles.blue_flat)
 # Active Stage Highlight
 pipeline.append(
     text="3. Security",
     description="SAST & CVE",
-    style=Style(fill_color=Colors140.Crimson, line_color=ColorsEssentials.Charcoal, line_width=1.5),
-    textstyle=Style(text_size=9.5, text_color=ColorsEssentials.White),
-    description_style=Style(text_size=8, text_color=ColorsEssentials.Snow),
+    style=styles.primary.patch(shape_fill_color=Colors140.Crimson, shape_line_color=ColorsEssentials.Charcoal, shape_line_width=1.5),
+    textstyle=styles.white_bold.patch(text_size=9.5),
+    description_style=styles.white.patch(text_size=8, text_color=ColorsEssentials.Snow),
 )
-pipeline.append("4. Staging", description="Integration", style="blue_flat")
-pipeline.append("5. Production", description="Canary Deploy", style="green_flat")
+pipeline.append("4. Staging", description="Integration", style=styles.blue_flat)
+pipeline.append("5. Production", description="Canary Deploy", style=styles.green_flat)
 pipeline.draw(xy=(10, 15), width=110.0, height=16.0)
 save()
 ```
@@ -538,6 +540,7 @@ from drawlib.types import Style
 config(width=100, height=90)
 
 incident_cycle = Cycle(
+    styles=styles,
     clockwise=True,
     start_angle=90.0,
     node_shape="circle",
@@ -546,23 +549,23 @@ incident_cycle = Cycle(
     arrow_width=1.5,
     arrow_head_width=4.0,
     arrow_color_mode="match_source",
-    default_textstyle=Style(text_size=9, text_color=ColorsEssentials.White),
-    default_description_style=Style(text_size=7, text_color=ColorsEssentials.Snow),
+    default_textstyle=styles.white_bold.patch(text_size=9),
+    default_description_style=styles.white.patch(text_size=7, text_color=ColorsEssentials.Snow),
     description_placement="inside",
 )
-incident_cycle.append("1. Detect", description="Alert Fires", style="red_flat")
-incident_cycle.append("2. Triage", description="Assess Scope", style="orange_flat")
-incident_cycle.append("3. Mitigate", description="Failover / Rollback", style="green_flat")
-incident_cycle.append("4. Resolve", description="Root Fix", style="blue_flat")
-incident_cycle.append("5. Learn", description="Action Items", style="purple_flat")
+incident_cycle.append("1. Detect", description="Alert Fires", style=styles.red_flat)
+incident_cycle.append("2. Triage", description="Assess Scope", style=styles.orange_flat)
+incident_cycle.append("3. Mitigate", description="Failover / Rollback", style=styles.green_flat)
+incident_cycle.append("4. Resolve", description="Root Fix", style=styles.blue_flat)
+incident_cycle.append("5. Learn", description="Action Items", style=styles.purple_flat)
 
 incident_cycle.set_center(
     text="SRE",
     description="Command",
     radius=11.0,
-    style="charcoal_flat",
-    textstyle=Style(text_color=ColorsEssentials.White, text_size=12),
-    description_style=Style(text_color=Colors140.LightGray, text_size=8),
+    style=styles.charcoal_flat,
+    textstyle=styles.white_bold.patch(text_size=12),
+    description_style=styles.white.patch(text_color=Colors140.LightGray, text_size=8),
 )
 incident_cycle.draw(xy=(50, 45), radius=32.0, align="center")
 save()
@@ -619,20 +622,20 @@ from drawlib.types import Style
 
 config(width=110, height=75)
 
-grid = GridLayout(num_column=4, num_row=4, default_r=1.5, default_style="solid", default_textstyle="white_bold")
+grid = GridLayout(styles=styles, num_column=4, num_row=4, default_r=1.5, default_style=styles.solid, default_textstyle=styles.white_bold)
 
 # Row 3 (Top): Client & CDN Ingress
-grid.add(position=(0, 3), width=4, height=1, text="Edge Ingress: Cloudflare CDN & WAF Gateway", style="purple_flat")
+grid.add(position=(0, 3), width=4, height=1, text="Edge Ingress: Cloudflare CDN & WAF Gateway", style=styles.purple_flat)
 # Row 2: Microservice Layer
-grid.add(position=(0, 2), width=2, height=1, text="Order & Cart API", style="blue_flat")
-grid.add(position=(2, 2), width=1, height=1, text="Auth API", style="blue_flat")
-grid.add(position=(3, 2), width=1, height=1, text="Notify", style="blue_flat")
+grid.add(position=(0, 2), width=2, height=1, text="Order & Cart API", style=styles.blue_flat)
+grid.add(position=(2, 2), width=1, height=1, text="Auth API", style=styles.blue_flat)
+grid.add(position=(3, 2), width=1, height=1, text="Notify", style=styles.blue_flat)
 # Row 1: Persistence Tier
-grid.add(position=(0, 1), width=1, height=1, text="Postgres", style="green_flat")
-grid.add(position=(1, 1), width=1, height=1, text="Mongo", style="green_flat")
-grid.add(position=(2, 1), width=2, height=1, text="Redis Replication Cluster", style="green_flat")
+grid.add(position=(0, 1), width=1, height=1, text="Postgres", style=styles.green_flat)
+grid.add(position=(1, 1), width=1, height=1, text="Mongo", style=styles.green_flat)
+grid.add(position=(2, 1), width=2, height=1, text="Redis Replication Cluster", style=styles.green_flat)
 # Row 0 (Bottom): Cloud Infrastructure
-grid.add(position=(0, 0), width=4, height=1, text="Kubernetes Core Platform (AWS EKS Multi-AZ)", style="gray_flat")
+grid.add(position=(0, 0), width=4, height=1, text="Kubernetes Core Platform (AWS EKS Multi-AZ)", style=styles.gray_flat)
 
 grid.draw(
     xy=(10, 10),
@@ -640,7 +643,7 @@ grid.draw(
     height=55,
     margin=1.5,
     outer_r=2.0,
-    outer_style=Style(line_color=ColorsEssentials.Charcoal, line_width=1.0, fill_color=ColorsEssentials.Snow),
+    outer_style=styles.primary.patch(shape_line_color=ColorsEssentials.Charcoal, shape_line_width=1.0, shape_fill_color=ColorsEssentials.Snow),
 )
 save()
 ```
@@ -693,11 +696,11 @@ from drawlib.types import Style
 
 config(width=100, height=65)
 
-test_pyramid = Pyramid(default_textstyle=Style(text_color=ColorsEssentials.White, text_size=10))
-test_pyramid.add("Manual (1%)", style="red_flat", textstyle=Style(text_color=ColorsEssentials.White, text_size=8.5))
-test_pyramid.add("End-to-End UI Tests (9%)", style="orange_flat")
-test_pyramid.add("Integration & Contract Tests (20%)", style="blue_flat")
-test_pyramid.add("Unit Tests (70%)", style="green_flat")
+test_pyramid = Pyramid(styles=styles, default_textstyle=styles.white_bold.patch(text_size=10))
+test_pyramid.add("Manual (1%)", style=styles.red_flat, textstyle=styles.white_bold.patch(text_size=8.5))
+test_pyramid.add("End-to-End UI Tests (9%)", style=styles.orange_flat)
+test_pyramid.add("Integration & Contract Tests (20%)", style=styles.blue_flat)
+test_pyramid.add("Unit Tests (70%)", style=styles.green_flat)
 
 test_pyramid.draw(xy=(15, 10), width=70, height=45, margin=1.5, align="bottom", order="vertex_to_base")
 save()
@@ -719,15 +722,16 @@ save()
 ### 11.2 Constructor & Methods
 ```python
 BulletPoints(
+    styles: BasePresetStyles,
     vertical_margin: float,
     indent_width: float,
-    default_style: str | Style | None = None,
+    default_style: Style | None = None,
 )
 ```
 
 - `set_indent(level: int)`: Changes active indent level for all subsequent `add()` calls.
-- `set_bullet_style(indent_level: int, function: Callable, style: str | Style, args: dict)`: Overrides bullet marker shape for a specific indent level (e.g. `circle`, `rectangle`, or Phosphor icon functions).
-- `add(text: str, style: str | Style | None = None)`: Appends an item at current active indent level.
+- `set_bullet_style(indent_level: int, function: Callable, style: Style, args: dict)`: Overrides bullet marker shape for a specific indent level (e.g. `circle`, `rectangle`, or Phosphor icon functions).
+- `add(text: str, style: Style | None = None)`: Appends an item at current active indent level.
 - `draw(xy: tuple[float, float])`: Renders bullet points starting from `xy`.
 
 ### 11.3 Production Example: Architecture Decision RFC Summary
@@ -741,17 +745,27 @@ from drawlib.types import Style
 
 config(width=110, height=65)
 
-bp = BulletPoints(vertical_margin=4.5, indent_width=5.0, default_style=Style(text_size=10, text_color=ColorsEssentials.Charcoal))
-bp.set_bullet_style(
-    indent_level=1, function=rectangle, style=Style(fill_color=ColorsEssentials.LightBlue, line_width=0), args={"width": 1.2, "height": 1.2}
+bp = BulletPoints(
+    styles=styles,
+    vertical_margin=4.5,
+    indent_width=5.0,
+    default_style=styles.primary.patch(text_size=10, text_color=ColorsEssentials.Charcoal),
 )
 bp.set_bullet_style(
-    indent_level=2, function=phosphor.check_circle,
-    style=Style(line_color=Colors140.ForestGreen, fill_color=Colors140.ForestGreen), args={"width": 2.0}
+    indent_level=1,
+    function=rectangle,
+    style=styles.primary.patch(shape_fill_color=ColorsEssentials.LightBlue, shape_line_width=0),
+    args={"width": 1.2, "height": 1.2},
+)
+bp.set_bullet_style(
+    indent_level=2,
+    function=phosphor.check_circle,
+    style=styles.primary.patch(icon_color=Colors140.ForestGreen),
+    args={"width": 2.0},
 )
 
 bp.set_indent(0)
-bp.add("RFC 402: Event-Driven Order Processing", style="bold")
+bp.add("RFC 402: Event-Driven Order Processing", style=styles.bold)
 bp.set_indent(1)
 bp.add("Core Architectural Guarantees:")
 bp.set_indent(2)
@@ -806,9 +820,17 @@ from drawlib.types import Style
 config(width=110, height=105)
 
 # Outer window frame
-rectangle(xy=(55, 52.5), width=96, height=95, r=2, style="charcoal_solid")
+rectangle(xy=(55, 52.5), width=96, height=95, r=2, style=styles.charcoal_solid)
 # Header bar
-rectangle(xy=(55, 94), width=96, height=12, r=2, style="charcoal_flat", text="Kubernetes Deployment Spec (v1)", textstyle="white_bold")
+rectangle(
+    xy=(55, 94),
+    width=96,
+    height=12,
+    r=2,
+    style=styles.charcoal_flat,
+    text="Kubernetes Deployment Spec (v1)",
+    textstyle=styles.white_bold,
+)
 
 k8s_yaml = """apiVersion: apps/v1
 kind: Deployment
@@ -868,10 +890,11 @@ bubblespeech(
     tail_start_ratio: float,
     tail_vertex_xy: tuple[float, float],
     tail_end_ratio: float,
-    style: Style | str | None = None,
+    *,
+    style: Style,
     text: str = "",
     textsize: float | None = None,
-    textstyle: Style | str | None = None,
+    textstyle: Style | None = None,
 )
 ```
 
@@ -879,6 +902,7 @@ bubblespeech(
 ```drawlib show-code
 from drawlib.canvas import config, save
 from drawlib.colors import Colors140, ColorsEssentials
+from drawlib.fonts import Font
 from drawlib.shapes import rectangle
 from drawlib.smartarts import bubblespeech
 from drawlib.types import Style
@@ -886,16 +910,35 @@ from drawlib.types import Style
 config(width=110, height=60)
 
 rectangle(
-    xy=(25, 20), width=24, height=14, r=1.5, style="red_flat",
-    text="Legacy RDBMS\n(Bottleneck)", textstyle="white_bold",
+    xy=(25, 20),
+    width=24,
+    height=14,
+    r=1.5,
+    style=styles.red_flat,
+    text="Legacy RDBMS\n(Bottleneck)",
+    textstyle=styles.white_bold,
 )
 
 bubblespeech(
-    xy=(55, 30), width=48, height=20, tail_edge="bottom",
-    tail_start_ratio=0.15, tail_end_ratio=0.45, tail_vertex_xy=(25, 27),
-    style=Style(fill_color=Colors140.LightCoral, line_color=Colors140.Crimson, line_width=1.5),
+    xy=(55, 30),
+    width=48,
+    height=20,
+    tail_edge="bottom",
+    tail_start_ratio=0.15,
+    tail_end_ratio=0.45,
+    tail_vertex_xy=(25, 27),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.LightCoral,
+        shape_line_color=Colors140.Crimson,
+        shape_line_width=1.5,
+    ),
     text="ACTION REQUIRED:\nExceeding IOPS threshold.\nMigrate read replicas to AWS Aurora.",
-    textsize=9, textstyle=Style(text_color=Colors140.DarkRed, text_font=Font.SANSSERIF_BOLD),
+    textsize=9,
+    textstyle=styles.primary.patch(
+        text_color=Colors140.DarkRed,
+        text_font=Font.SANSSERIF_BOLD,
+        text_size=9,
+    ),
 )
 save()
 ```
@@ -940,7 +983,12 @@ config(width=120, height=80)
 
 # 1. Top Section: Pipeline Status
 pipeline = ChevronProcess(
-    corner_angle=60.0, spacing=1.5, flat_left_end=True, default_textstyle="white_bold", default_description_style="snow",
+    styles=styles,
+    corner_angle=60.0,
+    spacing=1.5,
+    flat_left_end=True,
+    default_textstyle=styles.white_bold,
+    default_description_style=styles.light,
 )
 pipeline.extend(
     texts=["1. Plan", "2. Build", "3. Test", "4. Deploy"],
@@ -949,10 +997,12 @@ pipeline.extend(
 pipeline.draw(xy=(10, 62), width=100, height=12)
 
 # 2. Bottom-Left Section: Service Matrix Table
-table = Table()
+table = Table(styles=styles)
 table.set_predefined_style("default")
 table.draw(
-    xy=(10, 55), width=50, height=45,
+    xy=(10, 55),
+    width=50,
+    height=45,
     data=[
         ["Service", "Status", "Latency"],
         ["User API", "Active", "12 ms"],

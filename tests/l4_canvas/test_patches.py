@@ -13,6 +13,8 @@ import pytest
 
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
+from drawlib.fonts import Font
+from drawlib.preset_styles import get_default_styles, get_styles
 from drawlib.shapes import arc, circle, donuts, ellipse, fan, regularpolygon, wedge
 from drawlib.types import Style
 
@@ -27,55 +29,65 @@ class TestCanvasPatches:
     def test_arc(self) -> None:
         """Verify arc drawing with dimensions, angles, alignments, and text."""
         clear()
+        styles = get_default_styles()
+        s_def = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple arc
-        arc((50, 50), 30, 50)
+        arc((50, 50), 30, 50, style=s_def)
 
         # Alignments and text
-        arc((50, 50), 30, 50, style=Style(text_halign="left", text_valign="bottom"), text="Hello")
-        arc((50, 50), 30, 50, style=Style(text_halign="center", text_valign="center"), text="Hello")
-        arc((50, 50), 30, 50, style=Style(text_halign="right", text_valign="top"), text="Hello")
+        arc((50, 50), 30, 50, style=s_def.patch(text_halign="left", text_valign="bottom"), text="Hello")
+        arc((50, 50), 30, 50, style=s_def.patch(text_halign="center", text_valign="center"), text="Hello")
+        arc((50, 50), 30, 50, style=s_def.patch(text_halign="right", text_valign="top"), text="Hello")
 
         # Custom styling
         arc(
             (50, 50),
             30,
             50,
-            style=Style(line_color=Colors.Red, line_width=5, line_style="dashdot", fill_color=Colors.Blue),
+            style=s_def.patch(
+                shape_line_color=Colors.Red,
+                shape_line_width=5,
+                shape_line_style="dashdot",
+                shape_fill_color=Colors.Blue,
+            ),
         )
 
         # Theta spans & angles
-        arc((50, 50), 30, 50, angle=45, text="Hello")
-        arc((50, 50), 30, 50, angle=45, angle_start=90, angle_end=270)
+        arc((50, 50), 30, 50, angle=45, text="Hello", style=s_def)
+        arc((50, 50), 30, 50, angle=45, angle_start=90, angle_end=270, style=s_def)
 
         save(f"{OUTPUT_DIR}test_arc.png")
 
     def test_circle(self) -> None:
         """Verify circle drawing with radius, alignments, custom styles, and preset styles."""
         clear()
+        styles = get_default_styles()
+        s_def = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
+        styles_essentials = get_styles("essentials")
 
         # Simple circle
-        circle(xy=(50, 50), radius=30)
+        circle(xy=(50, 50), radius=30, style=s_def)
 
         # Alignments and text
         circle(
             xy=(50, 50),
             radius=30,
-            style=Style(text_halign="left", text_valign="bottom"),
+            style=s_def.patch(text_halign="left", text_valign="bottom"),
             text="Hello",
             angle=45,
         )
         circle(
             xy=(50, 50),
             radius=30,
-            style=Style(text_halign="center", text_valign="center"),
+            style=s_def.patch(text_halign="center", text_valign="center"),
             text="Hello",
             angle=45,
         )
         circle(
             xy=(50, 50),
             radius=30,
-            style=Style(text_halign="right", text_valign="top"),
+            style=s_def.patch(text_halign="right", text_valign="top"),
             text="Hello",
             angle=45,
         )
@@ -84,30 +96,37 @@ class TestCanvasPatches:
         circle(
             xy=(50, 50),
             radius=30,
-            style=Style(
-                line_color=Colors.Red, line_width=5, line_style="dashdot", fill_color=Colors.Blue, fill_alpha=0.7
+            style=s_def.patch(
+                shape_line_color=Colors.Red,
+                shape_line_width=5,
+                shape_line_style="dashdot",
+                shape_fill_color=Colors.Blue,
+                shape_fill_alpha=0.7,
             ),
         )
 
         # Preset styles
-        circle(xy=(25, 25), radius=20, style="blue")
-        circle(xy=(25, 75), radius=20, style="green")
+        circle(xy=(25, 25), radius=20, style=styles_essentials.blue)
+        circle(xy=(25, 75), radius=20, style=styles_essentials.green)
 
         save(f"{OUTPUT_DIR}test_circle.png")
 
     def test_ellipse(self) -> None:
         """Verify ellipse drawing with dimensions, alignments, styles, and angles."""
         clear()
+        styles = get_default_styles()
+        s_primary = styles.primary
+        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple ellipse
-        ellipse(xy=(50, 50), width=40, height=20)
+        ellipse(xy=(50, 50), width=40, height=20, style=s_primary)
 
         # Custom styling
         ellipse(
             xy=(50, 50),
             width=40,
             height=20,
-            style=Style(line_width=3, line_color=Colors.Red, line_style="dashdot"),
+            style=s_white.patch(shape_line_width=3, shape_line_color=Colors.Red, shape_line_style="dashdot"),
         )
 
         # Alignments and text
@@ -115,44 +134,52 @@ class TestCanvasPatches:
             xy=(50, 50),
             width=40,
             height=20,
-            style=Style(text_halign="left", text_valign="bottom"),
+            style=s_white.patch(text_halign="left", text_valign="bottom"),
             text="Hello",
         )
         ellipse(
             xy=(50, 50),
             width=40,
             height=20,
-            style=Style(text_halign="center", text_valign="center"),
+            style=s_white.patch(text_halign="center", text_valign="center"),
             text="Hello",
         )
         ellipse(
             xy=(50, 50),
             width=40,
             height=20,
-            style=Style(text_halign="right", text_valign="top"),
+            style=s_white.patch(text_halign="right", text_valign="top"),
             text="Hello",
         )
 
         # Orientation angle
-        ellipse(xy=(50, 50), width=40, height=20, angle=45, text="Hello")
+        ellipse(xy=(50, 50), width=40, height=20, angle=45, text="Hello", style=s_primary)
 
         save(f"{OUTPUT_DIR}test_ellipse.png")
 
     def test_regularpolygon(self) -> None:
         """Verify regular polygon vertices counts, styles, and alignments."""
         clear()
+        styles = get_default_styles()
+        s_primary = styles.primary
+        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Vertices counts
-        regularpolygon(xy=(50, 50), radius=30, num_vertex=5, text="Hello")
-        regularpolygon(xy=(50, 50), radius=30, num_vertex=6, text="Hello")
-        regularpolygon(xy=(50, 50), radius=30, num_vertex=8, text="Hello")
+        regularpolygon(xy=(50, 50), radius=30, num_vertex=5, text="Hello", style=s_primary)
+        regularpolygon(xy=(50, 50), radius=30, num_vertex=6, text="Hello", style=s_primary)
+        regularpolygon(xy=(50, 50), radius=30, num_vertex=8, text="Hello", style=s_primary)
 
         # Custom style
         regularpolygon(
             xy=(50, 50),
             radius=30,
             num_vertex=5,
-            style=Style(line_width=3, line_color=Colors.Red, line_style="dashdot", fill_color=Colors.Green),
+            style=s_white.patch(
+                shape_line_width=3,
+                shape_line_color=Colors.Red,
+                shape_line_style="dashdot",
+                shape_fill_color=Colors.Green,
+            ),
         )
 
         # Alignments
@@ -161,93 +188,129 @@ class TestCanvasPatches:
             radius=30,
             num_vertex=8,
             text="Hello",
-            style=Style(text_halign="left", text_valign="bottom"),
+            style=s_white.patch(text_halign="left", text_valign="bottom"),
         )
         regularpolygon(
             xy=(50, 50),
             radius=30,
             num_vertex=8,
             text="Hello",
-            style=Style(text_halign="center", text_valign="center"),
+            style=s_white.patch(text_halign="center", text_valign="center"),
         )
 
         # Angle orientation
-        regularpolygon(xy=(50, 50), radius=30, num_vertex=5, angle=45, text="Hello")
+        regularpolygon(xy=(50, 50), radius=30, num_vertex=5, angle=45, text="Hello", style=s_primary)
 
         save(f"{OUTPUT_DIR}test_regularpolygon.png")
 
     def test_wedge(self) -> None:
         """Verify wedge segment drawing with radii, spans, styles, and alignments."""
         clear()
+        styles = get_default_styles()
+        s_primary = styles.primary
+        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple wedge
-        wedge((50, 50), radius=30, width=10, text="Hello")
+        wedge((50, 50), radius=30, width=10, text="Hello", style=s_primary)
 
         # Custom style
         wedge(
             (50, 50),
             radius=30,
             width=10,
-            style=Style(line_width=3, line_color=Colors.Red, line_style="dashdot", fill_color=Colors.Green),
+            style=s_white.patch(
+                shape_line_width=3,
+                shape_line_color=Colors.Red,
+                shape_line_style="dashdot",
+                shape_fill_color=Colors.Green,
+            ),
             text="Hello",
         )
 
         # Alignments
         wedge(
-            (50, 50), radius=30, width=10, style=Style(text_halign="left", text_valign="bottom"), text="Hello"
+            (50, 50),
+            radius=30,
+            width=10,
+            style=s_white.patch(text_halign="left", text_valign="bottom"),
+            text="Hello",
         )
         wedge(
             (50, 50),
             radius=30,
             width=10,
-            style=Style(text_halign="center", text_valign="center"),
+            style=s_white.patch(text_halign="center", text_valign="center"),
             text="Hello",
         )
 
         # Angle spans
-        wedge((50, 50), radius=30, angle_start=45, angle_end=270, width=10, angle=120, text="Hello")
+        wedge(
+            (50, 50),
+            radius=30,
+            angle_start=45,
+            angle_end=270,
+            width=10,
+            angle=120,
+            text="Hello",
+            style=s_primary,
+        )
 
         save(f"{OUTPUT_DIR}test_wedge.png")
 
     def test_donuts(self) -> None:
         """Verify donut shape drawing with outer radius, width, styling, and text."""
         clear()
+        styles = get_default_styles()
+        s_primary = styles.primary
+        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple donut
-        donuts((50, 50), radius=30, width=10)
+        donuts((50, 50), radius=30, width=10, style=s_primary)
 
         # Styled donuts
         donuts(
             (50, 50),
             radius=30,
             width=10,
-            style=Style(line_width=3, line_color=Colors.Red, line_style="dashdot", fill_color=Colors.Green),
+            style=s_white.patch(
+                shape_line_width=3,
+                shape_line_color=Colors.Red,
+                shape_line_style="dashdot",
+                shape_fill_color=Colors.Green,
+            ),
             text="Hello",
         )
 
         # Alignments
         donuts(
-            (50, 50), radius=30, width=10, style=Style(text_halign="left", text_valign="bottom"), text="Hello"
+            (50, 50),
+            radius=30,
+            width=10,
+            style=s_white.patch(text_halign="left", text_valign="bottom"),
+            text="Hello",
         )
         donuts(
             (50, 50),
             radius=30,
             width=10,
-            style=Style(text_halign="center", text_valign="center"),
+            style=s_white.patch(text_halign="center", text_valign="center"),
             text="Hello",
         )
 
         # Rotation angle
-        donuts((50, 50), radius=30, width=10, angle=120, text="hungry")
+        donuts((50, 50), radius=30, width=10, angle=120, text="hungry", style=s_primary)
 
         save(f"{OUTPUT_DIR}test_donuts.png")
 
     def test_fan(self) -> None:
         """Verify fan sector drawing with radius, theta boundaries, styling, and text."""
         clear()
+        styles = get_default_styles()
+        s_primary = styles.primary
+        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple fan
-        fan((50, 50), radius=30, angle_start=45, angle_end=90)
+        fan((50, 50), radius=30, angle_start=45, angle_end=90, style=s_primary)
 
         # Custom style
         fan(
@@ -255,7 +318,12 @@ class TestCanvasPatches:
             radius=30,
             angle_start=45,
             angle_end=90,
-            style=Style(line_width=3, line_color=Colors.Red, line_style="dashdot", fill_color=Colors.Green),
+            style=s_white.patch(
+                shape_line_width=3,
+                shape_line_color=Colors.Red,
+                shape_line_style="dashdot",
+                shape_fill_color=Colors.Green,
+            ),
             text="Hello",
         )
 
@@ -265,7 +333,7 @@ class TestCanvasPatches:
             radius=30,
             angle_start=45,
             angle_end=90,
-            style=Style(text_halign="left", text_valign="bottom"),
+            style=s_white.patch(text_halign="left", text_valign="bottom"),
             text="Hello",
         )
         fan(
@@ -273,11 +341,11 @@ class TestCanvasPatches:
             radius=30,
             angle_start=45,
             angle_end=90,
-            style=Style(text_halign="center", text_valign="center"),
+            style=s_white.patch(text_halign="center", text_valign="center"),
             text="Hello",
         )
 
         # Rotation angles
-        fan((50, 50), radius=30, angle_start=45, angle_end=270, angle=120, text="Hello")
+        fan((50, 50), radius=30, angle_start=45, angle_end=270, angle=120, text="Hello", style=s_primary)
 
         save(f"{OUTPUT_DIR}test_fan.png")

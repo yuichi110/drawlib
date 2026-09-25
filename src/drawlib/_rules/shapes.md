@@ -295,19 +295,23 @@ from drawlib.shapes import circle
 from drawlib.types import Style
 
 # 1. Solid status node with embedded label
-circle((30, 25), radius=14, style="green_flat", text="OK", textstyle=Style(text_size=14))
+circle((30, 25), radius=14, style=styles.green_flat, text="OK", textstyle=styles.white_bold.patch(text_size=14))
 
 # 2. Semi-transparent dashed boundary zone with rotated label
 circle(
     (70, 25),
     radius=18,
     angle=35,
-    style=Style(fill_color=Colors140.DeepSkyBlue, fill_alpha=0.3, line_style="dashed", line_width=2),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.DeepSkyBlue,
+        shape_fill_alpha=0.3,
+        shape_line_style="dashed",
+        shape_line_width=2,
+    ),
     text="Zone B",
-    textstyle=Style(text_color=Colors140.Navy, text_size=12),
+    textstyle=styles.primary.patch(text_color=Colors140.Navy, text_size=12),
 )
 save()
-
 ```
 
 ---
@@ -323,10 +327,11 @@ def donuts(
     radius: float,
     width: float | None = None,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
     text: str = "",
     textsize: float | Literal["small", "medium", "large"] | None = None,
-    textstyle: Style | str | None = None,
+    textstyle: Style | None = None,
 ) -> None:
     ...
 ```
@@ -338,10 +343,10 @@ def donuts(
 | `radius` | `float` | *Required* | Outer radius of the annular ring. |
 | `width` | `float \| None` | `None` | Ring wall thickness. Inner radius = $\text{radius} - \text{width}$. If `None`, renders solid. |
 | `angle` | `float` | `0.0` | Rotation angle in degrees CCW (affects embedded text). |
-| `style` | `Style \| str \| None` | `None` | Shape fill and stroke configuration. |
+| `style` | `Style` | *Required* | Shape fill and stroke configuration. |
 | `text` | `str` | `""` | Label rendered in the center void of the donut. |
 | `textsize` | `float \| str \| None` | `None` | Text font size override. |
-| `textstyle` | `Style \| str \| None` | `None` | Text styling parameters. |
+| `textstyle` | `Style \| None` | `None` | Text styling parameters. |
 
 #### Geometric & Alignment Mechanics
 - Built on top of `wedge(..., angle_start=0, angle_end=360)`.
@@ -358,19 +363,20 @@ from drawlib.shapes import donuts
 from drawlib.types import Style
 
 # 1. Thin status indicator ring
-donuts((30, 22), radius=15, width=4, style="gray", text="Base")
+donuts((30, 22), radius=15, width=4, style=styles.gray_flat, text="Base")
 
 # 2. KPI ring badge with custom fill and styled percentage label
 donuts(
     (70, 22),
     radius=17,
     width=6,
-    style=Style(fill_color=Colors140.Purple, line_color=Colors140.Indigo, line_width=2),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.Purple, shape_line_color=Colors140.Indigo, shape_line_width=2
+    ),
     text="78%",
-    textstyle=Style(text_size=14, text_color=Colors140.White),
+    textstyle=styles.white_bold.patch(text_size=14, text_color=Colors140.White),
 )
 save()
-
 ```
 
 ---
@@ -386,10 +392,11 @@ def ellipse(
     width: float,
     height: float,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
     text: str = "",
     textsize: float | Literal["small", "medium", "large"] | None = None,
-    textstyle: Style | str | None = None,
+    textstyle: Style | None = None,
 ) -> None:
     ...
 ```
@@ -401,10 +408,10 @@ def ellipse(
 | `width` | `float` | *Required* | Total horizontal axis diameter before rotation. |
 | `height` | `float` | *Required* | Total vertical axis diameter before rotation. |
 | `angle` | `float` | `0.0` | Rotation angle in degrees CCW around center `xy`. |
-| `style` | `Style \| str \| None` | `None` | Shape style or preset name. |
+| `style` | `Style` | *Required* | Shape style object. |
 | `text` | `str` | `""` | Centered text annotation. |
 | `textsize` | `float \| str \| None` | `None` | Text font size override. |
-| `textstyle` | `Style \| str \| None` | `None` | Text formatting style. |
+| `textstyle` | `Style \| None` | `None` | Text formatting style. |
 
 #### Geometric & Alignment Mechanics
 - Semi-major axis $a = \text{width} / 2$, Semi-minor axis $b = \text{height} / 2$.
@@ -421,7 +428,7 @@ from drawlib.shapes import ellipse
 from drawlib.types import Style
 
 # 1. Database schema entity
-ellipse((30, 22), width=36, height=20, style="yellow_flat", text="users_tbl")
+ellipse((30, 22), width=36, height=20, style=styles.yellow_flat, text="users_tbl")
 
 # 2. Rotated processing stage node with dashed boundary
 ellipse(
@@ -429,12 +436,16 @@ ellipse(
     width=38,
     height=18,
     angle=335,
-    style=Style(fill_color=Colors140.AliceBlue, line_color=Colors140.SteelBlue, line_style="dashed", line_width=2),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.AliceBlue,
+        shape_line_color=Colors140.SteelBlue,
+        shape_line_style="dashed",
+        shape_line_width=2,
+    ),
     text="In-Flight Job",
-    textstyle=Style(text_size=11, text_color=Colors140.Navy),
+    textstyle=styles.primary.patch(text_size=11, text_color=Colors140.Navy),
 )
 save()
-
 ```
 
 ---
@@ -452,10 +463,11 @@ def wedge(
     angle_end: float,
     width: float | None = None,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
     text: str = "",
     textsize: float | Literal["small", "medium", "large"] | None = None,
-    textstyle: Style | str | None = None,
+    textstyle: Style | None = None,
 ) -> None:
     ...
 ```
@@ -469,10 +481,10 @@ def wedge(
 | `angle_end` | `float` | *Required* | Ending angle in degrees CCW. |
 | `width` | `float \| None` | `None` | Annular thickness. If `None`, extends to apex `xy` (solid pie wedge). |
 | `angle` | `float` | `0.0` | Global rotational shift applied to the entire wedge. |
-| `style` | `Style \| str \| None` | `None` | Shape fill and outline style. |
+| `style` | `Style` | *Required* | Shape fill and outline style. |
 | `text` | `str` | `""` | Centered text label. |
 | `textsize` | `float \| str \| None` | `None` | Font size override. |
-| `textstyle` | `Style \| str \| None` | `None` | Style instance for text formatting. |
+| `textstyle` | `Style \| None` | `None` | Style instance for text formatting. |
 
 #### Geometric & Alignment Mechanics
 - Draws CCW from `angle_start` to `angle_end`.
@@ -489,7 +501,7 @@ from drawlib.shapes import wedge
 from drawlib.types import Style
 
 # 1. Quarter gauge ring slice with thickness
-wedge((30, 22), radius=18, angle_start=0, angle_end=90, width=5, style="blue_flat", text="Q1")
+wedge((30, 22), radius=18, angle_start=0, angle_end=90, width=5, style=styles.blue_flat, text="Q1")
 
 # 2. Rotated multi-segment slice with border stroke
 wedge(
@@ -499,12 +511,13 @@ wedge(
     angle_end=225,
     width=6,
     angle=15,
-    style=Style(fill_color=Colors140.Orange, line_color=Colors140.DarkRed, line_width=1.5),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.Orange, shape_line_color=Colors140.DarkRed, shape_line_width=1.5
+    ),
     text="60%",
-    textstyle=Style(text_size=11, text_color=Colors140.White),
+    textstyle=styles.white_bold.patch(text_size=11, text_color=Colors140.White),
 )
 save()
-
 ```
 
 ---
@@ -521,10 +534,11 @@ def fan(
     angle_start: float,
     angle_end: float,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
     text: str = "",
     textsize: float | Literal["small", "medium", "large"] | None = None,
-    textstyle: Style | str | None = None,
+    textstyle: Style | None = None,
 ) -> None:
     ...
 ```
@@ -537,10 +551,10 @@ def fan(
 | `angle_start` | `float` | *Required* | Starting angle in degrees CCW. |
 | `angle_end` | `float` | *Required* | Ending angle in degrees CCW. |
 | `angle` | `float` | `0.0` | Global rotational offset in degrees. |
-| `style` | `Style \| str \| None` | `None` | Shape fill and line style. |
+| `style` | `Style` | *Required* | Shape fill and line style. |
 | `text` | `str` | `""` | Centered text label. |
 | `textsize` | `float \| str \| None` | `None` | Text font size override. |
-| `textstyle` | `Style \| str \| None` | `None` | Text formatting style. |
+| `textstyle` | `Style \| None` | `None` | Text formatting style. |
 
 #### Geometric & Alignment Mechanics
 - Functionally equivalent to `wedge(..., width=None)`.
@@ -562,14 +576,18 @@ fan(
     radius=25,
     angle_start=30,
     angle_end=150,
-    style=Style(fill_color=Colors140.LightGreen, fill_alpha=0.4, line_color=Colors140.ForestGreen, line_width=1.5),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.LightGreen,
+        shape_fill_alpha=0.4,
+        shape_line_color=Colors140.ForestGreen,
+        shape_line_width=1.5,
+    ),
     text="FOV",
 )
 
 # 2. Semi-circle gauge backdrop
-fan((75, 15), radius=22, angle_start=0, angle_end=180, style="blue_flat", text="Upper Range")
+fan((75, 15), radius=22, angle_start=0, angle_end=180, style=styles.blue_flat, text="Upper Range")
 save()
-
 ```
 
 ---
@@ -587,10 +605,11 @@ def arc(
     angle_start: float,
     angle_end: float,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
     text: str = "",
     textsize: float | Literal["small", "medium", "large"] | None = None,
-    textstyle: Style | str | None = None,
+    textstyle: Style | None = None,
 ) -> None:
     ...
 ```
@@ -604,10 +623,10 @@ def arc(
 | `angle_start` | `float` | *Required* | Starting angle of the arc in degrees CCW. |
 | `angle_end` | `float` | *Required* | Ending angle of the arc in degrees CCW. |
 | `angle` | `float` | `0.0` | Global rotation angle around center `xy`. |
-| `style` | `Style \| str \| None` | `None` | Stroke styling (`line_color`, `line_width`, `line_style`). |
+| `style` | `Style` | *Required* | Stroke styling (`line_color`, `line_width`, `line_style`). |
 | `text` | `str` | `""` | Centered text label at `xy`. |
 | `textsize` | `float \| str \| None` | `None` | Text font size override. |
-| `textstyle` | `Style \| str \| None` | `None` | Text style parameters. |
+| `textstyle` | `Style \| None` | `None` | Text style parameters. |
 
 #### Geometric & Alignment Mechanics
 - Unlike `wedge`, `arc` is strictly a 1D stroke boundary line. Any `fill_color` is ignored.
@@ -623,7 +642,14 @@ from drawlib.shapes import arc
 from drawlib.types import Style
 
 # 1. Curved relationship bracket
-arc((30, 22), width=30, height=20, angle_start=30, angle_end=150, style=Style(line_color=Colors140.Navy, line_width=3))
+arc(
+    (30, 22),
+    width=30,
+    height=20,
+    angle_start=30,
+    angle_end=150,
+    style=styles.bold.patch(line_color=Colors140.Navy, line_width=3),
+)
 
 # 2. Dashed orbit path with centered status label
 arc(
@@ -633,12 +659,11 @@ arc(
     angle_start=315,
     angle_end=225,
     angle=15,
-    style=Style(line_color=Colors140.Crimson, line_width=2, line_style="dashed"),
+    style=styles.bold.patch(line_color=Colors140.Crimson, line_width=2, line_style="dashed"),
     text="Orbit A",
-    textstyle=Style(text_size=10, text_color=Colors140.Crimson),
+    textstyle=styles.primary.patch(text_size=10, text_color=Colors140.Crimson),
 )
 save()
-
 ```
 
 ---
@@ -670,10 +695,11 @@ def rectangle(
     height: float,
     r: float = 0.0,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
     text: str = "",
     textsize: float | Literal["small", "medium", "large"] | None = None,
-    textstyle: Style | str | None = None,
+    textstyle: Style | None = None,
 ) -> None:
     ...
 ```
@@ -686,10 +712,10 @@ def rectangle(
 | `height` | `float` | *Required* | Height along vertical axis (must be $> 0$). |
 | `r` | `float` | `0.0` | Corner rounding radius ($r \ge 0$). Must not exceed $\min(W, H)/2$. |
 | `angle` | `float` | `0.0` | Rotation in degrees CCW around geometric center. |
-| `style` | `Style \| str \| None` | `None` | Fill and stroke style. |
+| `style` | `Style` | *Required* | Fill and stroke style. |
 | `text` | `str` | `""` | Embedded center text label. |
 | `textsize` | `float \| str \| None` | `None` | Font size override. |
-| `textstyle` | `Style \| str \| None` | `None` | Text formatting style. |
+| `textstyle` | `Style \| None` | `None` | Text formatting style. |
 
 #### Geometric & Alignment Mechanics
 - Default coordinate `xy` is the geometric center of the shape.
@@ -706,7 +732,7 @@ from drawlib.types import Style
 config(width=100, height=50)
 
 # 1. API gateway block with sharp corners
-rectangle((28, 25), width=35, height=20, style="blue_flat", text="API Gateway", textstyle=Style(text_size=11))
+rectangle((28, 25), width=35, height=20, style=styles.blue_flat, text="API Gateway", textstyle=styles.white_bold.patch(text_size=11))
 
 # 2. Rounded worker card with dashed border
 rectangle(
@@ -714,9 +740,14 @@ rectangle(
     width=35,
     height=20,
     r=4,
-    style=Style(fill_color=Colors140.GhostWhite, line_color=Colors140.SlateGray, line_width=2, line_style="dashed"),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.GhostWhite,
+        shape_line_color=Colors140.SlateGray,
+        shape_line_width=2,
+        shape_line_style="dashed",
+    ),
     text="Worker Node",
-    textstyle=Style(text_color=Colors140.MidnightBlue, text_size=11),
+    textstyle=styles.primary.patch(text_color=Colors140.MidnightBlue, text_size=11),
 )
 save()
 ```
@@ -735,10 +766,11 @@ def parallelogram(
     height: float,
     corner_angle: float = 60.0,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
     text: str = "",
     textsize: float | Literal["small", "medium", "large"] | None = None,
-    textstyle: Style | str | None = None,
+    textstyle: Style | None = None,
 ) -> None:
     ...
 ```
@@ -751,10 +783,10 @@ def parallelogram(
 | `height` | `float` | *Required* | Perpendicular vertical height between base and top. |
 | `corner_angle` | `float` | `60.0` | Bottom-left interior slant angle ($0 < \theta < 180^\circ$). |
 | `angle` | `float` | `0.0` | Global CCW rotation angle around center. |
-| `style` | `Style \| str \| None` | `None` | Shape fill and stroke style. |
+| `style` | `Style` | *Required* | Shape fill and stroke style. |
 | `text` | `str` | `""` | Centered text label. |
 | `textsize` | `float \| str \| None` | `None` | Font size override. |
-| `textstyle` | `Style \| str \| None` | `None` | Text formatting style. |
+| `textstyle` | `Style \| None` | `None` | Text formatting style. |
 
 #### Geometric & Alignment Mechanics
 - Centered at `xy`. Top edge is horizontally displaced by $\Delta x = \text{height} / \tan(\text{radians}(\text{corner\_angle}))$.
@@ -770,7 +802,7 @@ from drawlib.types import Style
 config(width=100, height=50)
 
 # 1. Flowchart I/O block
-parallelogram((28, 25), width=35, height=20, corner_angle=70, style="blue_flat", text="Read Input")
+parallelogram((28, 25), width=35, height=20, corner_angle=70, style=styles.blue_flat, text="Read Input")
 
 # 2. Rotated event stream block
 parallelogram(
@@ -779,9 +811,11 @@ parallelogram(
     height=20,
     corner_angle=65,
     angle=15,
-    style=Style(fill_color=Colors140.LightYellow, line_color=Colors140.GoldenRod, line_width=2),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.LightYellow, shape_line_color=Colors140.GoldenRod, shape_line_width=2
+    ),
     text="Kafka Stream",
-    textstyle=Style(text_size=10, text_color=Colors140.SaddleBrown),
+    textstyle=styles.primary.patch(text_size=10, text_color=Colors140.SaddleBrown),
 )
 save()
 ```
@@ -799,10 +833,11 @@ def rhombus(
     width: float,
     height: float,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
     text: str = "",
     textsize: float | Literal["small", "medium", "large"] | None = None,
-    textstyle: Style | str | None = None,
+    textstyle: Style | None = None,
 ) -> None:
     ...
 ```
@@ -814,10 +849,10 @@ def rhombus(
 | `width` | `float` | *Required* | Total horizontal diagonal span between left and right vertices. |
 | `height` | `float` | *Required* | Total vertical diagonal span between bottom and top vertices. |
 | `angle` | `float` | `0.0` | Rotation angle in degrees CCW around center. |
-| `style` | `Style \| str \| None` | `None` | Shape fill and line style. |
+| `style` | `Style` | *Required* | Shape fill and line style. |
 | `text` | `str` | `""` | Centered text label. |
 | `textsize` | `float \| str \| None` | `None` | Font size override. |
-| `textstyle` | `Style \| str \| None` | `None` | Text formatting style. |
+| `textstyle` | `Style \| None` | `None` | Text formatting style. |
 
 #### Geometric & Alignment Mechanics
 - Centered at `xy`. Vertices span symmetrically along horizontal and vertical diagonals.
@@ -833,7 +868,14 @@ from drawlib.types import Style
 config(width=100, height=50)
 
 # 1. Flowchart decision condition diamond
-rhombus((28, 25), width=32, height=24, style="yellow_flat", text="Is Valid?", textstyle=Style(text_size=10))
+rhombus(
+    (28, 25),
+    width=32,
+    height=24,
+    style=styles.yellow_flat,
+    text="Is Valid?",
+    textstyle=styles.bold.patch(text_size=10),
+)
 
 # 2. Rotated status checkpoint
 rhombus(
@@ -841,9 +883,11 @@ rhombus(
     width=32,
     height=24,
     angle=20,
-    style=Style(fill_color=Colors140.MistyRose, line_color=Colors140.Crimson, line_width=2),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.MistyRose, shape_line_color=Colors140.Crimson, shape_line_width=2
+    ),
     text="Audit",
-    textstyle=Style(text_size=11, text_color=Colors140.DarkRed),
+    textstyle=styles.primary.patch(text_size=11, text_color=Colors140.DarkRed),
 )
 save()
 ```
@@ -863,10 +907,11 @@ def trapezoid(
     topedge_width: float,
     topedge_x: float | None = None,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
     text: str = "",
     textsize: float | Literal["small", "medium", "large"] | None = None,
-    textstyle: Style | str | None = None,
+    textstyle: Style | None = None,
 ) -> None:
     ...
 ```
@@ -880,10 +925,10 @@ def trapezoid(
 | `topedge_width` | `float` | *Required* | Width of the top horizontal edge ($> 0$). |
 | `topedge_x` | `float \| None` | `None` | X-offset of top-left vertex. Defaults to symmetric isosceles: `(bottomedge_width - topedge_width)/2`. |
 | `angle` | `float` | `0.0` | Rotation angle CCW around center. |
-| `style` | `Style \| str \| None` | `None` | Shape fill and stroke style. |
+| `style` | `Style` | *Required* | Shape fill and stroke style. |
 | `text` | `str` | `""` | Centered text label. |
 | `textsize` | `float \| str \| None` | `None` | Font size override. |
-| `textstyle` | `Style \| str \| None` | `None` | Text styling parameters. |
+| `textstyle` | `Style \| None` | `None` | Text styling parameters. |
 
 #### Geometric & Alignment Mechanics
 - Centered at `xy`.
@@ -905,9 +950,9 @@ trapezoid(
     height=20,
     bottomedge_width=36,
     topedge_width=22,
-    style="green_flat",
+    style=styles.green_flat,
     text="MaxPool2D",
-    textstyle=Style(text_size=10),
+    textstyle=styles.white_bold.patch(text_size=10),
 )
 
 # 2. Right-angled projection layer
@@ -917,9 +962,11 @@ trapezoid(
     bottomedge_width=36,
     topedge_width=18,
     topedge_x=0,
-    style=Style(fill_color=Colors140.Lavender, line_color=Colors140.Indigo, line_width=2),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.Lavender, shape_line_color=Colors140.Indigo, shape_line_width=2
+    ),
     text="Proj",
-    textstyle=Style(text_size=10, text_color=Colors140.Indigo),
+    textstyle=styles.primary.patch(text_size=10, text_color=Colors140.Indigo),
 )
 save()
 ```
@@ -938,10 +985,11 @@ def triangle(
     height: float,
     topvertex_x: float | None = None,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
     text: str = "",
     textsize: float | Literal["small", "medium", "large"] | None = None,
-    textstyle: Style | str | None = None,
+    textstyle: Style | None = None,
 ) -> None:
     ...
 ```
@@ -954,10 +1002,10 @@ def triangle(
 | `height` | `float` | *Required* | Perpendicular vertical height ($> 0$). |
 | `topvertex_x` | `float \| None` | `None` | Horizontal offset of apex from base left. Defaults to symmetric apex `width / 2`. |
 | `angle` | `float` | `0.0` | Rotation angle CCW around center. |
-| `style` | `Style \| str \| None` | `None` | Shape fill and outline style. |
+| `style` | `Style` | *Required* | Shape fill and outline style. |
 | `text` | `str` | `""` | Centered text label. |
 | `textsize` | `float \| str \| None` | `None` | Font size override. |
-| `textstyle` | `Style \| str \| None` | `None` | Text styling parameters. |
+| `textstyle` | `Style \| None` | `None` | Text styling parameters. |
 
 #### Geometric & Alignment Mechanics
 - Centered at `xy`.
@@ -978,13 +1026,15 @@ triangle(
     (28, 25),
     width=30,
     height=26,
-    style=Style(fill_color=Colors140.Gold, line_color=Colors140.DarkGoldenRod, line_width=2),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.Gold, shape_line_color=Colors140.DarkGoldenRod, shape_line_width=2
+    ),
     text="!",
-    textstyle=Style(text_size=16, text_color=Colors140.Black, text_xy_shift=(0, -3)),
+    textstyle=styles.primary.patch(text_size=16, text_color=Colors140.Black, text_xy_shift=(0, -3)),
 )
 
 # 2. Right-angle ramp element
-triangle((72, 25), width=32, height=26, topvertex_x=0, style="blue_flat", text="Ramp")
+triangle((72, 25), width=32, height=26, topvertex_x=0, style=styles.blue_flat, text="Ramp")
 save()
 ```
 
@@ -1001,10 +1051,11 @@ def regularpolygon(
     num_vertex: int,
     radius: float,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
     text: str = "",
     textsize: float | Literal["small", "medium", "large"] | None = None,
-    textstyle: Style | str | None = None,
+    textstyle: Style | None = None,
 ) -> None:
     ...
 ```
@@ -1016,10 +1067,10 @@ def regularpolygon(
 | `num_vertex` | `int` | *Required* | Number of vertices / sides ($N \ge 3$). Note singular name! |
 | `radius` | `float` | *Required* | Circumscribed radius from center to each vertex. |
 | `angle` | `float` | `0.0` | Rotation angle CCW around center. |
-| `style` | `Style \| str \| None` | `None` | Shape fill and stroke style. |
+| `style` | `Style` | *Required* | Shape fill and stroke style. |
 | `text` | `str` | `""` | Centered text label. |
 | `textsize` | `float \| str \| None` | `None` | Font size override. |
-| `textstyle` | `Style \| str \| None` | `None` | Text styling parameters. |
+| `textstyle` | `Style \| None` | `None` | Text styling parameters. |
 
 #### Geometric & Alignment Mechanics
 - Centered at `xy`. Vertices generated at $\theta_k = \text{angle} + k(360^\circ / N)$.
@@ -1035,7 +1086,7 @@ from drawlib.shapes import regularpolygon
 from drawlib.types import Style
 
 # 1. Hexagon (Kubernetes Pod / Microservice)
-regularpolygon((30, 22), num_vertex=6, radius=18, style="blue_flat", text="Pod A")
+regularpolygon((30, 22), num_vertex=6, radius=18, style=styles.blue_flat, text="Pod A")
 
 # 2. Octagon (Security Firewall Boundary)
 regularpolygon(
@@ -1043,12 +1094,13 @@ regularpolygon(
     num_vertex=8,
     radius=18,
     angle=22.5,
-    style=Style(fill_color=Colors140.Tomato, line_color=Colors140.DarkRed, line_width=2),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.Tomato, shape_line_color=Colors140.DarkRed, shape_line_width=2
+    ),
     text="WAF",
-    textstyle=Style(text_size=12, text_color=Colors140.White),
+    textstyle=styles.white_bold.patch(text_size=12, text_color=Colors140.White),
 )
 save()
-
 ```
 
 ---
@@ -1061,10 +1113,11 @@ Draws an arbitrary closed planar polygon through an explicit list of vertices.
 ```python
 def polygon(
     xys: list[tuple[float, float]],
-    style: Style | str | None = None,
+    *,
+    style: Style,
     text: str = "",
     textsize: float | Literal["small", "medium", "large"] | None = None,
-    textstyle: Style | str | None = None,
+    textstyle: Style | None = None,
 ) -> None:
     ...
 ```
@@ -1073,10 +1126,10 @@ def polygon(
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `xys` | `list[tuple[float, float]]` | *Required* | Sequence of coordinate vertices (minimum 3 points). |
-| `style` | `Style \| str \| None` | `None` | Shape fill and line style. |
+| `style` | `Style` | *Required* | Shape fill and line style. |
 | `text` | `str` | `""` | Text placed at the centroid / bounding-box center. |
 | `textsize` | `float \| str \| None` | `None` | Font size override. |
-| `textstyle` | `Style \| str \| None` | `None` | Text formatting style. |
+| `textstyle` | `Style \| None` | `None` | Text formatting style. |
 
 #### Geometric & Alignment Mechanics
 - The path automatically closes by connecting the final vertex back to the first vertex.
@@ -1094,18 +1147,19 @@ from drawlib.types import Style
 # 1. Irregular network partition boundary
 polygon(
     [(10, 15), (25, 35), (45, 30), (40, 10), (20, 8)],
-    style=Style(fill_color=Colors140.AliceBlue, line_color=Colors140.SteelBlue, line_width=2),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.AliceBlue, shape_line_color=Colors140.SteelBlue, shape_line_width=2
+    ),
     text="VLAN 1",
 )
 
 # 2. Custom 5-point chevron-like boundary
 polygon(
     [(55, 10), (75, 10), (85, 22), (75, 34), (55, 34), (65, 22)],
-    style="green_flat",
+    style=styles.green_flat,
     text="Route B",
 )
 save()
-
 ```
 
 ---
@@ -1122,10 +1176,11 @@ def star(
     radius_ext: float,
     radius_int: float,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
     text: str = "",
     textsize: float | Literal["small", "medium", "large"] | None = None,
-    textstyle: Style | str | None = None,
+    textstyle: Style | None = None,
 ) -> None:
     ...
 ```
@@ -1138,10 +1193,10 @@ def star(
 | `radius_ext` | `float` | *Required* | Outer radius from center to peaks (must be $> \text{radius\_int}$). |
 | `radius_int` | `float` | *Required* | Inner radius from center to valleys. |
 | `angle` | `float` | `0.0` | Rotation angle CCW around center. |
-| `style` | `Style \| str \| None` | `None` | Fill and stroke style. |
+| `style` | `Style` | *Required* | Fill and stroke style. |
 | `text` | `str` | `""` | Text label at center. |
 | `textsize` | `float \| str \| None` | `None` | Font size override. |
-| `textstyle` | `Style \| str \| None` | `None` | Text styling parameters. |
+| `textstyle` | `Style \| None` | `None` | Text styling parameters. |
 
 #### Geometric & Alignment Mechanics
 - Generates $2N$ alternating vertices around `xy`.
@@ -1157,7 +1212,7 @@ from drawlib.shapes import star
 from drawlib.types import Style
 
 # 1. 5-pointed award / milestone badge
-star((30, 22), num_vertex=5, radius_ext=18, radius_int=8, style="yellow_flat", text="Star")
+star((30, 22), num_vertex=5, radius_ext=18, radius_int=8, style=styles.yellow_flat, text="Star")
 
 # 2. 8-pointed spark / security alert icon
 star(
@@ -1166,12 +1221,13 @@ star(
     radius_ext=18,
     radius_int=10,
     angle=22.5,
-    style=Style(fill_color=Colors140.LightCoral, line_color=Colors140.FireBrick, line_width=2),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.LightCoral, shape_line_color=Colors140.FireBrick, shape_line_width=2
+    ),
     text="ALERT",
-    textstyle=Style(text_size=9, text_color=Colors140.DarkRed),
+    textstyle=styles.primary.patch(text_size=9, text_color=Colors140.DarkRed),
 )
 save()
-
 ```
 
 ---
@@ -1182,7 +1238,7 @@ save()
 
 Builds an arbitrary vector polygon or curved shape using straight lines, quadratic Beziers, and cubic Beziers.
 
-#### Signature
+##### Signature
 ```python
 def shape(
     xy: tuple[float, float],
@@ -1193,10 +1249,11 @@ def shape(
     ],
     is_default_center: bool = False,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
     text: str = "",
     textsize: float | Literal["small", "medium", "large"] | None = None,
-    textstyle: Style | str | None = None,
+    textstyle: Style | None = None,
 ) -> None:
     ...
 ```
@@ -1208,10 +1265,10 @@ def shape(
 | `path_points` | `list[...]` | *Required* | Sequence of relative coordinate offsets or Bezier control tuples. |
 | `is_default_center` | `bool` | `False` | If `False`, `xy` is path origin. If `True`, `xy` is centroid. |
 | `angle` | `float` | `0.0` | Rotation angle CCW around center. |
-| `style` | `Style \| str \| None` | `None` | Shape fill and stroke style. |
+| `style` | `Style` | *Required* | Shape fill and stroke style. |
 | `text` | `str` | `""` | Centered text label. |
 | `textsize` | `float \| str \| None` | `None` | Font size override. |
-| `textstyle` | `Style \| str \| None` | `None` | Text styling parameters. |
+| `textstyle` | `Style \| None` | `None` | Text styling parameters. |
 
 #### Path Point Segment Types
 - `path_points` defines polygon vertices in local coordinate space (relative to origin `(0, 0)`). Drawlib automatically computes the bounding box and centers the resulting shape at `xy`.
@@ -1239,9 +1296,9 @@ shape(
         (30, 8),
         (15, 0),
     ],
-    style="blue_flat",
+    style=styles.blue_flat,
     text="Shield",
-    textstyle=Style(text_size=10, text_color=Colors.White),
+    textstyle=styles.white_bold.patch(text_size=10, text_color=Colors.White),
 )
 
 # 2. Smooth symmetric wave tab (Cubic Bezier)
@@ -1253,7 +1310,9 @@ shape(
         ((10, 25), (20, 5), (30, 15)),      # Cubic wave
         (30, 0),
     ],
-    style=Style(fill_color=Colors140.Lavender, line_color=Colors140.Purple, line_width=1.5),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.Lavender, shape_line_color=Colors140.Purple, shape_line_width=1.5
+    ),
 )
 save()
 ```
@@ -1268,8 +1327,8 @@ Directed block arrows produce filled 2D planar arrow shapes (not 1D lines).
               head_width
                 |<---->|
                 +      ^
-               /|      |
-              / |      | head_length
+                /|      |
+               / |      | head_length
   tail_width /  |      |
     |<--->| /   +      v
     +-----+    /
@@ -1295,10 +1354,11 @@ def arrow(
     head_width: float | None = None,
     head_length: float | None = None,
     head_angle: float | None = None,
-    style: Style | str | None = None,
+    *,
+    style: Style,
     text: str = "",
     textsize: float | Literal["small", "medium", "large"] | None = None,
-    textstyle: Style | str | None = None,
+    textstyle: Style | None = None,
 ) -> None:
     ...
 ```
@@ -1312,10 +1372,10 @@ def arrow(
 | `head_width` | `float \| None` | `None` | Full transverse width of the arrowhead base. |
 | `head_length` | `float \| None` | `None` | Axial length of the arrowhead from base to tip. |
 | `head_angle` | `float \| None` | `None` | Arrowhead tip angle in degrees (mutually exclusive with `head_length`). |
-| `style` | `Style \| str \| None` | `None` | Fill and stroke style. |
+| `style` | `Style` | *Required* | Fill and stroke style. |
 | `text` | `str` | `""` | Embedded label rendered along the arrow shaft. |
 | `textsize` | `float \| str \| None` | `None` | Font size override. |
-| `textstyle` | `Style \| str \| None` | `None` | Text styling parameters. |
+| `textstyle` | `Style \| None` | `None` | Text styling parameters. |
 
 #### Geometric & Alignment Mechanics
 - The arrow direction and orientation angle are calculated automatically from $\Delta x = x_2 - x_1, \Delta y = y_2 - y_1$.
@@ -1331,7 +1391,7 @@ from drawlib.shapes import arrow
 from drawlib.types import Style
 
 # 1. Straight transaction flow arrow with shaft text
-arrow((10, 25), (45, 25), tail_width=3, head_width=8, head_length=6, style="blue_flat", text="POST /order")
+arrow((10, 25), (45, 25), tail_width=3, head_width=8, head_length=6, style=styles.blue_flat, text="POST /order")
 
 # 2. Angled response arrow with custom styling
 arrow(
@@ -1340,12 +1400,13 @@ arrow(
     tail_width=2.5,
     head_width=7,
     head_length=5,
-    style=Style(fill_color=Colors140.LightGreen, line_color=Colors140.ForestGreen, line_width=1.5),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.LightGreen, shape_line_color=Colors140.ForestGreen, shape_line_width=1.5
+    ),
     text="200 OK",
-    textstyle=Style(text_size=9, text_color=Colors140.DarkGreen),
+    textstyle=styles.primary.patch(text_size=9, text_color=Colors140.DarkGreen),
 )
 save()
-
 ```
 
 ---
@@ -1366,7 +1427,8 @@ def arrow_l(
     tail_width: float | None = None,
     r: float = 0.0,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
 ) -> None:
     ...
 ```
@@ -1383,7 +1445,7 @@ def arrow_l(
 | `tail_width` | `float \| None` | `None` | Width of the shaft. |
 | `r` | `float` | `0.0` | Elbow corner rounding radius ($r \ge 0$). |
 | `angle` | `float` | `0.0` | Rotation angle CCW around center. |
-| `style` | `Style \| str \| None` | `None` | Fill and stroke style. |
+| `style` | `Style` | *Required* | Fill and stroke style. |
 
 > **Important**: `arrow_l` **does not accept `text`**. Place external `drawlib.text.text()` labels next to the elbow.
 
@@ -1397,7 +1459,7 @@ from drawlib.shapes import arrow_l
 from drawlib.types import Style
 
 # 1. Orthogonal L-routing pipe
-arrow_l((25, 25), width=30, height=25, tail_width=3, head_width=8, head_length=6, style="blue_flat")
+arrow_l((25, 25), width=30, height=25, tail_width=3, head_width=8, head_length=6, style=styles.blue_flat)
 
 # 2. Rounded elbow L-arrow with custom border
 arrow_l(
@@ -1408,10 +1470,11 @@ arrow_l(
     head_width=10,
     head_length=7,
     r=5,
-    style=Style(fill_color=Colors140.MistyRose, line_color=Colors140.Crimson, line_width=2),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.MistyRose, shape_line_color=Colors140.Crimson, shape_line_width=2
+    ),
 )
 save()
-
 ```
 
 ---
@@ -1432,7 +1495,8 @@ def arrow_u(
     tail_width: float | None = None,
     r: float = 0.0,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
 ) -> None:
     ...
 ```
@@ -1449,7 +1513,7 @@ def arrow_u(
 | `tail_width` | `float \| None` | `None` | Width of the shafts. |
 | `r` | `float` | `0.0` | Corner rounding radius at turns. |
 | `angle` | `float` | `0.0` | Rotation angle CCW around center. |
-| `style` | `Style \| str \| None` | `None` | Fill and stroke style. |
+| `style` | `Style` | *Required* | Fill and stroke style. |
 
 > **Important**: `arrow_u` **does not accept `text`**.
 
@@ -1463,7 +1527,7 @@ from drawlib.shapes import arrow_u
 from drawlib.types import Style
 
 # 1. Feedback loop return arrow
-arrow_u((25, 25), width=25, height=30, tail_width=3, head_width=8, head_length=6, style="green_flat")
+arrow_u((25, 25), width=25, height=30, tail_width=3, head_width=8, head_length=6, style=styles.green_flat)
 
 # 2. Rotated turnaround retry arrow
 arrow_u(
@@ -1475,10 +1539,11 @@ arrow_u(
     head_length=7,
     r=4,
     angle=90,
-    style=Style(fill_color=Colors140.Lavender, line_color=Colors140.Purple, line_width=1.5),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.Lavender, shape_line_color=Colors140.Purple, shape_line_width=1.5
+    ),
 )
 save()
-
 ```
 
 ---
@@ -1500,7 +1565,8 @@ def arrow_arc(
     head_angle: float | None = None,
     tail_width: float | None = None,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
 ) -> None:
     ...
 ```
@@ -1518,7 +1584,7 @@ def arrow_arc(
 | `head_angle` | `float \| None` | `None` | Tip vertex angle. |
 | `tail_width` | `float \| None` | `None` | Width of the curved body shaft. |
 | `angle` | `float` | `0.0` | Global rotational shift in degrees. |
-| `style` | `Style \| str \| None` | `None` | Fill and stroke style. |
+| `style` | `Style` | *Required* | Fill and stroke style. |
 
 > **Important**: `arrow_arc` **does not accept `text`**.
 
@@ -1532,7 +1598,7 @@ from drawlib.shapes import arrow_arc
 from drawlib.types import Style
 
 # 1. Circular process cycle arrow (90 to 0 degrees)
-arrow_arc((30, 25), width=30, height=30, angle_start=90, angle_end=0, tail_width=3, head_width=8, style="blue_flat")
+arrow_arc((30, 25), width=30, height=30, angle_start=90, angle_end=0, tail_width=3, head_width=8, style=styles.blue_flat)
 
 # 2. Semi-circular feedback return arrow
 arrow_arc(
@@ -1543,10 +1609,11 @@ arrow_arc(
     angle_end=0,
     tail_width=3,
     head_width=8,
-    style=Style(fill_color=Colors140.Gold, line_color=Colors140.DarkGoldenRod, line_width=1.5),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.Gold, shape_line_color=Colors140.DarkGoldenRod, shape_line_width=1.5
+    ),
 )
 save()
-
 ```
 
 ---
@@ -1564,7 +1631,8 @@ def arrow_polyline(
     head_angle: float | None = None,
     tail_width: float | None = None,
     r: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
 ) -> None:
     ...
 ```
@@ -1578,7 +1646,7 @@ def arrow_polyline(
 | `head_angle` | `float \| None` | `None` | Tip vertex angle. |
 | `tail_width` | `float \| None` | `None` | Width of the polyline shaft. |
 | `r` | `float` | `0.0` | Corner rounding radius at all intermediate vertex joints. |
-| `style` | `Style \| str \| None` | `None` | Fill and stroke style. |
+| `style` | `Style` | *Required* | Fill and stroke style. |
 
 > **Important**: `arrow_polyline` **does not accept `text`** or `angle`.
 
@@ -1598,7 +1666,7 @@ arrow_polyline(
     head_width=8,
     head_length=6,
     r=3,
-    style="blue_flat",
+    style=styles.blue_flat,
 )
 
 # 2. Multi-segment bypass route
@@ -1608,10 +1676,11 @@ arrow_polyline(
     head_width=7,
     head_length=5,
     r=2,
-    style=Style(fill_color=Colors140.LightGreen, line_color=Colors140.ForestGreen, line_width=1.5),
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.LightGreen, shape_line_color=Colors140.ForestGreen, shape_line_width=1.5
+    ),
 )
 save()
-
 ```
 
 ---
@@ -1628,10 +1697,11 @@ def chevron(
     height: float,
     corner_angle: float = 60.0,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    *,
+    style: Style,
     text: str = "",
     textsize: float | Literal["small", "medium", "large"] | None = None,
-    textstyle: Style | str | None = None,
+    textstyle: Style | None = None,
 ) -> None:
     ...
 ```
@@ -1644,10 +1714,10 @@ def chevron(
 | `height` | `float` | *Required* | Total vertical height. |
 | `corner_angle` | `float` | `60.0` | Point/notch angle in degrees ($0 < \theta < 180^\circ$). |
 | `angle` | `float` | `0.0` | Rotation angle CCW around center. |
-| `style` | `Style \| str \| None` | `None` | Fill and stroke style. |
+| `style` | `Style` | *Required* | Fill and stroke style. |
 | `text` | `str` | `""` | Embedded text label at center. |
 | `textsize` | `float \| str \| None` | `None` | Font size override. |
-| `textstyle` | `Style \| str \| None` | `None` | Text styling parameters. |
+| `textstyle` | `Style \| None` | `None` | Text styling parameters. |
 
 #### Geometric & Alignment Mechanics
 - Centered at `xy`. Rear notch depth and forward point apex match, allowing multiple chevrons to tessellate horizontally into pipeline stages.
@@ -1661,10 +1731,10 @@ from drawlib.types import Style
 config(width=100, height=50)
 
 # 1. CI/CD pipeline stage 1
-chevron((35, 25), width=30, height=22, corner_angle=60, style="blue_flat", text="Build")
+chevron((35, 25), width=30, height=22, corner_angle=60, style=styles.blue_flat, text="Build")
 
 # 2. Consecutive interlocking pipeline stage 2
-chevron((68, 25), width=30, height=22, corner_angle=60, style="green_flat", text="Test")
+chevron((68, 25), width=30, height=22, corner_angle=60, style=styles.green_flat, text="Test")
 save()
 ```
 
@@ -1686,48 +1756,145 @@ config(width=150, height=90)
 
 # 1. AWS VPC Boundary Enclosure (Centered at (75, 45))
 rectangle(
-    (75, 45), width=140, height=80, r=4,
-    style=Style(fill_color=Colors140.GhostWhite, line_color=Colors140.RoyalBlue, line_width=2, line_style="dashed"),
+    (75, 45),
+    width=140,
+    height=80,
+    r=4,
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.GhostWhite,
+        shape_line_color=Colors140.RoyalBlue,
+        shape_line_width=2,
+        shape_line_style="dashed",
+    ),
     text="VPC (10.0.0.0/16)",
-    textstyle=Style(text_size=12, text_color=Colors140.RoyalBlue, text_xy_shift=(-45, 34))
+    textstyle=styles.primary.patch(text_size=12, text_color=Colors140.RoyalBlue, text_xy_shift=(-45, 34)),
 )
 
 # 2. Internet Gateway
-circle((20, 45), radius=7, style=Style(fill_color=Colors140.MediumPurple, line_color=Colors140.Indigo, line_width=1.5),
-       text="IGW", textstyle=Style(text_size=10, text_color=Colors.White))
+circle(
+    (20, 45),
+    radius=7,
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.MediumPurple,
+        shape_line_color=Colors140.Indigo,
+        shape_line_width=1.5,
+    ),
+    text="IGW",
+    textstyle=styles.white_bold.patch(text_size=10, text_color=Colors.White),
+)
 
 # 3. Public Web Subnet
-rectangle((60, 62), width=48, height=32, r=3,
-          style=Style(fill_color=Colors140.HoneyDew, line_color=Colors140.ForestGreen, line_width=1.5),
-          text="Public Subnet (DMZ)", textstyle=Style(text_size=10, text_color=Colors140.ForestGreen, text_xy_shift=(-6, 12)))
-rectangle((48, 60), width=18, height=14, r=2, style="blue_flat", text="ALB", textstyle=Style(text_size=10, text_color=Colors.White))
-rectangle((72, 60), width=18, height=14, r=2, style="blue_flat", text="Nginx", textstyle=Style(text_size=10, text_color=Colors.White))
+rectangle(
+    (60, 62),
+    width=48,
+    height=32,
+    r=3,
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.HoneyDew,
+        shape_line_color=Colors140.ForestGreen,
+        shape_line_width=1.5,
+    ),
+    text="Public Subnet (DMZ)",
+    textstyle=styles.primary.patch(text_size=10, text_color=Colors140.ForestGreen, text_xy_shift=(-6, 12)),
+)
+rectangle(
+    (48, 60),
+    width=18,
+    height=14,
+    r=2,
+    style=styles.blue_flat,
+    text="ALB",
+    textstyle=styles.white_bold.patch(text_size=10, text_color=Colors.White),
+)
+rectangle(
+    (72, 60),
+    width=18,
+    height=14,
+    r=2,
+    style=styles.blue_flat,
+    text="Nginx",
+    textstyle=styles.white_bold.patch(text_size=10, text_color=Colors.White),
+)
 
 # 4. Private App Subnet
-rectangle((60, 26), width=48, height=32, r=3,
-          style=Style(fill_color=Colors140.AliceBlue, line_color=Colors140.SteelBlue, line_width=1.5),
-          text="Private App Subnet", textstyle=Style(text_size=10, text_color=Colors140.SteelBlue, text_xy_shift=(-8, 12)))
-rectangle((48, 24), width=18, height=14, r=2, style="green_flat", text="Auth\nSvc", textstyle=Style(text_size=9, text_color=Colors.White))
-rectangle((72, 24), width=18, height=14, r=2, style="green_flat", text="Order\nSvc", textstyle=Style(text_size=9, text_color=Colors.White))
+rectangle(
+    (60, 26),
+    width=48,
+    height=32,
+    r=3,
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.AliceBlue,
+        shape_line_color=Colors140.SteelBlue,
+        shape_line_width=1.5,
+    ),
+    text="Private App Subnet",
+    textstyle=styles.primary.patch(text_size=10, text_color=Colors140.SteelBlue, text_xy_shift=(-8, 12)),
+)
+rectangle(
+    (48, 24),
+    width=18,
+    height=14,
+    r=2,
+    style=styles.green_flat,
+    text="Auth\nSvc",
+    textstyle=styles.white_bold.patch(text_size=9, text_color=Colors.White),
+)
+rectangle(
+    (72, 24),
+    width=18,
+    height=14,
+    r=2,
+    style=styles.green_flat,
+    text="Order\nSvc",
+    textstyle=styles.white_bold.patch(text_size=9, text_color=Colors.White),
+)
 
 # 5. Database Tier
-rectangle((118, 45), width=45, height=60, r=3,
-          style=Style(fill_color=Colors140.MistyRose, line_color=Colors140.IndianRed, line_width=1.5),
-          text="Database Tier (Multi-AZ)", textstyle=Style(text_size=10, text_color=Colors140.DarkRed, text_xy_shift=(0, 25)))
-ellipse((118, 58), width=30, height=14,
-        style=Style(fill_color=Colors140.LightGoldenRodYellow, line_color=Colors140.GoldenRod, line_width=2),
-        text="Postgres Primary", textstyle=Style(text_size=9, text_color=Colors.Black))
-ellipse((118, 32), width=30, height=14,
-        style=Style(fill_color=Colors140.WhiteSmoke, line_color=Colors140.DimGray, line_width=1.5),
-        text="Read Replica", textstyle=Style(text_size=9, text_color=Colors.Black))
+rectangle(
+    (118, 45),
+    width=45,
+    height=60,
+    r=3,
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.MistyRose,
+        shape_line_color=Colors140.IndianRed,
+        shape_line_width=1.5,
+    ),
+    text="Database Tier (Multi-AZ)",
+    textstyle=styles.primary.patch(text_size=10, text_color=Colors140.DarkRed, text_xy_shift=(0, 25)),
+)
+ellipse(
+    (118, 58),
+    width=30,
+    height=14,
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.LightGoldenRodYellow,
+        shape_line_color=Colors140.GoldenRod,
+        shape_line_width=2,
+    ),
+    text="Postgres Primary",
+    textstyle=styles.primary.patch(text_size=9, text_color=Colors.Black),
+)
+ellipse(
+    (118, 32),
+    width=30,
+    height=14,
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.WhiteSmoke,
+        shape_line_color=Colors140.DimGray,
+        shape_line_width=1.5,
+    ),
+    text="Read Replica",
+    textstyle=styles.primary.patch(text_size=9, text_color=Colors.Black),
+)
 
 # 6. Connecting Arrows
-arrow((27, 45), (39, 58), tail_width=2, head_width=5, head_length=4, style="gray")
-arrow((57, 60), (63, 60), tail_width=2, head_width=5, head_length=4, style="gray")
-arrow((72, 53), (72, 31), tail_width=2, head_width=5, head_length=4, style="gray")
-arrow((81, 24), (102, 58), tail_width=2, head_width=5, head_length=4, style="gray")
+arrow((27, 45), (39, 58), tail_width=2, head_width=5, head_length=4, style=styles.gray_flat)
+arrow((57, 60), (63, 60), tail_width=2, head_width=5, head_length=4, style=styles.gray_flat)
+arrow((72, 53), (72, 31), tail_width=2, head_width=5, head_length=4, style=styles.gray_flat)
+arrow((81, 24), (102, 58), tail_width=2, head_width=5, head_length=4, style=styles.gray_flat)
 
-save("cloud_architecture.png")
+save()
 ```
 
 ---
@@ -1745,32 +1912,75 @@ from drawlib.types import Style
 config(width=140, height=65)
 
 # Producer
-rectangle((20, 32.5), width=24, height=20, r=3, style="blue_flat",
-          text="Order\nProducer", textstyle=Style(text_size=11, text_color=Colors.White))
+rectangle(
+    (20, 32.5),
+    width=24,
+    height=20,
+    r=3,
+    style=styles.blue_flat,
+    text="Order\nProducer",
+    textstyle=styles.white_bold.patch(text_size=11, text_color=Colors.White),
+)
 
 # Event Bus / Kafka Stream Topic (Parallelogram)
-parallelogram((64, 32.5), width=40, height=28, corner_angle=70,
-              style=Style(fill_color=Colors140.LightSteelBlue, line_color=Colors140.SteelBlue, line_width=2),
-              text="orders.events\n(Kafka Topic)", textstyle=Style(text_size=11, text_color=Colors140.MidnightBlue))
+parallelogram(
+    (64, 32.5),
+    width=40,
+    height=28,
+    corner_angle=70,
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.LightSteelBlue, shape_line_color=Colors140.SteelBlue, shape_line_width=2
+    ),
+    text="orders.events\n(Kafka Topic)",
+    textstyle=styles.primary.patch(text_size=11, text_color=Colors140.MidnightBlue),
+)
 
 # Consumer Group
-rectangle((115, 45), width=32, height=18, r=3, style="green_flat",
-          text="Payment Worker", textstyle=Style(text_size=10, text_color=Colors.White))
-rectangle((115, 20), width=32, height=18, r=3, style="green_flat",
-          text="Inventory Worker", textstyle=Style(text_size=10, text_color=Colors.White))
+rectangle(
+    (115, 45),
+    width=32,
+    height=18,
+    r=3,
+    style=styles.green_flat,
+    text="Payment Worker",
+    textstyle=styles.white_bold.patch(text_size=10, text_color=Colors.White),
+)
+rectangle(
+    (115, 20),
+    width=32,
+    height=18,
+    r=3,
+    style=styles.green_flat,
+    text="Inventory Worker",
+    textstyle=styles.white_bold.patch(text_size=10, text_color=Colors.White),
+)
 
 # Dead Letter Queue (Donuts)
-donuts((64, 9), radius=6, width=2,
-       style=Style(fill_color=Colors140.IndianRed, line_color=Colors140.DarkRed, line_width=1.5),
-       text="DLQ", textstyle=Style(text_size=8, text_color=Colors140.DarkRed))
+donuts(
+    (64, 9),
+    radius=6,
+    width=2,
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.IndianRed, shape_line_color=Colors140.DarkRed, shape_line_width=1.5
+    ),
+    text="DLQ",
+    textstyle=styles.primary.patch(text_size=8, text_color=Colors140.DarkRed),
+)
 
 # Event Flow Arrows
-arrow((32, 32.5), (44, 32.5), tail_width=3, head_width=7, head_length=5, style="blue")
-arrow((84, 38), (99, 45), tail_width=2.5, head_width=6, head_length=4, style="green")
-arrow((84, 27), (99, 20), tail_width=2.5, head_width=6, head_length=4, style="green")
-arrow((99, 15), (71, 9), tail_width=2, head_width=5, head_length=4, style="red_dashed")
+arrow((32, 32.5), (44, 32.5), tail_width=3, head_width=7, head_length=5, style=styles.blue_flat)
+arrow((84, 38), (99, 45), tail_width=2.5, head_width=6, head_length=4, style=styles.green_flat)
+arrow((84, 27), (99, 20), tail_width=2.5, head_width=6, head_length=4, style=styles.green_flat)
+arrow(
+    (99, 15),
+    (71, 9),
+    tail_width=2,
+    head_width=5,
+    head_length=4,
+    style=styles.red_dashed,
+)
 
-save("event_mesh_architecture.png")
+save()
 ```
 
 ---
@@ -1788,46 +1998,94 @@ from drawlib.types import Style
 config(width=150, height=55)
 
 # Input Tensor
-rectangle((16, 25), width=18, height=22,
-          style=Style(fill_color=Colors140.LightGray, line_color=Colors140.DimGray, line_width=1.5),
-          text="Input\n3x224x224", textstyle=Style(text_size=8, text_color=Colors.Black))
+rectangle(
+    (16, 25),
+    width=18,
+    height=22,
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.LightGray, shape_line_color=Colors140.DimGray, shape_line_width=1.5
+    ),
+    text="Input\n3x224x224",
+    textstyle=styles.primary.patch(text_size=8, text_color=Colors.Black),
+)
 
 # Conv2D Layer
-rectangle((42, 25), width=20, height=28, r=2, style="blue_flat",
-          text="Conv2D\n64 filters", textstyle=Style(text_size=9, text_color=Colors.White))
+rectangle(
+    (42, 25),
+    width=20,
+    height=28,
+    r=2,
+    style=styles.blue_flat,
+    text="Conv2D\n64 filters",
+    textstyle=styles.white_bold.patch(text_size=9, text_color=Colors.White),
+)
 
 # Batch Norm & ReLU
-rectangle((68, 25), width=18, height=22, r=2, style="green_flat",
-          text="BN +\nReLU", textstyle=Style(text_size=9, text_color=Colors.White))
+rectangle(
+    (68, 25),
+    width=18,
+    height=22,
+    r=2,
+    style=styles.green_flat,
+    text="BN +\nReLU",
+    textstyle=styles.white_bold.patch(text_size=9, text_color=Colors.White),
+)
 
 # Conv2D Layer 2
-rectangle((92, 25), width=20, height=28, r=2, style="blue_flat",
-          text="Conv2D\n64 filters", textstyle=Style(text_size=9, text_color=Colors.White))
+rectangle(
+    (92, 25),
+    width=20,
+    height=28,
+    r=2,
+    style=styles.blue_flat,
+    text="Conv2D\n64 filters",
+    textstyle=styles.white_bold.patch(text_size=9, text_color=Colors.White),
+)
 
 # Residual Elementwise Add Node
-circle((114, 25), radius=4.5,
-       style=Style(fill_color=Colors140.LightGoldenRodYellow, line_color=Colors140.GoldenRod, line_width=1.5),
-       text="+", textstyle=Style(text_size=12, text_color=Colors.Black))
+circle(
+    (114, 25),
+    radius=4.5,
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.LightGoldenRodYellow,
+        shape_line_color=Colors140.GoldenRod,
+        shape_line_width=1.5,
+    ),
+    text="+",
+    textstyle=styles.primary.patch(text_size=12, text_color=Colors.Black),
+)
 
 # Max Pooling (Trapezoid)
-trapezoid((134, 25), height=20, bottomedge_width=22, topedge_width=14, style="red_flat",
-          text="Pool\n/2", textstyle=Style(text_size=8, text_color=Colors.White))
+trapezoid(
+    (134, 25),
+    height=20,
+    bottomedge_width=22,
+    topedge_width=14,
+    style=styles.red_flat,
+    text="Pool\n/2",
+    textstyle=styles.white_bold.patch(text_size=8, text_color=Colors.White),
+)
 
 # Forward Feed Connections
-arrow((25, 25), (32, 25), tail_width=1.5, head_width=4, head_length=3, style="gray")
-arrow((52, 25), (59, 25), tail_width=1.5, head_width=4, head_length=3, style="gray")
-arrow((77, 25), (82, 25), tail_width=1.5, head_width=4, head_length=3, style="gray")
-arrow((102, 25), (109.5, 25), tail_width=1.5, head_width=4, head_length=3, style="gray")
-arrow((118.5, 25), (123, 25), tail_width=1.5, head_width=4, head_length=3, style="gray")
+arrow((25, 25), (32, 25), tail_width=1.5, head_width=4, head_length=3, style=styles.gray_flat)
+arrow((52, 25), (59, 25), tail_width=1.5, head_width=4, head_length=3, style=styles.gray_flat)
+arrow((77, 25), (82, 25), tail_width=1.5, head_width=4, head_length=3, style=styles.gray_flat)
+arrow((102, 25), (109.5, 25), tail_width=1.5, head_width=4, head_length=3, style=styles.gray_flat)
+arrow((118.5, 25), (123, 25), tail_width=1.5, head_width=4, head_length=3, style=styles.gray_flat)
 
 # ResNet Residual Skip Connection (arrow_polyline)
 arrow_polyline(
     [(42, 39), (42, 47), (114, 47), (114, 29.5)],
-    tail_width=1.5, head_width=4, head_length=3, r=3,
-    style=Style(fill_color=Colors140.DarkOrange, line_color=Colors140.DarkOrange)
+    tail_width=1.5,
+    head_width=4,
+    head_length=3,
+    r=3,
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.DarkOrange, shape_line_color=Colors140.DarkOrange
+    ),
 )
 
-save("cnn_resnet_architecture.png")
+save()
 ```
 
 ---
@@ -1845,36 +2103,80 @@ from drawlib.types import Style
 config(width=150, height=60)
 
 # Initial State
-circle((15, 30), radius=5, style=Style(fill_color=Colors.Black, line_width=0))
+circle((15, 30), radius=5, style=styles.primary.patch(shape_fill_color=Colors.Black, shape_line_width=0))
 
 # State 1: Draft
-rectangle((40, 30), width=26, height=20, r=5, style="blue_flat",
-          text="DRAFT", textstyle=Style(text_size=10, text_color=Colors.White))
+rectangle(
+    (40, 30),
+    width=26,
+    height=20,
+    r=5,
+    style=styles.blue_flat,
+    text="DRAFT",
+    textstyle=styles.white_bold.patch(text_size=10, text_color=Colors.White),
+)
 
 # Choice Decision Pseudostate (Rhombus)
-rhombus((70, 30), width=18, height=18, style="yellow_flat")
+rhombus((70, 30), width=18, height=18, style=styles.yellow_flat)
 
 # State 2: Published
-rectangle((104, 43), width=26, height=18, r=5, style="green_flat",
-          text="PUBLISHED", textstyle=Style(text_size=9, text_color=Colors.White))
+rectangle(
+    (104, 43),
+    width=26,
+    height=18,
+    r=5,
+    style=styles.green_flat,
+    text="PUBLISHED",
+    textstyle=styles.white_bold.patch(text_size=9, text_color=Colors.White),
+)
 
 # State 3: Rejected
-rectangle((104, 17), width=26, height=18, r=5, style="red_flat",
-          text="REJECTED", textstyle=Style(text_size=9, text_color=Colors.White))
+rectangle(
+    (104, 17),
+    width=26,
+    height=18,
+    r=5,
+    style=styles.red_flat,
+    text="REJECTED",
+    textstyle=styles.white_bold.patch(text_size=9, text_color=Colors.White),
+)
 
 # Terminal State (Bullseye / Donut with inner circle)
-donuts((136, 30), radius=6, width=1.5, style=Style(fill_color=Colors.Black, line_width=0))
-circle((136, 30), radius=3.5, style=Style(fill_color=Colors.Black, line_width=0))
+donuts(
+    (136, 30),
+    radius=6,
+    width=1.5,
+    style=styles.primary.patch(shape_fill_color=Colors.Black, shape_line_width=0),
+)
+circle((136, 30), radius=3.5, style=styles.primary.patch(shape_fill_color=Colors.Black, shape_line_width=0))
 
 # Transitions
-arrow((20, 30), (27, 30), tail_width=1.5, head_width=4, head_length=3, style="gray")
-arrow((53, 30), (61, 30), tail_width=1.5, head_width=4, head_length=3, style="gray")
-arrow((78, 35), (91, 43), tail_width=1.5, head_width=4, head_length=3, text="Valid", textstyle=Style(text_size=8), style="green")
-arrow((78, 25), (91, 17), tail_width=1.5, head_width=4, head_length=3, text="Invalid", textstyle=Style(text_size=8), style="red")
-arrow((117, 43), (130, 33), tail_width=1.5, head_width=4, head_length=3, style="gray")
-arrow((117, 17), (130, 27), tail_width=1.5, head_width=4, head_length=3, style="gray")
+arrow((20, 30), (27, 30), tail_width=1.5, head_width=4, head_length=3, style=styles.gray_flat)
+arrow((53, 30), (61, 30), tail_width=1.5, head_width=4, head_length=3, style=styles.gray_flat)
+arrow(
+    (78, 35),
+    (91, 43),
+    tail_width=1.5,
+    head_width=4,
+    head_length=3,
+    text="Valid",
+    textstyle=styles.bold.patch(text_size=8),
+    style=styles.green_flat,
+)
+arrow(
+    (78, 25),
+    (91, 17),
+    tail_width=1.5,
+    head_width=4,
+    head_length=3,
+    text="Invalid",
+    textstyle=styles.bold.patch(text_size=8),
+    style=styles.red_flat,
+)
+arrow((117, 43), (130, 33), tail_width=1.5, head_width=4, head_length=3, style=styles.gray_flat)
+arrow((117, 17), (130, 27), tail_width=1.5, head_width=4, head_length=3, style=styles.gray_flat)
 
-save("state_machine_schema.png")
+save()
 ```
 
 ---
@@ -1892,31 +2194,79 @@ from drawlib.types import Style
 config(width=140, height=75)
 
 # Outer Dashboard Frame
-rectangle((70, 37.5), width=130, height=65, r=4,
-          style=Style(fill_color=Colors140.WhiteSmoke, line_color=Colors140.LightGray, line_width=1.5))
+rectangle(
+    (70, 37.5),
+    width=130,
+    height=65,
+    r=4,
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.WhiteSmoke, shape_line_color=Colors140.LightGray, shape_line_width=1.5
+    ),
+)
 
 # KPI Card 1: Server Load
-rectangle((28, 37.5), width=36, height=50, r=3,
-          style=Style(fill_color=Colors.White, line_color=Colors140.Gainsboro, line_width=1),
-          text="CPU LOAD\n\n42%", textstyle=Style(text_size=12, text_color=Colors140.DarkSlateGray, text_xy_shift=(0, -8)))
-arc((28, 48), width=20, height=20, angle_start=0, angle_end=220,
-    style=Style(line_color=Colors140.DodgerBlue, line_width=3))
+rectangle(
+    (28, 37.5),
+    width=36,
+    height=50,
+    r=3,
+    style=styles.primary.patch(
+        shape_fill_color=Colors.White, shape_line_color=Colors140.Gainsboro, shape_line_width=1
+    ),
+    text="CPU LOAD\n\n42%",
+    textstyle=styles.primary.patch(text_size=12, text_color=Colors140.DarkSlateGray, text_xy_shift=(0, -8)),
+)
+arc(
+    (28, 48),
+    width=20,
+    height=20,
+    angle_start=0,
+    angle_end=220,
+    style=styles.bold.patch(line_color=Colors140.DodgerBlue, line_width=3),
+)
 
 # KPI Card 2: Memory Usage
-rectangle((70, 37.5), width=36, height=50, r=3,
-          style=Style(fill_color=Colors.White, line_color=Colors140.Gainsboro, line_width=1),
-          text="MEMORY\n\n78%", textstyle=Style(text_size=12, text_color=Colors140.DarkSlateGray, text_xy_shift=(0, -8)))
-arc((70, 48), width=20, height=20, angle_start=0, angle_end=280,
-    style=Style(line_color=Colors140.MediumSeaGreen, line_width=3))
+rectangle(
+    (70, 37.5),
+    width=36,
+    height=50,
+    r=3,
+    style=styles.primary.patch(
+        shape_fill_color=Colors.White, shape_line_color=Colors140.Gainsboro, line_width=1
+    ),
+    text="MEMORY\n\n78%",
+    textstyle=styles.primary.patch(text_size=12, text_color=Colors140.DarkSlateGray, text_xy_shift=(0, -8)),
+)
+arc(
+    (70, 48),
+    width=20,
+    height=20,
+    angle_start=0,
+    angle_end=280,
+    style=styles.bold.patch(line_color=Colors140.MediumSeaGreen, line_width=3),
+)
 
 # KPI Card 3: Network Status
-rectangle((112, 37.5), width=36, height=50, r=3,
-          style=Style(fill_color=Colors.White, line_color=Colors140.Gainsboro, line_width=1),
-          text="NETWORK\n\nActive", textstyle=Style(text_size=12, text_color=Colors140.DarkSlateGray, text_xy_shift=(0, -8)))
-circle((112, 48), radius=6,
-       style=Style(fill_color=Colors140.PaleGreen, line_color=Colors140.ForestGreen, line_width=2))
+rectangle(
+    (112, 37.5),
+    width=36,
+    height=50,
+    r=3,
+    style=styles.primary.patch(
+        shape_fill_color=Colors.White, shape_line_color=Colors140.Gainsboro, line_width=1
+    ),
+    text="NETWORK\n\nActive",
+    textstyle=styles.primary.patch(text_size=12, text_color=Colors140.DarkSlateGray, text_xy_shift=(0, -8)),
+)
+circle(
+    (112, 48),
+    radius=6,
+    style=styles.primary.patch(
+        shape_fill_color=Colors140.PaleGreen, shape_line_color=Colors140.ForestGreen, shape_line_width=2
+    ),
+)
 
-save("dashboard_ui_kit.png")
+save()
 ```
 
 ---

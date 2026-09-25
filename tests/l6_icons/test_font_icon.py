@@ -32,11 +32,7 @@ class TestCanvasFontIcon:
             width=20,
             code="\uf1a0",
             file=FONT_AWESOME_FREE,
-            style=Style(
-                text_color=Colors.Red,
-                text_halign="center",
-                text_valign="center",
-            ),
+            style=Style(icon_color=Colors.Red),
         )
         save(f"{OUTPUT_DIR}test_icon.png")
 

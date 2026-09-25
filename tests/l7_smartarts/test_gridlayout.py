@@ -10,6 +10,7 @@
 """Unit and integration tests for GridLayout smart art."""
 
 from drawlib.canvas import clear, save
+from drawlib.preset_styles import get_default_styles
 from drawlib.smartarts import GridLayout
 
 OUTPUT_DIR = "../../output_tests/l7_smartarts/gridlayout/"
@@ -21,7 +22,8 @@ class TestGridLayout:
     def test_gridlayout_default(self) -> None:
         """Verify basic GridLayout item positioning and spanned cells."""
         clear()
-        gl = GridLayout(3, 3, 2, default_style="solid")
+        styles = get_default_styles()
+        gl = GridLayout(styles=styles, num_column=3, num_row=3, default_r=2, default_style=styles.solid)
         gl.add((0, 0), 1, 1, text="A")
         gl.add((0, 1), 1, 1, text="B")
         gl.add((0, 2), 1, 1, text="C")
@@ -33,7 +35,8 @@ class TestGridLayout:
     def test_gridlayout_text_angle(self) -> None:
         """Verify GridLayout cells containing rotated text."""
         clear()
-        gl = GridLayout(3, 3, 2, default_style="solid")
+        styles = get_default_styles()
+        gl = GridLayout(styles=styles, num_column=3, num_row=3, default_r=2, default_style=styles.solid)
         gl.add((0, 0), 1, 1, text="A", textangle=270)
         gl.add((0, 1), 1, 1, text="B", textangle=90)
         gl.add((0, 2), 1, 1, text="C")
@@ -45,7 +48,8 @@ class TestGridLayout:
     def test_gridlayout_text_shift(self) -> None:
         """Verify GridLayout cells containing offset/shifted text positions."""
         clear()
-        gl = GridLayout(3, 3, 2, default_style="solid")
+        styles = get_default_styles()
+        gl = GridLayout(styles=styles, num_column=3, num_row=3, default_r=2, default_style=styles.solid)
         gl.add((0, 0), 1, 1, text="A", text_xy_shift=(3, 3))
         gl.add((0, 1), 1, 1, text="B", text_xy_shift=(-3, -3))
         gl.add((0, 2), 1, 1, text="C")
@@ -57,12 +61,13 @@ class TestGridLayout:
     def test_gridlayout_outer_style(self) -> None:
         """Verify GridLayout drawing with solid/rounded outer frame styles."""
         clear()
-        gl = GridLayout(3, 3, 2, default_style="solid")
+        styles = get_default_styles()
+        gl = GridLayout(styles=styles, num_column=3, num_row=3, default_r=2, default_style=styles.solid)
         gl.add((0, 0), 1, 1, text="A")
         gl.add((0, 1), 1, 1, text="B")
         gl.add((0, 2), 1, 1, text="C")
         gl.add((1, 0), 1, 3, text="D")
         gl.add((2, 0), 1, 1, text="E")
-        gl.draw((10, 10), 30, 30, 1, outer_style="solid")
-        gl.draw((60, 10), 30, 30, 1, outer_r=0, outer_style="solid")
+        gl.draw((10, 10), 30, 30, 1, outer_style=styles.solid)
+        gl.draw((60, 10), 30, 30, 1, outer_r=0, outer_style=styles.solid)
         save(f"{OUTPUT_DIR}test_gridlayout_outerstyle.png")

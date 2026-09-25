@@ -38,11 +38,11 @@ start_x, y, gap = 15, 20, 10
 
 for i, name in enumerate(services):
     x = start_x + i * (box_w + gap) + (box_w / 2)
-    rectangle((x, y), width=box_w, height=box_h, style="blue_flat", text=name, textstyle="white_bold")
+    rectangle((x, y), width=box_w, height=box_h, style=styles.blue_flat, text=name, textstyle=styles.white_bold)
     if i > 0:
         prev_right = start_x + (i - 1) * (box_w + gap) + box_w
         curr_left = start_x + i * (box_w + gap)
-        line((prev_right, y), (curr_left, y), arrowhead="->", style="bold")
+        line((prev_right, y), (curr_left, y), arrowhead="->", style=styles.bold)
 
 save()
 ```
@@ -60,21 +60,21 @@ nodes = ["Ingest", "Transform", "Validate", "Store", "Index", "Serve"]
 n = len(nodes)
 
 # Central hub
-circle((center_x, center_y), radius=12, style="purple_flat", text="Data Hub", textstyle="white_bold")
+circle((center_x, center_y), radius=12, style=styles.purple_flat, text="Data Hub", textstyle=styles.white_bold)
 
 # Satellite nodes
 for i, label in enumerate(nodes):
     angle = (2 * math.pi / n) * i
     x = center_x + radius * math.cos(angle)
     y = center_y + radius * math.sin(angle)
-    circle((x, y), radius=8, style="green_flat", text=label, textstyle="white_bold")
+    circle((x, y), radius=8, style=styles.green_flat, text=label, textstyle=styles.white_bold)
 
     # Connect hub edge to satellite edge without cutting through nodes
     lx1 = center_x + 13 * math.cos(angle)
     ly1 = center_y + 13 * math.sin(angle)
     lx2 = center_x + 21 * math.cos(angle)
     ly2 = center_y + 21 * math.sin(angle)
-    line((lx1, ly1), (lx2, ly2), arrowhead="->", style="bold")
+    line((lx1, ly1), (lx2, ly2), arrowhead="->", style=styles.bold)
 
 save()
 ```
@@ -316,9 +316,9 @@ In Markdown source files under `docs_src/`, embed illustrations using the ````dr
 ````markdown
 ```drawlib 600px center show-code caption:"System Architecture Overview"
 config(width=120, height=50)
-rectangle((25, 25), width=30, height=20, style="blue_flat", text="Client", textstyle="white_bold")
-rectangle((95, 25), width=30, height=20, style="green_flat", text="Service", textstyle="white_bold")
-line((40, 25), (80, 25), arrowhead="->", style="bold")
+rectangle((25, 25), width=30, height=20, style=styles.blue_flat, text="Client", textstyle=styles.white_bold)
+rectangle((95, 25), width=30, height=20, style=styles.green_flat, text="Service", textstyle=styles.white_bold)
+line((40, 25), (80, 25), arrowhead="->", style=styles.bold)
 ```
 ````
 

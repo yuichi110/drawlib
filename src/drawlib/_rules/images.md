@@ -29,7 +29,7 @@ image(
     width: float,
     image: str | Image.Image | Dimage,
     angle: float = 0.0,
-    style: Style | str | None = None,
+    style: Style | None = None,
 )
 ```
 
@@ -40,7 +40,7 @@ image(
 | `width` | `float` | Required | Width of the image in canvas units. Height is calculated automatically from the image aspect ratio. |
 | `image` | `str \| Image \| Dimage`| Required | Filesystem path to an image file (`.png`, `.jpg`, `.svg`), a PIL `Image`, or a `Dimage`. |
 | `angle` | `float` | `0.0` | Counter-clockwise rotation angle in degrees around the anchor point. |
-| `style` | `Style \| str \| None` | `None` | Style controlling transparency (`alpha`), tint color (`fill_color`), or anchor alignment (`text_halign`, `text_valign`). |
+| `style` | `Style \| None` | `None` | Style controlling transparency (`image_alpha`), tint color (`image_tint_color`), or anchor alignment (`text_halign`, `text_valign`). |
 
 ### Anchor Alignment
 By default, `(x, y)` corresponds to the **geometric center** of the image.  
@@ -93,7 +93,7 @@ sub_code = """
 from drawlib.canvas import config
 from drawlib.shapes import circle
 config(width=50, height=50)
-circle((25, 25), radius=20, style="purple_flat", text="Pod")
+circle((25, 25), radius=20, style=styles.purple_flat, text="Pod")
 """
 sub_image = get_dimage_from_code(sub_code)
 
@@ -112,25 +112,25 @@ from drawlib.canvas import config, save
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.types import Style
 
 config(width=140, height=60)
 
 # Service container cards
-rectangle((35, 30), width=36, height=36, r=3, style="blue_solid")
-rectangle((105, 30), width=36, height=36, r=3, style="green_solid")
+rectangle((35, 30), width=36, height=36, r=3, style=styles.blue_solid)
+rectangle((105, 30), width=36, height=36, r=3, style=styles.green_solid)
 
 # Card titles
-text((35, 42), "Client Application", style="bold")
-text((105, 42), "Microservice API", style="bold")
+text((35, 42), "Client Application", style=styles.bold)
+text((105, 42), "Microservice API", style=styles.bold)
 
 # Inner placeholder badges
-rectangle((35, 26), width=20, height=12, style="blue_flat", text="React", textstyle="white_bold")
-rectangle((105, 26), width=20, height=12, style="green_flat", text="FastAPI", textstyle="white_bold")
+rectangle((35, 26), width=20, height=12, style=styles.blue_flat, text="React", textstyle=styles.white_bold)
+rectangle((105, 26), width=20, height=12, style=styles.green_flat, text="FastAPI", textstyle=styles.white_bold)
 
 # Connecting arrow with payload label
-line((53, 30), (87, 30), arrowhead="->", style="bold")
-text((70, 34), "JSON over HTTPS", style="bold")
+line((53, 30), (87, 30), arrowhead="->", style=styles.bold)
+text((70, 34), "JSON over HTTPS", style=styles.bold)
+save()
 ```
 
 ### 5.2. Image Tinting & Opacity Blending
@@ -139,13 +139,13 @@ text((70, 34), "JSON over HTTPS", style="bold")
 from drawlib.canvas import config, save
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.types import Style
 
 config(width=100, height=50)
 
 # Solid border backdrop
-rectangle((50, 25), width=80, height=36, r=4, style="purple_solid")
-text((50, 25), "Overlay Panel", style="bold")
+rectangle((50, 25), width=80, height=36, r=4, style=styles.purple_solid)
+text((50, 25), "Overlay Panel", style=styles.bold)
+save()
 ```
 
 ---

@@ -43,7 +43,6 @@ from drawlib._core.l3_fonts import (
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import image
 from drawlib._core.l4_canvas_utils import ColorUtil
-from drawlib._preset_styles import get_style
 
 PYGMENTS_LINENUM_TEXT_COLOR: Final[TypeColor] = (136, 136, 102)
 PYGMENTS_LINENUM_BACKGROUND_COLOR: Final[TypeColor] = (238, 238, 221)
@@ -175,7 +174,8 @@ class SourceCode:
         xy: TypeCoordinate,
         width: TypePosFloat,
         code: TypeStr,
-        style: Style | TypeStr | None = None,
+        *,
+        style: Style | None = None,
     ) -> None:
         """Draw the source code image on a canvas.
 
@@ -183,8 +183,7 @@ class SourceCode:
             xy (Tuple[float, float]): The (x, y) coordinates for the top-left corner of the image.
             width (float): The width of the image.
             code (str): The source code to render.
-            style (Union[Style, str, None], optional): The style to apply to the image.
-
+            style (Style | None, optional): The style to apply to the image. Defaults to None.
         """
         image_ = self.get_image(code=code)
         image(xy=xy, width=width, image=image_, style=style)

@@ -692,8 +692,8 @@ chart = ScatterChart(
 chart.configure_x_axis(label="Throughput (req/sec)", unit=" rps", min_value=0, max_value=1000)
 chart.configure_y_axis(label="p99 Latency (ms)", unit=" ms", min_value=0, max_value=200)
 
-chart.add(xy=(100.0, 18.0), radius=1.6, label="v1.0 Baseline", style=Style(fill_color=(100, 116, 139, 0.9)))
-chart.add(xy=(730.0, 35.0), radius=2.2, label="v2.5 Release", style=Style(fill_color=(16, 185, 129, 0.9)))
+chart.add(xy=(100.0, 18.0), radius=1.6, label="v1.0 Baseline", style=Style(shape_fill_color=(100, 116, 139, 0.9)))
+chart.add(xy=(730.0, 35.0), radius=2.2, label="v2.5 Release", style=Style(shape_fill_color=(16, 185, 129, 0.9)))
 
 chart.add_series(
     name="Async Rust Engine",
@@ -892,9 +892,9 @@ Every chart container accepts an optional `style: Style` argument to apply backg
 
 ```python
 card_style = Style(
-    fill_color=(255, 255, 255, 0.95),
-    line_color=(203, 213, 225, 1.0),
-    line_width=1.0,
+    shape_fill_color=(255, 255, 255, 0.95),
+    shape_line_color=(203, 213, 225, 1.0),
+    shape_line_width=1.0,
 )
 chart = BarChart(..., style=card_style)
 ```

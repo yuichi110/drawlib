@@ -153,26 +153,34 @@ from drawlib.types import Style
 config(width=140, height=60)
 
 # Define custom semantic styles
-cloud_style = Style(
-    fill_color=with_alpha(ColorsDefault.Blue, 0.15),
-    line_color=ColorsDefault.Blue,
-    line_width=2,
+cloud_style = styles.primary.patch(
+    shape_fill_color=with_alpha(ColorsDefault.Blue, 0.15),
+    shape_line_color=ColorsDefault.Blue,
+    shape_line_width=2,
 )
-db_style = Style(
-    fill_color=with_alpha(ColorsEssentials.Orange, 0.2),
-    line_color=ColorsEssentials.Orange,
-    line_width=2,
+db_style = styles.primary.patch(
+    shape_fill_color=with_alpha(ColorsEssentials.Orange, 0.2),
+    shape_line_color=ColorsEssentials.Orange,
+    shape_line_width=2,
 )
 
 # Background cluster zone
-rectangle((70, 30), width=130, height=50, style=cloud_style, text="Kubernetes Cluster", textstyle=Style(text_valign="top", text_color=ColorsDefault.Blue))
+rectangle(
+    (70, 30),
+    width=130,
+    height=50,
+    style=cloud_style,
+    text="Kubernetes Cluster",
+    textstyle=styles.primary.patch(text_valign="top", text_color=ColorsDefault.Blue),
+)
 
 # Service nodes
-rectangle((40, 26), width=32, height=18, style="blue_flat", text="Web Service", textstyle="white_bold")
-rectangle((100, 26), width=32, height=18, style="green_flat", text="Database", textstyle="white_bold")
+rectangle((40, 26), width=32, height=18, style=styles.blue_flat, text="Web Service", textstyle=styles.white_bold)
+rectangle((100, 26), width=32, height=18, style=styles.green_flat, text="Database", textstyle=styles.white_bold)
 
 # Data connection
-line((56, 26), (84, 26), arrowhead="->", style="bold")
+line((56, 26), (84, 26), arrowhead="->", style=styles.bold)
+save()
 ```
 
 ### 5.2. Monochrome Print-Ready Diagram
@@ -186,15 +194,16 @@ from drawlib.types import Style
 
 config(width=120, height=50)
 
-box_style = Style(
-    fill_color=ColorsMonochrome.Silver,
-    line_color=ColorsMonochrome.Black,
-    line_width=2,
+box_style = styles.primary.patch(
+    shape_fill_color=ColorsMonochrome.Silver,
+    shape_line_color=ColorsMonochrome.Black,
+    shape_line_width=2,
 )
 
-rectangle((30, 25), width=30, height=18, style=box_style, text="Module Alpha", textstyle="bold")
-rectangle((90, 25), width=30, height=18, style=box_style, text="Module Beta", textstyle="bold")
-line((45, 25), (75, 25), arrowhead="->", style="bold")
+rectangle((30, 25), width=30, height=18, style=box_style, text="Module Alpha", textstyle=styles.bold)
+rectangle((90, 25), width=30, height=18, style=box_style, text="Module Beta", textstyle=styles.bold)
+line((45, 25), (75, 25), arrowhead="->", style=styles.bold)
+save()
 ```
 
 ---

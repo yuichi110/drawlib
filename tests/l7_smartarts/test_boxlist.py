@@ -10,6 +10,7 @@
 """Unit and integration tests for BoxList smart art."""
 
 from drawlib.canvas import clear, save
+from drawlib.preset_styles import get_default_styles
 from drawlib.smartarts import BoxList
 
 OUTPUT_DIR = "../../output_tests/l7_smartarts/boxlist/"
@@ -21,9 +22,10 @@ class TestBoxList:
     def test_boxlist_default_horizontal_left(self) -> None:
         """Verify BoxList drawing with default horizontal alignment starting from left."""
         clear()
-        b = BoxList("solid", "")
+        styles = get_default_styles()
+        b = BoxList(styles=styles, default_box_style=styles.solid)
         b.extend(["1", "2"])
-        b.append("3", "red_solid_bold", "red_bold")
+        b.append("3", box_style=styles.red_solid, text_style=styles.red_bold)
         b.append("4")
         b.draw((10, 10), 8, 6)
         save(f"{OUTPUT_DIR}test_boxlist_left.png")
@@ -31,9 +33,10 @@ class TestBoxList:
     def test_boxlist_horizontal_right(self) -> None:
         """Verify BoxList drawing with horizontal alignment starting from right."""
         clear()
-        b = BoxList("solid", "")
+        styles = get_default_styles()
+        b = BoxList(styles=styles, default_box_style=styles.solid)
         b.extend(["1", "2"])
-        b.append("3", "red_solid_bold", "red_bold")
+        b.append("3", box_style=styles.red_solid, text_style=styles.red_bold)
         b.append("4")
         b.draw((90, 10), 8, 6, "right")
         save(f"{OUTPUT_DIR}test_boxlist_right.png")
@@ -41,9 +44,10 @@ class TestBoxList:
     def test_boxlist_vertical_bottom(self) -> None:
         """Verify BoxList drawing with vertical alignment starting from bottom."""
         clear()
-        b = BoxList("solid", "")
+        styles = get_default_styles()
+        b = BoxList(styles=styles, default_box_style=styles.solid)
         b.extend(["1", "2"])
-        b.append("3", "red_solid_bold", "red_bold")
+        b.append("3", box_style=styles.red_solid, text_style=styles.red_bold)
         b.append("4")
         b.draw((10, 10), 8, 6, "bottom")
         save(f"{OUTPUT_DIR}test_boxlist_bottom.png")
@@ -51,16 +55,18 @@ class TestBoxList:
     def test_boxlist_vertical_top(self) -> None:
         """Verify BoxList drawing with vertical alignment starting from top."""
         clear()
-        b = BoxList("solid", "")
+        styles = get_default_styles()
+        b = BoxList(styles=styles, default_box_style=styles.solid)
         b.extend(["1", "2"])
-        b.append("3", "red_solid_bold", "red_bold")
+        b.append("3", box_style=styles.red_solid, text_style=styles.red_bold)
         b.append("4")
         b.draw((10, 90), 8, 6, "top")
         save(f"{OUTPUT_DIR}test_boxlist_top.png")
 
     def test_boxlist_item_operations(self) -> None:
         """Verify item manipulation methods (append, insert, extend) work properly."""
-        b = BoxList()
+        styles = get_default_styles()
+        b = BoxList(styles=styles)
         b.append("item1")
         assert len(b._list) == 1
         assert b._list[0].text == "item1"
@@ -71,7 +77,7 @@ class TestBoxList:
         assert b._list[1].text == "item2"
         assert b._list[2].text == "item3"
 
-        b.insert(1, "inserted", box_style="red")
+        b.insert(1, "inserted", box_style=styles.red)
         assert len(b._list) == 4
         assert b._list[1].text == "inserted"
         assert b._list[1].is_custom_style

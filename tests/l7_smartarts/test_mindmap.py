@@ -11,6 +11,7 @@
 
 from drawlib._core.l3_styles import Style
 from drawlib.canvas import clear, save
+from drawlib.preset_styles import get_default_styles
 from drawlib.smartarts import MindMapNode
 
 OUTPUT_DIR = "../../output_tests/l7_smartarts/mindmap/"
@@ -38,13 +39,14 @@ class TestMindMapNode:
     def test_mindmap_vertical_bottom(self) -> None:
         """Verify vertical bottom expansion (organizational hierarchy)."""
         clear()
+        styles = get_default_styles()
         root = MindMapNode(
             "CEO",
             shape="rectangle",
             size=(22.0, 8.0),
-            style="solid",
+            style=styles.solid,
             default_size=(18.0, 7.0),
-            default_style="solid",
+            default_style=styles.solid,
             children=[
                 MindMapNode(
                     "CTO",
@@ -61,12 +63,13 @@ class TestMindMapNode:
                 ),
             ],
         )
-        root.draw(xy=(50.0, 85.0), branch="bottom")
+        root.draw(xy=(50.0, 85.0), branch="bottom", styles=styles)
         save(f"{OUTPUT_DIR}test_mindmap_bottom.png")
 
     def test_mindmap_vertical_top(self) -> None:
         """Verify vertical top expansion."""
         clear()
+        styles = get_default_styles()
         root = MindMapNode(
             "Root",
             shape="rectangle",
@@ -76,12 +79,13 @@ class TestMindMapNode:
                 MindMapNode("Leaf B"),
             ],
         )
-        root.draw(xy=(50.0, 20.0), branch="top")
+        root.draw(xy=(50.0, 20.0), branch="top", styles=styles)
         save(f"{OUTPUT_DIR}test_mindmap_top.png")
 
     def test_mindmap_horizontal_right(self) -> None:
         """Verify horizontal right expansion."""
         clear()
+        styles = get_default_styles()
         root = MindMapNode(
             "Topic",
             shape="oval",
@@ -91,12 +95,13 @@ class TestMindMapNode:
                 MindMapNode("Sub 2", shape="none"),
             ],
         )
-        root.draw(xy=(20.0, 50.0), branch="right")
+        root.draw(xy=(20.0, 50.0), branch="right", styles=styles)
         save(f"{OUTPUT_DIR}test_mindmap_right.png")
 
     def test_mindmap_horizontal_left(self) -> None:
         """Verify horizontal left expansion."""
         clear()
+        styles = get_default_styles()
         root = MindMapNode(
             "Topic",
             shape="oval",
@@ -106,24 +111,25 @@ class TestMindMapNode:
                 MindMapNode("Sub 2", shape="none"),
             ],
         )
-        root.draw(xy=(80.0, 50.0), branch="left")
+        root.draw(xy=(80.0, 50.0), branch="left", styles=styles)
         save(f"{OUTPUT_DIR}test_mindmap_left.png")
 
     def test_mindmap_multidirectional_mindmap(self) -> None:
         """Verify central topic branching into multiple directions (mind map)."""
         clear()
+        styles = get_default_styles()
         root = MindMapNode(
             "Main Concept",
             shape="oval",
             size=(26.0, 12.0),
-            style="bold",
+            style=styles.bold,
             children=[
                 # Right branch
                 MindMapNode(
                     "Pros",
                     branch="right",
                     shape="rectangle",
-                    style="solid",
+                    style=styles.solid,
                     children=[
                         MindMapNode("Speed", shape="none"),
                         MindMapNode("Clarity", shape="none"),
@@ -134,7 +140,7 @@ class TestMindMapNode:
                     "Cons",
                     branch="left",
                     shape="rectangle",
-                    style="solid",
+                    style=styles.solid,
                     children=[
                         MindMapNode("Complexity", shape="none"),
                     ],
@@ -144,17 +150,17 @@ class TestMindMapNode:
                     "Goals",
                     branch="top",
                     shape="rectangle",
-                    style="solid",
+                    style=styles.solid,
                 ),
                 # Bottom branch
                 MindMapNode(
                     "Next Steps",
                     branch="bottom",
                     shape="rectangle",
-                    style="solid",
+                    style=styles.solid,
                     xy_shift=(0.0, -2.0),
                 ),
             ],
         )
-        root.draw(xy=(50.0, 50.0))
+        root.draw(xy=(50.0, 50.0), styles=styles)
         save(f"{OUTPUT_DIR}test_mindmap_multi.png")

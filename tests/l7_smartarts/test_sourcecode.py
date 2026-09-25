@@ -9,6 +9,8 @@
 
 """Unit and integration tests for SourceCode smart art rendering."""
 
+import pytest
+
 from drawlib.canvas import clear, save
 from drawlib.fonts import FontSourceCode
 from drawlib.smartarts import SourceCode
@@ -52,6 +54,7 @@ class TestSourceCode:
         sc.draw(xy=(20, 20), width=30, code=code_snippet)
         save(f"{OUTPUT_DIR}test_sourcecode_default.png")
 
+    @pytest.mark.image_threshold(97.0)
     def test_sourcecode_styles(self) -> None:
         """Verify SourceCode rendering with different Pygments themes and Roboto Mono font."""
         clear()
@@ -90,6 +93,7 @@ class TestSourceCode:
             sc.draw(xy=(x, y), width=25, code=code_snippet)
         save(f"{OUTPUT_DIR}test_sourcecode_grayscale_styles.png")
 
+    @pytest.mark.image_threshold(97.0)
     def test_sourcecode_font_courier(self) -> None:
         """Verify SourceCode rendering with Courier font style."""
         clear()

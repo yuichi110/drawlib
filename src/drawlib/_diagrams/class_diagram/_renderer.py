@@ -15,7 +15,7 @@ import math
 from typing import TYPE_CHECKING
 
 from drawlib._core.l3_fonts import Font
-from drawlib._core.l3_styles import Style
+from drawlib._core.l3_styles import Colors, Style
 from drawlib._diagrams.class_diagram._types import RoutingType, Side
 from drawlib.lines import line as canvas_line
 from drawlib.lines import lines as canvas_lines
@@ -62,7 +62,12 @@ def draw_class_diagram(diagram: ClassDiagram, base_xy: tuple[float, float]) -> N
 
     # 1. Render Diagram Background if specified
     if diagram.style is not None:
-        canvas_rectangle(xy=(center_x, center_y), width=diag_w, height=diag_h, style=diagram.style)
+        bg_style = Style(
+            shape_fill_color=Colors.White,
+            shape_line_color=Colors.Transparent,
+            shape_line_width=0.0,
+        ).patch(diagram.style)
+        canvas_rectangle(xy=(center_x, center_y), width=diag_w, height=diag_h, style=bg_style)
 
     # 2. Render Diagram Title if specified
     if diagram.title:
@@ -119,24 +124,24 @@ def _render_class_node(node: ClassNode, canvas_xy: tuple[float, float]) -> None:
 
     # 1. Main Background and Outer Box
     box_style = Style(
-        fill_color=_DEFAULT_BODY_BG,
-        line_color=_DEFAULT_BORDER_COLOR,
-        line_width=1.5,
+        shape_fill_color=_DEFAULT_BODY_BG,
+        shape_line_color=_DEFAULT_BORDER_COLOR,
+        shape_line_width=1.5,
     )
     if node.style is not None:
-        box_style = box_style.merge(node.style)
+        box_style = box_style.patch(node.style)
     canvas_rectangle(xy=(cx, cy), width=w, height=h, r=1.0, style=box_style)
 
     # 2. Header Box & Title Text
     hh = node.header_height
     header_cy = top_y - hh / 2.0
     header_box_style = Style(
-        fill_color=_DEFAULT_HEADER_BG,
-        line_color=box_style.line_color or _DEFAULT_BORDER_COLOR,
-        line_width=1.5,
+        shape_fill_color=_DEFAULT_HEADER_BG,
+        shape_line_color=box_style.shape_line_color or _DEFAULT_BORDER_COLOR,
+        shape_line_width=1.5,
     )
     if node.header_style is not None:
-        header_box_style = header_box_style.merge(node.header_style)
+        header_box_style = header_box_style.patch(node.header_style)
     canvas_rectangle(xy=(cx, header_cy), width=w, height=hh, r=1.0, style=header_box_style)
 
     header_text_color = header_box_style.text_color or _DEFAULT_HEADER_TEXT_COLOR
@@ -188,7 +193,7 @@ def _render_class_node(node: ClassNode, canvas_xy: tuple[float, float]) -> None:
         xy1=(cx - half_w, divider_y),
         xy2=(cx + half_w, divider_y),
         style=Style(
-            line_color=box_style.line_color or _DEFAULT_BORDER_COLOR,
+            line_color=box_style.shape_line_color or _DEFAULT_BORDER_COLOR,
             line_width=1.5,
         ),
     )
@@ -250,9 +255,10 @@ def _render_class_node(node: ClassNode, canvas_xy: tuple[float, float]) -> None:
         height=h,
         r=1.0,
         style=Style(
-            fill_alpha=0.0,
-            line_color=box_style.line_color or _DEFAULT_BORDER_COLOR,
-            line_width=1.5,
+            shape_fill_color=Colors.Transparent,
+            shape_fill_alpha=0.0,
+            shape_line_color=box_style.shape_line_color or _DEFAULT_BORDER_COLOR,
+            shape_line_width=1.5,
         ),
     )
 
@@ -412,9 +418,9 @@ def _render_triangle_marker(
     lwidth = line_style.line_width or 1.5
 
     tri_style = Style(
-        fill_color=_DEFAULT_BODY_BG,
-        line_color=color,
-        line_width=lwidth,
+        shape_fill_color=_DEFAULT_BODY_BG,
+        shape_line_color=color,
+        shape_line_width=lwidth,
     )
     canvas_polygon(xys=[tip, v1, v2], style=tri_style)
     return p_base
@@ -446,9 +452,9 @@ def _render_diamond_marker(
     fill_color = color if is_composition else _DEFAULT_BODY_BG
 
     d_style = Style(
-        fill_color=fill_color,
-        line_color=color,
-        line_width=lwidth,
+        shape_fill_color=fill_color,
+        shape_line_color=color,
+        shape_line_width=lwidth,
     )
     canvas_polygon(xys=[root, v1, p_tip, v2], style=d_style)
     return p_tip
@@ -734,7 +740,7 @@ def _render_relationship(
         line_style="dashed" if is_dashed else "solid",
     )
     if rel.style is not None:
-        line_style = line_style.merge(rel.style)
+        line_style = line_style.patch(rel.style)
 
     trimmed_path = _render_relationship_markers(rel, path, line_style)
     canvas_lines(xys=trimmed_path, style=line_style)

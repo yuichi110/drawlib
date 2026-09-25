@@ -17,7 +17,6 @@ from drawlib._charts._common._axis import Axis
 from drawlib._charts._common._types import FormatterType, LegendPosition, PointShape, ScaleType
 from drawlib._charts.scatter_chart import _renderer as _renderer_module
 from drawlib._charts.scatter_chart._point import ScatterPoint, ScatterSeries
-from drawlib._preset_styles import get_style
 
 if TYPE_CHECKING:
     from drawlib._core.l3_styles import Style
@@ -162,7 +161,7 @@ class ScatterChart:
         self,
         xy: tuple[float, float],
         radius: float | None = None,
-        style: Style | str | None = None,
+        style: Style | None = None,
         shape: PointShape | None = None,
         label: str = "",
         label_style: Style | None = None,
@@ -172,7 +171,7 @@ class ScatterChart:
         Args:
             xy: Numerical data coordinate tuple (x, y).
             radius: Radius of the point marker (bubble size). If None, defaults to default_radius.
-            style: Custom Style object or preset string.
+            style: Custom Style object or None.
             shape: Custom marker shape ("circle", "square", "rhombus", "triangle").
             label: Optional text label displayed next to the point.
             label_style: Optional Style for the label text.
@@ -180,7 +179,7 @@ class ScatterChart:
         Returns:
             ScatterPoint: The newly created and registered point.
         """
-        resolved_style = get_style(style) if style is not None else None
+        resolved_style = style
         eff_radius = float(radius) if radius is not None else self.default_radius
         eff_shape = shape if shape is not None else self.default_shape
 
@@ -200,7 +199,7 @@ class ScatterChart:
         name: str,
         data: list[tuple[float, float]] | list[tuple[float, float, float]],
         radius: float | None = None,
-        style: Style | str | None = None,
+        style: Style | None = None,
         shape: PointShape | None = None,
     ) -> ScatterSeries:
         """Add a named group of points to the scatter chart.
@@ -215,7 +214,7 @@ class ScatterChart:
         Returns:
             ScatterSeries: The newly created and registered series.
         """
-        resolved_style = get_style(style) if style is not None else None
+        resolved_style = style
         eff_radius = float(radius) if radius is not None else self.default_radius
         eff_shape = shape if shape is not None else self.default_shape
 

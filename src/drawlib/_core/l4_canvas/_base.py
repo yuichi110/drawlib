@@ -47,6 +47,7 @@ from drawlib._core.l3_styles import (
 )
 from drawlib._core.l4_canvas_utils import (
     ShapeUtil,
+    TextUtil,
     get_center_and_size,
     minus_2points,
 )
@@ -238,16 +239,17 @@ class CanvasBase:
     def polygon(
         self,
         xys: TypeCoordinates,
-        style: Style | TypeStr | None = None,
+        *,
+        style: Style,
         text: TypeStr = "",
         textsize: TypeSize | None = None,
-        textstyle: Style | TypeStr | None = None,
+        textstyle: Style | None = None,
     ) -> None:
         """Draw a polygon on the canvas.
 
         Args:
             xys: List of vertices [(x1, y1), ...(x_n, y_n)].
-            style (optional): Style of the polygon.
+            style: Style of the polygon (required).
             text (optional): Text shown at the center of the polygon.
             textsize (optional): Font size of the text.
             textstyle (optional): Style of the text.
@@ -260,23 +262,23 @@ class CanvasBase:
             textstyle,
         )
 
-        if textsize is not None:
-            textstyle.text_size = textsize
-
-        style.text_halign = None
-        style.text_valign = None
+        style = style.patch(text_halign=None, text_valign=None)
         options = ShapeUtil.get_shape_options(style)
         self._artists.append(Polygon(xy=xys, closed=True, **options))
 
         if not text:
             return
+        effective_textstyle = textstyle if textstyle is not None else style
+        if textsize is not None:
+            effective_textstyle = effective_textstyle.patch(text_size=textsize)
+        TextUtil.validate_text_style(effective_textstyle)
         center, (_, _) = get_center_and_size(xys)
         self._artists.append(
             ShapeUtil.get_shape_text(
                 center,
                 text=text,
                 angle=0,
-                style=textstyle,
+                style=effective_textstyle,
             ),
         )
 
@@ -285,11 +287,12 @@ class CanvasBase:
         self,
         xy: TypeCoordinate,
         path_points: TypePathPoints,
+        *,
+        style: Style,
         angle: TypeAngle = 0.0,
-        style: Style | TypeStr | None = None,
         text: TypeStr = "",
         textsize: TypeSize | None = None,
-        textstyle: Style | TypeStr | None = None,
+        textstyle: Style | None = None,
         is_default_center: bool = False,
     ) -> None:
         """Draw basic shape on the canvas.
@@ -297,8 +300,8 @@ class CanvasBase:
         Args:
             xy: Starting point of the shape.
             path_points: List of path points including control points for Bezier curves.
+            style: Style of the shape (required).
             angle (float, optional): Rotation angle of the shape.
-            style (Style | str | None, optional): Style of the shape.
             text (str, optional): Text to display along with the shape.
             textsize (float | None, optional): Size of the text.
             textstyle (Style | None, optional): Style of the text.
@@ -311,8 +314,6 @@ class CanvasBase:
             style,
             textstyle,
         )
-        if textsize is not None:
-            textstyle.text_size = textsize
 
         # helper
 
@@ -421,13 +422,17 @@ class CanvasBase:
 
         # create Text
 
-        if text is not None:
+        if text:
+            effective_textstyle = textstyle if textstyle is not None else style
+            if textsize is not None:
+                effective_textstyle = effective_textstyle.patch(text_size=textsize)
+            TextUtil.validate_text_style(effective_textstyle)
             self._artists.append(
                 ShapeUtil.get_shape_text(
                     xy=(cx, cy),
                     text=text,
                     angle=angle,
-                    style=textstyle,
+                    style=effective_textstyle,
                 )
             )
 
@@ -437,12 +442,13 @@ class CanvasBase:
         xy: TypeCoordinate,
         width: TypePosFloat,
         height: TypePosFloat,
+        *,
+        style: Style,
         r: TypePosFloat = 0.0,
         angle: TypeAngle = 0.0,
-        style: Style | TypeStr | None = None,
         text: TypeStr = "",
         textsize: TypeSize | None = None,
-        textstyle: Style | TypeStr | None = None,
+        textstyle: Style | None = None,
     ) -> None:
         """Draw a rectangle on the canvas.
 
@@ -450,16 +456,15 @@ class CanvasBase:
             xy: Bottom-left corner of the rectangle.
             width: Width of the rectangle.
             height: Height of the rectangle.
+            style: Style of the rectangle (required).
             r (float, optional): Radius for rounded corners (default is 0.0).
             angle (int | float, optional): Rotation angle of the rectangle.
-            style (Style | str | None, optional): Style of the rectangle.
             text (str, optional): Text to display within the rectangle.
             textsize (float | None, optional): Size of the text.
-            textstyle (Style | str | None, optional): Style of the text.
+            textstyle (Style | None, optional): Style of the text.
 
         Raises:
             ValueError: If invalid path points are provided.
-
         """
         style, textstyle = ShapeUtil.format_styles(
             style,

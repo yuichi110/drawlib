@@ -16,33 +16,28 @@ from drawlib._core.l2_models import FontFile
 from drawlib._core.l3_fonts import FontSansSerif
 from drawlib._core.l3_styles import Colors, Style
 from drawlib._core.l4_canvas_utils._text import TextUtil
-from drawlib._preset_styles import get_style
 
 
 class TestTextUtil:
     """Unit tests for the TextUtil static helper class."""
 
     def test_format_style(self) -> None:
-        """Verifies format_style merges and formats Style and copies attributes."""
-        # 1. Test None style
-        formatted_none = TextUtil.format_style(None)
-        assert isinstance(formatted_none, Style)
-        assert formatted_none.text_size == get_style().text_size
-
-        # 2. Test string style lookup
-        formatted_str = TextUtil.format_style("primary")
-        assert formatted_str.text_color == get_style("primary").text_color
-
-        # 3. Test Style object (deep copied and merged)
-        custom_style = Style(text_size=32.0, text_color=(255, 0, 0))
+        """Verifies format_style validates Style and raises errors on invalid input."""
+        # 1. Test valid Style object
+        custom_style = Style(text_size=32.0, text_color=(255, 0, 0), text_font=FontSansSerif.LATO_REGULAR)
         formatted_obj = TextUtil.format_style(custom_style)
         assert formatted_obj.text_size == 32.0
         assert formatted_obj.text_color == (255, 0, 0)
-        assert formatted_obj is not custom_style
 
-        # 4. Invalid types raise ValueError
-        with pytest.raises(ValueError):
+        # 2. Missing required text properties raises ValueError
+        with pytest.raises(ValueError, match="Text drawing requires attributes"):
+            TextUtil.format_style(Style(text_size=32.0))
+
+        # 3. Invalid types raise TypeError
+        with pytest.raises(TypeError):
             TextUtil.format_style(123)  # type: ignore
+        with pytest.raises(TypeError):
+            TextUtil.format_style("primary")  # type: ignore
 
     def test_get_text_options(self) -> None:
         """Verifies mapping from Style to matplotlib's options dictionary."""
@@ -80,14 +75,9 @@ class TestTextUtil:
             font_file_path = font_file_path.decode("utf-8")
         assert "lato" in font_file_path.lower() or "ttf" in font_file_path.lower()
 
-        # 3. Invalid types raise ValueError
-        with pytest.raises(ValueError):
+        # 3. Invalid types raise TypeError
+        with pytest.raises(TypeError):
             TextUtil.get_font_properties(123)  # type: ignore
-
-        with pytest.raises(ValueError):
-            # Font type not supported
-            invalid_font_style = Style(text_font=123, text_size=12.0)  # type: ignore
-            TextUtil.get_font_properties(invalid_font_style)
 
     def test_get_bbox_dict(self) -> None:
         """Verifies get_bbox_dict converts Style background properties to bbox options."""

@@ -24,6 +24,7 @@ from drawlib._charts.gantt_chart._item import (
 )
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
+from drawlib.colors import Colors
 from drawlib.lines import line as canvas_line
 from drawlib.shapes import rectangle as canvas_rectangle
 from drawlib.shapes import rhombus as canvas_rhombus
@@ -85,11 +86,12 @@ def _draw_header(
     header_cy = (top_y + bottom_y) / 2.0
 
     # Header full background
-    bg_style = chart.header_style or Style(
-        fill_color=_DEFAULT_HEADER_BG,
-        line_color=_DEFAULT_HEADER_BORDER,
-        line_width=1.0,
+    default_bg_style = Style(
+        shape_fill_color=_DEFAULT_HEADER_BG,
+        shape_line_color=_DEFAULT_HEADER_BORDER,
+        shape_line_width=1.0,
     )
+    bg_style = default_bg_style.patch(chart.header_style)
     canvas_rectangle(
         xy=((left_x + right_x) / 2.0, header_cy),
         width=header_w,
@@ -146,11 +148,12 @@ def _draw_rows_and_items(
 
     # 1. Vertical timeline gridlines across rows area
     if chart.show_vertical_grid:
-        v_grid_style = chart.grid_style or Style(
+        default_v_grid_style = Style(
             line_color=_DEFAULT_GRID_COLOR,
             line_width=0.8,
             line_style="dotted",
         )
+        v_grid_style = default_v_grid_style.patch(chart.grid_style)
         for i in range(num_cols + 1):
             gx = x_tl_start + i * col_w
             canvas_line(xy1=(gx, rows_top), xy2=(gx, rows_bottom), style=v_grid_style)
@@ -167,7 +170,11 @@ def _draw_rows_and_items(
                 xy=((left_x + right_x) / 2.0, row_cy),
                 width=full_w,
                 height=chart.row_height,
-                style=Style(fill_color=_DEFAULT_ZEBRA_BG, line_width=0),
+                style=Style(
+                    shape_fill_color=_DEFAULT_ZEBRA_BG,
+                    shape_line_color=Colors.Transparent,
+                    shape_line_width=0,
+                ),
             )
 
         # Row bottom hairline
@@ -198,10 +205,12 @@ def _draw_section_row(
 ) -> None:
     """Render full-width section header banner."""
     full_w = right_x - left_x
-    sec_style = section.style or Style(
-        fill_color=_DEFAULT_SECTION_BG,
-        line_width=0,
+    default_sec_style = Style(
+        shape_fill_color=_DEFAULT_SECTION_BG,
+        shape_line_color=Colors.Transparent,
+        shape_line_width=0,
     )
+    sec_style = default_sec_style.patch(section.style)
     canvas_rectangle(
         xy=((left_x + right_x) / 2.0, row_cy),
         width=full_w,
@@ -261,11 +270,12 @@ def _draw_task_row(
 
     if task.progress <= 0.0:
         # Solid scheduled bar
-        bar_style = task.style or Style(
-            fill_color=color,
-            line_color=_with_alpha(color, 0.9),
-            line_width=0.8,
+        default_bar_style = Style(
+            shape_fill_color=color,
+            shape_line_color=_with_alpha(color, 0.9),
+            shape_line_width=0.8,
         )
+        bar_style = default_bar_style.patch(task.style)
         canvas_rectangle(
             xy=(bar_cx, row_cy),
             width=bar_w,
@@ -276,9 +286,9 @@ def _draw_task_row(
     else:
         # Background bar (remaining/total span)
         bg_style = Style(
-            fill_color=_with_alpha(color, 0.28),
-            line_color=_with_alpha(color, 0.5),
-            line_width=0.8,
+            shape_fill_color=_with_alpha(color, 0.28),
+            shape_line_color=_with_alpha(color, 0.5),
+            shape_line_width=0.8,
         )
         canvas_rectangle(
             xy=(bar_cx, row_cy),
@@ -291,11 +301,12 @@ def _draw_task_row(
         # Progress bar (completed portion)
         prog_w = max(0.2, bar_w * task.progress)
         prog_cx = bx1 + prog_w / 2.0
-        prog_style = task.style or Style(
-            fill_color=color,
-            line_color=_with_alpha(color, 0.9),
-            line_width=0.8,
+        default_prog_style = Style(
+            shape_fill_color=color,
+            shape_line_color=_with_alpha(color, 0.9),
+            shape_line_width=0.8,
         )
+        prog_style = default_prog_style.patch(task.style)
         canvas_rectangle(
             xy=(prog_cx, row_cy),
             width=prog_w,
@@ -360,11 +371,12 @@ def _draw_milestone_row(
 
     color = milestone.color or _DEFAULT_MILESTONE_COLOR
     d_size = chart.row_height * 0.65
-    m_style = milestone.style or Style(
-        fill_color=color,
-        line_color=(255, 255, 255, 1.0),
-        line_width=1.0,
+    default_m_style = Style(
+        shape_fill_color=color,
+        shape_line_color=(255, 255, 255, 1.0),
+        shape_line_width=1.0,
     )
+    m_style = default_m_style.patch(milestone.style)
     canvas_rhombus(xy=(mx, row_cy), width=d_size, height=d_size, style=m_style)
 
 
@@ -454,11 +466,12 @@ def _draw_markers(
         at_t = _resolve_point_time(chart, mark.at)
         mx = x_tl_start + at_t * col_w
         color = mark.color or _DEFAULT_MARKER_COLOR
-        style = mark.style or Style(
+        default_style = Style(
             line_color=color,
             line_width=1.5,
             line_style="dashed",
         )
+        style = default_style.patch(mark.style)
 
         canvas_line(xy1=(mx, rows_top), xy2=(mx, rows_bottom), style=style)
 
@@ -471,7 +484,11 @@ def _draw_markers(
                 width=tag_w,
                 height=tag_h,
                 r=0.6,
-                style=Style(fill_color=color, line_width=0),
+                style=Style(
+                    shape_fill_color=color,
+                    shape_line_color=Colors.Transparent,
+                    shape_line_width=0,
+                ),
             )
             canvas_text(
                 xy=(mx, tag_y),
@@ -499,13 +516,14 @@ def draw_gantt_chart(chart: GanttChart, xy: tuple[float, float]) -> None:
     # Title
     content_top = max_y - pad_y
     if chart.title:
-        t_style = chart.title_style or Style(
+        default_t_style = Style(
             text_size=12.0,
             text_font=Font.SANSSERIF_BOLD,
             text_color=_DEFAULT_TEXT_COLOR,
             text_halign="center",
             text_valign="bottom",
         )
+        t_style = default_t_style.patch(chart.title_style)
         canvas_text(xy=((min_x + max_x) / 2.0, max_y - 3.2), text=chart.title, style=t_style)
         content_top = max_y - 6.5
 

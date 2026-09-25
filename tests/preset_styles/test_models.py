@@ -11,12 +11,13 @@ from pydantic import BaseModel
 
 from drawlib._core.l3_fonts import FontSourceCode
 from drawlib._core.l3_styles import Style
-from drawlib._preset_styles._models import (
+from drawlib._preset_styles import (
     BasePresetStyles,
     DefaultStyles,
     EssentialsStyles,
     MonochromeStyles,
     PresetStyles,
+    get_default_styles,
 )
 from drawlib.types import BasePresetStyles as TypesBasePresetStyles
 from drawlib.types import PresetStyles as TypesPresetStyles
@@ -26,63 +27,39 @@ class TestPresetStyles:
     """Unit tests for the Pydantic-based PresetStyles models."""
 
     def test_default_styles_instantiation(self) -> None:
-        """Verifies successful instantiation of DefaultStyles with valid arguments."""
-        primary = Style(fill_color=(0, 0, 255, 1.0))
-        light = Style(fill_color=(100, 100, 255, 1.0))
-        bold = Style(fill_color=(0, 0, 150, 1.0))
-        flat = Style(line_width=0)
-        solid = Style(line_style="solid")
-        dashed = Style(line_style="dashed")
-
-        preset = DefaultStyles(
-            primary=primary,
-            light=light,
-            bold=bold,
-            flat=flat,
-            solid=solid,
-            dashed=dashed,
-            background_color=(255, 255, 255, 1.0),
-            sourcecode_font=FontSourceCode.ROBOTO_MONO,
-        )
+        """Verifies DefaultStyles provides valid styles and properties."""
+        preset = get_default_styles()
 
         assert isinstance(preset, BaseModel)
         assert isinstance(preset, BasePresetStyles)
         assert isinstance(preset, PresetStyles)
-        assert preset.primary == primary
-        assert preset.light == light
-        assert preset.bold == bold
-        assert preset.flat == flat
-        assert preset.solid == solid
-        assert preset.dashed == dashed
+        assert isinstance(preset, DefaultStyles)
+        assert isinstance(preset.primary, Style)
+        assert isinstance(preset.light, Style)
+        assert isinstance(preset.bold, Style)
+        assert isinstance(preset.flat, Style)
+        assert isinstance(preset.solid, Style)
+        assert isinstance(preset.dashed, Style)
         assert preset.background_color == (255, 255, 255, 1.0)
-        assert preset.sourcecode_font == FontSourceCode.ROBOTO_MONO
+        assert preset.sourcecode_font == FontSourceCode.SOURCECODEPRO
 
     def test_iteration_and_dict_access(self) -> None:
         """Verifies iteration, dictionary access, and styles helper on preset style models."""
-        primary = Style(fill_color=(0, 0, 255, 1.0))
-        light = Style(fill_color=(100, 100, 255, 1.0))
-        preset = DefaultStyles(
-            primary=primary,
-            light=light,
-            bold=primary,
-            flat=primary,
-            solid=primary,
-            dashed=primary,
-        )
+        preset = get_default_styles()
 
         # __iter__ test
         items = dict(preset)
         assert "primary" in items
-        assert items["primary"] == primary
-        assert items["light"] == light
+        assert items["primary"] == preset.primary
+        assert items["light"] == preset.light
         assert "background_color" in items
 
         # __getitem__ test
-        assert preset["primary"] == primary
-        assert preset["light"] == light
+        assert preset["primary"] == preset.primary
+        assert preset["light"] == preset.light
 
         # get test
-        assert preset.get("primary") == primary
+        assert preset.get("primary") == preset.primary
         assert preset.get("unknown_key", "default_val") == "default_val"
 
         # styles() test (only Style instances)
@@ -98,10 +75,15 @@ class TestPresetStyles:
             subnet: Style
             custom_note: str = "production"
 
+        base = get_default_styles()
         vpc_style = Style(line_color=(0, 100, 200, 1.0), line_width=2.0)
         subnet_style = Style(line_color=(50, 150, 250, 1.0), line_width=1.0)
 
-        my_styles = MyCloudStyles(vpc=vpc_style, subnet=subnet_style)
+        my_styles = MyCloudStyles(
+            **base.model_dump(),
+            vpc=vpc_style,
+            subnet=subnet_style,
+        )
 
         assert my_styles.vpc == vpc_style
         assert my_styles.subnet == subnet_style

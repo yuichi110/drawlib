@@ -21,7 +21,7 @@ import drawlib._icons.font_icons.phosphor._generated as phosphor_gen
 import drawlib._icons.png_icons.gcp._generated as gcp_gen
 from drawlib._core.l2_models import Dimage
 from drawlib._core.l3_fonts import Font
-from drawlib._core.l3_styles import Style
+from drawlib._core.l3_styles import Colors, Style
 from drawlib._diagrams.architecture._group import NodeGroup
 from drawlib._diagrams.architecture._icons import CustomIcon, GcpIcon, PhosphorIcon
 from drawlib._diagrams.architecture._junction import Junction
@@ -186,7 +186,8 @@ def _draw_icon(
     if icon is None:
         return
 
-    applied_style = icon_style if icon_style is not None else Style(line_width=0)
+    default_style = Style(icon_color=(50, 50, 50, 1.0), image_border_width=0)
+    applied_style = default_style.patch(icon_style)
 
     if isinstance(icon, (GcpIcon, PhosphorIcon)):
         _draw_enum_icon(icon, canvas_xy, icon_size, applied_style)
@@ -320,7 +321,7 @@ def _draw_single_edge(
     end_canvas_xy = canvas_xy_map[edge.end]
 
     start_pt, end_pt, orientation = _resolve_connection_endpoints(edge.start, edge.end, start_canvas_xy, end_canvas_xy)
-    applied_style = default_edge_style.merge(edge.style) if edge.style else default_edge_style
+    applied_style = default_edge_style.patch(edge.style)
     pts = _compute_edge_points(start_pt, end_pt, orientation, edge.waypoints, edge.routing, base_xy)
     pts = _apply_edge_padding(pts, edge.padding)
 
@@ -355,7 +356,7 @@ def _draw_single_edge(
         text_valign="center",
     )
     if edge.textstyle:
-        label_style = label_style.merge(edge.textstyle)
+        label_style = label_style.patch(edge.textstyle)
 
     canvas_text(xy=(lx, ly), text=edge.label, style=label_style)
 
@@ -381,10 +382,10 @@ def _render_groups(
 ) -> None:
     """Draw Layer 0: Groups (background boxes and titles)."""
     default_group_style = Style(
-        line_style="dashed",
-        line_width=1.0,
-        line_color=(160, 160, 165, 1.0),
-        fill_color=(245, 246, 250, 0.6),
+        shape_line_style="dashed",
+        shape_line_width=1.0,
+        shape_line_color=(160, 160, 165, 1.0),
+        shape_fill_color=(245, 246, 250, 0.6),
     )
 
     for group in groups:
@@ -395,7 +396,7 @@ def _render_groups(
         box_cx = gx + (min_x + max_x) / 2.0
         box_cy = gy + (min_y + max_y) / 2.0
 
-        applied_style = default_group_style.merge(group.style) if group.style else default_group_style
+        applied_style = default_group_style.patch(group.style)
         canvas_rectangle(xy=(box_cx, box_cy), width=w, height=h, style=applied_style)
 
         if group.title:
@@ -407,7 +408,7 @@ def _render_groups(
                 text_valign="top",
             )
             if group.textstyle:
-                title_style = title_style.merge(group.textstyle)
+                title_style = title_style.patch(group.textstyle)
 
             tx = gx + min_x + 2.5
             ty = gy + max_y - 2.0
@@ -458,7 +459,7 @@ def _render_node_label(node: Node, nx: float, ny: float) -> None:
         text_angle=node.text_angle,
     )
     if node.textstyle:
-        text_style = text_style.merge(node.textstyle)
+        text_style = text_style.patch(node.textstyle)
 
     canvas_text(xy=(tx, ty), text=node.text, style=text_style)
 
@@ -489,11 +490,16 @@ def draw_diagram(diagram: ArchitectureDiagram, xy: tuple[float, float] = (0.0, 0
 
     if diagram.style:
         dw, dh = diagram.get_size()
+        bg_style = Style(
+            shape_fill_color=Colors.White,
+            shape_line_color=Colors.Transparent,
+            shape_line_width=0.0,
+        ).patch(diagram.style)
         canvas_rectangle(
             xy=(base_xy[0] + dw / 2.0, base_xy[1] + dh / 2.0),
             width=dw,
             height=dh,
-            style=diagram.style,
+            style=bg_style,
         )
 
     _render_groups(all_groups, canvas_xy_map)

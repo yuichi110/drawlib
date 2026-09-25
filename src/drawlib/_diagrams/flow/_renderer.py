@@ -15,7 +15,7 @@ import math
 from typing import TYPE_CHECKING, Literal
 
 from drawlib._core.l3_fonts import Font
-from drawlib._core.l3_styles import Style
+from drawlib._core.l3_styles import Colors, Style
 from drawlib._diagrams.flow._junction import Junction
 from drawlib._diagrams.flow._lane import Lane
 from drawlib._diagrams.flow._node import FlowNode
@@ -58,11 +58,16 @@ def draw_diagram(diagram: FlowDiagram, xy: tuple[float, float] = (0.0, 0.0)) -> 
 
     # Layer 0: Canvas Background
     if diagram.style is not None:
+        bg_style = Style(
+            shape_fill_color=Colors.White,
+            shape_line_color=Colors.Transparent,
+            shape_line_width=0.0,
+        ).patch(diagram.style)
         canvas_rectangle(
             xy=(bx + dw / 2.0, by + dh / 2.0),
             width=dw,
             height=dh,
-            style=diagram.style,
+            style=bg_style,
         )
 
     # Layer 1: Swimlanes
@@ -132,11 +137,12 @@ def _render_lanes(
             lane_w = lane.size
             lane_h = dh
             bg_color = _DEFAULT_LANE_ALT_BG if i % 2 == 1 else _DEFAULT_LANE_BG
-            lane_style = lane.style or Style(
-                fill_color=bg_color,
-                line_color=_DEFAULT_LANE_BORDER,
-                line_width=1.0,
+            default_lane_style = Style(
+                shape_fill_color=bg_color,
+                shape_line_color=_DEFAULT_LANE_BORDER,
+                shape_line_width=1.0,
             )
+            lane_style = default_lane_style.patch(lane.style)
 
             # Lane body (centered at cur_x + lane_w / 2, by + lane_h / 2)
             canvas_rectangle(
@@ -149,11 +155,12 @@ def _render_lanes(
             # Lane header
             header_h = min(lane.header_size, lane_h)
             header_y = by + lane_h - header_h
-            header_style = lane.header_style or Style(
-                fill_color=_DEFAULT_LANE_HEADER_BG,
-                line_color=_DEFAULT_LANE_BORDER,
-                line_width=1.0,
+            default_header_style = Style(
+                shape_fill_color=_DEFAULT_LANE_HEADER_BG,
+                shape_line_color=_DEFAULT_LANE_BORDER,
+                shape_line_width=1.0,
             )
+            header_style = default_header_style.patch(lane.header_style)
             canvas_rectangle(
                 xy=(cur_x + lane_w / 2.0, header_y + header_h / 2.0),
                 width=lane_w,
@@ -163,13 +170,14 @@ def _render_lanes(
 
             # Header text
             text_size = lane.textsize or 12.0
-            header_textstyle = lane.textstyle or Style(
+            default_header_textstyle = Style(
                 text_size=text_size,
                 text_font=Font.SANSSERIF_BOLD,
                 text_color=_DEFAULT_TEXT_COLOR,
                 text_halign="center",
                 text_valign="center",
             )
+            header_textstyle = default_header_textstyle.patch(lane.textstyle)
             canvas_text(
                 xy=(cur_x + lane_w / 2.0, header_y + header_h / 2.0),
                 text=lane.title,
@@ -185,11 +193,12 @@ def _render_lanes(
             lane_w = dw
             lane_y = cur_y - lane_h
             bg_color = _DEFAULT_LANE_ALT_BG if i % 2 == 1 else _DEFAULT_LANE_BG
-            lane_style = lane.style or Style(
-                fill_color=bg_color,
-                line_color=_DEFAULT_LANE_BORDER,
-                line_width=1.0,
+            default_lane_style = Style(
+                shape_fill_color=bg_color,
+                shape_line_color=_DEFAULT_LANE_BORDER,
+                shape_line_width=1.0,
             )
+            lane_style = default_lane_style.patch(lane.style)
 
             # Lane body (centered at bx + lane_w / 2, lane_y + lane_h / 2)
             canvas_rectangle(
@@ -201,11 +210,12 @@ def _render_lanes(
 
             # Lane header (left column, centered at bx + header_w / 2, lane_y + lane_h / 2)
             header_w = min(lane.header_size, lane_w)
-            header_style = lane.header_style or Style(
-                fill_color=_DEFAULT_LANE_HEADER_BG,
-                line_color=_DEFAULT_LANE_BORDER,
-                line_width=1.0,
+            default_header_style = Style(
+                shape_fill_color=_DEFAULT_LANE_HEADER_BG,
+                shape_line_color=_DEFAULT_LANE_BORDER,
+                shape_line_width=1.0,
             )
+            header_style = default_header_style.patch(lane.header_style)
             canvas_rectangle(
                 xy=(bx + header_w / 2.0, lane_y + lane_h / 2.0),
                 width=header_w,
@@ -215,13 +225,14 @@ def _render_lanes(
 
             # Header text
             text_size = lane.textsize or 12.0
-            header_textstyle = lane.textstyle or Style(
+            default_header_textstyle = Style(
                 text_size=text_size,
                 text_font=Font.SANSSERIF_BOLD,
                 text_color=_DEFAULT_TEXT_COLOR,
                 text_halign="center",
                 text_valign="center",
             )
+            header_textstyle = default_header_textstyle.patch(lane.textstyle)
             canvas_text(
                 xy=(bx + header_w / 2.0, lane_y + lane_h / 2.0),
                 text=lane.title,
@@ -458,7 +469,7 @@ def _render_edges(
             edge.end_side,
         )
 
-        applied_style = default_edge_style.merge(edge.style) if edge.style else default_edge_style
+        applied_style = default_edge_style.patch(edge.style)
         pts = _compute_edge_points(
             start_pt,
             end_pt,
@@ -499,7 +510,7 @@ def _render_edges(
                 text_valign="center",
             )
             if edge.textstyle:
-                label_style = label_style.merge(edge.textstyle)
+                label_style = label_style.patch(edge.textstyle)
 
             canvas_text(xy=(lx, ly), text=edge.label, style=label_style)
 
@@ -510,16 +521,16 @@ def _render_nodes(
 ) -> None:
     """Render all FlowNodes."""
     default_node_style = Style(
-        fill_color=_DEFAULT_FILL_COLOR,
-        line_color=_DEFAULT_BORDER_COLOR,
-        line_width=1.5,
+        shape_fill_color=_DEFAULT_FILL_COLOR,
+        shape_line_color=_DEFAULT_BORDER_COLOR,
+        shape_line_width=1.5,
     )
 
     for node in nodes:
         cx, cy = canvas_xy_map[node]
         w, h = node.width, node.height
 
-        applied_style = default_node_style.merge(node.style) if node.style else default_node_style
+        applied_style = default_node_style.patch(node.style)
 
         text_size = node.textsize or 12.0
         text_style = Style(
@@ -530,7 +541,7 @@ def _render_nodes(
             text_valign="center",
         )
         if node.textstyle:
-            text_style = text_style.merge(node.textstyle)
+            text_style = text_style.patch(node.textstyle)
 
         if node.shape_type == "process":
             canvas_rectangle(

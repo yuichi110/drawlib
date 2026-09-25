@@ -66,10 +66,11 @@ class CanvasOriginalArrowFeature(CanvasBase):
         head_width: TypePosFloat,
         head_length: TypePosFloat,
         head: TypeArrowHead = "->",
-        style: Style | TypeStr | None = None,
+        *,
+        style: Style,
         text: TypeStr = "",
         textsize: TypeSize | None = None,
-        textstyle: Style | TypeStr | None = None,
+        textstyle: Style | None = None,
     ) -> None:
         """Draw a straight arrow between two coordinates.
 
@@ -80,10 +81,10 @@ class CanvasOriginalArrowFeature(CanvasBase):
             head_width: Width of arrow head.
             head_length: Length of arrow head.
             head: Arrow head type ("->", "<-", "<->").
-            style: Style object or preset string.
+            style: Style object.
             text: Text to display inside shape.
             textsize: Font size of text.
-            textstyle: Style object or preset string.
+            textstyle: Style object for text or None.
         """
         style, textstyle = ShapeUtil.format_styles(
             style,
@@ -94,8 +95,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
         x2, y2 = xy2
         x, y = ((x1 + x2) / 2, (y1 + y2) / 2)
         angle = get_angle(xy1, xy2)
-        style.text_halign = "center"  # no choice
-        style.text_valign = "center"  # no choice
+        style = style.patch(text_halign="center", text_valign="center")
 
         # arrow_tail_external_rectangle. left-bottom -> left-top ...
         distance = get_distance(xy1, xy2)
@@ -150,7 +150,8 @@ class CanvasOriginalArrowFeature(CanvasBase):
         head_length: TypePosFloat,
         head: TypeArrowHead = "->",
         r: TypePosFloat = 0,
-        style: Style | TypeStr | None = None,
+        *,
+        style: Style,
     ) -> None:
         """Draw a polyline arrow along multiple coordinates.
 
@@ -161,7 +162,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
             head_length: Length of arrow head.
             head: Arrow head type ("->", "<-", "<->").
             r: Corner radius for polyline joints.
-            style: Style object or preset string.
+            style: Style object.
         """
         style, _ = ShapeUtil.format_styles(
             style,
@@ -234,7 +235,8 @@ class CanvasOriginalArrowFeature(CanvasBase):
         angle_start: TypeAngle = 0,
         angle_end: TypeAngle = 180,
         angle: TypeAngle = 0,
-        style: Style | TypeStr | None = None,
+        *,
+        style: Style,
     ) -> None:
         """Draw an arc-shaped arrow on the canvas.
 
@@ -249,7 +251,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
             angle_start: Starting angle in degrees.
             angle_end: Ending angle in degrees.
             angle: Rotation angle in degrees.
-            style: Style object or preset string.
+            style: Style object.
         """
         style, _ = ShapeUtil.format_styles(
             style,
@@ -381,7 +383,8 @@ class CanvasOriginalArrowFeature(CanvasBase):
         head: TypeArrowHead = "->",
         r: TypePosFloat = 0,
         angle: TypeAngle = 0,
-        style: Style | TypeStr | None = None,
+        *,
+        style: Style,
     ) -> None:
         """Draw an L-shaped arrow on the canvas.
 
@@ -395,7 +398,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
             head: Arrow head type ("->", "<-", "<->").
             r: Corner radius.
             angle: Rotation angle in degrees.
-            style: Style object or preset string.
+            style: Style object.
         """
         style, _ = ShapeUtil.format_styles(
             style,
@@ -432,7 +435,8 @@ class CanvasOriginalArrowFeature(CanvasBase):
         head: TypeArrowHead = "->",
         r: TypePosFloat = 0,
         angle: TypeAngle = 0,
-        style: Style | TypeStr | None = None,
+        *,
+        style: Style,
     ) -> None:
         """Draw a U-shaped arrow on the canvas.
 
@@ -446,7 +450,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
             head: Arrow head type ("->", "<-", "<->").
             r: Corner radius.
             angle: Rotation angle in degrees.
-            style: Style object or preset string.
+            style: Style object.
         """
         style, _ = ShapeUtil.format_styles(
             style,

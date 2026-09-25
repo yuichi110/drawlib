@@ -13,10 +13,8 @@ import pytest
 
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
+from drawlib.preset_styles import get_default_styles
 from drawlib.shapes import chevron, parallelogram, rhombus, star, trapezoid, triangle
-from drawlib.types import (
-    Style,
-)
 
 # ruff: noqa: F403, F405
 
@@ -29,64 +27,77 @@ class TestCanvasOriginalPolygon:
     def test_triangle(self) -> None:
         """Verify triangle drawing with base, height, alignments, styling, top vertex shifts, and angles."""
         clear()
+        styles = get_default_styles()
+        s_primary = styles.primary
+        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple triangle
-        triangle((50, 50), 30, 40)
+        triangle((50, 50), 30, 40, style=s_primary)
 
         # Style
         triangle(
             (50, 50),
             30,
             40,
-            style=Style(line_color=Colors.Red, line_width=2, line_style="dashdot", fill_color=Colors.Transparent),
+            style=s_white.patch(
+                shape_line_color=Colors.Red,
+                shape_line_width=2,
+                shape_line_style="dashdot",
+                shape_fill_color=Colors.Transparent,
+            ),
         )
 
         # Alignments
-        triangle((50, 50), 30, 40, style=Style(text_halign="left", text_valign="bottom"))
-        triangle((50, 50), 30, 40, style=Style(text_halign="center", text_valign="center"))
-        triangle((50, 50), 30, 40, style=Style(text_halign="right", text_valign="top"))
+        triangle((50, 50), 30, 40, style=s_white.patch(text_halign="left", text_valign="bottom"))
+        triangle((50, 50), 30, 40, style=s_white.patch(text_halign="center", text_valign="center"))
+        triangle((50, 50), 30, 40, style=s_white.patch(text_halign="right", text_valign="top"))
 
         # Topvertex shifts
-        triangle((50, 50), 30, 40, topvertex_x=0)
-        triangle((50, 50), 30, 40, topvertex_x=-10)
-        triangle((50, 50), 30, 40, topvertex_x=40)
+        triangle((50, 50), 30, 40, topvertex_x=0, style=s_primary)
+        triangle((50, 50), 30, 40, topvertex_x=-10, style=s_primary)
+        triangle((50, 50), 30, 40, topvertex_x=40, style=s_primary)
 
         # Text & angles
-        triangle((50, 50), 30, 40, text="Hello")
-        triangle((50, 50), 30, 40, angle=45, text="Hello")
+        triangle((50, 50), 30, 40, text="Hello", style=s_primary)
+        triangle((50, 50), 30, 40, angle=45, text="Hello", style=s_primary)
 
         save(f"{OUTPUT_DIR}test_triangle.png")
 
     def test_parallelogram(self) -> None:
         """Verify parallelogram drawing with dimensions, corner angles, alignments, and text."""
         clear()
+        styles = get_default_styles()
+        s_primary = styles.primary
+        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
+        s_red_text = s_primary.patch(text_color=Colors.Red)
 
         # Simple parallelogram
-        parallelogram((50, 50), 30, 20, 60)
+        parallelogram((50, 50), 30, 20, 60, style=s_primary)
 
         # Alignments
-        parallelogram((50, 50), 30, 20, 60, style=Style(text_halign="left", text_valign="bottom"))
-        parallelogram((50, 50), 30, 20, 60, style=Style(text_halign="center", text_valign="center"))
-        parallelogram((50, 50), 30, 20, 60, style=Style(text_halign="right", text_valign="top"))
+        parallelogram((50, 50), 30, 20, 60, style=s_white.patch(text_halign="left", text_valign="bottom"))
+        parallelogram((50, 50), 30, 20, 60, style=s_white.patch(text_halign="center", text_valign="center"))
+        parallelogram((50, 50), 30, 20, 60, style=s_white.patch(text_halign="right", text_valign="top"))
 
         # Text & custom text style
-        parallelogram((50, 50), 30, 20, 60, text="hello")
+        parallelogram((50, 50), 30, 20, 60, text="hello", style=s_primary)
         parallelogram(
             (50, 50),
             30,
             20,
             60,
             text="hello",
-            textstyle=Style(text_color=Colors.Red),
+            style=s_primary,
+            textstyle=s_red_text,
         )
 
         # Corner angles
-        parallelogram((50, 50), 30, 20, 45)
-        parallelogram((50, 50), 30, 20, 75)
+        parallelogram((50, 50), 30, 20, 45, style=s_primary)
+        parallelogram((50, 50), 30, 20, 75, style=s_primary)
 
         # Rotation angles
         parallelogram(
-            (50, 50), 30, 20, 60, angle=45, text="hello", textstyle=Style(text_color=Colors.Red)
+            (50, 50), 30, 20, 60, angle=45, text="hello", style=s_primary, textstyle=s_red_text
         )
 
         save(f"{OUTPUT_DIR}test_parallelogram.png")
@@ -94,9 +105,12 @@ class TestCanvasOriginalPolygon:
     def test_trapezoid(self) -> None:
         """Verify trapezoid drawing with edge widths, topedge offsets, and angles."""
         clear()
+        styles = get_default_styles()
+        s_primary = styles.primary
+        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple trapezoid
-        trapezoid((50, 50), 30, 40, 20)
+        trapezoid((50, 50), 30, 40, 20, style=s_primary)
 
         # Style and alignments
         trapezoid(
@@ -104,48 +118,68 @@ class TestCanvasOriginalPolygon:
             30,
             40,
             20,
-            style=Style(line_color=Colors.Red, fill_color=Colors.Transparent, line_width=2, line_style="dashdot"),
+            style=s_white.patch(
+                shape_line_color=Colors.Red,
+                shape_fill_color=Colors.Transparent,
+                shape_line_width=2,
+                shape_line_style="dashdot",
+            ),
         )
-        trapezoid((50, 50), 30, 40, 20, style=Style(text_halign="left", text_valign="bottom"))
-        trapezoid((50, 50), 30, 40, 20, style=Style(text_halign="center", text_valign="center"))
+        trapezoid((50, 50), 30, 40, 20, style=s_white.patch(text_halign="left", text_valign="bottom"))
+        trapezoid((50, 50), 30, 40, 20, style=s_white.patch(text_halign="center", text_valign="center"))
 
         # Width options
-        trapezoid((50, 50), 30, 40, 60, style=Style(text_halign="center", text_valign="center"))
+        trapezoid((50, 50), 30, 40, 60, style=s_white.patch(text_halign="center", text_valign="center"))
 
         # Topedge offset coordinates
-        trapezoid((50, 50), 30, 40, 20, topedge_x=0)
-        trapezoid((50, 50), 30, 40, 20, topedge_x=5)
-        trapezoid((50, 50), 30, 40, 20, topedge_x=-10)
+        trapezoid((50, 50), 30, 40, 20, topedge_x=0, style=s_primary)
+        trapezoid((50, 50), 30, 40, 20, topedge_x=5, style=s_primary)
+        trapezoid((50, 50), 30, 40, 20, topedge_x=-10, style=s_primary)
 
         # Rotations & text
-        trapezoid((50, 50), 30, 40, 20, angle=45, text="Hello")
+        trapezoid((50, 50), 30, 40, 20, angle=45, text="Hello", style=s_primary)
 
         save(f"{OUTPUT_DIR}test_trapezoid.png")
 
     def test_rhombus(self) -> None:
         """Verify rhombus drawing with width, height, alignments, and angles."""
         clear()
+        styles = get_default_styles()
+        s_primary = styles.primary
+        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple rhombus
-        rhombus((50, 50), 20, 40)
+        rhombus((50, 50), 20, 40, style=s_primary)
 
         # Style and alignments
-        rhombus((50, 50), 20, 40, style=Style(line_color=Colors.Red, fill_color=Colors.Transparent, line_width=3))
-        rhombus((50, 50), 20, 40, style=Style(text_halign="left", text_valign="bottom"))
-        rhombus((50, 50), 20, 40, style=Style(text_halign="center", text_valign="center"))
+        rhombus(
+            (50, 50),
+            20,
+            40,
+            style=s_white.patch(
+                shape_line_color=Colors.Red,
+                shape_fill_color=Colors.Transparent,
+                shape_line_width=3,
+            ),
+        )
+        rhombus((50, 50), 20, 40, style=s_white.patch(text_halign="left", text_valign="bottom"))
+        rhombus((50, 50), 20, 40, style=s_white.patch(text_halign="center", text_valign="center"))
 
         # Text & angles
-        rhombus((50, 50), 20, 40, text="hello")
-        rhombus((50, 50), 20, 40, angle=45, text="hello")
+        rhombus((50, 50), 20, 40, text="hello", style=s_primary)
+        rhombus((50, 50), 20, 40, angle=45, text="hello", style=s_primary)
 
         save(f"{OUTPUT_DIR}test_rhombus.png")
 
     def test_chevron(self) -> None:
         """Verify chevron drawing with corner angles, mirroring, and validation."""
         clear()
+        styles = get_default_styles()
+        s_primary = styles.primary
+        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple chevron corner angle 60
-        chevron(xy=(50, 50), width=10, height=15, corner_angle=60)
+        chevron(xy=(50, 50), width=10, height=15, corner_angle=60, style=s_primary)
 
         # Alignments
         chevron(
@@ -153,24 +187,24 @@ class TestCanvasOriginalPolygon:
             width=10,
             height=15,
             corner_angle=60,
-            style=Style(text_halign="left", text_valign="bottom"),
+            style=s_white.patch(text_halign="left", text_valign="bottom"),
         )
         chevron(
             xy=(50, 50),
             width=10,
             height=15,
             corner_angle=60,
-            style=Style(text_halign="center", text_valign="center"),
+            style=s_white.patch(text_halign="center", text_valign="center"),
         )
 
         # Custom text and styling
-        chevron(xy=(50, 50), width=10, height=15, corner_angle=60, text="Hello")
+        chevron(xy=(50, 50), width=10, height=15, corner_angle=60, text="Hello", style=s_primary)
         chevron(
             xy=(50, 50),
             width=10,
             height=15,
             corner_angle=60,
-            style=Style(line_color=Colors.Yellow, fill_color=Colors.Blue, line_width=3),
+            style=s_white.patch(shape_line_color=Colors.Yellow, shape_fill_color=Colors.Blue, shape_line_width=3),
         )
         chevron(
             xy=(50, 50),
@@ -178,37 +212,42 @@ class TestCanvasOriginalPolygon:
             height=15,
             corner_angle=60,
             text="hello",
-            textstyle=Style(text_color=Colors.Red, text_size=28),
+            style=s_primary,
+            textstyle=s_primary.patch(text_color=Colors.Red, text_size=28),
         )
 
         # Mirroring and angles
-        chevron(xy=(50, 50), width=10, height=15, corner_angle=60, mirror=True)
-        chevron(xy=(50, 50), width=10, height=15, corner_angle=60, angle=45, text="chevron")
+        chevron(xy=(50, 50), width=10, height=15, corner_angle=60, mirror=True, style=s_primary)
+        chevron(xy=(50, 50), width=10, height=15, corner_angle=60, angle=45, text="chevron", style=s_primary)
 
         # Corner angle 30
-        chevron(xy=(50, 50), width=10, height=15, corner_angle=30)
+        chevron(xy=(50, 50), width=10, height=15, corner_angle=30, style=s_primary)
 
         save(f"{OUTPUT_DIR}test_chevron.png")
 
     def test_chevron_invalid_corner_angle(self) -> None:
         """Verify that invalid chevron corner angles raise ValueError."""
         clear()
+        styles = get_default_styles()
         with pytest.raises(ValueError):
-            chevron(xy=(50, 50), width=10, height=15, corner_angle=120)
+            chevron(xy=(50, 50), width=10, height=15, corner_angle=120, style=styles.primary)
 
     def test_star(self) -> None:
         """Verify star drawing with vertices, outer/inner radii, and alignments."""
         clear()
+        styles = get_default_styles()
+        s_primary = styles.primary
+        s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Vertices counts
-        star((50, 50), 3, 30, 5, text="Hello")
-        star((50, 50), 4, 30, 15, text="Hello")
-        star((50, 50), 5, 30, 15, text="Hello")
-        star((50, 50), 8, 30, 15, text="Hello")
+        star((50, 50), 3, 30, 5, text="Hello", style=s_primary)
+        star((50, 50), 4, 30, 15, text="Hello", style=s_primary)
+        star((50, 50), 5, 30, 15, text="Hello", style=s_primary)
+        star((50, 50), 8, 30, 15, text="Hello", style=s_primary)
 
         # Alignments
-        star((50, 50), 5, 30, 15, style=Style(text_halign="left", text_valign="bottom"), text="Hello")
-        star((50, 50), 5, 30, 15, style=Style(text_halign="center", text_valign="center"), text="Hello")
+        star((50, 50), 5, 30, 15, style=s_white.patch(text_halign="left", text_valign="bottom"), text="Hello")
+        star((50, 50), 5, 30, 15, style=s_white.patch(text_halign="center", text_valign="center"), text="Hello")
 
         # Custom styling & angles
         star(
@@ -216,8 +255,13 @@ class TestCanvasOriginalPolygon:
             5,
             30,
             15,
-            style=Style(line_color=Colors.Red, line_style="dashdot", line_width=2, fill_color=Colors.Transparent),
+            style=s_white.patch(
+                shape_line_color=Colors.Red,
+                shape_line_style="dashdot",
+                shape_line_width=2,
+                shape_fill_color=Colors.Transparent,
+            ),
         )
-        star((50, 50), 5, 30, 15, angle=45, text="Hello")
+        star((50, 50), 5, 30, 15, angle=45, text="Hello", style=s_primary)
 
         save(f"{OUTPUT_DIR}test_star.png")
