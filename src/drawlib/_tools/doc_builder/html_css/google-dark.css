@@ -120,13 +120,19 @@ body::before {
 
 .sidebar-heading {
     font-family: var(--rtd-font);
-    color: var(--rtd-muted-color);
-    font-size: 0.72rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 0.5rem 1rem;
-    margin-top: 0.25rem;
+    color: var(--rtd-text-color);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 0.6rem 1rem 0.35rem 1rem;
+    margin-top: 1.25rem;
+    border-top: 1px solid var(--rtd-border-color);
+}
+
+.sidebar-menu > .sidebar-heading:first-child {
+    margin-top: 0;
+    border-top: none;
+    padding-top: 0.25rem;
 }
 
 .nav-list {

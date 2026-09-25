@@ -15,7 +15,7 @@ import os
 import re
 import shutil
 import sys
-from typing import List, Optional, Sequence, Union
+from typing import Any, List, Optional, Sequence, Union
 
 from drawlib._tools.doc_builder.build_cache import BuildImageCache
 from drawlib._tools.doc_builder.detector import DocType, DocumentInputInfo, detect_document_type
@@ -23,6 +23,12 @@ from drawlib._tools.doc_builder.exporter_html import get_default_css, render_htm
 from drawlib._tools.doc_builder.exporter_md import write_rendered_markdown
 from drawlib._tools.doc_builder.exporter_pdf import export_html_to_pdf
 from drawlib._tools.doc_builder.merger import build_merged_html
+from drawlib._tools.doc_builder.navbar import (
+    NavbarItem,
+    NavbarSection,
+    parse_navbar_markdown,
+    resolve_navbar_for_page,
+)
 from drawlib._tools.doc_builder.parser_md import parse_markdown_to_html
 from drawlib._tools.doc_builder.processor import (
     DrawlibBlockProcessor,
@@ -344,12 +350,17 @@ def _compile_single_html_file(
     config_path: Optional[str],
     css_path: Optional[str],
     css_href: Optional[str],
-    nav_list: Optional[list[dict[str, str]]],
-    template_path: Optional[str],
+    nav_list: Optional[list[dict[str, str]]] = None,
+    template_path: Optional[str] = None,
     processor: Optional[DrawlibBlockProcessor] = None,
     progress: Optional[FileBuildProgress] = None,
     no_cache: bool = False,
     cache: Optional[BuildImageCache] = None,
+    *,
+    nav_sections: Optional[list[dict[str, Any]]] = None,
+    nav_items: Optional[list[dict[str, Any]]] = None,
+    index_url: Optional[str] = None,
+    site_title: Optional[str] = None,
 ) -> DrawlibBlockProcessor | None:
     """Compile a single Markdown or HTML file into HTML."""
     with open(src_abs, "r", encoding="utf-8") as f:
@@ -429,9 +440,16 @@ def _compile_single_html_file(
             else os.path.basename(src_abs)
         )
 
-        index_rel_url = "index.html"
-        if doc_info.is_markdown and nav_list:
-            doc_nav_items: list[dict[str, object]] = []
+        if index_url:
+            index_rel_url = index_url
+        else:
+            index_rel_url = "index.html"
+
+        if nav_sections is not None or nav_items is not None:
+            doc_nav_sections = nav_sections
+            doc_nav_items = nav_items or []
+        elif doc_info.is_markdown and nav_list:
+            doc_nav_items = []
             dest_dir = os.path.dirname(dest_abs)
 
             root_index_nav = None
@@ -439,20 +457,23 @@ def _compile_single_html_file(
                 if os.path.basename(nav["dest_abs"]) == "index.html":
                     if root_index_nav is None or len(nav["dest_abs"]) < len(root_index_nav["dest_abs"]):
                         root_index_nav = nav
-            if root_index_nav is not None:
-                index_rel_url = os.path.relpath(root_index_nav["dest_abs"], dest_dir)
-            elif nav_list:
-                index_rel_url = os.path.relpath(nav_list[0]["dest_abs"], dest_dir)
+            if not index_url:
+                if root_index_nav is not None:
+                    index_rel_url = os.path.relpath(root_index_nav["dest_abs"], dest_dir).replace(os.sep, "/")
+                elif nav_list:
+                    index_rel_url = os.path.relpath(nav_list[0]["dest_abs"], dest_dir).replace(os.sep, "/")
 
             for nav in nav_list:
-                rel_url = os.path.relpath(nav["dest_abs"], dest_dir)
+                rel_url = os.path.relpath(nav["dest_abs"], dest_dir).replace(os.sep, "/")
                 doc_nav_items.append({
                     "title": nav["title"],
                     "url": rel_url,
                     "active": (nav["src_abs"] == src_abs),
                 })
+            doc_nav_sections = None
         else:
             doc_nav_items = []
+            doc_nav_sections = None
 
         full_html = render_html_document(
             body_html=body_html,
@@ -460,8 +481,10 @@ def _compile_single_html_file(
             custom_css_path=css_path,
             css_href=css_href,
             nav_items=doc_nav_items,
+            nav_sections=doc_nav_sections,
             template_path=template_path,
             index_url=index_rel_url,
+            site_title=site_title,
         )
 
         os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
@@ -528,7 +551,32 @@ def build_html(
 
     if os.path.isdir(input_abs):
         out_dir_abs = os.path.abspath(output) if output else input_abs
-        nav_list = _build_directory_nav_list(input_abs, out_dir_abs)
+
+        index_candidates = [
+            os.path.join(input_abs, "index.md"),
+            os.path.join(input_abs, "index.markdown"),
+        ]
+        if not any(os.path.isfile(p) for p in index_candidates):
+            raise ValueError(
+                f'Directory build requires "index.md" at the root of the input directory: "{input_abs}".'
+            )
+
+        navbar_candidates = [
+            os.path.join(input_abs, "navbar.md"),
+            os.path.join(input_abs, "navbar.markdown"),
+        ]
+        active_navbar_path: Optional[str] = None
+        for p in navbar_candidates:
+            if os.path.isfile(p):
+                active_navbar_path = p
+                break
+
+        if not active_navbar_path:
+            raise ValueError(
+                f'Directory build requires "navbar.md" at the root of the input directory: "{input_abs}".'
+            )
+
+        navbar_sections, site_title = parse_navbar_markdown(active_navbar_path, input_abs)
 
         style_css_path: Optional[str] = None
         if css_mode != "embed":
@@ -555,6 +603,8 @@ def build_html(
                 if fname.startswith("."):
                     continue
                 src_abs = os.path.join(root, fname)
+                if os.path.abspath(src_abs) == os.path.abspath(active_navbar_path):
+                    continue
                 rel_path = os.path.relpath(src_abs, input_abs)
 
                 if fname.endswith(".md") or fname.endswith(".markdown"):
@@ -588,10 +638,25 @@ def build_html(
 
         name_width = max((len(n) for n in display_names), default=0)
         image_width = len(str(max(max_blocks, 0)))
+        root_index_dest_abs = os.path.join(out_dir_abs, "index.html")
         for idx, ((src_abs, dest_abs, is_md), disp_name) in enumerate(zip(html_tasks, display_names), start=1):
             rel_css_href = (
-                os.path.relpath(style_css_path, os.path.dirname(dest_abs)) if style_css_path else None
+                os.path.relpath(style_css_path, os.path.dirname(dest_abs)).replace(os.sep, "/")
+                if style_css_path
+                else None
             )
+            rel_index_url = os.path.relpath(root_index_dest_abs, os.path.dirname(dest_abs)).replace(os.sep, "/")
+            if is_md:
+                cur_sections, cur_items = resolve_navbar_for_page(
+                    sections=navbar_sections,
+                    root_dir_abs=input_abs,
+                    out_dir_abs=out_dir_abs,
+                    current_src_abs=src_abs,
+                    current_dest_abs=dest_abs,
+                )
+            else:
+                cur_sections, cur_items = None, None
+
             processor = _compile_single_html_file(
                 src_abs=src_abs,
                 dest_abs=dest_abs,
@@ -599,7 +664,6 @@ def build_html(
                 config_path=config_abs,
                 css_path=css,
                 css_href=rel_css_href,
-                nav_list=nav_list if is_md else None,
                 template_path=template,
                 processor=processor,
                 progress=FileBuildProgress(
@@ -611,6 +675,10 @@ def build_html(
                 ),
                 no_cache=no_cache,
                 cache=cache,
+                nav_sections=cur_sections,
+                nav_items=cur_items,
+                index_url=rel_index_url,
+                site_title=site_title,
             )
 
         return out_dir_abs
@@ -914,6 +982,10 @@ __all__ = [
     "list_pdf_css",
     "list_pdf_templates",
     "list_templates",
+    "NavbarItem",
+    "NavbarSection",
+    "parse_navbar_markdown",
+    "resolve_navbar_for_page",
     "show_code_block",
     "validate_template",
 ]

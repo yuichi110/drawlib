@@ -204,7 +204,7 @@ def test_build_documents_batch(tmp_path) -> None:
 
 
 def test_build_document_directory_recursive(tmp_path) -> None:
-    """Test recursive directory build system with subdirectories and link rewriting."""
+    """Test recursive directory build system with subdirectories and navbar.md navigation."""
     src_dir = tmp_path / "src_docs"
     out_dir = tmp_path / "dist_docs"
     src_dir.mkdir()
@@ -212,6 +212,10 @@ def test_build_document_directory_recursive(tmp_path) -> None:
     sub_dir.mkdir()
 
     (src_dir / "index.md").write_text("# Home Page\n\n[Guide](./guide/canvas.md)", encoding="utf-8")
+    (src_dir / "navbar.md").write_text(
+        "# Navigation\n\n- [Home](index.md)\n\n## Guides\n- [Canvas Guide](guide/canvas.md)\n",
+        encoding="utf-8",
+    )
     (sub_dir / "canvas.md").write_text("# Canvas Guide\n\n[Home](../index.md)", encoding="utf-8")
 
     res_dir = build_html(input_path=str(src_dir), output_path=str(out_dir))
@@ -223,14 +227,17 @@ def test_build_document_directory_recursive(tmp_path) -> None:
     assert index_html.exists()
     assert canvas_html.exists()
     assert (out_dir / "style.css").exists()
+    assert not (out_dir / "navbar.html").exists()
 
     c_index = index_html.read_text(encoding="utf-8")
     assert 'href="guide/canvas.html"' in c_index or 'href="./guide/canvas.html"' in c_index
     assert '<link rel="stylesheet" href="style.css">' in c_index
+    assert "Guides" in c_index
 
     c_canvas = canvas_html.read_text(encoding="utf-8")
     assert 'href="../index.html"' in c_canvas
     assert '<link rel="stylesheet" href="../style.css">' in c_canvas
+    assert "nav-item active" in c_canvas
 
 
 def test_build_document_static_assets_copy(tmp_path) -> None:
@@ -243,6 +250,7 @@ def test_build_document_static_assets_copy(tmp_path) -> None:
     img_dir.mkdir()
     (img_dir / "logo.png").write_bytes(b"dummy_png_bytes")
     (src_dir / "index.md").write_text("# Title\n\n![Logo](./images/logo.png)", encoding="utf-8")
+    (src_dir / "navbar.md").write_text("- [Title](index.md)\n", encoding="utf-8")
 
     build_html(input_path=str(src_dir), output_path=str(out_dir))
 
@@ -308,13 +316,77 @@ def test_build_html_duplicate_document_outputs_error(tmp_path) -> None:
     src_dir = tmp_path / "src_dup"
     out_dir = tmp_path / "out_dup"
     src_dir.mkdir()
+    (src_dir / "index.md").write_text("# Home\n", encoding="utf-8")
     (src_dir / "topic.md").write_text("# Topic MD\n", encoding="utf-8")
     (src_dir / "topic.html").write_text("<h1>Topic HTML</h1>\n", encoding="utf-8")
+    (src_dir / "navbar.md").write_text("- [Home](index.md)\n- [Topic](topic.md)\n", encoding="utf-8")
 
     with pytest.raises(ValueError, match="Duplicate output file detected") as exc_info:
         build_html(input_path=str(src_dir), output_path=str(out_dir))
     assert "/topic.md" in str(exc_info.value)
     assert "/topic.html" in str(exc_info.value)
+
+
+def test_build_html_directory_missing_index_error(tmp_path) -> None:
+    """Test directory build fails when index.md is missing at root."""
+    src_dir = tmp_path / "src_no_index"
+    out_dir = tmp_path / "out_no_index"
+    src_dir.mkdir()
+    (src_dir / "navbar.md").write_text("- [Topic](topic.md)\n", encoding="utf-8")
+    (src_dir / "topic.md").write_text("# Topic\n", encoding="utf-8")
+
+    with pytest.raises(ValueError, match='Directory build requires "index.md" at the root'):
+        build_html(input_path=str(src_dir), output_path=str(out_dir))
+
+
+def test_build_html_directory_missing_navbar_error(tmp_path) -> None:
+    """Test directory build fails when navbar.md is missing at root."""
+    src_dir = tmp_path / "src_no_navbar"
+    out_dir = tmp_path / "out_no_navbar"
+    src_dir.mkdir()
+    (src_dir / "index.md").write_text("# Home\n", encoding="utf-8")
+
+    with pytest.raises(ValueError, match='Directory build requires "navbar.md" at the root'):
+        build_html(input_path=str(src_dir), output_path=str(out_dir))
+
+
+def test_build_html_navbar_broken_link_error(tmp_path) -> None:
+    """Test directory build fails with detailed message when navbar.md links to nonexistent file."""
+    src_dir = tmp_path / "src_broken_nav"
+    out_dir = tmp_path / "out_broken_nav"
+    src_dir.mkdir()
+    (src_dir / "index.md").write_text("# Home\n", encoding="utf-8")
+    (src_dir / "navbar.md").write_text(
+        "# Navigation\n\n- [Home](index.md)\n- [Ghost Page](nonexistent.md)\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="Target file 'nonexistent.md' does not exist"):
+        build_html(input_path=str(src_dir), output_path=str(out_dir))
+
+
+def test_build_html_navbar_external_and_anchor_links(tmp_path) -> None:
+    """Test directory build properly handles external URLs and anchor links in navbar.md."""
+    src_dir = tmp_path / "src_nav_ext"
+    out_dir = tmp_path / "out_nav_ext"
+    src_dir.mkdir()
+    (src_dir / "index.md").write_text("# Home\n", encoding="utf-8")
+    (src_dir / "guide.md").write_text("# Guide\n", encoding="utf-8")
+    (src_dir / "navbar.md").write_text(
+        "# Navigation\n\n"
+        "- [Home](index.md)\n"
+        "- [Guide Section](guide.md#sec1)\n"
+        "## External\n"
+        "- [GitHub](https://github.com/example/repo)\n",
+        encoding="utf-8",
+    )
+
+    res_dir = build_html(input_path=str(src_dir), output_path=str(out_dir))
+    assert res_dir == str(out_dir)
+    index_html = (out_dir / "index.html").read_text(encoding="utf-8")
+    assert 'href="https://github.com/example/repo"' in index_html
+    assert 'target="_blank"' in index_html
+    assert 'href="guide.html#sec1"' in index_html
 
 
 def test_build_html_duplicate_block_image_outputs_error(tmp_path) -> None:

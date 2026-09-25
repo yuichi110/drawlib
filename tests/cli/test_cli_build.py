@@ -49,6 +49,7 @@ circle((50, 50), radius=20)
 """,
         encoding="utf-8",
     )
+    (src_dir / "navbar.md").write_text("- [Main Index](index.md)\n", encoding="utf-8")
 
     res = run_drawlib_cli(["build", "html", str(src_dir), "-o", str(out_dir)], cwd=str(tmp_path))
 

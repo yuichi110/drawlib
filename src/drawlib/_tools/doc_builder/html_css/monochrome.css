@@ -98,13 +98,19 @@ body {
 }
 
 .sidebar-heading {
-    color: #71717a;
-    font-size: 0.75rem;
+    color: #ffffff;
+    font-size: 0.85rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 0.5rem 1.5rem;
-    margin-top: 0.5rem;
+    letter-spacing: 0.02em;
+    padding: 0.6rem 1.5rem 0.35rem 1.5rem;
+    margin-top: 1.25rem;
+    border-top: 1px solid #333333;
+}
+
+.sidebar-menu > .sidebar-heading:first-child {
+    margin-top: 0;
+    border-top: none;
+    padding-top: 0.25rem;
 }
 
 .nav-list {

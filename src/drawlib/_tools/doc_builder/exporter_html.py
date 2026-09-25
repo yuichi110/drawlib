@@ -73,8 +73,10 @@ def render_html_document(
     custom_css_path: Optional[str] = None,
     css_href: Optional[str] = None,
     nav_items: Optional[List[Dict[str, Any]]] = None,
+    nav_sections: Optional[List[Dict[str, Any]]] = None,
     template_path: Optional[str] = None,
     index_url: str = "index.html",
+    site_title: Optional[str] = None,
 ) -> str:
     """Render full standalone HTML document using html_templates and html_css.
 
@@ -84,8 +86,10 @@ def render_html_document(
         custom_css_path (Optional[str]): Preset name or path to custom CSS file to inject.
         css_href (Optional[str]): Relative path/href for external stylesheet link.
         nav_items (Optional[List[Dict[str, Any]]]): Navigation items for sidebar menu.
+        nav_sections (Optional[List[Dict[str, Any]]]): Categorized navigation sections for sidebar menu.
         template_path (Optional[str]): Optional HTML template preset ('sidebar', 'simple') or file path.
         index_url (str): Relative URL to root index.html for brand link. Defaults to 'index.html'.
+        site_title (Optional[str]): Site / brand title displayed in header (e.g. from navbar.md). Defaults to 'drawlib'.
 
     Returns:
         str: Complete HTML string.
@@ -103,7 +107,7 @@ def render_html_document(
         tmpl_name = os.path.basename(tmpl_abs)
         custom_env = Environment(loader=FileSystemLoader(tmpl_dir))
         template = custom_env.get_template(tmpl_name)
-    elif nav_items and len(nav_items) > 0:
+    elif (nav_sections and len(nav_sections) > 0) or (nav_items and len(nav_items) > 0):
         template = builtin_env.get_template("sidebar.html.j2")
     else:
         template = builtin_env.get_template("simple.html.j2")
@@ -118,7 +122,9 @@ def render_html_document(
         custom_css=custom_css_content,
         css_href=css_href,
         nav_items=nav_items or [],
+        nav_sections=nav_sections or [],
         index_url=index_url,
+        site_title=site_title or "drawlib",
     )
 
 
