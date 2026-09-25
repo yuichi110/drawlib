@@ -2,6 +2,8 @@
 
 The `drawlib build` command compiles Python drawing scripts or Markdown/HTML documents containing embedded `drawlib` code blocks into images, rendered Markdown, static HTML sites, or vector PDFs.
 
+> **Tip**: If you are using `uv`, run commands with `uv run` (e.g., `uv run drawlib build html docs_src/`).
+
 ---
 
 ## 1. Syntax Overview
@@ -68,7 +70,27 @@ drawlib build markdown docs_src/ -o docs/
 
 ## 4. `drawlib build pdf`
 
-Compiles documents into a high-fidelity vector PDF using system Chromium-based browsers (Chrome, Chromium, Edge).
+Compiles documents into publication-ready vector PDFs using Playwright and headless Chromium.
+
+### Prerequisites (PDF Support & Chromium)
+
+PDF export requires Playwright and the headless Chromium browser binary:
+
+#### Using uv (Recommended)
+
+```bash
+$ uv add "drawlib[pdf]"
+$ uv run playwright install chromium
+```
+
+#### Using pip
+
+```bash
+$ pip install "drawlib[pdf]"
+$ playwright install chromium
+```
+
+### Usage Examples
 
 ```bash
 # Compile single document to PDF:

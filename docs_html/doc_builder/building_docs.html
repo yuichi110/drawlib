@@ -367,6 +367,10 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
+                                <a href="../advanced_topics/ai_agents.html" >Working with AI Agents & LLMs</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../advanced_topics/math.html" >Geometry & Math Utilities</a>
                             </li>
                             
@@ -376,10 +380,6 @@
                             
                             <li class="nav-item ">
                                 <a href="../advanced_topics/debug.html" >Debugging & Tracebacks</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../advanced_topics/settings.html" >Library Settings</a>
                             </li>
                             
                         </ul>
@@ -511,17 +511,29 @@ set_default_styles(MonochromeStyles())
 <p>All functions, classes, and global variables declared in the configuration script are automatically available within every embedded <code>drawlib</code> code block.</p>
 <hr />
 <h2>4. Headless PDF Prerequisites</h2>
-<p>Drawlib generates PDFs by compiling documents to a clean HTML layout and leveraging headless Chromium printing (<code>--headless --print-to-pdf</code>).</p>
-<h3>System Browser Detection</h3>
-<p>Drawlib automatically searches your system for any of the following browsers:</p>
+<p>Drawlib generates publication-ready vector PDFs by compiling documents to HTML and rendering them via Playwright and headless Chromium.</p>
+<h3>Installing PDF Support</h3>
+<p>PDF export requires Playwright and the Chromium browser binary:</p>
+<h4>1. Install Playwright</h4>
 <ul>
-<li>Google Chrome (<code>google-chrome</code>, <code>chrome</code>)</li>
-<li>Chromium (<code>chromium</code>, <code>chromium-browser</code>)</li>
-<li>Microsoft Edge (<code>msedge</code>)</li>
+<li><strong>Using uv:</strong><pre><code class="language-bash">uv add &quot;drawlib[pdf]&quot;
+</code></pre>
+</li>
+<li><strong>Using pip:</strong><pre><code class="language-bash">pip install &quot;drawlib[pdf]&quot;
+</code></pre>
+</li>
 </ul>
-<p>If your browser binary is installed in a non-standard location, set the <code>DRAWLIB_CHROME_PATH</code> environment variable:</p>
-<pre><code class="language-bash">export DRAWLIB_CHROME_PATH=&quot;/usr/bin/google-chrome-stable&quot;
-drawlib build pdf docs_src/ -o output.pdf
+<h4>2. Install Headless Chromium</h4>
+<ul>
+<li><strong>Using uv:</strong><pre><code class="language-bash">uv run playwright install chromium
+</code></pre>
+</li>
+<li><strong>Using pip:</strong><pre><code class="language-bash">playwright install chromium
+</code></pre>
+</li>
+</ul>
+<p>Once installed, compile your documents to PDF using:</p>
+<pre><code class="language-bash">drawlib build pdf docs_src/ -o output.pdf
 </code></pre>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

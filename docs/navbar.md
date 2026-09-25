@@ -86,7 +86,7 @@
 - [Gantt Chart](./charts/gantt.md)
 
 ## 9. Advanced Topics
+- [Working with AI Agents & LLMs](./advanced_topics/ai_agents.md)
 - [Geometry & Math Utilities](./advanced_topics/math.md)
 - [Rendering from Code (`get_dimage_from_code`)](./advanced_topics/dimage_from_code.md)
 - [Debugging & Tracebacks](./advanced_topics/debug.md)
-- [Library Settings](./advanced_topics/settings.md)

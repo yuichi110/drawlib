@@ -10,6 +10,7 @@
 """Integration tests for build_markdown, build_html, build_pdf, and detector in doc_builder."""
 
 import os
+from unittest.mock import MagicMock
 
 import pytest
 
@@ -23,8 +24,20 @@ from drawlib._tools.doc_builder import (
     detect_document_type,
     exporter_pdf,
 )
-from drawlib._tools.doc_builder.exporter_pdf import export_html_to_pdf, find_system_browser
+from drawlib._tools.doc_builder.exporter_pdf import export_html_to_pdf
 from drawlib._tools.doc_builder.merger import build_merged_html
+
+
+def _is_playwright_chromium_available() -> bool:
+    try:
+        from playwright.sync_api import sync_playwright  # noqa: PLC0415
+
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            browser.close()
+        return True
+    except Exception:
+        return False
 
 
 def test_detect_document_type(tmp_path) -> None:
@@ -261,8 +274,8 @@ def test_build_document_static_assets_copy(tmp_path) -> None:
 
 def test_build_pdf_multi_document_merge(tmp_path) -> None:
     """Test build_pdf merges multiple inputs into a single PDF and embeds images."""
-    if not find_system_browser():
-        pytest.skip("Chrome/Chromium/Edge browser not found for PDF export test.")
+    if not _is_playwright_chromium_available():
+        pytest.skip("Playwright or headless Chromium browser not available for PDF export test.")
 
     doc1 = tmp_path / "01_intro.md"
     doc1.write_text(
@@ -291,13 +304,48 @@ circle((50, 50), radius=15)
     assert out_pdf.stat().st_size > 0
 
 
-def test_export_html_to_pdf_missing_browser(monkeypatch, tmp_path) -> None:
-    """Test friendly error message is raised when no compatible browser is found."""
-    monkeypatch.setattr(exporter_pdf, "find_system_browser", lambda: None)
+def test_export_html_to_pdf_missing_playwright(monkeypatch, tmp_path) -> None:
+    """Test friendly error message is raised when playwright package is not installed."""
+    orig_import = __import__
+
+    def mock_import(name, *args, **kwargs):
+        if "playwright" in name:
+            raise ImportError(f"No module named '{name}'")
+        return orig_import(name, *args, **kwargs)
+
+    monkeypatch.setattr("builtins.__import__", mock_import)
 
     out_pdf = tmp_path / "out.pdf"
-    with pytest.raises(RuntimeError, match="No compatible browser \\(Google Chrome, Chromium, or Microsoft Edge\\)"):
+    with pytest.raises(RuntimeError) as exc_info:
         export_html_to_pdf("<h1>Test</h1>", str(out_pdf))
+
+    err_msg = str(exc_info.value)
+    assert "PDF export requires the 'playwright' package" in err_msg
+    assert 'uv add "drawlib[pdf]"' in err_msg
+    assert 'pip install "drawlib[pdf]"' in err_msg
+    assert "uv run playwright install chromium" in err_msg
+    assert "playwright install chromium" in err_msg
+
+
+def test_export_html_to_pdf_missing_chromium(monkeypatch, tmp_path) -> None:
+    """Test friendly error message is raised when Chromium browser is not downloaded."""
+    mock_playwright = MagicMock()
+    mock_p = MagicMock()
+    mock_playwright.return_value.__enter__.return_value = mock_p
+    mock_p.chromium.launch.side_effect = Exception(
+        "Executable doesn't exist at /path/to/chromium. Run playwright install"
+    )
+
+    monkeypatch.setattr("playwright.sync_api.sync_playwright", mock_playwright)
+
+    out_pdf = tmp_path / "out.pdf"
+    with pytest.raises(RuntimeError) as exc_info:
+        export_html_to_pdf("<h1>Test</h1>", str(out_pdf))
+
+    err_msg = str(exc_info.value)
+    assert "Playwright is installed, but the headless Chromium browser is missing." in err_msg
+    assert "uv run playwright install chromium" in err_msg
+    assert "playwright install chromium" in err_msg
 
 
 def test_build_document_missing_image_warning(tmp_path, capsys) -> None:

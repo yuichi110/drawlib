@@ -6,17 +6,35 @@ Drawlib provides a comprehensive command line interface (`drawlib`) built on Pyt
 
 ## 1. Invoking the CLI
 
-When Drawlib is installed in your Python environment or virtual environment via pip or uv, the `drawlib` executable is available globally:
+Depending on your workflow and environment management, you can invoke the CLI in several ways:
+
+### Using uv (Recommended)
+
+In a project managed with `uv`, run commands with `uv run`:
 
 ```bash
-drawlib --help
+$ uv run drawlib --help
 ```
 
-Alternatively, you can run the module directly through Python:
+> **Tip**: If your virtual environment is currently activated (`source .venv/bin/activate`), you can call `drawlib` directly without `uv run`.
+
+### Using pip / Active Virtual Environment
+
+If Drawlib is installed in your active virtual environment or global Python environment:
 
 ```bash
-python -m drawlib --help
+$ drawlib --help
 ```
+
+### Python Module Execution
+
+You can also run Drawlib directly through the Python module:
+
+```bash
+$ python -m drawlib --help
+```
+
+> **Note on Command Syntax**: Throughout this CLI documentation, commands are written as `drawlib <command> ...` for brevity. If you are using `uv` without an activated virtual environment, simply prefix them with `uv run` (e.g., `uv run drawlib build html docs_src/`).
 
 ---
 

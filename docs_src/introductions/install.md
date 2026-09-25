@@ -1,115 +1,97 @@
 # Install
 
+Drawlib can be installed using `uv` (recommended) or `pip`.
 
-You can install drawlib with the following command. If your system uses `python3` and `pip3`, use them instead.
+
+## Using uv (Recommended)
+
+Add Drawlib to your project:
+
+```bash
+$ uv add drawlib
+```
+
+To install with optional PDF export support (`drawlib build pdf`):
+
+```bash
+$ uv add "drawlib[pdf]"
+$ uv run playwright install chromium
+```
 
 
-```text
+## Using pip
+
+Install Drawlib into your Python environment:
+
+```bash
 $ pip install drawlib
 ```
 
+To install with optional PDF export support (`drawlib build pdf`):
 
-After installation, you can check whether Drawlib was installed successfully with these commands:
-
-
-```text
-$ python -m drawlib --version
-software=0.3.0.dev1
-api=0.3.0.dev1
-
-$ drawlib --version 
-software=0.3.0.dev1
-api=0.3.0.dev1
+```bash
+$ pip install "drawlib[pdf]"
+$ playwright install chromium
 ```
 
-The Drawlib package also installs the `drawlib` command-line utility, which manages documentation building (`drawlib build`), live preview servers (`drawlib serve`), project scaffolding (`drawlib init`), diagram export, and asset caches. 
-For more details, see the **[CLI Reference](../cli/index.md)**.
+---
 
+## Verifying Installation
+
+After installation, verify that the `drawlib` CLI and library are installed:
+
+```bash
+# When using uv:
+$ uv run drawlib --version
+
+# When using pip / global environment:
+$ drawlib --version
+# or: $ python -m drawlib --version
+```
+
+The CLI manages document compilation (`drawlib build`), local preview servers (`drawlib serve`), project scaffolding (`drawlib init`), and diagram export. For more details, see the **[CLI Reference](../cli/index.md)**.
+
+---
 
 ## Troubleshooting
 
-
-Drawlib depends on `matplotlib`, which requires `msvc-runtime` on Windows. 
-If it is not automatically installed, you may encounter the following error when you try to draw:
-
+Drawlib depends on `matplotlib`, which requires `msvc-runtime` on Windows. If it is not automatically installed on Windows systems, you may encounter the following error:
 
 ```text
 ImportError: DLL load failed while importing _cext: The specified module could not be found
 ```
 
+In this case, manually install `msvc-runtime`:
 
-In this situation, please manually install `msvc-runtime`:
+```bash
+# Using uv:
+$ uv pip install msvc-runtime
 
-
-```text
-pip install msvc-runtime
+# Using pip:
+$ pip install msvc-runtime
 ```
 
+---
 
-If you encounter another error, please check if your Python environment is either too old or too new.
+## Release Policy
 
+Drawlib follows semantic versioning (`<major>.<minor>.<patch>`):
 
-# Versioning
+- **Major Version**: Significant architectural or API changes
+- **Minor Version**: New features and minor API additions
+- **Patch Version**: Bug fixes and minor maintenance
 
+During development cycles, pre-release packages (`dev<n>`) are published for testing:
 
-Drawlib follows the versioning rule `<major>.<minor>.<patch>`. 
+```bash
+# Using uv:
+$ uv add "drawlib==0.3.0.dev1"
 
-- Major Version: Significant API change
-- Minor Version: Minor API change
-- Patch Version: Bug fixes, etc. No API change
-
-If you intend to use drawlib with a long-term project, we recommend installing a specific version with `requirements.txt`.
-
-
-```text
-drawlib == 0.1.*
-sphinx == 7.2.*
-sphinx-rtd-theme == 2.0.*
+# Using pip:
+$ pip install "drawlib==0.3.0.dev1"
 ```
 
-
-You can install or update these packages with the following command:
-
-
-```text
-$ pip install -U -r requirements.txt
-```
-
-
-As you can see, the patch version is not specified, allowing bug fixes to be updated without any API changes. 
-We recommend specifying not only the version of Drawlib but also the versions of the documentation building tools (like Sphinx) to ensure compatibility and stability.
-
-
-# Release policy
-
-
-Drawlib's release process is as follows:
-
-* 0.1.* : private alpha release
-* 0.2.* : public beta release
-* 0.n.* : public releases
-* n.m.* : matured public releases
-
-After the public release of 0.3, each version will have development releases, such as:
-
-* 0.3.0.dev1
-* 0.3.0.dev2
-* 0.3.0.dev<n>
-
-As you can see, the patch version is 0, followed by `dev<n>`. 
-These are under-development testing releases for library developers and power users. 
-You can't install them via pip normally, but you can install them by specifying the exact version:
-
-
-```text
-$ pip install drawlib == 0.3.0.dev1
-```
-
-
-After the under-development phase ends, an official version like "0.3.1" will be released.
-
-Once Drawlib matures, we will move to version "1.0.*" and later. 
-Here is a release plan image:
+Once a feature cycle stabilizes, an official release (e.g. `0.3.1`) is published.
 
 
 ```drawlib fold-code 600px center
@@ -193,18 +175,6 @@ arrow(
     textstyle=Style(text_color=Colors.White, text_size=14, text_font=FontRoboto.ROBOTO_REGULAR),
 )
 ```
-
-Unfortunately, we do not plan to publish new fixes for older versions. 
-This means that after releasing version 0.n.0, we will not provide new patch releases for `0.<n-1>.*`.
-
-
-# Virtual Environment
-
-
-If you have multiple documentation projects on your machine, we recommend installing Drawlib in a Python virtual environment, such as `venv` or `poetry`. 
-We typically use `venv` for pure documentation projects and `poetry` for development projects that involve documentation.
-
-Using virtual environments allows you to isolate Drawlib installations for different projects, which helps avoid conflicts with underlying library versions like matplotlib.
 
 ---
 

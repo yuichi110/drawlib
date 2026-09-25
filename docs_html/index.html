@@ -367,6 +367,10 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
+                                <a href="advanced_topics/ai_agents.html" >Working with AI Agents & LLMs</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="advanced_topics/math.html" >Geometry & Math Utilities</a>
                             </li>
                             
@@ -376,10 +380,6 @@
                             
                             <li class="nav-item ">
                                 <a href="advanced_topics/debug.html" >Debugging & Tracebacks</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="advanced_topics/settings.html" >Library Settings</a>
                             </li>
                             
                         </ul>
@@ -420,6 +420,190 @@ text(xy=(75, 20), text=&quot;Rectangle&quot;, style=Style(text_color=Colors.Whit
 </code></pre>
 </details>
 <hr />
+<h2>Key Capabilities</h2>
+<h3>1. Build Entire Documentation End-to-End</h3>
+<p>Drawlib is more than an illustration library—it is an <strong>integrated documentation compiler</strong>.</p>
+<p>You can author full technical documentation in standard Markdown containing embedded <code>drawlib</code> code blocks. Without configuring external documentation generators (such as Sphinx, MkDocs, or Docusaurus), a single command (<code>drawlib build</code>) compiles everything into publication-ready outputs:</p>
+<ul>
+<li><strong>Responsive Static HTML (<code>docs_html/</code>)</strong>: Full-featured documentation site with instant search, dark/light themes, and navigation sidebar.</li>
+<li><strong>GitHub-Optimized Markdown (<code>docs/</code>)</strong>: Clean Markdown with syntax-highlighted code blocks followed by relative diagram images for browsing on GitHub.</li>
+<li><strong>Headless Vector PDF (<code>docs_pdf/</code>)</strong>: High-fidelity, print-ready PDF generated via headless Chromium.</li>
+</ul>
+<p>Because the entire documentation workflow is unified in Python and Markdown, human developers and AI coding agents can build, generate, and maintain complete documentation sites end-to-end.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="index_images/2.png" alt="index_2" style="width: 700px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">End-to-End Documentation System with Drawlib</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.colors import Colors, Colors140
+from drawlib.fonts import FontRoboto
+from drawlib.lines import line
+from drawlib.shapes import circle, rectangle
+from drawlib.text import text
+from drawlib.types import Style
+
+config(width=140, height=65)
+
+# Styles
+s_src = &quot;blue_flat&quot;
+s_engine = &quot;purple_flat&quot;
+s_out = &quot;green_flat&quot;
+
+ts_title = Style(text_size=10.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White)
+ts_desc = Style(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.GhostWhite)
+ts_engine_title = Style(text_size=12, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White)
+ts_engine_desc = Style(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.LightSteelBlue)
+
+# Section Headers
+text((25, 60), &quot;Source Authoring&quot;, style=Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.RoyalBlue))
+text((70, 60), &quot;Drawlib Compiler&quot;, style=Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.DarkSlateBlue))
+text((116, 60), &quot;Publication Targets&quot;, style=Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.ForestGreen))
+
+# 1. Source (Left)
+rectangle((25, 33), width=36, height=44, style=s_src, r=2.5)
+text((25, 51.5), &quot;Documentation Source&quot;, style=ts_title)
+text((25, 46.5), &quot;Human or AI writes Markdown (.md)&quot;, style=Style(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.PaleTurquoise))
+
+# Mini editor window inside Source box
+rectangle((25, 29), width=31, height=23, style=Style(fill_color=Colors140.DarkSlateGray, line_color=Colors140.SlateGray, line_width=1), r=1.5)
+# Window dots
+circle((13, 37.8), radius=0.7, style=Style(fill_color=Colors140.IndianRed, line_color=Colors.Transparent))
+circle((15.2, 37.8), radius=0.7, style=Style(fill_color=Colors140.SandyBrown, line_color=Colors.Transparent))
+circle((17.4, 37.8), radius=0.7, style=Style(fill_color=Colors140.MediumSeaGreen, line_color=Colors.Transparent))
+text((26, 37.8), &quot;system_guide.md&quot;, style=Style(text_size=7, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.LightSteelBlue))
+line((10.5, 36.2), (39.5, 36.2), style=Style(line_color=Colors140.SlateGray, line_width=0.8))
+# Editor text
+text((12.5, 27.5), &quot;# System Guide\nArchitecture overview...\n\n```drawlib\nrectangle(...)\n```&quot;, style=Style(text_size=6.8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors.White, text_halign=&quot;left&quot;))
+
+text((25, 13.5), &quot;Text + Embedded Illustration Code&quot;, style=Style(text_size=7.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.GhostWhite))
+
+# 2. Engine (Center)
+rectangle((70, 33), width=34, height=44, style=s_engine, r=2.5)
+text((70, 50), &quot;drawlib build&quot;, style=ts_engine_title)
+text((70, 43.5), &quot;All-in-One Compiler&quot;, style=Style(text_size=9.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.Wheat))
+text((57, 30), &quot;• Parses Markdown AST\n• Executes Python blocks\n• Auto-generates images\n• Resolves internal links&quot;, style=Style(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.LightSteelBlue, text_halign=&quot;left&quot;))
+text((70, 16), &quot;No External Tools Needed\n(Zero Sphinx / MkDocs)&quot;, style=Style(text_size=8, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.Gold))
+
+# Arrow Left -&gt; Center
+line((43, 33), (53, 33), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
+
+# 3. Targets (Right)
+rectangle((116, 49), width=36, height=13, style=s_out, r=1.5)
+text((116, 52), &quot;Responsive HTML Site&quot;, style=ts_title)
+text((116, 46.5), &quot;docs_html/ (Search, Dark Mode, Nav)&quot;, style=ts_desc)
+
+rectangle((116, 33), width=36, height=13, style=s_out, r=1.5)
+text((116, 36), &quot;GitHub Markdown&quot;, style=ts_title)
+text((116, 30.5), &quot;docs/ (Syntax code + relative images)&quot;, style=ts_desc)
+
+rectangle((116, 17), width=36, height=13, style=s_out, r=1.5)
+text((116, 20), &quot;Headless Vector PDF&quot;, style=ts_title)
+text((116, 14.5), &quot;docs_pdf/ (Chromium vector print)&quot;, style=ts_desc)
+
+# Arrows Center -&gt; Right targets
+line((87, 45), (98, 49), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
+line((87, 33), (98, 33), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
+line((87, 21), (98, 17), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
+</code></pre>
+</details>
+<hr />
+<h3>2. AI Agents Generate Grounded Docs &amp; Diagrams from Codebase</h3>
+<p>Because Drawlib diagrams are written in clean, standard Python code, modern AI coding agents (such as Claude Code, Cursor, GitHub Copilot, and ChatGPT) can generate, inspect, and maintain technical illustrations naturally.</p>
+<p>By placing Drawlib directly in your application or documentation repository:</p>
+<ul>
+<li><strong>AI Inspects Real Context</strong>: Agents inspect actual database schemas (<code>models.py</code>), API endpoints, services, and configuration files before drawing a single box.</li>
+<li><strong>Grounded, High-Fidelity Diagrams</strong>: The AI generates architecture diagrams, sequence diagrams, ER diagrams, and workflow charts that accurately reflect real code rather than imaginary mockups.</li>
+<li><strong>Single Pull Request Synchrony</strong>: When you modify application logic, the AI agent updates the implementation code, Markdown documentation, and embedded Drawlib diagrams simultaneously in the same Pull Request.</li>
+</ul>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="index_images/3.png" alt="index_3" style="width: 700px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">AI Coding Agents Generating Grounded Docs & Diagrams from Repository</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.colors import Colors, Colors140
+from drawlib.fonts import FontRoboto
+from drawlib.lines import line
+from drawlib.shapes import circle, rectangle
+from drawlib.text import text
+from drawlib.types import Style
+
+config(width=140, height=65)
+
+# Styles
+s_repo = &quot;blue_flat&quot;
+s_agent = &quot;purple_flat&quot;
+s_doc = &quot;green_flat&quot;
+
+ts_title = Style(text_size=10.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White)
+ts_desc = Style(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.GhostWhite)
+
+# Column Headers
+text((24, 60), &quot;1. Repository Context&quot;, style=Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.RoyalBlue))
+text((69, 60), &quot;2. Autonomous AI Agent&quot;, style=Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.DarkSlateBlue))
+text((116, 60), &quot;3. Grounded Docs &amp; Diagrams&quot;, style=Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.ForestGreen))
+
+# 1. Left: Repository Context items
+rectangle((24, 48), width=34, height=13, style=s_repo, r=1.5)
+text((24, 50.5), &quot;Source Code &amp; APIs&quot;, style=ts_title)
+text((24, 45.5), &quot;routes.py, controllers, logic&quot;, style=ts_desc)
+
+rectangle((24, 33), width=34, height=13, style=s_repo, r=1.5)
+text((24, 35.5), &quot;Database &amp; Schemas&quot;, style=ts_title)
+text((24, 30.5), &quot;models.py, migrations, OpenAPI&quot;, style=ts_desc)
+
+rectangle((24, 18), width=34, height=13, style=s_repo, r=1.5)
+text((24, 20.5), &quot;Infra &amp; Config&quot;, style=ts_title)
+text((24, 15.5), &quot;docker-compose, k8s, env&quot;, style=ts_desc)
+
+# Arrows from Repo to Agent
+line((41, 48), (53, 39), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
+line((41, 33), (53, 33), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
+line((41, 18), (53, 27), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
+
+# 2. Center: AI Agent
+rectangle((69, 33), width=32, height=44, style=s_agent, r=2.5)
+circle((69, 45), radius=4.5, style=Style(fill_color=Colors.White, line_color=Colors.Transparent))
+text((69, 45), &quot;AI&quot;, style=Style(text_size=10, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.DarkSlateBlue))
+text((69, 37), &quot;Coding Agent&quot;, style=Style(text_size=11.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White))
+text((69, 31.5), &quot;Claude Code / Cursor / Copilot&quot;, style=Style(text_size=7.5, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.LightSteelBlue))
+text((55, 21), &quot;• Explores codebase &amp; schemas\n• Synthesizes Drawlib code\n• Validates image output (-g)\n• Refines layout autonomously&quot;, style=Style(text_size=7.2, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.GhostWhite, text_halign=&quot;left&quot;))
+
+# Arrow Agent to Output
+line((85, 33), (98, 33), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
+
+# 3. Right: Delivered Docs &amp; Diagrams
+rectangle((116, 33), width=36, height=44, style=s_doc, r=2.5)
+text((116, 51.5), &quot;Grounded Documentation&quot;, style=ts_title)
+text((116, 46.5), &quot;100% In-Sync with Real Code&quot;, style=Style(text_size=8, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.PaleTurquoise))
+
+# Mini visual card inside doc box
+rectangle((116, 29), width=31, height=23, style=Style(fill_color=Colors.White, line_color=Colors140.SeaGreen, line_width=1), r=1.5)
+text((116, 37.5), &quot;System Architecture &amp; Specs&quot;, style=Style(text_size=8, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.SeaGreen))
+
+# 3 Mini mockup nodes inside card: App -&gt; API -&gt; DB
+rectangle((105, 29), width=7.5, height=6.5, style=&quot;blue_flat&quot;, r=1)
+text((105, 29), &quot;App&quot;, style=Style(text_size=6, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White))
+
+line((108.75, 29), (112.25, 29), arrowhead=&quot;-&gt;&quot;, style=Style(line_width=1.2, line_color=Colors140.SlateGray))
+
+rectangle((116, 29), width=7.5, height=6.5, style=&quot;purple_flat&quot;, r=1)
+text((116, 29), &quot;API&quot;, style=Style(text_size=6, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White))
+
+line((119.75, 29), (123.25, 29), arrowhead=&quot;-&gt;&quot;, style=Style(line_width=1.2, line_color=Colors140.SlateGray))
+
+rectangle((127, 29), width=7.5, height=6.5, style=&quot;green_flat&quot;, r=1)
+text((127, 29), &quot;DB&quot;, style=Style(text_size=6, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White))
+
+text((116, 20.5), &quot;ER Diagrams • Sequences • APIs&quot;, style=Style(text_size=7, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.DimGray))
+
+text((116, 13.5), &quot;Updated in Same Pull Request&quot;, style=Style(text_size=7.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.GhostWhite))
+</code></pre>
+</details>
+<hr />
 <h2>Getting Started</h2>
 <ul>
 <li><strong><a href="./introductions/about.html">About Drawlib</a></strong>: Philosophy, motivation, and &quot;Illustration as Code&quot;.</li>
@@ -438,7 +622,7 @@ text(xy=(75, 20), text=&quot;Rectangle&quot;, style=Style(text_color=Colors.Whit
 <li><strong><a href="./smartarts/index.html">SmartArts Diagrams</a></strong>: High-level cards, tables, trees, mind maps, chevrons, and code blocks.</li>
 <li><strong><a href="./diagrams/architecture.html">Technical Diagrams</a></strong>: Architecture, sequence, flow, UML class, ER, and state diagrams.</li>
 <li><strong><a href="./charts/index.html">Charts</a></strong>: Pure-Python vector charts (Bar, Line, Area, Pie, Radar, Scatter, Gantt).</li>
-<li><strong><a href="./advanced_topics/math.html">Advanced Topics</a></strong>: Geometry math, dynamic code rendering (<code>get_dimage_from_code</code>), debugging, and library settings.</li>
+<li><strong><a href="./advanced_topics/ai_agents.html">Advanced Topics</a></strong>: AI coding agents, geometry math, dynamic rendering (<code>get_dimage_from_code</code>), and debugging.</li>
 </ol>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

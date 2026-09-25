@@ -367,6 +367,10 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
+                                <a href="../advanced_topics/ai_agents.html" >Working with AI Agents & LLMs</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../advanced_topics/math.html" >Geometry & Math Utilities</a>
                             </li>
                             
@@ -376,10 +380,6 @@
                             
                             <li class="nav-item ">
                                 <a href="../advanced_topics/debug.html" >Debugging & Tracebacks</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../advanced_topics/settings.html" >Library Settings</a>
                             </li>
                             
                         </ul>
@@ -398,6 +398,9 @@
             <main class="main-content">
                 <h1><code>drawlib cache</code>, <code>template</code>, &amp; <code>css</code></h1>
 <p>These commands manage external release assets, HTML/PDF Jinja2 templates, and CSS stylesheets.</p>
+<blockquote>
+<p><strong>Tip</strong>: If you are using <code>uv</code>, run commands with <code>uv run</code> (e.g., <code>uv run drawlib cache list</code>).</p>
+</blockquote>
 <hr />
 <h2>1. Asset Cache Management (<code>drawlib cache</code>)</h2>
 <p>To keep the initial Python package size lightweight, Drawlib downloads non-essential heavy assets (such as Phosphor icons, Google Cloud icons, and CJK/Arabic language fonts) dynamically from GitHub Releases on demand. Once downloaded, assets are cached locally.</p>

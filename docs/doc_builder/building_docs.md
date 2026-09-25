@@ -110,18 +110,37 @@ All functions, classes, and global variables declared in the configuration scrip
 
 ## 4. Headless PDF Prerequisites
 
-Drawlib generates PDFs by compiling documents to a clean HTML layout and leveraging headless Chromium printing (`--headless --print-to-pdf`).
+Drawlib generates publication-ready vector PDFs by compiling documents to HTML and rendering them via Playwright and headless Chromium.
 
-### System Browser Detection
-Drawlib automatically searches your system for any of the following browsers:
-- Google Chrome (`google-chrome`, `chrome`)
-- Chromium (`chromium`, `chromium-browser`)
-- Microsoft Edge (`msedge`)
+### Installing PDF Support
 
-If your browser binary is installed in a non-standard location, set the `DRAWLIB_CHROME_PATH` environment variable:
+PDF export requires Playwright and the Chromium browser binary:
+
+#### 1. Install Playwright
+
+- **Using uv:**
+  ```bash
+  uv add "drawlib[pdf]"
+  ```
+- **Using pip:**
+  ```bash
+  pip install "drawlib[pdf]"
+  ```
+
+#### 2. Install Headless Chromium
+
+- **Using uv:**
+  ```bash
+  uv run playwright install chromium
+  ```
+- **Using pip:**
+  ```bash
+  playwright install chromium
+  ```
+
+Once installed, compile your documents to PDF using:
 
 ```bash
-export DRAWLIB_CHROME_PATH="/usr/bin/google-chrome-stable"
 drawlib build pdf docs_src/ -o output.pdf
 ```
 

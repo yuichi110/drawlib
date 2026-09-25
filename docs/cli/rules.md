@@ -2,6 +2,8 @@
 
 The `drawlib rules` command provides instant access to exhaustive API specifications, architectural guidelines, and production drawing examples. These manuals are specifically curated for AI coding agents (such as Deepmind Antigravity, Claude, and ChatGPT) and human engineers developing illustrations programmatically.
 
+> **Tip**: If you are using `uv`, run commands with `uv run` (e.g., `uv run drawlib rules`).
+
 ---
 
 ## 1. Syntax Overview

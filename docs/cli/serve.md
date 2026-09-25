@@ -2,6 +2,8 @@
 
 The `drawlib serve` command launches a local HTTP development server to preview compiled HTML documentation sites directly in your web browser.
 
+> **Tip**: If you are using `uv`, run commands with `uv run` (e.g., `uv run drawlib serve`).
+
 ---
 
 ## 1. Basic Usage

@@ -23,13 +23,15 @@ Each Markdown file starts on a fresh page automatically during PDF compilation.
 
 ## 2. Headless PDF Compilation Engine
 
-Drawlib generates vector PDFs using a local headless Chromium-based browser (Google Chrome, Chromium, or Microsoft Edge). This ensures crisp vector graphics, modern CSS layout, and font rendering without requiring heavyweight third-party PDF generators.
+Drawlib generates publication-ready vector PDFs using Playwright and a headless Chromium browser. This ensures crisp vector graphics, modern CSS layout, and font rendering without OS-dependent print anomalies.
 
-- Ensure Chrome, Chromium, or Edge is installed on your system.
-- If your browser is installed in a non-standard location, set the `DRAWLIB_CHROME_PATH` environment variable:
-  ```bash
-  export DRAWLIB_CHROME_PATH="/path/to/chrome"
-  ```
+### Prerequisites:
+1. Install PDF support:
+   - For `uv` users: `uv add "drawlib[pdf]"`
+   - For `pip` users: `pip install "drawlib[pdf]"`
+2. Download headless Chromium:
+   - For `uv` users: `uv run playwright install chromium`
+   - For `pip` users: `playwright install chromium`
 
 ## 3. Embedding Illustrations in PDF Documents
 

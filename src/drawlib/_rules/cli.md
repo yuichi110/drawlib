@@ -204,13 +204,12 @@ drawlib build pdf <INPUTS...> [OPTIONS]
 | `--config` | `-c` | `<path>` | `None` | Path to Python configuration script executed before blocks. |
 | `--no-cache` | | flag | `False` | Force clean diagram generation ignoring SQLite cache. |
 
-#### Headless Chromium Detection Mechanics:
-Drawlib automatically searches your system environment for a compatible Chromium browser in the following order:
-1. Environment variable: `DRAWLIB_CHROME_PATH` (if defined).
-2. Standard executable binaries on `$PATH`: `google-chrome`, `google-chrome-stable`, `chromium`, `chromium-browser`, `microsoft-edge`.
-3. Standard platform-specific paths on Linux, macOS (`/Applications/Google Chrome.app/...`), and Windows.
+#### Headless PDF Engine Mechanics:
+Drawlib renders PDFs using Playwright and a headless Chromium browser instance (`page.pdf()`). This guarantees identical layout across all operating systems, accurate web font loading, and background CSS rendering.
 
-Execution flags applied: `<browser> --headless --disable-gpu --print-to-pdf=<dest_pdf> --no-pdf-header-footer <temp_html>`.
+Prerequisites:
+- Install Playwright: `uv add "drawlib[pdf]"` or `pip install "drawlib[pdf]"`
+- Download Chromium: `uv run playwright install chromium` or `playwright install chromium`
 
 #### Examples:
 ```bash
@@ -942,9 +941,9 @@ repos:
 - **Cause**: `drawlib serve --check` detected `<a href="...">` or `<img src="...">` paths that do not exist on disk.
 - **Fix**: Review the terminal error log for the exact file and line number. Verify relative paths and filename spelling.
 
-#### 5. Headless Chromium Not Found for PDF Build
-- **Cause**: `drawlib build pdf` requires a local Chrome or Chromium installation to print vector PDFs.
-- **Fix**: Install Chromium (`sudo apt install chromium-browser` or `brew install chromium`) or set the environment variable `export DRAWLIB_CHROME_PATH=/path/to/chrome`.
+#### 5. Playwright or Chromium Not Found for PDF Build
+- **Cause**: `drawlib build pdf` requires Playwright and a downloaded headless Chromium binary.
+- **Fix**: Install `drawlib[pdf]` (`uv add "drawlib[pdf]"` or `pip install "drawlib[pdf]"`) and download Chromium (`uv run playwright install chromium` or `playwright install chromium`).
 
 #### 6. Duplicate Image Output Collision
 - **Cause**: Two standalone Python scripts in batch mode or two embedded Markdown blocks write to the exact same output image filename.

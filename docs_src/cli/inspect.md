@@ -2,6 +2,8 @@
 
 During documentation authoring, rebuilding an entire site to test an individual diagram is slow. The `show` and `export` commands let you extract, execute, and inspect a single drawing block or standalone Python script instantaneously.
 
+> **Tip**: If you are using `uv`, run commands with `uv run` (e.g., `uv run drawlib export doc.md 1 -o diagram.png`).
+
 ---
 
 ## 1. Fast Development Iteration

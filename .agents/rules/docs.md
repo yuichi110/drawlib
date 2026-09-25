@@ -227,7 +227,7 @@ src/drawlib/_tools/doc_builder/
 ├── processor.py          # Code block extraction (DrawlibBlockProcessor, export_code_block, show_code_block)
 ├── exporter_md.py        # Rendered Markdown writer (write_rendered_markdown)
 ├── exporter_html.py      # HTML renderer (render_html_document, get_default_css)
-├── exporter_pdf.py       # Headless Chromium printer (export_html_to_pdf, find_system_browser)
+├── exporter_pdf.py       # Headless Chromium printer via Playwright (export_html_to_pdf)
 ├── template.py           # Template export and Jinja2 AST validator (validate_template)
 ├── html_templates/       # Built-in Jinja2 templates (sidebar.html.j2, simple.html.j2)
 └── html_styles/          # Built-in CSS (default.css, pygments.css)
@@ -248,11 +248,8 @@ src/drawlib/_tools/doc_builder/
 - **Static Image Validation**: Local images referenced via `![alt](path)` are validated before compilation, emitting warnings if missing.
 
 ### 6.3. Headless PDF Compilation
-`exporter_pdf.py` detects local Chromium installations (Chrome, Chromium, Edge) or uses `DRAWLIB_CHROME_PATH`. It executes:
-```bash
-<browser> --headless --disable-gpu --print-to-pdf=<out.pdf> <temp_html>
-```
-This produces crisp vector PDFs without requiring heavy browser automation packages like Playwright or Selenium.
+`exporter_pdf.py` renders HTML and generates vector PDFs using Playwright and headless Chromium (`page.pdf()`). This guarantees identical, deterministic rendering across environments (local dev, CI/CD, and Docker) with complete web font and CSS print background support.
+Prerequisites: `drawlib[pdf]` and `playwright install chromium`.
 
 ---
 

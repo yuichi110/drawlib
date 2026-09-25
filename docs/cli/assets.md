@@ -2,6 +2,8 @@
 
 These commands manage external release assets, HTML/PDF Jinja2 templates, and CSS stylesheets.
 
+> **Tip**: If you are using `uv`, run commands with `uv run` (e.g., `uv run drawlib cache list`).
+
 ---
 
 ## 1. Asset Cache Management (`drawlib cache`)

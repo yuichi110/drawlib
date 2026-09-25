@@ -2,6 +2,8 @@
 
 The `drawlib init` command bootstraps new documentation and illustration projects using pre-configured starter templates.
 
+> **Tip**: If you are using `uv`, run commands with `uv run` (e.g., `uv run drawlib init site my_docs`).
+
 ---
 
 ## 1. Syntax Overview

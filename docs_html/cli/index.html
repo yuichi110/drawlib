@@ -367,6 +367,10 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
+                                <a href="../advanced_topics/ai_agents.html" >Working with AI Agents & LLMs</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../advanced_topics/math.html" >Geometry & Math Utilities</a>
                             </li>
                             
@@ -376,10 +380,6 @@
                             
                             <li class="nav-item ">
                                 <a href="../advanced_topics/debug.html" >Debugging & Tracebacks</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../advanced_topics/settings.html" >Library Settings</a>
                             </li>
                             
                         </ul>
@@ -400,12 +400,25 @@
 <p>Drawlib provides a comprehensive command line interface (<code>drawlib</code>) built on Python and Typer. It manages document builds, asset downloads, template inspection, development previewing, and AI coding agent guidelines.</p>
 <hr />
 <h2>1. Invoking the CLI</h2>
-<p>When Drawlib is installed in your Python environment or virtual environment via pip or uv, the <code>drawlib</code> executable is available globally:</p>
-<pre><code class="language-bash">drawlib --help
+<p>Depending on your workflow and environment management, you can invoke the CLI in several ways:</p>
+<h3>Using uv (Recommended)</h3>
+<p>In a project managed with <code>uv</code>, run commands with <code>uv run</code>:</p>
+<pre><code class="language-bash">$ uv run drawlib --help
 </code></pre>
-<p>Alternatively, you can run the module directly through Python:</p>
-<pre><code class="language-bash">python -m drawlib --help
+<blockquote>
+<p><strong>Tip</strong>: If your virtual environment is currently activated (<code>source .venv/bin/activate</code>), you can call <code>drawlib</code> directly without <code>uv run</code>.</p>
+</blockquote>
+<h3>Using pip / Active Virtual Environment</h3>
+<p>If Drawlib is installed in your active virtual environment or global Python environment:</p>
+<pre><code class="language-bash">$ drawlib --help
 </code></pre>
+<h3>Python Module Execution</h3>
+<p>You can also run Drawlib directly through the Python module:</p>
+<pre><code class="language-bash">$ python -m drawlib --help
+</code></pre>
+<blockquote>
+<p><strong>Note on Command Syntax</strong>: Throughout this CLI documentation, commands are written as <code>drawlib &lt;command&gt; ...</code> for brevity. If you are using <code>uv</code> without an activated virtual environment, simply prefix them with <code>uv run</code> (e.g., <code>uv run drawlib build html docs_src/</code>).</p>
+</blockquote>
 <hr />
 <h2>2. Command Hierarchy</h2>
 <p>The CLI is organized into specialized subcommands:</p>

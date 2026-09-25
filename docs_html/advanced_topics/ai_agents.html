@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library Settings & Environment Variables</title>
+    <title>Working with AI Coding Agents & LLMs</title>
     
     <link rel="stylesheet" href="../style.css">
     
@@ -366,6 +366,10 @@
                         
                         <ul class="nav-list">
                             
+                            <li class="nav-item active">
+                                <a href="ai_agents.html" >Working with AI Agents & LLMs</a>
+                            </li>
+                            
                             <li class="nav-item ">
                                 <a href="math.html" >Geometry & Math Utilities</a>
                             </li>
@@ -378,10 +382,6 @@
                                 <a href="debug.html" >Debugging & Tracebacks</a>
                             </li>
                             
-                            <li class="nav-item active">
-                                <a href="settings.html" >Library Settings</a>
-                            </li>
-                            
                         </ul>
                     
                 
@@ -392,64 +392,258 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Library Settings & Environment Variables</span>
+                    <span class="crumb active">Working with AI Coding Agents & LLMs</span>
                 </div>
             </header>
             <main class="main-content">
-                <h1>Library Settings &amp; Environment Variables</h1>
-<p>This guide describes how to configure Drawlib's execution environment, build caching, external tool paths, and canvas defaults.</p>
+                <h1>Working with AI Coding Agents &amp; LLMs</h1>
+<p>Drawlib is built on the philosophy of <strong>&quot;Illustration as Code&quot;</strong>. Unlike proprietary GUI tools (Draw.io, PowerPoint, Miro) whose binary or complex XML formats are opaque to language models, Drawlib diagrams are expressed in standard, readable Python code.</p>
+<p>This architecture enables AI coding agents (such as Claude Code, Cursor, GitHub Copilot, Gemini, and ChatGPT) to generate, inspect, and refactor technical diagrams using the exact same programming workflows used for software development.</p>
 <hr />
-<h2>1. Environment Variables</h2>
-<p>Drawlib respects several environment variables for controlling headless browser printing and compilation behavior:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Variable</th>
-<th style="text-align:left">Default</th>
-<th style="text-align:left">Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>DRAWLIB_CHROME_PATH</code></td>
-<td style="text-align:left"><em>(auto-detected)</em></td>
-<td style="text-align:left">Path to a Chromium-compatible executable (Chrome, Chromium, Brave, Edge) for headless PDF compilation.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>DRAWLIB_DISABLE_CACHE</code></td>
-<td style="text-align:left"><em>(unset)</em></td>
-<td style="text-align:left">Set to <code>1</code> or <code>true</code> to force recompilation of all illustration code blocks, bypassing SQLite image build caches.</td>
-</tr>
-</tbody>
-</table>
-<h3>Example: Setting Chromium Path</h3>
-<pre><code class="language-bash">export DRAWLIB_CHROME_PATH=&quot;/usr/bin/chromium-browser&quot;
-drawlib build pdf docs_src/ -o docs.pdf
-</code></pre>
-<hr />
-<h2>2. Global Setup Scripts (<code>--config</code>)</h2>
-<p>Rather than repeating canvas configurations, font choices, or themes across dozens of illustrations, provide a Python setup script using the <code>--config</code> (<code>-c</code>) option during build:</p>
-<pre><code class="language-bash">drawlib build html docs_src/ -o docs_html/ --config setup.py
-</code></pre>
-<h3>Example <code>setup.py</code>:</h3>
-<pre><code class="language-python">from drawlib.canvas import config
-from drawlib.preset_styles import MonochromeStyles, set_default_styles
-
-# 1. Canvas coordinate space defaults:
-config(width=120, height=80)
-
-# 2. Preset styles theme:
-set_default_styles(MonochromeStyles())
-</code></pre>
-<p>All functions, styles, and variables declared in this script are injected into the global namespace of every <code>drawlib</code> code block.</p>
-<hr />
-<h2>3. Logging &amp; Verbosity Flags</h2>
-<p>Logging levels are controlled directly via the CLI:</p>
+<h2>1. Why Drawlib &amp; AI Agents?</h2>
+<h3>Illustration as Code in the Same Repository</h3>
+<p>To maximize an AI agent's capability, <strong>we strongly recommend installing Drawlib directly within your core application repository or technical documentation repository</strong>, rather than isolating it in a separate drawing repository.</p>
+<p>When Drawlib lives alongside your source code:</p>
 <ul>
-<li><code>--quiet</code>: Suppress all informational and progress outputs, showing only critical errors.</li>
-<li><code>--verbose</code> / <code>--debug</code>: Print detailed step-by-step diagnostic output including asset downloads, font resolution, and cache hits.</li>
-<li><code>--developer</code>: Disable internal error masking, showing full Python stack traces when an error occurs.</li>
+<li><strong>Agents understand your domain context</strong>: An agent can inspect your actual database models (<code>models.py</code>), API schemas (<code>openapi.yaml</code> or routes), directory structures, and business logic before drawing a single box.</li>
+<li><strong>Accurate, reality-grounded diagrams</strong>: Instead of generic mockups, the agent generates architecture diagrams, ER diagrams, and sequence diagrams that faithfully mirror your actual implementation.</li>
+<li><strong>Single Pull Request updates</strong>: When code changes (e.g. adding a new microservice or database column), an agent can update both the implementation code and the corresponding Drawlib diagrams in the same commit.</li>
 </ul>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="ai_agents_images/1.png" alt="ai_agents_1" style="width: 700px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">AI Coding Agent Workflow with Drawlib</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.colors import Colors, Colors140
+from drawlib.fonts import FontRoboto
+from drawlib.lines import line
+from drawlib.shapes import circle, rectangle
+from drawlib.text import text
+from drawlib.types import Style
+
+config(width=140, height=75)
+
+# Styles
+s_input = &quot;blue_flat&quot;
+s_agent = &quot;purple_flat&quot;
+s_output = &quot;green_flat&quot;
+s_build = Style(fill_color=Colors.White, line_color=Colors140.DarkSlateGray, line_width=1.5)
+
+ts_title = Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White)
+ts_desc = Style(text_size=8.5, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.GhostWhite)
+ts_dark_title = Style(text_size=10, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.DarkSlateGray)
+ts_dark_desc = Style(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.DimGray)
+
+# Column Headers
+text((23, 70), &quot;Context &amp; Rules (Inputs)&quot;, style=Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.RoyalBlue))
+text((70, 70), &quot;Reasoning (Agent)&quot;, style=Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.DarkSlateBlue))
+text((117, 70), &quot;Illustration as Code&quot;, style=Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.ForestGreen))
+
+# 1. Inputs (Left column)
+rectangle((23, 56), width=36, height=13, style=s_input, r=1.5)
+text((23, 58.5), &quot;Document Source&quot;, style=ts_title)
+text((23, 53.5), &quot;Markdown, Specs, Architecture Notes&quot;, style=ts_desc)
+
+rectangle((23, 38), width=36, height=13, style=s_input, r=1.5)
+text((23, 40.5), &quot;Illustration Source&quot;, style=ts_title)
+text((23, 35.5), &quot;Source Code, Models, APIs, Schemas&quot;, style=ts_desc)
+
+rectangle((23, 20), width=36, height=13, style=s_input, r=1.5)
+text((23, 22.5), &quot;Drawlib Rules&quot;, style=ts_title)
+text((23, 17.5), &quot;CLI: shapes, lines, diagrams, styles&quot;, style=ts_desc)
+
+# 2. Central Agent
+rectangle((70, 38), width=34, height=36, style=s_agent, r=2.5)
+circle((70, 48), radius=5, style=Style(fill_color=Colors.White, line_color=Colors.Transparent))
+text((70, 48), &quot;AI&quot;, style=Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.DarkSlateBlue))
+text((70, 39), &quot;AI Coding Agent&quot;, style=Style(text_size=12, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White))
+text((70, 33), &quot;Claude Code, Cursor,\nCopilot, ChatGPT&quot;, style=ts_desc)
+text((70, 24), &quot;Inspects Context &amp;\nSynthesizes Drawing Logic&quot;, style=Style(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.LightSteelBlue))
+
+# Arrows from Inputs to Agent
+line((41, 56), (53, 46), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
+line((41, 38), (53, 38), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
+line((41, 20), (53, 30), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
+
+# 3. Output (Right column)
+rectangle((117, 49), width=36, height=15, style=s_output, r=1.5)
+text((117, 52), &quot;Drawlib Code &amp; Docs&quot;, style=ts_title)
+text((117, 46), &quot;Embedded drawlib blocks\n&amp; Standalone Python Scripts&quot;, style=ts_desc)
+
+# Arrow from Agent to Code Output
+line((87, 49), (99, 49), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
+
+# 4. Publication Output
+rectangle((117, 25), width=36, height=15, style=s_build, r=1.5)
+text((117, 28), &quot;Compiled Deliverables&quot;, style=ts_dark_title)
+text((117, 22), &quot;Responsive HTML, Vector PDF,\nor GitHub Rendered Images&quot;, style=ts_dark_desc)
+
+# Arrow from Code to Deliverables
+line((117, 41.5), (117, 32.5), arrowhead=&quot;-&gt;&quot;, style=Style(line_style=&quot;dashed&quot;, line_width=1.5, line_color=Colors140.DarkSlateGray))
+text((120, 37), &quot;drawlib build&quot;, style=Style(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.DarkSlateGray, text_halign=&quot;left&quot;))
+</code></pre>
+</details>
+<hr />
+<h2>2. Equipping Your Agent with Drawlib Rules</h2>
+<p>AI agents perform best when provided with concise, high-signal architectural rules rather than raw API dumps. Drawlib includes a built-in rules distribution engine (<code>drawlib rules</code>) tailored for LLMs.</p>
+<h3>Step 1: Initialize Base Rules for Your Agent</h3>
+<p>Dumping full specifications for all 10+ Drawlib modules into your project rule file would consume too many context tokens. Instead, export the <strong><code>overview</code></strong> rule, which gives your agent a complete mental model and an index of available tools:</p>
+<pre><code class="language-bash"># For Cursor (.cursorrules):
+uv run drawlib rules show overview &gt; .cursorrules
+
+# For Claude Code (CLAUDE.md):
+uv run drawlib rules show overview &gt;&gt; CLAUDE.md
+
+# For Windsurf (.windsurfrules) or custom LLM system prompts:
+uv run drawlib rules show overview &gt; .windsurfrules
+</code></pre>
+<h3>Step 2: Enable On-Demand Rule Lookup</h3>
+<p>The <code>overview</code> rule instructs your agent to autonomously fetch detailed rules when needed. When prompted to create a specific illustration, the agent will dynamically run:</p>
+<pre><code class="language-bash"># Shapes primitives (rectangles, circles, polylines, chevrons):
+uv run drawlib rules show shapes
+
+# Connections, routing, and arrowheads:
+uv run drawlib rules show lines
+
+# High-level domain diagrams (Architecture, Sequence, Flow, ER, Class):
+uv run drawlib rules show diagrams
+
+# Structured layout components (Tables, Trees, MindMaps, ChevronProcess):
+uv run drawlib rules show smartarts
+
+# Data visualizations and Gantt charts:
+uv run drawlib rules show charts
+
+# Visual style matrix and color palettes:
+uv run drawlib rules show preset_styles
+</code></pre>
+<p>This keeps your agent's initial prompt lightweight while granting it instantaneous access to exhaustive API signatures and production code patterns on demand.</p>
+<hr />
+<h2>3. Prompting Best Practices for Stable Layouts</h2>
+<p>When asking an LLM to generate illustrations, follow these proven prompt patterns to avoid overlapping elements or distorted layouts:</p>
+<h3>A. Pre-Define Canvas Bounds</h3>
+<p>LLMs struggle with unbounded 2D coordinate spaces. Always provide or request an explicit canvas size first:</p>
+<ul>
+<li>Standard architecture / flow diagram: <code>config(width=120, height=60)</code></li>
+<li>Widescreen 16:9 system overview: <code>config(width=160, height=90)</code></li>
+<li>Small icon badge or process flow: <code>config(width=80, height=40)</code></li>
+</ul>
+<h3>B. Prefer High-Level Components</h3>
+<p>Direct your agent to use domain-specific modules (<code>diagrams</code>, <code>smartarts</code>) rather than manually placing dozens of low-level geometric shapes:</p>
+<ul>
+<li><strong>Microservices &amp; Cloud</strong>: Use <code>ArchitectureDiagram</code> or <code>flow.FlowDiagram</code></li>
+<li><strong>APIs &amp; Protocols</strong>: Use <code>SequenceDiagram</code></li>
+<li><strong>Data Models</strong>: Use <code>ERDiagram</code> or <code>ClassDiagram</code></li>
+<li><strong>Workflows &amp; Pipelines</strong>: Use <code>ChevronProcess</code> or <code>Cycle</code></li>
+</ul>
+<h3>C. Use Style Presets Instead of Raw Colors</h3>
+<p>Instruct the agent to use Drawlib's semantic style presets (e.g. <code>style=&quot;blue_flat&quot;</code>, <code>textstyle=&quot;white_bold&quot;</code>, or <code>MonochromeStyles()</code>). This prevents mismatched color palettes and guarantees professional aesthetic consistency out of the box.</p>
+<hr />
+<h2>4. The Iterative Debug Loop with Coordinate Overlays (<code>--grid</code>)</h2>
+<p>If an agent's initial layout has slight misalignment or text clipping, do not guess coordinates. Use Drawlib's fast visual inspection tools with coordinate grids:</p>
+<pre><code class="language-bash"># Headless rapid export with coordinate grid overlay:
+uv run drawlib export my_drawing.py -g -o scratch/preview.png
+
+# Or inspect block 1 of a Markdown document with grid:
+uv run drawlib export docs_src/diagrams/arch.md 1 -g -o scratch/arch_grid.png
+</code></pre>
+<h3>Human-in-the-Loop Feedback</h3>
+<p>Inspect the grid image. You can give concrete coordinate feedback to your agent:</p>
+<blockquote>
+<p><em>&quot;The database box at (80, 25) overlaps with the message queue line. Shift the database to (95, 25) and increase canvas width from 100 to 120.&quot;</em></p>
+</blockquote>
+<h3>Multimodal Self-Correction</h3>
+<p>Modern multimodal models (such as Claude 3.7 Sonnet or Gemini 2.0 Pro) can inspect <code>scratch/preview.png</code> directly, read the superimposed coordinate axes, and fix their own layout without human intervention.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="ai_agents_images/2.png" alt="ai_agents_2" style="width: 700px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Human-in-the-Loop & Autonomous AI Iteration Workflow</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.colors import Colors, Colors140
+from drawlib.fonts import FontRoboto
+from drawlib.lines import line, lines
+from drawlib.shapes import rectangle
+from drawlib.text import text
+from drawlib.types import Style
+
+config(width=150, height=80)
+
+# Colors &amp; Styles
+s_human = &quot;blue_flat&quot;
+s_ai_step = &quot;purple_flat&quot;
+s_loop_bg = Style(fill_color=Colors140.GhostWhite, line_color=Colors140.DarkSlateBlue, line_width=1.5, line_style=&quot;dashed&quot;)
+s_final = &quot;green_flat&quot;
+
+ts_title = Style(text_size=10.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors.White)
+ts_desc = Style(text_size=8, text_font=FontRoboto.ROBOTO_REGULAR, text_color=Colors140.GhostWhite)
+ts_dark_title = Style(text_size=11, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.DarkSlateBlue)
+
+# 1. Human Initial Prompt (Left, Y=51)
+rectangle((17, 51), width=26, height=16, style=s_human, r=2.0)
+text((17, 55), &quot;1. User Prompt&quot;, style=ts_title)
+text((17, 48.5), &quot;Human describes\ndiagram requirements&quot;, style=ts_desc)
+
+# Arrow from Human (1) to AI Code (2) - Straight horizontal
+line((30, 51), (44, 51), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
+
+# Background container for AI Autonomous Loop (Center, X=75, Y=39)
+rectangle((75, 39), width=66, height=66, style=s_loop_bg, r=3.0)
+text((75, 68), &quot;AI Autonomous Self-Correction Loop&quot;, style=ts_dark_title)
+
+# Step 2: AI Writes Code (Top-Left of loop)
+rectangle((58, 51), width=26, height=15, style=s_ai_step, r=1.5)
+text((58, 54.5), &quot;2. AI Writes Code&quot;, style=ts_title)
+text((58, 48), &quot;Generates Drawlib\nPython script&quot;, style=ts_desc)
+
+# Arrow 2 -&gt; 3 (Horizontal)
+line((71, 51), (79, 51), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
+
+# Step 3: Render Image (Top-Right of loop)
+rectangle((92, 51), width=26, height=15, style=s_ai_step, r=1.5)
+text((92, 54.5), &quot;3. Render Image&quot;, style=ts_title)
+text((92, 48), &quot;drawlib export -g\nor python -c '...'&quot;, style=ts_desc)
+
+# Arrow 3 -&gt; 4 (Vertical Down)
+line((92, 43.5), (92, 35.5), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
+
+# Step 4: AI Reviews Image (Bottom-Right of loop)
+rectangle((92, 28), width=26, height=15, style=s_ai_step, r=1.5)
+text((92, 31.5), &quot;4. AI Reviews Image&quot;, style=ts_title)
+text((92, 25), &quot;Multimodal model\ninspects grid overlay&quot;, style=ts_desc)
+
+# Step 5: Loop Back Arrow (4 -&gt; 2, Bottom-Left orthogonal routing)
+lines([(92, 20.5), (92, 14), (58, 14), (58, 43.5)], arrowhead=&quot;-&gt;&quot;, style=Style(line_color=Colors140.DarkOrange, line_width=2))
+text((75, 17), &quot;5. Issues found? Fix coordinates &amp; retry&quot;, style=Style(text_size=7.5, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.DarkOrange))
+
+# Arrow out of loop (from Step 4 to Step 6, orthogonal)
+lines([(105, 28), (116, 28), (116, 51), (124, 51)], arrowhead=&quot;-&gt;&quot;, style=Style(line_color=Colors140.SeaGreen, line_width=2))
+text((118, 39.5), &quot;Ready / OK&quot;, style=Style(text_size=8, text_font=FontRoboto.ROBOTO_BOLD, text_color=Colors140.SeaGreen, text_halign=&quot;left&quot;))
+
+# 6. Human Final Inspection (Right, Y=51)
+rectangle((137, 51), width=24, height=16, style=s_final, r=2.0)
+text((137, 55), &quot;6. Human Check&quot;, style=ts_title)
+text((137, 48.5), &quot;drawlib show --grid\nor verify final image&quot;, style=ts_desc)
+</code></pre>
+</details>
+<hr />
+<h2>5. Sample Agent Prompts</h2>
+<h3>Prompt: Microservices Architecture Diagram</h3>
+<pre><code class="language-text">Inspect the services defined in `src/services/` and `docker-compose.yml`.
+Using Drawlib, generate a clean microservices architecture diagram showing:
+1. Client App / Gateway
+2. Authentication Service and User DB
+3. Order Processing Service and Redis Queue
+Use `config(width=140, height=70)`, standard preset styles (&quot;blue_flat&quot;, &quot;green_flat&quot;), and `line(..., arrowhead=&quot;-&gt;&quot;)`.
+</code></pre>
+<h3>Prompt: Sequence Diagram for API Flow</h3>
+<pre><code class="language-text">Check `src/api/auth.py` and draw a Drawlib Sequence Diagram (`drawlib.diagrams.sequence`)
+showing the OAuth2 authorization code flow between User, Client App, Auth Server, and Resource API.
+Save it as an embedded ```drawlib``` block in `docs_src/auth_flow.md`.
+</code></pre>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
 
