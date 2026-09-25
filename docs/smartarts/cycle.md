@@ -125,3 +125,7 @@ Initialize a Cycle SmartArt instance.
 - `insert(index, text, description="", style=None, textstyle=None, description_style=None, arrow_style=None)`: Insert a step at the specified index.
 - `set_center(text, description="", radius=None, style=None, textstyle=None, description_style=None)`: Configure the optional center node for a Radial Cycle.
 - `draw(xy, radius=35.0, align="center")`: Draw the cycle on the canvas at `xy`.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

@@ -87,3 +87,7 @@ chart.draw(xy=(5.0, 4.0))
 - `add_series(name: str, values: list[float], color=None, fill_alpha=0.25, line_width=2.0, line_style="solid", show_points=True, point_shape="circle", point_size=0.8, style=None) -> RadarSeries`: Register a data polygon.
 - `get_size() -> tuple[float, float]`: Calculate overall bounding box dimensions.
 - `draw(xy: tuple[float, float] = (0.0, 0.0)) -> None`: Render chart onto canvas.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

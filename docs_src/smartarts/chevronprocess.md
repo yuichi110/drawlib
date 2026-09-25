@@ -71,3 +71,7 @@ Initialize a ChevronProcess instance.
 - `extend(texts, descriptions=None)`: Append multiple steps at once.
 - `insert(index, text, description="", style=None, textstyle=None, description_style=None)`: Insert a step at the specified index.
 - `draw(xy, width=90.0, height=12.0, item_width=None)`: Draw the chevron process on the canvas starting at bottom-left coordinate `xy`.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

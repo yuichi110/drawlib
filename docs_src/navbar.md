@@ -87,6 +87,7 @@
 
 ## 9. Advanced Topics
 - [Working with AI Agents & LLMs](./advanced_topics/ai_agents.md)
+- [Programmatic Tools API (`drawlib.tools`)](./advanced_topics/tools.md)
 - [Geometry & Math Utilities](./advanced_topics/math.md)
 - [Rendering from Code (`get_dimage_from_code`)](./advanced_topics/dimage_from_code.md)
 - [Debugging & Tracebacks](./advanced_topics/debug.md)

@@ -125,3 +125,7 @@ chart.draw(xy=(3.0, 3.0))
 - `add_dependency(from_task: GanttTask, to_task: GanttTask, color=None, style=None) -> GanttDependency`: Draw an orthogonal arrow linking predecessor and successor tasks.
 - `get_size() -> tuple[float, float]`: Return calculated (width, height) bounding dimensions.
 - `draw(xy: tuple[float, float] = (0.0, 0.0)) -> None`: Render the Gantt chart onto the canvas.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

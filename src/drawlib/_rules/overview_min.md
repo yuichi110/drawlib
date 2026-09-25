@@ -23,15 +23,15 @@ When tasked with generating or updating Drawlib diagrams, execute this self-corr
                                         6. Human Inspection
 ```
 
-1. **Inspect Context**: Check real repository files (`models.py`, API routes, config) to ground the diagram in actual code.
-2. **Prototype in Scratch Directory**: Write temporary code in `scratch/test_diagram.py` instead of directly modifying production files.
+1. **Inspect Context**: Check real repository files (`models.py`, API routes, config) to ground the diagram in code.
+2. **Prototype in Scratch**: Write code in `scratch/test_diagram.py` instead of directly modifying production files.
 3. **Render Immediately with Coordinate Grid (`-g`)**:
    ```bash
    uv run drawlib export scratch/test_diagram.py -g -o scratch/test_diagram.png
    # Or for Markdown embedded block 1:
    uv run drawlib export docs_src/doc.md 1 -g -o scratch/test_diagram.png
    ```
-4. **Multimodal Self-Review (`view_file`)**: Inspect `scratch/test_diagram.png`. Check for overlaps, text clipping, bad arrow routing, or uneven whitespace.
+4. **Multimodal Self-Review (`view_file`)**: Inspect `scratch/test_diagram.png`. Check for overlaps, text clipping, bad routing, or uneven whitespace.
 5. **Auto-Adjust & Iterate**: Fix coordinates and re-export until the layout is balanced.
 6. **Show Rendered Image to User**: Present the image to the user for quick visual sign-off before committing.
 
@@ -42,13 +42,15 @@ When tasked with generating or updating Drawlib diagrams, execute this self-corr
 
 ## 2. Core Concepts: Canvas & Geometry
 
-- **Origin `(0, 0)`**: Strictly at the **bottom-left corner**. X increases to the right; Y increases upward.
+- **Origin `(0, 0)`**: Strictly at the **bottom-left corner**. X increases rightward; Y increases upward.
 - **Default Center Anchor**: Shape and text coordinates `(x, y)` define the geometric **center** by default.
-- **Canvas Sizing Heuristics**:
-  - Small component / badge: `config(width=80, height=40)`
-  - Standard architecture / flowchart / sequence: `config(width=140, height=70)`
-  - Widescreen 16:9 system overview: `config(width=160, height=90)`
+- **Canvas Sizing**: `80x40` (badges), `140x70` (flows/architecture/sequence), `160x90` (widescreen).
 - **Multi-Image Scripts**: Always call `clear()` between sequential images to avoid canvas bleeding.
+- **In-Memory Rendering (`canvas`)**: `canvas.get_dimage()` captures the canvas as an in-memory `Dimage` object.
+- **Geometry Helpers (`drawlib.math`)**:
+  - `get_angle(p1, p2)`: Counter-clockwise angle (0–360°) from `p1` to `p2` for rotating shapes or angled labels.
+  - `get_distance(p1, p2)`: Euclidean distance between coordinates.
+  - `get_center_and_size(points)`: Returns `((cx, cy), (w, h))` bounding box around multiple points for dynamic containers.
 
 ```python
 from drawlib.canvas import clear, config, save
@@ -98,14 +100,13 @@ Avoid manually placing dozens of low-level `rectangle` and `line` primitives whe
 
 ---
 
-## 4. Visual Styles & Palettes
+## 4. Visual Styles, Fonts & Media
 
-- **Preset Naming Pattern**: `<color>_<variant>`
-  - Variants: `flat`, `outline`, `soft`, `bold`, `light`
-  - Examples: `style="blue_flat"`, `style="green_outline"`, `style="purple_flat"`
-  - Text Styles: `textstyle="white_bold"`, `textstyle="bold"`
-- **Line Styles**: `style="bold"`, `style="light"`, `style="dashed"`, `arrowhead="->"` (`<-`, `<->`, `-`)
-- **Avoid Magic Hex Codes**: Use preset style strings or official palette objects (`ColorsDefault`, `ColorsMonochrome`, `ColorsEssentials`) for aesthetic consistency.
+- **Preset Naming Pattern**: `<color>_<variant>` (`style="blue_flat"`, `style="green_outline"`, `style="purple_flat"`, `style="bold"`, `textstyle="white_bold"`).
+- **Colors (`drawlib.colors`)**: Curated palettes (`ColorsDefault`, `ColorsMonochrome`, `ColorsEssentials`, `Colors140`) and helpers (`from_hex("#3498db", alpha=0.8)`, `with_alpha(color, 0.5)`).
+- **Typography & Fonts (`drawlib.fonts`)**: Universal CJK+Latin `Font` (no glyph boxes), `FontRoboto` (weights), `FontMonoSpace` (code/logs), and `FontFile("brand.ttf")`.
+- **Style Models & Types (`drawlib.types`)**: `Style` dataclass (`fill_color`, `line_width`, `text_size`, etc.). Use `style.copy()` for safe derivation. Subclass `BasePresetStyles` for custom themes.
+- **Image Embedding (`drawlib.images`)**: `image((x, y), width=w, image="logo.png")` (auto aspect ratio). In-memory embedding via `canvas.get_dimage()` and `get_dimage_from_code()`.
 
 **Related Rules**:
 - Preset Styles & Palettes Detail: `uv run drawlib rules show preset_styles`
@@ -117,7 +118,7 @@ Avoid manually placing dozens of low-level `rectangle` and `line` primitives whe
 
 ---
 
-## 5. Documentation as Code (`doc_builder`)
+## 5. Documentation as Code (`doc_builder` & `tools`)
 
 Embed illustrations in standard Markdown files (`docs_src/*.md`):
 
@@ -130,16 +131,19 @@ line((42.5, 25), (77.5, 25), arrowhead="->", style="bold")
 ```
 ````
 
-Compile without external tools (zero Sphinx / MkDocs):
+Compile via CLI without external tools (zero Sphinx / MkDocs):
 ```bash
-# Responsive HTML site:
-uv run drawlib build html docs_src/ -o docs_html/
+uv run drawlib build html docs_src/ -o docs_html/      # Static HTML site
+uv run drawlib build markdown docs_src/ -o docs/       # GitHub Markdown
+uv run drawlib build pdf docs_src/index.md -o out.pdf  # Vector PDF
+```
 
-# GitHub-optimized Markdown:
-uv run drawlib build markdown docs_src/ -o docs/
-
-# Print-ready vector PDF:
-uv run drawlib build pdf docs_src/index.md -o output.pdf
+**Python Developer Tools API (`drawlib.tools`)**:
+Execute compilation and diagram extraction directly from Python code, CI/CD, or test suites:
+```python
+from drawlib.tools import build_html, export_block
+export_block("docs_src/arch.md", "1", "scratch/preview.png", show_grid=True)
+build_html("docs_src/", "docs_html/", config="docs_config.py", css="google")
 ```
 
 **Related Rules**:

@@ -25,3 +25,7 @@ Built completely on pure-Python drawing primitives, charts integrate seamlessly 
 2. **Seamless Canvas Composition**: Place charts anywhere alongside other shapes, annotations, text, or architecture diagrams.
 3. **Smart Automatic Layout**: Automatic legend placement, nice numbers tick generation, and category spacing.
 4. **Fine-grained Customization**: Full control over axis ticks, gridlines, formatting, logarithmic scales, and color styling.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

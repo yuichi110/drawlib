@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>`drawlib serve`</title>
+    <title>Programmatic Tools API (`drawlib.tools`)</title>
     
     <link rel="stylesheet" href="../style.css">
     
@@ -101,31 +101,31 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="index.html" >CLI Overview & Global Options</a>
+                                <a href="../cli/index.html" >CLI Overview & Global Options</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="build.html" >drawlib build</a>
-                            </li>
-                            
-                            <li class="nav-item active">
-                                <a href="serve.html" >drawlib serve</a>
+                                <a href="../cli/build.html" >drawlib build</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="init.html" >drawlib init</a>
+                                <a href="../cli/serve.html" >drawlib serve</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="inspect.html" >drawlib show & export</a>
+                                <a href="../cli/init.html" >drawlib init</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="assets.html" >drawlib cache, template & css</a>
+                                <a href="../cli/inspect.html" >drawlib show & export</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="rules.html" >drawlib rules</a>
+                                <a href="../cli/assets.html" >drawlib cache, template & css</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/rules.html" >drawlib rules</a>
                             </li>
                             
                         </ul>
@@ -367,23 +367,23 @@
                         <ul class="nav-list">
                             
                             <li class="nav-item ">
-                                <a href="../advanced_topics/ai_agents.html" >Working with AI Agents & LLMs</a>
+                                <a href="ai_agents.html" >Working with AI Agents & LLMs</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="tools.html" >Programmatic Tools API (`drawlib.tools`)</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../advanced_topics/tools.html" >Programmatic Tools API (`drawlib.tools`)</a>
+                                <a href="math.html" >Geometry & Math Utilities</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../advanced_topics/math.html" >Geometry & Math Utilities</a>
+                                <a href="dimage_from_code.html" >Rendering from Code (`get_dimage_from_code`)</a>
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../advanced_topics/dimage_from_code.html" >Rendering from Code (`get_dimage_from_code`)</a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a href="../advanced_topics/debug.html" >Debugging & Tracebacks</a>
+                                <a href="debug.html" >Debugging & Tracebacks</a>
                             </li>
                             
                         </ul>
@@ -396,87 +396,329 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">`drawlib serve`</span>
+                    <span class="crumb active">Programmatic Tools API (`drawlib.tools`)</span>
                 </div>
             </header>
             <main class="main-content">
-                <h1><code>drawlib serve</code></h1>
-<p>The <code>drawlib serve</code> command launches a local HTTP development server to preview compiled HTML documentation sites directly in your web browser.</p>
-<blockquote>
-<p><strong>Tip</strong>: If you are using <code>uv</code>, run commands with <code>uv run</code> (e.g., <code>uv run drawlib serve</code>).</p>
-</blockquote>
+                <h1>Programmatic Tools API (<code>drawlib.tools</code>)</h1>
+<p>The <code>drawlib.tools</code> module is the official Python developer API that powers the Drawlib CLI.<br />
+While terminal commands like <code>drawlib build</code>, <code>drawlib export</code>, and <code>drawlib serve</code> are ideal for command-line workflows, you should use <code>drawlib.tools</code> <strong>whenever you need to execute CLI-equivalent operations directly within Python code</strong>.</p>
+<p>This programmatic interface is specifically designed for:</p>
+<ul>
+<li><strong>CI/CD Build Pipelines</strong>: Automating multi-format documentation builds (HTML, Markdown, PDF) inside deployment scripts.</li>
+<li><strong>Automated Testing Suites</strong>: Extracting diagrams and asserting image generation using <code>pytest</code> without invoking shell subprocesses.</li>
+<li><strong>Custom Documentation Generators</strong>: Embedding Drawlib's diagram compiler into existing Python-based static site engines or documentation toolchains.</li>
+<li><strong>Automation Sidecars &amp; Bots</strong>: Generating, exporting, or validating diagrams dynamically from background tasks and server services.</li>
+</ul>
 <hr />
-<h2>1. Basic Usage</h2>
-<pre><code class="language-bash"># Serve default compiled output (auto-detects docs_html/, docs/, or current directory):
-drawlib serve
-
-# Explicitly specify target directory to serve:
-drawlib serve docs_html/
-</code></pre>
-<p>When started, <code>drawlib serve</code>:</p>
-<ol>
-<li>Scans the target directory for broken relative hyperlinks and missing image assets.</li>
-<li>Starts a lightweight Python HTTP server on <code>http://localhost:8000</code>.</li>
-<li>Automatically opens your default system web browser.</li>
-</ol>
-<hr />
-<h2>2. Command Options</h2>
+<h2>1. CLI Command vs. Programmatic API Mapping</h2>
+<p>All top-level CLI commands have direct 1-to-1 functional counterparts in <code>drawlib.tools</code>:</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:left">Option</th>
-<th style="text-align:left">Flag</th>
-<th style="text-align:left">Default</th>
+<th style="text-align:left">CLI Command</th>
+<th style="text-align:left">Programmatic Function</th>
+<th style="text-align:left">Module / Alias</th>
 <th style="text-align:left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><code>--port</code></td>
-<td style="text-align:left"><code>-p &lt;int&gt;</code></td>
-<td style="text-align:left"><code>8000</code></td>
-<td style="text-align:left">Port number to bind the HTTP server to.</td>
+<td style="text-align:left"><code>drawlib build html</code></td>
+<td style="text-align:left"><code>build_html(...)</code></td>
+<td style="text-align:left"><code>drawlib.tools.build.html</code></td>
+<td style="text-align:left">Compile Markdown files or directory into an HTML site.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>--no-browser</code></td>
-<td style="text-align:left"></td>
-<td style="text-align:left"><code>False</code></td>
-<td style="text-align:left">Prevents automatically launching the web browser upon startup. Ideal for remote SSH sessions, Docker containers, and CI.</td>
+<td style="text-align:left"><code>drawlib build markdown</code></td>
+<td style="text-align:left"><code>build_markdown(...)</code></td>
+<td style="text-align:left"><code>drawlib.tools.build.markdown</code></td>
+<td style="text-align:left">Compile Markdown files for GitHub repository browsing.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>--check</code></td>
-<td style="text-align:left"><code>--check-only</code></td>
-<td style="text-align:left"><code>False</code></td>
-<td style="text-align:left">Scans the target directory for broken links and missing image assets, prints a report, and exits without starting the server.</td>
+<td style="text-align:left"><code>drawlib build pdf</code></td>
+<td style="text-align:left"><code>build_pdf(...)</code></td>
+<td style="text-align:left"><code>drawlib.tools.build.pdf</code></td>
+<td style="text-align:left">Compile documents to vector PDF via headless Chromium.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>--skip-check</code></td>
-<td style="text-align:left"></td>
-<td style="text-align:left"><code>False</code></td>
-<td style="text-align:left">Skips the pre-scan integrity checks and starts the server immediately.</td>
+<td style="text-align:left"><code>drawlib build images</code></td>
+<td style="text-align:left"><code>build_image(...)</code></td>
+<td style="text-align:left"><code>drawlib.tools.build.image</code></td>
+<td style="text-align:left">Batch execute standalone Python drawing scripts into images.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>drawlib export</code></td>
+<td style="text-align:left"><code>export_block(...)</code></td>
+<td style="text-align:left"><code>drawlib.tools.export.export_block</code></td>
+<td style="text-align:left">Extract and render a single diagram block or script to image.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>drawlib show</code></td>
+<td style="text-align:left"><code>show_block(...)</code></td>
+<td style="text-align:left"><code>drawlib.tools.show.show_block</code></td>
+<td style="text-align:left">Render and display diagram block in desktop GUI viewer.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>drawlib init</code></td>
+<td style="text-align:left"><code>init_project(...)</code></td>
+<td style="text-align:left"><code>drawlib.tools.init.init_project</code></td>
+<td style="text-align:left">Scaffold starter documentation project structures.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>drawlib serve</code></td>
+<td style="text-align:left"><code>serve_docs(...)</code></td>
+<td style="text-align:left"><code>drawlib.tools.serve.serve_docs</code></td>
+<td style="text-align:left">Launch local preview HTTP web server with link checker.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>drawlib cache</code></td>
+<td style="text-align:left"><code>list_cache()</code>, <code>clear_cache()</code></td>
+<td style="text-align:left"><code>drawlib.tools.cache</code></td>
+<td style="text-align:left">Inspect, download, or clear font and icon asset cache.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>drawlib css</code></td>
+<td style="text-align:left"><code>list_css()</code>, <code>export_css(...)</code></td>
+<td style="text-align:left"><code>drawlib.tools.css</code></td>
+<td style="text-align:left">Inspect or extract built-in CSS themes and stylesheets.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>drawlib template</code></td>
+<td style="text-align:left"><code>list_templates()</code>, <code>validate_template(...)</code></td>
+<td style="text-align:left"><code>drawlib.tools.template</code></td>
+<td style="text-align:left">Inspect, export, or validate Jinja2 HTML templates.</td>
 </tr>
 </tbody>
 </table>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="tools_images/1.png" alt="tools_1" style="width: 650px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">Architecture: drawlib.tools as the Backend Engine</figcaption>
+</figure>
 <hr />
-<h2>3. Pre-Flight Asset &amp; Link Checking (<code>--check</code>)</h2>
-<p>Broken links and missing images disrupt documentation quality. The built-in scanner parses all <code>.html</code> files in the served directory to ensure:</p>
-<ul>
-<li>All <code>&lt;a href=&quot;...&quot;&gt;</code> links resolve to existing local HTML files or anchor tags.</li>
-<li>All <code>&lt;img src=&quot;...&quot;&gt;</code> paths point to existing image files.</li>
-<li>Static assets like <code>style.css</code> are present.</li>
-</ul>
-<h3>Running Integrity Checks in CI:</h3>
-<pre><code class="language-bash"># Run integrity check and fail if broken references are detected:
-drawlib serve docs_html/ --check
-</code></pre>
-<hr />
-<h2>4. Typical Development Workflow</h2>
-<pre><code class="language-bash"># 1. Compile docs in terminal 1:
-drawlib build html docs_src/ -o docs_html/
+<h2>2. Imports &amp; Module Structure</h2>
+<p>You can import functions either directly from <code>drawlib.tools</code> or from categorized submodules:</p>
+<pre><code class="language-python"># Direct top-level imports
+from drawlib.tools import (
+    build_html,
+    build_markdown,
+    build_pdf,
+    build_image,
+    export_block,
+    show_block,
+    init_project,
+    serve_docs,
+    clear_cache,
+    download_cache,
+    list_cache,
+    list_css,
+    export_css,
+    list_templates,
+    export_template,
+    validate_template,
+)
 
-# 2. Start server in terminal 2 (or background):
-drawlib serve docs_html/ -p 8080 --no-browser
+# Or namespace submodule access
+from drawlib.tools import build, cache, css, export, init, serve, show, template
 </code></pre>
+<hr />
+<h2>3. Document &amp; Image Compilation (<code>build</code>)</h2>
+<h3>3.1. <code>build_html()</code></h3>
+<p>Compiles authoring Markdown source files into a responsive static HTML site:</p>
+<pre><code class="language-python">from drawlib.tools import build_html
+
+build_html(
+    input_path=&quot;docs_src/&quot;,            # Source directory or single .md file
+    output_path=&quot;docs_html/&quot;,          # Destination directory or .html file
+    config_path=&quot;config.py&quot;,          # Optional Python configuration script
+    css_path=&quot;google&quot;,                 # Custom CSS file path or built-in preset (&quot;default&quot;, &quot;google&quot;)
+    template_path=None,                # Custom Jinja2 template path (None uses built-in sidebar)
+    css_mode=&quot;auto&quot;,                   # &quot;auto&quot; (external for dirs, embed for single files), &quot;embed&quot;, &quot;external&quot;
+    no_cache=False,                    # Set True to force re-executing all diagram blocks
+    image_format=&quot;png&quot;,                # &quot;png&quot;, &quot;svg&quot;, or &quot;inline_svg&quot;
+)
+</code></pre>
+<h3>3.2. <code>build_markdown()</code></h3>
+<p>Compiles Markdown documents for GitHub repository browsing. Code blocks are preserved as Python syntax-highlighted blocks followed by relative image links:</p>
+<pre><code class="language-python">from drawlib.tools import build_markdown
+
+build_markdown(
+    input_path=&quot;docs_src/&quot;,
+    output_path=&quot;docs/&quot;,
+    config_path=&quot;config.py&quot;,
+    image_format=&quot;png&quot;,
+)
+</code></pre>
+<h3>3.3. <code>build_pdf()</code></h3>
+<p>Renders Markdown documents to print-ready vector PDF using headless Chromium via Playwright:</p>
+<pre><code class="language-python">from drawlib.tools import build_pdf
+
+build_pdf(
+    input_path=&quot;docs_src/architecture.md&quot;,
+    output_path=&quot;dist/architecture.pdf&quot;,
+    config_path=&quot;config.py&quot;,
+    css_path=&quot;print.css&quot;,
+)
+</code></pre>
+<h3>3.4. <code>build_image()</code></h3>
+<p>Executes all standalone <code>.py</code> drawing scripts within a directory and exports rendered images:</p>
+<pre><code class="language-python">from drawlib.tools import build_image
+
+build_image(
+    input_path=&quot;drawings/&quot;,
+    output_path=&quot;dist/images/&quot;,
+    config_path=&quot;config.py&quot;,
+    grid=False,
+)
+</code></pre>
+<hr />
+<h2>4. Single Diagram Extraction &amp; Verification (<code>export</code> &amp; <code>show</code>)</h2>
+<h3>4.1. <code>export_block()</code></h3>
+<p>Extracts and renders a single <code>drawlib</code> block from a Markdown file or a standalone Python script directly to an image file.<br />
+This is the primary function used by automated testing suites and CI workflows:</p>
+<pre><code class="language-python">from drawlib.tools import export_block
+
+# Export block 1 from a Markdown document:
+export_block(
+    file_path=&quot;docs_src/overview.md&quot;,
+    target=&quot;1&quot;,                         # 1-based index or target image name (e.g. &quot;arch.png&quot;)
+    output_path=&quot;scratch/arch.png&quot;,
+    grid=True,                          # Overlay coordinate grid lines (-g)
+    config_path=&quot;config.py&quot;,
+)
+
+# Export directly from a standalone Python script:
+export_block(
+    file_path=&quot;scripts/my_schema.py&quot;,
+    output_path=&quot;dist/schema.png&quot;,
+    grid=False,
+)
+</code></pre>
+<h3>4.2. <code>show_block()</code></h3>
+<p>Opens an interactive desktop GUI preview window displaying the rendered diagram:</p>
+<pre><code class="language-python">from drawlib.tools import show_block
+
+# Open desktop GUI preview for block 2 with coordinate grid overlay:
+show_block(
+    file_path=&quot;docs_src/overview.md&quot;,
+    target=&quot;2&quot;,
+    grid=True,
+)
+</code></pre>
+<hr />
+<h2>5. Project Scaffolding (<code>init</code>)</h2>
+<p>The <code>init</code> tools automate generating initial directory trees and starter files:</p>
+<pre><code class="language-python">from drawlib.tools import init_project, list_project_types
+
+# Check available starter templates:
+print(list_project_types())
+# Output: ['site', 'simple', 'pdf']
+
+# Scaffold a documentation website project:
+init_project(
+    project_type=&quot;site&quot;,
+    target_dir=&quot;./my_project&quot;,
+    force=False,
+)
+</code></pre>
+<hr />
+<h2>6. Local Server &amp; Asset Management</h2>
+<h3>6.1. Local HTTP Server (<code>serve_docs</code>)</h3>
+<p>Runs a local HTTP development server to test compiled documentation websites:</p>
+<pre><code class="language-python">from drawlib.tools import serve_docs
+
+serve_docs(
+    directory=&quot;docs_html/&quot;,
+    port=8080,
+    open_browser=True,
+    check_links=True,     # Pre-scans for broken links or missing static assets
+)
+</code></pre>
+<h3>6.2. Font &amp; Icon Cache (<code>cache</code>)</h3>
+<p>Manage downloaded assets programmatically:</p>
+<pre><code class="language-python">from drawlib.tools.cache import clear_cache, download_cache, list_cache
+
+# List cached font files and icons:
+cached_files = list_cache()
+
+# Pre-download all default font packages for offline execution:
+download_cache()
+
+# Clear cache to free storage:
+clear_cache()
+</code></pre>
+<h3>6.3. Template &amp; CSS Management (<code>template</code> &amp; <code>css</code>)</h3>
+<pre><code class="language-python">from drawlib.tools.template import export_template, list_templates, validate_template
+from drawlib.tools.css import export_css, list_css
+
+# Inspect and export templates:
+templates = list_templates()
+export_template(&quot;sidebar&quot;, &quot;my_sidebar.html.j2&quot;)
+
+# Validate template syntax and required Jinja2 placeholders:
+validate_template(&quot;my_sidebar.html.j2&quot;)
+
+# Inspect and export CSS presets:
+presets = list_css()
+export_css(&quot;default&quot;, &quot;base_theme.css&quot;)
+</code></pre>
+<hr />
+<h2>7. Practical Automation Examples</h2>
+<h3>7.1. Full Documentation Pipeline Script (<code>build_pipeline.py</code>)</h3>
+<p>A complete automated build script that compiles GitHub Markdown, static HTML, and release artifacts simultaneously:</p>
+<pre><code class="language-python">import sys
+from pathlib import Path
+from drawlib.tools import build_html, build_markdown, export_block
+
+def main() -&gt; None:
+    src_dir = Path(&quot;docs_src&quot;)
+    md_dir = Path(&quot;docs&quot;)
+    html_dir = Path(&quot;docs_html&quot;)
+
+    print(&quot;[1/3] Compiling GitHub Markdown documentation...&quot;)
+    build_markdown(input_path=str(src_dir), output_path=str(md_dir))
+
+    print(&quot;[2/3] Compiling Responsive HTML static site...&quot;)
+    build_html(input_path=str(src_dir), output_path=str(html_dir), css_path=&quot;google&quot;)
+
+    print(&quot;[3/3] Exporting hero diagram for repository banner...&quot;)
+    export_block(
+        file_path=str(src_dir / &quot;index.md&quot;),
+        target=&quot;1&quot;,
+        output_path=&quot;assets/banner.png&quot;,
+    )
+    print(&quot;Documentation build completed successfully!&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre>
+<h3>7.2. Automated Visual Testing with Pytest</h3>
+<p>Validate that Markdown diagrams compile without errors and produce valid image outputs:</p>
+<pre><code class="language-python">from pathlib import Path
+from drawlib.tools import export_block
+
+def test_architecture_diagram_renders(tmp_path: Path) -&gt; None:
+    &quot;&quot;&quot;Ensure that the architecture diagram compiles and produces a non-empty image.&quot;&quot;&quot;
+    output_image = tmp_path / &quot;arch_test.png&quot;
+
+    export_block(
+        file_path=&quot;docs_src/foundations/canvas.md&quot;,
+        target=&quot;1&quot;,
+        output_path=str(output_image),
+        grid=False,
+    )
+
+    assert output_image.exists()
+    assert output_image.stat().st_size &gt; 1024  # Ensure image is not 0 bytes
+</code></pre>
+<hr />
+<h2>8. Related Topics</h2>
+<ul>
+<li><a href="../cli/index.html">CLI Reference</a></li>
+<li><a href="../doc_builder/index.html">Document Builder Overview</a></li>
+<li><a href="../advanced_topics/ai_agents.html">Working with AI Agents</a></li>
+<li><a href="../advanced_topics/dimage_from_code.html">Rendering from Code (<code>get_dimage_from_code</code>)</a></li>
+</ul>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
 

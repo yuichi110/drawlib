@@ -249,3 +249,7 @@ running.loop(side="right", width=12.0, height=8.0, label="tick")
 | `label` / `event` / `guard` / `action` | `str` | `""` | Transition label elements. |
 
 Calling `state.to(state, ...)` is also supported and automatically delegates to `state.loop()`.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

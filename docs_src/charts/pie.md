@@ -107,3 +107,7 @@ chart.draw(xy=(5.0, 4.0))
 - `add_slice(name: str, value: float, color=None, style=None, explode=0.0) -> PieSlice`: Add a slice segment to the chart.
 - `get_size() -> tuple[float, float]`: Return the total calculated (width, height) bounding dimensions.
 - `draw(xy: tuple[float, float] = (0.0, 0.0)) -> None`: Render the chart onto the canvas.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

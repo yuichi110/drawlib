@@ -2,278 +2,203 @@
 trigger: always_on
 ---
 
-# Documentation System & Build Guidelines for drawlib
+# Drawlib Agent Drawing Guidelines (Minimal)
 
-This document defines the architecture, compilation mechanisms, CLI commands, and rules for managing documentation in the `drawlib` project.
+> [!NOTE]
+> **Instructions for AI Agents & Developers**:
+> This document is compiled from `drawlib` core rules and companion illustrations are located at:
+> `PYTHON_RUNTIME/site-packages/drawlib/_assets/rules/overview_min_images/<n>.png`
+>
+> (Resolve `PYTHON_RUNTIME` to your active Python / virtualenv environment path to inspect images).
+> You can inspect any image directly using your file/image viewing tool (`view_file`, etc.) to visually verify the layout, spatial positioning, coordinate alignment, and styling produced by the corresponding Python code block above it.
+
+
+Drawlib is a pure-Python library for **"Illustration as Code"** and **"Documentation as Code"**.
+It enables developers and AI coding agents to create architectural schemas, workflows, and technical diagrams using declarative, reproducible Python code.
+
+> **Note**: This is a concise, context-optimized guide (<10k characters). If you need the exhaustive, comprehensive architectural manual and deep conceptual explanations, run:
+> ```bash
+> uv run drawlib rules show overview
+> ```
 
 ---
 
-## 1. Core Principles & Philosophy
+## 1. Autonomous AI Workflow & Feedback Loop
 
-`drawlib` follows an **"Illustration as Code"** and **"Documentation as Code"** philosophy:
-- Documentation source files are written in standard Markdown containing embedded `drawlib` code blocks.
-- The built-in `drawlib.doc_builder` engine compiles these sources into publication-ready formats without requiring external documentation generators (e.g., Sphinx, MkDocs, Docusaurus).
-- Three distinct output targets are supported:
-  1. **Rendered Markdown (`docs/`)**: Optimized for GitHub repository browsing. Code blocks become syntax-highlighted Python blocks followed by relative image links.
-  2. **Responsive Static HTML (`docs_html/`)**: Complete static documentation website with sidebar navigation, clean modern typography, responsive layout, and dark/light themes.
-  3. **Headless PDF (`docs_pdf/`)**: High-fidelity PDF documents generated via headless Chromium-based browsers.
-
----
-
-## 2. Directory Structure & Lifecycle
+When tasked with generating or updating Drawlib diagrams, execute this self-correction loop before handing results to the user:
 
 ```text
-drawlib/
-├── docs_src/                  # [SOURCE OF TRUTH] Authoring directory. ONLY edit files here!
-│   ├── index.md               # Root landing page (H1 title becomes website title)
-│   ├── diagrams/              # Topic subdirectories containing .md files
-│   └── images/                # Static image assets (logos, screenshots, external diagrams)
-│
-├── docs/                      # [GENERATED] Compiled Markdown for GitHub browsing. NEVER EDIT DIRECTLY!
-│   ├── index.md
-│   ├── diagrams/
-│   └── *_images/              # Generated diagram PNG/SVG images for each document
-│
-├── docs_html/                 # [GENERATED] Compiled HTML site for web hosting. NEVER EDIT DIRECTLY!
-│   ├── index.html
-│   ├── style.css              # Extracted or customized CSS stylesheet
-│   └── *_images/              # Generated images and copied static assets
-│
-└── tools/
-    ├── dcli/docs.py           # Developer CLI command handlers (./dcli docs build/serve)
-    └── scripts/build_docs.py  # Standalone build automation script
+1. User Request ──> 2. AI Writes Code ──> 3. Render Image (-g) ──> 4. Multimodal Review
+                           ▲                                                │
+                           └──────── 5. Issues Found? Fix & Retry ──────────┘
+                                                │ (Pass)
+                                                ▼
+                                        6. Human Inspection
 ```
 
-### ⚠️ The Golden Rule of Documentation
-**NEVER edit files in `docs/` or `docs_html/` directly.**  
-All manual edits, new chapters, or updates must be performed in `docs_src/`. Changes to `docs/` and `docs_html/` are produced exclusively by running the build pipeline.
+1. **Inspect Context**: Check real repository files (`models.py`, API routes, config) to ground the diagram in code.
+2. **Prototype in Scratch**: Write code in `scratch/test_diagram.py` instead of directly modifying production files.
+3. **Render Immediately with Coordinate Grid (`-g`)**:
+   ```bash
+   uv run drawlib export scratch/test_diagram.py -g -o scratch/test_diagram.png
+   # Or for Markdown embedded block 1:
+   uv run drawlib export docs_src/doc.md 1 -g -o scratch/test_diagram.png
+   ```
+4. **Multimodal Self-Review (`view_file`)**: Inspect `scratch/test_diagram.png`. Check for overlaps, text clipping, bad routing, or uneven whitespace.
+5. **Auto-Adjust & Iterate**: Fix coordinates and re-export until the layout is balanced.
+6. **Show Rendered Image to User**: Present the image to the user for quick visual sign-off before committing.
+
+**Related Rules**:
+- CLI & Fast Verification: `uv run drawlib rules show cli`
 
 ---
 
-## 3. `drawlib` Code Block Syntax
+## 2. Core Concepts: Canvas & Geometry
 
-Embedded drawing code blocks in Markdown use the `drawlib` language identifier.
+- **Origin `(0, 0)`**: Strictly at the **bottom-left corner**. X increases rightward; Y increases upward.
+- **Default Center Anchor**: Shape and text coordinates `(x, y)` define the geometric **center** by default.
+- **Canvas Sizing**: `80x40` (badges), `140x70` (flows/architecture/sequence), `160x90` (widescreen).
+- **Multi-Image Scripts**: Always call `clear()` between sequential images to avoid canvas bleeding.
+- **In-Memory Rendering (`canvas`)**: `canvas.get_dimage()` captures the canvas as an in-memory `Dimage` object.
+- **Geometry Helpers (`drawlib.math`)**:
+  - `get_angle(p1, p2)`: Counter-clockwise angle (0–360°) from `p1` to `p2` for rotating shapes or angled labels.
+  - `get_distance(p1, p2)`: Euclidean distance between coordinates.
+  - `get_center_and_size(points)`: Returns `((cx, cy), (w, h))` bounding box around multiple points for dynamic containers.
 
-### 3.1. Basic Syntax
-````markdown
-```drawlib
-from drawlib.canvas import config
-from drawlib.shapes import circle
+```python
+from drawlib.canvas import clear, config, save
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.text import text
 
-config(width=100, height=100)
-circle((50, 50), radius=30)
+config(width=120, height=50)
+rectangle((30, 25), width=28, height=16, style="blue_flat", text="Service A", textstyle="white_bold")
+rectangle((90, 25), width=28, height=16, style="green_flat", text="Service B", textstyle="white_bold")
+line((44, 25), (76, 25), arrowhead="->", style="bold")
+save()
 ```
-````
 
-### 3.2. Block Header Options
-Options can be specified as space-separated tokens, `key:value` pairs, or `key=value` pairs:
+**Related Rules**:
+- Canvas & Sizing Detail: `uv run drawlib rules show canvas`
+- Shapes Detail (22 primitives): `uv run drawlib rules show shapes`
+- Lines & Routing Detail: `uv run drawlib rules show lines`
+- Text & Fonts Detail: `uv run drawlib rules show text`
+- Math & Coordinate Helpers: `uv run drawlib rules show math`
 
-````markdown
-```drawlib 500px center show-code caption:"Figure 1: Architecture" file:arch.png
-# Code here...
-```
-````
+---
 
-Supported options:
-| Option | Syntax Examples | Description |
+## 3. High-Level Abstractions: Prefer SmartArts & Diagrams
+
+Avoid manually placing dozens of low-level `rectangle` and `line` primitives when a structured component fits:
+
+| Diagram Purpose | Recommended High-Level Module | Alternative |
 | :--- | :--- | :--- |
-| **Code Visibility** | `show-code`, `fold-code`, `hide-code`, `code:show`, `code:fold`, `code:hide` | Code display mode. Default: `hide` (renders image only). `show-code` shows Python code followed by image. `fold-code` displays image followed by collapsed `<details>` dropdown (omitted in PDF). |
-| **Width** | `400px`, `100%`, `w:500px`, or integer `400` | Display width of the rendered image in HTML. |
-| **Height** | `300px`, `h:300px` | Display height of the rendered image. |
-| **Alignment** | `center`, `left`, `right`, `a:center` | Image alignment within the document. Default: `center`. |
-| **Filename** | `file:custom_name.png` | Explicit filename for the generated image. (Default: auto-numbered `1.png`, `2.png`). |
-| **Caption** | `caption:"System Overview"` | Caption displayed below the image in a `<figcaption>`. |
-| **CSS Class**| `class:"shadow rounded border"` | Custom CSS classes applied to the figure wrapper. |
-| **Format** | `format:png`, `format:webp` | Image output format. Default: `png`. |
+| **Linear Pipeline / Stages** | `drawlib.smartarts.ChevronProcess` | Manual chevrons |
+| **Hierarchical Tree / Org** | `drawlib.smartarts.tree`, `TreeNode` | Manual recursive math |
+| **Central Mind Map** | `drawlib.smartarts.mindmap`, `MindMapNode` | Manual radial math |
+| **Tabular Data / Matrix** | `drawlib.smartarts.Table` | Grid of lines & text |
+| **Card Grids / Status Lists** | `drawlib.smartarts.GridLayout`, `BoxList` | Nested coordinate loops |
+| **Circular Feedback Loop** | `drawlib.smartarts.Cycle` | Manual arcs & arrows |
+| **Flowchart / State Machine** | `drawlib.diagrams.flow.FlowDiagram` | Raw boxes and lines |
+| **Microservices & Cloud** | `drawlib.diagrams.architecture.ArchitectureDiagram` | Raw icons and lines |
+| **API Sequences & Protocols**| `drawlib.diagrams.sequence.SequenceDiagram` | Raw lifelines & text |
+| **Database Schema / ER** | `drawlib.diagrams.er.ERDiagram` | Raw entity boxes |
 
-### 3.3. HTML Syntax (Alternative)
-For raw HTML source documents, `<drawlib>` tags or `<script type="text/drawlib">` are also supported:
-```html
-<drawlib width="500px" align="center" caption="My Diagram">
-circle((50, 50), radius=20)
-</drawlib>
-```
+> **Rule**: If a user requests a workflow, tree, table, or sequence diagram, proactively propose and use these high-level components.
 
----
-
-## 4. Developer CLI (`dcli`) Commands
-
-Always use `./dcli` (or `uv run python tools/scripts/...`) for standard documentation workflows.
-
-### 4.1. Full Documentation Build
-Rebuilds both `docs/` (Markdown) and `docs_html/` (HTML) from `docs_src/`:
-```bash
-./dcli docs build
-```
-Behind the scenes, this executes `uv run python tools/scripts/build_docs.py`, which:
-1. Cleans existing `docs/` and `docs_html/` directories.
-2. Compiles `docs_src/ -> docs/` in `markdown` mode.
-3. Compiles `docs_src/ -> docs_html/` in `html` mode with default styling.
-
-### 4.2. Local Preview Server
-Starts a local development HTTP server serving `docs_html/`:
-```bash
-# Serve on default port 8000 (opens browser automatically):
-./dcli docs serve
-
-# Custom port without opening browser:
-./dcli docs serve -p 8080 --no-browser
-
-# Run broken link / missing asset check only and exit:
-./dcli docs serve --check
-
-# Start server skipping pre-scan checks:
-./dcli docs serve --skip-check
-```
-
-### 4.3. Running Tests
-```bash
-# Run doc_builder unit and integration tests:
-./dcli test target tests/doc_builder/
-
-# Run CLI documentation command tests (build, show, export, serve, template):
-./dcli test target tests/cli/
-```
+**Related Rules**:
+- SmartArts Components Detail: `uv run drawlib rules show smartarts`
+- Domain Diagrams Detail: `uv run drawlib rules show diagrams`
+- Charts & Visualizations Detail: `uv run drawlib rules show charts`
 
 ---
 
-## 5. Direct `drawlib` CLI Commands
+## 4. Visual Styles, Fonts & Media
 
-The `drawlib` CLI (`uv run python -m drawlib` or `drawlib`) provides fine-grained subcommands:
+- **Preset Naming Pattern**: `<color>_<variant>` (`style="blue_flat"`, `style="green_outline"`, `style="purple_flat"`, `style="bold"`, `textstyle="white_bold"`).
+- **Colors (`drawlib.colors`)**: Curated palettes (`ColorsDefault`, `ColorsMonochrome`, `ColorsEssentials`, `Colors140`) and helpers (`from_hex("#3498db", alpha=0.8)`, `with_alpha(color, 0.5)`).
+- **Typography & Fonts (`drawlib.fonts`)**: Universal CJK+Latin `Font` (no glyph boxes), `FontRoboto` (weights), `FontMonoSpace` (code/logs), and `FontFile("brand.ttf")`.
+- **Style Models & Types (`drawlib.types`)**: `Style` dataclass (`fill_color`, `line_width`, `text_size`, etc.). Use `style.copy()` for safe derivation. Subclass `BasePresetStyles` for custom themes.
+- **Image Embedding (`drawlib.images`)**: `image((x, y), width=w, image="logo.png")` (auto aspect ratio). In-memory embedding via `canvas.get_dimage()` and `get_dimage_from_code()`.
 
-### 5.1. `drawlib build` (Document Compiler)
-Compiles a single file or directory to HTML, Markdown, or PDF:
-```bash
-# Compile single markdown to HTML:
-drawlib build doc.md -o output.html
-
-# Compile single markdown to rendered Markdown for GitHub:
-drawlib build doc.md -o rendered.md -f markdown
-
-# Compile entire directory to HTML site:
-drawlib build docs_src/ -o docs_html/ -f html
-
-# Export to PDF via headless browser:
-drawlib build doc.md -o output.pdf -f pdf
-
-# Compile with external config, custom CSS, or custom Jinja2 template:
-drawlib build docs_src/ -o docs_html/ --config config.py --css custom.css -t custom_template.j2
-```
-
-Key Options:
-- `-o`, `--output <path>`: Destination file or directory.
-- `-f`, `--format <html|pdf|markdown>`: Output document format.
-- `--image-format <png|svg|inline_svg>`: Format for rendered illustration images (default: `png`).
-- `--css-mode <auto|embed|external>`: CSS embedding strategy for HTML. `auto` embeds for single files and writes `style.css` for directories.
-- `--config <path>`: Python configuration script executed before code blocks (e.g. setting themes, fonts, canvas defaults).
-- `--css <path>`: Custom CSS file to augment or override default styles.
-- `-t`, `--template <path>`: Custom Jinja2 HTML template file.
-
-### 5.2. `drawlib export` (Single Diagram Export)
-Extracts and renders an individual illustration from a Markdown file or Python script directly to an image file. Designed for CI, AI verification, and automation without GUI displays.
-```bash
-# List all drawlib blocks found in a document:
-drawlib export doc.md
-
-# Export block by index (1-based) to specific path:
-drawlib export doc.md 1 -o scratch/diagram_1.png
-
-# Export block by target image name:
-drawlib export doc.md diagram.png -o scratch/diagram.png
-
-# Apply custom configuration script:
-drawlib export doc.md 1 -c config.py -o scratch/diagram.png
-
-# Overlay coordinate grid lines and center axes:
-drawlib export doc.md 1 -g -o scratch/diagram_grid.png
-
-# Export directly from a standalone Python script:
-drawlib export my_drawing.py -o scratch/drawing.png
-```
-
-### 5.3. `drawlib show` (Desktop Preview)
-Displays the rendered illustration in a local GUI window:
-```bash
-# Preview block 1 in GUI window:
-drawlib show doc.md 1
-
-# Preview with coordinate grid overlay:
-drawlib show doc.md 1 --grid
-
-# Headless mode: save directly to file without GUI popup (same as export):
-drawlib show doc.md 1 -o preview.png
-```
-
-### 5.4. `drawlib template` (HTML Template Management)
-```bash
-# Export the built-in Jinja2 sidebar template for customization:
-drawlib template export my_template.html.j2
-
-# Validate a custom Jinja2 template for required placeholders:
-drawlib template validate my_template.html.j2
-```
+**Related Rules**:
+- Preset Styles & Palettes Detail: `uv run drawlib rules show preset_styles`
+- Colors & Hex Conversion: `uv run drawlib rules show colors`
+- Typography & Fonts: `uv run drawlib rules show fonts`
+- Style Models & Types: `uv run drawlib rules show types`
+- Icons Library Detail: `uv run drawlib rules show icons`
+- Images & Logos Embedding: `uv run drawlib rules show images`
 
 ---
 
-## 6. Internal Architecture & Compilation Mechanics
+## 5. Documentation as Code (`doc_builder` & `tools`)
 
-The `drawlib._tools.doc_builder` package is structured into clean, modular layers:
+Embed illustrations in standard Markdown files (`docs_src/*.md`):
 
-```text
-src/drawlib/_tools/doc_builder/
-├── __init__.py           # High-level pipeline orchestration: build(), build_document()
-├── config.py             # Config loader (load_config): namespace setup and shared globals
-├── parser_md.py          # Markdown AST parser (parse_markdown_to_html) via markdown-it-py
-├── processor.py          # Code block extraction (DrawlibBlockProcessor, export_code_block, show_code_block)
-├── exporter_md.py        # Rendered Markdown writer (write_rendered_markdown)
-├── exporter_html.py      # HTML renderer (render_html_document, get_default_css)
-├── exporter_pdf.py       # Headless Chromium printer via Playwright (export_html_to_pdf)
-├── template.py           # Template export and Jinja2 AST validator (validate_template)
-├── html_templates/       # Built-in Jinja2 templates (sidebar.html.j2, simple.html.j2)
-└── html_styles/          # Built-in CSS (default.css, pygments.css)
+````markdown
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="PYTHON_RUNTIME/site-packages/drawlib/_assets/rules/overview_min_images/1.png" alt="overview_min_1" style="width: 600px; max-width: 100%;" />
+  <figcaption class="drawlib-caption">System Architecture</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+config(width=120, height=50)
+rectangle((30, 25), width=25, height=15, style="blue_flat", text="Client")
+rectangle((90, 25), width=25, height=15, style="green_flat", text="API Gateway")
+line((42.5, 25), (77.5, 25), arrowhead="->", style="bold")
 ```
 
-### 6.1. Execution Context & Isolation
-1. **Working Directory & Path Resolution**:
-   When compiling a code block, `processor.py` temporarily switches working directory (`os.chdir`) to the document's directory and inserts it into `sys.path[0]`. This guarantees relative imports and relative asset paths resolve identically to running the script directly.
-2. **Global Namespace Injection**:
-   `config.py` automatically injects all drawlib domain symbols (`canvas`, `shapes`, `lines`, `text`, `icons`, `smartarts`, `charts`, `colors`, etc.) into the block's `shared_globals`. Authors do not need boilerplate imports in every Markdown block.
-3. **Canvas State Isolation**:
-   The canvas is automatically cleared and re-initialized between blocks to prevent leaking shapes or themes across illustrations.
+</details>
 
-### 6.2. Navigation & Static Asset Pipeline
-- **Title Extraction**: The document's title is extracted from the first `# Heading 1` in the Markdown source.
-- **Sidebar Navigation**: For multi-file directories, `_build_directory_nav_list()` indexes all Markdown files, placing `index.md` at the top, computing relative hyperlinks (`.html`), and marking active pages.
-- **Static Assets**: Non-markdown files (images, fonts, PDFs) in the source directory are copied to the destination preserving directory structure.
-- **Static Image Validation**: Local images referenced via `![alt](path)` are validated before compilation, emitting warnings if missing.
 
-### 6.3. Headless PDF Compilation
-`exporter_pdf.py` renders HTML and generates vector PDFs using Playwright and headless Chromium (`page.pdf()`). This guarantees identical, deterministic rendering across environments (local dev, CI/CD, and Docker) with complete web font and CSS print background support.
-Prerequisites: `drawlib[pdf]` and `playwright install chromium`.
+````
+
+Compile via CLI without external tools (zero Sphinx / MkDocs):
+```bash
+uv run drawlib build html docs_src/ -o docs_html/      # Static HTML site
+uv run drawlib build markdown docs_src/ -o docs/       # GitHub Markdown
+uv run drawlib build pdf docs_src/index.md -o out.pdf  # Vector PDF
+```
+
+**Python Developer Tools API (`drawlib.tools`)**:
+Execute compilation and diagram extraction directly from Python code, CI/CD, or test suites:
+```python
+from drawlib.tools import build_html, export_block
+export_block("docs_src/arch.md", "1", "scratch/preview.png", show_grid=True)
+build_html("docs_src/", "docs_html/", config="docs_config.py", css="google")
+```
+
+**Related Rules**:
+- Documentation Site & Navbar Rules: `uv run drawlib rules show docs_build`
+- Project Scaffolding & Build CLI: `uv run drawlib rules show cli`
+- Python Developer Tools API: `uv run drawlib rules show tools`
 
 ---
 
-## 7. AI & Contributor Workflow Guidelines
+## 6. On-Demand Detailed Rules Catalog
 
-1. **Authoring Changes**:
-   - Write or update Markdown files exclusively under `docs_src/`.
-   - Ensure each file begins with a single `# Document Title` header.
-   - Use relative links to reference other documentation files (e.g. `[Quickstart](quickstart.md)`). The compiler automatically rewrites them to `.html` in HTML builds.
-2. **Rapid Verification during Development**:
-   - Do **NOT** run `./dcli docs build` repeatedly while tweaking an individual diagram (it rebuilds the entire site).
-   - Instead, use `drawlib export` to quickly render the specific block:
-     ```bash
-     uv run python -m drawlib export docs_src/diagrams/state_diagram.md 1 -o scratch/test.png
-     ```
-   - Inspect the generated image using `view_file` to verify layout and aesthetics.
-3. **Pre-Commit Verification**:
-   - Once content is finalized, run the full build:
-     ```bash
-     ./dcli docs build
-     ```
-   - Run static checks and CLI tests:
-     ```bash
-     ./dcli check all
-     ./dcli test target tests/cli/
-     ```
-   - Verify that Git status shows changes in `docs_src/`, `docs/`, and `docs_html/` as expected.
+When you need complete function signatures and comprehensive code examples, run:
+
+```bash
+uv run drawlib rules show canvas        # Canvas config, sizing, coordinates, clear/save
+uv run drawlib rules show shapes        # 22 shapes: circle, rectangle, wedge, chevron...
+uv run drawlib rules show lines         # line, line_curved, lines, Bezier paths, arrowheads
+uv run drawlib rules show text          # text alignment, fonts, formatting, text boxes
+uv run drawlib rules show colors        # Colors, Colors140, palettes, hex conversion
+uv run drawlib rules show fonts         # Font classes, weights, CJK/regional scripts, cache
+uv run drawlib rules show images        # Embedding images, scaling, tinting, Dimage model
+uv run drawlib rules show math          # get_angle, get_distance, get_center_and_size
+uv run drawlib rules show types         # Style model, ColorsBase, FontBase, type conventions
+uv run drawlib rules show smartarts     # Table, TreeNode, ChevronProcess, MindMap, Cycle
+uv run drawlib rules show diagrams      # Architecture, Flow, Sequence, State, ER, Class
+uv run drawlib rules show charts        # Bar, Line, Area, Pie, Radar, Scatter, Gantt
+uv run drawlib rules show icons         # Phosphor, FontAwesome, and GCP architecture icons
+uv run drawlib rules show preset_styles # Full style naming matrix and palette catalogs
+uv run drawlib rules show tools         # Python developer API: build, export, cache, template
+uv run drawlib rules show cli           # build, export, show, init, serve, cache commands
+uv run drawlib rules show docs_build    # multi-page docs structure, navbar.md rules

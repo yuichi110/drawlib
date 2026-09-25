@@ -125,3 +125,7 @@ chart.draw(xy=(5.0, 6.0))
 - **`add(xy, radius=None, style=None, shape=None, label="", label_style=None) -> ScatterPoint`**: Add an individual data point at numerical coordinate `xy=(x, y)`.
 - **`add_series(name, data, radius=None, style=None, shape=None) -> ScatterSeries`**: Add a named group of points `(x, y)` or bubbles `(x, y, radius)`.
 - **`draw(xy)`**: Render the scatter chart on the canvas at bottom-left coordinate `xy`.
+
+---
+
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

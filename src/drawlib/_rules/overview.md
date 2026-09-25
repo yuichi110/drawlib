@@ -3,7 +3,7 @@
 Drawlib is a modern Python diagramming and visualization library designed around the philosophy of **"Illustration as Code"**.  
 It allows developers, system architects, and AI coding agents to create clean, publication-ready architectural schemas, workflows, data visualizations, and technical documentation using declarative, reproducible Python code.
 
-This document serves as the high-level architectural foundation. When you need exhaustive function-by-function reference, refer to the on-demand topic rule commands detailed in [Section 4](#4-topic-reference-catalog--rules-commands).
+This document serves as the high-level architectural foundation. When you need exhaustive function-by-function reference, refer to the on-demand topic rule commands detailed in [Section 5](#5-topic-reference-catalog--rules-commands).
 
 ---
 
@@ -130,6 +130,7 @@ The `drawlib.canvas` module manages global drawing state:
 | `config()` | `width=100, height=100, background_color="#ffffff", dpi=300, ...` | Configures dimensions, canvas background color, rasterization resolution, and base settings. |
 | `clear()` | *(no arguments)* | Flushes all buffered shapes and resets canvas state. Essential in multi-image batch scripts to prevent bleeding. |
 | `save()` | `file_path=None, image_format="png", ...` | Renders the display list to disk. When omitted, writes to automatic sequence paths (`1.png`, etc.). |
+| `get_dimage()` | *(no arguments)* | Returns an in-memory `Dimage` representation of the current canvas without saving to disk. |
 | `show()` | `grid=False` | Opens an interactive local GUI desktop window displaying the rendered canvas. |
 
 ### 2.4. Aspect Ratio & Dimension Heuristics
@@ -179,13 +180,91 @@ Canvas defaults can be globally customized via `config()` or in `docs_config.py`
 - **`font_family`**: Base system font family or bundled open fonts (e.g. `"sans-serif"`, `"monospace"`, `"Roboto"`).
 - **`margin`**: Outer canvas padding preventing shapes placed on boundaries from being clipped.
 
+### 2.8. Coordinate Geometry Helpers (`drawlib.math`)
+Drawlib provides built-in geometric math utilities in `drawlib.math` so developers and agents do not need to implement manual trigonometry:
+- **`get_angle(p1, p2)`**: Computes the counter-clockwise angle in degrees (`0` to `360`) from point `p1` to point `p2`. Essential for rotating shapes, aligning labels along angled connectors, or orienting arrowheads.
+- **`get_distance(p1, p2)`**: Calculates the Euclidean distance between two points. Useful for dynamic sizing or threshold checks.
+- **`get_center_and_size(points)`**: Takes a collection of coordinate tuples `[(x1, y1), (x2, y2), ...]` and returns `((center_x, center_y), (width, height))`. This enables dynamic bounding boxes around arbitrary clusters of nodes with zero manual math:
+
+```python
+from drawlib.canvas import config, save
+from drawlib.math import get_angle, get_center_and_size, get_distance
+from drawlib.shapes import circle, rectangle
+
+config(width=100, height=80)
+nodes = [(25, 30), (45, 55), (75, 40)]
+
+# Automatically compute bounding container surrounding all nodes
+(cx, cy), (w, h) = get_center_and_size(nodes)
+rectangle((cx, cy), width=w + 16, height=h + 16, style="gray_light", text="Subsystem Boundary", valign="top")
+
+for xy in nodes:
+    circle(xy, radius=6, style="blue_flat")
+
+save()
+```
+
 ---
 
-## 3. Core Concept: Documentation Creation (Docs as Code)
+## 3. Core Concept: Visual Styles, Fonts & Media
 
-Drawlib integrates a complete, standalone documentation compilation pipeline (`drawlib.doc_builder`). It compiles Markdown documents containing embedded ````drawlib```` code blocks into publication-ready static websites, GitHub-flavored Markdown, and headless vector PDFs without requiring external site generators.
+Drawlib features a cohesive visual system comprising color catalogs, multi-language typography, strongly-typed style objects, and seamless image embedding.
 
-### 3.1. Project Scaffolding Rule (`drawlib init`)
+### 3.1. Color Models & Palettes (`drawlib.colors`)
+Colors in Drawlib can be represented as RGB tuples `(r, g, b)`, RGBA tuples `(r, g, b, a)`, hex strings, or constants from curated palettes:
+- **Hex & Alpha Helpers**:
+  - `from_hex("#3498db", alpha=0.8)`: Converts standard hex codes into validated Drawlib RGBA tuples.
+  - `with_alpha(color, alpha=0.5)`: Derives a new transparent color from any existing RGB or RGBA color.
+  - `from_grayscale(128, alpha=1.0)`: Creates grayscale tones from 0 (black) to 255 (white).
+- **Curated Palette Catalogs**:
+  - **`ColorsDefault`**: Basic corporate primary palette (`Red`, `Green`, `Blue`, `Black`, `White`).
+  - **`ColorsEssentials`**: Rich, modern UI palette (`Blue`, `Green`, `Red`, `Orange`, `Purple`, `Cyan`, `Yellow`, `Gray`, `LightGray`, `DarkGray`).
+  - **`ColorsMonochrome`**: High-contrast grayscale shades (`Black`, `White`, `Gray`, `DarkGray`, `LightGray`).
+  - **`Colors140`**: All 140 W3C standard CSS color constants (`Tomato`, `SteelBlue`, `MediumSeaGreen`, etc.).
+
+### 3.2. Typography & Font System (`drawlib.fonts`)
+Drawlib ensures dependable cross-platform rendering by bundling standard open fonts and managing font caching automatically:
+- **Universal CJK + Latin Font (`Font`)**:
+  - `Font.SERIF`, `Font.SANS_SERIF`, `Font.MONO_SPACE`: Automatically fall back across Latin, Japanese, Simplified Chinese, Traditional Chinese, and Korean characters without square box glyph corruption (豆腐).
+- **Typography Collections**:
+  - **`FontRoboto`**: Clean Google Roboto typeface with weights (`THIN`, `LIGHT`, `REGULAR`, `MEDIUM`, `BOLD`, `BLACK`).
+  - **`FontMonoSpace`**: Monospace typefaces for code listings and console output (`ROBOTO_MONO_REGULAR`, `COURIER_REGULAR`).
+  - **`FontSansSerif`** & **`FontSerif`**: Standard Western editorial typefaces.
+  - **`FontJapanese`**, **`FontChinese`**, **`FontArabic`**: Dedicated regional typefaces.
+- **Custom Fonts (`FontFile`)**:
+  - Load local TTF/OTF files with automatic caching: `FontFile("assets/fonts/BrandFont.ttf")`.
+
+### 3.3. Strongly-Typed Style Architecture (`drawlib.types`)
+Every visual element in Drawlib is governed by clean, strongly-typed style objects:
+- **`Style` Model**:
+  - Encapsulates properties: `fill_color`, `line_color`, `line_width`, `line_style`, `text_size`, `text_color`, `text_font`, `text_weight`, and `alpha`.
+  - Can be customized directly:
+    ```python
+    from drawlib.types import Style
+    my_style = Style(fill_color=(240, 248, 255), line_color=(30, 144, 255), line_width=2)
+    ```
+  - **Immutability & Safety**: Use `style.copy()` when deriving modified variants to prevent mutation side-effects.
+- **Extensible Base Classes**:
+  - Subclass `BasePresetStyles` to define reusable brand style systems across a corporate team.
+  - Inherit from `ColorsBase` and `FontBase` to structure enterprise palette and typography definitions.
+
+### 3.4. Image & Media Embedding (`drawlib.images`)
+Drawlib allows seamless integration of raster and vector graphic assets into diagrams:
+- **`image()` Function**:
+  - Renders external PNG, JPEG, SVG, or WebP images: `image((50, 40), width=24, image="assets/logo.png")`.
+  - Automatic aspect ratio calculation: specifying only `width` automatically scales `height` proportionally.
+  - Tinting & Alpha: Apply color overlays and transparency directly to embedded graphics.
+- **In-Memory Diagram Nesting (`Dimage` & `get_dimage_from_code`)**:
+  - `canvas.get_dimage()`: Captures the current canvas state as an in-memory `Dimage` object.
+  - `get_dimage_from_code(code_str)`: Compiles an independent Drawlib script in memory and embeds the output inside another canvas, facilitating composite multi-diagram figures.
+
+---
+
+## 4. Core Concept: Documentation Creation (Docs as Code & tools)
+
+Drawlib integrates a complete, standalone documentation compilation pipeline (`drawlib.doc_builder` and `drawlib.tools`). It compiles Markdown documents containing embedded ````drawlib```` code blocks into publication-ready static websites, GitHub-flavored Markdown, and headless vector PDFs without requiring external site generators.
+
+### 4.1. Project Scaffolding Rule (`drawlib init`)
 > **Important Scaffolding Rule**: Never create documentation project files or directories by hand from scratch.  
 > Always use `drawlib init` to scaffold the standard structure, default configuration, and build scripts.
 
@@ -204,7 +283,7 @@ drawlib init simple my_doc/
 drawlib init pdf my_report/
 ```
 
-### 3.2. Standard Project Structure & Lifecycle
+### 4.2. Standard Project Structure & Lifecycle
 A standard documentation project initialized via `drawlib init site` follows this structure:
 
 ```text
@@ -224,14 +303,14 @@ my_project/
 
 **The Golden Rule of Documentation**: Never manually edit files in `docs/` or `docs_html/`. All manual edits, additions, and updates must take place inside `docs_src/`. Build outputs are regenerated automatically.
 
-### 3.3. Navigation Bar (`navbar.md`) Rules
+### 4.3. Navigation Bar (`navbar.md`) Rules
 For multi-page documentation sites, `docs_src/navbar.md` defines the navigation sidebar:
 1. **Site Title (Brand Name)**: The first `# Heading 1` (e.g. `# Drawlib Docs`) defines the brand title shown in the top-left sidebar header.
 2. **Category Headings**: `## Heading 2` defines categorized sections (e.g. `## 1. Architecture`). Bullets before any `##` heading are top-level items.
 3. **Links**: Bullet items `- [Title](path/to/file.md)` define page links. Anchors (`#sec`) and external URLs are supported.
 4. **Build-Time Link Validation**: Every local link is strictly validated at build time. If any target file is missing, the build halts with an informative error detailing the exact line number.
 
-### 3.4. Embedded Drawing Code Blocks (` ```drawlib `)
+### 4.4. Embedded Drawing Code Blocks (` ```drawlib `)
 In Markdown source files under `docs_src/`, embed illustrations using the ````drawlib```` language fence:
 
 ````markdown
@@ -251,7 +330,7 @@ line((40, 25), (80, 25), arrowhead="->", style="bold")
 
 **Automatic Global Injection**: In `docs_src/` code blocks, all standard Drawlib domain symbols (`canvas`, `shapes`, `lines`, `text`, `icons`, `smartarts`, `charts`, `colors`) are automatically pre-imported. Boilerplate imports are not needed in Markdown blocks.
 
-### 3.5. Build & Preview Commands
+### 4.5. Build & Preview Commands
 ```bash
 # Run full documentation build via script:
 ./docs_build.sh
@@ -268,9 +347,42 @@ drawlib serve docs_html/
 drawlib serve docs_html/ --check
 ```
 
+### 4.6. Python Developer Tools API (`drawlib.tools`)
+When you need to execute CLI operations programmatically (e.g. inside Python build automation, pytest verification suites, or automated CI pipelines), use `drawlib.tools`:
+
+```python
+from drawlib.tools import build_html, build_markdown, export_block
+
+# Export a single diagram from a Markdown file
+image_path = export_block(
+    file_path="docs_src/architecture.md",
+    block_id="1",
+    output_path="scratch/preview.png",
+    show_grid=True,
+)
+
+# Compile full HTML site programmatically
+build_html(
+    src="docs_src/",
+    output="docs_html/",
+    config="docs_config.py",
+    css="google",
+)
+```
+
+| Function | Equivalent CLI Command | Primary Use Case |
+| :--- | :--- | :--- |
+| `build_html()` | `drawlib build html` | Compile static documentation sites or standalone HTML files. |
+| `build_markdown()` | `drawlib build markdown` | Render documentation for GitHub viewing with linked images. |
+| `build_pdf()` | `drawlib build pdf` | Export print-ready PDFs via headless browser. |
+| `export_block()` | `drawlib export` | Fast illustration rendering for AI self-verification and tests. |
+| `init_project()` | `drawlib init` | Programmatic repository scaffolding. |
+| `serve_docs()` | `drawlib serve` | Local preview server and link verification checks. |
+| `clear_cache()` | `drawlib cache clear` | Cache cleanup. |
+
 ---
 
-## 4. Topic Reference Catalog & Rules Commands
+## 5. Topic Reference Catalog & Rules Commands
 
 When writing or debugging Drawlib code, you can inspect detailed rules, full API signatures, and complete code examples on demand for any domain.
 
@@ -290,7 +402,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 4.1. CLI & Build Commands (`cli`)
+### 5.1. CLI & Build Commands (`cli`)
 - **Command**: `drawlib rules show cli`
 - **Scope**: Document compilation (`build`), single illustration export (`export`), desktop preview (`show`), project scaffolding (`init`), local documentation server (`serve`), and cache management (`cache`).
 - **Key Syntax**:
@@ -303,7 +415,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 4.2. Documentation Site Rules (`docs_build`)
+### 5.2. Documentation Site Rules (`docs_build`)
 - **Command**: `drawlib rules show docs_build`
 - **Scope**: Multi-page documentation architecture, `navbar.md` authoring syntax, broken-link prevention, code block options, and agent authoring workflows.
 - **Key Syntax**:
@@ -317,7 +429,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 4.3. Shapes Primitives & Styling (`shapes`)
+### 5.3. Shapes Primitives & Styling (`shapes`)
 - **Command**: `drawlib rules show shapes`
 - **Scope**: All 22 geometric shape functions including `rectangle`, `circle`, `donuts`, `ellipse`, `wedge`, `fan`, `arc`, `parallelogram`, `rhombus`, `trapezoid`, `triangle`, `regularpolygon`, `polygon`, `star`, `arrow`, `arrow_l`, `arrow_u`, `arrow_arc`, `arrow_polyline`, and `chevron`.
 - **Key Syntax**:
@@ -330,7 +442,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 4.4. Lines, Curves, & Arrowheads (`lines`)
+### 5.4. Lines, Curves, & Arrowheads (`lines`)
 - **Command**: `drawlib rules show lines`
 - **Scope**: Straight lines (`line`), curved splines (`line_curved`), Bezier paths (`line_bezier1`, `line_bezier2`), multi-point chained lines (`lines`, `lines_curved`), and circular arcs (`line_arc`).
 - **Key Syntax**:
@@ -343,7 +455,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 4.5. Text Rendering & Typography (`text`)
+### 5.5. Text Rendering & Typography (`text`)
 - **Command**: `drawlib rules show text`
 - **Scope**: Standalone labels, multi-line paragraphs, text alignment (`halign`, `valign`), rotation angles, typography options (`TextStyle`), custom fonts, and background text boxes.
 - **Key Syntax**:
@@ -356,7 +468,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 4.6. Icons Library (`icons`)
+### 5.6. Icons Library (`icons`)
 - **Command**: `drawlib rules show icons`
 - **Scope**: Vector and PNG icons from Phosphor, FontAwesome, and Google Cloud Platform (GCP) official architecture libraries.
 - **Key Syntax**:
@@ -370,7 +482,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 4.7. Preset Styles & Color Palettes (`preset_styles`)
+### 5.7. Preset Styles & Color Palettes (`preset_styles`)
 - **Command**: `drawlib rules show preset_styles`
 - **Scope**: Systematic style naming rules (`<color>_<variant>`), built-in palettes (`ColorsDefault`, `ColorsMonochrome`, `ColorsEssentials`), pre-defined styles for shapes, lines, and text, and custom style registration.
 - **Key Syntax**:
@@ -382,7 +494,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 4.8. Structured SmartArts Elements (`smartarts`)
+### 5.8. Structured SmartArts Elements (`smartarts`)
 - **Command**: `drawlib rules show smartarts`
 - **Scope**: High-level visual abstractions including `Table`, `TreeNode` / `tree`, `MindMapNode` / `mindmap`, `BoxList`, `BulletPoints`, `ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `SourceCode`, and `bubblespeech`.
 - **Key Syntax**:
@@ -395,7 +507,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 4.9. Data Charts & Visualizations (`charts`)
+### 5.9. Data Charts & Visualizations (`charts`)
 - **Command**: `drawlib rules show charts`
 - **Scope**: Statistical and planning charts: `BarChart` (grouped, stacked, horizontal), `LineChart`, `AreaChart`, `PieChart` / donut, `RadarChart`, `ScatterChart`, and `GanttChart`.
 - **Key Syntax**:
@@ -409,7 +521,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 4.10. Domain Diagrams (`diagrams`)
+### 5.10. Domain Diagrams (`diagrams`)
 - **Command**: `drawlib rules show diagrams`
 - **Scope**: Specialized software engineering diagrams: `ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, `StateDiagram`, `ClassDiagram`, and `ERDiagram`.
 - **Key Syntax**:
@@ -425,7 +537,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 4.11. Canvas Lifecycle & Dimensions (`canvas`)
+### 5.11. Canvas Lifecycle & Dimensions (`canvas`)
 - **Command**: `drawlib rules show canvas`
 - **Scope**: Canvas singleton (`canvas`), configuration parameters (`config`), coordinate grids, background transparency, image saving (`save`), in-memory Dimage generation (`get_dimage`), and canvas clearing (`clear`).
 - **Key Syntax**:
@@ -438,7 +550,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 4.12. Color Models, Catalogs & Palettes (`colors`)
+### 5.12. Color Models, Catalogs & Palettes (`colors`)
 - **Command**: `drawlib rules show colors`
 - **Scope**: RGB/RGBA formats, standard 16 web colors (`Colors`), 140 CSS colors (`Colors140`), curated theme palettes (`ColorsDefault`, `ColorsMonochrome`), and conversion utilities (`from_hex`, `from_grayscale`, `with_alpha`).
 - **Key Syntax**:
@@ -451,7 +563,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 4.13. Typography, Fonts & Cache (`fonts`)
+### 5.13. Typography, Fonts & Cache (`fonts`)
 - **Command**: `drawlib rules show fonts`
 - **Scope**: Universal CJK + Latin font (`Font`), Western typography (`FontRoboto`, `FontSansSerif`, `FontMonoSpace`), non-Latin regional scripts (`FontJapanese`, `FontChinese`, `FontArabic`), custom font loading (`FontFile`), and cache management.
 - **Key Syntax**:
@@ -463,7 +575,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 4.14. Image & Graphic Embedding (`images`)
+### 5.14. Image & Graphic Embedding (`images`)
 - **Command**: `drawlib rules show images`
 - **Scope**: Embedding raster and vector images (`image`), aspect ratio handling, image transformation model (`Dimage`), color tinting, and dynamic in-memory diagram embedding (`get_dimage_from_code`).
 - **Key Syntax**:
@@ -475,7 +587,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 4.15. Geometry & Coordinate Math (`math`)
+### 5.15. Geometry & Coordinate Math (`math`)
 - **Command**: `drawlib rules show math`
 - **Scope**: Geometric derivations: counter-clockwise angle between two points (`get_angle`), Euclidean distance (`get_distance`), and automated bounding box calculation (`get_center_and_size`).
 - **Key Syntax**:
@@ -488,7 +600,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 4.16. Style Models, Base Classes & Types (`types`)
+### 5.16. Style Models, Base Classes & Types (`types`)
 - **Command**: `drawlib rules show types`
 - **Scope**: Strongly-typed `Style` model attributes (fill, line, typography, alignments), theme inheritance (`BasePresetStyles`), palette extension (`ColorsBase`), and Drawlib type alias conventions.
 - **Key Syntax**:
@@ -500,7 +612,7 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 4.17. Developer Tools API (`tools`)
+### 5.17. Developer Tools API (`tools`)
 - **Command**: `drawlib rules show tools`
 - **Scope**: Programmatic Python developer API for document compilation (`build_html`, `build_markdown`, `build_pdf`), single illustration extraction (`export_block`), project scaffolding (`init_project`), local server (`serve_docs`), and cache management.
 - **Key Syntax**:
@@ -513,11 +625,11 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-## 5. Autonomous AI Workflow & Implementation Guide
+## 6. Autonomous AI Workflow & Implementation Guide
 
 When an AI coding agent is tasked with creating, modifying, or reviewing Drawlib illustrations, adhere to the following workflow principles to guarantee deterministic, publication-quality results.
 
-### 5.1. The Autonomous Self-Correction Loop
+### 6.1. The Autonomous Self-Correction Loop
 
 Never deliver unverified drawing code to the user. Always execute the autonomous feedback loop before reporting task completion:
 
@@ -549,7 +661,7 @@ Never deliver unverified drawing code to the user. Always execute the autonomous
 
 ---
 
-### 5.2. Prototyping in Scratch Workspace & Image Presentation
+### 6.2. Prototyping in Scratch Workspace & Image Presentation
 
 If your environment or chat interface supports presenting images directly to the user (e.g. via artifact embedding, Markdown image links, or UI previews):
 
@@ -564,7 +676,7 @@ If your environment or chat interface supports presenting images directly to the
 
 ---
 
-### 5.3. Prefer High-Level SmartArts & Diagrams over Raw Primitives
+### 6.3. Prefer High-Level SmartArts & Diagrams over Raw Primitives
 
 Avoid manually placing dozens of low-level `rectangle`, `circle`, and `line` primitives whenever a higher-level abstraction exists.
 
@@ -582,7 +694,7 @@ Avoid manually placing dozens of low-level `rectangle`, `circle`, and `line` pri
 
 ---
 
-### 5.4. Implementation Checklist
+### 6.4. Implementation Checklist
 
 - [ ] **Canvas Sizing**: Set explicit dimensions (`100x100`, `120x60`, `140x70`, `160x90`) appropriate for the diagram type.
 - [ ] **Palette Consistency**: Use semantic preset styles (e.g. `style="blue_flat"`, `textstyle="white_bold"`) or official palettes (`ColorsDefault`, `ColorsMonochrome`) instead of hardcoded hex values.
