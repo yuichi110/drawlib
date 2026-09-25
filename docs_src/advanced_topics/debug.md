@@ -1,30 +1,43 @@
-# Debugging errors
+# Debugging & Error Handling
 
+By default, Drawlib suppresses deep internal tracebacks and prints concise, actionable error messages pointing directly to the user's script file and line number:
 
-Drawlib hides detailed errors when user code encounters issues. 
-At such times, Drawlib only displays:
+- The script file and line where invalid parameters or drawing issues occurred.
+- A descriptive error message explaining what failed.
 
-- The file and line where the problem occurred
-- The type of error that happened
+For development, troubleshooting, or reporting bugs, you can enable verbose logging and disable error suppression to inspect full Python stack traces.
 
-This means Drawlib does not show the stack trace or where the library code encountered an error due to user input. 
-We believe that showing detailed errors and the internal workings of Drawlib is not beneficial for ordinary users.
+---
 
-However, sometimes you may want to check the details. In such situations, you need to enable debug mode.
+## 1. Enabling Debug Modes via the CLI
 
+The `drawlib` CLI provides multiple flags to control logging verbosity and error display:
 
-# How to Enable Debug Mode
+```bash
+# 1. Verbose debug logging (shows detailed steps, asset loading, font resolution):
+drawlib build html docs_src/ -o docs_html/ --verbose
 
+# 2. Developer mode (disables error suppression and prints full Python tracebacks):
+drawlib build html docs_src/ -o docs_html/ --developer
+```
 
-Drawlib controls which output is shown on the console via logging levels. 
-Detailed error logs are shown only at the debug logging level.
+| Flag | Logging Level | Error Behavior |
+| :--- | :--- | :--- |
+| *(default)* | `INFO` | Concise user-facing error message with file and line. |
+| `--verbose` / `--debug` | `DEBUG` | Detailed logging for cache hits, font downloads, and compiler passes. |
+| `--quiet` | `ERROR` | Silent execution, showing only fatal errors. |
+| `--developer` | `DEBUG` | Disables `@error_handler` wrappers, displaying complete raw tracebacks. |
 
-To set the logging level to debug, you have two options:
+---
 
-- Set the logging level by calling a function: `dutil_settings.set_logging_mode("debug")`
-- Set the logging level via CLI options: `drawlib --verbose` or `drawlib --debug`
+## 2. Interactive Block Debugging
 
-Please check the settings documentation and CLI options documentation for more details.
+When a specific drawing block in a document fails during compilation, extract and inspect that single block with coordinate grid lines:
+
+```bash
+# Overlay coordinate grid and center axes:
+drawlib show docs_src/diagrams/sequence.md 1 --grid --developer
+```
 
 ---
 

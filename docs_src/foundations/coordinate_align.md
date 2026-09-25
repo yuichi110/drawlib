@@ -94,8 +94,8 @@ for x, halign in [(15, "left"), (50, "center"), (85, "right")]:
             width=15,
             height=15,
             style=Style(text_halign=halign, text_valign=valign),
-            text=f"({halign}, {valign})",
-            textstyle=Style(text_size=14),
+            text=f"({halign},\n{valign})",
+            textstyle=Style(text_size=11),
         )
         circle(
             xy=(x, y),
@@ -126,16 +126,14 @@ for x, halign in [(15, "left"), (50, "center"), (85, "right")]:
             width=15,
             height=15,
             style=Style(text_halign=halign, text_valign=valign),
-            text=f"({halign}, {valign})",
-            textstyle=Style(text_size=14),
+            text=f"({halign},\n{valign})",
+            textstyle=Style(text_size=11),
         )
         circle(
             xy=(x, y),
             radius=1,
             style=Style(line_color=Colors.Red, fill_color=Colors.Red),
         )
-
-save()
 ```
 
 
@@ -172,13 +170,13 @@ y3 = 80
 
 circle((x1, y1), radius=5)
 rectangle((x1, y2), width=20, height=10, angle=45)
-star((x1, y3), 5, 15, 6, angle=45)
+star((x1, y3), 5, 10, 4, angle=45)
 
-image((x2, y1), width=20, image="python.png", angle=315)
+image((x2, y1), width=20, image="../_assets/python.png", angle=315)
 phosphor.heart((x2, y2), 10, angle=315)
 text((x2, y3), "Drawlib", angle=315, style=Style(text_size=24))
 
-chevron((x3, y1), 35, 10, corner_angle=45, angle=45)
+chevron((x3, y1), 22, 10, corner_angle=45, angle=45)
 parallelogram((x3, y2), 15, 10, corner_angle=60, angle=45)
 regularpolygon((x3, y3), num_vertex=6, radius=5, angle=45)
 
@@ -214,21 +212,19 @@ y3 = 80
 
 circle((x1, y1), radius=5)
 rectangle((x1, y2), width=20, height=10, angle=45)
-star((x1, y3), 5, 15, 6, angle=45)
+star((x1, y3), 5, 10, 4, angle=45)
 
-image((x2, y1), width=20, image="python.png", angle=315)
+image((x2, y1), width=20, image="../_assets/python.png", angle=315)
 phosphor.heart((x2, y2), 10, angle=315)
 text((x2, y3), "Drawlib", angle=315, style=Style(text_size=24))
 
-chevron((x3, y1), 35, 10, corner_angle=45, angle=45)
+chevron((x3, y1), 22, 10, corner_angle=45, angle=45)
 parallelogram((x3, y2), 15, 10, corner_angle=60, angle=45)
 regularpolygon((x3, y3), num_vertex=6, radius=5, angle=45)
 
 for x in [x1, x2, x3]:
     for y in [y1, y2, y3]:
         circle((x, y), 1, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
-
-save()
 ```
 
 

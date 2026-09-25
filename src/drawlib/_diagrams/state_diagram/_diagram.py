@@ -127,6 +127,24 @@ class StateDiagram:
             max_x = max(max_x, cx + half_w)
             max_y = max(max_y, cy + half_h)
 
+        for t in self.transitions:
+            if t.is_loop and t.start is not None:
+                s = t.start
+                cx, cy = s._local_xy
+                half_w = s.effective_width / 2.0
+                half_h = s.effective_height / 2.0
+                w_l = t.loop_width if t.loop_width is not None else min(10.0, s.effective_width * 0.5)
+                h_l = t.loop_height if t.loop_height is not None else min(10.0, s.effective_height * 0.5)
+                side = t.loop_side or "top"
+                if "top" in side:
+                    max_y = max(max_y, cy + half_h + h_l + 3.0)
+                if "bottom" in side:
+                    min_y = min(min_y, cy - half_h - h_l - 3.0)
+                if "right" in side:
+                    max_x = max(max_x, cx + half_w + w_l + 3.0)
+                if "left" in side:
+                    min_x = min(min_x, cx - half_w - w_l - 3.0)
+
         return (min_x, min_y, max_x, max_y)
 
     def get_size(self) -> tuple[float, float]:

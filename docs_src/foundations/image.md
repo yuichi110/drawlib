@@ -34,9 +34,9 @@ from drawlib.images import image
 
 config(width=100, height=50, grid_only=True)
 
-image(xy=(15, 25), width=10, image="python.png")
-image(xy=(40, 25), width=20, image="python.png")
-image(xy=(75, 25), width=30, image="python.png")
+image(xy=(15, 25), width=10, image="../_assets/python.png")
+image(xy=(40, 25), width=20, image="../_assets/python.png")
+image(xy=(75, 25), width=30, image="../_assets/python.png")
 
 save()
 ```
@@ -50,15 +50,10 @@ from drawlib.images import image
 
 config(width=100, height=50, grid_only=True)
 
-image(xy=(15, 25), width=10, image="python.png")
-image(xy=(40, 25), width=20, image="python.png")
-image(xy=(75, 25), width=30, image="python.png")
-
-save()
+image(xy=(15, 25), width=10, image="../_assets/python.png")
+image(xy=(40, 25), width=20, image="../_assets/python.png")
+image(xy=(75, 25), width=30, image="../_assets/python.png")
 ```
-
-
-    image1.png
 
 By default, the xy coordinates position the center of the image.
 
@@ -92,7 +87,7 @@ config(width=100, height=50, grid_only=True)
 image(
     xy=(10, 25),
     width=10,
-    image="python.png",
+    image="../_assets/python.png",
     style=Style(text_halign="left", text_valign="bottom"),
 )
 circle((10, 25), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
@@ -101,12 +96,12 @@ text((15, 20), "align: left,bottom")
 image(
     xy=(40, 25),
     width=20,
-    image="python.png",
+    image="../_assets/python.png",
     style=Style(line_width=2, line_style="dashed", line_color=Colors.Red, fill_color=Colors.Gray),
 )
 text((40, 10), "border: red,dot,width2")
 
-image(xy=(75, 25), width=30, image="python.png", angle=45, style="green_solid")
+image(xy=(75, 25), width=30, image="../_assets/python.png", angle=45, style="green_solid")
 text((85, 5), "angle: 45")
 
 save()
@@ -137,7 +132,7 @@ config(width=100, height=50, grid_only=True)
 image(
     xy=(10, 25),
     width=10,
-    image="python.png",
+    image="../_assets/python.png",
     style=Style(text_halign="left", text_valign="bottom"),
 )
 circle((10, 25), radius=0.5, style=Style(fill_color=Colors.Red, line_color=Colors.Red))
@@ -146,12 +141,12 @@ text((15, 20), "align: left,bottom")
 image(
     xy=(40, 25),
     width=20,
-    image="python.png",
+    image="../_assets/python.png",
     style=Style(line_width=2, line_style="dashed", line_color=Colors.Red, fill_color=Colors.Gray),
 )
 text((40, 10), "border: red,dot,width2")
 
-image(xy=(75, 25), width=30, image="python.png", angle=45, style="green_solid")
+image(xy=(75, 25), width=30, image="../_assets/python.png", angle=45, style="green_solid")
 text((85, 5), "angle: 45")
 
 save()
@@ -176,72 +171,46 @@ Here's an example demonstrating how to use these objects:
 
 ```python
 import PIL.Image
-from drawlib._core.l2_models_._dimage import Dimage
-from drawlib._utils import dutil_script
 from drawlib.canvas import config, save
-from drawlib.images import image
-
-file_path = dutil_script.get_relative_path("python.png")
-print(file_path)
-# /Users/yuichi/GitHub/drawlib_docs/v0_1/docs/source/manual/foundations/image/python.png
+from drawlib.images import Dimage, image
 
 config(width=100, height=50, grid_only=True)
 
-# specify file
-image(xy=(20, 25), width=20, image="python.png")
+# 1. Specify file path string directly
+image(xy=(20, 25), width=20, image="../_assets/python.png")
 
-# specify Dimage
-dimage = Dimage("python.png")
+# 2. Specify pre-loaded Dimage instance (cached in memory)
+dimage = Dimage("../_assets/python.png")
 image(xy=(50, 25), width=20, image=dimage)
 
-# specify PIL Image
-pil_image = PIL.Image.open(file_path)
+# 3. Specify PIL Image object
+pil_image = PIL.Image.open("../_assets/python.png")
 image(xy=(80, 25), width=20, image=pil_image)
+
 save()
 ```
 
-Both instances are passed to arg `image`.
-Function `image()` will handle them correctly.
-
-Both instances are passed to the image argument, and image() handles them correctly.
-
-We utilize `dutil_script.get_relative_path()` to ensure correct file paths. 
-Drawlib functions always interpret paths relative to the script's location.
-But PIL function doesn't.
-This utility function adjusts the path rule to match drawlib's conventions.
+Function `image()` handles file paths, `Dimage` instances, and `PIL.Image.Image` objects interchangeably.
 
 
 ```drawlib 500px center
 import PIL.Image
-from drawlib._core.l2_models_._dimage import Dimage
-from drawlib._utils import dutil_script
 from drawlib.canvas import config, save
-from drawlib.images import image
-
-file_path = dutil_script.get_relative_path("python.png")
-print(file_path)
-# /Users/yuichi/GitHub/drawlib_docs/v0_1/docs/source/manual/foundations/image/python.png
+from drawlib.images import Dimage, image
 
 config(width=100, height=50, grid_only=True)
 
-# specify file
-image(xy=(20, 25), width=20, image="python.png")
-
-# specify Dimage
-dimage = Dimage("python.png")
+image(xy=(20, 25), width=20, image="../_assets/python.png")
+dimage = Dimage("../_assets/python.png")
 image(xy=(50, 25), width=20, image=dimage)
-
-# specify PIL Image
-pil_image = PIL.Image.open(file_path)
+pil_image = PIL.Image.open("../_assets/python.png")
 image(xy=(80, 25), width=20, image=pil_image)
-save()
 ```
 
-
-    image3.png
-
 As shown, all three approaches yield the same drawing output. 
-Dimage and PIL.Image.Image are particularly useful when applying effects to images or manipulating them programmatically.
+`Dimage` and `PIL.Image.Image` are particularly useful when applying image effects or caching assets in memory across multiple drawing operations.
+
+For a comprehensive guide on image transformations, filters, and caching with `Dimage`, see the [Dimage Guide](./dimage.md).
 
 ---
 

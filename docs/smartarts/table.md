@@ -1,48 +1,43 @@
 # Table
 
 
-Class `Table` is used for drawing table.
-
+Class `Table` is used for drawing tabular data with customizable headers, borders, and row banding.
 
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import config
 from drawlib.smartarts import Table
 
-config(width=100, height=50, grid=True)
+config(width=70, height=45)
 
 t1 = Table()
 t1.draw(
-    xy=(5, 45),
-    width=40,
-    height=40,
+    xy=(5, 40),
+    width=60,
+    height=35,
     data=[
-        ["Name", "Gendor", "Age"],
+        ["Name", "Gender", "Age"],
         ["Ada", "Female", "1"],
         ["Bob", "Male", "2"],
         ["Cindy", "Female", "3"],
         ["David", "Male", "4"],
     ],
 )
-
-save()
 ```
 
-<div class="drawlib-image" style="text-align: center;">
+<figure class="drawlib-image" style="text-align: center;">
   <img src="table_images/1.png" alt="table_1" style="width: 600px; max-width: 100%;" />
-</div>
+  <figcaption class="drawlib-caption">Table Example</figcaption>
+</figure>
 
 
 
+You can draw tables with these procedures:
 
-    image1.png
-
-You can draw pyramid with these procedure.
-
-1. Initialize instance
-2. Apply table styles
-3. Draw table with providing coordinate, size and matrix table data
+1. Initialize a `Table` instance.
+2. Optionally customize row, column, or cell styles.
+3. Draw the table with `draw()` providing coordinate, size, and matrix data.
 
 
 # API Specification

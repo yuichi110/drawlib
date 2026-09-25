@@ -23,24 +23,24 @@ Below is a relational schema modeling customers, orders, and order items:
 from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity
 
-canvas.initialize()
+canvas.config(width=114, height=48)
 
 erd = ERDiagram(title="E-Commerce Core Schema")
 
 # 1. Define Entities
-users = erd.add(Entity(name="users", width=26.0), xy=(18.0, 50.0))
+users = erd.add(Entity(name="users", width=25.0), xy=(16.0, 18.0))
 users.add_column("id", type="INT", pk=True)
 users.add_column("email", type="VARCHAR(255)", nullable=False)
 users.add_column("name", type="VARCHAR(100)")
 users.add_column("created_at", type="TIMESTAMP")
 
-orders = erd.add(Entity(name="orders", width=26.0), xy=(50.0, 50.0))
+orders = erd.add(Entity(name="orders", width=27.0), xy=(53.0, 18.0))
 orders.add_column("id", type="INT", pk=True)
 orders.add_column("user_id", type="INT", fk=True)
 orders.add_column("order_date", type="DATE")
 orders.add_column("total_amount", type="DECIMAL(10,2)")
 
-items = erd.add(Entity(name="order_items", width=26.0), xy=(82.0, 50.0))
+items = erd.add(Entity(name="order_items", width=28.0), xy=(92.0, 18.0))
 items.add_column("id", type="INT", pk=True)
 items.add_column("order_id", type="INT", fk=True)
 items.add_column("product_name", type="VARCHAR(100)")
@@ -105,23 +105,23 @@ Entities automatically compute their height based on the number of columns. You 
 from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity
 
-canvas.initialize()
+canvas.config(width=90, height=48)
 
 erd = ERDiagram()
 
 # Specify a fixed height larger than content
-categories = erd.add(Entity(name="categories", width=24.0, height=22.0), xy=(30.0, 50.0))
+categories = erd.add(Entity(name="categories", width=24.0, height=20.0), xy=(22.0, 20.0))
 categories.add_column("id", type="INT", pk=True)
 categories.add_column("name", type="VARCHAR(50)")
 
-products = erd.add(Entity(name="products", width=24.0, height=22.0), xy=(70.0, 50.0))
+products = erd.add(Entity(name="products", width=24.0, height=20.0), xy=(68.0, 20.0))
 products.add_column("id", type="INT", pk=True)
 products.add_column("category_id", type="INT", fk=True)
 products.add_column("title", type="VARCHAR(100)")
 
 categories.connect(products, cardinality="1:*", start_side="right", end_side="left")
 
-erd.draw()
+erd.draw(xy=(0.0, 0.0))
 ```
 
 ---
@@ -210,7 +210,7 @@ from drawlib import canvas
 from drawlib._core.l3_styles import Colors, Style
 from drawlib.diagrams.er import ERDiagram, Entity
 
-canvas.initialize()
+canvas.config(width=90, height=48)
 
 erd = ERDiagram(
     title="Custom Styled Schema",
@@ -224,7 +224,7 @@ departments = erd.add(
         width=26.0,
         header_style=Style(fill_color=Colors.Navy, text_color=Colors.White),
     ),
-    xy=(25.0, 50.0),
+    xy=(20.0, 18.0),
 )
 departments.add_column("dept_no", type="CHAR(4)", pk=True)
 departments.add_column("dept_name", type="VARCHAR(40)")
@@ -235,7 +235,7 @@ employees = erd.add(
         width=26.0,
         header_style=Style(fill_color=Colors.Teal, text_color=Colors.White),
     ),
-    xy=(75.0, 50.0),
+    xy=(68.0, 18.0),
 )
 employees.add_column("emp_no", type="INT", pk=True)
 employees.add_column("dept_no", type="CHAR(4)", fk=True)
@@ -253,5 +253,5 @@ departments.connect(
     style=Style(line_color=Colors.Navy, line_width=2.0),
 )
 
-erd.draw()
+erd.draw(xy=(0.0, 0.0))
 ```

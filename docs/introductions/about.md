@@ -45,9 +45,6 @@ This will generate an image file:
 
 
 
-
-    image1.png
-
 As illustrated, Drawlib generates an image corresponding to your code.
 
 Drawlib applies style (the equivalent of CSS) to drawing content (the equivalent of HTML). 
@@ -69,14 +66,17 @@ This can be easily achieved by defining reusable styles or configuration scripts
 Here is a typical use case of Drawlib:
 
 
-![image_buildmany.png](image_buildmany.png)
 
 
-    Build many images at same time
+<div class="drawlib-image" style="text-align: center;">
+  <img src="about_images/2.png" alt="about_2" style="width: 650px; max-width: 100%;" />
+</div>
+
+
 
 As a real-world example, almost all of the documentation images are created using Drawlib. 
 The build flow is similar to the image above. 
-We first build images using Drawlib, then build the document via Sphinx, and finally publish it to the Internet. 
+We compile documents via Drawlib Document Builder and publish them to the Internet or repository. 
 These images are built by scripts locally for quick verification of the drawing results. 
 To reduce human error and operation costs, we run CI/CD processes when code is committed to the GitHub repository.
 

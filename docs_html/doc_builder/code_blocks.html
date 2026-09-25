@@ -1,0 +1,535 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Block Syntax & Options</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Introductions</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../introductions/about.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../introductions/install.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../introductions/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../introductions/lib_design.html" >Library Design Philosophy</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../introductions/release_note.html" >Release Notes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../introductions/links.html" >Useful Links</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Document Builder</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="index.html" >Document Builder Overview</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="code_blocks.html" >Code Block Syntax & Options</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="building_docs.html" >Building Documents (HTML/MD/PDF)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="templates_and_css.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_scaffolding.html" >Project Scaffolding</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. CLI Reference</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/index.html" >CLI Overview & Global Options</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/build.html" >drawlib build</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/serve.html" >drawlib serve</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/init.html" >drawlib init</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/inspect.html" >drawlib show & export</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/assets.html" >drawlib cache, template & css</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/rules.html" >drawlib rules</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Foundations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/index.html" >Foundations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/canvas.html" >Canvas & Dimensions</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/coordinate_align.html" >Coordinates & Alignment</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/shape.html" >Shapes Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/shape_circle.html" >Circle-like Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/shape_rectangle.html" >Rectangle-like Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/shape_arrow.html" >Block Arrow Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/shape_style.html" >Shape Styling</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/line.html" >Lines Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/line_style.html" >Line Styles</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/text.html" >Text Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/icon.html" >Icons Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/image.html" >Images Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/dimage.html" >Dimage Image Processing</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/programming.html" >Coding Best Practices</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Styles & Theming</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../styles/index.html" >Styles Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../styles/color.html" >Color System & Utilities</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../styles/font.html" >Fonts System</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../styles/official_default.html" >Default Preset Styles</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../styles/official_essentials.html" >Essentials Preset Styles</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../styles/official_monochrome.html" >Monochrome Preset Styles</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../styles/create.html" >Custom Preset Creation</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../styles/advanced_topics.html" >Advanced Style Topics</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. SmartArts Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/index.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/sourcecode.html" >SourceCode Highlighting</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/table.html" >Table Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/tree.html" >Tree Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/boxlist.html" >BoxList Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/bubblespeech.html" >BubbleSpeech Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/bulletpoints.html" >BulletPoints Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/chevronprocess.html" >ChevronProcess Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/cycle.html" >Cycle Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/gridlayout.html" >GridLayout Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/mindmap.html" >MindMap Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/pyramid.html" >Pyramid Component</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/index.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. Advanced Topics</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../advanced_topics/math.html" >Geometry & Math Utilities</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../advanced_topics/dimage_from_code.html" >Rendering from Code (`get_dimage_from_code`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../advanced_topics/debug.html" >Debugging & Tracebacks</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../advanced_topics/settings.html" >Library Settings</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Code Block Syntax & Options</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Code Block Syntax &amp; Options</h1>
+<p>Drawlib's document builder parses embedded drawing code blocks directly within Markdown and HTML documents. This page describes the supported syntax, header options, and execution rules.</p>
+<hr />
+<h2>1. Basic Syntax</h2>
+<p>Embedded drawing code blocks in Markdown use the <code>drawlib</code> language identifier:</p>
+<pre><code class="language-markdown">
+
+&lt;div class=&quot;drawlib-image&quot;&gt;
+  &lt;img src=&quot;code_blocks_images/1.png&quot; alt=&quot;code_blocks_1&quot; /&gt;
+&lt;/div&gt;
+
+
+</code></pre>
+<h3>Automatic Namespace Injection</h3>
+<p>To minimize repetitive boilerplate in documentation, Drawlib's compiler automatically injects core domain modules into every code block's global namespace:</p>
+<ul>
+<li><code>canvas</code>, <code>shapes</code>, <code>lines</code>, <code>text</code>, <code>icons</code>, <code>images</code></li>
+<li><code>colors</code>, <code>preset_styles</code>, <code>fonts</code>, <code>types</code>, <code>math</code></li>
+<li><code>smartarts</code>, <code>diagrams</code>, <code>charts</code></li>
+</ul>
+<p>You can call primitives directly without needing <code>import</code> statements in every block.</p>
+<hr />
+<h2>2. Block Header Options</h2>
+<p>Options can be specified on the opening block line as space-separated tokens, <code>key:value</code> pairs, or <code>key=value</code> pairs:</p>
+<pre><code class="language-markdown">
+
+```python
+config(width=100, height=60)
+# Drawing code...
+```
+
+&lt;figure class=&quot;drawlib-image&quot; style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;code_blocks_images/arch.png&quot; alt=&quot;code_blocks_2&quot; style=&quot;width: 500px; max-width: 100%;&quot; /&gt;
+  &lt;figcaption class=&quot;drawlib-caption&quot;&gt;Figure 1: System Overview&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+
+</code></pre>
+<h3>Supported Options Reference</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Option</th>
+<th style="text-align:left">Syntax Variations</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Code Visibility</strong></td>
+<td style="text-align:left"><code>show-code</code>, <code>fold-code</code>, <code>hide-code</code><br><code>code:show</code>, <code>code:fold</code>, <code>code:hide</code></td>
+<td style="text-align:left"><code>hide</code></td>
+<td style="text-align:left">Controls how the source code is displayed. <code>hide</code>: renders image only. <code>show-code</code>: renders syntax-highlighted code followed by image. <code>fold-code</code>: renders image followed by a collapsed <code>&lt;details&gt;</code> dropdown.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Image Width</strong></td>
+<td style="text-align:left"><code>500px</code>, <code>100%</code>, <code>w:500px</code>, or integer <code>500</code></td>
+<td style="text-align:left"><code>auto</code></td>
+<td style="text-align:left">Maximum display width of the rendered image in HTML output.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Image Height</strong></td>
+<td style="text-align:left"><code>300px</code>, <code>h:300px</code></td>
+<td style="text-align:left"><code>auto</code></td>
+<td style="text-align:left">Maximum display height of the rendered image.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Alignment</strong></td>
+<td style="text-align:left"><code>center</code>, <code>left</code>, <code>right</code><br><code>a:center</code>, <code>align:center</code></td>
+<td style="text-align:left"><code>center</code></td>
+<td style="text-align:left">Horizontal alignment of the figure within the page.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Filename</strong></td>
+<td style="text-align:left"><code>file:custom_name.png</code></td>
+<td style="text-align:left">Auto-numbered (<code>1.png</code>, etc.)</td>
+<td style="text-align:left">Custom output filename for the rendered illustration file.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Caption</strong></td>
+<td style="text-align:left"><code>caption:&quot;Figure text&quot;</code></td>
+<td style="text-align:left"><em>None</em></td>
+<td style="text-align:left">Descriptive caption displayed beneath the illustration in a <code>&lt;figcaption&gt;</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>CSS Class</strong></td>
+<td style="text-align:left"><code>class:&quot;shadow rounded border&quot;</code></td>
+<td style="text-align:left"><em>None</em></td>
+<td style="text-align:left">Custom CSS classes applied to the wrapping <code>&lt;figure&gt;</code> element.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Output Format</strong></td>
+<td style="text-align:left"><code>format:png</code>, <code>format:webp</code></td>
+<td style="text-align:left"><code>png</code></td>
+<td style="text-align:left">Image format for the rendered illustration file.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Code Visibility Modes</h2>
+<h3>3.1 <code>hide-code</code> (Default)</h3>
+<p>Renders only the final illustration without displaying the Python source code. Ideal for end-user documentation, architecture manuals, and slides.</p>
+<h3>3.2 <code>show-code</code></h3>
+<p>Displays the syntax-highlighted Python code block followed immediately by the rendered illustration. Ideal for developer tutorials and API reference guides.</p>
+<h3>3.3 <code>fold-code</code></h3>
+<p>Renders the illustration first, followed by a collapsible dropdown (<code>&lt;details&gt;&lt;summary&gt;View Python Source Code&lt;/summary&gt;...&lt;/details&gt;</code>) containing the drawing code. In PDF export, the folded dropdown is cleanly omitted to preserve layout.</p>
+<hr />
+<h2>4. Alternative HTML Syntax</h2>
+<p>For authors writing raw HTML documentation or slides, Drawlib also supports native <code>&lt;drawlib&gt;</code> custom tags:</p>
+<pre><code class="language-html">&lt;drawlib width=&quot;600px&quot; align=&quot;center&quot; caption=&quot;Microservices Architecture&quot;&gt;
+config(width=100, height=50)
+rectangle((50, 25), width=80, height=30, text=&quot;API Gateway&quot;)
+&lt;/drawlib&gt;
+</code></pre>
+<p>Alternatively, <code>&lt;script type=&quot;text/drawlib&quot;&gt;</code> can be used:</p>
+<pre><code class="language-html">&lt;script type=&quot;text/drawlib&quot; data-width=&quot;500px&quot; data-align=&quot;center&quot;&gt;
+circle((50, 50), radius=25)
+&lt;/script&gt;
+</code></pre>
+<hr />
+<h2>5. Execution Context &amp; Isolation</h2>
+<p>When compiling code blocks, <code>drawlib.doc_builder</code> guarantees complete isolation between illustrations:</p>
+<ol>
+<li><strong>Canvas Clearing</strong>: The drawing canvas is automatically reset before and after each block execution. Variables or shapes from earlier blocks do not leak into subsequent diagrams.</li>
+<li><strong>Working Directory &amp; Relative Assets</strong>: The execution working directory is temporarily switched (<code>os.chdir</code>) to the document's parent directory. Relative file references (e.g. <code>image(xy=(50, 50), image=&quot;diagram.png&quot;)</code>) resolve reliably against the document's location.</li>
+<li><strong>Deterministic Filename Generation</strong>: Unless an explicit <code>file:name.png</code> option is provided, illustrations are assigned deterministic sequential names (<code>1.png</code>, <code>2.png</code>, ...) within a document-specific directory (e.g. <code>index_images/1.png</code>).</li>
+</ol>
+<hr />
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

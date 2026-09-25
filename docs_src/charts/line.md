@@ -13,19 +13,19 @@ from drawlib import canvas
 from drawlib.charts import LineChart
 
 canvas.initialize()
+canvas.config(width=95, height=65)
 
 chart = LineChart(
     categories=["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     width=80,
-    height=55,
+    height=52,
     title="Monthly Active Users (Thousands)",
     show_points=True,
-    show_values=True,
 )
 chart.add_series("2023", [120, 145, 190, 240, 310, 390])
 chart.add_series("2024", [150, 195, 270, 360, 480, 620])
 chart.configure_y_axis(unit="k", show_grid=True)
-chart.draw(xy=(10.0, 20.0))
+chart.draw(xy=(8.0, 5.0))
 ```
 
 ---
@@ -39,11 +39,12 @@ from drawlib import canvas
 from drawlib.charts import LineChart
 
 canvas.initialize()
+canvas.config(width=95, height=65)
 
 chart = LineChart(
     categories=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     width=80,
-    height=55,
+    height=52,
     title="System Load Average (Smooth)",
     smooth=True,
     show_points=True,
@@ -52,7 +53,7 @@ chart = LineChart(
 chart.add_series("Cluster Alpha", [1.2, 2.5, 1.8, 3.9, 2.1, 1.5, 1.1])
 chart.add_series("Cluster Beta", [0.8, 1.4, 2.2, 2.0, 1.9, 2.8, 2.4], line_style="dashed")
 chart.configure_y_axis(show_grid=True)
-chart.draw(xy=(10.0, 20.0))
+chart.draw(xy=(8.0, 5.0))
 ```
 
 ---
@@ -66,17 +67,18 @@ from drawlib import canvas
 from drawlib.charts import LineChart
 
 canvas.initialize()
+canvas.config(width=95, height=65)
 
 chart = LineChart(
     categories=["Phase 1", "Phase 2", "Phase 3", "Phase 4", "Phase 5"],
     width=80,
-    height=55,
+    height=52,
     title="Data Ingestion Throughput (Log Scale)",
     show_points=True,
 )
 chart.add_series("Throughput", [10.0, 85.0, 950.0, 12000.0, 150000.0])
 chart.configure_y_axis(scale="log", unit="ops/s")
-chart.draw(xy=(10.0, 20.0))
+chart.draw(xy=(8.0, 5.0))
 ```
 
 ---

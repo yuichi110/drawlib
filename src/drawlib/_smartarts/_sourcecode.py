@@ -175,7 +175,7 @@ class SourceCode:
         xy: TypeCoordinate,
         width: TypePosFloat,
         code: TypeStr,
-        style: Style | None = None,
+        style: Style | TypeStr | None = None,
     ) -> None:
         """Draw the source code image on a canvas.
 
@@ -183,7 +183,7 @@ class SourceCode:
             xy (Tuple[float, float]): The (x, y) coordinates for the top-left corner of the image.
             width (float): The width of the image.
             code (str): The source code to render.
-            style (Optional[Style]): The style to apply to the image.
+            style (Union[Style, str, None], optional): The style to apply to the image.
 
         """
         image_ = self.get_image(code=code)

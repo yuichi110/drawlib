@@ -1,143 +1,49 @@
 # BoxList
 
 
-BoxList draws list of texts within boxes.
-Here is examples of BoxList.
+`drawlib.smartarts.BoxList` renders sequentially chained lists of boxed cards or sequence registers. It is commonly used for array visualizations, queue states, execution pipelines, and horizontal/vertical stage progressions.
 
+---
 
-```drawlib show-code 600px center
-from drawlib.canvas import config, save
+## 1. Quick Start
+
+Create a `BoxList`, append or extend items, and render them with `draw()`:
+
+```drawlib show-code 650px center caption:"BoxList Layout & Custom Styling"
+from drawlib.canvas import config
 from drawlib.smartarts import BoxList
 
-config(width=100, height=50)
+config(width=100, height=45)
 
+# 1. Horizontal list (Left to Right)
 b1 = BoxList(default_text_style="white")
 b1.extend(["1", "2", "3", "4"])
-b1.draw(xy=(10, 35), box_width=8, box_height=6)
+b1.draw(xy=(10, 30), box_width=8, box_height=6)
 
-
+# 2. Custom box styling & highlighted elements
 b2 = BoxList(default_box_style="solid", default_text_style="")
 b2.extend(["1", "2"])
 b2.append("3", box_style="red_solid_bold", text_style="red_bold")
 b2.extend(["4", "", ""])
 b2.draw(xy=(10, 10), box_width=8, box_height=6)
 
+# 3. Vertical list (Bottom to Top)
 b3 = BoxList(default_text_style="white")
 b3.extend(["1", "2", "3", "4"])
 b3.draw(xy=(75, 10), box_width=8, box_height=6, align="bottom")
-
-save()
 ```
 
+---
 
-    image1.png
+## 2. Alignment and Orientation
 
-As you can see, BoxList supports changing size, style and alignments.
+`BoxList` supports 4 alignment directions from the anchor coordinate `xy`:
+- **`left`** (default): Extends horizontally to the right.
+- **`right`**: Extends horizontally to the left.
+- **`bottom`**: Stacks vertically upwards.
+- **`top`**: Stacks vertically downwards.
 
-
-# Quick Start
-
-
-BoxList is used in these procedures.
-
-1. Create object with specifying default styles.
-2. Add single or multiple items to list with optional style.
-3. draw with specifying xy, size and align.
-
-Here is an example code.
-
-
-```python
-from drawlib.canvas import config, save
-from drawlib.smartarts import BoxList
-
-config(width=100, height=50)
-
-b1 = BoxList(default_text_style="white")
-b1.extend(["1", "2", "3", "4"])
-b1.draw(xy=(10, 35), box_width=8, box_height=6)
-
-
-b2 = BoxList(default_box_style="solid", default_text_style="")
-b2.extend(["1", "2"])
-b2.append("3", box_style="red_solid_bold", text_style="red_bold")
-b2.extend(["4", "", ""])
-b2.draw(xy=(10, 10), box_width=8, box_height=6)
-
-b3 = BoxList(default_text_style="white")
-b3.extend(["1", "2", "3", "4"])
-b3.draw(xy=(75, 10), box_width=8, box_height=6, align="bottom")
-
-save()
-```
-
-This function call draws a bubble speech shape with a tail starting from the right edge, beginning at 30% from the bottom, extending to 70% along its path.
-
-
-```drawlib 600px center
-from drawlib.canvas import config, save
-from drawlib.smartarts import BoxList
-
-config(width=100, height=50)
-
-b1 = BoxList(default_text_style="white")
-b1.extend(["1", "2", "3", "4"])
-b1.draw(xy=(10, 35), box_width=8, box_height=6)
-
-
-b2 = BoxList(default_box_style="solid", default_text_style="")
-b2.extend(["1", "2"])
-b2.append("3", box_style="red_solid_bold", text_style="red_bold")
-b2.extend(["4", "", ""])
-b2.draw(xy=(10, 10), box_width=8, box_height=6)
-
-b3 = BoxList(default_text_style="white")
-b3.extend(["1", "2", "3", "4"])
-b3.draw(xy=(75, 10), box_width=8, box_height=6, align="bottom")
-
-save()
-```
-
-
-    image1.png
-
-
-# Alignment and XY
-
-
-BoxList supports 4 alignment.
-
-- `left`: Left to right. Default
-- `right`: Right to left
-- `bottom`: Bottom to top
-- `top`: Top to bottom
-
-Each BoxList location depends on args `xy` of function `draw`.
-
-
-```drawlib show-code
-from drawlib.canvas import config, save
-from drawlib.smartarts import BoxList
-
-config(width=100, height=50)
-
-b1 = BoxList(default_text_style="white")
-b1.extend(["1", "2", "3", "4"])
-b1.draw(xy=(10, 35), box_width=8, box_height=6)
-
-
-b2 = BoxList(default_box_style="solid", default_text_style="")
-b2.extend(["1", "2"])
-b2.append("3", box_style="red_solid_bold", text_style="red_bold")
-b2.extend(["4", "", ""])
-b2.draw(xy=(10, 10), box_width=8, box_height=6)
-
-b3 = BoxList(default_text_style="white")
-b3.extend(["1", "2", "3", "4"])
-b3.draw(xy=(75, 10), box_width=8, box_height=6, align="bottom")
-
-save()
-```
+---
 
 
 

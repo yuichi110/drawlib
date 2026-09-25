@@ -17,7 +17,7 @@ Here is an example of a multi-directional mind map:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import config
 from drawlib.smartarts import MindMapNode
 
 config(width=150, height=80)
@@ -76,7 +76,6 @@ root = MindMapNode(
 )
 
 root.draw(xy=(75, 40))
-save()
 ```
 
 <div class="drawlib-image" style="text-align: center;">
@@ -96,7 +95,7 @@ Specifying `branch="bottom"` on the root creates a standard top-down organizatio
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import config
 from drawlib.smartarts import MindMapNode
 
 config(width=100, height=60)
@@ -124,7 +123,6 @@ root = MindMapNode(
 )
 
 root.draw(xy=(50, 50), branch="bottom")
-save()
 ```
 
 <div class="drawlib-image" style="text-align: center;">
@@ -147,7 +145,7 @@ Each node can have one of three shapes:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import config
 from drawlib.smartarts import MindMapNode
 
 config(width=100, height=35)
@@ -165,7 +163,6 @@ root = MindMapNode(
 )
 
 root.draw(xy=(30, 18), branch="right")
-save()
 ```
 
 <div class="drawlib-image" style="text-align: center;">

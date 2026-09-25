@@ -27,20 +27,20 @@ Below is a simple client-server architecture diagram connecting an end user to a
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 
-canvas.initialize()
+canvas.config(width=100, height=35)
 
 d = ArchitectureDiagram(title="Web Application Architecture")
 
 # Add nodes (coordinates specify the icon center)
-client = d.add(Node("Client Browser", icon=PhosphorIcon.BROWSER, icon_size=8.0), (20.0, 50.0))
-server = d.add(Node("API Gateway", icon=PhosphorIcon.CPU, icon_size=8.0), (50.0, 50.0))
-db = d.add(Node("Database", icon=PhosphorIcon.DATABASE, icon_size=8.0), (80.0, 50.0))
+client = d.add(Node("Client Browser", icon=PhosphorIcon.BROWSER, icon_size=8.0), (18.0, 12.0))
+server = d.add(Node("API Gateway", icon=PhosphorIcon.CPU, icon_size=8.0), (50.0, 12.0))
+db = d.add(Node("Database", icon=PhosphorIcon.DATABASE, icon_size=8.0), (82.0, 12.0))
 
 # Connect nodes
 d.connect(client, server, label="HTTPS")
 d.connect(server, db, label="SQL")
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(0.0, 2.0))
 ```
 
 ---
@@ -66,16 +66,16 @@ You can place labels on any side of the icon using `text_position`:
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 
-canvas.initialize()
+canvas.config(width=85, height=55)
 
 d = ArchitectureDiagram()
 
-d.add(Node("Bottom Label", icon=PhosphorIcon.CLOUD, icon_size=8.0, text_position="bottom"), (20.0, 60.0))
-d.add(Node("Top Label", icon=PhosphorIcon.CLOUD, icon_size=8.0, text_position="top"), (50.0, 60.0))
-d.add(Node("Left Label", icon=PhosphorIcon.CLOUD, icon_size=8.0, text_position="left"), (20.0, 25.0))
-d.add(Node("Right Label", icon=PhosphorIcon.CLOUD, icon_size=8.0, text_position="right"), (70.0, 25.0))
+d.add(Node("Bottom Label", icon=PhosphorIcon.CLOUD, icon_size=8.0, text_position="bottom"), (22.0, 36.0))
+d.add(Node("Top Label", icon=PhosphorIcon.CLOUD, icon_size=8.0, text_position="top"), (62.0, 36.0))
+d.add(Node("Left Label", icon=PhosphorIcon.CLOUD, icon_size=8.0, text_position="left"), (22.0, 14.0))
+d.add(Node("Right Label", icon=PhosphorIcon.CLOUD, icon_size=8.0, text_position="right"), (62.0, 14.0))
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(0.0, 0.0))
 ```
 
 ---
@@ -92,19 +92,19 @@ d.draw(xy=(5.0, 5.0))
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup
 
-canvas.initialize()
+canvas.config(width=90, height=65)
 
 d = ArchitectureDiagram(title="Network Isolation")
 
 # Outer boundary
-vpc = d.add(NodeGroup(title="VPC Network", padding=6.0), (10.0, 10.0))
+vpc = d.add(NodeGroup(title="VPC Network", padding=6.0), (5.0, 5.0))
 
 # Nested subnet
-subnet = vpc.add(NodeGroup(title="Private Subnet", padding=5.0), (10.0, 10.0))
-vm1 = subnet.add(Node("App Server 1", icon=GcpIcon.COMPUTE_ENGINE, icon_size=8.0), (15.0, 50.0))
-vm2 = subnet.add(Node("App Server 2", icon=GcpIcon.COMPUTE_ENGINE, icon_size=8.0), (15.0, 20.0))
+subnet = vpc.add(NodeGroup(title="Private Subnet", padding=5.0), (5.0, 5.0))
+vm1 = subnet.add(Node("App Server 1", icon=GcpIcon.COMPUTE_ENGINE, icon_size=8.0), (15.0, 15.0))
+vm2 = subnet.add(Node("App Server 2", icon=GcpIcon.COMPUTE_ENGINE, icon_size=8.0), (45.0, 15.0))
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(5.0, 3.0))
 ```
 
 ### 4.2 Group Boundaries as Connectables
@@ -115,16 +115,16 @@ d.draw(xy=(5.0, 5.0))
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
 
-canvas.initialize()
+canvas.config(width=90, height=45)
 
 d = ArchitectureDiagram()
 
 # Subnet group
-subnet = d.add(NodeGroup(title="Private Subnet", padding=6.0), (10.0, 20.0))
-db = subnet.add(Node("Database", icon=PhosphorIcon.DATABASE, icon_size=8.0), (15.0, 25.0))
+subnet = d.add(NodeGroup(title="Private Subnet", padding=5.0), (5.0, 5.0))
+db = subnet.add(Node("Database", icon=PhosphorIcon.DATABASE, icon_size=8.0), (12.0, 12.0))
 
 # External element
-gateway = d.add(Node("Internet Gateway", icon=PhosphorIcon.GLOBE, icon_size=8.0), (70.0, 45.0))
+gateway = d.add(Node("Internet Gateway", icon=PhosphorIcon.GLOBE, icon_size=8.0), (68.0, 20.0))
 
 # Connect from the group boundary to the gateway
 subnet.connect(gateway, label="VPC Peering")
@@ -146,19 +146,19 @@ The `node.fork()` method provides a clean shortcut for 1-to-N branching via an i
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, PhosphorIcon
 
-canvas.initialize()
+canvas.config(width=95, height=80)
 
 d = ArchitectureDiagram(title="Load Balancing Fan-Out")
 
-lb = d.add(Node("Load Balancer", icon=PhosphorIcon.ARROWS_SPLIT, icon_size=8.0), (20.0, 50.0))
-api1 = d.add(Node("Service Alpha", icon=GcpIcon.CLOUD_RUN, icon_size=8.0), (70.0, 75.0))
-api2 = d.add(Node("Service Beta", icon=GcpIcon.CLOUD_RUN, icon_size=8.0), (70.0, 50.0))
-api3 = d.add(Node("Service Gamma", icon=GcpIcon.CLOUD_RUN, icon_size=8.0), (70.0, 25.0))
+lb = d.add(Node("Load Balancer", icon=PhosphorIcon.ARROWS_SPLIT, icon_size=8.0), (15.0, 35.0))
+api1 = d.add(Node("Service Alpha", icon=GcpIcon.CLOUD_RUN, icon_size=8.0), (65.0, 55.0))
+api2 = d.add(Node("Service Beta", icon=GcpIcon.CLOUD_RUN, icon_size=8.0), (65.0, 35.0))
+api3 = d.add(Node("Service Gamma", icon=GcpIcon.CLOUD_RUN, icon_size=8.0), (65.0, 15.0))
 
-# Branch at X = 45.0
-lb.fork([api1, api2, api3], at_x=45.0)
+# Branch at X = 40.0
+lb.fork([api1, api2, api3], at_x=40.0)
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(5.0, 4.0))
 ```
 
 ### 5.2 Dynamic Waypoint Branching with `edge.add_point()`
@@ -169,19 +169,19 @@ You can turn any point along an edge into a branching junction using `edge.add_p
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 
-canvas.initialize()
+canvas.config(width=95, height=65)
 
 d = ArchitectureDiagram()
 
-src = d.add(Node("Publisher", icon=PhosphorIcon.BROADCAST, icon_size=8.0), (15.0, 50.0))
-sub1 = d.add(Node("Consumer 1", icon=PhosphorIcon.DESKTOP, icon_size=8.0), (80.0, 70.0))
-sub2 = d.add(Node("Consumer 2", icon=PhosphorIcon.DESKTOP, icon_size=8.0), (80.0, 30.0))
+src = d.add(Node("Publisher", icon=PhosphorIcon.BROADCAST, icon_size=8.0), (15.0, 30.0))
+sub1 = d.add(Node("Consumer 1", icon=PhosphorIcon.DESKTOP, icon_size=8.0), (75.0, 48.0))
+sub2 = d.add(Node("Consumer 2", icon=PhosphorIcon.DESKTOP, icon_size=8.0), (75.0, 12.0))
 
 # Main stream connection
 main_edge = d.connect(src, sub1, label="Event Stream")
 
-# Branch off the stream at (50.0, 50.0)
-junction = main_edge.add_point((50.0, 50.0))
+# Branch off the stream at (45.0, 30.0)
+junction = main_edge.add_point((45.0, 30.0))
 junction.connect(sub2)
 
 d.draw(xy=(5.0, 5.0))
@@ -204,21 +204,21 @@ By default, connection lines anchor directly onto the outer boundary of nodes or
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 
-canvas.initialize()
+canvas.config(width=95, height=60)
 
 d = ArchitectureDiagram(title="Edge Padding Comparison")
 
 # Without padding (line touches boundary)
-n1 = d.add(Node("No Padding", icon=PhosphorIcon.DATABASE, icon_size=8.0), (20.0, 65.0))
-n2 = d.add(Node("Target A", icon=PhosphorIcon.DESKTOP, icon_size=8.0), (75.0, 65.0))
+n1 = d.add(Node("No Padding", icon=PhosphorIcon.DATABASE, icon_size=8.0), (18.0, 33.0))
+n2 = d.add(Node("Target A", icon=PhosphorIcon.DESKTOP, icon_size=8.0), (72.0, 33.0))
 d.connect(n1, n2, label="padding=0.0")
 
 # With symmetric padding
-n3 = d.add(Node("With Padding", icon=PhosphorIcon.DATABASE, icon_size=8.0), (20.0, 25.0))
-n4 = d.add(Node("Target B", icon=PhosphorIcon.DESKTOP, icon_size=8.0), (75.0, 25.0))
+n3 = d.add(Node("With Padding", icon=PhosphorIcon.DATABASE, icon_size=8.0), (18.0, 12.0))
+n4 = d.add(Node("Target B", icon=PhosphorIcon.DESKTOP, icon_size=8.0), (72.0, 12.0))
 d.connect(n3, n4, label="padding=2.5", padding=2.5)
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(5.0, 3.0))
 ```
 
 ---
@@ -236,6 +236,7 @@ You can wrap any external image (file path, `Dimage`, or PIL `Image`) in a `Cust
 ```python
 from PIL import Image
 from drawlib.diagrams.architecture import CustomIcon, Node
+from drawlib.images import Dimage
 
 # From file path
 custom_1 = CustomIcon("assets/my_custom_service.png")
@@ -257,7 +258,7 @@ Here is a full multi-tier GCP VPC cloud architecture example combining nested su
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 
-canvas.initialize()
+canvas.config(width=105, height=120)
 
 d = ArchitectureDiagram(title="GCP Production Cloud Architecture")
 
@@ -286,7 +287,7 @@ d.connect(gke1, cloud_sql, label="Read/Write")
 d.connect(gke2, cloud_sql, label="Read/Write")
 d.connect(gke1, gcs, label="Uploads")
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(5.0, 7.0))
 ```
 
 ---

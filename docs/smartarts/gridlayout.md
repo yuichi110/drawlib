@@ -7,13 +7,13 @@ Class `GridLayout` draws smart art grid layouted rectangles.
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import config
 from drawlib.smartarts import GridLayout
 from drawlib.text import text
 
-config(width=100, height=50, grid=True)
+config(width=100, height=50)
 
-gl1 = GridLayout(num_column=7, num_row=3)
+gl1 = GridLayout(num_column=7, num_row=3, default_textstyle="white")
 gl1.add(position=(0, 0), width=5, height=1, text="Host OS")
 gl1.add(position=(0, 1), width=5, height=1, text="Python")
 gl1.add(position=(0, 2), width=1, height=1, text="D")
@@ -37,8 +37,6 @@ gl2.add(position=(4, 2), width=1, height=1, text="l", textangle=270)
 gl2.add(position=(5, 2), width=1, height=1, text="i")
 gl2.add(position=(6, 2), width=1, height=1, text="b")
 gl2.draw((55, 10), width=40, height=20, margin=1, outer_style="solid", outer_r=1)
-
-save()
 ```
 
 <div class="drawlib-image" style="text-align: center;">
@@ -46,9 +44,6 @@ save()
 </div>
 
 
-
-
-    image1.png
 
 You can draw grid layout with these procedure.
 

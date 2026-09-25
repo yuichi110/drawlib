@@ -116,16 +116,11 @@ for i, t in enumerate([
     middle(x, width, name, functions, styles)
 
 top()
-
-save()
 ```
 
 </details>
 
 
-
-
-    image1.png
 
 The image above illustrates Drawlib's core components, categorized into five sections representing its various APIs. 
 Despite its complexity, Drawlib maintains consistency in function arguments and style classes.

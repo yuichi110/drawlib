@@ -1,57 +1,54 @@
 # Drawing Shape
 
 
-Drawlib provides a variety of functions for drawing shapes, from basic circles and rectangles to more specialized shapes like bubblespeech and chevrons. 
-These functions are categorized into three types based on the shapes they draw:
+Drawlib provides 21 functions for drawing vector shapes, from basic circles and rectangles to directed block arrows and custom vector paths. 
+These functions are categorized into three primary geometry types:
 
-* Circle-like shape: Specify `xy` and `radius`
-* Rectangle-like shape: Specify `xy` and `width`, `height`
-* Other shapes: Arrow(from `xy1` to `xy2`), Polygon(connects `xys` and filling) etc.
+* **Circle-like shapes** (`xy`, `radius`): Centered geometry defined by radius and angle spans.
+* **Rectangle-like & planar shapes** (`xy`, `width`, `height`): Planar geometry centered at `xy` with dimensions and rotation.
+* **Directed Block Arrows & Polygons**: Straight and routed block arrows, multi-point polygons, and custom vector shapes.
 
 
 ## Circle-like Shapes
 
-
 Functions that draw circle-like shapes include:
 
-* `circle()`
-* `donuts()`
-* `fan()`
-* `regularpolygon()`
-* `star()`
-* `wedge()`
+* `circle()`: Standard circle
+* `donuts()`: Ring shape with outer radius and thickness
+* `fan()`: Circular sector between angles
+* `regularpolygon()`: Equilateral polygon with $N$ vertices (pentagon, hexagon, octagon)
+* `star()`: Multi-pointed star with inner/outer radii
+* `wedge()`: Donut sector between angles
 
 
-## Rectangle-like Shapes
-
+## Rectangle-like & Planar Shapes
 
 Functions that draw rectangle-like shapes include:
 
-* `arc()`
-* `chevron()`
-* `ellipse()`
-* `parallelogram()`
-* `rectangle()`
-* `rhombus()`
-* `trapezoid()`
-* `triangle`
+* `rectangle()`: Standard rectangle with optional rounded corners (`r`)
+* `ellipse()`: Oval shape with independent width and height
+* `arc()`: Planar pie-slice sector on an ellipse
+* `parallelogram()`: Slanted parallelogram
+* `rhombus()`: Diamond / rhombus shape
+* `trapezoid()`: Symmetric trapezoid
+* `triangle()`: Equilateral or oriented triangle
+* `chevron()`: Arrowhead-shaped process block
 
 
-## Other Shapes
+## Directed Block Arrows & Custom Paths
 
+Functions for block arrows and complex paths include:
 
-Functions that draw other types of shapes include:
+* `arrow()`: Direct straight block arrow (`xy1` to `xy2`)
+* `arrow_l()`: L-shaped right-angled block arrow (`xy1` to `xy2`)
+* `arrow_u()`: U-turn block arrow (`xy1` to `xy2`)
+* `arrow_arc()`: Circular arc block arrow (`xy`, `width`, `height`)
+* `arrow_polyline()`: Multi-point routed block arrow
+* `polygon()`: Closed polygon connecting an arbitrary list of coordinate tuples
+* `shape()`: Custom vector polygon constructed from local path points
 
-* `arrow()`
-* `polygon()`
-* `shape()`
-
-Let's explore all of these functions, except `shape()` which is covered on another page. 
-The `shape()` function is useful for drawing custom shapes.
-
-By default, all shapes are horizontally and vertically centered. 
-This can be changed using the `Style()` object (via `text_halign` and `text_valign`). 
-However, `arrow()` and `polygon()` do not have alignment attributes and will ignore these settings.
+By default, all closed shapes are centered at their geometric center `xy`. 
+Alignment can be adjusted using `style` (`text_halign` and `text_valign`).
 
 We'll discuss styling with `Style` on another page.
 

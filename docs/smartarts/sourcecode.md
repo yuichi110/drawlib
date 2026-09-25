@@ -9,27 +9,18 @@ Here is an example of code:
 
 
 ```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors, Colors140
+from drawlib.canvas import config
+from drawlib.colors import Colors140
 from drawlib.fonts import FontSourceCode
 from drawlib.shapes import circle
 from drawlib.smartarts import SourceCode
-from drawlib.types import Style
 
 CODE = """
+from drawlib.canvas import config
+from drawlib.shapes import circle
 
 config(width=100, height=100)
-circle(
-    xy=(50, 50),
-    radius=30,
-    style=Style(
-        line_style="dashed",
-        line_color=Colors140.BlueViolet,
-        line_width=5,
-        fill_color=Colors140.Turquoise,
-    ),
-)
-save()
+circle(xy=(50, 50), radius=30, style="blue_dashed")
 """.strip()
 
 config(width=100, height=50)
@@ -47,33 +38,25 @@ sc2 = SourceCode(
     linenum_textcolor=Colors140.Black,
     linenum_bgcolor=Colors140.LightGray,
 )
-sc2.draw((75, 25), width=40, code=CODE, style=Style(line_width=2, line_color=Colors.Red))
-
-save()
+sc2.draw((75, 25), width=40, code=CODE, style="red_solid")
 ```
 
 In the example above, the `SourceCode` instance is configured with options such as:
 
-- language: Specifies the programming language (automatically detected if not provided).
-- style: Defines the syntax highlighting style (e.g., monokai).
-- font: Source code font
-- show_linenum: Determines whether to display line numbers.
-- linenum_textcolor and linenum_bgcolor: Customize the colors of line numbers.
+- `language`: Specifies the programming language (automatically detected if not provided).
+- `style`: Defines the syntax highlighting style (e.g., `"monokai"`, `"default"`).
+- `font`: Source code font (from `FontSourceCode`).
+- `show_linenum`: Determines whether to display line numbers.
+- `linenum_textcolor` and `linenum_bgcolor`: Customize the colors of line numbers.
 
-After creating instance, you will draw code with `draw()` method.
-This method's arg is same to `image()`.
-But it takes `code` argument instead of `image` argument.
+After creating an instance, draw the code using the `draw()` method:
 
-Here is a list of `draw()` arguments:
+- `xy`: Coordinates `(x, y)` to center the source code block.
+- `width`: Width of the source code container.
+- `code`: The source code string to render.
+- `style`: Container box style (border, background).
 
-- xy: Coordinates to place the source code image.
-- width: Width of the source code image.
-- code: The source code string.
-- style: Style for source code image
-
-
-Executing the code will generate below output:
-
+Executing the code produces:
 
 
 
@@ -82,9 +65,6 @@ Executing the code will generate below output:
 </div>
 
 
-
-
-    image1.png
 
 
 
@@ -120,11 +100,10 @@ Here are output of Source Code styles.
 <summary>Source Code</summary>
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import config
 from drawlib.fonts import FontSourceCode
 from drawlib.smartarts import SourceCode
 from drawlib.text import text
-from drawlib.types import Style
 
 CODE = """
 import math
@@ -163,7 +142,7 @@ for style in [
 
     x = xs[ix]
     y = ys[iy]
-    sc.draw(xy=(x, y), width=25, code=CODE, style=Style(line_width=1))
+    sc.draw(xy=(x, y), width=25, code=CODE, style="solid")
     text((x, y - 9), text=style)
 
     if ix == len(xs) - 1:
@@ -171,16 +150,11 @@ for style in [
         iy += 1
     else:
         ix += 1
-
-save()
 ```
 
 </details>
 
 
-
-
-    image2.png
 
 
 # get_text()

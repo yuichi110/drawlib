@@ -92,20 +92,20 @@ from drawlib.diagrams.flow import (
 )
 from drawlib.types import Style
 
-canvas.initialize()
+canvas.config(width=95, height=55)
 
 flow = FlowDiagram(title="Supported Flowchart Symbols")
 
-flow.add(Start("Start / End"), xy=(20.0, 70.0))
-flow.add(Process("Process / Task"), xy=(50.0, 70.0))
-flow.add(Data("Data (I/O)"), xy=(80.0, 70.0))
+flow.add(Start("Start / End"), xy=(18.0, 36.0))
+flow.add(Process("Process / Task"), xy=(50.0, 36.0))
+flow.add(Data("Data (I/O)"), xy=(82.0, 36.0))
 
 decision_style = Style(
     fill_color=Colors140.LightYellow,
     line_color=Colors140.DarkGoldenRod,
     line_width=2.0,
 )
-flow.add(Decision("Decision\nCondition", style=decision_style), xy=(50.0, 35.0))
+flow.add(Decision("Decision\nCondition", style=decision_style), xy=(50.0, 15.0))
 
 flow.draw()
 ```
@@ -201,22 +201,19 @@ flow.add_lane("Finance Dept", width=35.0)
 # 2. Add nodes (Y coordinates align corresponding steps horizontally)
 submit = flow.add(Start("Submit Expense"), xy=(15.0, 85.0))
 review = flow.add(Process("Review Receipt"), xy=(47.5, 85.0))
-decision = flow.add(Decision("Amount < $500?"), xy=(47.5, 62.0))
+decision = flow.add(Decision("Amount < $500?"), xy=(47.5, 60.0))
 
-j = flow.junction(xy=(47.5, 45.0))
-decision.connect(j)
-
-auto_pay = flow.add(Process("Disburse Payment"), xy=(82.5, 45.0))
-manual_audit = flow.add(Process("Manual Audit"), xy=(82.5, 25.0))
-end = flow.add(End("Close Claim"), xy=(15.0, 45.0))
+manual_audit = flow.add(Process("Manual Audit"), xy=(82.5, 60.0))
+disburse = flow.add(Process("Disburse Payment"), xy=(82.5, 32.0))
+end = flow.add(End("Claim Settled"), xy=(15.0, 15.0))
 
 # 3. Connect cross-lane steps
 submit.connect(review)
 review.connect(decision)
-j.connect(auto_pay, label="Yes")
-j.connect(manual_audit, label="No", start_side="bottom", end_side="left")
-auto_pay.connect(end, label="Receipt Sent")
-manual_audit.connect(auto_pay, start_side="top", end_side="bottom")
+decision.connect(manual_audit, label="No", start_side="right", end_side="left")
+decision.connect(disburse, label="Yes", start_side="bottom", end_side="left")
+manual_audit.connect(disburse, start_side="bottom", end_side="top")
+disburse.connect(end, label="Payment Sent", start_side="bottom", end_side="right")
 
 flow.draw()
 ```

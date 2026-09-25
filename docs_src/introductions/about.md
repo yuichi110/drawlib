@@ -53,11 +53,7 @@ circle(
         fill_color=Colors140.Turquoise,
     ),
 )
-save()
 ```
-
-
-    image1.png
 
 As illustrated, Drawlib generates an image corresponding to your code.
 
@@ -80,14 +76,134 @@ This can be easily achieved by defining reusable styles or configuration scripts
 Here is a typical use case of Drawlib:
 
 
-![image_buildmany.png](image_buildmany.png)
+```drawlib 650px center
+from drawlib.canvas import config, save
+from drawlib.colors import Colors
+from drawlib.icons import phosphor
+from drawlib.lines import line
+from drawlib.shapes import arrow, rectangle
+from drawlib.text import text
+from drawlib.types import Style
 
+config(width=100, height=60)
 
-    Build many images at same time
+rect_width = 20
+rect_height = 38
+style_dashed = Style(line_style="dashed", fill_color=Colors.White)
+style_text_head = Style(text_size=15, text_halign="center")
+style_text_left = Style(text_size=11, text_halign="left")
+style_text_red = Style(text_size=11, text_halign="left", text_color=Colors.Red)
+style_tree_line = Style(line_width=1, line_color=Colors.Gray)
+
+def left():
+    text((15, 54), "Drawlib's\nDocument Source", style=style_text_head)
+    rectangle((15, 30), width=rect_width, height=rect_height, r=2, style=style_dashed)
+
+    x = 8
+    phosphor.folder((x, 45), width=3)
+    text((x + 2.5, 45), "docs", style=style_text_left)
+    line((x, 43), (x, 13), style=style_tree_line)
+
+    line((x, 42), (x + 1, 42), style=style_tree_line)
+    phosphor.folder((x + 3, 42), width=3)
+    text((x + 5.5, 42), "commons", style=style_text_left)
+    line((x + 3, 40), (x + 3, 35), style=style_tree_line)
+    phosphor.file_py((x + 6, 39), width=3, style=Style(text_color=Colors.Red))
+    text((x + 8.5, 39), "style.py", style=style_text_red)
+    line((x + 3, 39), (x + 4, 39), style=style_tree_line)
+    phosphor.file_py((x + 6, 36), width=3, style=Style(text_color=Colors.Red))
+    text((x + 8.5, 36), "util.py", style=style_text_red)
+    line((x + 3, 36), (x + 4, 36), style=style_tree_line)
+
+    line((x, 30), (x + 1, 30), style=style_tree_line)
+    phosphor.folder((x + 3, 30), width=3)
+    text((x + 5.5, 30), "chapter1", style=style_text_left)
+    line((x + 3, 28), (x + 3, 19), style=style_tree_line)
+    phosphor.file_md((x + 6, 27), width=3)
+    text((x + 8.5, 27), "doc.md", style=style_text_left)
+    line((x + 3, 27), (x + 4, 27), style=style_tree_line)
+    phosphor.file_py((x + 6, 24), width=3, style=Style(text_color=Colors.Red))
+    text((x + 8.5, 24), "img1.py", style=style_text_red)
+    line((x + 3, 24), (x + 4, 24), style=style_tree_line)
+    phosphor.file_py((x + 6, 21), width=3, style=Style(text_color=Colors.Red))
+    text((x + 8.5, 21), "img2.py", style=style_text_red)
+    line((x + 3, 21), (x + 4, 21), style=style_tree_line)
+
+    line((x, 15), (x + 1, 15), style=style_tree_line)
+    phosphor.folder((x + 3, 15), width=3)
+    text((x + 5.5, 15), "chapter2", style=style_text_left)
+
+def center():
+    text((50, 54), "Traditional\nDocument Source", style=style_text_head)
+    rectangle((50, 30), width=rect_width, height=rect_height, r=2, style=style_dashed)
+
+    x = 43
+    phosphor.folder((x, 45), width=3)
+    text((x + 2.5, 45), "docs", style=style_text_left)
+    line((x, 43), (x, 13), style=style_tree_line)
+
+    line((x, 30), (x + 1, 30), style=style_tree_line)
+    phosphor.folder((x + 3, 30), width=3)
+    text((x + 5.5, 30), "chapter1", style=style_text_left)
+    line((x + 3, 28), (x + 3, 19), style=style_tree_line)
+    phosphor.file_md((x + 6, 27), width=3)
+    text((x + 8.5, 27), "doc.md", style=style_text_left)
+    line((x + 3, 27), (x + 4, 27), style=style_tree_line)
+    phosphor.file_image((x + 6, 24), width=3, style=Style(text_color=Colors.Red))
+    text((x + 8.5, 24), "img1.png", style=style_text_red)
+    line((x + 3, 24), (x + 4, 24), style=style_tree_line)
+    phosphor.file_image((x + 6, 21), width=3, style=Style(text_color=Colors.Red))
+    text((x + 8.5, 21), "img2.png", style=style_text_red)
+    line((x + 3, 21), (x + 4, 21), style=style_tree_line)
+
+    line((x, 15), (x + 1, 15), style=style_tree_line)
+    phosphor.folder((x + 3, 15), width=3)
+    text((x + 5.5, 15), "chapter2", style=style_text_left)
+
+def right():
+    text((85, 54), "Output Documents", style=style_text_head)
+    rectangle((85, 30), width=rect_width, height=rect_height, r=2, style=style_dashed)
+
+    phosphor.file_pdf((85, 43), width=6)
+    phosphor.file_html((85, 35), width=6)
+    phosphor.file_ppt((85, 27), width=6)
+    phosphor.book_bookmark((85, 19), width=6)
+    text((85, 14.5), text="eBook", style=Style(text_size=13, text_halign="center"))
+
+def bottom():
+    rectangle((50, 5), width=90, height=6, r=2, style=Style(fill_color=Colors.White, line_color=Colors.Black))
+    phosphor.github_logo((17, 5), width=5)
+    text((53, 5), "Illustration and doc text versioning with CI/CD automation", style=Style(text_size=14, text_halign="center"))
+
+left()
+arrow(
+    (28, 35),
+    (37, 35),
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+    style="red_flat",
+    text="Drawlib",
+    textstyle=Style(text_size=13, text_color=Colors.White),
+)
+text((32, 25), "Build\nImages", style=Style(text_size=14, text_halign="center", text_color=Colors.Red))
+center()
+arrow(
+    (63, 35),
+    (72, 35),
+    tail_width=3,
+    head_width=6,
+    head_length=3,
+    style=Style(fill_color=Colors.White, line_color=Colors.Black),
+)
+text((67, 25), "Build\nDocs", style=Style(text_size=14, text_halign="center"))
+right()
+bottom()
+```
 
 As a real-world example, almost all of the documentation images are created using Drawlib. 
 The build flow is similar to the image above. 
-We first build images using Drawlib, then build the document via Sphinx, and finally publish it to the Internet. 
+We compile documents via Drawlib Document Builder and publish them to the Internet or repository. 
 These images are built by scripts locally for quick verification of the drawing results. 
 To reduce human error and operation costs, we run CI/CD processes when code is committed to the GitHub repository.
 

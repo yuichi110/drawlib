@@ -1,19 +1,21 @@
 # Drawing line
 
 
-Drawlib provides six functions for drawing lines:
+Drawlib provides eight functions for drawing lines:
 
-* `line()`
-* `line_curve()`
-* `line_bezier1()`
-* `line_bezier2()`
-* `lines()`
-* `lines_bezier()`
+* `line()`: Straight line between two coordinates
+* `line_curved()`: Smooth arc with a specified bend ratio
+* `line_bezier1()`: Quadratic Bezier curve (1 control point)
+* `line_bezier2()`: Cubic Bezier curve (2 control points)
+* `lines()`: Multi-point connected polyline
+* `lines_curved()`: Multi-point connected lines with rounded corners (`r`)
+* `lines_bezier()`: Chained multi-segment Bezier spline
+* `line_arc()`: Elliptical circular arc line
 
 We will explain each of these functions in detail. 
 They all share the following optional arguments:
 
-- `arrowhead`: Specifies the type of arrowhead. Options are `["", "->", "<-", "<->"]`.
+- `arrowhead`: Specifies the type of arrowhead. Options are `["", "->", "<-", "<->", "-"]`.
 - `width`: Specifies the line width. This should typically be configured within the style, but it is also available as an optional argument.
 - `style`: Defines the line style. Accepts a Style object or a string (style name).
 
@@ -456,12 +458,7 @@ circle(xy=(60, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=
 circle(xy=(60, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
 circle(xy=(90, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
 circle(xy=(90, 10), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-
-save()
 ```
-
-
-    image6.png
 
 This function can be used to draw curved lines from shape to shape like this:
 
@@ -493,12 +490,7 @@ line(xy1=(90, 40), xy2=(90, 25), style=Style(line_style="dashed", line_color=Col
 circle(xy=(75, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
 circle(xy=(90, 40), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
 circle(xy=(90, 25), radius=0.5, style=Style(fill_color=Colors.White, line_color=Colors.Red))
-
-save()
 ```
-
-
-    image7.png
 
 For precise control, use this function. 
 However, if you want to draw a simple curved line, we recommend using `lines_curved()` instead.
@@ -582,6 +574,38 @@ save()
 The red dashed support line length is the value of `r`. 
 If you set a large value, the curve becomes bigger. 
 However, be careful: `r` should be smaller than the distance between points.
+
+
+# line_arc()
+
+The `line_arc()` function draws an elliptical or circular arc line.
+
+It accepts the following arguments:
+
+* `xy`: Center coordinate `(x, y)` of the ellipse
+* `width`: Total horizontal width of the ellipse
+* `height`: Total vertical height of the ellipse
+* `angle_start`: Starting angle in degrees (default: `0`)
+* `angle_end`: Ending angle in degrees (default: `180`)
+* `angle`: Overall rotation angle of the ellipse (default: `0`)
+* `arrowhead`: Arrowhead style (`""`, `"->"`, `"<-"`, `"<->"`, `"-"`)
+* `linewidth`: Optional width of the line
+* `style`: Optional line style
+* `ccw`: Counter-clockwise if `True` (default), clockwise if `False`
+
+```drawlib 600px center
+from drawlib.canvas import config, save
+from drawlib.lines import line_arc
+
+config(width=100, height=50)
+
+# Circular upper arc with arrowhead
+line_arc(xy=(30, 25), width=30, height=30, angle_start=0, angle_end=180, arrowhead="->")
+
+# Elliptical lower arc
+line_arc(xy=(70, 25), width=40, height=25, angle_start=180, angle_end=360, arrowhead="<->", style="blue")
+save()
+```
 
 ---
 

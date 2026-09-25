@@ -296,7 +296,7 @@ text(
     "Hello Drawlib!",
     style=Style(
         text_size=36,
-        text_font=FontFile("./avenger/regular.ttf"),
+        text_font=FontFile("../_assets/avenger/regular.ttf"),
     ),
 )
 save()

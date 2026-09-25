@@ -31,6 +31,7 @@ from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
+canvas.config(width=92, height=86)
 
 d = SequenceDiagram(title="Client-Server Authentication Flow")
 
@@ -51,7 +52,7 @@ db.reply(server, "User Record")
 server.reply(client, "200 OK (JWT Token)")
 client.reply(user, "Render Dashboard")
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(3.0, 3.0))
 ```
 
 ---
@@ -67,6 +68,7 @@ from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
+canvas.config(width=72, height=65)
 
 d = SequenceDiagram(title="Sync vs Async Interactions")
 
@@ -83,7 +85,7 @@ queue.request(worker, "Dispatch Event", is_async=True)
 # Asynchronous acknowledgment (dashed open stick arrow)
 worker.reply(queue, "Ack Task", is_async=True)
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(3.0, 3.0))
 ```
 
 ### 3.2 Bidirectional Connections (`<->`)
@@ -95,6 +97,7 @@ from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
+canvas.config(width=52, height=65)
 
 d = SequenceDiagram(title="WebSocket Communication")
 
@@ -107,7 +110,7 @@ server.reply(client, "101 Switching Protocols")
 # Bidirectional persistent communication
 client.connect(server, "Bidirectional JSON Stream", arrow="<->")
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(3.0, 3.0))
 ```
 
 ### 3.3 Self-Calls (Internal Processing)
@@ -119,6 +122,7 @@ from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
+canvas.config(width=52, height=71)
 
 d = SequenceDiagram(title="Internal Processing")
 
@@ -132,7 +136,7 @@ auth.request(auth, "Verify Password Hash")
 
 auth.reply(client, "Token Issued")
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(3.0, 3.0))
 ```
 
 ---
@@ -149,6 +153,7 @@ from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
+canvas.config(width=75, height=74)
 
 d = SequenceDiagram(title="Annotated Workflow")
 
@@ -165,7 +170,7 @@ d.note("Shared secret negotiated via Diffie-Hellman", over=[sender, receiver])
 
 receiver.reply(sender, "Handshake Complete")
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(3.0, 3.0))
 ```
 
 ---
@@ -184,6 +189,7 @@ from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
+canvas.config(width=86, height=94)
 
 d = SequenceDiagram(title="Transaction Processing Flow")
 
@@ -202,7 +208,7 @@ with d.alt("Sufficient Funds"):
 with d.else_("Insufficient Balance"):
     gateway.reply(client, "402 Payment Required")
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(3.0, 3.0))
 ```
 
 ---
@@ -222,6 +228,7 @@ from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
+canvas.config(width=72, height=85)
 
 d = SequenceDiagram(title="Order Execution Service", autonumber=True)
 
@@ -240,7 +247,7 @@ app.request(app, "Calculate Tax & Total")
 app.reply(user, "Order Confirmation")
 app.deactivate()
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(3.0, 3.0))
 ```
 
 ---
@@ -255,7 +262,7 @@ from drawlib._core.l3_styles import Colors, Style
 from drawlib.diagrams.sequence import SequenceDiagram, GcpIcon, Participant, ParticipantGroup, PhosphorIcon
 
 canvas.initialize()
-canvas.config(width=115, height=115)
+canvas.config(width=106, height=128)
 
 d = SequenceDiagram(title="Microservices Cloud Processing Pipeline", autonumber=True)
 
@@ -294,7 +301,7 @@ with d.loop("Process batches of 100 items"):
     worker.request(db, "Batch Insert Rows")
     db.reply(worker, "Success")
 
-d.draw(xy=(5.0, 5.0))
+d.draw(xy=(3.0, 3.0))
 ```
 
 ---

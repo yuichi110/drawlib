@@ -1,0 +1,601 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rendering from Code (`get_dimage_from_code`)</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Introductions</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../introductions/about.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../introductions/install.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../introductions/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../introductions/lib_design.html" >Library Design Philosophy</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../introductions/release_note.html" >Release Notes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../introductions/links.html" >Useful Links</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Document Builder</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../doc_builder/index.html" >Document Builder Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../doc_builder/code_blocks.html" >Code Block Syntax & Options</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../doc_builder/building_docs.html" >Building Documents (HTML/MD/PDF)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../doc_builder/templates_and_css.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../doc_builder/project_scaffolding.html" >Project Scaffolding</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. CLI Reference</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/index.html" >CLI Overview & Global Options</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/build.html" >drawlib build</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/serve.html" >drawlib serve</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/init.html" >drawlib init</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/inspect.html" >drawlib show & export</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/assets.html" >drawlib cache, template & css</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/rules.html" >drawlib rules</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Foundations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/index.html" >Foundations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/canvas.html" >Canvas & Dimensions</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/coordinate_align.html" >Coordinates & Alignment</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/shape.html" >Shapes Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/shape_circle.html" >Circle-like Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/shape_rectangle.html" >Rectangle-like Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/shape_arrow.html" >Block Arrow Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/shape_style.html" >Shape Styling</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/line.html" >Lines Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/line_style.html" >Line Styles</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/text.html" >Text Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/icon.html" >Icons Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/image.html" >Images Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/dimage.html" >Dimage Image Processing</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/programming.html" >Coding Best Practices</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Styles & Theming</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../styles/index.html" >Styles Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../styles/color.html" >Color System & Utilities</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../styles/font.html" >Fonts System</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../styles/official_default.html" >Default Preset Styles</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../styles/official_essentials.html" >Essentials Preset Styles</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../styles/official_monochrome.html" >Monochrome Preset Styles</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../styles/create.html" >Custom Preset Creation</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../styles/advanced_topics.html" >Advanced Style Topics</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. SmartArts Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/index.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/sourcecode.html" >SourceCode Highlighting</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/table.html" >Table Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/tree.html" >Tree Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/boxlist.html" >BoxList Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/bubblespeech.html" >BubbleSpeech Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/bulletpoints.html" >BulletPoints Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/chevronprocess.html" >ChevronProcess Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/cycle.html" >Cycle Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/gridlayout.html" >GridLayout Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/mindmap.html" >MindMap Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/pyramid.html" >Pyramid Component</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/index.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. Advanced Topics</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="math.html" >Geometry & Math Utilities</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="dimage_from_code.html" >Rendering from Code (`get_dimage_from_code`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="debug.html" >Debugging & Tracebacks</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="settings.html" >Library Settings</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Rendering from Code (`get_dimage_from_code`)</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Rendering from Code (<code>get_dimage_from_code</code>)</h1>
+<p>The <code>get_dimage_from_code()</code> function executes a Drawlib Python code snippet in an isolated subprocess and returns the rendered output as a <a href="../foundations/dimage.html"><code>Dimage</code></a> object.</p>
+<p>This allows programmatic diagram composition, nesting diagrams inside larger architectures, applying bitmap image filters (such as blur, grayscale, or inversion) to vector illustrations, and dynamically previewing code snippets.</p>
+<hr />
+<h2>1. Function Overview</h2>
+<pre><code class="language-python">from drawlib.images import Dimage, get_dimage_from_code
+
+dimg: Dimage = get_dimage_from_code(
+    code: str,
+    timeout: float | None = None,
+)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>code</code></strong></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><em>required</em></td>
+<td style="text-align:left">Python source code string containing Drawlib drawing operations.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>timeout</code></strong></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Maximum execution time in seconds. If exceeded, the worker process is terminated and a <code>TimeoutError</code> is raised.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><a href="../foundations/dimage.html"><code>Dimage</code></a>: An image data object representing the rendered canvas output.</li>
+</ul>
+<hr />
+<h2>2. Key Architecture &amp; Benefits</h2>
+<h3>2.1 Complete Process Isolation</h3>
+<p>Unlike standard function calls that share the global Python interpreter and Matplotlib state, <code>get_dimage_from_code()</code> spawns an independent child process via <code>multiprocessing</code>.</p>
+<ul>
+<li>The parent canvas's artist list, dimensions, and active preset styles remain completely untouched.</li>
+<li>The child code can define its own canvas size, background color, and styling without leaking into the surrounding context.</li>
+</ul>
+<h3>2.2 Automatic <code>save()</code> Interception</h3>
+<p>If the provided code string contains a <code>save()</code> call (such as code copied directly from standalone scripts), the subprocess safely intercepts the save operation and redirects the rendered pixels to an in-memory buffer. No files are written to the filesystem.</p>
+<h3>2.3 Safe Timeout Management</h3>
+<p>When executing untrusted or dynamically generated drawing code, setting <code>timeout</code> guarantees that infinite loops or heavy computations are safely killed before blocking the main application.</p>
+<hr />
+<h2>3. Practical Usage Examples</h2>
+<h3>3.1 Basic Subprocess Rendering</h3>
+<p>In this example, an independent circular illustration is defined as a code snippet, rendered into a <code>Dimage</code>, and placed onto the main canvas.</p>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.images import get_dimage_from_code, image
+from drawlib.shapes import rectangle
+from drawlib.text import text
+
+config(width=100, height=50)
+
+# 1. Define child drawing code
+child_code = &quot;&quot;&quot;
+from drawlib.canvas import config
+from drawlib.shapes import circle
+
+config(width=60, height=60)
+circle((30, 30), radius=22, style=&quot;blue_flat&quot;)
+circle((30, 30), radius=10, style=&quot;white_flat&quot;)
+&quot;&quot;&quot;
+
+# 2. Render code in an isolated subprocess
+nested_dimage = get_dimage_from_code(child_code)
+
+# 3. Draw onto parent canvas
+rectangle((25, 25), width=32, height=32, style=&quot;gray_light&quot;)
+image((25, 25), width=30, image=nested_dimage)
+text((25, 5), &quot;Original Dimage&quot;, size=9)
+
+rectangle((75, 25), width=32, height=32, style=&quot;gray_light&quot;)
+image((75, 25), width=30, image=nested_dimage.grayscale())
+text((75, 5), &quot;Grayscale Filter Applied&quot;, size=9)
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="dimage_from_code_images/1.png" alt="dimage_from_code_1" style="width: 600px; max-width: 100%;" />
+</div>
+<hr />
+<h3>3.2 Diagram Composition (Picture-in-Picture)</h3>
+<p>You can nest a detailed sub-diagram inside a larger architectural overview without coordinating coordinate grids across both scopes.</p>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.colors import Colors
+from drawlib.images import get_dimage_from_code, image
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+from drawlib.text import text
+from drawlib.types import Style
+
+config(width=120, height=60)
+
+# Microservice pipeline snippet rendered as a standalone unit
+pipeline_code = &quot;&quot;&quot;
+from drawlib.canvas import config
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+
+config(width=80, height=40)
+rectangle((20, 20), width=26, height=20, style=&quot;blue_flat&quot;, text=&quot;Ingest&quot;, textsize=18, textstyle=&quot;white&quot;)
+line((34, 20), (46, 20), arrowhead=&quot;-&gt;&quot;, style=&quot;bold&quot;)
+rectangle((60, 20), width=26, height=20, style=&quot;green_flat&quot;, text=&quot;Worker&quot;, textsize=18, textstyle=&quot;white&quot;)
+&quot;&quot;&quot;
+
+sub_diagram = get_dimage_from_code(pipeline_code)
+
+# Main Architecture Canvas
+rectangle(
+    (30, 30),
+    width=35,
+    height=35,
+    style=&quot;purple_flat&quot;,
+    text=&quot;API Gateway\n(Parent Scope)&quot;,
+    textstyle=Style(text_color=Colors.White, text_size=11),
+)
+line((48, 30), (68, 30), arrowhead=&quot;-&gt;&quot;, style=Style(line_width=2, line_color=Colors.Gray))
+
+# Frame for the nested diagram
+rectangle((92, 30), width=48, height=36, style=Style(fill_color=Colors.White, line_color=Colors.Blue, line_style=&quot;dashed&quot;, line_width=1.5))
+text((92, 45), &quot;Subsystem Pipeline (Nested)&quot;, size=9, style=&quot;blue&quot;)
+image((92, 26), width=44, image=sub_diagram)
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="dimage_from_code_images/2.png" alt="dimage_from_code_2" style="width: 650px; max-width: 100%;" />
+</div>
+<hr />
+<h3>3.3 Applying Image Filters to Vector Drawings</h3>
+<p>Because <code>get_dimage_from_code()</code> produces a <code>Dimage</code> object, you can apply any <code>Dimage</code> raster transformations—such as <code>.blur()</code>, <code>.invert()</code>, or <code>.brightness()</code>—to native Drawlib vector illustrations.</p>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.images import get_dimage_from_code, image
+from drawlib.text import text
+
+config(width=120, height=50)
+
+# Generate a high-contrast logo vector
+logo_code = &quot;&quot;&quot;
+from drawlib.canvas import config
+from drawlib.shapes import star
+
+config(width=60, height=60)
+star((30, 30), num_vertex=5, radius_ext=25, radius_int=10, style=&quot;red_flat&quot;)
+&quot;&quot;&quot;
+
+logo = get_dimage_from_code(logo_code)
+
+# 1. Normal
+image((18, 25), width=26, image=logo)
+text((18, 6), &quot;Normal&quot;, size=9)
+
+# 2. Inverted
+image((46, 25), width=26, image=logo.invert())
+text((46, 6), &quot;invert()&quot;, size=9)
+
+# 3. Blurred
+image((74, 25), width=26, image=logo.blur())
+text((74, 6), &quot;blur()&quot;, size=9)
+
+# 4. Grayscale
+image((102, 25), width=26, image=logo.grayscale())
+text((102, 6), &quot;grayscale()&quot;, size=9)
+</code></pre>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="dimage_from_code_images/3.png" alt="dimage_from_code_3" style="width: 650px; max-width: 100%;" />
+</div>
+<hr />
+<h3>3.4 Error &amp; Timeout Handling</h3>
+<p>When running dynamic user code or batch processing scripts, wrap <code>get_dimage_from_code()</code> with standard Python exception handling:</p>
+<pre><code class="language-python">from drawlib.images import get_dimage_from_code
+
+code = &quot;&quot;&quot;
+import time
+from drawlib.shapes import circle
+
+# Infinite loop or slow calculation:
+time.sleep(5)
+circle((50, 50), radius=20)
+&quot;&quot;&quot;
+
+try:
+    dimg = get_dimage_from_code(code, timeout=1.0)
+except TimeoutError:
+    print(&quot;Execution exceeded timeout limit (1.0s). Subprocess terminated.&quot;)
+except RuntimeError as err:
+    print(f&quot;Drawing code execution failed: {err}&quot;)
+</code></pre>
+<hr />
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

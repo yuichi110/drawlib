@@ -17,6 +17,7 @@ from drawlib import canvas
 from drawlib.charts import GanttChart
 
 canvas.initialize()
+canvas.config(width=96, height=62)
 
 chart = GanttChart(
     columns=["Apr", "May", "Jun", "Jul", "Aug"],
@@ -40,7 +41,7 @@ chart.add_dependency(t1, t2)
 chart.add_dependency(t2, t3)
 chart.add_marker(at=1.5, label="Current (Mid-May)")
 
-chart.draw(xy=(5.0, 20.0))
+chart.draw(xy=(3.0, 3.0))
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
@@ -63,6 +64,7 @@ from drawlib import canvas
 from drawlib.charts import GanttChart
 
 canvas.initialize()
+canvas.config(width=94, height=48)
 
 chart = GanttChart(
     columns=["Sprint 1", "Sprint 2", "Sprint 3", "Sprint 4"],
@@ -80,7 +82,7 @@ t3 = chart.add_task("Performance Tuning", start=2.5, end=4.0, progress=0.2, colo
 chart.add_dependency(t1, t2)
 chart.add_milestone("Beta Code Freeze", at=3.0)
 
-chart.draw(xy=(6.0, 25.0))
+chart.draw(xy=(3.0, 3.0))
 ```
 
 <figure class="drawlib-image" style="text-align: center;">

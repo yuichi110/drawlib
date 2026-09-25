@@ -281,7 +281,9 @@ def draw_radar_chart(chart: RadarChart, xy: tuple[float, float]) -> None:
     elif chart.legend_position in {"top", "bottom"}:
         center_x = c_min_x + chart_w / 2.0
         center_y = c_min_y + chart.radius + (12.0 if chart.legend_position == "bottom" else 4.0)
-        p_bounds = (c_min_x, c_min_y, c_max_x, c_max_y)
+        p_min_y_bound = c_min_y + (7.0 if chart.legend_position == "bottom" else 0.0)
+        p_max_y_bound = c_max_y - (7.0 if chart.legend_position == "top" else 0.0)
+        p_bounds = (c_min_x, p_min_y_bound, c_max_x, p_max_y_bound)
     else:
         center_x = c_min_x + chart_w / 2.0
         center_y = c_min_y + chart_h / 2.0

@@ -371,9 +371,9 @@ width = 100
 height = 50
 config(width=width, height=height)
 
-file_brand = "fontawesome-free/brands.ttf"
-file_regular = "fontawesome-free/regular.ttf"
-file_solid = "fontawesome-free/solid.ttf"
+file_brand = "../_assets/fontawesome-free/brands.ttf"
+file_regular = "../_assets/fontawesome-free/regular.ttf"
+file_solid = "../_assets/fontawesome-free/solid.ttf"
 
 google = "\uf1a0"
 gmail = "\uf0e0"
@@ -417,9 +417,9 @@ width = 100
 height = 50
 config(width=width, height=height)
 
-file_brand = "fontawesome-free/brands.ttf"
-file_regular = "fontawesome-free/regular.ttf"
-file_solid = "fontawesome-free/solid.ttf"
+file_brand = "../_assets/fontawesome-free/brands.ttf"
+file_regular = "../_assets/fontawesome-free/regular.ttf"
+file_solid = "../_assets/fontawesome-free/solid.ttf"
 
 google = "\uf1a0"
 gmail = "\uf0e0"

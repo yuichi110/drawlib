@@ -14,18 +14,16 @@ After installation, you can check whether Drawlib was installed successfully wit
 
 ```text
 $ python -m drawlib --version
-software=0.1.24
-api=0.1.24
+software=0.3.0.dev1
+api=0.3.0.dev1
 
 $ drawlib --version 
-software=0.1.24
-api=0.1.24
+software=0.3.0.dev1
+api=0.3.0.dev1
 ```
 
-
-The Drawlib package also installs the `drawlib` command, which is useful for building many images. 
-This command calls the Drawlib libraries' script, equivalent to `python -m drawlib`. 
-For more details, refer to the relevant section in the foundation chapter.
+The Drawlib package also installs the `drawlib` command-line utility, which manages documentation building (`drawlib build`), live preview servers (`drawlib serve`), project scaffolding (`drawlib init`), diagram export, and asset caches. 
+For more details, see the **[CLI Reference](../cli/index.md)**.
 
 
 ## Troubleshooting
@@ -130,10 +128,10 @@ def draw_versions(x: float, y: float, versions: list[str]):
     corner_angle = 60
     padding = 1
 
-    s1 = Style(text_halign="left", text_valign="bottom")
-    s2 = Style(text_halign="left", text_valign="bottom", line_style="dashed", fill_color=Colors.Transparent)
-    st1 = Style(text_size=12, text_color=Colors.White, text_font=FontRoboto.ROBOTO_REGULAR)
-    st2 = Style(text_size=12, text_font=FontRoboto.ROBOTO_REGULAR)
+    s1 = "blue_flat"
+    s2 = Style(line_style="dashed", fill_color=Colors.Transparent, line_color=Colors.Blue)
+    st1 = Style(text_size=11, text_color=Colors.White, text_font=FontRoboto.ROBOTO_REGULAR)
+    st2 = Style(text_size=11, text_color=Colors.Blue, text_font=FontRoboto.ROBOTO_REGULAR)
     for i, version in enumerate(versions):
         if len(versions) == 5 and i in [0, 1]:
             chevron(
@@ -163,26 +161,26 @@ ts = Style(text_size=16, text_font=FontRoboto.ROBOTO_REGULAR)
 text((7, 6), "private\nα\nrelease", style=ts)
 text((7, 18), "public\nβ\nrelease", style=ts)
 text((7, 30), "public\nreleases", style=ts)
-text((7, 53), "matured\npublic\nreleases", style=ts)
+text((7, 51), "matured\npublic\nreleases", style=ts)
 
 # v0.1
 draw_versions(15, 3, ["0.1.1", "...", "0.1.n"])
-line((32, 9), (32, 14), arrowhead="->")
+line((32, 9), (32, 13.5), arrowhead="->")
 
 # v0.2
 draw_versions(29, 15, ["0.2.1", "...", "0.2.n"])
-line((46, 21), (46, 26), arrowhead="->")
+line((46, 21), (46, 25.5), arrowhead="->")
 
 text((50, 34), "dev only", style=Style(text_size=14, text_font=FontRoboto.ROBOTO_REGULAR))
 draw_versions(43, 27, ["0.3.0\ndev1", "...", "0.3.1", "...", "0.3.n"])
-line((74, 33), (74, 38), arrowhead="->")
+line((74, 33), (74, 37.5), arrowhead="->")
 text((74, 39.5), 'keep "0.n.m" till library matures', style=Style(text_font=FontRoboto.ROBOTO_REGULAR))
-line((74, 42), (74, 47), arrowhead="->")
+line((74, 43), (74, 46.5), arrowhead="->")
 
 text((78, 55), "dev only", style=Style(text_size=14, text_font=FontRoboto.ROBOTO_REGULAR))
 draw_versions(71, 48, ["1.0.0\ndev1", "...", "1.0.1", "...", "1.0.n"])
-line((102, 54), (102, 59), arrowhead="->")
-text((102, 62), "...")
+line((102, 54), (102, 58.5), arrowhead="->")
+text((102, 62), "...", style=Style(text_size=16, text_font=FontRoboto.ROBOTO_REGULAR))
 
 arrow(
     (15, 67),
@@ -190,16 +188,11 @@ arrow(
     tail_width=3,
     head_width=7,
     head_length=5,
-    head="->",
-    style=Style(line_width=0),
+    style="blue_flat",
     text="Time",
     textstyle=Style(text_color=Colors.White, text_size=14, text_font=FontRoboto.ROBOTO_REGULAR),
 )
-save()
 ```
-
-
-    image1.png
 
 Unfortunately, we do not plan to publish new fixes for older versions. 
 This means that after releasing version 0.n.0, we will not provide new patch releases for `0.<n-1>.*`.

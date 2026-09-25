@@ -5,29 +5,23 @@ Class `Pyramid` draws smart art pyramid with custom style and orientation.
 
 
 ```drawlib show-code 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import config
 from drawlib.smartarts import Pyramid
-from drawlib.text import text
 
-config(width=100, height=50, grid=True)
+config(width=100, height=50)
 
-p1 = Pyramid()
+p1 = Pyramid(default_textstyle="white")
 p1.add(text="A")
 p1.add(text="B")
 p1.add(text="C")
 p1.draw((5, 5), width=40, height=40, margin=3)
 
-p1 = Pyramid(default_style="solid", default_textangle=270)
-p1.add(text="A")
-p1.add(text="B", style="red_flat", textstyle="white")
-p1.add(text="C")
-p1.draw((55, 5), width=40, height=40, margin=3, align="left")
-
-save()
+p2 = Pyramid(default_style="solid", default_textangle=270)
+p2.add(text="A")
+p2.add(text="B", style="red_flat", textstyle="white")
+p2.add(text="C")
+p2.draw((55, 5), width=40, height=40, margin=3, align="left")
 ```
-
-
-    image1.png
 
 You can draw pyramid with these procedure.
 

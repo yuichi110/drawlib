@@ -5,29 +5,55 @@
 ## 1. Introductions
 - [About Drawlib](./introductions/about.md)
 - [Installation Guide](./introductions/install.md)
-- [Library Design Philosophy](./introductions/lib_design.md)
 - [Quick Start Guide](./introductions/quick_start.md)
+- [Library Design Philosophy](./introductions/lib_design.md)
 - [Release Notes](./introductions/release_note.md)
 - [Useful Links](./introductions/links.md)
 
-## 2. Foundations
-- [Canvas & Coordinate System](./foundations/canvas.md)
-- [Coordinate Alignment](./foundations/coordinate_align.md)
-- [Icons Guide](./foundations/icon.md)
-- [Images Guide](./foundations/image.md)
+## 2. Document Builder
+- [Document Builder Overview](./doc_builder/index.md)
+- [Code Block Syntax & Options](./doc_builder/code_blocks.md)
+- [Building Documents (HTML/MD/PDF)](./doc_builder/building_docs.md)
+- [Templates & CSS Customization](./doc_builder/templates_and_css.md)
+- [Project Scaffolding](./doc_builder/project_scaffolding.md)
+
+## 3. CLI Reference
+- [CLI Overview & Global Options](./cli/index.md)
+- [drawlib build](./cli/build.md)
+- [drawlib serve](./cli/serve.md)
+- [drawlib init](./cli/init.md)
+- [drawlib show & export](./cli/inspect.md)
+- [drawlib cache, template & css](./cli/assets.md)
+- [drawlib rules](./cli/rules.md)
+
+## 4. Foundations
+- [Foundations Overview](./foundations/index.md)
+- [Canvas & Dimensions](./foundations/canvas.md)
+- [Coordinates & Alignment](./foundations/coordinate_align.md)
+- [Shapes Overview](./foundations/shape.md)
+- [Circle-like Shapes](./foundations/shape_circle.md)
+- [Rectangle-like Shapes](./foundations/shape_rectangle.md)
+- [Block Arrow Shapes](./foundations/shape_arrow.md)
+- [Shape Styling](./foundations/shape_style.md)
 - [Lines Guide](./foundations/line.md)
 - [Line Styles](./foundations/line_style.md)
-- [Shapes Overview](./foundations/shape.md)
-- [Circle Shapes](./foundations/shape_circle.md)
-- [Rectangle Shapes](./foundations/shape_rectangle.md)
-- [Arrow Shapes](./foundations/shape_arrow.md)
-- [Shape Styling](./foundations/shape_style.md)
 - [Text Guide](./foundations/text.md)
-- [Preset Styles Guide](./foundations/preset_styles.md)
-- [Building Multiple Images](./foundations/build_many.md)
-- [Programming Practices](./foundations/programming.md)
+- [Icons Guide](./foundations/icon.md)
+- [Images Guide](./foundations/image.md)
+- [Dimage Image Processing](./foundations/dimage.md)
+- [Coding Best Practices](./foundations/programming.md)
 
-## 3. SmartArts Diagrams
+## 5. Styles & Theming
+- [Styles Overview](./styles/index.md)
+- [Color System & Utilities](./styles/color.md)
+- [Fonts System](./styles/font.md)
+- [Default Preset Styles](./styles/official_default.md)
+- [Essentials Preset Styles](./styles/official_essentials.md)
+- [Monochrome Preset Styles](./styles/official_monochrome.md)
+- [Custom Preset Creation](./styles/create.md)
+- [Advanced Style Topics](./styles/advanced_topics.md)
+
+## 6. SmartArts Diagrams
 - [SmartArts Overview](./smartarts/index.md)
 - [SourceCode Highlighting](./smartarts/sourcecode.md)
 - [Table Component](./smartarts/table.md)
@@ -41,38 +67,26 @@
 - [MindMap Component](./smartarts/mindmap.md)
 - [Pyramid Component](./smartarts/pyramid.md)
 
-## 4. Diagrams
-- [Architecture Diagrams Guide](./diagrams/architecture.md)
-- [Class Diagrams Guide](./diagrams/class_diagram.md)
-- [ER Diagrams Guide](./diagrams/er.md)
-- [Flow Diagrams Guide](./diagrams/flow.md)
-- [Sequence Diagrams Guide](./diagrams/sequence.md)
-- [State Diagrams Guide](./diagrams/state_diagram.md)
+## 7. Technical Diagrams
+- [Architecture Diagrams](./diagrams/architecture.md)
+- [Sequence Diagrams](./diagrams/sequence.md)
+- [Flow Diagrams](./diagrams/flow.md)
+- [UML Class Diagrams](./diagrams/class_diagram.md)
+- [ER Diagrams](./diagrams/er.md)
+- [State Machine Diagrams](./diagrams/state_diagram.md)
 
-## 5. Charts
+## 8. Charts
 - [Charts Overview](./charts/index.md)
-- [Bar Chart Guide](./charts/bar.md)
-- [Line Chart Guide](./charts/line.md)
-- [Area Chart Guide](./charts/area.md)
-- [Pie & Donut Chart Guide](./charts/pie.md)
-- [Radar Chart Guide](./charts/radar.md)
-- [Scatter Chart Guide](./charts/scatter.md)
-- [Gantt Chart Guide](./charts/gantt.md)
+- [Bar Chart](./charts/bar.md)
+- [Line Chart](./charts/line.md)
+- [Area Chart](./charts/area.md)
+- [Pie & Donut Chart](./charts/pie.md)
+- [Radar Chart](./charts/radar.md)
+- [Scatter Chart](./charts/scatter.md)
+- [Gantt Chart](./charts/gantt.md)
 
-## 6. Preset Styles
-- [Official Default Preset Styles](./preset_styles/official_default.md)
-- [Official Essentials Preset Styles](./preset_styles/official_essentials.md)
-- [Official Monochrome Preset Styles](./preset_styles/official_monochrome.md)
-- [Advanced Preset Styles Topics](./preset_styles/advanced_topics.md)
-- [Creating Custom Preset Styles](./preset_styles/create.md)
-
-## 7. Advanced Topics
-- [Colors System](./advanced_topics/color.md)
-- [Fonts System](./advanced_topics/font.md)
-- [Dimage Image Processing](./advanced_topics/dimage.md)
-- [Debugging Tools](./advanced_topics/debug.md)
-- [Global Settings](./advanced_topics/settings.md)
-- [CLI Options](./advanced_topics/cli_options.md)
-- [Example Workflow](./advanced_topics/example_flow.md)
-- [Disable Linting](./advanced_topics/disable_lint.md)
-- [Utility Functions](./advanced_topics/util.md)
+## 9. Advanced Topics
+- [Geometry & Math Utilities](./advanced_topics/math.md)
+- [Rendering from Code (`get_dimage_from_code`)](./advanced_topics/dimage_from_code.md)
+- [Debugging & Tracebacks](./advanced_topics/debug.md)
+- [Library Settings](./advanced_topics/settings.md)

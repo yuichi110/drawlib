@@ -27,7 +27,7 @@ config(width=100, height=100)
 
 line((10, 10), (90, 90))
 circle((25, 75), radius=20)
-image((75, 25), width=30, image="python.png")
+image((75, 25), width=30, image="../_assets/python.png")
 text((75, 5), "Hello drawlib!")
 
 save()
@@ -55,7 +55,7 @@ config(width=100, height=100)
 
 line((10, 10), (90, 90))
 circle((25, 75), radius=20)
-image((75, 25), width=30, image="python.png")
+image((75, 25), width=30, image="../_assets/python.png")
 text((75, 5), "Hello drawlib!")
 
 save()
@@ -125,14 +125,11 @@ config(width=200, height=100)
 
 line((10, 10), (90, 90))
 circle((25, 75), radius=20)
-image((75, 25), width=30, image="python.png")
+image((75, 25), width=30, image="../_assets/python.png")
 text((75, 5), "Hello drawlib!")
 
 save()
 ```
-
-
-    image_config1.png
 
 For higher resolution images, adjusting the DPI (Dots Per Inch) is necessary:
 
@@ -185,7 +182,7 @@ config(width=100, height=100, grid=True)
 
 line((10, 10), (90, 90))
 circle((25, 75), radius=20)
-image((75, 25), width=30, image="python.png")
+image((75, 25), width=30, image="../_assets/python.png")
 text((75, 5), "Hello drawlib!")
 
 save()
@@ -195,10 +192,22 @@ save()
     Image without grid
 
 
-![image_config2_grid.png](image_config2_grid.png)
+```drawlib 450px center file:image_config2_grid.png
+from drawlib.canvas import config, save
+from drawlib.images import image
+from drawlib.lines import line
+from drawlib.shapes import circle
+from drawlib.text import text
 
+config(width=100, height=100, grid_only=True)
 
-    Image with grid
+line((10, 10), (90, 90))
+circle((25, 75), radius=20)
+image((75, 25), width=30, image="../_assets/python.png")
+text((75, 5), "Hello drawlib!")
+
+save()
+```
 
 Code file `image_config2.py` yield two files: `image_config2.png` and `image_config2_grid.png`.
 Image file without grid is normal file name.
@@ -410,12 +419,12 @@ from drawlib.types import Style
 
 config(width=100, height=50, grid=True)
 
-image(xy=(25, 25), width=20, image="python.png")
+image(xy=(25, 25), width=20, image="../_assets/python.png")
 image(
     xy=(75, 25),
     width=20,
     angle=45,
-    image="python.png",
+    image="../_assets/python.png",
     style=Style(line_width=1),
 )
 
@@ -432,12 +441,12 @@ from drawlib.types import Style
 
 config(width=100, height=50, grid=True)
 
-image(xy=(25, 25), width=20, image="python.png")
+image(xy=(25, 25), width=20, image="../_assets/python.png")
 image(
     xy=(75, 25),
     width=20,
     angle=45,
-    image="python.png",
+    image="../_assets/python.png",
     style=Style(line_width=1),
 )
 
@@ -454,16 +463,15 @@ Take a look at this example:
 
 
 ```python
-from drawlib._core.l2_models_._dimage import Dimage
 from drawlib.canvas import config, save
-from drawlib.images import image
+from drawlib.images import Dimage, image
 
 config(width=100, height=50, grid=True)
 
 
-image(xy=(25, 25), width=20, image="python.png")
+image(xy=(25, 25), width=20, image="../_assets/python.png")
 
-dimg = Dimage("python.png").mirror().sepia()
+dimg = Dimage("../_assets/python.png").mirror().sepia()
 image(xy=(75, 25), width=20, image=dimg)
 
 save()
@@ -475,16 +483,15 @@ Therefore, we use method chaining to apply operations such as mirroring (horizon
 
 
 ```drawlib 600px center
-from drawlib._core.l2_models_._dimage import Dimage
 from drawlib.canvas import config, save
-from drawlib.images import image
+from drawlib.images import Dimage, image
 
 config(width=100, height=50, grid=True)
 
 
-image(xy=(25, 25), width=20, image="python.png")
+image(xy=(25, 25), width=20, image="../_assets/python.png")
 
-dimg = Dimage("python.png").mirror().sepia()
+dimg = Dimage("../_assets/python.png").mirror().sepia()
 image(xy=(75, 25), width=20, image=dimg)
 
 save()
@@ -547,9 +554,6 @@ lines([(20, 40), (30, 45), (70, 45), (80, 40)])
 
 save()
 ```
-
-
-    image_line1.png
 
 Bezier line functions are a bit more complex. 
 Please refer to the line documentation for details. However, they are incredibly useful for controlling complex curves.
@@ -680,9 +684,6 @@ rectangle((75, 25), width=30, height=20, r=3, angle=45)
 save()
 ```
 
-
-    image_shape1.png
-
 Circle-type shapes are defined by their radius, while rectangle-type shapes are defined by their width and height. 
 By default, the xy coordinate marks the center of the shape. 
 Except for arrow() and polygon(), all functions can accept an angle parameter.
@@ -761,9 +762,6 @@ rectangle(
 save()
 ```
 
-
-    image_shape2.png
-
 In the left example, we configure `Style` to add style to the rectangle. 
 `line_width`, `line_color`, and `line_style` control the border, while `fill_color` sets the fill color. 
 If you don't require a shape border line, simply set `line_width=0`, and if you don't need a fill color, set `fill_color=Colors.Transparent`. 
@@ -805,14 +803,14 @@ config(width=100, height=50)
 text((50, 7), "Hello drawlib. こんにちは。")
 text(
     (50, 16),
-    "Hello drawlib. こんにちは。",
+    "Hello drawlib.",
     angle=10,
     style=Style(text_font=FontRoboto.ROBOTO_REGULAR),
 )
 text(
     (50, 25),
     "Hello drawlib.",
-    style=Style(text_font=FontFile("avenger/regular.ttf")),
+    style=Style(text_font=FontFile("../_assets/avenger/regular.ttf")),
 )
 text(
     (50, 34),
@@ -831,9 +829,9 @@ Executing this code yields the following image:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import config
 from drawlib.colors import Colors
-from drawlib.fonts import FontRoboto
+from drawlib.fonts import FontFile, FontRoboto
 from drawlib.text import text
 from drawlib.types import Style
 
@@ -842,14 +840,14 @@ config(width=100, height=50)
 text((50, 7), "Hello drawlib. こんにちは。")
 text(
     (50, 16),
-    "Hello drawlib. こんにちは。",
+    "Hello drawlib.",
     angle=10,
     style=Style(text_font=FontRoboto.ROBOTO_REGULAR),
 )
 text(
     (50, 25),
     "Hello drawlib.",
-    style=Style(text_font=FontFile("avenger/regular.ttf")),
+    style=Style(text_font=FontFile("../_assets/avenger/regular.ttf")),
 )
 text(
     (50, 34),
@@ -861,11 +859,7 @@ text(
     "Hello drawlib. こんにちは。",
     style=Style(text_color=Colors.White, text_bg_fill_color=Colors.Black),
 )
-save()
 ```
-
-
-    image_text_1.png
 
 In this example, we've configured several text-related `Style` parameters. 
 I've used Japanese text for testing purposes. 
@@ -999,78 +993,17 @@ You can check the available style names and color variations in the preset style
 Here's an overview of available styles:
 
 
-```python
-from drawlib.types import Style
+The following table outlines the available preset style variants across drawing elements:
 
+| Element Type | Primary (`""`, `red`, etc.) | `light` | `bold` | `flat` | `solid` | `solid_light` | `solid_bold` | `dashed` | `dashed_light` | `dashed_bold` |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Shapes** (circle, rectangle...) | ✓ | ✓ | ✓ | ✓ | | | | | | |
+| **Lines** (line, bezier, arc...) | ✓ | ✓ | ✓ | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| **Block Arrows** (arrow, chevron...) | ✓ | ✓ | ✓ | ✓ | | | | | | |
+| **Text** | ✓ | ✓ | ✓ | | | | | | | |
+| **Icons** | ✓ | ✓ | ✓ | | | | | | | |
 
-
-
-# +----------------+---+-------+------+------+-------+-------------+------------+--------+--------------+-------------+
-# | class \ name   |   | light | bold | flat | solid | solid_light | solid_bold | dashed | dashed_light | dashed_bold |
-# +----------------+---+-------+------+------+-------+-------------+------------+--------+--------------+-------------+
-# | Style      | x | x     | x    | x    |       |             |            |        |              |             |
-# | Style     | x | x     | x    | x    | x     | x           | x          | x      | x            | x           |
-# | Style      | x | x     | x    |      | x     | x           | x          | x      | x            | x           |
-# | Style     | x | x     | x    | x    | x     | x           | x          | x      | x            | x           |
-# | Style | x | x     | x    |      |       |             |            |        |              |             |
-# | Style      | x | x     | x    |      |       |             |            |        |              |             |
-# +----------------+---+-------+------+------+-------+-------------+------------+--------+--------------+-------------+
-
-# +----------------+-----+-----------+----------+----------+-----------+-----------------+----------------+------------+------------------+-----------------+
-# | class \ name   | red | red_light | red_bold | red_flat | red_solid | red_solid_light | red_solid_bold | red_dashed | red_dashed_light | red_dashed_bold |
-# +----------------+-----+-----------+----------+----------+-----------+-----------------+----------------+------------+------------------+-----------------+
-# | Style      | x   | x         | x        | x        |           |                 |                |            |                  |                 |
-# | Style     | x   | x         | x        | x        | x         | x               | x              | x          | x                | x               |
-# | Style      | x   | x         | x        |          | x         | x               | x              | x          | x                | x               |
-# | Style     | x   | x         | x        | x        | x         | x               | x              | x          | x                | x               |
-# | Style | x   | x         | x        |          |           |                 |                |            |                  |                 |
-# | Style      | x   | x         | x        |          |           |                 |                |            |                  |                 |
-# +----------------+-----+-----------+----------+----------+-----------+-----------------+----------------+------------+------------------+-----------------+
-
-# +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
-# | class \ name   | green | green_light | green_bold | green_flat | green_solid | green_solid_light | green_solid_bold | green_dashed | green_dashed_light | green_dashed_bold |
-# +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
-# | Style      | x     | x           | x          | x          |             |                   |                  |              |                    |                   |
-# | Style     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
-# | Style      | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |
-# | Style     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
-# | Style | x     | x           | x          |            |             |                   |                  |              |                    |                   |
-# | Style      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
-# +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
-
-# +----------------+------+------------+-----------+-----------+------------+------------------+-----------------+-------------+-------------------+------------------+
-# | class \ name   | blue | blue_light | blue_bold | blue_flat | blue_solid | blue_solid_light | blue_solid_bold | blue_dashed | blue_dashed_light | blue_dashed_bold |
-# +----------------+------+------------+-----------+-----------+------------+------------------+-----------------+-------------+-------------------+------------------+
-# | Style      | x    | x          | x         | x         |            |                  |                 |             |                   |                  |
-# | Style     | x    | x          | x         | x         | x          | x                | x               | x           | x                 | x                |
-# | Style      | x    | x          | x         |           | x          | x                | x               | x           | x                 | x                |
-# | Style     | x    | x          | x         | x         | x          | x                | x               | x           | x                 | x                |
-# | Style | x    | x          | x         |           |            |                  |                 |             |                   |                  |
-# | Style      | x    | x          | x         |           |            |                  |                 |             |                   |                  |
-# +----------------+------+------------+-----------+-----------+------------+------------------+-----------------+-------------+-------------------+------------------+
-
-# +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
-# | class \ name   | black | black_light | black_bold | black_flat | black_solid | black_solid_light | black_solid_bold | black_dashed | black_dashed_light | black_dashed_bold |
-# +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
-# | Style      | x     | x           | x          | x          |             |                   |                  |              |                    |                   |
-# | Style     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
-# | Style      | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |
-# | Style     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
-# | Style | x     | x           | x          |            |             |                   |                  |              |                    |                   |
-# | Style      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
-# +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
-
-# +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
-# | class \ name   | white | white_light | white_bold | white_flat | white_solid | white_solid_light | white_solid_bold | white_dashed | white_dashed_light | white_dashed_bold |
-# +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
-# | Style      | x     | x           | x          | x          |             |                   |                  |              |                    |                   |
-# | Style     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
-# | Style      | x     | x           | x          |            | x           | x                 | x                | x            | x                  | x                 |
-# | Style     | x     | x           | x          | x          | x           | x                 | x                | x            | x                  | x                 |
-# | Style | x     | x           | x          |            |             |                   |                  |              |                    |                   |
-# | Style      | x     | x           | x          |            |             |                   |                  |              |                    |                   |
-# +----------------+-------+-------------+------------+------------+-------------+-------------------+------------------+--------------+--------------------+-------------------+
-```
+Each style name can be combined with standard color prefixes (e.g. `blue`, `red`, `green`, `black`, `white`) in `default`, `essentials`, and `monochrome` palettes. For the full catalog, see **[Styles & Theming](../styles/index.md)**.
 
 ---
 

@@ -13,6 +13,7 @@ from drawlib import canvas
 from drawlib.charts import RadarChart
 
 canvas.initialize()
+canvas.config(width=86, height=82)
 
 chart = RadarChart(
     categories=["Speed", "Power", "Defense", "Agility", "Stamina"],
@@ -22,7 +23,7 @@ chart = RadarChart(
 )
 chart.add_series("Warrior", [85, 90, 80, 60, 75])
 chart.add_series("Rogue", [95, 65, 50, 95, 70])
-chart.draw(xy=(10.0, 10.0))
+chart.draw(xy=(4.0, 3.0))
 ```
 
 ---
@@ -36,6 +37,7 @@ from drawlib import canvas
 from drawlib.charts import RadarChart
 
 canvas.initialize()
+canvas.config(width=78, height=98)
 
 chart = RadarChart(
     categories=["Usability", "Performance", "Security", "Reliability", "Maintainability"],
@@ -49,7 +51,7 @@ chart = RadarChart(
 )
 chart.add_series("Product A", [90, 85, 95, 80, 75])
 chart.add_series("Product B", [70, 95, 80, 90, 85], line_style="dashed")
-chart.draw(xy=(15.0, 6.0))
+chart.draw(xy=(5.0, 4.0))
 ```
 
 ---

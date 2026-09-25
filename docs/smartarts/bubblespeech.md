@@ -8,29 +8,25 @@ Here's an example of using Bubblespeech in Drawlib:
 
 
 ```python
-from drawlib.canvas import config, save
-from drawlib.colors import Colors
+from drawlib.canvas import config
 from drawlib.smartarts import bubblespeech
-from drawlib.text import text
-from drawlib.types import Style
 
-config(width=100, height=50)
+config(width=95, height=52)
 bubblespeech(
-    xy=(30, 10),
+    xy=(36, 11),
     width=50,
     height=30,
     tail_edge="left",
     tail_start_ratio=0.2,
-    tail_vertex_xy=(10, 25),
+    tail_vertex_xy=(16, 26),
     tail_end_ratio=0.6,
-    style=Style(line_width=0, fill_color=Colors.Blue),
+    style="blue_flat",
     text="Hello Drawlib!",
-    textstyle=Style(text_size=32, text_color=Colors.White),
+    textstyle="white",
 )
-save()
 ```
 
-This function call draws a bubble speech shape with a tail starting from the right edge, beginning at 30% from the bottom, extending to 70% along its path.
+This function call draws a speech bubble with a pointed tail extending from the left edge.
 
 
 
@@ -41,19 +37,16 @@ This function call draws a bubble speech shape with a tail starting from the rig
 
 
 
-
-    image1.png
-
 In the example above, the options for drawing Bubblespeech are specified. The key parameters include:
 
-- xy: Coordinates specifying the position of the bottom-left corner.
-- tail_edge: Specifies the edge from which the tail extends (`left`, `right`, `bottom`, `top`).
-- tail_from_ratio: Determines where the tail starts along the specified edge (0.0 to 1.0).
-- tail_vertex_xy: Specifies the exact vertex location of the tail.
-- tail_to_ratio: Specifies where the tail ends along its path (must be greater than tail_from_ratio).
+- `xy`: Coordinates `(x, y)` specifying the position of the bottom-left corner of the bubble box.
+- `width`, `height`: Dimensions of the rectangular bubble area.
+- `tail_edge`: Specifies the edge from which the tail extends (`"left"`, `"right"`, `"bottom"`, `"top"`).
+- `tail_start_ratio`: Determines where the tail begins along the specified edge (`0.0` to `1.0`).
+- `tail_vertex_xy`: Coordinates `(x, y)` specifying the tip/vertex location of the tail.
+- `tail_end_ratio`: Specifies where the tail ends along the specified edge (`tail_start_ratio` < `tail_end_ratio`).
 
-Please refer the below picture for understanding the parameters.
-
+The diagram below illustrates how each parameter controls the geometry:
 
 
 
@@ -63,10 +56,7 @@ Please refer the below picture for understanding the parameters.
 
 
 
-
-    image2.png
-
-Ellipse like bubblespeech is not supported yet.
+Ellipse-like bubblespeech can also be approximated or customized using shapes and lines.
 
 ---
 

@@ -5,17 +5,16 @@ Class `Tree` draws smart art tree which is similar to `tree` command output.
 
 
 ```drawlib show-code 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import config
 from drawlib.icons import phosphor
-from drawlib.smartarts import TreeNode
-from drawlib.text import text
 from drawlib.preset_styles import get_style
+from drawlib.smartarts import TreeNode
 
-config(width=100, height=50, grid=True)
+config(width=100, height=48)
 
 tree1 = TreeNode(
     "Root",
-    default_textstyle="",
+    default_textstyle="primary",
     default_linestyle="light",
     default_line_horizontal_margin=2,
     default_line_horizontal_length=2,
@@ -43,7 +42,7 @@ tree1 = TreeNode(
         ),
     ],
 )
-tree1.draw((10, 42.5))
+tree1.draw((15, 41.0))
 
 
 TreeNode.register_drawing_item(
@@ -65,7 +64,7 @@ TreeNode.register_drawing_item(
 
 tree2 = TreeNode(
     "Root",
-    default_textstyle="",
+    default_textstyle="primary",
     default_linestyle="light",
     default_line_horizontal_margin=2,
     default_line_horizontal_length=2,
@@ -90,12 +89,8 @@ tree2 = TreeNode(
     ],
 )
 
-tree2.draw((60, 42.5))
-save()
+tree2.draw((58, 41.0))
 ```
-
-
-    image1.png
 
 Each Tree instances are nodes of tree structure.
 Node can contain children nodes and able to override the style.

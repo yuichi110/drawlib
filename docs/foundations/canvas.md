@@ -242,16 +242,16 @@ The former image without the grid:
 
 
 
-
-    image_grid1.png
-
 The latter image with the grid displayed:
 
 
-![image_grid1_grid.png](image_grid1_grid.png)
 
 
-    image_grid1_grid.png
+<div class="drawlib-image" style="text-align: center;">
+  <img src="canvas_images/image_grid1_grid.png" alt="canvas_3" style="width: 450px; max-width: 100%;" />
+</div>
+
+
 
 Normally, grid lines are removed after completing the creation of the drawing code. 
 However, if you need to modify the illustration later, having the grid displayed again might be useful. 
@@ -275,7 +275,7 @@ This code will generate an image with grid lines but without the additional grid
 
 
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/3.png" alt="canvas_3" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/4.png" alt="canvas_4" style="width: 450px; max-width: 100%;" />
 </div>
 
 
@@ -315,7 +315,7 @@ Note that providing a grid_style automatically sets the grid option to True, but
 
 
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/4.png" alt="canvas_4" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/5.png" alt="canvas_5" style="width: 450px; max-width: 100%;" />
 </div>
 
 
@@ -372,7 +372,7 @@ Executing this code generates the following image:
 
 
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/5.png" alt="canvas_5" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/6.png" alt="canvas_6" style="width: 450px; max-width: 100%;" />
 </div>
 
 
@@ -405,7 +405,7 @@ This change results in a new image:
 
 
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/6.png" alt="canvas_6" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/7.png" alt="canvas_7" style="width: 450px; max-width: 100%;" />
 </div>
 
 
@@ -440,7 +440,7 @@ This produces the image below:
 
 
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/7.png" alt="canvas_7" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/8.png" alt="canvas_8" style="width: 450px; max-width: 100%;" />
 </div>
 
 
@@ -514,7 +514,7 @@ Executing this code generates the following image:
 
 
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/8.png" alt="canvas_8" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/9.png" alt="canvas_9" style="width: 450px; max-width: 100%;" />
 </div>
 
 
@@ -570,7 +570,7 @@ Executing this code generates the following output:
 
 
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/9.png" alt="canvas_9" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/10.png" alt="canvas_10" style="width: 450px; max-width: 100%;" />
 </div>
 
 
@@ -617,10 +617,13 @@ save(file="myimage.webp")
 Executing this code generates the following image:
 
 
-![myimage.webp](myimage.webp)
 
 
-    File name: myimage.webp
+<div class="drawlib-image" style="text-align: center;">
+  <img src="canvas_images/myimage.webp" alt="canvas_11" style="width: 600px; max-width: 100%;" />
+</div>
+
+
 
 In this case, you didn't specify a file path. 
 In such situations, the image will be created in the same directory as the script file. 
@@ -658,7 +661,7 @@ This code generate this file.
 
 
 <div class="drawlib-image" style="text-align: center;">
-  <img src="canvas_images/10.png" alt="canvas_10" style="width: 450px; max-width: 100%;" />
+  <img src="canvas_images/12.png" alt="canvas_12" style="width: 450px; max-width: 100%;" />
 </div>
 
 

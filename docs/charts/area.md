@@ -15,20 +15,22 @@ from drawlib import canvas
 from drawlib.charts import AreaChart
 
 canvas.initialize()
+canvas.config(width=96, height=60)
 
 chart = AreaChart(
     categories=["Q1", "Q2", "Q3", "Q4"],
     width=80,
-    height=55,
+    height=50,
     title="Cumulative Revenue Streams",
     mode="stack",
     fill_alpha=0.6,
+    legend_position="bottom",
 )
 chart.add_series("SaaS Subscription", [40.0, 60.0, 85.0, 115.0])
 chart.add_series("Consulting Services", [25.0, 30.0, 35.0, 40.0])
 chart.add_series("Hardware Sales", [15.0, 12.0, 10.0, 8.0])
 chart.configure_y_axis(unit="M$", show_grid=True)
-chart.draw(xy=(10.0, 20.0))
+chart.draw(xy=(10.0, 6.0))
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
@@ -51,11 +53,12 @@ from drawlib import canvas
 from drawlib.charts import AreaChart
 
 canvas.initialize()
+canvas.config(width=96, height=62)
 
 chart = AreaChart(
     categories=["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
     width=80,
-    height=55,
+    height=50,
     title="Inbound vs Outbound Traffic",
     mode="overlap",
     fill_alpha=0.35,
@@ -63,7 +66,7 @@ chart = AreaChart(
 chart.add_series("Inbound", [120.0, 160.0, 480.0, 850.0, 780.0, 340.0])
 chart.add_series("Outbound", [80.0, 110.0, 320.0, 520.0, 490.0, 210.0])
 chart.configure_y_axis(unit="MB/s", show_grid=True)
-chart.draw(xy=(10.0, 20.0))
+chart.draw(xy=(10.0, 5.0))
 ```
 
 <figure class="drawlib-image" style="text-align: center;">

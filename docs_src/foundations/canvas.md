@@ -230,16 +230,17 @@ circle((50, 25), radius=20)
 save()
 ```
 
-
-    image_grid1.png
-
 The latter image with the grid displayed:
 
 
-![image_grid1_grid.png](image_grid1_grid.png)
+```drawlib 450px center file:image_grid1_grid.png
+from drawlib.canvas import config, save
+from drawlib.shapes import circle
 
-
-    image_grid1_grid.png
+config(width=100, height=50, grid_only=True)
+circle((50, 25), radius=20)
+save()
+```
 
 Normally, grid lines are removed after completing the creation of the drawing code. 
 However, if you need to modify the illustration later, having the grid displayed again might be useful. 
@@ -649,10 +650,14 @@ save(file="myimage.webp")
 Executing this code generates the following image:
 
 
-![myimage.webp](myimage.webp)
+```drawlib 600px center format:webp file:myimage.webp
+from drawlib.canvas import config, save
+from drawlib.shapes import circle
 
-
-    File name: myimage.webp
+config(width=100, height=50)
+circle((50, 25), radius=20)
+save()
+```
 
 In this case, you didn't specify a file path. 
 In such situations, the image will be created in the same directory as the script file. 

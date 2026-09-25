@@ -5,8 +5,8 @@
 # Introductions
 
 
-Arrow Shapes draw thick arrow.
-There are these functios
+Arrow Shapes draw thick arrows.
+Drawlib provides these arrow functions:
 
 - `arrow()`: Draw arrow from xy1 to xy2.
 - `arrow_polyline`: Draw arrow which passes list of xys.
@@ -548,9 +548,6 @@ Here is an example output:
 
 
 
-    arrow_u()
-
-
 You need to change `angle` and direction of arrow `head` for drawing various style of L arrow. 
   
 
@@ -675,9 +672,6 @@ Here is an example output:
 </div>
 
 
-
-
-    arrow_arc()
 
 Please remember, arrow is always drawn from `angle_start` to `angle_end` counterclockwise.
 If you want to draw clockwise arrow, please specify it via `head`.

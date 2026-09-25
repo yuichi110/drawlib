@@ -5,8 +5,8 @@
 # Introductions
 
 
-Arrow Shapes draw thick arrow.
-There are these functios
+Arrow Shapes draw thick arrows.
+Drawlib provides these arrow functions:
 
 - `arrow()`: Draw arrow from xy1 to xy2.
 - `arrow_polyline`: Draw arrow which passes list of xys.
@@ -683,7 +683,7 @@ arrow_u(
     angle=180,
     head="<-",
 )
-text((70, 25), "angle=180")
+text((68, 25), "angle=180", style=Style(text_halign="right"))
 
 arrow_u(
     xy=(75, 40),
@@ -695,13 +695,8 @@ arrow_u(
     angle=270,
     head="<-",
 )
-text((80, 40), "angle=270")
-
-save()
+text((82, 40), "angle=270", style=Style(text_halign="left"))
 ```
-
-
-    arrow_u()
 
 
 You need to change `angle` and direction of arrow `head` for drawing various style of L arrow. 
@@ -903,12 +898,7 @@ arrow_arc(
     head="<-",
 )
 text((82.5, 40), 'angle=45\nhead="<-"')
-
-save()
 ```
-
-
-    arrow_arc()
 
 Please remember, arrow is always drawn from `angle_start` to `angle_end` counterclockwise.
 If you want to draw clockwise arrow, please specify it via `head`.

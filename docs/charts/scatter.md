@@ -16,19 +16,20 @@ from drawlib._core.l3_styles import Style
 from drawlib.charts import ScatterChart
 
 canvas.initialize()
+canvas.config(width=98, height=65)
 
 chart = ScatterChart(
     width=88.0,
     height=55.0,
     title="Service Latency vs. Throughput Benchmark",
 )
-chart.configure_x_axis(label="Throughput (req/sec)", unit=" rps", min_value=0)
+chart.configure_x_axis(label="Throughput (req/sec)", unit=" rps", min_value=0, max_value=950)
 chart.configure_y_axis(label="p99 Latency (ms)", unit=" ms", min_value=0)
 
 # Individual data points with labels and custom styles
 chart.add(xy=(100, 12.0), radius=1.2, label="v1.0 Baseline")
 chart.add(xy=(450, 25.0), radius=1.8, style=Style(fill_color=(245, 158, 11, 0.85), line_width=1.0), label="v1.5")
-chart.add(xy=(800, 18.5), radius=2.5, style=Style(fill_color=(16, 185, 129, 0.85), line_width=1.0), label="v2.0 Optimized")
+chart.add(xy=(780, 18.5), radius=2.2, style=Style(fill_color=(16, 185, 129, 0.85), line_width=1.0), label="v2.0 Optimized")
 
 # Grouped series with legend
 chart.add_series(
@@ -46,7 +47,7 @@ chart.add_series(
     radius=1.5,
 )
 
-chart.draw(xy=(6.0, 20.0))
+chart.draw(xy=(5.0, 5.0))
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
@@ -69,27 +70,28 @@ from drawlib import canvas
 from drawlib.charts import ScatterChart
 
 canvas.initialize()
+canvas.config(width=96, height=65)
 
 chart = ScatterChart(
     width=85.0,
     height=52.0,
     title="Cloud Workload: Execution Time vs. Memory vs. Cost",
 )
-chart.configure_x_axis(label="Memory Allocated (GB)", unit=" GB", min_value=0)
-chart.configure_y_axis(label="Execution Duration (sec)", unit=" s", min_value=0)
+chart.configure_x_axis(label="Memory Allocated (GB)", unit=" GB", min_value=0, max_value=20)
+chart.configure_y_axis(label="Execution Duration (sec)", unit=" s", min_value=0, max_value=50)
 
 chart.add_series(
     name="Serverless Functions",
-    data=[(1.0, 45.0, 1.2), (2.0, 26.0, 1.8), (4.0, 15.0, 2.8), (8.0, 11.0, 4.2)],
+    data=[(1.0, 45.0, 1.0), (2.0, 26.0, 1.4), (4.0, 15.0, 1.9), (8.0, 11.0, 2.5)],
     shape="circle",
 )
 chart.add_series(
     name="Dedicated VMs",
-    data=[(4.0, 20.0, 2.2), (8.0, 12.0, 3.4), (16.0, 7.5, 5.0)],
+    data=[(4.0, 20.0, 1.5), (8.0, 12.0, 2.0), (16.0, 7.5, 2.6)],
     shape="square",
 )
 
-chart.draw(xy=(8.0, 20.0))
+chart.draw(xy=(5.0, 6.0))
 ```
 
 <figure class="drawlib-image" style="text-align: center;">

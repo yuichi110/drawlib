@@ -15,6 +15,7 @@ from drawlib import canvas
 from drawlib.charts import BarChart
 
 canvas.initialize()
+canvas.config(width=95, height=70)
 
 chart = BarChart(
     categories=["2021", "2022", "2023", "2024"],
@@ -26,7 +27,7 @@ chart = BarChart(
 chart.add_series("Cloud Platform", [42.0, 68.0, 95.0, 130.0])
 chart.add_series("On-Premises", [55.0, 50.0, 42.0, 35.0])
 chart.configure_y_axis(unit="M$", show_grid=True)
-chart.draw(xy=(10.0, 20.0))
+chart.draw(xy=(8.0, 5.0))
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
@@ -49,11 +50,12 @@ from drawlib import canvas
 from drawlib.charts import BarChart
 
 canvas.initialize()
+canvas.config(width=98, height=62)
 
 chart = BarChart(
     categories=["Frontend", "Backend", "Data Pipeline"],
     width=80,
-    height=55,
+    height=52,
     orientation="horizontal",
     bar_mode="stack",
     title="Server Resource Breakdown",
@@ -63,7 +65,7 @@ chart.add_series("CPU", [25.0, 40.0, 15.0])
 chart.add_series("Memory", [45.0, 35.0, 50.0])
 chart.add_series("Disk I/O", [10.0, 20.0, 30.0])
 chart.configure_x_axis(unit="%")
-chart.draw(xy=(10.0, 20.0))
+chart.draw(xy=(10.0, 5.0))
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
@@ -86,6 +88,7 @@ from drawlib import canvas
 from drawlib.charts import BarChart
 
 canvas.initialize()
+canvas.config(width=95, height=70)
 
 chart = BarChart(
     categories=["In-Memory Cache", "SSD Cache", "SQL Database", "External API"],
@@ -96,7 +99,7 @@ chart = BarChart(
 )
 chart.add_series("Latency", [0.05, 1.2, 35.0, 850.0])
 chart.configure_y_axis(scale="log", unit="ms")
-chart.draw(xy=(10.0, 20.0))
+chart.draw(xy=(8.0, 5.0))
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
@@ -120,6 +123,7 @@ from drawlib._core.l3_styles import Style
 from drawlib.charts import BarChart
 
 canvas.initialize()
+canvas.config(width=88, height=65)
 
 chart = BarChart(
     categories=["Q1", "Q2", "Q3", "Q4"],
@@ -139,7 +143,7 @@ chart.configure_y_axis(
     format="{:.0f}%",
     show_grid=True,
 )
-chart.draw(xy=(12.5, 20.0))
+chart.draw(xy=(7.0, 5.0))
 ```
 
 <figure class="drawlib-image" style="text-align: center;">

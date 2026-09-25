@@ -1,46 +1,57 @@
-# Library Settings
+# Library Settings & Environment Variables
 
+This guide describes how to configure Drawlib's execution environment, build caching, external tool paths, and canvas defaults.
 
-Drawlib includes the `dutil_settings` object, which provides functions to manage library settings. 
-Currently, these settings are focused on logging and debug modes:
+---
 
-- `get_logging_mode()`: Retrieves the current logging mode.
-- `set_logging_mode()`: Sets the logging mode.
-- `get_suppress_warning()`: Checks if warnings are suppressed.
-- `set_suppress_warning()`: Enables or disables warning suppression.
-- `is_debug_mode()`: Checks if debug mode is enabled.
-- `is_developer_debug_mode()`: Checks if developer debug mode is enabled.
+## 1. Environment Variables
 
-These functions allow users to control the behavior of logging and debug messages within the library.
+Drawlib respects several environment variables for controlling headless browser printing and compilation behavior:
 
+| Variable | Default | Purpose |
+| :--- | :--- | :--- |
+| `DRAWLIB_CHROME_PATH` | *(auto-detected)* | Path to a Chromium-compatible executable (Chrome, Chromium, Brave, Edge) for headless PDF compilation. |
+| `DRAWLIB_DISABLE_CACHE` | *(unset)* | Set to `1` or `true` to force recompilation of all illustration code blocks, bypassing SQLite image build caches. |
 
-# Logging
+### Example: Setting Chromium Path
+```bash
+export DRAWLIB_CHROME_PATH="/usr/bin/chromium-browser"
+drawlib build pdf docs_src/ -o docs.pdf
+```
 
+---
 
-Drawlib provides functionality to adjust its logging level, which is distinct from the traditional syslog levels:
+## 2. Global Setup Scripts (`--config`)
 
-- `quiet`: Shows only warnings and errors, equivalent to logging.ERROR.
-- `normal`: Default level, provides standard information, equivalent to logging.INFO.
-- `verbose`: Generates more detailed logs, equivalent to logging.DEBUG.
-- `debug`: Same to `verbose`.
-- `developer`: Extensive logging including debug information, with error handling disabled.
+Rather than repeating canvas configurations, font choices, or themes across dozens of illustrations, provide a Python setup script using the `--config` (`-c`) option during build:
 
-You can set the logging level using `set_logging_mode(mode)` and retrieve the current level with `get_logging_mode()`.
-When you use `drawlib` command, logging level can be also configured at CLI options.
+```bash
+drawlib build html docs_src/ -o docs_html/ --config setup.py
+```
 
+### Example `setup.py`:
+```python
+from drawlib.canvas import config
+from drawlib.preset_styles import MonochromeStyles, set_default_styles
 
-# Suppressing Warnings
+# 1. Canvas coordinate space defaults:
+config(width=120, height=80)
 
+# 2. Preset styles theme:
+set_default_styles(MonochromeStyles())
+```
 
-Drawlib and its underlying libraries may generate warnings in certain situations. 
-For instance, attempting to render Japanese text using an alphabet-only font could trigger a warning.
+All functions, styles, and variables declared in this script are injected into the global namespace of every `drawlib` code block.
 
-To control the display of these warnings, you can utilize the following functions from `dutil_settings`:
+---
 
-- `set_suppress_warning(enable: bool)`: Enables or disables the suppression of warnings.
-- `get_suppress_warning()`: Retrieves the current suppression setting.
+## 3. Logging & Verbosity Flags
 
-Adjusting these settings allows users to manage how warnings are handled within Drawlib and its associated operations.
+Logging levels are controlled directly via the CLI:
+
+- `--quiet`: Suppress all informational and progress outputs, showing only critical errors.
+- `--verbose` / `--debug`: Print detailed step-by-step diagnostic output including asset downloads, font resolution, and cache hits.
+- `--developer`: Disable internal error masking, showing full Python stack traces when an error occurs.
 
 ---
 

@@ -1,0 +1,502 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Preset Styles Topics</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand">Drawlib</a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Introductions</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../introductions/about.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../introductions/install.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../introductions/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../introductions/lib_design.html" >Library Design Philosophy</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../introductions/release_note.html" >Release Notes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../introductions/links.html" >Useful Links</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Document Builder</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../doc_builder/index.html" >Document Builder Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../doc_builder/code_blocks.html" >Code Block Syntax & Options</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../doc_builder/building_docs.html" >Building Documents (HTML/MD/PDF)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../doc_builder/templates_and_css.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../doc_builder/project_scaffolding.html" >Project Scaffolding</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. CLI Reference</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/index.html" >CLI Overview & Global Options</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/build.html" >drawlib build</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/serve.html" >drawlib serve</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/init.html" >drawlib init</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/inspect.html" >drawlib show & export</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/assets.html" >drawlib cache, template & css</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../cli/rules.html" >drawlib rules</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Foundations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/index.html" >Foundations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/canvas.html" >Canvas & Dimensions</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/coordinate_align.html" >Coordinates & Alignment</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/shape.html" >Shapes Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/shape_circle.html" >Circle-like Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/shape_rectangle.html" >Rectangle-like Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/shape_arrow.html" >Block Arrow Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/shape_style.html" >Shape Styling</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/line.html" >Lines Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/line_style.html" >Line Styles</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/text.html" >Text Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/icon.html" >Icons Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/image.html" >Images Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/dimage.html" >Dimage Image Processing</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../foundations/programming.html" >Coding Best Practices</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Styles & Theming</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="index.html" >Styles Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="color.html" >Color System & Utilities</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="font.html" >Fonts System</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="official_default.html" >Default Preset Styles</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="official_essentials.html" >Essentials Preset Styles</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="official_monochrome.html" >Monochrome Preset Styles</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="create.html" >Custom Preset Creation</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="advanced_topics.html" >Advanced Style Topics</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. SmartArts Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/index.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/sourcecode.html" >SourceCode Highlighting</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/table.html" >Table Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/tree.html" >Tree Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/boxlist.html" >BoxList Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/bubblespeech.html" >BubbleSpeech Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/bulletpoints.html" >BulletPoints Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/chevronprocess.html" >ChevronProcess Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/cycle.html" >Cycle Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/gridlayout.html" >GridLayout Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/mindmap.html" >MindMap Component</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../smartarts/pyramid.html" >Pyramid Component</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/index.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. Advanced Topics</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../advanced_topics/math.html" >Geometry & Math Utilities</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../advanced_topics/dimage_from_code.html" >Rendering from Code (`get_dimage_from_code`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../advanced_topics/debug.html" >Debugging & Tracebacks</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../advanced_topics/settings.html" >Library Settings</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Advanced Preset Styles Topics</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Advanced Preset Styles Topics</h1>
+<p>In this section, we cover advanced topics for working with preset styles in <code>drawlib.preset_styles</code>.</p>
+<h1>Resolving Styles with <code>get_style()</code></h1>
+<p>Drawlib provides the <code>get_style()</code> function in <code>drawlib.preset_styles</code> to dynamically retrieve <code>Style</code> instances by preset name, color name, or combined style specification.</p>
+<h2>Using Preset Names</h2>
+<p>You can retrieve standard preset styles directly by name:</p>
+<ul>
+<li><code>&quot;primary&quot;</code> (or <code>&quot;&quot;</code> / <code>None</code>): The default primary style.</li>
+<li><code>&quot;light&quot;</code>: Light line/font weight style.</li>
+<li><code>&quot;bold&quot;</code>: Bold line/font weight style.</li>
+<li><code>&quot;flat&quot;</code>: Filled shape with no border line.</li>
+<li><code>&quot;solid&quot;</code>: Outlined shape with no fill color.</li>
+<li><code>&quot;dashed&quot;</code>: Outlined shape with dashed line style.</li>
+<li><code>&quot;solid_light&quot;</code>, <code>&quot;solid_bold&quot;</code>, <code>&quot;dashed_light&quot;</code>, <code>&quot;dashed_bold&quot;</code>: Combinations of line style and weight.</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.preset_styles import get_style
+from drawlib.shapes import circle, rectangle
+from drawlib.text import text
+
+config(width=100, height=40)
+
+style_primary = get_style(&quot;primary&quot;)
+style_bold = get_style(&quot;bold&quot;)
+
+circle((25, 20), radius=10, style=style_primary)
+rectangle((75, 20), width=20, height=20, style=style_bold)
+text((50, 20), &quot;Preset Styles&quot;, style=get_style(&quot;bold&quot;))
+</code></pre>
+<p>Executing this code produces the following output:</p>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="advanced_topics_images/1.png" alt="advanced_topics_1" style="width: 600px; max-width: 100%;" />
+</div>
+<h2>Using Color Names and Combinations</h2>
+<p>You can also pass color names (e.g., <code>&quot;red&quot;</code>, <code>&quot;blue&quot;</code>, <code>&quot;turquoise&quot;</code>) or combined names (e.g., <code>&quot;red_solid_bold&quot;</code>) to <code>get_style()</code>:</p>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.preset_styles import get_style
+from drawlib.shapes import circle, rectangle
+from drawlib.text import text
+
+config(width=100, height=40)
+
+circle((25, 20), radius=10, style=get_style(&quot;red_flat&quot;))
+rectangle((75, 20), width=20, height=20, style=get_style(&quot;blue_dashed_bold&quot;))
+text((50, 20), &quot;Combined Style&quot;, style=get_style(&quot;red_bold&quot;))
+</code></pre>
+<p>Executing this code produces:</p>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="advanced_topics_images/2.png" alt="advanced_topics_2" style="width: 600px; max-width: 100%;" />
+</div>
+<h1>Accessing Official Style Presets</h1>
+<p>Drawlib includes three official style presets: <code>default</code>, <code>essentials</code>, and <code>monochrome</code>.
+You can access full <code>PresetStyles</code> objects using <code>get_styles()</code> or the dedicated functions:</p>
+<ul>
+<li><code>get_styles(&quot;default&quot;)</code> / <code>get_default_styles()</code></li>
+<li><code>get_styles(&quot;essentials&quot;)</code> / <code>get_essentials_styles()</code></li>
+<li><code>get_styles(&quot;monochrome&quot;)</code> / <code>get_monochrome_styles()</code></li>
+</ul>
+<p>Each <code>PresetStyles</code> instance contains <code>primary</code>, <code>light</code>, <code>bold</code>, <code>flat</code>, <code>solid</code>, and <code>dashed</code> <code>Style</code> attributes.</p>
+<p>Example:</p>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.preset_styles import get_styles
+from drawlib.shapes import circle, rectangle
+
+essentials = get_styles(&quot;essentials&quot;)
+monochrome = get_styles(&quot;monochrome&quot;)
+
+config(width=100, height=40)
+
+circle((25, 20), radius=10, style=essentials.primary)
+rectangle((75, 20), width=20, height=20, style=monochrome.bold)
+</code></pre>
+<p>Output:</p>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="advanced_topics_images/3.png" alt="advanced_topics_3" style="width: 600px; max-width: 100%;" />
+</div>
+<h1>Customizing Style Objects</h1>
+<p>Retrieved <code>Style</code> objects can be modified or copied before passing them to drawing functions.</p>
+<pre><code class="language-python">from drawlib.canvas import config
+from drawlib.colors import ColorsDefault
+from drawlib.preset_styles import get_style
+from drawlib.text import text
+
+custom_style = get_style(&quot;blue&quot;).copy()
+custom_style.text_size = 28
+custom_style.text_color = ColorsDefault.Red
+
+config(width=100, height=40)
+text((50, 20), &quot;Customized Style&quot;, style=custom_style)
+</code></pre>
+<p>Output:</p>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="advanced_topics_images/4.png" alt="advanced_topics_4" style="width: 600px; max-width: 100%;" />
+</div>
+<hr />
+<p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>

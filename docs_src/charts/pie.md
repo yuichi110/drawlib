@@ -13,6 +13,7 @@ from drawlib import canvas
 from drawlib.charts import PieChart
 
 canvas.initialize()
+canvas.config(width=84, height=76)
 
 chart = PieChart(
     radius=28.0,
@@ -24,7 +25,7 @@ chart.add_slice("Safari", 18.8)
 chart.add_slice("Edge", 9.4)
 chart.add_slice("Firefox", 4.3)
 chart.add_slice("Other", 2.3)
-chart.draw(xy=(10.0, 15.0))
+chart.draw(xy=(4.0, 3.0))
 ```
 
 ---
@@ -38,6 +39,7 @@ from drawlib import canvas
 from drawlib.charts import PieChart
 
 canvas.initialize()
+canvas.config(width=84, height=76)
 
 chart = PieChart(
     radius=28.0,
@@ -49,7 +51,7 @@ chart = PieChart(
 chart.add_slice("Cloud", 125.0)
 chart.add_slice("Hardware", 75.0)
 chart.add_slice("Services", 50.0)
-chart.draw(xy=(10.0, 15.0))
+chart.draw(xy=(4.0, 3.0))
 ```
 
 ---
@@ -63,6 +65,7 @@ from drawlib import canvas
 from drawlib.charts import PieChart
 
 canvas.initialize()
+canvas.config(width=74, height=80)
 
 chart = PieChart(
     radius=28.0,
@@ -73,7 +76,7 @@ chart.add_slice("R&D", 45.0, explode=3.0)
 chart.add_slice("Marketing", 25.0)
 chart.add_slice("Operations", 20.0)
 chart.add_slice("Contingency", 10.0)
-chart.draw(xy=(20.0, 10.0))
+chart.draw(xy=(5.0, 4.0))
 ```
 
 ---
