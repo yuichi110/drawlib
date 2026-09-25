@@ -21,6 +21,7 @@ from drawlib._tools.cli._build import build_app
 from drawlib._tools.cli._commands import cache_app, css_app, register_top_commands, template_app
 from drawlib._tools.cli._init import cmd_init
 from drawlib._tools.cli._rules import rules_app
+from drawlib._tools.rules_builder import build_rule, is_rule_cached
 
 app = typer.Typer(
     name="drawlib",
@@ -45,9 +46,23 @@ register_top_commands(app)
 def _version_callback(value: bool) -> None:
     """Display drawlib version and exit."""
     if value:
-        logger.critical(f"software={drawlib.LIB_VERSION}")
-        logger.critical(f"api={drawlib.LIB_VERSION}")
+        typer.echo(drawlib.LIB_VERSION)
         raise typer.Exit(code=0)
+
+
+def _ensure_overview_rules_cached() -> None:
+    """Ensure that the overview rule document and companion illustrations are built and cached.
+
+    Because overview rules are often exported to project configuration files (e.g. .cursorrules,
+    CLAUDE.md) during initial setup, AI agents may never explicitly invoke `drawlib rules show overview`.
+    Pre-building the overview cache on any drawlib CLI invocation guarantees that relative illustration
+    image assets exist when an agent references them via multimodal viewing tools.
+    """
+    try:
+        if not is_rule_cached("overview"):
+            build_rule("overview", quiet=True)
+    except Exception as exc:
+        logger.debug("Failed to ensure overview rules cache: %s", exc)
 
 
 @app.callback()
@@ -79,7 +94,7 @@ def main_callback(
         typer.Option("--developer", help="Enable verbose logging and disable user-facing error suppression."),
     ] = False,
 ) -> None:
-    """Configure global logging options for drawlib CLI."""
+    """Configure global logging options for drawlib CLI and ensure overview rules are cached."""
     _ = version
     if quiet and (verbose or debug or developer):
         raise typer.BadParameter("Option --quiet cannot be combined with --verbose, --debug, or --developer.")
@@ -92,6 +107,8 @@ def main_callback(
         dutil_settings.set_logging_mode("verbose")
     else:
         dutil_settings.set_logging_mode("normal")
+
+    _ensure_overview_rules_cached()
 
 
 def call_command() -> None:

@@ -14,6 +14,7 @@ from __future__ import annotations
 import contextlib
 import importlib.resources
 import os
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -24,16 +25,24 @@ from drawlib._tools.doc_builder import build_markdown
 
 AVAILABLE_TOPICS: Final[tuple[str, ...]] = (
     "overview",
-    "cli",
-    "docs_build",
+    "overview_min",
+    "canvas",
     "shapes",
     "lines",
     "text",
-    "icons",
+    "colors",
+    "fonts",
+    "images",
+    "math",
+    "types",
     "preset_styles",
+    "icons",
     "smartarts",
     "charts",
     "diagrams",
+    "tools",
+    "cli",
+    "docs_build",
 )
 
 INSTRUCTION_MARKER: Final[str] = "Instructions for AI Agents & Developers"
@@ -56,6 +65,18 @@ def _normalize_topic(topic: str) -> str:
         clean = "docs_build"
     elif clean in {"theme", "themes"}:
         clean = "preset_styles"
+    elif clean in {"overview-min", "overview_min", "overviewmin", "min"}:
+        clean = "overview_min"
+    elif clean in {"color", "colour", "colours"}:
+        clean = "colors"
+    elif clean in {"font"}:
+        clean = "fonts"
+    elif clean in {"image", "img"}:
+        clean = "images"
+    elif clean in {"type", "style", "styles"}:
+        clean = "types"
+    elif clean in {"tool"}:
+        clean = "tools"
 
     if clean not in AVAILABLE_TOPICS:
         raise ValueError(f"Unknown rule topic '{topic}'. Available topics: {', '.join(AVAILABLE_TOPICS)}")
@@ -110,12 +131,38 @@ def is_rule_cached(topic: str) -> bool:
     return target_path.stat().st_mtime >= source_path.stat().st_mtime
 
 
-def _inject_agent_instructions(content: str, dest_abs_path: str, topic: str) -> str:
+def _rewrite_image_paths_to_runtime(content: str, topic: str) -> str:
+    """Rewrite relative rule image links to portable PYTHON_RUNTIME path notation.
+
+    Args:
+        content: Markdown content with relative image links.
+        topic: Rule topic name (e.g. 'overview', 'shapes').
+
+    Returns:
+        str: Markdown content with image links rewritten to PYTHON_RUNTIME/site-packages/...
+    """
+    prefix = f"PYTHON_RUNTIME/site-packages/drawlib/_assets/rules/{topic}_images/"
+
+    # 1. Standard Markdown image syntax: ![alt](<topic>_images/<file>)
+    md_pattern = rf"!\[(.*?)\]\({re.escape(topic)}_images/([^)]+)\)"
+    content = re.sub(md_pattern, rf"![\1]({prefix}\2)", content)
+
+    # 2. HTML <img> tags with double quotes: src="<topic>_images/<file>"
+    html_pattern_dq = rf'(<img\s+[^>]*?src="){re.escape(topic)}_images/([^"]+)(")'
+    content = re.sub(html_pattern_dq, rf"\1{prefix}\2\3", content)
+
+    # 3. HTML <img> tags with single quotes: src='<topic>_images/<file>'
+    html_pattern_sq = rf"(<img\s+[^>]*?src='){re.escape(topic)}_images/([^']+)(')"
+    content = re.sub(html_pattern_sq, rf"\1{prefix}\2\3", content)
+
+    return content
+
+
+def _inject_agent_instructions(content: str, topic: str) -> str:
     """Inject AI Agent and developer instructions banner directly below the first H1 header.
 
     Args:
         content: Rendered Markdown content.
-        dest_abs_path: Absolute filesystem path to the target rule document.
         topic: Topic name.
 
     Returns:
@@ -127,11 +174,10 @@ def _inject_agent_instructions(content: str, dest_abs_path: str, topic: str) -> 
     banner = (
         "> [!NOTE]\n"
         "> **Instructions for AI Agents & Developers**:\n"
-        f"> This document is built from `drawlib`'s core rules and is located at:\n"
-        f"> `{dest_abs_path}`\n"
+        f"> This document is compiled from `drawlib` core rules and companion illustrations are located at:\n"
+        f"> `PYTHON_RUNTIME/site-packages/drawlib/_assets/rules/{topic}_images/<n>.png`\n"
         ">\n"
-        f"> All illustration image links below (e.g. `![...]({topic}_images/<n>.png)` or "
-        f"`<img src=\"{topic}_images/<n>.png\">`) are relative paths from this directory.\n"
+        "> (Resolve `PYTHON_RUNTIME` to your active Python / virtualenv environment path to inspect images).\n"
         "> You can inspect any image directly using your file/image viewing tool (`view_file`, etc.) "
         "to visually verify the layout, spatial positioning, coordinate alignment, and styling produced "
         "by the corresponding Python code block above it.\n"
@@ -179,13 +225,17 @@ def build_rule(topic: str, force: bool = False, quiet: bool = False) -> str:
 
     target_path.parent.mkdir(parents=True, exist_ok=True)
 
-    with contextlib.redirect_stdout(sys.stderr):
-        build_markdown(input_path=str(source_path), output=str(target_path))
+    if quiet:
+        with open(os.devnull, "w", encoding="utf-8") as devnull, contextlib.redirect_stdout(devnull):
+            build_markdown(input_path=str(source_path), output=str(target_path))
+    else:
+        with contextlib.redirect_stdout(sys.stderr):
+            build_markdown(input_path=str(source_path), output=str(target_path))
 
     rendered_text = target_path.read_text(encoding="utf-8")
+    rewritten_text = _rewrite_image_paths_to_runtime(rendered_text, topic=canonical)
     final_text = _inject_agent_instructions(
-        content=rendered_text,
-        dest_abs_path=str(target_path.resolve()),
+        content=rewritten_text,
         topic=canonical,
     )
     target_path.write_text(final_text, encoding="utf-8")

@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import os
 import sys
 import traceback
 from typing import Annotated, Literal, Optional
@@ -20,6 +21,8 @@ from rich.console import Console
 from rich.table import Table
 
 from drawlib._core.l1_core import dutil_settings
+from drawlib._tools.cli._rules import cmd_rules_show
+from drawlib._tools.rules_builder import _normalize_topic
 from drawlib.tools.cache import clear_cache, download_cache, list_cache
 from drawlib.tools.css import export_css, list_css
 from drawlib.tools.export import export_block
@@ -463,6 +466,15 @@ def register_top_commands(app: typer.Typer) -> None:
         ] = None,
     ) -> None:
         """Execute and display a drawlib code block from a Markdown/HTML file or Python script."""
+        # If file is not a regular file on disk, check if it matches a rules topic name
+        if not os.path.isfile(file):
+            try:
+                canonical = _normalize_topic(file)
+                cmd_rules_show(topic=canonical)
+                return
+            except ValueError:
+                pass
+
         try:
             show_block(
                 file_path=file,

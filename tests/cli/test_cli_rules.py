@@ -52,16 +52,24 @@ def test_cli_rules_list(tmp_path: Path) -> None:
     assert res.returncode == 0
     for topic in [
         "overview",
+        "overview_min",
+        "canvas",
         "cli",
         "docs_build",
         "shapes",
         "lines",
         "text",
+        "colors",
+        "fonts",
+        "images",
+        "math",
+        "types",
         "icons",
         "preset_styles",
         "smartarts",
         "charts",
         "diagrams",
+        "tools",
     ]:
         assert topic in res.stdout
 
@@ -70,11 +78,19 @@ def test_cli_rules_list(tmp_path: Path) -> None:
     "topic,expected_heading",
     [
         ("overview", "# Drawlib Agent Drawing Guidelines"),
+        ("overview_min", "# Drawlib Agent Drawing Guidelines (Minimal)"),
+        ("canvas", "# Drawlib Canvas Guidelines"),
         ("cli", "# Drawlib CLI Guidelines"),
         ("docs_build", "# Drawlib Documentation Build Guidelines"),
         ("shapes", "# Drawlib Shapes Guidelines"),
         ("lines", "# Drawlib Lines Guidelines"),
         ("text", "# Drawlib Text Guidelines"),
+        ("colors", "# Drawlib Colors Guidelines"),
+        ("fonts", "# Drawlib Fonts Guidelines"),
+        ("images", "# Drawlib Images Guidelines"),
+        ("math", "# Drawlib Math Guidelines"),
+        ("types", "# Drawlib Types & Style Models Guidelines"),
+        ("tools", "# Drawlib Tools Guidelines"),
         ("icons", "# Drawlib Icons Guidelines"),
         ("preset_styles", "# Drawlib Preset Styles Guidelines"),
         ("smartarts", "# Drawlib SmartArts Guidelines"),
@@ -142,3 +158,14 @@ def test_cli_rules_build_specific_topic(tmp_path: Path) -> None:
 
     # Clean cache after test
     run_drawlib_cli(["rules", "clean"], cwd=str(tmp_path))
+
+
+def test_cli_show_rules_fallback(tmp_path: Path) -> None:
+    """Test `drawlib show <topic>` seamlessly redirects to `drawlib rules show <topic>`."""
+    res_canvas = run_drawlib_cli(["show", "canvas"], cwd=str(tmp_path))
+    assert res_canvas.returncode == 0
+    assert "# Drawlib Canvas Guidelines" in res_canvas.stdout
+
+    res_tools = run_drawlib_cli(["show", "tools"], cwd=str(tmp_path))
+    assert res_tools.returncode == 0
+    assert "# Drawlib Tools Guidelines" in res_tools.stdout

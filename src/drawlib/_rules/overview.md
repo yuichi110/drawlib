@@ -425,18 +425,166 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-## 5. Agent Pair-Programming & Implementation Checklist
+### 4.11. Canvas Lifecycle & Dimensions (`canvas`)
+- **Command**: `drawlib rules show canvas`
+- **Scope**: Canvas singleton (`canvas`), configuration parameters (`config`), coordinate grids, background transparency, image saving (`save`), in-memory Dimage generation (`get_dimage`), and canvas clearing (`clear`).
+- **Key Syntax**:
+  ```python
+  from drawlib.canvas import clear, config, save
+  config(width=140, height=70, background_color=(250, 250, 250))
+  save("output.png")
+  ```
+- **When to read**: Refer to this rule when setting up canvas boundaries, debugging multi-image scripts, configuring coordinate grid overlays, or exporting in-memory illustrations.
 
-When tasked with generating or modifying Drawlib illustrations:
+---
 
-1. **Check Canvas Size & Aspect Ratio**:
-   - Small icons / single components: `(60, 40)` or `(80, 50)`.
-   - Standard architecture / flowcharts: `(120, 60)` or `(140, 70)`.
-   - Comprehensive system overviews: `(160, 90)` (16:9) or `(120, 100)`.
-2. **Prioritize High-Level Modules**:
-   - Use `smartarts` or `diagrams` when applicable instead of assembling hundreds of raw rectangles and lines manually.
-3. **Use Consistent Preset Styles**:
-   - Prefer standard style strings (e.g. `style="blue_flat"`, `textstyle="white_bold"`) over hardcoded hex values to maintain clean aesthetic balance.
-4. **Inspect with Fast Verification Commands**:
-   - Do not rebuild the entire documentation site to test a single diagram edit.
-   - Use `drawlib export <file> <index> -g -o scratch/check.png` to immediately verify visual results with a coordinate grid overlay.
+### 4.12. Color Models, Catalogs & Palettes (`colors`)
+- **Command**: `drawlib rules show colors`
+- **Scope**: RGB/RGBA formats, standard 16 web colors (`Colors`), 140 CSS colors (`Colors140`), curated theme palettes (`ColorsDefault`, `ColorsMonochrome`), and conversion utilities (`from_hex`, `from_grayscale`, `with_alpha`).
+- **Key Syntax**:
+  ```python
+  from drawlib.colors import Colors, ColorsDefault, from_hex, with_alpha
+  c1 = from_hex("#3498db", alpha=0.8)
+  c2 = with_alpha(ColorsDefault.Blue, 0.2)
+  ```
+- **When to read**: Refer to this rule when choosing accessible color schemes, parsing brand hex values, adjusting transparency, or creating custom palette classes.
+
+---
+
+### 4.13. Typography, Fonts & Cache (`fonts`)
+- **Command**: `drawlib rules show fonts`
+- **Scope**: Universal CJK + Latin font (`Font`), Western typography (`FontRoboto`, `FontSansSerif`, `FontMonoSpace`), non-Latin regional scripts (`FontJapanese`, `FontChinese`, `FontArabic`), custom font loading (`FontFile`), and cache management.
+- **Key Syntax**:
+  ```python
+  from drawlib.fonts import Font, FontFile, FontRoboto
+  custom_font = FontFile("fonts/brand.ttf")
+  ```
+- **When to read**: Refer to this rule when selecting typographic weights, rendering multi-language diagrams, formatting monospace source code, or loading custom brand typefaces.
+
+---
+
+### 4.14. Image & Graphic Embedding (`images`)
+- **Command**: `drawlib rules show images`
+- **Scope**: Embedding raster and vector images (`image`), aspect ratio handling, image transformation model (`Dimage`), color tinting, and dynamic in-memory diagram embedding (`get_dimage_from_code`).
+- **Key Syntax**:
+  ```python
+  from drawlib.images import Dimage, get_dimage_from_code, image
+  image((50, 30), width=20, image="logo.png")
+  ```
+- **When to read**: Refer to this rule when incorporating company logos, external architecture badges, screenshots, or composing nested diagrams dynamically.
+
+---
+
+### 4.15. Geometry & Coordinate Math (`math`)
+- **Command**: `drawlib rules show math`
+- **Scope**: Geometric derivations: counter-clockwise angle between two points (`get_angle`), Euclidean distance (`get_distance`), and automated bounding box calculation (`get_center_and_size`).
+- **Key Syntax**:
+  ```python
+  from drawlib.math import get_angle, get_center_and_size, get_distance
+  angle = get_angle(p1, p2)
+  (cx, cy), (w, h) = get_center_and_size([(10, 20), (40, 50), (30, 10)])
+  ```
+- **When to read**: Refer to this rule when aligning text along slanted lines, distributing nodes radially along circular paths, or automatically bounding clusters of nodes.
+
+---
+
+### 4.16. Style Models, Base Classes & Types (`types`)
+- **Command**: `drawlib rules show types`
+- **Scope**: Strongly-typed `Style` model attributes (fill, line, typography, alignments), theme inheritance (`BasePresetStyles`), palette extension (`ColorsBase`), and Drawlib type alias conventions.
+- **Key Syntax**:
+  ```python
+  from drawlib.types import BasePresetStyles, Style
+  custom_style = Style(fill_color=(50, 100, 200), line_width=2, text_size=14)
+  ```
+- **When to read**: Refer to this rule when building reusable design systems, encapsulating corporate styles, or writing type-safe drawing utilities.
+
+---
+
+### 4.17. Developer Tools API (`tools`)
+- **Command**: `drawlib rules show tools`
+- **Scope**: Programmatic Python developer API for document compilation (`build_html`, `build_markdown`, `build_pdf`), single illustration extraction (`export_block`), project scaffolding (`init_project`), local server (`serve_docs`), and cache management.
+- **Key Syntax**:
+  ```python
+  from drawlib.tools import build_html, export_block
+  build_html("docs_src/", "docs_html/")
+  export_block("docs_src/arch.md", "1", "output.png")
+  ```
+- **When to read**: Refer to this rule when automating build scripts in Python, writing test assertions with pytest, or triggering on-demand diagram exports from custom automation sidecars.
+
+---
+
+## 5. Autonomous AI Workflow & Implementation Guide
+
+When an AI coding agent is tasked with creating, modifying, or reviewing Drawlib illustrations, adhere to the following workflow principles to guarantee deterministic, publication-quality results.
+
+### 5.1. The Autonomous Self-Correction Loop
+
+Never deliver unverified drawing code to the user. Always execute the autonomous feedback loop before reporting task completion:
+
+```text
+1. User Request ──> 2. AI Writes Code ──> 3. Render Image (-g) ──> 4. Multimodal Review
+                           ▲                                                │
+                           └──────── 5. Issues Found? Fix & Retry ──────────┘
+                                                │ (Pass)
+                                                ▼
+                                        6. Human Inspection
+```
+
+1. **Step 1: Understand Requirements & Context**: Inspect the user's instructions and related repository context (source files, data models, APIs).
+2. **Step 2: Generate Declarative Drawlib Code**: Write standard Python drawing code or embedded Markdown blocks using appropriate canvas bounds and semantic styles.
+3. **Step 3: Headless Image Render with Coordinate Grid (`-g`)**: Render the canvas immediately to a temporary location using Drawlib's fast export command:
+   ```bash
+   # For a standalone Python script:
+   uv run drawlib export scratch/preview.py -g -o scratch/preview.png
+
+   # For embedded block 1 in a Markdown document:
+   uv run drawlib export docs_src/my_doc.md 1 -g -o scratch/preview.png
+   ```
+4. **Step 4: Multimodal Self-Review (`view_file`)**: Use your image inspection capability to check the rendered grid image. Check for:
+   - Overlapping shapes, clipped text boxes, or text colliding with borders.
+   - Arrowhead routing that cuts through elements instead of connecting boundary edges cleanly.
+   - Unbalanced whitespace, disproportionate element scales, or poorly centered groups.
+5. **Step 5: Autonomous Coordinate Adjustment**: If any aesthetic or spatial defects are found, adjust coordinates, margins, or canvas size in the code and re-render. Repeat until the layout is clean.
+6. **Step 6: Deliver & Human Verification**: Present the final diagram to the user.
+
+---
+
+### 5.2. Prototyping in Scratch Workspace & Image Presentation
+
+If your environment or chat interface supports presenting images directly to the user (e.g. via artifact embedding, Markdown image links, or UI previews):
+
+1. **Work in Temporary / Scratch Workspace First**:
+   - Create a scratch prototype script (e.g. `scratch/test_diagram.py`) rather than immediately editing production files or documentation sources.
+   - Execute the script to generate an image (e.g. `scratch/test_diagram.png`).
+2. **Show the Rendered Image to the User**:
+   - Present the rendered visual illustration directly to the user along with your explanation.
+   - Inspecting an image is 10x faster and clearer for the user than reading raw 2D coordinate code.
+3. **Promote to Production After Confirmation**:
+   - Once the user approves the visual design, transfer the finalized code to the target Markdown document (`docs_src/`) or production Python module.
+
+---
+
+### 5.3. Prefer High-Level SmartArts & Diagrams over Raw Primitives
+
+Avoid manually placing dozens of low-level `rectangle`, `circle`, and `line` primitives whenever a higher-level abstraction exists.
+
+1. **Evaluate SmartArts & Domain Diagrams First**:
+   - **Pipelines & Lifecycles**: Use `ChevronProcess` or `Cycle` instead of manual chevrons and arrow lines.
+   - **Hierarchies & Organizations**: Use `TreeNode` / `tree` or `MindMapNode` / `mindmap` instead of calculating recursive tree node coordinates.
+   - **Tabular Data & Comparisons**: Use `Table` instead of manually drawing grids of lines and text cells.
+   - **Status Cards & Matrices**: Use `BoxList` or `GridLayout` instead of looping through offset formulas.
+   - **Software Architecture & Flows**: Use `ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, or `ERDiagram`.
+2. **Proactively Suggest High-Level Alternatives**:
+   - If a user's prompt asks for a diagram that could be expressed as a structured SmartArt or Domain Diagram, proactively propose using the high-level module:
+     > *"We can assemble this workflow using `ChevronProcess` from `drawlib.smartarts`, which automatically handles chevron geometry, arrow padding, and responsive spacing without manual coordinate math."*
+3. **When to Use Raw Primitives (`shapes`, `lines`, `text`)**:
+   - Use raw primitives when creating entirely custom, non-standard visual metaphors, bespoke UI mockups, or composite badges that do not fit into existing high-level components.
+
+---
+
+### 5.4. Implementation Checklist
+
+- [ ] **Canvas Sizing**: Set explicit dimensions (`100x100`, `120x60`, `140x70`, `160x90`) appropriate for the diagram type.
+- [ ] **Palette Consistency**: Use semantic preset styles (e.g. `style="blue_flat"`, `textstyle="white_bold"`) or official palettes (`ColorsDefault`, `ColorsMonochrome`) instead of hardcoded hex values.
+- [ ] **Grid Overlay Validation**: Superimpose coordinate grids (`-g`) during self-correction to eliminate guesswork.
+- [ ] **Clean Separation of Concerns**: Decouple data lists/dictionaries from drawing loops for maintainability.

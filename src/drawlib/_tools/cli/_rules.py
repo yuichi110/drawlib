@@ -34,16 +34,24 @@ rules_app = typer.Typer(
 
 TOPIC_DESCRIPTIONS: Final[dict[str, str]] = {
     "overview": "Canvas lifecycle, coordinate system, core imports, and workflow",
-    "cli": "Document compilation, export, preview, and cache CLI commands",
-    "docs_build": "Documentation site structure, navbar rules, scaffolding, and build conventions",
+    "overview_min": "Concise overview (<10k chars) for context-constrained rule files",
+    "canvas": "Canvas configuration, coordinate space, clear/save lifecycle, and background",
     "shapes": "Rectangles, circles, ellipses, wedges, and polygons",
     "lines": "Straight, curved, and chained lines with arrowheads",
     "text": "Text rendering, formatting, alignment, and fonts",
-    "icons": "Phosphor, FontAwesome, and GCP cloud architecture icons",
+    "colors": "Color models, RGB/RGBA tuples, hex conversion, and palette classes",
+    "fonts": "Font configuration, system/file fonts, CJK/multilingual typography, and cache",
+    "images": "Embedding bitmap and vector images, scaling, rotation, and Dimage",
+    "math": "Geometry helpers, coordinate calculations, angles, distance, and bounding box",
+    "types": "Type models, Style class, base classes, and Drawlib type conventions",
     "preset_styles": "Pre-defined style naming rules and color palette classes",
+    "icons": "Phosphor, FontAwesome, and GCP cloud architecture icons",
     "smartarts": "Tables, trees, mindmaps, and structured visual elements",
     "charts": "Bar, line, pie, scatter, radar, area, and Gantt charts",
     "diagrams": "Flowcharts, sequence, state, class, ER, and architecture diagrams",
+    "tools": "Python developer API for document building, diagram export, and cache management",
+    "cli": "Document compilation, export, preview, and cache CLI commands",
+    "docs_build": "Documentation site structure, navbar rules, scaffolding, and build conventions",
 }
 
 
@@ -75,6 +83,9 @@ def cmd_rules_show(
 
     if selected_topic in {"doc_build", "docs", "doc"}:
         selected_topic = "docs_build"
+
+    if selected_topic in {"overview-min", "overview_min", "overviewmin", "min"}:
+        selected_topic = "overview_min"
 
     if selected_topic in {"theme", "themes"}:
         print(
