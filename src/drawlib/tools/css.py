@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from drawlib._css import (
+from drawlib._css_templates import (
     export_css,
     get_css,
     list_css,

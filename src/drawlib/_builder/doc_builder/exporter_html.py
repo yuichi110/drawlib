@@ -14,7 +14,7 @@ from typing import Any, Dict, List, Literal, Optional
 
 from jinja2 import Environment, FileSystemLoader
 
-from drawlib._css import get_css
+from drawlib._css_templates import get_css
 
 
 def get_default_css(

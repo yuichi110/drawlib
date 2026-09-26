@@ -40,7 +40,7 @@ from drawlib._builder.doc_builder.progress import (
     FileBuildProgress,
     check_document_output_duplicates,
 )
-from drawlib._css import (
+from drawlib._css_templates import (
     export_css,
     list_css,
     list_html_css,
