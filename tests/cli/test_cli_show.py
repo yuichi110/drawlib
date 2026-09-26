@@ -12,28 +12,9 @@
 """Integration tests using subprocess to verify drawlib CLI show command."""
 
 import os
-import subprocess
-import sys
 from pathlib import Path
 
-
-def run_drawlib_cli(args: list[str], cwd: str) -> subprocess.CompletedProcess[str]:
-    """Helper to execute drawlib CLI command via subprocess with current PYTHONPATH.
-
-    Args:
-        args (list[str]): Command line arguments for drawlib.
-        cwd (str): Working directory for subprocess.
-
-    Returns:
-        subprocess.CompletedProcess[str]: Result of subprocess execution.
-    """
-    env = os.environ.copy()
-    src_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src"))
-    env["PYTHONPATH"] = src_dir + os.pathsep + env.get("PYTHONPATH", "")
-    env["DRAWLIB_SHOW_NO_DISPLAY"] = "1"
-
-    cmd = [sys.executable, "-m", "drawlib"] + args
-    return subprocess.run(cmd, cwd=cwd, env=env, capture_output=True, text=True, check=False)
+from tests.cli.common import run_drawlib_cli
 
 
 def test_cli_show_python_script_default(tmp_path: Path) -> None:

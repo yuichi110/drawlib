@@ -13,22 +13,11 @@
 
 from __future__ import annotations
 
-import os
-import subprocess
-import sys
 from pathlib import Path
 
 import pytest
 
-
-def run_drawlib_cli(args: list[str], cwd: str) -> subprocess.CompletedProcess[str]:
-    """Helper to execute drawlib CLI command via subprocess with current PYTHONPATH."""
-    env = os.environ.copy()
-    src_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src"))
-    env["PYTHONPATH"] = src_dir + os.pathsep + env.get("PYTHONPATH", "")
-
-    cmd = [sys.executable, "-m", "drawlib"] + args
-    return subprocess.run(cmd, cwd=cwd, env=env, capture_output=True, text=True, check=False)
+from tests.cli.common import run_drawlib_cli
 
 
 def test_cli_rules_default(tmp_path: Path) -> None:

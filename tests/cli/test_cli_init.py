@@ -21,24 +21,7 @@ from pathlib import Path
 import pytest
 
 from drawlib.tools import init_project, list_project_types
-
-
-def run_drawlib_cli(args: list[str], cwd: str) -> subprocess.CompletedProcess[str]:
-    """Helper to execute drawlib CLI command via subprocess with current PYTHONPATH.
-
-    Args:
-        args: Command line arguments.
-        cwd: Working directory for execution.
-
-    Returns:
-        CompletedProcess: Subprocess result.
-    """
-    env = os.environ.copy()
-    src_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src"))
-    env["PYTHONPATH"] = src_dir + os.pathsep + env.get("PYTHONPATH", "")
-
-    cmd = [sys.executable, "-m", "drawlib"] + args
-    return subprocess.run(cmd, cwd=cwd, env=env, capture_output=True, text=True, check=False)
+from tests.cli.common import run_drawlib_cli
 
 
 def test_cli_init_list(tmp_path: Path) -> None:
