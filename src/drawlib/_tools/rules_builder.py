@@ -108,8 +108,22 @@ def get_rule_source_path(topic: str) -> Path:
     return Path(str(res))
 
 
+def get_rules_dir() -> Path:
+    """Get the filesystem path to the rules cache directory.
+
+    Respects the DRAWLIB_RULES_DIR environment variable if specified.
+
+    Returns:
+        Path: Filesystem path to the rules cache directory.
+    """
+    env_dir = os.environ.get("DRAWLIB_RULES_DIR")
+    if env_dir:
+        return Path(env_dir)
+    return Path(RULES_DIR_PATH)
+
+
 def get_rule_target_path(topic: str) -> Path:
-    """Get the filesystem path to a cached rule Markdown file in _assets/rules.
+    """Get the filesystem path to a cached rule Markdown file.
 
     Args:
         topic: Topic name.
@@ -118,7 +132,7 @@ def get_rule_target_path(topic: str) -> Path:
         Path: Filesystem path to the cached rule Markdown file.
     """
     canonical = _normalize_topic(topic)
-    return Path(RULES_DIR_PATH) / f"{canonical}.md"
+    return get_rules_dir() / f"{canonical}.md"
 
 
 def is_rule_cached(topic: str) -> bool:
@@ -276,8 +290,8 @@ def build_all_rules(force: bool = False, quiet: bool = False) -> list[str]:
 
 
 def clean_rules_cache() -> None:
-    """Delete all cached rule documents and generated illustration images in _assets/rules/."""
-    cache_dir = Path(RULES_DIR_PATH)
+    """Delete all cached rule documents and generated illustration images."""
+    cache_dir = get_rules_dir()
     if not cache_dir.exists():
         return
 

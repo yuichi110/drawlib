@@ -127,28 +127,39 @@ def test_cli_rules_show_raw(tmp_path: Path) -> None:
     assert "Instructions for AI Agents & Developers" not in res.stdout
 
 
-def test_cli_rules_show_rebuild_and_clean(tmp_path: Path) -> None:
+def test_cli_rules_show_rebuild_and_clean(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Test `drawlib rules show --rebuild` caches output and `drawlib rules clean` removes it."""
+    isolated_cache = tmp_path / "rules_cache"
+    monkeypatch.setenv("DRAWLIB_RULES_DIR", str(isolated_cache))
+
     # Build on demand
     res_show = run_drawlib_cli(["rules", "show", "overview", "--rebuild"], cwd=str(tmp_path))
     assert res_show.returncode == 0
     assert "# Drawlib Agent Drawing Guidelines" in res_show.stdout
     assert "Instructions for AI Agents & Developers" in res_show.stdout
+    assert (isolated_cache / "overview.md").exists()
 
     # Clean cache
     res_clean = run_drawlib_cli(["rules", "clean"], cwd=str(tmp_path))
     assert res_clean.returncode == 0
     assert "Successfully cleaned" in res_clean.stdout
+    assert not (isolated_cache / "overview.md").exists()
 
 
-def test_cli_rules_build_specific_topic(tmp_path: Path) -> None:
+def test_cli_rules_build_specific_topic(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Test `drawlib rules build <topic>` pre-builds illustrations."""
+    isolated_cache = tmp_path / "rules_cache"
+    monkeypatch.setenv("DRAWLIB_RULES_DIR", str(isolated_cache))
+
     res_build = run_drawlib_cli(["rules", "build", "overview", "--force"], cwd=str(tmp_path))
     assert res_build.returncode == 0
     assert "Successfully compiled rule topic 'overview'" in res_build.stdout
+    assert (isolated_cache / "overview.md").exists()
 
     # Clean cache after test
-    run_drawlib_cli(["rules", "clean"], cwd=str(tmp_path))
+    res_clean = run_drawlib_cli(["rules", "clean"], cwd=str(tmp_path))
+    assert res_clean.returncode == 0
+    assert not (isolated_cache / "overview.md").exists()
 
 
 def test_cli_show_rules_fallback(tmp_path: Path) -> None:

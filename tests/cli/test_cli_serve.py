@@ -52,12 +52,12 @@ def test_cli_serve_command(tmp_path) -> None:
     try:
         url = f"http://localhost:{port}/index.html"
         resp = None
-        for _ in range(30):
+        for _ in range(160):
             try:
                 resp = urllib.request.urlopen(url, timeout=3)
                 break
             except Exception:
-                time.sleep(0.3)
+                time.sleep(0.05)
         assert resp is not None, "Failed to connect to CLI serve HTTP server"
         with resp:
             assert resp.status == 200
