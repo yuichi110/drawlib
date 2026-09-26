@@ -19,12 +19,8 @@ from drawlib._tools.doc_builder import (
     detect_document_type,
     export_code_block,
     export_css,
-    export_default_template,
-    export_template,
     list_css,
-    list_templates,
     show_code_block,
-    validate_template,
 )
 
 __all__ = [
@@ -37,10 +33,6 @@ __all__ = [
     "detect_document_type",
     "export_code_block",
     "export_css",
-    "export_default_template",
-    "export_template",
     "list_css",
-    "list_templates",
     "show_code_block",
-    "validate_template",
 ]

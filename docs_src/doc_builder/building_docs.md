@@ -39,7 +39,7 @@ In Markdown output mode:
 ### 1.3 Compile to Headless PDF
 ```bash
 # Compile a single file or directory into a unified vector PDF:
-drawlib build pdf docs_src/ -o manual.pdf
+drawlib build pdf doc_src/ -o doc.pdf
 ```
 
 ---
@@ -67,8 +67,8 @@ build(
 
 # Compile directly to PDF:
 build_pdf(
-    source="docs_src/",
-    output="dist/user_guide.pdf",
+    source="doc_src/",
+    output="doc.pdf",
 )
 ```
 
@@ -91,6 +91,8 @@ You can provide an external Python configuration script to establish shared sett
 ```bash
 drawlib build html docs_src/ -o docs_html/ --config setup_theme.py
 ```
+
+> **Note**: If a `config.py` file exists inside your source directory (e.g., `docs_src/config.py`), Drawlib automatically detects and loads it without requiring the `--config` flag. Use `--config` when specifying a custom path or alternative configuration file.
 
 ### Example `setup_theme.py`:
 ```python
@@ -138,8 +140,26 @@ PDF export requires Playwright and the Chromium browser binary:
 Once installed, compile your documents to PDF using:
 
 ```bash
-drawlib build pdf docs_src/ -o output.pdf
+drawlib build pdf doc_src/ -o doc.pdf
 ```
+
+> **Deterministic Builds & Timestamps**: By default, Drawlib normalizes PDF `/CreationDate` and `/ModDate` metadata to a fixed timestamp so that consecutive builds produce byte-identical files with no Git changes. If you need to include the actual build time in the PDF metadata, pass the `--timestamp` flag (or `timestamp=True` in Python).
+
+---
+
+## 5. Diagram Build Cache
+
+Drawlib automatically caches rendered diagram images in a local SQLite database at `.drawlib/cache.db` relative to the current working directory.
+
+- **Incremental Builds**: On subsequent runs, code blocks whose code and configuration have not changed are instantly served from the cache, avoiding re-rendering and significantly speeding up builds.
+- **Bypassing Cache**: Pass `--no-cache` to force re-executing and re-rendering all diagram code blocks:
+  ```bash
+  drawlib build html docs_src/ -o docs_html/ --no-cache
+  ```
+- **Clearing Cache**: To wipe the cache completely, simply delete the `.drawlib/` directory:
+  ```bash
+  rm -rf .drawlib/
+  ```
 
 ---
 

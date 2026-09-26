@@ -1,6 +1,6 @@
 # CLI Overview & Global Options
 
-Drawlib provides a comprehensive command line interface (`drawlib`) built on Python and Typer. It manages document builds, asset downloads, template inspection, development previewing, and AI coding agent guidelines.
+Drawlib provides a comprehensive command line interface (`drawlib`) built on Python and Typer. It manages document builds, asset downloads, CSS stylesheet inspection, development previewing, and AI coding agent guidelines.
 
 ---
 
@@ -46,12 +46,11 @@ The CLI is organized into specialized subcommands:
 | :--- | :--- | :--- |
 | **`build`** | Compiles documents or drawing scripts into images, Markdown, HTML, or PDF. | `image`, `markdown`, `html`, `pdf` |
 | **`serve`** | Launches a local HTTP development server for live previewing. | `--port`, `--check`, `--no-browser` |
-| **`init`** | Scaffolds starter projects with templates. | `simple`, `site`, `pdf`, `--here` |
+| **`init`** | Scaffolds starter projects with templates. | `site`, `simple`, `pdf`, `image`, `--here` |
 | **`show`** | Executes and renders a specific illustration block in a GUI viewer or file. | `--grid`, `--output`, `--config` |
 | **`export`** | Headless extraction and export of a diagram directly to an image file. | `--output`, `--grid`, `--config` |
 | **`cache`** | Manages local caches for dynamic release assets (fonts and icons). | `clear`, `list`, `download` |
-| **`template`** | Manages built-in Jinja2 templates for HTML and PDF output. | `html`, `pdf`, `export`, `validate` |
-| **`css`** | Manages built-in CSS stylesheets. | `html`, `pdf`, `export` |
+| **`css`** | Manages built-in CSS presets. | `html`, `pdf`, `list`, `export` |
 | **`rules`** | Displays drawing guidelines and architectural rules for AI agents. | `show`, `build`, `topics`, `list` |
 
 

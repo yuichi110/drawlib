@@ -36,7 +36,7 @@ def build_docs() -> None:
     build_markdown(input_path=str(docs_src_dir), output=str(docs_dir))
 
     print(f"Building HTML docs for Web: {docs_src_dir} -> {docs_html_dir}")
-    build_html(input_path=str(docs_src_dir), output=str(docs_html_dir), css="google")
+    build_html(input_path=str(docs_src_dir), output=str(docs_html_dir))
 
     print("\nDocumentation build completed successfully!")
 

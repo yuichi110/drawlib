@@ -1,6 +1,6 @@
-# `drawlib cache`, `template`, & `css`
+# `drawlib cache` & `css`
 
-These commands manage external release assets, HTML/PDF Jinja2 templates, and CSS stylesheets.
+These commands manage external release assets and CSS stylesheets.
 
 > **Tip**: If you are using `uv`, run commands with `uv run` (e.g., `uv run drawlib cache list`).
 
@@ -24,29 +24,9 @@ drawlib cache <subcommand> [OPTIONS]
 
 ---
 
-## 2. Template Management (`drawlib template`)
+## 2. CSS Management (`drawlib css`)
 
-Manage built-in Jinja2 templates used when compiling HTML documentation or PDF manuals.
-
-```bash
-drawlib template <target> <subcommand> [OPTIONS]
-```
-
-- `<target>`: `html` or `pdf`
-
-### Subcommands
-
-| Subcommand | Description | Example |
-| :--- | :--- | :--- |
-| **`list`** | Lists all built-in templates available for the specified target. | `drawlib template html list` |
-| **`export`** | Exports a built-in template to a local file for modification. | `drawlib template html export custom_sidebar.html.j2` |
-| **`validate`** | Verifies that a custom Jinja2 template contains all required block tags and variables. | `drawlib template html validate custom_sidebar.html.j2` |
-
----
-
-## 3. CSS Management (`drawlib css`)
-
-Manage and export built-in CSS style presets.
+Inspect available built-in CSS style presets. When initializing a project, use `drawlib init site --css <theme>` to choose your starting stylesheet.
 
 ```bash
 drawlib css <target> <subcommand> [OPTIONS]
@@ -58,8 +38,8 @@ drawlib css <target> <subcommand> [OPTIONS]
 
 | Subcommand | Description | Example |
 | :--- | :--- | :--- |
-| **`list`** | Lists available CSS stylesheets (e.g. `default.css`, `pygments.css`). | `drawlib css html list` |
-| **`export`** | Exports a built-in CSS stylesheet to a local file for customization. | `drawlib css html export my_style.css` |
+| **`list`** | Lists available CSS preset names. | `drawlib css html list` |
+| **`export <preset>`** | Exports a built-in CSS preset to a stylesheet file (`style.css` by default). | `drawlib css html export google -o style.css --force` |
 
 ---
 

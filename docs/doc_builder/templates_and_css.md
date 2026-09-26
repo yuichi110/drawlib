@@ -4,33 +4,38 @@ Drawlib provides a flexible styling and templating pipeline based on **Jinja2** 
 
 ---
 
-## 1. Built-in HTML Templates
+## 1. Project-Level Template & CSS Architecture
 
-Drawlib ships with two production-ready Jinja2 HTML templates:
+When bootstrapping a documentation project with `drawlib init site`, `drawlib init simple`, or `drawlib init pdf`, Drawlib generates `template.html` and `style.css` directly in your source directory (`docs_src/` or `doc_src/`):
 
-1. **`sidebar.html.j2`** (Default for directories): Complete static site template featuring a collapsible sidebar, document hierarchy tree, table of contents, breadcrumbs, search-ready markup, and responsive mobile layout.
-2. **`simple.html.j2`** (Default for single files): Clean, centered, standalone article layout without navigation sidebars.
-
-### 1.1 Exporting a Template for Customization
-To inspect or customize the default sidebar template, export it to your project:
-
-```bash
-drawlib template html export my_sidebar.html.j2
+```text
+my_docs/
+├── docs_src/
+│   ├── index.md
+│   ├── navbar.md
+│   ├── config.py
+│   ├── style.css           # Project stylesheet (customizable directly)
+│   ├── template.html       # Jinja2 HTML layout (customizable directly)
+│   └── build.sh
+├── docs/                   # GitHub-compatible Markdown output
+└── docs_html/              # Compiled HTML static site
 ```
 
-### 1.2 Validating Custom Templates
-Before running a build, verify that your modified Jinja2 template contains all necessary placeholders:
+### 1.1 Mandatory Project Files for HTML & PDF Builds
+When building HTML or PDF documentation (`drawlib build html` or `drawlib build pdf`):
+- `doc_builder` **strictly requires** `template.html` and `style.css` to reside in the target directory (or parent directory of a single file).
+- The previous `--css` and `--template` CLI options on build commands have been removed; styling and templating are managed cleanly and reproducibly via `style.css` and `template.html` in your project folder.
+- If either file is missing, `drawlib build` halts with an informative error directing you to run `drawlib init`.
+- For Markdown (`drawlib build markdown`) and image (`drawlib build images`) builds, `template.html` and `style.css` are not required and are automatically excluded from output processing.
+
+### 1.2 Preset Selection at Initialization
+You can choose a built-in theme upon project initialization using the `--css` option:
 
 ```bash
-drawlib template html validate my_sidebar.html.j2
+drawlib init site my_docs --css google
 ```
 
-### 1.3 Applying a Custom Template
-Pass the template file path with `-t` or `--template`:
-
-```bash
-drawlib build html docs_src/ -o docs_html/ -t my_sidebar.html.j2
-```
+This writes the selected theme stylesheet directly to `docs_src/style.css`.
 
 ---
 
@@ -41,11 +46,13 @@ When rendering HTML pages, `drawlib.doc_builder` passes the following variables 
 | Variable | Type | Description |
 | :--- | :--- | :--- |
 | `title` | `str` | Document title (extracted from the first `# H1` heading in the Markdown file). |
-| `content` | `str` | Compiled HTML body content including rendered illustrations and syntax-highlighted code. |
-| `nav_items` | `list` | Nested navigation hierarchy for generating the sidebar. Each item contains `title`, `href`, and `is_active`. |
-| `css_content` | `str` | Combined CSS styling content when running in embedded CSS mode. |
-| `has_sidebar` | `bool` | `True` when compiling multi-document directories; `False` for standalone articles. |
-| `page_depth` | `int` | Directory nesting depth of the current page relative to the documentation root. |
+| `body` | `str` | Compiled HTML body content including rendered illustrations and syntax-highlighted code. |
+| `css_href` | `str \| None` | Relative URL/path to the external CSS stylesheet (`style.css`), or `None` when running in embedded mode. |
+| `custom_css` | `str` | Raw CSS stylesheet content when embedded directly in `<style>` tags. |
+| `nav_sections` | `list` | Nested navigation sections parsed from `navbar.md` for multi-page sidebar documentation. |
+| `nav_items` | `list` | Top-level navigation items for pages and single articles. |
+| `index_url` | `str` | Relative URL pointing to the root index page. |
+| `site_title` | `str` | Title of the documentation site or library (defaults to `"drawlib"`). |
 
 ---
 
@@ -53,27 +60,36 @@ When rendering HTML pages, `drawlib.doc_builder` passes the following variables 
 
 Drawlib styles documents using modern, accessible typography with automatic syntax highlighting via Pygments.
 
-### 3.1 Exporting Built-in CSS Presets
+### 3.1 Listing Built-in Presets
+You can inspect available built-in CSS presets:
+
 ```bash
-# List available CSS presets:
+# List HTML CSS presets:
 drawlib css html list
 
-# Export the default stylesheet:
-drawlib css html export custom_theme.css
+# List PDF CSS presets:
+drawlib css pdf list
 ```
 
-### 3.2 Applying Custom CSS
-You can provide custom CSS to override or augment default styles using the `--css` option:
+Available presets include `default`, `default-dark`, `default-auto`, `google`, `google-dark`, `google-auto`, `github`, `minimal`, and `monochrome`.
 
-```bash
-drawlib build html docs_src/ -o docs_html/ --css brand_overrides.css
-```
+### 3.2 Modifying Styles
+To customize the visual style:
+- **Directly Edit `docs_src/style.css`**: Edit the scaffolded stylesheet directly. Because `build html` copies `docs_src/style.css` to `docs_html/style.css`, your edits take effect immediately on every build.
+- **Exporting Presets**: Switch to or export another preset stylesheet into your project:
+  ```bash
+  # Export HTML Google theme to docs_src/style.css:
+  drawlib css html export google -o docs_src/style.css --force
+
+  # Export PDF dark theme to docs_src/style.css:
+  drawlib css pdf export default-dark -o docs_src/style.css --force
+  ```
 
 ### 3.3 CSS Embedding Modes (`--css-mode`)
 
 | Mode | Flag | Behavior |
 | :--- | :--- | :--- |
-| **`auto`** (Default) | `--css-mode auto` | Embeds CSS in single files; writes an external `style.css` file for multi-page directory builds. |
+| **`auto`** (Default) | `--css-mode auto` | Embeds CSS for single-file builds; writes an external `style.css` file for multi-page directory builds. |
 | **`embed`** | `--css-mode embed` | Inlines all CSS directly into `<style>` tags in every HTML file. Useful for self-contained, single-file distribution. |
 | **`external`** | `--css-mode external` | Writes a shared `style.css` file and links it via `<link rel="stylesheet">`. |
 

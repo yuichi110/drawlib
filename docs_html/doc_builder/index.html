@@ -121,7 +121,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../cli/assets.html" >drawlib cache, template & css</a>
+                                <a href="../cli/assets.html" >drawlib cache & css</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -412,7 +412,7 @@ Instead of relying on external documentation engines (such as Sphinx, MkDocs, or
 <ol>
 <li><strong>Rendered Markdown (<code>docs/</code>)</strong>: Optimized for GitHub repository browsing. Code blocks become syntax-highlighted Python snippets followed by relative image links.</li>
 <li><strong>Static HTML Website (<code>docs_html/</code>)</strong>: A responsive documentation website featuring auto-generated sidebar navigation, breadcrumbs, search-ready structure, clean typography, and light/dark theme styling.</li>
-<li><strong>Headless Vector PDF (<code>docs_pdf/</code>)</strong>: High-fidelity publication-ready PDF documents generated via system Chromium browsers without requiring bulky browser automation frameworks.</li>
+<li><strong>Headless Vector PDF (<code>&lt;name&gt;.pdf</code>)</strong>: High-fidelity publication-ready PDF documents generated via system Chromium browsers without requiring bulky browser automation frameworks.</li>
 </ol>
 </li>
 </ul>
@@ -422,7 +422,7 @@ Instead of relying on external documentation engines (such as Sphinx, MkDocs, or
 <thead>
 <tr>
 <th style="text-align:left">Target Format</th>
-<th style="text-align:left">Output Directory</th>
+<th style="text-align:left">Output Location</th>
 <th style="text-align:left">Primary Use Case</th>
 <th style="text-align:left">Output Characteristics</th>
 </tr>
@@ -442,7 +442,7 @@ Instead of relying on external documentation engines (such as Sphinx, MkDocs, or
 </tr>
 <tr>
 <td style="text-align:left"><strong>PDF</strong></td>
-<td style="text-align:left"><code>docs_pdf/</code></td>
+<td style="text-align:left"><code>doc.pdf</code> / <code>&lt;name&gt;.pdf</code></td>
 <td style="text-align:left">Offline distribution, print, release manuals</td>
 <td style="text-align:left">Vector-quality multi-page PDF generated via headless Chromium.</td>
 </tr>
@@ -459,6 +459,10 @@ Instead of relying on external documentation engines (such as Sphinx, MkDocs, or
 ├── docs_src/                  # [SOURCE OF TRUTH] Edit your markdown files here
 │   ├── index.md               # Main landing page (H1 title becomes site title)
 │   ├── navbar.md              # Optional navigation hierarchy definition
+│   ├── config.py              # Global Python configuration script
+│   ├── style.css              # Custom stylesheet (customizable directly)
+│   ├── template.html          # Jinja2 HTML layout (customizable directly)
+│   ├── build.sh               # Project build script
 │   ├── guides/                # Topic subdirectories containing .md files
 │   └── images/                # Static assets (logos, screenshots)
 │

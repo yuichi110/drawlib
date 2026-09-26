@@ -19,16 +19,13 @@ from drawlib._tools.doc_builder import (
     detect_document_type,
     export_code_block,
     export_css,
-    export_template,
     list_css,
-    list_templates,
     show_code_block,
-    validate_template,
 )
 from drawlib._tools.http_server import serve_docs
 from drawlib._tools.image_builder import build_image
 from drawlib._tools.project_init import init_project, list_project_types
-from drawlib.tools import build, cache, css, export, init, serve, show, template
+from drawlib.tools import build, cache, css, export, init, serve, show
 
 __all__ = [
     "build",
@@ -44,17 +41,13 @@ __all__ = [
     "export",
     "export_code_block",
     "export_css",
-    "export_template",
     "init",
     "init_project",
     "list_cache",
     "list_css",
     "list_project_types",
-    "list_templates",
     "serve",
     "serve_docs",
     "show",
     "show_code_block",
-    "template",
-    "validate_template",
 ]

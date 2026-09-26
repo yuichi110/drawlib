@@ -40,6 +40,43 @@ def _is_playwright_chromium_available() -> bool:
         return False
 
 
+def _setup_template_and_css(directory) -> None:
+    template_content = (
+        "<!DOCTYPE html>\n"
+        "<html>\n"
+        "<head>\n"
+        "    <title>{{ title }}</title>\n"
+        '    {% if css_href %}<link rel="stylesheet" href="{{ css_href }}">{% endif %}\n'
+        "    {% if custom_css %}<style>{{ custom_css }}</style>{% endif %}\n"
+        "</head>\n"
+        "<body>\n"
+        "    {% if nav_sections %}\n"
+        "        {% for section in nav_sections %}\n"
+        "            <div>{{ section.title }}</div>\n"
+        "            <ul>\n"
+        '            {% for item in section["items"] %}\n'
+        '                <li class="nav-item {% if item.active %}active{% endif %}">'
+        '<a href="{{ item.url }}" {% if item.is_external %}target="_blank"{% endif %}>{{ item.title }}</a></li>\n'
+        "            {% endfor %}\n"
+        "            </ul>\n"
+        "        {% endfor %}\n"
+        "    {% endif %}\n"
+        "    {% if nav_items %}\n"
+        "        <ul>\n"
+        "        {% for item in nav_items %}\n"
+        '            <li class="nav-item {% if item.active %}active{% endif %}">'
+        '<a href="{{ item.url }}" {% if item.is_external %}target="_blank"{% endif %}>{{ item.title }}</a></li>\n'
+        "        {% endfor %}\n"
+        "        </ul>\n"
+        "    {% endif %}\n"
+        "    <main>{{ body }}</main>\n"
+        "</body>\n"
+        "</html>\n"
+    )
+    (directory / "template.html").write_text(template_content, encoding="utf-8")
+    (directory / "style.css").write_text("body { margin: 0; }", encoding="utf-8")
+
+
 def test_detect_document_type(tmp_path) -> None:
     """Test auto-detection of the 4 document input types."""
     md_dl = tmp_path / "doc_dl.md"
@@ -72,6 +109,7 @@ def test_detect_document_type(tmp_path) -> None:
 
 def test_build_html_markdown_with_external_css(tmp_path) -> None:
     """Test compiling Markdown file to HTML with PNG image export and external style.css."""
+    _setup_template_and_css(tmp_path)
     input_md = tmp_path / "sample.md"
     input_md.write_text(
         """# Architecture
@@ -101,6 +139,7 @@ circle((50, 50), radius=20, text="Core Engine")
 
 def test_build_html_webp_format(tmp_path) -> None:
     """Test compiling Markdown file to HTML with WebP image format."""
+    _setup_template_and_css(tmp_path)
     input_md = tmp_path / "sample.md"
     input_md.write_text(
         """# WebP Test
@@ -122,6 +161,7 @@ circle((50, 50), radius=20)
 
 def test_build_html_from_html_drawlib(tmp_path) -> None:
     """Test compiling HTML file containing <script type='text/drawlib'>."""
+    _setup_template_and_css(tmp_path)
     input_html = tmp_path / "source.html"
     input_html.write_text(
         """<!DOCTYPE html>
@@ -147,14 +187,14 @@ circle((50, 50), radius=15)
 
 def test_build_document_with_custom_css(tmp_path) -> None:
     """Test compiling with custom CSS written to external style.css."""
+    _setup_template_and_css(tmp_path)
+    (tmp_path / "style.css").write_text("body { background-color: #ff0000; }", encoding="utf-8")
+
     input_md = tmp_path / "sample.md"
     input_md.write_text("# Styled Document", encoding="utf-8")
 
-    custom_css = tmp_path / "custom.css"
-    custom_css.write_text("body { background-color: #ff0000; }", encoding="utf-8")
-
     out_html = tmp_path / "sample.html"
-    build_html(input_path=str(input_md), output_path=str(out_html), css_path=str(custom_css))
+    build_html(input_path=str(input_md), output_path=str(out_html))
 
     style_css = tmp_path / "style.css"
     assert style_css.exists()
@@ -195,6 +235,7 @@ line((0, 0), (100, 100))
 
 def test_build_documents_batch(tmp_path) -> None:
     """Test build_documents batch compilation with target pairs and navigation."""
+    _setup_template_and_css(tmp_path)
     doc1 = tmp_path / "page1.md"
     doc1.write_text("# Page One\n\n[Link to Page 2](./page2.md)", encoding="utf-8")
 
@@ -221,6 +262,7 @@ def test_build_document_directory_recursive(tmp_path) -> None:
     src_dir = tmp_path / "src_docs"
     out_dir = tmp_path / "dist_docs"
     src_dir.mkdir()
+    _setup_template_and_css(src_dir)
     sub_dir = src_dir / "guide"
     sub_dir.mkdir()
 
@@ -258,6 +300,7 @@ def test_build_document_static_assets_copy(tmp_path) -> None:
     src_dir = tmp_path / "src_docs"
     out_dir = tmp_path / "dist_docs"
     src_dir.mkdir()
+    _setup_template_and_css(src_dir)
 
     img_dir = src_dir / "images"
     img_dir.mkdir()
@@ -277,6 +320,7 @@ def test_build_pdf_multi_document_merge(tmp_path) -> None:
     if not _is_playwright_chromium_available():
         pytest.skip("Playwright or headless Chromium browser not available for PDF export test.")
 
+    _setup_template_and_css(tmp_path)
     doc1 = tmp_path / "01_intro.md"
     doc1.write_text(
         """# Introduction
@@ -302,6 +346,46 @@ circle((50, 50), radius=15)
     assert res == str(out_pdf)
     assert out_pdf.exists()
     assert out_pdf.stat().st_size > 0
+
+
+def test_build_pdf_deterministic_timestamp(tmp_path) -> None:
+    """Test build_pdf normalizes timestamps by default to produce deterministic byte-identical PDFs."""
+    if not _is_playwright_chromium_available():
+        pytest.skip("Playwright or headless Chromium browser not available for PDF export test.")
+
+    _setup_template_and_css(tmp_path)
+    doc = tmp_path / "doc.md"
+    doc.write_text("# Chapter 1\n\nContent for deterministic test.", encoding="utf-8")
+
+    out_pdf1 = tmp_path / "out1.pdf"
+    out_pdf2 = tmp_path / "out2.pdf"
+
+    build_pdf(inputs=[str(doc)], output_path=str(out_pdf1), timestamp=False)
+    build_pdf(inputs=[str(doc)], output_path=str(out_pdf2), timestamp=False)
+
+    bytes1 = out_pdf1.read_bytes()
+    bytes2 = out_pdf2.read_bytes()
+
+    assert bytes1 == bytes2
+    assert b"D:20260101000000+00'00'" in bytes1
+
+
+def test_build_pdf_with_timestamp(tmp_path) -> None:
+    """Test build_pdf with timestamp=True preserves the current timestamp in metadata."""
+    if not _is_playwright_chromium_available():
+        pytest.skip("Playwright or headless Chromium browser not available for PDF export test.")
+
+    _setup_template_and_css(tmp_path)
+    doc = tmp_path / "doc.md"
+    doc.write_text("# Chapter 1\n\nContent for timestamp test.", encoding="utf-8")
+
+    out_pdf = tmp_path / "out_ts.pdf"
+    build_pdf(inputs=[str(doc)], output_path=str(out_pdf), timestamp=True)
+
+    data = out_pdf.read_bytes()
+    assert b"/CreationDate (D:" in data
+    # Should not be normalized to default fixed date
+    assert b"D:20260101000000+00'00'" not in data
 
 
 def test_export_html_to_pdf_missing_playwright(monkeypatch, tmp_path) -> None:
@@ -350,6 +434,7 @@ def test_export_html_to_pdf_missing_chromium(monkeypatch, tmp_path) -> None:
 
 def test_build_document_missing_image_warning(tmp_path, capsys) -> None:
     """Test warning is emitted when local static image referenced in Markdown is missing."""
+    _setup_template_and_css(tmp_path)
     doc = tmp_path / "missing_img.md"
     doc.write_text("# Doc\n\n![Nonexistent](missing_test_image.png)\n", encoding="utf-8")
     out = tmp_path / "out.html"
@@ -364,6 +449,7 @@ def test_build_html_duplicate_document_outputs_error(tmp_path) -> None:
     src_dir = tmp_path / "src_dup"
     out_dir = tmp_path / "out_dup"
     src_dir.mkdir()
+    _setup_template_and_css(src_dir)
     (src_dir / "index.md").write_text("# Home\n", encoding="utf-8")
     (src_dir / "topic.md").write_text("# Topic MD\n", encoding="utf-8")
     (src_dir / "topic.html").write_text("<h1>Topic HTML</h1>\n", encoding="utf-8")
@@ -380,6 +466,7 @@ def test_build_html_directory_missing_index_error(tmp_path) -> None:
     src_dir = tmp_path / "src_no_index"
     out_dir = tmp_path / "out_no_index"
     src_dir.mkdir()
+    _setup_template_and_css(src_dir)
     (src_dir / "navbar.md").write_text("- [Topic](topic.md)\n", encoding="utf-8")
     (src_dir / "topic.md").write_text("# Topic\n", encoding="utf-8")
 
@@ -392,6 +479,7 @@ def test_build_html_directory_missing_navbar_error(tmp_path) -> None:
     src_dir = tmp_path / "src_no_navbar"
     out_dir = tmp_path / "out_no_navbar"
     src_dir.mkdir()
+    _setup_template_and_css(src_dir)
     (src_dir / "index.md").write_text("# Home\n", encoding="utf-8")
 
     with pytest.raises(ValueError, match='Directory build requires "navbar.md" at the root'):
@@ -403,6 +491,7 @@ def test_build_html_navbar_broken_link_error(tmp_path) -> None:
     src_dir = tmp_path / "src_broken_nav"
     out_dir = tmp_path / "out_broken_nav"
     src_dir.mkdir()
+    _setup_template_and_css(src_dir)
     (src_dir / "index.md").write_text("# Home\n", encoding="utf-8")
     (src_dir / "navbar.md").write_text(
         "# Navigation\n\n- [Home](index.md)\n- [Ghost Page](nonexistent.md)\n",
@@ -418,6 +507,7 @@ def test_build_html_navbar_external_and_anchor_links(tmp_path) -> None:
     src_dir = tmp_path / "src_nav_ext"
     out_dir = tmp_path / "out_nav_ext"
     src_dir.mkdir()
+    _setup_template_and_css(src_dir)
     (src_dir / "index.md").write_text("# Home\n", encoding="utf-8")
     (src_dir / "guide.md").write_text("# Guide\n", encoding="utf-8")
     (src_dir / "navbar.md").write_text(
@@ -439,6 +529,7 @@ def test_build_html_navbar_external_and_anchor_links(tmp_path) -> None:
 
 def test_build_html_duplicate_block_image_outputs_error(tmp_path) -> None:
     """Test pre-check raises ValueError when two drawlib blocks write to the same image file."""
+    _setup_template_and_css(tmp_path)
     doc = tmp_path / "guide.md"
     doc.write_text(
         "# Guide\n```drawlib file:same.png\ncircle((50, 50), 10)\n```\n"
@@ -457,6 +548,7 @@ def test_build_merged_html_filename_order_and_generate_index(tmp_path) -> None:
     """Test directory files merge strictly in filename order and index is placed between 1st and 2nd files."""
     pdf_src = tmp_path / "pdf_src"
     pdf_src.mkdir()
+    _setup_template_and_css(pdf_src)
     (pdf_src / "02-install.md").write_text("# 2. Installation\n", encoding="utf-8")
     (pdf_src / "00-cover.md").write_text("# Drawlib Cover\n", encoding="utf-8")
     (pdf_src / "01-about.md").write_text("# 1. About Drawlib\n", encoding="utf-8")
@@ -479,3 +571,43 @@ def test_build_merged_html_filename_order_and_generate_index(tmp_path) -> None:
     assert "2. Installation" in toc_section
     assert "page-break-before: always" in toc_section
     assert "page-break-after: always" in toc_section
+
+
+def test_build_html_missing_template_error(tmp_path) -> None:
+    """Test build_html raises ValueError when template.html is missing."""
+    doc = tmp_path / "doc.md"
+    doc.write_text("# Hello\n", encoding="utf-8")
+    (tmp_path / "style.css").write_text("body {}", encoding="utf-8")
+    out = tmp_path / "doc.html"
+    with pytest.raises(ValueError, match='Missing required "template.html"'):
+        build_html(input_path=str(doc), output_path=str(out))
+
+
+def test_build_html_missing_style_error(tmp_path) -> None:
+    """Test build_html raises ValueError when style.css is missing."""
+    doc = tmp_path / "doc.md"
+    doc.write_text("# Hello\n", encoding="utf-8")
+    (tmp_path / "template.html").write_text("<html><body>{{ body }}</body></html>", encoding="utf-8")
+    out = tmp_path / "doc.html"
+    with pytest.raises(ValueError, match='Missing required "style.css"'):
+        build_html(input_path=str(doc), output_path=str(out))
+
+
+def test_build_pdf_missing_template_error(tmp_path) -> None:
+    """Test build_pdf raises ValueError when template.html is missing."""
+    doc = tmp_path / "doc.md"
+    doc.write_text("# Hello\n", encoding="utf-8")
+    (tmp_path / "style.css").write_text("body {}", encoding="utf-8")
+    out = tmp_path / "doc.pdf"
+    with pytest.raises(ValueError, match='Missing required "template.html"'):
+        build_pdf(inputs=[str(doc)], output_path=str(out))
+
+
+def test_build_pdf_missing_style_error(tmp_path) -> None:
+    """Test build_pdf raises ValueError when style.css is missing."""
+    doc = tmp_path / "doc.md"
+    doc.write_text("# Hello\n", encoding="utf-8")
+    (tmp_path / "template.html").write_text("<html><body>{{ body }}</body></html>", encoding="utf-8")
+    out = tmp_path / "doc.pdf"
+    with pytest.raises(ValueError, match='Missing required "style.css"'):
+        build_pdf(inputs=[str(doc)], output_path=str(out))

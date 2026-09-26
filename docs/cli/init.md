@@ -12,7 +12,7 @@ The `drawlib init` command bootstraps new documentation and illustration project
 drawlib init [TYPE] [DESTINATION] [OPTIONS]
 ```
 
-- `TYPE`: Starter template name (`simple`, `site`, or `pdf`).
+- `TYPE`: Starter template name (`site`, `simple`, `pdf`, or `image`).
 - `DESTINATION`: Target directory path (defaults to current working directory).
 
 ---
@@ -21,9 +21,10 @@ drawlib init [TYPE] [DESTINATION] [OPTIONS]
 
 | Template Type | Description | Included Files |
 | :--- | :--- | :--- |
-| **`simple`** | Minimal single-document starter project. | `document.md` (with starter diagram block), `build.sh` |
-| **`site`** | Full-fledged multi-page documentation website. | `docs_src/index.md`, `docs_src/navbar.md`, `docs_src/guides/`, `config.py`, build scripts |
-| **`pdf`** | Formatted technical report optimized for PDF publishing. | `report.md`, custom print styling configuration |
+| **`site`** | Full-fledged multi-page documentation website. | `docs_src/` (`index.md`, `navbar.md`, sections, `config.py`, `style.css`, `template.html`, `build.sh`, `README.md`) |
+| **`simple`** | Minimal single-document starter project. | `docs_src/` (`doc.md`, `config.py`, `style.css`, `template.html`, `build.sh`, `README.md`) |
+| **`pdf`** | Formatted multi-chapter technical report for PDF publishing. | `doc_src/` (`00_cover.md`, `01_overview.md`, `02_design.md`, `config.py`, `style.css`, `template.html`, `build.sh`, `README.md`) |
+| **`image`** | Standalone illustration/diagram generation project. | `images_src/` (`sample.py`, `config.py`, `build.sh`, `README.md`) |
 
 ### Listing Available Templates
 ```bash
@@ -37,7 +38,11 @@ drawlib init --list
 | Option | Flag | Description |
 | :--- | :--- | :--- |
 | `--list` | `-l` | Lists all available starter project types and exits. |
+| `--lang` | | Target language for starter content and font configuration (`en` [default] or `ja`). |
+| `--css` | | Built-in CSS theme preset (`google`, `github`, `minimal`, `monochrome`, etc.) or stylesheet path. |
+| `--output` | `-o` | Base project/artifact name (e.g. `-o mybook` produces `mybook_src/`, `mybook.pdf`, etc.). |
 | `--here` | | Scaffolds files directly into the current working directory without creating a subfolder. |
+| `--no-build` | | Skips the automatic initial build step upon project creation. |
 | `--force` | `-f` | Overwrites existing files if destination files already exist. |
 
 ---

@@ -23,7 +23,7 @@
 - [drawlib serve](./cli/serve.md)
 - [drawlib init](./cli/init.md)
 - [drawlib show & export](./cli/inspect.md)
-- [drawlib cache, template & css](./cli/assets.md)
+- [drawlib cache & css](./cli/assets.md)
 - [drawlib rules](./cli/rules.md)
 
 ## 4. Foundations

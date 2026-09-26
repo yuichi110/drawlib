@@ -57,11 +57,34 @@ def _validate_type_or_exit(project_type: Optional[str], types: dict[str, str]) -
     raise typer.Exit(code=1)
 
 
+def _resolve_base_name(output: Optional[str], selected_type: str) -> str:
+    """Resolve base project/artifact name without _src suffix."""
+    if output and output.strip():
+        name = output.strip().rstrip("/\\")
+        return name[:-4] if name.endswith("_src") else name
+    return "images" if selected_type == "image" else "docs"
+
+
+def _print_build_summary(selected_type: str, out_dir: str, out_html: str, out_pdf: str) -> None:
+    """Print completed initial build artifacts."""
+    print("\nInitial build completed:")
+    if selected_type in {"site", "simple"}:
+        print(f"  - Markdown: {out_dir}/")
+        print(f"  - HTML:     {out_html}/")
+    elif selected_type == "pdf":
+        print(f"  - PDF report: {out_pdf}")
+    elif selected_type == "image":
+        print(f"  - Images: {out_dir}/")
+
+
 def _print_init_success(
     selected_type: str,
     dest_str: str,
     created: list[Path],
     dest_path: Path,
+    output: Optional[str] = None,
+    here: bool = False,
+    no_build: bool = False,
 ) -> None:
     """Print initialization success message and next steps.
 
@@ -70,9 +93,18 @@ def _print_init_success(
         dest_str: Target destination string.
         created: List of created file paths.
         dest_path: Destination path object.
+        output: Custom output name or None.
+        here: If True, deployed directly into destination.
+        no_build: If True, initial build was skipped.
     """
     resolved_dest = dest_path.resolve()
     rel_display = dest_str if dest_str != "." else "."
+
+    base_name = _resolve_base_name(output, selected_type)
+    src_dir = "." if here else f"{base_name}_src"
+    out_dir = base_name
+    out_html = f"{base_name}_html"
+    out_pdf = f"{base_name}.pdf"
 
     print(f"Initialized '{selected_type}' project in {rel_display}\n")
     print("Project files created:")
@@ -83,12 +115,20 @@ def _print_init_success(
         except ValueError:
             print(f"  - {file_path}")
 
+    if not no_build:
+        _print_build_summary(selected_type, out_dir, out_html, out_pdf)
+
     print("\nNext steps:")
     if dest_str != ".":
         print(f"  cd {dest_str}")
-    print("  ./docs_build.sh")
-    if selected_type == "site":
-        print("  drawlib serve docs_html/")
+
+    if selected_type == "site" and not no_build:
+        print(f"  drawlib serve {out_html}/")
+
+    if here:
+        print("  ./build.sh")
+    else:
+        print(f"  ./{src_dir}/build.sh")
 
 
 def cmd_init(
@@ -96,7 +136,7 @@ def cmd_init(
         Optional[str],
         typer.Argument(
             metavar="TYPE",
-            help="Starter project type ('simple', 'site', 'pdf').",
+            help="Starter project type ('site', 'simple', 'pdf', 'image').",
         ),
     ] = None,
     destination: Annotated[
@@ -106,6 +146,14 @@ def cmd_init(
             help="Target directory path (defaults to current directory).",
         ),
     ] = None,
+    output: Annotated[
+        Optional[str],
+        typer.Option(
+            "-o",
+            "--output",
+            help="Output project/artifact name (source folder will be <name>_src).",
+        ),
+    ] = None,
     here: Annotated[
         bool,
         typer.Option(
@@ -113,6 +161,27 @@ def cmd_init(
             help="Initialize directly into the current directory.",
         ),
     ] = False,
+    no_build: Annotated[
+        bool,
+        typer.Option(
+            "--no-build",
+            help="Skip running the initial build after scaffolding.",
+        ),
+    ] = False,
+    lang: Annotated[
+        str,
+        typer.Option(
+            "--lang",
+            help="Language for starter templates and font config ('en' or 'ja').",
+        ),
+    ] = "en",
+    css: Annotated[
+        Optional[str],
+        typer.Option(
+            "--css",
+            help="CSS preset theme ('default', 'google', 'github', 'minimal', 'monochrome', etc.) or file path.",
+        ),
+    ] = None,
     list_types: Annotated[
         bool,
         typer.Option(
@@ -126,16 +195,20 @@ def cmd_init(
         typer.Option(
             "-f",
             "--force",
-            help="Overwrite existing files in destination directory.",
+            help="Overwrite existing files and output directories.",
         ),
     ] = False,
 ) -> None:
     """Scaffold a starter drawlib project with sample illustrations and build script.
 
     Args:
-        project_type: Starter project type ('simple', 'site', 'pdf').
+        project_type: Starter project type ('site', 'simple', 'pdf', 'image').
         destination: Target directory path (defaults to current directory).
+        output: Output project/artifact name.
         here: If True, initialize directly into current directory.
+        no_build: If True, skip running initial build.
+        lang: Starter template language ('en' or 'ja').
+        css: CSS theme preset name or custom stylesheet file path.
         list_types: If True, list available project types and exit.
         force: If True, overwrite existing files in destination directory.
     """
@@ -157,8 +230,12 @@ def cmd_init(
         created = init_project(
             project_type=selected_type,
             destination=dest_path,
+            output=output,
             force=force,
             here=here,
+            no_build=no_build,
+            lang=lang,
+            css=css,
         )
     except FileExistsError as exc:
         print(f"Error: {exc}", file=sys.stderr)
@@ -167,4 +244,12 @@ def cmd_init(
         print(f"Error: Failed to initialize project: {exc}", file=sys.stderr)
         raise typer.Exit(code=1) from exc
 
-    _print_init_success(selected_type, dest_str, created, dest_path)
+    _print_init_success(
+        selected_type=selected_type,
+        dest_str=dest_str,
+        created=created,
+        dest_path=dest_path,
+        output=output,
+        here=here,
+        no_build=no_build,
+    )

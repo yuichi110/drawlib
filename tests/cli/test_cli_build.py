@@ -15,6 +15,20 @@ import os
 import subprocess
 import sys
 
+import pytest
+
+
+def _is_playwright_available() -> bool:
+    try:
+        from playwright.sync_api import sync_playwright  # noqa: PLC0415
+
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            browser.close()
+        return True
+    except Exception:
+        return False
+
 
 def run_drawlib_cli(args: list[str], cwd: str) -> subprocess.CompletedProcess[str]:
     """Helper to execute drawlib CLI command via subprocess with current PYTHONPATH.
@@ -40,6 +54,12 @@ def test_cli_build_html_directory_default(tmp_path) -> None:
     out_dir = tmp_path / "dist_docs"
     src_dir.mkdir()
 
+    (src_dir / "template.html").write_text(
+        '<!DOCTYPE html><html><head>{% if css_href %}<link rel="stylesheet" href="{{ css_href }}">'
+        "{% endif %}</head><body>{{ body }}</body></html>",
+        encoding="utf-8",
+    )
+    (src_dir / "style.css").write_text("body { margin: 0; }", encoding="utf-8")
     (src_dir / "index.md").write_text(
         """# Main Index
 
@@ -73,6 +93,13 @@ circle((50, 50), radius=20, style=styles.primary)
 
 def test_cli_build_html_single_file(tmp_path) -> None:
     """Test CLI build html single file (external style.css + PNG image)."""
+    (tmp_path / "template.html").write_text(
+        '<!DOCTYPE html><html><head>{% if css_href %}<link rel="stylesheet" href="{{ css_href }}">'
+        "{% endif %}</head><body>{{ body }}</body></html>",
+        encoding="utf-8",
+    )
+    (tmp_path / "style.css").write_text("body { margin: 0; }", encoding="utf-8")
+
     input_md = tmp_path / "sample.md"
     output_html = tmp_path / "sample.html"
 
@@ -99,6 +126,13 @@ rectangle((50, 50), width=40, height=20, style=styles.primary)
 
 def test_cli_build_html_webp_format(tmp_path) -> None:
     """Test CLI build html with --image-format webp."""
+    (tmp_path / "template.html").write_text(
+        '<!DOCTYPE html><html><head>{% if css_href %}<link rel="stylesheet" href="{{ css_href }}">'
+        "{% endif %}</head><body>{{ body }}</body></html>",
+        encoding="utf-8",
+    )
+    (tmp_path / "style.css").write_text("body { margin: 0; }", encoding="utf-8")
+
     input_md = tmp_path / "sample.md"
     output_html = tmp_path / "sample.html"
 
@@ -245,3 +279,46 @@ save()
     )
     assert res.returncode == 0
     assert (root_dir / "images" / "feature" / "feat.png").exists()
+
+
+def test_cli_build_pdf_deterministic(tmp_path) -> None:
+    """Test CLI build pdf produces deterministic identical bytes without --timestamp."""
+    if not _is_playwright_available():
+        pytest.skip("Playwright or headless Chromium not available")
+
+    doc_dir = tmp_path / "doc_src"
+    doc_dir.mkdir()
+    (doc_dir / "template.html").write_text("<!DOCTYPE html><html><body>{{ body }}</body></html>", encoding="utf-8")
+    (doc_dir / "style.css").write_text("body { margin: 0; }", encoding="utf-8")
+    (doc_dir / "00_intro.md").write_text("# Title\n\nContent for PDF.", encoding="utf-8")
+
+    out_pdf1 = tmp_path / "doc1.pdf"
+    out_pdf2 = tmp_path / "doc2.pdf"
+
+    res1 = run_drawlib_cli(["build", "pdf", str(doc_dir), "-o", str(out_pdf1)], cwd=str(tmp_path))
+    assert res1.returncode == 0
+    res2 = run_drawlib_cli(["build", "pdf", str(doc_dir), "-o", str(out_pdf2)], cwd=str(tmp_path))
+    assert res2.returncode == 0
+
+    assert out_pdf1.read_bytes() == out_pdf2.read_bytes()
+    assert b"D:20260101000000+00'00'" in out_pdf1.read_bytes()
+
+
+def test_cli_build_pdf_timestamp_flag(tmp_path) -> None:
+    """Test CLI build pdf preserves timestamp when --timestamp is provided."""
+    if not _is_playwright_available():
+        pytest.skip("Playwright or headless Chromium not available")
+
+    doc_dir = tmp_path / "doc_src"
+    doc_dir.mkdir()
+    (doc_dir / "template.html").write_text("<!DOCTYPE html><html><body>{{ body }}</body></html>", encoding="utf-8")
+    (doc_dir / "style.css").write_text("body { margin: 0; }", encoding="utf-8")
+    (doc_dir / "00_intro.md").write_text("# Title\n\nContent for PDF.", encoding="utf-8")
+
+    out_pdf = tmp_path / "doc_ts.pdf"
+    res = run_drawlib_cli(["build", "pdf", str(doc_dir), "-o", str(out_pdf), "--timestamp"], cwd=str(tmp_path))
+    assert res.returncode == 0
+
+    data = out_pdf.read_bytes()
+    assert b"/CreationDate (D:" in data
+    assert b"D:20260101000000+00'00'" not in data

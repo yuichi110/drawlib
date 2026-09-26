@@ -26,8 +26,7 @@ All top-level CLI commands have direct 1-to-1 functional counterparts in `drawli
 | `drawlib init` | `init_project(...)` | `drawlib.tools.init.init_project` | Scaffold starter documentation project structures. |
 | `drawlib serve` | `serve_docs(...)` | `drawlib.tools.serve.serve_docs` | Launch local preview HTTP web server with link checker. |
 | `drawlib cache` | `list_cache()`, `clear_cache()` | `drawlib.tools.cache` | Inspect, download, or clear font and icon asset cache. |
-| `drawlib css` | `list_css()`, `export_css(...)` | `drawlib.tools.css` | Inspect or extract built-in CSS themes and stylesheets. |
-| `drawlib template` | `list_templates()`, `validate_template(...)` | `drawlib.tools.template` | Inspect, export, or validate Jinja2 HTML templates. |
+| `drawlib css` | `list_css()`, `export_css()` | `drawlib.tools.css` | Inspect and export built-in CSS stylesheets. |
 
 ```drawlib 650px center caption:"Architecture: drawlib.tools as the Backend Engine"
 from drawlib.canvas import setup
@@ -97,13 +96,10 @@ from drawlib.tools import (
     list_cache,
     list_css,
     export_css,
-    list_templates,
-    export_template,
-    validate_template,
 )
 
 # Or namespace submodule access
-from drawlib.tools import build, cache, css, export, init, serve, show, template
+from drawlib.tools import build, cache, css, export, init, serve, show
 ```
 
 ---
@@ -111,20 +107,17 @@ from drawlib.tools import build, cache, css, export, init, serve, show, template
 ## 3. Document & Image Compilation (`build`)
 
 ### 3.1. `build_html()`
-Compiles authoring Markdown source files into a responsive static HTML site:
+Compiles authoring Markdown source files into a responsive static HTML site. Note that `template.html` and `style.css` must exist in the source directory (scaffolded via `drawlib init`):
 
 ```python
 from drawlib.tools import build_html
 
 build_html(
     input_path="docs_src/",            # Source directory or single .md file
-    output_path="docs_html/",          # Destination directory or .html file
-    config_path="config.py",          # Optional Python configuration script
-    css_path="google",                 # Custom CSS file path or built-in preset ("default", "google")
-    template_path=None,                # Custom Jinja2 template path (None uses built-in sidebar)
-    css_mode="auto",                   # "auto" (external for dirs, embed for single files), "embed", "external"
+    output="docs_html/",               # Destination directory or .html file
+    config="config.py",                # Optional Python configuration script
     no_cache=False,                    # Set True to force re-executing all diagram blocks
-    image_format="png",                # "png", "svg", or "inline_svg"
+    image_format="png",                # "png" or "webp"
 )
 ```
 
@@ -136,8 +129,8 @@ from drawlib.tools import build_markdown
 
 build_markdown(
     input_path="docs_src/",
-    output_path="docs/",
-    config_path="config.py",
+    output="docs/",
+    config="config.py",
     image_format="png",
 )
 ```
@@ -149,10 +142,10 @@ Renders Markdown documents to print-ready vector PDF using headless Chromium via
 from drawlib.tools import build_pdf
 
 build_pdf(
-    input_path="docs_src/architecture.md",
-    output_path="dist/architecture.pdf",
-    config_path="config.py",
-    css_path="print.css",
+    inputs="doc_src/",
+    output="doc.pdf",
+    config="config.py",
+    timestamp=False,  # Set True to preserve current build timestamp instead of normalizing
 )
 ```
 
@@ -164,8 +157,8 @@ from drawlib.tools import build_image
 
 build_image(
     input_path="drawings/",
-    output_path="dist/images/",
-    config_path="config.py",
+    output="dist/images/",
+    config="config.py",
     grid=False,
 )
 ```
@@ -223,7 +216,7 @@ from drawlib.tools import init_project, list_project_types
 
 # Check available starter templates:
 print(list_project_types())
-# Output: ['site', 'simple', 'pdf']
+# Output: ['site', 'simple', 'pdf', 'image']
 
 # Scaffold a documentation website project:
 init_project(
@@ -267,22 +260,16 @@ download_cache()
 clear_cache()
 ```
 
-### 6.3. Template & CSS Management (`template` & `css`)
+### 6.3. CSS Management (`css`)
 
 ```python
-from drawlib.tools.template import export_template, list_templates, validate_template
 from drawlib.tools.css import export_css, list_css
 
-# Inspect and export templates:
-templates = list_templates()
-export_template("sidebar", "my_sidebar.html.j2")
+# Inspect available CSS presets:
+presets = list_css(target="html")
 
-# Validate template syntax and required Jinja2 placeholders:
-validate_template("my_sidebar.html.j2")
-
-# Inspect and export CSS presets:
-presets = list_css()
-export_css("default", "base_theme.css")
+# Export a CSS preset directly into your project's stylesheet:
+export_css(name="google", output_path="docs_src/style.css", force=True)
 ```
 
 ---
@@ -307,7 +294,7 @@ def main() -> None:
     build_markdown(input_path=str(src_dir), output_path=str(md_dir))
 
     print("[2/3] Compiling Responsive HTML static site...")
-    build_html(input_path=str(src_dir), output_path=str(html_dir), css_path="google")
+    build_html(input_path=str(src_dir), output_path=str(html_dir))
 
     print("[3/3] Exporting hero diagram for repository banner...")
     export_block(

@@ -19,7 +19,6 @@ from drawlib.tools import (
     serve,           # Local development HTTP server
     cache,           # Font and icon cache manager
     css,             # Built-in CSS presets management
-    template,        # Jinja2 template export and validation
 
     # Direct Function Re-exports
     build_html,
@@ -38,9 +37,6 @@ from drawlib.tools import (
     download_cache,
     list_css,
     export_css,
-    list_templates,
-    export_template,
-    validate_template,
 )
 ```
 
@@ -60,11 +56,9 @@ build_html(
     input_path="docs_src/",
     output_path="docs_html/",
     config_path="config.py",        # Optional global Python config
-    css_path="custom.css",          # Optional custom CSS file or preset name
-    template_path="template.j2",    # Optional custom Jinja2 HTML template
-    css_mode="auto",                # "auto", "embed", or "external"
+    css_mode="external",            # "external" (default) or "embed"
     no_cache=False,                 # Force re-rendering all code blocks
-    image_format="png",             # "png", "svg", or "inline_svg"
+    image_format="png",             # "png" or "webp"
 )
 ```
 
@@ -89,11 +83,9 @@ Compiles documents directly to print-ready vector PDF using headless Chromium vi
 from drawlib.tools import build_pdf
 
 build_pdf(
-    input_path="docs_src/index.md",
+    inputs="docs_src/index.md",
     output_path="output.pdf",
     config_path="config.py",
-    css_path="custom.css",
-    template_path="template.j2",
 )
 ```
 
@@ -162,7 +154,7 @@ from drawlib.tools import init_project, list_project_types
 
 # Inspect available starter templates:
 types = list_project_types()
-# Returns: ["site", "simple", "pdf"]
+# Returns: ["site", "simple", "pdf", "image"]
 
 # Scaffold a multi-page documentation website:
 init_project(
@@ -206,23 +198,18 @@ download_cache()
 clear_cache()
 ```
 
-### 5.3. Template & CSS Presets (`template` & `css`)
-Inspect and export built-in Jinja2 templates and CSS themes:
+### 5.3. CSS Presets (`drawlib.tools.css`)
+Inspect available CSS themes and export stylesheets:
 
 ```python
-from drawlib.tools.template import export_template, list_templates, validate_template
 from drawlib.tools.css import export_css, list_css
 
-# List and export built-in Jinja2 templates:
-templates = list_templates()
-export_template("sidebar", "custom_sidebar.html.j2")
+# List CSS style presets:
+html_presets = list_css(format="html")  # ["google", "google-dark", "github", ...]
+pdf_presets = list_css(format="pdf")    # ["default", "monochrome", ...]
 
-# Validate a custom template for required placeholders:
-validate_template("custom_sidebar.html.j2")
-
-# List and export CSS style presets:
-presets = list_css()
-export_css("google", "theme_google.css")
+# Export a preset CSS stylesheet:
+export_css(name="google", output_path="style.css", format="html", force=True)
 ```
 
 ---
@@ -244,7 +231,7 @@ def run_documentation_pipeline() -> None:
     build_markdown(input_path=str(src_dir), output_path=str(md_dir))
 
     print("[2/3] Compiling Responsive HTML static site...")
-    build_html(input_path=str(src_dir), output_path=str(html_dir), css_path="google")
+    build_html(input_path=str(src_dir), output_path=str(html_dir))
 
     print("[3/3] Exporting hero diagram for release badge...")
     export_block(

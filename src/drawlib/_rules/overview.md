@@ -345,9 +345,9 @@ line((40, 25), (80, 25), arrowhead="->", style=styles.bold)
 ./docs_build.sh
 
 # Or compile manually via CLI:
-drawlib build html docs_src/ -o docs_html/ -c docs_config.py --css google
+drawlib build html docs_src/ -o docs_html/ -c docs_config.py
 drawlib build markdown docs_src/ -o docs/ -c docs_config.py
-drawlib build pdf docs_src/index.md -o output.pdf -c docs_config.py --css google
+drawlib build pdf docs_src/index.md -o output.pdf -c docs_config.py
 
 # Preview static HTML site locally with automatic link checking:
 drawlib serve docs_html/
@@ -365,17 +365,16 @@ from drawlib.tools import build_html, build_markdown, export_block
 # Export a single diagram from a Markdown file
 image_path = export_block(
     file_path="docs_src/architecture.md",
-    block_id="1",
+    target="1",
     output_path="scratch/preview.png",
-    show_grid=True,
+    grid=True,
 )
 
 # Compile full HTML site programmatically
 build_html(
-    src="docs_src/",
-    output="docs_html/",
-    config="docs_config.py",
-    css="google",
+    input_path="docs_src/",
+    output_path="docs_html/",
+    config_path="docs_config.py",
 )
 ```
 
@@ -416,7 +415,7 @@ drawlib rules show <topic> --rebuild
 - **Scope**: Document compilation (`build`), single illustration export (`export`), desktop preview (`show`), project scaffolding (`init`), local documentation server (`serve`), and cache management (`cache`).
 - **Key Syntax**:
   ```bash
-  drawlib build html docs_src/ -o docs_html/ --css google
+  drawlib build html docs_src/ -o docs_html/
   drawlib export script.py -g -o scratch/preview.png
   drawlib init site --here
   ```

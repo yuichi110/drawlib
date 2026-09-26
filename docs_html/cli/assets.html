@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>`drawlib cache`, `template`, & `css`</title>
+    <title>`drawlib cache` & `css`</title>
     
     <link rel="stylesheet" href="../style.css">
     
@@ -121,7 +121,7 @@
                             </li>
                             
                             <li class="nav-item active">
-                                <a href="assets.html" >drawlib cache, template & css</a>
+                                <a href="assets.html" >drawlib cache & css</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -396,12 +396,12 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">`drawlib cache`, `template`, & `css`</span>
+                    <span class="crumb active">`drawlib cache` & `css`</span>
                 </div>
             </header>
             <main class="main-content">
-                <h1><code>drawlib cache</code>, <code>template</code>, &amp; <code>css</code></h1>
-<p>These commands manage external release assets, HTML/PDF Jinja2 templates, and CSS stylesheets.</p>
+                <h1><code>drawlib cache</code> &amp; <code>css</code></h1>
+<p>These commands manage external release assets and CSS stylesheets.</p>
 <blockquote>
 <p><strong>Tip</strong>: If you are using <code>uv</code>, run commands with <code>uv run</code> (e.g., <code>uv run drawlib cache list</code>).</p>
 </blockquote>
@@ -438,43 +438,8 @@
 </tbody>
 </table>
 <hr />
-<h2>2. Template Management (<code>drawlib template</code>)</h2>
-<p>Manage built-in Jinja2 templates used when compiling HTML documentation or PDF manuals.</p>
-<pre><code class="language-bash">drawlib template &lt;target&gt; &lt;subcommand&gt; [OPTIONS]
-</code></pre>
-<ul>
-<li><code>&lt;target&gt;</code>: <code>html</code> or <code>pdf</code></li>
-</ul>
-<h3>Subcommands</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Subcommand</th>
-<th style="text-align:left">Description</th>
-<th style="text-align:left">Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><strong><code>list</code></strong></td>
-<td style="text-align:left">Lists all built-in templates available for the specified target.</td>
-<td style="text-align:left"><code>drawlib template html list</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><strong><code>export</code></strong></td>
-<td style="text-align:left">Exports a built-in template to a local file for modification.</td>
-<td style="text-align:left"><code>drawlib template html export custom_sidebar.html.j2</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><strong><code>validate</code></strong></td>
-<td style="text-align:left">Verifies that a custom Jinja2 template contains all required block tags and variables.</td>
-<td style="text-align:left"><code>drawlib template html validate custom_sidebar.html.j2</code></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2>3. CSS Management (<code>drawlib css</code>)</h2>
-<p>Manage and export built-in CSS style presets.</p>
+<h2>2. CSS Management (<code>drawlib css</code>)</h2>
+<p>Inspect available built-in CSS style presets. When initializing a project, use <code>drawlib init site --css &lt;theme&gt;</code> to choose your starting stylesheet.</p>
 <pre><code class="language-bash">drawlib css &lt;target&gt; &lt;subcommand&gt; [OPTIONS]
 </code></pre>
 <ul>
@@ -492,13 +457,13 @@
 <tbody>
 <tr>
 <td style="text-align:left"><strong><code>list</code></strong></td>
-<td style="text-align:left">Lists available CSS stylesheets (e.g. <code>default.css</code>, <code>pygments.css</code>).</td>
+<td style="text-align:left">Lists available CSS preset names.</td>
 <td style="text-align:left"><code>drawlib css html list</code></td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>export</code></strong></td>
-<td style="text-align:left">Exports a built-in CSS stylesheet to a local file for customization.</td>
-<td style="text-align:left"><code>drawlib css html export my_style.css</code></td>
+<td style="text-align:left"><strong><code>export &lt;preset&gt;</code></strong></td>
+<td style="text-align:left">Exports a built-in CSS preset to a stylesheet file (<code>style.css</code> by default).</td>
+<td style="text-align:left"><code>drawlib css html export google -o style.css --force</code></td>
 </tr>
 </tbody>
 </table>

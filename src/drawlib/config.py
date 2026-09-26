@@ -25,7 +25,7 @@ from drawlib.preset_styles import (
 )
 
 # Default style preset for drawlib documentation and illustrations
-styles: EssentialsStyles | BasePresetStyles = essentials_styles
+styles: EssentialsStyles = essentials_styles
 
 _ORIGINAL_KEYS: set[str] = {
     "__name__",

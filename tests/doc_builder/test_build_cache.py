@@ -28,7 +28,7 @@ from drawlib.tools.build import build_html, build_image, build_markdown, build_p
 
 def test_build_cache_put_get_png_webp(tmp_path: Path) -> None:
     """Test storing and retrieving PNG and WebP blobs with companion grid blobs."""
-    db_path = str(tmp_path / ".drawlib_build_image_cache")
+    db_path = str(tmp_path / ".drawlib" / "cache.db")
     cache = BuildImageCache(db_path=db_path)
 
     key1 = "key_png_1"
@@ -78,7 +78,7 @@ def test_build_cache_put_get_png_webp(tmp_path: Path) -> None:
 
 def test_build_cache_lib_version_mismatch_drops_table(tmp_path: Path) -> None:
     """Test that if lib_version in cache_meta differs, image_cache is dropped and recreated."""
-    db_path = str(tmp_path / ".drawlib_build_image_cache")
+    db_path = str(tmp_path / ".drawlib" / "cache.db")
     cache_old = BuildImageCache(db_path=db_path, lib_version="0.1.0")
     cache_old.put(
         cache_key="k1",
@@ -103,7 +103,7 @@ def test_build_cache_lib_version_mismatch_drops_table(tmp_path: Path) -> None:
 
 def test_build_cache_matplotlib_version_mismatch_drops_table(tmp_path: Path) -> None:
     """Test that if matplotlib_version in cache_meta differs, image_cache is dropped and recreated."""
-    db_path = str(tmp_path / ".drawlib_build_image_cache")
+    db_path = str(tmp_path / ".drawlib" / "cache.db")
     cache_old = BuildImageCache(db_path=db_path, matplotlib_version="3.8.0")
     cache_old.put(
         cache_key="k1",
@@ -128,7 +128,7 @@ def test_build_cache_matplotlib_version_mismatch_drops_table(tmp_path: Path) -> 
 
 def test_build_cache_eviction_when_exceeding_max_bytes(tmp_path: Path) -> None:
     """Test that oldest 50% entries are evicted when total size exceeds max_size_bytes."""
-    db_path = str(tmp_path / ".drawlib_build_image_cache")
+    db_path = str(tmp_path / ".drawlib" / "cache.db")
     # Set small max_size_bytes of 300 bytes
     cache = BuildImageCache(db_path=db_path, max_size_bytes=300)
 
@@ -155,7 +155,7 @@ def test_build_cache_eviction_when_exceeding_max_bytes(tmp_path: Path) -> None:
 
 def test_build_cache_disabled_no_db_created(tmp_path: Path) -> None:
     """Test that BuildImageCache with enabled=False does not create or write to DB."""
-    db_path = str(tmp_path / ".drawlib_build_image_cache")
+    db_path = str(tmp_path / ".drawlib" / "cache.db")
     cache = BuildImageCache(db_path=db_path, enabled=False)
 
     cache.put(
@@ -186,7 +186,7 @@ circle((50, 50), 20, style=styles.primary)
     out_file1 = tmp_path / "out1.md"
     # 1st run: fills cache
     build_markdown(str(md_file), output=str(out_file1))
-    db_path = tmp_path / ".drawlib_build_image_cache"
+    db_path = tmp_path / ".drawlib" / "cache.db"
     assert db_path.exists()
 
     conn = sqlite3.connect(str(db_path))
@@ -228,7 +228,7 @@ save("my_output.png")
     build_image(str(script))
     out_img = tmp_path / "my_output.png"
     assert out_img.exists()
-    db_path = tmp_path / ".drawlib_build_image_cache"
+    db_path = tmp_path / ".drawlib" / "cache.db"
     assert db_path.exists()
 
     # Delete output image to verify cache restoration on second run

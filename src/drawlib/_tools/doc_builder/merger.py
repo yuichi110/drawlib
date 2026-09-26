@@ -109,6 +109,15 @@ def expand_input_files(inputs: List[str]) -> List[str]:
                 for fname in sorted(files):
                     if fname.startswith("."):
                         continue
+                    if fname.lower() in {
+                        "readme.md",
+                        "readme.markdown",
+                        "template.html",
+                        "template.html.j2",
+                        "navbar.md",
+                        "navbar.markdown",
+                    }:
+                        continue
                     ext = os.path.splitext(fname)[1].lower()
                     if ext in {".md", ".markdown", ".html", ".htm"}:
                         dir_files.append(os.path.join(root, fname))
@@ -151,8 +160,42 @@ def build_merged_html(
     Returns:
         tuple[str, List[str]]: (merged_full_html_string, ordered_source_files).
     """
-    if toc is not None:
-        generate_index = toc
+    if not inputs:
+        raise ValueError("At least one input file or directory must be specified.")
+
+    first_input = os.path.abspath(inputs[0])
+    search_dir = first_input if os.path.isdir(first_input) else os.path.dirname(first_input)
+
+    if template_path is None:
+        t_cand = os.path.join(search_dir, "template.html")
+        if not os.path.isfile(t_cand):
+            raise ValueError(
+                f'Missing required "template.html" in "{search_dir}". '
+                'Please run "drawlib init" to initialize your project, or provide "template.html".'
+            )
+        template_path = t_cand
+
+    if css_path is None:
+        c_cand = os.path.join(search_dir, "style.css")
+        if not os.path.isfile(c_cand):
+            raise ValueError(
+                f'Missing required "style.css" in "{search_dir}". '
+                'Please run "drawlib init" to initialize your project, or provide "style.css".'
+            )
+        css_path = c_cand
+
+    if config_path is None:
+        for inp in inputs:
+            inp_abs = os.path.abspath(inp)
+            cand = (
+                os.path.join(inp_abs, "config.py")
+                if os.path.isdir(inp_abs)
+                else os.path.join(os.path.dirname(inp_abs), "config.py")
+            )
+            if os.path.isfile(cand):
+                config_path = cand
+                break
+
     file_list = expand_input_files(inputs)
     cache = BuildImageCache(enabled=not no_cache)
     processor: Optional[DrawlibBlockProcessor] = None

@@ -16,8 +16,6 @@ from drawlib.doc_builder import (
     build,
     build_document,
     build_documents,
-    export_default_template,
-    validate_template,
 )
 from drawlib.math import get_angle, get_center_and_size, get_distance
 
@@ -49,8 +47,6 @@ class TestDomainUtilities:
         assert callable(build)
         assert callable(build_document)
         assert callable(build_documents)
-        assert callable(export_default_template)
-        assert callable(validate_template)
 
     def test_css_presets(self) -> None:
         """Verify get_default_css loads built-in CSS presets correctly."""

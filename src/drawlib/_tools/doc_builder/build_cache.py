@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""SQLite-backed build image cache (.drawlib_build_image_cache) for drawlib build commands."""
+"""SQLite-backed build image cache (.drawlib/cache.db) for drawlib build commands."""
 
 from __future__ import annotations
 
@@ -22,7 +22,7 @@ import matplotlib
 
 from drawlib import LIB_VERSION
 
-DEFAULT_CACHE_FILENAME = ".drawlib_build_image_cache"
+DEFAULT_CACHE_REL_PATH = os.path.join(".drawlib", "cache.db")
 DEFAULT_MAX_CACHE_BYTES = 1024 * 1024 * 1024  # 1 GiB
 SCHEMA_VERSION = "1"
 
@@ -77,8 +77,7 @@ class BuildImageCache:
         """Initialize the SQLite build image cache.
 
         Args:
-            db_path (Optional[str]): Path to SQLite file. Defaults to `.drawlib_build_image_cache` in CWD
-                or `DRAWLIB_BUILD_CACHE_PATH` environment variable.
+            db_path (Optional[str]): Path to SQLite file. Defaults to `.drawlib/cache.db` in CWD.
             max_size_bytes (int): Maximum total blob bytes before evicting oldest 50%. Defaults to 1 GiB.
             enabled (bool): Whether cache reads/writes are active. When False, no file or DB access occurs.
             lib_version (Optional[str]): Library version override (used for testing version upgrades).
@@ -90,8 +89,7 @@ class BuildImageCache:
         self._matplotlib_version = (
             matplotlib_version if matplotlib_version is not None else getattr(matplotlib, "__version__", "")
         )
-        env_path = os.environ.get("DRAWLIB_BUILD_CACHE_PATH")
-        resolved_path = db_path or env_path or DEFAULT_CACHE_FILENAME
+        resolved_path = db_path or DEFAULT_CACHE_REL_PATH
         self._db_path = os.path.abspath(resolved_path)
 
         if self._enabled:

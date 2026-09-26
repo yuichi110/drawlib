@@ -143,6 +143,32 @@ Output:
 
 
 
+
+# Patching Typography Globally with `styles.patch_font()`
+
+When creating illustrations or documentation in Japanese, Chinese, or specialized brand typefaces, setting fonts individually on each shape or text call is tedious and prone to missing glyphs (e.g. tofu boxes on bold text).
+
+You can patch all font definitions across the entire active style catalog using `styles.patch_font()`:
+
+```python
+from drawlib.config import styles
+from drawlib.fonts import FontJapanese
+
+# Patch regular and bold fonts for all styles in the active catalog
+styles.patch_font(
+    regular=FontJapanese.SANSSERIF_REGULAR,
+    bold=FontJapanese.SANSSERIF_BOLD,
+)
+```
+
+### Parameter Resolution:
+- **`regular`**: Serves as the fallback default font for all styles in the catalog (including bold and light if not overridden).
+- **`bold`** (keyword-only): Overrides all bold styles (such as `styles.bold`, `styles.blue_bold`, etc.).
+- **`light`** (keyword-only): Overrides all light styles (such as `styles.light`, `styles.red_light`, etc.).
+- **`sourcecode`** (keyword-only): Updates the default monospace font used by source code rendering components (`styles.sourcecode_font`).
+
+This method is commonly configured in your project's `config.py` so that all diagrams automatically render with the appropriate font.
+
 ---
 
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

@@ -156,17 +156,6 @@ def cmd_build_html(
         Literal["png", "webp"],
         typer.Option("--image-format", help="Image output format for drawlib blocks: png or webp."),
     ] = "png",
-    css: Annotated[
-        Optional[str],
-        typer.Option(
-            "--css",
-            help="HTML CSS preset (default, google, github, minimal, monochrome) or custom .css file path.",
-        ),
-    ] = None,
-    template: Annotated[
-        Optional[str],
-        typer.Option("-t", "--template", help="HTML template preset (sidebar, simple) or custom .html.j2 file path."),
-    ] = None,
     config: Annotated[
         Optional[str],
         typer.Option("-c", "--config", help="Path to Python config/setup script (e.g. config.py)."),
@@ -182,8 +171,6 @@ def cmd_build_html(
             input_path=input_path,
             output=output,
             image_format=image_format,
-            css=css,
-            template=template,
             config=config,
             no_cache=no_cache,
         )
@@ -221,17 +208,6 @@ def cmd_build_pdf(
         Optional[str],
         typer.Option("--title", help="Document title override for the merged PDF."),
     ] = None,
-    css: Annotated[
-        Optional[str],
-        typer.Option(
-            "--css",
-            help="PDF CSS preset (default, google, github, minimal, monochrome) or custom .css file path.",
-        ),
-    ] = None,
-    template: Annotated[
-        Optional[str],
-        typer.Option("-t", "--template", help="PDF template preset (default, book) or custom .html.j2 file path."),
-    ] = None,
     config: Annotated[
         Optional[str],
         typer.Option("-c", "--config", help="Path to Python config/setup script (e.g. config.py)."),
@@ -239,6 +215,13 @@ def cmd_build_pdf(
     no_cache: Annotated[
         bool,
         typer.Option("--no-cache", help="Disable reading and writing the SQLite build image cache."),
+    ] = False,
+    timestamp: Annotated[
+        bool,
+        typer.Option(
+            "--timestamp",
+            help="Include current build timestamp in PDF metadata instead of normalizing it.",
+        ),
     ] = False,
 ) -> None:
     """Merge one or more Markdown/HTML files or directories into a single HTML and export to PDF."""
@@ -249,10 +232,9 @@ def cmd_build_pdf(
             page_break=page_break,
             generate_index=generate_index,
             title=title,
-            css=css,
-            template=template,
             config=config,
             no_cache=no_cache,
+            timestamp=timestamp,
         )
         print(f"Successfully compiled PDF document: {out_file}")
     except Exception as e:

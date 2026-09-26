@@ -121,7 +121,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../cli/assets.html" >drawlib cache, template & css</a>
+                                <a href="../cli/assets.html" >drawlib cache & css</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -479,15 +479,9 @@ While terminal commands like <code>drawlib build</code>, <code>drawlib export</c
 </tr>
 <tr>
 <td style="text-align:left"><code>drawlib css</code></td>
-<td style="text-align:left"><code>list_css()</code>, <code>export_css(...)</code></td>
+<td style="text-align:left"><code>list_css()</code>, <code>export_css()</code></td>
 <td style="text-align:left"><code>drawlib.tools.css</code></td>
-<td style="text-align:left">Inspect or extract built-in CSS themes and stylesheets.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>drawlib template</code></td>
-<td style="text-align:left"><code>list_templates()</code>, <code>validate_template(...)</code></td>
-<td style="text-align:left"><code>drawlib.tools.template</code></td>
-<td style="text-align:left">Inspect, export, or validate Jinja2 HTML templates.</td>
+<td style="text-align:left">Inspect and export built-in CSS stylesheets.</td>
 </tr>
 </tbody>
 </table>
@@ -513,29 +507,23 @@ from drawlib.tools import (
     list_cache,
     list_css,
     export_css,
-    list_templates,
-    export_template,
-    validate_template,
 )
 
 # Or namespace submodule access
-from drawlib.tools import build, cache, css, export, init, serve, show, template
+from drawlib.tools import build, cache, css, export, init, serve, show
 </code></pre>
 <hr />
 <h2>3. Document &amp; Image Compilation (<code>build</code>)</h2>
 <h3>3.1. <code>build_html()</code></h3>
-<p>Compiles authoring Markdown source files into a responsive static HTML site:</p>
+<p>Compiles authoring Markdown source files into a responsive static HTML site. Note that <code>template.html</code> and <code>style.css</code> must exist in the source directory (scaffolded via <code>drawlib init</code>):</p>
 <pre><code class="language-python">from drawlib.tools import build_html
 
 build_html(
     input_path=&quot;docs_src/&quot;,            # Source directory or single .md file
-    output_path=&quot;docs_html/&quot;,          # Destination directory or .html file
-    config_path=&quot;config.py&quot;,          # Optional Python configuration script
-    css_path=&quot;google&quot;,                 # Custom CSS file path or built-in preset (&quot;default&quot;, &quot;google&quot;)
-    template_path=None,                # Custom Jinja2 template path (None uses built-in sidebar)
-    css_mode=&quot;auto&quot;,                   # &quot;auto&quot; (external for dirs, embed for single files), &quot;embed&quot;, &quot;external&quot;
+    output=&quot;docs_html/&quot;,               # Destination directory or .html file
+    config=&quot;config.py&quot;,                # Optional Python configuration script
     no_cache=False,                    # Set True to force re-executing all diagram blocks
-    image_format=&quot;png&quot;,                # &quot;png&quot;, &quot;svg&quot;, or &quot;inline_svg&quot;
+    image_format=&quot;png&quot;,                # &quot;png&quot; or &quot;webp&quot;
 )
 </code></pre>
 <h3>3.2. <code>build_markdown()</code></h3>
@@ -544,8 +532,8 @@ build_html(
 
 build_markdown(
     input_path=&quot;docs_src/&quot;,
-    output_path=&quot;docs/&quot;,
-    config_path=&quot;config.py&quot;,
+    output=&quot;docs/&quot;,
+    config=&quot;config.py&quot;,
     image_format=&quot;png&quot;,
 )
 </code></pre>
@@ -554,10 +542,10 @@ build_markdown(
 <pre><code class="language-python">from drawlib.tools import build_pdf
 
 build_pdf(
-    input_path=&quot;docs_src/architecture.md&quot;,
-    output_path=&quot;dist/architecture.pdf&quot;,
-    config_path=&quot;config.py&quot;,
-    css_path=&quot;print.css&quot;,
+    inputs=&quot;doc_src/&quot;,
+    output=&quot;doc.pdf&quot;,
+    config=&quot;config.py&quot;,
+    timestamp=False,  # Set True to preserve current build timestamp instead of normalizing
 )
 </code></pre>
 <h3>3.4. <code>build_image()</code></h3>
@@ -566,8 +554,8 @@ build_pdf(
 
 build_image(
     input_path=&quot;drawings/&quot;,
-    output_path=&quot;dist/images/&quot;,
-    config_path=&quot;config.py&quot;,
+    output=&quot;dist/images/&quot;,
+    config=&quot;config.py&quot;,
     grid=False,
 )
 </code></pre>
@@ -612,7 +600,7 @@ show_block(
 
 # Check available starter templates:
 print(list_project_types())
-# Output: ['site', 'simple', 'pdf']
+# Output: ['site', 'simple', 'pdf', 'image']
 
 # Scaffold a documentation website project:
 init_project(
@@ -647,20 +635,14 @@ download_cache()
 # Clear cache to free storage:
 clear_cache()
 </code></pre>
-<h3>6.3. Template &amp; CSS Management (<code>template</code> &amp; <code>css</code>)</h3>
-<pre><code class="language-python">from drawlib.tools.template import export_template, list_templates, validate_template
-from drawlib.tools.css import export_css, list_css
+<h3>6.3. CSS Management (<code>css</code>)</h3>
+<pre><code class="language-python">from drawlib.tools.css import export_css, list_css
 
-# Inspect and export templates:
-templates = list_templates()
-export_template(&quot;sidebar&quot;, &quot;my_sidebar.html.j2&quot;)
+# Inspect available CSS presets:
+presets = list_css(target=&quot;html&quot;)
 
-# Validate template syntax and required Jinja2 placeholders:
-validate_template(&quot;my_sidebar.html.j2&quot;)
-
-# Inspect and export CSS presets:
-presets = list_css()
-export_css(&quot;default&quot;, &quot;base_theme.css&quot;)
+# Export a CSS preset directly into your project's stylesheet:
+export_css(name=&quot;google&quot;, output_path=&quot;docs_src/style.css&quot;, force=True)
 </code></pre>
 <hr />
 <h2>7. Practical Automation Examples</h2>
@@ -679,7 +661,7 @@ def main() -&gt; None:
     build_markdown(input_path=str(src_dir), output_path=str(md_dir))
 
     print(&quot;[2/3] Compiling Responsive HTML static site...&quot;)
-    build_html(input_path=str(src_dir), output_path=str(html_dir), css_path=&quot;google&quot;)
+    build_html(input_path=str(src_dir), output_path=str(html_dir))
 
     print(&quot;[3/3] Exporting hero diagram for repository banner...&quot;)
     export_block(

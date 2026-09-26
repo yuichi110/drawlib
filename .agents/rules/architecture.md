@@ -10,7 +10,7 @@ This document describes the project structure and architectural principles of th
 - `src/drawlib/`: The main source code directory.
   - Public domain modules: `canvas.py`, `shapes.py`, `lines.py`, `text.py`, `colors.py`, `preset_styles.py`, `icons.py`, `fonts.py`, `types.py`, `images.py`, `charts.py`, `diagrams/`, `smartarts.py`, `math.py`, `doc_builder.py`.
   - `_core/`: Core drawing engine implementation details (`l1_core`, `l2_models`, `l2_types`, `l3_fonts`, `l3_styles`, `l4_canvas`, `l4_canvas_utils`).
-  - `_preset_styles/`, `_charts/`, `_diagrams/`, `_smartarts/`, `_icons/`, `_umls/`: Domain implementations.
+  - `_preset_styles/`, `_charts/`, `_diagrams/`, `_smartarts/`, `_icons/`, `_css/`: Domain implementations and styling assets.
   - `_tools/`: Tooling including `doc_builder` and CLI entrypoint.
 - `docs_src/`: Source of truth for documentation and technical guides written in Markdown.
 - `docs/`: Generated Markdown documentation for GitHub repository browsing (do not edit directly).

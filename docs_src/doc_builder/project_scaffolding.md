@@ -6,13 +6,14 @@ To get started quickly, Drawlib provides built-in starter project templates that
 
 ## 1. Starter Project Templates
 
-Drawlib includes three official starter project types:
+Drawlib includes four official starter project types:
 
 | Template | Command | Best For | Included Artifacts |
 | :--- | :--- | :--- | :--- |
-| **`simple`** | `drawlib init simple` | Single articles, README diagrams, standalone blog posts | `document.md`, `build.sh`, sample architecture illustration block |
-| **`site`** | `drawlib init site` | Complete documentation websites, project manuals, API references | `docs_src/` hierarchy, `navbar.md`, multiple chapters, custom configuration |
-| **`pdf`** | `drawlib init pdf` | Technical specifications, whitepapers, executive reports | Structured multi-section report configured for high-fidelity PDF output |
+| **`site`** | `drawlib init site` | Complete documentation websites, project manuals, API references | `docs_src/` hierarchy, `navbar.md`, `config.py`, `style.css`, `template.html`, `build.sh` |
+| **`simple`** | `drawlib init simple` | Single articles, README diagrams, standalone blog posts | `document.md`, `config.py`, `style.css`, `template.html`, `build.sh` |
+| **`pdf`** | `drawlib init pdf` | Technical specifications, whitepapers, executive reports | `doc_src/` chapters (`00_cover.md`...), `config.py`, `style.css`, `template.html`, `build.sh` |
+| **`image`** | `drawlib init image` | Standalone Python diagram/illustration scripts | Python script scaffolding, configuration, and image export tasks |
 
 ---
 
@@ -30,9 +31,19 @@ Specify the template type and target directory name:
 drawlib init site my_docs/
 ```
 
-This creates a new folder `my_docs/` populated with the starter website structure.
+This creates a new folder `my_docs/` populated with the starter website structure and automatically compiles the initial Markdown (`docs/`) and HTML (`docs_html/`) outputs.
 
-### 2.3 Scaffolding in the Current Directory
+### 2.3 Choosing Language and CSS Theme
+You can specify the document language and starting CSS theme:
+
+```bash
+# Bootstrap a Japanese documentation website with the Google theme:
+drawlib init site my_docs/ --lang ja --css google
+```
+
+When `--lang ja` is selected, Drawlib configures Japanese font patching (`FontJapanese.SANSSERIF_REGULAR`) in `config.py` out of the box.
+
+### 2.4 Scaffolding in the Current Directory
 Use the `--here` flag to bootstrap directly into an existing empty directory:
 
 ```bash
@@ -40,7 +51,7 @@ mkdir documentation && cd documentation
 drawlib init site --here
 ```
 
-### 2.4 Overwriting Existing Files
+### 2.5 Overwriting Existing Files
 By default, `drawlib init` prevents accidental overwriting. Pass `--force` (`-f`) if you explicitly intend to overwrite existing files:
 
 ```bash

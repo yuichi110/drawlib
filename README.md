@@ -2,7 +2,7 @@
 
 Drawlib is a pure Python drawing library crafted to facilitate Illustration as Code rather than focusing solely on creating polished illustrations. Witness Python code in action generating a circular image:
 
-![Alt text for the image](docs_readme_images/images/about/image_drawlib.png)
+![Alt text for the image](images_readme/about/image_drawlib.png)
 
 As you can see, we define circle location, size and styles at left side code. Executing it generate right side circle image. You will get illustration as you code.
 
@@ -17,7 +17,7 @@ Complete documentation is provided at our official documentation.
 Drawlib offers a variety of drawing items with different styles. 
 Below is a sample image showcasing the major drawing items with varying styles.
 
-![Alt text for the image](docs_readme_images/images/about/image_items.png)
+![Alt text for the image](images_readme/about/image_items.png)
 
 - Icon: Over 1500 patterns available in 5 styles (thin, light, regular, bold, fill)
 - Image: Easily apply effects
@@ -40,7 +40,7 @@ However, we divide them into two parts:
 
 If you are familiar with HTML/CSS, content is analogous to HTML, and style is analogous to CSS. Just as it’s recommended to define styles in CSS and reference them in HTML, Drawlib encourages defining styles separately and referencing them in the illustration code.
 
-![Alt text for the image](docs_readme_images/images/about/image_concept.png)
+![Alt text for the image](images_readme/about/image_concept.png)
 
 From an artistic perspective, the mix of content and style is essential. However, for illustrations that do not require an artistic look, the content is more critical than the styles. The color or width of a line is less important than where the line is drawn.
 
@@ -60,7 +60,7 @@ Drawlib is structured around the following APIs:
 - Theme and style accessor module (``dtheme``): This module facilitates managing themes and accessing styles across drawings.
 - Advanced classes and functions: These components utilize the aforementioned APIs internally to provide extended functionality.
 
-![Alt text for the image](docs_readme_images/images/about/image_api.png)
+![Alt text for the image](images_readme/about/image_api.png)
 
 The image above illustrates Drawlib's core components, categorized into five sections representing its various APIs. 
 Despite its complexity, Drawlib maintains consistency in function arguments and style classes.
@@ -74,7 +74,7 @@ In contemporary software development, version control extends beyond code to enc
 
 Enter Drawlib, a solution meticulously developed to address this issue. With Drawlib, not only can textual documentation be version-controlled, but illustration code can also be managed through Git. This facilitates the automation of build tasks via scripting or CI/CD pipelines.
 
-![Alt text for the image](docs_readme_images/images/about/image_buildmany.png)
+![Alt text for the image](images_readme/about/image_buildmany.png)
 
 Integrating Drawlib into your workflow is straightforward and doesn’t significantly differ from managing markdown documents. If you create your documentation using markdown or a similar format, you can easily adopt drawlib.
 
@@ -131,7 +131,7 @@ save()
 
 Execute this code using the Python command:
 
-![Alt text for the image](docs_readme_images/images/qs/image_abstract1.png)
+![Alt text for the image](images_readme/qs/image_abstract1.png)
 
 Now, let's proceed to explore the functionality of Drawlib step by step.
 
@@ -180,7 +180,7 @@ By default, both width and height are set to 100 units.
 If you configure the canvas with ``config(width=200, height=100)``, it will produce a wider canvas while maintaining the coordinate system for each item. 
 See the output image below:
 
-![Alt text for the image](docs_readme_images/images/qs/image_config1.png)
+![Alt text for the image](images_readme/qs/image_config1.png)
 
 For higher resolution images, adjusting the DPI (Dots Per Inch) is necessary:
 
@@ -213,11 +213,11 @@ By default, both grid and grid_only are set to False.
 
 The effects of these adjustments are demonstrated in the following files:
 
-![Alt text for the image](docs_readme_images/images/qs/image_config2.png)
+![Alt text for the image](images_readme/qs/image_config2.png)
 
 And
 
-![Alt text for the image](docs_readme_images/images/qs/image_config2_grid.png)
+![Alt text for the image](images_readme/qs/image_config2_grid.png)
 
 Code file ``image_config2.py`` yield two files: ``image_config2.png`` and ``image_config2_grid.png``.
 Image file without grid is normal file name.
@@ -278,7 +278,7 @@ text((75, 10), "Align left,bottom", style=Style(text_color=Colors.Red))
 save()
 ```
 
-![Alt text for the image](docs_readme_images/images/qs/image_coordinate1.png)
+![Alt text for the image](images_readme/qs/image_coordinate1.png)
 
 In the image, the left circle's xy coordinates are aligned "center, center" as specified, 
 while the right circle's xy coordinates are aligned "left, bottom".
@@ -329,7 +329,7 @@ save()
 
 This code generates the following output image:
 
-![Alt text for the image](docs_readme_images/images/qs/image_icon1.png)
+![Alt text for the image](images_readme/qs/image_icon1.png)
 
 As demonstrated, the function name determines the icon to be drawn, while the ``Style`` object can be adjusted to modify color, style, and other attributes.
 
@@ -364,7 +364,7 @@ save()
 
 Execute this code using the Python command to get image.
 
-![Alt text for the image](docs_readme_images/images/qs/image_image1.png)
+![Alt text for the image](images_readme/qs/image_image1.png)
 
 As you can observe, you can specify the angle and use the ``Style`` object to manage alignment and border lines.
 
@@ -387,7 +387,7 @@ The ``Dimage`` class is a string-like object.
 Methods for applying effects do not modify the image itself but create a new image object. 
 Therefore, we use method chaining to apply operations such as mirroring (horizontal reverse) and sepia (changing color).
 
-![Alt text for the image](docs_readme_images/images/qs/image_image2.png)
+![Alt text for the image](images_readme/qs/image_image2.png)
 
 Both the ``image()`` function and the ``Dimage`` class accept images from the popular Pillow library. 
 If you wish to perform advanced image processing, it's advisable to do so using Pillow and then utilize image() and Dimage for handling the processed images.
@@ -426,7 +426,7 @@ save()
 The ``line_curved()`` function draws a line from xy1 to xy2, but the bend parameter allows you to create curved lines. 
 A bend value of 0.2 indicates a curved line 1.2 times longer than a straight line, while a value of -0.2 creates a curve in the opposite direction.
 
-![Alt text for the image](docs_readme_images/images/qs/image_line1.png)
+![Alt text for the image](images_readme/qs/image_line1.png)
 
 Bezier line functions are a bit more complex. 
 Please refer to the line documentation for details. However, they are incredibly useful for controlling complex curves.
@@ -462,7 +462,7 @@ save()
 With ``Style``, you can configure line width, color, style, and more. 
 Arrow head style is specified in function directry.
 
-![Alt text for the image](docs_readme_images/images/qs/image_line2.png)
+![Alt text for the image](images_readme/qs/image_line2.png)
 
 While the ``arrow()`` function also draws arrows, it is not a line but rather a shape. 
 Keep in mind that if you wish to draw an arrow line, utilize line() and related functions with arrowhead argument or Style.
@@ -513,7 +513,7 @@ save()
 
 This code generates the following image:
 
-![Alt text for the image](docs_readme_images/images/qs/image_shape1.png)
+![Alt text for the image](images_readme/qs/image_shape1.png)
 
 Circle-type shapes are defined by their radius, while rectangle-type shapes are defined by their width and height. 
 By default, the xy coordinate marks the center of the shape. 
@@ -558,7 +558,7 @@ save()
 
 This code generates the following output:
 
-![Alt text for the image](docs_readme_images/images/qs/image_shape2.png)
+![Alt text for the image](images_readme/qs/image_shape2.png)
 
 In the left example, we configure ``Style`` to add style to the rectangle. 
 ``line_width``, ``line_color``, and ``line_style`` control the border, while ``fill_color`` sets the fill color. 
@@ -618,7 +618,7 @@ save()
 
 Executing this code yields the following image:
 
-![Alt text for the image](docs_readme_images/images/qs/image_text1.png)
+![Alt text for the image](images_readme/qs/image_text1.png)
 
 In this example, we've configured several text-related ``Style`` parameters. 
 I've used Japanese text for testing purposes. 
@@ -690,7 +690,7 @@ The style has this syntax: ``<color>_<type>_<weight>``.
 If the type and weight are default, they are not shown in the style name. 
 Executing this code yields the following image:
 
-![Alt text for the image](docs_readme_images/images/qs/image_theme1.png)
+![Alt text for the image](images_readme/qs/image_theme1.png)
 
 Drawlib offers several official themes:
 

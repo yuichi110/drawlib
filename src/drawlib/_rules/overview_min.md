@@ -152,8 +152,8 @@ uv run drawlib build pdf docs_src/index.md -o out.pdf  # Vector PDF
 Execute compilation and diagram extraction directly from Python code, CI/CD, or test suites:
 ```python
 from drawlib.tools import build_html, export_block
-export_block("docs_src/arch.md", "1", "scratch/preview.png", show_grid=True)
-build_html("docs_src/", "docs_html/", config="docs_config.py", css="google")
+export_block("docs_src/arch.md", "1", "scratch/preview.png", grid=True)
+build_html("docs_src/", "docs_html/", config_path="docs_config.py")
 ```
 
 **Related Rules**:

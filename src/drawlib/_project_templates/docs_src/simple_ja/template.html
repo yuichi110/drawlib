@@ -1,0 +1,292 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title | default("Drawlib Document") }}</title>
+    {% if css_href %}
+    <link rel="stylesheet" href="{{ css_href }}">
+    {% else %}
+    <style>
+:root {
+    --rtd-brand-color: #2980b9;
+    --rtd-brand-dark: #1b5e8a;
+    --rtd-text-color: #404040;
+    --rtd-bg-color: #edf0f2;
+    --rtd-content-bg: #ffffff;
+    --rtd-border-color: #e1e4e5;
+    --rtd-code-bg: #f8f8f8;
+    --rtd-inline-code-bg: #ecf0f1;
+    --rtd-inline-code-color: #e74c3c;
+    --rtd-note-bg: #e7f2fa;
+    --rtd-note-border: #6ab0de;
+    --rtd-font: "Lato", "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+    --rtd-mono-font: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --rtd-brand-color: #3498db;
+        --rtd-text-color: #d1d5db;
+        --rtd-bg-color: #121212;
+        --rtd-content-bg: #1e1e1e;
+        --rtd-border-color: #333333;
+        --rtd-code-bg: #262626;
+        --rtd-inline-code-bg: #2d3748;
+        --rtd-inline-code-color: #f56565;
+        --rtd-note-bg: #1a365d;
+        --rtd-note-border: #3182ce;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--rtd-font);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--rtd-text-color);
+    background-color: var(--rtd-bg-color);
+    margin: 0;
+    padding: 2rem 1rem;
+}
+
+.main-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: var(--rtd-content-bg);
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 8px;
+    padding: 2.5rem 3rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--rtd-font);
+    color: #2c3e50;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+@media (prefers-color-scheme: dark) {
+    h1, h2, h3, h4, h5, h6 {
+        color: #e2e8f0;
+    }
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--rtd-border-color);
+}
+
+h2 {
+    font-size: 1.6rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--rtd-border-color);
+}
+
+h3 {
+    font-size: 1.3rem;
+}
+
+a {
+    color: var(--rtd-brand-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--rtd-brand-dark);
+    text-decoration: underline;
+}
+
+code {
+    font-family: var(--rtd-mono-font);
+    font-size: 0.88em;
+    background-color: var(--rtd-inline-code-bg);
+    color: var(--rtd-inline-code-color);
+    padding: 0.15rem 0.35rem;
+    border-radius: 3px;
+    border: 1px solid var(--rtd-border-color);
+}
+
+pre {
+    background-color: var(--rtd-code-bg);
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 4px;
+    padding: 1rem;
+    overflow-x: auto;
+    font-size: 0.9em;
+    line-height: 1.45;
+}
+
+pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+}
+
+blockquote {
+    margin: 1.5rem 0;
+    padding: 0.8rem 1.2rem;
+    background-color: var(--rtd-note-bg);
+    border-left: 4px solid var(--rtd-note-border);
+    color: var(--rtd-text-color);
+    border-radius: 0 4px 4px 0;
+}
+
+blockquote p {
+    margin: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+}
+
+th, td {
+    border: 1px solid var(--rtd-border-color);
+    padding: 0.65rem 0.9rem;
+    text-align: left;
+}
+
+th {
+    background-color: var(--rtd-brand-color);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.drawlib-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: #ffffff;
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+@media (prefers-color-scheme: dark) {
+    .drawlib-image {
+        background-color: #262626;
+    }
+}
+
+.drawlib-image img, .drawlib-image svg {
+    max-width: 100%;
+    height: auto;
+}
+
+details.drawlib-code-details {
+    margin: 1rem 0 2rem 0;
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 6px;
+    background-color: var(--rtd-code-bg);
+    overflow: hidden;
+}
+
+.drawlib-image + details.drawlib-code-details {
+    margin-top: -1rem;
+}
+
+details.drawlib-code-details summary {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+details.drawlib-code-details summary:hover {
+    color: #111;
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+details.drawlib-code-details[open] summary {
+    border-bottom: 1px solid var(--rtd-border-color);
+}
+
+details.drawlib-code-details pre {
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+.footer {
+    margin-top: 3rem;
+    border-top: 1px solid var(--rtd-border-color);
+    padding-top: 1.5rem;
+    font-size: 0.85rem;
+    color: #888;
+    text-align: center;
+}
+
+@media print {
+    html, body {
+        background-color: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow-x: hidden !important;
+    }
+    .main-container, .main-content {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+    }
+    pre, pre code {
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+        word-break: break-word !important;
+        overflow: visible !important;
+        overflow-x: visible !important;
+        font-size: 0.82em;
+    }
+    .drawlib-code-details {
+        display: none !important;
+    }
+}
+    </style>
+    {% if custom_css %}
+    <style>
+        {{ custom_css | safe }}
+    </style>
+    {% endif %}
+    {% endif %}
+</head>
+<body>
+    <div class="main-container">
+        <main class="main-content">
+            {{ body | safe }}
+        </main>
+    </div>
+</body>
+</html>

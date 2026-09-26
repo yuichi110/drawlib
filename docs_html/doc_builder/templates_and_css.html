@@ -121,7 +121,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../cli/assets.html" >drawlib cache, template & css</a>
+                                <a href="../cli/assets.html" >drawlib cache & css</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -403,24 +403,32 @@
                 <h1>Templates &amp; Styling</h1>
 <p>Drawlib provides a flexible styling and templating pipeline based on <strong>Jinja2</strong> HTML templates and modular <strong>CSS</strong> presets. You can use Drawlib's default design out of the box or customize every aspect of the generated site and PDF.</p>
 <hr />
-<h2>1. Built-in HTML Templates</h2>
-<p>Drawlib ships with two production-ready Jinja2 HTML templates:</p>
-<ol>
-<li><strong><code>sidebar.html.j2</code></strong> (Default for directories): Complete static site template featuring a collapsible sidebar, document hierarchy tree, table of contents, breadcrumbs, search-ready markup, and responsive mobile layout.</li>
-<li><strong><code>simple.html.j2</code></strong> (Default for single files): Clean, centered, standalone article layout without navigation sidebars.</li>
-</ol>
-<h3>1.1 Exporting a Template for Customization</h3>
-<p>To inspect or customize the default sidebar template, export it to your project:</p>
-<pre><code class="language-bash">drawlib template html export my_sidebar.html.j2
+<h2>1. Project-Level Template &amp; CSS Architecture</h2>
+<p>When bootstrapping a documentation project with <code>drawlib init site</code>, <code>drawlib init simple</code>, or <code>drawlib init pdf</code>, Drawlib generates <code>template.html</code> and <code>style.css</code> directly in your source directory (<code>docs_src/</code> or <code>doc_src/</code>):</p>
+<pre><code class="language-text">my_docs/
+├── docs_src/
+│   ├── index.md
+│   ├── navbar.md
+│   ├── config.py
+│   ├── style.css           # Project stylesheet (customizable directly)
+│   ├── template.html       # Jinja2 HTML layout (customizable directly)
+│   └── build.sh
+├── docs/                   # GitHub-compatible Markdown output
+└── docs_html/              # Compiled HTML static site
 </code></pre>
-<h3>1.2 Validating Custom Templates</h3>
-<p>Before running a build, verify that your modified Jinja2 template contains all necessary placeholders:</p>
-<pre><code class="language-bash">drawlib template html validate my_sidebar.html.j2
+<h3>1.1 Mandatory Project Files for HTML &amp; PDF Builds</h3>
+<p>When building HTML or PDF documentation (<code>drawlib build html</code> or <code>drawlib build pdf</code>):</p>
+<ul>
+<li><code>doc_builder</code> <strong>strictly requires</strong> <code>template.html</code> and <code>style.css</code> to reside in the target directory (or parent directory of a single file).</li>
+<li>The previous <code>--css</code> and <code>--template</code> CLI options on build commands have been removed; styling and templating are managed cleanly and reproducibly via <code>style.css</code> and <code>template.html</code> in your project folder.</li>
+<li>If either file is missing, <code>drawlib build</code> halts with an informative error directing you to run <code>drawlib init</code>.</li>
+<li>For Markdown (<code>drawlib build markdown</code>) and image (<code>drawlib build images</code>) builds, <code>template.html</code> and <code>style.css</code> are not required and are automatically excluded from output processing.</li>
+</ul>
+<h3>1.2 Preset Selection at Initialization</h3>
+<p>You can choose a built-in theme upon project initialization using the <code>--css</code> option:</p>
+<pre><code class="language-bash">drawlib init site my_docs --css google
 </code></pre>
-<h3>1.3 Applying a Custom Template</h3>
-<p>Pass the template file path with <code>-t</code> or <code>--template</code>:</p>
-<pre><code class="language-bash">drawlib build html docs_src/ -o docs_html/ -t my_sidebar.html.j2
-</code></pre>
+<p>This writes the selected theme stylesheet directly to <code>docs_src/style.css</code>.</p>
 <hr />
 <h2>2. Template Context Variables</h2>
 <p>When rendering HTML pages, <code>drawlib.doc_builder</code> passes the following variables into the Jinja2 context:</p>
@@ -439,46 +447,66 @@
 <td style="text-align:left">Document title (extracted from the first <code># H1</code> heading in the Markdown file).</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>content</code></td>
+<td style="text-align:left"><code>body</code></td>
 <td style="text-align:left"><code>str</code></td>
 <td style="text-align:left">Compiled HTML body content including rendered illustrations and syntax-highlighted code.</td>
 </tr>
 <tr>
+<td style="text-align:left"><code>css_href</code></td>
+<td style="text-align:left"><code>str | None</code></td>
+<td style="text-align:left">Relative URL/path to the external CSS stylesheet (<code>style.css</code>), or <code>None</code> when running in embedded mode.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>custom_css</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left">Raw CSS stylesheet content when embedded directly in <code>&lt;style&gt;</code> tags.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>nav_sections</code></td>
+<td style="text-align:left"><code>list</code></td>
+<td style="text-align:left">Nested navigation sections parsed from <code>navbar.md</code> for multi-page sidebar documentation.</td>
+</tr>
+<tr>
 <td style="text-align:left"><code>nav_items</code></td>
 <td style="text-align:left"><code>list</code></td>
-<td style="text-align:left">Nested navigation hierarchy for generating the sidebar. Each item contains <code>title</code>, <code>href</code>, and <code>is_active</code>.</td>
+<td style="text-align:left">Top-level navigation items for pages and single articles.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>css_content</code></td>
+<td style="text-align:left"><code>index_url</code></td>
 <td style="text-align:left"><code>str</code></td>
-<td style="text-align:left">Combined CSS styling content when running in embedded CSS mode.</td>
+<td style="text-align:left">Relative URL pointing to the root index page.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>has_sidebar</code></td>
-<td style="text-align:left"><code>bool</code></td>
-<td style="text-align:left"><code>True</code> when compiling multi-document directories; <code>False</code> for standalone articles.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>page_depth</code></td>
-<td style="text-align:left"><code>int</code></td>
-<td style="text-align:left">Directory nesting depth of the current page relative to the documentation root.</td>
+<td style="text-align:left"><code>site_title</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left">Title of the documentation site or library (defaults to <code>&quot;drawlib&quot;</code>).</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2>3. CSS Presets and Customization</h2>
 <p>Drawlib styles documents using modern, accessible typography with automatic syntax highlighting via Pygments.</p>
-<h3>3.1 Exporting Built-in CSS Presets</h3>
-<pre><code class="language-bash"># List available CSS presets:
+<h3>3.1 Listing Built-in Presets</h3>
+<p>You can inspect available built-in CSS presets:</p>
+<pre><code class="language-bash"># List HTML CSS presets:
 drawlib css html list
 
-# Export the default stylesheet:
-drawlib css html export custom_theme.css
+# List PDF CSS presets:
+drawlib css pdf list
 </code></pre>
-<h3>3.2 Applying Custom CSS</h3>
-<p>You can provide custom CSS to override or augment default styles using the <code>--css</code> option:</p>
-<pre><code class="language-bash">drawlib build html docs_src/ -o docs_html/ --css brand_overrides.css
+<p>Available presets include <code>default</code>, <code>default-dark</code>, <code>default-auto</code>, <code>google</code>, <code>google-dark</code>, <code>google-auto</code>, <code>github</code>, <code>minimal</code>, and <code>monochrome</code>.</p>
+<h3>3.2 Modifying Styles</h3>
+<p>To customize the visual style:</p>
+<ul>
+<li><strong>Directly Edit <code>docs_src/style.css</code></strong>: Edit the scaffolded stylesheet directly. Because <code>build html</code> copies <code>docs_src/style.css</code> to <code>docs_html/style.css</code>, your edits take effect immediately on every build.</li>
+<li><strong>Exporting Presets</strong>: Switch to or export another preset stylesheet into your project:<pre><code class="language-bash"># Export HTML Google theme to docs_src/style.css:
+drawlib css html export google -o docs_src/style.css --force
+
+# Export PDF dark theme to docs_src/style.css:
+drawlib css pdf export default-dark -o docs_src/style.css --force
 </code></pre>
+</li>
+</ul>
 <h3>3.3 CSS Embedding Modes (<code>--css-mode</code>)</h3>
 <table>
 <thead>
@@ -492,7 +520,7 @@ drawlib css html export custom_theme.css
 <tr>
 <td style="text-align:left"><strong><code>auto</code></strong> (Default)</td>
 <td style="text-align:left"><code>--css-mode auto</code></td>
-<td style="text-align:left">Embeds CSS in single files; writes an external <code>style.css</code> file for multi-page directory builds.</td>
+<td style="text-align:left">Embeds CSS for single-file builds; writes an external <code>style.css</code> file for multi-page directory builds.</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>embed</code></strong></td>

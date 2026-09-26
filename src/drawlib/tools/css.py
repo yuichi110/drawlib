@@ -11,23 +11,21 @@
 
 from __future__ import annotations
 
-from drawlib._tools.doc_builder import (
+from drawlib._css import (
     export_css,
-    export_html_css,
-    export_pdf_css,
+    get_css,
     list_css,
     list_html_css,
     list_pdf_css,
 )
 
-list = list_css  # noqa: A001
 export = export_css
+list = list_css  # noqa: A001
 
 __all__ = [
     "export",
     "export_css",
-    "export_html_css",
-    "export_pdf_css",
+    "get_css",
     "list",
     "list_css",
     "list_html_css",

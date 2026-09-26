@@ -568,6 +568,10 @@ class DrawlibExecuter:
         python_files: List[str] = []
         for root, _, files in os.walk(directory):
             for file in files:
+                if file.startswith("."):
+                    continue
+                if file in {"config.py", "__init__.py"}:
+                    continue
                 if file.endswith(".py"):
                     file_path = os.path.join(root, file)
                     python_files.append(file_path)
@@ -783,6 +787,18 @@ def build_image(
     raw_targets: List[str] = [inputs] if isinstance(inputs, str) else list(inputs)
     if not raw_targets:
         raise ValueError("No input files or directories specified for build_image.")
+
+    if config is None:
+        for t in raw_targets:
+            t_abs = os.path.abspath(t)
+            cand = (
+                os.path.join(t_abs, "config.py")
+                if os.path.isdir(t_abs)
+                else os.path.join(os.path.dirname(t_abs), "config.py")
+            )
+            if os.path.isfile(cand):
+                config = cand
+                break
 
     target_list, output_dir, output_file = _normalize_build_inputs_and_output(raw_targets, output)
     exec_mode = _resolve_execution_mode(disable_auto_clear, enable_auto_initialize)

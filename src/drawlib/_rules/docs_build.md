@@ -27,6 +27,10 @@ drawlib init pdf my_report/
 ```
 
 Options:
+- `-o`, `--output <dir>`: Destination directory path (positional target directory can also be used).
+- `--css <preset>`: Built-in CSS theme preset (`google`, `github`, `monochrome`, etc.) or custom stylesheet path.
+- `--lang <code|auto>`: HTML `lang` attribute (e.g. `en`, `ja`).
+- `--no-build`: Skip initial post-scaffolding build verification.
 - `--here`: Initialize directly into the current working directory without creating a subfolder.
 - `--force`: Overwrite existing files if directory is not empty.
 
@@ -41,6 +45,8 @@ my_project/
 ├── docs_src/                  # [SOURCE OF TRUTH] Edit ONLY files here!
 │   ├── index.md               # [MANDATORY] Root landing page
 │   ├── navbar.md              # [MANDATORY] Sidebar navigation menu definition
+│   ├── template.html          # [MANDATORY] HTML page layout template
+│   ├── style.css              # [MANDATORY] Site stylesheet (from --css preset)
 │   ├── architecture/          # Topic / chapter subdirectories
 │   │   └── index.md
 │   └── workflow/
@@ -56,7 +62,9 @@ my_project/
 - **Root requirements for directory HTML builds**:
   - `docs_src/index.md` is **mandatory**.
   - `docs_src/navbar.md` is **mandatory**.
-  - Subdirectories (e.g. `architecture/`, `workflow/`) do not require their own `navbar.md`.
+  - `docs_src/template.html` is **mandatory**.
+  - `docs_src/style.css` is **mandatory**.
+  - Subdirectories (e.g. `architecture/`, `workflow/`) do not require their own `navbar.md`, `template.html`, or `style.css`.
 
 ---
 
@@ -106,20 +114,26 @@ This executes both Markdown and HTML compilations using the detected Python / dr
 ### Direct CLI Commands:
 ```bash
 # 1. Compile entire directory to static HTML site with sidebar:
-drawlib build html docs_src/ -o docs_html/ -c docs_config.py --css google
+drawlib build html docs_src/ -o docs_html/ -c docs_config.py
 
 # 2. Compile directory to rendered Markdown for GitHub:
 drawlib build markdown docs_src/ -o docs/ -c docs_config.py
 
 # 3. Compile single document to vector PDF:
-drawlib build pdf docs_src/index.md -o output.pdf -c docs_config.py --css google
+drawlib build pdf docs_src/index.md -o output.pdf -c docs_config.py
 ```
 
 Key Options:
 - `-o`, `--output <path>`: Destination directory or file path.
 - `-c`, `--config <path>`: Python configuration script executed before drawing code blocks (e.g. `docs_config.py`).
-- `--css <name|path>`: Built-in CSS theme (`google`, `google-dark`, `google-auto`, `default`, `default-dark`, `default-auto`, `github`, `minimal`, `monochrome`) or custom CSS path.
 - `--no-cache`: Force clean diagram generation ignoring the SQLite cache.
+
+> **Note on Templates & Styles**:
+> `build html` and `build pdf` automatically resolve and use `template.html` and `style.css` located in the documentation directory (`docs_src/`). To change or re-export a stylesheet preset, use:
+> ```bash
+> drawlib css html list                                     # Inspect presets
+> drawlib css html export google -o docs_src/style.css --force  # Export preset
+> ```
 
 ---
 

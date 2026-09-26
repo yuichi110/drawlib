@@ -121,7 +121,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="assets.html" >drawlib cache, template & css</a>
+                                <a href="assets.html" >drawlib cache & css</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -450,16 +450,17 @@ drawlib build html docs_src/ -o docs_html/
 # Compile a single Markdown file:
 drawlib build html docs_src/index.md -o docs_html/index.html
 
-# Apply custom configuration, custom CSS, and custom Jinja2 template:
-drawlib build html docs_src/ -o docs_html/ -c config.py --css custom.css -t template.j2
+# Apply custom Python configuration script:
+drawlib build html docs_src/ -o docs_html/ -c config.py
 </code></pre>
+<blockquote>
+<p><strong>Note</strong>: <code>drawlib build html</code> and <code>drawlib build pdf</code> require <code>template.html</code> and <code>style.css</code> in the project directory. Run <code>drawlib init</code> to scaffold them, or provide them manually.</p>
+</blockquote>
 <h3>Options:</h3>
 <ul>
 <li><code>-o</code>, <code>--output &lt;path&gt;</code>: Output file or destination directory path.</li>
 <li><code>-c</code>, <code>--config &lt;path&gt;</code>: Path to a Python setup script executed before illustrations (e.g. <code>config.py</code>).</li>
 <li><code>--image-format &lt;png|svg|inline_svg|webp&gt;</code>: Output image format for rendered illustrations (default: <code>png</code>).</li>
-<li><code>--css &lt;path&gt;</code>: Path to custom CSS stylesheet.</li>
-<li><code>-t</code>, <code>--template &lt;path&gt;</code>: Path to custom Jinja2 template file.</li>
 <li><code>--css-mode &lt;auto|embed|external&gt;</code>: CSS embedding strategy (default: <code>auto</code>).</li>
 </ul>
 <hr />
@@ -492,12 +493,17 @@ $ playwright install chromium
 </code></pre>
 <h3>Usage Examples</h3>
 <pre><code class="language-bash"># Compile single document to PDF:
-drawlib build pdf report.md -o report.pdf
+drawlib build pdf doc_src/01_overview.md -o overview.pdf
 
 # Compile multi-file directory into a unified manual:
-drawlib build pdf docs_src/ -o manual.pdf --config setup.py
+drawlib build pdf doc_src/ -o doc.pdf --generate-index
+
+# Include current build timestamp in PDF metadata:
+drawlib build pdf doc_src/ -o doc.pdf --timestamp
 </code></pre>
 <ul>
+<li><strong>Deterministic Builds by Default</strong>: By default, Drawlib normalizes the PDF <code>/CreationDate</code> and <code>/ModDate</code> metadata to fixed timestamps of identical length. If the document content does not change, consecutive builds produce byte-identical PDF files with zero Git diff.</li>
+<li><strong>Bypassing Normalization (<code>--timestamp</code>)</strong>: Pass <code>--timestamp</code> if you wish to record the actual current build date and time in the PDF metadata.</li>
 <li>Automatically optimizes page breaks, headers, footers, and margins for A4/Letter print formats.</li>
 <li>Suppresses folded dropdown code elements to produce clean, executive-ready documentation.</li>
 </ul>
@@ -508,7 +514,21 @@ drawlib build pdf docs_src/ -o manual.pdf --config setup.py
 drawlib build image my_chart.py
 
 # Run all drawing scripts in a directory:
-drawlib build images diagrams/ -o output/
+drawlib build images images_src/ -o images/
+</code></pre>
+<hr />
+<h2>6. Diagram Build Cache &amp; Caching Behavior</h2>
+<p>Drawlib automatically caches rendered illustrations in a local SQLite database (<code>.drawlib/cache.db</code>) located in the current working directory. Unchanged code blocks are restored from the cache without re-executing Python code, dramatically speeding up subsequent builds.</p>
+<h3>Bypassing Cache</h3>
+<p>To bypass the cache and force a complete re-render of all illustrations:</p>
+<pre><code class="language-bash">drawlib build html docs_src/ -o docs_html/ --no-cache
+drawlib build markdown docs_src/ -o docs/ --no-cache
+drawlib build pdf doc_src/ -o doc.pdf --no-cache
+drawlib build image images_src/ -o images/ --no-cache
+</code></pre>
+<h3>Clearing Cache</h3>
+<p>To clear the local diagram cache, delete the <code>.drawlib/</code> directory:</p>
+<pre><code class="language-bash">rm -rf .drawlib/
 </code></pre>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

@@ -13,22 +13,18 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
-rm -rf docs/ docs_html/ quickstart.pdf
+rm -rf docs/ docs_html/ quickstart.pdf images_readme/
 
-echo "=== Building Markdown documentation (docs_src/ -> docs/) ==="
-uv run drawlib build markdown docs_src/ -o docs/
-
-echo ""
-echo "=== Building HTML documentation (docs_src/ -> docs_html/) ==="
-uv run drawlib build html docs_src/ -o docs_html/ --css google
+echo "=== Building Documentation Site (docs_src/build.sh) ==="
+bash docs_src/build.sh
 
 echo ""
-echo "=== Building Quickstart PDF (docs_src_quickstart_pdf/ -> quickstart.pdf) ==="
-uv run drawlib build pdf docs_src_quickstart_pdf/ -o quickstart.pdf --generate-index --css google
+echo "=== Building Quickstart PDF (quickstart_src/build.sh) ==="
+bash quickstart_src/build.sh
 
 echo ""
-echo "=== Building README images (docs_readme_images/codes/ -> docs_readme_images/images/) ==="
-uv run drawlib build images docs_readme_images/codes/ -o docs_readme_images/images/
+echo "=== Building README Images (images_readme_src/build.sh) ==="
+bash images_readme_src/build.sh
 
 echo ""
-echo "Documentation build completed successfully!"
+echo "All builds completed successfully!"

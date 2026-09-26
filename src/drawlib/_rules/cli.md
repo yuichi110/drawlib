@@ -10,9 +10,9 @@ This document serves as an exhaustive reference and operational manual for softw
 
 ```bash
 # Compile documentation and illustrations
-drawlib build html docs_src/ -o docs_html/ --css google     # Multi-page responsive HTML site
+drawlib build html docs_src/ -o docs_html/                  # Multi-page responsive HTML site
 drawlib build markdown docs_src/ -o docs/                  # Rendered Markdown for GitHub browsing
-drawlib build pdf docs_src/ -o manual.pdf --toc --css book  # Merged vector PDF via headless Chromium
+drawlib build pdf docs_src/ -o manual.pdf --toc             # Merged vector PDF via headless Chromium
 drawlib build image scripts/ -o assets/ -g                 # Batch Python illustration rendering
 
 # Project scaffolding
@@ -33,13 +33,10 @@ drawlib serve docs_html/                                   # Local HTTP server o
 drawlib serve docs_html/ --check                           # Pre-flight broken link/asset check & exit
 drawlib serve docs_html/ -p 8080 --no-browser              # Headless server on custom port
 
-# Cache, template, and preset management
+# Cache and stylesheet preset management
 drawlib cache list                                         # Inspect cached font and icon assets
 drawlib cache clear                                        # Purge downloaded font and icon cache
 drawlib cache download --all                               # Pre-download all font/icon release assets
-drawlib template html list                                 # List built-in HTML Jinja2 templates
-drawlib template html export sidebar -o template.html.j2   # Export built-in sidebar template
-drawlib template html validate template.html.j2            # Validate Jinja2 AST placeholders
 drawlib css html list                                      # List built-in HTML stylesheets
 drawlib css html export google -o style.css                # Export Google styling preset
 
@@ -85,7 +82,7 @@ drawlib build
 
 Common build behavior:
 - **Automatic Clear / Reset**: Between separate code blocks or Python files, canvas state is automatically reset to avoid cross-diagram side effects.
-- **SQLite Build Cache**: Rendered illustrations are hashed and stored in a local SQLite database (`.drawlib_cache/build_cache.sqlite`). Unchanged code blocks skip re-rendering automatically unless `--no-cache` is specified.
+- **SQLite Build Cache**: Rendered illustrations are hashed and stored in a local SQLite database (`.drawlib/cache.db`). Unchanged code blocks skip re-rendering automatically unless `--no-cache` is specified.
 - **Working Directory Parity**: When compiling blocks, drawlib switches the current working directory (`os.chdir`) to the document's directory and prepends it to `sys.path[0]`, ensuring relative asset references and module imports resolve identically to standalone execution.
 
 ---
@@ -107,16 +104,17 @@ drawlib build html <INPUT> [OPTIONS]
 | :--- | :--- | :--- | :--- | :--- |
 | `--output` | `-o` | `<path>` | `<input_dir>` or `<name>.html` | Destination HTML file path or output directory path. |
 | `--config` | `-c` | `<path>` | `None` | Path to Python configuration script executed before blocks (e.g. `docs_config.py`). |
-| `--css` | | `<name\|path>`| `default` | Built-in CSS preset (`default`, `google`, `github`, `minimal`, `monochrome`, or dark variants) or custom `.css` file path. |
-| `--template` | `-t` | `<name\|path>`| `sidebar` (dir) / `simple` (file) | Built-in template preset (`sidebar`, `simple`) or path to custom `.html.j2` file. |
 | `--image-format` | | `png \| webp` | `png` | Image output format for embedded `drawlib` blocks. |
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite image build cache (forces clean re-rendering). |
+
+> **Mandatory Files**: `template.html` and `style.css` must exist in the target directory (or parent directory of a single file). Run `drawlib init` to scaffold them.
 
 #### Directory Compilation Rules:
 When `<INPUT>` is a directory, `drawlib build html` compiles a complete multi-page documentation website:
 1. **Mandatory Root Files**:
    - `index.md`: The root landing page of the documentation site.
    - `navbar.md`: The sidebar navigation structure defining categories and links.
+   - `template.html` & `style.css`: The HTML page structure and stylesheet.
 2. **Navigation Construction**: The builder parses `navbar.md`, generates hierarchical categories and links, computes relative paths for nested directories, and highlights the current page (`.active`).
 3. **Static Asset Synchronization**: Non-markdown files (images, custom stylesheets, font files, data archives) located anywhere within `<INPUT>` are recursively mirrored to `--output` preserving folder hierarchy.
 4. **Shared Stylesheet**: An external `style.css` is generated in the root of the output directory and referenced by all pages via relative paths.
@@ -124,13 +122,13 @@ When `<INPUT>` is a directory, `drawlib build html` compiles a complete multi-pa
 #### Examples:
 ```bash
 # Compile entire documentation directory to HTML site:
-drawlib build html docs_src/ -o docs_html/ --css google
+drawlib build html docs_src/ -o docs_html/
 
 # Compile single Markdown document to standalone HTML:
 drawlib build html docs_src/overview.md -o docs_html/overview.html
 
-# Compile with custom Jinja2 template and global configuration:
-drawlib build html docs_src/ -o docs_html/ -c docs_config.py -t custom_template.html.j2
+# Compile with Python configuration script:
+drawlib build html docs_src/ -o docs_html/ -c docs_config.py
 
 # Force complete re-rendering ignoring cached images:
 drawlib build html docs_src/ -o docs_html/ --no-cache
@@ -199,10 +197,11 @@ drawlib build pdf <INPUTS...> [OPTIONS]
 | `--title` | | `<str>` | Extracted from H1 | Overall document title displayed on cover and running headers. |
 | `--generate-index` | `--toc` | flag | `False` | Generate a Table of Contents (ToC) and insert it between chapters. |
 | `--page-break` | `--no-page-break` | flag | `True` | Insert CSS page breaks (`page-break-before: always`) between chapters. |
-| `--css` | | `<name\|path>`| `default` | PDF CSS preset (`default`, `google`, `github`, `minimal`, `monochrome`, etc.) or custom `.css`. |
-| `--template` | `-t` | `<name\|path>`| `default` | PDF template preset (`default`, `book`) or custom `.html.j2` file path. |
 | `--config` | `-c` | `<path>` | `None` | Path to Python configuration script executed before blocks. |
 | `--no-cache` | | flag | `False` | Force clean diagram generation ignoring SQLite cache. |
+| `--timestamp` | | flag | `False` | Include current build timestamp in PDF metadata instead of normalizing for deterministic builds. |
+
+> **Mandatory Files**: `template.html` and `style.css` must exist in the target directory (or parent directory of the first input file). Run `drawlib init` to scaffold them.
 
 #### Headless PDF Engine Mechanics:
 Drawlib renders PDFs using Playwright and a headless Chromium browser instance (`page.pdf()`). This guarantees identical layout across all operating systems, accurate web font loading, and background CSS rendering.
@@ -214,11 +213,11 @@ Prerequisites:
 #### Examples:
 ```bash
 # Compile single document to vector PDF:
-drawlib build pdf doc.md -o output.pdf --css google
+drawlib build pdf doc.md -o output.pdf
 
 # Compile multi-chapter book with Table of Contents and cover page:
 drawlib build pdf docs_src/00_cover.md docs_src/01_intro.md docs_src/02_arch.md \
-  -o architecture_handbook.pdf --toc --css google -t book
+  -o architecture_handbook.pdf --toc
 
 # Merge an entire directory of chapters into a single PDF:
 drawlib build pdf docs_src/ -o comprehensive_guide.pdf --page-break --toc
@@ -286,13 +285,17 @@ drawlib init [TYPE] [DESTINATION] [OPTIONS]
 ```
 
 ### Arguments:
-- `[TYPE]`: Starter project template type (`site`, `simple`, `pdf`).
+- `[TYPE]`: Starter project template type (`site`, `simple`, `pdf`, `image`).
 - `[DESTINATION]`: Target directory path (defaults to current working directory).
 
 ### Options:
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
+| `--output` | `-o` | `<name>` | `None` | Custom output/artifact name (source directory becomes `<name>_src`). |
+| `--css` | | `<preset>` | `default` | Built-in CSS theme preset (`google`, `github`, `monochrome`, etc.) or custom CSS path. |
+| `--lang` | | `en \| ja` | `en` | Starter content and font configuration language (`en` or `ja`). |
 | `--here` | | flag | `False` | Initialize directly into current directory without creating a subfolder. |
+| `--no-build` | | flag | `False` | Skip initial compilation after scaffolding files. |
 | `--list` | `-l` | flag | `False` | List all available starter project types and their descriptions. |
 | `--force` | `-f` | flag | `False` | Overwrite existing files if destination directory is not empty. |
 
@@ -307,13 +310,15 @@ my_site/
 ├── docs_src/
 │   ├── index.md               # [MANDATORY] Root landing page
 │   ├── navbar.md              # [MANDATORY] Sidebar categories and links definition
+│   ├── template.html          # [MANDATORY] Jinja2 HTML layout template
+│   ├── style.css              # [MANDATORY] Site stylesheet (from --css preset)
+│   ├── config.py              # Global canvas settings, themes, and font defaults
+│   ├── build.sh               # Executable build script (Markdown + HTML)
+│   ├── README.md              # Documentation workflow guide
 │   ├── architecture/
 │   │   └── index.md           # Chapter page with embedded diagrams
 │   └── workflow/
 │       └── index.md           # Workflow chapter page
-├── docs_config.py             # Global canvas settings, themes, and font defaults
-├── docs_build.sh              # Executable build script (Markdown + HTML)
-└── README_DOCS.md             # Project documentation workflow guide
 ```
 
 #### 2. `simple`: Single Markdown Document Project
@@ -321,10 +326,12 @@ Designed for standalone technical specifications, whitepapers, or README assets.
 ```text
 my_doc/
 ├── docs_src/
-│   └── doc.md                 # Single authoring document
-├── docs_config.py             # Global drawing configuration
-├── docs_build.sh              # Automation script for Markdown & HTML export
-└── README_DOCS.md             # Quickstart guide
+│   ├── doc.md                 # Single authoring document
+│   ├── template.html          # [MANDATORY] Jinja2 HTML layout template
+│   ├── style.css              # [MANDATORY] Document stylesheet
+│   ├── config.py              # Global drawing configuration
+│   ├── build.sh               # Automation script for Markdown & HTML export
+│   └── README.md              # Quickstart guide
 ```
 
 #### 3. `pdf`: Multi-Chapter Report with Cover & Table of Contents
@@ -334,19 +341,35 @@ my_report/
 ├── docs_src/
 │   ├── 00_cover.md            # Cover page (title, author, metadata)
 │   ├── 01_overview.md         # Executive overview chapter
-│   └── 02_design.md           # Technical design chapter
-├── docs_config.py             # Global drawing configuration
-├── docs_build.sh              # Headless PDF generation script
-└── README_DOCS.md             # Compilation instructions
+│   ├── 02_design.md           # Technical design chapter
+│   ├── template.html          # [MANDATORY] Jinja2 PDF layout template
+│   ├── style.css              # [MANDATORY] Print/PDF stylesheet
+│   ├── config.py              # Global drawing configuration
+│   ├── build.sh               # Headless PDF generation script
+│   └── README.md              # Compilation instructions
+```
+
+#### 4. `image`: Standalone Python Illustration Scripts
+Designed for illustration asset repositories, diagrams for slides, or article banners.
+```text
+images/
+├── images_src/
+│   ├── sample.py              # Starter Python drawing script
+│   ├── config.py              # Drawing configuration
+│   ├── build.sh               # Batch image rendering script
+│   └── README.md              # Illustration workflow guide
 ```
 
 ### Scaffolding Examples:
 ```bash
 drawlib init --list                  # List available project types
 drawlib init site my_docs/           # Scaffold a multi-page documentation website
+drawlib init site --css google       # Scaffold site using Google CSS theme preset
+drawlib init site --lang ja          # Scaffold site with Japanese starter content & fonts
 drawlib init site --here             # Scaffold a documentation site directly in current repo
 drawlib init simple my_doc/ --force  # Force scaffolding in a non-empty directory
 drawlib init pdf my_whitepaper/      # Scaffold a multi-chapter PDF report
+drawlib init image my_diagrams/      # Scaffold standalone image script project
 ```
 
 ---
@@ -521,7 +544,7 @@ drawlib serve docs_html/ --skip-check
 
 Drawlib manages two distinct caching layers to maximize performance and minimize redundant network transfers and image rendering:
 1. **Release Asset Cache**: Locally cached font families and icon sets downloaded from official GitHub Releases.
-2. **Diagram Build Cache**: A local SQLite database (`.drawlib_cache/build_cache.sqlite`) storing hashes of illustration code and rendered image binaries.
+2. **Diagram Build Cache**: A local SQLite database (`.drawlib/cache.db`) storing hashes of illustration code and rendered image binaries.
 
 ### Subcommands:
 ```text
@@ -585,7 +608,7 @@ When compiling Markdown documents or batch images, Drawlib computes a SHA-256 ha
 - The global configuration script hash (if `-c` / `--config` is supplied).
 - The requested image output format (`png` or `webp`).
 
-If the computed hash matches an entry in `.drawlib_cache/build_cache.sqlite`, Drawlib restores the cached image directly without executing Python code, speeding up document compilation significantly.
+If the computed hash matches an entry in `.drawlib/cache.db`, Drawlib restores the cached image directly without executing Python code, speeding up document compilation significantly.
 
 To bypass the build cache and force fresh diagram generation:
 ```bash
@@ -597,83 +620,12 @@ drawlib build image scripts/ -o assets/ --no-cache
 
 To clean the SQLite build cache completely, remove the local cache folder:
 ```bash
-rm -rf .drawlib_cache/
+rm -rf .drawlib/
 ```
 
 ---
 
-## 7. HTML & PDF Template Customization (`drawlib template`)
-
-Drawlib uses Jinja2 templates to assemble rendered documentation pages into final HTML and PDF files. The `drawlib template` command group inspects, exports, and validates these templates.
-
-### Subcommands:
-```text
-drawlib template
-├── html
-│   ├── list       List available built-in HTML templates (sidebar, simple)
-│   ├── export     Export a built-in HTML template to a local file for customization
-│   └── validate   Validate a custom Jinja2 HTML template file
-└── pdf
-    ├── list       List available built-in PDF templates (default, book)
-    ├── export     Export a built-in PDF template to a local file for customization
-    └── validate   Validate a custom Jinja2 PDF template file
-```
-
----
-
-### 7.1 Listing Built-in Templates:
-```bash
-drawlib template html list
-drawlib template pdf list
-```
-
-Built-in Template Presets:
-- **HTML**:
-  - `sidebar`: Multi-page documentation website template with collapsible navigation sidebar, breadcrumbs, search, and responsive layout.
-  - `simple`: Standalone single-page document template without sidebar navigation.
-- **PDF**:
-  - `default`: Clean report layout with header, footer, and page numbering.
-  - `book`: Multi-chapter book template with front matter, cover page styling, and chapter dividers.
-
----
-
-### 7.2 Exporting Templates for Customization:
-```bash
-# Export the HTML sidebar template:
-drawlib template html export sidebar -o my_template.html.j2
-
-# Export the PDF book template:
-drawlib template pdf export book -o my_pdf_template.html.j2
-```
-
----
-
-### 7.3 Validating Custom Templates:
-Custom templates must contain mandatory Jinja2 placeholders required by the compiler. Run `validate` to check AST structure and variable conformance:
-
-```bash
-drawlib template html validate my_template.html.j2
-drawlib template pdf validate my_pdf_template.html.j2
-```
-
-Required Placeholders:
-- **HTML Templates**: `{{ title }}`, `{{ body_html }}`, `{{ site_title }}`, `{{ nav_sections }}` (for sidebar).
-- **PDF Templates**: `{{ title }}`, `{{ body_html }}`.
-
----
-
-### 7.4 Compiling with Custom Templates:
-```bash
-# Compile HTML site using custom Jinja2 template:
-drawlib build html docs_src/ -o docs_html/ -t my_template.html.j2
-
-# Compile PDF using custom Jinja2 template:
-drawlib build pdf docs_src/ -o output.pdf -t my_pdf_template.html.j2
-```
-
----
-
-## 8. CSS Stylesheet Presets & Theming (`drawlib css`)
+## 7. CSS Stylesheet Presets & Theming (`drawlib css`)
 
 Drawlib includes professionally designed CSS presets for HTML documentation and headless PDF printing.
 
@@ -712,29 +664,29 @@ drawlib css
 drawlib css html list
 
 # Export Google preset to local style.css:
-drawlib css html export google -o custom_style.css
+drawlib css html export google -o style.css --force
 
 # List all PDF CSS presets:
 drawlib css pdf list
 
-# Export PDF preset to local pdf_style.css:
-drawlib css pdf export default -o custom_pdf.css
+# Export PDF preset to local docs_src/style.css:
+drawlib css pdf export default -o docs_src/style.css --force
 ```
 
 ---
 
 ### 8.3 Compiling with Custom CSS:
+`drawlib build html` and `drawlib build pdf` read `style.css` directly from your source directory:
 ```bash
-# Compile HTML site using custom CSS:
-drawlib build html docs_src/ -o docs_html/ --css custom_style.css
-
-# Compile PDF using custom CSS:
-drawlib build pdf docs_src/ -o output.pdf --css custom_pdf.css
+# Export or edit docs_src/style.css, then compile:
+drawlib css html export google -o docs_src/style.css --force
+drawlib build html docs_src/ -o docs_html/
+drawlib build pdf docs_src/ -o output.pdf
 ```
 
 ---
 
-## 9. AI Agent Guidelines & Rule Topics (`drawlib rules`)
+## 8. AI Agent Guidelines & Rule Topics (`drawlib rules`)
 
 Drawlib features a built-in knowledge subsystem (`drawlib rules`) that delivers detailed coding standards, shape rules, coordinate conventions, and syntax examples directly to your terminal.
 
@@ -755,7 +707,7 @@ drawlib rules
 
 ---
 
-### 9.1 Rule Topic Catalog:
+### 8.1 Rule Topic Catalog:
 
 | Topic Name | Aliases | Description |
 | :--- | :--- | :--- |
@@ -773,14 +725,14 @@ drawlib rules
 
 ---
 
-### 9.2 On-Demand Multimodal Illustration Pairing:
+### 8.2 On-Demand Multimodal Illustration Pairing:
 When an AI agent or developer runs `drawlib rules show <topic>`, Drawlib automatically checks if the rendered document and its companion illustration images are cached under `drawlib/_assets/rules/`.
 - **First Call**: If not cached or if source rules were modified, Drawlib compiles code blocks on demand, generates companion PNG illustrations, and injects an agent instruction banner with local image paths.
 - **Subsequent Calls**: Instant retrieval directly from local cache.
 - **Multimodal Grounding**: AI coding assistants can view the companion images using their file viewing tools (`view_file`, etc.) to visually verify geometric layouts, alignments, and aesthetics alongside the Python source code.
 - **PyPI Safety**: All cached rule assets reside inside `_assets/rules/` which is ignored by Git and automatically purged before package publishing, keeping wheel distributions minimal.
 
-### 9.3 Usage Examples:
+### 8.3 Usage Examples:
 ```bash
 drawlib rules list                        # List all topics and cache status
 drawlib rules show overview               # Display canvas overview and core rules
@@ -793,13 +745,13 @@ drawlib rules clean                       # Delete all cached illustrations and 
 
 ---
 
-## 10. CI/CD & Automation Integration
+## 9. CI/CD & Automation Integration
 
 Integrating Drawlib into continuous integration workflows guarantees documentation is consistently validated, diagrams are automatically rendered, and broken links are caught prior to deployment.
 
 ---
 
-### 10.1 GitHub Actions Workflow (`.github/workflows/docs.yml`)
+### 9.1 GitHub Actions Workflow (`.github/workflows/docs.yml`)
 
 The following complete workflow builds HTML documentation, validates links, and deploys the static site to GitHub Pages:
 
@@ -844,7 +796,7 @@ jobs:
 
       - name: Build documentation site
         run: |
-          uv run python -m drawlib build html docs_src/ -o docs_html/ --css google
+          uv run python -m drawlib build html docs_src/ -o docs_html/
           uv run python -m drawlib build markdown docs_src/ -o docs/
 
       - name: Run pre-flight link and asset validation
@@ -871,7 +823,7 @@ jobs:
 
 ---
 
-### 10.2 Makefile Integration
+### 9.2 Makefile Integration
 
 Add the following targets to your project's `Makefile` for streamlined local development:
 
@@ -885,7 +837,7 @@ CONFIG := docs_config.py
 
 docs-build:
 	@echo "==> Compiling Drawlib documentation..."
-	uv run python -m drawlib build html $(DOCS_SRC) -o $(DOCS_HTML) -c $(CONFIG) --css google
+	uv run python -m drawlib build html $(DOCS_SRC) -o $(DOCS_HTML) -c $(CONFIG)
 	uv run python -m drawlib build markdown $(DOCS_SRC) -o $(DOCS_MD) -c $(CONFIG)
 
 docs-serve:
@@ -898,12 +850,12 @@ docs-check:
 
 docs-clean:
 	@echo "==> Cleaning generated documentation and cache..."
-	rm -rf $(DOCS_HTML) $(DOCS_MD) .drawlib_cache/
+	rm -rf $(DOCS_HTML) $(DOCS_MD) .drawlib/
 ```
 
 ---
 
-### 10.3 Pre-commit Hook Integration (`.pre-commit-config.yaml`)
+### 9.3 Pre-commit Hook Integration (`.pre-commit-config.yaml`)
 
 Enforce documentation integrity and prevent broken links from entering the repository:
 
@@ -921,7 +873,7 @@ repos:
 
 ---
 
-## 11. Troubleshooting & Diagnostics Reference
+## 10. Troubleshooting & Diagnostics Reference
 
 ### Common Error Messages & Solutions:
 

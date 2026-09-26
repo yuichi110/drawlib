@@ -11,15 +11,71 @@
 
 from __future__ import annotations
 
+import datetime
 import os
+import re
 
 
-def export_html_to_pdf(html_content: str, output_path: str) -> None:
+def _get_fixed_pdf_date_bytes(target_len: int) -> bytes:
+    """Generate fixed PDF date bytes with exactly target_len bytes."""
+    source_date_epoch = os.environ.get("SOURCE_DATE_EPOCH")
+    if source_date_epoch:
+        try:
+            epoch_val = int(source_date_epoch)
+            dt = datetime.datetime.fromtimestamp(epoch_val, tz=datetime.timezone.utc)
+            date_str = dt.strftime("D:%Y%m%d%H%M%S+00'00'")
+        except (ValueError, OverflowError):
+            date_str = "D:20260101000000+00'00'"
+    else:
+        date_str = "D:20260101000000+00'00'"
+
+    raw_bytes = date_str.encode("ascii")
+    if len(raw_bytes) == target_len:
+        return raw_bytes
+    if len(raw_bytes) > target_len:
+        return raw_bytes[:target_len]
+    return raw_bytes.ljust(target_len, b"0")
+
+
+def normalize_pdf_timestamps(pdf_path: str) -> None:
+    """Normalize CreationDate and ModDate in a PDF file to ensure deterministic builds.
+
+    Args:
+        pdf_path (str): Path to the generated PDF file.
+    """
+    if not os.path.isfile(pdf_path):
+        return
+
+    with open(pdf_path, "rb") as f:
+        content = f.read()
+
+    def _replace_date(match: re.Match[bytes]) -> bytes:
+        key_prefix = match.group(1)
+        orig_val = match.group(2)
+        fixed_val = _get_fixed_pdf_date_bytes(len(orig_val))
+        return key_prefix + fixed_val + b")"
+
+    # Chromium / Skia formats dates as /CreationDate (D:YYYYMMDDHHmmSS+00'00')
+    pattern = re.compile(rb"(/CreationDate\s*\(|/ModDate\s*\()(D:[0-9]{14}[^)]*)\)")
+    new_content = pattern.sub(_replace_date, content)
+
+    # Cross-reference safety: ensure file size is identical to avoid invalidating the xref table
+    if len(new_content) != len(content):
+        return
+
+    if new_content != content:
+        with open(pdf_path, "wb") as f:
+            f.write(new_content)
+
+
+def export_html_to_pdf(html_content: str, output_path: str, timestamp: bool = False) -> None:
     """Export HTML content to PDF file using Playwright and headless Chromium.
 
     Args:
         html_content (str): HTML content string.
         output_path (str): Output PDF file path.
+        timestamp (bool): If True, preserve current build timestamp in PDF metadata.
+            If False (default), normalize timestamps for deterministic builds.
 
     Raises:
         RuntimeError: If Playwright or Chromium is not installed, or if PDF generation fails.
@@ -94,3 +150,6 @@ def export_html_to_pdf(html_content: str, output_path: str) -> None:
     if not os.path.isfile(abs_output) or os.path.getsize(abs_output) == 0:
         msg = f"Playwright command completed but output PDF file '{abs_output}' was not created or is empty."
         raise RuntimeError(msg)
+
+    if not timestamp:
+        normalize_pdf_timestamps(abs_output)

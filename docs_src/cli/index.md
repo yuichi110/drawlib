@@ -1,6 +1,6 @@
 # CLI Overview & Global Options
 
-Drawlib provides a comprehensive command line interface (`drawlib`) built on Python and Typer. It manages document builds, asset downloads, template inspection, development previewing, and AI coding agent guidelines.
+Drawlib provides a comprehensive command line interface (`drawlib`) built on Python and Typer. It manages document builds, asset downloads, CSS stylesheet inspection, development previewing, and AI coding agent guidelines.
 
 ---
 
@@ -46,12 +46,11 @@ The CLI is organized into specialized subcommands:
 | :--- | :--- | :--- |
 | **`build`** | Compiles documents or drawing scripts into images, Markdown, HTML, or PDF. | `image`, `markdown`, `html`, `pdf` |
 | **`serve`** | Launches a local HTTP development server for live previewing. | `--port`, `--check`, `--no-browser` |
-| **`init`** | Scaffolds starter projects with templates. | `simple`, `site`, `pdf`, `--here` |
+| **`init`** | Scaffolds starter projects with templates. | `site`, `simple`, `pdf`, `image`, `--here` |
 | **`show`** | Executes and renders a specific illustration block in a GUI viewer or file. | `--grid`, `--output`, `--config` |
 | **`export`** | Headless extraction and export of a diagram directly to an image file. | `--output`, `--grid`, `--config` |
 | **`cache`** | Manages local caches for dynamic release assets (fonts and icons). | `clear`, `list`, `download` |
-| **`template`** | Manages built-in Jinja2 templates for HTML and PDF output. | `html`, `pdf`, `export`, `validate` |
-| **`css`** | Manages built-in CSS stylesheets. | `html`, `pdf`, `export` |
+| **`css`** | Manages built-in CSS presets. | `html`, `pdf`, `list`, `export` |
 | **`rules`** | Displays drawing guidelines and architectural rules for AI agents. | `show`, `build`, `topics`, `list` |
 
 ```drawlib 700px center caption:"Drawlib Unified CLI Command Hierarchy"
@@ -127,19 +126,16 @@ rectangle(
     r=4,
     style=styles.primary.patch(shape_fill_color=Colors140.Linen, shape_line_color=orange_primary, shape_line_width=1.8),
 )
-text((114, 48), "Assets & Standards", style=styles.primary.patch(text_size=13, text_font=FontRoboto.ROBOTO_BOLD, text_color=orange_primary))
+text((114, 47), "Assets & Standards", style=styles.primary.patch(text_size=13, text_font=FontRoboto.ROBOTO_BOLD, text_color=orange_primary))
 
-rectangle((114, 39), width=32, height=6.5, r=2, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=orange_primary, shape_line_width=1))
-text((114, 39), "cache (fonts/icons)", style=styles.primary.patch(text_size=9.5, text_font=FontRoboto.ROBOTO_BOLD))
+rectangle((114, 37), width=32, height=7, r=2, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=orange_primary, shape_line_width=1))
+text((114, 37), "cache (fonts/icons)", style=styles.primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
 
-rectangle((114, 30), width=32, height=6.5, r=2, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=orange_primary, shape_line_width=1))
-text((114, 30), "template (Jinja2)", style=styles.primary.patch(text_size=9.5, text_font=FontRoboto.ROBOTO_BOLD))
+rectangle((114, 27), width=32, height=7, r=2, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=orange_primary, shape_line_width=1))
+text((114, 27), "css (presets)", style=styles.primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
 
-rectangle((114, 21), width=32, height=6.5, r=2, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=orange_primary, shape_line_width=1))
-text((114, 21), "css (presets)", style=styles.primary.patch(text_size=9.5, text_font=FontRoboto.ROBOTO_BOLD))
-
-rectangle((114, 12), width=32, height=6.5, r=2, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=orange_primary, shape_line_width=1))
-text((114, 12), "rules (AI guidelines)", style=styles.primary.patch(text_size=9.5, text_font=FontRoboto.ROBOTO_BOLD))
+rectangle((114, 17), width=32, height=7, r=2, style=styles.primary.patch(shape_fill_color=Colors.White, shape_line_color=orange_primary, shape_line_width=1))
+text((114, 17), "rules (AI guidelines)", style=styles.primary.patch(text_size=10, text_font=FontRoboto.ROBOTO_BOLD))
 
 # Connect Root to Clusters
 line((55, 60), (32, 53), arrowhead="->", style=styles.primary.patch(line_width=1.8, line_color=blue_primary))

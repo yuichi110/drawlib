@@ -121,7 +121,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../cli/assets.html" >drawlib cache, template & css</a>
+                                <a href="../cli/assets.html" >drawlib cache & css</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -433,7 +433,7 @@ drawlib build markdown docs_src/index.md -o docs/index.md
 </ul>
 <h3>1.3 Compile to Headless PDF</h3>
 <pre><code class="language-bash"># Compile a single file or directory into a unified vector PDF:
-drawlib build pdf docs_src/ -o manual.pdf
+drawlib build pdf doc_src/ -o doc.pdf
 </code></pre>
 <hr />
 <h2>2. Compiling with the Python API</h2>
@@ -456,8 +456,8 @@ build(
 
 # Compile directly to PDF:
 build_pdf(
-    source=&quot;docs_src/&quot;,
-    output=&quot;dist/user_guide.pdf&quot;,
+    source=&quot;doc_src/&quot;,
+    output=&quot;doc.pdf&quot;,
 )
 </code></pre>
 <h3>Key Python API Functions</h3>
@@ -502,6 +502,9 @@ build_pdf(
 <p>You can provide an external Python configuration script to establish shared settings across all illustrations before they execute.</p>
 <pre><code class="language-bash">drawlib build html docs_src/ -o docs_html/ --config setup_theme.py
 </code></pre>
+<blockquote>
+<p><strong>Note</strong>: If a <code>config.py</code> file exists inside your source directory (e.g., <code>docs_src/config.py</code>), Drawlib automatically detects and loads it without requiring the <code>--config</code> flag. Use <code>--config</code> when specifying a custom path or alternative configuration file.</p>
+</blockquote>
 <h3>Example <code>setup_theme.py</code>:</h3>
 <pre><code class="language-python">from drawlib.preset_styles import monochrome_styles
 
@@ -534,8 +537,23 @@ PROJECT_NAME = &quot;Enterprise Architecture Docs&quot;
 </li>
 </ul>
 <p>Once installed, compile your documents to PDF using:</p>
-<pre><code class="language-bash">drawlib build pdf docs_src/ -o output.pdf
+<pre><code class="language-bash">drawlib build pdf doc_src/ -o doc.pdf
 </code></pre>
+<blockquote>
+<p><strong>Deterministic Builds &amp; Timestamps</strong>: By default, Drawlib normalizes PDF <code>/CreationDate</code> and <code>/ModDate</code> metadata to a fixed timestamp so that consecutive builds produce byte-identical files with no Git changes. If you need to include the actual build time in the PDF metadata, pass the <code>--timestamp</code> flag (or <code>timestamp=True</code> in Python).</p>
+</blockquote>
+<hr />
+<h2>5. Diagram Build Cache</h2>
+<p>Drawlib automatically caches rendered diagram images in a local SQLite database at <code>.drawlib/cache.db</code> relative to the current working directory.</p>
+<ul>
+<li><strong>Incremental Builds</strong>: On subsequent runs, code blocks whose code and configuration have not changed are instantly served from the cache, avoiding re-rendering and significantly speeding up builds.</li>
+<li><strong>Bypassing Cache</strong>: Pass <code>--no-cache</code> to force re-executing and re-rendering all diagram code blocks:<pre><code class="language-bash">drawlib build html docs_src/ -o docs_html/ --no-cache
+</code></pre>
+</li>
+<li><strong>Clearing Cache</strong>: To wipe the cache completely, simply delete the <code>.drawlib/</code> directory:<pre><code class="language-bash">rm -rf .drawlib/
+</code></pre>
+</li>
+</ul>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
 

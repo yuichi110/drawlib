@@ -121,7 +121,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../cli/assets.html" >drawlib cache, template & css</a>
+                                <a href="../cli/assets.html" >drawlib cache & css</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -404,7 +404,7 @@
 <p>To get started quickly, Drawlib provides built-in starter project templates that scaffold complete documentation trees, sample diagrams, configuration scripts, and build tasks.</p>
 <hr />
 <h2>1. Starter Project Templates</h2>
-<p>Drawlib includes three official starter project types:</p>
+<p>Drawlib includes four official starter project types:</p>
 <table>
 <thead>
 <tr>
@@ -416,22 +416,28 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><strong><code>simple</code></strong></td>
-<td style="text-align:left"><code>drawlib init simple</code></td>
-<td style="text-align:left">Single articles, README diagrams, standalone blog posts</td>
-<td style="text-align:left"><code>document.md</code>, <code>build.sh</code>, sample architecture illustration block</td>
-</tr>
-<tr>
 <td style="text-align:left"><strong><code>site</code></strong></td>
 <td style="text-align:left"><code>drawlib init site</code></td>
 <td style="text-align:left">Complete documentation websites, project manuals, API references</td>
-<td style="text-align:left"><code>docs_src/</code> hierarchy, <code>navbar.md</code>, multiple chapters, custom configuration</td>
+<td style="text-align:left"><code>docs_src/</code> hierarchy, <code>navbar.md</code>, <code>config.py</code>, <code>style.css</code>, <code>template.html</code>, <code>build.sh</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>simple</code></strong></td>
+<td style="text-align:left"><code>drawlib init simple</code></td>
+<td style="text-align:left">Single articles, README diagrams, standalone blog posts</td>
+<td style="text-align:left"><code>document.md</code>, <code>config.py</code>, <code>style.css</code>, <code>template.html</code>, <code>build.sh</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>pdf</code></strong></td>
 <td style="text-align:left"><code>drawlib init pdf</code></td>
 <td style="text-align:left">Technical specifications, whitepapers, executive reports</td>
-<td style="text-align:left">Structured multi-section report configured for high-fidelity PDF output</td>
+<td style="text-align:left"><code>doc_src/</code> chapters (<code>00_cover.md</code>...), <code>config.py</code>, <code>style.css</code>, <code>template.html</code>, <code>build.sh</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>image</code></strong></td>
+<td style="text-align:left"><code>drawlib init image</code></td>
+<td style="text-align:left">Standalone Python diagram/illustration scripts</td>
+<td style="text-align:left">Python script scaffolding, configuration, and image export tasks</td>
 </tr>
 </tbody>
 </table>
@@ -444,13 +450,19 @@
 <p>Specify the template type and target directory name:</p>
 <pre><code class="language-bash">drawlib init site my_docs/
 </code></pre>
-<p>This creates a new folder <code>my_docs/</code> populated with the starter website structure.</p>
-<h3>2.3 Scaffolding in the Current Directory</h3>
+<p>This creates a new folder <code>my_docs/</code> populated with the starter website structure and automatically compiles the initial Markdown (<code>docs/</code>) and HTML (<code>docs_html/</code>) outputs.</p>
+<h3>2.3 Choosing Language and CSS Theme</h3>
+<p>You can specify the document language and starting CSS theme:</p>
+<pre><code class="language-bash"># Bootstrap a Japanese documentation website with the Google theme:
+drawlib init site my_docs/ --lang ja --css google
+</code></pre>
+<p>When <code>--lang ja</code> is selected, Drawlib configures Japanese font patching (<code>FontJapanese.SANSSERIF_REGULAR</code>) in <code>config.py</code> out of the box.</p>
+<h3>2.4 Scaffolding in the Current Directory</h3>
 <p>Use the <code>--here</code> flag to bootstrap directly into an existing empty directory:</p>
 <pre><code class="language-bash">mkdir documentation &amp;&amp; cd documentation
 drawlib init site --here
 </code></pre>
-<h3>2.4 Overwriting Existing Files</h3>
+<h3>2.5 Overwriting Existing Files</h3>
 <p>By default, <code>drawlib init</code> prevents accidental overwriting. Pass <code>--force</code> (<code>-f</code>) if you explicitly intend to overwrite existing files:</p>
 <pre><code class="language-bash">drawlib init simple my_docs/ --force
 </code></pre>

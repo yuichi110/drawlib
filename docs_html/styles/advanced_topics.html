@@ -121,7 +121,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../cli/assets.html" >drawlib cache, template & css</a>
+                                <a href="../cli/assets.html" >drawlib cache & css</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -494,6 +494,26 @@ text((50, 20), &quot;Customized Style&quot;, style=custom_style)
 <div class="drawlib-image" style="text-align: center;">
   <img src="advanced_topics_images/4.png" alt="advanced_topics_4" style="width: 600px; max-width: 100%;" />
 </div>
+<h1>Patching Typography Globally with <code>styles.patch_font()</code></h1>
+<p>When creating illustrations or documentation in Japanese, Chinese, or specialized brand typefaces, setting fonts individually on each shape or text call is tedious and prone to missing glyphs (e.g. tofu boxes on bold text).</p>
+<p>You can patch all font definitions across the entire active style catalog using <code>styles.patch_font()</code>:</p>
+<pre><code class="language-python">from drawlib.config import styles
+from drawlib.fonts import FontJapanese
+
+# Patch regular and bold fonts for all styles in the active catalog
+styles.patch_font(
+    regular=FontJapanese.SANSSERIF_REGULAR,
+    bold=FontJapanese.SANSSERIF_BOLD,
+)
+</code></pre>
+<h3>Parameter Resolution:</h3>
+<ul>
+<li><strong><code>regular</code></strong>: Serves as the fallback default font for all styles in the catalog (including bold and light if not overridden).</li>
+<li><strong><code>bold</code></strong> (keyword-only): Overrides all bold styles (such as <code>styles.bold</code>, <code>styles.blue_bold</code>, etc.).</li>
+<li><strong><code>light</code></strong> (keyword-only): Overrides all light styles (such as <code>styles.light</code>, <code>styles.red_light</code>, etc.).</li>
+<li><strong><code>sourcecode</code></strong> (keyword-only): Updates the default monospace font used by source code rendering components (<code>styles.sourcecode_font</code>).</li>
+</ul>
+<p>This method is commonly configured in your project's <code>config.py</code> so that all diagrams automatically render with the appropriate font.</p>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
 

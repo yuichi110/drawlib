@@ -15,9 +15,35 @@ from typing import Any, Generator, Self
 
 from pydantic import BaseModel, ConfigDict
 
+from drawlib._core.l1_core import guarded
+from drawlib._core.l2_models import FontBase, FontFile
 from drawlib._core.l2_types import TypeColor
 from drawlib._core.l3_fonts import FontSourceCode
 from drawlib._core.l3_styles import Style
+
+
+def _resolve_target_font(
+    field_name: str,
+    regular: FontBase | FontFile | None,
+    bold: FontBase | FontFile | None,
+    light: FontBase | FontFile | None,
+) -> FontBase | FontFile | None:
+    """Resolve target font for a specific style field based on naming convention.
+
+    Args:
+        field_name (str): Style attribute name.
+        regular (FontBase | FontFile | None): Base font.
+        bold (FontBase | FontFile | None): Bold font.
+        light (FontBase | FontFile | None): Light font.
+
+    Returns:
+        FontBase | FontFile | None: Target font to apply.
+    """
+    if field_name == "bold" or field_name.endswith("_bold"):
+        return bold if bold is not None else regular
+    if field_name == "light" or field_name.endswith("_light"):
+        return light if light is not None else regular
+    return regular
 
 
 class BasePresetStyles(BaseModel):
@@ -100,6 +126,44 @@ class BasePresetStyles(BaseModel):
             Self: New preset styles instance with updated attributes.
         """
         return self.model_copy(update=kwargs)
+
+    @guarded
+    def patch_font(
+        self,
+        regular: FontBase | FontFile | None = None,
+        *,
+        bold: FontBase | FontFile | None = None,
+        light: FontBase | FontFile | None = None,
+        sourcecode: FontSourceCode | None = None,
+    ) -> Self:
+        """Create a new copy of preset styles with updated font configurations.
+
+        Args:
+            regular (FontBase | FontFile | None): Default baseline font applied to all styles.
+                If provided without explicit bold/light overrides, it is also applied as fallback
+                for bold and light variants.
+            bold (FontBase | FontFile | None): Font override for bold style variants ('bold', '*_bold').
+            light (FontBase | FontFile | None): Font override for light style variants ('light', '*_light').
+            sourcecode (FontSourceCode | None): Monospace source code font override.
+
+        Returns:
+            Self: New preset styles instance with updated font attributes.
+        """
+        updates: dict[str, Any] = {}
+
+        if sourcecode is not None:
+            updates["sourcecode_font"] = sourcecode
+
+        for field_name in self.model_fields:
+            val = getattr(self, field_name)
+            if not isinstance(val, Style):
+                continue
+
+            target_font = _resolve_target_font(field_name, regular, bold, light)
+            if target_font is not None:
+                updates[field_name] = val.patch(text_font=target_font)
+
+        return self.model_copy(update=updates)
 
 
 class DefaultStyles(BasePresetStyles):
