@@ -10,10 +10,11 @@
 Create a `BoxList`, append or extend items, and render them with `draw()`:
 
 ```drawlib show-code 650px center caption:"BoxList Layout & Custom Styling"
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.smartarts import BoxList
+from drawlib.config import styles
 
-config(width=100, height=45)
+setup(width=100, height=45)
 
 # 1. Horizontal list (Left to Right)
 b1 = BoxList(styles=styles, default_text_style=styles.white)

@@ -8,12 +8,11 @@ Here's an example of using Bubblespeech in Drawlib:
 
 
 ```python
-from drawlib.canvas import config
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.smartarts import bubblespeech
 
-styles = get_styles()
-config(width=95, height=52)
+setup(width=95, height=52)
 bubblespeech(
     xy=(36, 11),
     width=50,

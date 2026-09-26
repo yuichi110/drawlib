@@ -34,7 +34,7 @@ Options can be specified on the opening block line as space-separated tokens, `k
 
 
 ```python
-config(width=100, height=60)
+setup(width=100, height=60)
 # Drawing code...
 ```
 
@@ -80,7 +80,7 @@ For authors writing raw HTML documentation or slides, Drawlib also supports nati
 
 ```html
 <drawlib width="600px" align="center" caption="Microservices Architecture">
-config(width=100, height=50)
+setup(width=100, height=50)
 rectangle((50, 25), width=80, height=30, text="API Gateway", style=styles.primary)
 </drawlib>
 ```

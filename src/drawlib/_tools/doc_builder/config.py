@@ -38,6 +38,27 @@ def load_config(
     """
     drawlib.config._reset_config()
 
+    if shared_globals is not None:
+        exec(
+            "from drawlib import canvas, charts, colors, doc_builder, fonts, icons, images, lines, math, "
+            "preset_styles, shapes, smartarts, text, types\n"
+            "from drawlib.canvas import *\n"
+            "from drawlib.shapes import *\n"
+            "from drawlib.lines import *\n"
+            "from drawlib.text import *\n"
+            "from drawlib.icons import *\n"
+            "from drawlib.images import *\n"
+            "from drawlib.preset_styles import *\n"
+            "from drawlib.smartarts import *\n"
+            "from drawlib.fonts import *\n"
+            "from drawlib.colors import *\n"
+            "from drawlib.types import *\n"
+            "from drawlib.math import *\n"
+            "from drawlib.doc_builder import *\n"
+            "from drawlib.config import styles\n",
+            shared_globals,
+        )
+
     if not config_path:
         return
 
@@ -73,3 +94,9 @@ def load_config(
     for key, val in user_globals.items():
         if not key.startswith("_"):
             setattr(drawlib.config, key, val)
+
+    if shared_globals is not None:
+        shared_globals["styles"] = drawlib.config.styles
+        for key, val in user_globals.items():
+            if not key.startswith("_"):
+                shared_globals[key] = val

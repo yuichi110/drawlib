@@ -439,12 +439,13 @@ This structure allows for precise control over the appearance of lines and their
 <p>It's important to note that whether the arrowhead is present or not carries logical meaning, so it is considered a function argument rather than a style attribute.</p>
 <h1>Drawing line with style</h1>
 <p>Let's explore different line styles through examples.</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=40)
+setup(width=100, height=40)
 
 text((10, 5), &quot;primary&quot;, style=styles.primary)
 line((20, 5), (40, 5), style=styles.primary)
@@ -488,12 +489,13 @@ save()
 <li><code>arrow_head_scale</code>: Arrowhead scale. Controls the size of the arrowhead. Larger values result in larger arrowheads. Default is <code>20.0</code>.</li>
 </ul>
 <p>Let's see an example:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 text((10, 5), &quot;arrowhead -&gt;&quot;, style=styles.primary)
 line((20, 5), (40, 5), arrowhead=&quot;-&gt;&quot;, style=styles.primary)
@@ -534,11 +536,12 @@ save()
 <p>Drawlib provides pre-defined line styles on the <code>styles</code> object.
 You can access them as attributes (e.g. <code>styles.red</code>, <code>styles.red_solid</code>, <code>styles.red_dashed</code>, <code>styles.bold</code>).</p>
 <p>Let's look at an example:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=40)
+setup(width=100, height=40)
 
 text((12, 5), &quot;styles.primary&quot;, style=styles.primary)
 line((25, 5), (40, 5), style=styles.primary)

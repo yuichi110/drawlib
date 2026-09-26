@@ -448,7 +448,7 @@ Unlike external tools that rely on Graphviz or static automatic layout engines, 
 <pre><code class="language-python">from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 
-canvas.config(width=100, height=35)
+canvas.setup(width=100, height=35)
 
 d = ArchitectureDiagram(title=&quot;Web Application Architecture&quot;)
 
@@ -487,7 +487,7 @@ The text label is positioned relative to the icon and does not shift the icon's 
 <pre><code class="language-python">from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 
-canvas.config(width=85, height=55)
+canvas.setup(width=85, height=55)
 
 d = ArchitectureDiagram()
 
@@ -510,7 +510,7 @@ d.draw(xy=(0.0, 0.0))
 <pre><code class="language-python">from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup
 
-canvas.config(width=90, height=65)
+canvas.setup(width=90, height=65)
 
 d = ArchitectureDiagram(title=&quot;Network Isolation&quot;)
 
@@ -533,7 +533,7 @@ d.draw(xy=(5.0, 3.0))
 <pre><code class="language-python">from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
 
-canvas.config(width=90, height=45)
+canvas.setup(width=90, height=45)
 
 d = ArchitectureDiagram()
 
@@ -561,7 +561,7 @@ d.draw(xy=(5.0, 5.0))
 <pre><code class="language-python">from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, PhosphorIcon
 
-canvas.config(width=95, height=80)
+canvas.setup(width=95, height=80)
 
 d = ArchitectureDiagram(title=&quot;Load Balancing Fan-Out&quot;)
 
@@ -584,7 +584,7 @@ d.draw(xy=(5.0, 4.0))
 <pre><code class="language-python">from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 
-canvas.config(width=95, height=65)
+canvas.setup(width=95, height=65)
 
 d = ArchitectureDiagram()
 
@@ -621,7 +621,7 @@ d.draw(xy=(5.0, 5.0))
 <pre><code class="language-python">from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 
-canvas.config(width=95, height=60)
+canvas.setup(width=95, height=60)
 
 d = ArchitectureDiagram(title=&quot;Edge Padding Comparison&quot;)
 
@@ -669,7 +669,7 @@ node = Node(&quot;Custom Service&quot;, icon=custom_1, icon_size=10.0)
 <pre><code class="language-python">from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 
-canvas.config(width=105, height=120)
+canvas.setup(width=105, height=120)
 
 d = ArchitectureDiagram(title=&quot;GCP Production Cloud Architecture&quot;)
 

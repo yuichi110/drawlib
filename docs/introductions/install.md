@@ -104,12 +104,13 @@ Once a feature cycle stabilizes, an official release (e.g. `0.3.1`) is published
 <summary>Source Code</summary>
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import arrow, chevron
 from drawlib.text import text
+from drawlib.config import styles
 
 
 def draw_versions(x: float, y: float, versions: list[str]):
@@ -145,7 +146,7 @@ def draw_versions(x: float, y: float, versions: list[str]):
             )
 
 
-config(width=115, height=72)
+setup(width=115, height=72)
 
 ts = styles.primary.patch(text_size=16, text_font=FontRoboto.ROBOTO_REGULAR)
 text((7, 6), "private\nα\nrelease", style=ts)

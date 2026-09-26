@@ -33,7 +33,7 @@ from drawlib.diagrams.state_diagram import (
     StateDiagram,
 )
 
-canvas.config(width=140, height=70)
+canvas.setup(width=140, height=70)
 
 sd = StateDiagram(title="Session Lifecycle State Machine")
 
@@ -102,7 +102,7 @@ sd.draw(xy=(0.0, 0.0))
 from drawlib import canvas
 from drawlib.diagrams.state_diagram import State, StateDiagram
 
-canvas.config(width=120, height=50)
+canvas.setup(width=120, height=50)
 
 sd = StateDiagram(title="Supported State Node Shapes")
 
@@ -161,7 +161,7 @@ from drawlib.diagrams.state_diagram import (
     StateDiagram,
 )
 
-canvas.config(width=120, height=70)
+canvas.setup(width=120, height=70)
 
 sd = StateDiagram(title="UML Pseudo-States Showcase")
 
@@ -209,7 +209,7 @@ When two states transition back and forth, setting `bend` creates elegant curved
 from drawlib import canvas
 from drawlib.diagrams.state_diagram import State, StateDiagram
 
-canvas.config(width=110, height=65)
+canvas.setup(width=110, height=65)
 
 sd = StateDiagram(title="Bidirectional Arcs & Self-Transitions")
 

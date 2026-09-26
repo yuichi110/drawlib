@@ -10,15 +10,16 @@ Below is a succinct overview of drawlib's canvas architecture:
 
 ```drawlib fold-code 600px center
 from copy import deepcopy
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import arrow, circle, rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
 
-config(width=100, height=60, grid=True)
+setup(width=100, height=60, grid=True)
 
 outer_y = 10
 outer_height = 35
@@ -60,7 +61,7 @@ def center():
     y = 37
     pad_y = 4
     text_style2 = text_style.patch(text_color=Colors.Red)
-    text((x, y), "- config()", style=text_style2)
+    text((x, y), "- setup()", style=text_style2)
     text((x, y - pad_y * 1), "- save()", style=text_style2)
     text((x, y - pad_y * 2), "- circle()", style=text_style2)
     text((x, y - pad_y * 3), "- ...", style=text_style2)
@@ -85,7 +86,7 @@ def right():
     x = 69
     y = 37
     pad_y = 4
-    text((x, y), "- config()", style=text_style)
+    text((x, y), "- setup()", style=text_style)
     text((x, y - pad_y * 1), "- save()", style=text_style)
     text((x, y - pad_y * 2), "- circle()", style=text_style)
     text((x, y - pad_y * 3), "- ...", style=text_style)
@@ -134,9 +135,9 @@ save()
     Canvas architecture
 
 In this architecture, drawlib internally incorporates core functions and methods that are accessible to users through public modules such as `drawlib.canvas` and `drawlib.shapes`. 
-When you invoke APIs like `config()`, these functions internally interact with the canvas state.
+When you invoke APIs like `setup()`, these functions internally interact with the canvas state.
 
-For example, using the public API `config(width=200, height=100)` triggers an internal method that adjusts the canvas's dimensions to 200 pixels wide and 100 pixels high.
+For example, using the public API `setup(width=200, height=100)` triggers an internal method that adjusts the canvas's dimensions to 200 pixels wide and 100 pixels high.
 Similarly, calling the `circle(...)` API invokes an internal method that adds a circle to the canvas.
 
 While it's technically possible to create your own instance of the Canvas and perform drawing operations, this approach isn't recommended.
@@ -164,20 +165,20 @@ The canvas in drawlib provides several categories of public APIs:
 
 This page focuses specifically on the APIs for managing the canvas itself, while other categories are covered in separate documentation sections.
 
-* `config()`: Configures the canvas by adjusting parameters such as size and background color.
+* `setup()`: Configures the canvas by adjusting parameters such as size and background color.
 * `save()`: Exports the current canvas as an image file.
 * `clear()`: Resets the canvas state by clearing all configurations and drawn objects.
 
-Both `config()` and `save()` are essential functions discussed in the introductory pages, as they are fundamental for creating illustrations. 
+Both `setup()` and `save()` are essential functions discussed in the introductory pages, as they are fundamental for creating illustrations. 
 `clear()` is useful when you need to refresh the canvas state, especially within scripts that create multiple illustrations sequentially. 
 However, it's recommended to adhere to the guideline of having one illustration per script file. 
 By following this recommendation, there's typically no need to explicitly call `clear()`.
 
 
-# config()
+# setup()
 
 
-The `config()` API in drawlib manages various canvas configurations, encompassing:
+The `setup()` API in drawlib manages various canvas configurations, encompassing:
 
 * Size (width, height): Specifies the dimensions of the canvas in coordinate units.
 * DPI (resolution): Sets the Dots Per Inch for the canvas, influencing image clarity.
@@ -198,10 +199,10 @@ By default, this option is set to `False`. Below is an example code snippet:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 
-config(width=100, height=50, grid=True)
+setup(width=100, height=50, grid=True)
 circle((50, 25), radius=20)
 save()
 ```
@@ -218,10 +219,11 @@ The former image without the grid:
 
 
 ```drawlib 450px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=50, grid=True)
+setup(width=100, height=50, grid=True)
 circle((50, 25), radius=20, style=styles.primary)
 save()
 ```
@@ -230,10 +232,11 @@ The latter image with the grid displayed:
 
 
 ```drawlib 450px center file:image_grid1_grid.png
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 circle((50, 25), radius=20, style=styles.primary)
 save()
 ```
@@ -246,10 +249,11 @@ If you only require the grid illustration, you can use the `grid_only=True` opti
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 circle((50, 25), radius=20, style=styles.primary)
 save()
 ```
@@ -258,10 +262,11 @@ This code will generate an image with grid lines but without the additional grid
 
 
 ```drawlib 450px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 circle((50, 25), radius=20, style=styles.primary)
 save()
 ```
@@ -278,11 +283,12 @@ Here's an example code snippet demonstrating the use of grid styles:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(
+setup(
     width=100,
     height=50,
     grid_only=True,
@@ -298,11 +304,12 @@ Note that providing a grid_style automatically sets the grid option to True, but
 
 
 ```drawlib 450px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(
+setup(
     width=100,
     height=50,
     grid_only=True,
@@ -333,23 +340,24 @@ By default, Drawlib's canvas size is:
 * Width: 100
 * Height: 100
 
-which can be adjusted using `config(width=<value>, height=<value>)`. 
+which can be adjusted using `setup(width=<value>, height=<value>)`. 
 This default size usually suffices for typical situations. 
 Therefore, we typically only adjust the height when we need to create horizontally wider images. 
 There's no reason to set a very small value that requires using coordinate values close to 0.01. 
 Conversely, excessively large values may become unwieldy.
 
 Let's explore how changing the size affects the output. 
-Below is a code snippet with `config(width=100, height=100, ...)`:
+Below is a code snippet with `setup(width=100, height=100, ...)`:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=100, grid_only=True)
+setup(width=100, height=100, grid_only=True)
 circle(
     (50, 50),
     radius=30,
@@ -364,11 +372,12 @@ Executing this code generates the following image:
 
 
 ```drawlib 450px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=100, grid_only=True)
+setup(width=100, height=100, grid_only=True)
 circle(
     (50, 50),
     radius=30,
@@ -382,15 +391,16 @@ save()
 
     width=100, height=100
 
-Now, let's adjust the size to `config(width=200, height=200, ...)`:
+Now, let's adjust the size to `setup(width=200, height=200, ...)`:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=200, height=200, grid_only=True)
+setup(width=200, height=200, grid_only=True)
 circle(
     (50, 50),
     radius=30,
@@ -405,11 +415,12 @@ This change results in a new image:
 
 
 ```drawlib 450px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=200, height=200, grid_only=True)
+setup(width=200, height=200, grid_only=True)
 circle(
     (50, 50),
     radius=30,
@@ -429,11 +440,12 @@ In the following example, we set the canvas coordinate size to full HD (1920x108
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=1920, height=1080, grid_only=True)
+setup(width=1920, height=1080, grid_only=True)
 circle(
     (960, 540),
     radius=300,
@@ -448,11 +460,12 @@ This produces the image below:
 
 
 ```drawlib 450px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=1920, height=1080, grid_only=True)
+setup(width=1920, height=1080, grid_only=True)
 circle(
     (960, 540),
     radius=300,
@@ -477,7 +490,7 @@ It's more challenging to compute half or quarter values of 1920 compared to 100.
 Understanding DPI (Dots Per Inch) is crucial for grasping drawlib's rendering quality. 
 However, before delving into DPI, it's essential to comprehend the actual implementation of drawlib's canvas size.
 
-In the previous examples, you configured `config(width=100, height=100)`, `config(width=200, height=200)` and `config(width=1920, height=1080)`. 
+In the previous examples, you configured `setup(width=100, height=100)`, `setup(width=200, height=200)` and `setup(width=1920, height=1080)`. 
 One might assume that larger width and height values result in higher resolution images. 
 However, let's check the actual image sizes:
 
@@ -511,11 +524,12 @@ Let's demonstrate this with an example:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=100, dpi=200, grid_only=True)
+setup(width=100, height=100, dpi=200, grid_only=True)
 circle(
     (50, 50),
     radius=30,
@@ -530,11 +544,12 @@ Executing this code generates the following image:
 
 
 ```drawlib 450px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=100, dpi=200, grid_only=True)
+setup(width=100, height=100, dpi=200, grid_only=True)
 circle(
     (50, 50),
     radius=30,
@@ -559,7 +574,7 @@ $ file image_dpi1.png
 
 
 Doubling the DPI results in a twofold increase in resolution. 
-If you want to 1920px output for previous image, you can set `config(width=1920, height=1080, dpi=192)` instead.
+If you want to 1920px output for previous image, you can set `setup(width=1920, height=1080, dpi=192)` instead.
 10 inch width x 192 DPI generates 1920 pixel width image.
 
 It's important to note that higher DPI settings can slow down image generation and require more disk space. 
@@ -571,20 +586,21 @@ Hence, setting excessively large values such as `dpi=1000` might not be advisabl
 
 
 There are situations where you may want to customize the background color of your illustrations, such as placing a black background image on a black background page. 
-In such cases, you can configure the background color and alpha using the `config()` function.
+In such cases, you can configure the background color and alpha using the `setup()` function.
 
 By default, drawlib's background color is white with an alpha value of 1.0 (completely opaque). 
-You can adjust these settings directly using `config()`.
+You can adjust these settings directly using `setup()`.
 
 Let's look at an example:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors140
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(background_color=Colors140.Orange, background_alpha=0.2)
+setup(background_color=Colors140.Orange, background_alpha=0.2)
 circle((50, 50), radius=30, style=styles.primary)
 save()
 ```
@@ -594,11 +610,12 @@ Executing this code generates the following output:
 
 
 ```drawlib 450px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors140
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(background_color=Colors140.Orange, background_alpha=0.2)
+setup(background_color=Colors140.Orange, background_alpha=0.2)
 circle((50, 50), radius=30, style=styles.primary)
 save()
 ```
@@ -634,10 +651,11 @@ Here's an example:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 circle((50, 25), radius=20, style=styles.primary)
 save(file="myimage.webp")
 ```
@@ -646,10 +664,11 @@ Executing this code generates the following image:
 
 
 ```drawlib 600px center format:webp file:myimage.webp
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 circle((50, 25), radius=20, style=styles.primary)
 save()
 ```
@@ -676,10 +695,11 @@ Here's an example:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 circle((50, 25), radius=20, style=styles.primary)
 save(format="jpg")
 ```
@@ -688,10 +708,11 @@ This code generate this file.
 
 
 ```drawlib 450px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 circle((50, 25), radius=20, style=styles.primary)
 save(format="jpg")
 ```

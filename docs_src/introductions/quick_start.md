@@ -17,13 +17,14 @@ While detailed explanations will be provided in subsequent documents, let's brie
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.images import image
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=100)
+setup(width=100, height=100)
 
 line((10, 10), (90, 90), style=styles.primary)
 circle((25, 75), radius=20, style=styles.primary)
@@ -45,13 +46,14 @@ After execution, an image file named "image_abstract1.png," corresponding to the
 
 
 ```drawlib 450px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.images import image
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=100)
+setup(width=100, height=100)
 
 line((10, 10), (90, 90), style=styles.primary)
 circle((25, 75), radius=20, style=styles.primary)
@@ -93,13 +95,13 @@ We will provide detailed explanations on this aspect later.
 
 
 After importing the Drawlib library, you can start drawing. 
-However, it's recommended to configure the canvas to define parameters such as size using the `config()` function. 
+However, it's recommended to configure the canvas to define parameters such as size using the `setup()` function. 
 For example:
 
 
 ```python
-from drawlib.canvas import config
-config(width=100, height=100)
+from drawlib.canvas import setup
+setup(width=100, height=100)
 ```
 
 
@@ -110,18 +112,19 @@ If you set both dimensions to 10, specifying x=20 would be out of range.
 Drawlib does not raise an error in this case, but your item may not render as expected. 
 By default, both width and height are set to 100 units.
 
-If you configure the canvas with `config(width=200, height=100)`, it will produce a wider canvas while maintaining the coordinate system for each item. 
+If you configure the canvas with `setup(width=200, height=100)`, it will produce a wider canvas while maintaining the coordinate system for each item. 
 See the output image below:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.images import image
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=200, height=100)
+setup(width=200, height=100)
 
 line((10, 10), (90, 90), style=styles.primary)
 circle((25, 75), radius=20, style=styles.primary)
@@ -135,8 +138,8 @@ For higher resolution images, adjusting the DPI (Dots Per Inch) is necessary:
 
 
 ```python
-from drawlib.canvas import config
-config(dpi=200)
+from drawlib.canvas import setup
+setup(dpi=200)
 ```
 
 
@@ -153,13 +156,13 @@ Default DPI value is 100.
 # Configuring the Canvas Grid
 
 
-The `config()` function in Drawlib offers several advanced options, including the grid feature, 
+The `setup()` function in Drawlib offers several advanced options, including the grid feature, 
 which can be particularly useful for positioning items on your canvas quickly:
 
 
 ```python
-from drawlib.canvas import config
-config(width=100, height=100, grid=True)
+from drawlib.canvas import setup
+setup(width=100, height=100, grid=True)
 ```
 
 
@@ -172,13 +175,14 @@ The effects of these adjustments are demonstrated in the following files:
 
 
 ```drawlib 450px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.images import image
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=100, grid=True)
+setup(width=100, height=100, grid=True)
 
 line((10, 10), (90, 90), style=styles.primary)
 circle((25, 75), radius=20, style=styles.primary)
@@ -193,13 +197,14 @@ save()
 
 
 ```drawlib 450px center file:image_config2_grid.png
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.images import image
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=100, grid_only=True)
+setup(width=100, height=100, grid_only=True)
 
 line((10, 10), (90, 90), style=styles.primary)
 circle((25, 75), radius=20, style=styles.primary)
@@ -244,12 +249,13 @@ Let's examine these alignment options through an example:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 
 circle(
     xy=(25, 25),
@@ -284,12 +290,13 @@ The resulting image demonstrates the effects of different alignments:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 
 circle(
     xy=(25, 25),
@@ -350,11 +357,12 @@ Here's an example using phosphor:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
+from drawlib.config import styles
 
-config(width=100, height=60, grid=True)
+setup(width=100, height=60, grid=True)
 
 phosphor.airplane((25, 30), width=20, style=styles.primary)
 phosphor.coffee(
@@ -371,11 +379,12 @@ This code generates the following output image:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
+from drawlib.config import styles
 
-config(width=100, height=60, grid=True)
+setup(width=100, height=60, grid=True)
 
 phosphor.airplane((25, 30), width=20, style=styles.primary)
 phosphor.coffee(
@@ -409,11 +418,12 @@ Here's an example using the `image()` function:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.images import image
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=50, grid=True)
+setup(width=100, height=50, grid=True)
 
 image(xy=(25, 25), width=20, image="../_assets/python.png")
 image(
@@ -431,10 +441,11 @@ Execute this code using the Python command to get image.
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.images import image
+from drawlib.config import styles
 
-config(width=100, height=50, grid=True)
+setup(width=100, height=50, grid=True)
 
 image(xy=(25, 25), width=20, image="../_assets/python.png")
 image(
@@ -458,10 +469,10 @@ Take a look at this example:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.images import Dimage, image
 
-config(width=100, height=50, grid=True)
+setup(width=100, height=50, grid=True)
 
 
 image(xy=(25, 25), width=20, image="../_assets/python.png")
@@ -478,10 +489,10 @@ Therefore, we use method chaining to apply operations such as mirroring (horizon
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.images import Dimage, image
 
-config(width=100, height=50, grid=True)
+setup(width=100, height=50, grid=True)
 
 
 image(xy=(25, 25), width=20, image="../_assets/python.png")
@@ -498,7 +509,7 @@ save()
 Both the `image()` function and the `Dimage` class accept images from the popular Pillow library. 
 If you wish to perform advanced image processing, it's advisable to do so using Pillow and then utilize image() and Dimage for handling the processed images.
 
-Additionally, if the original image is of high resolution and drawlib compromises its quality upon saving, consider increasing the DPI (dots per inch) using the `config()` function.
+Additionally, if the original image is of high resolution and drawlib compromises its quality upon saving, consider increasing the DPI (dots per inch) using the `setup()` function.
 
 
 # Drawing line
@@ -519,10 +530,11 @@ Let's explore some of these line types:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import line, line_curved, lines
+from drawlib.config import styles
 
-config(width=100, height=50, grid=True)
+setup(width=100, height=50, grid=True)
 
 line((20, 7), (80, 7), style=styles.primary)
 line_curved((20, 20), (80, 20), bend=0.2, style=styles.primary)
@@ -537,10 +549,11 @@ A bend value of 0.2 indicates a curved line 1.2 times longer than a straight lin
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import line, line_curved, lines
+from drawlib.config import styles
 
-config(width=100, height=50, grid=True)
+setup(width=100, height=50, grid=True)
 
 line((20, 7), (80, 7), style=styles.primary)
 line_curved((20, 20), (80, 20), bend=0.2, style=styles.primary)
@@ -565,11 +578,12 @@ Consider this example showcasing styling:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
+from drawlib.config import styles
 
-config(width=100, height=50, grid=True)
+setup(width=100, height=50, grid=True)
 
 line((20, 7), (80, 7), style=styles.primary)
 line(
@@ -594,11 +608,12 @@ Arrow head style is specified in function directry.
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
+from drawlib.config import styles
 
-config(width=100, height=50, grid=True)
+setup(width=100, height=50, grid=True)
 
 line((20, 7), (80, 7), style=styles.primary)
 line(
@@ -661,10 +676,11 @@ Let's explore two examples: a circle-like shape, `star()`, and a rectangle-like 
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle, star
+from drawlib.config import styles
 
-config(width=100, height=50, grid=True)
+setup(width=100, height=50, grid=True)
 
 star((25, 25), num_vertex=5, radius_ext=20, radius_int=7.5, style=styles.primary)
 rectangle((75, 25), width=30, height=20, r=3, angle=45, style=styles.primary)
@@ -676,10 +692,11 @@ This code generates the following image:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle, star
+from drawlib.config import styles
 
-config(width=100, height=50, grid=True)
+setup(width=100, height=50, grid=True)
 
 star((25, 25), num_vertex=5, radius_ext=20, radius_int=7.5, style=styles.primary)
 rectangle((75, 25), width=30, height=20, r=3, angle=45, style=styles.primary)
@@ -705,11 +722,12 @@ Let's examine a styling example:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import rectangle
+from drawlib.config import styles
 
-config(width=100, height=50, grid=True)
+setup(width=100, height=50, grid=True)
 
 rectangle(
     (25, 25),
@@ -738,11 +756,12 @@ This code generates the following output:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import rectangle
+from drawlib.config import styles
 
-config(width=100, height=50, grid=True)
+setup(width=100, height=50, grid=True)
 
 rectangle(
     (25, 25),
@@ -797,12 +816,13 @@ Let's examine some code examples:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.fonts import FontFile, FontRoboto
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 text((50, 7), "Hello drawlib. こんにちは。", style=styles.primary)
 text(
@@ -833,12 +853,13 @@ Executing this code yields the following image:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors
 from drawlib.fonts import FontFile, FontRoboto
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 text((50, 7), "Hello drawlib. こんにちは。", style=styles.primary)
 text(
@@ -898,12 +919,13 @@ Here is an example. In Drawlib, preset styles are accessed as attributes on the 
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 x1 = 12
 x2 = 34
 x3 = 62
@@ -942,12 +964,13 @@ Executing this code yields the following image:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 x1 = 12
 x2 = 34
 x3 = 62

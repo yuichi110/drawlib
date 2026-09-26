@@ -22,7 +22,7 @@ A `BasePresetStyles` (or `PresetStyles`) is a Python `@dataclass` containing `St
 You can instantiate `PresetStyles` directly with custom styles:
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors140
 from drawlib.preset_styles import PresetStyles
 from drawlib.shapes import circle, rectangle
@@ -37,7 +37,7 @@ custom_preset = PresetStyles(
     dashed=Style(shape_fill_color=(0, 0, 0, 0.0), shape_line_color=Colors140.DarkBlue, shape_line_width=2, shape_line_style="dashed"),
 )
 
-config(width=100, height=40)
+setup(width=100, height=40)
 
 circle(xy=(25, 20), radius=10, style=custom_preset.primary)
 rectangle(xy=(75, 20), width=20, height=20, style=custom_preset.bold)
@@ -46,7 +46,7 @@ rectangle(xy=(75, 20), width=20, height=20, style=custom_preset.bold)
 Executing this code produces the following image:
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors140
 from drawlib.preset_styles import PresetStyles
 from drawlib.shapes import circle, rectangle
@@ -61,7 +61,7 @@ custom_preset = PresetStyles(
     dashed=Style(shape_fill_color=(0, 0, 0, 0.0), shape_line_color=Colors140.DarkBlue, shape_line_width=2, shape_line_style="dashed"),
 )
 
-config(width=100, height=40)
+setup(width=100, height=40)
 
 circle(xy=(25, 20), radius=10, style=custom_preset.primary)
 rectangle(xy=(75, 20), width=20, height=20, style=custom_preset.bold)

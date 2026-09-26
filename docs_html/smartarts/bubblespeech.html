@@ -404,12 +404,11 @@
 <p>The Bubblespeech feature in Drawlib allows you to create irregular bubble-shaped speech graphics, often used in illustrations.
 It's implemented within the <code>smartarts</code> module as part of the Smart Art functions, offering advanced shape drawing capabilities.</p>
 <p>Here's an example of using Bubblespeech in Drawlib:</p>
-<pre><code class="language-python">from drawlib.canvas import config
-from drawlib.preset_styles import get_styles
+<pre><code class="language-python">from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.smartarts import bubblespeech
 
-styles = get_styles()
-config(width=95, height=52)
+setup(width=95, height=52)
 bubblespeech(
     xy=(36, 11),
     width=50,

@@ -5,7 +5,7 @@ This document illustrates the execution lifecycle.
 ## Process Flow
 
 ```drawlib
-config(width=100, height=40)
+setup(width=100, height=40)
 
 circle((20, 20), radius=10, style=styles.blue_flat, text="Start", textstyle=styles.white_bold)
 rectangle((50, 20), width=24, height=16, style=styles.green_flat, text="Process", textstyle=styles.white_bold)

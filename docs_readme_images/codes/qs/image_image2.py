@@ -1,7 +1,7 @@
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.images import Dimage, image
 
-config(width=100, height=50, grid=True)
+setup(width=100, height=50, grid=True)
 
 image(xy=(25, 25), width=20, image="python.png")
 

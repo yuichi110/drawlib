@@ -447,13 +447,14 @@
 <hr />
 <h2>2. Usage Examples</h2>
 <h3>2.1 Calculating Distance and Dynamic Radius</h3>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.math import get_distance
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 p1 = (25, 25)
 p2 = (75, 25)
@@ -469,13 +470,14 @@ text((50, 32), f&quot;dist = {dist:.0f}&quot;, style=styles.primary)
   <img src="math_images/2.png" alt="math_2" style="width: 550px; max-width: 100%;" />
 </div>
 <h3>2.2 Computing Rotation Angle for Custom Vectors</h3>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.lines import line, line_arc
 from drawlib.math import get_angle
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=55)
+setup(width=100, height=55)
 
 start = (20, 15)
 target = (75, 45)
@@ -493,12 +495,13 @@ text((50, 48), f&quot;angle = {angle:.1f}°&quot;, style=styles.primary)
   <img src="math_images/3.png" alt="math_3" style="width: 550px; max-width: 100%;" />
 </div>
 <h3>2.3 Centroid and Bounding Box for Clusters</h3>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.math import get_center_and_size
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=60)
+setup(width=100, height=60)
 
 nodes = [(25, 25), (40, 45), (55, 20), (75, 38)]
 (center_x, center_y), (width, height) = get_center_and_size(nodes)

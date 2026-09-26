@@ -55,15 +55,16 @@ The CLI is organized into specialized subcommands:
 | **`rules`** | Displays drawing guidelines and architectural rules for AI agents. | `show`, `build`, `topics`, `list` |
 
 ```drawlib 700px center caption:"Drawlib Unified CLI Command Hierarchy"
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=140, height=80)
+setup(width=140, height=80)
 
 # Colors
 blue_primary = Colors140.RoyalBlue

@@ -37,13 +37,14 @@ from drawlib.math import (
 
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.math import get_distance
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 p1 = (25, 25)
 p2 = (75, 25)
@@ -66,13 +67,14 @@ text((50, 32), f"dist = {dist:.0f}", style=styles.primary)
 
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.lines import line, line_arc
 from drawlib.math import get_angle
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=55)
+setup(width=100, height=55)
 
 start = (20, 15)
 target = (75, 45)
@@ -97,12 +99,13 @@ text((50, 48), f"angle = {angle:.1f}°", style=styles.primary)
 
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.math import get_center_and_size
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=60)
+setup(width=100, height=60)
 
 nodes = [(25, 25), (40, 45), (55, 20), (75, 38)]
 (center_x, center_y), (width, height) = get_center_and_size(nodes)

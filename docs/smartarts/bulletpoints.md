@@ -7,12 +7,13 @@ Class `BulletPoints` is used for drawing bullet points.
 
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.smartarts import BulletPoints
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=48)
+setup(width=100, height=48)
 
 
 def center():

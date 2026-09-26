@@ -437,7 +437,7 @@ It adheres strictly to <strong>IE Notation (Information Engineering / Crow's Foo
 <pre><code class="language-python">from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity
 
-canvas.config(width=114, height=48)
+canvas.setup(width=114, height=48)
 
 erd = ERDiagram(title=&quot;E-Commerce Core Schema&quot;)
 
@@ -512,7 +512,7 @@ entity.add_columns([
 <pre><code class="language-python">from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity
 
-canvas.config(width=90, height=48)
+canvas.setup(width=90, height=48)
 
 erd = ERDiagram()
 
@@ -651,7 +651,7 @@ from drawlib.colors import Colors
 from drawlib.diagrams.er import ERDiagram, Entity
 from drawlib.types import Style
 
-canvas.config(width=90, height=48)
+canvas.setup(width=90, height=48)
 
 erd = ERDiagram(
     title=&quot;Custom Styled Schema&quot;,

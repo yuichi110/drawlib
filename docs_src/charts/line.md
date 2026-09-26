@@ -13,7 +13,7 @@ from drawlib import canvas
 from drawlib.charts import LineChart
 
 canvas.initialize()
-canvas.config(width=95, height=65)
+canvas.setup(width=95, height=65)
 
 chart = LineChart(
     categories=["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
@@ -39,7 +39,7 @@ from drawlib import canvas
 from drawlib.charts import LineChart
 
 canvas.initialize()
-canvas.config(width=95, height=65)
+canvas.setup(width=95, height=65)
 
 chart = LineChart(
     categories=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
@@ -67,7 +67,7 @@ from drawlib import canvas
 from drawlib.charts import LineChart
 
 canvas.initialize()
-canvas.config(width=95, height=65)
+canvas.setup(width=95, height=65)
 
 chart = LineChart(
     categories=["Phase 1", "Phase 2", "Phase 3", "Phase 4", "Phase 5"],

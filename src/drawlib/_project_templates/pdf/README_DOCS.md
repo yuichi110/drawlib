@@ -41,7 +41,7 @@ Drawlib illustration code blocks are embedded using standard ````drawlib```` blo
 # Chapter 1: System Overview
 
 ```drawlib 600px center caption:"Figure 1: High-Level Architecture"
-config(width=100, height=50)
+setup(width=100, height=50)
 
 rectangle((25, 25), width=30, height=20, style="blue_flat", text="Client App", textstyle="white_bold")
 rectangle((75, 25), width=30, height=20, style="green_flat", text="Cloud Backend", textstyle="white_bold")

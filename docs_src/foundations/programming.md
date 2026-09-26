@@ -21,12 +21,13 @@ Let's compare some example code with different alignments.
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=100, grid_only=True)
+setup(width=100, height=100, grid_only=True)
 
 # alignment: horizontally left, vertically bottom
 text(
@@ -69,12 +70,13 @@ Before diving into the code, let's examine the output image.
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=100, grid_only=True)
+setup(width=100, height=100, grid_only=True)
 
 # alignment: horizontally left, vertically bottom
 text(
@@ -148,14 +150,15 @@ In this example, we use variables to align items horizontally.
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
 width = 100
 height = 100
-config(width=width, height=height, grid_only=True)
+setup(width=width, height=height, grid_only=True)
 
 num_items = 3
 margin_x = width / (num_items + 1)
@@ -176,14 +179,15 @@ Executing this code generates the following image:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
 width = 100
 height = 100
-config(width=width, height=height, grid_only=True)
+setup(width=width, height=height, grid_only=True)
 
 num_items = 3
 margin_x = width / (num_items + 1)
@@ -206,14 +210,15 @@ Let's change the canvas height to `50` and add a rectangle at last.
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
 width = 100
 height = 50  # <= CHANGED FROM 100 !!
-config(width=width, height=height, grid_only=True)
+setup(width=width, height=height, grid_only=True)
 
 num_items = 4  # <= CHANGED FROM 3!!
 margin_x = width / (num_items + 1)
@@ -233,14 +238,15 @@ Using a variable for y simplifies the code. However, the x variable makes the co
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
 width = 100
 height = 50  # <= CHANGED FROM 100 !!
-config(width=width, height=height, grid_only=True)
+setup(width=width, height=height, grid_only=True)
 
 num_items = 4  # <= CHANGED FROM 3!!
 margin_x = width / (num_items + 1)

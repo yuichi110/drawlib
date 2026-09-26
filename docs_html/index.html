@@ -408,13 +408,14 @@
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=40)
+setup(width=100, height=40)
 
 circle(
     xy=(25, 20),
@@ -449,15 +450,16 @@ text(xy=(75, 20), text=&quot;Rectangle&quot;, style=styles.primary.patch(text_co
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=140, height=65)
+setup(width=140, height=65)
 
 # Styles
 s_src = styles.blue_flat
@@ -536,15 +538,16 @@ line((87, 21), (98, 17), arrowhead=&quot;-&gt;&quot;, style=styles.bold)
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=140, height=65)
+setup(width=140, height=65)
 
 # Styles
 s_repo = styles.blue_flat

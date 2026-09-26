@@ -1,6 +1,6 @@
 # 4. Preset Styles & Themes
 
-Instead of constructing a custom `Style(...)` object for every shape, Drawlib includes a powerful **Preset Styles** system (`drawlib.preset_styles`). Every drawing function accepts a shorthand style name string such as `style="blue"` or `style="red_flat"`.
+Instead of constructing a custom `Style(...)` object for every shape, Drawlib includes a powerful **Preset Styles** system accessed via `from drawlib.config import styles`. Every drawing function accepts a preset style such as `style=styles.blue` or `style=styles.red_flat`.
 
 ## Official Style Presets
 
@@ -9,23 +9,26 @@ Drawlib ships with three curated preset themes:
 - **`"essentials"`**: Rich, high-contrast palette for modern technical presentations.
 - **`"monochrome"`**: Grayscale palette tailored for print books and academic papers.
 
-## Using Style Name Shortcuts
+## Using Style Attributes
 
-You can combine color names (`blue`, `green`, `red`, `black`, `white`) with variant modifiers (`flat`, `solid`, `dashed`) directly in the `style` parameter:
+You can access color variants (`blue`, `green`, `red`, `black`, `white`) and style modifiers (`flat`, `solid`, `dashed`) directly from `styles`:
 
 ```python
+from drawlib.config import styles
+
 circle((20, 25), radius=10, style=styles.primary)            # Default style
 circle((45, 25), radius=10, style=styles.blue)               # Blue accent
 circle((70, 25), radius=10, style=styles.green)              # Green accent
 ```
 
 ```drawlib 600px center caption:"Figure 4.1: Applying Preset Style Names to Lines, Shapes, and Text"
-from drawlib.canvas import config
+from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
 
-config(width=100, height=45)
+setup(width=100, height=45)
 line_y = 36
 text_y = 9
 

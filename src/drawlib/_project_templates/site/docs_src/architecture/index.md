@@ -5,7 +5,7 @@ This document describes the internal architecture of the system.
 ## Component Breakdown
 
 ```drawlib
-config(width=120, height=60)
+setup(width=120, height=60)
 
 rectangle((30, 40), width=35, height=20, style=styles.blue_flat, text="Frontend (UI)", textstyle=styles.white_bold)
 rectangle((30, 15), width=35, height=20, style=styles.green_flat, text="Auth Service", textstyle=styles.white_bold)

@@ -94,14 +94,11 @@ drawlib build html docs_src/ -o docs_html/ --config setup_theme.py
 
 ### Example `setup_theme.py`:
 ```python
-from drawlib.canvas import config
-from drawlib.preset_styles import MonochromeStyles, set_default_styles
+from drawlib.preset_styles import monochrome_styles
 
-# Set canvas defaults:
-config(width=120, height=80)
-
-# Set global theme for all diagrams:
-set_default_styles(MonochromeStyles())
+# Override default theme styles or define project constants:
+styles = monochrome_styles
+PROJECT_NAME = "Enterprise Architecture Docs"
 ```
 
 All functions, classes, and global variables declared in the configuration script are automatically available within every embedded `drawlib` code block.

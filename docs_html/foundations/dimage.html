@@ -414,10 +414,10 @@ It is useful in the following situations:</p>
 <p>When loading an image from a file, creating a <code>Dimage</code> instance loads and stores the image data in memory as a variable.
 You can store a <code>Dimage</code> object in a variable and pass it to multiple <code>image()</code> calls without re-loading the image from disk.</p>
 <p>Here is an example:</p>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 
-config(width=100, height=50)
+setup(width=100, height=50)
 im_linux = Dimage(&quot;../_assets/linux.png&quot;)
 image((30, 25), 25, im_linux)
 image((70, 25), 25, im_linux)
@@ -456,11 +456,12 @@ These dimensions refer to the original pixel size of the image data, not the siz
 If you want to maintain the aspect ratio of the original image, you should calculate either the new width or the new height while keeping the ratio between them.
 If you want to change the aspect ratio, you need to calculate both the new width and height accordingly.</p>
 <p>Here's an example of changing the aspect ratio where we halve the image height:</p>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200)
+setup(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage(&quot;../_assets/linux.png&quot;)
@@ -494,11 +495,12 @@ This method accepts the following arguments:</p>
 <li>height: Specifies the height of the cropped area starting from y.</li>
 </ul>
 <p>Here's an example that keeps the center 50% of the image:</p>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200)
+setup(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage(&quot;../_assets/linux.png&quot;)
@@ -529,11 +531,12 @@ Finally, the cropped image can be used in drawing operations with <code>image()<
 <li>Vertical Flip: Use the <code>flip()</code> method.</li>
 </ul>
 <p>Here's an example:</p>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200)
+setup(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage(&quot;../_assets/linux.png&quot;)
@@ -559,11 +562,12 @@ text((80, 10), &quot;flip()&quot;, style=styles.primary)
 <li><code>sepia()</code>: Applies a sepia tone effect to the image</li>
 </ul>
 <p>Here's an example:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200)
+setup(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage(&quot;../_assets/linux.png&quot;)
@@ -587,11 +591,12 @@ text((80, 10), &quot;sepia()&quot;, style=styles.primary)
 </ul>
 <p>A value of <code>0.0</code> makes the image completely dark, <code>1.0</code> keeps the original brightness, and values greater than <code>1.0</code> increase the brightness.</p>
 <p>Here's an example:</p>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200)
+setup(width=100, height=50, dpi=200)
 
 image((20, 25), 20, Dimage(&quot;../_assets/linux.png&quot;).brightness(0.5))
 text((20, 10), &quot;brightness(0.5)&quot;, style=styles.primary)
@@ -610,12 +615,13 @@ text((80, 10), &quot;brightness(2.0)&quot;, style=styles.primary)
 <li><code>invert()</code>: Reverses the RGB values of the image</li>
 <li><code>colorize()</code>: Applies colors to a grayscale image. If the image is not grayscaled, it will be automatically grayscaled before colorize.</li>
 </ul>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.colors import Colors, ColorsDefault
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200, background_color=Colors.Gray)
+setup(width=100, height=50, dpi=200, background_color=Colors.Gray)
 
 # invert
 image((20, 25), 20, Dimage(&quot;../_assets/linux.png&quot;).invert())
@@ -655,11 +661,12 @@ text((80, 10), &quot;colorize()&quot;, style=styles.white)
 <li><code>blur()</code>: Applies a blur effect to the image</li>
 </ul>
 <p>Here's an example:</p>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200)
+setup(width=100, height=50, dpi=200)
 
 image((20, 25), 20, Dimage(&quot;../_assets/linux.png&quot;).mosaic(8))
 text((20, 10), &quot;mosaic(8)&quot;, style=styles.primary)

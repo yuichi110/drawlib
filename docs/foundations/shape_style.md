@@ -45,13 +45,12 @@ Here are three examples:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
-from drawlib.preset_styles import get_styles
+from drawlib.config import styles
 from drawlib.shapes import circle, rectangle
 
-styles = get_styles()
-config(width=150, height=50)
+setup(width=150, height=50)
 
 # left
 rectangle(xy=(25, 25), width=40, height=20, style=styles.primary)
@@ -133,14 +132,13 @@ Here are three examples:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.fonts import FontSansSerif, FontSerif
-from drawlib.preset_styles import get_styles
+from drawlib.config import styles
 from drawlib.shapes import rectangle
 
-styles = get_styles()
-config(width=150, height=50)
+setup(width=150, height=50)
 
 # left
 rectangle(
@@ -217,7 +215,7 @@ The x and y values are not absolute coordinates but are relative to the shape's 
 # Pre-defined Preset Styles
 
 
-Shapes use `Style` instances provided by preset styles (`styles = get_styles()`).
+Shapes use `Style` instances provided by `drawlib.config` (`from drawlib.config import styles`).
 
 Preset styles provide pre-defined `Style` objects as attributes on `styles`, following the naming pattern `<color>_<variant>`:
 
@@ -234,12 +232,11 @@ Here are three examples:
 
 
 ```python
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.shapes import circle
 
-styles = get_styles()
-config(width=150, height=50)
+setup(width=150, height=50)
 
 # left
 circle(

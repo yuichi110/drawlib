@@ -16,13 +16,14 @@ The `essentials` preset styles include 25 colors, encompassing all other preset 
 
 
 ```drawlib 650px center caption:"Preset styles essentials color chart"
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import ColorsEssentials
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=95)
+setup(width=100, height=95)
 start_x = 12
 pad_x = 19
 

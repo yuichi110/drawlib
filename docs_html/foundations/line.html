@@ -431,10 +431,11 @@ It requires three arguments (coordinates and style) and accepts two optional arg
 <li>(optional) width: The width of the line</li>
 </ul>
 <p>Let's look at an example:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.lines import line
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 line(xy1=(10, 10), xy2=(90, 40), style=styles.primary)
 save()
 </code></pre>
@@ -465,11 +466,12 @@ The distance between these points is 10 units.</p>
 </ul>
 <p>Negative values can also be used for bend, which maintains the length but reverses the bending direction.
 Let's check some examples:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.lines import line_curved
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 line_curved(xy1=(10, 20), xy2=(90, 20), bend=0.4, style=styles.primary)
 text((50, 7), &quot;0.4&quot;, style=styles.primary)
 line_curved(xy1=(10, 23), xy2=(90, 23), bend=0.2, style=styles.primary)
@@ -500,12 +502,13 @@ It requires four arguments (coordinates, control point, and style) and accepts t
 <p>Bézier curves are a popular method for drawing smooth, curved lines.
 If you are not familiar with Bézier curves, it is recommended to research and understand the concept first.</p>
 <p>This code generates the following output:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line, line_bezier1
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 line_bezier1(xy1=(10, 10), cp=(10, 40), xy2=(40, 40), style=styles.primary)
 line(xy1=(10, 10), xy2=(10, 40), style=styles.primary.patch(line_style=&quot;dashed&quot;, line_color=Colors.Red))
 line(xy1=(10, 40), xy2=(40, 40), style=styles.primary.patch(line_style=&quot;dashed&quot;, line_color=Colors.Red))
@@ -543,12 +546,13 @@ It requires five arguments (coordinates, control points, and style) and accepts 
 <p>Drawing a Bézier curve with two control points is a popular method for creating smooth, curved lines.
 If you are not familiar with Bézier curves, it is recommended to research and understand the concept first.</p>
 <p>Here is an example code:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line, line_bezier2
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 line_bezier2(xy1=(10, 10), cp1=(10, 40), cp2=(40, 40), xy2=(40, 10), style=styles.primary)
 line(xy1=(10, 10), xy2=(10, 40), style=styles.primary.patch(line_style=&quot;dashed&quot;, line_color=Colors.Red))
 line(xy1=(10, 40), xy2=(40, 40), style=styles.primary.patch(line_style=&quot;dashed&quot;, line_color=Colors.Red))
@@ -588,10 +592,11 @@ It requires two arguments (coordinates and style) and accepts two optional argum
 </ul>
 <p>The <code>xys</code> argument differs from the previous functions, but it is simply a list of (x, y) coordinates, such as <code>[(10, 10), (20, 40), (30, 10), (40, 40)]</code>.</p>
 <p>Here is an example code:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.lines import lines
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 lines(
     xys=[
         (10, 10),
@@ -631,12 +636,13 @@ Bézier curves with one control point (bezier1), or Bézier curves with two cont
 <p>Element of <code>path_points</code> are very similar to the previous functions line(), line_bezier1(), and line_bezier2().
 We set almost the same arguments for elements of the path_points.</p>
 <p>Let's see how it works with an example:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line, lines_bezier
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 points = [
     ((10, 20), (30, 20)),
@@ -670,12 +676,13 @@ They will create a straight line, a bezier1 line, and a bezier2 line.</p>
   <img src="line_images/6.png" alt="line_6" style="width: 600px; max-width: 100%;" />
 </div>
 <p>This function can be used to draw curved lines from shape to shape like this:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line, lines_bezier
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 circle((10, 40), radius=5, style=styles.primary)
 lines_bezier(
@@ -716,12 +723,13 @@ If you want to add related curves to all vertices, this function is very useful.
 <li>(optional) width: The width of the line</li>
 </ul>
 <p>Here is an example code:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import lines, lines_curved
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 circle((10, 40), radius=5, style=styles.primary)
 lines(

@@ -49,14 +49,13 @@ Here's how you can use the FontFile class in your Python code:
 
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.fonts import FontFile
-from drawlib.preset_styles import get_styles
+from drawlib.config import styles
 from drawlib.text import text
 
-styles = get_styles()
 
-config(width=100, height=50)
+setup(width=100, height=50)
 text(
     (50, 25),
     "Hello Drawlib!",

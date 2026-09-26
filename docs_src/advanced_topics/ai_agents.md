@@ -20,15 +20,16 @@ When Drawlib lives alongside your source code:
 
 
 ```drawlib fold-code 700px center caption:"AI Coding Agent Workflow with Drawlib"
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=140, height=75)
+setup(width=140, height=75)
 
 # Styles
 s_input = styles.blue_flat
@@ -147,9 +148,9 @@ When asking an LLM to generate illustrations, follow these proven prompt pattern
 
 LLMs struggle with unbounded 2D coordinate spaces. Always provide or request an explicit canvas size first:
 
-- Standard architecture / flow diagram: `config(width=120, height=60)`
-- Widescreen 16:9 system overview: `config(width=160, height=90)`
-- Small icon badge or process flow: `config(width=80, height=40)`
+- Standard architecture / flow diagram: `setup(width=120, height=60)`
+- Widescreen 16:9 system overview: `setup(width=160, height=90)`
+- Small icon badge or process flow: `setup(width=80, height=40)`
 
 ### B. Prefer High-Level Components
 
@@ -190,15 +191,16 @@ Modern multimodal models (such as Claude 3.7 Sonnet or Gemini 2.0 Pro) can inspe
 
 
 ```drawlib fold-code 700px center caption:"Human-in-the-Loop & Autonomous AI Iteration Workflow"
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line, lines
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=150, height=80)
+setup(width=150, height=80)
 
 # Colors & Styles
 s_human = styles.blue_flat
@@ -269,7 +271,7 @@ Using Drawlib, generate a clean microservices architecture diagram showing:
 1. Client App / Gateway
 2. Authentication Service and User DB
 3. Order Processing Service and Redis Queue
-Use `config(width=140, height=70)`, standard preset styles ("blue_flat", "green_flat"), and `line(..., arrowhead="->")`.
+Use `setup(width=140, height=70)`, standard preset styles ("blue_flat", "green_flat"), and `line(..., arrowhead="->")`.
 ```
 
 ### Prompt: Sequence Diagram for API Flow

@@ -5,7 +5,7 @@ Welcome to the documentation site created with [Drawlib](https://github.com/yuic
 ## Quick Overview
 
 ```drawlib
-config(width=100, height=50)
+setup(width=100, height=50)
 
 rectangle((20, 25), width=25, height=18, style=styles.blue_flat, text="Client", textstyle=styles.white_bold)
 rectangle((50, 25), width=25, height=18, style=styles.green_flat, text="Server", textstyle=styles.white_bold)

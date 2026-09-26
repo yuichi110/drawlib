@@ -428,13 +428,12 @@ For more details and examples, please refer to the Coordinate and Alignment page
 <li>Transparency: <code>shape_fill_alpha</code></li>
 </ul>
 <p>Here are three examples:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
-from drawlib.preset_styles import get_styles
+from drawlib.config import styles
 from drawlib.shapes import circle, rectangle
 
-styles = get_styles()
-config(width=150, height=50)
+setup(width=150, height=50)
 
 # left
 rectangle(xy=(25, 25), width=40, height=20, style=styles.primary)
@@ -499,14 +498,13 @@ These are typical shape styling configurations.</p>
 <li><code>text_valign</code>: Vertical alignment</li>
 </ul>
 <p>Here are three examples:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.fonts import FontSansSerif, FontSerif
-from drawlib.preset_styles import get_styles
+from drawlib.config import styles
 from drawlib.shapes import rectangle
 
-styles = get_styles()
-config(width=150, height=50)
+setup(width=150, height=50)
 
 # left
 rectangle(
@@ -569,7 +567,7 @@ However, you can override it, as shown in the right example.
 In that example, we also move the text positioning via <code>text_xy_shift</code>.
 The x and y values are not absolute coordinates but are relative to the shape's dimensions.</p>
 <h1>Pre-defined Preset Styles</h1>
-<p>Shapes use <code>Style</code> instances provided by preset styles (<code>styles = get_styles()</code>).</p>
+<p>Shapes use <code>Style</code> instances provided by <code>drawlib.config</code> (<code>from drawlib.config import styles</code>).</p>
 <p>Preset styles provide pre-defined <code>Style</code> objects as attributes on <code>styles</code>, following the naming pattern <code>&lt;color&gt;_&lt;variant&gt;</code>:</p>
 <ul>
 <li><code>&lt;color&gt;</code>: Default border and fill</li>
@@ -581,12 +579,11 @@ The x and y values are not absolute coordinates but are relative to the shape's 
 </ul>
 <p>For shape text, styles can also be supplied to <code>textstyle</code>.</p>
 <p>Here are three examples:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+<pre><code class="language-python">from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.shapes import circle
 
-styles = get_styles()
-config(width=150, height=50)
+setup(width=150, height=50)
 
 # left
 circle(

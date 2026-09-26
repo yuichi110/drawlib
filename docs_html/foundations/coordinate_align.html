@@ -408,15 +408,16 @@ Understanding drawlib's coordinates and alignment is essential to achieve this.<
 These represent the tuple <code>(X, Y)</code> coordinate of your drawing item.
 Here, <code>X</code> represents the x-axis value, and <code>Y</code> represents the y-axis value.</p>
 <p>Let's delve into some code examples:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=10, height=10, grid_only=True)
+setup(width=10, height=10, grid_only=True)
 for i in range(11):
     circle(xy=(i, i), radius=0.2, style=styles.primary)
 save()
 </code></pre>
-<p>In this example, setting <code>config(width=10, height=10, ...)</code> implies:</p>
+<p>In this example, setting <code>setup(width=10, height=10, ...)</code> implies:</p>
 <ul>
 <li>x-axis: 0 to 10</li>
 <li>y-axis: 0 to 10</li>
@@ -433,11 +434,11 @@ Within the for loop, we plot small circles from coordinates (0, 0) to (10, 10).<
 Therefore, the circle at (0, 0) is only partially displayed.
 Shapes existing at values less than 0 are not drawn, and similarly, those exceeding the maximum value of 10 are omitted.</p>
 <p>The default values for width and height are both <code>100</code>.
-We recommend explicitly setting width and height using config() even if you're using default values to showcase the image's coordinate size.</p>
+We recommend explicitly setting width and height using setup() even if you're using default values to showcase the image's coordinate size.</p>
 <p>You may need to calculate coordinates either mentally or programmatically within drawlib's code for drawing objects.
 It's advisable to use simple values such as 100 to simplify calculations.
 Setting complex values like 1920 can complicate matters.
-We prefer using <code>config(width=100, height=100)</code> or <code>config(width=100, height=50)</code>.</p>
+We prefer using <code>setup(width=100, height=100)</code> or <code>setup(width=100, height=50)</code>.</p>
 <h1>Alignment</h1>
 <p>Alignment refers to the arrangement of items, such as text, images, or shapes, on drawlib's canvas.
 These items can be aligned horizontally and vertically.
@@ -449,12 +450,13 @@ You can alter alignment using the unified <code>Style</code> class (or function 
 </ul>
 <p>If alignment isn't specified, <code>&quot;center&quot;</code> is applied to both horizontal and vertical alignment by default.</p>
 <p>Let's examine the alignment of rectangles with an example code:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=100, grid_only=True)
+setup(width=100, height=100, grid_only=True)
 
 for x, halign in [(15, &quot;left&quot;), (50, &quot;center&quot;), (85, &quot;right&quot;)]:
     for y, valign in [(15, &quot;bottom&quot;), (50, &quot;center&quot;), (85, &quot;top&quot;)]:
@@ -488,14 +490,15 @@ However, center alignment is much simpler for aligning different-sized multiple 
 That's why we've set <code>(center, center)</code> as the default for all items.
 Consistency is key.</p>
 <p>Here's an example of aligning items horizontally and vertically:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
 from drawlib.images import image
 from drawlib.shapes import chevron, circle, parallelogram, rectangle, regularpolygon, star
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=100, grid_only=True)
+setup(width=100, height=100, grid_only=True)
 
 x1 = 20
 x2 = 50

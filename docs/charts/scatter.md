@@ -16,7 +16,7 @@ from drawlib.charts import ScatterChart
 from drawlib.types import Style
 
 canvas.initialize()
-canvas.config(width=98, height=65)
+canvas.setup(width=98, height=65)
 
 chart = ScatterChart(
     width=88.0,
@@ -80,7 +80,7 @@ from drawlib import canvas
 from drawlib.charts import ScatterChart
 
 canvas.initialize()
-canvas.config(width=96, height=65)
+canvas.setup(width=96, height=65)
 
 chart = ScatterChart(
     width=85.0,

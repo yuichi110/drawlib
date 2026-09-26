@@ -30,13 +30,14 @@ All top-level CLI commands have direct 1-to-1 functional counterparts in `drawli
 | `drawlib template` | `list_templates()`, `validate_template(...)` | `drawlib.tools.template` | Inspect, export, or validate Jinja2 HTML templates. |
 
 ```drawlib 650px center caption:"Architecture: drawlib.tools as the Backend Engine"
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import rectangle
+from drawlib.config import styles
 
-config(width=140, height=75)
+setup(width=140, height=75)
 
 # Outer wrapper: CLI vs Python script
 rectangle(

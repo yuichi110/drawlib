@@ -118,8 +118,9 @@ def test_block_processor_ignore_explicit_save(tmp_path) -> None:
     md_input = f"""
 ```drawlib
 from drawlib.canvas import save
+from drawlib.config import styles
 from drawlib.shapes import circle
-circle((50, 50), radius=10)
+circle((50, 50), radius=10, style=styles.primary)
 save(r"{ignored_file}")
 ```
 """

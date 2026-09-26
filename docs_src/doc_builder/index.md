@@ -25,15 +25,16 @@ Instead of relying on external documentation engines (such as Sphinx, MkDocs, or
 | **PDF** | `docs_pdf/` | Offline distribution, print, release manuals | Vector-quality multi-page PDF generated via headless Chromium. |
 
 ```drawlib 700px center caption:"Drawlib Single-Source Documentation Architecture"
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=140, height=80)
+setup(width=140, height=80)
 
 # Colors
 blue_primary = Colors140.RoyalBlue

@@ -11,6 +11,7 @@ For instance, consider the following Python code:
 from drawlib.canvas import save
 from drawlib.colors import Colors140
 from drawlib.shapes import circle
+from drawlib.config import styles
 
 circle(
     xy=(50, 50),
@@ -40,6 +41,7 @@ This will generate an image file:
 from drawlib.canvas import save
 from drawlib.colors import Colors140
 from drawlib.shapes import circle
+from drawlib.config import styles
 
 circle(
     xy=(50, 50),
@@ -75,15 +77,16 @@ Here is a typical use case of Drawlib:
 
 
 ```drawlib 650px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import arrow, rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=60)
+setup(width=100, height=60)
 
 rect_width = 20
 rect_height = 38

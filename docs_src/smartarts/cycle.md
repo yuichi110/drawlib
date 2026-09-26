@@ -57,11 +57,10 @@ Create a circular workflow diagram:
 
 ```python
 from drawlib import canvas
-from drawlib.preset_styles import get_styles
+from drawlib.config import styles
 from drawlib.smartarts import Cycle
 
 canvas.initialize()
-styles = get_styles()
 
 cycle = Cycle(styles=styles)
 cycle.append("Plan", description="Define goals")

@@ -7,11 +7,12 @@ Class `GridLayout` draws smart art grid layouted rectangles.
 
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.smartarts import GridLayout
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 gl1 = GridLayout(styles=styles, num_column=7, num_row=3, default_textstyle=styles.white)
 gl1.add(position=(0, 0), width=5, height=1, text="Host OS")

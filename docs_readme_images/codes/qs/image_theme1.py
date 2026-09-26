@@ -1,12 +1,10 @@
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import line
-from drawlib.preset_styles import default_styles
+from drawlib.config import styles
 from drawlib.shapes import circle
 from drawlib.text import text
 
-config(width=100, height=50)
-styles = default_styles
-
+setup(width=100, height=50)
 x1 = 12
 x2 = 34
 x3 = 62

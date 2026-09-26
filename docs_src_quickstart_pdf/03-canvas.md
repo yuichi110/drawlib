@@ -4,12 +4,12 @@ Every Drawlib illustration takes place on a coordinate **Canvas**. By default, t
 
 ## Configuring the Canvas
 
-Use `config()` from `drawlib.canvas` to customize the coordinate dimensions, resolution (`dpi`), or alignment grid (`grid=True`):
+Use `setup()` from `drawlib.canvas` to customize the coordinate dimensions, resolution (`dpi`), or alignment grid (`grid=True`):
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 
-config(width=100, height=50, dpi=200, grid=True)
+setup(width=100, height=50, dpi=200, grid=True)
 ```
 
 - **`width` / `height`**: Logical coordinate space (default: `100` x `100`).
@@ -21,12 +21,13 @@ config(width=100, height=50, dpi=200, grid=True)
 Drawlib provides intuitive functions for lines, circles, rectangles, polygons, arrows, and text:
 
 ```drawlib 580px center caption:"Figure 3.1: Fundamental Shapes and Coordinate Grid"
-from drawlib.canvas import config
+from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.lines import line
 from drawlib.shapes import arrow, circle, rectangle
 from drawlib.text import text
 
-config(width=100, height=50, grid=True)
+setup(width=100, height=50, grid=True)
 
 # Circle at (20, 28)
 circle(xy=(20, 28), radius=12, style=styles.blue)

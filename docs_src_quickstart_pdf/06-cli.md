@@ -26,13 +26,14 @@ uv run drawlib build pdf docs_src_quickstart_pdf/ -o quickstart.pdf --generate-i
 ```
 
 ```drawlib 600px center caption:"Figure 6.1: Single-Source Documentation Compilation Pipeline"
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors, Colors140
+from drawlib.config import styles
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
 
-config(width=110, height=46)
+setup(width=110, height=46)
 
 # Source
 rectangle(

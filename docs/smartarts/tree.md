@@ -7,11 +7,12 @@ Class `Tree` draws smart art tree which is similar to `tree` command output.
 
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode
+from drawlib.config import styles
 
-config(width=100, height=48)
+setup(width=100, height=48)
 
 tree1 = TreeNode(
     "Root",

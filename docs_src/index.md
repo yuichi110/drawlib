@@ -3,13 +3,14 @@
 Drawlib is a pure-Python drawing library and documentation compiler crafted to facilitate **"Illustration as Code"** and **"Documentation as Code"**.
 
 ```drawlib fold-code 600px center caption:"Code makes Illustration"
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=40)
+setup(width=100, height=40)
 
 circle(
     xy=(25, 20),
@@ -44,15 +45,16 @@ You can author full technical documentation in standard Markdown containing embe
 Because the entire documentation workflow is unified in Python and Markdown, human developers and AI coding agents can build, generate, and maintain complete documentation sites end-to-end.
 
 ```drawlib fold-code 700px center caption:"End-to-End Documentation System with Drawlib"
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=140, height=65)
+setup(width=140, height=65)
 
 # Styles
 s_src = styles.blue_flat
@@ -129,15 +131,16 @@ By placing Drawlib directly in your application or documentation repository:
 - **Single Pull Request Synchrony**: When you modify application logic, the AI agent updates the implementation code, Markdown documentation, and embedded Drawlib diagrams simultaneously in the same Pull Request.
 
 ```drawlib fold-code 700px center caption:"AI Coding Agents Generating Grounded Docs & Diagrams from Repository"
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=140, height=65)
+setup(width=140, height=65)
 
 # Styles
 s_repo = styles.blue_flat

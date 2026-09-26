@@ -34,13 +34,12 @@ Let's explore two examples.
 
 
 ```python
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.shapes import circle
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 circle(xy=(25, 25), radius=15, style=styles.primary)
 circle(xy=(75, 25), radius=20, angle=45, text="circle", style=styles.primary)
 save()
@@ -84,13 +83,12 @@ Let's explore two examples.
 
 
 ```python
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.shapes import donuts
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 donuts(xy=(25, 25), radius=15, width=5, style=styles.primary)
 donuts(xy=(75, 25), radius=20, width=10, angle=45, text="donuts", style=styles.primary)
 save()
@@ -140,13 +138,12 @@ Let's explore two examples.
 
 
 ```python
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.shapes import fan
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 fan(xy=(25, 25), radius=15, angle_start=0, angle_end=135, style=styles.primary)
 fan(
     xy=(75, 25),
@@ -202,13 +199,12 @@ Here are two examples demonstrating the use of `regularpolygon()`:
 
 
 ```python
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.shapes import polygon, regularpolygon
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 regularpolygon(xy=(25, 25), radius=15, num_vertex=5, style=styles.primary)
 regularpolygon(xy=(75, 25), radius=20, num_vertex=6, angle=45, text="regular polygon", style=styles.primary)
 save()
@@ -253,13 +249,12 @@ Here are two examples demonstrating the use of `star()`:
 
 
 ```python
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.shapes import star
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 star(xy=(25, 25), num_vertex=5, radius_ext=15, radius_int=5, style=styles.primary)
 star(xy=(75, 25), num_vertex=9, radius_ext=20, radius_int=7.5, angle=45, text="star", style=styles.primary)
 save()
@@ -303,13 +298,12 @@ Here is an example demonstrating the use of `wedge()`:
 
 
 ```python
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.shapes import wedge
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 wedge(xy=(25, 25), radius=15, width=5, angle_start=0, angle_end=135, style=styles.primary)
 wedge(
     xy=(75, 25),

@@ -16,13 +16,14 @@ The `monochrome` preset styles possess 7 colors between black and white.
 
 
 ```drawlib 600px center caption:"Preset styles monochrome color chart"
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import ColorsMonochrome
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=45)
+setup(width=100, height=45)
 start_x = 11
 pad_x = 13
 rect_y = 28

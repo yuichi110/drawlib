@@ -13,7 +13,7 @@ from drawlib import canvas
 from drawlib.charts import AreaChart
 
 canvas.initialize()
-canvas.config(width=96, height=60)
+canvas.setup(width=96, height=60)
 
 chart = AreaChart(
     categories=["Q1", "Q2", "Q3", "Q4"],
@@ -42,7 +42,7 @@ from drawlib import canvas
 from drawlib.charts import AreaChart
 
 canvas.initialize()
-canvas.config(width=96, height=62)
+canvas.setup(width=96, height=62)
 
 chart = AreaChart(
     categories=["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],

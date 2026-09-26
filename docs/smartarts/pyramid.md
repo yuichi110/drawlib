@@ -7,10 +7,11 @@ Class `Pyramid` draws smart art pyramid with custom style and orientation.
 
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.smartarts import Pyramid
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 p1 = Pyramid(styles=styles, default_textstyle=styles.white)
 p1.add(text="A")

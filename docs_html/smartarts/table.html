@@ -402,10 +402,10 @@
             <main class="main-content">
                 <h1>Table</h1>
 <p>Class <code>Table</code> is used for drawing tabular data with customizable headers, borders, and row banding.</p>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.smartarts import Table
 
-config(width=70, height=45)
+setup(width=70, height=45)
 
 t1 = Table(styles=styles)
 t1.draw(

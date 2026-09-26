@@ -26,7 +26,7 @@ Write standard Markdown text and embed drawing code using ````drawlib```` code b
 Here is the high-level service design:
 
 ```drawlib 500px center show-code caption:"Figure 1: Service Architecture"
-config(width=100, height=50)
+setup(width=100, height=50)
 
 rectangle((25, 25), width=28, height=18, style="blue_flat", text="API Gateway", textstyle="white_bold")
 rectangle((75, 25), width=28, height=18, style="green_flat", text="Core Service", textstyle="white_bold")

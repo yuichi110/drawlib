@@ -8,12 +8,11 @@ Here's an example of using Bubblespeech in Drawlib:
 
 
 ```python
-from drawlib.canvas import config
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.smartarts import bubblespeech
 
-styles = get_styles()
-config(width=95, height=52)
+setup(width=95, height=52)
 bubblespeech(
     xy=(36, 11),
     width=50,
@@ -32,10 +31,11 @@ This function call draws a speech bubble with a pointed tail extending from the 
 
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.smartarts import bubblespeech
+from drawlib.config import styles
 
-config(width=95, height=52)
+setup(width=95, height=52)
 bubblespeech(
     xy=(36, 11),
     width=50,
@@ -62,13 +62,14 @@ In the example above, the options for drawing Bubblespeech are specified. The ke
 The diagram below illustrates how each parameter controls the geometry:
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.smartarts import bubblespeech
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=95, height=52)
+setup(width=95, height=52)
 
 # Bubble shape with neutral style for annotation
 bubblespeech(

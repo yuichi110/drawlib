@@ -177,7 +177,7 @@ def test_build_markdown_caching_and_no_cache(tmp_path: Path, monkeypatch: pytest
     md_file.write_text(
         """# Sample
 ```drawlib
-circle((50, 50), 20)
+circle((50, 50), 20, style=styles.primary)
 ```
 """,
         encoding="utf-8",
@@ -213,11 +213,12 @@ def test_build_image_caching_and_no_cache(tmp_path: Path, monkeypatch: pytest.Mo
 
     script = tmp_path / "my_draw.py"
     script.write_text(
-        """from drawlib.canvas import config, save
+        """from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.shapes import circle
 
-config(width=100, height=100)
-circle((50, 50), 20)
+setup(width=100, height=100)
+circle((50, 50), 20, style=styles.primary)
 save("my_output.png")
 """,
         encoding="utf-8",

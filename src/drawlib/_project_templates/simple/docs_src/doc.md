@@ -5,7 +5,7 @@ This is an example document created with [Drawlib](https://github.com/yuichi110/
 ## Architecture Overview
 
 ```drawlib
-config(width=100, height=50)
+setup(width=100, height=50)
 
 # Services
 rectangle((25, 25), width=28, height=18, style=styles.blue_flat, text="API Gateway", textstyle=styles.white_bold)

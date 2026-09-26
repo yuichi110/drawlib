@@ -49,14 +49,13 @@ Here's how you can use the FontFile class in your Python code:
 
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.fonts import FontFile
-from drawlib.preset_styles import get_styles
+from drawlib.config import styles
 from drawlib.text import text
 
-styles = get_styles()
 
-config(width=100, height=50)
+setup(width=100, height=50)
 text(
     (50, 25),
     "Hello Drawlib!",
@@ -71,11 +70,12 @@ Executing this code generates the output:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.fonts import FontFile
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 text(
     (50, 25),
     "Hello Drawlib!",
@@ -112,17 +112,18 @@ The following image illustrates the fonts available in the Font class:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.fonts import Font
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
 font_matrix = [
     ("SansSerif", Font.SANSSERIF_LIGHT, Font.SANSSERIF_REGULAR, Font.SANSSERIF_BOLD),
     ("Serif", Font.SERIF_LIGHT, Font.SERIF_REGULAR, Font.SERIF_BOLD),
 ]
 
-config(width=100, height=50)
+setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
 text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
@@ -178,10 +179,11 @@ Class `FontSansSerif` contains popular SansSerif fonts for alphabet languages.
     - `POPPINS_BOLD`
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.fonts import FontSansSerif
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
 font_matrix = [
     ("Lato", FontSansSerif.LATO_LIGHT, FontSansSerif.LATO_REGULAR, FontSansSerif.LATO_BOLD),
@@ -191,7 +193,7 @@ font_matrix = [
     ("Poppins", FontSansSerif.POPPINS_LIGHT, FontSansSerif.POPPINS_REGULAR, FontSansSerif.POPPINS_BOLD),
 ]
 
-config(width=100, height=50)
+setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
 text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
@@ -240,10 +242,11 @@ Class `FontSerif` contains popular Serif fonts for alphabet languages.
     - `PLAYFAIRDISPLAY_BOLD`
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.fonts import FontSerif
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
 font_matrix = [
     ("Courier", None, FontSerif.COURIER_REGULAR, FontSerif.COURIER_BOLD),
@@ -252,7 +255,7 @@ font_matrix = [
     ("Play Fair Display", None, FontSerif.PLAYFAIRDISPLAY_REGULAR, FontSerif.PLAYFAIRDISPLAY_BOLD),
 ]
 
-config(width=100, height=50)
+setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
 text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
@@ -308,10 +311,11 @@ Class `FontRoboto` famous and popular Roboto group fonts.
     - `SLAB_BOLD`
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.fonts import FontRoboto
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
 font_matrix = [
     ("Roboto", FontRoboto.ROBOTO_LIGHT, FontRoboto.ROBOTO_REGULAR, FontRoboto.ROBOTO_BOLD),
@@ -321,7 +325,7 @@ font_matrix = [
     ("Roboto Slab", FontRoboto.SLAB_LIGHT, FontRoboto.SLAB_REGULAR, FontRoboto.SLAB_BOLD),
 ]
 
-config(width=100, height=50)
+setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
 text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
@@ -372,10 +376,11 @@ Almost all are for alphabet, but SourceHanCodeJP supports Japanese.
 
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.fonts import FontMonoSpace
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
 font_matrix = [
     ("Courier", None, FontMonoSpace.COURIER_REGULAR, FontMonoSpace.COURIER_BOLD),
@@ -384,7 +389,7 @@ font_matrix = [
     ("Source Han Code JP", FontMonoSpace.SOURCEHANCODEJP_LIGHT, FontMonoSpace.SOURCEHANCODEJP_REGULAR, FontMonoSpace.SOURCEHANCODEJP_BOLD),
 ]
 
-config(width=100, height=50)
+setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
 text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
@@ -428,10 +433,11 @@ Class `FontArabic` contains Arabic fonts.
     - `NASKH_BOLD`
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.fonts import FontArabic
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
 font_matrix = [
     ("SansSerif", FontArabic.SANSSERIF_LIGHT, FontArabic.SANSSERIF_REGULAR, FontArabic.SANSSERIF_BOLD),
@@ -439,7 +445,7 @@ font_matrix = [
     ("Naskh", None, FontArabic.NASKH_REGULAR, FontArabic.NASKH_BOLD),
 ]
 
-config(width=100, height=50)
+setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
 text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
@@ -502,10 +508,11 @@ Class `FontBrahmic` contains fonts for characters which delived from Brahmic.
     - `TELUGU_SERIF_BOLD`
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.fonts import FontBrahmic
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
 font_matrix = [
     ("Bengali SansSerif", FontBrahmic.BENGALI_SANSSERIF_LIGHT, FontBrahmic.BENGALI_SANSSERIF_REGULAR, FontBrahmic.BENGALI_SANSSERIF_BOLD, "যেহেতু মানব পরিবারের"),
@@ -518,7 +525,7 @@ font_matrix = [
     ("Telugu Serif", FontBrahmic.TELUGU_SERIF_LIGHT, FontBrahmic.TELUGU_SERIF_REGULAR, FontBrahmic.TELUGU_SERIF_BOLD, "మానవకుటంబమునందలి"),
 ]
 
-config(width=100, height=50)
+setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
 text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
@@ -571,10 +578,11 @@ Class `FontChinese` contains Chinese fonts.
     - `HONGKONG_SERIF_BOLD`
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.fonts import FontChinese
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
 font_matrix = [
     ("Simplified SansSerif", FontChinese.SIMPLIFIED_SANSSERIF_LIGHT, FontChinese.SIMPLIFIED_SANSSERIF_REGULAR, FontChinese.SIMPLIFIED_SANSSERIF_BOLD),
@@ -585,7 +593,7 @@ font_matrix = [
     ("Hongkong Serif", FontChinese.HONGKONG_SERIF_LIGHT, FontChinese.HONGKONG_SERIF_REGULAR, FontChinese.HONGKONG_SERIF_BOLD),
 ]
 
-config(width=100, height=50)
+setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
 text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
@@ -641,10 +649,11 @@ Class `FontJapanese` contains Japanese fonts.
     - `SAWARABI_MINCHO`
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.fonts import FontJapanese
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
 font_matrix = [
     ("SansSerif", FontJapanese.SANSSERIF_LIGHT, FontJapanese.SANSSERIF_REGULAR, FontJapanese.SANSSERIF_BOLD),
@@ -655,7 +664,7 @@ font_matrix = [
     ("Sawarabi Mincho", None, FontJapanese.SAWARABI_MINCHO, None),
 ]
 
-config(width=100, height=50)
+setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
 text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
@@ -694,17 +703,18 @@ Class `FontKorean` contains Korean fonts.
     - `SERIF_BOLD`
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.fonts import FontKorean
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
 font_matrix = [
     ("SansSerif", FontKorean.SANSSERIF_LIGHT, FontKorean.SANSSERIF_REGULAR, FontKorean.SANSSERIF_BOLD),
     ("Serif", FontKorean.SERIF_LIGHT, FontKorean.SERIF_REGULAR, FontKorean.SERIF_BOLD),
 ]
 
-config(width=100, height=50)
+setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
 text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))
@@ -743,17 +753,18 @@ Class `FontThai` contains Thai fonts.
     - `SERIF_BOLD`
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.fonts import FontThai
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
 font_matrix = [
     ("SansSerif", FontThai.SANSSERIF_LIGHT, FontThai.SANSSERIF_REGULAR, FontThai.SANSSERIF_BOLD),
     ("Serif", FontThai.SERIF_LIGHT, FontThai.SERIF_REGULAR, FontThai.SERIF_BOLD),
 ]
 
-config(width=100, height=50)
+setup(width=100, height=50)
 y_pitch = 50 / (len(font_matrix) + 2)
 
 text((35, y_pitch * (len(font_matrix) + 1)), "light", style=styles.primary.patch(text_size=13))

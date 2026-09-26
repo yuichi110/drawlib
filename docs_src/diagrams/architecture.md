@@ -27,7 +27,7 @@ Below is a simple client-server architecture diagram connecting an end user to a
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 
-canvas.config(width=100, height=35)
+canvas.setup(width=100, height=35)
 
 d = ArchitectureDiagram(title="Web Application Architecture")
 
@@ -66,7 +66,7 @@ You can place labels on any side of the icon using `text_position`:
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 
-canvas.config(width=85, height=55)
+canvas.setup(width=85, height=55)
 
 d = ArchitectureDiagram()
 
@@ -92,7 +92,7 @@ d.draw(xy=(0.0, 0.0))
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup
 
-canvas.config(width=90, height=65)
+canvas.setup(width=90, height=65)
 
 d = ArchitectureDiagram(title="Network Isolation")
 
@@ -115,7 +115,7 @@ d.draw(xy=(5.0, 3.0))
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
 
-canvas.config(width=90, height=45)
+canvas.setup(width=90, height=45)
 
 d = ArchitectureDiagram()
 
@@ -146,7 +146,7 @@ The `node.fork()` method provides a clean shortcut for 1-to-N branching via an i
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, PhosphorIcon
 
-canvas.config(width=95, height=80)
+canvas.setup(width=95, height=80)
 
 d = ArchitectureDiagram(title="Load Balancing Fan-Out")
 
@@ -169,7 +169,7 @@ You can turn any point along an edge into a branching junction using `edge.add_p
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 
-canvas.config(width=95, height=65)
+canvas.setup(width=95, height=65)
 
 d = ArchitectureDiagram()
 
@@ -204,7 +204,7 @@ By default, connection lines anchor directly onto the outer boundary of nodes or
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 
-canvas.config(width=95, height=60)
+canvas.setup(width=95, height=60)
 
 d = ArchitectureDiagram(title="Edge Padding Comparison")
 
@@ -258,7 +258,7 @@ Here is a full multi-tier GCP VPC cloud architecture example combining nested su
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 
-canvas.config(width=105, height=120)
+canvas.setup(width=105, height=120)
 
 d = ArchitectureDiagram(title="GCP Production Cloud Architecture")
 

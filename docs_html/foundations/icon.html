@@ -413,13 +413,14 @@ Alternatively, you can use <code>font_icon()</code> along with dedicated <code>I
 <p>Each icon within these modules is defined as a function, allowing you to draw specific icons by simply calling their respective function.</p>
 <h2>Phosphor Icons</h2>
 <p>Let's explore with examples using <code>phosphor</code>:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.text import text
+from drawlib.config import styles
 
 width = 100
 height = 50
-config(width=width, height=height)
+setup(width=width, height=height)
 
 x = width / 7
 y = height / 2
@@ -454,13 +455,14 @@ These icons are official high-resolution multi-color graphics representing GCP s
 <h3>Basic Usage</h3>
 <p>Every GCP icon is defined as a function directly under <code>gcp</code>.
 They accept standard coordinate, width, angle, and style arguments:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.icons import gcp
 from drawlib.text import text
+from drawlib.config import styles
 
 width = 100
 height = 45
-config(width=width, height=height)
+setup(width=width, height=height)
 
 x = width / 5
 y = height / 2 + 5
@@ -499,14 +501,15 @@ You can customize them using <code>drawlib.types.Style</code>:</p>
 <li><code>image_tint_color</code>: Applies a solid silhouette mask over the icon artwork.</li>
 <li><code>image_border_color</code>, <code>image_border_width</code>, <code>image_border_style</code>: Draws an optional border outline around the icon frame.</li>
 </ul>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import gcp
 from drawlib.text import text
+from drawlib.config import styles
 
 width = 100
 height = 50
-config(width=width, height=height)
+setup(width=width, height=height)
 
 x = width / 5
 y = height / 2 + 5
@@ -537,14 +540,15 @@ save()
 </code></pre>
 <h3>Cloud Architecture Diagram Example</h3>
 <p>Here is an end-to-end example demonstrating how GCP icons can be combined with shapes and connectors to build clear architecture diagrams:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=60)
+setup(width=100, height=60)
 
 # Cloud boundary
 rectangle(
@@ -605,13 +609,14 @@ Internally, font icon modules utilize font_icon().</p>
 <li><code>style</code>: Style object (required).</li>
 </ul>
 <p>Let's explore its usage with FontAwesome Free:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.icons import font_icon
 from drawlib.text import text
+from drawlib.config import styles
 
 width = 100
 height = 50
-config(width=width, height=height)
+setup(width=width, height=height)
 
 file_brand = &quot;../_assets/fontawesome-free/brands.ttf&quot;
 file_regular = &quot;../_assets/fontawesome-free/regular.ttf&quot;
@@ -665,14 +670,15 @@ Therefore, drawlib does not currently provide an icon module for it.</p>
 <li><code>icon_color</code>: Icon color, specified in RGB (0~255, 0~255, 0~255) or RGBA (0~255, 0~255, 0~255, 0.0~1.0). You can utilize helpers like <code>Colors</code> and <code>Colors140</code>.</li>
 </ul>
 <p>Let's illustrate this with an example:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
 from drawlib.text import text
+from drawlib.config import styles
 
 width = 100
 height = 50
-config(width=width, height=height)
+setup(width=width, height=height)
 
 x = width / 6
 y = height / 2
@@ -702,12 +708,13 @@ save()
 <h1>Pre-defined icon styles</h1>
 <p>Drawlib's preset styles provide pre-defined icon styles on the <code>styles</code> object.</p>
 <p>Here is an example:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
+from drawlib.config import styles
 
 width = 100
 height = 50
-config(width=width, height=height)
+setup(width=width, height=height)
 
 x = width / 5
 y = height / 2

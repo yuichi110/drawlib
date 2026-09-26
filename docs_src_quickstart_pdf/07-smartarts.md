@@ -12,10 +12,11 @@
 ## Example: Hierarchical Pyramid
 
 ```drawlib 580px center caption:"Figure 7.1: SmartArt Pyramid Comparing Default and Custom Styled Layers"
-from drawlib.canvas import config
+from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.smartarts import Pyramid
 
-config(width=100, height=48)
+setup(width=100, height=48)
 
 p1 = Pyramid(styles=styles)
 p1.add(text="Strategy")

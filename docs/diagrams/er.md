@@ -25,7 +25,7 @@ Below is a relational schema modeling customers, orders, and order items:
 from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity
 
-canvas.config(width=114, height=48)
+canvas.setup(width=114, height=48)
 
 erd = ERDiagram(title="E-Commerce Core Schema")
 
@@ -116,7 +116,7 @@ Entities automatically compute their height based on the number of columns. You 
 from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity
 
-canvas.config(width=90, height=48)
+canvas.setup(width=90, height=48)
 
 erd = ERDiagram()
 
@@ -240,7 +240,7 @@ from drawlib.colors import Colors
 from drawlib.diagrams.er import ERDiagram, Entity
 from drawlib.types import Style
 
-canvas.config(width=90, height=48)
+canvas.setup(width=90, height=48)
 
 erd = ERDiagram(
     title="Custom Styled Schema",

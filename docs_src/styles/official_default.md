@@ -12,13 +12,14 @@ The `default` preset styles include 5 colors.
 
 
 ```drawlib 600px center caption:"Preset styles default color chart"
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import ColorsDefault
+from drawlib.config import styles
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
 
-config(width=100, height=45)
+setup(width=100, height=45)
 start_x = 14
 pad_x = 18
 rect_y = 28
@@ -86,11 +87,11 @@ Let's take a look at a matrix with the blue color as an example:
 from drawlib.fonts import Font
 from drawlib.icons import phosphor
 from drawlib.lines import line
-from drawlib.preset_styles import get_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle
 from drawlib.text import text
 
-styles = get_styles("default")
+styles = default_styles
 
 xs = [28, 48, 68, 88]
 ys = [80, 50, 20]

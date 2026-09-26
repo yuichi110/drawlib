@@ -13,13 +13,12 @@ Drawlib is a pure Python drawing library designed to facilitate **Illustration a
 Here is a simple example combining a styled circle, rectangle, and text label on a Drawlib canvas:
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors140
-from drawlib.preset_styles import get_styles
+from drawlib.config import styles
 from drawlib.shapes import circle
 
-styles = get_styles()
-config(width=100, height=50)
+setup(width=100, height=50)
 circle(
     xy=(50, 25),
     radius=18,
@@ -35,12 +34,13 @@ save()
 When compiled by Drawlib, this code renders the following illustration:
 
 ```drawlib 520px center caption:"Figure 1.1: Styled Circle Generated from Python Code"
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors140
+from drawlib.config import styles
 from drawlib.shapes import circle
 from drawlib.text import text
 
-config(width=100, height=50)
+setup(width=100, height=50)
 circle(
     xy=(50, 25),
     radius=18,

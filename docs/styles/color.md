@@ -23,14 +23,15 @@ Here is an image showing their relationships:
 <summary>Source Code</summary>
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=80)
+setup(width=100, height=80)
 y1 = 70
 y2 = 40
 y3 = 25
@@ -391,12 +392,13 @@ https://partnermarketinghub.withgoogle.com/brands/google-news/visual-identity/co
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.shapes import circle, rectangle, triangle, wedge
 from drawlib.text import text
 from drawlib.types import ColorsBase, Style
+from drawlib.config import styles
 
 
 # Please define color at styling codes normally.
@@ -420,7 +422,7 @@ class ColorsGoogle(ColorsBase):
     Black = (32, 33, 36)
 
 
-config(width=100, height=50)
+setup(width=100, height=50)
 shape_y = 30
 circle(
     (15, shape_y),

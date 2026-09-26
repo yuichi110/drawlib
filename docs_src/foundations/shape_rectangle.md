@@ -46,13 +46,12 @@ Let's explore two examples.
 
 
 ```python
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.shapes import arc
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 arc(xy=(25, 25), width=30, height=20, angle_start=0, angle_end=135, style=styles.primary)
 arc(
     xy=(75, 25),
@@ -73,11 +72,12 @@ Here's an example output:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import arc
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 arc(xy=(25, 25), width=30, height=20, angle_start=0, angle_end=135, style=styles.primary)
 arc(
     xy=(75, 25),
@@ -120,13 +120,12 @@ Let's explore two examples:
 
 
 ```python
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.shapes import chevron
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 chevron(xy=(25, 25), width=30, height=20, corner_angle=30, style=styles.primary)
 chevron(
     xy=(75, 25),
@@ -147,11 +146,12 @@ Here is an example output:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import chevron
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 chevron(xy=(25, 25), width=30, height=20, corner_angle=30, style=styles.primary)
 chevron(
     xy=(75, 25),
@@ -191,13 +191,12 @@ Let's explore two examples:
 
 
 ```python
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.shapes import ellipse
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 ellipse(xy=(25, 25), width=30, height=20, style=styles.primary)
 ellipse(xy=(75, 25), width=35, height=25, angle=45, text="ellipse()", style=styles.primary)
 save()
@@ -207,11 +206,12 @@ Here is an example output:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import ellipse
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 ellipse(xy=(25, 25), width=30, height=20, style=styles.primary)
 ellipse(xy=(75, 25), width=35, height=25, angle=45, text="ellipse()", style=styles.primary)
 save()
@@ -245,13 +245,12 @@ Let's explore two examples.
 
 
 ```python
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.shapes import parallelogram
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 parallelogram(xy=(25, 25), width=20, height=15, corner_angle=30, style=styles.primary)
 parallelogram(
     xy=(75, 25),
@@ -269,11 +268,12 @@ Here is an example output:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import parallelogram
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 parallelogram(xy=(25, 25), width=20, height=15, corner_angle=30, style=styles.primary)
 parallelogram(
     xy=(75, 25),
@@ -314,13 +314,12 @@ Let's explore two examples:
 
 
 ```python
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.shapes import rectangle
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 rectangle(xy=(25, 25), width=30, height=20, style=styles.primary)
 rectangle(xy=(75, 25), width=35, height=25, r=2, angle=45, text="rectangle()", style=styles.primary)
 save()
@@ -330,11 +329,12 @@ Here is an example output:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 rectangle(xy=(25, 25), width=30, height=20, style=styles.primary)
 rectangle(xy=(75, 25), width=35, height=25, r=2, angle=45, text="rectangle()", style=styles.primary)
 save()
@@ -364,13 +364,12 @@ Let's explore two examples:
 
 
 ```python
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.shapes import rhombus
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 rhombus(xy=(25, 25), width=20, height=40, style=styles.primary)
 rhombus(xy=(75, 25), width=40, height=20, angle=45, text="rhombus()", style=styles.primary)
 save()
@@ -380,11 +379,12 @@ Here is an example output:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import rhombus
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 rhombus(xy=(25, 25), width=20, height=40, style=styles.primary)
 rhombus(xy=(75, 25), width=40, height=20, angle=45, text="rhombus()", style=styles.primary)
 save()
@@ -418,13 +418,12 @@ Let's explore two examples:
 
 
 ```python
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.shapes import trapezoid
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 trapezoid(xy=(25, 25), height=20, bottomedge_width=30, topedge_width=20, style=styles.primary)
 trapezoid(
     xy=(75, 25),
@@ -443,11 +442,12 @@ Here is an example output:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import trapezoid
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 trapezoid(xy=(25, 25), height=20, bottomedge_width=30, topedge_width=20, style=styles.primary)
 trapezoid(
     xy=(75, 25),
@@ -489,13 +489,12 @@ Let's explore two examples:
 
 
 ```python
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.shapes import rectangle, triangle
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 triangle(xy=(25, 25), width=30, height=20, style=styles.primary)
 triangle(xy=(75, 25), width=35, height=25, topvertex_x=0, angle=45, text="rectangle()", style=styles.primary)
 save()
@@ -505,11 +504,12 @@ Here is an example output:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle, triangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 triangle(xy=(25, 25), width=30, height=20, style=styles.primary)
 triangle(xy=(75, 25), width=35, height=25, topvertex_x=0, angle=45, text="rectangle()", style=styles.primary)
 save()

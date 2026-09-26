@@ -419,15 +419,16 @@
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=140, height=75)
+setup(width=140, height=75)
 
 # Styles
 s_input = styles.blue_flat
@@ -530,9 +531,9 @@ uv run drawlib rules show preset_styles
 <h3>A. Pre-Define Canvas Bounds</h3>
 <p>LLMs struggle with unbounded 2D coordinate spaces. Always provide or request an explicit canvas size first:</p>
 <ul>
-<li>Standard architecture / flow diagram: <code>config(width=120, height=60)</code></li>
-<li>Widescreen 16:9 system overview: <code>config(width=160, height=90)</code></li>
-<li>Small icon badge or process flow: <code>config(width=80, height=40)</code></li>
+<li>Standard architecture / flow diagram: <code>setup(width=120, height=60)</code></li>
+<li>Widescreen 16:9 system overview: <code>setup(width=160, height=90)</code></li>
+<li>Small icon badge or process flow: <code>setup(width=80, height=40)</code></li>
 </ul>
 <h3>B. Prefer High-Level Components</h3>
 <p>Direct your agent to use domain-specific modules (<code>diagrams</code>, <code>smartarts</code>) rather than manually placing dozens of low-level geometric shapes:</p>
@@ -566,15 +567,16 @@ uv run drawlib export docs_src/diagrams/arch.md 1 -g -o scratch/arch_grid.png
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line, lines
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=150, height=80)
+setup(width=150, height=80)
 
 # Colors &amp; Styles
 s_human = styles.blue_flat
@@ -641,7 +643,7 @@ Using Drawlib, generate a clean microservices architecture diagram showing:
 1. Client App / Gateway
 2. Authentication Service and User DB
 3. Order Processing Service and Redis Queue
-Use `config(width=140, height=70)`, standard preset styles (&quot;blue_flat&quot;, &quot;green_flat&quot;), and `line(..., arrowhead=&quot;-&gt;&quot;)`.
+Use `setup(width=140, height=70)`, standard preset styles (&quot;blue_flat&quot;, &quot;green_flat&quot;), and `line(..., arrowhead=&quot;-&gt;&quot;)`.
 </code></pre>
 <h3>Prompt: Sequence Diagram for API Flow</h3>
 <pre><code class="language-text">Check `src/api/auth.py` and draw a Drawlib Sequence Diagram (`drawlib.diagrams.sequence`)

@@ -92,7 +92,7 @@ from drawlib.diagrams.flow import (
 )
 from drawlib.types import Style
 
-canvas.config(width=95, height=55)
+canvas.setup(width=95, height=55)
 
 flow = FlowDiagram(title="Supported Flowchart Symbols")
 

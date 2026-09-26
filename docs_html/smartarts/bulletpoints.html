@@ -402,12 +402,13 @@
             <main class="main-content">
                 <h1>BulletPoints</h1>
 <p>Class <code>BulletPoints</code> is used for drawing bullet points.</p>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.smartarts import BulletPoints
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=48)
+setup(width=100, height=48)
 
 
 def center():

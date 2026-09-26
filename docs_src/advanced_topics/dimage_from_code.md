@@ -49,21 +49,20 @@ When executing untrusted or dynamically generated drawing code, setting `timeout
 In this example, an independent circular illustration is defined as a code snippet, rendered into a `Dimage`, and placed onto the main canvas.
 
 ```drawlib show-code 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.images import get_dimage_from_code, image
 from drawlib.shapes import rectangle
 from drawlib.text import text
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 # 1. Define child drawing code
 child_code = """
-from drawlib.canvas import config
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.shapes import circle
 
-styles = get_styles()
-config(width=60, height=60)
+setup(width=60, height=60)
 circle((30, 30), radius=22, style=styles.blue_flat)
 circle((30, 30), radius=10, style=styles.white_flat)
 """
@@ -88,7 +87,7 @@ text((75, 5), "Grayscale Filter Applied", style=styles.primary.patch(text_size=9
 You can nest a detailed sub-diagram inside a larger architectural overview without coordinating coordinate grids across both scopes.
 
 ```drawlib show-code 650px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors
 from drawlib.images import get_dimage_from_code, image
 from drawlib.lines import line
@@ -96,17 +95,16 @@ from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
 
-config(width=120, height=60)
+setup(width=120, height=60)
 
 # Microservice pipeline snippet rendered as a standalone unit
 pipeline_code = """
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.lines import line
-from drawlib.preset_styles import get_styles
+from drawlib.config import styles
 from drawlib.shapes import rectangle
 
-styles = get_styles()
-config(width=80, height=40)
+setup(width=80, height=40)
 rectangle((20, 20), width=26, height=20, style=styles.blue_flat, text="Ingest", textsize=18, textstyle=styles.white)
 line((34, 20), (46, 20), arrowhead="->", style=styles.bold)
 rectangle((60, 20), width=26, height=20, style=styles.green_flat, text="Worker", textsize=18, textstyle=styles.white)
@@ -138,20 +136,19 @@ image((92, 26), width=44, image=sub_diagram)
 Because `get_dimage_from_code()` produces a `Dimage` object, you can apply any `Dimage` raster transformations—such as `.blur()`, `.invert()`, or `.brightness()`—to native Drawlib vector illustrations.
 
 ```drawlib show-code 650px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.images import get_dimage_from_code, image
 from drawlib.text import text
 
-config(width=120, height=50)
+setup(width=120, height=50)
 
 # Generate a high-contrast logo vector
 logo_code = """
-from drawlib.canvas import config
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.shapes import star
 
-styles = get_styles()
-config(width=60, height=60)
+setup(width=60, height=60)
 star((30, 30), num_vertex=5, radius_ext=25, radius_int=10, style=styles.red_flat)
 """
 

@@ -21,15 +21,16 @@ from drawlib.math import (
 | **`get_center_and_size`** | `get_center_and_size(xys)` | `tuple[tuple[float, float], tuple[float, float]]` | Calculates the geometric center `(center_x, center_y)` and bounding box dimensions `(width, height)` for an array of coordinates. |
 
 ```drawlib 650px center caption:"Visual Summary of Math & Geometry Functions"
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line, line_arc
 from drawlib.math import get_angle, get_center_and_size, get_distance
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=140, height=55)
+setup(width=140, height=55)
 
 # 1. get_distance (Left)
 p1 = (15, 28)
@@ -144,13 +145,14 @@ text((cx, 8), f"size = ({w:.0f}, {h:.0f})", style=styles.primary.patch(text_size
 
 ### 2.1 Calculating Distance and Dynamic Radius
 ```drawlib show-code 550px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.lines import line
 from drawlib.math import get_distance
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 p1 = (25, 25)
 p2 = (75, 25)
@@ -165,13 +167,14 @@ text((50, 32), f"dist = {dist:.0f}", style=styles.primary)
 
 ### 2.2 Computing Rotation Angle for Custom Vectors
 ```drawlib show-code 550px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.lines import line, line_arc
 from drawlib.math import get_angle
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=55)
+setup(width=100, height=55)
 
 start = (20, 15)
 target = (75, 45)
@@ -188,12 +191,13 @@ text((50, 48), f"angle = {angle:.1f}°", style=styles.primary)
 
 ### 2.3 Centroid and Bounding Box for Clusters
 ```drawlib show-code 550px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.math import get_center_and_size
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=60)
+setup(width=100, height=60)
 
 nodes = [(25, 25), (40, 45), (55, 20), (75, 38)]
 (center_x, center_y), (width, height) = get_center_and_size(nodes)

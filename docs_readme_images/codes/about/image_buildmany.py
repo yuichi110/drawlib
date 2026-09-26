@@ -7,29 +7,28 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors, ColorsThemeEssentials
 from drawlib.fonts import FontRoboto
 from drawlib.icons import phosphor
 from drawlib.lines import line
-from drawlib.preset_styles import default_styles
+from drawlib.config import styles
 from drawlib.shapes import arrow, rectangle
 from drawlib.text import text
 
-ps = default_styles
-config(height=60)
+setup(height=60)
 
 rect_width = 20
 rect_height = 38
 
-line_thin = ps.primary.patch(line_width=0.5)
-ts_left = ps.primary.patch(text_size=12, text_halign="left")
-ts_left_red = ps.primary.patch(text_size=12, text_halign="left", text_color=ColorsThemeEssentials.Red)
-icon_thin = ps.primary.patch(icon_style="thin")
-icon_thin_red = ps.primary.patch(icon_style="thin", icon_color=ColorsThemeEssentials.Red)
+line_thin = styles.primary.patch(line_width=0.5)
+ts_left = styles.primary.patch(text_size=12, text_halign="left")
+ts_left_red = styles.primary.patch(text_size=12, text_halign="left", text_color=ColorsThemeEssentials.Red)
+icon_thin = styles.primary.patch(icon_style="thin")
+icon_thin_red = styles.primary.patch(icon_style="thin", icon_color=ColorsThemeEssentials.Red)
 
-tscenter16 = ps.primary.patch(text_halign="center", text_size=16)
-tscenter16r = ps.primary.patch(text_halign="center", text_size=16, text_color=ColorsThemeEssentials.Red)
+tscenter16 = styles.primary.patch(text_halign="center", text_size=16)
+tscenter16r = styles.primary.patch(text_halign="center", text_size=16, text_color=ColorsThemeEssentials.Red)
 
 
 def left():
@@ -40,7 +39,7 @@ def left():
         width=rect_width,
         height=rect_height,
         r=2,
-        style=ps.dashed,
+        style=styles.dashed,
     )
 
     x = 8
@@ -85,7 +84,7 @@ def center():
         width=rect_width,
         height=rect_height,
         r=2,
-        style=ps.dashed,
+        style=styles.dashed,
     )
 
     x = 43
@@ -120,7 +119,7 @@ def right():
         width=rect_width,
         height=rect_height,
         r=2,
-        style=ps.dashed,
+        style=styles.dashed,
     )
 
     phosphor.file_pdf((85, 43), width=6, style=icon_thin)
@@ -136,7 +135,7 @@ def bottom():
         width=90,
         height=6,
         r=2,
-        style=ps.solid,
+        style=styles.solid,
     )
     phosphor.github_logo((17, 5), width=5, style=icon_thin)
     text(
@@ -153,9 +152,9 @@ arrow(
     tail_width=3,
     head_width=6,
     head_length=3,
-    style=ps.red_flat,
+    style=styles.red_flat,
     text="Drawlib",
-    textstyle=ps.primary.patch(
+    textstyle=styles.primary.patch(
         text_size=14,
         text_color=Colors.White,
         text_font=FontRoboto.ROBOTO_BOLD,
@@ -170,7 +169,7 @@ arrow(
     tail_width=3,
     head_width=6,
     head_length=3,
-    style=ps.solid,
+    style=styles.solid,
 )
 text((67, 25), "Build\nDocs", style=tscenter16)
 right()

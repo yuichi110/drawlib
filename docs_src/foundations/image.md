@@ -29,10 +29,10 @@ Let's start with an example:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.images import image
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 
 image(xy=(15, 25), width=10, image="../_assets/python.png")
 image(xy=(40, 25), width=20, image="../_assets/python.png")
@@ -45,10 +45,10 @@ Executing this code generates the following output:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.images import image
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 
 image(xy=(15, 25), width=10, image="../_assets/python.png")
 image(xy=(40, 25), width=20, image="../_assets/python.png")
@@ -76,13 +76,14 @@ Here is code that specifies styles:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.images import image
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 
 image(
     xy=(10, 25),
@@ -125,13 +126,14 @@ Executing code generates this output.
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.images import image
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 
 image(
     xy=(10, 25),
@@ -180,10 +182,10 @@ Here's an example demonstrating how to use these objects:
 
 ```python
 import PIL.Image
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.images import Dimage, image
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 
 # 1. Specify file path string directly
 image(xy=(20, 25), width=20, image="../_assets/python.png")
@@ -204,10 +206,10 @@ Function `image()` handles file paths, `Dimage` instances, and `PIL.Image.Image`
 
 ```drawlib 500px center
 import PIL.Image
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.images import Dimage, image
 
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 
 image(xy=(20, 25), width=20, image="../_assets/python.png")
 dimage = Dimage("../_assets/python.png")

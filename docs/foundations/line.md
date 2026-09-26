@@ -38,10 +38,11 @@ Let's look at an example:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import line
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 line(xy1=(10, 10), xy2=(90, 40), style=styles.primary)
 save()
 ```
@@ -89,11 +90,12 @@ Let's check some examples:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import line_curved
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 line_curved(xy1=(10, 20), xy2=(90, 20), bend=0.4, style=styles.primary)
 text((50, 7), "0.4", style=styles.primary)
 line_curved(xy1=(10, 23), xy2=(90, 23), bend=0.2, style=styles.primary)
@@ -141,12 +143,13 @@ This code generates the following output:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line, line_bezier1
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 line_bezier1(xy1=(10, 10), cp=(10, 40), xy2=(40, 40), style=styles.primary)
 line(xy1=(10, 10), xy2=(10, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
 line(xy1=(10, 40), xy2=(40, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
@@ -200,12 +203,13 @@ Here is an example code:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line, line_bezier2
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 line_bezier2(xy1=(10, 10), cp1=(10, 40), cp2=(40, 40), xy2=(40, 10), style=styles.primary)
 line(xy1=(10, 10), xy2=(10, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
 line(xy1=(10, 40), xy2=(40, 40), style=styles.primary.patch(line_style="dashed", line_color=Colors.Red))
@@ -266,10 +270,11 @@ Here is an example code:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import lines
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 lines(
     xys=[
         (10, 10),
@@ -326,12 +331,13 @@ Let's see how it works with an example:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line, lines_bezier
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 points = [
     ((10, 20), (30, 20)),
@@ -379,12 +385,13 @@ This function can be used to draw curved lines from shape to shape like this:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line, lines_bezier
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 circle((10, 40), radius=5, style=styles.primary)
 lines_bezier(
@@ -439,12 +446,13 @@ Here is an example code:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import lines, lines_curved
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 circle((10, 40), radius=5, style=styles.primary)
 lines(

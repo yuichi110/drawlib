@@ -456,11 +456,10 @@ cycle.draw(xy=(50.0, 50.0), radius=34.0)
 <h2>1. Quick Start</h2>
 <p>Create a circular workflow diagram:</p>
 <pre><code class="language-python">from drawlib import canvas
-from drawlib.preset_styles import get_styles
+from drawlib.config import styles
 from drawlib.smartarts import Cycle
 
 canvas.initialize()
-styles = get_styles()
 
 cycle = Cycle(styles=styles)
 cycle.append(&quot;Plan&quot;, description=&quot;Define goals&quot;)

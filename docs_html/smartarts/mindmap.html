@@ -412,10 +412,11 @@ It supports:</p>
 <li>Fine-grained position tuning using <code>xy_shift</code>.</li>
 </ul>
 <p>Here is an example of a multi-directional mind map:</p>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.smartarts import MindMapNode
+from drawlib.config import styles
 
-config(width=150, height=80)
+setup(width=150, height=80)
 
 root = MindMapNode(
     &quot;Main Concept&quot;,
@@ -479,10 +480,11 @@ root.draw(xy=(75, 40), styles=styles)
 <h1>Quick Start: Organizational Hierarchy (Bottom-up &amp; Top-down)</h1>
 <p><code>MindMapNode</code> can also be used as a top-down or bottom-up organizational hierarchy tree.
 Specifying <code>branch=&quot;bottom&quot;</code> on the root creates a standard top-down organization chart.</p>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.smartarts import MindMapNode
+from drawlib.config import styles
 
-config(width=100, height=60)
+setup(width=100, height=60)
 
 root = MindMapNode(
     &quot;CEO&quot;,
@@ -519,10 +521,11 @@ root.draw(xy=(50, 50), branch=&quot;bottom&quot;, styles=styles)
 <li><code>&quot;oval&quot;</code>: An elliptical node. Ideal for the central root theme.</li>
 <li><code>&quot;none&quot;</code>: Text-only node without border or background fill. Useful for leaf topics.</li>
 </ul>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.smartarts import MindMapNode
+from drawlib.config import styles
 
-config(width=100, height=35)
+setup(width=100, height=35)
 
 root = MindMapNode(
     &quot;Central Topic&quot;,

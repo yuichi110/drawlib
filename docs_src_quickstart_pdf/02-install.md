@@ -34,12 +34,13 @@ Drawlib follows `<major>.<minor>.<patch>` semantic versioning:
 - **Patch Version**: Bug fixes and internal optimizations without API changes
 
 ```drawlib 580px center caption:"Figure 2.1: Drawlib Release & Versioning Workflow"
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors, Colors140
+from drawlib.config import styles
 from drawlib.shapes import chevron
 from drawlib.text import text
 
-config(width=110, height=36)
+setup(width=110, height=36)
 
 steps = [
     ("1. Install", "pip / uv", Colors140.CornflowerBlue),

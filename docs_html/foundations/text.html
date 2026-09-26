@@ -424,12 +424,11 @@ We recommend using the style attribute rather than size.
 Similar to how you shouldn't configure text size in HTML but should do it in CSS, it's best to handle text styling via the style attribute for better consistency and flexibility.</p>
 <p>We will explain style later, so for now, we will focus on the other arguments.
 Here are three examples:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+<pre><code class="language-python">from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=50)
+setup(width=100, height=50)
 text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;, style=styles.primary)
 text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, size=24, style=styles.primary)
 text(xy=(75, 25), text=&quot;こんにちは Drawlib.&quot;, angle=45, style=styles.primary)
@@ -457,12 +456,11 @@ The arguments are exactly the same as those for <code>text()</code>.</p>
 <li>style(optional): text style</li>
 </ul>
 <p>Here are three examples:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+<pre><code class="language-python">from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.text import text, text_vertical
 
-styles = get_styles()
-config(width=100, height=50)
+setup(width=100, height=50)
 text_vertical(xy=(15, 25), text=&quot;Hello Drawlib.&quot;, style=styles.primary)
 text_vertical(xy=(35, 25), text=&quot;Hello Drawlib.&quot;, size=12, style=styles.primary)
 text_vertical(xy=(75, 25), text=&quot;こんにちは Drawlib.&quot;, angle=45, style=styles.primary)
@@ -495,15 +493,14 @@ It encompasses many attributes, categorized into &quot;alignment&quot;, &quot;te
 <p>The default alignment is &quot;center&quot; horizontally and &quot;center&quot; vertically.
 By default, no background is drawn.</p>
 <p>Here are 2 examples.</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontSerif
-from drawlib.preset_styles import get_styles
+from drawlib.config import styles
 from drawlib.shapes import circle
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=50, grid_only=True)
+setup(width=100, height=50, grid_only=True)
 text(
     xy=(15, 25),
     text=&quot;Hello Drawlib.&quot;,
@@ -568,13 +565,12 @@ Drawlib does not use system fonts installed on your PC because using system font
 However, we can only support open-source free fonts at the moment.
 And currently, we use Google fonts.</p>
 <p>Here are font examples.</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.fonts import Font, FontJapanese, FontMonoSpace, FontRoboto, FontSansSerif, FontSerif, FontThai
-from drawlib.preset_styles import get_styles
+from drawlib.config import styles
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=60, grid_only=True)
+setup(width=100, height=60, grid_only=True)
 text(xy=(25, 5), text=&quot;Hello Drawlib.&quot;, style=styles.primary.patch(text_font=Font.SANSSERIF_LIGHT))
 text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;, style=styles.primary.patch(text_font=Font.SANSSERIF_REGULAR))
 text(xy=(25, 25), text=&quot;Hello Drawlib.&quot;, style=styles.primary.patch(text_font=Font.SANSSERIF_BOLD))
@@ -603,13 +599,12 @@ You can create custom <code>Style</code> or <code>PresetStyles</code> objects to
 However, if you want to use fonts that are not supported, use the <code>FontFile</code> class.
 This class can be used in place of the basic font classes and accepts a font file as an argument.</p>
 <p>Here is an examples which uses font avenger.</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.fonts import FontFile
-from drawlib.preset_styles import get_styles
+from drawlib.config import styles
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=50)
+setup(width=100, height=50)
 text(
     (50, 25),
     &quot;Hello Drawlib!&quot;,
@@ -627,7 +622,7 @@ save()
 <p>FontFile</p>
 <p>You can check the list of fonts supported by Drawlib in the Font documentation.</p>
 <h1>Pre-defined Text Styles</h1>
-<p>Text in Drawlib can utilize pre-defined styles from the preset styles you select (<code>styles = get_styles()</code>).</p>
+<p>Text in Drawlib can utilize pre-defined styles from <code>drawlib.config</code> (<code>from drawlib.config import styles</code>).</p>
 <p>The style syntax is: <code>styles.&lt;color&gt;_&lt;weight&gt;</code>.
 If the color and weight are default, they are not explicitly shown in the style name.</p>
 <p>Each weight type variation includes different font weights:</p>
@@ -637,12 +632,11 @@ If the color and weight are default, they are not explicitly shown in the style 
 <li><code>bold</code>: Font weight bold</li>
 </ul>
 <p>Here is an example script that demonstrates the use of pre-defined text styles:</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
-from drawlib.preset_styles import get_styles
+<pre><code class="language-python">from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.text import text
 
-styles = get_styles()
-config(width=100, height=50)
+setup(width=100, height=50)
 text(xy=(25, 15), text=&quot;Hello Drawlib.&quot;, style=styles.red)
 text(xy=(25, 35), text=&quot;Hello Drawlib.&quot;, size=12, style=styles.bold)
 text(xy=(75, 15), text=&quot;Hello Drawlib.&quot;, style=styles.light_blue)

@@ -8,9 +8,10 @@ Class `ChevronProcess` renders sequential chevron (arrowhead block) process diag
 from drawlib import canvas
 from drawlib.smartarts import ChevronProcess
 from drawlib.types import Style
+from drawlib.config import styles
 
 canvas.initialize()
-canvas.config(width=100, height=52)
+canvas.setup(width=100, height=52)
 
 # 1. Multi-phase pipeline with titles and descriptions
 cp1 = ChevronProcess(styles=styles, spacing=1.5)
@@ -45,10 +46,9 @@ Create a sequential chevron flow:
 
 ```python
 from drawlib import canvas
-from drawlib.preset_styles import get_styles
+from drawlib.config import styles
 from drawlib.smartarts import ChevronProcess
 
-styles = get_styles()
 canvas.initialize()
 
 process = ChevronProcess(styles=styles, spacing=1.5)

@@ -447,14 +447,13 @@ This command clears the cached font files from your system, freeing up storage s
 <h1>FontFile</h1>
 <p>The <code>FontFile</code> class in Drawlib allows users to utilize custom fonts for rendering text using the <code>text()</code> function and similar methods.
 Here's how you can use the FontFile class in your Python code:</p>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.fonts import FontFile
-from drawlib.preset_styles import get_styles
+from drawlib.config import styles
 from drawlib.text import text
 
-styles = get_styles()
 
-config(width=100, height=50)
+setup(width=100, height=50)
 text(
     (50, 25),
     &quot;Hello Drawlib!&quot;,

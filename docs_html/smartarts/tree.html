@@ -402,11 +402,12 @@
             <main class="main-content">
                 <h1>Tree</h1>
 <p>Class <code>Tree</code> draws smart art tree which is similar to <code>tree</code> command output.</p>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode
+from drawlib.config import styles
 
-config(width=100, height=48)
+setup(width=100, height=48)
 
 tree1 = TreeNode(
     &quot;Root&quot;,

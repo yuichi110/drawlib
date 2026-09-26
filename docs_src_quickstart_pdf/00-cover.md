@@ -5,14 +5,15 @@
 Drawlib is a modern Python library for creating technical diagrams, architecture blueprints, charts, SmartArts, and publication-ready documentation directly from code.
 
 ```drawlib 620px center caption:"Drawlib: Illustration as Code in Pure Python"
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors, Colors140
+from drawlib.config import styles
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
-config(width=120, height=50)
+setup(width=120, height=50)
 
 # Left card: Python Code
 rectangle(

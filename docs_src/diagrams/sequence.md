@@ -31,7 +31,7 @@ from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
-canvas.config(width=92, height=86)
+canvas.setup(width=92, height=86)
 
 d = SequenceDiagram(title="Client-Server Authentication Flow")
 
@@ -68,7 +68,7 @@ from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
-canvas.config(width=72, height=65)
+canvas.setup(width=72, height=65)
 
 d = SequenceDiagram(title="Sync vs Async Interactions")
 
@@ -97,7 +97,7 @@ from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
-canvas.config(width=52, height=65)
+canvas.setup(width=52, height=65)
 
 d = SequenceDiagram(title="WebSocket Communication")
 
@@ -122,7 +122,7 @@ from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
-canvas.config(width=52, height=71)
+canvas.setup(width=52, height=71)
 
 d = SequenceDiagram(title="Internal Processing")
 
@@ -153,7 +153,7 @@ from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
-canvas.config(width=75, height=74)
+canvas.setup(width=75, height=74)
 
 d = SequenceDiagram(title="Annotated Workflow")
 
@@ -189,7 +189,7 @@ from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
-canvas.config(width=86, height=94)
+canvas.setup(width=86, height=94)
 
 d = SequenceDiagram(title="Transaction Processing Flow")
 
@@ -228,7 +228,7 @@ from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
 canvas.initialize()
-canvas.config(width=72, height=85)
+canvas.setup(width=72, height=85)
 
 d = SequenceDiagram(title="Order Execution Service", autonumber=True)
 
@@ -263,7 +263,7 @@ from drawlib.diagrams.sequence import SequenceDiagram, GcpIcon, Participant, Par
 from drawlib.types import Style
 
 canvas.initialize()
-canvas.config(width=106, height=128)
+canvas.setup(width=106, height=128)
 
 d = SequenceDiagram(title="Microservices Cloud Processing Pipeline", autonumber=True)
 

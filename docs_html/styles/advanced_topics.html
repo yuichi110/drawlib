@@ -401,15 +401,13 @@
             </header>
             <main class="main-content">
                 <h1>Advanced Preset Styles Topics</h1>
-<p>In this section, we cover advanced topics for working with preset styles in <code>drawlib.preset_styles</code>.</p>
-<h1>Accessing Styles via <code>get_styles()</code> or the Global <code>styles</code> Catalog</h1>
+<p>In this section, we cover advanced topics for working with preset styles in <code>drawlib.preset_styles</code> and <code>drawlib.config</code>.</p>
+<h1>Accessing Styles via <code>drawlib.config</code> or Official Catalogs</h1>
 <p>Drawlib provides style presets as catalog objects (<code>BasePresetStyles</code>) containing strongly-typed <code>Style</code> objects for key roles and colors.
-You can retrieve the styles catalog using <code>get_styles()</code>:</p>
-<pre><code class="language-python">from drawlib.preset_styles import get_styles
-
-styles = get_styles()  # default catalog
+The recommended way to access styles in drawing code is via <code>drawlib.config</code>:</p>
+<pre><code class="language-python">from drawlib.config import styles
 </code></pre>
-<p>In <code>doc_builder</code> Markdown code blocks, the active <code>styles</code> catalog is automatically injected into the global scope.</p>
+<p>This provides direct access to the active project styles (defaulting to <code>EssentialsStyles</code>) and allows styles to be themed dynamically across the entire project via configuration files.</p>
 <h2>Standard Style Roles</h2>
 <p>You can access standard preset styles directly by attribute or key:</p>
 <ul>
@@ -421,13 +419,12 @@ styles = get_styles()  # default catalog
 <li><code>styles.dashed</code>: Outlined shape with dashed line style.</li>
 </ul>
 <p>Example:</p>
-<pre><code class="language-python">from drawlib.canvas import config
-from drawlib.preset_styles import get_styles
+<pre><code class="language-python">from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
-config(width=100, height=40)
-styles = get_styles()
+setup(width=100, height=40)
 
 style_primary = styles.primary
 style_bold = styles.bold
@@ -442,13 +439,12 @@ text((50, 20), &quot;Preset Styles&quot;, style=styles.bold)
 </div>
 <h2>Using Color Names and Combinations</h2>
 <p>You can also access color-specific styles (e.g., <code>styles.red_flat</code>, <code>styles.blue_solid</code>, <code>styles.red_bold</code>):</p>
-<pre><code class="language-python">from drawlib.canvas import config
-from drawlib.preset_styles import get_styles
+<pre><code class="language-python">from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
-config(width=100, height=40)
-styles = get_styles()
+setup(width=100, height=40)
 
 circle((25, 20), radius=10, style=styles.red_flat)
 rectangle((75, 20), width=20, height=20, style=styles.blue_solid)
@@ -459,26 +455,24 @@ text((50, 20), &quot;Combined Style&quot;, style=styles.red_bold)
   <img src="advanced_topics_images/2.png" alt="advanced_topics_2" style="width: 600px; max-width: 100%;" />
 </div>
 <h1>Accessing Official Style Presets</h1>
-<p>Drawlib includes three official style presets: <code>default</code>, <code>essentials</code>, and <code>monochrome</code>.
-You can access full <code>BasePresetStyles</code> objects using <code>get_styles()</code> or the dedicated functions:</p>
+<h1>Accessing Official Style Catalogs Directly</h1>
+<p>Drawlib includes three official immutable style catalogs: <code>default_styles</code>, <code>essentials_styles</code>, and <code>monochrome_styles</code>.
+You can import them directly from <code>drawlib.preset_styles</code>:</p>
 <ul>
-<li><code>get_styles(&quot;default&quot;)</code> / <code>get_default_styles()</code></li>
-<li><code>get_styles(&quot;essentials&quot;)</code> / <code>get_essentials_styles()</code></li>
-<li><code>get_styles(&quot;monochrome&quot;)</code> / <code>get_monochrome_styles()</code></li>
+<li><code>from drawlib.preset_styles import default_styles</code></li>
+<li><code>from drawlib.preset_styles import essentials_styles</code></li>
+<li><code>from drawlib.preset_styles import monochrome_styles</code></li>
 </ul>
 <p>Each <code>BasePresetStyles</code> instance contains <code>primary</code>, <code>light</code>, <code>bold</code>, <code>flat</code>, <code>solid</code>, and <code>dashed</code> <code>Style</code> attributes.</p>
 <p>Example:</p>
-<pre><code class="language-python">from drawlib.canvas import config
-from drawlib.preset_styles import get_styles
+<pre><code class="language-python">from drawlib.canvas import setup
+from drawlib.preset_styles import essentials_styles, monochrome_styles
 from drawlib.shapes import circle, rectangle
 
-essentials = get_styles(&quot;essentials&quot;)
-monochrome = get_styles(&quot;monochrome&quot;)
+setup(width=100, height=40)
 
-config(width=100, height=40)
-
-circle((25, 20), radius=10, style=essentials.primary)
-rectangle((75, 20), width=20, height=20, style=monochrome.bold)
+circle((25, 20), radius=10, style=essentials_styles.primary)
+rectangle((75, 20), width=20, height=20, style=monochrome_styles.bold)
 </code></pre>
 <p>Output:</p>
 <div class="drawlib-image" style="text-align: center;">
@@ -486,15 +480,14 @@ rectangle((75, 20), width=20, height=20, style=monochrome.bold)
 </div>
 <h1>Customizing Style Objects with <code>.patch()</code></h1>
 <p>Because <code>Style</code> objects in Drawlib are immutable (<code>frozen=True</code>), styles are customized using the <code>.patch()</code> method to create new derived <code>Style</code> instances safely:</p>
-<pre><code class="language-python">from drawlib.canvas import config
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.colors import ColorsDefault
-from drawlib.preset_styles import get_styles
+from drawlib.config import styles
 from drawlib.text import text
 
-styles = get_styles()
 custom_style = styles.blue.patch(text_size=28, text_color=ColorsDefault.Red)
 
-config(width=100, height=40)
+setup(width=100, height=40)
 text((50, 20), &quot;Customized Style&quot;, style=custom_style)
 </code></pre>
 <p>Output:</p>

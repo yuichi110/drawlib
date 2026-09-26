@@ -15,7 +15,7 @@ from drawlib import canvas
 from drawlib.charts import PieChart
 
 canvas.initialize()
-canvas.config(width=84, height=76)
+canvas.setup(width=84, height=76)
 
 chart = PieChart(
     radius=28.0,
@@ -50,7 +50,7 @@ from drawlib import canvas
 from drawlib.charts import PieChart
 
 canvas.initialize()
-canvas.config(width=84, height=76)
+canvas.setup(width=84, height=76)
 
 chart = PieChart(
     radius=28.0,
@@ -85,7 +85,7 @@ from drawlib import canvas
 from drawlib.charts import PieChart
 
 canvas.initialize()
-canvas.config(width=74, height=80)
+canvas.setup(width=74, height=80)
 
 chart = PieChart(
     radius=28.0,

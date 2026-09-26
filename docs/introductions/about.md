@@ -11,6 +11,7 @@ For instance, consider the following Python code:
 from drawlib.canvas import save
 from drawlib.colors import Colors140
 from drawlib.shapes import circle
+from drawlib.config import styles
 
 circle(
     xy=(50, 50),

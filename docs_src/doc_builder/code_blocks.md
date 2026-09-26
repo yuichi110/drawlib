@@ -10,10 +10,11 @@ Embedded drawing code blocks in Markdown use the `drawlib` language identifier:
 
 ````markdown
 ```drawlib
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=100)
+setup(width=100, height=100)
 circle((50, 50), radius=30, style=styles.primary)
 ```
 ````
@@ -34,7 +35,7 @@ Options can be specified on the opening block line as space-separated tokens, `k
 
 ````markdown
 ```drawlib 500px center show-code caption:"Figure 1: System Overview" file:arch.png
-config(width=100, height=60)
+setup(width=100, height=60)
 # Drawing code...
 ```
 ````
@@ -73,7 +74,7 @@ For authors writing raw HTML documentation or slides, Drawlib also supports nati
 
 ```html
 <drawlib width="600px" align="center" caption="Microservices Architecture">
-config(width=100, height=50)
+setup(width=100, height=50)
 rectangle((50, 25), width=80, height=30, text="API Gateway", style=styles.primary)
 </drawlib>
 ```

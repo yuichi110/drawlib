@@ -411,12 +411,13 @@ These best practices align with common Python coding standards and also include 
 <p>Many drawing items are aligned vertically and horizontally.
 Using horizontal and vertical alignment with &quot;center&quot; is often the best approach for aligning different types and sizes of objects.</p>
 <p>Let's compare some example code with different alignments.</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=100, grid_only=True)
+setup(width=100, height=100, grid_only=True)
 
 # alignment: horizontally left, vertically bottom
 text(
@@ -479,14 +480,15 @@ You can also mix multiple alignments within one illustration.</p>
 When aligning items horizontally, it's common for them to share the same y value, just as vertically aligned items often share the same x value.</p>
 <p>To simplify this process, use variables for coordinates instead of hardcoding values.
 In this example, we use variables to align items horizontally.</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
 width = 100
 height = 100
-config(width=width, height=height, grid_only=True)
+setup(width=width, height=height, grid_only=True)
 
 num_items = 3
 margin_x = width / (num_items + 1)
@@ -509,14 +511,15 @@ The variable <code>x</code> is a bit more complex but ensures equal x margins fo
 </code></pre>
 <p>This approach makes it easy to change the canvas height and add new items.
 Let's change the canvas height to <code>50</code> and add a rectangle at last.</p>
-<pre><code class="language-python">from drawlib.canvas import config, save
+<pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
 width = 100
 height = 50  # &lt;= CHANGED FROM 100 !!
-config(width=width, height=height, grid_only=True)
+setup(width=width, height=height, grid_only=True)
 
 num_items = 4  # &lt;= CHANGED FROM 3!!
 margin_x = width / (num_items + 1)

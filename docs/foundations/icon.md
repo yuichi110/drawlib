@@ -23,13 +23,14 @@ Let's explore with examples using `phosphor`:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.text import text
+from drawlib.config import styles
 
 width = 100
 height = 50
-config(width=width, height=height)
+setup(width=width, height=height)
 
 x = width / 7
 y = height / 2
@@ -80,13 +81,14 @@ Every GCP icon is defined as a function directly under `gcp`.
 They accept standard coordinate, width, angle, and style arguments:
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import gcp
 from drawlib.text import text
+from drawlib.config import styles
 
 width = 100
 height = 45
-config(width=width, height=height)
+setup(width=width, height=height)
 
 x = width / 5
 y = height / 2 + 5
@@ -135,14 +137,15 @@ You can customize them using `drawlib.types.Style`:
 * `image_border_color`, `image_border_width`, `image_border_style`: Draws an optional border outline around the icon frame.
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import gcp
 from drawlib.text import text
+from drawlib.config import styles
 
 width = 100
 height = 50
-config(width=width, height=height)
+setup(width=width, height=height)
 
 x = width / 5
 y = height / 2 + 5
@@ -185,14 +188,15 @@ Executing this code generates the following image:
 Here is an end-to-end example demonstrating how GCP icons can be combined with shapes and connectors to build clear architecture diagrams:
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=60)
+setup(width=100, height=60)
 
 # Cloud boundary
 rectangle(
@@ -269,13 +273,14 @@ Let's explore its usage with FontAwesome Free:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import font_icon
 from drawlib.text import text
+from drawlib.config import styles
 
 width = 100
 height = 50
-config(width=width, height=height)
+setup(width=width, height=height)
 
 file_brand = "../_assets/fontawesome-free/brands.ttf"
 file_regular = "../_assets/fontawesome-free/regular.ttf"
@@ -347,14 +352,15 @@ Let's illustrate this with an example:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
 from drawlib.text import text
+from drawlib.config import styles
 
 width = 100
 height = 50
-config(width=width, height=height)
+setup(width=width, height=height)
 
 x = width / 6
 y = height / 2
@@ -401,12 +407,13 @@ Here is an example:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
+from drawlib.config import styles
 
 width = 100
 height = 50
-config(width=width, height=height)
+setup(width=width, height=height)
 
 x = width / 5
 y = height / 2

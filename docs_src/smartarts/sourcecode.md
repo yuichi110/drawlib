@@ -9,24 +9,23 @@ Here is an example of code:
 
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors140
 from drawlib.fonts import FontSourceCode
-from drawlib.preset_styles import get_styles
+from drawlib.config import styles
 from drawlib.shapes import circle
 from drawlib.smartarts import SourceCode
 
-styles = get_styles()
 
 CODE = """
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.shapes import circle
 
-config(width=100, height=100)
+setup(width=100, height=100)
 circle(xy=(50, 50), radius=30, style="blue_dashed")
 """.strip()
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 sc1 = SourceCode(
     language="python",
@@ -62,21 +61,22 @@ After creating an instance, draw the code using the `draw()` method:
 Executing the code produces:
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors140
 from drawlib.fonts import FontSourceCode
 from drawlib.shapes import circle
 from drawlib.smartarts import SourceCode
 
 CODE = """
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=100)
+setup(width=100, height=100)
 circle(xy=(50, 50), radius=30, style="blue_dashed")
 """.strip()
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 sc1 = SourceCode(
     language="python",
@@ -119,10 +119,11 @@ Here are output of Source Code styles.
 
 
 ```drawlib fold-code 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.fonts import FontSourceCode
 from drawlib.smartarts import SourceCode
 from drawlib.text import text
+from drawlib.config import styles
 
 CODE = """
 import math
@@ -134,7 +135,7 @@ print(example_function(5))
 """.strip()
 
 
-config(width=100, height=100, dpi=200)
+setup(width=100, height=100, dpi=200)
 xs = [17.5, 50, 82.5]
 ys = [15, 37.5, 62.5, 85]
 ix = 0

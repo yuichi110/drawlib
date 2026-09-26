@@ -23,10 +23,10 @@ Here is an example:
 
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 
-config(width=100, height=50)
+setup(width=100, height=50)
 im_linux = Dimage("../_assets/linux.png")
 image((30, 25), 25, im_linux)
 image((70, 25), 25, im_linux)
@@ -39,10 +39,10 @@ Here is the output:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 
-config(width=100, height=50)
+setup(width=100, height=50)
 im_linux = Dimage("../_assets/linux.png")
 image((30, 25), 25, im_linux)
 image((70, 25), 25, im_linux)
@@ -100,11 +100,12 @@ Here's an example of changing the aspect ratio where we halve the image height:
 
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200)
+setup(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage("../_assets/linux.png")
@@ -130,11 +131,12 @@ Here is the output:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200)
+setup(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage("../_assets/linux.png")
@@ -167,11 +169,12 @@ Here's an example that keeps the center 50% of the image:
 
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200)
+setup(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage("../_assets/linux.png")
@@ -197,11 +200,12 @@ Here is the output:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200)
+setup(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage("../_assets/linux.png")
@@ -233,11 +237,12 @@ Here's an example:
 
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200)
+setup(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage("../_assets/linux.png")
@@ -257,11 +262,12 @@ Here is the output:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200)
+setup(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage("../_assets/linux.png")
@@ -291,11 +297,12 @@ Here's an example:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200)
+setup(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage("../_assets/linux.png")
@@ -315,11 +322,12 @@ Here is the output.
 
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200)
+setup(width=100, height=50, dpi=200)
 
 # original
 original_image = Dimage("../_assets/linux.png")
@@ -345,11 +353,12 @@ Here's an example:
 
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200)
+setup(width=100, height=50, dpi=200)
 
 image((20, 25), 20, Dimage("../_assets/linux.png").brightness(0.5))
 text((20, 10), "brightness(0.5)", style=styles.primary)
@@ -365,11 +374,12 @@ Here is an output.
 
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200)
+setup(width=100, height=50, dpi=200)
 
 image((20, 25), 20, Dimage("../_assets/linux.png").brightness(0.5))
 text((20, 10), "brightness(0.5)", style=styles.primary)
@@ -387,12 +397,13 @@ text((80, 10), "brightness(2.0)", style=styles.primary)
 
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors, ColorsDefault
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200, background_color=Colors.Gray)
+setup(width=100, height=50, dpi=200, background_color=Colors.Gray)
 
 # invert
 image((20, 25), 20, Dimage("../_assets/linux.png").invert())
@@ -426,12 +437,13 @@ Here is the output.
 
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors, ColorsDefault
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200, background_color=Colors.Gray)
+setup(width=100, height=50, dpi=200, background_color=Colors.Gray)
 
 # invert
 image((20, 25), 20, Dimage("../_assets/linux.png").invert())
@@ -476,11 +488,12 @@ Here's an example:
 
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200)
+setup(width=100, height=50, dpi=200)
 
 image((20, 25), 20, Dimage("../_assets/linux.png").mosaic(8))
 text((20, 10), "mosaic(8)", style=styles.primary)
@@ -496,11 +509,12 @@ Here is the output.
 
 
 ```drawlib 600px center
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50, dpi=200)
+setup(width=100, height=50, dpi=200)
 
 image((20, 25), 20, Dimage("../_assets/linux.png").mosaic(8))
 text((20, 10), "mosaic(8)", style=styles.primary)

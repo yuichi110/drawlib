@@ -7,30 +7,27 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
-from drawlib.preset_styles import default_styles
+from drawlib.config import styles
 from drawlib.shapes import arrow, circle
 from drawlib.text import text
 
-config(width=100, height=60)
-ps = default_styles
-
-
+setup(width=100, height=60)
 def left():
     x = 18
     circle(
         (x, 30),
         radius=8,
         text="Circle",
-        style=ps.flat.patch(
+        style=styles.flat.patch(
             shape_fill_color=Colors.Transparent,
             shape_line_color=Colors.Black,
             shape_line_width=1,
         ),
-        textstyle=ps.primary.patch(text_size=18),
+        textstyle=styles.primary.patch(text_size=18),
     )
-    text((x, 15), text="Content", style=ps.primary.patch(text_size=24))
+    text((x, 15), text="Content", style=styles.primary.patch(text_size=24))
 
 
 def center():
@@ -42,29 +39,29 @@ def center():
         tail_width=6,
         head_width=14,
         head_length=10,
-        style=ps.green,
+        style=styles.green,
         text="Apply Styles",
         textsize=20,
-        textstyle=ps.white,
+        textstyle=styles.white,
     )
 
 
 def right():
     x = 82
-    circle((x, 49), radius=8, style=ps.primary, text="Circle", textstyle=ps.primary.patch(text_size=18))
+    circle((x, 49), radius=8, style=styles.primary, text="Circle", textstyle=styles.primary.patch(text_size=18))
     circle(
         (x, 30),
         radius=8,
         text="Circle",
-        style=ps.blue_flat,
-        textstyle=ps.primary.patch(text_color=Colors.White, text_size=18),
+        style=styles.blue_flat,
+        textstyle=styles.primary.patch(text_color=Colors.White, text_size=18),
     )
     circle(
         (x, 11),
         radius=8,
         text="Circle",
-        style=ps.red_bold,
-        textstyle=ps.primary.patch(text_color=Colors.Red, text_size=18),
+        style=styles.red_bold,
+        textstyle=styles.primary.patch(text_color=Colors.Red, text_size=18),
     )
 
 

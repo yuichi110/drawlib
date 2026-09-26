@@ -13,7 +13,7 @@ from drawlib import canvas
 from drawlib.charts import BarChart
 
 canvas.initialize()
-canvas.config(width=95, height=70)
+canvas.setup(width=95, height=70)
 
 chart = BarChart(
     categories=["2021", "2022", "2023", "2024"],
@@ -39,7 +39,7 @@ from drawlib import canvas
 from drawlib.charts import BarChart
 
 canvas.initialize()
-canvas.config(width=98, height=62)
+canvas.setup(width=98, height=62)
 
 chart = BarChart(
     categories=["Frontend", "Backend", "Data Pipeline"],
@@ -68,7 +68,7 @@ from drawlib import canvas
 from drawlib.charts import BarChart
 
 canvas.initialize()
-canvas.config(width=95, height=70)
+canvas.setup(width=95, height=70)
 
 chart = BarChart(
     categories=["In-Memory Cache", "SSD Cache", "SQL Database", "External API"],
@@ -94,7 +94,7 @@ from drawlib.charts import BarChart
 from drawlib.types import Style
 
 canvas.initialize()
-canvas.config(width=88, height=65)
+canvas.setup(width=88, height=65)
 
 chart = BarChart(
     categories=["Q1", "Q2", "Q3", "Q4"],

@@ -16,16 +16,17 @@ Let's delve into some code examples:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=10, height=10, grid_only=True)
+setup(width=10, height=10, grid_only=True)
 for i in range(11):
     circle(xy=(i, i), radius=0.2, style=styles.primary)
 save()
 ```
 
-In this example, setting `config(width=10, height=10, ...)` implies:
+In this example, setting `setup(width=10, height=10, ...)` implies:
 
 * x-axis: 0 to 10
 * y-axis: 0 to 10
@@ -37,10 +38,11 @@ Executing this code generates the following image:
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=10, height=10, grid_only=True)
+setup(width=10, height=10, grid_only=True)
 for i in range(11):
     circle(xy=(i, i), radius=0.2, style=styles.primary)
 save()
@@ -54,12 +56,12 @@ Therefore, the circle at (0, 0) is only partially displayed.
 Shapes existing at values less than 0 are not drawn, and similarly, those exceeding the maximum value of 10 are omitted.
 
 The default values for width and height are both `100`. 
-We recommend explicitly setting width and height using config() even if you're using default values to showcase the image's coordinate size.
+We recommend explicitly setting width and height using setup() even if you're using default values to showcase the image's coordinate size.
 
 You may need to calculate coordinates either mentally or programmatically within drawlib's code for drawing objects. 
 It's advisable to use simple values such as 100 to simplify calculations. 
 Setting complex values like 1920 can complicate matters. 
-We prefer using `config(width=100, height=100)` or `config(width=100, height=50)`.
+We prefer using `setup(width=100, height=100)` or `setup(width=100, height=50)`.
 
 
 # Alignment
@@ -79,12 +81,13 @@ Let's examine the alignment of rectangles with an example code:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=100, grid_only=True)
+setup(width=100, height=100, grid_only=True)
 
 for x, halign in [(15, "left"), (50, "center"), (85, "right")]:
     for y, valign in [(15, "bottom"), (50, "center"), (85, "top")]:
@@ -110,12 +113,13 @@ The red dot represents "xy", and the inner text indicates the alignment.
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=100, grid_only=True)
+setup(width=100, height=100, grid_only=True)
 
 for x, halign in [(15, "left"), (50, "center"), (85, "right")]:
     for y, valign in [(15, "bottom"), (50, "center"), (85, "top")]:
@@ -149,14 +153,15 @@ Here's an example of aligning items horizontally and vertically:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
 from drawlib.images import image
 from drawlib.shapes import chevron, circle, parallelogram, rectangle, regularpolygon, star
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=100, grid_only=True)
+setup(width=100, height=100, grid_only=True)
 
 x1 = 20
 x2 = 50
@@ -190,14 +195,15 @@ However, `(center, center)` is straightforward.
 
 
 ```drawlib 600px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
 from drawlib.images import image
 from drawlib.shapes import chevron, circle, parallelogram, rectangle, regularpolygon, star
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=100, grid_only=True)
+setup(width=100, height=100, grid_only=True)
 
 x1 = 20
 x2 = 50

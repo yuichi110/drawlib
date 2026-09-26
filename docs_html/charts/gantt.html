@@ -410,7 +410,7 @@
 from drawlib.charts import GanttChart
 
 canvas.initialize()
-canvas.config(width=96, height=62)
+canvas.setup(width=96, height=62)
 
 chart = GanttChart(
     columns=[&quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;],
@@ -447,7 +447,7 @@ chart.draw(xy=(3.0, 3.0))
 from drawlib.charts import GanttChart
 
 canvas.initialize()
-canvas.config(width=94, height=48)
+canvas.setup(width=94, height=48)
 
 chart = GanttChart(
     columns=[&quot;Sprint 1&quot;, &quot;Sprint 2&quot;, &quot;Sprint 3&quot;, &quot;Sprint 4&quot;],

@@ -53,12 +53,13 @@ Let's explore different line styles through examples.
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=40)
+setup(width=100, height=40)
 
 text((10, 5), "primary", style=styles.primary)
 line((20, 5), (40, 5), style=styles.primary)
@@ -85,12 +86,13 @@ Running this code produces the following output:
 
 
 ```drawlib 500px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=40)
+setup(width=100, height=40)
 
 text((10, 5), "primary", style=styles.primary)
 line((20, 5), (40, 5), style=styles.primary)
@@ -141,12 +143,13 @@ Let's see an example:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 text((10, 5), "arrowhead ->", style=styles.primary)
 line((20, 5), (40, 5), arrowhead="->", style=styles.primary)
@@ -181,12 +184,13 @@ Executing this code generates the following output:
 
 
 ```drawlib 500px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 text((10, 5), "arrowhead ->", style=styles.primary)
 line((20, 5), (40, 5), arrowhead="->", style=styles.primary)
@@ -234,11 +238,12 @@ Let's look at an example:
 
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=40)
+setup(width=100, height=40)
 
 text((12, 5), "styles.primary", style=styles.primary)
 line((25, 5), (40, 5), style=styles.primary)
@@ -265,11 +270,12 @@ Executing this code generates the following output:
 
 
 ```drawlib 500px center
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=40)
+setup(width=100, height=40)
 
 text((12, 5), "styles.primary", style=styles.primary)
 line((25, 5), (40, 5), style=styles.primary)

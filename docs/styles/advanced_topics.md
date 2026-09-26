@@ -1,19 +1,17 @@
 # Advanced Preset Styles Topics
 
-In this section, we cover advanced topics for working with preset styles in `drawlib.preset_styles`.
+In this section, we cover advanced topics for working with preset styles in `drawlib.preset_styles` and `drawlib.config`.
 
-# Accessing Styles via `get_styles()` or the Global `styles` Catalog
+# Accessing Styles via `drawlib.config` or Official Catalogs
 
 Drawlib provides style presets as catalog objects (`BasePresetStyles`) containing strongly-typed `Style` objects for key roles and colors.
-You can retrieve the styles catalog using `get_styles()`:
+The recommended way to access styles in drawing code is via `drawlib.config`:
 
 ```python
-from drawlib.preset_styles import get_styles
-
-styles = get_styles()  # default catalog
+from drawlib.config import styles
 ```
 
-In `doc_builder` Markdown code blocks, the active `styles` catalog is automatically injected into the global scope.
+This provides direct access to the active project styles (defaulting to `EssentialsStyles`) and allows styles to be themed dynamically across the entire project via configuration files.
 
 ## Standard Style Roles
 
@@ -29,13 +27,12 @@ You can access standard preset styles directly by attribute or key:
 Example:
 
 ```python
-from drawlib.canvas import config
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
-config(width=100, height=40)
-styles = get_styles()
+setup(width=100, height=40)
 
 style_primary = styles.primary
 style_bold = styles.bold
@@ -60,13 +57,12 @@ Executing this code produces the following output:
 You can also access color-specific styles (e.g., `styles.red_flat`, `styles.blue_solid`, `styles.red_bold`):
 
 ```python
-from drawlib.canvas import config
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
-config(width=100, height=40)
-styles = get_styles()
+setup(width=100, height=40)
 
 circle((25, 20), radius=10, style=styles.red_flat)
 rectangle((75, 20), width=20, height=20, style=styles.blue_solid)
@@ -86,29 +82,28 @@ Executing this code produces:
 
 # Accessing Official Style Presets
 
-Drawlib includes three official style presets: `default`, `essentials`, and `monochrome`.
-You can access full `BasePresetStyles` objects using `get_styles()` or the dedicated functions:
+# Accessing Official Style Catalogs Directly
 
-- `get_styles("default")` / `get_default_styles()`
-- `get_styles("essentials")` / `get_essentials_styles()`
-- `get_styles("monochrome")` / `get_monochrome_styles()`
+Drawlib includes three official immutable style catalogs: `default_styles`, `essentials_styles`, and `monochrome_styles`.
+You can import them directly from `drawlib.preset_styles`:
+
+- `from drawlib.preset_styles import default_styles`
+- `from drawlib.preset_styles import essentials_styles`
+- `from drawlib.preset_styles import monochrome_styles`
 
 Each `BasePresetStyles` instance contains `primary`, `light`, `bold`, `flat`, `solid`, and `dashed` `Style` attributes.
 
 Example:
 
 ```python
-from drawlib.canvas import config
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import setup
+from drawlib.preset_styles import essentials_styles, monochrome_styles
 from drawlib.shapes import circle, rectangle
 
-essentials = get_styles("essentials")
-monochrome = get_styles("monochrome")
+setup(width=100, height=40)
 
-config(width=100, height=40)
-
-circle((25, 20), radius=10, style=essentials.primary)
-rectangle((75, 20), width=20, height=20, style=monochrome.bold)
+circle((25, 20), radius=10, style=essentials_styles.primary)
+rectangle((75, 20), width=20, height=20, style=monochrome_styles.bold)
 ```
 
 Output:
@@ -127,15 +122,14 @@ Output:
 Because `Style` objects in Drawlib are immutable (`frozen=True`), styles are customized using the `.patch()` method to create new derived `Style` instances safely:
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import ColorsDefault
-from drawlib.preset_styles import get_styles
+from drawlib.config import styles
 from drawlib.text import text
 
-styles = get_styles()
 custom_style = styles.blue.patch(text_size=28, text_color=ColorsDefault.Red)
 
-config(width=100, height=40)
+setup(width=100, height=40)
 text((50, 20), "Customized Style", style=custom_style)
 ```
 

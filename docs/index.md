@@ -13,13 +13,14 @@ Drawlib is a pure-Python drawing library and documentation compiler crafted to f
 <summary>Source Code</summary>
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=40)
+setup(width=100, height=40)
 
 circle(
     xy=(25, 20),
@@ -68,15 +69,16 @@ Because the entire documentation workflow is unified in Python and Markdown, hum
 <summary>Source Code</summary>
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=140, height=65)
+setup(width=140, height=65)
 
 # Styles
 s_src = styles.blue_flat
@@ -167,15 +169,16 @@ By placing Drawlib directly in your application or documentation repository:
 <summary>Source Code</summary>
 
 ```python
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=140, height=65)
+setup(width=140, height=65)
 
 # Styles
 s_repo = styles.blue_flat

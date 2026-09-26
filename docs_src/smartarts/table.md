@@ -4,10 +4,10 @@
 Class `Table` is used for drawing tabular data with customizable headers, borders, and row banding.
 
 ```drawlib show-code 600px center caption:"Table Example"
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.smartarts import Table
 
-config(width=70, height=45)
+setup(width=70, height=45)
 
 t1 = Table(styles=styles)
 t1.draw(

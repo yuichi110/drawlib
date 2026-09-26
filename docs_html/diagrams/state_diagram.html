@@ -463,7 +463,7 @@ from drawlib.diagrams.state_diagram import (
     StateDiagram,
 )
 
-canvas.config(width=140, height=70)
+canvas.setup(width=140, height=70)
 
 sd = StateDiagram(title=&quot;Session Lifecycle State Machine&quot;)
 
@@ -559,7 +559,7 @@ sd.draw(xy=(0.0, 0.0))
 <pre><code class="language-python">from drawlib import canvas
 from drawlib.diagrams.state_diagram import State, StateDiagram
 
-canvas.config(width=120, height=50)
+canvas.setup(width=120, height=50)
 
 sd = StateDiagram(title=&quot;Supported State Node Shapes&quot;)
 
@@ -611,7 +611,7 @@ from drawlib.diagrams.state_diagram import (
     StateDiagram,
 )
 
-canvas.config(width=120, height=70)
+canvas.setup(width=120, height=70)
 
 sd = StateDiagram(title=&quot;UML Pseudo-States Showcase&quot;)
 
@@ -653,7 +653,7 @@ idle.to(active, label=&quot;Custom label text&quot;)
 <pre><code class="language-python">from drawlib import canvas
 from drawlib.diagrams.state_diagram import State, StateDiagram
 
-canvas.config(width=110, height=65)
+canvas.setup(width=110, height=65)
 
 sd = StateDiagram(title=&quot;Bidirectional Arcs &amp; Self-Transitions&quot;)
 
