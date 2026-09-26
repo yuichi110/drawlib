@@ -20,11 +20,11 @@ from pydantic import ConfigDict, validate_call
 
 from drawlib._core.l2_models import Dimage
 from drawlib._core.l2_types import (
+    FilePath,
     TypeAngle,
     TypeCoordinate,
     TypeImageZoom,
     TypePosFloat,
-    TypeStr,
 )
 from drawlib._core.l3_styles import Colors, Style
 from drawlib._core.l4_canvas._base import CanvasBase
@@ -45,7 +45,7 @@ class CanvasImageFeature(CanvasBase):
         self,
         xy: TypeCoordinate,
         width: TypePosFloat,
-        image: TypeStr | Image.Image | Dimage,
+        image: FilePath | Image.Image | Dimage,
         angle: TypeAngle = 0.0,
         *,
         style: Style | None = None,
@@ -56,6 +56,7 @@ class CanvasImageFeature(CanvasBase):
             xy (tuple[float, float]): Coordinates of the left bottom corner of the image.
             width (float): Width of the image. Height is calculated automatically based on aspect ratio.
             image (str | Image | Dimage): Path to image file, PIL Image, or Dimage object.
+                If a relative file path is provided, it is resolved relative to the caller script directory.
             angle (int | float, optional): Rotation angle in degrees (default is 0.0).
             style (Style | None, optional): Style of the image. Defaults to None.
         """

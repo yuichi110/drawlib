@@ -26,9 +26,9 @@ from pygments.lexers import (
 from pygments.lexers.special import TextLexer
 from pygments.styles import get_style_by_name
 
-from drawlib._core.l1_core import get_script_relative_path
 from drawlib._core.l2_models import Dimage
 from drawlib._core.l2_types import (
+    FilePath,
     TypeBool,
     TypeColor,
     TypeCoordinate,
@@ -191,22 +191,22 @@ class SourceCode:
 
     @staticmethod
     @validate_call
-    def get_text(file: TypeStr, strip: TypeBool = True) -> TypeStr:
+    def get_text(file: FilePath, strip: TypeBool = True) -> TypeStr:
         """Retrieve the text from a file.
 
         Args:
-            file (str): The path to the file.
+            file (str): The path to the file. If a relative path is provided,
+                it is resolved relative to the caller script directory.
             strip (bool): Whether to strip leading and trailing whitespace.
 
         Returns:
             str: The contents of the file.
 
         """
-        abspath = get_script_relative_path(file)
-        if not os.path.isfile(abspath):
-            raise ValueError(f'File "{file}" : "{abspath}" does not exist.')
+        if not os.path.isfile(file):
+            raise ValueError(f'File "{file}" does not exist.')
 
-        with open(abspath, "r", encoding="utf8") as fin:
+        with open(file, "r", encoding="utf8") as fin:
             text = fin.read()
 
         if strip:

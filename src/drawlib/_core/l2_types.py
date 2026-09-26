@@ -37,6 +37,10 @@ from drawlib._core.l2_types_._image import (
     TypeImageResample,
     TypeImageZoom,
 )
+from drawlib._core.l2_types_._path import (
+    FilePath,
+    TypeFilePath,
+)
 from drawlib._core.l2_types_._primitive import (
     NegFloat,
     NegInt,
@@ -98,6 +102,7 @@ __all__ = [
     "ColorRGBA",
     "Coordinate",
     "Coordinates",
+    "FilePath",
     "Font",
     "HAlign",
     "IconStyle",
@@ -130,6 +135,7 @@ __all__ = [
     "TypeColorRGBA",
     "TypeCoordinate",
     "TypeCoordinates",
+    "TypeFilePath",
     "TypeFloat",
     "TypeFont",
     "TypeHAlign",

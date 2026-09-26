@@ -22,12 +22,13 @@ from PIL import (
     ImageFilter,
     ImageOps,
 )
+from pydantic import ConfigDict, validate_call
 
-from drawlib._core.l1_core import get_script_relative_path
 from drawlib._core.l2_types_._image import (
     TypeImageQuality,
     TypeImageResample,
 )
+from drawlib._core.l2_types_._path import FilePath, resolve_file_path
 from drawlib._core.l2_types_._primitive import (
     TypePosFloat,
     TypePosInt,
@@ -52,7 +53,7 @@ class Dimage:
 
     def __init__(
         self,
-        image: str | Dimage | Image.Image,
+        image: FilePath | Dimage | Image.Image,
         copy: bool = False,
     ) -> None:
         """Initialize a Dimage instance from a file path, PIL Image, or another Dimage.
@@ -62,7 +63,8 @@ class Dimage:
         True, a copy of the image is made; otherwise, the original image is used.
 
         Args:
-            image (str | Dimage | Image.Image): The source image to initialize the Dimage.
+            image (str | Dimage | PIL.Image.Image): The source image to initialize the Dimage.
+                If a relative file path is provided, it is resolved relative to the caller script directory.
             copy (bool, optional): If True, a copy of the image is made. Defaults to False.
 
         Raises:
@@ -75,11 +77,11 @@ class Dimage:
             want to use the normal path behavior, convert the relative path to an
             absolute path before passing it to this class.
         """
-        if isinstance(image, str):
-            image_str = get_script_relative_path(image)
-            if not os.path.exists(image_str):
-                raise FileNotFoundError(f'file "{image_str}" does not exist.')
-            self._pilimg = Image.open(image_str)
+        if isinstance(image, (str, os.PathLike)):
+            image_path = resolve_file_path(image)
+            if not os.path.exists(image_path):
+                raise FileNotFoundError(f'file "{image_path}" does not exist.')
+            self._pilimg = Image.open(image_path)
 
         elif isinstance(image, Image.Image):
             if copy:
@@ -128,29 +130,25 @@ class Dimage:
         """
         return Dimage(self)
 
-    def save(self, file: str, quality: TypeImageQuality = 95) -> None:
+    @validate_call
+    def save(self, file: FilePath, quality: TypeImageQuality = 95) -> None:
         """Save the Dimage data to a file.
 
-        This method saves the image to the specified file path. The path is
-        relative to the script file which calls this method.
+        This method saves the image to the specified file path. If a relative path
+        is provided, it is resolved relative to the caller script directory.
 
         Args:
-            file (str): The file path to save the image. This path is relative to the user script file.
+            file (str): The file path to save the image. If a relative path is provided,
+                it is resolved relative to the caller script directory.
             quality (int, optional): The quality of the saved image (0-100). Defaults to 95.
 
         Returns:
             None
-
-        Raises:
-            ValueError: If the file argument is not a string.
         """
-        if not isinstance(file, str):
-            raise ValueError('arg "file" must be str.')
-
-        abspath = get_script_relative_path(file)
-        directory = os.path.dirname(abspath)
-        os.makedirs(directory, exist_ok=True)
-        self._pilimg.save(abspath, quality=quality)
+        directory = os.path.dirname(file)
+        if directory:
+            os.makedirs(directory, exist_ok=True)
+        self._pilimg.save(file, quality=quality)
 
     def _rotate(self, angle: TypeAngle, resample: TypeImageResample = "bicubic") -> Dimage:
         """Get a new Dimage that is rotated. The original Dimage is kept unchanged.

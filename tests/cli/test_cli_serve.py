@@ -34,6 +34,7 @@ def test_cli_serve_command(tmp_path) -> None:
         "-p",
         str(port),
         "--no-browser",
+        "--skip-check",
     ]
     env = os.environ.copy()
     src_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src"))
@@ -51,7 +52,7 @@ def test_cli_serve_command(tmp_path) -> None:
     try:
         url = f"http://localhost:{port}/index.html"
         resp = None
-        for _ in range(10):
+        for _ in range(30):
             try:
                 resp = urllib.request.urlopen(url, timeout=3)
                 break

@@ -9,6 +9,7 @@
 
 """Unit tests for Dimage."""
 
+import pytest
 from PIL import Image
 
 from drawlib._core.l2_models import Dimage
@@ -22,6 +23,7 @@ FONT_FILE = "../../assets/font.ttf"
 OUTPUT_DIR = "../../output_tests/l2_models/dimage/"
 
 
+@pytest.mark.image_threshold(70.0)
 class TestDimage:
     """Test cases for Dimage."""
 

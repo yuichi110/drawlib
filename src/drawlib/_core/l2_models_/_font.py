@@ -14,7 +14,7 @@ from enum import Enum
 
 from pydantic import BaseModel, ConfigDict, field_validator
 
-from drawlib._core.l1_core import get_script_relative_path
+from drawlib._core.l2_types_._path import FilePath
 
 
 class FontMetadata(BaseModel):
@@ -42,10 +42,15 @@ class FontFile(BaseModel):
 
     model_config = ConfigDict(validate_assignment=True)
 
-    file: str
+    file: FilePath
 
-    def __init__(self, file: str) -> None:
-        """Initialize the font file."""
+    def __init__(self, file: FilePath) -> None:
+        """Initialize the font file.
+
+        Args:
+            file (str): The path to the font file. If a relative path is provided,
+                it is resolved relative to the caller script directory.
+        """
         super().__init__(file=file)
 
     @field_validator("file")
@@ -65,7 +70,6 @@ class FontFile(BaseModel):
         Raises:
             FileNotFoundError: If the file does not exist at the specified path.
         """
-        path = get_script_relative_path(value)
-        if not os.path.exists(path):
-            raise FileNotFoundError(f'font file "{path}" does not exist.')
-        return path
+        if not os.path.exists(value):
+            raise FileNotFoundError(f'font file "{value}" does not exist.')
+        return value

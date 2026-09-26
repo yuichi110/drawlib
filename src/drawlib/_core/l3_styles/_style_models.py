@@ -179,4 +179,5 @@ class Style(BaseModel):
                 if k not in {"self", "other", "updates"} and v is not None
             }
         )
-        return self.model_copy(update=updates)
+        merged = {**self.__dict__, **updates}
+        return Style.model_validate(merged)

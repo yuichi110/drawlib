@@ -30,6 +30,7 @@ TYPES_TO_CHECK = [
     "TypeBool",
     "TypeCoordinate",
     "TypeCoordinates",
+    "TypeFilePath",
     "TypeBezier2",
     "TypeBezier3",
     "TypeColor",

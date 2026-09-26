@@ -9,6 +9,7 @@
 
 """Public types module for drawlib."""
 
+from drawlib._core.l2_types import FilePath
 from drawlib._core.l3_fonts import FontBase
 from drawlib._core.l3_styles import (
     ColorsBase,
@@ -20,6 +21,8 @@ from drawlib._preset_styles import (
 )
 
 __all__ = [
+    # Types
+    "FilePath",
     # Base Classes
     "FontBase",
     "ColorsBase",
