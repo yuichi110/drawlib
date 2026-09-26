@@ -90,9 +90,10 @@ from drawlib.images import get_dimage_from_code, image
 
 # Draw a sub-diagram dynamically
 sub_code = """
-from drawlib.canvas import config
+from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.shapes import circle
-config(width=50, height=50)
+setup(width=50, height=50)
 circle((25, 25), radius=20, style=styles.purple_flat, text="Pod")
 """
 sub_image = get_dimage_from_code(sub_code)
@@ -108,12 +109,13 @@ image((40, 30), width=25, image=sub_image)
 ### 5.1. Architectural Schema with External Server Icons
 
 ```drawlib fold-code 600px center caption:"Architecture Schema with External Logos & Containers"
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=140, height=60)
+setup(width=140, height=60)
 
 # Service container cards
 rectangle((35, 30), width=36, height=36, r=3, style=styles.blue_solid)
@@ -136,11 +138,12 @@ save()
 ### 5.2. Image Tinting & Opacity Blending
 
 ```drawlib fold-code 500px center caption:"Styling Images with Transparency and Tint"
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 # Solid border backdrop
 rectangle((50, 25), width=80, height=36, r=4, style=styles.purple_solid)

@@ -11,7 +11,7 @@
 
 from drawlib._core.l3_styles import Style
 from drawlib.canvas import clear, save
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.smartarts import MindMapNode
 
 OUTPUT_DIR = "../../output_tests/l7_smartarts/mindmap/"
@@ -39,7 +39,7 @@ class TestMindMapNode:
     def test_mindmap_vertical_bottom(self) -> None:
         """Verify vertical bottom expansion (organizational hierarchy)."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         root = MindMapNode(
             "CEO",
             shape="rectangle",
@@ -69,7 +69,7 @@ class TestMindMapNode:
     def test_mindmap_vertical_top(self) -> None:
         """Verify vertical top expansion."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         root = MindMapNode(
             "Root",
             shape="rectangle",
@@ -85,7 +85,7 @@ class TestMindMapNode:
     def test_mindmap_horizontal_right(self) -> None:
         """Verify horizontal right expansion."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         root = MindMapNode(
             "Topic",
             shape="oval",
@@ -101,7 +101,7 @@ class TestMindMapNode:
     def test_mindmap_horizontal_left(self) -> None:
         """Verify horizontal left expansion."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         root = MindMapNode(
             "Topic",
             shape="oval",
@@ -117,7 +117,7 @@ class TestMindMapNode:
     def test_mindmap_multidirectional_mindmap(self) -> None:
         """Verify central topic branching into multiple directions (mind map)."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         root = MindMapNode(
             "Main Concept",
             shape="oval",

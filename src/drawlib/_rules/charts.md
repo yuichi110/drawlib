@@ -206,7 +206,7 @@ from drawlib import canvas
 from drawlib.charts import BarChart
 
 canvas.initialize()
-canvas.config(width=100, height=80)
+canvas.setup(width=100, height=80)
 
 chart = BarChart(
     categories=["Q1", "Q2", "Q3", "Q4"],
@@ -233,7 +233,7 @@ from drawlib import canvas
 from drawlib.charts import BarChart
 
 canvas.initialize()
-canvas.config(width=105, height=75)
+canvas.setup(width=105, height=75)
 
 chart = BarChart(
     categories=["Frontend", "API Gateway", "Database", "Search Index"],
@@ -261,7 +261,7 @@ from drawlib import canvas
 from drawlib.charts import BarChart
 
 canvas.initialize()
-canvas.config(width=100, height=75)
+canvas.setup(width=100, height=75)
 
 chart = BarChart(
     categories=["L1 Cache", "RAM", "NVMe SSD", "Cross-Region API"],
@@ -322,7 +322,7 @@ from drawlib import canvas
 from drawlib.charts import LineChart
 
 canvas.initialize()
-canvas.config(width=100, height=80)
+canvas.setup(width=100, height=80)
 
 chart = LineChart(
     categories=["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
@@ -346,7 +346,7 @@ from drawlib import canvas
 from drawlib.charts import LineChart
 
 canvas.initialize()
-canvas.config(width=100, height=75)
+canvas.setup(width=100, height=75)
 
 chart = LineChart(
     categories=["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
@@ -413,7 +413,7 @@ from drawlib import canvas
 from drawlib.charts import AreaChart
 
 canvas.initialize()
-canvas.config(width=100, height=80)
+canvas.setup(width=100, height=80)
 
 chart = AreaChart(
     categories=["2021", "2022", "2023", "2024", "2025"],
@@ -437,7 +437,7 @@ from drawlib import canvas
 from drawlib.charts import AreaChart
 
 canvas.initialize()
-canvas.config(width=100, height=75)
+canvas.setup(width=100, height=75)
 
 chart = AreaChart(
     categories=["02:00", "06:00", "10:00", "14:00", "18:00", "22:00"],
@@ -506,7 +506,7 @@ from drawlib import canvas
 from drawlib.charts import PieChart
 
 canvas.initialize()
-canvas.config(width=95, height=75)
+canvas.setup(width=95, height=75)
 
 chart = PieChart(
     radius=26.0,
@@ -528,7 +528,7 @@ from drawlib import canvas
 from drawlib.charts import PieChart
 
 canvas.initialize()
-canvas.config(width=90, height=80)
+canvas.setup(width=90, height=80)
 
 chart = PieChart(
     radius=25.0,
@@ -595,7 +595,7 @@ from drawlib import canvas
 from drawlib.charts import RadarChart
 
 canvas.initialize()
-canvas.config(width=105, height=88)
+canvas.setup(width=105, height=88)
 
 chart = RadarChart(
     categories=["Scalability", "Reliability", "Security", "Maintainability", "Latency"],
@@ -620,7 +620,7 @@ from drawlib import canvas
 from drawlib.charts import RadarChart
 
 canvas.initialize()
-canvas.config(width=95, height=75)
+canvas.setup(width=95, height=75)
 
 chart = RadarChart(
     categories=["UX Design", "Performance", "Battery Life", "Camera Quality", "Ecosystem", "Price"],
@@ -682,7 +682,7 @@ from drawlib.charts import ScatterChart
 from drawlib.types import Style
 
 canvas.initialize()
-canvas.config(width=105, height=75)
+canvas.setup(width=105, height=75)
 
 chart = ScatterChart(
     width=85.0,
@@ -714,7 +714,7 @@ from drawlib import canvas
 from drawlib.charts import ScatterChart
 
 canvas.initialize()
-canvas.config(width=105, height=75)
+canvas.setup(width=105, height=75)
 
 chart = ScatterChart(
     width=85.0,
@@ -790,7 +790,7 @@ from drawlib import canvas
 from drawlib.charts import GanttChart
 
 canvas.initialize()
-canvas.config(width=110, height=85)
+canvas.setup(width=110, height=85)
 
 chart = GanttChart(
     columns=["Apr", "May", "Jun", "Jul", "Aug", "Sep"],
@@ -827,7 +827,7 @@ from drawlib import canvas
 from drawlib.charts import GanttChart
 
 canvas.initialize()
-canvas.config(width=100, height=70)
+canvas.setup(width=100, height=70)
 
 chart = GanttChart(
     columns=["Sprint 1", "Sprint 2", "Sprint 3", "Sprint 4"],
@@ -907,7 +907,7 @@ chart = BarChart(..., style=card_style)
 - **Container Placement**: Remember that `chart.draw(xy=(x, y))` anchors the **bottom-left corner** of the entire chart bounding box.
 - **Canvas Sizing**: If your chart width is `80.0` and height is `50.0`, ensure your canvas width and height provide at least 10–15 units of surrounding padding:
   ```python
-  canvas.config(width=100.0, height=75.0)
+  canvas.setup(width=100.0, height=75.0)
   chart.draw(xy=(10.0, 12.0))
   ```
 

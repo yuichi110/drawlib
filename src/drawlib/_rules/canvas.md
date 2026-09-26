@@ -13,7 +13,7 @@ All canvas lifecycle functions can be imported from `drawlib.canvas`:
 from drawlib.canvas import (
     canvas,       # Underlying singleton Canvas instance
     clear,        # Reset canvas state and options between images
-    config,       # Set canvas dimensions, grid, background color, DPI
+    setup,        # Set canvas dimensions, grid, background color, DPI
     get_dimage,   # Render canvas in-memory and return a Dimage object
     initialize,   # Re-initialize the drawing environment (calls clear())
     save,         # Save canvas drawing to an image file on disk
@@ -31,7 +31,7 @@ Drawlib maintains an internal canvas state. When drawing functions (`rectangle()
 
 1. Configure Canvas              2. Draw Elements               3. Output Result
 ┌───────────────────────┐       ┌──────────────────────┐       ┌────────────────────────┐
-│ config(width, height) │ ────> │ shapes, lines, text, │ ────> │ save() / show()        │
+│ setup(width, height) │ ────> │ shapes, lines, text, │ ────> │ save() / show()        │
 │ Set size, grid, bg    │       │ smartarts, diagrams  │       │ Export to file or view │
 └───────────────────────┘       └──────────────────────┘       └────────────────────────┘
             ▲                                                               │
@@ -72,20 +72,20 @@ Drawlib uses a mathematical Cartesian coordinate space:
 
 ### Canvas Sizing Heuristics
 Choose dimensions according to diagram scope:
-- **Small Badge / Icon / Pill**: `config(width=80, height=40)`
-- **Standard Component Diagram / Flowchart**: `config(width=140, height=70)`
-- **Widescreen 16:9 Architectural Schema**: `config(width=160, height=90)`
-- **High-Density Dashboard / Data Pipeline**: `config(width=200, height=100)`
+- **Small Badge / Icon / Pill**: `setup(width=80, height=40)`
+- **Standard Component Diagram / Flowchart**: `setup(width=140, height=70)`
+- **Widescreen 16:9 Architectural Schema**: `setup(width=160, height=90)`
+- **High-Density Dashboard / Data Pipeline**: `setup(width=200, height=100)`
 
 ---
 
 ## 3. Function Specifications
 
-### 3.1. `config()`
+### 3.1. `setup()`
 Configures canvas geometry, resolution, coordinate grids, and background appearance.
 
 ```python
-config(
+setup(
     width: int | None = None,
     height: int | None = None,
     dpi: int | None = None,
@@ -149,13 +149,14 @@ Renders the canvas in-memory into a Drawlib `Dimage` object without saving to di
 ### 4.1. Basic Architecture Diagram with Custom Dimensions
 
 ```drawlib fold-code 600px center caption:"Basic Microservices Architecture"
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
 # Configure a 140x60 canvas with a subtle light background
-config(width=140, height=60, background_color=(248, 249, 250))
+setup(width=140, height=60, background_color=(248, 249, 250))
 
 # Service nodes
 rectangle((30, 30), width=32, height=18, style=styles.blue_flat, text="Web Frontend", textstyle=styles.white_bold)
@@ -173,12 +174,13 @@ text((70, 52), "System Boundary", style=styles.bold)
 ### 4.2. Transparent Canvas for Embedded Badges
 
 ```drawlib fold-code 500px center caption:"Transparent Status Pill"
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import rectangle
+from drawlib.config import styles
 
 # 0.0 alpha produces a transparent PNG background
-config(width=80, height=30, background_alpha=0.0)
+setup(width=80, height=30, background_alpha=0.0)
 
 # Rounded status pill
 rectangle(
@@ -197,14 +199,12 @@ rectangle(
 When writing standalone Python scripts producing multiple assets:
 
 ```python
-from drawlib.canvas import clear, config, save
-from drawlib.preset_styles import get_styles
+from drawlib.canvas import clear, save, setup
+from drawlib.config import styles
 from drawlib.shapes import circle, rectangle
 
-styles = get_styles()
-
 # Image 1: Architecture
-config(width=120, height=60)
+setup(width=120, height=60)
 rectangle((60, 30), width=40, height=20, style=styles.blue_flat, text="Stage 1")
 save("output_stage1.png")
 
@@ -212,7 +212,7 @@ save("output_stage1.png")
 clear()
 
 # Image 2: Deployment
-config(width=100, height=100)
+setup(width=100, height=100)
 circle((50, 50), radius=30, style=styles.green_flat, text="Stage 2")
 save("output_stage2.png")
 ```

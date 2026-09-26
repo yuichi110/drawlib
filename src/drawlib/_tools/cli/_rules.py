@@ -36,6 +36,7 @@ TOPIC_DESCRIPTIONS: Final[dict[str, str]] = {
     "overview": "Canvas lifecycle, coordinate system, core imports, and workflow",
     "overview_min": "Concise overview (<10k chars) for context-constrained rule files",
     "canvas": "Canvas configuration, coordinate space, clear/save lifecycle, and background",
+    "config": "Configuration architecture, default/custom overlay mechanics, and project styles",
     "shapes": "Rectangles, circles, ellipses, wedges, and polygons",
     "lines": "Straight, curved, and chained lines with arrowheads",
     "text": "Text rendering, formatting, alignment, and fonts",
@@ -86,6 +87,9 @@ def cmd_rules_show(
 
     if selected_topic in {"overview-min", "overview_min", "overviewmin", "min"}:
         selected_topic = "overview_min"
+
+    if selected_topic in {"configuration", "configs"}:
+        selected_topic = "config"
 
     if selected_topic in {"theme", "themes"}:
         print(

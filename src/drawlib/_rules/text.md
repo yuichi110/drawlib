@@ -105,14 +105,15 @@ halign  │     (x, y) anchor point      │  halign
 
 ### 3.2. Alignment Code Example
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.fonts import Font
 from drawlib.shapes import circle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=60)
+setup(width=100, height=60)
 
 # Anchor point reference marker
 anchor = (50, 30)
@@ -155,10 +156,11 @@ Preset styles provide pre-configured typography, weight, and color:
   - `styles.gray`, `styles.gray_bold`: Gray typography.
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=40)
+setup(width=100, height=40)
 text((20, 30), "Standard Regular", style=styles.primary)
 text((20, 20), "Primary Bold", style=styles.bold)
 text((20, 10), "Muted Gray", style=styles.gray)
@@ -191,13 +193,13 @@ Drawlib can automatically render a padded background rectangle behind the text b
 - **`text_bg_line_style` (str)**: Border line pattern (`"solid"`, `"dashed"`, `"dotted"`, `"dashdot"`).
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontSerif
 from drawlib.text import text
 from drawlib.types import Style
 
-config(width=120, height=60)
+setup(width=120, height=60)
 
 # Custom typography with background framing
 badge_style = Style(
@@ -281,10 +283,11 @@ text((50, 25), "Corporate Brand Typography", style=custom_style)
   - With `text_halign="right"`, all lines align flush to the right boundary.
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=60)
+setup(width=100, height=60)
 
 summary = (
     "Database Cluster (Primary)\n"
@@ -304,10 +307,11 @@ save()
 The `angle` parameter rotates text counter-clockwise around the specified anchor coordinate `xy`.
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=60)
+setup(width=100, height=60)
 
 # Vertical axis label (-90 degrees or 90 degrees)
 text((10, 30), "Request Throughput (req/sec)", size=12, angle=90, style=styles.bold)
@@ -326,10 +330,11 @@ In Drawlib, you rarely need to call `text()` manually to place labels inside box
 All shape functions (`rectangle`, `circle`, `donuts`, `chevron`, `polygon`, etc.) accept direct text attributes:
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle, rectangle
+from drawlib.config import styles
 
-config(width=110, height=50)
+setup(width=110, height=50)
 
 # Text centered automatically inside shapes
 rectangle(

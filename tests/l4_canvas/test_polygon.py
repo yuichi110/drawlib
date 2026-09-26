@@ -13,7 +13,7 @@ import pytest
 
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import chevron, parallelogram, rhombus, star, trapezoid, triangle
 
 # ruff: noqa: F403, F405
@@ -27,7 +27,7 @@ class TestCanvasOriginalPolygon:
     def test_triangle(self) -> None:
         """Verify triangle drawing with base, height, alignments, styling, top vertex shifts, and angles."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_primary = styles.primary
         s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
@@ -66,7 +66,7 @@ class TestCanvasOriginalPolygon:
     def test_parallelogram(self) -> None:
         """Verify parallelogram drawing with dimensions, corner angles, alignments, and text."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_primary = styles.primary
         s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
         s_red_text = s_primary.patch(text_color=Colors.Red)
@@ -105,7 +105,7 @@ class TestCanvasOriginalPolygon:
     def test_trapezoid(self) -> None:
         """Verify trapezoid drawing with edge widths, topedge offsets, and angles."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_primary = styles.primary
         s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
@@ -144,7 +144,7 @@ class TestCanvasOriginalPolygon:
     def test_rhombus(self) -> None:
         """Verify rhombus drawing with width, height, alignments, and angles."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_primary = styles.primary
         s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
@@ -174,7 +174,7 @@ class TestCanvasOriginalPolygon:
     def test_chevron(self) -> None:
         """Verify chevron drawing with corner angles, mirroring, and validation."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_primary = styles.primary
         s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
@@ -228,14 +228,14 @@ class TestCanvasOriginalPolygon:
     def test_chevron_invalid_corner_angle(self) -> None:
         """Verify that invalid chevron corner angles raise ValueError."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         with pytest.raises(ValueError):
             chevron(xy=(50, 50), width=10, height=15, corner_angle=120, style=styles.primary)
 
     def test_star(self) -> None:
         """Verify star drawing with vertices, outer/inner radii, and alignments."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_primary = styles.primary
         s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 

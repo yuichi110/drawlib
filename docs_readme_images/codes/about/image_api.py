@@ -11,11 +11,11 @@ from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
-from drawlib.preset_styles import get_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import rectangle
 from drawlib.text import text
 
-ps = get_styles()
+ps = default_styles
 textstyle_bold = ps.primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
 shapetextstyle_bold = ps.primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
 config(width=100, height=60)

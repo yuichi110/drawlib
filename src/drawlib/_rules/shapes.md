@@ -287,12 +287,13 @@ def circle(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 
-config(width=100, height=50)
+setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import circle
 from drawlib.types import Style
+from drawlib.config import styles
 
 # 1. Solid status node with embedded label
 circle((30, 25), radius=14, style=styles.green_flat, text="OK", textstyle=styles.white_bold.patch(text_size=14))
@@ -355,12 +356,13 @@ def donuts(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 
-config(width=100, height=50)
+setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import donuts
 from drawlib.types import Style
+from drawlib.config import styles
 
 # 1. Thin status indicator ring
 donuts((30, 22), radius=15, width=4, style=styles.gray_flat, text="Base")
@@ -420,12 +422,13 @@ def ellipse(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 
-config(width=100, height=50)
+setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import ellipse
 from drawlib.types import Style
+from drawlib.config import styles
 
 # 1. Database schema entity
 ellipse((30, 22), width=36, height=20, style=styles.yellow_flat, text="users_tbl")
@@ -493,12 +496,13 @@ def wedge(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 
-config(width=100, height=50)
+setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import wedge
 from drawlib.types import Style
+from drawlib.config import styles
 
 # 1. Quarter gauge ring slice with thickness
 wedge((30, 22), radius=18, angle_start=0, angle_end=90, width=5, style=styles.blue_flat, text="Q1")
@@ -563,12 +567,13 @@ def fan(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 
-config(width=100, height=50)
+setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import fan
 from drawlib.types import Style
+from drawlib.config import styles
 
 # 1. Radar scanner coverage cone
 fan(
@@ -634,12 +639,13 @@ def arc(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 
-config(width=100, height=50)
+setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import arc
 from drawlib.types import Style
+from drawlib.config import styles
 
 # 1. Curved relationship bracket
 arc(
@@ -724,12 +730,13 @@ def rectangle(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors140
 from drawlib.shapes import rectangle
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 # 1. API gateway block with sharp corners
 rectangle((28, 25), width=35, height=20, style=styles.blue_flat, text="API Gateway", textstyle=styles.white_bold.patch(text_size=11))
@@ -794,12 +801,13 @@ def parallelogram(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors140
 from drawlib.shapes import parallelogram
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 # 1. Flowchart I/O block
 parallelogram((28, 25), width=35, height=20, corner_angle=70, style=styles.blue_flat, text="Read Input")
@@ -860,12 +868,13 @@ def rhombus(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors140
 from drawlib.shapes import rhombus
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 # 1. Flowchart decision condition diamond
 rhombus(
@@ -937,12 +946,13 @@ def trapezoid(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors140
 from drawlib.shapes import trapezoid
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 # 1. Neural network downsampling / pooling layer
 trapezoid(
@@ -1014,12 +1024,13 @@ def triangle(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors140
 from drawlib.shapes import triangle
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 # 1. Warning indicator badge
 triangle(
@@ -1078,12 +1089,13 @@ def regularpolygon(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 
-config(width=100, height=50)
+setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import regularpolygon
 from drawlib.types import Style
+from drawlib.config import styles
 
 # 1. Hexagon (Kubernetes Pod / Microservice)
 regularpolygon((30, 22), num_vertex=6, radius=18, style=styles.blue_flat, text="Pod A")
@@ -1137,12 +1149,13 @@ def polygon(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 
-config(width=100, height=50)
+setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import polygon
 from drawlib.types import Style
+from drawlib.config import styles
 
 # 1. Irregular network partition boundary
 polygon(
@@ -1204,12 +1217,13 @@ def star(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 
-config(width=100, height=50)
+setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import star
 from drawlib.types import Style
+from drawlib.config import styles
 
 # 1. 5-pointed award / milestone badge
 star((30, 22), num_vertex=5, radius_ext=18, radius_int=8, style=styles.yellow_flat, text="Star")
@@ -1278,12 +1292,13 @@ def shape(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import shape
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 # 1. Custom pentagonal shield badge
 shape(
@@ -1383,12 +1398,13 @@ def arrow(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 
-config(width=100, height=50)
+setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import arrow
 from drawlib.types import Style
+from drawlib.config import styles
 
 # 1. Straight transaction flow arrow with shaft text
 arrow((10, 25), (45, 25), tail_width=3, head_width=8, head_length=6, style=styles.blue_flat, text="POST /order")
@@ -1451,12 +1467,13 @@ def arrow_l(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 
-config(width=100, height=50)
+setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import arrow_l
 from drawlib.types import Style
+from drawlib.config import styles
 
 # 1. Orthogonal L-routing pipe
 arrow_l((25, 25), width=30, height=25, tail_width=3, head_width=8, head_length=6, style=styles.blue_flat)
@@ -1519,12 +1536,13 @@ def arrow_u(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 
-config(width=100, height=50)
+setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import arrow_u
 from drawlib.types import Style
+from drawlib.config import styles
 
 # 1. Feedback loop return arrow
 arrow_u((25, 25), width=25, height=30, tail_width=3, head_width=8, head_length=6, style=styles.green_flat)
@@ -1590,12 +1608,13 @@ def arrow_arc(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 
-config(width=100, height=50)
+setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import arrow_arc
 from drawlib.types import Style
+from drawlib.config import styles
 
 # 1. Circular process cycle arrow (90 to 0 degrees)
 arrow_arc((30, 25), width=30, height=30, angle_start=90, angle_end=0, tail_width=3, head_width=8, style=styles.blue_flat)
@@ -1652,12 +1671,13 @@ def arrow_polyline(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 
-config(width=100, height=50)
+setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import arrow_polyline
 from drawlib.types import Style
+from drawlib.config import styles
 
 # 1. S-curved routing channel with rounded corners
 arrow_polyline(
@@ -1724,11 +1744,12 @@ def chevron(
 
 #### Code Examples
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import chevron
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=50)
+setup(width=100, height=50)
 
 # 1. CI/CD pipeline stage 1
 chevron((35, 25), width=30, height=22, corner_angle=60, style=styles.blue_flat, text="Build")
@@ -1747,12 +1768,13 @@ save()
 This pattern illustrates a secure multi-tier virtual private cloud containing public and private subnets, an internet gateway, compute clusters, and a managed database.
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import arrow, circle, ellipse, rectangle
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=150, height=90)
+setup(width=150, height=90)
 
 # 1. AWS VPC Boundary Enclosure (Centered at (75, 45))
 rectangle(
@@ -1904,12 +1926,13 @@ save()
 Demonstrates message publishers, Kafka message topic queues, consumer groups, and dead-letter queues (DLQ).
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import arrow, donuts, parallelogram, rectangle
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=140, height=65)
+setup(width=140, height=65)
 
 # Producer
 rectangle(
@@ -1990,12 +2013,13 @@ save()
 Demonstrates convolution, pooling, batch normalization, and skip residual connections in machine learning architectures.
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import arrow, arrow_polyline, circle, rectangle, trapezoid
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=150, height=55)
+setup(width=150, height=55)
 
 # Input Tensor
 rectangle(
@@ -2095,12 +2119,13 @@ save()
 Constructs a standard UML state chart featuring initial pseudo-states, rounded composite states, guard conditions, and terminal states.
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import arrow, circle, donuts, rectangle, rhombus
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=150, height=60)
+setup(width=150, height=60)
 
 # Initial State
 circle((15, 30), radius=5, style=styles.primary.patch(shape_fill_color=Colors.Black, shape_line_width=0))
@@ -2186,12 +2211,13 @@ save()
 Demonstrates how human designers and AI coding agents can construct crisp application user interfaces, modals, and KPI telemetry cards using Drawlib primitives.
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import arc, circle, rectangle
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=140, height=75)
+setup(width=140, height=75)
 
 # Outer Dashboard Frame
 rectangle(

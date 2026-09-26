@@ -17,7 +17,7 @@ from drawlib._preset_styles import (
     EssentialsStyles,
     MonochromeStyles,
     PresetStyles,
-    get_default_styles,
+    default_styles,
 )
 from drawlib.types import BasePresetStyles as TypesBasePresetStyles
 from drawlib.types import PresetStyles as TypesPresetStyles
@@ -28,7 +28,7 @@ class TestPresetStyles:
 
     def test_default_styles_instantiation(self) -> None:
         """Verifies DefaultStyles provides valid styles and properties."""
-        preset = get_default_styles()
+        preset = default_styles
 
         assert isinstance(preset, BaseModel)
         assert isinstance(preset, BasePresetStyles)
@@ -45,7 +45,7 @@ class TestPresetStyles:
 
     def test_iteration_and_dict_access(self) -> None:
         """Verifies iteration, dictionary access, and styles helper on preset style models."""
-        preset = get_default_styles()
+        preset = default_styles
 
         # __iter__ test
         items = dict(preset)
@@ -75,7 +75,7 @@ class TestPresetStyles:
             subnet: Style
             custom_note: str = "production"
 
-        base = get_default_styles()
+        base = default_styles
         vpc_style = Style(line_color=(0, 100, 200, 1.0), line_width=2.0)
         subnet_style = Style(line_color=(50, 150, 250, 1.0), line_width=1.0)
 

@@ -43,16 +43,18 @@ def test_cli_export_list(tmp_path: Path) -> None:
         """# Sample Document
 
 ```drawlib 400px center caption:"First Image"
-from drawlib.canvas import config
+from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.shapes import circle
-config(width=100, height=100)
+setup(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)
 ```
 
 ```drawlib 500px file:custom.png
-from drawlib.canvas import config
+from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.shapes import rectangle
-config(width=100, height=100)
+setup(width=100, height=100)
 rectangle((50, 50), width=40, height=30, style=styles.primary)
 ```
 """,
@@ -73,9 +75,10 @@ def test_cli_export_by_index_with_output(tmp_path: Path) -> None:
         """# Sample Document
 
 ```drawlib
-from drawlib.canvas import config
+from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.shapes import circle
-config(width=100, height=100)
+setup(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)
 ```
 """,
@@ -107,10 +110,11 @@ os.environ["DRAWLIB_TEST_CONFIG_FLAG"] = "applied"
 
 ```drawlib
 import os
-from drawlib.canvas import config
+from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.shapes import circle
 assert os.environ.get("DRAWLIB_TEST_CONFIG_FLAG") == "applied"
-config(width=100, height=100)
+setup(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)
 ```
 """,
@@ -133,9 +137,10 @@ def test_cli_export_with_grid(tmp_path: Path) -> None:
         """# Sample Document
 
 ```drawlib
-from drawlib.canvas import config
+from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.shapes import circle
-config(width=100, height=100)
+setup(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)
 ```
 """,
@@ -153,12 +158,12 @@ def test_cli_export_python_script(tmp_path: Path) -> None:
     """Test export command directly executing a Python script."""
     script_file = tmp_path / "draw_standalone.py"
     script_file.write_text(
-        """from drawlib.canvas import config
-from drawlib.preset_styles import get_default_styles
+        """from drawlib.canvas import setup
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle
 
-styles = get_default_styles()
-config(width=100, height=100)
+styles = default_styles
+setup(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)
 """,
         encoding="utf-8",
@@ -177,9 +182,10 @@ def test_cli_show_with_output_option(tmp_path: Path) -> None:
         """# Sample Document
 
 ```drawlib
-from drawlib.canvas import config
+from drawlib.canvas import setup
+from drawlib.config import styles
 from drawlib.shapes import circle
-config(width=100, height=100)
+setup(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)
 ```
 """,

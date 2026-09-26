@@ -17,10 +17,9 @@ from drawlib._preset_styles._models import (
     PresetStyles,
 )
 from drawlib._preset_styles._officials import (
-    get_default_styles,
-    get_essentials_styles,
-    get_monochrome_styles,
-    get_styles,
+    default_styles,
+    essentials_styles,
+    monochrome_styles,
 )
 
 __all__ = [
@@ -29,8 +28,7 @@ __all__ = [
     "EssentialsStyles",
     "MonochromeStyles",
     "PresetStyles",
-    "get_default_styles",
-    "get_essentials_styles",
-    "get_monochrome_styles",
-    "get_styles",
+    "default_styles",
+    "essentials_styles",
+    "monochrome_styles",
 ]

@@ -39,10 +39,10 @@ def test_cli_build_image_single_file(tmp_path) -> None:
     script = tmp_path / "test_img.py"
     script.write_text(
         """from drawlib.canvas import config, save
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle
 
-styles = get_default_styles()
+styles = default_styles
 config(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)
 save()
@@ -61,10 +61,10 @@ def test_cli_build_image_with_format(tmp_path) -> None:
     script = tmp_path / "test_webp.py"
     script.write_text(
         """from drawlib.canvas import config, save
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle
 
-styles = get_default_styles()
+styles = default_styles
 config(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)
 save()
@@ -84,10 +84,10 @@ def test_cli_build_image_directory_package(tmp_path) -> None:
     (pkg_dir / "__init__.py").write_text("", encoding="utf-8")
     (pkg_dir / "img1.py").write_text(
         """from drawlib.canvas import config, save
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle
 
-styles = get_default_styles()
+styles = default_styles
 config(width=100, height=100)
 circle((25, 25), radius=10, style=styles.primary)
 save()
@@ -96,10 +96,10 @@ save()
     )
     (pkg_dir / "img2.py").write_text(
         """from drawlib.canvas import config, save
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle
 
-styles = get_default_styles()
+styles = default_styles
 config(width=100, height=100)
 circle((75, 75), radius=10, style=styles.primary)
 save()
@@ -119,10 +119,10 @@ def test_cli_build_image_directory_standalone(tmp_path) -> None:
     dir_path.mkdir()
     (dir_path / "stand1.py").write_text(
         """from drawlib.canvas import config, save
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle
 
-styles = get_default_styles()
+styles = default_styles
 config(width=100, height=100)
 circle((50, 50), radius=15, style=styles.primary)
 save()
@@ -144,10 +144,10 @@ def test_cli_build_image_with_output(tmp_path) -> None:
 
     (scripts_dir / "img_out.py").write_text(
         """from drawlib.canvas import config, save
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle
 
-styles = get_default_styles()
+styles = default_styles
 config(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)
 save()
@@ -175,10 +175,10 @@ config(width=200, height=100)
 
     (scripts_dir / "img_cfg.py").write_text(
         """from drawlib.canvas import save
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle
 
-styles = get_default_styles()
+styles = default_styles
 circle((100, 50), radius=20, style=styles.primary)
 save()
 """,
@@ -198,10 +198,10 @@ def test_cli_build_image_single_file_with_grid(tmp_path) -> None:
     script = tmp_path / "test_batch_grid.py"
     script.write_text(
         """from drawlib.canvas import config, save
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle
 
-styles = get_default_styles()
+styles = default_styles
 config(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)
 save()
@@ -221,10 +221,10 @@ def test_cli_build_image_single_file_with_grid_short(tmp_path) -> None:
     script = tmp_path / "test_batch_g.py"
     script.write_text(
         """from drawlib.canvas import config, save
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle
 
-styles = get_default_styles()
+styles = default_styles
 config(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)
 save()
@@ -246,10 +246,10 @@ def test_cli_build_image_directory_with_grid(tmp_path) -> None:
     (pkg_dir / "__init__.py").write_text("", encoding="utf-8")
     (pkg_dir / "img1.py").write_text(
         """from drawlib.canvas import config, save
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle
 
-styles = get_default_styles()
+styles = default_styles
 config(width=100, height=100)
 circle((25, 25), radius=10, style=styles.primary)
 save()

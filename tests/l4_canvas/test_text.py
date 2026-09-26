@@ -14,7 +14,7 @@ import os
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
 from drawlib.fonts import FontFile
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.text import text, text_vertical
 
 # ruff: noqa: F403, F405
@@ -30,7 +30,7 @@ class TestCanvasText:
     def test_text(self) -> None:
         """Verify horizontal text rendering, size overrides, background blocks, and custom fonts."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_def = styles.primary
 
         # Simple text
@@ -70,7 +70,7 @@ class TestCanvasText:
     def test_text_vertical(self) -> None:
         """Verify vertical text layout rendering with custom fonts, sizes, and borders."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_def = styles.primary
 
         # Standard vertical text

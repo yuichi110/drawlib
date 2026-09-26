@@ -1,9 +1,9 @@
 from drawlib.canvas import config, save
 from drawlib.images import image
-from drawlib.preset_styles import get_styles
+from drawlib.preset_styles import default_styles
 
 config(width=100, height=50, grid=True)
-ps = get_styles()
+ps = default_styles
 
 image(xy=(25, 25), width=20, image="python.png")
 image(

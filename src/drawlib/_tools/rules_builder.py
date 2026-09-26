@@ -27,6 +27,7 @@ AVAILABLE_TOPICS: Final[tuple[str, ...]] = (
     "overview",
     "overview_min",
     "canvas",
+    "config",
     "shapes",
     "lines",
     "text",
@@ -48,6 +49,31 @@ AVAILABLE_TOPICS: Final[tuple[str, ...]] = (
 INSTRUCTION_MARKER: Final[str] = "Instructions for AI Agents & Developers"
 
 
+_TOPIC_ALIASES: Final[dict[str, str]] = {
+    "doc_build": "docs_build",
+    "docs": "docs_build",
+    "doc": "docs_build",
+    "theme": "preset_styles",
+    "themes": "preset_styles",
+    "overview-min": "overview_min",
+    "overview_min": "overview_min",
+    "overviewmin": "overview_min",
+    "min": "overview_min",
+    "color": "colors",
+    "colour": "colors",
+    "colours": "colors",
+    "font": "fonts",
+    "image": "images",
+    "img": "images",
+    "type": "types",
+    "style": "types",
+    "styles": "types",
+    "tool": "tools",
+    "configuration": "config",
+    "configs": "config",
+}
+
+
 def _normalize_topic(topic: str) -> str:
     """Normalize topic name and handle historical aliases.
 
@@ -61,22 +87,7 @@ def _normalize_topic(topic: str) -> str:
         ValueError: If topic name is unknown.
     """
     clean = topic.strip().lower()
-    if clean in {"doc_build", "docs", "doc"}:
-        clean = "docs_build"
-    elif clean in {"theme", "themes"}:
-        clean = "preset_styles"
-    elif clean in {"overview-min", "overview_min", "overviewmin", "min"}:
-        clean = "overview_min"
-    elif clean in {"color", "colour", "colours"}:
-        clean = "colors"
-    elif clean in {"font"}:
-        clean = "fonts"
-    elif clean in {"image", "img"}:
-        clean = "images"
-    elif clean in {"type", "style", "styles"}:
-        clean = "types"
-    elif clean in {"tool"}:
-        clean = "tools"
+    clean = _TOPIC_ALIASES.get(clean, clean)
 
     if clean not in AVAILABLE_TOPICS:
         raise ValueError(f"Unknown rule topic '{topic}'. Available topics: {', '.join(AVAILABLE_TOPICS)}")

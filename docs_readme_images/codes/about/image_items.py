@@ -13,11 +13,11 @@ from drawlib.fonts import FontJapanese, FontSansSerif, FontSerif
 from drawlib.icons import phosphor
 from drawlib.images import Dimage, image
 from drawlib.lines import line, line_curved, lines, lines_curved
-from drawlib.preset_styles import get_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import arrow, circle, ellipse, rectangle, star
 from drawlib.text import text
 
-ps = get_styles()
+ps = default_styles
 x1 = 10
 title_style = ps.primary.patch(text_size=24)
 icon_thin = ps.primary.patch(icon_style="thin")

@@ -144,13 +144,14 @@ glass_blue = with_alpha(Colors.Blue, 0.2)  # (0, 0, 255, 0.2)
 ### 5.1. Multi-Tier Architecture with Curated Palettes
 
 ```drawlib fold-code 600px center caption:"Color Palette Applied to Multi-Tier Architecture"
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import ColorsDefault, ColorsEssentials, from_hex, with_alpha
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=140, height=60)
+setup(width=140, height=60)
 
 # Define custom semantic styles
 cloud_style = styles.primary.patch(
@@ -186,13 +187,14 @@ save()
 ### 5.2. Monochrome Print-Ready Diagram
 
 ```drawlib fold-code 600px center caption:"Monochrome Architectural Print Layout"
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import ColorsMonochrome
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=120, height=50)
+setup(width=120, height=50)
 
 box_style = styles.primary.patch(
     shape_fill_color=ColorsMonochrome.Silver,

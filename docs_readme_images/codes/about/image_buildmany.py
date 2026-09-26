@@ -12,11 +12,11 @@ from drawlib.colors import Colors, ColorsThemeEssentials
 from drawlib.fonts import FontRoboto
 from drawlib.icons import phosphor
 from drawlib.lines import line
-from drawlib.preset_styles import get_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import arrow, rectangle
 from drawlib.text import text
 
-ps = get_styles()
+ps = default_styles
 config(height=60)
 
 rect_width = 20

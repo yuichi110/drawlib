@@ -11,7 +11,7 @@
 
 from drawlib._core.l3_styles import Style
 from drawlib._smartarts._boxtree import BoxTreeNode
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 
 
 class TestBoxTreeNode:
@@ -68,7 +68,7 @@ class TestBoxTreeNode:
 
     def test_boxtreenode_draw_stub(self) -> None:
         """Verify calling the draw stub executes without crash/exceptions."""
-        styles = get_default_styles()
+        styles = default_styles
         node = BoxTreeNode(text="Root")
         # Call draw with different parameters
         node.draw(xy=(10, 10), styles=styles, orientation="horizontal", align="center")

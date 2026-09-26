@@ -1,10 +1,10 @@
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
-from drawlib.preset_styles import get_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import rectangle
 
 config(width=100, height=50, grid=True)
-ps = get_styles()
+ps = default_styles
 
 rectangle(
     (25, 25),

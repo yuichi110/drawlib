@@ -22,8 +22,8 @@ In complex technical diagrams and architectural illustrations, manually specifyi
 ```text
 ┌───────────────────────────────────────────────────────────────────────────────────┐
 │                               Public Facade API                                   │
-│            from drawlib.preset_styles import get_style, get_styles, ...           │
-│            from drawlib.colors import Colors, ColorsDefault, ColorsEssentials     │
+│       from drawlib.preset_styles import default_styles, essentials_styles, ...     │
+│       from drawlib.colors import Colors, ColorsDefault, ColorsEssentials          │
 └────────────────────────────────────────┬──────────────────────────────────────────┘
                                          │
                     ┌────────────────────┴────────────────────┐
@@ -60,18 +60,17 @@ In complex technical diagrams and architectural illustrations, manually specifyi
 All preset styling symbols and color utilities are accessed through clean, public module namespaces:
 
 ```python
-# Preset styles functions and model classes
+# Preset styles constants and model classes
 from drawlib.preset_styles import (
     BasePresetStyles,
     DefaultStyles,
     EssentialsStyles,
     MonochromeStyles,
     PresetStyles,
-    get_default_styles,
-    get_essentials_styles,
-    get_monochrome_styles,
+    default_styles,
+    essentials_styles,
     get_style,
-    get_styles,
+    monochrome_styles,
 )
 
 # Color collections and utilities
@@ -94,11 +93,10 @@ from drawlib.types import Style
 
 | Symbol | Category | Description |
 | :--- | :--- | :--- |
+| `default_styles` | Immutable Catalog | Singleton `DefaultStyles` instance providing base 5-color preset styles. |
+| `essentials_styles` | Immutable Catalog | Singleton `EssentialsStyles` instance providing 25-color preset styles. |
+| `monochrome_styles` | Immutable Catalog | Singleton `MonochromeStyles` instance providing grayscale preset styles. |
 | `get_style(style=None)` | Resolver Function | Resolves a style string shortcut, `Style` object, or `None` into an active `Style`. |
-| `get_styles(name="default")` | Catalog Factory | Returns the `BasePresetStyles` catalog for `"default"`, `"essentials"`, or `"monochrome"`. |
-| `get_default_styles()` | Catalog Factory | Directly constructs and returns a `DefaultStyles` instance. |
-| `get_essentials_styles()` | Catalog Factory | Directly constructs and returns an `EssentialsStyles` instance. |
-| `get_monochrome_styles()` | Catalog Factory | Directly constructs and returns a `MonochromeStyles` instance. |
 | `BasePresetStyles` | Base Model | Pydantic base model providing dict-like access, iteration, and field validation. |
 | `PresetStyles` | Alias | Backward-compatible alias for `BasePresetStyles`. |
 | `DefaultStyles` | Model Class | Strongly typed model containing default style definitions. |
@@ -141,9 +139,9 @@ The standard catalog optimized for technical documentation, flowcharts, and soft
   - `dashed`: Transparent fill, blue dashed border (width 1.5), regular icons.
 
 ```python
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 
-default_catalog = get_default_styles()
+default_catalog = default_styles
 
 print("Default Primary Fill:", default_catalog.primary.fill_color)
 print("Default Primary Line:", default_catalog.primary.line_color)
@@ -164,13 +162,13 @@ Specially designed for printed engineering manuals, formal academic papers, pate
   - `dashed`: Transparent fill, black dashed border (width 1.5).
 
 ```drawlib show-code
-from drawlib.canvas import config, save
-from drawlib.preset_styles import get_monochrome_styles
+from drawlib.canvas import save, setup
+from drawlib.preset_styles import monochrome_styles
 from drawlib.shapes import rectangle
 from drawlib.text import text
 
-config(width=120, height=40)
-mono = get_monochrome_styles()
+setup(width=120, height=40)
+mono = monochrome_styles
 
 # White box with black outline
 rectangle((30, 20), width=35, height=20, style=mono.primary)
@@ -197,10 +195,10 @@ An expressive, modern palette featuring 25 rich, coordinated colors. It is the r
   - `dashed`: Transparent fill, LightBlue dashed border (width 1.5).
 
 ```python
-from drawlib.preset_styles import get_styles
+from drawlib.preset_styles import essentials_styles
 
-# Retrieve catalog dynamically
-essentials = get_styles("essentials")
+# Access singleton directly
+essentials = essentials_styles
 
 print("Essentials Primary Text Color:", essentials.primary.text_color)
 print("Essentials Background:", essentials.background_color)
@@ -353,14 +351,14 @@ Every preset style shortcut string follows a deterministic, composable three-par
 ### 5.3. Code Demonstration of Shorthand Variations
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import line
-from drawlib.preset_styles import get_styles
+from drawlib.preset_styles import essentials_styles
 from drawlib.shapes import rectangle
 from drawlib.text import text
 
-config(width=140, height=70)
-styles = get_styles("essentials")
+setup(width=140, height=70)
+styles = essentials_styles
 
 # Column positions
 x_coords = [20, 50, 80, 110]
@@ -464,7 +462,7 @@ In enterprise projects and client presentations, you often need custom color pal
 You can construct a one-off `PresetStyles` instance directly with custom `Style` objects:
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors140, from_hex
 from drawlib.preset_styles import PresetStyles
 from drawlib.shapes import circle, rectangle
@@ -485,7 +483,7 @@ brand_preset = PresetStyles(
     dashed=Style(shape_fill_color=(0, 0, 0, 0.0), shape_line_color=CORP_NAVY, shape_line_width=2.0, shape_line_style="dashed"),
 )
 
-config(width=100, height=40, background_color=brand_preset.background_color)
+setup(width=100, height=40, background_color=brand_preset.background_color)
 
 rectangle((30, 20), width=30, height=20, style=brand_preset.primary)
 circle((80, 20), radius=10, style=brand_preset.bold)
@@ -605,15 +603,16 @@ To understand the power of preset styling, consider realistic diagrams combining
 The following diagram demonstrates how color and style variations distinguish user ingress, routing, processing, caching, and persistence:
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors, ColorsEssentials
 from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
+from drawlib.preset_styles import essentials_styles
 
-config(width=140, height=90)
-styles = get_styles("essentials")
+setup(width=140, height=90)
+styles = essentials_styles
 
 # Section Headers
 text((70, 84), "Enterprise E-Commerce Microservices", style=styles.bold, size=18)
@@ -671,13 +670,14 @@ Preset styles make state transitions intuitive by mapping distinct semantic mean
 - Red = Failed / Terminated Error State
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
+from drawlib.preset_styles import essentials_styles
 
-config(width=130, height=50)
-styles = get_styles("essentials")
+setup(width=130, height=50)
+styles = essentials_styles
 
 # Start State
 circle((15, 25), radius=5, style=styles.blue_flat)
@@ -725,14 +725,15 @@ Multi-element architectures frequently utilize the **Medallion Pattern** (Raw In
 - **Teal / Navy (`teal_solid`, `navy_bold`)**: Query engines, dashboards, and automated ML pipelines.
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
+from drawlib.preset_styles import essentials_styles
 
-config(width=150, height=85)
-styles = get_styles("essentials")
+setup(width=150, height=85)
+styles = essentials_styles
 
 # Architecture Title & Subtitle
 text((75, 78), "Enterprise Medallion Data Lakehouse Architecture", style=styles.bold, size=18)
@@ -854,21 +855,21 @@ s = Style(fill_color=ColorsDefault.Red)
 s = get_style("red_flat")
 ```
 
-### Pitfall 2: Mutating Shared Style References Without Copying
+### Pitfall 2: Attempting Direct Mutation on Frozen Catalogs
 
-If you retrieve a style from a catalog and modify its attributes directly without copying, you may unintentionally mutate subsequent drawing operations that rely on that catalog:
+Official preset style singletons (`default_styles`, `essentials_styles`, `monochrome_styles`) are immutable and frozen. Attempting to assign new attributes directly will raise a validation error:
 
 ```python
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 
-catalog = get_default_styles()
+catalog = default_styles
 
-# RISKY: Modifying catalog directly
-# catalog.primary.line_width = 10.0
+# INVALID: Raises error because singletons are frozen
+# catalog.primary = ...
 
-# SAFE: Always clone with copy() or get_style()
-custom_style = catalog.primary.copy()
-custom_style.line_width = 10.0
+# SAFE: Derive modified catalog or styles via patch() or copy()
+custom_catalog = catalog.patch(primary=catalog.bold)
+custom_style = catalog.primary.patch(line_width=10.0)
 ```
 
 ### Pitfall 3: Applying `flat` to Line Elements
@@ -925,16 +926,16 @@ Popular Essentials Colors:
 
 ```drawlib show-code
 # Standard imports
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors, ColorsEssentials, from_hex, with_alpha
-from drawlib.preset_styles import BasePresetStyles, get_styles
+from drawlib.preset_styles import BasePresetStyles, essentials_styles, monochrome_styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
-styles = get_styles("essentials")
+styles = essentials_styles
 
 # Initialize canvas with default or custom catalog
-config(width=100, height=60)
+setup(width=100, height=60)
 
 # 1. Preset style usage
 rectangle((25, 36), width=20, height=20, style=styles.blue_flat, text="Flat", textstyle=styles.white_bold)
@@ -946,7 +947,7 @@ accent_style = styles["teal_flat"]
 circle((85, 48), radius=5, style=accent_style)
 
 # 3. Dedicated monochrome catalog retrieval
-monochrome = get_styles("monochrome")
+monochrome = monochrome_styles
 rectangle((50, 12), width=80, height=12, style=monochrome.flat, text="Monochrome Catalog Banner", textstyle=monochrome.white_bold)
 
 save()

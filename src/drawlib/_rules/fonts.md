@@ -96,6 +96,7 @@ Specialized typography for international technical documentation:
 To render text using an external TrueType (`.ttf`) or OpenType (`.otf`) font file:
 
 ```python
+from drawlib.config import styles
 from drawlib.fonts import FontFile
 from drawlib.text import text
 from drawlib.types import Style
@@ -126,13 +127,14 @@ When designing technical diagrams, maintain a clear typographic scale:
 ### 5.1. Applying Roboto and Monospace Fonts in Architecture Schemas
 
 ```drawlib fold-code 600px center caption:"Typographic Scale with Roboto and Monospace"
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.fonts import FontMonoSpace, FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=140, height=65)
+setup(width=140, height=65)
 
 # Header title
 text((70, 56), "API Gateway Routing Schema", style=styles.bold.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20))
@@ -164,12 +166,13 @@ save()
 ### 5.2. Multilingual International Architecture Diagram
 
 ```drawlib fold-code 600px center caption:"Multilingual Diagram with Universal CJK Font"
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.fonts import Font
 from drawlib.lines import line
 from drawlib.shapes import rectangle
+from drawlib.config import styles
 
-config(width=120, height=50)
+setup(width=120, height=50)
 
 cjk_bold = styles.white_bold.patch(text_font=Font.SANSSERIF_BOLD, text_size=13)
 

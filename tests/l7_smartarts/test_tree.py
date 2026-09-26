@@ -9,7 +9,7 @@
 
 """Unit and integration tests for TreeNode smart art hierarchical rendering."""
 
-from drawlib._preset_styles import get_default_styles
+from drawlib._preset_styles import default_styles
 from drawlib.canvas import clear, save
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode
@@ -23,7 +23,7 @@ class TestTree:
     def test_tree_default(self) -> None:
         """Verify standard TreeNode hierarchy rendering with custom styled child nodes."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         tn = TreeNode
         t = tn(
             "Root",
@@ -62,7 +62,7 @@ class TestTree:
     def test_tree_with_icon_item_decorators(self) -> None:
         """Verify TreeNode hierarchy rendering including registered icon drawing decorators."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         tn = TreeNode
         tn.register_drawing_item(
             name="py_file",

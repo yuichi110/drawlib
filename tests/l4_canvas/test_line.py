@@ -15,7 +15,7 @@ from drawlib._core.l4_canvas._line import LineArcHelper
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
 from drawlib.lines import line, line_arc, line_bezier1, line_bezier2, line_curved, lines, lines_bezier, lines_curved
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle, ellipse
 from drawlib.types import Style
 
@@ -30,7 +30,7 @@ class TestCanvasLine:
     def test_line(self) -> None:
         """Verify standard straight line drawing and custom style overrides."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_def = styles.primary
 
         # Simple straight line
@@ -62,7 +62,7 @@ class TestCanvasLine:
     def test_line_curved(self) -> None:
         """Verify curved line drawing with bend and arrowheads."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_def = styles.primary
 
         line_curved(
@@ -103,7 +103,7 @@ class TestCanvasLine:
     def test_line_arc(self) -> None:
         """Verify elliptical and circular arc drawing with angles and arrowheads."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_def = styles.primary
 
         # On Circle
@@ -133,7 +133,7 @@ class TestCanvasLine:
     def test_ellipse_calculations(self) -> None:
         """Verify underlying ellipse arc mathematical approximations."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
 
         ellipse((50, 50), 30, 30, style=styles.dashed)
         a, b, c, d = LineArcHelper.bezier_ellipse_arc_approximation((50, 50), 30, 30, 45, -45)
@@ -150,21 +150,21 @@ class TestCanvasLine:
     def test_lines(self) -> None:
         """Verify drawing multiple consecutive connected straight lines."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         lines(xys=[(20, 20), (40, 80), (70, 30)], style=styles.primary)
         save(f"{OUTPUT_DIR}test_lines.png")
 
     def test_lines_curved(self) -> None:
         """Verify drawing curved line connections along consecutive points."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         lines_curved(xys=[(20, 20), (40, 80), (70, 30), (90, 50)], r=5, style=styles.primary)
         save(f"{OUTPUT_DIR}test_lines_curved.png")
 
     def test_lines_bezier(self) -> None:
         """Verify drawing multi-point Bezier structures via lines_bezier."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         points = [
             ((10, 20), (20, 20)),
             (30, 20),

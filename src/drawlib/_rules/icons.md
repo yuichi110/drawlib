@@ -121,11 +121,12 @@ Phosphor provides 5 visual weights for each icon glyph, controlled via `Style(ic
 ### 3.3. Code Demonstration of Phosphor Weights
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=120, height=45)
+setup(width=120, height=45)
 
 weights = [
     ("thin", styles.primary.patch(icon_style="thin")),
@@ -160,11 +161,12 @@ Phosphor seamlessly maps Drawlib preset styles into appropriate icon weights and
 - `bold`: Triggers `icon_style="bold"`.
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=40)
+setup(width=100, height=40)
 
 # Colored outline icons
 phosphor.shield_check((20, 22), width=10, style=styles.green_bold)
@@ -212,13 +214,14 @@ font_icon(
 FontAwesome Free organizes glyphs across distinct font files: `brands.ttf`, `solid.ttf`, and `regular.ttf`.
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import from_hex
+from drawlib.config import styles
 from drawlib.icons import font_icon
 from drawlib.text import text
 from drawlib.types import Style
 
-config(width=130, height=45)
+setup(width=130, height=45)
 
 # FontAwesome Free font file paths
 FILE_BRANDS = "fonts/fontawesome-free/brands.ttf"
@@ -247,11 +250,11 @@ font_icon((70, 24), width=11, code=CODE_PYTHON, file=FILE_BRANDS, style=Style(te
 text((70, 10), "Python", size=10, style=Style(text_color=COLOR_PYTHON))
 
 # Render Solid Infrastructure Icons
-font_icon((95, 24), width=11, code=CODE_SERVER, file=FILE_SOLID, style="charcoal_bold")
-text((95, 10), "Server", size=10, style="charcoal")
+font_icon((95, 24), width=11, code=CODE_SERVER, file=FILE_SOLID, style=styles.charcoal_bold)
+text((95, 10), "Server", size=10, style=styles.charcoal)
 
-font_icon((118, 24), width=11, code=CODE_TERMINAL, file=FILE_SOLID, style="green_bold")
-text((118, 10), "CLI", size=10, style="green")
+font_icon((118, 24), width=11, code=CODE_TERMINAL, file=FILE_SOLID, style=styles.green_bold)
+text((118, 10), "CLI", size=10, style=styles.green)
 
 save()
 ```
@@ -277,11 +280,12 @@ gcp.<service_name>(
 ```
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import gcp
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=120, height=45)
+setup(width=120, height=45)
 
 # Render core compute, storage, container, and database services
 gcp.compute_engine((20, 25), width=11, style=styles.primary)
@@ -355,14 +359,15 @@ text_halign  │       (x, y) Center Anchor     │ text_halign
 ```
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=45)
+setup(width=100, height=45)
 
 # Center-aligned (default)
 phosphor.hard_drives((25, 24), width=12, style=styles.primary)
@@ -383,11 +388,12 @@ save()
 The `angle` argument rotates the icon counter-clockwise around its anchor point `xy`:
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=120, height=40)
+setup(width=120, height=40)
 
 angles = [0, 45, 90, 180, 270]
 start_x = 16
@@ -419,13 +425,13 @@ Vector icons and raster GCP icons handle color customization differently:
    - **Border Outline (`image_border_color`, `image_border_width`, `image_border_style`)**: Draws an explicit boundary frame around the icon bounding box.
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import gcp
 from drawlib.text import text
 from drawlib.types import Style
 
-config(width=120, height=45)
+setup(width=120, height=45)
 
 # 1. Default multi-color artwork
 gcp.cloud_run((18, 25), width=11, style=styles.primary)
@@ -477,11 +483,12 @@ In production cloud architecture schemas and workflow diagrams, icons rarely exi
 To achieve typographical harmony, place the primary label at an offset of `y - (width / 2) - 3.5` from the icon center:
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import gcp
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=80, height=50)
+setup(width=80, height=50)
 
 icon_x, icon_y = 40, 30
 icon_w = 12
@@ -499,12 +506,13 @@ save()
 ### 7.3. Pattern 2: Icon Inside Container Card with Status Badge
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import gcp, phosphor
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=60)
+setup(width=100, height=60)
 
 card_x, card_y = 50, 30
 card_w, card_h = 36, 42
@@ -534,13 +542,14 @@ save()
 When documenting multi-step pipelines or authorization handshakes (e.g. OAuth2, SAML), pair icons with sequentially numbered badges indicating the order of operations:
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=120, height=40)
+setup(width=120, height=40)
 
 steps = [
     (1, "Request", phosphor.paper_plane_tilt, 20),
@@ -578,15 +587,16 @@ The following end-to-end examples demonstrate production architectures combining
 This architecture features an internet-facing Cloud Armor and Load Balancer tier, scalable Cloud Run microservices, Cloud SQL database storage, Redis caching, and integrated Cloud Monitoring:
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors, from_hex
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=150, height=95)
+setup(width=150, height=95)
 
 # 1. Diagram Title & Subtitle
 text((75, 88), "High-Availability Multi-Tier Web Application on GCP", style=styles.bold, size=17)
@@ -659,13 +669,14 @@ save()
 This schema models an IoT ingestion pipeline using Cloud Pub/Sub, stream processing via Cloud Functions, analytical data warehousing in BigQuery, and BI reporting in Looker:
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=140, height=65)
+setup(width=140, height=65)
 
 # Title
 text((70, 58), "Event-Driven Serverless Ingestion & Analytics Pipeline", style=styles.bold, size=15)
@@ -712,13 +723,14 @@ save()
 Demonstrating seamless interoperability between on-premise infrastructure (Phosphor vector servers) and Google Cloud Interconnect:
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=140, height=60)
+setup(width=140, height=60)
 
 # Section Headers
 text((70, 54), "Hybrid Enterprise On-Premises to GCP Interconnect", style=styles.bold, size=14)
@@ -761,13 +773,14 @@ save()
 This schema illustrates an automated GitOps delivery workflow from source code commit to container deployment in Google Kubernetes Engine:
 
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=150, height=65)
+setup(width=150, height=65)
 
 # Pipeline Title
 text((75, 58), "Automated GitOps & CI/CD Delivery Pipeline", style=styles.bold, size=15)

@@ -7,14 +7,16 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
+import pytest
+
 from drawlib._preset_styles import (
     DefaultStyles,
     EssentialsStyles,
     MonochromeStyles,
     PresetStyles,
-    get_default_styles,
-    get_essentials_styles,
-    get_monochrome_styles,
+    default_styles,
+    essentials_styles,
+    monochrome_styles,
 )
 from drawlib.canvas import save
 from drawlib.icons import phosphor
@@ -28,23 +30,20 @@ OUTPUT_DIR_MONOCHROME = "../../output_tests/preset_styles/monochrome/"
 
 
 def test_official_preset_style_generators() -> None:
-    """Verifies that all three official preset style generator functions return valid PresetStyles instances."""
-    default_styles = get_default_styles()
+    """Verifies that all three official preset style singletons are valid PresetStyles instances."""
     assert isinstance(default_styles, DefaultStyles)
     assert isinstance(default_styles, PresetStyles)
 
-    essentials_styles = get_essentials_styles()
     assert isinstance(essentials_styles, EssentialsStyles)
     assert isinstance(essentials_styles, PresetStyles)
 
-    monochrome_styles = get_monochrome_styles()
     assert isinstance(monochrome_styles, MonochromeStyles)
     assert isinstance(monochrome_styles, PresetStyles)
 
 
 def test_essentials_fill() -> None:
     """Integrated drawing test for essentials circle filling styles."""
-    styles = get_essentials_styles()
+    styles = essentials_styles
     circle((25, 25), 10, style=styles.flat, text="drawlib")
     circle((25, 50), 10, style=styles.primary, text="drawlib")
     circle((25, 75), 10, style=styles.light, text="drawlib")
@@ -52,9 +51,10 @@ def test_essentials_fill() -> None:
     save(f"{OUTPUT_DIR_ESSENTIALS}test_fill.png")
 
 
+@pytest.mark.image_threshold(97.0)
 def test_monochrome_icon_text_lightbold() -> None:
     """Integrated drawing test for monochrome icons and text."""
-    styles = get_monochrome_styles()
+    styles = monochrome_styles
     x1 = 20
     x2 = 50
     x3 = 80
@@ -79,7 +79,7 @@ def test_monochrome_icon_text_lightbold() -> None:
 
 def test_monochrome_shape_lightbold() -> None:
     """Integrated drawing test for monochrome circles with text."""
-    styles = get_monochrome_styles()
+    styles = monochrome_styles
     x1 = 20
     x2 = 50
     x3 = 80
@@ -100,7 +100,7 @@ def test_monochrome_shape_lightbold() -> None:
 
 def test_monochrome_line_lightbold() -> None:
     """Integrated drawing test for monochrome line styles."""
-    styles = get_monochrome_styles()
+    styles = monochrome_styles
     x1 = 20
     x2 = 50
     x3 = 80

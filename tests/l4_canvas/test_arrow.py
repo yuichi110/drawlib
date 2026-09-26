@@ -12,7 +12,7 @@
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
 from drawlib.fonts import Font
-from drawlib.preset_styles import get_default_styles, get_styles
+from drawlib.preset_styles import default_styles, essentials_styles
 from drawlib.shapes import arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u, ellipse
 from drawlib.text import text
 from drawlib.types import Style
@@ -26,7 +26,7 @@ class TestCanvasArrow:
     def test_arrow(self) -> None:
         """Verify standard arrow drawing with different heads, styling, and text."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_def = styles.primary
         s_lbl = s_def.patch(text_size=14, text_halign="left")
 
@@ -116,7 +116,7 @@ class TestCanvasArrow:
 
         # Theme styles
         text((5, 80), "theme style", style=s_lbl)
-        styles_essentials = get_styles("essentials")
+        styles_essentials = essentials_styles
         arrow(
             (40, 80),
             (90, 80),
@@ -133,7 +133,7 @@ class TestCanvasArrow:
     def test_arrow_polyline(self) -> None:
         """Verify polyline arrow drawing, point duplicates, and head styles."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_def = styles.primary
 
         # Standard polyline arrow
@@ -194,7 +194,7 @@ class TestCanvasArrow:
     def test_arrow_arc(self) -> None:
         """Verify elliptical arc arrow drawing on circles and ellipses."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_def = styles.primary
 
         # On circle (quadrant 1)
@@ -263,7 +263,7 @@ class TestCanvasArrow:
     def test_arrow_l(self) -> None:
         """Verify L-shape arrow drawing and rotation angle options."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_def = styles.primary
 
         arrow_l(
@@ -329,7 +329,7 @@ class TestCanvasArrow:
     def test_arrow_u(self) -> None:
         """Verify U-shape arrow drawing and rotation angle options."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_def = styles.primary
 
         arrow_u(

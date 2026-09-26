@@ -15,6 +15,7 @@ from drawlib._core.l4_canvas import (
     config,
     get_dimage,
     save,
+    setup,
     show,
 )
 from drawlib._utils._canvas import (
@@ -28,5 +29,6 @@ __all__ = [
     "get_dimage",
     "initialize",
     "save",
+    "setup",
     "show",
 ]

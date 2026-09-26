@@ -10,7 +10,7 @@
 """Unit and integration tests for GridLayout smart art."""
 
 from drawlib.canvas import clear, save
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.smartarts import GridLayout
 
 OUTPUT_DIR = "../../output_tests/l7_smartarts/gridlayout/"
@@ -22,7 +22,7 @@ class TestGridLayout:
     def test_gridlayout_default(self) -> None:
         """Verify basic GridLayout item positioning and spanned cells."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         gl = GridLayout(styles=styles, num_column=3, num_row=3, default_r=2, default_style=styles.solid)
         gl.add((0, 0), 1, 1, text="A")
         gl.add((0, 1), 1, 1, text="B")
@@ -35,7 +35,7 @@ class TestGridLayout:
     def test_gridlayout_text_angle(self) -> None:
         """Verify GridLayout cells containing rotated text."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         gl = GridLayout(styles=styles, num_column=3, num_row=3, default_r=2, default_style=styles.solid)
         gl.add((0, 0), 1, 1, text="A", textangle=270)
         gl.add((0, 1), 1, 1, text="B", textangle=90)
@@ -48,7 +48,7 @@ class TestGridLayout:
     def test_gridlayout_text_shift(self) -> None:
         """Verify GridLayout cells containing offset/shifted text positions."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         gl = GridLayout(styles=styles, num_column=3, num_row=3, default_r=2, default_style=styles.solid)
         gl.add((0, 0), 1, 1, text="A", text_xy_shift=(3, 3))
         gl.add((0, 1), 1, 1, text="B", text_xy_shift=(-3, -3))
@@ -61,7 +61,7 @@ class TestGridLayout:
     def test_gridlayout_outer_style(self) -> None:
         """Verify GridLayout drawing with solid/rounded outer frame styles."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         gl = GridLayout(styles=styles, num_column=3, num_row=3, default_r=2, default_style=styles.solid)
         gl.add((0, 0), 1, 1, text="A")
         gl.add((0, 1), 1, 1, text="B")

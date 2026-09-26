@@ -16,7 +16,7 @@ from drawlib._icons.font_icons import phosphor as phosphor_internal
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
-from drawlib.preset_styles import get_default_styles, get_styles
+from drawlib.preset_styles import default_styles, essentials_styles
 from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l6_icons/icon_phosphor/"
@@ -30,7 +30,7 @@ class TestCanvasPhosphor:
         clear()
 
         # Representative icon: google_logo
-        s_def = get_default_styles().primary.patch(icon_style="thin")
+        s_def = default_styles.primary.patch(icon_style="thin")
         phosphor.google_logo(xy=(50, 50), width=20, style=s_def)
         save(f"{OUTPUT_DIR}test_basic.png")
 
@@ -56,7 +56,7 @@ class TestCanvasPhosphor:
     def test_phosphor_icon_theme(self) -> None:
         """Verify Phosphor icon drawing with theme color overrides."""
         clear()
-        styles = get_styles("essentials")
+        styles = essentials_styles
         phosphor.google_logo(xy=(25, 25), width=20, style=styles.blue.patch(icon_style="thin"))
         phosphor.google_logo(xy=(25, 75), width=20, style=styles.green.patch(icon_style="thin"))
         phosphor.google_logo(xy=(75, 25), width=20, style=styles.red.patch(icon_style="thin"))
@@ -64,7 +64,7 @@ class TestCanvasPhosphor:
 
     def test_phosphor_flat_import(self) -> None:
         """Verify Phosphor icon drawing via flat drawlib.icons.phosphor import."""
-        s_def = get_default_styles().primary.patch(icon_style="thin")
+        s_def = default_styles.primary.patch(icon_style="thin")
         phosphor.google_logo(xy=(50, 50), width=20, style=s_def)
         phosphor_submodule = importlib.import_module("drawlib.icons.phosphor")
 

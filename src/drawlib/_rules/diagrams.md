@@ -184,7 +184,7 @@ from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 
 canvas.initialize()
-canvas.config(width=115, height=95)
+canvas.setup(width=115, height=95)
 
 d = ArchitectureDiagram(title="Production Multi-Tier Cloud VPC")
 
@@ -221,7 +221,7 @@ from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
 
 canvas.initialize()
-canvas.config(width=105, height=75)
+canvas.setup(width=105, height=75)
 
 d = ArchitectureDiagram(title="Event-Driven Message Streaming Topology")
 
@@ -296,7 +296,7 @@ from drawlib import canvas
 from drawlib.diagrams.flow import Data, Decision, End, FlowDiagram, Process, Start
 
 canvas.initialize()
-canvas.config(width=110, height=95)
+canvas.setup(width=110, height=95)
 
 flow = FlowDiagram(title="Expense Reimbursement Approval Workflow", width=100.0, height=90.0)
 
@@ -337,7 +337,7 @@ from drawlib import canvas
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
 
 canvas.initialize()
-canvas.config(width=130, height=80)
+canvas.setup(width=130, height=80)
 
 flow = FlowDiagram(title="Fulfillment Logistics Pipeline", lane_orientation="horizontal", width=115.0, height=65.0)
 
@@ -412,11 +412,12 @@ Indented Python `with` statements naturally structure condition frames in the di
 #### Example 5.3.1: Microservices Order Processing Pipeline
 ```drawlib show-code
 from drawlib import canvas
-from drawlib._core.l3_styles import Colors, Style
+from drawlib.colors import Colors
+from drawlib.config import styles
 from drawlib.diagrams.sequence import GcpIcon, Participant, ParticipantGroup, PhosphorIcon, SequenceDiagram
 
 canvas.initialize()
-canvas.config(width=115, height=135)
+canvas.setup(width=115, height=135)
 
 d = SequenceDiagram(title="Microservices Distributed Transaction Pipeline", autonumber=True)
 
@@ -425,7 +426,7 @@ backend = d.add_group(
     ParticipantGroup(
         title="Google Cloud VPC",
         padding=4.0,
-        style=Style(shape_fill_color=(242, 246, 255, 0.4), shape_line_color=Colors.Gray, shape_line_style="dashed"),
+        style=styles.primary.patch(shape_fill_color=(242, 246, 255, 0.4), shape_line_color=Colors.Gray, shape_line_style="dashed"),
     )
 )
 api = backend.add(Participant("Cloud Run\n(Gateway)", icon=GcpIcon.CLOUD_RUN, icon_size=8.0))
@@ -467,7 +468,7 @@ from drawlib import canvas
 from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
 
 canvas.initialize()
-canvas.config(width=65, height=80)
+canvas.setup(width=65, height=80)
 
 d = SequenceDiagram(title="WebSocket Real-Time Live Sync")
 
@@ -544,7 +545,7 @@ from drawlib import canvas
 from drawlib.diagrams.state_diagram import ChoiceState, FinalState, InitialState, State, StateDiagram
 
 canvas.initialize()
-canvas.config(width=135, height=75)
+canvas.setup(width=135, height=75)
 
 sd = StateDiagram(title="User Session Lifecycle State Machine")
 
@@ -584,7 +585,7 @@ from drawlib import canvas
 from drawlib.diagrams.state_diagram import FinalState, ForkJoinState, InitialState, State, StateDiagram
 
 canvas.initialize()
-canvas.config(width=115, height=75)
+canvas.setup(width=115, height=75)
 
 sd = StateDiagram(title="Concurrent Task Fork and Join")
 
@@ -658,7 +659,7 @@ from drawlib import canvas
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 
 canvas.initialize()
-canvas.config(width=110, height=85)
+canvas.setup(width=110, height=85)
 
 cd = ClassDiagram(title="E-Commerce Domain Class Model")
 
@@ -702,7 +703,7 @@ from drawlib import canvas
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 
 canvas.initialize()
-canvas.config(width=105, height=80)
+canvas.setup(width=105, height=80)
 
 cd = ClassDiagram(title="UML Observer Design Pattern")
 
@@ -797,7 +798,7 @@ from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity
 
 canvas.initialize()
-canvas.config(width=115, height=85)
+canvas.setup(width=115, height=85)
 
 erd = ERDiagram(title="E-Commerce Relational Database Schema")
 
@@ -847,7 +848,7 @@ from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity
 
 canvas.initialize()
-canvas.config(width=110, height=80)
+canvas.setup(width=110, height=80)
 
 erd = ERDiagram(title="Multi-Tenant RBAC Authorization Schema")
 

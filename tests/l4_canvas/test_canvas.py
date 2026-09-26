@@ -15,13 +15,13 @@ import pytest
 from matplotlib import pyplot
 
 from drawlib._core.l4_canvas import canvas
-from drawlib.canvas import clear, config, get_dimage, save, show
+from drawlib.canvas import clear, config, get_dimage, save, setup, show
 from drawlib.colors import (
     Colors,
     Colors140,
 )
 from drawlib.images import Dimage, image
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle
 from drawlib.types import Style
 
@@ -38,7 +38,7 @@ class TestCanvas:
             os.remove(target_path)
 
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         circle((50, 50), 30, style=styles.primary)
         # Saves to directory of running script with default "png" format
         save()
@@ -53,15 +53,30 @@ class TestCanvas:
             os.remove(target_path)
 
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         circle((50, 50), 30, style=styles.primary)
         save(format="webp")
         assert os.path.exists(target_path)
         os.remove(target_path)
 
+    def test_canvas_setup(self) -> None:
+        """Verify canvas setup sets canvas dimensions and grid settings."""
+        clear()
+        setup(width=160, height=90, dpi=120)
+        assert canvas._width == 160
+        assert canvas._height == 90
+        assert canvas._dpi == 120
+
+        # Also verify setup via canvas.setup
+        canvas.setup(width=120, height=60, grid=True)
+        assert canvas._width == 120
+        assert canvas._height == 60
+        assert canvas._grid is True
+        clear()
+
     def test_canvas_config_grid(self) -> None:
         """Verify canvas grid-only and standard save options work correctly."""
-        styles = get_default_styles()
+        styles = default_styles
 
         clear()
         config(width=192, height=108, grid_only=True)
@@ -106,7 +121,7 @@ class TestCanvas:
     def test_serial_save(self) -> None:
         """Verify multiple saves consecutively maintain isolated drawing updates."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         circle((25, 25), radius=10, style=styles.primary)
         save(f"{OUTPUT_DIR}test_serial_save_1.png")
         circle((25, 75), radius=10, style=styles.primary)
@@ -119,7 +134,7 @@ class TestCanvas:
     def test_serial_save_grid(self) -> None:
         """Verify consecutive saves with a grid enabled work properly."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         config(grid=True)
         circle((25, 25), radius=10, style=styles.primary)
         save(f"{OUTPUT_DIR}test_serial_save_grid_1.png")
@@ -129,7 +144,7 @@ class TestCanvas:
     def test_serial_save_gridonly(self) -> None:
         """Verify consecutive saves with only a grid enabled work properly."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         config(grid_only=True)
         circle((25, 25), radius=10, style=styles.primary)
         save(f"{OUTPUT_DIR}test_serial_save_gridonly_1.png")
@@ -162,7 +177,7 @@ class TestCanvas:
         monkeypatch.setattr(pyplot, "show", dummy_show)
 
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         circle((50, 50), 10, style=styles.primary)
         show()
         assert show_called
@@ -178,7 +193,7 @@ class TestCanvas:
     def test_get_dimage(self) -> None:
         """Verify get_dimage renders canvas illustration to a Dimage object in memory."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         config(width=100, height=100)
         circle((50, 50), 30, style=styles.primary)
 
@@ -203,7 +218,7 @@ class TestCanvas:
     def test_get_dimage_with_grid(self) -> None:
         """Verify get_dimage includes grid overlay when grid is enabled."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         config(width=100, height=100, grid=True)
         circle((50, 50), 30, style=styles.primary)
 

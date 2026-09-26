@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Generator
+from typing import Any, Generator, Self
 
 from pydantic import BaseModel, ConfigDict
 
@@ -31,6 +31,7 @@ class BasePresetStyles(BaseModel):
     model_config = ConfigDict(
         arbitrary_types_allowed=True,
         extra="allow",
+        frozen=True,
     )
 
     background_color: TypeColor = (255, 255, 255, 1.0)
@@ -88,6 +89,17 @@ class BasePresetStyles(BaseModel):
             dict[str, Style]: Dictionary mapping style names to Style instances.
         """
         return {k: v for k, v in self if isinstance(v, Style)}
+
+    def patch(self, **kwargs: Any) -> Self:  # noqa: ANN401
+        """Create a new copy of preset styles with updated attributes.
+
+        Args:
+            **kwargs: Attributes to update.
+
+        Returns:
+            Self: New preset styles instance with updated attributes.
+        """
+        return self.model_copy(update=kwargs)
 
 
 class DefaultStyles(BasePresetStyles):

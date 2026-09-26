@@ -27,7 +27,7 @@ from drawlib.lines import (
 ### 1.2. Companion Domain Modules
 Lines connect architectural elements and require styling, canvas configuration, and textual annotations:
 ```python
-from drawlib.canvas import config, save, clear
+from drawlib.canvas import clear, save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import rectangle, circle
 from drawlib.text import text
@@ -91,14 +91,15 @@ When computing line endpoints programmatically:
 
 ### 2.4. Code Example: Multi-Tier Architectural Dividers & Direct Edges
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=120, height=60)
+setup(width=120, height=60)
 
 # 1. Tier boundary lines
 tier_style = styles.bold.patch(line_color=Colors.Gray, line_style="dashed", line_width=1.0)
@@ -181,14 +182,15 @@ Because the travel direction is reversed in the second call, both lines bow outw
 
 ### 3.4. Code Example: Microservice Request-Response Cycle & Bypass Path
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line_curved
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=120, height=60)
+setup(width=120, height=60)
 
 # Nodes
 circle((25, 30), radius=10, style=styles.blue_flat, text="Service A", textstyle=styles.white_bold)
@@ -314,12 +316,13 @@ $$\text{cp1} = \left(x_1 + \frac{\Delta x}{2}, y_1\right), \quad \text{cp2} = \l
 
 ### 4.3. Code Example: ETL Pipeline S-Curves and Rounded Transitions
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import line_bezier1, line_bezier2
 from drawlib.shapes import rectangle
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=120, height=60)
+setup(width=120, height=60)
 
 # Pipeline stages
 rectangle((15, 45), width=20, height=12, style=styles.blue_flat, text="Ingest", textstyle=styles.white_bold)
@@ -407,13 +410,14 @@ Routes around an intermediate obstacle:
 
 ### 5.4. Code Example: Orthogonal Bus Architecture
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line, lines
 from drawlib.shapes import rectangle
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=120, height=60)
+setup(width=120, height=60)
 
 # Central message bus spine (horizontal trunk)
 line((15, 30), (105, 30), style=styles.bold.patch(line_width=3.0, line_color=Colors.Navy))
@@ -510,12 +514,13 @@ The elements of `path_points` determine the segment type dynamically:
 
 ### 6.3. Code Example: Filleted Circuit Tracks and Mixed Bézier Paths
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import lines_curved, lines_bezier
 from drawlib.shapes import circle
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=120, height=60)
+setup(width=120, height=60)
 
 circle((15, 15), radius=5, style=styles.blue_flat, text="IN", textstyle=styles.white_bold)
 circle((105, 45), radius=5, style=styles.green_flat, text="OUT", textstyle=styles.white_bold)
@@ -601,12 +606,13 @@ Internally, `LineArcHelper` subdivides large angular sweeps into sub-arcs of $\l
 
 ### 7.4. Code Example: Cyclic Feedback & Self-Loop Retry Arcs
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import line, line_arc
 from drawlib.shapes import rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=100, height=60)
+setup(width=100, height=60)
 
 rectangle((30, 30), width=24, height=14, style=styles.blue_flat, text="Processor", textstyle=styles.white_bold)
 rectangle((75, 30), width=24, height=14, style=styles.green_flat, text="Consumer", textstyle=styles.white_bold)
@@ -677,12 +683,13 @@ On curved lines (`line_curved`, `line_bezier1`, `line_bezier2`, `line_arc`, `lin
 
 ### 8.4. Code Example: Arrowhead Style & Scale Gallery
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=120, height=70)
+setup(width=120, height=70)
 
 # 1. Unfilled / Stick arrowheads (default)
 text((15, 60), "Stick -> (scale=20)", style=styles.bold)
@@ -776,13 +783,14 @@ Aligning visual stroke properties with architectural meanings makes diagrams ins
 
 ### 9.5. Code Example: Multi-Protocol Network Styling
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=120, height=55)
+setup(width=120, height=55)
 
 protocols = [
     ("Synchronous REST API", Colors.Blue, "solid", 1.5, "->"),
@@ -847,7 +855,7 @@ $$\theta = \operatorname{atan2}(y_2 - y_1, x_2 - x_1) \times \frac{180}{\pi}$$
 
 ### 10.4. Code Example: Reusable Labeled Connector with Badges
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -878,7 +886,7 @@ def draw_labeled_line(
     )
     text((mx, my), label, style=badge)
 
-config(width=120, height=50)
+setup(width=120, height=50)
 rectangle((20, 25), width=24, height=14, style=styles.blue_flat, text="Client", textstyle=styles.white_bold)
 rectangle((100, 25), width=24, height=14, style=styles.green_flat, text="Service", textstyle=styles.white_bold)
 
@@ -897,11 +905,12 @@ Real-world technical architecture diagrams demand sophisticated routing patterns
 ### 11.1. Pattern 1: API Gateway Fan-Out (Dogleg Routing)
 Route horizontally to an alignment trunk, then step vertically into each target's horizontal entry lane:
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import lines
 from drawlib.shapes import rectangle
+from drawlib.config import styles
 
-config(width=120, height=50)
+setup(width=120, height=50)
 rectangle((20, 25), width=20, height=16, style=styles.navy_flat, text="API Gateway", textstyle=styles.white_bold)
 
 for name, y in [("Users", 40), ("Orders", 25), ("Payments", 10)]:
@@ -914,10 +923,11 @@ save()
 ### 11.2. Pattern 2: Circuit Routing & High-Density Parallel Bus Trunks
 Parallel lines maintain uniform separation and turn corners in synchronized lockstep:
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import lines_curved
+from drawlib.config import styles
 
-config(width=120, height=50)
+setup(width=120, height=50)
 pitch, base_r = 2.0, 4.0
 
 for i in range(4):
@@ -931,11 +941,12 @@ save()
 ### 11.3. Pattern 3: Event-Driven Publish/Subscribe Backbone
 A central message queue or event streaming log acts as an orthogonal trunk:
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import lines
 from drawlib.shapes import rectangle
+from drawlib.config import styles
 
-config(width=120, height=60)
+setup(width=120, height=60)
 rectangle((60, 30), width=90, height=8, style=styles.purple_flat, text="Kafka Event Log", textstyle=styles.white_bold)
 
 for name, x in [("Auth Svc", 30), ("Order Svc", 60), ("Payment Svc", 90)]:
@@ -952,14 +963,15 @@ save()
 ### 11.4. Pattern 4: Cross-VPC Peering & Boundary Traversals
 Security zones and perimeter firewalls traversed by distinct cross-boundary links:
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=120, height=50)
+setup(width=120, height=50)
 line((60, 5), (60, 45), style=styles.bold.patch(line_color=Colors.Red, line_style="dashed", line_width=1.5))
 text((58, 43), "Public DMZ", style=styles.primary.patch(text_size=9, text_halign="right", text_color=Colors.Gray))
 text((62, 43), "Private Subnet", style=styles.primary.patch(text_size=9, text_halign="left", text_color=Colors.Gray))
@@ -1028,12 +1040,13 @@ def route_around_obstacle(
 
 ### 12.3. Code Example: Algorithmic Obstacle Avoidance in Action
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import lines_curved
 from drawlib.shapes import rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=120, height=50)
+setup(width=120, height=50)
 
 start, end, obs = (15, 25), (105, 25), (60, 25)
 rectangle(start, width=16, height=12, style=styles.blue_flat, text="Client", textstyle=styles.white_bold)
@@ -1092,7 +1105,7 @@ save()
 - **Fix**: Use only the four supported literal strings. For filled heads, configure `Style(line_arrow_head_fill=True)`.
 
 ### 13.3. Best Practices Checklist for AI Agents & Developers
-1. **Always Set Canvas Bounds First**: Begin every drawing script with `config(width=..., height=...)` to establish the virtual coordinate scale.
+1. **Always Set Canvas Bounds First**: Begin every drawing script with `setup(width=..., height=...)` to establish the virtual coordinate scale.
 2. **Prefer Declarative Overrides**: Use `Style(line_width=..., line_style=...)` to maintain centralized design coherence instead of scattered ad-hoc overrides.
 3. **Mask Labels Over Connectors**: Always supply `text_bg_fill_color=Colors.White` (or the canvas background color) when labeling lines to avoid messy stroke collisions.
 4. **Enforce Orthogonal Clarity**: In enterprise software architectures, prioritize `lines()` or `lines_curved()` over diagonal lines to preserve visual cleanliness.

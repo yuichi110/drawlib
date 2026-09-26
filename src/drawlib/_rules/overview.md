@@ -27,11 +27,12 @@ Unlike GUI tools where every coordinate is dragged by hand, Drawlib code leverag
 
 ```drawlib show-code
 # Pattern A: Horizontal linear distribution with computed gaps
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 
-config(width=140, height=40)
+setup(width=140, height=40)
 services = ["Auth API", "Core API", "Billing API", "Notify API"]
 box_w, box_h = 20, 14
 start_x, y, gap = 15, 20, 10
@@ -50,11 +51,12 @@ save()
 ```drawlib show-code
 # Pattern B: Radial / Circular distribution using trigonometry
 import math
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle
+from drawlib.config import styles
 
-config(width=100, height=100)
+setup(width=100, height=100)
 center_x, center_y, radius = 50, 50, 30
 nodes = ["Ingest", "Transform", "Validate", "Store", "Index", "Serve"]
 n = len(nodes)
@@ -127,7 +129,7 @@ The `drawlib.canvas` module manages global drawing state:
 
 | Function | Signature / Options | Description |
 | :--- | :--- | :--- |
-| `config()` | `width=100, height=100, background_color="#ffffff", dpi=300, ...` | Configures dimensions, canvas background color, rasterization resolution, and base settings. |
+| `setup()` | `width=100, height=100, background_color="#ffffff", dpi=300, ...` | Configures dimensions, canvas background color, rasterization resolution, and base settings. |
 | `clear()` | *(no arguments)* | Flushes all buffered shapes and resets canvas state. Essential in multi-image batch scripts to prevent bleeding. |
 | `save()` | `file_path=None, image_format="png", ...` | Renders the display list to disk. When omitted, writes to automatic sequence paths (`1.png`, etc.). |
 | `get_dimage()` | *(no arguments)* | Returns an in-memory `Dimage` representation of the current canvas without saving to disk. |
@@ -157,24 +159,25 @@ The grid overlays major coordinate lines, 10-unit numeric labels, and 5-unit sub
 When a Python script produces multiple sequential illustrations (e.g. presentation slides, step-by-step algorithm stages, or variant designs), call `clear()` between images to prevent canvas bleeding:
 
 ```python
-from drawlib.canvas import clear, config, save
+from drawlib.canvas import clear, save, setup
+from drawlib.config import styles
 from drawlib.shapes import rectangle
 
 # Figure 1: Step 1
-config(width=100, height=50)
-rectangle((30, 25), width=25, height=18, style="blue_flat", text="Stage 1")
+setup(width=100, height=50)
+rectangle((30, 25), width=25, height=18, style=styles.blue_flat, text="Stage 1")
 save("stage1.png")
 clear()
 
 # Figure 2: Step 2 with fresh canvas
-config(width=100, height=50)
-rectangle((30, 25), width=25, height=18, style="blue_flat", text="Stage 1")
-rectangle((70, 25), width=25, height=18, style="green_flat", text="Stage 2")
+setup(width=100, height=50)
+rectangle((30, 25), width=25, height=18, style=styles.blue_flat, text="Stage 1")
+rectangle((70, 25), width=25, height=18, style=styles.green_flat, text="Stage 2")
 save("stage2.png")
 ```
 
 ### 2.7. Typography & Canvas Theming
-Canvas defaults can be globally customized via `config()` or in `docs_config.py`:
+Canvas defaults can be globally customized via `setup()` or in `docs_config.py`:
 - **`background_color`**: Any hex code (`"#ffffff"`, `"#1e1e1e"`), RGB tuple, or named CSS color.
 - **`dpi`**: Output resolution. Standard web images use `150`–`200`; high-resolution print or PDF exports specify `300`.
 - **`font_family`**: Base system font family or bundled open fonts (e.g. `"sans-serif"`, `"monospace"`, `"Roboto"`).
@@ -187,19 +190,20 @@ Drawlib provides built-in geometric math utilities in `drawlib.math` so develope
 - **`get_center_and_size(points)`**: Takes a collection of coordinate tuples `[(x1, y1), (x2, y2), ...]` and returns `((center_x, center_y), (width, height))`. This enables dynamic bounding boxes around arbitrary clusters of nodes with zero manual math:
 
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
+from drawlib.config import styles
 from drawlib.math import get_angle, get_center_and_size, get_distance
 from drawlib.shapes import circle, rectangle
 
-config(width=100, height=80)
+setup(width=100, height=80)
 nodes = [(25, 30), (45, 55), (75, 40)]
 
 # Automatically compute bounding container surrounding all nodes
 (cx, cy), (w, h) = get_center_and_size(nodes)
-rectangle((cx, cy), width=w + 16, height=h + 16, style="gray_light", text="Subsystem Boundary", valign="top")
+rectangle((cx, cy), width=w + 16, height=h + 16, style=styles.gray_light, text="Subsystem Boundary", valign="top")
 
 for xy in nodes:
-    circle(xy, radius=6, style="blue_flat")
+    circle(xy, radius=6, style=styles.blue_flat)
 
 save()
 ```
@@ -315,7 +319,12 @@ In Markdown source files under `docs_src/`, embed illustrations using the ````dr
 
 ````markdown
 ```drawlib 600px center show-code caption:"System Architecture Overview"
-config(width=120, height=50)
+from drawlib.canvas import setup
+from drawlib.config import styles
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+
+setup(width=120, height=50)
 rectangle((25, 25), width=30, height=20, style=styles.blue_flat, text="Client", textstyle=styles.white_bold)
 rectangle((95, 25), width=30, height=20, style=styles.green_flat, text="Service", textstyle=styles.white_bold)
 line((40, 25), (80, 25), arrowhead="->", style=styles.bold)
@@ -434,9 +443,11 @@ drawlib rules show <topic> --rebuild
 - **Scope**: All 22 geometric shape functions including `rectangle`, `circle`, `donuts`, `ellipse`, `wedge`, `fan`, `arc`, `parallelogram`, `rhombus`, `trapezoid`, `triangle`, `regularpolygon`, `polygon`, `star`, `arrow`, `arrow_l`, `arrow_u`, `arrow_arc`, `arrow_polyline`, and `chevron`.
 - **Key Syntax**:
   ```python
+  from drawlib.config import styles
   from drawlib.shapes import circle, rectangle
-  rectangle((30, 25), width=20, height=15, style="blue_flat", text="Box")
-  circle((70, 25), radius=8, style="green_outline")
+
+  rectangle((30, 25), width=20, height=15, style=styles.blue_flat, text="Box")
+  circle((70, 25), radius=8, style=styles.green_outline)
   ```
 - **When to read**: Refer to this rule when selecting the right geometric primitive, styling shape borders and fills, rounding corners, rotating shapes, or embedding centered text inside containers.
 
@@ -447,9 +458,11 @@ drawlib rules show <topic> --rebuild
 - **Scope**: Straight lines (`line`), curved splines (`line_curved`), Bezier paths (`line_bezier1`, `line_bezier2`), multi-point chained lines (`lines`, `lines_curved`), and circular arcs (`line_arc`).
 - **Key Syntax**:
   ```python
+  from drawlib.config import styles
   from drawlib.lines import line, line_curved
-  line((10, 20), (40, 20), arrowhead="->", style="bold")
-  line_curved((50, 20), (80, 40), bend=0.3, arrowhead="<->", style="dashed")
+
+  line((10, 20), (40, 20), arrowhead="->", style=styles.bold)
+  line_curved((50, 20), (80, 40), bend=0.3, arrowhead="<->", style=styles.dashed)
   ```
 - **When to read**: Refer to this rule when connecting diagram nodes, configuring arrowheads (`->`, `<-`, `<->`, `-`), routing complex paths, or adjusting curve bending parameters.
 
@@ -460,8 +473,10 @@ drawlib rules show <topic> --rebuild
 - **Scope**: Standalone labels, multi-line paragraphs, text alignment (`halign`, `valign`), rotation angles, typography options (`TextStyle`), custom fonts, and background text boxes.
 - **Key Syntax**:
   ```python
+  from drawlib.config import styles
   from drawlib.text import text
-  text((50, 80), "Architecture Diagram", style="title_bold", halign="center")
+
+  text((50, 80), "Architecture Diagram", style=styles.title_bold, halign="center")
   text((10, 50), "Line 1\nLine 2", fontsize=12, color="#555555", halign="left")
   ```
 - **When to read**: Refer to this rule when fine-tuning title typography, aligning table headers, formatting multiline captions, or rotating vertical axis labels.
@@ -473,8 +488,10 @@ drawlib rules show <topic> --rebuild
 - **Scope**: Vector and PNG icons from Phosphor, FontAwesome, and Google Cloud Platform (GCP) official architecture libraries.
 - **Key Syntax**:
   ```python
+  from drawlib.config import styles
   from drawlib.icons import font_icon, gcp, phosphor
-  phosphor.desktop((20, 30), width=10, style="blue_flat")
+
+  phosphor.desktop((20, 30), width=10, style=styles.blue_flat)
   gcp.compute_engine((50, 30), width=12)
   font_icon((80, 30), "fa-database", width=10)
   ```
@@ -488,7 +505,10 @@ drawlib rules show <topic> --rebuild
 - **Key Syntax**:
   ```python
   # Common preset styles: "blue_flat", "green_outline", "red_soft", "bold", "white_bold"
-  rectangle((30, 30), width=20, height=10, style="purple_flat", textstyle="white_bold")
+  # Tip: Prefer importing styles from drawlib.config if themes might be customized via --config
+  from drawlib.config import styles
+
+  rectangle((30, 30), width=20, height=10, style=styles.purple_flat, textstyle=styles.white_bold)
   ```
 - **When to read**: Refer to this rule to maintain visual consistency, pick matching foreground/background colors, or define reusable corporate themes across a team.
 
@@ -539,11 +559,11 @@ drawlib rules show <topic> --rebuild
 
 ### 5.11. Canvas Lifecycle & Dimensions (`canvas`)
 - **Command**: `drawlib rules show canvas`
-- **Scope**: Canvas singleton (`canvas`), configuration parameters (`config`), coordinate grids, background transparency, image saving (`save`), in-memory Dimage generation (`get_dimage`), and canvas clearing (`clear`).
+- **Scope**: Canvas singleton (`canvas`), canvas setup parameters (`setup`), coordinate grids, background transparency, image saving (`save`), in-memory Dimage generation (`get_dimage`), and canvas clearing (`clear`).
 - **Key Syntax**:
   ```python
-  from drawlib.canvas import clear, config, save
-  config(width=140, height=70, background_color=(250, 250, 250))
+  from drawlib.canvas import clear, save, setup
+  setup(width=140, height=70, background_color=(250, 250, 250))
   save("output.png")
   ```
 - **When to read**: Refer to this rule when setting up canvas boundaries, debugging multi-image scripts, configuring coordinate grid overlays, or exporting in-memory illustrations.
@@ -625,6 +645,19 @@ drawlib rules show <topic> --rebuild
 
 ---
 
+### 5.18. Configuration Architecture & Overlays (`config`)
+- **Command**: `drawlib rules show config`
+- **Scope**: Centralized runtime configuration, dynamic default/custom merging model (Venn diagram overlay), explicit import rules (`from drawlib.config import styles`), and CLI (`--config`) / Python API integration.
+- **Key Syntax**:
+  ```python
+  from drawlib.config import styles, PROJECT_NAME  # Dynamic runtime config
+  # Prefer config.styles over preset_styles so custom themes can be injected via --config
+  rectangle((30, 20), width=40, height=20, style=styles.primary)
+  ```
+- **When to read**: Refer to this rule when customizing project-wide palettes or themes, injecting global constants, setting up CI/CD configuration files, or decoupling drawing scripts from hardcoded styles.
+
+---
+
 ## 6. Autonomous AI Workflow & Implementation Guide
 
 When an AI coding agent is tasked with creating, modifying, or reviewing Drawlib illustrations, adhere to the following workflow principles to guarantee deterministic, publication-quality results.
@@ -697,6 +730,6 @@ Avoid manually placing dozens of low-level `rectangle`, `circle`, and `line` pri
 ### 6.4. Implementation Checklist
 
 - [ ] **Canvas Sizing**: Set explicit dimensions (`100x100`, `120x60`, `140x70`, `160x90`) appropriate for the diagram type.
-- [ ] **Palette Consistency**: Use semantic preset styles (e.g. `style="blue_flat"`, `textstyle="white_bold"`) or official palettes (`ColorsDefault`, `ColorsMonochrome`) instead of hardcoded hex values.
+- [ ] **Palette Consistency**: Reference styles via `from drawlib.config import styles` (e.g. `style=styles.blue_flat`, `textstyle=styles.white_bold`) or official palettes (`ColorsDefault`, `ColorsMonochrome`) instead of hardcoded hex values.
 - [ ] **Grid Overlay Validation**: Superimpose coordinate grids (`-g`) during self-correction to eliminate guesswork.
 - [ ] **Clean Separation of Concerns**: Decouple data lists/dictionaries from drawing loops for maintainability.

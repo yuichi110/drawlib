@@ -1,10 +1,10 @@
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.lines import line
-from drawlib.preset_styles import get_styles
+from drawlib.preset_styles import default_styles
 
 config(width=100, height=50, grid=True)
-ps = get_styles()
+ps = default_styles
 
 line((20, 7), (80, 7), style=ps.primary)
 line(

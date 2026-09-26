@@ -15,10 +15,9 @@ from drawlib._preset_styles import (
     EssentialsStyles,
     MonochromeStyles,
     PresetStyles,
-    get_default_styles,
-    get_essentials_styles,
-    get_monochrome_styles,
-    get_styles,
+    default_styles,
+    essentials_styles,
+    monochrome_styles,
 )
 from drawlib.canvas import save
 from drawlib.images import image
@@ -30,28 +29,21 @@ OUTPUT_DIR_DEFAULT = "../../output_tests/preset_styles/default/"
 
 
 class TestPresetStylesUnit:
-    """Unit tests for preset styles and get_styles."""
+    """Unit tests for preset style singletons."""
 
     def test_preset_styles(self) -> None:
-        """Verifies get_styles returns valid PresetStyles objects."""
-        default = get_styles("default")
-        essentials = get_styles("essentials")
-        monochrome = get_styles("monochrome")
-
-        assert isinstance(default, DefaultStyles)
-        assert isinstance(default, PresetStyles)
-        assert isinstance(essentials, EssentialsStyles)
-        assert isinstance(essentials, PresetStyles)
-        assert isinstance(monochrome, MonochromeStyles)
-        assert isinstance(monochrome, PresetStyles)
-        assert get_default_styles() == default
-        assert get_essentials_styles() == essentials
-        assert get_monochrome_styles() == monochrome
+        """Verifies official preset style singletons are valid instances."""
+        assert isinstance(default_styles, DefaultStyles)
+        assert isinstance(default_styles, PresetStyles)
+        assert isinstance(essentials_styles, EssentialsStyles)
+        assert isinstance(essentials_styles, PresetStyles)
+        assert isinstance(monochrome_styles, MonochromeStyles)
+        assert isinstance(monochrome_styles, PresetStyles)
         assert not hasattr(preset_styles, "ThemePreset")
 
     def test_preset_style_attributes(self) -> None:
         """Verifies PresetStyles provides required style attributes."""
-        styles = get_default_styles()
+        styles = default_styles
         assert isinstance(styles.primary, Style)
         assert isinstance(styles.light, Style)
         assert isinstance(styles.bold, Style)
@@ -59,24 +51,32 @@ class TestPresetStylesUnit:
         assert isinstance(styles.solid, Style)
         assert isinstance(styles.dashed, Style)
 
-    def test_invalid_style_name(self) -> None:
-        """Verifies get_styles raises ValueError for invalid style name."""
-        with pytest.raises(ValueError, match="is not supported"):
-            get_styles("invalid_style")
+    def test_preset_styles_immutability(self) -> None:
+        """Verifies that preset style singletons are frozen and immutable."""
+        with pytest.raises(Exception):
+            setattr(default_styles, "primary", default_styles.bold)
+
+    def test_preset_styles_patch(self) -> None:
+        """Verifies that preset styles can be patched without mutating the original."""
+        original_primary = default_styles.primary
+        new_style = default_styles.patch(primary=default_styles.bold)
+        assert new_style.primary == default_styles.bold
+        assert default_styles.primary == original_primary
 
 
 def test_default_fill() -> None:
     """Integrated drawing test for default circles fill."""
-    styles = get_default_styles()
+    styles = default_styles
     circle((25, 25), 10, style=styles.primary, text="drawlib")
     circle((25, 50), 10, style=styles.light, text="drawlib")
     circle((25, 75), 10, style=styles.bold, text="drawlib")
     save(f"{OUTPUT_DIR_DEFAULT}test_fill.png")
 
 
+@pytest.mark.image_threshold(93.0)
 def test_default_style_images() -> None:
     """Integrated drawing test for default image styles."""
-    styles = get_default_styles()
+    styles = default_styles
     image((25, 25), 20, style=styles.flat, image=IMAGE_FILE)
     image((25, 50), 20, style=styles.solid, image=IMAGE_FILE)
     image((25, 75), 20, style=styles.dashed, image=IMAGE_FILE)

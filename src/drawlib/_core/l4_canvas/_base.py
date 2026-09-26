@@ -97,7 +97,7 @@ class CanvasBase:
         self._ax = self._fig.add_subplot(1, 1, 1)
 
         # initialize fig and ax
-        self.config()
+        self.setup()
 
     @guarded
     def clear(self) -> None:
@@ -117,7 +117,7 @@ class CanvasBase:
         CanvasBase.__init__(self)  # noqa: PLC2801
 
     @guarded
-    def config(  # noqa: C901
+    def setup(  # noqa: C901
         self,
         width: TypePosInt | None = None,
         height: TypePosInt | None = None,
@@ -155,12 +155,12 @@ class CanvasBase:
             None
 
         Raises:
-            RuntimeError: If `config()` is called after drawing, which could disrupt drawing states.
+            RuntimeError: If `setup()` is called after drawing, which could disrupt drawing states.
 
         Note:
             Changing canvas parameters after drawing operations (`shape()`, `rectangle()`, etc.)
             may lead to unexpected behavior and should be avoided.
-            Call `config()` again after `clear()` if you wish to reconfigure canvas settings.
+            Call `setup()` again after `clear()` if you wish to reconfigure canvas settings.
         """
         # This method config() can be called repeatedly.
         # Please don't set default value in args
@@ -230,6 +230,56 @@ class CanvasBase:
         config_size_dpi()
         config_background()
         config_grid()
+
+    @guarded
+    def config(
+        self,
+        width: TypePosInt | None = None,
+        height: TypePosInt | None = None,
+        dpi: TypePosInt | None = None,
+        background_color: TypeColor | None = None,
+        background_alpha: TypeAlpha | None = None,
+        grid: bool | None = None,
+        grid_only: bool | None = None,
+        grid_style: Style | None = None,
+        grid_centerstyle: Style | None = None,
+        grid_xpitch: TypePosInt | None = None,
+        grid_ypitch: TypePosInt | None = None,
+    ) -> None:
+        """Configure drawlib Canvas parameters.
+
+        Deprecated alias for `setup()`. Use `setup()` instead.
+
+        Args:
+            width (int | None): Width of the canvas.
+            height (int | None): Height of the canvas.
+            dpi (int | None): Output image resolution.
+            background_color (Union[tuple[int, int, int | None, tuple[int, int, int, float]]]):
+                Background color.
+            background_alpha (float | None): Background alpha (opacity).
+            grid (bool | None): Show grid for checking coordinates.
+            grid_only (bool | None): Show grid only.
+            grid_style (Style | None): Style of grid lines.
+            grid_centerstyle (Style | None): Style of center grid lines.
+            grid_xpitch (int | None): X-axis grid pitch.
+            grid_ypitch (int | None): Y-axis grid pitch.
+
+        Returns:
+            None
+        """
+        self.setup(
+            width=width,
+            height=height,
+            dpi=dpi,
+            background_color=background_color,
+            background_alpha=background_alpha,
+            grid=grid,
+            grid_only=grid_only,
+            grid_style=grid_style,
+            grid_centerstyle=grid_centerstyle,
+            grid_xpitch=grid_xpitch,
+            grid_ypitch=grid_ypitch,
+        )
 
     #
     # Shape

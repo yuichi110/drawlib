@@ -17,7 +17,7 @@ from pathlib import Path
 from drawlib import canvas
 from drawlib._core.l3_styles import Style
 from drawlib.charts import ScatterChart
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 
 
 class TestScatterChartUnit:
@@ -103,7 +103,7 @@ class TestScatterChartRendering:
             chart.configure_y_axis(label="Response Time (ms)", min_value=0)
 
             # Standalone points with labels
-            styles = get_default_styles()
+            styles = default_styles
             chart.add(xy=(100, 15.0), radius=1.2, label="v1.0 Baseline")
             chart.add(xy=(500, 28.0), radius=1.8, style=styles.red_flat, label="v1.5")
             chart.add(xy=(900, 19.5), radius=2.2, style=styles.blue_flat, label="v2.0")

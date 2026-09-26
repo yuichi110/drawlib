@@ -32,6 +32,7 @@ from drawlib._core.l1_core import (
 )
 from drawlib._core.l4_canvas import clear
 from drawlib._tools.doc_builder.build_cache import BuildImageCache, hash_file
+from drawlib._tools.doc_builder.config import load_config
 from drawlib._tools.doc_builder.progress import FileBuildProgress, format_duplicate_output_error
 from drawlib._utils import dutil_canvas
 
@@ -602,8 +603,7 @@ class DrawlibExecuter:
         elif self._mode == "auto_initialize":
             dutil_canvas.initialize()
 
-        if self._config_path:
-            self._exec_config(self._config_path)
+        load_config(self._config_path)
 
     def _exec_module(self, file_path: str) -> None:
         """Execute the specified Python module file."""
@@ -645,14 +645,7 @@ class DrawlibExecuter:
     @staticmethod
     def _exec_config(config_path: str) -> None:
         """Execute external config script before running drawing code."""
-        abs_config = os.path.abspath(config_path)
-        if not os.path.exists(abs_config):
-            raise FileNotFoundError(f'Config file "{abs_config}" does not exist.')
-        config_dir = os.path.dirname(abs_config)
-        if config_dir not in sys.path:
-            sys.path.insert(0, config_dir)
-
-        runpy.run_path(abs_config, run_name="__drawlib_config__")
+        load_config(config_path)
 
     @staticmethod
     def _is_module_loaded(module_path: str) -> bool:

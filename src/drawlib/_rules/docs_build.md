@@ -149,7 +149,12 @@ Embed Python drawing code inside Markdown using the ````drawlib```` code fence:
 
 ````markdown
 ```drawlib 600px center caption:"System Architecture"
-config(width=100, height=50)
+from drawlib.canvas import setup
+from drawlib.config import styles
+from drawlib.lines import line
+from drawlib.shapes import rectangle
+
+setup(width=100, height=50)
 
 rectangle((25, 25), width=30, height=20, style=styles.blue_flat, text="Client", textstyle=styles.white_bold)
 rectangle((75, 25), width=30, height=20, style=styles.green_flat, text="Server", textstyle=styles.white_bold)

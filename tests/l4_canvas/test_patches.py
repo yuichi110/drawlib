@@ -14,7 +14,7 @@ import pytest
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
 from drawlib.fonts import Font
-from drawlib.preset_styles import get_default_styles, get_styles
+from drawlib.preset_styles import default_styles, essentials_styles
 from drawlib.shapes import arc, circle, donuts, ellipse, fan, regularpolygon, wedge
 from drawlib.types import Style
 
@@ -29,7 +29,7 @@ class TestCanvasPatches:
     def test_arc(self) -> None:
         """Verify arc drawing with dimensions, angles, alignments, and text."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_def = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
         # Simple arc
@@ -62,9 +62,9 @@ class TestCanvasPatches:
     def test_circle(self) -> None:
         """Verify circle drawing with radius, alignments, custom styles, and preset styles."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_def = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
-        styles_essentials = get_styles("essentials")
+        styles_essentials = essentials_styles
 
         # Simple circle
         circle(xy=(50, 50), radius=30, style=s_def)
@@ -114,7 +114,7 @@ class TestCanvasPatches:
     def test_ellipse(self) -> None:
         """Verify ellipse drawing with dimensions, alignments, styles, and angles."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_primary = styles.primary
         s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
@@ -160,7 +160,7 @@ class TestCanvasPatches:
     def test_regularpolygon(self) -> None:
         """Verify regular polygon vertices counts, styles, and alignments."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_primary = styles.primary
         s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
@@ -206,7 +206,7 @@ class TestCanvasPatches:
     def test_wedge(self) -> None:
         """Verify wedge segment drawing with radii, spans, styles, and alignments."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_primary = styles.primary
         s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
@@ -260,7 +260,7 @@ class TestCanvasPatches:
     def test_donuts(self) -> None:
         """Verify donut shape drawing with outer radius, width, styling, and text."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_primary = styles.primary
         s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 
@@ -305,7 +305,7 @@ class TestCanvasPatches:
     def test_fan(self) -> None:
         """Verify fan sector drawing with radius, theta boundaries, styling, and text."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_primary = styles.primary
         s_white = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
 

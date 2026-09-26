@@ -1,11 +1,11 @@
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.fonts import FontFile, FontRoboto
-from drawlib.preset_styles import get_styles
+from drawlib.preset_styles import default_styles
 from drawlib.text import text
 
 config(width=100, height=50)
-ps = get_styles()
+ps = default_styles
 
 text((50, 7), "Hello drawlib. こんにちは。", style=ps.primary)
 text(

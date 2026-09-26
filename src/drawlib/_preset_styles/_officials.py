@@ -11,8 +11,6 @@
 
 from __future__ import annotations
 
-from typing import Literal, overload
-
 from drawlib._core.l2_types import TypeColor, TypeIconStyle, TypeLineStyle
 from drawlib._core.l3_fonts import Font, FontSourceCode
 from drawlib._core.l3_styles import (
@@ -23,7 +21,6 @@ from drawlib._core.l3_styles import (
     Style,
 )
 from drawlib._preset_styles._models import (
-    BasePresetStyles,
     DefaultStyles,
     EssentialsStyles,
     MonochromeStyles,
@@ -100,7 +97,7 @@ def _make_variants(
     }
 
 
-def get_default_styles() -> DefaultStyles:
+def _create_default_styles() -> DefaultStyles:
     """Generate default preset styles.
 
     Returns:
@@ -178,7 +175,7 @@ def get_default_styles() -> DefaultStyles:
     )
 
 
-def get_monochrome_styles() -> MonochromeStyles:
+def _create_monochrome_styles() -> MonochromeStyles:
     """Generate monochrome preset styles.
 
     Returns:
@@ -265,7 +262,7 @@ def get_monochrome_styles() -> MonochromeStyles:
     )
 
 
-def get_essentials_styles() -> EssentialsStyles:
+def _create_essentials_styles() -> EssentialsStyles:
     """Generate essentials preset styles.
 
     Returns:
@@ -438,37 +435,7 @@ def get_essentials_styles() -> EssentialsStyles:
     )
 
 
-@overload
-def get_styles(name: Literal["default"] = "default") -> DefaultStyles: ...
-
-
-@overload
-def get_styles(name: Literal["essentials"]) -> EssentialsStyles: ...
-
-
-@overload
-def get_styles(name: Literal["monochrome"]) -> MonochromeStyles: ...
-
-
-@overload
-def get_styles(name: str) -> BasePresetStyles: ...
-
-
-def get_styles(
-    name: Literal["default", "essentials", "monochrome"] | str = "default",
-) -> BasePresetStyles:
-    """Get preset styles by name.
-
-    Args:
-        name: Preset styles name ("default", "essentials", "monochrome").
-
-    Returns:
-        BasePresetStyles: Preset styles object.
-    """
-    if name == "default":
-        return get_default_styles()
-    if name == "essentials":
-        return get_essentials_styles()
-    if name == "monochrome":
-        return get_monochrome_styles()
-    raise ValueError(f'Preset style "{name}" is not supported.')
+# Module-level immutable singletons for official preset styles
+default_styles: DefaultStyles = _create_default_styles()
+essentials_styles: EssentialsStyles = _create_essentials_styles()
+monochrome_styles: MonochromeStyles = _create_monochrome_styles()

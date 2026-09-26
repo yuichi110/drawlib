@@ -12,20 +12,20 @@ from drawlib.colors import Colors140
 from drawlib.fonts import FontRoboto, FontSourceCode
 from drawlib.icons import phosphor
 from drawlib.images import get_dimage_from_code, image
-from drawlib.preset_styles import get_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import arrow
 from drawlib.smartarts import SourceCode
 from drawlib.text import text
 
 config(height=60, dpi=200)
-ps = get_styles()
+ps = default_styles
 
 INNER_CODE = """from drawlib.canvas import save
 from drawlib.colors import Colors140
-from drawlib.preset_styles import get_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle
 
-ps = get_styles()
+ps = default_styles
 circle(
     xy=(50, 50),
     radius=30,

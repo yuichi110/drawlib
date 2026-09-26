@@ -45,9 +45,9 @@ from drawlib.smartarts import (
 
 Common auxiliary imports required for canvas setup, styling, and colors:
 ```python
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140, ColorsEssentials
-from drawlib.preset_styles import get_style
+from drawlib.config import styles
 from drawlib.types import Style
 ```
 
@@ -123,12 +123,13 @@ table = Table()
 
 ### 3.3 Production Example: Microservice SLA & Availability Table
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140, ColorsEssentials
 from drawlib.smartarts import Table
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=120, height=65)
+setup(width=120, height=65)
 
 table = Table(styles=styles)
 table.clear_styles()
@@ -204,13 +205,14 @@ Register icon functions (e.g. Phosphor icons) before or after node text:
 
 ### 4.4 Production Example: Monorepo Project Structure
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors140, ColorsEssentials
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=110, height=70)
+setup(width=110, height=70)
 
 TreeNode.register_drawing_item(
     name="dir_icon", location="before", padding_width=4.5, function=phosphor.folder,
@@ -285,12 +287,13 @@ It accepts all parameters of `MindMapNode` (`text`, `children`, `branch`, `shape
 
 ### 5.4 Production Example: Horizontal Service Pipeline & Status Cards
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors140, ColorsEssentials
 from drawlib.smartarts import BoxList
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=110, height=50)
+setup(width=110, height=50)
 
 pipeline = BoxList(
     styles=styles,
@@ -361,13 +364,14 @@ MindMapNode(
 
 ### 6.4 Production Example: Multi-Directional Architecture Overview
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import ColorsEssentials
 from drawlib.fonts import Font
 from drawlib.smartarts import MindMapNode
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=220, height=110)
+setup(width=220, height=110)
 
 txt_white = styles.primary.patch(text_color=ColorsEssentials.White, text_size=9, text_font=Font.SANSSERIF_BOLD)
 txt_child = styles.primary.patch(text_size=8.5, text_font=Font.SANSSERIF_BOLD)
@@ -454,12 +458,13 @@ ChevronProcess(
 
 ### 7.4 Production Example: Cloud CI/CD Deployment Pipeline
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors140, ColorsEssentials
 from drawlib.smartarts import ChevronProcess
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=130, height=45)
+setup(width=130, height=45)
 
 pipeline = ChevronProcess(
     styles=styles,
@@ -532,12 +537,13 @@ Cycle(
 
 ### 8.4 Production Example: SRE Incident Response Lifecycle
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors140, ColorsEssentials
 from drawlib.smartarts import Cycle
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=90)
+setup(width=100, height=90)
 
 incident_cycle = Cycle(
     styles=styles,
@@ -615,12 +621,13 @@ grid.add(
 
 ### 9.4 Production Example: Multi-Tier Cloud Software Architecture
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors140, ColorsEssentials
 from drawlib.smartarts import GridLayout
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=110, height=75)
+setup(width=110, height=75)
 
 grid = GridLayout(styles=styles, num_column=4, num_row=4, default_r=1.5, default_style=styles.solid, default_textstyle=styles.white_bold)
 
@@ -689,12 +696,13 @@ pyramid.add(
 
 ### 10.4 Production Example: Software Testing Pyramid
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors140, ColorsEssentials
 from drawlib.smartarts import Pyramid
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=100, height=65)
+setup(width=100, height=65)
 
 test_pyramid = Pyramid(styles=styles, default_textstyle=styles.white_bold.patch(text_size=10))
 test_pyramid.add("Manual (1%)", style=styles.red_flat, textstyle=styles.white_bold.patch(text_size=8.5))
@@ -736,14 +744,15 @@ BulletPoints(
 
 ### 11.3 Production Example: Architecture Decision RFC Summary
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors140, ColorsEssentials
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
 from drawlib.smartarts import BulletPoints
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=110, height=65)
+setup(width=110, height=65)
 
 bp = BulletPoints(
     styles=styles,
@@ -812,12 +821,13 @@ SourceCode(
 
 ### 12.4 Production Example: Embedded Configuration Block
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.smartarts import SourceCode
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=110, height=105)
+setup(width=110, height=105)
 
 # Outer window frame
 rectangle(xy=(55, 52.5), width=96, height=95, r=2, style=styles.charcoal_solid)
@@ -900,14 +910,15 @@ bubblespeech(
 
 ### 13.3 Production Example: Architecture Bottleneck Callout
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors140, ColorsEssentials
 from drawlib.fonts import Font
 from drawlib.shapes import rectangle
 from drawlib.smartarts import bubblespeech
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=110, height=60)
+setup(width=110, height=60)
 
 rectangle(
     xy=(25, 20),
@@ -974,12 +985,13 @@ top_left_y = bottom_y + H
 
 ### 14.2 Multi-Component Dashboard Integration Example
 ```drawlib show-code
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.colors import Colors140, ColorsEssentials
 from drawlib.smartarts import ChevronProcess, GridLayout, SourceCode, Table
 from drawlib.types import Style
+from drawlib.config import styles
 
-config(width=120, height=80)
+setup(width=120, height=80)
 
 # 1. Top Section: Pipeline Status
 pipeline = ChevronProcess(

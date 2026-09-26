@@ -28,7 +28,7 @@ from drawlib.colors import (
     Colors140,
 )
 from drawlib.fonts import Font
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import polygon, rectangle, shape
 
 # ruff: noqa: F403, F405
@@ -88,7 +88,7 @@ class TestCanvasBase:
     def test_polygon(self) -> None:
         """Verify drawing a basic polygon with different styles and text."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_def = styles.primary
 
         # No style
@@ -119,7 +119,7 @@ class TestCanvasBase:
     def test_shape(self) -> None:
         """Verify drawing a generic shape with various path points and styles."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         # Draw shape with line points
         shape(
             xy=(50, 50),
@@ -132,7 +132,7 @@ class TestCanvasBase:
     def test_rectangle(self) -> None:
         """Verify rectangle drawing with regular corners, rounded corners, alignments, and text."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         s_def = styles.primary
 
         # Default

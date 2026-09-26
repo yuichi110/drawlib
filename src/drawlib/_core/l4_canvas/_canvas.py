@@ -320,10 +320,12 @@ canvas = Canvas()
 # basics
 clear = canvas.clear
 config = canvas.config
+setup = canvas.setup
 get_dimage = canvas.get_dimage
 save = canvas.save
 show = canvas.show
 shape = canvas.shape
+
 
 # image
 image = canvas.image

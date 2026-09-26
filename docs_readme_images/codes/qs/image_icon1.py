@@ -1,10 +1,10 @@
 from drawlib.canvas import config, save
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
-from drawlib.preset_styles import get_styles
+from drawlib.preset_styles import default_styles
 
 config(width=100, height=60, grid=True)
-ps = get_styles()
+ps = default_styles
 
 phosphor.airplane((25, 30), width=20, style=ps.primary)
 phosphor.coffee(

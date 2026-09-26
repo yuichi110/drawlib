@@ -1,12 +1,12 @@
 from drawlib.canvas import config, save
 from drawlib.images import image
 from drawlib.lines import line
-from drawlib.preset_styles import get_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle
 from drawlib.text import text
 
 config(width=200, height=100)
-ps = get_styles()
+ps = default_styles
 
 line((10, 10), (90, 90), style=ps.primary)
 circle((25, 75), radius=20, style=ps.primary)

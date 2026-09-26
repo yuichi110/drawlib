@@ -89,8 +89,9 @@ for i in range(total_nodes):
 Align text perfectly parallel to a connecting line between points `p1` and `p2`:
 
 ```python
-from drawlib.math import get_angle
+from drawlib.config import styles
 from drawlib.lines import line
+from drawlib.math import get_angle
 from drawlib.text import text
 
 p1 = (30, 20)
@@ -114,12 +115,13 @@ text(midpoint, "Data Sync (60°)", angle=angle, style=styles.bold)
 ### 4.1. Automated Cluster Boundary via `get_center_and_size()`
 
 ```drawlib fold-code 600px center caption:"Automated Grouping Box with get_center_and_size()"
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.math import get_center_and_size
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=140, height=70)
+setup(width=140, height=70)
 
 # Define service node positions
 nodes = [(40, 45), (70, 50), (100, 40), (60, 25)]
@@ -149,13 +151,14 @@ save()
 
 ```drawlib fold-code 600px center caption:"Radial Topology with Math Angle & Distance Computations"
 import math
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.math import get_angle, get_distance
 from drawlib.shapes import circle
 from drawlib.text import text
+from drawlib.config import styles
 
-config(width=120, height=80)
+setup(width=120, height=80)
 
 hub = (60, 40)
 radius = 26

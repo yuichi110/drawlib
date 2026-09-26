@@ -11,7 +11,7 @@
 
 from drawlib.canvas import clear, save
 from drawlib.colors import Colors
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.smartarts import Table
 
 OUTPUT_DIR = "../../output_tests/l7_smartarts/table/"
@@ -23,7 +23,7 @@ class TestTable:
     def test_table_default(self) -> None:
         """Verify basic Table drawing with standard grid layout."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         t = Table(styles=styles)
         t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         save(f"{OUTPUT_DIR}test_table_default.png")
@@ -31,7 +31,7 @@ class TestTable:
     def test_table_predefined_style_default(self) -> None:
         """Verify Table drawing with predefined 'default' styling."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         t = Table(styles=styles)
         t.set_predefined_style("default")
         t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
@@ -40,7 +40,7 @@ class TestTable:
     def test_table_predefined_style_monochrome(self) -> None:
         """Verify Table drawing with predefined 'monochrome' styling."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         t = Table(styles=styles)
         t.set_predefined_style("monochrome")
         t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
@@ -49,7 +49,7 @@ class TestTable:
     def test_table_predefined_style_border_simple(self) -> None:
         """Verify Table drawing with predefined 'border_simple' styling."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         t = Table(styles=styles)
         t.set_predefined_style("border_simple")
         t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
@@ -58,7 +58,7 @@ class TestTable:
     def test_table_predefined_style_none(self) -> None:
         """Verify Table drawing with predefined 'none' styling."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         t = Table(styles=styles)
         t.set_predefined_style("none")
         t.draw((10, 85), 30, 20, data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
@@ -67,7 +67,7 @@ class TestTable:
     def test_table_custom_styles(self) -> None:
         """Verify Table drawing with even-odd cell background coloring and custom borders."""
         clear()
-        styles = get_default_styles()
+        styles = default_styles
         t = Table(styles=styles)
         t.clear_styles()
         t.set_style_cell_evenodd(

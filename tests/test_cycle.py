@@ -17,7 +17,7 @@ from pathlib import Path
 from drawlib import canvas
 from drawlib._core.l2_types import TypeColor
 from drawlib._core.l3_styles import Style
-from drawlib.preset_styles import get_default_styles
+from drawlib.preset_styles import default_styles
 from drawlib.smartarts import Cycle
 
 
@@ -26,7 +26,7 @@ class TestCycleUnit:
 
     def test_initialization(self) -> None:
         """Test default parameters of Cycle."""
-        styles = get_default_styles()
+        styles = default_styles
         c = Cycle(styles=styles)
         assert c._clockwise is True
         assert c._start_angle == 90.0
@@ -37,7 +37,7 @@ class TestCycleUnit:
 
     def test_append_and_extend(self) -> None:
         """Test adding items via append and extend."""
-        styles = get_default_styles()
+        styles = default_styles
         c = Cycle(styles=styles)
         c.append("Plan", description="Define goals")
         assert len(c.items) == 1
@@ -55,7 +55,7 @@ class TestCycleUnit:
 
     def test_insert(self) -> None:
         """Test inserting item at specific index."""
-        styles = get_default_styles()
+        styles = default_styles
         c = Cycle(styles=styles)
         c.append("Plan")
         c.append("Act")
@@ -69,7 +69,7 @@ class TestCycleUnit:
 
     def test_set_center(self) -> None:
         """Test configuring center node for Radial Cycle."""
-        styles = get_default_styles()
+        styles = default_styles
         c = Cycle(styles=styles)
         c.set_center(text="Core", description="Central Hub", radius=12.0)
         assert c._center_text == "Core"
@@ -86,7 +86,7 @@ class TestCycleRendering:
             out_file = Path(tmpdir) / "cycle_basic.png"
             canvas.initialize()
 
-            styles = get_default_styles()
+            styles = default_styles
             c = Cycle(styles=styles)
             c.append("Plan", description="Define objectives")
             c.append("Do", description="Implement plan")
@@ -105,7 +105,7 @@ class TestCycleRendering:
             out_file = Path(tmpdir) / "cycle_center.png"
             canvas.initialize()
 
-            styles = get_default_styles()
+            styles = default_styles
             c = Cycle(styles=styles, center_text="PDCA", center_description="Loop", center_radius=11.0)
             c.extend(["Plan", "Do", "Check", "Act"])
 
@@ -121,7 +121,7 @@ class TestCycleRendering:
             out_file = Path(tmpdir) / "cycle_outside.png"
             canvas.initialize()
 
-            styles = get_default_styles()
+            styles = default_styles
             c = Cycle(styles=styles, description_placement="outside", node_radius=7.0)
             c.append("Stage 1", description="Discover")
             c.append("Stage 2", description="Define")
@@ -140,7 +140,7 @@ class TestCycleRendering:
             out_file = Path(tmpdir) / "cycle_rect.png"
             canvas.initialize()
 
-            styles = get_default_styles()
+            styles = default_styles
             c = Cycle(
                 styles=styles,
                 node_shape="rectangle",
@@ -165,7 +165,7 @@ class TestCycleRendering:
             out_file = Path(tmpdir) / "cycle_lines.png"
             canvas.initialize()
 
-            styles = get_default_styles()
+            styles = default_styles
             c = Cycle(styles=styles, arrow_type="line", arrow_width=2.5)
             c.extend(["Spring", "Summer", "Autumn", "Winter"])
 
@@ -181,7 +181,7 @@ class TestCycleRendering:
             out_file = Path(tmpdir) / "cycle_ccw.png"
             canvas.initialize()
 
-            styles = get_default_styles()
+            styles = default_styles
             c = Cycle(styles=styles, clockwise=False)
             c.extend(["A", "B", "C"])
 
@@ -197,7 +197,7 @@ class TestCycleRendering:
             out_file = Path(tmpdir) / "cycle_two.png"
             canvas.initialize()
 
-            styles = get_default_styles()
+            styles = default_styles
             c = Cycle(styles=styles)
             c.append("Input", description="Feedback")
             c.append("Output", description="Response")
@@ -214,7 +214,7 @@ class TestCycleRendering:
             out_file = Path(tmpdir) / "cycle_empty.png"
             canvas.initialize()
 
-            styles = get_default_styles()
+            styles = default_styles
             c = Cycle(styles=styles, center_text="Empty Hub")
             c.draw(xy=(50.0, 50.0))
 
@@ -232,7 +232,7 @@ class TestCycleRendering:
             out_file = Path(tmpdir) / "cycle_bottom_left.png"
             canvas.initialize()
 
-            styles = get_default_styles()
+            styles = default_styles
             palette: list[TypeColor] = [(34, 197, 94), (59, 130, 246), (239, 68, 68)]
             c = Cycle(styles=styles, palette=palette)
             c.extend(["Alpha", "Beta", "Gamma"])
