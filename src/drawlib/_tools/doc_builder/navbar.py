@@ -11,14 +11,14 @@
 
 from __future__ import annotations
 
-import dataclasses
 import os
 import re
 from typing import Any, Dict, List, Optional, Tuple
 
+from pydantic import BaseModel, Field
 
-@dataclasses.dataclass
-class NavbarItem:
+
+class NavbarItem(BaseModel):
     """Represents a single navigation link in navbar.md.
 
     Attributes:
@@ -36,8 +36,7 @@ class NavbarItem:
     anchor: str = ""
 
 
-@dataclasses.dataclass
-class NavbarSection:
+class NavbarSection(BaseModel):
     """Represents a category / group of navigation items under a heading.
 
     Attributes:
@@ -45,8 +44,8 @@ class NavbarSection:
         items (List[NavbarItem]): List of navigation items in this section.
     """
 
-    title: Optional[str]
-    items: List[NavbarItem] = dataclasses.field(default_factory=list)
+    title: Optional[str] = None
+    items: List[NavbarItem] = Field(default_factory=list)
 
 
 _LINK_PATTERN = re.compile(r"^\s*[-*+]\s+\[(.*?)\]\(\s*([^\s)]+)(?:\s+[\"'].*?[\"'])?\s*\)\s*$")

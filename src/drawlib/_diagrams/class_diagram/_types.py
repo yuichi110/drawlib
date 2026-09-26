@@ -11,8 +11,9 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import Literal
+
+from pydantic import BaseModel, ConfigDict
 
 # Relationship kinds in UML Class diagrams
 RelationshipType = Literal[
@@ -31,8 +32,7 @@ Side = Literal["left", "right", "top", "bottom", "auto"]
 RoutingType = Literal["orthogonal", "direct"]
 
 
-@dataclass(frozen=True)
-class AttributeInfo:
+class AttributeInfo(BaseModel):
     """Internal representation of a class attribute/field.
 
     Attributes:
@@ -43,6 +43,8 @@ class AttributeInfo:
         default_value: Optional default value string.
         is_static: Whether the attribute is static (class-level).
     """
+
+    model_config = ConfigDict(frozen=True)
 
     name: str
     type: str = ""
@@ -69,8 +71,7 @@ class AttributeInfo:
         return "".join(parts)
 
 
-@dataclass(frozen=True)
-class MethodInfo:
+class MethodInfo(BaseModel):
     """Internal representation of a class operation/method.
 
     Attributes:
@@ -82,6 +83,8 @@ class MethodInfo:
         is_static: Whether the method is static.
         is_abstract: Whether the method is abstract.
     """
+
+    model_config = ConfigDict(frozen=True)
 
     name: str
     params: str = ""

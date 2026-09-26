@@ -20,8 +20,9 @@ import shlex
 import sys
 import tempfile
 import warnings
-from dataclasses import dataclass
 from typing import Any, Callable, Dict, List, Literal, Optional
+
+from pydantic import BaseModel
 
 import drawlib._core.l4_canvas._canvas
 import drawlib.canvas
@@ -33,8 +34,7 @@ from drawlib._utils import dutil_canvas
 from drawlib.canvas import save
 
 
-@dataclass
-class DrawlibBlockOptions:
+class DrawlibBlockOptions(BaseModel):
     """Parsed options from ```drawlib header line or <script type="text/drawlib"> attributes."""
 
     width: Optional[str] = None
@@ -578,8 +578,7 @@ class DrawlibBlockProcessor:
         return pattern_script.sub(replacer_script, html_text)
 
 
-@dataclass
-class ExtractedBlockInfo:
+class ExtractedBlockInfo(BaseModel):
     """Extracted code block information for show and export subcommands."""
 
     index: int

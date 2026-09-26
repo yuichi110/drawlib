@@ -14,18 +14,17 @@ import json
 import sys
 import urllib.error
 import urllib.request
-from dataclasses import dataclass
 from datetime import datetime
 from typing import Literal
 
 import tomlkit
+from pydantic import BaseModel
 from utils import cd_to_project_root
 
 PYPROJECT_TOML_PATH = "pyproject.toml"
 
 
-@dataclass
-class Args:
+class Args(BaseModel):
     """Command line arguments for the dependency tool."""
 
     command: Literal["list", "releases"]
@@ -35,16 +34,14 @@ class Args:
     year_to: int | None = None
 
 
-@dataclass
-class DependencyInfo:
+class DependencyInfo(BaseModel):
     """Information about a package dependency."""
 
     name: str
     version_specifier: str
 
 
-@dataclass
-class ReleaseInfo:
+class ReleaseInfo(BaseModel):
     """Information about a package release version."""
 
     version: str

@@ -11,8 +11,9 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import Literal
+
+from pydantic import BaseModel, ConfigDict
 
 # Relationship multiplicity (IE / Crow's Foot notation)
 Cardinality = Literal[
@@ -32,8 +33,7 @@ Side = Literal["left", "right", "top", "bottom", "auto"]
 RoutingType = Literal["orthogonal", "direct"]
 
 
-@dataclass(frozen=True)
-class ColumnInfo:
+class ColumnInfo(BaseModel):
     """Internal representation of an entity column.
 
     Attributes:
@@ -43,6 +43,8 @@ class ColumnInfo:
         fk: Whether this column is a Foreign Key.
         nullable: Whether this column is nullable.
     """
+
+    model_config = ConfigDict(frozen=True)
 
     name: str
     type: str = ""

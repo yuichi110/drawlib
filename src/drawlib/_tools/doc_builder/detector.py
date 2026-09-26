@@ -13,8 +13,9 @@ from __future__ import annotations
 
 import os
 import re
-from dataclasses import dataclass
 from typing import Literal
+
+from pydantic import BaseModel, ConfigDict
 
 DocType = Literal["markdown_drawlib", "markdown", "html_drawlib", "html"]
 
@@ -26,8 +27,7 @@ _HTML_DRAWLIB_PATTERN = re.compile(
 _FULL_HTML_PATTERN = re.compile(r"<!doctype\s+html\b|<html\b", re.IGNORECASE)
 
 
-@dataclass(frozen=True)
-class DocumentInputInfo:
+class DocumentInputInfo(BaseModel):
     """Classification metadata for an input document file.
 
     Attributes:
@@ -39,6 +39,8 @@ class DocumentInputInfo:
         is_full_html (bool): True if the HTML document includes <!DOCTYPE html> or <html> root tags.
         block_count (int): Number of drawlib code blocks detected in the document.
     """
+
+    model_config = ConfigDict(frozen=True)
 
     path: str
     doc_type: DocType

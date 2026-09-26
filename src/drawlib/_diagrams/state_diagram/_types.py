@@ -11,8 +11,9 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import Literal, Union
+
+from pydantic import BaseModel, ConfigDict
 
 # Node visual shape kinds
 ShapeType = Literal[
@@ -55,14 +56,15 @@ RoutingType = Literal["curved", "orthogonal", "direct"]
 PaddingType = Union[float, tuple[float, float]]
 
 
-@dataclass(frozen=True)
-class StateAction:
+class StateAction(BaseModel):
     """Internal representation of a state internal activity / action (entry, do, exit).
 
     Attributes:
         kind: Action trigger ('entry', 'do', 'exit', or custom).
         action: Activity or function call string.
     """
+
+    model_config = ConfigDict(frozen=True)
 
     kind: str
     action: str
