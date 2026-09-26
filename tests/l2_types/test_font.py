@@ -32,7 +32,7 @@ class TestFontType:
 
         # Validate FontFile instance
         with (
-            patch("drawlib._core.l2_models_._font.get_script_relative_path", return_value="/dummy/font.ttf"),
+            patch("drawlib._core.l2_types_._path.get_script_relative_path", return_value="/dummy/font.ttf"),
             patch("os.path.exists", return_value=True),
         ):
             font_file = FontFile("dummy/font.ttf")
