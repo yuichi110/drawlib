@@ -12,6 +12,7 @@
 """Integration tests using subprocess to verify drawlib CLI serve command."""
 
 import os
+import socket
 import subprocess
 import sys
 import time
@@ -24,7 +25,10 @@ def test_cli_serve_command(tmp_path) -> None:
     doc_dir.mkdir(parents=True)
     (doc_dir / "index.html").write_text("<h1>CLI Serve Integration Test</h1>", encoding="utf-8")
 
-    port = 8995
+    with socket.socket() as s:
+        s.bind(("", 0))
+        port = s.getsockname()[1]
+
     cmd = [
         sys.executable,
         "-m",
@@ -52,13 +56,15 @@ def test_cli_serve_command(tmp_path) -> None:
     try:
         url = f"http://localhost:{port}/index.html"
         resp = None
-        for _ in range(160):
+        for _ in range(150):
             try:
                 resp = urllib.request.urlopen(url, timeout=3)
                 break
             except Exception:
-                time.sleep(0.05)
-        assert resp is not None, "Failed to connect to CLI serve HTTP server"
+                time.sleep(0.1)
+        if resp is None:
+            _, err = proc.communicate(timeout=2)
+            raise AssertionError(f"Failed to connect to CLI serve HTTP server on port {port}. Stderr: {err}")
         with resp:
             assert resp.status == 200
             body = resp.read().decode("utf-8")

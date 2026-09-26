@@ -28,6 +28,7 @@ def _run_pytest(
     target: str,
     cov: bool = False,
     cov_report: bool = False,
+    parallel: bool = False,
     extra_args: Optional[list[str]] = None,
 ) -> None:
     """Helper to construct and execute pytest commands.
@@ -36,9 +37,12 @@ def _run_pytest(
         target: Target test file or directory path.
         cov: Whether to collect coverage for drawlib.
         cov_report: Whether to print coverage report in terminal.
+        parallel: Whether to run tests in parallel using pytest-xdist.
         extra_args: Additional arguments forwarded to pytest.
     """
     cmd = ["uv", "run", "pytest", "-s"]
+    if parallel:
+        cmd.extend(["-n", "auto", "--dist", "loadfile"])
     if cov:
         cmd.append("--cov=drawlib")
         if cov_report:
@@ -54,14 +58,16 @@ def _run_pytest(
 def test_all(
     cov: bool = typer.Option(True, "--cov/--no-cov", help="Enable/disable coverage tracking."),
     cov_report: bool = typer.Option(False, "--cov-report", help="Show line-by-line coverage report."),
+    parallel: bool = typer.Option(True, "--parallel/--no-parallel", help="Run tests in parallel via pytest-xdist."),
 ) -> None:
     """Run the complete test suite across all tests.
 
     Args:
         cov: Whether to run coverage.
         cov_report: Whether to output terminal coverage report.
+        parallel: Whether to run tests in parallel.
     """
-    _run_pytest("tests/", cov=cov, cov_report=cov_report)
+    _run_pytest("tests/", cov=cov, cov_report=cov_report, parallel=parallel)
     console.print("[bold green]✓ All tests passed successfully![/bold green]")
 
 

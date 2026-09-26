@@ -7,9 +7,12 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
+from __future__ import annotations
+
 import os
 import sys
 from pathlib import Path
+from typing import Optional
 
 import pytest
 
@@ -23,11 +26,12 @@ OUTPUT_TESTS_DIR = REPO_ROOT / "output_tests"
 TESTS_DIR = REPO_ROOT / "tests"
 
 
-def _get_output_files() -> dict[Path, float]:
-    """Retrieve all PNG files and their modification times in output_tests."""
-    files = {}
-    if OUTPUT_TESTS_DIR.exists():
-        for p in OUTPUT_TESTS_DIR.rglob("*.png"):
+def _get_output_files(target_dir: Optional[Path] = None) -> dict[Path, float]:
+    """Retrieve all PNG files and their modification times in target directory."""
+    files: dict[Path, float] = {}
+    scan_dir = target_dir if target_dir is not None else OUTPUT_TESTS_DIR
+    if scan_dir.exists():
+        for p in scan_dir.rglob("*.png"):
             try:
                 files[p] = p.stat().st_mtime
             except FileNotFoundError:
@@ -35,19 +39,25 @@ def _get_output_files() -> dict[Path, float]:
     return files
 
 
-def _get_answers_file_path(gen_file_abs: Path, test_module_abs: Path) -> Path:
-    """Map a generated file path to the corresponding expected answer file path."""
-    subpath = test_module_abs.parent.relative_to(TESTS_DIR)
-    subpath_str = str(subpath).replace("\\", "/")
+def _get_answers_file_path(gen_file_abs: Path, test_module_abs: Path) -> Optional[Path]:
+    """Map a generated file path to the corresponding expected answer file path.
 
-    rel_gen = gen_file_abs.relative_to(OUTPUT_TESTS_DIR)
+    Returns None if the generated file does not belong to this test module or has no answer file.
+    """
+    try:
+        subpath = test_module_abs.parent.relative_to(TESTS_DIR)
+        rel_gen = gen_file_abs.relative_to(OUTPUT_TESTS_DIR)
+    except ValueError:
+        return None
+
+    subpath_str = str(subpath).replace("\\", "/")
     rel_gen_str = str(rel_gen).replace("\\", "/")
 
-    prefix = f"{subpath_str}/"
-    if rel_gen_str.startswith(prefix):
-        suffix = rel_gen_str[len(prefix) :]
-    else:
-        suffix = gen_file_abs.name
+    prefix = f"{subpath_str}/" if subpath_str != "." else ""
+    if prefix and not rel_gen_str.startswith(prefix):
+        return None
+
+    suffix = rel_gen_str[len(prefix) :] if prefix else rel_gen_str
 
     module_name_clean = test_module_abs.stem.replace("test_", "")
     suffix_parts = suffix.split("/")
@@ -55,7 +65,10 @@ def _get_answers_file_path(gen_file_abs: Path, test_module_abs: Path) -> Path:
         suffix = "/".join(suffix_parts[1:])
 
     answers_dir = test_module_abs.parent / f"{test_module_abs.stem}_answers"
-    return answers_dir / suffix
+    answer_file = answers_dir / suffix
+    if not answer_file.is_file():
+        return None
+    return answer_file
 
 
 @pytest.fixture(scope="function", autouse=True)
@@ -70,8 +83,15 @@ def preprocess():
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_call(item):
     """Intercept the test function execution to verify generated images in the call phase (FAILED status)."""
-    # Track output images before the test
-    files_before = _get_output_files()
+    test_module_path = Path(item.module.__file__)
+    try:
+        subpath = test_module_path.parent.relative_to(TESTS_DIR)
+        module_output_dir = OUTPUT_TESTS_DIR / subpath
+    except ValueError:
+        module_output_dir = OUTPUT_TESTS_DIR
+
+    # Track output images before the test in this module's target directory
+    files_before = _get_output_files(module_output_dir)
 
     # Execute the test function
     outcome = yield
@@ -82,9 +102,8 @@ def pytest_runtest_call(item):
     except Exception:
         return
 
-    # Track output images after the test
-    files_after = _get_output_files()
-    test_module_path = Path(item.module.__file__)
+    # Track output images after the test in this module's target directory
+    files_after = _get_output_files(module_output_dir)
 
     # Identify files that were created or modified during the test
     modified_files = []
@@ -94,6 +113,9 @@ def pytest_runtest_call(item):
 
     for gen_file in modified_files:
         correct_file = _get_answers_file_path(gen_file, test_module_path)
+        if correct_file is None:
+            continue
+
         with open(gen_file, "rb") as f:
             gen_bytes = f.read()
 
