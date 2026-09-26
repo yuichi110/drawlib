@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Public tools package for drawlib."""
+"""Public developer tools facade for drawlib."""
 
 from __future__ import annotations
 
@@ -18,36 +18,43 @@ from drawlib._builder.doc_builder import (
     build_pdf,
     detect_document_type,
     export_code_block,
-    export_css,
-    list_css,
     show_code_block,
 )
 from drawlib._builder.image_builder import build_image
 from drawlib._builder.project_init import init_project, list_project_types
-from drawlib._http_server import serve_docs
-from drawlib.tools import build, cache, css, export, init, serve, show
+from drawlib._css_templates import (
+    export_css,
+    get_css,
+    list_css,
+    list_html_css,
+    list_pdf_css,
+)
+from drawlib._http_server import run_server, scan_broken_links, serve_docs
+
+export_block = export_code_block
+show_block = show_code_block
 
 __all__ = [
-    "build",
     "build_html",
     "build_image",
     "build_markdown",
     "build_pdf",
-    "cache",
     "clear_cache",
-    "css",
     "detect_document_type",
     "download_cache",
-    "export",
+    "export_block",
     "export_code_block",
     "export_css",
-    "init",
+    "get_css",
     "init_project",
     "list_cache",
     "list_css",
+    "list_html_css",
+    "list_pdf_css",
     "list_project_types",
-    "serve",
+    "run_server",
+    "scan_broken_links",
     "serve_docs",
-    "show",
+    "show_block",
     "show_code_block",
 ]

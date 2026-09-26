@@ -15,18 +15,18 @@ This programmatic interface is specifically designed for:
 
 All top-level CLI commands have direct 1-to-1 functional counterparts in `drawlib.tools`:
 
-| CLI Command | Programmatic Function | Module / Alias | Description |
-| :--- | :--- | :--- | :--- |
-| `drawlib build html` | `build_html(...)` | `drawlib.tools.build` | Compile Markdown files or directory into an HTML site. |
-| `drawlib build markdown` | `build_markdown(...)` | `drawlib.tools.build` | Compile Markdown files for GitHub repository browsing. |
-| `drawlib build pdf` | `build_pdf(...)` | `drawlib.tools.build` | Compile documents to vector PDF via headless Chromium. |
-| `drawlib build images` | `build_image(...)` | `drawlib.tools.build` | Batch execute standalone Python drawing scripts into images. |
-| `drawlib export` | `export_block(...)` | `drawlib.tools.export.export_block` | Extract and render a single diagram block or script to image. |
-| `drawlib show` | `show_block(...)` | `drawlib.tools.show.show_block` | Render and display diagram block in desktop GUI viewer. |
-| `drawlib init` | `init_project(...)` | `drawlib.tools.init.init_project` | Scaffold starter documentation project structures. |
-| `drawlib serve` | `serve_docs(...)` | `drawlib.tools.serve.serve_docs` | Launch local preview HTTP web server with link checker. |
-| `drawlib cache` | `list_cache()`, `clear_cache()` | `drawlib.tools.cache` | Inspect, download, or clear font and icon asset cache. |
-| `drawlib css` | `list_css()`, `export_css()` | `drawlib.tools.css` | Inspect and export built-in CSS stylesheets. |
+| CLI Command | Programmatic Function | Description |
+| :--- | :--- | :--- |
+| `drawlib build html` | `build_html(...)` | Compile Markdown files or directory into an HTML site. |
+| `drawlib build markdown` | `build_markdown(...)` | Compile Markdown files for GitHub repository browsing. |
+| `drawlib build pdf` | `build_pdf(...)` | Compile documents to vector PDF via headless Chromium. |
+| `drawlib build images` | `build_image(...)` | Batch execute standalone Python drawing scripts into images. |
+| `drawlib export` | `export_block(...)` | Extract and render a single diagram block or script to image. |
+| `drawlib show` | `show_block(...)` | Render and display diagram block in desktop GUI viewer. |
+| `drawlib init` | `init_project(...)` | Scaffold starter documentation project structures. |
+| `drawlib serve` | `serve_docs(...)` | Launch local preview HTTP web server with link checker. |
+| `drawlib cache` | `list_cache()`, `clear_cache()` | Inspect, download, or clear font and icon asset cache. |
+| `drawlib css` | `list_css()`, `export_css()` | Inspect and export built-in CSS stylesheets. |
 
 ```drawlib 650px center caption:"Architecture: drawlib.tools as the Backend Engine"
 from drawlib.canvas import setup
@@ -97,9 +97,6 @@ from drawlib.tools import (
     list_css,
     export_css,
 )
-
-# Or namespace submodule access
-from drawlib.tools import build, cache, css, export, init, serve, show
 ```
 
 ---
@@ -248,7 +245,7 @@ serve_docs(
 Manage downloaded assets programmatically:
 
 ```python
-from drawlib.tools.cache import clear_cache, download_cache, list_cache
+from drawlib.tools import clear_cache, download_cache, list_cache
 
 # List cached font files and icons:
 cached_files = list_cache()
@@ -263,7 +260,7 @@ clear_cache()
 ### 6.3. CSS Management (`css`)
 
 ```python
-from drawlib.tools.css import export_css, list_css
+from drawlib.tools import export_css, list_css
 
 # Inspect available CSS presets:
 presets = list_css(target="html")

@@ -42,9 +42,9 @@ from drawlib.tools import (
 
 ---
 
-## 2. Document & Image Compilation (`drawlib.tools.build`)
+## 2. Document & Image Compilation
 
-The `build` package compiles Markdown documents, multi-page document sites, and standalone Python illustration scripts into production outputs.
+The compilation tools compile Markdown documents, multi-page document sites, and standalone Python illustration scripts into production outputs.
 
 ### 2.1. HTML Build (`build_html`)
 Compiles a single Markdown file or a documentation source directory (`docs_src/`) into responsive HTML pages with navigation and styling:
@@ -145,7 +145,7 @@ show_block(
 
 ---
 
-## 4. Project Scaffolding (`drawlib.tools.init`)
+## 4. Project Scaffolding
 
 Automates initial project creation with pre-configured directories, sample Markdown files, and build scripts:
 
@@ -182,11 +182,11 @@ serve_docs(
 )
 ```
 
-### 5.2. Cache Management (`drawlib.tools.cache`)
+### 5.2. Cache Management
 Inspect and manage cached font and icon assets:
 
 ```python
-from drawlib.tools.cache import clear_cache, download_cache, list_cache
+from drawlib.tools import clear_cache, download_cache, list_cache
 
 # List cached font families and icons:
 cached_items = list_cache()
@@ -198,11 +198,11 @@ download_cache()
 clear_cache()
 ```
 
-### 5.3. CSS Presets (`drawlib.tools.css`)
+### 5.3. CSS Presets
 Inspect available CSS themes and export stylesheets:
 
 ```python
-from drawlib.tools.css import export_css, list_css
+from drawlib.tools import export_css, list_css
 
 # List CSS style presets:
 html_presets = list_css(format="html")  # ["google", "google-dark", "github", ...]

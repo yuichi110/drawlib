@@ -18,7 +18,7 @@ src_dir = str(project_root / "src")
 if src_dir not in sys.path:
     sys.path.insert(0, src_dir)
 
-from drawlib.tools.build import build_html, build_markdown  # noqa: E402
+from drawlib.tools import build_html, build_markdown  # noqa: E402
 
 
 def build_docs() -> None:

@@ -20,14 +20,14 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
+from drawlib._builder.cache_manager import clear_cache, download_cache, list_cache
+from drawlib._builder.doc_builder import export_code_block as export_block
+from drawlib._builder.doc_builder import show_code_block as show_block
 from drawlib._builder.rules_builder import _normalize_topic
 from drawlib._cli._rules import cmd_rules_show
 from drawlib._core.utils import dutil_settings
-from drawlib.tools.cache import clear_cache, download_cache, list_cache
-from drawlib.tools.css import export_css, list_css
-from drawlib.tools.export import export_block
-from drawlib.tools.serve import serve_docs
-from drawlib.tools.show import show_block
+from drawlib._css_templates import export_css, list_css
+from drawlib._http_server import serve_docs
 
 console = Console()
 

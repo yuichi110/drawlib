@@ -13,12 +13,24 @@ import os
 
 import pytest
 
-from drawlib.tools.build import build_html, build_image, build_markdown, build_pdf
-from drawlib.tools.cache import clear_cache, download_cache, list_cache
-from drawlib.tools.css import export_css, get_css, list_css
-from drawlib.tools.export import export_code_block
-from drawlib.tools.serve import serve_docs
-from drawlib.tools.show import show_code_block
+from drawlib.tools import (
+    build_html,
+    build_image,
+    build_markdown,
+    build_pdf,
+    clear_cache,
+    download_cache,
+    export_block,
+    export_code_block,
+    export_css,
+    get_css,
+    init_project,
+    list_cache,
+    list_css,
+    serve_docs,
+    show_block,
+    show_code_block,
+)
 
 
 def test_public_tools_facade_exports() -> None:
@@ -35,7 +47,10 @@ def test_public_tools_facade_exports() -> None:
     assert callable(get_css)
     assert callable(serve_docs)
     assert callable(show_code_block)
+    assert callable(show_block)
     assert callable(export_code_block)
+    assert callable(export_block)
+    assert callable(init_project)
 
 
 def test_list_css() -> None:
