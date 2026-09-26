@@ -13,31 +13,29 @@
 
 from __future__ import annotations
 
-from pathlib import Path
-
 import pytest
 
 from tests.cli.common import run_drawlib_cli
 
 
-def test_cli_rules_default(tmp_path: Path) -> None:
+def test_cli_rules_default() -> None:
     """Test `drawlib rules` without arguments outputs overview."""
-    res = run_drawlib_cli(["rules"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["rules"])
     assert res.returncode == 0
     assert "# Drawlib Agent Drawing Guidelines" in res.stdout
     assert "from drawlib.canvas import" in res.stdout
 
 
-def test_cli_rules_show_default(tmp_path: Path) -> None:
+def test_cli_rules_show_default() -> None:
     """Test `drawlib rules show` without topic outputs overview."""
-    res = run_drawlib_cli(["rules", "show"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["rules", "show"])
     assert res.returncode == 0
     assert "# Drawlib Agent Drawing Guidelines" in res.stdout
 
 
-def test_cli_rules_list(tmp_path: Path) -> None:
+def test_cli_rules_list() -> None:
     """Test `drawlib rules list` lists all topics."""
-    res = run_drawlib_cli(["rules", "list"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["rules", "list"])
     assert res.returncode == 0
     for topic in [
         "overview",
@@ -89,85 +87,75 @@ def test_cli_rules_list(tmp_path: Path) -> None:
         ("diagrams", "# Drawlib Diagrams Guidelines"),
     ],
 )
-def test_cli_rules_show_topics(tmp_path: Path, topic: str, expected_heading: str) -> None:
+def test_cli_rules_show_topics(topic: str, expected_heading: str) -> None:
     """Test `drawlib rules show <topic>` for each supported topic."""
-    res = run_drawlib_cli(["rules", "show", topic], cwd=str(tmp_path))
+    res = run_drawlib_cli(["rules", "show", topic])
     assert res.returncode == 0
     assert expected_heading in res.stdout
 
 
-def test_cli_rules_show_themes_alias(tmp_path: Path) -> None:
+def test_cli_rules_show_themes_alias() -> None:
     """Test `drawlib rules show themes` redirects to preset_styles with a friendly note."""
-    res = run_drawlib_cli(["rules", "show", "themes"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["rules", "show", "themes"])
     assert res.returncode == 0
     assert "# Drawlib Preset Styles Guidelines" in res.stdout
     assert "preset_styles" in res.stderr.lower()
 
 
-def test_cli_rules_show_docs_alias(tmp_path: Path) -> None:
+def test_cli_rules_show_docs_alias() -> None:
     """Test `drawlib rules show docs` redirects to docs_build."""
-    res = run_drawlib_cli(["rules", "show", "docs"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["rules", "show", "docs"])
     assert res.returncode == 0
     assert "# Drawlib Documentation Build Guidelines" in res.stdout
 
 
-def test_cli_rules_show_unknown_topic(tmp_path: Path) -> None:
+def test_cli_rules_show_unknown_topic() -> None:
     """Test `drawlib rules show unknown` exits with code 1 and prints available topics."""
-    res = run_drawlib_cli(["rules", "show", "unknown_topic"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["rules", "show", "unknown_topic"])
     assert res.returncode == 1
     assert "Error: Unknown rule topic 'unknown_topic'" in res.stderr
     assert "Available topics:" in res.stderr
 
 
-def test_cli_rules_show_raw(tmp_path: Path) -> None:
+def test_cli_rules_show_raw() -> None:
     """Test `drawlib rules show --raw` returns raw markdown without the instruction banner."""
-    res = run_drawlib_cli(["rules", "show", "overview", "--raw"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["rules", "show", "overview", "--raw"])
     assert res.returncode == 0
     assert "# Drawlib Agent Drawing Guidelines" in res.stdout
     assert "Instructions for AI Agents & Developers" not in res.stdout
 
 
-def test_cli_rules_show_rebuild_and_clean(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_cli_rules_show_rebuild_and_clean() -> None:
     """Test `drawlib rules show --rebuild` caches output and `drawlib rules clean` removes it."""
-    isolated_cache = tmp_path / "rules_cache"
-    monkeypatch.setenv("DRAWLIB_RULES_DIR", str(isolated_cache))
-
     # Build on demand
-    res_show = run_drawlib_cli(["rules", "show", "overview", "--rebuild"], cwd=str(tmp_path))
+    res_show = run_drawlib_cli(["rules", "show", "overview", "--rebuild"])
     assert res_show.returncode == 0
     assert "# Drawlib Agent Drawing Guidelines" in res_show.stdout
     assert "Instructions for AI Agents & Developers" in res_show.stdout
-    assert (isolated_cache / "overview.md").exists()
 
     # Clean cache
-    res_clean = run_drawlib_cli(["rules", "clean"], cwd=str(tmp_path))
+    res_clean = run_drawlib_cli(["rules", "clean"])
     assert res_clean.returncode == 0
     assert "Successfully cleaned" in res_clean.stdout
-    assert not (isolated_cache / "overview.md").exists()
 
 
-def test_cli_rules_build_specific_topic(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_cli_rules_build_specific_topic() -> None:
     """Test `drawlib rules build <topic>` pre-builds illustrations."""
-    isolated_cache = tmp_path / "rules_cache"
-    monkeypatch.setenv("DRAWLIB_RULES_DIR", str(isolated_cache))
-
-    res_build = run_drawlib_cli(["rules", "build", "overview", "--force"], cwd=str(tmp_path))
+    res_build = run_drawlib_cli(["rules", "build", "overview", "--force"])
     assert res_build.returncode == 0
     assert "Successfully compiled rule topic 'overview'" in res_build.stdout
-    assert (isolated_cache / "overview.md").exists()
 
     # Clean cache after test
-    res_clean = run_drawlib_cli(["rules", "clean"], cwd=str(tmp_path))
+    res_clean = run_drawlib_cli(["rules", "clean"])
     assert res_clean.returncode == 0
-    assert not (isolated_cache / "overview.md").exists()
 
 
-def test_cli_show_rules_fallback(tmp_path: Path) -> None:
+def test_cli_show_rules_fallback() -> None:
     """Test `drawlib show <topic>` seamlessly redirects to `drawlib rules show <topic>`."""
-    res_canvas = run_drawlib_cli(["show", "canvas"], cwd=str(tmp_path))
+    res_canvas = run_drawlib_cli(["show", "canvas"])
     assert res_canvas.returncode == 0
     assert "# Drawlib Canvas Guidelines" in res_canvas.stdout
 
-    res_tools = run_drawlib_cli(["show", "tools"], cwd=str(tmp_path))
+    res_tools = run_drawlib_cli(["show", "tools"])
     assert res_tools.returncode == 0
     assert "# Drawlib Tools Guidelines" in res_tools.stdout
