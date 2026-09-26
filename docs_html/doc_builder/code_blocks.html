@@ -522,7 +522,7 @@ circle((50, 50), radius=25, style=styles.primary)
 </code></pre>
 <hr />
 <h2>5. Execution Context &amp; Isolation</h2>
-<p>When compiling code blocks, <code>drawlib.doc_builder</code> guarantees complete isolation between illustrations:</p>
+<p>When compiling code blocks, <code>drawlib.builder</code> guarantees complete isolation between illustrations:</p>
 <ol>
 <li><strong>Canvas Clearing</strong>: The drawing canvas is automatically reset before and after each block execution. Variables or shapes from earlier blocks do not leak into subsequent diagrams.</li>
 <li><strong>Working Directory &amp; Relative Assets</strong>: The execution working directory is temporarily switched (<code>os.chdir</code>) to the document's parent directory. Relative file references (e.g. <code>image(xy=(50, 50), image=&quot;diagram.png&quot;)</code>) resolve reliably against the document's location.</li>

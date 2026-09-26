@@ -14,7 +14,6 @@ from __future__ import annotations
 import math
 from typing import TYPE_CHECKING, Literal
 
-from drawlib._core.colors import Colors
 from drawlib._core.fonts import Font
 from drawlib._core.lines import line as canvas_line
 from drawlib._core.lines import lines as canvas_lines
@@ -28,6 +27,7 @@ from drawlib._diagrams.flow._lane import Lane
 from drawlib._diagrams.flow._node import FlowNode
 from drawlib._diagrams.flow._nodes import Data, Decision, End, Process, Start
 from drawlib._diagrams.flow._types import Connectable, PaddingType, Side
+from drawlib._preset_colors import Colors
 
 if TYPE_CHECKING:
     from drawlib._diagrams.flow._diagram import FlowDiagram

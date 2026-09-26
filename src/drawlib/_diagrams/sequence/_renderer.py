@@ -19,7 +19,6 @@ from PIL.Image import Image
 
 import drawlib._icons.font_icons.phosphor._generated as phosphor_gen
 import drawlib._icons.png_icons.gcp._generated as gcp_gen
-from drawlib._core.colors import Colors
 from drawlib._core.fonts import Font
 from drawlib._core.images import Dimage
 from drawlib._core.images import image as canvas_image
@@ -35,6 +34,7 @@ from drawlib._diagrams.sequence._message import Message
 from drawlib._diagrams.sequence._note import Note
 from drawlib._diagrams.sequence._participant import Participant
 from drawlib._diagrams.sequence._types import DiagramPadding, IconType, PaddingType
+from drawlib._preset_colors import Colors
 
 if TYPE_CHECKING:
     from drawlib._diagrams.sequence._diagram import SequenceDiagram

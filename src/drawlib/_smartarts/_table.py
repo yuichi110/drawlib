@@ -15,11 +15,11 @@ from typing import Any, Literal
 from PIL.ExifTags import Base
 from pydantic import BaseModel, validate_call
 
-from drawlib._core.colors import Colors, ColorsEssentials
 from drawlib._core.fonts import Font
 from drawlib._core.lines import line
 from drawlib._core.shapes import rectangle
 from drawlib._core.types import Style, TypeColor, TypeCoordinate, TypePosFloat, TypePosInt, TypeStr
+from drawlib._preset_colors import Colors, EssentialsStyleColors
 from drawlib._preset_styles import BasePresetStyles
 
 
@@ -109,17 +109,19 @@ class Table:
             border: bottom only
             """
             self.set_style_cell_evenodd(
-                even_color=ColorsEssentials.Snow,
-                even_textstyle=self._styles.primary.patch(text_color=ColorsEssentials.Charcoal),
-                odd_color=ColorsEssentials.White,
-                odd_textstyle=self._styles.primary.patch(text_color=ColorsEssentials.Charcoal),
+                even_color=EssentialsStyleColors.Snow,
+                even_textstyle=self._styles.primary.patch(text_color=EssentialsStyleColors.Charcoal),
+                odd_color=EssentialsStyleColors.White,
+                odd_textstyle=self._styles.primary.patch(text_color=EssentialsStyleColors.Charcoal),
             )
             self.set_style_cell_header(
-                background_color=ColorsEssentials.LightBlue,
-                textstyle=self._styles.bold.patch(text_color=ColorsEssentials.White, text_font=Font.SANSSERIF_BOLD),
+                background_color=EssentialsStyleColors.LightBlue,
+                textstyle=self._styles.bold.patch(
+                    text_color=EssentialsStyleColors.White, text_font=Font.SANSSERIF_BOLD
+                ),
             )
             self.set_style_border(
-                bottom=self._styles.solid.patch(line_color=ColorsEssentials.Charcoal, line_width=1),
+                bottom=self._styles.solid.patch(line_color=EssentialsStyleColors.Charcoal, line_width=1),
             )
 
         elif name == "none":
@@ -130,7 +132,7 @@ class Table:
             """
             self.set_style_cell(
                 background_color=Colors.Transparent,
-                textstyle=self._styles.primary.patch(text_color=ColorsEssentials.Charcoal),
+                textstyle=self._styles.primary.patch(text_color=EssentialsStyleColors.Charcoal),
             )
 
         elif name == "monochrome":
@@ -140,17 +142,19 @@ class Table:
             border: bottom only
             """
             self.set_style_cell_evenodd(
-                even_color=ColorsEssentials.Snow,
-                even_textstyle=self._styles.primary.patch(text_color=ColorsEssentials.Charcoal),
-                odd_color=ColorsEssentials.White,
-                odd_textstyle=self._styles.primary.patch(text_color=ColorsEssentials.Charcoal),
+                even_color=EssentialsStyleColors.Snow,
+                even_textstyle=self._styles.primary.patch(text_color=EssentialsStyleColors.Charcoal),
+                odd_color=EssentialsStyleColors.White,
+                odd_textstyle=self._styles.primary.patch(text_color=EssentialsStyleColors.Charcoal),
             )
             self.set_style_cell_header(
-                background_color=ColorsEssentials.Graphite,
-                textstyle=self._styles.bold.patch(text_color=ColorsEssentials.White, text_font=Font.SANSSERIF_BOLD),
+                background_color=EssentialsStyleColors.Graphite,
+                textstyle=self._styles.bold.patch(
+                    text_color=EssentialsStyleColors.White, text_font=Font.SANSSERIF_BOLD
+                ),
             )
             self.set_style_border(
-                bottom=self._styles.solid.patch(line_color=ColorsEssentials.Charcoal, line_width=1),
+                bottom=self._styles.solid.patch(line_color=EssentialsStyleColors.Charcoal, line_width=1),
             )
 
         elif name == "border_simple":
@@ -160,17 +164,19 @@ class Table:
             border: header1, header2(light), bottom
             """
             self.set_style_cell(
-                background_color=ColorsEssentials.White,
-                textstyle=self._styles.primary.patch(text_color=ColorsEssentials.Charcoal),
+                background_color=EssentialsStyleColors.White,
+                textstyle=self._styles.primary.patch(text_color=EssentialsStyleColors.Charcoal),
             )
             self.set_style_cell_header(
-                background_color=ColorsEssentials.White,
-                textstyle=self._styles.bold.patch(text_color=ColorsEssentials.Charcoal, text_font=Font.SANSSERIF_BOLD),
+                background_color=EssentialsStyleColors.White,
+                textstyle=self._styles.bold.patch(
+                    text_color=EssentialsStyleColors.Charcoal, text_font=Font.SANSSERIF_BOLD
+                ),
             )
             self.set_style_border(
-                top=self._styles.solid.patch(line_color=ColorsEssentials.Charcoal, line_width=1.5),
-                top2=self._styles.solid.patch(line_color=ColorsEssentials.Charcoal, line_width=0.75),
-                bottom=self._styles.solid.patch(line_color=ColorsEssentials.Charcoal, line_width=1.5),
+                top=self._styles.solid.patch(line_color=EssentialsStyleColors.Charcoal, line_width=1.5),
+                top2=self._styles.solid.patch(line_color=EssentialsStyleColors.Charcoal, line_width=0.75),
+                bottom=self._styles.solid.patch(line_color=EssentialsStyleColors.Charcoal, line_width=1.5),
             )
 
         else:

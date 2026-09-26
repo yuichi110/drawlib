@@ -7,18 +7,10 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Package for core drawing action modules."""
+"""Package for core styles and colors base."""
 
 from drawlib._core.l3_styles._colors import (
-    Colors,
-    Colors140,
     ColorsBase,
-    ColorsDefault,
-    ColorsEssentials,
-    ColorsMonochrome,
-    ColorsThemeDefault,
-    ColorsThemeEssentials,
-    ColorsThemeMonochrome,
 )
 from drawlib._core.l3_styles._style_models import (
     Style,
@@ -26,15 +18,7 @@ from drawlib._core.l3_styles._style_models import (
 
 __all__ = [
     # _colors.py
-    "Colors",
-    "Colors140",
     "ColorsBase",
-    "ColorsDefault",
-    "ColorsEssentials",
-    "ColorsMonochrome",
-    "ColorsThemeDefault",
-    "ColorsThemeEssentials",
-    "ColorsThemeMonochrome",
     # _style_models.py
     "Style",
 ]

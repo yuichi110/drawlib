@@ -14,10 +14,10 @@ from typing import Callable
 
 from pydantic import BaseModel, validate_call
 
-from drawlib._core.colors import Colors
 from drawlib._core.shapes import circle
 from drawlib._core.text import text
 from drawlib._core.types import Style, TypeCoordinate, TypeFloat, TypeInt, TypePosFloat, TypeStr
+from drawlib._preset_colors import Colors
 from drawlib._preset_styles import BasePresetStyles
 
 

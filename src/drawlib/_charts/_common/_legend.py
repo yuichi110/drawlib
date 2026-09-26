@@ -14,11 +14,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from drawlib._charts._common._types import ColorType, LegendPosition
-from drawlib._core.colors import Colors
 from drawlib._core.fonts import Font
 from drawlib._core.shapes import rectangle as canvas_rectangle
 from drawlib._core.text import text as canvas_text
 from drawlib._core.types import Style
+from drawlib._preset_colors import Colors
 
 if TYPE_CHECKING:
     pass

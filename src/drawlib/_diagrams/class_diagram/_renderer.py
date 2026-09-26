@@ -14,7 +14,6 @@ from __future__ import annotations
 import math
 from typing import TYPE_CHECKING
 
-from drawlib._core.colors import Colors
 from drawlib._core.fonts import Font
 from drawlib._core.lines import line as canvas_line
 from drawlib._core.lines import lines as canvas_lines
@@ -23,6 +22,7 @@ from drawlib._core.shapes import rectangle as canvas_rectangle
 from drawlib._core.text import text as canvas_text
 from drawlib._core.types import Style
 from drawlib._diagrams.class_diagram._types import RoutingType, Side
+from drawlib._preset_colors import Colors
 
 if TYPE_CHECKING:
     from drawlib._diagrams.class_diagram._class_node import ClassNode

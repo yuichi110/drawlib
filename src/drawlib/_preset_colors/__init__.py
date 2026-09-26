@@ -7,29 +7,17 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Public colors module for drawlib."""
+"""Private preset colors package for drawlib."""
 
-from drawlib._preset_colors import (
-    Colors,
-    Colors140,
-    ColorsBase,
-    DefaultStyleColors,
-    EssentialsStyleColors,
-    GoogleStyleColors,
-    MonochromeStyleColors,
-)
-from drawlib._utils._color import (
-    get_rgba as with_alpha,
-)
-from drawlib._utils._color import (
-    get_rgba_from_grayscale as from_grayscale,
-)
-from drawlib._utils._color import (
-    get_rgba_from_hexcode as from_hex,
-)
+from drawlib._core.l3_styles import ColorsBase
+from drawlib._preset_colors._color_16 import Colors
+from drawlib._preset_colors._color_140 import Colors140
+from drawlib._preset_colors._color_default import DefaultStyleColors
+from drawlib._preset_colors._color_essentials import EssentialsStyleColors
+from drawlib._preset_colors._color_google import GoogleStyleColors
+from drawlib._preset_colors._color_monochrome import MonochromeStyleColors
 
 __all__ = [
-    # Color Classes
     "Colors",
     "Colors140",
     "ColorsBase",
@@ -37,8 +25,4 @@ __all__ = [
     "EssentialsStyleColors",
     "GoogleStyleColors",
     "MonochromeStyleColors",
-    # Color Utilities
-    "from_hex",
-    "from_grayscale",
-    "with_alpha",
 ]

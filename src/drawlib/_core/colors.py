@@ -10,25 +10,9 @@
 """Core colors facade module."""
 
 from drawlib._core.l3_styles import (
-    Colors,
-    Colors140,
     ColorsBase,
-    ColorsDefault,
-    ColorsEssentials,
-    ColorsMonochrome,
-    ColorsThemeDefault,
-    ColorsThemeEssentials,
-    ColorsThemeMonochrome,
 )
 
 __all__ = [
-    "Colors",
-    "Colors140",
     "ColorsBase",
-    "ColorsDefault",
-    "ColorsEssentials",
-    "ColorsMonochrome",
-    "ColorsThemeDefault",
-    "ColorsThemeEssentials",
-    "ColorsThemeMonochrome",
 ]

@@ -418,7 +418,7 @@ While terminal commands like <code>drawlib build</code>, <code>drawlib export</c
 <tr>
 <th style="text-align:left">CLI Command</th>
 <th style="text-align:left">Programmatic Function</th>
-<th style="text-align:left">Module / Alias</th>
+<th style="text-align:left">Module</th>
 <th style="text-align:left">Description</th>
 </tr>
 </thead>
@@ -426,61 +426,61 @@ While terminal commands like <code>drawlib build</code>, <code>drawlib export</c
 <tr>
 <td style="text-align:left"><code>drawlib build html</code></td>
 <td style="text-align:left"><code>build_html(...)</code></td>
-<td style="text-align:left"><code>drawlib.tools.build.html</code></td>
+<td style="text-align:left"><code>drawlib.builder</code></td>
 <td style="text-align:left">Compile Markdown files or directory into an HTML site.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>drawlib build markdown</code></td>
 <td style="text-align:left"><code>build_markdown(...)</code></td>
-<td style="text-align:left"><code>drawlib.tools.build.markdown</code></td>
+<td style="text-align:left"><code>drawlib.builder</code></td>
 <td style="text-align:left">Compile Markdown files for GitHub repository browsing.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>drawlib build pdf</code></td>
 <td style="text-align:left"><code>build_pdf(...)</code></td>
-<td style="text-align:left"><code>drawlib.tools.build.pdf</code></td>
+<td style="text-align:left"><code>drawlib.builder</code></td>
 <td style="text-align:left">Compile documents to vector PDF via headless Chromium.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>drawlib build images</code></td>
 <td style="text-align:left"><code>build_image(...)</code></td>
-<td style="text-align:left"><code>drawlib.tools.build.image</code></td>
+<td style="text-align:left"><code>drawlib.builder</code></td>
 <td style="text-align:left">Batch execute standalone Python drawing scripts into images.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>drawlib export</code></td>
 <td style="text-align:left"><code>export_block(...)</code></td>
-<td style="text-align:left"><code>drawlib.tools.export.export_block</code></td>
+<td style="text-align:left"><code>drawlib.builder</code></td>
 <td style="text-align:left">Extract and render a single diagram block or script to image.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>drawlib show</code></td>
 <td style="text-align:left"><code>show_block(...)</code></td>
-<td style="text-align:left"><code>drawlib.tools.show.show_block</code></td>
+<td style="text-align:left"><code>drawlib.builder</code></td>
 <td style="text-align:left">Render and display diagram block in desktop GUI viewer.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>drawlib init</code></td>
 <td style="text-align:left"><code>init_project(...)</code></td>
-<td style="text-align:left"><code>drawlib.tools.init.init_project</code></td>
+<td style="text-align:left"><code>drawlib.tools</code></td>
 <td style="text-align:left">Scaffold starter documentation project structures.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>drawlib serve</code></td>
 <td style="text-align:left"><code>serve_docs(...)</code></td>
-<td style="text-align:left"><code>drawlib.tools.serve.serve_docs</code></td>
+<td style="text-align:left"><code>drawlib.tools</code></td>
 <td style="text-align:left">Launch local preview HTTP web server with link checker.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>drawlib cache</code></td>
 <td style="text-align:left"><code>list_cache()</code>, <code>clear_cache()</code></td>
-<td style="text-align:left"><code>drawlib.tools.cache</code></td>
+<td style="text-align:left"><code>drawlib.tools</code></td>
 <td style="text-align:left">Inspect, download, or clear font and icon asset cache.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>drawlib css</code></td>
 <td style="text-align:left"><code>list_css()</code>, <code>export_css()</code></td>
-<td style="text-align:left"><code>drawlib.tools.css</code></td>
+<td style="text-align:left"><code>drawlib.tools</code></td>
 <td style="text-align:left">Inspect and export built-in CSS stylesheets.</td>
 </tr>
 </tbody>
@@ -491,15 +491,19 @@ While terminal commands like <code>drawlib build</code>, <code>drawlib export</c
 </figure>
 <hr />
 <h2>2. Imports &amp; Module Structure</h2>
-<p>You can import functions either directly from <code>drawlib.tools</code> or from categorized submodules:</p>
-<pre><code class="language-python"># Direct top-level imports
-from drawlib.tools import (
+<p>You can import compilation functions from <code>drawlib.builder</code>, and developer utilities from <code>drawlib.tools</code>:</p>
+<pre><code class="language-python"># Document and image compilation
+from drawlib.builder import (
     build_html,
     build_markdown,
     build_pdf,
     build_image,
     export_block,
     show_block,
+)
+
+# Developer tools and project utilities
+from drawlib.tools import (
     init_project,
     serve_docs,
     clear_cache,
@@ -508,15 +512,12 @@ from drawlib.tools import (
     list_css,
     export_css,
 )
-
-# Or namespace submodule access
-from drawlib.tools import build, cache, css, export, init, serve, show
 </code></pre>
 <hr />
 <h2>3. Document &amp; Image Compilation (<code>build</code>)</h2>
 <h3>3.1. <code>build_html()</code></h3>
 <p>Compiles authoring Markdown source files into a responsive static HTML site. Note that <code>template.html</code> and <code>style.css</code> must exist in the source directory (scaffolded via <code>drawlib init</code>):</p>
-<pre><code class="language-python">from drawlib.tools import build_html
+<pre><code class="language-python">from drawlib.builder import build_html
 
 build_html(
     input_path=&quot;docs_src/&quot;,            # Source directory or single .md file
@@ -528,7 +529,7 @@ build_html(
 </code></pre>
 <h3>3.2. <code>build_markdown()</code></h3>
 <p>Compiles Markdown documents for GitHub repository browsing. Code blocks are preserved as Python syntax-highlighted blocks followed by relative image links:</p>
-<pre><code class="language-python">from drawlib.tools import build_markdown
+<pre><code class="language-python">from drawlib.builder import build_markdown
 
 build_markdown(
     input_path=&quot;docs_src/&quot;,
@@ -539,7 +540,7 @@ build_markdown(
 </code></pre>
 <h3>3.3. <code>build_pdf()</code></h3>
 <p>Renders Markdown documents to print-ready vector PDF using headless Chromium via Playwright:</p>
-<pre><code class="language-python">from drawlib.tools import build_pdf
+<pre><code class="language-python">from drawlib.builder import build_pdf
 
 build_pdf(
     inputs=&quot;doc_src/&quot;,
@@ -550,7 +551,7 @@ build_pdf(
 </code></pre>
 <h3>3.4. <code>build_image()</code></h3>
 <p>Executes all standalone <code>.py</code> drawing scripts within a directory and exports rendered images:</p>
-<pre><code class="language-python">from drawlib.tools import build_image
+<pre><code class="language-python">from drawlib.builder import build_image
 
 build_image(
     input_path=&quot;drawings/&quot;,
@@ -564,7 +565,7 @@ build_image(
 <h3>4.1. <code>export_block()</code></h3>
 <p>Extracts and renders a single <code>drawlib</code> block from a Markdown file or a standalone Python script directly to an image file.<br />
 This is the primary function used by automated testing suites and CI workflows:</p>
-<pre><code class="language-python">from drawlib.tools import export_block
+<pre><code class="language-python">from drawlib.builder import export_block
 
 # Export block 1 from a Markdown document:
 export_block(
@@ -584,7 +585,7 @@ export_block(
 </code></pre>
 <h3>4.2. <code>show_block()</code></h3>
 <p>Opens an interactive desktop GUI preview window displaying the rendered diagram:</p>
-<pre><code class="language-python">from drawlib.tools import show_block
+<pre><code class="language-python">from drawlib.builder import show_block
 
 # Open desktop GUI preview for block 2 with coordinate grid overlay:
 show_block(
@@ -624,7 +625,7 @@ serve_docs(
 </code></pre>
 <h3>6.2. Font &amp; Icon Cache (<code>cache</code>)</h3>
 <p>Manage downloaded assets programmatically:</p>
-<pre><code class="language-python">from drawlib.tools.cache import clear_cache, download_cache, list_cache
+<pre><code class="language-python">from drawlib.tools import clear_cache, download_cache, list_cache
 
 # List cached font files and icons:
 cached_files = list_cache()
@@ -636,7 +637,7 @@ download_cache()
 clear_cache()
 </code></pre>
 <h3>6.3. CSS Management (<code>css</code>)</h3>
-<pre><code class="language-python">from drawlib.tools.css import export_css, list_css
+<pre><code class="language-python">from drawlib.tools import export_css, list_css
 
 # Inspect available CSS presets:
 presets = list_css(target=&quot;html&quot;)

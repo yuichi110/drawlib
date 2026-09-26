@@ -30,7 +30,6 @@ from drawlib._core.l2_types import (
 from drawlib._core.l3_external import download_if_not_exist
 from drawlib._core.l3_fonts import get_font_metadata
 from drawlib._core.l3_styles import (
-    Colors,
     Style,
 )
 

@@ -21,7 +21,7 @@ from drawlib._core.l3_fonts import (
     get_font_metadata,
 )
 from drawlib._core.l3_styles import (
-    Colors,
+    ColorsBase,
     Style,
 )
 from drawlib._core.l4_canvas_utils._colors import ColorUtil
@@ -133,9 +133,9 @@ class TextUtil(StaticContainer):
         fcolor = None if style.text_bg_fill_color is None else ColorUtil.get_mplot_rgba(style.text_bg_fill_color)
 
         if lcolor is None:
-            lcolor = Colors.Transparent
+            lcolor = ColorsBase.Transparent
         if fcolor is None:
-            fcolor = Colors.Transparent
+            fcolor = ColorsBase.Transparent
 
         bbox_dict: dict[str, Any] = {
             "boxstyle": "square",

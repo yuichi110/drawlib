@@ -18,7 +18,8 @@ from typing import Any, cast
 import pytest
 
 from drawlib import canvas
-from drawlib._core.l3_styles import Colors, Style
+from drawlib._core.l3_styles import Style
+from drawlib.colors import Colors
 from drawlib.diagrams.state_diagram import (
     ChoiceState,
     FinalState,

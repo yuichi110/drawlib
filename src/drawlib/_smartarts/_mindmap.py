@@ -15,11 +15,11 @@ from typing import Literal
 
 from pydantic import validate_call
 
-from drawlib._core.colors import Colors, ColorsEssentials
 from drawlib._core.lines import line
 from drawlib._core.shapes import ellipse, rectangle
 from drawlib._core.text import get_charwidth_from_fontsize
 from drawlib._core.types import Style, TypeCoordinate, TypeFloat, TypeStr
+from drawlib._preset_colors import Colors
 from drawlib._preset_styles import BasePresetStyles
 
 
@@ -422,7 +422,7 @@ class MindMapNode:
             and node_style.shape_fill_color is not None
             and node_style.shape_fill_color == text_style.text_color
         ):
-            text_style = text_style.patch(text_color=ColorsEssentials.White)
+            text_style = text_style.patch(text_color=Colors.White)
         line_style = self._linestyle or self._default_linestyle or default_linestyle
 
         h_margin = self._horizontal_margin or self._default_horizontal_margin or default_h_margin

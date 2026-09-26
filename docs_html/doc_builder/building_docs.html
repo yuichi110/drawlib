@@ -437,8 +437,8 @@ drawlib build pdf doc_src/ -o doc.pdf
 </code></pre>
 <hr />
 <h2>2. Compiling with the Python API</h2>
-<p>You can automate documentation compilation inside Python build scripts or CI/CD pipelines via <code>drawlib.doc_builder</code>.</p>
-<pre><code class="language-python">from drawlib.doc_builder import (
+<p>You can automate documentation compilation inside Python build scripts or CI/CD pipelines via <code>drawlib.builder</code>.</p>
+<pre><code class="language-python">from drawlib.builder import (
     build,
     build_document,
     build_html,

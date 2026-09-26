@@ -19,8 +19,9 @@ from PIL import Image
 import drawlib.diagrams.architecture.icons as arch_icons
 from drawlib import canvas
 from drawlib._core.l2_models import Dimage
-from drawlib._core.l3_styles import Colors, Style
+from drawlib._core.l3_styles import Style
 from drawlib._diagrams.architecture._renderer import _apply_edge_padding
+from drawlib.colors import Colors
 from drawlib.diagrams.architecture import (
     ArchitectureDiagram,
     CustomIcon,

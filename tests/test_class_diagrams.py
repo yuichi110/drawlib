@@ -17,7 +17,8 @@ from pathlib import Path
 import pytest
 
 from drawlib import canvas
-from drawlib._core.l3_styles import Colors, Style
+from drawlib._core.l3_styles import Style
+from drawlib.colors import Colors
 from drawlib.diagrams.class_diagram import (
     AttributeInfo,
     ClassDiagram,

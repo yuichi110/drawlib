@@ -42,7 +42,6 @@ from drawlib._core.l2_types import (
     TypeStr,
 )
 from drawlib._core.l3_styles import (
-    Colors,
     Style,
 )
 from drawlib._core.l4_canvas_utils import (
@@ -65,8 +64,8 @@ class CanvasBase:
     DEFAULT_DPI: Final[int] = 100
     DEFAULT_GRID: Final[bool] = False
     DEFAULT_GRID_ONLY: Final[bool] = False
-    DEFAULT_GRID_STYLE: Final[Style] = Style(line_width=1, line_color=Colors.Gray, line_style="dashed")
-    DEFAULT_GRID_CENTERSTYLE: Final[Style] = Style(line_width=2, line_color=Colors.Gray, line_style="dashed")
+    DEFAULT_GRID_STYLE: Final[Style] = Style(line_width=1, line_color=(128, 128, 128), line_style="dashed")
+    DEFAULT_GRID_CENTERSTYLE: Final[Style] = Style(line_width=2, line_color=(128, 128, 128), line_style="dashed")
 
     def __init__(self) -> None:
         """Initialize Canvas instance with default parameters.

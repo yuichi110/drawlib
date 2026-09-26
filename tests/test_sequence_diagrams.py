@@ -15,7 +15,8 @@ from pathlib import Path
 from PIL import Image
 
 from drawlib import canvas
-from drawlib._core.l3_styles import Colors, Style
+from drawlib._core.l3_styles import Style
+from drawlib.colors import Colors
 from drawlib.diagrams.sequence import (
     Block,
     CustomIcon,

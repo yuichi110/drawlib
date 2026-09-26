@@ -13,15 +13,15 @@ import pytest
 
 from drawlib._core.l2_models import StaticContainer
 from drawlib._core.l3_styles._colors import (
+    ColorsBase,
+)
+from drawlib.colors import (
     Colors,
     Colors140,
-    ColorsBase,
-    ColorsDefault,
-    ColorsEssentials,
-    ColorsMonochrome,
-    ColorsThemeDefault,
-    ColorsThemeEssentials,
-    ColorsThemeMonochrome,
+    DefaultStyleColors,
+    EssentialsStyleColors,
+    GoogleStyleColors,
+    MonochromeStyleColors,
 )
 
 
@@ -34,18 +34,13 @@ class TestColors:
             ColorsBase,
             Colors,
             Colors140,
-            ColorsEssentials,
-            ColorsDefault,
-            ColorsMonochrome,
+            EssentialsStyleColors,
+            DefaultStyleColors,
+            GoogleStyleColors,
+            MonochromeStyleColors,
         ]
         for cls in classes:
             assert issubclass(cls, StaticContainer)
-
-    def test_colors_aliases(self):
-        """Test backward-compatible theme aliases."""
-        assert ColorsThemeEssentials is ColorsEssentials
-        assert ColorsThemeDefault is ColorsDefault
-        assert ColorsThemeMonochrome is ColorsMonochrome
 
     def test_colors_static_container_instantiation_raises(self):
         """Test that instantiating any color container class raises TypeError."""
@@ -53,9 +48,10 @@ class TestColors:
             ColorsBase,
             Colors,
             Colors140,
-            ColorsEssentials,
-            ColorsDefault,
-            ColorsMonochrome,
+            EssentialsStyleColors,
+            DefaultStyleColors,
+            GoogleStyleColors,
+            MonochromeStyleColors,
         ]
         for cls in classes:
             with pytest.raises(TypeError, match="cannot be instantiated"):
@@ -67,6 +63,10 @@ class TestColors:
         assert Colors.Red == (255, 0, 0)
         assert Colors.Black == (0, 0, 0)
         assert Colors.White == (255, 255, 255)
+        assert DefaultStyleColors.Red == (239, 95, 95)
+        assert EssentialsStyleColors.Charcoal == (39, 39, 39)
+        assert MonochromeStyleColors.Charcoal == (39, 39, 39)
+        assert GoogleStyleColors.Red == (255, 0, 0)
 
     def test_colors_attributes(self):
         """Test that all color attributes are valid RGB or RGBA tuples."""
@@ -74,9 +74,10 @@ class TestColors:
             ColorsBase,
             Colors,
             Colors140,
-            ColorsEssentials,
-            ColorsDefault,
-            ColorsMonochrome,
+            EssentialsStyleColors,
+            DefaultStyleColors,
+            GoogleStyleColors,
+            MonochromeStyleColors,
         ]
         for cls in classes:
             # Get all public attributes that are color tuples

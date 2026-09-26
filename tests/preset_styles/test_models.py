@@ -15,9 +15,11 @@ from drawlib._preset_styles import (
     BasePresetStyles,
     DefaultStyles,
     EssentialsStyles,
+    GoogleStyles,
     MonochromeStyles,
     PresetStyles,
     default_styles,
+    google_styles,
 )
 from drawlib.types import BasePresetStyles as TypesBasePresetStyles
 from drawlib.types import PresetStyles as TypesPresetStyles
@@ -42,6 +44,35 @@ class TestPresetStyles:
         assert isinstance(preset.dashed, Style)
         assert preset.background_color == (255, 255, 255, 1.0)
         assert preset.sourcecode_font == FontSourceCode.SOURCECODEPRO
+
+    def test_google_styles_instantiation(self) -> None:
+        """Verifies GoogleStyles provides valid styles, properties, and Google Sheets palette."""
+        preset = google_styles
+
+        assert isinstance(preset, BaseModel)
+        assert isinstance(preset, BasePresetStyles)
+        assert isinstance(preset, PresetStyles)
+        assert isinstance(preset, GoogleStyles)
+        assert isinstance(preset.primary, Style)
+        assert isinstance(preset.light, Style)
+        assert isinstance(preset.bold, Style)
+        assert isinstance(preset.flat, Style)
+        assert isinstance(preset.solid, Style)
+        assert isinstance(preset.dashed, Style)
+        assert preset.background_color == (255, 255, 255, 1.0)
+        assert preset.sourcecode_font == FontSourceCode.SOURCECODEPRO
+
+        # Verify Google palette colors & variants
+        assert isinstance(preset.cornflower_blue, Style)
+        assert isinstance(preset.cornflower_blue_flat, Style)
+        assert isinstance(preset.light_blue_3, Style)
+        assert isinstance(preset.light_blue_3_flat, Style)
+        assert isinstance(preset.dark_green_2, Style)
+        assert isinstance(preset.red_berry, Style)
+        assert isinstance(preset.dark_gray_4, Style)
+        assert isinstance(preset.dark_grey_4, Style)
+        assert isinstance(preset.light_blue, Style)
+        assert isinstance(preset.dark_blue, Style)
 
     def test_iteration_and_dict_access(self) -> None:
         """Verifies iteration, dictionary access, and styles helper on preset style models."""

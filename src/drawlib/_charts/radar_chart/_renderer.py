@@ -18,7 +18,6 @@ from drawlib._charts._common._axis import _get_nice_step
 from drawlib._charts._common._legend import get_legend_size, render_legend
 from drawlib._charts._common._types import ColorType, FormatterType
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
-from drawlib._core.colors import Colors
 from drawlib._core.fonts import Font
 from drawlib._core.lines import line as canvas_line
 from drawlib._core.lines import lines as canvas_lines
@@ -27,6 +26,7 @@ from drawlib._core.shapes import polygon as canvas_polygon
 from drawlib._core.shapes import rectangle as canvas_rectangle
 from drawlib._core.text import text as canvas_text
 from drawlib._core.types import Style
+from drawlib._preset_colors import Colors
 
 if TYPE_CHECKING:
     from drawlib._charts.radar_chart._chart import RadarChart
