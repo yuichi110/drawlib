@@ -16,7 +16,7 @@ from typing import TYPE_CHECKING, Callable, Literal, TypeVar, Union
 
 from PIL.Image import Image
 
-from drawlib._core.l2_models import Dimage
+from drawlib._core.images import Dimage
 
 if TYPE_CHECKING:
     from drawlib._diagrams.architecture._diagram import ArchitectureDiagram

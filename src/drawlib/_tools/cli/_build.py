@@ -18,7 +18,7 @@ from typing import Annotated, List, Literal, Optional
 import typer
 from rich.console import Console
 
-from drawlib._core.l1_core import dutil_settings
+from drawlib._core.utils import dutil_settings
 from drawlib.tools.build.html import build_html
 from drawlib.tools.build.image import build_image
 from drawlib.tools.build.markdown import build_markdown

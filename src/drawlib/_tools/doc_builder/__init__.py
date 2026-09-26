@@ -277,9 +277,7 @@ def build_markdown(
             shutil.copy2(src_abs, dest_abs)
 
         total_files = len(md_tasks)
-        display_names = [
-            "/" + os.path.relpath(s_abs, input_abs).replace(os.sep, "/") for s_abs, _ in md_tasks
-        ]
+        display_names = ["/" + os.path.relpath(s_abs, input_abs).replace(os.sep, "/") for s_abs, _ in md_tasks]
         max_blocks = check_document_output_duplicates(
             tasks=[(s_abs, d_abs, True) for s_abs, d_abs in md_tasks],
             display_names=display_names,
@@ -446,9 +444,7 @@ def _compile_single_html_file(
             body_html = content
 
         doc_title = (
-            _extract_title(content, os.path.basename(src_abs))
-            if doc_info.is_markdown
-            else os.path.basename(src_abs)
+            _extract_title(content, os.path.basename(src_abs)) if doc_info.is_markdown else os.path.basename(src_abs)
         )
 
         if index_url:
@@ -595,9 +591,7 @@ def build_html(
             os.path.join(input_abs, "index.markdown"),
         ]
         if not any(os.path.isfile(p) for p in index_candidates):
-            raise ValueError(
-                f'Directory build requires "index.md" at the root of the input directory: "{input_abs}".'
-            )
+            raise ValueError(f'Directory build requires "index.md" at the root of the input directory: "{input_abs}".')
 
         navbar_candidates = [
             os.path.join(input_abs, "navbar.md"),
@@ -610,9 +604,7 @@ def build_html(
                 break
 
         if not active_navbar_path:
-            raise ValueError(
-                f'Directory build requires "navbar.md" at the root of the input directory: "{input_abs}".'
-            )
+            raise ValueError(f'Directory build requires "navbar.md" at the root of the input directory: "{input_abs}".')
 
         navbar_sections, site_title = parse_navbar_markdown(active_navbar_path, input_abs)
 
@@ -666,9 +658,7 @@ def build_html(
                         asset_tasks.append((src_abs, dest_abs))
 
         total_files = len(html_tasks)
-        display_names = [
-            "/" + os.path.relpath(s_abs, input_abs).replace(os.sep, "/") for s_abs, _, _ in html_tasks
-        ]
+        display_names = ["/" + os.path.relpath(s_abs, input_abs).replace(os.sep, "/") for s_abs, _, _ in html_tasks]
         max_blocks = check_document_output_duplicates(
             tasks=html_tasks,
             display_names=display_names,

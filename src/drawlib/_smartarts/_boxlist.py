@@ -16,13 +16,8 @@ from typing import Literal
 
 from pydantic import BaseModel, validate_call
 
-from drawlib._core.l2_types import (
-    TypeCoordinate,
-    TypePosFloat,
-    TypeStr,
-)
-from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import rectangle
+from drawlib._core.shapes import rectangle
+from drawlib._core.types import Style, TypeCoordinate, TypePosFloat, TypeStr
 from drawlib._preset_styles import BasePresetStyles
 
 

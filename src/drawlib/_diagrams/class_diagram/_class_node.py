@@ -23,7 +23,7 @@ from drawlib._diagrams.class_diagram._types import (
 )
 
 if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+    from drawlib._core.types import Style
     from drawlib._diagrams.class_diagram._diagram import ClassDiagram
 
 PaddingType = Union[float, tuple[float, float]]

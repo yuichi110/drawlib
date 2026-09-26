@@ -17,7 +17,7 @@ from drawlib._charts._common._axis import Axis
 from drawlib._charts._common._types import FormatterType, LegendPosition, ScaleType
 
 if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+    from drawlib._core.types import Style
 
 
 class CartesianChartBase:

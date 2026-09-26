@@ -18,7 +18,7 @@ from drawlib._charts.pie_chart import _renderer as _renderer_module
 from drawlib._charts.pie_chart._slice import PieSlice
 
 if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+    from drawlib._core.types import Style
 
 
 class PieChart:

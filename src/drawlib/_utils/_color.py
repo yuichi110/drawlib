@@ -11,12 +11,7 @@
 
 from pydantic import validate_call
 
-from drawlib._core.l2_types import (
-    TypeAlpha,
-    TypeColorRGB,
-    TypeColorRGBA,
-    TypeStr,
-)
+from drawlib._core.types import TypeAlpha, TypeColorRGB, TypeColorRGBA, TypeStr
 
 
 @validate_call

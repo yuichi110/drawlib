@@ -22,13 +22,13 @@ from drawlib._charts.gantt_chart._item import (
     GanttSection,
     GanttTask,
 )
-from drawlib._core.l3_fonts import Font
-from drawlib._core.l3_styles import Style
-from drawlib.colors import Colors
-from drawlib.lines import line as canvas_line
-from drawlib.shapes import rectangle as canvas_rectangle
-from drawlib.shapes import rhombus as canvas_rhombus
-from drawlib.text import text as canvas_text
+from drawlib._core.colors import Colors
+from drawlib._core.fonts import Font
+from drawlib._core.lines import line as canvas_line
+from drawlib._core.shapes import rectangle as canvas_rectangle
+from drawlib._core.shapes import rhombus as canvas_rhombus
+from drawlib._core.text import text as canvas_text
+from drawlib._core.types import Style
 
 if TYPE_CHECKING:
     from drawlib._charts.gantt_chart._chart import GanttChart

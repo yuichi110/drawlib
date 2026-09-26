@@ -15,16 +15,9 @@ from typing import Literal
 from matplotlib.patches import Polygon
 from pydantic import validate_call
 
-from drawlib._core.l2_types import (
-    TypeAlpha,
-    TypeCoordinate,
-    TypePosFloat,
-    TypeSize,
-    TypeStr,
-)
-from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import canvas
-from drawlib._core.l4_canvas_utils import ShapeUtil, TextUtil
+from drawlib._core.canvas import canvas
+from drawlib._core.types import Style, TypeAlpha, TypeCoordinate, TypePosFloat, TypeSize, TypeStr
+from drawlib._core.utils import ShapeUtil, TextUtil
 
 
 @validate_call

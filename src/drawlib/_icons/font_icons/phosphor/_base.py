@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from enum import Enum
 
-from drawlib._core.l3_fonts import FontResource
+from drawlib._core.fonts import FontResource
 from drawlib._icons.font_icons._base import FontIconProvider
 
 

@@ -18,20 +18,13 @@ from typing import Literal
 from pydantic import validate_call
 
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
-from drawlib._core.l2_types import (
-    TypeAngle,
-    TypeColor,
-    TypeCoordinate,
-    TypePosFloat,
-    TypeStr,
-)
-from drawlib._core.l3_fonts import Font
-from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import arrow_arc as canvas_arrow_arc
-from drawlib._core.l4_canvas import circle as canvas_circle
-from drawlib._core.l4_canvas import line_arc as canvas_line_arc
-from drawlib._core.l4_canvas import rectangle as canvas_rectangle
-from drawlib._core.l4_canvas import text as canvas_text
+from drawlib._core.fonts import Font
+from drawlib._core.lines import line_arc as canvas_line_arc
+from drawlib._core.shapes import arrow_arc as canvas_arrow_arc
+from drawlib._core.shapes import circle as canvas_circle
+from drawlib._core.shapes import rectangle as canvas_rectangle
+from drawlib._core.text import text as canvas_text
+from drawlib._core.types import Style, TypeAngle, TypeColor, TypeCoordinate, TypePosFloat, TypeStr
 from drawlib._preset_styles import BasePresetStyles
 
 
@@ -285,9 +278,7 @@ class Cycle:
             cx, cy = float(xy[0]), float(xy[1])
         else:
             node_half_extent = (
-                self._node_radius
-                if self._node_shape == "circle"
-                else max(self._node_size[0], self._node_size[1]) / 2.0
+                self._node_radius if self._node_shape == "circle" else max(self._node_size[0], self._node_size[1]) / 2.0
             )
             extra_margin = 8.0 if self._description_placement == "outside" else 2.0
             offset = orbit_r + node_half_extent + extra_margin
@@ -473,12 +464,16 @@ class Cycle:
         default_title_color = (255, 255, 255, 1.0) if is_colored else (40, 40, 40, 1.0)
         default_desc_color = (255, 255, 255, 0.92) if is_colored else (80, 80, 80, 1.0)
 
-        t_style = item.textstyle or self._default_textstyle or Style(
-            text_size=9.5 if self._node_shape != "rectangle" else 9.0,
-            text_font=Font.SANSSERIF_BOLD,
-            text_color=default_title_color,
-            text_halign="center",
-            text_valign="center",
+        t_style = (
+            item.textstyle
+            or self._default_textstyle
+            or Style(
+                text_size=9.5 if self._node_shape != "rectangle" else 9.0,
+                text_font=Font.SANSSERIF_BOLD,
+                text_color=default_title_color,
+                text_halign="center",
+                text_valign="center",
+            )
         )
 
         if not has_desc:
@@ -500,12 +495,16 @@ class Cycle:
                 desc_y = ny - 2.5
                 desc_size = 7.0
 
-            d_style = item.description_style or self._default_description_style or Style(
-                text_size=desc_size,
-                text_font=Font.SANSSERIF_REGULAR,
-                text_color=default_desc_color,
-                text_halign="center",
-                text_valign="center",
+            d_style = (
+                item.description_style
+                or self._default_description_style
+                or Style(
+                    text_size=desc_size,
+                    text_font=Font.SANSSERIF_REGULAR,
+                    text_color=default_desc_color,
+                    text_halign="center",
+                    text_valign="center",
+                )
             )
             canvas_text(xy=(nx, title_y), text=item.text, style=t_style)
             canvas_text(xy=(nx, desc_y), text=item.description, style=d_style)
@@ -515,9 +514,7 @@ class Cycle:
             canvas_text(xy=(nx, ny), text=item.text, style=t_style)
 
             node_half_extent = (
-                self._node_radius
-                if self._node_shape == "circle"
-                else max(self._node_size[0], self._node_size[1]) / 2.0
+                self._node_radius if self._node_shape == "circle" else max(self._node_size[0], self._node_size[1]) / 2.0
             )
             rad_offset = node_half_extent + 3.5
             dx = nx + rad_offset * math.cos(ang_rad)
@@ -537,12 +534,16 @@ class Cycle:
             elif sin_a < -0.5:
                 valign = "top"
 
-            d_style = item.description_style or self._default_description_style or Style(
-                text_size=8.0,
-                text_font=Font.SANSSERIF_REGULAR,
-                text_color=(70, 70, 70, 1.0),
-                text_halign=halign,
-                text_valign=valign,
+            d_style = (
+                item.description_style
+                or self._default_description_style
+                or Style(
+                    text_size=8.0,
+                    text_font=Font.SANSSERIF_REGULAR,
+                    text_color=(70, 70, 70, 1.0),
+                    text_halign=halign,
+                    text_valign=valign,
+                )
             )
             canvas_text(xy=(dx, dy), text=item.description, style=d_style)
 

@@ -15,20 +15,11 @@ from typing import Any, Literal
 from PIL.ExifTags import Base
 from pydantic import BaseModel, validate_call
 
-from drawlib._core.l2_types import (
-    TypeColor,
-    TypeCoordinate,
-    TypePosFloat,
-    TypePosInt,
-    TypeStr,
-)
-from drawlib._core.l3_fonts import Font
-from drawlib._core.l3_styles import (
-    Colors,
-    ColorsEssentials,
-    Style,
-)
-from drawlib._core.l4_canvas import line, rectangle
+from drawlib._core.colors import Colors, ColorsEssentials
+from drawlib._core.fonts import Font
+from drawlib._core.lines import line
+from drawlib._core.shapes import rectangle
+from drawlib._core.types import Style, TypeColor, TypeCoordinate, TypePosFloat, TypePosInt, TypeStr
 from drawlib._preset_styles import BasePresetStyles
 
 

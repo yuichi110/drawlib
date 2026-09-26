@@ -7,9 +7,9 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Public shapes module for drawlib."""
+"""Core shapes facade module."""
 
-from drawlib._core.shapes import (
+from drawlib._core.l4_canvas import (
     arc,
     arrow,
     arrow_arc,

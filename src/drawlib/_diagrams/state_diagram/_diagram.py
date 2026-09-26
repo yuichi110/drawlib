@@ -18,7 +18,7 @@ from drawlib._diagrams.state_diagram._state_node import State, StateNodeBase
 from drawlib._diagrams.state_diagram._transition import StateTransition
 
 if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+    from drawlib._core.types import Style
 
 NodeT = TypeVar("NodeT", bound=StateNodeBase)
 

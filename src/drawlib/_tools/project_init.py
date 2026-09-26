@@ -89,8 +89,7 @@ def _validate_conflicts(
         for out_path in expected_outputs:
             if out_path.exists():
                 raise FileExistsError(
-                    f"Build output destination '{out_path}' already exists. "
-                    "Use force=True / --force to overwrite."
+                    f"Build output destination '{out_path}' already exists. Use force=True / --force to overwrite."
                 )
 
 

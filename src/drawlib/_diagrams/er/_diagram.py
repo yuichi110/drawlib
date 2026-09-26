@@ -18,7 +18,7 @@ import drawlib._diagrams.er._renderer as _renderer_module
 from drawlib._diagrams.er._types import Cardinality, RoutingType, Side
 
 if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+    from drawlib._core.types import Style
     from drawlib._diagrams.er._entity import Entity
     from drawlib._diagrams.er._relationship import Relationship
 

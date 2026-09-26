@@ -97,10 +97,7 @@ def list_css(target: Literal["html", "pdf"] = "html") -> List[Dict[str, str]]:
         List[Dict[str, str]]: List of dicts with keys 'name', 'file', and 'description'.
     """
     registry = BUILTIN_PDF_CSS_PRESETS if target == "pdf" else BUILTIN_HTML_CSS_PRESETS
-    return [
-        {"name": name, "file": meta["file"], "description": meta["description"]}
-        for name, meta in registry.items()
-    ]
+    return [{"name": name, "file": meta["file"], "description": meta["description"]} for name, meta in registry.items()]
 
 
 def list_html_css() -> List[Dict[str, str]]:
@@ -153,9 +150,7 @@ def get_css(
                 return f.read()
 
     available = ", ".join(sorted(registry.keys()))
-    raise ValueError(
-        f"Unknown CSS preset '{name}' for target '{target}'. Available presets: {available}"
-    )
+    raise ValueError(f"Unknown CSS preset '{name}' for target '{target}'. Available presets: {available}")
 
 
 def export_css(
@@ -192,9 +187,7 @@ def export_css(
         resolved_dest = os.path.abspath(output_path)
 
     if os.path.exists(resolved_dest) and not force:
-        raise FileExistsError(
-            f"Destination file '{resolved_dest}' already exists. Use --force to overwrite."
-        )
+        raise FileExistsError(f"Destination file '{resolved_dest}' already exists. Use --force to overwrite.")
 
     os.makedirs(os.path.dirname(resolved_dest), exist_ok=True)
     with open(resolved_dest, "w", encoding="utf-8") as f:

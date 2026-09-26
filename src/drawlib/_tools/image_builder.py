@@ -24,14 +24,10 @@ from typing import Any, Callable, List, Literal, Optional, Sequence, Tuple, Unio
 
 from pydantic import validate_call
 
-import drawlib._core.l4_canvas._canvas
+import drawlib._core.canvas
 import drawlib.canvas
-from drawlib._core.l1_core import (
-    dutil_settings,
-    get_script_relative_path,
-    logger,
-)
-from drawlib._core.l4_canvas import clear
+from drawlib._core.canvas import clear
+from drawlib._core.utils import dutil_settings, get_script_relative_path, logger
 from drawlib._tools.doc_builder.build_cache import BuildImageCache, hash_file
 from drawlib._tools.doc_builder.config import load_config
 from drawlib._tools.doc_builder.progress import FileBuildProgress, format_duplicate_output_error
@@ -229,9 +225,7 @@ class DrawlibExecuter:
                 target_abs = self._resolve_static_save_target(file_path, call_file, call_format)
                 src_label = f"{disp_name} (line {node.lineno})"
                 if target_abs in seen_outputs:
-                    raise ValueError(
-                        format_duplicate_output_error(target_abs, seen_outputs[target_abs], src_label)
-                    )
+                    raise ValueError(format_duplicate_output_error(target_abs, seen_outputs[target_abs], src_label))
                 seen_outputs[target_abs] = src_label
             save_counts[file_path] = count
         return save_counts
@@ -239,7 +233,7 @@ class DrawlibExecuter:
     def _create_wrapped_save(
         self,
         orig_canvas_save: Callable[..., None],
-        canvas_inst: drawlib._core.l4_canvas._canvas.Canvas,
+        canvas_inst: drawlib._core.canvas.Canvas,
     ) -> Callable[..., None]:
         """Create a wrapped save function that applies output overrides and guards against duplicate outputs."""
 
@@ -396,11 +390,7 @@ class DrawlibExecuter:
         if ext not in {"png", "webp"}:
             return False
 
-        need_grid = (
-            self._grid
-            or dutil_settings.get_force_grid()
-            or bool(re.search(r"\bgrid\s*=\s*True\b", code))
-        )
+        need_grid = self._grid or dutil_settings.get_force_grid() or bool(re.search(r"\bgrid\s*=\s*True\b", code))
         cache_key, code_hash = self._cache.compute_keys(
             code=code,
             config_hash=self._config_hash,
@@ -449,13 +439,9 @@ class DrawlibExecuter:
             self._current_progress = None
             return
 
-        file_paths = [
-            fp for fp in self._get_python_files(path) if not os.path.basename(fp).startswith("__")
-        ]
+        file_paths = [fp for fp in self._get_python_files(path) if not os.path.basename(fp).startswith("__")]
         total_files = len(file_paths)
-        display_names = [
-            "/" + os.path.relpath(fp, path).replace(os.sep, "/") for fp in file_paths
-        ]
+        display_names = ["/" + os.path.relpath(fp, path).replace(os.sep, "/") for fp in file_paths]
         save_counts = self._check_duplicate_outputs(file_paths, display_names)
         max_saves = max(save_counts.values(), default=0)
         image_width = len(str(max(max_saves, 0)))
@@ -500,16 +486,16 @@ class DrawlibExecuter:
         if self._grid:
             dutil_settings.set_force_grid(True)
 
-        canvas_inst = drawlib._core.l4_canvas._canvas.canvas
+        canvas_inst = drawlib._core.canvas.canvas
         orig_canvas_save = canvas_inst.save
-        orig_core_save = drawlib._core.l4_canvas._canvas.save
+        orig_core_save = drawlib._core.canvas.save
         orig_canvas_mod_save = getattr(drawlib.canvas, "save", None)
         self._runtime_seen_outputs.clear()
 
         try:
             wrapped = self._create_wrapped_save(orig_canvas_save, canvas_inst)
             canvas_inst.save = wrapped  # ty: ignore
-            drawlib._core.l4_canvas._canvas.save = wrapped  # ty: ignore
+            drawlib._core.canvas.save = wrapped  # ty: ignore
             drawlib.canvas.save = wrapped  # ty: ignore
 
             path = get_script_relative_path(file_or_directory)
@@ -519,7 +505,7 @@ class DrawlibExecuter:
             self._execute_target_path(path)
         finally:
             canvas_inst.save = orig_canvas_save  # ty: ignore
-            drawlib._core.l4_canvas._canvas.save = orig_core_save  # type: ignore[assignment]
+            drawlib._core.canvas.save = orig_core_save  # type: ignore[assignment]
             if orig_canvas_mod_save is not None:
                 drawlib.canvas.save = orig_canvas_mod_save  # type: ignore[assignment]
             if self._grid:

@@ -11,15 +11,9 @@
 
 from __future__ import annotations
 
-from drawlib._core.l2_types import TypeColor, TypeIconStyle, TypeLineStyle
-from drawlib._core.l3_fonts import Font, FontSourceCode
-from drawlib._core.l3_styles import (
-    Colors,
-    ColorsDefault,
-    ColorsEssentials,
-    ColorsMonochrome,
-    Style,
-)
+from drawlib._core.colors import Colors, ColorsDefault, ColorsEssentials, ColorsMonochrome
+from drawlib._core.fonts import Font, FontSourceCode
+from drawlib._core.types import Style, TypeColor, TypeIconStyle, TypeLineStyle
 from drawlib._preset_styles._models import (
     DefaultStyles,
     EssentialsStyles,
@@ -122,9 +116,7 @@ def _create_default_styles() -> DefaultStyles:
         light=_create_style(
             blue, black, text_color=black, line_width=0.75, font=Font.SANSSERIF_LIGHT, icon_style="thin"
         ),
-        bold=_create_style(
-            blue, black, text_color=black, line_width=2.25, font=Font.SANSSERIF_BOLD, icon_style="bold"
-        ),
+        bold=_create_style(blue, black, text_color=black, line_width=2.25, font=Font.SANSSERIF_BOLD, icon_style="bold"),
         flat=_create_style(blue, blue, text_color=black, line_width=1.5, shape_line_width=0.0, icon_style="fill"),
         solid=_create_style(Colors.Transparent, blue, text_color=blue, line_width=1.5),
         dashed=_create_style(

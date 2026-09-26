@@ -20,7 +20,7 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from drawlib._core.l1_core import dutil_settings
+from drawlib._core.utils import dutil_settings
 from drawlib._tools.cli._rules import cmd_rules_show
 from drawlib._tools.rules_builder import _normalize_topic
 from drawlib.tools.cache import clear_cache, download_cache, list_cache

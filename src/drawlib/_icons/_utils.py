@@ -9,9 +9,8 @@
 
 """Icon utility module for canvas operations."""
 
-from drawlib._core.l2_models import StaticContainer
-from drawlib._core.l2_types import TypeIconStyle
-from drawlib._core.l3_styles import Style
+from drawlib._core.types import Style, TypeIconStyle
+from drawlib._core.utils import StaticContainer
 
 
 class IconUtil(StaticContainer):
@@ -28,9 +27,7 @@ class IconUtil(StaticContainer):
             ValueError: If icon_color is None.
         """
         if style.icon_color is None:
-            raise ValueError(
-                "Icon drawing requires attribute 'icon_color', but it is None in the provided Style."
-            )
+            raise ValueError("Icon drawing requires attribute 'icon_color', but it is None in the provided Style.")
 
     @staticmethod
     def format_style(

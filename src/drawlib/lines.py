@@ -9,7 +9,7 @@
 
 """Public lines module for drawlib."""
 
-from drawlib._core.l4_canvas import (
+from drawlib._core.lines import (
     line,
     line_arc,
     line_bezier1,

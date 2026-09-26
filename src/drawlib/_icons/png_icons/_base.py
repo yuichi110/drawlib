@@ -13,14 +13,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from drawlib._core.l2_types import (
-    TypeAngle,
-    TypeCoordinate,
-    TypePosFloat,
-    TypeStr,
-)
-from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import image
+from drawlib._core.images import image
+from drawlib._core.types import Style, TypeAngle, TypeCoordinate, TypePosFloat, TypeStr
 from drawlib._release_assets import RELEASE_ASSET_PACKAGES, ReleaseAssetPackage, ensure_asset_available
 
 

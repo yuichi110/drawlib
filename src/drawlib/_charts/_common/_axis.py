@@ -17,7 +17,7 @@ from typing import TYPE_CHECKING
 from drawlib._charts._common._types import FormatterType, ScaleType
 
 if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+    from drawlib._core.types import Style
 
 
 class Axis:

@@ -24,14 +24,14 @@ from typing import Any, Callable, Dict, List, Literal, Optional
 
 from pydantic import BaseModel
 
-import drawlib._core.l4_canvas._canvas
+import drawlib._core.canvas
 import drawlib.canvas
-from drawlib._core.l1_core import dutil_settings
+from drawlib._core.canvas import save
+from drawlib._core.utils import dutil_settings
 from drawlib._tools.doc_builder.build_cache import BuildImageCache, hash_file
 from drawlib._tools.doc_builder.config import load_config
 from drawlib._tools.doc_builder.detector import detect_document_type
 from drawlib._utils import dutil_canvas
-from drawlib.canvas import save
 
 
 class DrawlibBlockOptions(BaseModel):
@@ -113,9 +113,7 @@ class DrawlibBlockProcessor:
         self.config_path = config_path
         self.config_hash = hash_file(config_path)
         self.no_cache = no_cache
-        self._cache: BuildImageCache = (
-            cache if cache is not None else BuildImageCache(enabled=not no_cache)
-        )
+        self._cache: BuildImageCache = cache if cache is not None else BuildImageCache(enabled=not no_cache)
 
         load_config(config_path=config_path, shared_globals=self.shared_globals)
 
@@ -132,9 +130,9 @@ class DrawlibBlockProcessor:
             source_filename (str): Name used for code compilation traceback reporting.
             shared_globals (Optional[Dict[str, Any]]): Shared execution globals dictionary.
         """
-        canvas_inst = drawlib._core.l4_canvas._canvas.canvas
+        canvas_inst = drawlib._core.canvas.canvas
         orig_canvas_save = canvas_inst.save
-        orig_core_save = drawlib._core.l4_canvas._canvas.save
+        orig_core_save = drawlib._core.canvas.save
         orig_canvas_mod_save = getattr(drawlib.canvas, "save", None)
 
         def _no_op_save(*args: Any, **kwargs: Any) -> None:  # noqa: ANN401
@@ -148,7 +146,7 @@ class DrawlibBlockProcessor:
 
         try:
             canvas_inst.save = _no_op_save  # type: ignore
-            drawlib._core.l4_canvas._canvas.save = _no_op_save  # type: ignore
+            drawlib._core.canvas.save = _no_op_save  # type: ignore
             drawlib.canvas.save = _no_op_save  # type: ignore
             with warnings.catch_warnings():
                 if dutil_settings.get_logging_mode() not in {"verbose", "developer"}:
@@ -162,7 +160,7 @@ class DrawlibBlockProcessor:
             raise
         finally:
             canvas_inst.save = orig_canvas_save  # ty: ignore
-            drawlib._core.l4_canvas._canvas.save = orig_core_save  # type: ignore[assignment]
+            drawlib._core.canvas.save = orig_core_save  # type: ignore[assignment]
             if orig_canvas_mod_save is not None:
                 drawlib.canvas.save = orig_canvas_mod_save  # type: ignore[assignment]
 
@@ -218,7 +216,7 @@ class DrawlibBlockProcessor:
 
         os.makedirs(os.path.dirname(target_abs_path), exist_ok=True)
         if grid is True:
-            drawlib._core.l4_canvas._canvas.canvas._grid = True
+            drawlib._core.canvas.canvas._grid = True
         with warnings.catch_warnings():
             if dutil_settings.get_logging_mode() not in {"verbose", "developer"}:
                 warnings.filterwarnings("ignore", message=r"Glyph .* missing from font", category=UserWarning)

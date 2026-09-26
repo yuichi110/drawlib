@@ -17,8 +17,8 @@ from typing import Any, Callable
 
 from PIL.Image import Image
 
-from drawlib._core.l2_models import Dimage
-from drawlib._core.l3_styles import Style
+from drawlib._core.images import Dimage
+from drawlib._core.types import Style
 
 
 class GcpIcon(str, Enum):

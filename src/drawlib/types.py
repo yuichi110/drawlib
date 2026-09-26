@@ -9,10 +9,10 @@
 
 """Public types module for drawlib."""
 
-from drawlib._core.l2_types import FilePath
-from drawlib._core.l3_fonts import FontBase
-from drawlib._core.l3_styles import (
+from drawlib._core.types import (
     ColorsBase,
+    FilePath,
+    FontBase,
     Style,
 )
 from drawlib._preset_styles import (

@@ -7,15 +7,20 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Public fonts module for drawlib."""
+"""Core fonts facade module."""
 
-from drawlib._core.fonts import (
+from drawlib._core.l2_models import (
+    FontBase,
+    FontFile,
+    FontMetadata,
+    FontResource,
+)
+from drawlib._core.l3_fonts import (
+    FONT_RESOURCES,
     Font,
     FontArabic,
-    FontBase,
     FontBrahmic,
     FontChinese,
-    FontFile,
     FontJapanese,
     FontKorean,
     FontMonoSpace,
@@ -24,21 +29,26 @@ from drawlib._core.fonts import (
     FontSerif,
     FontSourceCode,
     FontThai,
+    get_font_metadata,
 )
 
 __all__ = [
-    "FontBase",
-    "FontFile",
+    "FONT_RESOURCES",
     "Font",
+    "FontArabic",
+    "FontBase",
+    "FontBrahmic",
+    "FontChinese",
+    "FontFile",
+    "FontJapanese",
+    "FontKorean",
+    "FontMetadata",
+    "FontMonoSpace",
+    "FontResource",
+    "FontRoboto",
     "FontSansSerif",
     "FontSerif",
-    "FontMonoSpace",
-    "FontRoboto",
     "FontSourceCode",
-    "FontJapanese",
-    "FontChinese",
-    "FontKorean",
-    "FontArabic",
     "FontThai",
-    "FontBrahmic",
+    "get_font_metadata",
 ]

@@ -15,7 +15,7 @@ import os
 import sys
 from typing import Callable, Sequence
 
-from drawlib._core.l1_core import dutil_settings
+from drawlib._core.utils import dutil_settings
 from drawlib._tools.doc_builder.processor import _resolve_block_image_paths, extract_code_blocks
 
 BAR_WIDTH = 20
@@ -71,9 +71,7 @@ def check_document_output_duplicates(
         if dest_abs:
             norm_dest = os.path.abspath(dest_abs)
             if norm_dest in seen_outputs:
-                raise ValueError(
-                    format_duplicate_output_error(norm_dest, seen_outputs[norm_dest], disp_name)
-                )
+                raise ValueError(format_duplicate_output_error(norm_dest, seen_outputs[norm_dest], disp_name))
             seen_outputs[norm_dest] = disp_name
 
     for (src_abs, dest_abs, is_md), disp_name in zip(tasks, display_names):
@@ -107,9 +105,7 @@ def check_document_output_duplicates(
             norm_img = os.path.abspath(target_img_path)
             block_label = f"{disp_name} (block #{block.index}, line {block.line_number})"
             if norm_img in seen_outputs:
-                raise ValueError(
-                    format_duplicate_output_error(norm_img, seen_outputs[norm_img], block_label)
-                )
+                raise ValueError(format_duplicate_output_error(norm_img, seen_outputs[norm_img], block_label))
             seen_outputs[norm_img] = block_label
 
     return max_blocks
@@ -151,11 +147,7 @@ def format_progress_line(
         bar = "#" * BAR_WIDTH
         pct = 100
     else:
-        ratio = (
-            max(0.0, min(1.0, completed_steps / total_steps))
-            if total_steps > 0
-            else 0.0
-        )
+        ratio = max(0.0, min(1.0, completed_steps / total_steps)) if total_steps > 0 else 0.0
         pct = int(round(ratio * 100))
         if pct >= 100:
             pct = 99

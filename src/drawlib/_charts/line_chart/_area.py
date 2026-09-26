@@ -19,7 +19,7 @@ from drawlib._charts.line_chart._base import CartesianChartBase
 from drawlib._charts.line_chart._series import AreaSeries
 
 if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+    from drawlib._core.types import Style
 
 
 class AreaChart(CartesianChartBase):

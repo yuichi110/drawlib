@@ -16,7 +16,7 @@ from typing import TYPE_CHECKING, Union
 from drawlib._diagrams.er._types import Cardinality, RoutingType, Side
 
 if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+    from drawlib._core.types import Style
     from drawlib._diagrams.er._diagram import ERDiagram
     from drawlib._diagrams.er._entity import Entity
 
@@ -57,9 +57,7 @@ class Relationship:
         """
         valid_cardinalities = {"1:*", "1:1", "1:1..*", "1:0..1", "0..1:1", "0..1:*", "*:*"}
         if cardinality not in valid_cardinalities:
-            raise ValueError(
-                f"Invalid cardinality: {cardinality!r}. Must be one of {sorted(valid_cardinalities)}."
-            )
+            raise ValueError(f"Invalid cardinality: {cardinality!r}. Must be one of {sorted(valid_cardinalities)}.")
 
         valid_sides = {"left", "right", "top", "bottom", "auto"}
         if start_side not in valid_sides:

@@ -13,12 +13,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, List
 
-from drawlib._core.l3_external import (
-    download_all_assets,
-    download_all_fonts,
-    download_all_icons,
-    purge_font_cache,
-)
+from drawlib._core.utils import download_all_assets, download_all_fonts, download_all_icons, purge_font_cache
 from drawlib._release_assets import RELEASE_ASSET_PACKAGES
 
 

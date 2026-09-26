@@ -11,15 +11,9 @@
 
 from pydantic import validate_call
 
-from drawlib._core.l2_types import (
-    TypeAngle,
-    TypeCoordinate,
-    TypePosFloat,
-    TypeStr,
-)
-from drawlib._core.l3_fonts import FontFile
-from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import get_fontsize_from_charwidth, text
+from drawlib._core.fonts import FontFile
+from drawlib._core.text import get_fontsize_from_charwidth, text
+from drawlib._core.types import Style, TypeAngle, TypeCoordinate, TypePosFloat, TypeStr
 from drawlib._icons._utils import IconUtil
 
 

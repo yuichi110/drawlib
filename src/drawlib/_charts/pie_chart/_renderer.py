@@ -17,10 +17,10 @@ from typing import TYPE_CHECKING
 from drawlib._charts._common._legend import get_legend_size, render_legend
 from drawlib._charts._common._types import ColorType, FormatterType
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
-from drawlib._core.l3_fonts import Font
-from drawlib._core.l3_styles import Style
-from drawlib.shapes import wedge as canvas_wedge
-from drawlib.text import text as canvas_text
+from drawlib._core.fonts import Font
+from drawlib._core.shapes import wedge as canvas_wedge
+from drawlib._core.text import text as canvas_text
+from drawlib._core.types import Style
 
 if TYPE_CHECKING:
     from drawlib._charts.pie_chart._chart import PieChart
@@ -62,11 +62,7 @@ def _draw_pie_slices(
     """Render all wedges and slice percentage labels."""
     cx, cy = center
     ring_width = chart.radius * (1.0 - chart.hole_ratio) if chart.hole_ratio > 0.0 else None
-    lbl_r = (
-        chart.radius * (1.0 + chart.hole_ratio) / 2.0
-        if chart.hole_ratio > 0.0
-        else chart.radius * 0.65
-    )
+    lbl_r = chart.radius * (1.0 + chart.hole_ratio) / 2.0 if chart.hole_ratio > 0.0 else chart.radius * 0.65
 
     default_val_label_style = Style(
         text_size=9.5,

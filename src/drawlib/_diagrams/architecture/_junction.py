@@ -17,7 +17,7 @@ import drawlib._diagrams.architecture._edge as _edge_module
 from drawlib._diagrams.architecture._types import ArrowType, Connectable, PaddingType, RoutingType
 
 if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+    from drawlib._core.types import Style
     from drawlib._diagrams.architecture._diagram import ArchitectureDiagram
     from drawlib._diagrams.architecture._edge import Edge
     from drawlib._diagrams.architecture._group import NodeGroup

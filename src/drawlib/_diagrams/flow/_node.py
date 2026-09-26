@@ -18,7 +18,7 @@ import drawlib._diagrams.flow._junction as _junction_module
 from drawlib._diagrams.flow._types import ArrowType, Connectable, PaddingType, RoutingType, ShapeType, Side
 
 if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+    from drawlib._core.types import Style
     from drawlib._diagrams.flow._diagram import FlowDiagram
     from drawlib._diagrams.flow._edge import FlowEdge
 

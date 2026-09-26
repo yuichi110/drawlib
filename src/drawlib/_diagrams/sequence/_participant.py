@@ -18,7 +18,7 @@ import drawlib._diagrams.sequence._note as _note_module
 from drawlib._diagrams.sequence._types import ArrowType, IconType, TextPosition
 
 if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+    from drawlib._core.types import Style
     from drawlib._diagrams.sequence._diagram import SequenceDiagram
     from drawlib._diagrams.sequence._message import Message
     from drawlib._diagrams.sequence._note import Note

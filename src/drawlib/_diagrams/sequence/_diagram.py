@@ -20,7 +20,7 @@ import drawlib._diagrams.sequence._renderer as _renderer_module
 from drawlib._diagrams.sequence._types import ArrowType, DiagramPadding, NotePosition
 
 if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+    from drawlib._core.types import Style
     from drawlib._diagrams.sequence._block import Block
     from drawlib._diagrams.sequence._group import ParticipantGroup
     from drawlib._diagrams.sequence._message import Message

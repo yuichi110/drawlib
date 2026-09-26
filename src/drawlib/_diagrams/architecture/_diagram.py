@@ -20,7 +20,7 @@ import drawlib._diagrams.architecture._renderer as _renderer_module
 from drawlib._diagrams.architecture._types import ArrowType, Connectable, DiagramItem, ItemT, PaddingType, RoutingType
 
 if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+    from drawlib._core.types import Style
     from drawlib._diagrams.architecture._edge import Edge
     from drawlib._diagrams.architecture._junction import Junction
 

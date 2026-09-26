@@ -16,16 +16,9 @@ from urllib.parse import urljoin
 
 import drawlib._assets
 from drawlib import ASSET_VERSION
-from drawlib._core.l2_types import (
-    TypeAngle,
-    TypeCoordinate,
-    TypeIconStyle,
-    TypePosFloat,
-    TypeStr,
-)
-from drawlib._core.l3_external import download_if_not_exist
-from drawlib._core.l3_fonts import FontMetadata, FontResource
-from drawlib._core.l3_styles import Style
+from drawlib._core.fonts import FontMetadata, FontResource
+from drawlib._core.types import Style, TypeAngle, TypeCoordinate, TypeIconStyle, TypePosFloat, TypeStr
+from drawlib._core.utils import download_if_not_exist
 from drawlib._icons._utils import IconUtil
 from drawlib._icons.font_icons._font_icon import font_icon
 

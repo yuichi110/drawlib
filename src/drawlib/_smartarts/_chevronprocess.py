@@ -17,18 +17,11 @@ from collections.abc import Sequence
 from pydantic import validate_call
 
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
-from drawlib._core.l2_types import (
-    TypeAngle90,
-    TypeColor,
-    TypeCoordinate,
-    TypePosFloat,
-    TypeStr,
-)
-from drawlib._core.l3_fonts import Font
-from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import chevron as canvas_chevron
-from drawlib._core.l4_canvas import polygon as canvas_polygon
-from drawlib._core.l4_canvas import text as canvas_text
+from drawlib._core.fonts import Font
+from drawlib._core.shapes import chevron as canvas_chevron
+from drawlib._core.shapes import polygon as canvas_polygon
+from drawlib._core.text import text as canvas_text
+from drawlib._core.types import Style, TypeAngle90, TypeColor, TypeCoordinate, TypePosFloat, TypeStr
 from drawlib._preset_styles import BasePresetStyles
 
 
@@ -275,28 +268,40 @@ class ChevronProcess:
             title_y = cy + h * 0.16
             desc_y = cy - h * 0.18
 
-            t_style = item.textstyle or self._default_textstyle or Style(
-                text_size=10.0,
-                text_font=Font.SANSSERIF_BOLD,
-                text_color=(255, 255, 255, 1.0),
-                text_halign="center",
-                text_valign="center",
+            t_style = (
+                item.textstyle
+                or self._default_textstyle
+                or Style(
+                    text_size=10.0,
+                    text_font=Font.SANSSERIF_BOLD,
+                    text_color=(255, 255, 255, 1.0),
+                    text_halign="center",
+                    text_valign="center",
+                )
             )
-            d_style = item.description_style or self._default_description_style or Style(
-                text_size=8.0,
-                text_font=Font.SANSSERIF_REGULAR,
-                text_color=(255, 255, 255, 0.9),
-                text_halign="center",
-                text_valign="center",
+            d_style = (
+                item.description_style
+                or self._default_description_style
+                or Style(
+                    text_size=8.0,
+                    text_font=Font.SANSSERIF_REGULAR,
+                    text_color=(255, 255, 255, 0.9),
+                    text_halign="center",
+                    text_valign="center",
+                )
             )
             canvas_text(xy=(cx, title_y), text=item.text, style=t_style)
             canvas_text(xy=(cx, desc_y), text=item.description, style=d_style)
         else:
-            t_style = item.textstyle or self._default_textstyle or Style(
-                text_size=10.5,
-                text_font=Font.SANSSERIF_BOLD,
-                text_color=(255, 255, 255, 1.0),
-                text_halign="center",
-                text_valign="center",
+            t_style = (
+                item.textstyle
+                or self._default_textstyle
+                or Style(
+                    text_size=10.5,
+                    text_font=Font.SANSSERIF_BOLD,
+                    text_color=(255, 255, 255, 1.0),
+                    text_halign="center",
+                    text_valign="center",
+                )
             )
             canvas_text(xy=(cx, cy), text=item.text, style=t_style)

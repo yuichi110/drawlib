@@ -26,24 +26,10 @@ from pygments.lexers import (
 from pygments.lexers.special import TextLexer
 from pygments.styles import get_style_by_name
 
-from drawlib._core.l2_models import Dimage
-from drawlib._core.l2_types import (
-    FilePath,
-    TypeBool,
-    TypeColor,
-    TypeCoordinate,
-    TypePosFloat,
-    TypeStr,
-)
-from drawlib._core.l3_external import download_if_not_exist
-from drawlib._core.l3_fonts import (
-    FontFile,
-    FontSourceCode,
-    get_font_metadata,
-)
-from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import image
-from drawlib._core.l4_canvas_utils import ColorUtil
+from drawlib._core.fonts import FontFile, FontSourceCode, get_font_metadata
+from drawlib._core.images import Dimage, image
+from drawlib._core.types import FilePath, Style, TypeBool, TypeColor, TypeCoordinate, TypePosFloat, TypeStr
+from drawlib._core.utils import ColorUtil, download_if_not_exist
 
 PYGMENTS_LINENUM_TEXT_COLOR: Final[TypeColor] = (136, 136, 102)
 PYGMENTS_LINENUM_BACKGROUND_COLOR: Final[TypeColor] = (238, 238, 221)

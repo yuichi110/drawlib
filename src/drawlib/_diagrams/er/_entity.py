@@ -17,7 +17,7 @@ from drawlib._diagrams.er._relationship import Relationship
 from drawlib._diagrams.er._types import Cardinality, ColumnInfo, RoutingType, Side
 
 if TYPE_CHECKING:
-    from drawlib._core.l3_styles import Style
+    from drawlib._core.types import Style
     from drawlib._diagrams.er._diagram import ERDiagram
 
 PaddingType = Union[float, tuple[float, float]]

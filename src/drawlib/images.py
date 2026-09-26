@@ -9,8 +9,7 @@
 
 """Public images module for drawlib."""
 
-from drawlib._core.l2_models import Dimage
-from drawlib._core.l4_canvas import image
+from drawlib._core.images import Dimage, image
 from drawlib._utils._image import get_dimage_from_code
 
 __all__ = [

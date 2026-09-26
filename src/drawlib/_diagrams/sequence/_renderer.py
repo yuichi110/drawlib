@@ -19,9 +19,15 @@ from PIL.Image import Image
 
 import drawlib._icons.font_icons.phosphor._generated as phosphor_gen
 import drawlib._icons.png_icons.gcp._generated as gcp_gen
-from drawlib._core.l2_models import Dimage
-from drawlib._core.l3_fonts import Font
-from drawlib._core.l3_styles import Colors, Style
+from drawlib._core.colors import Colors
+from drawlib._core.fonts import Font
+from drawlib._core.images import Dimage
+from drawlib._core.images import image as canvas_image
+from drawlib._core.lines import line as canvas_line
+from drawlib._core.lines import lines as canvas_lines
+from drawlib._core.shapes import rectangle as canvas_rectangle
+from drawlib._core.text import text as canvas_text
+from drawlib._core.types import Style
 from drawlib._diagrams.architecture._icons import CustomIcon, GcpIcon, PhosphorIcon
 from drawlib._diagrams.sequence._block import Block
 from drawlib._diagrams.sequence._group import ParticipantGroup
@@ -29,11 +35,6 @@ from drawlib._diagrams.sequence._message import Message
 from drawlib._diagrams.sequence._note import Note
 from drawlib._diagrams.sequence._participant import Participant
 from drawlib._diagrams.sequence._types import DiagramPadding, IconType, PaddingType
-from drawlib.images import image as canvas_image
-from drawlib.lines import line as canvas_line
-from drawlib.lines import lines as canvas_lines
-from drawlib.shapes import rectangle as canvas_rectangle
-from drawlib.text import text as canvas_text
 
 if TYPE_CHECKING:
     from drawlib._diagrams.sequence._diagram import SequenceDiagram

@@ -15,17 +15,11 @@ from typing import Literal
 
 from pydantic import validate_call
 
-from drawlib._core.l2_types import (
-    TypeCoordinate,
-    TypeFloat,
-    TypeStr,
-)
-from drawlib._core.l3_styles import (
-    Colors,
-    ColorsEssentials,
-    Style,
-)
-from drawlib._core.l4_canvas import ellipse, get_charwidth_from_fontsize, line, rectangle
+from drawlib._core.colors import Colors, ColorsEssentials
+from drawlib._core.lines import line
+from drawlib._core.shapes import ellipse, rectangle
+from drawlib._core.text import get_charwidth_from_fontsize
+from drawlib._core.types import Style, TypeCoordinate, TypeFloat, TypeStr
 from drawlib._preset_styles import BasePresetStyles
 
 
@@ -184,23 +178,17 @@ class MindMapNode:
         self._line_horizontal_length = (
             line_horizontal_length if line_horizontal_length is not None else self._line_length
         )
-        self._line_vertical_length = (
-            line_vertical_length if line_vertical_length is not None else self._line_length
-        )
+        self._line_vertical_length = line_vertical_length if line_vertical_length is not None else self._line_length
         self._default_boxsize = self._default_size
         self._default_boxstyle = self._default_style
         self._default_box_r = self._default_r
         self._default_box_horizontal_margin = self._default_horizontal_margin
         self._default_box_vertical_margin = self._default_vertical_margin
         self._default_line_horizontal_length = (
-            default_line_horizontal_length
-            if default_line_horizontal_length is not None
-            else self._default_line_length
+            default_line_horizontal_length if default_line_horizontal_length is not None else self._default_line_length
         )
         self._default_line_vertical_length = (
-            default_line_vertical_length
-            if default_line_vertical_length is not None
-            else self._default_line_length
+            default_line_vertical_length if default_line_vertical_length is not None else self._default_line_length
         )
 
         # Internal layout computation attributes
@@ -579,7 +567,6 @@ class MindMapNode:
 
     @staticmethod
     def _connect_and_layout_bottom(  # noqa: PLR0913
-
         cx: float,
         cy: float,
         bh: float,

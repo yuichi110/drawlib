@@ -7,11 +7,12 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Public colors module for drawlib."""
+"""Core colors facade module."""
 
-from drawlib._core.colors import (
+from drawlib._core.l3_styles import (
     Colors,
     Colors140,
+    ColorsBase,
     ColorsDefault,
     ColorsEssentials,
     ColorsMonochrome,
@@ -19,28 +20,15 @@ from drawlib._core.colors import (
     ColorsThemeEssentials,
     ColorsThemeMonochrome,
 )
-from drawlib._utils._color import (
-    get_rgba as with_alpha,
-)
-from drawlib._utils._color import (
-    get_rgba_from_grayscale as from_grayscale,
-)
-from drawlib._utils._color import (
-    get_rgba_from_hexcode as from_hex,
-)
 
 __all__ = [
-    # Color Classes
     "Colors",
     "Colors140",
+    "ColorsBase",
     "ColorsDefault",
     "ColorsEssentials",
     "ColorsMonochrome",
     "ColorsThemeDefault",
     "ColorsThemeEssentials",
     "ColorsThemeMonochrome",
-    # Color Utilities
-    "from_hex",
-    "from_grayscale",
-    "with_alpha",
 ]

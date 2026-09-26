@@ -221,9 +221,7 @@ def build_merged_html(
         base_root = common if os.path.isdir(common) else os.path.dirname(common)
     else:
         base_root = os.path.dirname(file_list[0]) if file_list else ""
-    display_names = [
-        "/" + os.path.relpath(s_abs, base_root).replace(os.sep, "/") for s_abs in file_list
-    ]
+    display_names = ["/" + os.path.relpath(s_abs, base_root).replace(os.sep, "/") for s_abs in file_list]
     seen_sources: dict[str, str] = {}
     for s_abs, disp_name in zip(file_list, display_names):
         if s_abs in seen_sources:
@@ -330,9 +328,7 @@ def build_merged_html(
     body_parts: List[str] = []
     index_entries = toc_entries[1:]
     if generate_index and len(index_entries) > 0:
-        toc_items = "\n".join(
-            f'    <li><a href="#{anc}">{t_title}</a></li>' for anc, t_title in index_entries
-        )
+        toc_items = "\n".join(f'    <li><a href="#{anc}">{t_title}</a></li>' for anc, t_title in index_entries)
         toc_break = (
             ' style="page-break-before: always; break-before: page; page-break-after: always; break-after: page;"'
             if page_break

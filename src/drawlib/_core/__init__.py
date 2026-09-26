@@ -7,4 +7,33 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Root package of API v0.2 implementation."""
+"""Drawlib core drawing engine facade.
+
+This module re-exports domain facades of the core drawing engine.
+External packages should import from `drawlib._core.<domain>` (e.g. shapes, lines, types, canvas, etc.)
+rather than accessing lower-level implementation details directly.
+"""
+
+from drawlib._core import (
+    canvas,
+    colors,
+    fonts,
+    images,
+    lines,
+    shapes,
+    text,
+    types,
+    utils,
+)
+
+__all__ = [
+    "canvas",
+    "colors",
+    "fonts",
+    "images",
+    "lines",
+    "shapes",
+    "text",
+    "types",
+    "utils",
+]

@@ -7,27 +7,29 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Public canvas module for drawlib."""
+"""Core canvas facade module."""
 
-from drawlib._core.canvas import (
+from drawlib._core.l4_canvas import (
     canvas,
     clear,
     config,
     get_dimage,
+    get_image_zoom_from_width,
+    get_image_zoom_original,
     save,
     setup,
     show,
 )
-from drawlib._utils._canvas import (
-    initialize,
-)
+from drawlib._core.l4_canvas._canvas import Canvas
 
 __all__ = [
+    "Canvas",
     "canvas",
     "clear",
     "config",
     "get_dimage",
-    "initialize",
+    "get_image_zoom_from_width",
+    "get_image_zoom_original",
     "save",
     "setup",
     "show",

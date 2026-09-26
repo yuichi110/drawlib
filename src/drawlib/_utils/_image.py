@@ -21,7 +21,7 @@ from typing import Any
 from PIL import Image
 from pydantic import validate_call
 
-from drawlib._core.l2_models import Dimage
+from drawlib._core.images import Dimage
 
 
 def _worker_render_code(
@@ -35,7 +35,7 @@ def _worker_render_code(
         conn (multiprocessing.connection.Connection): IPC pipe connection endpoint.
     """
     try:
-        import drawlib._core.l4_canvas._canvas
+        import drawlib._core.canvas
         import drawlib.canvas
 
         # Reset canvas to a clean state in the worker process (clearing any inherited state from fork)
@@ -46,8 +46,8 @@ def _worker_render_code(
             pass
 
         drawlib.canvas.save = _no_op_save  # type: ignore
-        drawlib._core.l4_canvas._canvas.save = _no_op_save  # type: ignore
-        drawlib._core.l4_canvas._canvas.canvas.save = _no_op_save  # type: ignore
+        drawlib._core.canvas.save = _no_op_save  # type: ignore
+        drawlib._core.canvas.canvas.save = _no_op_save  # type: ignore
 
         exec_globals: dict[str, Any] = {
             "__name__": "__main__",

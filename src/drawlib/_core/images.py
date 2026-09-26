@@ -7,18 +7,12 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Package for dutil modules."""
+"""Core images facade module."""
 
-from drawlib._core.utils import dutil_settings
-from drawlib._utils import _canvas as dutil_canvas
-from drawlib._utils import _color as dutil_color
-from drawlib._utils import _image as dutil_image
-from drawlib._utils import _script as dutil_script
+from drawlib._core.l2_models import Dimage
+from drawlib._core.l4_canvas import image
 
 __all__ = [
-    "dutil_settings",
-    "dutil_canvas",
-    "dutil_color",
-    "dutil_image",
-    "dutil_script",
+    "Dimage",
+    "image",
 ]

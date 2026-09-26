@@ -14,19 +14,20 @@ from __future__ import annotations
 import math
 from typing import TYPE_CHECKING, Literal
 
-from drawlib._core.l3_fonts import Font
-from drawlib._core.l3_styles import Colors, Style
+from drawlib._core.colors import Colors
+from drawlib._core.fonts import Font
+from drawlib._core.lines import line as canvas_line
+from drawlib._core.lines import lines as canvas_lines
+from drawlib._core.shapes import parallelogram as canvas_parallelogram
+from drawlib._core.shapes import rectangle as canvas_rectangle
+from drawlib._core.shapes import rhombus as canvas_rhombus
+from drawlib._core.text import text as canvas_text
+from drawlib._core.types import Style
 from drawlib._diagrams.flow._junction import Junction
 from drawlib._diagrams.flow._lane import Lane
 from drawlib._diagrams.flow._node import FlowNode
 from drawlib._diagrams.flow._nodes import Data, Decision, End, Process, Start
 from drawlib._diagrams.flow._types import Connectable, PaddingType, Side
-from drawlib.lines import line as canvas_line
-from drawlib.lines import lines as canvas_lines
-from drawlib.shapes import parallelogram as canvas_parallelogram
-from drawlib.shapes import rectangle as canvas_rectangle
-from drawlib.shapes import rhombus as canvas_rhombus
-from drawlib.text import text as canvas_text
 
 if TYPE_CHECKING:
     from drawlib._diagrams.flow._diagram import FlowDiagram

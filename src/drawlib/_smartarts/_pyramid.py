@@ -14,14 +14,8 @@ from typing import Literal
 
 from pydantic import BaseModel, validate_call
 
-from drawlib._core.l2_types import (
-    TypeAngle,
-    TypeCoordinate,
-    TypePosFloat,
-    TypeStr,
-)
-from drawlib._core.l3_styles import Style
-from drawlib._core.l4_canvas import trapezoid, triangle
+from drawlib._core.shapes import trapezoid, triangle
+from drawlib._core.types import Style, TypeAngle, TypeCoordinate, TypePosFloat, TypeStr
 from drawlib._preset_styles import BasePresetStyles
 
 
