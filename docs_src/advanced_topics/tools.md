@@ -15,18 +15,18 @@ This programmatic interface is specifically designed for:
 
 All top-level CLI commands have direct 1-to-1 functional counterparts in `drawlib.tools`:
 
-| CLI Command | Programmatic Function | Description |
-| :--- | :--- | :--- |
-| `drawlib build html` | `build_html(...)` | Compile Markdown files or directory into an HTML site. |
-| `drawlib build markdown` | `build_markdown(...)` | Compile Markdown files for GitHub repository browsing. |
-| `drawlib build pdf` | `build_pdf(...)` | Compile documents to vector PDF via headless Chromium. |
-| `drawlib build images` | `build_image(...)` | Batch execute standalone Python drawing scripts into images. |
-| `drawlib export` | `export_block(...)` | Extract and render a single diagram block or script to image. |
-| `drawlib show` | `show_block(...)` | Render and display diagram block in desktop GUI viewer. |
-| `drawlib init` | `init_project(...)` | Scaffold starter documentation project structures. |
-| `drawlib serve` | `serve_docs(...)` | Launch local preview HTTP web server with link checker. |
-| `drawlib cache` | `list_cache()`, `clear_cache()` | Inspect, download, or clear font and icon asset cache. |
-| `drawlib css` | `list_css()`, `export_css()` | Inspect and export built-in CSS stylesheets. |
+| CLI Command | Programmatic Function | Module | Description |
+| :--- | :--- | :--- | :--- |
+| `drawlib build html` | `build_html(...)` | `drawlib.builder` | Compile Markdown files or directory into an HTML site. |
+| `drawlib build markdown` | `build_markdown(...)` | `drawlib.builder` | Compile Markdown files for GitHub repository browsing. |
+| `drawlib build pdf` | `build_pdf(...)` | `drawlib.builder` | Compile documents to vector PDF via headless Chromium. |
+| `drawlib build images` | `build_image(...)` | `drawlib.builder` | Batch execute standalone Python drawing scripts into images. |
+| `drawlib export` | `export_block(...)` | `drawlib.builder` | Extract and render a single diagram block or script to image. |
+| `drawlib show` | `show_block(...)` | `drawlib.builder` | Render and display diagram block in desktop GUI viewer. |
+| `drawlib init` | `init_project(...)` | `drawlib.tools` | Scaffold starter documentation project structures. |
+| `drawlib serve` | `serve_docs(...)` | `drawlib.tools` | Launch local preview HTTP web server with link checker. |
+| `drawlib cache` | `list_cache()`, `clear_cache()` | `drawlib.tools` | Inspect, download, or clear font and icon asset cache. |
+| `drawlib css` | `list_css()`, `export_css()` | `drawlib.tools` | Inspect and export built-in CSS stylesheets. |
 
 ```drawlib 650px center caption:"Architecture: drawlib.tools as the Backend Engine"
 from drawlib.canvas import setup
@@ -78,17 +78,21 @@ rectangle(
 
 ## 2. Imports & Module Structure
 
-You can import functions either directly from `drawlib.tools` or from categorized submodules:
+You can import compilation functions from `drawlib.builder`, and developer utilities from `drawlib.tools`:
 
 ```python
-# Direct top-level imports
-from drawlib.tools import (
+# Document and image compilation
+from drawlib.builder import (
     build_html,
     build_markdown,
     build_pdf,
     build_image,
     export_block,
     show_block,
+)
+
+# Developer tools and project utilities
+from drawlib.tools import (
     init_project,
     serve_docs,
     clear_cache,
@@ -107,7 +111,7 @@ from drawlib.tools import (
 Compiles authoring Markdown source files into a responsive static HTML site. Note that `template.html` and `style.css` must exist in the source directory (scaffolded via `drawlib init`):
 
 ```python
-from drawlib.tools import build_html
+from drawlib.builder import build_html
 
 build_html(
     input_path="docs_src/",            # Source directory or single .md file
@@ -122,7 +126,7 @@ build_html(
 Compiles Markdown documents for GitHub repository browsing. Code blocks are preserved as Python syntax-highlighted blocks followed by relative image links:
 
 ```python
-from drawlib.tools import build_markdown
+from drawlib.builder import build_markdown
 
 build_markdown(
     input_path="docs_src/",
@@ -136,7 +140,7 @@ build_markdown(
 Renders Markdown documents to print-ready vector PDF using headless Chromium via Playwright:
 
 ```python
-from drawlib.tools import build_pdf
+from drawlib.builder import build_pdf
 
 build_pdf(
     inputs="doc_src/",
@@ -150,7 +154,7 @@ build_pdf(
 Executes all standalone `.py` drawing scripts within a directory and exports rendered images:
 
 ```python
-from drawlib.tools import build_image
+from drawlib.builder import build_image
 
 build_image(
     input_path="drawings/",
@@ -169,7 +173,7 @@ Extracts and renders a single ````drawlib```` block from a Markdown file or a st
 This is the primary function used by automated testing suites and CI workflows:
 
 ```python
-from drawlib.tools import export_block
+from drawlib.builder import export_block
 
 # Export block 1 from a Markdown document:
 export_block(
@@ -192,7 +196,7 @@ export_block(
 Opens an interactive desktop GUI preview window displaying the rendered diagram:
 
 ```python
-from drawlib.tools import show_block
+from drawlib.builder import show_block
 
 # Open desktop GUI preview for block 2 with coordinate grid overlay:
 show_block(

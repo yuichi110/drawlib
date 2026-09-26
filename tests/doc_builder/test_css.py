@@ -13,32 +13,38 @@ import os
 
 import pytest
 
-from drawlib.tools import (
+from drawlib.builder import (
     build_html,
     build_image,
     build_markdown,
     build_pdf,
-    clear_cache,
-    download_cache,
     export_block,
     export_code_block,
+    show_block,
+    show_code_block,
+)
+from drawlib.tools import (
+    clear_cache,
+    download_cache,
     export_css,
     get_css,
     init_project,
     list_cache,
     list_css,
     serve_docs,
-    show_block,
-    show_code_block,
 )
 
 
 def test_public_tools_facade_exports() -> None:
-    """Verify all drawlib.tools public facade functions are callable."""
+    """Verify all drawlib.tools and drawlib.builder public facade functions are callable."""
     assert callable(build_image)
     assert callable(build_markdown)
     assert callable(build_html)
     assert callable(build_pdf)
+    assert callable(export_code_block)
+    assert callable(export_block)
+    assert callable(show_code_block)
+    assert callable(show_block)
     assert callable(clear_cache)
     assert callable(list_cache)
     assert callable(download_cache)
@@ -46,10 +52,6 @@ def test_public_tools_facade_exports() -> None:
     assert callable(export_css)
     assert callable(get_css)
     assert callable(serve_docs)
-    assert callable(show_code_block)
-    assert callable(show_block)
-    assert callable(export_code_block)
-    assert callable(export_block)
     assert callable(init_project)
 
 

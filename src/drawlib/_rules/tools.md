@@ -10,17 +10,7 @@ While `drawlib` CLI commands (`drawlib build`, `drawlib export`, etc.) are desig
 All public developer tools can be imported directly from `drawlib.tools` or their dedicated submodules:
 
 ```python
-from drawlib.tools import (
-    # Top-Level Facade Modules
-    build,           # Document and image compilation (HTML, Markdown, PDF, image)
-    export,          # Single illustration block extraction and rendering
-    show,            # Desktop GUI preview window
-    init,            # Project scaffolding generator
-    serve,           # Local development HTTP server
-    cache,           # Font and icon cache manager
-    css,             # Built-in CSS presets management
-
-    # Direct Function Re-exports
+from drawlib.builder import (
     build_html,
     build_markdown,
     build_pdf,
@@ -29,6 +19,8 @@ from drawlib.tools import (
     export_code_block,
     show_block,
     show_code_block,
+)
+from drawlib.tools import (
     init_project,
     list_project_types,
     serve_docs,
@@ -50,7 +42,7 @@ The compilation tools compile Markdown documents, multi-page document sites, and
 Compiles a single Markdown file or a documentation source directory (`docs_src/`) into responsive HTML pages with navigation and styling:
 
 ```python
-from drawlib.tools import build_html
+from drawlib.builder import build_html
 
 build_html(
     input_path="docs_src/",
@@ -66,7 +58,7 @@ build_html(
 Compiles Markdown documents for GitHub repository browsing. ````drawlib```` code blocks are replaced with syntax-highlighted Python code followed by relative image links:
 
 ```python
-from drawlib.tools import build_markdown
+from drawlib.builder import build_markdown
 
 build_markdown(
     input_path="docs_src/",
@@ -80,7 +72,7 @@ build_markdown(
 Compiles documents directly to print-ready vector PDF using headless Chromium via Playwright:
 
 ```python
-from drawlib.tools import build_pdf
+from drawlib.builder import build_pdf
 
 build_pdf(
     inputs="docs_src/index.md",
@@ -93,7 +85,7 @@ build_pdf(
 Executes standalone Python drawing scripts in batch mode:
 
 ```python
-from drawlib.tools import build_image
+from drawlib.builder import build_image
 
 build_image(
     input_path="drawings/",
@@ -111,7 +103,7 @@ build_image(
 Extracts and renders a single ````drawlib```` illustration from a Markdown file or a standalone `.py` script without opening a GUI display:
 
 ```python
-from drawlib.tools import export_block
+from drawlib.builder import export_block
 
 # Export block 1 from a Markdown document:
 export_block(
@@ -134,7 +126,7 @@ export_block(
 Displays the rendered illustration in a local GUI window for interactive alignment:
 
 ```python
-from drawlib.tools import show_block
+from drawlib.builder import show_block
 
 show_block(
     file_path="docs_src/architecture.md",

@@ -1,7 +1,7 @@
 # Document Builder Overview
 
 Drawlib follows an **"Illustration as Code"** and **"Documentation as Code"** philosophy. 
-Instead of relying on external documentation engines (such as Sphinx, MkDocs, or Docusaurus) and managing external diagram image assets manually, Drawlib features a built-in documentation compiler: `drawlib.doc_builder`.
+Instead of relying on external documentation engines (such as Sphinx, MkDocs, or Docusaurus) and managing external diagram image assets manually, Drawlib features a built-in documentation compiler: `drawlib.builder`.
 
 ---
 

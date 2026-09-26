@@ -98,12 +98,12 @@ except ValueError as e:
     sys.exit(1)
 
 from drawlib import (  # noqa: E402
+    builder,
     canvas,
     charts,
     colors,
     config,
     diagrams,
-    doc_builder,
     fonts,
     icons,
     images,
@@ -126,12 +126,12 @@ __all__ = [
     "HOMEPAGE",
     "REPOSITORY",
     "README",
+    "builder",
     "canvas",
     "charts",
     "colors",
     "config",
     "diagrams",
-    "doc_builder",
     "fonts",
     "icons",
     "images",

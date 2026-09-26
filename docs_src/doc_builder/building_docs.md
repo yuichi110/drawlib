@@ -46,10 +46,10 @@ drawlib build pdf doc_src/ -o doc.pdf
 
 ## 2. Compiling with the Python API
 
-You can automate documentation compilation inside Python build scripts or CI/CD pipelines via `drawlib.doc_builder`.
+You can automate documentation compilation inside Python build scripts or CI/CD pipelines via `drawlib.builder`.
 
 ```python
-from drawlib.doc_builder import (
+from drawlib.builder import (
     build,
     build_document,
     build_html,

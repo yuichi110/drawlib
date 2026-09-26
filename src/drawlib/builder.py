@@ -7,7 +7,12 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Public doc_builder module for drawlib."""
+"""Public builder module for drawlib.
+
+Provides document and image compilation functions for HTML, Markdown, PDF, and images.
+"""
+
+from __future__ import annotations
 
 from drawlib._builder.doc_builder import (
     build,
@@ -18,21 +23,24 @@ from drawlib._builder.doc_builder import (
     build_pdf,
     detect_document_type,
     export_code_block,
-    export_css,
-    list_css,
     show_code_block,
 )
+from drawlib._builder.image_builder import build_image
+
+export_block = export_code_block
+show_block = show_code_block
 
 __all__ = [
     "build",
     "build_document",
     "build_documents",
     "build_html",
+    "build_image",
     "build_markdown",
     "build_pdf",
     "detect_document_type",
+    "export_block",
     "export_code_block",
-    "export_css",
-    "list_css",
+    "show_block",
     "show_code_block",
 ]

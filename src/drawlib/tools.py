@@ -12,15 +12,6 @@
 from __future__ import annotations
 
 from drawlib._builder.cache_manager import clear_cache, download_cache, list_cache
-from drawlib._builder.doc_builder import (
-    build_html,
-    build_markdown,
-    build_pdf,
-    detect_document_type,
-    export_code_block,
-    show_code_block,
-)
-from drawlib._builder.image_builder import build_image
 from drawlib._builder.project_init import init_project, list_project_types
 from drawlib._css_templates import (
     export_css,
@@ -31,19 +22,9 @@ from drawlib._css_templates import (
 )
 from drawlib._http_server import run_server, scan_broken_links, serve_docs
 
-export_block = export_code_block
-show_block = show_code_block
-
 __all__ = [
-    "build_html",
-    "build_image",
-    "build_markdown",
-    "build_pdf",
     "clear_cache",
-    "detect_document_type",
     "download_cache",
-    "export_block",
-    "export_code_block",
     "export_css",
     "get_css",
     "init_project",
@@ -55,6 +36,4 @@ __all__ = [
     "run_server",
     "scan_broken_links",
     "serve_docs",
-    "show_block",
-    "show_code_block",
 ]

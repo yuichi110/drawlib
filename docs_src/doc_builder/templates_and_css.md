@@ -41,7 +41,7 @@ This writes the selected theme stylesheet directly to `docs_src/style.css`.
 
 ## 2. Template Context Variables
 
-When rendering HTML pages, `drawlib.doc_builder` passes the following variables into the Jinja2 context:
+When rendering HTML pages, `drawlib.builder` passes the following variables into the Jinja2 context:
 
 | Variable | Type | Description |
 | :--- | :--- | :--- |

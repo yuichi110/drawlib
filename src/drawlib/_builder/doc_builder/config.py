@@ -40,7 +40,7 @@ def load_config(
 
     if shared_globals is not None:
         exec(
-            "from drawlib import canvas, charts, colors, doc_builder, fonts, icons, images, lines, math, "
+            "from drawlib import builder, canvas, charts, colors, fonts, icons, images, lines, math, "
             "preset_styles, shapes, smartarts, text, types\n"
             "from drawlib.canvas import *\n"
             "from drawlib.shapes import *\n"
@@ -54,7 +54,7 @@ def load_config(
             "from drawlib.colors import *\n"
             "from drawlib.types import *\n"
             "from drawlib.math import *\n"
-            "from drawlib.doc_builder import *\n"
+            "from drawlib.builder import *\n"
             "from drawlib.config import styles\n",
             shared_globals,
         )

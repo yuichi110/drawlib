@@ -1,7 +1,7 @@
 # Document Builder Overview
 
 Drawlib follows an **"Illustration as Code"** and **"Documentation as Code"** philosophy. 
-Instead of relying on external documentation engines (such as Sphinx, MkDocs, or Docusaurus) and managing external diagram image assets manually, Drawlib features a built-in documentation compiler: `drawlib.doc_builder`.
+Instead of relying on external documentation engines (such as Sphinx, MkDocs, or Docusaurus) and managing external diagram image assets manually, Drawlib features a built-in documentation compiler: `drawlib.builder`.
 
 ---
 
@@ -71,7 +71,7 @@ rectangle(
     style=styles.primary.patch(shape_fill_color=Colors140.Lavender, shape_line_color=purple_primary, shape_line_width=2.5),
 )
 text((70, 53), "drawlib compiler", style=styles.primary.patch(text_size=15, text_font=FontRoboto.ROBOTO_BOLD, text_color=purple_primary))
-text((70, 43), "drawlib.doc_builder", style=styles.primary.patch(text_size=12, text_font=FontRoboto.ROBOTO_BOLD))
+text((70, 43), "drawlib.builder", style=styles.primary.patch(text_size=12, text_font=FontRoboto.ROBOTO_BOLD))
 text((70, 31), "• AST Markdown Parser\n• In-Memory Code Runner\n• Canvas Reset & Isolation", style=styles.primary.patch(text_size=10, text_color=Colors140.DarkSlateGray))
 
 # Connect Source -> Engine

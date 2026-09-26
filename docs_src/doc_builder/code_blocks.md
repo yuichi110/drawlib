@@ -91,7 +91,7 @@ circle((50, 50), radius=25, style=styles.primary)
 
 ## 5. Execution Context & Isolation
 
-When compiling code blocks, `drawlib.doc_builder` guarantees complete isolation between illustrations:
+When compiling code blocks, `drawlib.builder` guarantees complete isolation between illustrations:
 
 1. **Canvas Clearing**: The drawing canvas is automatically reset before and after each block execution. Variables or shapes from earlier blocks do not leak into subsequent diagrams.
 2. **Working Directory & Relative Assets**: The execution working directory is temporarily switched (`os.chdir`) to the document's parent directory. Relative file references (e.g. `image(xy=(50, 50), image="diagram.png")`) resolve reliably against the document's location.

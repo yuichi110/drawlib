@@ -266,7 +266,7 @@ Drawlib allows seamless integration of raster and vector graphic assets into dia
 
 ## 4. Core Concept: Documentation Creation (Docs as Code & tools)
 
-Drawlib integrates a complete, standalone documentation compilation pipeline (`drawlib.doc_builder` and `drawlib.tools`). It compiles Markdown documents containing embedded ````drawlib```` code blocks into publication-ready static websites, GitHub-flavored Markdown, and headless vector PDFs without requiring external site generators.
+Drawlib integrates a complete, standalone documentation compilation pipeline (`drawlib.builder` and `drawlib.tools`). It compiles Markdown documents containing embedded ````drawlib```` code blocks into publication-ready static websites, GitHub-flavored Markdown, and headless vector PDFs without requiring external site generators.
 
 ### 4.1. Project Scaffolding Rule (`drawlib init`)
 > **Important Scaffolding Rule**: Never create documentation project files or directories by hand from scratch.  
