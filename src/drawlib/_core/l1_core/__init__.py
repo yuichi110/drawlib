@@ -18,7 +18,6 @@ from drawlib._core.l1_core._const import (
 from drawlib._core.l1_core._logging import logger
 from drawlib._core.l1_core._settings import dutil_settings
 from drawlib._core.l1_core._utils import (
-    get_script_function_name,
     get_script_path,
     get_script_relative_path,
 )
@@ -34,7 +33,6 @@ __all__ = [
     # _settings.py
     "dutil_settings",
     # _utils.py
-    "get_script_function_name",
     "get_script_path",
     "get_script_relative_path",
 ]

@@ -71,28 +71,3 @@ def get_script_relative_path(path: str) -> str:
     script_parent_dir = os.path.dirname(script_path)
     merged_path = os.path.join(script_parent_dir, path)
     return os.path.realpath(merged_path)
-
-
-def get_script_function_name() -> str:
-    """Retrieve the name of the function in the user script that calls this function.
-
-    Returns:
-        str: Function name in the user script.
-
-    Raises:
-        RuntimeError: If the function name cannot be determined.
-
-    """
-    package_root = get_package_root_path()
-    for frame in inspect.stack():
-        file = frame.filename
-        if not os.path.isfile(file):
-            continue
-        if "site-packages" in file:
-            continue
-        if is_path_under(package_root, file):
-            continue
-        return frame[3]
-
-    msg = "Critical Error. Unable to get last called user function name"
-    raise RuntimeError(msg)

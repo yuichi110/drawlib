@@ -7,24 +7,9 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-from drawlib._utils import dutil_script
-from drawlib.canvas import clear, save
+from drawlib.canvas import save
 from drawlib.colors import Colors
-from drawlib.fonts import (
-    Font,
-    FontArabic,
-    FontBrahmic,
-    FontChinese,
-    FontFile,
-    FontJapanese,
-    FontKorean,
-    FontMonoSpace,
-    FontRoboto,
-    FontSansSerif,
-    FontSerif,
-    FontSourceCode,
-    FontThai,
-)
+from drawlib.fonts import FontChinese
 from drawlib.text import text
 from drawlib.types import Style
 
@@ -49,7 +34,7 @@ def test_simplified_sans():
         style=BASE_STYLE.patch(text_font=FontChinese.SIMPLIFIED_SANSSERIF_BOLD),
     )
 
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_simplified_sans.png")
 
 
 def test_simplified_serif():
@@ -69,7 +54,7 @@ def test_simplified_serif():
         style=BASE_STYLE.patch(text_font=FontChinese.SIMPLIFIED_SERIF_BOLD),
     )
 
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_simplified_serif.png")
 
 
 def test_traditional_sans():
@@ -89,7 +74,7 @@ def test_traditional_sans():
         style=BASE_STYLE.patch(text_font=FontChinese.TRADITIONAL_SANSSERIF_BOLD),
     )
 
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_traditional_sans.png")
 
 
 def test_traditional_serif():
@@ -109,7 +94,7 @@ def test_traditional_serif():
         style=BASE_STYLE.patch(text_font=FontChinese.TRADITIONAL_SERIF_BOLD),
     )
 
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_traditional_serif.png")
 
 
 def test_hongkong_sans():
@@ -129,7 +114,7 @@ def test_hongkong_sans():
         style=BASE_STYLE.patch(text_font=FontChinese.HONGKONG_SANSSERIF_BOLD),
     )
 
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_hongkong_sans.png")
 
 
 def test_hongkong_serif():
@@ -149,4 +134,4 @@ def test_hongkong_serif():
         style=BASE_STYLE.patch(text_font=FontChinese.HONGKONG_SERIF_BOLD),
     )
 
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_hongkong_serif.png")

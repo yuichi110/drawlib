@@ -16,7 +16,6 @@ from unittest.mock import patch
 import pytest
 
 from drawlib._core.l1_core._utils import (
-    get_script_function_name,
     get_script_path,
     get_script_relative_path,
 )
@@ -64,24 +63,3 @@ class TestGetScriptRelativePath:
         with pytest.raises(ValueError, match='Arg "path" must be str'):
             # Type ignore to test dynamic runtime validation
             get_script_relative_path(typing.cast(str, 42))
-
-
-class TestGetScriptFunctionName:
-    """Test cases for get_script_function_name."""
-
-    def test_get_script_function_name_success(self):
-        """Test that get_script_function_name successfully detects this test method's name."""
-        name = get_script_function_name()
-        assert name == "test_get_script_function_name_success"
-
-    def test_get_script_function_name_failure(self):
-        """Test that get_script_function_name raises RuntimeError when no caller frame is found."""
-        with (
-            patch(
-                "drawlib._core.l1_core._utils.get_package_root_path",
-                return_value="/Users/yuichi/GitHub/drawlib/src/drawlib",
-            ),
-            patch("inspect.stack", return_value=[]),
-        ):
-            with pytest.raises(RuntimeError, match="Unable to get last called user function name"):
-                get_script_function_name()

@@ -7,24 +7,9 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-from drawlib._utils import dutil_script
-from drawlib.canvas import clear, save
+from drawlib.canvas import save
 from drawlib.colors import Colors
-from drawlib.fonts import (
-    Font,
-    FontArabic,
-    FontBrahmic,
-    FontChinese,
-    FontFile,
-    FontJapanese,
-    FontKorean,
-    FontMonoSpace,
-    FontRoboto,
-    FontSansSerif,
-    FontSerif,
-    FontSourceCode,
-    FontThai,
-)
+from drawlib.fonts import FontSansSerif
 from drawlib.text import text
 from drawlib.types import Style
 
@@ -48,7 +33,7 @@ def test_lato():
         "Hello World. あいうえお",
         style=BASE_STYLE.patch(text_font=FontSansSerif.LATO_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_lato.png")
 
 
 def test_raleways():
@@ -67,7 +52,7 @@ def test_raleways():
         "Hello World. あいうえお",
         style=BASE_STYLE.patch(text_font=FontSansSerif.RALEWAYS_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_raleways.png")
 
 
 def test_montserrat():
@@ -86,7 +71,7 @@ def test_montserrat():
         "Hello World. あいうえお",
         style=BASE_STYLE.patch(text_font=FontSansSerif.MONTSERRAT_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_montserrat.png")
 
 
 def test_oswald():
@@ -105,7 +90,7 @@ def test_oswald():
         "Hello World. あいうえお",
         style=BASE_STYLE.patch(text_font=FontSansSerif.OSWALD_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_oswald.png")
 
 
 def test_poppins():
@@ -124,4 +109,4 @@ def test_poppins():
         "Hello World. あいうえお",
         style=BASE_STYLE.patch(text_font=FontSansSerif.POPPINS_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_poppins.png")

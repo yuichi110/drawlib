@@ -7,24 +7,9 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-from drawlib._utils import dutil_script
-from drawlib.canvas import clear, save
+from drawlib.canvas import save
 from drawlib.colors import Colors
-from drawlib.fonts import (
-    Font,
-    FontArabic,
-    FontBrahmic,
-    FontChinese,
-    FontFile,
-    FontJapanese,
-    FontKorean,
-    FontMonoSpace,
-    FontRoboto,
-    FontSansSerif,
-    FontSerif,
-    FontSourceCode,
-    FontThai,
-)
+from drawlib.fonts import FontRoboto
 from drawlib.text import text
 from drawlib.types import Style
 
@@ -48,7 +33,7 @@ def test_roboto():
         "Hello World. あいうえお",
         style=BASE_STYLE.patch(text_font=FontRoboto.ROBOTO_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_roboto.png")
 
 
 def test_roboto_serif():
@@ -67,7 +52,7 @@ def test_roboto_serif():
         "Hello World. あいうえお",
         style=BASE_STYLE.patch(text_font=FontRoboto.SERIF_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_roboto_serif.png")
 
 
 def test_roboto_mono():
@@ -86,7 +71,7 @@ def test_roboto_mono():
         "Hello World. あいうえお",
         style=BASE_STYLE.patch(text_font=FontRoboto.MONO_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_roboto_mono.png")
 
 
 def test_roboto_condensed():
@@ -105,7 +90,7 @@ def test_roboto_condensed():
         "Hello World. あいうえお",
         style=BASE_STYLE.patch(text_font=FontRoboto.CONDENSED_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_roboto_condensed.png")
 
 
 def test_roboto_slab():
@@ -124,4 +109,4 @@ def test_roboto_slab():
         "Hello World. あいうえお",
         style=BASE_STYLE.patch(text_font=FontRoboto.SLAB_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_roboto_slab.png")

@@ -7,24 +7,9 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-from drawlib._utils import dutil_script
-from drawlib.canvas import clear, save
+from drawlib.canvas import save
 from drawlib.colors import Colors
-from drawlib.fonts import (
-    Font,
-    FontArabic,
-    FontBrahmic,
-    FontChinese,
-    FontFile,
-    FontJapanese,
-    FontKorean,
-    FontMonoSpace,
-    FontRoboto,
-    FontSansSerif,
-    FontSerif,
-    FontSourceCode,
-    FontThai,
-)
+from drawlib.fonts import FontBrahmic
 from drawlib.text import text
 from drawlib.types import Style
 
@@ -48,7 +33,7 @@ def test_bengali_sans():
         "Hello World. যেহেতু মানব পরিবারের সকল সদস্যের সমান ও অবিচ্ছেদ্য অধিকারসমূহ",
         style=BASE_STYLE.patch(text_font=FontBrahmic.BENGALI_SANSSERIF_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_bengali_sans.png")
 
 
 def test_bengali_serif():
@@ -67,7 +52,7 @@ def test_bengali_serif():
         "Hello World. যেহেতু মানব পরিবারের সকল সদস্যের সমান ও অবিচ্ছেদ্য অধিকারসমূহ",
         style=BASE_STYLE.patch(text_font=FontBrahmic.BENGALI_SERIF_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_bengali_serif.png")
 
 
 def test_devanagari_sans():
@@ -86,7 +71,7 @@ def test_devanagari_sans():
         "Hello World. चूंकि मानव परिवार के सभी सदस्यों के जन्मजात गौरव और समान",
         style=BASE_STYLE.patch(text_font=FontBrahmic.DEVANAGARI_SANSSERIF_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_devanagari_sans.png")
 
 
 def test_devanagari_serif():
@@ -105,7 +90,7 @@ def test_devanagari_serif():
         "Hello World. चूंकि मानव परिवार के सभी सदस्यों के जन्मजात गौरव और समान",
         style=BASE_STYLE.patch(text_font=FontBrahmic.DEVANAGARI_SERIF_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_devanagari_serif.png")
 
 
 def test_tamil_sans():
@@ -124,7 +109,7 @@ def test_tamil_sans():
         "Hello World. மனிதக் குடும்பத்தினைச் சேர்ந்த யாவரதும் உள்ளார்ந்த",
         style=BASE_STYLE.patch(text_font=FontBrahmic.TAMIL_SANSSERIF_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_tamil_sans.png")
 
 
 def test_tamil_serif():
@@ -143,7 +128,7 @@ def test_tamil_serif():
         "Hello World. மனிதக் குடும்பத்தினைச் சேர்ந்த யாவரதும் உள்ளார்ந்த",
         style=BASE_STYLE.patch(text_font=FontBrahmic.TAMIL_SERIF_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_tamil_serif.png")
 
 
 def test_telugu_sans():
@@ -162,7 +147,7 @@ def test_telugu_sans():
         "Hello World. మానవకుటంబమునందలి వ్యక్తులందరికిని గల ఆజన్మసిద్ధమైన ప్రతిపత్తిని,",
         style=BASE_STYLE.patch(text_font=FontBrahmic.TELUGU_SANSSERIF_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_telugu_sans.png")
 
 
 def test_telugu_serif():
@@ -181,4 +166,4 @@ def test_telugu_serif():
         "Hello World. మానవకుటంబమునందలి వ్యక్తులందరికిని గల ఆజన్మసిద్ధమైన ప్రతిపత్తిని,",
         style=BASE_STYLE.patch(text_font=FontBrahmic.TELUGU_SERIF_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_telugu_serif.png")

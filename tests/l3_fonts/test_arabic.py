@@ -7,24 +7,9 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-from drawlib._utils import dutil_script
-from drawlib.canvas import clear, save
+from drawlib.canvas import save
 from drawlib.colors import Colors
-from drawlib.fonts import (
-    Font,
-    FontArabic,
-    FontBrahmic,
-    FontChinese,
-    FontFile,
-    FontJapanese,
-    FontKorean,
-    FontMonoSpace,
-    FontRoboto,
-    FontSansSerif,
-    FontSerif,
-    FontSourceCode,
-    FontThai,
-)
+from drawlib.fonts import FontArabic
 from drawlib.text import text
 from drawlib.types import Style
 
@@ -48,7 +33,7 @@ def test_kufi():
         "Hello World. لمّا كان الاعتراف بالكرامة المتأصلة في جميع",
         style=BASE_STYLE.patch(text_font=FontArabic.KUFI_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_kufi.png")
 
 
 def test_naskh():
@@ -62,7 +47,7 @@ def test_naskh():
         "Hello World. لمّا كان الاعتراف بالكرامة المتأصلة في جميع",
         style=BASE_STYLE.patch(text_font=FontArabic.NASKH_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_naskh.png")
 
 
 def test_sans():
@@ -81,4 +66,4 @@ def test_sans():
         "Hello World. لمّا كان الاعتراف بالكرامة المتأصلة في جميع",
         style=BASE_STYLE.patch(text_font=FontArabic.SANSSERIF_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_sans.png")

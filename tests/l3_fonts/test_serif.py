@@ -7,24 +7,9 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-from drawlib._utils import dutil_script
-from drawlib.canvas import clear, save
+from drawlib.canvas import save
 from drawlib.colors import Colors
-from drawlib.fonts import (
-    Font,
-    FontArabic,
-    FontBrahmic,
-    FontChinese,
-    FontFile,
-    FontJapanese,
-    FontKorean,
-    FontMonoSpace,
-    FontRoboto,
-    FontSansSerif,
-    FontSerif,
-    FontSourceCode,
-    FontThai,
-)
+from drawlib.fonts import FontSerif
 from drawlib.text import text
 from drawlib.types import Style
 
@@ -43,7 +28,7 @@ def test_courier():
         "Hello World. あいうえお",
         style=BASE_STYLE.patch(text_font=FontSerif.COURIER_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_courier.png")
 
 
 def test_playfairdisplay():
@@ -57,7 +42,7 @@ def test_playfairdisplay():
         "Hello World. あいうえお",
         style=BASE_STYLE.patch(text_font=FontSerif.PLAYFAIRDISPLAY_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_playfairdisplay.png")
 
 
 def test_merriweather():
@@ -76,7 +61,7 @@ def test_merriweather():
         "Hello World. あいうえお",
         style=BASE_STYLE.patch(text_font=FontSerif.MERRIWEATHER_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_merriweather.png")
 
 
 def test_platypi():
@@ -95,4 +80,4 @@ def test_platypi():
         "Hello World. あいうえお",
         style=BASE_STYLE.patch(text_font=FontSerif.PLATYPI_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_platypi.png")

@@ -7,24 +7,9 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-from drawlib._utils import dutil_script
-from drawlib.canvas import clear, save
+from drawlib.canvas import save
 from drawlib.colors import Colors
-from drawlib.fonts import (
-    Font,
-    FontArabic,
-    FontBrahmic,
-    FontChinese,
-    FontFile,
-    FontJapanese,
-    FontKorean,
-    FontMonoSpace,
-    FontRoboto,
-    FontSansSerif,
-    FontSerif,
-    FontSourceCode,
-    FontThai,
-)
+from drawlib.fonts import FontThai
 from drawlib.text import text
 from drawlib.types import Style
 
@@ -48,7 +33,7 @@ def test_sans():
         "Hello World. วันนี้อากาศดีจังเลย",
         style=BASE_STYLE.patch(text_font=FontThai.SANSSERIF_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_sans.png")
 
 
 def test_serif():
@@ -67,4 +52,4 @@ def test_serif():
         "Hello World. วันนี้อากาศดีจังเลย",
         style=BASE_STYLE.patch(text_font=FontThai.SERIF_BOLD),
     )
-    save(f"{OUTPUT_DIR}{dutil_script.get_function_name()}.png")
+    save(f"{OUTPUT_DIR}test_serif.png")
