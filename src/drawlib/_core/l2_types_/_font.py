@@ -15,4 +15,7 @@ from pydantic import Field
 
 from drawlib._core.l2_models_._font import FontBase, FontFile
 
-TypeFont = Annotated[FontBase | FontFile, Field()]
+Font = Annotated[FontBase | FontFile, Field()]
+
+# Backward compatibility alias
+TypeFont = Font

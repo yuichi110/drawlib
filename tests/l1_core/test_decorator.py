@@ -10,7 +10,6 @@
 """Unit tests for _decorator.py module."""
 
 import typing
-from unittest.mock import patch
 
 import pytest
 from pydantic import ValidationError
@@ -58,15 +57,7 @@ class TestGuarded:
             # Passing a string that cannot be coerced to an int for x
             sample_guarded_func(typing.cast(int, "not-an-int"), "hello")
 
-    def test_guarded_developer_mode_propagates_exception(self):
-        """Test that developer debug mode allows exceptions to propagate directly."""
-        with patch("drawlib._core.l1_core._settings.dutil_settings.is_developer_debug_mode", return_value=True):
-            with pytest.raises(ValueError, match="x cannot be negative"):
-                sample_guarded_func(-5, "hello")
-
-    def test_guarded_non_developer_mode_intercepts_exception(self):
-        """Test that non-developer mode catches exceptions and calls sys.exit(1)."""
-        with patch("drawlib._core.l1_core._settings.dutil_settings.is_developer_debug_mode", return_value=False):
-            with pytest.raises(SystemExit) as exc_info:
-                sample_guarded_func(-5, "hello")
-            assert exc_info.value.code == 1
+    def test_guarded_exception_propagation(self):
+        """Test that exceptions raised in the function body propagate directly without suppression."""
+        with pytest.raises(ValueError, match="x cannot be negative"):
+            sample_guarded_func(-5, "hello")

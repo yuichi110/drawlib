@@ -200,7 +200,9 @@ class CanvasLineFeature(CanvasBase):
         style = LineUtil.format_style(style)
 
         diff = angle_end - angle_start
-        if ccw:
+        if diff == 0:
+            diff = 360.0 if ccw else -360.0
+        elif ccw:
             while diff < 0:
                 diff += 360
         else:

@@ -97,6 +97,7 @@ class TestGeometryTypes:
         """Test TypeCoordinate validation."""
         adapter: TypeAdapter[TypeCoordinate] = TypeAdapter(TypeCoordinate)
         assert adapter.validate_python((1.5, 2.5)) == (1.5, 2.5)
+        assert adapter.validate_python([10, 20]) == (10.0, 20.0)
         with pytest.raises(ValueError):
             adapter.validate_python((1, 2, 3))
 

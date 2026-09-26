@@ -9,12 +9,15 @@
 
 """Style type definitions for drawlib."""
 
+import re
 from typing import Annotated, Any, Literal
 
-from pydantic import AfterValidator, BeforeValidator
+from pydantic import AfterValidator, BeforeValidator, Field
 
 from drawlib._core.l2_types_._primitive import TypePosFloat
 from drawlib._core.l2_types_._utils import validate_literal
+
+_HEX_COLOR_PATTERN = re.compile(r"^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$")
 
 
 def validate_alpha(v: float) -> float:
@@ -61,64 +64,146 @@ def validate_color_tuple(v: tuple[Any, ...]) -> tuple[Any, ...]:  # noqa: ANN401
     return v
 
 
-TypeAlpha = Annotated[
-    float,
-    AfterValidator(validate_alpha),
-]
-TypeAngle = Annotated[
-    float,
-    AfterValidator(validate_angle),
-]
-TypeAngle90 = Annotated[
-    float,
-    AfterValidator(validate_angle_90),
-]
-TypeBend = Annotated[
-    float,
-    AfterValidator(validate_bend),
-]
+def normalize_angle(v: Any) -> float:  # noqa: ANN401
+    """Normalize angle in degrees.
 
-TypeColorRGB = Annotated[
-    tuple[int, int, int],
-    AfterValidator(validate_color_tuple),
-]
-TypeColorRGBA = Annotated[
-    tuple[int, int, int, float],
-    AfterValidator(validate_color_tuple),
-]
-TypeColor = Annotated[
-    TypeColorRGB | TypeColorRGBA,
-    AfterValidator(validate_color_tuple),
-]
+    Values in [0.0, 360.0] are preserved.
+    Values outside this range are cyclically mapped via modulo arithmetic.
 
-TypeIconStyle = Annotated[
-    Literal["thin", "light", "regular", "bold", "fill"],
-    BeforeValidator(lambda v: validate_literal(v, {"thin", "light", "regular", "bold", "fill"}, "icon_style")),
-]
-TypeHAlign = Annotated[
+    Examples:
+        450.0 -> 90.0
+        -90.0 -> 270.0
+        -270.0 -> 90.0
+        360.0 -> 360.0
+        0.0 -> 0.0
+    """
+    try:
+        val = float(v)
+        if 0.0 <= val <= 360.0:
+            return val
+        mod = val % 360.0
+        return 0.0 if mod == 0.0 else mod
+    except (TypeError, ValueError) as e:
+        raise ValueError(f"Angle must be a number. But '{v}' is given.") from e
+
+
+def normalize_angle90(v: Any) -> float:  # noqa: ANN401
+    """Validate angle in degrees in range [0.0, 90.0]."""
+    try:
+        val = float(v)
+        if not (0.0 <= val <= 90.0):
+            raise ValueError(f"Value must be between 0.0 and 90.0. But {v} is given.")
+        return val
+    except (TypeError, ValueError) as e:
+        raise ValueError(f"Angle must be a number between 0.0 and 90.0. But '{v}' is given.") from e
+
+
+def normalize_color(v: Any) -> tuple[int, int, int, float]:  # noqa: ANN401
+    """Normalize RGB/RGBA tuple, list, or Hex string to RGBA (r, g, b, a).
+
+    If RGB is provided, alpha defaults to 1.0.
+    """
+    if isinstance(v, str):
+        hex_val = v.strip()
+        if not _HEX_COLOR_PATTERN.match(hex_val):
+            raise ValueError(f"String color must be a valid hex code (e.g. '#3498db'). But '{v}' is given.")
+        hex_code = hex_val.lstrip("#")
+        r = int(hex_code[0:2], 16)
+        g = int(hex_code[2:4], 16)
+        b = int(hex_code[4:6], 16)
+        a = 1.0 if len(hex_code) == 6 else int(hex_code[6:8], 16) / 255.0
+        return (r, g, b, a)
+
+    if isinstance(v, (tuple, list)):
+        length = len(v)
+        if length not in {3, 4}:
+            raise ValueError(f"Color tuple must be length 3 (RGB) or 4 (RGBA). But {v} is given.")
+        try:
+            r = int(v[0])
+            g = int(v[1])
+            b = int(v[2])
+        except (TypeError, ValueError) as e:
+            raise ValueError(f"RGB values must be integers between 0 and 255. But {v} is given.") from e
+
+        if not (0 <= r <= 255 and 0 <= g <= 255 and 0 <= b <= 255):
+            raise ValueError(f"RGB values must be integers between 0 and 255. But {(r, g, b)} is given.")
+
+        if length == 3:
+            return (r, g, b, 1.0)
+        else:
+            try:
+                a = float(v[3])
+            except (TypeError, ValueError) as e:
+                raise ValueError(f"Alpha value must be float between 0.0 and 1.0. But {v[3]} is given.") from e
+            if not (0.0 <= a <= 1.0):
+                raise ValueError(f"Alpha value must be float between 0.0 and 1.0. But {a} is given.")
+            return (r, g, b, a)
+
+    raise ValueError(f"Color must be RGB (r, g, b) or RGBA (r, g, b, a) tuple/list, or hex string. But {v} is given.")
+
+
+def normalize_literal_str(v: Any) -> Any:  # noqa: ANN401
+    """Normalize string by stripping whitespace and converting to lowercase."""
+    if isinstance(v, str):
+        return v.strip().lower()
+    return v
+
+
+# Modern Type Definitions
+Alpha = Annotated[float, Field(ge=0.0, le=1.0)]
+Angle = Annotated[float, BeforeValidator(normalize_angle)]
+Angle90 = Annotated[float, Field(ge=0.0, le=90.0)]
+Bend = Annotated[float, Field(gt=-2.0, lt=2.0)]
+
+RGBChannel = Annotated[int, Field(ge=0, le=255)]
+ColorRGB = tuple[RGBChannel, RGBChannel, RGBChannel]
+ColorRGBA = tuple[RGBChannel, RGBChannel, RGBChannel, Alpha]
+Color = Annotated[ColorRGB | ColorRGBA | str, BeforeValidator(normalize_color)]
+
+HAlign = Annotated[
     Literal["left", "center", "right"],
-    BeforeValidator(lambda v: validate_literal(v, {"left", "center", "right"}, "HAlign")),
+    BeforeValidator(normalize_literal_str),
 ]
-TypeVAlign = Annotated[
+VAlign = Annotated[
     Literal["bottom", "center", "top"],
-    BeforeValidator(lambda v: validate_literal(v, {"bottom", "center", "top"}, "VAlign")),
+    BeforeValidator(normalize_literal_str),
 ]
-TypeLineStyle = Annotated[
+LineStyle = Annotated[
     Literal["solid", "dashed", "dotted", "dashdot"],
-    BeforeValidator(lambda v: validate_literal(v, {"solid", "dashed", "dotted", "dashdot"}, "line_style")),
+    BeforeValidator(normalize_literal_str),
 ]
-TypeArrowHead = Annotated[
+ArrowHead = Annotated[
     Literal["", "->", "<-", "<->"],
-    BeforeValidator(lambda v: validate_literal(v, {"", "->", "<-", "<->"}, "ArrowHead")),
+    BeforeValidator(normalize_literal_str),
 ]
-TypeTailEdge = Annotated[
+TailEdge = Annotated[
     Literal["left", "top", "right", "bottom"],
-    BeforeValidator(lambda v: validate_literal(v, {"left", "top", "right", "bottom"}, "TailEdge")),
+    BeforeValidator(normalize_literal_str),
 ]
-TypeSize = (
+IconStyle = Annotated[
+    Literal["thin", "light", "regular", "bold", "fill"],
+    BeforeValidator(normalize_literal_str),
+]
+Size = (
     TypePosFloat
     | Annotated[
         Literal["small", "medium", "large"],
-        BeforeValidator(lambda v: validate_literal(v, {"small", "medium", "large"}, "Size")),
+        BeforeValidator(normalize_literal_str),
     ]
 )
+
+# Backward Compatibility Aliases
+TypeAlpha = Alpha
+TypeAngle = Angle
+TypeAngle90 = Angle90
+TypeBend = Bend
+TypeColor = Color
+TypeColorRGB = Annotated[tuple[int, int, int], AfterValidator(validate_color_tuple)]
+TypeColorRGBA = Annotated[tuple[int, int, int, float], AfterValidator(validate_color_tuple)]
+TypeIconStyle = IconStyle
+TypeHAlign = HAlign
+TypeVAlign = VAlign
+TypeLineStyle = LineStyle
+TypeArrowHead = ArrowHead
+TypeTailEdge = TailEdge
+TypeSize = Size

@@ -13,19 +13,24 @@ from typing import Annotated
 
 from pydantic import Field
 
-# bool
-TypeBool = Annotated[bool, Field()]
+# Integers
+PosInt = Annotated[int, Field(ge=0)]
+NegInt = Annotated[int, Field(le=0)]
+NumVertex = Annotated[int, Field(ge=3)]
 
-# int
-TypeInt = Annotated[int, Field()]
-TypeNegInt = Annotated[int, Field(le=0)]
-TypePosInt = Annotated[int, Field(ge=0)]
-TypeNumVertex = Annotated[int, Field(ge=3)]
+# Floats
+PosFloat = Annotated[float, Field(ge=0.0)]
+NegFloat = Annotated[float, Field(le=0.0)]
 
-# float
-TypeFloat = Annotated[float, Field()]
-TypeNegFloat = Annotated[float, Field(le=0)]
-TypePosFloat = Annotated[float, Field(ge=0.0)]
+# Backward compatibility aliases
+TypeBool = bool
+TypeInt = int
+TypeNegInt = NegInt
+TypePosInt = PosInt
+TypeNumVertex = NumVertex
 
-# str
-TypeStr = Annotated[str, Field()]
+TypeFloat = float
+TypeNegFloat = NegFloat
+TypePosFloat = PosFloat
+
+TypeStr = str

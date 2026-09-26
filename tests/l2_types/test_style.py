@@ -136,18 +136,29 @@ class TestStyleTypes:
             adapter.validate_python(-0.1)
 
     def test_type_angle(self):
-        """Test TypeAngle validation."""
+        """Test TypeAngle validation and normalization."""
         adapter: TypeAdapter[TypeAngle] = TypeAdapter(TypeAngle)
         assert adapter.validate_python(180.0) == 180.0
+        assert adapter.validate_python(450.0) == 90.0
+        assert adapter.validate_python(-270.0) == 90.0
+        assert adapter.validate_python(360.0) == 360.0
+        assert adapter.validate_python(0.0) == 0.0
+        assert adapter.validate_python(720.0) == 0.0
         with pytest.raises(ValidationError):
-            adapter.validate_python(360.1)
+            adapter.validate_python("invalid")
 
     def test_type_angle_90(self):
-        """Test TypeAngle90 validation."""
+        """Test TypeAngle90 validation and normalization."""
         adapter: TypeAdapter[TypeAngle90] = TypeAdapter(TypeAngle90)
         assert adapter.validate_python(45.0) == 45.0
+        assert adapter.validate_python(0.0) == 0.0
+        assert adapter.validate_python(90.0) == 90.0
         with pytest.raises(ValidationError):
-            adapter.validate_python(90.1)
+            adapter.validate_python(135.0)
+        with pytest.raises(ValidationError):
+            adapter.validate_python(-45.0)
+        with pytest.raises(ValidationError):
+            adapter.validate_python("invalid")
 
     def test_type_bend(self):
         """Test TypeBend validation."""
@@ -171,12 +182,19 @@ class TestStyleTypes:
             adapter.validate_python((255, 0, 128))
 
     def test_type_color(self):
-        """Test TypeColor validation."""
+        """Test TypeColor validation and normalization."""
         adapter: TypeAdapter[TypeColor] = TypeAdapter(TypeColor)
-        assert adapter.validate_python((255, 0, 128)) == (255, 0, 128)
+        # RGB is normalized to RGBA with alpha=1.0
+        assert adapter.validate_python((255, 0, 128)) == (255, 0, 128, 1.0)
+        assert adapter.validate_python([255, 0, 128]) == (255, 0, 128, 1.0)
+        # RGBA is preserved
         assert adapter.validate_python((255, 0, 128, 0.5)) == (255, 0, 128, 0.5)
+        # Hex string is converted to RGBA
+        assert adapter.validate_python("#ff0000") == (255, 0, 0, 1.0)
         with pytest.raises(ValidationError):
             adapter.validate_python((255, 0))
+        with pytest.raises(ValidationError):
+            adapter.validate_python("not-a-color")
 
 
 class TestStyleLiterals:

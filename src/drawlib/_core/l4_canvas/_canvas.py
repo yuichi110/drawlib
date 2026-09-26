@@ -217,18 +217,17 @@ class Canvas(
         has_color_alpha = False
         if self._background_color is not None:
             background_color = self._background_color
-            if len(background_color) == 4:
+            if not isinstance(background_color, str) and len(background_color) == 4:
                 has_color_alpha = True
         else:
             background_color = (255, 255, 255, 1.0)
-            if len(background_color) == 4:
-                has_color_alpha = True
+            has_color_alpha = True
 
         if self._background_alpha is not None:
-            background_alpha = self._background_alpha
-        elif has_color_alpha:
+            background_alpha: float = self._background_alpha
+        elif has_color_alpha and not isinstance(background_color, str):
             # set user specified alpha in color as alpha-value
-            background_alpha = background_color[3]  # type: ignore
+            background_alpha = float(background_color[-1])
         else:
             background_alpha = 1.0
 

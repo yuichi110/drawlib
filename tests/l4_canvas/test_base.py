@@ -79,11 +79,11 @@ class TestCanvasBase:
         assert canvas._width == 150
         assert canvas._height == 120
         assert canvas._dpi == 120
-        assert canvas._background_color == Colors140.Orange
+        assert canvas._background_color == (*Colors140.Orange, 1.0)
         assert canvas._background_alpha == 0.5
         assert canvas._grid is True
         assert canvas._grid_style.line_width == 2
-        assert canvas._grid_style.text_color == Colors.Red
+        assert canvas._grid_style.text_color == (*Colors.Red, 1.0)
 
     def test_polygon(self) -> None:
         """Verify drawing a basic polygon with different styles and text."""

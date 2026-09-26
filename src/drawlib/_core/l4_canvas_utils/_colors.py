@@ -47,16 +47,24 @@ class ColorUtil(StaticContainer):
         Returns:
             tuple[float, float, float, float]: Tuple representing matplotlib's RGBA format.
         """
+        if isinstance(rgb_or_rgba, str):
+            rgba = ColorUtil.get_rgba_from_hex(rgb_or_rgba)
+            r = round(rgba[0] / 255, 5)
+            g = round(rgba[1] / 255, 5)
+            b = round(rgba[2] / 255, 5)
+            a = alpha if alpha is not None else rgba[3]
+            return (r, g, b, a)
+
         r = round(rgb_or_rgba[0] / 255, 5)
         g = round(rgb_or_rgba[1] / 255, 5)
         b = round(rgb_or_rgba[2] / 255, 5)
 
         if alpha is not None:
             a = alpha
-        elif len(rgb_or_rgba) == 3:
-            a = 1.0
+        elif len(rgb_or_rgba) == 4:
+            a = float(rgb_or_rgba[-1])
         else:
-            a = rgb_or_rgba[3]  # type: ignore
+            a = 1.0
 
         return (r, g, b, a)
 
@@ -77,6 +85,8 @@ class ColorUtil(StaticContainer):
         Raises:
             ValueError: If RGB values are out of range (0-255).
         """
+        if isinstance(rgb_or_rgba, str):
+            return rgb_or_rgba
         r = rgb_or_rgba[0]
         g = rgb_or_rgba[1]
         b = rgb_or_rgba[2]

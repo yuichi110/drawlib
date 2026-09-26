@@ -11,28 +11,38 @@
 
 from typing import Annotated, Any
 
-from pydantic import AfterValidator
+from pydantic import BeforeValidator
 
 
-def validate_coordinate(v: Any) -> tuple[float, float]:  # noqa: ANN401
-    """Validate coordinate."""
+def normalize_coordinate(v: Any) -> tuple[float, float]:  # noqa: ANN401
+    """Normalize input coordinate to a 2-tuple of floats.
+
+    Accepts (x, y) or [x, y] with numeric elements.
+    """
     if not isinstance(v, (tuple, list)) or len(v) != 2:
         raise ValueError(f"Coordinate must be a tuple of 2 floats. But {v} is given.")
-    return (float(v[0]), float(v[1]))
+    try:
+        return (float(v[0]), float(v[1]))
+    except (TypeError, ValueError) as e:
+        raise ValueError(f"Coordinate elements must be numbers. But {v} is given.") from e
+
+
+# Backwards compatibility alias
+validate_coordinate = normalize_coordinate
 
 
 def validate_bezier2(v: Any) -> tuple[tuple[float, float], tuple[float, float]]:  # noqa: ANN401
     """Validate Bezier2 (Quadratic Bezier)."""
     if not isinstance(v, (tuple, list)) or len(v) != 2:
         raise ValueError(f"Bezier2 must be a tuple of 2 coordinates. But {v} is given.")
-    return (validate_coordinate(v[0]), validate_coordinate(v[1]))
+    return (normalize_coordinate(v[0]), normalize_coordinate(v[1]))
 
 
 def validate_bezier3(v: Any) -> tuple[tuple[float, float], tuple[float, float], tuple[float, float]]:  # noqa: ANN401
     """Validate Bezier3 (Cubic Bezier)."""
     if not isinstance(v, (tuple, list)) or len(v) != 3:
         raise ValueError(f"Bezier3 must be a tuple of 3 coordinates. But {v} is given.")
-    return (validate_coordinate(v[0]), validate_coordinate(v[1]), validate_coordinate(v[2]))
+    return (normalize_coordinate(v[0]), normalize_coordinate(v[1]), normalize_coordinate(v[2]))
 
 
 def validate_path_point(v: Any) -> Any:  # noqa: ANN401
@@ -43,7 +53,7 @@ def validate_path_point(v: Any) -> Any:  # noqa: ANN401
     length = len(v)
     if length == 2:
         if isinstance(v[0], (int, float)):
-            return validate_coordinate(v)
+            return normalize_coordinate(v)
         else:
             return validate_bezier2(v)
     elif length == 3:
@@ -52,10 +62,19 @@ def validate_path_point(v: Any) -> Any:  # noqa: ANN401
         raise ValueError(f"PathPoint must be length 2 (Coord/Bezier2) or 3 (Bezier3). But {v} is given.")
 
 
-TypeCoordinate = Annotated[tuple[float, float], AfterValidator(validate_coordinate)]
-TypeCoordinates = Annotated[list[TypeCoordinate], AfterValidator(lambda v: v)]
+# Modern type definitions
+Coordinate = Annotated[tuple[float, float], BeforeValidator(normalize_coordinate)]
+Coordinates = list[Coordinate]
 
-TypeBezier2 = Annotated[tuple[TypeCoordinate, TypeCoordinate], AfterValidator(validate_bezier2)]
-TypeBezier3 = Annotated[tuple[TypeCoordinate, TypeCoordinate, TypeCoordinate], AfterValidator(validate_bezier3)]
-TypePathPoint = Annotated[TypeCoordinate | TypeBezier2 | TypeBezier3, AfterValidator(validate_path_point)]
-TypePathPoints = Annotated[list[TypePathPoint], AfterValidator(lambda v: v)]
+Bezier2 = Annotated[tuple[Coordinate, Coordinate], BeforeValidator(validate_bezier2)]
+Bezier3 = Annotated[tuple[Coordinate, Coordinate, Coordinate], BeforeValidator(validate_bezier3)]
+PathPoint = Annotated[Coordinate | Bezier2 | Bezier3, BeforeValidator(validate_path_point)]
+PathPoints = list[PathPoint]
+
+# Backward compatibility aliases
+TypeCoordinate = Coordinate
+TypeCoordinates = Coordinates
+TypeBezier2 = Bezier2
+TypeBezier3 = Bezier3
+TypePathPoint = PathPoint
+TypePathPoints = PathPoints

@@ -45,11 +45,11 @@ class TestStyleModelBase:
         original = Style(shape_fill_color=Colors.Red, shape_line_width=1.0)
         patched = original.patch(shape_fill_color=Colors.Blue, line_width=2.5)
 
-        assert original.shape_fill_color == Colors.Red
+        assert original.shape_fill_color == (*Colors.Red, 1.0)
         assert original.shape_line_width == 1.0
         assert original.line_width is None
 
-        assert patched.shape_fill_color == Colors.Blue
+        assert patched.shape_fill_color == (*Colors.Blue, 1.0)
         assert patched.shape_line_width == 1.0
         assert patched.line_width == 2.5
 
@@ -73,9 +73,9 @@ class TestShapeProperties:
             shape_line_width=2.0,
             shape_line_style="dashed",
         )
-        assert s.shape_fill_color == Colors.Blue
+        assert s.shape_fill_color == (*Colors.Blue, 1.0)
         assert s.shape_fill_alpha == 0.8
-        assert s.shape_line_color == Colors.Black
+        assert s.shape_line_color == (*Colors.Black, 1.0)
         assert s.shape_line_width == 2.0
         assert s.shape_line_style == "dashed"
 
@@ -102,7 +102,7 @@ class TestLineProperties:
             line_arrow_head_fill=True,
             line_arrow_head_scale=15.0,
         )
-        assert s.line_color == Colors.Green
+        assert s.line_color == (*Colors.Green, 1.0)
         assert s.line_width == 3.0
         assert s.line_style == "dotted"
         assert s.line_alpha == 0.9
@@ -137,7 +137,7 @@ class TestTextProperties:
             text_bg_line_width=1.0,
             text_bg_line_style="solid",
         )
-        assert s.text_color == Colors.Black
+        assert s.text_color == (*Colors.Black, 1.0)
         assert s.text_size == 18.0
         assert s.text_font == Font.SANSSERIF_BOLD
         assert s.text_halign == "center"
@@ -145,7 +145,7 @@ class TestTextProperties:
         assert s.text_angle == 45.0
         assert s.text_flip is True
         assert s.text_xy_shift == (2.0, 3.0)
-        assert s.text_bg_fill_color == Colors.Gray
+        assert s.text_bg_fill_color == (*Colors.Gray, 1.0)
 
     def test_invalid_text_properties(self):
         """Test invalid text property values raise ValueError."""
@@ -166,7 +166,7 @@ class TestIconProperties:
             icon_color=Colors.Purple,
             icon_style="bold",
         )
-        assert s.icon_color == Colors.Purple
+        assert s.icon_color == (*Colors.Purple, 1.0)
         assert s.icon_style == "bold"
 
     def test_invalid_icon_properties(self):
@@ -187,9 +187,9 @@ class TestImageProperties:
             image_border_width=2.0,
             image_border_style="solid",
         )
-        assert s.image_tint_color == Colors.Gray
+        assert s.image_tint_color == (*Colors.Gray, 1.0)
         assert s.image_alpha == 0.7
-        assert s.image_border_color == Colors.Black
+        assert s.image_border_color == (*Colors.Black, 1.0)
         assert s.image_border_width == 2.0
         assert s.image_border_style == "solid"
 
