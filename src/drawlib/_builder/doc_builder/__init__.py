@@ -17,34 +17,34 @@ import shutil
 import sys
 from typing import Any, List, Optional, Sequence, Union
 
-from drawlib._css import (
-    export_css,
-    list_css,
-    list_html_css,
-    list_pdf_css,
-)
-from drawlib._tools.doc_builder.build_cache import BuildImageCache
-from drawlib._tools.doc_builder.detector import DocType, DocumentInputInfo, detect_document_type
-from drawlib._tools.doc_builder.exporter_html import get_default_css, render_html_document
-from drawlib._tools.doc_builder.exporter_md import write_rendered_markdown
-from drawlib._tools.doc_builder.exporter_pdf import export_html_to_pdf
-from drawlib._tools.doc_builder.merger import build_merged_html
-from drawlib._tools.doc_builder.navbar import (
+from drawlib._builder.doc_builder.build_cache import BuildImageCache
+from drawlib._builder.doc_builder.detector import DocType, DocumentInputInfo, detect_document_type
+from drawlib._builder.doc_builder.exporter_html import get_default_css, render_html_document
+from drawlib._builder.doc_builder.exporter_md import write_rendered_markdown
+from drawlib._builder.doc_builder.exporter_pdf import export_html_to_pdf
+from drawlib._builder.doc_builder.merger import build_merged_html
+from drawlib._builder.doc_builder.navbar import (
     NavbarItem,
     NavbarSection,
     parse_navbar_markdown,
     resolve_navbar_for_page,
 )
-from drawlib._tools.doc_builder.parser_md import parse_markdown_to_html
-from drawlib._tools.doc_builder.processor import (
+from drawlib._builder.doc_builder.parser_md import parse_markdown_to_html
+from drawlib._builder.doc_builder.processor import (
     DrawlibBlockProcessor,
     export_code_block,
     extract_code_blocks,
     show_code_block,
 )
-from drawlib._tools.doc_builder.progress import (
+from drawlib._builder.doc_builder.progress import (
     FileBuildProgress,
     check_document_output_duplicates,
+)
+from drawlib._css import (
+    export_css,
+    list_css,
+    list_html_css,
+    list_pdf_css,
 )
 
 

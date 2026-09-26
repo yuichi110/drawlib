@@ -18,12 +18,12 @@ import re
 import sys
 from typing import List, Optional
 
-from drawlib._tools.doc_builder.build_cache import BuildImageCache
-from drawlib._tools.doc_builder.detector import detect_document_type
-from drawlib._tools.doc_builder.exporter_html import render_pdf_document
-from drawlib._tools.doc_builder.parser_md import parse_markdown_to_html
-from drawlib._tools.doc_builder.processor import DrawlibBlockProcessor
-from drawlib._tools.doc_builder.progress import (
+from drawlib._builder.doc_builder.build_cache import BuildImageCache
+from drawlib._builder.doc_builder.detector import detect_document_type
+from drawlib._builder.doc_builder.exporter_html import render_pdf_document
+from drawlib._builder.doc_builder.parser_md import parse_markdown_to_html
+from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
+from drawlib._builder.doc_builder.progress import (
     FileBuildProgress,
     check_document_output_duplicates,
     format_duplicate_output_error,

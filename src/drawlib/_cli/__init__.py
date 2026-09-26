@@ -7,10 +7,9 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""HTTP server package for drawlib documentation preview."""
+"""CLI package for drawlib."""
 
-from drawlib._tools.http_server.server import run_server, scan_broken_links
+from drawlib._cli._command import call_command
+from drawlib._cli.main import main
 
-serve_docs = run_server
-
-__all__ = ["run_server", "scan_broken_links", "serve_docs"]
+__all__ = ["call_command", "main"]

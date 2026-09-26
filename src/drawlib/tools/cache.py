@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from drawlib._tools.cache_manager import clear_cache, download_cache, list_cache
+from drawlib._builder.cache_manager import clear_cache, download_cache, list_cache
 
 clear = clear_cache
 purge = clear_cache

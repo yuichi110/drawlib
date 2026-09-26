@@ -11,8 +11,8 @@
 
 from __future__ import annotations
 
-from drawlib._tools.cache_manager import clear_cache, download_cache, list_cache
-from drawlib._tools.doc_builder import (
+from drawlib._builder.cache_manager import clear_cache, download_cache, list_cache
+from drawlib._builder.doc_builder import (
     build_html,
     build_markdown,
     build_pdf,
@@ -22,9 +22,9 @@ from drawlib._tools.doc_builder import (
     list_css,
     show_code_block,
 )
-from drawlib._tools.http_server import serve_docs
-from drawlib._tools.image_builder import build_image
-from drawlib._tools.project_init import init_project, list_project_types
+from drawlib._builder.image_builder import build_image
+from drawlib._builder.project_init import init_project, list_project_types
+from drawlib._http_server import serve_docs
 from drawlib.tools import build, cache, css, export, init, serve, show
 
 __all__ = [

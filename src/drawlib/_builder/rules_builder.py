@@ -20,8 +20,8 @@ import sys
 from pathlib import Path
 from typing import Final, Sequence
 
+from drawlib._builder.doc_builder import build_markdown
 from drawlib._core.utils import RULES_DIR_PATH
-from drawlib._tools.doc_builder import build_markdown
 
 AVAILABLE_TOPICS: Final[tuple[str, ...]] = (
     "overview",

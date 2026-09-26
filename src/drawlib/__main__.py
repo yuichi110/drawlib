@@ -9,7 +9,7 @@
 
 """Entry point of drawlib command."""
 
-from drawlib._tools.cli import call_command
+from drawlib._cli import call_command
 
 
 def main() -> None:

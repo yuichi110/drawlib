@@ -15,8 +15,8 @@ import os
 import sys
 from typing import Callable, Sequence
 
+from drawlib._builder.doc_builder.processor import _resolve_block_image_paths, extract_code_blocks
 from drawlib._core.utils import dutil_settings
-from drawlib._tools.doc_builder.processor import _resolve_block_image_paths, extract_code_blocks
 
 BAR_WIDTH = 20
 

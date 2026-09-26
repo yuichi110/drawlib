@@ -18,7 +18,7 @@ from pathlib import Path
 
 import pytest
 
-from drawlib._tools.doc_builder.build_cache import (
+from drawlib._builder.doc_builder.build_cache import (
     BuildImageCache,
     hash_file,
     hash_text,

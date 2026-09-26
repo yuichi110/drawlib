@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from drawlib._tools.http_server import run_server, scan_broken_links, serve_docs
+from drawlib._http_server import run_server, scan_broken_links, serve_docs
 
 __all__ = [
     "run_server",

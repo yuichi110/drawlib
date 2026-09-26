@@ -14,7 +14,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from drawlib._tools.doc_builder import (
+from drawlib._builder.doc_builder import (
     DocType,
     build_document,
     build_documents,
@@ -24,8 +24,8 @@ from drawlib._tools.doc_builder import (
     detect_document_type,
     exporter_pdf,
 )
-from drawlib._tools.doc_builder.exporter_pdf import export_html_to_pdf
-from drawlib._tools.doc_builder.merger import build_merged_html
+from drawlib._builder.doc_builder.exporter_pdf import export_html_to_pdf
+from drawlib._builder.doc_builder.merger import build_merged_html
 
 
 def _is_playwright_chromium_available() -> bool:

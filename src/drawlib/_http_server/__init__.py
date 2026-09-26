@@ -7,15 +7,10 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Main entry point for drawlib CLI."""
+"""HTTP server package for drawlib documentation preview."""
 
-from drawlib._tools.cli import call_command
+from drawlib._http_server.server import run_server, scan_broken_links
 
+serve_docs = run_server
 
-def main() -> None:
-    """Execute drawlib command."""
-    call_command()
-
-
-if __name__ == "__main__":
-    main()
+__all__ = ["run_server", "scan_broken_links", "serve_docs"]

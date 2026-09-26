@@ -212,6 +212,6 @@ def test_deterministic_zip_hashes_match_all_packages() -> None:
         pkg_dir = assets_dir / pkg.source_rel_path
         zip_bytes = create_deterministic_zip_bytes(pkg_dir, pkg.files)
         calculated_sha = hashlib.sha256(zip_bytes).hexdigest()
-        assert (
-            calculated_sha == pkg.archive_sha256
-        ), f"SHA-256 mismatch for {pkg.name}: expected {pkg.archive_sha256}, got {calculated_sha}"
+        assert calculated_sha == pkg.archive_sha256, (
+            f"SHA-256 mismatch for {pkg.name}: expected {pkg.archive_sha256}, got {calculated_sha}"
+        )

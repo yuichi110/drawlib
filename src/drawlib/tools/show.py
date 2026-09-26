@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from drawlib._tools.doc_builder import show_code_block
+from drawlib._builder.doc_builder import show_code_block
 
 show_block = show_code_block
 

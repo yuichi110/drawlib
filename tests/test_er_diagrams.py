@@ -147,19 +147,28 @@ class TestRelationship:
         e1 = Entity("a")
         e2 = Entity("b")
         with pytest.raises(ValueError, match="Invalid cardinality"):
-            Relationship(start=e1, end=e2, cardinality="invalid"  # type: ignore
-                         )
+            Relationship(
+                start=e1,
+                end=e2,
+                cardinality="invalid",  # type: ignore
+            )
 
     def test_invalid_side(self) -> None:
         """Verify ValueError on invalid side."""
         e1 = Entity("a")
         e2 = Entity("b")
         with pytest.raises(ValueError, match="Invalid start_side"):
-            Relationship(start=e1, end=e2, start_side="diagonal"  # type: ignore
-                         )
+            Relationship(
+                start=e1,
+                end=e2,
+                start_side="diagonal",  # type: ignore
+            )
         with pytest.raises(ValueError, match="Invalid end_side"):
-            Relationship(start=e1, end=e2, end_side="diagonal"  # type: ignore
-                         )
+            Relationship(
+                start=e1,
+                end=e2,
+                end_side="diagonal",  # type: ignore
+            )
 
 
 class TestERDiagram:

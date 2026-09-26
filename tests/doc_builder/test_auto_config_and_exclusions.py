@@ -13,9 +13,9 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from drawlib._tools.doc_builder import build_html, build_markdown
-from drawlib._tools.doc_builder.merger import expand_input_files
-from drawlib._tools.image_builder import build_image
+from drawlib._builder.doc_builder import build_html, build_markdown
+from drawlib._builder.doc_builder.merger import expand_input_files
+from drawlib._builder.image_builder import build_image
 
 
 def test_doc_builder_exclusions_and_auto_config(tmp_path: Path) -> None:

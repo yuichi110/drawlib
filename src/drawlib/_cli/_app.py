@@ -16,12 +16,12 @@ from typing import Annotated
 import typer
 
 import drawlib
+from drawlib._builder.rules_builder import build_rule, is_rule_cached
+from drawlib._cli._build import build_app
+from drawlib._cli._commands import cache_app, css_app, register_top_commands
+from drawlib._cli._init import cmd_init
+from drawlib._cli._rules import rules_app
 from drawlib._core.utils import dutil_settings, logger
-from drawlib._tools.cli._build import build_app
-from drawlib._tools.cli._commands import cache_app, css_app, register_top_commands
-from drawlib._tools.cli._init import cmd_init
-from drawlib._tools.cli._rules import rules_app
-from drawlib._tools.rules_builder import build_rule, is_rule_cached
 
 app = typer.Typer(
     name="drawlib",

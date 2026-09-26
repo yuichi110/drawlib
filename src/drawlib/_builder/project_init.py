@@ -18,9 +18,9 @@ from importlib.resources.abc import Traversable
 from pathlib import Path
 from typing import Final, Literal, Optional
 
-from drawlib._tools.doc_builder import build_html, build_markdown, build_pdf
-from drawlib._tools.doc_builder.exporter_html import get_default_css
-from drawlib._tools.image_builder import build_image
+from drawlib._builder.doc_builder import build_html, build_markdown, build_pdf
+from drawlib._builder.doc_builder.exporter_html import get_default_css
+from drawlib._builder.image_builder import build_image
 
 logger = logging.getLogger(__name__)
 
@@ -179,14 +179,9 @@ def _resolve_project_paths(
 
 def _resolve_template_root(selected_type: str, lang: str = "en") -> Traversable:
     """Resolve importlib resources template root directory."""
-    type_key = f"{selected_type}_ja" if lang == "ja" else selected_type
-    if selected_type in {"site", "simple", "pdf"}:
-        root = importlib.resources.files("drawlib._project_templates.docs_src").joinpath(type_key)
-    else:
-        root = importlib.resources.files("drawlib._project_templates.images_src").joinpath(type_key)
-
+    root = importlib.resources.files("drawlib._project_templates").joinpath(selected_type, lang)
     if not root.is_dir():
-        raise FileNotFoundError(f"Template directory for '{type_key}' not found.")
+        raise FileNotFoundError(f"Template directory for '{selected_type}' (lang='{lang}') not found.")
     return root
 
 

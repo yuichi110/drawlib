@@ -26,11 +26,11 @@ from pydantic import BaseModel
 
 import drawlib._core.canvas
 import drawlib.canvas
+from drawlib._builder.doc_builder.build_cache import BuildImageCache, hash_file
+from drawlib._builder.doc_builder.config import load_config
+from drawlib._builder.doc_builder.detector import detect_document_type
 from drawlib._core.canvas import save
 from drawlib._core.utils import dutil_settings
-from drawlib._tools.doc_builder.build_cache import BuildImageCache, hash_file
-from drawlib._tools.doc_builder.config import load_config
-from drawlib._tools.doc_builder.detector import detect_document_type
 from drawlib._utils import dutil_canvas
 
 

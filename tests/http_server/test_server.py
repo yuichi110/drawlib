@@ -15,7 +15,7 @@ import urllib.request
 
 import pytest
 
-from drawlib._tools.http_server.server import run_server, scan_broken_links
+from drawlib._http_server.server import run_server, scan_broken_links
 
 
 def test_run_server_invalid_directory() -> None:

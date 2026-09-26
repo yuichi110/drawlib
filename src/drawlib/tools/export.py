@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from drawlib._tools.doc_builder import export_code_block
+from drawlib._builder.doc_builder import export_code_block
 
 export_block = export_code_block
 

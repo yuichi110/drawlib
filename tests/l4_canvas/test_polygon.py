@@ -96,9 +96,7 @@ class TestCanvasOriginalPolygon:
         parallelogram((50, 50), 30, 20, 75, style=s_primary)
 
         # Rotation angles
-        parallelogram(
-            (50, 50), 30, 20, 60, angle=45, text="hello", style=s_primary, textstyle=s_red_text
-        )
+        parallelogram((50, 50), 30, 20, 60, angle=45, text="hello", style=s_primary, textstyle=s_red_text)
 
         save(f"{OUTPUT_DIR}test_parallelogram.png")
 

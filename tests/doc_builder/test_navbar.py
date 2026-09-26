@@ -13,7 +13,7 @@ import os
 
 import pytest
 
-from drawlib._tools.doc_builder.navbar import (
+from drawlib._builder.doc_builder.navbar import (
     NavbarItem,
     NavbarSection,
     parse_navbar_markdown,

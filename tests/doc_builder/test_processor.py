@@ -9,7 +9,7 @@
 
 """Unit tests for DrawlibBlockProcessor in doc_builder."""
 
-from drawlib._tools.doc_builder.processor import DrawlibBlockProcessor, extract_code_blocks
+from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor, extract_code_blocks
 
 
 def test_block_processor_render_block_to_file_and_data_url(tmp_path) -> None:

@@ -165,9 +165,7 @@ class TestCanvasBase:
             angle=135,
             text="Rectangle",
             style=s_def,
-            textstyle=s_def.patch(
-                text_xy_abs_shift=(10, 5), text_flip=True, text_color=Colors.Red
-            ),
+            textstyle=s_def.patch(text_xy_abs_shift=(10, 5), text_flip=True, text_color=Colors.Red),
         )
 
         # Style & rounded corner (r > 0)

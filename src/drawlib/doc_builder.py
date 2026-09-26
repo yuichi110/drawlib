@@ -9,7 +9,7 @@
 
 """Public doc_builder module for drawlib."""
 
-from drawlib._tools.doc_builder import (
+from drawlib._builder.doc_builder import (
     build,
     build_document,
     build_documents,

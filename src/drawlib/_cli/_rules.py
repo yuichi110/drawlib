@@ -16,7 +16,7 @@ from typing import Annotated, Final, Optional
 
 import typer
 
-from drawlib._tools.rules_builder import (
+from drawlib._builder.rules_builder import (
     AVAILABLE_TOPICS,
     build_all_rules,
     build_rule,

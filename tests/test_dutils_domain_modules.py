@@ -9,7 +9,7 @@
 
 """Unit tests for public domain utilities in drawlib.math, drawlib.colors, and drawlib.canvas."""
 
-from drawlib._tools.doc_builder.exporter_html import get_default_css
+from drawlib._builder.doc_builder.exporter_html import get_default_css
 from drawlib.canvas import initialize
 from drawlib.colors import Colors, from_grayscale, from_hex, with_alpha
 from drawlib.doc_builder import (

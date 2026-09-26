@@ -26,11 +26,11 @@ from pydantic import validate_call
 
 import drawlib._core.canvas
 import drawlib.canvas
+from drawlib._builder.doc_builder.build_cache import BuildImageCache, hash_file
+from drawlib._builder.doc_builder.config import load_config
+from drawlib._builder.doc_builder.progress import FileBuildProgress, format_duplicate_output_error
 from drawlib._core.canvas import clear
 from drawlib._core.utils import dutil_settings, get_script_relative_path, logger
-from drawlib._tools.doc_builder.build_cache import BuildImageCache, hash_file
-from drawlib._tools.doc_builder.config import load_config
-from drawlib._tools.doc_builder.progress import FileBuildProgress, format_duplicate_output_error
 from drawlib._utils import dutil_canvas
 
 

@@ -70,6 +70,5 @@ def test_cli_serve_command(tmp_path) -> None:
             body = resp.read().decode("utf-8")
             assert "<h1>CLI Serve Integration Test</h1>" in body
     finally:
-
         proc.terminate()
         proc.wait(timeout=2)

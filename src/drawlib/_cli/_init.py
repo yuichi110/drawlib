@@ -17,7 +17,7 @@ from typing import Annotated, Optional
 
 import typer
 
-from drawlib._tools.project_init import init_project, list_project_types
+from drawlib._builder.project_init import init_project, list_project_types
 
 
 def _print_types_list(types: dict[str, str]) -> None:

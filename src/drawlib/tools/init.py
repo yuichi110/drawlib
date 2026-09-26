@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from drawlib._tools.project_init import init_project, list_project_types
+from drawlib._builder.project_init import init_project, list_project_types
 
 __all__ = [
     "init_project",

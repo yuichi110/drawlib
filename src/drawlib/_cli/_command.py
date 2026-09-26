@@ -7,4 +7,15 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Private tools package for drawlib."""
+"""CLI command module re-exporting call_command and DrawlibExecuter."""
+
+from __future__ import annotations
+
+from drawlib._builder.image_builder import DrawlibExecuter
+from drawlib._cli._app import app, call_command
+
+__all__ = [
+    "DrawlibExecuter",
+    "app",
+    "call_command",
+]

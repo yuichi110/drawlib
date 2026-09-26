@@ -7,15 +7,15 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""CLI command module re-exporting call_command and DrawlibExecuter."""
+"""Main entry point for drawlib CLI."""
 
-from __future__ import annotations
+from drawlib._cli import call_command
 
-from drawlib._tools.cli._app import app, call_command
-from drawlib._tools.image_builder import DrawlibExecuter
 
-__all__ = [
-    "DrawlibExecuter",
-    "app",
-    "call_command",
-]
+def main() -> None:
+    """Execute drawlib command."""
+    call_command()
+
+
+if __name__ == "__main__":
+    main()

@@ -15,8 +15,8 @@ import tempfile
 import pytest
 
 import drawlib.config
+from drawlib._builder.doc_builder.config import load_config
 from drawlib._preset_styles import EssentialsStyles
-from drawlib._tools.doc_builder.config import load_config
 
 
 def test_default_config() -> None:
@@ -55,6 +55,7 @@ def test_custom_config_overlay() -> None:
 
         # Verify from drawlib.config import ... works
         from drawlib.config import a, b, c, d  # noqa: PLC0415
+
         assert a == 1
         assert b == 2
         assert c == 1

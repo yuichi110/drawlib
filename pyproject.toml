@@ -25,7 +25,7 @@ Homepage = "https://www.drawlib.com"
 Repository = "https://github.com/yuichi110/drawlib"
 
 [project.scripts]
-drawlib = "drawlib._tools.cli.main:main"
+drawlib = "drawlib._cli.main:main"
 
 [project.optional-dependencies]
 pdf = [
@@ -111,7 +111,7 @@ ignore = [
     "PLC2701", # Private name import from external module (standard for unit tests)
     "PLR6301" # Method could be a function/static method (standard for pytest classes)
 ]
-"src/drawlib/_tools/doc_builder/**.py" = [
+"src/drawlib/_builder/doc_builder/**.py" = [
     "S102",    # exec usage is intentional for dynamic code execution
     "S701",    # jinja2 autoescape
     "PLC0415", # lazy import for optional dependencies
@@ -119,7 +119,7 @@ ignore = [
     "F403",    # import star
     "F405"     # import star usage
 ]
-"src/drawlib/_tools/cli/_command.py" = [
+"src/drawlib/_cli/_command.py" = [
     "C901"     # complex command parser
 ]
 "test_build_target/**.py" = [
