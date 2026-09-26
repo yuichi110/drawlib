@@ -17,10 +17,10 @@ All top-level CLI commands have direct 1-to-1 functional counterparts in `drawli
 
 | CLI Command | Programmatic Function | Module / Alias | Description |
 | :--- | :--- | :--- | :--- |
-| `drawlib build html` | `build_html(...)` | `drawlib.tools.build.html` | Compile Markdown files or directory into an HTML site. |
-| `drawlib build markdown` | `build_markdown(...)` | `drawlib.tools.build.markdown` | Compile Markdown files for GitHub repository browsing. |
-| `drawlib build pdf` | `build_pdf(...)` | `drawlib.tools.build.pdf` | Compile documents to vector PDF via headless Chromium. |
-| `drawlib build images` | `build_image(...)` | `drawlib.tools.build.image` | Batch execute standalone Python drawing scripts into images. |
+| `drawlib build html` | `build_html(...)` | `drawlib.tools.build` | Compile Markdown files or directory into an HTML site. |
+| `drawlib build markdown` | `build_markdown(...)` | `drawlib.tools.build` | Compile Markdown files for GitHub repository browsing. |
+| `drawlib build pdf` | `build_pdf(...)` | `drawlib.tools.build` | Compile documents to vector PDF via headless Chromium. |
+| `drawlib build images` | `build_image(...)` | `drawlib.tools.build` | Batch execute standalone Python drawing scripts into images. |
 | `drawlib export` | `export_block(...)` | `drawlib.tools.export.export_block` | Extract and render a single diagram block or script to image. |
 | `drawlib show` | `show_block(...)` | `drawlib.tools.show.show_block` | Render and display diagram block in desktop GUI viewer. |
 | `drawlib init` | `init_project(...)` | `drawlib.tools.init.init_project` | Scaffold starter documentation project structures. |

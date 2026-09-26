@@ -18,11 +18,9 @@ from typing import Annotated, List, Literal, Optional
 import typer
 from rich.console import Console
 
+from drawlib._builder.doc_builder import build_html, build_markdown, build_pdf
+from drawlib._builder.image_builder import build_image
 from drawlib._core.utils import dutil_settings
-from drawlib.tools.build.html import build_html
-from drawlib.tools.build.image import build_image
-from drawlib.tools.build.markdown import build_markdown
-from drawlib.tools.build.pdf import build_pdf
 
 build_app = typer.Typer(
     name="build",
