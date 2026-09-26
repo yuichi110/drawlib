@@ -13,9 +13,8 @@
 from typing import Any, Literal
 
 from PIL.ExifTags import Base
-from pydantic import BaseModel
+from pydantic import BaseModel, validate_call
 
-from drawlib._core.l1_core import guarded
 from drawlib._core.l2_types import (
     TypeColor,
     TypeCoordinate,
@@ -59,7 +58,7 @@ class _CellInfo(BaseModel):
 class Table:
     """A class used to create and manage the style and drawing of a table."""
 
-    @guarded
+    @validate_call
     def __init__(self, *, styles: BasePresetStyles) -> None:
         """Initialize instance
 
@@ -79,7 +78,7 @@ class Table:
 
         self.set_predefined_style("default")
 
-    @guarded
+    @validate_call
     def clear_styles(self) -> None:
         """Clears all cell and border styles, resetting the table to have no styles."""
         self._bs_top = None
@@ -92,7 +91,7 @@ class Table:
         self._bs_between_rows = None
         self._cell_style_orders = []
 
-    @guarded
+    @validate_call
     def set_predefined_style(
         self,
         name: Literal[
@@ -188,7 +187,7 @@ class Table:
 
     # cell styles
 
-    @guarded
+    @validate_call
     def set_style_cell_headers(
         self,
         background_color: TypeColor,
@@ -203,7 +202,7 @@ class Table:
         self.set_style_cell_rowheader(background_color=background_color, textstyle=textstyle)
         self.set_style_cell_header(background_color=background_color, textstyle=textstyle)
 
-    @guarded
+    @validate_call
     def set_style_cell_header(
         self,
         background_color: TypeColor,
@@ -221,7 +220,7 @@ class Table:
             rows=[0],
         )
 
-    @guarded
+    @validate_call
     def set_style_cell_rowheader(
         self,
         background_color: TypeColor,
@@ -239,7 +238,7 @@ class Table:
             columns=[0],
         )
 
-    @guarded
+    @validate_call
     def set_style_cell_evenodd(
         self,
         even_color: TypeColor,
@@ -265,7 +264,7 @@ class Table:
             )
         )
 
-    @guarded
+    @validate_call
     def set_style_cell(
         self,
         background_color: TypeColor,
@@ -293,7 +292,7 @@ class Table:
 
     # border style
 
-    @guarded
+    @validate_call
     def set_style_border(
         self,
         top: Style | None = None,
@@ -328,7 +327,7 @@ class Table:
 
     # draw
 
-    @guarded
+    @validate_call
     def draw(
         self,
         xy: TypeCoordinate,
@@ -356,7 +355,7 @@ class Table:
             data=data,
         )
 
-    @guarded
+    @validate_call
     def draw_flexible(
         self,
         xy: TypeCoordinate,

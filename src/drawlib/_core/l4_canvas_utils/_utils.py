@@ -15,8 +15,8 @@ from typing import Any, Callable, Literal
 
 from matplotlib.font_manager import FontProperties
 from matplotlib.text import Text
+from pydantic import validate_call
 
-from drawlib._core.l1_core import guarded
 from drawlib._core.l2_types import (
     TypeAngle,
     TypeArrowHead,
@@ -35,7 +35,6 @@ from drawlib._core.l3_styles import (
 )
 
 
-@guarded
 def get_rotated_points(
     xys: TypeCoordinates,
     center: TypeCoordinate,
@@ -74,7 +73,6 @@ def get_rotated_points(
     return rotated_points
 
 
-@guarded
 def get_rotated_path_points(
     path_points: TypePathPoints,
     center: TypeCoordinate,
@@ -132,7 +130,7 @@ def get_rotated_path_points(
     return rotated_path_points
 
 
-@guarded
+@validate_call
 def get_angle(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeAngle:
     """Calculate the angle in degrees between two points.
 
@@ -153,7 +151,7 @@ def get_angle(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeAngle:
     return (angle_deg + 360) % 360
 
 
-@guarded
+@validate_call
 def get_distance(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeFloat:
     """Calculate the Euclidean distance between two points.
 
@@ -170,7 +168,7 @@ def get_distance(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeFloat:
     return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
 
-@guarded
+@validate_call
 def get_center_and_size(
     xys: TypeCoordinates,
 ) -> tuple[TypeCoordinate, TypeCoordinate]:
@@ -200,7 +198,6 @@ def get_center_and_size(
     return ((center_x, center_y), (maxx - minx, maxy - miny))
 
 
-@guarded
 def plus_2points(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeCoordinate:
     """Add two points (vectors).
 
@@ -215,7 +212,6 @@ def plus_2points(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeCoordinate:
     return (xy1[0] + xy2[0], xy1[1] + xy2[1])
 
 
-@guarded
 def minus_2points(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeCoordinate:
     """Subtract one point (vector) from another.
 

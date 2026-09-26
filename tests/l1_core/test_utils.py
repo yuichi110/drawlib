@@ -14,7 +14,6 @@ import typing
 from unittest.mock import patch
 
 import pytest
-from pydantic import ValidationError
 
 from drawlib._core.l1_core._utils import (
     get_script_function_name,
@@ -61,8 +60,8 @@ class TestGetScriptRelativePath:
         assert resolved == os.path.realpath(expected)
 
     def test_invalid_type_raises_value_error(self):
-        """Test that passing a non-string raises a ValidationError."""
-        with pytest.raises(ValidationError):
+        """Test that passing a non-string raises a ValueError."""
+        with pytest.raises(ValueError, match='Arg "path" must be str'):
             # Type ignore to test dynamic runtime validation
             get_script_relative_path(typing.cast(str, 42))
 

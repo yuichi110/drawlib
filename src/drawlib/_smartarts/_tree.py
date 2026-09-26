@@ -12,11 +12,10 @@
 
 from __future__ import annotations
 
-from typing import Callable, Literal
+from typing import Callable, Literal, Self
 
-from pydantic import BaseModel
+from pydantic import BaseModel, validate_call
 
-from drawlib._core.l1_core import guarded
 from drawlib._core.l2_types import (
     TypeCoordinate,
     TypeFloat,
@@ -47,7 +46,6 @@ class TreeNode:
 
     _drawing_item_map: dict[str, _TreeNodeDrawingItem] = {}
 
-    @guarded
     def __init__(
         self,
         text: TypeStr,
@@ -104,7 +102,7 @@ class TreeNode:
         self._drawing_item_name: str | None = None
 
     @classmethod
-    @guarded
+    @validate_call
     def register_drawing_item(
         cls,
         name: str,
@@ -139,11 +137,11 @@ class TreeNode:
 
         cls._drawing_item_map[name] = item
 
-    @guarded
+    @validate_call
     def set_drawing_item(
         self,
         name: str,
-    ) -> TreeNode:
+    ) -> Self:
         """Set a drawing item for the tree node.
 
         Args:
@@ -158,7 +156,7 @@ class TreeNode:
 
         return self
 
-    @guarded
+    @validate_call
     def draw(self, xy: TypeCoordinate) -> None:
         """Draw the tree node and its children.
 

@@ -11,7 +11,8 @@
 
 """Canvas related utilities."""
 
-from drawlib._core.l1_core import guarded
+from pydantic import validate_call
+
 from drawlib._core.l4_canvas import clear
 from drawlib._core.l4_canvas_utils import (
     get_angle,
@@ -20,7 +21,7 @@ from drawlib._core.l4_canvas_utils import (
 )
 
 
-@guarded
+@validate_call
 def initialize() -> None:
     """Initialize the drawing environment by clearing the drawing canvas.
 

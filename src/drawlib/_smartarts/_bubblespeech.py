@@ -13,8 +13,8 @@
 from typing import Literal
 
 from matplotlib.patches import Polygon
+from pydantic import validate_call
 
-from drawlib._core.l1_core import guarded
 from drawlib._core.l2_types import (
     TypeAlpha,
     TypeCoordinate,
@@ -27,7 +27,7 @@ from drawlib._core.l4_canvas import canvas
 from drawlib._core.l4_canvas_utils import ShapeUtil, TextUtil
 
 
-@guarded
+@validate_call
 def bubblespeech(
     xy: TypeCoordinate,
     width: TypePosFloat,

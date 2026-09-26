@@ -14,9 +14,8 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, validate_call
 
-from drawlib._core.l1_core import guarded
 from drawlib._core.l2_types import (
     TypeCoordinate,
     TypePosFloat,
@@ -39,7 +38,7 @@ class _Item(BaseModel):
 class BoxList:
     """A class to draw a list of boxes with text, supporting highlighting of certain boxes."""
 
-    @guarded
+    @validate_call
     def __init__(
         self,
         *,
@@ -66,7 +65,7 @@ class BoxList:
 
         self._list: list[_Item] = []
 
-    @guarded
+    @validate_call
     def append(
         self,
         text: TypeStr,
@@ -82,7 +81,7 @@ class BoxList:
         """
         self.extend([text], box_style=box_style, text_style=text_style)
 
-    @guarded
+    @validate_call
     def insert(
         self,
         index: int,
@@ -111,7 +110,7 @@ class BoxList:
         )
         self._list.insert(index, item)
 
-    @guarded
+    @validate_call
     def extend(
         self,
         texts: list[TypeStr],
@@ -139,7 +138,7 @@ class BoxList:
             )
             self._list.append(item)
 
-    @guarded
+    @validate_call
     def draw(
         self,
         xy: TypeCoordinate,

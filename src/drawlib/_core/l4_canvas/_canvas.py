@@ -16,12 +16,12 @@ from typing import Literal
 
 from matplotlib import pyplot
 from PIL import Image
+from pydantic import validate_call
 
 from drawlib._core.l1_core import (
     dutil_settings,
     get_script_path,
     get_script_relative_path,
-    guarded,
 )
 from drawlib._core.l2_models import Dimage
 from drawlib._core.l2_types import (
@@ -62,7 +62,7 @@ class Canvas(
         """
         super().__init__()
 
-    @guarded
+    @validate_call
     def show(self) -> None:
         """Show canvas illustration."""
         self._set_background()
@@ -82,7 +82,7 @@ class Canvas(
         self._artists = temp_artists
         self._remove_artists_from_ax()  # remove drawing items
 
-    @guarded
+    @validate_call
     def get_dimage(self) -> Dimage:
         """Get the canvas illustration as a Dimage object in memory.
 
@@ -116,7 +116,7 @@ class Canvas(
         pil_img.load()
         return Dimage(pil_img)
 
-    @guarded
+    @validate_call
     def save(
         self,
         file: TypeStr | None = None,

@@ -147,9 +147,9 @@ class DrawlibBlockProcessor:
         exec_globals["save"] = _no_op_save
 
         try:
-            canvas_inst.save = _no_op_save  # type: ignore[assignment]
-            drawlib._core.l4_canvas._canvas.save = _no_op_save  # type: ignore[assignment]
-            drawlib.canvas.save = _no_op_save  # type: ignore[assignment]
+            canvas_inst.save = _no_op_save  # type: ignore
+            drawlib._core.l4_canvas._canvas.save = _no_op_save  # type: ignore
+            drawlib.canvas.save = _no_op_save  # type: ignore
             with warnings.catch_warnings():
                 if dutil_settings.get_logging_mode() not in {"verbose", "developer"}:
                     warnings.filterwarnings("ignore", message=r"Glyph .* missing from font", category=UserWarning)

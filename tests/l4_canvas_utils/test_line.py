@@ -27,20 +27,24 @@ class TestLineUtil:
         # 1. Less than 3 points
         assert LineUtil._merge_straight_lines([(0, 0), (1, 1)]) == [(0, 0), (1, 1)]
 
-        # 2. Horizontal line merging (merges every other point due to skip_next behavior)
+        # 2. Horizontal line merging (merges intermediate points)
         assert LineUtil._merge_straight_lines([(0.0, 0.0), (1.0, 0.0), (2.0, 0.0), (3.0, 0.0)]) == [
             (0.0, 0.0),
-            (2.0, 0.0),
+            (3.0, 0.0),
         ]
 
-        # 3. Vertical line merging (merges every other point due to skip_next behavior)
+        # 3. Vertical line merging (merges intermediate points)
         assert LineUtil._merge_straight_lines([(0.0, 0.0), (0.0, 1.0), (0.0, 2.0), (0.0, 3.0)]) == [
             (0.0, 0.0),
-            (0.0, 2.0),
+            (0.0, 3.0),
         ]
 
-        # 4. Diagonal line merging (slope = 1.0)
-        assert LineUtil._merge_straight_lines([(0.0, 0.0), (1.0, 1.0), (2.0, 2.0)]) == [(0.0, 0.0), (2.0, 2.0)]
+        # 4. Diagonal points
+        assert LineUtil._merge_straight_lines([(0.0, 0.0), (1.0, 1.0), (2.0, 2.0)]) == [
+            (0.0, 0.0),
+            (1.0, 1.0),
+            (2.0, 2.0),
+        ]
 
         # 5. Non-straight transition
         assert LineUtil._merge_straight_lines([(0.0, 0.0), (1.0, 1.0), (2.0, 1.0)]) == [
@@ -51,8 +55,8 @@ class TestLineUtil:
 
     def test_sanitize_xys(self) -> None:
         """Verifies sanitize_xys merges straight lines and removes consecutive duplicates."""
-        points = [(0.0, 0.0), (0.0, 0.0), (1.0, 1.0), (1.0, 1.0), (2.0, 2.0), (3.0, 3.0)]
-        assert LineUtil.sanitize_xys(points) == [(0.0, 0.0), (2.0, 2.0)]
+        points = [(0.0, 0.0), (0.0, 0.0), (1.0, 0.0), (1.0, 0.0), (2.0, 0.0), (3.0, 0.0)]
+        assert LineUtil.sanitize_xys(points) == [(0.0, 0.0), (3.0, 0.0)]
 
     def test_format_style(self) -> None:
         """Verifies format_style validates Style and raises errors on invalid input."""

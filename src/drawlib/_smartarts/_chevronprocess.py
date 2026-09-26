@@ -14,8 +14,9 @@ from __future__ import annotations
 import math
 from collections.abc import Sequence
 
+from pydantic import validate_call
+
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
-from drawlib._core.l1_core import guarded
 from drawlib._core.l2_types import (
     TypeAngle90,
     TypeColor,
@@ -52,7 +53,7 @@ class _ChevronItem:
 class ChevronProcess:
     """SmartArt component for sequential chevron (arrowhead block) process diagrams."""
 
-    @guarded
+    @validate_call
     def __init__(
         self,
         *,
@@ -95,7 +96,7 @@ class ChevronProcess:
         """Return the registered chevron items."""
         return self._items
 
-    @guarded
+    @validate_call
     def append(
         self,
         text: TypeStr,
@@ -122,7 +123,7 @@ class ChevronProcess:
         )
         self._items.append(item)
 
-    @guarded
+    @validate_call
     def extend(
         self,
         texts: list[TypeStr],
@@ -138,7 +139,7 @@ class ChevronProcess:
             desc = descriptions[i] if descriptions and i < len(descriptions) else ""
             self.append(text=text, description=desc)
 
-    @guarded
+    @validate_call
     def insert(
         self,
         index: int,
@@ -167,7 +168,7 @@ class ChevronProcess:
         )
         self._items.insert(index, item)
 
-    @guarded
+    @validate_call
     def draw(
         self,
         xy: TypeCoordinate,

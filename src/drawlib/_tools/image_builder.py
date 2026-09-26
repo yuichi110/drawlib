@@ -22,12 +22,13 @@ import sys
 import traceback
 from typing import Any, Callable, List, Literal, Optional, Sequence, Tuple, Union
 
+from pydantic import validate_call
+
 import drawlib._core.l4_canvas._canvas
 import drawlib.canvas
 from drawlib._core.l1_core import (
     dutil_settings,
     get_script_relative_path,
-    guarded,
     logger,
 )
 from drawlib._core.l4_canvas import clear
@@ -484,7 +485,7 @@ class DrawlibExecuter:
             progress.update(final_saves, final_saves, done=True)
             self._current_progress = None
 
-    @guarded
+    @validate_call
     def execute(self, file_or_directory: str) -> None:
         """Execute the specified Python file or all Python files in the specified directory.
 

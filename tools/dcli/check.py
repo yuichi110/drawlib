@@ -56,10 +56,10 @@ def type_check() -> None:
 
 @app.command("docstring")
 def docstring() -> None:
-    """Validate that forbidden type aliases do not appear in @guarded function docstrings."""
+    """Validate that forbidden type aliases do not appear in @validate_call function docstrings."""
     run_command(
         ["uv", "run", "python", "tools/scripts/check_docstring.py"],
-        desc="Checking @guarded function docstring type annotations...",
+        desc="Checking @validate_call function docstring type annotations...",
     )
     console.print("[bold green]✓ Docstring checks passed![/bold green]")
 

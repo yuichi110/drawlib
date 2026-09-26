@@ -15,7 +15,6 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, ValidationError
 
-from drawlib._core.l1_core import guarded
 from drawlib._core.l2_types import (
     TypeAlpha,
     TypeAngle,
@@ -88,7 +87,6 @@ class Style(BaseModel):
     image_border_width: TypePosFloat | None = None
     image_border_style: TypeLineStyle | None = None
 
-    @guarded
     def patch(
         self,
         other: Style | None = None,

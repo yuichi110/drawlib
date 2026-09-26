@@ -14,8 +14,8 @@ import math
 
 from matplotlib.patches import PathPatch
 from matplotlib.path import Path
+from pydantic import validate_call
 
-from drawlib._core.l1_core import guarded
 from drawlib._core.l2_types import (
     TypeAngle,
     TypeAngle90,
@@ -49,7 +49,7 @@ class CanvasOriginalPolygonFeature(CanvasBase):
         """
         super().__init__()
 
-    @guarded
+    @validate_call
     def triangle(
         self,
         xy: TypeCoordinate,
@@ -96,7 +96,7 @@ class CanvasOriginalPolygonFeature(CanvasBase):
             textstyle=textstyle,
         )
 
-    @guarded
+    @validate_call
     def parallelogram(
         self,
         xy: TypeCoordinate,
@@ -148,7 +148,7 @@ class CanvasOriginalPolygonFeature(CanvasBase):
             textstyle=textstyle,
         )
 
-    @guarded
+    @validate_call
     def trapezoid(
         self,
         xy: TypeCoordinate,
@@ -199,7 +199,7 @@ class CanvasOriginalPolygonFeature(CanvasBase):
             textstyle=textstyle,
         )
 
-    @guarded
+    @validate_call
     def rhombus(
         self,
         xy: TypeCoordinate,
@@ -244,7 +244,7 @@ class CanvasOriginalPolygonFeature(CanvasBase):
             textstyle=textstyle,
         )
 
-    @guarded
+    @validate_call
     def chevron(
         self,
         xy: TypeCoordinate,
@@ -307,7 +307,7 @@ class CanvasOriginalPolygonFeature(CanvasBase):
             textstyle=textstyle,
         )
 
-    @guarded
+    @validate_call
     def star(
         self,
         xy: TypeCoordinate,

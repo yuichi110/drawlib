@@ -15,8 +15,8 @@ from typing import Any, Literal
 
 from matplotlib.patches import PathPatch
 from matplotlib.path import Path
+from pydantic import validate_call
 
-from drawlib._core.l1_core import guarded
 from drawlib._core.l2_types import (
     TypeAngle,
     TypeArrowHead,
@@ -57,7 +57,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
         """
         super().__init__()
 
-    @guarded
+    @validate_call
     def arrow(
         self,
         xy1: TypeCoordinate,
@@ -141,7 +141,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
             textstyle=textstyle,
         )
 
-    @guarded
+    @validate_call
     def arrow_polyline(
         self,
         xys: TypeCoordinates,
@@ -222,7 +222,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
         parallel_xys1.extend(parallel_xys2)
         self.polygon(xys=parallel_xys1, style=style, text="", textstyle=None)
 
-    @guarded
+    @validate_call
     def arrow_arc(
         self,
         xy: TypeCoordinate,
@@ -371,7 +371,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
         options = ShapeUtil.get_shape_options(style)
         self._artists.append(PathPatch(path=path, **options))
 
-    @guarded
+    @validate_call
     def arrow_l(
         self,
         xy: TypeCoordinate,
@@ -423,7 +423,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
             style=style,
         )
 
-    @guarded
+    @validate_call
     def arrow_u(
         self,
         xy: TypeCoordinate,

@@ -139,7 +139,7 @@ class ShapeUtil(StaticContainer):
             if text_valign == "top":
                 y -= height
 
-        return (x, y), style
+        return (x, y), style.patch(text_halign=text_halign, text_valign=text_valign)
 
     @staticmethod
     def get_shape_text(

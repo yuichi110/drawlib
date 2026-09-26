@@ -10,9 +10,8 @@
 
 """GridLayout implementation module."""
 
-from pydantic import BaseModel
+from pydantic import BaseModel, validate_call
 
-from drawlib._core.l1_core import guarded
 from drawlib._core.l2_types import (
     TypeAngle,
     TypeCoordinate,
@@ -50,7 +49,7 @@ class GridLayout:
             If None, no angle is applied. Defaults to None.
     """
 
-    @guarded
+    @validate_call
     def __init__(
         self,
         *,
@@ -84,7 +83,7 @@ class GridLayout:
 
         self._items: list[_GridLayoutItem] = []
 
-    @guarded
+    @validate_call
     def add(  # noqa: C901
         self,
         position: tuple[TypePosInt, TypePosInt],
@@ -141,7 +140,7 @@ class GridLayout:
         )
         self._items.append(item)
 
-    @guarded
+    @validate_call
     def draw(
         self,
         xy: TypeCoordinate,
@@ -182,7 +181,7 @@ class GridLayout:
             outer_style=outer_style,
         )
 
-    @guarded
+    @validate_call
     def draw_flexible(  # noqa: C901
         self,
         xy: TypeCoordinate,

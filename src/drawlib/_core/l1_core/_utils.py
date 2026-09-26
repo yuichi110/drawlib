@@ -7,29 +7,17 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-# ruff: noqa: ANN001, ANN201, ANN401
-
 """Utility module."""
 
-import functools
 import inspect
-import math
 import os
 import os.path
-import shutil
-import sys
-import traceback
-from typing import Callable, List, ParamSpec, Tuple, TypeVar, Union
-
-from pydantic import ConfigDict, InstanceOf, validate_call
 
 from drawlib._core.l1_core._common import get_package_root_path, is_path_under
-from drawlib._core.l1_core._decorator import guarded
 from drawlib._core.l1_core._logging import logger
 from drawlib._core.l1_core._settings import dutil_settings
 
 
-@guarded
 def get_script_path() -> str:
     """Retrieve the absolute path of the user script that calls this function.
 
@@ -60,7 +48,6 @@ def get_script_path() -> str:
     return script_path
 
 
-@guarded
 def get_script_relative_path(path: str) -> str:
     """Construct the absolute file path from a script file path.
 
@@ -86,7 +73,6 @@ def get_script_relative_path(path: str) -> str:
     return os.path.realpath(merged_path)
 
 
-@guarded
 def get_script_function_name() -> str:
     """Retrieve the name of the function in the user script that calls this function.
 

@@ -19,8 +19,8 @@ import multiprocessing.connection
 from typing import Any
 
 from PIL import Image
+from pydantic import validate_call
 
-from drawlib._core.l1_core import guarded
 from drawlib._core.l2_models import Dimage
 
 
@@ -45,9 +45,9 @@ def _worker_render_code(
         def _no_op_save(*args: Any, **kwargs: Any) -> None:  # noqa: ANN401
             pass
 
-        drawlib.canvas.save = _no_op_save
-        drawlib._core.l4_canvas._canvas.save = _no_op_save
-        drawlib._core.l4_canvas._canvas.canvas.save = _no_op_save
+        drawlib.canvas.save = _no_op_save  # type: ignore
+        drawlib._core.l4_canvas._canvas.save = _no_op_save  # type: ignore
+        drawlib._core.l4_canvas._canvas.canvas.save = _no_op_save  # type: ignore
 
         exec_globals: dict[str, Any] = {
             "__name__": "__main__",
@@ -68,7 +68,7 @@ def _worker_render_code(
         conn.close()
 
 
-@guarded
+@validate_call
 def get_dimage_from_code(
     code: str,
     timeout: float | None = None,

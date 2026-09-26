@@ -13,7 +13,8 @@ from __future__ import annotations
 
 from typing import Literal
 
-from drawlib._core.l1_core import guarded
+from pydantic import validate_call
+
 from drawlib._core.l2_types import (
     TypeCoordinate,
     TypeFloat,
@@ -36,7 +37,6 @@ class MindMapNode:
     (bottom, top, left, right).
     """
 
-    @guarded
     def __init__(  # noqa: PLR0913
         self,
         text: TypeStr,
@@ -209,7 +209,7 @@ class MindMapNode:
         self._extent_w: float = 0.0
         self._extent_h: float = 0.0
 
-    @guarded
+    @validate_call
     def draw(
         self,
         xy: TypeCoordinate,

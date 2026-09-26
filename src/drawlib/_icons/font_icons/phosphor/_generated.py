@@ -11,7 +11,8 @@
 
 from __future__ import annotations
 
-from drawlib._core.l1_core import guarded
+from pydantic import validate_call
+
 from drawlib._core.l2_types import (
     TypeAngle,
     TypeCoordinate,
@@ -22,7 +23,7 @@ from drawlib._core.l3_styles import Style
 from drawlib._icons.font_icons.phosphor._base import _write
 
 
-@guarded
+@validate_call
 def acorn(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -43,7 +44,7 @@ def acorn(
     _write(xy=xy, width=width, code="\ueb9a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def activity(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -64,7 +65,7 @@ def activity(
     _write(xy=xy, width=width, code="\ue000", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def address_book(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -85,7 +86,7 @@ def address_book(
     _write(xy=xy, width=width, code="\ue6f8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def address_book_tabs(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -106,7 +107,7 @@ def address_book_tabs(
     _write(xy=xy, width=width, code="\uee4e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def air_traffic_control(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -127,7 +128,7 @@ def air_traffic_control(
     _write(xy=xy, width=width, code="\uecd8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def airplane(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -148,7 +149,7 @@ def airplane(
     _write(xy=xy, width=width, code="\ue002", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def airplane_in_flight(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -169,7 +170,7 @@ def airplane_in_flight(
     _write(xy=xy, width=width, code="\ue4fe", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def airplane_landing(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -190,7 +191,7 @@ def airplane_landing(
     _write(xy=xy, width=width, code="\ue502", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def airplane_takeoff(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -211,7 +212,7 @@ def airplane_takeoff(
     _write(xy=xy, width=width, code="\ue504", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def airplane_taxiing(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -232,7 +233,7 @@ def airplane_taxiing(
     _write(xy=xy, width=width, code="\ue500", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def airplane_tilt(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -253,7 +254,7 @@ def airplane_tilt(
     _write(xy=xy, width=width, code="\ue5d6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def airplay(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -274,7 +275,7 @@ def airplay(
     _write(xy=xy, width=width, code="\ue004", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def alarm(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -295,7 +296,7 @@ def alarm(
     _write(xy=xy, width=width, code="\ue006", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def alien(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -316,7 +317,7 @@ def alien(
     _write(xy=xy, width=width, code="\ue8a6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def align_bottom(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -337,7 +338,7 @@ def align_bottom(
     _write(xy=xy, width=width, code="\ue506", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def align_bottom_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -358,7 +359,7 @@ def align_bottom_simple(
     _write(xy=xy, width=width, code="\ueb0c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def align_center_horizontal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -379,7 +380,7 @@ def align_center_horizontal(
     _write(xy=xy, width=width, code="\ue50a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def align_center_horizontal_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -400,7 +401,7 @@ def align_center_horizontal_simple(
     _write(xy=xy, width=width, code="\ueb0e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def align_center_vertical(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -421,7 +422,7 @@ def align_center_vertical(
     _write(xy=xy, width=width, code="\ue50c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def align_center_vertical_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -442,7 +443,7 @@ def align_center_vertical_simple(
     _write(xy=xy, width=width, code="\ueb10", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def align_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -463,7 +464,7 @@ def align_left(
     _write(xy=xy, width=width, code="\ue50e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def align_left_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -484,7 +485,7 @@ def align_left_simple(
     _write(xy=xy, width=width, code="\ueaee", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def align_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -505,7 +506,7 @@ def align_right(
     _write(xy=xy, width=width, code="\ue510", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def align_right_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -526,7 +527,7 @@ def align_right_simple(
     _write(xy=xy, width=width, code="\ueb12", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def align_top(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -547,7 +548,7 @@ def align_top(
     _write(xy=xy, width=width, code="\ue512", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def align_top_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -568,7 +569,7 @@ def align_top_simple(
     _write(xy=xy, width=width, code="\ueb14", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def amazon_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -589,7 +590,7 @@ def amazon_logo(
     _write(xy=xy, width=width, code="\ue96c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def ambulance(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -610,7 +611,7 @@ def ambulance(
     _write(xy=xy, width=width, code="\ue572", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def anchor(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -631,7 +632,7 @@ def anchor(
     _write(xy=xy, width=width, code="\ue514", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def anchor_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -652,7 +653,7 @@ def anchor_simple(
     _write(xy=xy, width=width, code="\ue5d8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def android_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -673,7 +674,7 @@ def android_logo(
     _write(xy=xy, width=width, code="\ue008", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def angle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -694,7 +695,7 @@ def angle(
     _write(xy=xy, width=width, code="\ue7bc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def angular_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -715,7 +716,7 @@ def angular_logo(
     _write(xy=xy, width=width, code="\ueb80", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def aperture(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -736,7 +737,7 @@ def aperture(
     _write(xy=xy, width=width, code="\ue00a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def app_store_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -757,7 +758,7 @@ def app_store_logo(
     _write(xy=xy, width=width, code="\ue974", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def app_window(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -778,7 +779,7 @@ def app_window(
     _write(xy=xy, width=width, code="\ue5da", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def apple_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -799,7 +800,7 @@ def apple_logo(
     _write(xy=xy, width=width, code="\ue516", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def apple_podcasts_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -820,7 +821,7 @@ def apple_podcasts_logo(
     _write(xy=xy, width=width, code="\ueb96", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def approximate_equals(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -841,7 +842,7 @@ def approximate_equals(
     _write(xy=xy, width=width, code="\uedaa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def archive(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -862,7 +863,7 @@ def archive(
     _write(xy=xy, width=width, code="\ue00c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def archive_box(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -883,7 +884,7 @@ def archive_box(
     _write(xy=xy, width=width, code="\ue00e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def archive_tray(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -904,7 +905,7 @@ def archive_tray(
     _write(xy=xy, width=width, code="\ue010", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def armchair(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -925,7 +926,7 @@ def armchair(
     _write(xy=xy, width=width, code="\ue012", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_arc_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -946,7 +947,7 @@ def arrow_arc_left(
     _write(xy=xy, width=width, code="\ue014", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_arc_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -967,7 +968,7 @@ def arrow_arc_right(
     _write(xy=xy, width=width, code="\ue016", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_bend_double_up_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -988,7 +989,7 @@ def arrow_bend_double_up_left(
     _write(xy=xy, width=width, code="\ue03a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_bend_double_up_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1009,7 +1010,7 @@ def arrow_bend_double_up_right(
     _write(xy=xy, width=width, code="\ue03c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_bend_down_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1030,7 +1031,7 @@ def arrow_bend_down_left(
     _write(xy=xy, width=width, code="\ue018", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_bend_down_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1051,7 +1052,7 @@ def arrow_bend_down_right(
     _write(xy=xy, width=width, code="\ue01a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_bend_left_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1072,7 +1073,7 @@ def arrow_bend_left_down(
     _write(xy=xy, width=width, code="\ue01c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_bend_left_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1093,7 +1094,7 @@ def arrow_bend_left_up(
     _write(xy=xy, width=width, code="\ue01e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_bend_right_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1114,7 +1115,7 @@ def arrow_bend_right_down(
     _write(xy=xy, width=width, code="\ue020", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_bend_right_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1135,7 +1136,7 @@ def arrow_bend_right_up(
     _write(xy=xy, width=width, code="\ue022", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_bend_up_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1156,7 +1157,7 @@ def arrow_bend_up_left(
     _write(xy=xy, width=width, code="\ue024", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_bend_up_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1177,7 +1178,7 @@ def arrow_bend_up_right(
     _write(xy=xy, width=width, code="\ue026", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_circle_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1198,7 +1199,7 @@ def arrow_circle_down(
     _write(xy=xy, width=width, code="\ue028", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_circle_down_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1219,7 +1220,7 @@ def arrow_circle_down_left(
     _write(xy=xy, width=width, code="\ue02a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_circle_down_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1240,7 +1241,7 @@ def arrow_circle_down_right(
     _write(xy=xy, width=width, code="\ue02c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_circle_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1261,7 +1262,7 @@ def arrow_circle_left(
     _write(xy=xy, width=width, code="\ue05a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_circle_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1282,7 +1283,7 @@ def arrow_circle_right(
     _write(xy=xy, width=width, code="\ue02e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_circle_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1303,7 +1304,7 @@ def arrow_circle_up(
     _write(xy=xy, width=width, code="\ue030", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_circle_up_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1324,7 +1325,7 @@ def arrow_circle_up_left(
     _write(xy=xy, width=width, code="\ue032", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_circle_up_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1345,7 +1346,7 @@ def arrow_circle_up_right(
     _write(xy=xy, width=width, code="\ue034", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_clockwise(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1366,7 +1367,7 @@ def arrow_clockwise(
     _write(xy=xy, width=width, code="\ue036", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_counter_clockwise(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1387,7 +1388,7 @@ def arrow_counter_clockwise(
     _write(xy=xy, width=width, code="\ue038", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1408,7 +1409,7 @@ def arrow_down(
     _write(xy=xy, width=width, code="\ue03e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_down_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1429,7 +1430,7 @@ def arrow_down_left(
     _write(xy=xy, width=width, code="\ue040", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_down_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1450,7 +1451,7 @@ def arrow_down_right(
     _write(xy=xy, width=width, code="\ue042", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_elbow_down_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1471,7 +1472,7 @@ def arrow_elbow_down_left(
     _write(xy=xy, width=width, code="\ue044", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_elbow_down_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1492,7 +1493,7 @@ def arrow_elbow_down_right(
     _write(xy=xy, width=width, code="\ue046", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_elbow_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1513,7 +1514,7 @@ def arrow_elbow_left(
     _write(xy=xy, width=width, code="\ue048", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_elbow_left_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1534,7 +1535,7 @@ def arrow_elbow_left_down(
     _write(xy=xy, width=width, code="\ue04a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_elbow_left_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1555,7 +1556,7 @@ def arrow_elbow_left_up(
     _write(xy=xy, width=width, code="\ue04c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_elbow_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1576,7 +1577,7 @@ def arrow_elbow_right(
     _write(xy=xy, width=width, code="\ue04e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_elbow_right_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1597,7 +1598,7 @@ def arrow_elbow_right_down(
     _write(xy=xy, width=width, code="\ue050", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_elbow_right_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1618,7 +1619,7 @@ def arrow_elbow_right_up(
     _write(xy=xy, width=width, code="\ue052", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_elbow_up_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1639,7 +1640,7 @@ def arrow_elbow_up_left(
     _write(xy=xy, width=width, code="\ue054", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_elbow_up_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1660,7 +1661,7 @@ def arrow_elbow_up_right(
     _write(xy=xy, width=width, code="\ue056", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_fat_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1681,7 +1682,7 @@ def arrow_fat_down(
     _write(xy=xy, width=width, code="\ue518", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_fat_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1702,7 +1703,7 @@ def arrow_fat_left(
     _write(xy=xy, width=width, code="\ue51a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_fat_line_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1723,7 +1724,7 @@ def arrow_fat_line_down(
     _write(xy=xy, width=width, code="\ue51c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_fat_line_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1744,7 +1745,7 @@ def arrow_fat_line_left(
     _write(xy=xy, width=width, code="\ue51e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_fat_line_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1765,7 +1766,7 @@ def arrow_fat_line_right(
     _write(xy=xy, width=width, code="\ue520", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_fat_line_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1786,7 +1787,7 @@ def arrow_fat_line_up(
     _write(xy=xy, width=width, code="\ue522", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_fat_lines_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1807,7 +1808,7 @@ def arrow_fat_lines_down(
     _write(xy=xy, width=width, code="\ue524", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_fat_lines_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1828,7 +1829,7 @@ def arrow_fat_lines_left(
     _write(xy=xy, width=width, code="\ue526", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_fat_lines_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1849,7 +1850,7 @@ def arrow_fat_lines_right(
     _write(xy=xy, width=width, code="\ue528", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_fat_lines_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1870,7 +1871,7 @@ def arrow_fat_lines_up(
     _write(xy=xy, width=width, code="\ue52a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_fat_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1891,7 +1892,7 @@ def arrow_fat_right(
     _write(xy=xy, width=width, code="\ue52c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_fat_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1912,7 +1913,7 @@ def arrow_fat_up(
     _write(xy=xy, width=width, code="\ue52e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1933,7 +1934,7 @@ def arrow_left(
     _write(xy=xy, width=width, code="\ue058", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_line_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1954,7 +1955,7 @@ def arrow_line_down(
     _write(xy=xy, width=width, code="\ue05c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_line_down_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1975,7 +1976,7 @@ def arrow_line_down_left(
     _write(xy=xy, width=width, code="\ue05e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_line_down_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1996,7 +1997,7 @@ def arrow_line_down_right(
     _write(xy=xy, width=width, code="\ue060", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_line_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2017,7 +2018,7 @@ def arrow_line_left(
     _write(xy=xy, width=width, code="\ue062", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_line_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2038,7 +2039,7 @@ def arrow_line_right(
     _write(xy=xy, width=width, code="\ue064", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_line_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2059,7 +2060,7 @@ def arrow_line_up(
     _write(xy=xy, width=width, code="\ue066", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_line_up_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2080,7 +2081,7 @@ def arrow_line_up_left(
     _write(xy=xy, width=width, code="\ue068", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_line_up_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2101,7 +2102,7 @@ def arrow_line_up_right(
     _write(xy=xy, width=width, code="\ue06a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2122,7 +2123,7 @@ def arrow_right(
     _write(xy=xy, width=width, code="\ue06c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_square_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2143,7 +2144,7 @@ def arrow_square_down(
     _write(xy=xy, width=width, code="\ue06e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_square_down_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2164,7 +2165,7 @@ def arrow_square_down_left(
     _write(xy=xy, width=width, code="\ue070", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_square_down_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2185,7 +2186,7 @@ def arrow_square_down_right(
     _write(xy=xy, width=width, code="\ue072", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_square_in(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2206,7 +2207,7 @@ def arrow_square_in(
     _write(xy=xy, width=width, code="\ue5dc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_square_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2227,7 +2228,7 @@ def arrow_square_left(
     _write(xy=xy, width=width, code="\ue074", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_square_out(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2248,7 +2249,7 @@ def arrow_square_out(
     _write(xy=xy, width=width, code="\ue5de", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_square_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2269,7 +2270,7 @@ def arrow_square_right(
     _write(xy=xy, width=width, code="\ue076", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_square_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2290,7 +2291,7 @@ def arrow_square_up(
     _write(xy=xy, width=width, code="\ue078", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_square_up_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2311,7 +2312,7 @@ def arrow_square_up_left(
     _write(xy=xy, width=width, code="\ue07a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_square_up_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2332,7 +2333,7 @@ def arrow_square_up_right(
     _write(xy=xy, width=width, code="\ue07c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_u_down_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2353,7 +2354,7 @@ def arrow_u_down_left(
     _write(xy=xy, width=width, code="\ue07e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_u_down_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2374,7 +2375,7 @@ def arrow_u_down_right(
     _write(xy=xy, width=width, code="\ue080", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_u_left_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2395,7 +2396,7 @@ def arrow_u_left_down(
     _write(xy=xy, width=width, code="\ue082", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_u_left_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2416,7 +2417,7 @@ def arrow_u_left_up(
     _write(xy=xy, width=width, code="\ue084", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_u_right_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2437,7 +2438,7 @@ def arrow_u_right_down(
     _write(xy=xy, width=width, code="\ue086", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_u_right_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2458,7 +2459,7 @@ def arrow_u_right_up(
     _write(xy=xy, width=width, code="\ue088", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_u_up_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2479,7 +2480,7 @@ def arrow_u_up_left(
     _write(xy=xy, width=width, code="\ue08a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_u_up_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2500,7 +2501,7 @@ def arrow_u_up_right(
     _write(xy=xy, width=width, code="\ue08c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2521,7 +2522,7 @@ def arrow_up(
     _write(xy=xy, width=width, code="\ue08e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_up_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2542,7 +2543,7 @@ def arrow_up_left(
     _write(xy=xy, width=width, code="\ue090", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrow_up_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2563,7 +2564,7 @@ def arrow_up_right(
     _write(xy=xy, width=width, code="\ue092", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrows_clockwise(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2584,7 +2585,7 @@ def arrows_clockwise(
     _write(xy=xy, width=width, code="\ue094", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrows_counter_clockwise(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2605,7 +2606,7 @@ def arrows_counter_clockwise(
     _write(xy=xy, width=width, code="\ue096", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrows_down_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2626,7 +2627,7 @@ def arrows_down_up(
     _write(xy=xy, width=width, code="\ue098", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrows_horizontal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2647,7 +2648,7 @@ def arrows_horizontal(
     _write(xy=xy, width=width, code="\ueb06", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrows_in(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2668,7 +2669,7 @@ def arrows_in(
     _write(xy=xy, width=width, code="\ue09a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrows_in_cardinal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2689,7 +2690,7 @@ def arrows_in_cardinal(
     _write(xy=xy, width=width, code="\ue09c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrows_in_line_horizontal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2710,7 +2711,7 @@ def arrows_in_line_horizontal(
     _write(xy=xy, width=width, code="\ue530", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrows_in_line_vertical(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2731,7 +2732,7 @@ def arrows_in_line_vertical(
     _write(xy=xy, width=width, code="\ue532", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrows_in_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2752,7 +2753,7 @@ def arrows_in_simple(
     _write(xy=xy, width=width, code="\ue09e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrows_left_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2773,7 +2774,7 @@ def arrows_left_right(
     _write(xy=xy, width=width, code="\ue0a0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrows_merge(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2794,7 +2795,7 @@ def arrows_merge(
     _write(xy=xy, width=width, code="\ued3e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrows_out(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2815,7 +2816,7 @@ def arrows_out(
     _write(xy=xy, width=width, code="\ue0a2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrows_out_cardinal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2836,7 +2837,7 @@ def arrows_out_cardinal(
     _write(xy=xy, width=width, code="\ue0a4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrows_out_line_horizontal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2857,7 +2858,7 @@ def arrows_out_line_horizontal(
     _write(xy=xy, width=width, code="\ue534", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrows_out_line_vertical(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2878,7 +2879,7 @@ def arrows_out_line_vertical(
     _write(xy=xy, width=width, code="\ue536", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrows_out_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2899,7 +2900,7 @@ def arrows_out_simple(
     _write(xy=xy, width=width, code="\ue0a6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrows_split(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2920,7 +2921,7 @@ def arrows_split(
     _write(xy=xy, width=width, code="\ued3c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def arrows_vertical(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2941,7 +2942,7 @@ def arrows_vertical(
     _write(xy=xy, width=width, code="\ueb04", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def article(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2962,7 +2963,7 @@ def article(
     _write(xy=xy, width=width, code="\ue0a8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def article_medium(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2983,7 +2984,7 @@ def article_medium(
     _write(xy=xy, width=width, code="\ue5e0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def article_ny_times(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3004,7 +3005,7 @@ def article_ny_times(
     _write(xy=xy, width=width, code="\ue5e2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def asclepius(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3025,7 +3026,7 @@ def asclepius(
     _write(xy=xy, width=width, code="\uee34", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def asterisk(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3046,7 +3047,7 @@ def asterisk(
     _write(xy=xy, width=width, code="\ue0aa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def asterisk_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3067,7 +3068,7 @@ def asterisk_simple(
     _write(xy=xy, width=width, code="\ue832", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def at(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3088,7 +3089,7 @@ def at(
     _write(xy=xy, width=width, code="\ue0ac", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def atom(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3109,7 +3110,7 @@ def atom(
     _write(xy=xy, width=width, code="\ue5e4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def avocado(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3130,7 +3131,7 @@ def avocado(
     _write(xy=xy, width=width, code="\uee04", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def axe(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3151,7 +3152,7 @@ def axe(
     _write(xy=xy, width=width, code="\ue9fc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def baby(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3172,7 +3173,7 @@ def baby(
     _write(xy=xy, width=width, code="\ue774", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def baby_carriage(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3193,7 +3194,7 @@ def baby_carriage(
     _write(xy=xy, width=width, code="\ue818", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def backpack(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3214,7 +3215,7 @@ def backpack(
     _write(xy=xy, width=width, code="\ue922", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def backspace(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3235,7 +3236,7 @@ def backspace(
     _write(xy=xy, width=width, code="\ue0ae", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bag(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3256,7 +3257,7 @@ def bag(
     _write(xy=xy, width=width, code="\ue0b0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bag_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3277,7 +3278,7 @@ def bag_simple(
     _write(xy=xy, width=width, code="\ue5e6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def balloon(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3298,7 +3299,7 @@ def balloon(
     _write(xy=xy, width=width, code="\ue76c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bandaids(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3319,7 +3320,7 @@ def bandaids(
     _write(xy=xy, width=width, code="\ue0b2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bank(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3340,7 +3341,7 @@ def bank(
     _write(xy=xy, width=width, code="\ue0b4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def barbell(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3361,7 +3362,7 @@ def barbell(
     _write(xy=xy, width=width, code="\ue0b6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def barcode(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3382,7 +3383,7 @@ def barcode(
     _write(xy=xy, width=width, code="\ue0b8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def barn(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3403,7 +3404,7 @@ def barn(
     _write(xy=xy, width=width, code="\uec72", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def barricade(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3424,7 +3425,7 @@ def barricade(
     _write(xy=xy, width=width, code="\ue948", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def baseball(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3445,7 +3446,7 @@ def baseball(
     _write(xy=xy, width=width, code="\ue71a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def baseball_cap(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3466,7 +3467,7 @@ def baseball_cap(
     _write(xy=xy, width=width, code="\uea28", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def baseball_helmet(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3487,7 +3488,7 @@ def baseball_helmet(
     _write(xy=xy, width=width, code="\uee4a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def basket(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3508,7 +3509,7 @@ def basket(
     _write(xy=xy, width=width, code="\ue964", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def basketball(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3529,7 +3530,7 @@ def basketball(
     _write(xy=xy, width=width, code="\ue724", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bathtub(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3550,7 +3551,7 @@ def bathtub(
     _write(xy=xy, width=width, code="\ue81e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def battery_charging(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3571,7 +3572,7 @@ def battery_charging(
     _write(xy=xy, width=width, code="\ue0ba", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def battery_charging_vertical(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3592,7 +3593,7 @@ def battery_charging_vertical(
     _write(xy=xy, width=width, code="\ue0bc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def battery_empty(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3613,7 +3614,7 @@ def battery_empty(
     _write(xy=xy, width=width, code="\ue0be", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def battery_full(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3634,7 +3635,7 @@ def battery_full(
     _write(xy=xy, width=width, code="\ue0c0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def battery_high(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3655,7 +3656,7 @@ def battery_high(
     _write(xy=xy, width=width, code="\ue0c2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def battery_low(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3676,7 +3677,7 @@ def battery_low(
     _write(xy=xy, width=width, code="\ue0c4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def battery_medium(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3697,7 +3698,7 @@ def battery_medium(
     _write(xy=xy, width=width, code="\ue0c6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def battery_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3718,7 +3719,7 @@ def battery_plus(
     _write(xy=xy, width=width, code="\ue808", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def battery_plus_vertical(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3739,7 +3740,7 @@ def battery_plus_vertical(
     _write(xy=xy, width=width, code="\uec50", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def battery_vertical_empty(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3760,7 +3761,7 @@ def battery_vertical_empty(
     _write(xy=xy, width=width, code="\ue7c6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def battery_vertical_full(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3781,7 +3782,7 @@ def battery_vertical_full(
     _write(xy=xy, width=width, code="\ue7c4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def battery_vertical_high(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3802,7 +3803,7 @@ def battery_vertical_high(
     _write(xy=xy, width=width, code="\ue7c2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def battery_vertical_low(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3823,7 +3824,7 @@ def battery_vertical_low(
     _write(xy=xy, width=width, code="\ue7be", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def battery_vertical_medium(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3844,7 +3845,7 @@ def battery_vertical_medium(
     _write(xy=xy, width=width, code="\ue7c0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def battery_warning(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3865,7 +3866,7 @@ def battery_warning(
     _write(xy=xy, width=width, code="\ue0c8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def battery_warning_vertical(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3886,7 +3887,7 @@ def battery_warning_vertical(
     _write(xy=xy, width=width, code="\ue0ca", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def beach_ball(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3907,7 +3908,7 @@ def beach_ball(
     _write(xy=xy, width=width, code="\ued24", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def beanie(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3928,7 +3929,7 @@ def beanie(
     _write(xy=xy, width=width, code="\uea2a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bed(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3949,7 +3950,7 @@ def bed(
     _write(xy=xy, width=width, code="\ue0cc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def beer_bottle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3970,7 +3971,7 @@ def beer_bottle(
     _write(xy=xy, width=width, code="\ue7b0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def beer_stein(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3991,7 +3992,7 @@ def beer_stein(
     _write(xy=xy, width=width, code="\ueb62", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def behance_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4012,7 +4013,7 @@ def behance_logo(
     _write(xy=xy, width=width, code="\ue7f4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bell(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4033,7 +4034,7 @@ def bell(
     _write(xy=xy, width=width, code="\ue0ce", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bell_ringing(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4054,7 +4055,7 @@ def bell_ringing(
     _write(xy=xy, width=width, code="\ue5e8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bell_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4075,7 +4076,7 @@ def bell_simple(
     _write(xy=xy, width=width, code="\ue0d0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bell_simple_ringing(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4096,7 +4097,7 @@ def bell_simple_ringing(
     _write(xy=xy, width=width, code="\ue5ea", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bell_simple_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4117,7 +4118,7 @@ def bell_simple_slash(
     _write(xy=xy, width=width, code="\ue0d2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bell_simple_z(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4138,7 +4139,7 @@ def bell_simple_z(
     _write(xy=xy, width=width, code="\ue5ec", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bell_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4159,7 +4160,7 @@ def bell_slash(
     _write(xy=xy, width=width, code="\ue0d4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bell_z(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4180,7 +4181,7 @@ def bell_z(
     _write(xy=xy, width=width, code="\ue5ee", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def belt(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4201,7 +4202,7 @@ def belt(
     _write(xy=xy, width=width, code="\uea2c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bezier_curve(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4222,7 +4223,7 @@ def bezier_curve(
     _write(xy=xy, width=width, code="\ueb00", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bicycle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4243,7 +4244,7 @@ def bicycle(
     _write(xy=xy, width=width, code="\ue0d6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def binary(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4264,7 +4265,7 @@ def binary(
     _write(xy=xy, width=width, code="\uee60", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def binoculars(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4285,7 +4286,7 @@ def binoculars(
     _write(xy=xy, width=width, code="\uea64", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def biohazard(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4306,7 +4307,7 @@ def biohazard(
     _write(xy=xy, width=width, code="\ue9e0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bird(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4327,7 +4328,7 @@ def bird(
     _write(xy=xy, width=width, code="\ue72c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def blueprint(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4348,7 +4349,7 @@ def blueprint(
     _write(xy=xy, width=width, code="\ueda0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bluetooth(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4369,7 +4370,7 @@ def bluetooth(
     _write(xy=xy, width=width, code="\ue0da", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bluetooth_connected(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4390,7 +4391,7 @@ def bluetooth_connected(
     _write(xy=xy, width=width, code="\ue0dc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bluetooth_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4411,7 +4412,7 @@ def bluetooth_slash(
     _write(xy=xy, width=width, code="\ue0de", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bluetooth_x(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4432,7 +4433,7 @@ def bluetooth_x(
     _write(xy=xy, width=width, code="\ue0e0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def boat(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4453,7 +4454,7 @@ def boat(
     _write(xy=xy, width=width, code="\ue786", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bomb(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4474,7 +4475,7 @@ def bomb(
     _write(xy=xy, width=width, code="\uee0a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bone(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4495,7 +4496,7 @@ def bone(
     _write(xy=xy, width=width, code="\ue7f2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def book(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4516,7 +4517,7 @@ def book(
     _write(xy=xy, width=width, code="\ue0e2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def book_bookmark(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4537,7 +4538,7 @@ def book_bookmark(
     _write(xy=xy, width=width, code="\ue0e4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def book_open(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4558,7 +4559,7 @@ def book_open(
     _write(xy=xy, width=width, code="\ue0e6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def book_open_text(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4579,7 +4580,7 @@ def book_open_text(
     _write(xy=xy, width=width, code="\ue8f2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def book_open_user(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4600,7 +4601,7 @@ def book_open_user(
     _write(xy=xy, width=width, code="\uede0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bookmark(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4621,7 +4622,7 @@ def bookmark(
     _write(xy=xy, width=width, code="\ue0e8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bookmark_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4642,7 +4643,7 @@ def bookmark_simple(
     _write(xy=xy, width=width, code="\ue0ea", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bookmarks(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4663,7 +4664,7 @@ def bookmarks(
     _write(xy=xy, width=width, code="\ue0ec", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bookmarks_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4684,7 +4685,7 @@ def bookmarks_simple(
     _write(xy=xy, width=width, code="\ue5f0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def books(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4705,7 +4706,7 @@ def books(
     _write(xy=xy, width=width, code="\ue758", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def boot(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4726,7 +4727,7 @@ def boot(
     _write(xy=xy, width=width, code="\uecca", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def boules(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4747,7 +4748,7 @@ def boules(
     _write(xy=xy, width=width, code="\ue722", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bounding_box(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4768,7 +4769,7 @@ def bounding_box(
     _write(xy=xy, width=width, code="\ue6ce", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bowl_food(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4789,7 +4790,7 @@ def bowl_food(
     _write(xy=xy, width=width, code="\ueaa4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bowl_steam(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4810,7 +4811,7 @@ def bowl_steam(
     _write(xy=xy, width=width, code="\ue8e4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bowling_ball(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4831,7 +4832,7 @@ def bowling_ball(
     _write(xy=xy, width=width, code="\uea34", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def box_arrow_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4852,7 +4853,7 @@ def box_arrow_down(
     _write(xy=xy, width=width, code="\ue00e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def box_arrow_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4873,7 +4874,7 @@ def box_arrow_up(
     _write(xy=xy, width=width, code="\uee54", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def boxing_glove(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4894,7 +4895,7 @@ def boxing_glove(
     _write(xy=xy, width=width, code="\uea36", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def brackets_angle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4915,7 +4916,7 @@ def brackets_angle(
     _write(xy=xy, width=width, code="\ue862", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def brackets_curly(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4936,7 +4937,7 @@ def brackets_curly(
     _write(xy=xy, width=width, code="\ue860", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def brackets_round(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4957,7 +4958,7 @@ def brackets_round(
     _write(xy=xy, width=width, code="\ue864", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def brackets_square(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4978,7 +4979,7 @@ def brackets_square(
     _write(xy=xy, width=width, code="\ue85e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def brain(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4999,7 +5000,7 @@ def brain(
     _write(xy=xy, width=width, code="\ue74e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def brandy(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5020,7 +5021,7 @@ def brandy(
     _write(xy=xy, width=width, code="\ue6b4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bread(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5041,7 +5042,7 @@ def bread(
     _write(xy=xy, width=width, code="\ue81c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bridge(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5062,7 +5063,7 @@ def bridge(
     _write(xy=xy, width=width, code="\uea68", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def briefcase(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5083,7 +5084,7 @@ def briefcase(
     _write(xy=xy, width=width, code="\ue0ee", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def briefcase_metal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5104,7 +5105,7 @@ def briefcase_metal(
     _write(xy=xy, width=width, code="\ue5f2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def broadcast(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5125,7 +5126,7 @@ def broadcast(
     _write(xy=xy, width=width, code="\ue0f2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def broom(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5146,7 +5147,7 @@ def broom(
     _write(xy=xy, width=width, code="\uec54", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def browser(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5167,7 +5168,7 @@ def browser(
     _write(xy=xy, width=width, code="\ue0f4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def browsers(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5188,7 +5189,7 @@ def browsers(
     _write(xy=xy, width=width, code="\ue0f6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bug(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5209,7 +5210,7 @@ def bug(
     _write(xy=xy, width=width, code="\ue5f4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bug_beetle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5230,7 +5231,7 @@ def bug_beetle(
     _write(xy=xy, width=width, code="\ue5f6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bug_droid(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5251,7 +5252,7 @@ def bug_droid(
     _write(xy=xy, width=width, code="\ue5f8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def building(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5272,7 +5273,7 @@ def building(
     _write(xy=xy, width=width, code="\ue100", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def building_apartment(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5293,7 +5294,7 @@ def building_apartment(
     _write(xy=xy, width=width, code="\ue0fe", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def building_office(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5314,7 +5315,7 @@ def building_office(
     _write(xy=xy, width=width, code="\ue0ff", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def buildings(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5335,7 +5336,7 @@ def buildings(
     _write(xy=xy, width=width, code="\ue102", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bulldozer(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5356,7 +5357,7 @@ def bulldozer(
     _write(xy=xy, width=width, code="\uec6c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5377,7 +5378,7 @@ def bus(
     _write(xy=xy, width=width, code="\ue106", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def butterfly(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5398,7 +5399,7 @@ def butterfly(
     _write(xy=xy, width=width, code="\uea6e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cable_car(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5419,7 +5420,7 @@ def cable_car(
     _write(xy=xy, width=width, code="\ue49c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cactus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5440,7 +5441,7 @@ def cactus(
     _write(xy=xy, width=width, code="\ue918", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caduceus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5461,7 +5462,7 @@ def caduceus(
     _write(xy=xy, width=width, code="\uee34", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cake(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5482,7 +5483,7 @@ def cake(
     _write(xy=xy, width=width, code="\ue780", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def calculator(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5503,7 +5504,7 @@ def calculator(
     _write(xy=xy, width=width, code="\ue538", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def calendar(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5524,7 +5525,7 @@ def calendar(
     _write(xy=xy, width=width, code="\ue108", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def calendar_blank(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5545,7 +5546,7 @@ def calendar_blank(
     _write(xy=xy, width=width, code="\ue10a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def calendar_check(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5566,7 +5567,7 @@ def calendar_check(
     _write(xy=xy, width=width, code="\ue712", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def calendar_dot(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5587,7 +5588,7 @@ def calendar_dot(
     _write(xy=xy, width=width, code="\ue7b2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def calendar_dots(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5608,7 +5609,7 @@ def calendar_dots(
     _write(xy=xy, width=width, code="\ue7b4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def calendar_heart(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5629,7 +5630,7 @@ def calendar_heart(
     _write(xy=xy, width=width, code="\ue8b0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def calendar_minus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5650,7 +5651,7 @@ def calendar_minus(
     _write(xy=xy, width=width, code="\uea14", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def calendar_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5671,7 +5672,7 @@ def calendar_plus(
     _write(xy=xy, width=width, code="\ue714", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def calendar_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5692,7 +5693,7 @@ def calendar_slash(
     _write(xy=xy, width=width, code="\uea12", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def calendar_star(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5713,7 +5714,7 @@ def calendar_star(
     _write(xy=xy, width=width, code="\ue8b2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def calendar_x(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5734,7 +5735,7 @@ def calendar_x(
     _write(xy=xy, width=width, code="\ue10c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def call_bell(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5755,7 +5756,7 @@ def call_bell(
     _write(xy=xy, width=width, code="\ue7de", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def camera(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5776,7 +5777,7 @@ def camera(
     _write(xy=xy, width=width, code="\ue10e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def camera_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5797,7 +5798,7 @@ def camera_plus(
     _write(xy=xy, width=width, code="\uec58", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def camera_rotate(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5818,7 +5819,7 @@ def camera_rotate(
     _write(xy=xy, width=width, code="\ue7a4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def camera_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5839,7 +5840,7 @@ def camera_slash(
     _write(xy=xy, width=width, code="\ue110", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def campfire(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5860,7 +5861,7 @@ def campfire(
     _write(xy=xy, width=width, code="\ue9d8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def car(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5881,7 +5882,7 @@ def car(
     _write(xy=xy, width=width, code="\ue112", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def car_battery(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5902,7 +5903,7 @@ def car_battery(
     _write(xy=xy, width=width, code="\uee30", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def car_profile(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5923,7 +5924,7 @@ def car_profile(
     _write(xy=xy, width=width, code="\ue8cc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def car_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5944,7 +5945,7 @@ def car_simple(
     _write(xy=xy, width=width, code="\ue114", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cardholder(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5965,7 +5966,7 @@ def cardholder(
     _write(xy=xy, width=width, code="\ue5fa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cards(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5986,7 +5987,7 @@ def cards(
     _write(xy=xy, width=width, code="\ue0f8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cards_three(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6007,7 +6008,7 @@ def cards_three(
     _write(xy=xy, width=width, code="\uee50", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_circle_double_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6028,7 +6029,7 @@ def caret_circle_double_down(
     _write(xy=xy, width=width, code="\ue116", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_circle_double_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6049,7 +6050,7 @@ def caret_circle_double_left(
     _write(xy=xy, width=width, code="\ue118", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_circle_double_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6070,7 +6071,7 @@ def caret_circle_double_right(
     _write(xy=xy, width=width, code="\ue11a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_circle_double_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6091,7 +6092,7 @@ def caret_circle_double_up(
     _write(xy=xy, width=width, code="\ue11c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_circle_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6112,7 +6113,7 @@ def caret_circle_down(
     _write(xy=xy, width=width, code="\ue11e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_circle_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6133,7 +6134,7 @@ def caret_circle_left(
     _write(xy=xy, width=width, code="\ue120", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_circle_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6154,7 +6155,7 @@ def caret_circle_right(
     _write(xy=xy, width=width, code="\ue122", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_circle_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6175,7 +6176,7 @@ def caret_circle_up(
     _write(xy=xy, width=width, code="\ue124", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_circle_up_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6196,7 +6197,7 @@ def caret_circle_up_down(
     _write(xy=xy, width=width, code="\ue13e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_double_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6217,7 +6218,7 @@ def caret_double_down(
     _write(xy=xy, width=width, code="\ue126", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_double_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6238,7 +6239,7 @@ def caret_double_left(
     _write(xy=xy, width=width, code="\ue128", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_double_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6259,7 +6260,7 @@ def caret_double_right(
     _write(xy=xy, width=width, code="\ue12a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_double_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6280,7 +6281,7 @@ def caret_double_up(
     _write(xy=xy, width=width, code="\ue12c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6301,7 +6302,7 @@ def caret_down(
     _write(xy=xy, width=width, code="\ue136", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6322,7 +6323,7 @@ def caret_left(
     _write(xy=xy, width=width, code="\ue138", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_line_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6343,7 +6344,7 @@ def caret_line_down(
     _write(xy=xy, width=width, code="\ue134", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_line_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6364,7 +6365,7 @@ def caret_line_left(
     _write(xy=xy, width=width, code="\ue132", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_line_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6385,7 +6386,7 @@ def caret_line_right(
     _write(xy=xy, width=width, code="\ue130", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_line_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6406,7 +6407,7 @@ def caret_line_up(
     _write(xy=xy, width=width, code="\ue12e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6427,7 +6428,7 @@ def caret_right(
     _write(xy=xy, width=width, code="\ue13a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6448,7 +6449,7 @@ def caret_up(
     _write(xy=xy, width=width, code="\ue13c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def caret_up_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6469,7 +6470,7 @@ def caret_up_down(
     _write(xy=xy, width=width, code="\ue140", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def carrot(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6490,7 +6491,7 @@ def carrot(
     _write(xy=xy, width=width, code="\ued38", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cash_register(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6511,7 +6512,7 @@ def cash_register(
     _write(xy=xy, width=width, code="\ued80", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cassette_tape(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6532,7 +6533,7 @@ def cassette_tape(
     _write(xy=xy, width=width, code="\ued2e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def castle_turret(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6553,7 +6554,7 @@ def castle_turret(
     _write(xy=xy, width=width, code="\ue9d0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cat(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6574,7 +6575,7 @@ def cat(
     _write(xy=xy, width=width, code="\ue748", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cell_signal_full(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6595,7 +6596,7 @@ def cell_signal_full(
     _write(xy=xy, width=width, code="\ue142", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cell_signal_high(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6616,7 +6617,7 @@ def cell_signal_high(
     _write(xy=xy, width=width, code="\ue144", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cell_signal_low(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6637,7 +6638,7 @@ def cell_signal_low(
     _write(xy=xy, width=width, code="\ue146", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cell_signal_medium(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6658,7 +6659,7 @@ def cell_signal_medium(
     _write(xy=xy, width=width, code="\ue148", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cell_signal_none(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6679,7 +6680,7 @@ def cell_signal_none(
     _write(xy=xy, width=width, code="\ue14a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cell_signal_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6700,7 +6701,7 @@ def cell_signal_slash(
     _write(xy=xy, width=width, code="\ue14c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cell_signal_x(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6721,7 +6722,7 @@ def cell_signal_x(
     _write(xy=xy, width=width, code="\ue14e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cell_tower(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6742,7 +6743,7 @@ def cell_tower(
     _write(xy=xy, width=width, code="\uebaa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def certificate(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6763,7 +6764,7 @@ def certificate(
     _write(xy=xy, width=width, code="\ue766", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chair(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6784,7 +6785,7 @@ def chair(
     _write(xy=xy, width=width, code="\ue950", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chalkboard(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6805,7 +6806,7 @@ def chalkboard(
     _write(xy=xy, width=width, code="\ue5fc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chalkboard_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6826,7 +6827,7 @@ def chalkboard_simple(
     _write(xy=xy, width=width, code="\ue5fe", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chalkboard_teacher(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6847,7 +6848,7 @@ def chalkboard_teacher(
     _write(xy=xy, width=width, code="\ue600", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def champagne(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6868,7 +6869,7 @@ def champagne(
     _write(xy=xy, width=width, code="\ueaca", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def charging_station(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6889,7 +6890,7 @@ def charging_station(
     _write(xy=xy, width=width, code="\ue8d0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chart_bar(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6910,7 +6911,7 @@ def chart_bar(
     _write(xy=xy, width=width, code="\ue150", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chart_bar_horizontal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6931,7 +6932,7 @@ def chart_bar_horizontal(
     _write(xy=xy, width=width, code="\ue152", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chart_donut(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6952,7 +6953,7 @@ def chart_donut(
     _write(xy=xy, width=width, code="\ueaa6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chart_line(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6973,7 +6974,7 @@ def chart_line(
     _write(xy=xy, width=width, code="\ue154", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chart_line_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -6994,7 +6995,7 @@ def chart_line_down(
     _write(xy=xy, width=width, code="\ue8b6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chart_line_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7015,7 +7016,7 @@ def chart_line_up(
     _write(xy=xy, width=width, code="\ue156", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chart_pie(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7036,7 +7037,7 @@ def chart_pie(
     _write(xy=xy, width=width, code="\ue158", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chart_pie_slice(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7057,7 +7058,7 @@ def chart_pie_slice(
     _write(xy=xy, width=width, code="\ue15a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chart_polar(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7078,7 +7079,7 @@ def chart_polar(
     _write(xy=xy, width=width, code="\ueaa8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chart_scatter(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7099,7 +7100,7 @@ def chart_scatter(
     _write(xy=xy, width=width, code="\ueaac", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chat(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7120,7 +7121,7 @@ def chat(
     _write(xy=xy, width=width, code="\ue15c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chat_centered(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7141,7 +7142,7 @@ def chat_centered(
     _write(xy=xy, width=width, code="\ue160", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chat_centered_dots(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7162,7 +7163,7 @@ def chat_centered_dots(
     _write(xy=xy, width=width, code="\ue164", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chat_centered_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7183,7 +7184,7 @@ def chat_centered_slash(
     _write(xy=xy, width=width, code="\ue162", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chat_centered_text(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7204,7 +7205,7 @@ def chat_centered_text(
     _write(xy=xy, width=width, code="\ue166", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chat_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7225,7 +7226,7 @@ def chat_circle(
     _write(xy=xy, width=width, code="\ue168", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chat_circle_dots(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7246,7 +7247,7 @@ def chat_circle_dots(
     _write(xy=xy, width=width, code="\ue16c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chat_circle_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7267,7 +7268,7 @@ def chat_circle_slash(
     _write(xy=xy, width=width, code="\ue16a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chat_circle_text(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7288,7 +7289,7 @@ def chat_circle_text(
     _write(xy=xy, width=width, code="\ue16e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chat_dots(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7309,7 +7310,7 @@ def chat_dots(
     _write(xy=xy, width=width, code="\ue170", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chat_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7330,7 +7331,7 @@ def chat_slash(
     _write(xy=xy, width=width, code="\ue15e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chat_teardrop(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7351,7 +7352,7 @@ def chat_teardrop(
     _write(xy=xy, width=width, code="\ue172", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chat_teardrop_dots(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7372,7 +7373,7 @@ def chat_teardrop_dots(
     _write(xy=xy, width=width, code="\ue176", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chat_teardrop_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7393,7 +7394,7 @@ def chat_teardrop_slash(
     _write(xy=xy, width=width, code="\ue174", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chat_teardrop_text(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7414,7 +7415,7 @@ def chat_teardrop_text(
     _write(xy=xy, width=width, code="\ue178", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chat_text(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7435,7 +7436,7 @@ def chat_text(
     _write(xy=xy, width=width, code="\ue17a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chats(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7456,7 +7457,7 @@ def chats(
     _write(xy=xy, width=width, code="\ue17c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chats_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7477,7 +7478,7 @@ def chats_circle(
     _write(xy=xy, width=width, code="\ue17e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chats_teardrop(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7498,7 +7499,7 @@ def chats_teardrop(
     _write(xy=xy, width=width, code="\ue180", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def check(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7519,7 +7520,7 @@ def check(
     _write(xy=xy, width=width, code="\ue182", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def check_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7540,7 +7541,7 @@ def check_circle(
     _write(xy=xy, width=width, code="\ue184", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def check_fat(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7561,7 +7562,7 @@ def check_fat(
     _write(xy=xy, width=width, code="\ueba6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def check_square(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7582,7 +7583,7 @@ def check_square(
     _write(xy=xy, width=width, code="\ue186", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def check_square_offset(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7603,7 +7604,7 @@ def check_square_offset(
     _write(xy=xy, width=width, code="\ue188", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def checkerboard(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7624,7 +7625,7 @@ def checkerboard(
     _write(xy=xy, width=width, code="\ue8c4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def checks(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7645,7 +7646,7 @@ def checks(
     _write(xy=xy, width=width, code="\ue53a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cheers(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7666,7 +7667,7 @@ def cheers(
     _write(xy=xy, width=width, code="\uea4a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cheese(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7687,7 +7688,7 @@ def cheese(
     _write(xy=xy, width=width, code="\ue9fe", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def chef_hat(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7708,7 +7709,7 @@ def chef_hat(
     _write(xy=xy, width=width, code="\ued8e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cherries(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7729,7 +7730,7 @@ def cherries(
     _write(xy=xy, width=width, code="\ue830", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def church(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7750,7 +7751,7 @@ def church(
     _write(xy=xy, width=width, code="\uecea", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cigarette(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7771,7 +7772,7 @@ def cigarette(
     _write(xy=xy, width=width, code="\ued90", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cigarette_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7792,7 +7793,7 @@ def cigarette_slash(
     _write(xy=xy, width=width, code="\ued92", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7813,7 +7814,7 @@ def circle(
     _write(xy=xy, width=width, code="\ue18a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def circle_dashed(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7834,7 +7835,7 @@ def circle_dashed(
     _write(xy=xy, width=width, code="\ue602", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def circle_half(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7855,7 +7856,7 @@ def circle_half(
     _write(xy=xy, width=width, code="\ue18c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def circle_half_tilt(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7876,7 +7877,7 @@ def circle_half_tilt(
     _write(xy=xy, width=width, code="\ue18e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def circle_notch(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7897,7 +7898,7 @@ def circle_notch(
     _write(xy=xy, width=width, code="\ueb44", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def circle_wavy(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7918,7 +7919,7 @@ def circle_wavy(
     _write(xy=xy, width=width, code="\ue604", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def circle_wavy_check(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7939,7 +7940,7 @@ def circle_wavy_check(
     _write(xy=xy, width=width, code="\ue606", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def circle_wavy_question(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7960,7 +7961,7 @@ def circle_wavy_question(
     _write(xy=xy, width=width, code="\ue608", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def circle_wavy_warning(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -7981,7 +7982,7 @@ def circle_wavy_warning(
     _write(xy=xy, width=width, code="\ue60c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def circles_four(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8002,7 +8003,7 @@ def circles_four(
     _write(xy=xy, width=width, code="\ue190", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def circles_three(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8023,7 +8024,7 @@ def circles_three(
     _write(xy=xy, width=width, code="\ue192", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def circles_three_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8044,7 +8045,7 @@ def circles_three_plus(
     _write(xy=xy, width=width, code="\ue194", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def circuitry(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8065,7 +8066,7 @@ def circuitry(
     _write(xy=xy, width=width, code="\ue9c2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def city(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8086,7 +8087,7 @@ def city(
     _write(xy=xy, width=width, code="\uea6a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def clipboard(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8107,7 +8108,7 @@ def clipboard(
     _write(xy=xy, width=width, code="\ue196", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def clipboard_text(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8128,7 +8129,7 @@ def clipboard_text(
     _write(xy=xy, width=width, code="\ue198", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def clock(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8149,7 +8150,7 @@ def clock(
     _write(xy=xy, width=width, code="\ue19a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def clock_afternoon(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8170,7 +8171,7 @@ def clock_afternoon(
     _write(xy=xy, width=width, code="\ue19c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def clock_clockwise(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8191,7 +8192,7 @@ def clock_clockwise(
     _write(xy=xy, width=width, code="\ue19e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def clock_countdown(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8212,7 +8213,7 @@ def clock_countdown(
     _write(xy=xy, width=width, code="\ued2c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def clock_counter_clockwise(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8233,7 +8234,7 @@ def clock_counter_clockwise(
     _write(xy=xy, width=width, code="\ue1a0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def clock_user(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8254,7 +8255,7 @@ def clock_user(
     _write(xy=xy, width=width, code="\uedec", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def closed_captioning(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8275,7 +8276,7 @@ def closed_captioning(
     _write(xy=xy, width=width, code="\ue1a4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8296,7 +8297,7 @@ def cloud(
     _write(xy=xy, width=width, code="\ue1aa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_arrow_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8317,7 +8318,7 @@ def cloud_arrow_down(
     _write(xy=xy, width=width, code="\ue1ac", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_arrow_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8338,7 +8339,7 @@ def cloud_arrow_up(
     _write(xy=xy, width=width, code="\ue1ae", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_check(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8359,7 +8360,7 @@ def cloud_check(
     _write(xy=xy, width=width, code="\ue1b0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_fog(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8380,7 +8381,7 @@ def cloud_fog(
     _write(xy=xy, width=width, code="\ue53c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_lightning(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8401,7 +8402,7 @@ def cloud_lightning(
     _write(xy=xy, width=width, code="\ue1b2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_moon(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8422,7 +8423,7 @@ def cloud_moon(
     _write(xy=xy, width=width, code="\ue53e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_rain(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8443,7 +8444,7 @@ def cloud_rain(
     _write(xy=xy, width=width, code="\ue1b4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8464,7 +8465,7 @@ def cloud_slash(
     _write(xy=xy, width=width, code="\ue1b6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_snow(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8485,7 +8486,7 @@ def cloud_snow(
     _write(xy=xy, width=width, code="\ue1b8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_sun(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8506,7 +8507,7 @@ def cloud_sun(
     _write(xy=xy, width=width, code="\ue540", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_warning(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8527,7 +8528,7 @@ def cloud_warning(
     _write(xy=xy, width=width, code="\uea98", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_x(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8548,7 +8549,7 @@ def cloud_x(
     _write(xy=xy, width=width, code="\uea96", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def clover(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8569,7 +8570,7 @@ def clover(
     _write(xy=xy, width=width, code="\uedc8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def club(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8590,7 +8591,7 @@ def club(
     _write(xy=xy, width=width, code="\ue1ba", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def coat_hanger(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8611,7 +8612,7 @@ def coat_hanger(
     _write(xy=xy, width=width, code="\ue7fe", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def coda_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8632,7 +8633,7 @@ def coda_logo(
     _write(xy=xy, width=width, code="\ue7ce", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def code(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8653,7 +8654,7 @@ def code(
     _write(xy=xy, width=width, code="\ue1bc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def code_block(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8674,7 +8675,7 @@ def code_block(
     _write(xy=xy, width=width, code="\ueafe", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def code_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8695,7 +8696,7 @@ def code_simple(
     _write(xy=xy, width=width, code="\ue1be", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def codepen_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8716,7 +8717,7 @@ def codepen_logo(
     _write(xy=xy, width=width, code="\ue978", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def codesandbox_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8737,7 +8738,7 @@ def codesandbox_logo(
     _write(xy=xy, width=width, code="\uea06", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def coffee(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8758,7 +8759,7 @@ def coffee(
     _write(xy=xy, width=width, code="\ue1c2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def coffee_bean(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8779,7 +8780,7 @@ def coffee_bean(
     _write(xy=xy, width=width, code="\ue1c0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def coin(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8800,7 +8801,7 @@ def coin(
     _write(xy=xy, width=width, code="\ue60e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def coin_vertical(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8821,7 +8822,7 @@ def coin_vertical(
     _write(xy=xy, width=width, code="\ueb48", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def coins(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8842,7 +8843,7 @@ def coins(
     _write(xy=xy, width=width, code="\ue78e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def columns(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8863,7 +8864,7 @@ def columns(
     _write(xy=xy, width=width, code="\ue546", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def columns_plus_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8884,7 +8885,7 @@ def columns_plus_left(
     _write(xy=xy, width=width, code="\ue544", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def columns_plus_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8905,7 +8906,7 @@ def columns_plus_right(
     _write(xy=xy, width=width, code="\ue542", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def command(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8926,7 +8927,7 @@ def command(
     _write(xy=xy, width=width, code="\ue1c4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def compass(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8947,7 +8948,7 @@ def compass(
     _write(xy=xy, width=width, code="\ue1c8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def compass_rose(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8968,7 +8969,7 @@ def compass_rose(
     _write(xy=xy, width=width, code="\ue1c6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def compass_tool(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -8989,7 +8990,7 @@ def compass_tool(
     _write(xy=xy, width=width, code="\uea0e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def computer_tower(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9010,7 +9011,7 @@ def computer_tower(
     _write(xy=xy, width=width, code="\ue548", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def confetti(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9031,7 +9032,7 @@ def confetti(
     _write(xy=xy, width=width, code="\ue81a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def contactless_payment(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9052,7 +9053,7 @@ def contactless_payment(
     _write(xy=xy, width=width, code="\ued42", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def control(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9073,7 +9074,7 @@ def control(
     _write(xy=xy, width=width, code="\ueca6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cookie(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9094,7 +9095,7 @@ def cookie(
     _write(xy=xy, width=width, code="\ue6ca", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cooking_pot(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9115,7 +9116,7 @@ def cooking_pot(
     _write(xy=xy, width=width, code="\ue764", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def copy(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9136,7 +9137,7 @@ def copy(
     _write(xy=xy, width=width, code="\ue1ca", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def copy_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9157,7 +9158,7 @@ def copy_simple(
     _write(xy=xy, width=width, code="\ue1cc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def copyleft(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9178,7 +9179,7 @@ def copyleft(
     _write(xy=xy, width=width, code="\ue86a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def copyright(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9199,7 +9200,7 @@ def copyright(
     _write(xy=xy, width=width, code="\ue54a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def corners_in(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9220,7 +9221,7 @@ def corners_in(
     _write(xy=xy, width=width, code="\ue1ce", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def corners_out(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9241,7 +9242,7 @@ def corners_out(
     _write(xy=xy, width=width, code="\ue1d0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def couch(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9262,7 +9263,7 @@ def couch(
     _write(xy=xy, width=width, code="\ue7f6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def court_basketball(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9283,7 +9284,7 @@ def court_basketball(
     _write(xy=xy, width=width, code="\uee36", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cow(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9304,7 +9305,7 @@ def cow(
     _write(xy=xy, width=width, code="\ueabe", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cowboy_hat(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9325,7 +9326,7 @@ def cowboy_hat(
     _write(xy=xy, width=width, code="\ued12", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cpu(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9346,7 +9347,7 @@ def cpu(
     _write(xy=xy, width=width, code="\ue610", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def crane(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9367,7 +9368,7 @@ def crane(
     _write(xy=xy, width=width, code="\ued48", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def crane_tower(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9388,7 +9389,7 @@ def crane_tower(
     _write(xy=xy, width=width, code="\ued49", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def credit_card(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9409,7 +9410,7 @@ def credit_card(
     _write(xy=xy, width=width, code="\ue1d2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cricket(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9430,7 +9431,7 @@ def cricket(
     _write(xy=xy, width=width, code="\uee12", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def crop(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9451,7 +9452,7 @@ def crop(
     _write(xy=xy, width=width, code="\ue1d4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cross(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9472,7 +9473,7 @@ def cross(
     _write(xy=xy, width=width, code="\ue8a0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def crosshair(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9493,7 +9494,7 @@ def crosshair(
     _write(xy=xy, width=width, code="\ue1d6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def crosshair_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9514,7 +9515,7 @@ def crosshair_simple(
     _write(xy=xy, width=width, code="\ue1d8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def crown(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9535,7 +9536,7 @@ def crown(
     _write(xy=xy, width=width, code="\ue614", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def crown_cross(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9556,7 +9557,7 @@ def crown_cross(
     _write(xy=xy, width=width, code="\uee5e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def crown_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9577,7 +9578,7 @@ def crown_simple(
     _write(xy=xy, width=width, code="\ue616", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cube(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9598,7 +9599,7 @@ def cube(
     _write(xy=xy, width=width, code="\ue1da", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cube_focus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9619,7 +9620,7 @@ def cube_focus(
     _write(xy=xy, width=width, code="\ued0a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cube_transparent(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9640,7 +9641,7 @@ def cube_transparent(
     _write(xy=xy, width=width, code="\uec7c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def currency_btc(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9661,7 +9662,7 @@ def currency_btc(
     _write(xy=xy, width=width, code="\ue618", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def currency_circle_dollar(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9682,7 +9683,7 @@ def currency_circle_dollar(
     _write(xy=xy, width=width, code="\ue54c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def currency_cny(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9703,7 +9704,7 @@ def currency_cny(
     _write(xy=xy, width=width, code="\ue54e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def currency_dollar(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9724,7 +9725,7 @@ def currency_dollar(
     _write(xy=xy, width=width, code="\ue550", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def currency_dollar_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9745,7 +9746,7 @@ def currency_dollar_simple(
     _write(xy=xy, width=width, code="\ue552", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def currency_eth(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9766,7 +9767,7 @@ def currency_eth(
     _write(xy=xy, width=width, code="\ueada", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def currency_eur(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9787,7 +9788,7 @@ def currency_eur(
     _write(xy=xy, width=width, code="\ue554", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def currency_gbp(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9808,7 +9809,7 @@ def currency_gbp(
     _write(xy=xy, width=width, code="\ue556", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def currency_inr(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9829,7 +9830,7 @@ def currency_inr(
     _write(xy=xy, width=width, code="\ue558", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def currency_jpy(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9850,7 +9851,7 @@ def currency_jpy(
     _write(xy=xy, width=width, code="\ue55a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def currency_krw(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9871,7 +9872,7 @@ def currency_krw(
     _write(xy=xy, width=width, code="\ue55c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def currency_kzt(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9892,7 +9893,7 @@ def currency_kzt(
     _write(xy=xy, width=width, code="\uec4c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def currency_ngn(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9913,7 +9914,7 @@ def currency_ngn(
     _write(xy=xy, width=width, code="\ueb52", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def currency_rub(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9934,7 +9935,7 @@ def currency_rub(
     _write(xy=xy, width=width, code="\ue55e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cursor(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9955,7 +9956,7 @@ def cursor(
     _write(xy=xy, width=width, code="\ue1dc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cursor_click(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9976,7 +9977,7 @@ def cursor_click(
     _write(xy=xy, width=width, code="\ue7c8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cursor_text(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -9997,7 +9998,7 @@ def cursor_text(
     _write(xy=xy, width=width, code="\ue7d8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cylinder(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10018,7 +10019,7 @@ def cylinder(
     _write(xy=xy, width=width, code="\ue8fc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def database(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10039,7 +10040,7 @@ def database(
     _write(xy=xy, width=width, code="\ue1de", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def desk(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10060,7 +10061,7 @@ def desk(
     _write(xy=xy, width=width, code="\ued16", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def desktop(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10081,7 +10082,7 @@ def desktop(
     _write(xy=xy, width=width, code="\ue560", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def desktop_tower(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10102,7 +10103,7 @@ def desktop_tower(
     _write(xy=xy, width=width, code="\ue562", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def detective(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10123,7 +10124,7 @@ def detective(
     _write(xy=xy, width=width, code="\ue83e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dev_to_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10144,7 +10145,7 @@ def dev_to_logo(
     _write(xy=xy, width=width, code="\ued0e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def device_mobile(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10165,7 +10166,7 @@ def device_mobile(
     _write(xy=xy, width=width, code="\ue1e0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def device_mobile_camera(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10186,7 +10187,7 @@ def device_mobile_camera(
     _write(xy=xy, width=width, code="\ue1e2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def device_mobile_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10207,7 +10208,7 @@ def device_mobile_slash(
     _write(xy=xy, width=width, code="\uee46", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def device_mobile_speaker(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10228,7 +10229,7 @@ def device_mobile_speaker(
     _write(xy=xy, width=width, code="\ue1e4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def device_rotate(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10249,7 +10250,7 @@ def device_rotate(
     _write(xy=xy, width=width, code="\uedf2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def device_tablet(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10270,7 +10271,7 @@ def device_tablet(
     _write(xy=xy, width=width, code="\ue1e6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def device_tablet_camera(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10291,7 +10292,7 @@ def device_tablet_camera(
     _write(xy=xy, width=width, code="\ue1e8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def device_tablet_speaker(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10312,7 +10313,7 @@ def device_tablet_speaker(
     _write(xy=xy, width=width, code="\ue1ea", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def devices(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10333,7 +10334,7 @@ def devices(
     _write(xy=xy, width=width, code="\ueba4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def diamond(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10354,7 +10355,7 @@ def diamond(
     _write(xy=xy, width=width, code="\ue1ec", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def diamonds_four(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10375,7 +10376,7 @@ def diamonds_four(
     _write(xy=xy, width=width, code="\ue8f4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dice_five(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10396,7 +10397,7 @@ def dice_five(
     _write(xy=xy, width=width, code="\ue1ee", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dice_four(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10417,7 +10418,7 @@ def dice_four(
     _write(xy=xy, width=width, code="\ue1f0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dice_one(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10438,7 +10439,7 @@ def dice_one(
     _write(xy=xy, width=width, code="\ue1f2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dice_six(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10459,7 +10460,7 @@ def dice_six(
     _write(xy=xy, width=width, code="\ue1f4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dice_three(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10480,7 +10481,7 @@ def dice_three(
     _write(xy=xy, width=width, code="\ue1f6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dice_two(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10501,7 +10502,7 @@ def dice_two(
     _write(xy=xy, width=width, code="\ue1f8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def disc(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10522,7 +10523,7 @@ def disc(
     _write(xy=xy, width=width, code="\ue564", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def disco_ball(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10543,7 +10544,7 @@ def disco_ball(
     _write(xy=xy, width=width, code="\ued98", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def discord_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10564,7 +10565,7 @@ def discord_logo(
     _write(xy=xy, width=width, code="\ue61a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def divide(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10585,7 +10586,7 @@ def divide(
     _write(xy=xy, width=width, code="\ue1fa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dna(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10606,7 +10607,7 @@ def dna(
     _write(xy=xy, width=width, code="\ue924", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dog(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10627,7 +10628,7 @@ def dog(
     _write(xy=xy, width=width, code="\ue74a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def door(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10648,7 +10649,7 @@ def door(
     _write(xy=xy, width=width, code="\ue61c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def door_open(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10669,7 +10670,7 @@ def door_open(
     _write(xy=xy, width=width, code="\ue7e6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dot(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10690,7 +10691,7 @@ def dot(
     _write(xy=xy, width=width, code="\uecde", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dot_outline(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10711,7 +10712,7 @@ def dot_outline(
     _write(xy=xy, width=width, code="\uece0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dots_nine(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10732,7 +10733,7 @@ def dots_nine(
     _write(xy=xy, width=width, code="\ue1fc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dots_six(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10753,7 +10754,7 @@ def dots_six(
     _write(xy=xy, width=width, code="\ue794", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dots_six_vertical(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10774,7 +10775,7 @@ def dots_six_vertical(
     _write(xy=xy, width=width, code="\ueae2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dots_three(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10795,7 +10796,7 @@ def dots_three(
     _write(xy=xy, width=width, code="\ue1fe", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dots_three_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10816,7 +10817,7 @@ def dots_three_circle(
     _write(xy=xy, width=width, code="\ue200", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dots_three_circle_vertical(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10837,7 +10838,7 @@ def dots_three_circle_vertical(
     _write(xy=xy, width=width, code="\ue202", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dots_three_outline(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10858,7 +10859,7 @@ def dots_three_outline(
     _write(xy=xy, width=width, code="\ue204", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dots_three_outline_vertical(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10879,7 +10880,7 @@ def dots_three_outline_vertical(
     _write(xy=xy, width=width, code="\ue206", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dots_three_vertical(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10900,7 +10901,7 @@ def dots_three_vertical(
     _write(xy=xy, width=width, code="\ue208", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def download(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10921,7 +10922,7 @@ def download(
     _write(xy=xy, width=width, code="\ue20a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def download_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10942,7 +10943,7 @@ def download_simple(
     _write(xy=xy, width=width, code="\ue20c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dress(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10963,7 +10964,7 @@ def dress(
     _write(xy=xy, width=width, code="\uea7e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dresser(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -10984,7 +10985,7 @@ def dresser(
     _write(xy=xy, width=width, code="\ue94e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dribbble_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11005,7 +11006,7 @@ def dribbble_logo(
     _write(xy=xy, width=width, code="\ue20e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def drone(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11026,7 +11027,7 @@ def drone(
     _write(xy=xy, width=width, code="\ued74", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def drop(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11047,7 +11048,7 @@ def drop(
     _write(xy=xy, width=width, code="\ue210", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def drop_half(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11068,7 +11069,7 @@ def drop_half(
     _write(xy=xy, width=width, code="\ue566", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def drop_half_bottom(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11089,7 +11090,7 @@ def drop_half_bottom(
     _write(xy=xy, width=width, code="\ueb40", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def drop_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11110,7 +11111,7 @@ def drop_simple(
     _write(xy=xy, width=width, code="\uee32", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def drop_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11131,7 +11132,7 @@ def drop_slash(
     _write(xy=xy, width=width, code="\ue954", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dropbox_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11152,7 +11153,7 @@ def dropbox_logo(
     _write(xy=xy, width=width, code="\ue7d0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def ear(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11173,7 +11174,7 @@ def ear(
     _write(xy=xy, width=width, code="\ue70c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def ear_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11194,7 +11195,7 @@ def ear_slash(
     _write(xy=xy, width=width, code="\ue70e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def egg(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11215,7 +11216,7 @@ def egg(
     _write(xy=xy, width=width, code="\ue812", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def egg_crack(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11236,7 +11237,7 @@ def egg_crack(
     _write(xy=xy, width=width, code="\ueb64", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def eject(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11257,7 +11258,7 @@ def eject(
     _write(xy=xy, width=width, code="\ue212", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def eject_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11278,7 +11279,7 @@ def eject_simple(
     _write(xy=xy, width=width, code="\ue6ae", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def elevator(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11299,7 +11300,7 @@ def elevator(
     _write(xy=xy, width=width, code="\uecc0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def empty(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11320,7 +11321,7 @@ def empty(
     _write(xy=xy, width=width, code="\uedbc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def engine(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11341,7 +11342,7 @@ def engine(
     _write(xy=xy, width=width, code="\uea80", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def envelope(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11362,7 +11363,7 @@ def envelope(
     _write(xy=xy, width=width, code="\ue214", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def envelope_open(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11383,7 +11384,7 @@ def envelope_open(
     _write(xy=xy, width=width, code="\ue216", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def envelope_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11404,7 +11405,7 @@ def envelope_simple(
     _write(xy=xy, width=width, code="\ue218", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def envelope_simple_open(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11425,7 +11426,7 @@ def envelope_simple_open(
     _write(xy=xy, width=width, code="\ue21a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def equalizer(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11446,7 +11447,7 @@ def equalizer(
     _write(xy=xy, width=width, code="\uebbc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def equals(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11467,7 +11468,7 @@ def equals(
     _write(xy=xy, width=width, code="\ue21c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def eraser(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11488,7 +11489,7 @@ def eraser(
     _write(xy=xy, width=width, code="\ue21e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def escalator_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11509,7 +11510,7 @@ def escalator_down(
     _write(xy=xy, width=width, code="\uecba", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def escalator_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11530,7 +11531,7 @@ def escalator_up(
     _write(xy=xy, width=width, code="\uecbc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def exam(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11551,7 +11552,7 @@ def exam(
     _write(xy=xy, width=width, code="\ue742", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def exclamation_mark(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11572,7 +11573,7 @@ def exclamation_mark(
     _write(xy=xy, width=width, code="\uee44", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def exclude(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11593,7 +11594,7 @@ def exclude(
     _write(xy=xy, width=width, code="\ue882", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def exclude_square(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11614,7 +11615,7 @@ def exclude_square(
     _write(xy=xy, width=width, code="\ue880", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def export(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11635,7 +11636,7 @@ def export(
     _write(xy=xy, width=width, code="\ueaf0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def eye(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11656,7 +11657,7 @@ def eye(
     _write(xy=xy, width=width, code="\ue220", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def eye_closed(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11677,7 +11678,7 @@ def eye_closed(
     _write(xy=xy, width=width, code="\ue222", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def eye_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11698,7 +11699,7 @@ def eye_slash(
     _write(xy=xy, width=width, code="\ue224", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def eyedropper(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11719,7 +11720,7 @@ def eyedropper(
     _write(xy=xy, width=width, code="\ue568", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def eyedropper_sample(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11740,7 +11741,7 @@ def eyedropper_sample(
     _write(xy=xy, width=width, code="\ueac4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def eyeglasses(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11761,7 +11762,7 @@ def eyeglasses(
     _write(xy=xy, width=width, code="\ue7ba", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def eyes(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11782,7 +11783,7 @@ def eyes(
     _write(xy=xy, width=width, code="\uee5c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def face_mask(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11803,7 +11804,7 @@ def face_mask(
     _write(xy=xy, width=width, code="\ue56a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def facebook_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11824,7 +11825,7 @@ def facebook_logo(
     _write(xy=xy, width=width, code="\ue226", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def factory(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11845,7 +11846,7 @@ def factory(
     _write(xy=xy, width=width, code="\ue760", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def faders(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11866,7 +11867,7 @@ def faders(
     _write(xy=xy, width=width, code="\ue228", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def faders_horizontal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11887,7 +11888,7 @@ def faders_horizontal(
     _write(xy=xy, width=width, code="\ue22a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def fallout_shelter(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11908,7 +11909,7 @@ def fallout_shelter(
     _write(xy=xy, width=width, code="\ue9de", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def fan(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11929,7 +11930,7 @@ def fan(
     _write(xy=xy, width=width, code="\ue9f2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def farm(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11950,7 +11951,7 @@ def farm(
     _write(xy=xy, width=width, code="\uec70", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def fast_forward(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11971,7 +11972,7 @@ def fast_forward(
     _write(xy=xy, width=width, code="\ue6a6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def fast_forward_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -11992,7 +11993,7 @@ def fast_forward_circle(
     _write(xy=xy, width=width, code="\ue22c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def feather(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12013,7 +12014,7 @@ def feather(
     _write(xy=xy, width=width, code="\ue9c0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def fediverse_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12034,7 +12035,7 @@ def fediverse_logo(
     _write(xy=xy, width=width, code="\ued66", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def figma_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12055,7 +12056,7 @@ def figma_logo(
     _write(xy=xy, width=width, code="\ue22e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12076,7 +12077,7 @@ def file(
     _write(xy=xy, width=width, code="\ue230", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_archive(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12097,7 +12098,7 @@ def file_archive(
     _write(xy=xy, width=width, code="\ueb2a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_arrow_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12118,7 +12119,7 @@ def file_arrow_down(
     _write(xy=xy, width=width, code="\ue232", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_arrow_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12139,7 +12140,7 @@ def file_arrow_up(
     _write(xy=xy, width=width, code="\ue61e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_audio(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12160,7 +12161,7 @@ def file_audio(
     _write(xy=xy, width=width, code="\uea20", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_c(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12181,7 +12182,7 @@ def file_c(
     _write(xy=xy, width=width, code="\ueb32", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_c_sharp(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12202,7 +12203,7 @@ def file_c_sharp(
     _write(xy=xy, width=width, code="\ueb30", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_cloud(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12223,7 +12224,7 @@ def file_cloud(
     _write(xy=xy, width=width, code="\ue95e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_code(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12244,7 +12245,7 @@ def file_code(
     _write(xy=xy, width=width, code="\ue914", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_cpp(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12265,7 +12266,7 @@ def file_cpp(
     _write(xy=xy, width=width, code="\ueb2e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_css(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12286,7 +12287,7 @@ def file_css(
     _write(xy=xy, width=width, code="\ueb34", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_csv(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12307,7 +12308,7 @@ def file_csv(
     _write(xy=xy, width=width, code="\ueb1c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_dashed(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12328,7 +12329,7 @@ def file_dashed(
     _write(xy=xy, width=width, code="\ue704", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_doc(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12349,7 +12350,7 @@ def file_doc(
     _write(xy=xy, width=width, code="\ueb1e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_dotted(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12370,7 +12371,7 @@ def file_dotted(
     _write(xy=xy, width=width, code="\ue704", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_html(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12391,7 +12392,7 @@ def file_html(
     _write(xy=xy, width=width, code="\ueb38", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_image(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12412,7 +12413,7 @@ def file_image(
     _write(xy=xy, width=width, code="\uea24", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_ini(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12433,7 +12434,7 @@ def file_ini(
     _write(xy=xy, width=width, code="\ueb33", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_jpg(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12454,7 +12455,7 @@ def file_jpg(
     _write(xy=xy, width=width, code="\ueb1a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_js(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12475,7 +12476,7 @@ def file_js(
     _write(xy=xy, width=width, code="\ueb24", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_jsx(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12496,7 +12497,7 @@ def file_jsx(
     _write(xy=xy, width=width, code="\ueb3a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_lock(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12517,7 +12518,7 @@ def file_lock(
     _write(xy=xy, width=width, code="\ue95c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_magnifying_glass(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12538,7 +12539,7 @@ def file_magnifying_glass(
     _write(xy=xy, width=width, code="\ue238", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_md(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12559,7 +12560,7 @@ def file_md(
     _write(xy=xy, width=width, code="\ued50", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_minus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12580,7 +12581,7 @@ def file_minus(
     _write(xy=xy, width=width, code="\ue234", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_pdf(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12601,7 +12602,7 @@ def file_pdf(
     _write(xy=xy, width=width, code="\ue702", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12622,7 +12623,7 @@ def file_plus(
     _write(xy=xy, width=width, code="\ue236", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_png(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12643,7 +12644,7 @@ def file_png(
     _write(xy=xy, width=width, code="\ueb18", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_ppt(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12664,7 +12665,7 @@ def file_ppt(
     _write(xy=xy, width=width, code="\ueb20", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_py(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12685,7 +12686,7 @@ def file_py(
     _write(xy=xy, width=width, code="\ueb2c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_rs(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12706,7 +12707,7 @@ def file_rs(
     _write(xy=xy, width=width, code="\ueb28", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_search(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12727,7 +12728,7 @@ def file_search(
     _write(xy=xy, width=width, code="\ue238", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_sql(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12748,7 +12749,7 @@ def file_sql(
     _write(xy=xy, width=width, code="\ued4e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_svg(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12769,7 +12770,7 @@ def file_svg(
     _write(xy=xy, width=width, code="\ued08", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_text(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12790,7 +12791,7 @@ def file_text(
     _write(xy=xy, width=width, code="\ue23a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_ts(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12811,7 +12812,7 @@ def file_ts(
     _write(xy=xy, width=width, code="\ueb26", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_tsx(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12832,7 +12833,7 @@ def file_tsx(
     _write(xy=xy, width=width, code="\ueb3c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_txt(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12853,7 +12854,7 @@ def file_txt(
     _write(xy=xy, width=width, code="\ueb35", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_video(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12874,7 +12875,7 @@ def file_video(
     _write(xy=xy, width=width, code="\uea22", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_vue(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12895,7 +12896,7 @@ def file_vue(
     _write(xy=xy, width=width, code="\ueb3e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_x(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12916,7 +12917,7 @@ def file_x(
     _write(xy=xy, width=width, code="\ue23c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_xls(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12937,7 +12938,7 @@ def file_xls(
     _write(xy=xy, width=width, code="\ueb22", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def file_zip(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12958,7 +12959,7 @@ def file_zip(
     _write(xy=xy, width=width, code="\ue958", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def files(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -12979,7 +12980,7 @@ def files(
     _write(xy=xy, width=width, code="\ue710", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def film_reel(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13000,7 +13001,7 @@ def film_reel(
     _write(xy=xy, width=width, code="\ue8c0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def film_script(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13021,7 +13022,7 @@ def film_script(
     _write(xy=xy, width=width, code="\ueb50", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def film_slate(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13042,7 +13043,7 @@ def film_slate(
     _write(xy=xy, width=width, code="\ue8c2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def film_strip(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13063,7 +13064,7 @@ def film_strip(
     _write(xy=xy, width=width, code="\ue792", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def fingerprint(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13084,7 +13085,7 @@ def fingerprint(
     _write(xy=xy, width=width, code="\ue23e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def fingerprint_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13105,7 +13106,7 @@ def fingerprint_simple(
     _write(xy=xy, width=width, code="\ue240", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def finn_the_human(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13126,7 +13127,7 @@ def finn_the_human(
     _write(xy=xy, width=width, code="\ue56c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def fire(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13147,7 +13148,7 @@ def fire(
     _write(xy=xy, width=width, code="\ue242", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def fire_extinguisher(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13168,7 +13169,7 @@ def fire_extinguisher(
     _write(xy=xy, width=width, code="\ue9e8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def fire_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13189,7 +13190,7 @@ def fire_simple(
     _write(xy=xy, width=width, code="\ue620", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def fire_truck(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13210,7 +13211,7 @@ def fire_truck(
     _write(xy=xy, width=width, code="\ue574", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def first_aid(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13231,7 +13232,7 @@ def first_aid(
     _write(xy=xy, width=width, code="\ue56e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def first_aid_kit(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13252,7 +13253,7 @@ def first_aid_kit(
     _write(xy=xy, width=width, code="\ue570", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def fish(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13273,7 +13274,7 @@ def fish(
     _write(xy=xy, width=width, code="\ue728", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def fish_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13294,7 +13295,7 @@ def fish_simple(
     _write(xy=xy, width=width, code="\ue72a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def flag(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13315,7 +13316,7 @@ def flag(
     _write(xy=xy, width=width, code="\ue244", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def flag_banner(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13336,7 +13337,7 @@ def flag_banner(
     _write(xy=xy, width=width, code="\ue622", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def flag_banner_fold(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13357,7 +13358,7 @@ def flag_banner_fold(
     _write(xy=xy, width=width, code="\uecf2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def flag_checkered(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13378,7 +13379,7 @@ def flag_checkered(
     _write(xy=xy, width=width, code="\uea38", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def flag_pennant(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13399,7 +13400,7 @@ def flag_pennant(
     _write(xy=xy, width=width, code="\uecf0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def flame(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13420,7 +13421,7 @@ def flame(
     _write(xy=xy, width=width, code="\ue624", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def flashlight(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13441,7 +13442,7 @@ def flashlight(
     _write(xy=xy, width=width, code="\ue246", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def flask(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13462,7 +13463,7 @@ def flask(
     _write(xy=xy, width=width, code="\ue79e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def flip_horizontal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13483,7 +13484,7 @@ def flip_horizontal(
     _write(xy=xy, width=width, code="\ued6a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def flip_vertical(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13504,7 +13505,7 @@ def flip_vertical(
     _write(xy=xy, width=width, code="\ued6c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def floppy_disk(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13525,7 +13526,7 @@ def floppy_disk(
     _write(xy=xy, width=width, code="\ue248", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def floppy_disk_back(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13546,7 +13547,7 @@ def floppy_disk_back(
     _write(xy=xy, width=width, code="\ueaf4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def flow_arrow(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13567,7 +13568,7 @@ def flow_arrow(
     _write(xy=xy, width=width, code="\ue6ec", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def flower(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13588,7 +13589,7 @@ def flower(
     _write(xy=xy, width=width, code="\ue75e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def flower_lotus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13609,7 +13610,7 @@ def flower_lotus(
     _write(xy=xy, width=width, code="\ue6cc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def flower_tulip(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13630,7 +13631,7 @@ def flower_tulip(
     _write(xy=xy, width=width, code="\ueacc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def flying_saucer(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13651,7 +13652,7 @@ def flying_saucer(
     _write(xy=xy, width=width, code="\ueb4a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13672,7 +13673,7 @@ def folder(
     _write(xy=xy, width=width, code="\ue24a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_dashed(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13693,7 +13694,7 @@ def folder_dashed(
     _write(xy=xy, width=width, code="\ue8f8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_dotted(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13714,7 +13715,7 @@ def folder_dotted(
     _write(xy=xy, width=width, code="\ue8f8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_lock(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13735,7 +13736,7 @@ def folder_lock(
     _write(xy=xy, width=width, code="\uea3c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_minus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13756,7 +13757,7 @@ def folder_minus(
     _write(xy=xy, width=width, code="\ue254", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_notch(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13777,7 +13778,7 @@ def folder_notch(
     _write(xy=xy, width=width, code="\ue24a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_notch_minus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13798,7 +13799,7 @@ def folder_notch_minus(
     _write(xy=xy, width=width, code="\ue254", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_notch_open(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13819,7 +13820,7 @@ def folder_notch_open(
     _write(xy=xy, width=width, code="\ue256", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_notch_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13840,7 +13841,7 @@ def folder_notch_plus(
     _write(xy=xy, width=width, code="\ue258", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_open(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13861,7 +13862,7 @@ def folder_open(
     _write(xy=xy, width=width, code="\ue256", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13882,7 +13883,7 @@ def folder_plus(
     _write(xy=xy, width=width, code="\ue258", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13903,7 +13904,7 @@ def folder_simple(
     _write(xy=xy, width=width, code="\ue25a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_simple_dashed(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13924,7 +13925,7 @@ def folder_simple_dashed(
     _write(xy=xy, width=width, code="\uec2a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_simple_dotted(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13945,7 +13946,7 @@ def folder_simple_dotted(
     _write(xy=xy, width=width, code="\uec2a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_simple_lock(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13966,7 +13967,7 @@ def folder_simple_lock(
     _write(xy=xy, width=width, code="\ueb5e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_simple_minus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -13987,7 +13988,7 @@ def folder_simple_minus(
     _write(xy=xy, width=width, code="\ue25c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_simple_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14008,7 +14009,7 @@ def folder_simple_plus(
     _write(xy=xy, width=width, code="\ue25e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_simple_star(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14029,7 +14030,7 @@ def folder_simple_star(
     _write(xy=xy, width=width, code="\uec2e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_simple_user(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14050,7 +14051,7 @@ def folder_simple_user(
     _write(xy=xy, width=width, code="\ueb60", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_star(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14071,7 +14072,7 @@ def folder_star(
     _write(xy=xy, width=width, code="\uea86", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folder_user(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14092,7 +14093,7 @@ def folder_user(
     _write(xy=xy, width=width, code="\ueb46", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def folders(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14113,7 +14114,7 @@ def folders(
     _write(xy=xy, width=width, code="\ue260", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def football(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14134,7 +14135,7 @@ def football(
     _write(xy=xy, width=width, code="\ue718", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def football_helmet(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14155,7 +14156,7 @@ def football_helmet(
     _write(xy=xy, width=width, code="\uee4c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def footprints(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14176,7 +14177,7 @@ def footprints(
     _write(xy=xy, width=width, code="\uea88", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def fork_knife(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14197,7 +14198,7 @@ def fork_knife(
     _write(xy=xy, width=width, code="\ue262", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def four_k(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14218,7 +14219,7 @@ def four_k(
     _write(xy=xy, width=width, code="\uea5c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def frame_corners(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14239,7 +14240,7 @@ def frame_corners(
     _write(xy=xy, width=width, code="\ue626", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def framer_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14260,7 +14261,7 @@ def framer_logo(
     _write(xy=xy, width=width, code="\ue264", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def function(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14281,7 +14282,7 @@ def function(
     _write(xy=xy, width=width, code="\uebe4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def funnel(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14302,7 +14303,7 @@ def funnel(
     _write(xy=xy, width=width, code="\ue266", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def funnel_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14323,7 +14324,7 @@ def funnel_simple(
     _write(xy=xy, width=width, code="\ue268", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def funnel_simple_x(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14344,7 +14345,7 @@ def funnel_simple_x(
     _write(xy=xy, width=width, code="\ue26a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def funnel_x(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14365,7 +14366,7 @@ def funnel_x(
     _write(xy=xy, width=width, code="\ue26c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def game_controller(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14386,7 +14387,7 @@ def game_controller(
     _write(xy=xy, width=width, code="\ue26e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def garage(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14407,7 +14408,7 @@ def garage(
     _write(xy=xy, width=width, code="\uecd6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gas_can(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14428,7 +14429,7 @@ def gas_can(
     _write(xy=xy, width=width, code="\ue8ce", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gas_pump(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14449,7 +14450,7 @@ def gas_pump(
     _write(xy=xy, width=width, code="\ue768", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gauge(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14470,7 +14471,7 @@ def gauge(
     _write(xy=xy, width=width, code="\ue628", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gavel(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14491,7 +14492,7 @@ def gavel(
     _write(xy=xy, width=width, code="\uea32", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gear(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14512,7 +14513,7 @@ def gear(
     _write(xy=xy, width=width, code="\ue270", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gear_fine(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14533,7 +14534,7 @@ def gear_fine(
     _write(xy=xy, width=width, code="\ue87c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gear_six(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14554,7 +14555,7 @@ def gear_six(
     _write(xy=xy, width=width, code="\ue272", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gender_female(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14575,7 +14576,7 @@ def gender_female(
     _write(xy=xy, width=width, code="\ue6e0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gender_intersex(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14596,7 +14597,7 @@ def gender_intersex(
     _write(xy=xy, width=width, code="\ue6e6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gender_male(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14617,7 +14618,7 @@ def gender_male(
     _write(xy=xy, width=width, code="\ue6e2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gender_neuter(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14638,7 +14639,7 @@ def gender_neuter(
     _write(xy=xy, width=width, code="\ue6ea", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gender_nonbinary(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14659,7 +14660,7 @@ def gender_nonbinary(
     _write(xy=xy, width=width, code="\ue6e4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gender_transgender(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14680,7 +14681,7 @@ def gender_transgender(
     _write(xy=xy, width=width, code="\ue6e8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def ghost(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14701,7 +14702,7 @@ def ghost(
     _write(xy=xy, width=width, code="\ue62a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gif(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14722,7 +14723,7 @@ def gif(
     _write(xy=xy, width=width, code="\ue274", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gift(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14743,7 +14744,7 @@ def gift(
     _write(xy=xy, width=width, code="\ue276", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def git_branch(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14764,7 +14765,7 @@ def git_branch(
     _write(xy=xy, width=width, code="\ue278", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def git_commit(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14785,7 +14786,7 @@ def git_commit(
     _write(xy=xy, width=width, code="\ue27a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def git_diff(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14806,7 +14807,7 @@ def git_diff(
     _write(xy=xy, width=width, code="\ue27c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def git_fork(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14827,7 +14828,7 @@ def git_fork(
     _write(xy=xy, width=width, code="\ue27e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def git_merge(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14848,7 +14849,7 @@ def git_merge(
     _write(xy=xy, width=width, code="\ue280", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def git_pull_request(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14869,7 +14870,7 @@ def git_pull_request(
     _write(xy=xy, width=width, code="\ue282", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def github_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14890,7 +14891,7 @@ def github_logo(
     _write(xy=xy, width=width, code="\ue576", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gitlab_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14911,7 +14912,7 @@ def gitlab_logo(
     _write(xy=xy, width=width, code="\ue694", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gitlab_logo_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14932,7 +14933,7 @@ def gitlab_logo_simple(
     _write(xy=xy, width=width, code="\ue696", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def globe(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14953,7 +14954,7 @@ def globe(
     _write(xy=xy, width=width, code="\ue288", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def globe_hemisphere_east(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14974,7 +14975,7 @@ def globe_hemisphere_east(
     _write(xy=xy, width=width, code="\ue28a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def globe_hemisphere_west(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -14995,7 +14996,7 @@ def globe_hemisphere_west(
     _write(xy=xy, width=width, code="\ue28c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def globe_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15016,7 +15017,7 @@ def globe_simple(
     _write(xy=xy, width=width, code="\ue28e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def globe_simple_x(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15037,7 +15038,7 @@ def globe_simple_x(
     _write(xy=xy, width=width, code="\ue284", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def globe_stand(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15058,7 +15059,7 @@ def globe_stand(
     _write(xy=xy, width=width, code="\ue290", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def globe_x(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15079,7 +15080,7 @@ def globe_x(
     _write(xy=xy, width=width, code="\ue286", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def goggles(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15100,7 +15101,7 @@ def goggles(
     _write(xy=xy, width=width, code="\uecb4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def golf(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15121,7 +15122,7 @@ def golf(
     _write(xy=xy, width=width, code="\uea3e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def goodreads_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15142,7 +15143,7 @@ def goodreads_logo(
     _write(xy=xy, width=width, code="\ued10", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def google_cardboard_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15163,7 +15164,7 @@ def google_cardboard_logo(
     _write(xy=xy, width=width, code="\ue7b6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def google_chrome_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15184,7 +15185,7 @@ def google_chrome_logo(
     _write(xy=xy, width=width, code="\ue976", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def google_drive_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15205,7 +15206,7 @@ def google_drive_logo(
     _write(xy=xy, width=width, code="\ue8f6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def google_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15226,7 +15227,7 @@ def google_logo(
     _write(xy=xy, width=width, code="\ue292", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def google_photos_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15247,7 +15248,7 @@ def google_photos_logo(
     _write(xy=xy, width=width, code="\ueb92", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def google_play_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15268,7 +15269,7 @@ def google_play_logo(
     _write(xy=xy, width=width, code="\ue294", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def google_podcasts_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15289,7 +15290,7 @@ def google_podcasts_logo(
     _write(xy=xy, width=width, code="\ueb94", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gps(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15310,7 +15311,7 @@ def gps(
     _write(xy=xy, width=width, code="\uedd8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gps_fix(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15331,7 +15332,7 @@ def gps_fix(
     _write(xy=xy, width=width, code="\uedd6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gps_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15352,7 +15353,7 @@ def gps_slash(
     _write(xy=xy, width=width, code="\uedd4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gradient(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15373,7 +15374,7 @@ def gradient(
     _write(xy=xy, width=width, code="\ueb42", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def graduation_cap(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15394,7 +15395,7 @@ def graduation_cap(
     _write(xy=xy, width=width, code="\ue62c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def grains(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15415,7 +15416,7 @@ def grains(
     _write(xy=xy, width=width, code="\uec68", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def grains_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15436,7 +15437,7 @@ def grains_slash(
     _write(xy=xy, width=width, code="\uec6a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def graph(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15457,7 +15458,7 @@ def graph(
     _write(xy=xy, width=width, code="\ueb58", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def graphics_card(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15478,7 +15479,7 @@ def graphics_card(
     _write(xy=xy, width=width, code="\ue612", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def greater_than(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15499,7 +15500,7 @@ def greater_than(
     _write(xy=xy, width=width, code="\uedc4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def greater_than_or_equal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15520,7 +15521,7 @@ def greater_than_or_equal(
     _write(xy=xy, width=width, code="\ueda2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def grid_four(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15541,7 +15542,7 @@ def grid_four(
     _write(xy=xy, width=width, code="\ue296", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def grid_nine(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15562,7 +15563,7 @@ def grid_nine(
     _write(xy=xy, width=width, code="\uec8c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def guitar(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15583,7 +15584,7 @@ def guitar(
     _write(xy=xy, width=width, code="\uea8a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hair_dryer(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15604,7 +15605,7 @@ def hair_dryer(
     _write(xy=xy, width=width, code="\uea66", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hamburger(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15625,7 +15626,7 @@ def hamburger(
     _write(xy=xy, width=width, code="\ue790", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hammer(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15646,7 +15647,7 @@ def hammer(
     _write(xy=xy, width=width, code="\ue80e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hand(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15667,7 +15668,7 @@ def hand(
     _write(xy=xy, width=width, code="\ue298", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hand_arrow_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15688,7 +15689,7 @@ def hand_arrow_down(
     _write(xy=xy, width=width, code="\uea4e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hand_arrow_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15709,7 +15710,7 @@ def hand_arrow_up(
     _write(xy=xy, width=width, code="\uee5a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hand_coins(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15730,7 +15731,7 @@ def hand_coins(
     _write(xy=xy, width=width, code="\uea8c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hand_deposit(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15751,7 +15752,7 @@ def hand_deposit(
     _write(xy=xy, width=width, code="\uee82", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hand_eye(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15772,7 +15773,7 @@ def hand_eye(
     _write(xy=xy, width=width, code="\uea4c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hand_fist(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15793,7 +15794,7 @@ def hand_fist(
     _write(xy=xy, width=width, code="\ue57a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hand_grabbing(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15814,7 +15815,7 @@ def hand_grabbing(
     _write(xy=xy, width=width, code="\ue57c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hand_heart(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15835,7 +15836,7 @@ def hand_heart(
     _write(xy=xy, width=width, code="\ue810", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hand_palm(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15856,7 +15857,7 @@ def hand_palm(
     _write(xy=xy, width=width, code="\ue57e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hand_peace(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15877,7 +15878,7 @@ def hand_peace(
     _write(xy=xy, width=width, code="\ue7cc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hand_pointing(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15898,7 +15899,7 @@ def hand_pointing(
     _write(xy=xy, width=width, code="\ue29a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hand_soap(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15919,7 +15920,7 @@ def hand_soap(
     _write(xy=xy, width=width, code="\ue630", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hand_swipe_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15940,7 +15941,7 @@ def hand_swipe_left(
     _write(xy=xy, width=width, code="\uec94", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hand_swipe_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15961,7 +15962,7 @@ def hand_swipe_right(
     _write(xy=xy, width=width, code="\uec92", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hand_tap(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -15982,7 +15983,7 @@ def hand_tap(
     _write(xy=xy, width=width, code="\uec90", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hand_waving(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16003,7 +16004,7 @@ def hand_waving(
     _write(xy=xy, width=width, code="\ue580", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hand_withdraw(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16024,7 +16025,7 @@ def hand_withdraw(
     _write(xy=xy, width=width, code="\uee80", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def handbag(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16045,7 +16046,7 @@ def handbag(
     _write(xy=xy, width=width, code="\ue29c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def handbag_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16066,7 +16067,7 @@ def handbag_simple(
     _write(xy=xy, width=width, code="\ue62e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hands_clapping(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16087,7 +16088,7 @@ def hands_clapping(
     _write(xy=xy, width=width, code="\ue6a0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hands_praying(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16108,7 +16109,7 @@ def hands_praying(
     _write(xy=xy, width=width, code="\uecc8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def handshake(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16129,7 +16130,7 @@ def handshake(
     _write(xy=xy, width=width, code="\ue582", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hard_drive(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16150,7 +16151,7 @@ def hard_drive(
     _write(xy=xy, width=width, code="\ue29e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hard_drives(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16171,7 +16172,7 @@ def hard_drives(
     _write(xy=xy, width=width, code="\ue2a0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hard_hat(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16192,7 +16193,7 @@ def hard_hat(
     _write(xy=xy, width=width, code="\ued46", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16213,7 +16214,7 @@ def hash(
     _write(xy=xy, width=width, code="\ue2a2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hash_straight(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16234,7 +16235,7 @@ def hash_straight(
     _write(xy=xy, width=width, code="\ue2a4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def head_circuit(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16255,7 +16256,7 @@ def head_circuit(
     _write(xy=xy, width=width, code="\ue7d4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def headlights(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16276,7 +16277,7 @@ def headlights(
     _write(xy=xy, width=width, code="\ue6fe", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def headphones(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16297,7 +16298,7 @@ def headphones(
     _write(xy=xy, width=width, code="\ue2a6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def headset(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16318,7 +16319,7 @@ def headset(
     _write(xy=xy, width=width, code="\ue584", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def heart(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16339,7 +16340,7 @@ def heart(
     _write(xy=xy, width=width, code="\ue2a8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def heart_break(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16360,7 +16361,7 @@ def heart_break(
     _write(xy=xy, width=width, code="\uebe8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def heart_half(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16381,7 +16382,7 @@ def heart_half(
     _write(xy=xy, width=width, code="\uec48", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def heart_straight(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16402,7 +16403,7 @@ def heart_straight(
     _write(xy=xy, width=width, code="\ue2aa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def heart_straight_break(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16423,7 +16424,7 @@ def heart_straight_break(
     _write(xy=xy, width=width, code="\ueb98", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def heartbeat(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16444,7 +16445,7 @@ def heartbeat(
     _write(xy=xy, width=width, code="\ue2ac", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hexagon(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16465,7 +16466,7 @@ def hexagon(
     _write(xy=xy, width=width, code="\ue2ae", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def high_definition(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16486,7 +16487,7 @@ def high_definition(
     _write(xy=xy, width=width, code="\uea8e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def high_heel(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16507,7 +16508,7 @@ def high_heel(
     _write(xy=xy, width=width, code="\ue8e8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def highlighter(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16528,7 +16529,7 @@ def highlighter(
     _write(xy=xy, width=width, code="\uec76", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def highlighter_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16549,7 +16550,7 @@ def highlighter_circle(
     _write(xy=xy, width=width, code="\ue632", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hockey(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16570,7 +16571,7 @@ def hockey(
     _write(xy=xy, width=width, code="\uec86", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hoodie(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16591,7 +16592,7 @@ def hoodie(
     _write(xy=xy, width=width, code="\uecd0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def horse(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16612,7 +16613,7 @@ def horse(
     _write(xy=xy, width=width, code="\ue2b0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hospital(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16633,7 +16634,7 @@ def hospital(
     _write(xy=xy, width=width, code="\ue844", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hourglass(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16654,7 +16655,7 @@ def hourglass(
     _write(xy=xy, width=width, code="\ue2b2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hourglass_high(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16675,7 +16676,7 @@ def hourglass_high(
     _write(xy=xy, width=width, code="\ue2b4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hourglass_low(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16696,7 +16697,7 @@ def hourglass_low(
     _write(xy=xy, width=width, code="\ue2b6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hourglass_medium(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16717,7 +16718,7 @@ def hourglass_medium(
     _write(xy=xy, width=width, code="\ue2b8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hourglass_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16738,7 +16739,7 @@ def hourglass_simple(
     _write(xy=xy, width=width, code="\ue2ba", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hourglass_simple_high(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16759,7 +16760,7 @@ def hourglass_simple_high(
     _write(xy=xy, width=width, code="\ue2bc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hourglass_simple_low(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16780,7 +16781,7 @@ def hourglass_simple_low(
     _write(xy=xy, width=width, code="\ue2be", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hourglass_simple_medium(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16801,7 +16802,7 @@ def hourglass_simple_medium(
     _write(xy=xy, width=width, code="\ue2c0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def house(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16822,7 +16823,7 @@ def house(
     _write(xy=xy, width=width, code="\ue2c2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def house_line(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16843,7 +16844,7 @@ def house_line(
     _write(xy=xy, width=width, code="\ue2c4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def house_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16864,7 +16865,7 @@ def house_simple(
     _write(xy=xy, width=width, code="\ue2c6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hurricane(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16885,7 +16886,7 @@ def hurricane(
     _write(xy=xy, width=width, code="\ue88e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def ice_cream(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16906,7 +16907,7 @@ def ice_cream(
     _write(xy=xy, width=width, code="\ue804", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def identification_badge(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16927,7 +16928,7 @@ def identification_badge(
     _write(xy=xy, width=width, code="\ue6f6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def identification_card(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16948,7 +16949,7 @@ def identification_card(
     _write(xy=xy, width=width, code="\ue2c8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def image(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16969,7 +16970,7 @@ def image(
     _write(xy=xy, width=width, code="\ue2ca", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def image_broken(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -16990,7 +16991,7 @@ def image_broken(
     _write(xy=xy, width=width, code="\ue7a8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def image_square(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17011,7 +17012,7 @@ def image_square(
     _write(xy=xy, width=width, code="\ue2cc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def images(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17032,7 +17033,7 @@ def images(
     _write(xy=xy, width=width, code="\ue836", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def images_square(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17053,7 +17054,7 @@ def images_square(
     _write(xy=xy, width=width, code="\ue834", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def infinity(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17074,7 +17075,7 @@ def infinity(
     _write(xy=xy, width=width, code="\ue634", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def info(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17095,7 +17096,7 @@ def info(
     _write(xy=xy, width=width, code="\ue2ce", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def instagram_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17116,7 +17117,7 @@ def instagram_logo(
     _write(xy=xy, width=width, code="\ue2d0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def intersect(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17137,7 +17138,7 @@ def intersect(
     _write(xy=xy, width=width, code="\ue2d2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def intersect_square(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17158,7 +17159,7 @@ def intersect_square(
     _write(xy=xy, width=width, code="\ue87a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def intersect_three(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17179,7 +17180,7 @@ def intersect_three(
     _write(xy=xy, width=width, code="\uecc4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def intersection(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17200,7 +17201,7 @@ def intersection(
     _write(xy=xy, width=width, code="\uedba", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def invoice(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17221,7 +17222,7 @@ def invoice(
     _write(xy=xy, width=width, code="\uee42", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def island(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17242,7 +17243,7 @@ def island(
     _write(xy=xy, width=width, code="\uee06", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def jar(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17263,7 +17264,7 @@ def jar(
     _write(xy=xy, width=width, code="\ue7e0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def jar_label(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17284,7 +17285,7 @@ def jar_label(
     _write(xy=xy, width=width, code="\ue7e1", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def jeep(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17305,7 +17306,7 @@ def jeep(
     _write(xy=xy, width=width, code="\ue2d4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def joystick(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17326,7 +17327,7 @@ def joystick(
     _write(xy=xy, width=width, code="\uea5e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def kanban(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17347,7 +17348,7 @@ def kanban(
     _write(xy=xy, width=width, code="\ueb54", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def key(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17368,7 +17369,7 @@ def key(
     _write(xy=xy, width=width, code="\ue2d6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def key_return(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17389,7 +17390,7 @@ def key_return(
     _write(xy=xy, width=width, code="\ue782", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def keyboard(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17410,7 +17411,7 @@ def keyboard(
     _write(xy=xy, width=width, code="\ue2d8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def keyhole(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17431,7 +17432,7 @@ def keyhole(
     _write(xy=xy, width=width, code="\uea78", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def knife(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17452,7 +17453,7 @@ def knife(
     _write(xy=xy, width=width, code="\ue636", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def ladder(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17473,7 +17474,7 @@ def ladder(
     _write(xy=xy, width=width, code="\ue9e4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def ladder_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17494,7 +17495,7 @@ def ladder_simple(
     _write(xy=xy, width=width, code="\uec26", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lamp(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17515,7 +17516,7 @@ def lamp(
     _write(xy=xy, width=width, code="\ue638", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lamp_pendant(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17536,7 +17537,7 @@ def lamp_pendant(
     _write(xy=xy, width=width, code="\uee2e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def laptop(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17557,7 +17558,7 @@ def laptop(
     _write(xy=xy, width=width, code="\ue586", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lasso(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17578,7 +17579,7 @@ def lasso(
     _write(xy=xy, width=width, code="\uedc6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lastfm_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17599,7 +17600,7 @@ def lastfm_logo(
     _write(xy=xy, width=width, code="\ue842", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def layout(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17620,7 +17621,7 @@ def layout(
     _write(xy=xy, width=width, code="\ue6d6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def leaf(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17641,7 +17642,7 @@ def leaf(
     _write(xy=xy, width=width, code="\ue2da", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lectern(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17662,7 +17663,7 @@ def lectern(
     _write(xy=xy, width=width, code="\ue95a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lego(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17683,7 +17684,7 @@ def lego(
     _write(xy=xy, width=width, code="\ue8c6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lego_smiley(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17704,7 +17705,7 @@ def lego_smiley(
     _write(xy=xy, width=width, code="\ue8c7", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lemniscate(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17725,7 +17726,7 @@ def lemniscate(
     _write(xy=xy, width=width, code="\ue634", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def less_than(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17746,7 +17747,7 @@ def less_than(
     _write(xy=xy, width=width, code="\uedac", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def less_than_or_equal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17767,7 +17768,7 @@ def less_than_or_equal(
     _write(xy=xy, width=width, code="\ueda4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def letter_circle_h(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17788,7 +17789,7 @@ def letter_circle_h(
     _write(xy=xy, width=width, code="\uebf8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def letter_circle_p(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17809,7 +17810,7 @@ def letter_circle_p(
     _write(xy=xy, width=width, code="\uec08", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def letter_circle_v(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17830,7 +17831,7 @@ def letter_circle_v(
     _write(xy=xy, width=width, code="\uec14", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lifebuoy(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17851,7 +17852,7 @@ def lifebuoy(
     _write(xy=xy, width=width, code="\ue63a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lightbulb(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17872,7 +17873,7 @@ def lightbulb(
     _write(xy=xy, width=width, code="\ue2dc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lightbulb_filament(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17893,7 +17894,7 @@ def lightbulb_filament(
     _write(xy=xy, width=width, code="\ue63c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lighthouse(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17914,7 +17915,7 @@ def lighthouse(
     _write(xy=xy, width=width, code="\ue9f6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lightning(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17935,7 +17936,7 @@ def lightning(
     _write(xy=xy, width=width, code="\ue2de", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lightning_a(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17956,7 +17957,7 @@ def lightning_a(
     _write(xy=xy, width=width, code="\uea84", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lightning_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17977,7 +17978,7 @@ def lightning_slash(
     _write(xy=xy, width=width, code="\ue2e0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def line_segment(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -17998,7 +17999,7 @@ def line_segment(
     _write(xy=xy, width=width, code="\ue6d2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def line_segments(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18019,7 +18020,7 @@ def line_segments(
     _write(xy=xy, width=width, code="\ue6d4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def line_vertical(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18040,7 +18041,7 @@ def line_vertical(
     _write(xy=xy, width=width, code="\ued70", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def link(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18061,7 +18062,7 @@ def link(
     _write(xy=xy, width=width, code="\ue2e2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def link_break(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18082,7 +18083,7 @@ def link_break(
     _write(xy=xy, width=width, code="\ue2e4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def link_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18103,7 +18104,7 @@ def link_simple(
     _write(xy=xy, width=width, code="\ue2e6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def link_simple_break(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18124,7 +18125,7 @@ def link_simple_break(
     _write(xy=xy, width=width, code="\ue2e8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def link_simple_horizontal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18145,7 +18146,7 @@ def link_simple_horizontal(
     _write(xy=xy, width=width, code="\ue2ea", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def link_simple_horizontal_break(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18166,7 +18167,7 @@ def link_simple_horizontal_break(
     _write(xy=xy, width=width, code="\ue2ec", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def linkedin_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18187,7 +18188,7 @@ def linkedin_logo(
     _write(xy=xy, width=width, code="\ue2ee", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def linktree_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18208,7 +18209,7 @@ def linktree_logo(
     _write(xy=xy, width=width, code="\uedee", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def linux_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18229,7 +18230,7 @@ def linux_logo(
     _write(xy=xy, width=width, code="\ueb02", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def list(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18250,7 +18251,7 @@ def list(
     _write(xy=xy, width=width, code="\ue2f0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def list_bullets(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18271,7 +18272,7 @@ def list_bullets(
     _write(xy=xy, width=width, code="\ue2f2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def list_checks(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18292,7 +18293,7 @@ def list_checks(
     _write(xy=xy, width=width, code="\ueadc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def list_dashes(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18313,7 +18314,7 @@ def list_dashes(
     _write(xy=xy, width=width, code="\ue2f4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def list_heart(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18334,7 +18335,7 @@ def list_heart(
     _write(xy=xy, width=width, code="\uebde", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def list_magnifying_glass(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18355,7 +18356,7 @@ def list_magnifying_glass(
     _write(xy=xy, width=width, code="\uebe0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def list_numbers(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18376,7 +18377,7 @@ def list_numbers(
     _write(xy=xy, width=width, code="\ue2f6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def list_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18397,7 +18398,7 @@ def list_plus(
     _write(xy=xy, width=width, code="\ue2f8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def list_star(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18418,7 +18419,7 @@ def list_star(
     _write(xy=xy, width=width, code="\uebdc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lock(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18439,7 +18440,7 @@ def lock(
     _write(xy=xy, width=width, code="\ue2fa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lock_key(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18460,7 +18461,7 @@ def lock_key(
     _write(xy=xy, width=width, code="\ue2fe", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lock_key_open(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18481,7 +18482,7 @@ def lock_key_open(
     _write(xy=xy, width=width, code="\ue300", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lock_laminated(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18502,7 +18503,7 @@ def lock_laminated(
     _write(xy=xy, width=width, code="\ue302", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lock_laminated_open(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18523,7 +18524,7 @@ def lock_laminated_open(
     _write(xy=xy, width=width, code="\ue304", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lock_open(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18544,7 +18545,7 @@ def lock_open(
     _write(xy=xy, width=width, code="\ue306", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lock_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18565,7 +18566,7 @@ def lock_simple(
     _write(xy=xy, width=width, code="\ue308", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lock_simple_open(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18586,7 +18587,7 @@ def lock_simple_open(
     _write(xy=xy, width=width, code="\ue30a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def lockers(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18607,7 +18608,7 @@ def lockers(
     _write(xy=xy, width=width, code="\uecb8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def log(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18628,7 +18629,7 @@ def log(
     _write(xy=xy, width=width, code="\ued82", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def magic_wand(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18649,7 +18650,7 @@ def magic_wand(
     _write(xy=xy, width=width, code="\ue6b6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def magnet(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18670,7 +18671,7 @@ def magnet(
     _write(xy=xy, width=width, code="\ue680", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def magnet_straight(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18691,7 +18692,7 @@ def magnet_straight(
     _write(xy=xy, width=width, code="\ue682", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def magnifying_glass(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18712,7 +18713,7 @@ def magnifying_glass(
     _write(xy=xy, width=width, code="\ue30c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def magnifying_glass_minus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18733,7 +18734,7 @@ def magnifying_glass_minus(
     _write(xy=xy, width=width, code="\ue30e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def magnifying_glass_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18754,7 +18755,7 @@ def magnifying_glass_plus(
     _write(xy=xy, width=width, code="\ue310", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def mailbox(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18775,7 +18776,7 @@ def mailbox(
     _write(xy=xy, width=width, code="\uec1e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def map_pin(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18796,7 +18797,7 @@ def map_pin(
     _write(xy=xy, width=width, code="\ue316", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def map_pin_area(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18817,7 +18818,7 @@ def map_pin_area(
     _write(xy=xy, width=width, code="\uee3a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def map_pin_line(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18838,7 +18839,7 @@ def map_pin_line(
     _write(xy=xy, width=width, code="\ue318", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def map_pin_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18859,7 +18860,7 @@ def map_pin_plus(
     _write(xy=xy, width=width, code="\ue314", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def map_pin_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18880,7 +18881,7 @@ def map_pin_simple(
     _write(xy=xy, width=width, code="\uee3e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def map_pin_simple_area(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18901,7 +18902,7 @@ def map_pin_simple_area(
     _write(xy=xy, width=width, code="\uee3c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def map_pin_simple_line(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18922,7 +18923,7 @@ def map_pin_simple_line(
     _write(xy=xy, width=width, code="\uee38", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def map_trifold(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18943,7 +18944,7 @@ def map_trifold(
     _write(xy=xy, width=width, code="\ue31a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def markdown_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18964,7 +18965,7 @@ def markdown_logo(
     _write(xy=xy, width=width, code="\ue508", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def marker_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -18985,7 +18986,7 @@ def marker_circle(
     _write(xy=xy, width=width, code="\ue640", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def martini(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19006,7 +19007,7 @@ def martini(
     _write(xy=xy, width=width, code="\ue31c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def mask_happy(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19027,7 +19028,7 @@ def mask_happy(
     _write(xy=xy, width=width, code="\ue9f4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def mask_sad(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19048,7 +19049,7 @@ def mask_sad(
     _write(xy=xy, width=width, code="\ueb9e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def mastodon_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19069,7 +19070,7 @@ def mastodon_logo(
     _write(xy=xy, width=width, code="\ued68", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def math_operations(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19090,7 +19091,7 @@ def math_operations(
     _write(xy=xy, width=width, code="\ue31e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def matrix_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19111,7 +19112,7 @@ def matrix_logo(
     _write(xy=xy, width=width, code="\ued64", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def medal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19132,7 +19133,7 @@ def medal(
     _write(xy=xy, width=width, code="\ue320", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def medal_military(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19153,7 +19154,7 @@ def medal_military(
     _write(xy=xy, width=width, code="\uecfc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def medium_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19174,7 +19175,7 @@ def medium_logo(
     _write(xy=xy, width=width, code="\ue322", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def megaphone(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19195,7 +19196,7 @@ def megaphone(
     _write(xy=xy, width=width, code="\ue324", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def megaphone_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19216,7 +19217,7 @@ def megaphone_simple(
     _write(xy=xy, width=width, code="\ue642", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def member_of(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19237,7 +19238,7 @@ def member_of(
     _write(xy=xy, width=width, code="\uedc2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def memory(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19258,7 +19259,7 @@ def memory(
     _write(xy=xy, width=width, code="\ue9c4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def messenger_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19279,7 +19280,7 @@ def messenger_logo(
     _write(xy=xy, width=width, code="\ue6d8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def meta_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19300,7 +19301,7 @@ def meta_logo(
     _write(xy=xy, width=width, code="\ued02", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def meteor(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19321,7 +19322,7 @@ def meteor(
     _write(xy=xy, width=width, code="\ue9ba", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def metronome(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19342,7 +19343,7 @@ def metronome(
     _write(xy=xy, width=width, code="\uec8e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def microphone(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19363,7 +19364,7 @@ def microphone(
     _write(xy=xy, width=width, code="\ue326", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def microphone_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19384,7 +19385,7 @@ def microphone_slash(
     _write(xy=xy, width=width, code="\ue328", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def microphone_stage(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19405,7 +19406,7 @@ def microphone_stage(
     _write(xy=xy, width=width, code="\ue75c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def microscope(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19426,7 +19427,7 @@ def microscope(
     _write(xy=xy, width=width, code="\uec7a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def microsoft_excel_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19447,7 +19448,7 @@ def microsoft_excel_logo(
     _write(xy=xy, width=width, code="\ueb6c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def microsoft_outlook_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19468,7 +19469,7 @@ def microsoft_outlook_logo(
     _write(xy=xy, width=width, code="\ueb70", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def microsoft_powerpoint_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19489,7 +19490,7 @@ def microsoft_powerpoint_logo(
     _write(xy=xy, width=width, code="\ueace", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def microsoft_teams_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19510,7 +19511,7 @@ def microsoft_teams_logo(
     _write(xy=xy, width=width, code="\ueb66", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def microsoft_word_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19531,7 +19532,7 @@ def microsoft_word_logo(
     _write(xy=xy, width=width, code="\ueb6a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def minus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19552,7 +19553,7 @@ def minus(
     _write(xy=xy, width=width, code="\ue32a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def minus_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19573,7 +19574,7 @@ def minus_circle(
     _write(xy=xy, width=width, code="\ue32c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def minus_square(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19594,7 +19595,7 @@ def minus_square(
     _write(xy=xy, width=width, code="\ued4c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def money(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19615,7 +19616,7 @@ def money(
     _write(xy=xy, width=width, code="\ue588", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def money_wavy(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19636,7 +19637,7 @@ def money_wavy(
     _write(xy=xy, width=width, code="\uee68", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def monitor(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19657,7 +19658,7 @@ def monitor(
     _write(xy=xy, width=width, code="\ue32e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def monitor_arrow_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19678,7 +19679,7 @@ def monitor_arrow_up(
     _write(xy=xy, width=width, code="\ue58a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def monitor_play(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19699,7 +19700,7 @@ def monitor_play(
     _write(xy=xy, width=width, code="\ue58c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def moon(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19720,7 +19721,7 @@ def moon(
     _write(xy=xy, width=width, code="\ue330", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def moon_stars(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19741,7 +19742,7 @@ def moon_stars(
     _write(xy=xy, width=width, code="\ue58e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def moped(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19762,7 +19763,7 @@ def moped(
     _write(xy=xy, width=width, code="\ue824", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def moped_front(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19783,7 +19784,7 @@ def moped_front(
     _write(xy=xy, width=width, code="\ue822", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def mosque(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19804,7 +19805,7 @@ def mosque(
     _write(xy=xy, width=width, code="\uecee", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def motorcycle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19825,7 +19826,7 @@ def motorcycle(
     _write(xy=xy, width=width, code="\ue80a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def mountains(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19846,7 +19847,7 @@ def mountains(
     _write(xy=xy, width=width, code="\ue7ae", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def mouse(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19867,7 +19868,7 @@ def mouse(
     _write(xy=xy, width=width, code="\ue33a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def mouse_left_click(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19888,7 +19889,7 @@ def mouse_left_click(
     _write(xy=xy, width=width, code="\ue334", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def mouse_middle_click(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19909,7 +19910,7 @@ def mouse_middle_click(
     _write(xy=xy, width=width, code="\ue338", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def mouse_right_click(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19930,7 +19931,7 @@ def mouse_right_click(
     _write(xy=xy, width=width, code="\ue336", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def mouse_scroll(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19951,7 +19952,7 @@ def mouse_scroll(
     _write(xy=xy, width=width, code="\ue332", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def mouse_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19972,7 +19973,7 @@ def mouse_simple(
     _write(xy=xy, width=width, code="\ue644", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def music_note(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -19993,7 +19994,7 @@ def music_note(
     _write(xy=xy, width=width, code="\ue33c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def music_note_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20014,7 +20015,7 @@ def music_note_simple(
     _write(xy=xy, width=width, code="\ue33e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def music_notes(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20035,7 +20036,7 @@ def music_notes(
     _write(xy=xy, width=width, code="\ue340", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def music_notes_minus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20056,7 +20057,7 @@ def music_notes_minus(
     _write(xy=xy, width=width, code="\uee0c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def music_notes_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20077,7 +20078,7 @@ def music_notes_plus(
     _write(xy=xy, width=width, code="\ueb7c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def music_notes_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20098,7 +20099,7 @@ def music_notes_simple(
     _write(xy=xy, width=width, code="\ue342", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def navigation_arrow(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20119,7 +20120,7 @@ def navigation_arrow(
     _write(xy=xy, width=width, code="\ueade", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def needle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20140,7 +20141,7 @@ def needle(
     _write(xy=xy, width=width, code="\ue82e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def network(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20161,7 +20162,7 @@ def network(
     _write(xy=xy, width=width, code="\uedde", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def network_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20182,7 +20183,7 @@ def network_slash(
     _write(xy=xy, width=width, code="\ueddc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def network_x(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20203,7 +20204,7 @@ def network_x(
     _write(xy=xy, width=width, code="\uedda", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def newspaper(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20224,7 +20225,7 @@ def newspaper(
     _write(xy=xy, width=width, code="\ue344", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def newspaper_clipping(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20245,7 +20246,7 @@ def newspaper_clipping(
     _write(xy=xy, width=width, code="\ue346", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def not_equals(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20266,7 +20267,7 @@ def not_equals(
     _write(xy=xy, width=width, code="\ueda6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def not_member_of(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20287,7 +20288,7 @@ def not_member_of(
     _write(xy=xy, width=width, code="\uedae", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def not_subset_of(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20308,7 +20309,7 @@ def not_subset_of(
     _write(xy=xy, width=width, code="\uedb0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def not_superset_of(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20329,7 +20330,7 @@ def not_superset_of(
     _write(xy=xy, width=width, code="\uedb2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def notches(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20350,7 +20351,7 @@ def notches(
     _write(xy=xy, width=width, code="\ued3a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def note(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20371,7 +20372,7 @@ def note(
     _write(xy=xy, width=width, code="\ue348", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def note_blank(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20392,7 +20393,7 @@ def note_blank(
     _write(xy=xy, width=width, code="\ue34a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def note_pencil(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20413,7 +20414,7 @@ def note_pencil(
     _write(xy=xy, width=width, code="\ue34c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def notebook(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20434,7 +20435,7 @@ def notebook(
     _write(xy=xy, width=width, code="\ue34e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def notepad(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20455,7 +20456,7 @@ def notepad(
     _write(xy=xy, width=width, code="\ue63e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def notification(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20476,7 +20477,7 @@ def notification(
     _write(xy=xy, width=width, code="\ue6fa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def notion_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20497,7 +20498,7 @@ def notion_logo(
     _write(xy=xy, width=width, code="\ue9a0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def nuclear_plant(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20518,7 +20519,7 @@ def nuclear_plant(
     _write(xy=xy, width=width, code="\ued7c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_circle_eight(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20539,7 +20540,7 @@ def number_circle_eight(
     _write(xy=xy, width=width, code="\ue352", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_circle_five(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20560,7 +20561,7 @@ def number_circle_five(
     _write(xy=xy, width=width, code="\ue358", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_circle_four(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20581,7 +20582,7 @@ def number_circle_four(
     _write(xy=xy, width=width, code="\ue35e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_circle_nine(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20602,7 +20603,7 @@ def number_circle_nine(
     _write(xy=xy, width=width, code="\ue364", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_circle_one(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20623,7 +20624,7 @@ def number_circle_one(
     _write(xy=xy, width=width, code="\ue36a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_circle_seven(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20644,7 +20645,7 @@ def number_circle_seven(
     _write(xy=xy, width=width, code="\ue370", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_circle_six(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20665,7 +20666,7 @@ def number_circle_six(
     _write(xy=xy, width=width, code="\ue376", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_circle_three(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20686,7 +20687,7 @@ def number_circle_three(
     _write(xy=xy, width=width, code="\ue37c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_circle_two(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20707,7 +20708,7 @@ def number_circle_two(
     _write(xy=xy, width=width, code="\ue382", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_circle_zero(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20728,7 +20729,7 @@ def number_circle_zero(
     _write(xy=xy, width=width, code="\ue388", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_eight(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20749,7 +20750,7 @@ def number_eight(
     _write(xy=xy, width=width, code="\ue350", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_five(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20770,7 +20771,7 @@ def number_five(
     _write(xy=xy, width=width, code="\ue356", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_four(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20791,7 +20792,7 @@ def number_four(
     _write(xy=xy, width=width, code="\ue35c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_nine(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20812,7 +20813,7 @@ def number_nine(
     _write(xy=xy, width=width, code="\ue362", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_one(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20833,7 +20834,7 @@ def number_one(
     _write(xy=xy, width=width, code="\ue368", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_seven(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20854,7 +20855,7 @@ def number_seven(
     _write(xy=xy, width=width, code="\ue36e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_six(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20875,7 +20876,7 @@ def number_six(
     _write(xy=xy, width=width, code="\ue374", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_square_eight(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20896,7 +20897,7 @@ def number_square_eight(
     _write(xy=xy, width=width, code="\ue354", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_square_five(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20917,7 +20918,7 @@ def number_square_five(
     _write(xy=xy, width=width, code="\ue35a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_square_four(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20938,7 +20939,7 @@ def number_square_four(
     _write(xy=xy, width=width, code="\ue360", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_square_nine(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20959,7 +20960,7 @@ def number_square_nine(
     _write(xy=xy, width=width, code="\ue366", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_square_one(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -20980,7 +20981,7 @@ def number_square_one(
     _write(xy=xy, width=width, code="\ue36c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_square_seven(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21001,7 +21002,7 @@ def number_square_seven(
     _write(xy=xy, width=width, code="\ue372", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_square_six(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21022,7 +21023,7 @@ def number_square_six(
     _write(xy=xy, width=width, code="\ue378", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_square_three(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21043,7 +21044,7 @@ def number_square_three(
     _write(xy=xy, width=width, code="\ue37e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_square_two(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21064,7 +21065,7 @@ def number_square_two(
     _write(xy=xy, width=width, code="\ue384", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_square_zero(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21085,7 +21086,7 @@ def number_square_zero(
     _write(xy=xy, width=width, code="\ue38a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_three(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21106,7 +21107,7 @@ def number_three(
     _write(xy=xy, width=width, code="\ue37a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_two(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21127,7 +21128,7 @@ def number_two(
     _write(xy=xy, width=width, code="\ue380", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def number_zero(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21148,7 +21149,7 @@ def number_zero(
     _write(xy=xy, width=width, code="\ue386", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def numpad(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21169,7 +21170,7 @@ def numpad(
     _write(xy=xy, width=width, code="\ue3c8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def nut(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21190,7 +21191,7 @@ def nut(
     _write(xy=xy, width=width, code="\ue38c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def ny_times_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21211,7 +21212,7 @@ def ny_times_logo(
     _write(xy=xy, width=width, code="\ue646", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def octagon(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21232,7 +21233,7 @@ def octagon(
     _write(xy=xy, width=width, code="\ue38e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def office_chair(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21253,7 +21254,7 @@ def office_chair(
     _write(xy=xy, width=width, code="\uea46", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def onigiri(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21274,7 +21275,7 @@ def onigiri(
     _write(xy=xy, width=width, code="\uee2c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def open_ai_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21295,7 +21296,7 @@ def open_ai_logo(
     _write(xy=xy, width=width, code="\ue7d2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def option(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21316,7 +21317,7 @@ def option(
     _write(xy=xy, width=width, code="\ue8a8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def orange(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21337,7 +21338,7 @@ def orange(
     _write(xy=xy, width=width, code="\uee40", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def orange_slice(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21358,7 +21359,7 @@ def orange_slice(
     _write(xy=xy, width=width, code="\ued36", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def oven(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21379,7 +21380,7 @@ def oven(
     _write(xy=xy, width=width, code="\ued8c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def package(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21400,7 +21401,7 @@ def package(
     _write(xy=xy, width=width, code="\ue390", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def paint_brush(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21421,7 +21422,7 @@ def paint_brush(
     _write(xy=xy, width=width, code="\ue6f0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def paint_brush_broad(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21442,7 +21443,7 @@ def paint_brush_broad(
     _write(xy=xy, width=width, code="\ue590", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def paint_brush_household(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21463,7 +21464,7 @@ def paint_brush_household(
     _write(xy=xy, width=width, code="\ue6f2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def paint_bucket(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21484,7 +21485,7 @@ def paint_bucket(
     _write(xy=xy, width=width, code="\ue392", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def paint_roller(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21505,7 +21506,7 @@ def paint_roller(
     _write(xy=xy, width=width, code="\ue6f4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def palette(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21526,7 +21527,7 @@ def palette(
     _write(xy=xy, width=width, code="\ue6c8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def panorama(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21547,7 +21548,7 @@ def panorama(
     _write(xy=xy, width=width, code="\ueaa2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pants(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21568,7 +21569,7 @@ def pants(
     _write(xy=xy, width=width, code="\uec88", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def paper_plane(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21589,7 +21590,7 @@ def paper_plane(
     _write(xy=xy, width=width, code="\ue394", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def paper_plane_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21610,7 +21611,7 @@ def paper_plane_right(
     _write(xy=xy, width=width, code="\ue396", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def paper_plane_tilt(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21631,7 +21632,7 @@ def paper_plane_tilt(
     _write(xy=xy, width=width, code="\ue398", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def paperclip(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21652,7 +21653,7 @@ def paperclip(
     _write(xy=xy, width=width, code="\ue39a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def paperclip_horizontal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21673,7 +21674,7 @@ def paperclip_horizontal(
     _write(xy=xy, width=width, code="\ue592", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def parachute(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21694,7 +21695,7 @@ def parachute(
     _write(xy=xy, width=width, code="\uea7c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def paragraph(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21715,7 +21716,7 @@ def paragraph(
     _write(xy=xy, width=width, code="\ue960", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def parallelogram(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21736,7 +21737,7 @@ def parallelogram(
     _write(xy=xy, width=width, code="\uecc6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def park(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21757,7 +21758,7 @@ def park(
     _write(xy=xy, width=width, code="\uecb2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def password(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21778,7 +21779,7 @@ def password(
     _write(xy=xy, width=width, code="\ue752", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def path(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21799,7 +21800,7 @@ def path(
     _write(xy=xy, width=width, code="\ue39c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def patreon_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21820,7 +21821,7 @@ def patreon_logo(
     _write(xy=xy, width=width, code="\ue98a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pause(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21841,7 +21842,7 @@ def pause(
     _write(xy=xy, width=width, code="\ue39e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pause_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21862,7 +21863,7 @@ def pause_circle(
     _write(xy=xy, width=width, code="\ue3a0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def paw_print(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21883,7 +21884,7 @@ def paw_print(
     _write(xy=xy, width=width, code="\ue648", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def paypal_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21904,7 +21905,7 @@ def paypal_logo(
     _write(xy=xy, width=width, code="\ue98c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def peace(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21925,7 +21926,7 @@ def peace(
     _write(xy=xy, width=width, code="\ue3a2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pen(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21946,7 +21947,7 @@ def pen(
     _write(xy=xy, width=width, code="\ue3aa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pen_nib(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21967,7 +21968,7 @@ def pen_nib(
     _write(xy=xy, width=width, code="\ue3ac", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pen_nib_straight(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -21988,7 +21989,7 @@ def pen_nib_straight(
     _write(xy=xy, width=width, code="\ue64a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pencil(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22009,7 +22010,7 @@ def pencil(
     _write(xy=xy, width=width, code="\ue3ae", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pencil_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22030,7 +22031,7 @@ def pencil_circle(
     _write(xy=xy, width=width, code="\ue3b0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pencil_line(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22051,7 +22052,7 @@ def pencil_line(
     _write(xy=xy, width=width, code="\ue3b2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pencil_ruler(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22072,7 +22073,7 @@ def pencil_ruler(
     _write(xy=xy, width=width, code="\ue906", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pencil_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22093,7 +22094,7 @@ def pencil_simple(
     _write(xy=xy, width=width, code="\ue3b4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pencil_simple_line(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22114,7 +22115,7 @@ def pencil_simple_line(
     _write(xy=xy, width=width, code="\uebc6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pencil_simple_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22135,7 +22136,7 @@ def pencil_simple_slash(
     _write(xy=xy, width=width, code="\uecf6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pencil_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22156,7 +22157,7 @@ def pencil_slash(
     _write(xy=xy, width=width, code="\uecf8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pentagon(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22177,7 +22178,7 @@ def pentagon(
     _write(xy=xy, width=width, code="\uec7e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pentagram(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22198,7 +22199,7 @@ def pentagram(
     _write(xy=xy, width=width, code="\uec5c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pepper(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22219,7 +22220,7 @@ def pepper(
     _write(xy=xy, width=width, code="\ue94a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def percent(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22240,7 +22241,7 @@ def percent(
     _write(xy=xy, width=width, code="\ue3b6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def person(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22261,7 +22262,7 @@ def person(
     _write(xy=xy, width=width, code="\ue3a8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def person_arms_spread(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22282,7 +22283,7 @@ def person_arms_spread(
     _write(xy=xy, width=width, code="\uecfe", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def person_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22303,7 +22304,7 @@ def person_simple(
     _write(xy=xy, width=width, code="\ue72e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def person_simple_bike(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22324,7 +22325,7 @@ def person_simple_bike(
     _write(xy=xy, width=width, code="\ue734", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def person_simple_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22345,7 +22346,7 @@ def person_simple_circle(
     _write(xy=xy, width=width, code="\uee58", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def person_simple_hike(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22366,7 +22367,7 @@ def person_simple_hike(
     _write(xy=xy, width=width, code="\ued54", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def person_simple_run(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22387,7 +22388,7 @@ def person_simple_run(
     _write(xy=xy, width=width, code="\ue730", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def person_simple_ski(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22408,7 +22409,7 @@ def person_simple_ski(
     _write(xy=xy, width=width, code="\ue71c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def person_simple_snowboard(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22429,7 +22430,7 @@ def person_simple_snowboard(
     _write(xy=xy, width=width, code="\ue71e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def person_simple_swim(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22450,7 +22451,7 @@ def person_simple_swim(
     _write(xy=xy, width=width, code="\ue736", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def person_simple_tai_chi(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22471,7 +22472,7 @@ def person_simple_tai_chi(
     _write(xy=xy, width=width, code="\ued5c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def person_simple_throw(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22492,7 +22493,7 @@ def person_simple_throw(
     _write(xy=xy, width=width, code="\ue732", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def person_simple_walk(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22513,7 +22514,7 @@ def person_simple_walk(
     _write(xy=xy, width=width, code="\ue73a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def perspective(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22534,7 +22535,7 @@ def perspective(
     _write(xy=xy, width=width, code="\uebe6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def phone(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22555,7 +22556,7 @@ def phone(
     _write(xy=xy, width=width, code="\ue3b8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def phone_call(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22576,7 +22577,7 @@ def phone_call(
     _write(xy=xy, width=width, code="\ue3ba", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def phone_disconnect(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22597,7 +22598,7 @@ def phone_disconnect(
     _write(xy=xy, width=width, code="\ue3bc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def phone_incoming(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22618,7 +22619,7 @@ def phone_incoming(
     _write(xy=xy, width=width, code="\ue3be", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def phone_list(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22639,7 +22640,7 @@ def phone_list(
     _write(xy=xy, width=width, code="\ue3cc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def phone_outgoing(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22660,7 +22661,7 @@ def phone_outgoing(
     _write(xy=xy, width=width, code="\ue3c0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def phone_pause(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22681,7 +22682,7 @@ def phone_pause(
     _write(xy=xy, width=width, code="\ue3ca", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def phone_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22702,7 +22703,7 @@ def phone_plus(
     _write(xy=xy, width=width, code="\uec56", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def phone_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22723,7 +22724,7 @@ def phone_slash(
     _write(xy=xy, width=width, code="\ue3c2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def phone_transfer(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22744,7 +22745,7 @@ def phone_transfer(
     _write(xy=xy, width=width, code="\ue3c6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def phone_x(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22765,7 +22766,7 @@ def phone_x(
     _write(xy=xy, width=width, code="\ue3c4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def phosphor_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22786,7 +22787,7 @@ def phosphor_logo(
     _write(xy=xy, width=width, code="\ue3ce", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pi(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22807,7 +22808,7 @@ def pi(
     _write(xy=xy, width=width, code="\uec80", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def piano_keys(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22828,7 +22829,7 @@ def piano_keys(
     _write(xy=xy, width=width, code="\ue9c8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def picnic_table(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22849,7 +22850,7 @@ def picnic_table(
     _write(xy=xy, width=width, code="\uee26", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def picture_in_picture(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22870,7 +22871,7 @@ def picture_in_picture(
     _write(xy=xy, width=width, code="\ue64c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def piggy_bank(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22891,7 +22892,7 @@ def piggy_bank(
     _write(xy=xy, width=width, code="\uea04", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pill(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22912,7 +22913,7 @@ def pill(
     _write(xy=xy, width=width, code="\ue700", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def ping_pong(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22933,7 +22934,7 @@ def ping_pong(
     _write(xy=xy, width=width, code="\uea42", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pint_glass(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22954,7 +22955,7 @@ def pint_glass(
     _write(xy=xy, width=width, code="\uedd0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pinterest_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22975,7 +22976,7 @@ def pinterest_logo(
     _write(xy=xy, width=width, code="\ue64e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pinwheel(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -22996,7 +22997,7 @@ def pinwheel(
     _write(xy=xy, width=width, code="\ueb9c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pipe(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23017,7 +23018,7 @@ def pipe(
     _write(xy=xy, width=width, code="\ued86", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pipe_wrench(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23038,7 +23039,7 @@ def pipe_wrench(
     _write(xy=xy, width=width, code="\ued88", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pix_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23059,7 +23060,7 @@ def pix_logo(
     _write(xy=xy, width=width, code="\uecc2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pizza(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23080,7 +23081,7 @@ def pizza(
     _write(xy=xy, width=width, code="\ue796", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def placeholder(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23101,7 +23102,7 @@ def placeholder(
     _write(xy=xy, width=width, code="\ue650", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def planet(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23122,7 +23123,7 @@ def planet(
     _write(xy=xy, width=width, code="\ue652", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def plant(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23143,7 +23144,7 @@ def plant(
     _write(xy=xy, width=width, code="\uebae", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def play(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23164,7 +23165,7 @@ def play(
     _write(xy=xy, width=width, code="\ue3d0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def play_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23185,7 +23186,7 @@ def play_circle(
     _write(xy=xy, width=width, code="\ue3d2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def play_pause(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23206,7 +23207,7 @@ def play_pause(
     _write(xy=xy, width=width, code="\ue8be", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def playlist(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23227,7 +23228,7 @@ def playlist(
     _write(xy=xy, width=width, code="\ue6aa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def plug(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23248,7 +23249,7 @@ def plug(
     _write(xy=xy, width=width, code="\ue946", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def plug_charging(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23269,7 +23270,7 @@ def plug_charging(
     _write(xy=xy, width=width, code="\ueb5c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def plugs(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23290,7 +23291,7 @@ def plugs(
     _write(xy=xy, width=width, code="\ueb56", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def plugs_connected(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23311,7 +23312,7 @@ def plugs_connected(
     _write(xy=xy, width=width, code="\ueb5a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23332,7 +23333,7 @@ def plus(
     _write(xy=xy, width=width, code="\ue3d4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def plus_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23353,7 +23354,7 @@ def plus_circle(
     _write(xy=xy, width=width, code="\ue3d6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def plus_minus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23374,7 +23375,7 @@ def plus_minus(
     _write(xy=xy, width=width, code="\ue3d8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def plus_square(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23395,7 +23396,7 @@ def plus_square(
     _write(xy=xy, width=width, code="\ued4a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def poker_chip(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23416,7 +23417,7 @@ def poker_chip(
     _write(xy=xy, width=width, code="\ue594", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def police_car(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23437,7 +23438,7 @@ def police_car(
     _write(xy=xy, width=width, code="\uec4a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def polygon(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23458,7 +23459,7 @@ def polygon(
     _write(xy=xy, width=width, code="\ue6d0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def popcorn(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23479,7 +23480,7 @@ def popcorn(
     _write(xy=xy, width=width, code="\ueb4e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def popsicle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23500,7 +23501,7 @@ def popsicle(
     _write(xy=xy, width=width, code="\uebbe", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def potted_plant(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23521,7 +23522,7 @@ def potted_plant(
     _write(xy=xy, width=width, code="\uec22", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def power(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23542,7 +23543,7 @@ def power(
     _write(xy=xy, width=width, code="\ue3da", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def prescription(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23563,7 +23564,7 @@ def prescription(
     _write(xy=xy, width=width, code="\ue7a2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def presentation(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23584,7 +23585,7 @@ def presentation(
     _write(xy=xy, width=width, code="\ue654", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def presentation_chart(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23605,7 +23606,7 @@ def presentation_chart(
     _write(xy=xy, width=width, code="\ue656", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def printer(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23626,7 +23627,7 @@ def printer(
     _write(xy=xy, width=width, code="\ue3dc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def prohibit(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23647,7 +23648,7 @@ def prohibit(
     _write(xy=xy, width=width, code="\ue3de", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def prohibit_inset(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23668,7 +23669,7 @@ def prohibit_inset(
     _write(xy=xy, width=width, code="\ue3e0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def projector_screen(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23689,7 +23690,7 @@ def projector_screen(
     _write(xy=xy, width=width, code="\ue658", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def projector_screen_chart(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23710,7 +23711,7 @@ def projector_screen_chart(
     _write(xy=xy, width=width, code="\ue65a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pulse(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23731,7 +23732,7 @@ def pulse(
     _write(xy=xy, width=width, code="\ue000", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def push_pin(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23752,7 +23753,7 @@ def push_pin(
     _write(xy=xy, width=width, code="\ue3e2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def push_pin_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23773,7 +23774,7 @@ def push_pin_simple(
     _write(xy=xy, width=width, code="\ue65c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def push_pin_simple_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23794,7 +23795,7 @@ def push_pin_simple_slash(
     _write(xy=xy, width=width, code="\ue65e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def push_pin_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23815,7 +23816,7 @@ def push_pin_slash(
     _write(xy=xy, width=width, code="\ue3e4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def puzzle_piece(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23836,7 +23837,7 @@ def puzzle_piece(
     _write(xy=xy, width=width, code="\ue596", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def qr_code(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23857,7 +23858,7 @@ def qr_code(
     _write(xy=xy, width=width, code="\ue3e6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def question(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23878,7 +23879,7 @@ def question(
     _write(xy=xy, width=width, code="\ue3e8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def question_mark(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23899,7 +23900,7 @@ def question_mark(
     _write(xy=xy, width=width, code="\ue3e9", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def queue(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23920,7 +23921,7 @@ def queue(
     _write(xy=xy, width=width, code="\ue6ac", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def quotes(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23941,7 +23942,7 @@ def quotes(
     _write(xy=xy, width=width, code="\ue660", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def rabbit(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23962,7 +23963,7 @@ def rabbit(
     _write(xy=xy, width=width, code="\ueac2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def racquet(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -23983,7 +23984,7 @@ def racquet(
     _write(xy=xy, width=width, code="\uee02", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def radical(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24004,7 +24005,7 @@ def radical(
     _write(xy=xy, width=width, code="\ue3ea", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def radio(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24025,7 +24026,7 @@ def radio(
     _write(xy=xy, width=width, code="\ue77e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def radio_button(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24046,7 +24047,7 @@ def radio_button(
     _write(xy=xy, width=width, code="\ueb08", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def radioactive(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24067,7 +24068,7 @@ def radioactive(
     _write(xy=xy, width=width, code="\ue9dc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def rainbow(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24088,7 +24089,7 @@ def rainbow(
     _write(xy=xy, width=width, code="\ue598", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def rainbow_cloud(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24109,7 +24110,7 @@ def rainbow_cloud(
     _write(xy=xy, width=width, code="\ue59a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def ranking(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24130,7 +24131,7 @@ def ranking(
     _write(xy=xy, width=width, code="\ued62", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def read_cv_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24151,7 +24152,7 @@ def read_cv_logo(
     _write(xy=xy, width=width, code="\ued0c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def receipt(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24172,7 +24173,7 @@ def receipt(
     _write(xy=xy, width=width, code="\ue3ec", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def receipt_x(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24193,7 +24194,7 @@ def receipt_x(
     _write(xy=xy, width=width, code="\ued40", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def record(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24214,7 +24215,7 @@ def record(
     _write(xy=xy, width=width, code="\ue3ee", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def rectangle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24235,7 +24236,7 @@ def rectangle(
     _write(xy=xy, width=width, code="\ue3f0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def rectangle_dashed(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24256,7 +24257,7 @@ def rectangle_dashed(
     _write(xy=xy, width=width, code="\ue3f2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def recycle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24277,7 +24278,7 @@ def recycle(
     _write(xy=xy, width=width, code="\ue75a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def reddit_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24298,7 +24299,7 @@ def reddit_logo(
     _write(xy=xy, width=width, code="\ue59c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def repeat(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24319,7 +24320,7 @@ def repeat(
     _write(xy=xy, width=width, code="\ue3f6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def repeat_once(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24340,7 +24341,7 @@ def repeat_once(
     _write(xy=xy, width=width, code="\ue3f8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def replit_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24361,7 +24362,7 @@ def replit_logo(
     _write(xy=xy, width=width, code="\ueb8a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def resize(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24382,7 +24383,7 @@ def resize(
     _write(xy=xy, width=width, code="\ued6e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def rewind(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24403,7 +24404,7 @@ def rewind(
     _write(xy=xy, width=width, code="\ue6a8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def rewind_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24424,7 +24425,7 @@ def rewind_circle(
     _write(xy=xy, width=width, code="\ue3fa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def road_horizon(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24445,7 +24446,7 @@ def road_horizon(
     _write(xy=xy, width=width, code="\ue838", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def robot(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24466,7 +24467,7 @@ def robot(
     _write(xy=xy, width=width, code="\ue762", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def rocket(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24487,7 +24488,7 @@ def rocket(
     _write(xy=xy, width=width, code="\ue3fc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def rocket_launch(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24508,7 +24509,7 @@ def rocket_launch(
     _write(xy=xy, width=width, code="\ue3fe", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def rows(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24529,7 +24530,7 @@ def rows(
     _write(xy=xy, width=width, code="\ue5a2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def rows_plus_bottom(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24550,7 +24551,7 @@ def rows_plus_bottom(
     _write(xy=xy, width=width, code="\ue59e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def rows_plus_top(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24571,7 +24572,7 @@ def rows_plus_top(
     _write(xy=xy, width=width, code="\ue5a0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def rss(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24592,7 +24593,7 @@ def rss(
     _write(xy=xy, width=width, code="\ue400", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def rss_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24613,7 +24614,7 @@ def rss_simple(
     _write(xy=xy, width=width, code="\ue402", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def rug(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24634,7 +24635,7 @@ def rug(
     _write(xy=xy, width=width, code="\uea1a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def ruler(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24655,7 +24656,7 @@ def ruler(
     _write(xy=xy, width=width, code="\ue6b8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sailboat(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24676,7 +24677,7 @@ def sailboat(
     _write(xy=xy, width=width, code="\ue78a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def scales(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24697,7 +24698,7 @@ def scales(
     _write(xy=xy, width=width, code="\ue750", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def scan(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24718,7 +24719,7 @@ def scan(
     _write(xy=xy, width=width, code="\uebb6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def scan_smiley(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24739,7 +24740,7 @@ def scan_smiley(
     _write(xy=xy, width=width, code="\uebb4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def scissors(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24760,7 +24761,7 @@ def scissors(
     _write(xy=xy, width=width, code="\ueae0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def scooter(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24781,7 +24782,7 @@ def scooter(
     _write(xy=xy, width=width, code="\ue820", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def screencast(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24802,7 +24803,7 @@ def screencast(
     _write(xy=xy, width=width, code="\ue404", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def screwdriver(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24823,7 +24824,7 @@ def screwdriver(
     _write(xy=xy, width=width, code="\ue86e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def scribble(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24844,7 +24845,7 @@ def scribble(
     _write(xy=xy, width=width, code="\ue806", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def scribble_loop(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24865,7 +24866,7 @@ def scribble_loop(
     _write(xy=xy, width=width, code="\ue662", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def scroll(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24886,7 +24887,7 @@ def scroll(
     _write(xy=xy, width=width, code="\ueb7a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def seal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24907,7 +24908,7 @@ def seal(
     _write(xy=xy, width=width, code="\ue604", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def seal_check(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24928,7 +24929,7 @@ def seal_check(
     _write(xy=xy, width=width, code="\ue606", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def seal_percent(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24949,7 +24950,7 @@ def seal_percent(
     _write(xy=xy, width=width, code="\ue60a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def seal_question(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24970,7 +24971,7 @@ def seal_question(
     _write(xy=xy, width=width, code="\ue608", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def seal_warning(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -24991,7 +24992,7 @@ def seal_warning(
     _write(xy=xy, width=width, code="\ue60c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def seat(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25012,7 +25013,7 @@ def seat(
     _write(xy=xy, width=width, code="\ueb8e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def seatbelt(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25033,7 +25034,7 @@ def seatbelt(
     _write(xy=xy, width=width, code="\uedfe", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def security_camera(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25054,7 +25055,7 @@ def security_camera(
     _write(xy=xy, width=width, code="\ueca4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def selection(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25075,7 +25076,7 @@ def selection(
     _write(xy=xy, width=width, code="\ue69a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def selection_all(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25096,7 +25097,7 @@ def selection_all(
     _write(xy=xy, width=width, code="\ue746", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def selection_background(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25117,7 +25118,7 @@ def selection_background(
     _write(xy=xy, width=width, code="\ueaf8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def selection_foreground(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25138,7 +25139,7 @@ def selection_foreground(
     _write(xy=xy, width=width, code="\ueaf6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def selection_inverse(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25159,7 +25160,7 @@ def selection_inverse(
     _write(xy=xy, width=width, code="\ue744", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def selection_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25180,7 +25181,7 @@ def selection_plus(
     _write(xy=xy, width=width, code="\ue69c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def selection_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25201,7 +25202,7 @@ def selection_slash(
     _write(xy=xy, width=width, code="\ue69e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shapes(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25222,7 +25223,7 @@ def shapes(
     _write(xy=xy, width=width, code="\uec5e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def share(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25243,7 +25244,7 @@ def share(
     _write(xy=xy, width=width, code="\ue406", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def share_fat(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25264,7 +25265,7 @@ def share_fat(
     _write(xy=xy, width=width, code="\ued52", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def share_network(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25285,7 +25286,7 @@ def share_network(
     _write(xy=xy, width=width, code="\ue408", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shield(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25306,7 +25307,7 @@ def shield(
     _write(xy=xy, width=width, code="\ue40a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shield_check(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25327,7 +25328,7 @@ def shield_check(
     _write(xy=xy, width=width, code="\ue40c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shield_checkered(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25348,7 +25349,7 @@ def shield_checkered(
     _write(xy=xy, width=width, code="\ue708", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shield_chevron(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25369,7 +25370,7 @@ def shield_chevron(
     _write(xy=xy, width=width, code="\ue40e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shield_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25390,7 +25391,7 @@ def shield_plus(
     _write(xy=xy, width=width, code="\ue706", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shield_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25411,7 +25412,7 @@ def shield_slash(
     _write(xy=xy, width=width, code="\ue410", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shield_star(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25432,7 +25433,7 @@ def shield_star(
     _write(xy=xy, width=width, code="\uec34", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shield_warning(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25453,7 +25454,7 @@ def shield_warning(
     _write(xy=xy, width=width, code="\ue412", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shipping_container(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25474,7 +25475,7 @@ def shipping_container(
     _write(xy=xy, width=width, code="\ue78c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shirt_folded(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25495,7 +25496,7 @@ def shirt_folded(
     _write(xy=xy, width=width, code="\uea92", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shooting_star(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25516,7 +25517,7 @@ def shooting_star(
     _write(xy=xy, width=width, code="\uecfa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shopping_bag(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25537,7 +25538,7 @@ def shopping_bag(
     _write(xy=xy, width=width, code="\ue416", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shopping_bag_open(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25558,7 +25559,7 @@ def shopping_bag_open(
     _write(xy=xy, width=width, code="\ue418", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shopping_cart(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25579,7 +25580,7 @@ def shopping_cart(
     _write(xy=xy, width=width, code="\ue41e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shopping_cart_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25600,7 +25601,7 @@ def shopping_cart_simple(
     _write(xy=xy, width=width, code="\ue420", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shovel(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25621,7 +25622,7 @@ def shovel(
     _write(xy=xy, width=width, code="\ue9e6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shower(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25642,7 +25643,7 @@ def shower(
     _write(xy=xy, width=width, code="\ue776", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shrimp(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25663,7 +25664,7 @@ def shrimp(
     _write(xy=xy, width=width, code="\ueab4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shuffle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25684,7 +25685,7 @@ def shuffle(
     _write(xy=xy, width=width, code="\ue422", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shuffle_angular(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25705,7 +25706,7 @@ def shuffle_angular(
     _write(xy=xy, width=width, code="\ue424", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def shuffle_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25726,7 +25727,7 @@ def shuffle_simple(
     _write(xy=xy, width=width, code="\ue426", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sidebar(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25747,7 +25748,7 @@ def sidebar(
     _write(xy=xy, width=width, code="\ueab6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sidebar_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25768,7 +25769,7 @@ def sidebar_simple(
     _write(xy=xy, width=width, code="\uec24", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sigma(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25789,7 +25790,7 @@ def sigma(
     _write(xy=xy, width=width, code="\ueab8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sign_in(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25810,7 +25811,7 @@ def sign_in(
     _write(xy=xy, width=width, code="\ue428", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sign_out(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25831,7 +25832,7 @@ def sign_out(
     _write(xy=xy, width=width, code="\ue42a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def signature(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25852,7 +25853,7 @@ def signature(
     _write(xy=xy, width=width, code="\uebac", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def signpost(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25873,7 +25874,7 @@ def signpost(
     _write(xy=xy, width=width, code="\ue89c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sim_card(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25894,7 +25895,7 @@ def sim_card(
     _write(xy=xy, width=width, code="\ue664", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def siren(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25915,7 +25916,7 @@ def siren(
     _write(xy=xy, width=width, code="\ue9b8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sketch_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25936,7 +25937,7 @@ def sketch_logo(
     _write(xy=xy, width=width, code="\ue42c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def skip_back(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25957,7 +25958,7 @@ def skip_back(
     _write(xy=xy, width=width, code="\ue5a4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def skip_back_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25978,7 +25979,7 @@ def skip_back_circle(
     _write(xy=xy, width=width, code="\ue42e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def skip_forward(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -25999,7 +26000,7 @@ def skip_forward(
     _write(xy=xy, width=width, code="\ue5a6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def skip_forward_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26020,7 +26021,7 @@ def skip_forward_circle(
     _write(xy=xy, width=width, code="\ue430", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def skull(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26041,7 +26042,7 @@ def skull(
     _write(xy=xy, width=width, code="\ue916", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def skype_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26062,7 +26063,7 @@ def skype_logo(
     _write(xy=xy, width=width, code="\ue8dc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def slack_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26083,7 +26084,7 @@ def slack_logo(
     _write(xy=xy, width=width, code="\ue5a8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sliders(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26104,7 +26105,7 @@ def sliders(
     _write(xy=xy, width=width, code="\ue432", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sliders_horizontal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26125,7 +26126,7 @@ def sliders_horizontal(
     _write(xy=xy, width=width, code="\ue434", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def slideshow(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26146,7 +26147,7 @@ def slideshow(
     _write(xy=xy, width=width, code="\ued32", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def smiley(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26167,7 +26168,7 @@ def smiley(
     _write(xy=xy, width=width, code="\ue436", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def smiley_angry(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26188,7 +26189,7 @@ def smiley_angry(
     _write(xy=xy, width=width, code="\uec62", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def smiley_blank(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26209,7 +26210,7 @@ def smiley_blank(
     _write(xy=xy, width=width, code="\ue438", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def smiley_meh(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26230,7 +26231,7 @@ def smiley_meh(
     _write(xy=xy, width=width, code="\ue43a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def smiley_melting(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26251,7 +26252,7 @@ def smiley_melting(
     _write(xy=xy, width=width, code="\uee56", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def smiley_nervous(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26272,7 +26273,7 @@ def smiley_nervous(
     _write(xy=xy, width=width, code="\ue43c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def smiley_sad(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26293,7 +26294,7 @@ def smiley_sad(
     _write(xy=xy, width=width, code="\ue43e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def smiley_sticker(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26314,7 +26315,7 @@ def smiley_sticker(
     _write(xy=xy, width=width, code="\ue440", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def smiley_wink(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26335,7 +26336,7 @@ def smiley_wink(
     _write(xy=xy, width=width, code="\ue666", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def smiley_x_eyes(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26356,7 +26357,7 @@ def smiley_x_eyes(
     _write(xy=xy, width=width, code="\ue442", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def snapchat_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26377,7 +26378,7 @@ def snapchat_logo(
     _write(xy=xy, width=width, code="\ue668", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sneaker(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26398,7 +26399,7 @@ def sneaker(
     _write(xy=xy, width=width, code="\ue80c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sneaker_move(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26419,7 +26420,7 @@ def sneaker_move(
     _write(xy=xy, width=width, code="\ued60", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def snowflake(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26440,7 +26441,7 @@ def snowflake(
     _write(xy=xy, width=width, code="\ue5aa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def soccer_ball(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26461,7 +26462,7 @@ def soccer_ball(
     _write(xy=xy, width=width, code="\ue716", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sock(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26482,7 +26483,7 @@ def sock(
     _write(xy=xy, width=width, code="\uecce", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def solar_panel(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26503,7 +26504,7 @@ def solar_panel(
     _write(xy=xy, width=width, code="\ued7a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def solar_roof(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26524,7 +26525,7 @@ def solar_roof(
     _write(xy=xy, width=width, code="\ued7b", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sort_ascending(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26545,7 +26546,7 @@ def sort_ascending(
     _write(xy=xy, width=width, code="\ue444", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sort_descending(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26566,7 +26567,7 @@ def sort_descending(
     _write(xy=xy, width=width, code="\ue446", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def soundcloud_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26587,7 +26588,7 @@ def soundcloud_logo(
     _write(xy=xy, width=width, code="\ue8de", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def spade(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26608,7 +26609,7 @@ def spade(
     _write(xy=xy, width=width, code="\ue448", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sparkle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26629,7 +26630,7 @@ def sparkle(
     _write(xy=xy, width=width, code="\ue6a2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def speaker_hifi(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26650,7 +26651,7 @@ def speaker_hifi(
     _write(xy=xy, width=width, code="\uea08", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def speaker_high(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26671,7 +26672,7 @@ def speaker_high(
     _write(xy=xy, width=width, code="\ue44a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def speaker_low(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26692,7 +26693,7 @@ def speaker_low(
     _write(xy=xy, width=width, code="\ue44c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def speaker_none(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26713,7 +26714,7 @@ def speaker_none(
     _write(xy=xy, width=width, code="\ue44e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def speaker_simple_high(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26734,7 +26735,7 @@ def speaker_simple_high(
     _write(xy=xy, width=width, code="\ue450", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def speaker_simple_low(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26755,7 +26756,7 @@ def speaker_simple_low(
     _write(xy=xy, width=width, code="\ue452", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def speaker_simple_none(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26776,7 +26777,7 @@ def speaker_simple_none(
     _write(xy=xy, width=width, code="\ue454", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def speaker_simple_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26797,7 +26798,7 @@ def speaker_simple_slash(
     _write(xy=xy, width=width, code="\ue456", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def speaker_simple_x(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26818,7 +26819,7 @@ def speaker_simple_x(
     _write(xy=xy, width=width, code="\ue458", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def speaker_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26839,7 +26840,7 @@ def speaker_slash(
     _write(xy=xy, width=width, code="\ue45a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def speaker_x(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26860,7 +26861,7 @@ def speaker_x(
     _write(xy=xy, width=width, code="\ue45c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def speedometer(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26881,7 +26882,7 @@ def speedometer(
     _write(xy=xy, width=width, code="\uee74", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sphere(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26902,7 +26903,7 @@ def sphere(
     _write(xy=xy, width=width, code="\uee66", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def spinner(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26923,7 +26924,7 @@ def spinner(
     _write(xy=xy, width=width, code="\ue66a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def spinner_ball(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26944,7 +26945,7 @@ def spinner_ball(
     _write(xy=xy, width=width, code="\uee28", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def spinner_gap(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26965,7 +26966,7 @@ def spinner_gap(
     _write(xy=xy, width=width, code="\ue66c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def spiral(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -26986,7 +26987,7 @@ def spiral(
     _write(xy=xy, width=width, code="\ue9fa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def split_horizontal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27007,7 +27008,7 @@ def split_horizontal(
     _write(xy=xy, width=width, code="\ue872", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def split_vertical(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27028,7 +27029,7 @@ def split_vertical(
     _write(xy=xy, width=width, code="\ue876", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def spotify_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27049,7 +27050,7 @@ def spotify_logo(
     _write(xy=xy, width=width, code="\ue66e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def spray_bottle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27070,7 +27071,7 @@ def spray_bottle(
     _write(xy=xy, width=width, code="\ue7e4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def square(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27091,7 +27092,7 @@ def square(
     _write(xy=xy, width=width, code="\ue45e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def square_half(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27112,7 +27113,7 @@ def square_half(
     _write(xy=xy, width=width, code="\ue462", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def square_half_bottom(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27133,7 +27134,7 @@ def square_half_bottom(
     _write(xy=xy, width=width, code="\ueb16", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def square_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27154,7 +27155,7 @@ def square_logo(
     _write(xy=xy, width=width, code="\ue690", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def square_split_horizontal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27175,7 +27176,7 @@ def square_split_horizontal(
     _write(xy=xy, width=width, code="\ue870", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def square_split_vertical(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27196,7 +27197,7 @@ def square_split_vertical(
     _write(xy=xy, width=width, code="\ue874", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def squares_four(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27217,7 +27218,7 @@ def squares_four(
     _write(xy=xy, width=width, code="\ue464", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def stack(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27238,7 +27239,7 @@ def stack(
     _write(xy=xy, width=width, code="\ue466", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def stack_minus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27259,7 +27260,7 @@ def stack_minus(
     _write(xy=xy, width=width, code="\uedf4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def stack_overflow_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27280,7 +27281,7 @@ def stack_overflow_logo(
     _write(xy=xy, width=width, code="\ueb78", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def stack_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27301,7 +27302,7 @@ def stack_plus(
     _write(xy=xy, width=width, code="\uedf6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def stack_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27322,7 +27323,7 @@ def stack_simple(
     _write(xy=xy, width=width, code="\ue468", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def stairs(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27343,7 +27344,7 @@ def stairs(
     _write(xy=xy, width=width, code="\ue8ec", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def stamp(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27364,7 +27365,7 @@ def stamp(
     _write(xy=xy, width=width, code="\uea48", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def standard_definition(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27385,7 +27386,7 @@ def standard_definition(
     _write(xy=xy, width=width, code="\uea90", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def star(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27406,7 +27407,7 @@ def star(
     _write(xy=xy, width=width, code="\ue46a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def star_and_crescent(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27427,7 +27428,7 @@ def star_and_crescent(
     _write(xy=xy, width=width, code="\uecf4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def star_four(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27448,7 +27449,7 @@ def star_four(
     _write(xy=xy, width=width, code="\ue6a4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def star_half(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27469,7 +27470,7 @@ def star_half(
     _write(xy=xy, width=width, code="\ue70a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def star_of_david(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27490,7 +27491,7 @@ def star_of_david(
     _write(xy=xy, width=width, code="\ue89e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def steam_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27511,7 +27512,7 @@ def steam_logo(
     _write(xy=xy, width=width, code="\uead4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def steering_wheel(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27532,7 +27533,7 @@ def steering_wheel(
     _write(xy=xy, width=width, code="\ue9ac", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def steps(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27553,7 +27554,7 @@ def steps(
     _write(xy=xy, width=width, code="\uecbe", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def stethoscope(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27574,7 +27575,7 @@ def stethoscope(
     _write(xy=xy, width=width, code="\ue7ea", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sticker(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27595,7 +27596,7 @@ def sticker(
     _write(xy=xy, width=width, code="\ue5ac", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def stool(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27616,7 +27617,7 @@ def stool(
     _write(xy=xy, width=width, code="\uea44", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def stop(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27637,7 +27638,7 @@ def stop(
     _write(xy=xy, width=width, code="\ue46c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def stop_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27658,7 +27659,7 @@ def stop_circle(
     _write(xy=xy, width=width, code="\ue46e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def storefront(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27679,7 +27680,7 @@ def storefront(
     _write(xy=xy, width=width, code="\ue470", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def strategy(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27700,7 +27701,7 @@ def strategy(
     _write(xy=xy, width=width, code="\uea3a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def stripe_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27721,7 +27722,7 @@ def stripe_logo(
     _write(xy=xy, width=width, code="\ue698", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def student(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27742,7 +27743,7 @@ def student(
     _write(xy=xy, width=width, code="\ue73e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def subset_of(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27763,7 +27764,7 @@ def subset_of(
     _write(xy=xy, width=width, code="\uedc0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def subset_proper_of(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27784,7 +27785,7 @@ def subset_proper_of(
     _write(xy=xy, width=width, code="\uedb6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def subtitles(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27805,7 +27806,7 @@ def subtitles(
     _write(xy=xy, width=width, code="\ue1a8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def subtitles_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27826,7 +27827,7 @@ def subtitles_slash(
     _write(xy=xy, width=width, code="\ue1a6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def subtract(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27847,7 +27848,7 @@ def subtract(
     _write(xy=xy, width=width, code="\uebd6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def subtract_square(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27868,7 +27869,7 @@ def subtract_square(
     _write(xy=xy, width=width, code="\uebd4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def subway(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27889,7 +27890,7 @@ def subway(
     _write(xy=xy, width=width, code="\ue498", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def suitcase(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27910,7 +27911,7 @@ def suitcase(
     _write(xy=xy, width=width, code="\ue5ae", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def suitcase_rolling(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27931,7 +27932,7 @@ def suitcase_rolling(
     _write(xy=xy, width=width, code="\ue9b0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def suitcase_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27952,7 +27953,7 @@ def suitcase_simple(
     _write(xy=xy, width=width, code="\ue5b0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sun(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27973,7 +27974,7 @@ def sun(
     _write(xy=xy, width=width, code="\ue472", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sun_dim(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -27994,7 +27995,7 @@ def sun_dim(
     _write(xy=xy, width=width, code="\ue474", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sun_horizon(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28015,7 +28016,7 @@ def sun_horizon(
     _write(xy=xy, width=width, code="\ue5b6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sunglasses(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28036,7 +28037,7 @@ def sunglasses(
     _write(xy=xy, width=width, code="\ue816", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def superset_of(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28057,7 +28058,7 @@ def superset_of(
     _write(xy=xy, width=width, code="\uedb8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def superset_proper_of(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28078,7 +28079,7 @@ def superset_proper_of(
     _write(xy=xy, width=width, code="\uedb4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def swap(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28099,7 +28100,7 @@ def swap(
     _write(xy=xy, width=width, code="\ue83c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def swatches(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28120,7 +28121,7 @@ def swatches(
     _write(xy=xy, width=width, code="\ue5b8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def swimming_pool(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28141,7 +28142,7 @@ def swimming_pool(
     _write(xy=xy, width=width, code="\uecb6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def sword(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28162,7 +28163,7 @@ def sword(
     _write(xy=xy, width=width, code="\ue5ba", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def synagogue(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28183,7 +28184,7 @@ def synagogue(
     _write(xy=xy, width=width, code="\uecec", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def syringe(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28204,7 +28205,7 @@ def syringe(
     _write(xy=xy, width=width, code="\ue968", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def t_shirt(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28225,7 +28226,7 @@ def t_shirt(
     _write(xy=xy, width=width, code="\ue670", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def table(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28246,7 +28247,7 @@ def table(
     _write(xy=xy, width=width, code="\ue476", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tabs(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28267,7 +28268,7 @@ def tabs(
     _write(xy=xy, width=width, code="\ue778", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tag(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28288,7 +28289,7 @@ def tag(
     _write(xy=xy, width=width, code="\ue478", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tag_chevron(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28309,7 +28310,7 @@ def tag_chevron(
     _write(xy=xy, width=width, code="\ue672", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tag_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28330,7 +28331,7 @@ def tag_simple(
     _write(xy=xy, width=width, code="\ue47a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def target(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28351,7 +28352,7 @@ def target(
     _write(xy=xy, width=width, code="\ue47c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def taxi(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28372,7 +28373,7 @@ def taxi(
     _write(xy=xy, width=width, code="\ue902", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tea_bag(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28393,7 +28394,7 @@ def tea_bag(
     _write(xy=xy, width=width, code="\ue8e6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def telegram_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28414,7 +28415,7 @@ def telegram_logo(
     _write(xy=xy, width=width, code="\ue5bc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def television(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28435,7 +28436,7 @@ def television(
     _write(xy=xy, width=width, code="\ue754", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def television_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28456,7 +28457,7 @@ def television_simple(
     _write(xy=xy, width=width, code="\ueae6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tennis_ball(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28477,7 +28478,7 @@ def tennis_ball(
     _write(xy=xy, width=width, code="\ue720", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tent(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28498,7 +28499,7 @@ def tent(
     _write(xy=xy, width=width, code="\ue8ba", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def terminal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28519,7 +28520,7 @@ def terminal(
     _write(xy=xy, width=width, code="\ue47e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def terminal_window(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28540,7 +28541,7 @@ def terminal_window(
     _write(xy=xy, width=width, code="\ueae8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def test_tube(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28561,7 +28562,7 @@ def test_tube(
     _write(xy=xy, width=width, code="\ue7a0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_a_underline(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28582,7 +28583,7 @@ def text_a_underline(
     _write(xy=xy, width=width, code="\ued34", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_aa(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28603,7 +28604,7 @@ def text_aa(
     _write(xy=xy, width=width, code="\ue6ee", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_align_center(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28624,7 +28625,7 @@ def text_align_center(
     _write(xy=xy, width=width, code="\ue480", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_align_justify(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28645,7 +28646,7 @@ def text_align_justify(
     _write(xy=xy, width=width, code="\ue482", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_align_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28666,7 +28667,7 @@ def text_align_left(
     _write(xy=xy, width=width, code="\ue484", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_align_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28687,7 +28688,7 @@ def text_align_right(
     _write(xy=xy, width=width, code="\ue486", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_b(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28708,7 +28709,7 @@ def text_b(
     _write(xy=xy, width=width, code="\ue5be", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_bolder(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28729,7 +28730,7 @@ def text_bolder(
     _write(xy=xy, width=width, code="\ue5be", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_columns(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28750,7 +28751,7 @@ def text_columns(
     _write(xy=xy, width=width, code="\uec96", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_h(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28771,7 +28772,7 @@ def text_h(
     _write(xy=xy, width=width, code="\ue6ba", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_h_five(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28792,7 +28793,7 @@ def text_h_five(
     _write(xy=xy, width=width, code="\ue6c4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_h_four(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28813,7 +28814,7 @@ def text_h_four(
     _write(xy=xy, width=width, code="\ue6c2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_h_one(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28834,7 +28835,7 @@ def text_h_one(
     _write(xy=xy, width=width, code="\ue6bc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_h_six(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28855,7 +28856,7 @@ def text_h_six(
     _write(xy=xy, width=width, code="\ue6c6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_h_three(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28876,7 +28877,7 @@ def text_h_three(
     _write(xy=xy, width=width, code="\ue6c0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_h_two(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28897,7 +28898,7 @@ def text_h_two(
     _write(xy=xy, width=width, code="\ue6be", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_indent(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28918,7 +28919,7 @@ def text_indent(
     _write(xy=xy, width=width, code="\uea1e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_italic(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28939,7 +28940,7 @@ def text_italic(
     _write(xy=xy, width=width, code="\ue5c0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_outdent(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28960,7 +28961,7 @@ def text_outdent(
     _write(xy=xy, width=width, code="\uea1c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_strikethrough(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -28981,7 +28982,7 @@ def text_strikethrough(
     _write(xy=xy, width=width, code="\ue5c2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_subscript(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29002,7 +29003,7 @@ def text_subscript(
     _write(xy=xy, width=width, code="\uec98", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_superscript(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29023,7 +29024,7 @@ def text_superscript(
     _write(xy=xy, width=width, code="\uec9a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_t(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29044,7 +29045,7 @@ def text_t(
     _write(xy=xy, width=width, code="\ue48a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_t_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29065,7 +29066,7 @@ def text_t_slash(
     _write(xy=xy, width=width, code="\ue488", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_underline(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29086,7 +29087,7 @@ def text_underline(
     _write(xy=xy, width=width, code="\ue5c4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def textbox(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29107,7 +29108,7 @@ def textbox(
     _write(xy=xy, width=width, code="\ueb0a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def thermometer(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29128,7 +29129,7 @@ def thermometer(
     _write(xy=xy, width=width, code="\ue5c6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def thermometer_cold(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29149,7 +29150,7 @@ def thermometer_cold(
     _write(xy=xy, width=width, code="\ue5c8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def thermometer_hot(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29170,7 +29171,7 @@ def thermometer_hot(
     _write(xy=xy, width=width, code="\ue5ca", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def thermometer_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29191,7 +29192,7 @@ def thermometer_simple(
     _write(xy=xy, width=width, code="\ue5cc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def threads_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29212,7 +29213,7 @@ def threads_logo(
     _write(xy=xy, width=width, code="\ued9e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def three_d(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29233,7 +29234,7 @@ def three_d(
     _write(xy=xy, width=width, code="\uea5a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def thumbs_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29254,7 +29255,7 @@ def thumbs_down(
     _write(xy=xy, width=width, code="\ue48c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def thumbs_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29275,7 +29276,7 @@ def thumbs_up(
     _write(xy=xy, width=width, code="\ue48e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def ticket(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29296,7 +29297,7 @@ def ticket(
     _write(xy=xy, width=width, code="\ue490", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tidal_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29317,7 +29318,7 @@ def tidal_logo(
     _write(xy=xy, width=width, code="\ued1c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tiktok_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29338,7 +29339,7 @@ def tiktok_logo(
     _write(xy=xy, width=width, code="\ueaf2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tilde(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29359,7 +29360,7 @@ def tilde(
     _write(xy=xy, width=width, code="\ueda8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def timer(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29380,7 +29381,7 @@ def timer(
     _write(xy=xy, width=width, code="\ue492", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tip_jar(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29401,7 +29402,7 @@ def tip_jar(
     _write(xy=xy, width=width, code="\ue7e2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tipi(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29422,7 +29423,7 @@ def tipi(
     _write(xy=xy, width=width, code="\ued30", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tire(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29443,7 +29444,7 @@ def tire(
     _write(xy=xy, width=width, code="\uedd2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def toggle_left(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29464,7 +29465,7 @@ def toggle_left(
     _write(xy=xy, width=width, code="\ue674", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def toggle_right(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29485,7 +29486,7 @@ def toggle_right(
     _write(xy=xy, width=width, code="\ue676", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def toilet(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29506,7 +29507,7 @@ def toilet(
     _write(xy=xy, width=width, code="\ue79a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def toilet_paper(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29527,7 +29528,7 @@ def toilet_paper(
     _write(xy=xy, width=width, code="\ue79c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def toolbox(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29548,7 +29549,7 @@ def toolbox(
     _write(xy=xy, width=width, code="\ueca0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tooth(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29569,7 +29570,7 @@ def tooth(
     _write(xy=xy, width=width, code="\ue9cc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tornado(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29590,7 +29591,7 @@ def tornado(
     _write(xy=xy, width=width, code="\ue88c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tote(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29611,7 +29612,7 @@ def tote(
     _write(xy=xy, width=width, code="\ue494", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tote_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29632,7 +29633,7 @@ def tote_simple(
     _write(xy=xy, width=width, code="\ue678", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def towel(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29653,7 +29654,7 @@ def towel(
     _write(xy=xy, width=width, code="\uede6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tractor(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29674,7 +29675,7 @@ def tractor(
     _write(xy=xy, width=width, code="\uec6e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def trademark(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29695,7 +29696,7 @@ def trademark(
     _write(xy=xy, width=width, code="\ue9f0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def trademark_registered(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29716,7 +29717,7 @@ def trademark_registered(
     _write(xy=xy, width=width, code="\ue3f4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def traffic_cone(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29737,7 +29738,7 @@ def traffic_cone(
     _write(xy=xy, width=width, code="\ue9a8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def traffic_sign(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29758,7 +29759,7 @@ def traffic_sign(
     _write(xy=xy, width=width, code="\ue67a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def traffic_signal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29779,7 +29780,7 @@ def traffic_signal(
     _write(xy=xy, width=width, code="\ue9aa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def train(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29800,7 +29801,7 @@ def train(
     _write(xy=xy, width=width, code="\ue496", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def train_regional(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29821,7 +29822,7 @@ def train_regional(
     _write(xy=xy, width=width, code="\ue49e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def train_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29842,7 +29843,7 @@ def train_simple(
     _write(xy=xy, width=width, code="\ue4a0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tram(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29863,7 +29864,7 @@ def tram(
     _write(xy=xy, width=width, code="\ue9ec", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def translate(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29884,7 +29885,7 @@ def translate(
     _write(xy=xy, width=width, code="\ue4a2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def trash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29905,7 +29906,7 @@ def trash(
     _write(xy=xy, width=width, code="\ue4a6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def trash_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29926,7 +29927,7 @@ def trash_simple(
     _write(xy=xy, width=width, code="\ue4a8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tray(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29947,7 +29948,7 @@ def tray(
     _write(xy=xy, width=width, code="\ue4aa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tray_arrow_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29968,7 +29969,7 @@ def tray_arrow_down(
     _write(xy=xy, width=width, code="\ue010", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tray_arrow_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -29989,7 +29990,7 @@ def tray_arrow_up(
     _write(xy=xy, width=width, code="\uee52", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def treasure_chest(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30010,7 +30011,7 @@ def treasure_chest(
     _write(xy=xy, width=width, code="\uede2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tree(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30031,7 +30032,7 @@ def tree(
     _write(xy=xy, width=width, code="\ue6da", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tree_evergreen(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30052,7 +30053,7 @@ def tree_evergreen(
     _write(xy=xy, width=width, code="\ue6dc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tree_palm(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30073,7 +30074,7 @@ def tree_palm(
     _write(xy=xy, width=width, code="\ue91a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tree_structure(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30094,7 +30095,7 @@ def tree_structure(
     _write(xy=xy, width=width, code="\ue67c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tree_view(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30115,7 +30116,7 @@ def tree_view(
     _write(xy=xy, width=width, code="\uee48", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def trend_down(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30136,7 +30137,7 @@ def trend_down(
     _write(xy=xy, width=width, code="\ue4ac", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def trend_up(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30157,7 +30158,7 @@ def trend_up(
     _write(xy=xy, width=width, code="\ue4ae", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def triangle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30178,7 +30179,7 @@ def triangle(
     _write(xy=xy, width=width, code="\ue4b0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def triangle_dashed(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30199,7 +30200,7 @@ def triangle_dashed(
     _write(xy=xy, width=width, code="\ue4b2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def trolley(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30220,7 +30221,7 @@ def trolley(
     _write(xy=xy, width=width, code="\ue5b2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def trolley_suitcase(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30241,7 +30242,7 @@ def trolley_suitcase(
     _write(xy=xy, width=width, code="\ue5b4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def trophy(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30262,7 +30263,7 @@ def trophy(
     _write(xy=xy, width=width, code="\ue67e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def truck(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30283,7 +30284,7 @@ def truck(
     _write(xy=xy, width=width, code="\ue4b4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def truck_trailer(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30304,7 +30305,7 @@ def truck_trailer(
     _write(xy=xy, width=width, code="\ue4b6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tumblr_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30325,7 +30326,7 @@ def tumblr_logo(
     _write(xy=xy, width=width, code="\ue8d4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def twitch_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30346,7 +30347,7 @@ def twitch_logo(
     _write(xy=xy, width=width, code="\ue5ce", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def twitter_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30367,7 +30368,7 @@ def twitter_logo(
     _write(xy=xy, width=width, code="\ue4ba", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def umbrella(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30388,7 +30389,7 @@ def umbrella(
     _write(xy=xy, width=width, code="\ue684", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def umbrella_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30409,7 +30410,7 @@ def umbrella_simple(
     _write(xy=xy, width=width, code="\ue686", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def union(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30430,7 +30431,7 @@ def union(
     _write(xy=xy, width=width, code="\uedbe", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def unite(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30451,7 +30452,7 @@ def unite(
     _write(xy=xy, width=width, code="\ue87e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def unite_square(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30472,7 +30473,7 @@ def unite_square(
     _write(xy=xy, width=width, code="\ue878", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def upload(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30493,7 +30494,7 @@ def upload(
     _write(xy=xy, width=width, code="\ue4be", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def upload_simple(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30514,7 +30515,7 @@ def upload_simple(
     _write(xy=xy, width=width, code="\ue4c0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def usb(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30535,7 +30536,7 @@ def usb(
     _write(xy=xy, width=width, code="\ue956", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def user(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30556,7 +30557,7 @@ def user(
     _write(xy=xy, width=width, code="\ue4c2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def user_check(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30577,7 +30578,7 @@ def user_check(
     _write(xy=xy, width=width, code="\ueafa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def user_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30598,7 +30599,7 @@ def user_circle(
     _write(xy=xy, width=width, code="\ue4c4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def user_circle_check(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30619,7 +30620,7 @@ def user_circle_check(
     _write(xy=xy, width=width, code="\uec38", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def user_circle_dashed(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30640,7 +30641,7 @@ def user_circle_dashed(
     _write(xy=xy, width=width, code="\uec36", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def user_circle_gear(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30661,7 +30662,7 @@ def user_circle_gear(
     _write(xy=xy, width=width, code="\ue4c6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def user_circle_minus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30682,7 +30683,7 @@ def user_circle_minus(
     _write(xy=xy, width=width, code="\ue4c8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def user_circle_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30703,7 +30704,7 @@ def user_circle_plus(
     _write(xy=xy, width=width, code="\ue4ca", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def user_focus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30724,7 +30725,7 @@ def user_focus(
     _write(xy=xy, width=width, code="\ue6fc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def user_gear(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30745,7 +30746,7 @@ def user_gear(
     _write(xy=xy, width=width, code="\ue4cc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def user_list(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30766,7 +30767,7 @@ def user_list(
     _write(xy=xy, width=width, code="\ue73c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def user_minus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30787,7 +30788,7 @@ def user_minus(
     _write(xy=xy, width=width, code="\ue4ce", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def user_plus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30808,7 +30809,7 @@ def user_plus(
     _write(xy=xy, width=width, code="\ue4d0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def user_rectangle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30829,7 +30830,7 @@ def user_rectangle(
     _write(xy=xy, width=width, code="\ue4d2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def user_sound(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30850,7 +30851,7 @@ def user_sound(
     _write(xy=xy, width=width, code="\ueca8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def user_square(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30871,7 +30872,7 @@ def user_square(
     _write(xy=xy, width=width, code="\ue4d4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def user_switch(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30892,7 +30893,7 @@ def user_switch(
     _write(xy=xy, width=width, code="\ue756", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def users(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30913,7 +30914,7 @@ def users(
     _write(xy=xy, width=width, code="\ue4d6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def users_four(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30934,7 +30935,7 @@ def users_four(
     _write(xy=xy, width=width, code="\ue68c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def users_three(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30955,7 +30956,7 @@ def users_three(
     _write(xy=xy, width=width, code="\ue68e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def van(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30976,7 +30977,7 @@ def van(
     _write(xy=xy, width=width, code="\ue826", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def vault(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -30997,7 +30998,7 @@ def vault(
     _write(xy=xy, width=width, code="\ue76e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def vector_three(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31018,7 +31019,7 @@ def vector_three(
     _write(xy=xy, width=width, code="\uee62", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def vector_two(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31039,7 +31040,7 @@ def vector_two(
     _write(xy=xy, width=width, code="\uee64", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def vibrate(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31060,7 +31061,7 @@ def vibrate(
     _write(xy=xy, width=width, code="\ue4d8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def video(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31081,7 +31082,7 @@ def video(
     _write(xy=xy, width=width, code="\ue740", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def video_camera(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31102,7 +31103,7 @@ def video_camera(
     _write(xy=xy, width=width, code="\ue4da", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def video_camera_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31123,7 +31124,7 @@ def video_camera_slash(
     _write(xy=xy, width=width, code="\ue4dc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def video_conference(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31144,7 +31145,7 @@ def video_conference(
     _write(xy=xy, width=width, code="\uedce", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def vignette(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31165,7 +31166,7 @@ def vignette(
     _write(xy=xy, width=width, code="\ueba2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def vinyl_record(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31186,7 +31187,7 @@ def vinyl_record(
     _write(xy=xy, width=width, code="\uecac", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def virtual_reality(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31207,7 +31208,7 @@ def virtual_reality(
     _write(xy=xy, width=width, code="\ue7b8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def virus(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31228,7 +31229,7 @@ def virus(
     _write(xy=xy, width=width, code="\ue7d6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def visor(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31249,7 +31250,7 @@ def visor(
     _write(xy=xy, width=width, code="\uee2a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def voicemail(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31270,7 +31271,7 @@ def voicemail(
     _write(xy=xy, width=width, code="\ue4de", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def volleyball(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31291,7 +31292,7 @@ def volleyball(
     _write(xy=xy, width=width, code="\ue726", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def wall(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31312,7 +31313,7 @@ def wall(
     _write(xy=xy, width=width, code="\ue688", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def wallet(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31333,7 +31334,7 @@ def wallet(
     _write(xy=xy, width=width, code="\ue68a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def warehouse(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31354,7 +31355,7 @@ def warehouse(
     _write(xy=xy, width=width, code="\uecd4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def warning(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31375,7 +31376,7 @@ def warning(
     _write(xy=xy, width=width, code="\ue4e0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def warning_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31396,7 +31397,7 @@ def warning_circle(
     _write(xy=xy, width=width, code="\ue4e2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def warning_diamond(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31417,7 +31418,7 @@ def warning_diamond(
     _write(xy=xy, width=width, code="\ue7fc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def warning_octagon(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31438,7 +31439,7 @@ def warning_octagon(
     _write(xy=xy, width=width, code="\ue4e4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def washing_machine(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31459,7 +31460,7 @@ def washing_machine(
     _write(xy=xy, width=width, code="\uede8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def watch(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31480,7 +31481,7 @@ def watch(
     _write(xy=xy, width=width, code="\ue4e6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def wave_sawtooth(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31501,7 +31502,7 @@ def wave_sawtooth(
     _write(xy=xy, width=width, code="\uea9c", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def wave_sine(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31522,7 +31523,7 @@ def wave_sine(
     _write(xy=xy, width=width, code="\uea9a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def wave_square(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31543,7 +31544,7 @@ def wave_square(
     _write(xy=xy, width=width, code="\uea9e", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def wave_triangle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31564,7 +31565,7 @@ def wave_triangle(
     _write(xy=xy, width=width, code="\ueaa0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def waveform(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31585,7 +31586,7 @@ def waveform(
     _write(xy=xy, width=width, code="\ue802", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def waveform_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31606,7 +31607,7 @@ def waveform_slash(
     _write(xy=xy, width=width, code="\ue800", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def waves(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31627,7 +31628,7 @@ def waves(
     _write(xy=xy, width=width, code="\ue6de", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def webcam(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31648,7 +31649,7 @@ def webcam(
     _write(xy=xy, width=width, code="\ue9b2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def webcam_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31669,7 +31670,7 @@ def webcam_slash(
     _write(xy=xy, width=width, code="\uecdc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def webhooks_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31690,7 +31691,7 @@ def webhooks_logo(
     _write(xy=xy, width=width, code="\uecae", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def wechat_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31711,7 +31712,7 @@ def wechat_logo(
     _write(xy=xy, width=width, code="\ue8d2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def whatsapp_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31732,7 +31733,7 @@ def whatsapp_logo(
     _write(xy=xy, width=width, code="\ue5d0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def wheelchair(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31753,7 +31754,7 @@ def wheelchair(
     _write(xy=xy, width=width, code="\ue4e8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def wheelchair_motion(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31774,7 +31775,7 @@ def wheelchair_motion(
     _write(xy=xy, width=width, code="\ue89a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def wifi_high(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31795,7 +31796,7 @@ def wifi_high(
     _write(xy=xy, width=width, code="\ue4ea", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def wifi_low(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31816,7 +31817,7 @@ def wifi_low(
     _write(xy=xy, width=width, code="\ue4ec", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def wifi_medium(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31837,7 +31838,7 @@ def wifi_medium(
     _write(xy=xy, width=width, code="\ue4ee", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def wifi_none(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31858,7 +31859,7 @@ def wifi_none(
     _write(xy=xy, width=width, code="\ue4f0", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def wifi_slash(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31879,7 +31880,7 @@ def wifi_slash(
     _write(xy=xy, width=width, code="\ue4f2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def wifi_x(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31900,7 +31901,7 @@ def wifi_x(
     _write(xy=xy, width=width, code="\ue4f4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def wind(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31921,7 +31922,7 @@ def wind(
     _write(xy=xy, width=width, code="\ue5d2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def windmill(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31942,7 +31943,7 @@ def windmill(
     _write(xy=xy, width=width, code="\ue9f8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def windows_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31963,7 +31964,7 @@ def windows_logo(
     _write(xy=xy, width=width, code="\ue692", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def wine(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -31984,7 +31985,7 @@ def wine(
     _write(xy=xy, width=width, code="\ue6b2", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def wrench(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -32005,7 +32006,7 @@ def wrench(
     _write(xy=xy, width=width, code="\ue5d4", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def x(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -32026,7 +32027,7 @@ def x(
     _write(xy=xy, width=width, code="\ue4f6", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def x_circle(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -32047,7 +32048,7 @@ def x_circle(
     _write(xy=xy, width=width, code="\ue4f8", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def x_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -32068,7 +32069,7 @@ def x_logo(
     _write(xy=xy, width=width, code="\ue4bc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def x_square(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -32089,7 +32090,7 @@ def x_square(
     _write(xy=xy, width=width, code="\ue4fa", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def yarn(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -32110,7 +32111,7 @@ def yarn(
     _write(xy=xy, width=width, code="\ued9a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def yin_yang(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -32131,7 +32132,7 @@ def yin_yang(
     _write(xy=xy, width=width, code="\ue92a", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def youtube_logo(
     xy: TypeCoordinate,
     width: TypePosFloat,

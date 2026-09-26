@@ -15,6 +15,7 @@ import os
 from typing import Final, Literal
 
 from PIL import Image
+from pydantic import validate_call
 from pygments import highlight
 from pygments.formatters import ImageFormatter  # type: ignore
 from pygments.lexer import Lexer
@@ -25,7 +26,7 @@ from pygments.lexers import (
 from pygments.lexers.special import TextLexer
 from pygments.styles import get_style_by_name
 
-from drawlib._core.l1_core import get_script_relative_path, guarded
+from drawlib._core.l1_core import get_script_relative_path
 from drawlib._core.l2_models import Dimage
 from drawlib._core.l2_types import (
     TypeBool,
@@ -56,7 +57,7 @@ class SourceCode:
     directly with the `get_image()` method.
     """
 
-    @guarded
+    @validate_call
     def __init__(
         self,
         language: Literal[
@@ -146,7 +147,7 @@ class SourceCode:
         self._lexer: Lexer | None = self._get_lexer(language)
         self._formatter = self._get_formatter(style, font, show_linenum, linenum_textcolor, linenum_bgcolor)
 
-    @guarded
+    @validate_call
     def get_image(self, code: TypeStr) -> Dimage:
         """Generate an image of the source code.
 
@@ -168,7 +169,7 @@ class SourceCode:
         image_buffer.seek(0)
         return Dimage(Image.open(image_buffer))
 
-    @guarded
+    @validate_call
     def draw(
         self,
         xy: TypeCoordinate,
@@ -189,7 +190,7 @@ class SourceCode:
         image(xy=xy, width=width, image=image_, style=style)
 
     @staticmethod
-    @guarded
+    @validate_call
     def get_text(file: TypeStr, strip: TypeBool = True) -> TypeStr:
         """Retrieve the text from a file.
 

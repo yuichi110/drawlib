@@ -11,7 +11,8 @@
 
 from __future__ import annotations
 
-from drawlib._core.l1_core import guarded
+from pydantic import validate_call
+
 from drawlib._core.l2_types import (
     TypeAngle,
     TypeCoordinate,
@@ -22,7 +23,7 @@ from drawlib._core.l3_styles import Style
 from drawlib._icons.png_icons.gcp._base import _write
 
 
-@guarded
+@validate_call
 def access_context_manager(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -43,7 +44,7 @@ def access_context_manager(
     _write(xy=xy, width=width, name="access_context_manager", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def administration(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -64,7 +65,7 @@ def administration(
     _write(xy=xy, width=width, name="administration", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def advanced_agent_modeling(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -85,7 +86,7 @@ def advanced_agent_modeling(
     _write(xy=xy, width=width, name="advanced_agent_modeling", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def advanced_solutions_lab(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -106,7 +107,7 @@ def advanced_solutions_lab(
     _write(xy=xy, width=width, name="advanced_solutions_lab", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def agent_assist(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -127,7 +128,7 @@ def agent_assist(
     _write(xy=xy, width=width, name="agent_assist", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def ai_hub(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -148,7 +149,7 @@ def ai_hub(
     _write(xy=xy, width=width, name="ai_hub", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def ai_hypercomputer(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -169,7 +170,7 @@ def ai_hypercomputer(
     _write(xy=xy, width=width, name="ai_hypercomputer", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def ai_platform(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -190,7 +191,7 @@ def ai_platform(
     _write(xy=xy, width=width, name="ai_platform", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def ai_platform_unified(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -211,7 +212,7 @@ def ai_platform_unified(
     _write(xy=xy, width=width, name="ai_platform_unified", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def alloydb(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -232,7 +233,7 @@ def alloydb(
     _write(xy=xy, width=width, name="alloydb", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def analytics_hub(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -253,7 +254,7 @@ def analytics_hub(
     _write(xy=xy, width=width, name="analytics_hub", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def anthos(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -274,7 +275,7 @@ def anthos(
     _write(xy=xy, width=width, name="anthos", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def anthos_config_management(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -295,7 +296,7 @@ def anthos_config_management(
     _write(xy=xy, width=width, name="anthos_config_management", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def anthos_service_mesh(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -316,7 +317,7 @@ def anthos_service_mesh(
     _write(xy=xy, width=width, name="anthos_service_mesh", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def api(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -337,7 +338,7 @@ def api(
     _write(xy=xy, width=width, name="api", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def api_analytics(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -358,7 +359,7 @@ def api_analytics(
     _write(xy=xy, width=width, name="api_analytics", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def api_monetization(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -379,7 +380,7 @@ def api_monetization(
     _write(xy=xy, width=width, name="api_monetization", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def apigee(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -400,7 +401,7 @@ def apigee(
     _write(xy=xy, width=width, name="apigee", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def apigee_api_platform(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -421,7 +422,7 @@ def apigee_api_platform(
     _write(xy=xy, width=width, name="apigee_api_platform", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def apigee_sense(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -442,7 +443,7 @@ def apigee_sense(
     _write(xy=xy, width=width, name="apigee_sense", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def app_engine(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -463,7 +464,7 @@ def app_engine(
     _write(xy=xy, width=width, name="app_engine", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def artifact_registry(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -484,7 +485,7 @@ def artifact_registry(
     _write(xy=xy, width=width, name="artifact_registry", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def asset_inventory(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -505,7 +506,7 @@ def asset_inventory(
     _write(xy=xy, width=width, name="asset_inventory", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def assured_workloads(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -526,7 +527,7 @@ def assured_workloads(
     _write(xy=xy, width=width, name="assured_workloads", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def automl(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -547,7 +548,7 @@ def automl(
     _write(xy=xy, width=width, name="automl", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def automl_natural_language(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -568,7 +569,7 @@ def automl_natural_language(
     _write(xy=xy, width=width, name="automl_natural_language", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def automl_tables(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -589,7 +590,7 @@ def automl_tables(
     _write(xy=xy, width=width, name="automl_tables", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def automl_translation(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -610,7 +611,7 @@ def automl_translation(
     _write(xy=xy, width=width, name="automl_translation", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def automl_video_intelligence(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -631,7 +632,7 @@ def automl_video_intelligence(
     _write(xy=xy, width=width, name="automl_video_intelligence", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def automl_vision(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -652,7 +653,7 @@ def automl_vision(
     _write(xy=xy, width=width, name="automl_vision", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bare_metal_solutions(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -673,7 +674,7 @@ def bare_metal_solutions(
     _write(xy=xy, width=width, name="bare_metal_solutions", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def batch(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -694,7 +695,7 @@ def batch(
     _write(xy=xy, width=width, name="batch", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def beyondcorp(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -715,7 +716,7 @@ def beyondcorp(
     _write(xy=xy, width=width, name="beyondcorp", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bigquery(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -736,7 +737,7 @@ def bigquery(
     _write(xy=xy, width=width, name="bigquery", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def bigtable(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -757,7 +758,7 @@ def bigtable(
     _write(xy=xy, width=width, name="bigtable", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def billing(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -778,7 +779,7 @@ def billing(
     _write(xy=xy, width=width, name="billing", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def binary_authorization(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -799,7 +800,7 @@ def binary_authorization(
     _write(xy=xy, width=width, name="binary_authorization", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def catalog(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -820,7 +821,7 @@ def catalog(
     _write(xy=xy, width=width, name="catalog", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_agents(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -841,7 +842,7 @@ def category_agents(
     _write(xy=xy, width=width, name="category_agents", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_ai_machine_learning(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -862,7 +863,7 @@ def category_ai_machine_learning(
     _write(xy=xy, width=width, name="category_ai_machine_learning", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_business_intelligence(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -883,7 +884,7 @@ def category_business_intelligence(
     _write(xy=xy, width=width, name="category_business_intelligence", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_collaboration(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -904,7 +905,7 @@ def category_collaboration(
     _write(xy=xy, width=width, name="category_collaboration", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_compute(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -925,7 +926,7 @@ def category_compute(
     _write(xy=xy, width=width, name="category_compute", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_containers(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -946,7 +947,7 @@ def category_containers(
     _write(xy=xy, width=width, name="category_containers", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_data_analytics(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -967,7 +968,7 @@ def category_data_analytics(
     _write(xy=xy, width=width, name="category_data_analytics", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_databases(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -988,7 +989,7 @@ def category_databases(
     _write(xy=xy, width=width, name="category_databases", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_developer_tools(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1009,7 +1010,7 @@ def category_developer_tools(
     _write(xy=xy, width=width, name="category_developer_tools", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_devops(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1030,7 +1031,7 @@ def category_devops(
     _write(xy=xy, width=width, name="category_devops", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_hybrid_multicloud(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1051,7 +1052,7 @@ def category_hybrid_multicloud(
     _write(xy=xy, width=width, name="category_hybrid_multicloud", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_integration_services(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1072,7 +1073,7 @@ def category_integration_services(
     _write(xy=xy, width=width, name="category_integration_services", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_management_tools(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1093,7 +1094,7 @@ def category_management_tools(
     _write(xy=xy, width=width, name="category_management_tools", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_maps_geospatial(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1114,7 +1115,7 @@ def category_maps_geospatial(
     _write(xy=xy, width=width, name="category_maps_geospatial", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_marketplace(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1135,7 +1136,7 @@ def category_marketplace(
     _write(xy=xy, width=width, name="category_marketplace", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_media_services(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1156,7 +1157,7 @@ def category_media_services(
     _write(xy=xy, width=width, name="category_media_services", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_migration(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1177,7 +1178,7 @@ def category_migration(
     _write(xy=xy, width=width, name="category_migration", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_mixed_reality(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1198,7 +1199,7 @@ def category_mixed_reality(
     _write(xy=xy, width=width, name="category_mixed_reality", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_networking(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1219,7 +1220,7 @@ def category_networking(
     _write(xy=xy, width=width, name="category_networking", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_observability(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1240,7 +1241,7 @@ def category_observability(
     _write(xy=xy, width=width, name="category_observability", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_operations(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1261,7 +1262,7 @@ def category_operations(
     _write(xy=xy, width=width, name="category_operations", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_security_identity(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1282,7 +1283,7 @@ def category_security_identity(
     _write(xy=xy, width=width, name="category_security_identity", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_serverless_computing(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1303,7 +1304,7 @@ def category_serverless_computing(
     _write(xy=xy, width=width, name="category_serverless_computing", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_storage(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1324,7 +1325,7 @@ def category_storage(
     _write(xy=xy, width=width, name="category_storage", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_web3(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1345,7 +1346,7 @@ def category_web3(
     _write(xy=xy, width=width, name="category_web3", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def category_web_mobile(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1366,7 +1367,7 @@ def category_web_mobile(
     _write(xy=xy, width=width, name="category_web_mobile", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def certificate_authority_service(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1387,7 +1388,7 @@ def certificate_authority_service(
     _write(xy=xy, width=width, name="certificate_authority_service", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def certificate_manager(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1408,7 +1409,7 @@ def certificate_manager(
     _write(xy=xy, width=width, name="certificate_manager", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_api_gateway(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1429,7 +1430,7 @@ def cloud_api_gateway(
     _write(xy=xy, width=width, name="cloud_api_gateway", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_apis(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1450,7 +1451,7 @@ def cloud_apis(
     _write(xy=xy, width=width, name="cloud_apis", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_armor(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1471,7 +1472,7 @@ def cloud_armor(
     _write(xy=xy, width=width, name="cloud_armor", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_asset_inventory(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1492,7 +1493,7 @@ def cloud_asset_inventory(
     _write(xy=xy, width=width, name="cloud_asset_inventory", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_audit_logs(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1513,7 +1514,7 @@ def cloud_audit_logs(
     _write(xy=xy, width=width, name="cloud_audit_logs", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_build(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1534,7 +1535,7 @@ def cloud_build(
     _write(xy=xy, width=width, name="cloud_build", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_cdn(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1555,7 +1556,7 @@ def cloud_cdn(
     _write(xy=xy, width=width, name="cloud_cdn", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_code(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1576,7 +1577,7 @@ def cloud_code(
     _write(xy=xy, width=width, name="cloud_code", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_composer(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1597,7 +1598,7 @@ def cloud_composer(
     _write(xy=xy, width=width, name="cloud_composer", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_data_fusion(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1618,7 +1619,7 @@ def cloud_data_fusion(
     _write(xy=xy, width=width, name="cloud_data_fusion", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_deploy(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1639,7 +1640,7 @@ def cloud_deploy(
     _write(xy=xy, width=width, name="cloud_deploy", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_deployment_manager(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1660,7 +1661,7 @@ def cloud_deployment_manager(
     _write(xy=xy, width=width, name="cloud_deployment_manager", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_dns(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1681,7 +1682,7 @@ def cloud_dns(
     _write(xy=xy, width=width, name="cloud_dns", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_domains(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1702,7 +1703,7 @@ def cloud_domains(
     _write(xy=xy, width=width, name="cloud_domains", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_ekm(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1723,7 +1724,7 @@ def cloud_ekm(
     _write(xy=xy, width=width, name="cloud_ekm", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_endpoints(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1744,7 +1745,7 @@ def cloud_endpoints(
     _write(xy=xy, width=width, name="cloud_endpoints", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_external_ip_addresses(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1765,7 +1766,7 @@ def cloud_external_ip_addresses(
     _write(xy=xy, width=width, name="cloud_external_ip_addresses", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_firewall_rules(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1786,7 +1787,7 @@ def cloud_firewall_rules(
     _write(xy=xy, width=width, name="cloud_firewall_rules", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_for_marketing(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1807,7 +1808,7 @@ def cloud_for_marketing(
     _write(xy=xy, width=width, name="cloud_for_marketing", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_functions(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1828,7 +1829,7 @@ def cloud_functions(
     _write(xy=xy, width=width, name="cloud_functions", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_generic(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1849,7 +1850,7 @@ def cloud_generic(
     _write(xy=xy, width=width, name="cloud_generic", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_gpu(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1870,7 +1871,7 @@ def cloud_gpu(
     _write(xy=xy, width=width, name="cloud_gpu", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_healthcare_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1891,7 +1892,7 @@ def cloud_healthcare_api(
     _write(xy=xy, width=width, name="cloud_healthcare_api", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_healthcare_marketplace(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1912,7 +1913,7 @@ def cloud_healthcare_marketplace(
     _write(xy=xy, width=width, name="cloud_healthcare_marketplace", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_hsm(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1933,7 +1934,7 @@ def cloud_hsm(
     _write(xy=xy, width=width, name="cloud_hsm", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_ids(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1954,7 +1955,7 @@ def cloud_ids(
     _write(xy=xy, width=width, name="cloud_ids", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_inference_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1975,7 +1976,7 @@ def cloud_inference_api(
     _write(xy=xy, width=width, name="cloud_inference_api", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_interconnect(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -1996,7 +1997,7 @@ def cloud_interconnect(
     _write(xy=xy, width=width, name="cloud_interconnect", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_jobs_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2017,7 +2018,7 @@ def cloud_jobs_api(
     _write(xy=xy, width=width, name="cloud_jobs_api", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_load_balancing(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2038,7 +2039,7 @@ def cloud_load_balancing(
     _write(xy=xy, width=width, name="cloud_load_balancing", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_logging(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2059,7 +2060,7 @@ def cloud_logging(
     _write(xy=xy, width=width, name="cloud_logging", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_media_edge(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2080,7 +2081,7 @@ def cloud_media_edge(
     _write(xy=xy, width=width, name="cloud_media_edge", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_monitoring(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2101,7 +2102,7 @@ def cloud_monitoring(
     _write(xy=xy, width=width, name="cloud_monitoring", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_nat(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2122,7 +2123,7 @@ def cloud_nat(
     _write(xy=xy, width=width, name="cloud_nat", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_natural_language_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2143,7 +2144,7 @@ def cloud_natural_language_api(
     _write(xy=xy, width=width, name="cloud_natural_language_api", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_network(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2164,7 +2165,7 @@ def cloud_network(
     _write(xy=xy, width=width, name="cloud_network", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_ops(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2185,7 +2186,7 @@ def cloud_ops(
     _write(xy=xy, width=width, name="cloud_ops", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_optimization_ai(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2206,7 +2207,7 @@ def cloud_optimization_ai(
     _write(xy=xy, width=width, name="cloud_optimization_ai", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_optimization_ai_fleet_routing_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2227,7 +2228,7 @@ def cloud_optimization_ai_fleet_routing_api(
     _write(xy=xy, width=width, name="cloud_optimization_ai_fleet_routing_api", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_router(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2248,7 +2249,7 @@ def cloud_router(
     _write(xy=xy, width=width, name="cloud_router", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_routes(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2269,7 +2270,7 @@ def cloud_routes(
     _write(xy=xy, width=width, name="cloud_routes", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_run(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2290,7 +2291,7 @@ def cloud_run(
     _write(xy=xy, width=width, name="cloud_run", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_run_for_anthos(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2311,7 +2312,7 @@ def cloud_run_for_anthos(
     _write(xy=xy, width=width, name="cloud_run_for_anthos", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_scheduler(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2332,7 +2333,7 @@ def cloud_scheduler(
     _write(xy=xy, width=width, name="cloud_scheduler", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_security_scanner(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2353,7 +2354,7 @@ def cloud_security_scanner(
     _write(xy=xy, width=width, name="cloud_security_scanner", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_shell(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2374,7 +2375,7 @@ def cloud_shell(
     _write(xy=xy, width=width, name="cloud_shell", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_spanner(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2395,7 +2396,7 @@ def cloud_spanner(
     _write(xy=xy, width=width, name="cloud_spanner", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_sql(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2416,7 +2417,7 @@ def cloud_sql(
     _write(xy=xy, width=width, name="cloud_sql", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_storage(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2437,7 +2438,7 @@ def cloud_storage(
     _write(xy=xy, width=width, name="cloud_storage", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_tasks(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2458,7 +2459,7 @@ def cloud_tasks(
     _write(xy=xy, width=width, name="cloud_tasks", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_test_lab(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2479,7 +2480,7 @@ def cloud_test_lab(
     _write(xy=xy, width=width, name="cloud_test_lab", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_tpu(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2500,7 +2501,7 @@ def cloud_tpu(
     _write(xy=xy, width=width, name="cloud_tpu", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_translation_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2521,7 +2522,7 @@ def cloud_translation_api(
     _write(xy=xy, width=width, name="cloud_translation_api", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_vision_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2542,7 +2543,7 @@ def cloud_vision_api(
     _write(xy=xy, width=width, name="cloud_vision_api", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def cloud_vpn(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2563,7 +2564,7 @@ def cloud_vpn(
     _write(xy=xy, width=width, name="cloud_vpn", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def compute_engine(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2584,7 +2585,7 @@ def compute_engine(
     _write(xy=xy, width=width, name="compute_engine", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def configuration_management(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2605,7 +2606,7 @@ def configuration_management(
     _write(xy=xy, width=width, name="configuration_management", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def connectivity_test(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2626,7 +2627,7 @@ def connectivity_test(
     _write(xy=xy, width=width, name="connectivity_test", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def connectors(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2647,7 +2648,7 @@ def connectors(
     _write(xy=xy, width=width, name="connectors", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def contact_center_ai(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2668,7 +2669,7 @@ def contact_center_ai(
     _write(xy=xy, width=width, name="contact_center_ai", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def container_optimized_os(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2689,7 +2690,7 @@ def container_optimized_os(
     _write(xy=xy, width=width, name="container_optimized_os", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def container_registry(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2710,7 +2711,7 @@ def container_registry(
     _write(xy=xy, width=width, name="container_registry", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def data_catalog(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2731,7 +2732,7 @@ def data_catalog(
     _write(xy=xy, width=width, name="data_catalog", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def data_labeling(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2752,7 +2753,7 @@ def data_labeling(
     _write(xy=xy, width=width, name="data_labeling", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def data_layers(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2773,7 +2774,7 @@ def data_layers(
     _write(xy=xy, width=width, name="data_layers", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def data_loss_prevention_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2794,7 +2795,7 @@ def data_loss_prevention_api(
     _write(xy=xy, width=width, name="data_loss_prevention_api", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def data_qna(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2815,7 +2816,7 @@ def data_qna(
     _write(xy=xy, width=width, name="data_qna", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def data_studio(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2836,7 +2837,7 @@ def data_studio(
     _write(xy=xy, width=width, name="data_studio", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def data_transfer(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2857,7 +2858,7 @@ def data_transfer(
     _write(xy=xy, width=width, name="data_transfer", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def database_migration_service(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2878,7 +2879,7 @@ def database_migration_service(
     _write(xy=xy, width=width, name="database_migration_service", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dataflow(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2899,7 +2900,7 @@ def dataflow(
     _write(xy=xy, width=width, name="dataflow", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def datalab(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2920,7 +2921,7 @@ def datalab(
     _write(xy=xy, width=width, name="datalab", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dataplex(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2941,7 +2942,7 @@ def dataplex(
     _write(xy=xy, width=width, name="dataplex", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def datapol(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2962,7 +2963,7 @@ def datapol(
     _write(xy=xy, width=width, name="datapol", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dataprep(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -2983,7 +2984,7 @@ def dataprep(
     _write(xy=xy, width=width, name="dataprep", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dataproc(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3004,7 +3005,7 @@ def dataproc(
     _write(xy=xy, width=width, name="dataproc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dataproc_metastore(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3025,7 +3026,7 @@ def dataproc_metastore(
     _write(xy=xy, width=width, name="dataproc_metastore", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def datashare(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3046,7 +3047,7 @@ def datashare(
     _write(xy=xy, width=width, name="datashare", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def datastore(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3067,7 +3068,7 @@ def datastore(
     _write(xy=xy, width=width, name="datastore", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def datastream(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3088,7 +3089,7 @@ def datastream(
     _write(xy=xy, width=width, name="datastream", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def debugger(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3109,7 +3110,7 @@ def debugger(
     _write(xy=xy, width=width, name="debugger", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def developer_portal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3130,7 +3131,7 @@ def developer_portal(
     _write(xy=xy, width=width, name="developer_portal", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dialogflow(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3151,7 +3152,7 @@ def dialogflow(
     _write(xy=xy, width=width, name="dialogflow", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dialogflow_cx(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3172,7 +3173,7 @@ def dialogflow_cx(
     _write(xy=xy, width=width, name="dialogflow_cx", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def dialogflow_insights(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3193,7 +3194,7 @@ def dialogflow_insights(
     _write(xy=xy, width=width, name="dialogflow_insights", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def distributed_cloud(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3214,7 +3215,7 @@ def distributed_cloud(
     _write(xy=xy, width=width, name="distributed_cloud", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def document_ai(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3235,7 +3236,7 @@ def document_ai(
     _write(xy=xy, width=width, name="document_ai", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def early_access_center(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3256,7 +3257,7 @@ def early_access_center(
     _write(xy=xy, width=width, name="early_access_center", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def error_reporting(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3277,7 +3278,7 @@ def error_reporting(
     _write(xy=xy, width=width, name="error_reporting", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def eventarc(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3298,7 +3299,7 @@ def eventarc(
     _write(xy=xy, width=width, name="eventarc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def filestore(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3319,7 +3320,7 @@ def filestore(
     _write(xy=xy, width=width, name="filestore", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def financial_services_marketplace(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3340,7 +3341,7 @@ def financial_services_marketplace(
     _write(xy=xy, width=width, name="financial_services_marketplace", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def firestore(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3361,7 +3362,7 @@ def firestore(
     _write(xy=xy, width=width, name="firestore", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def fleet_engine(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3382,7 +3383,7 @@ def fleet_engine(
     _write(xy=xy, width=width, name="fleet_engine", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def free_trial(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3403,7 +3404,7 @@ def free_trial(
     _write(xy=xy, width=width, name="free_trial", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def functions(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3424,7 +3425,7 @@ def functions(
     _write(xy=xy, width=width, name="functions", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def game_servers(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3445,7 +3446,7 @@ def game_servers(
     _write(xy=xy, width=width, name="game_servers", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gce(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3466,7 +3467,7 @@ def gce(
     _write(xy=xy, width=width, name="gce", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gce_systems_management(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3487,7 +3488,7 @@ def gce_systems_management(
     _write(xy=xy, width=width, name="gce_systems_management", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gcs(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3508,7 +3509,7 @@ def gcs(
     _write(xy=xy, width=width, name="gcs", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def genomics(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3529,7 +3530,7 @@ def genomics(
     _write(xy=xy, width=width, name="genomics", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gke(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3550,7 +3551,7 @@ def gke(
     _write(xy=xy, width=width, name="gke", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def gke_on_prem(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3571,7 +3572,7 @@ def gke_on_prem(
     _write(xy=xy, width=width, name="gke_on_prem", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def google_cloud_marketplace(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3592,7 +3593,7 @@ def google_cloud_marketplace(
     _write(xy=xy, width=width, name="google_cloud_marketplace", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def google_kubernetes_engine(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3613,7 +3614,7 @@ def google_kubernetes_engine(
     _write(xy=xy, width=width, name="google_kubernetes_engine", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def google_maps_platform(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3634,7 +3635,7 @@ def google_maps_platform(
     _write(xy=xy, width=width, name="google_maps_platform", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def healthcare_nlp_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3655,7 +3656,7 @@ def healthcare_nlp_api(
     _write(xy=xy, width=width, name="healthcare_nlp_api", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def home(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3676,7 +3677,7 @@ def home(
     _write(xy=xy, width=width, name="home", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def hyperdisk(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3697,7 +3698,7 @@ def hyperdisk(
     _write(xy=xy, width=width, name="hyperdisk", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def iam(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3718,7 +3719,7 @@ def iam(
     _write(xy=xy, width=width, name="iam", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def identity_and_access_management(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3739,7 +3740,7 @@ def identity_and_access_management(
     _write(xy=xy, width=width, name="identity_and_access_management", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def identity_aware_proxy(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3760,7 +3761,7 @@ def identity_aware_proxy(
     _write(xy=xy, width=width, name="identity_aware_proxy", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def identity_platform(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3781,7 +3782,7 @@ def identity_platform(
     _write(xy=xy, width=width, name="identity_platform", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def iot_core(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3802,7 +3803,7 @@ def iot_core(
     _write(xy=xy, width=width, name="iot_core", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def iot_edge(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3823,7 +3824,7 @@ def iot_edge(
     _write(xy=xy, width=width, name="iot_edge", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def key_access_justifications(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3844,7 +3845,7 @@ def key_access_justifications(
     _write(xy=xy, width=width, name="key_access_justifications", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def key_management_service(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3865,7 +3866,7 @@ def key_management_service(
     _write(xy=xy, width=width, name="key_management_service", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def kms(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3886,7 +3887,7 @@ def kms(
     _write(xy=xy, width=width, name="kms", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def kuberun(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3907,7 +3908,7 @@ def kuberun(
     _write(xy=xy, width=width, name="kuberun", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def launcher(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3928,7 +3929,7 @@ def launcher(
     _write(xy=xy, width=width, name="launcher", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def local_ssd(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3949,7 +3950,7 @@ def local_ssd(
     _write(xy=xy, width=width, name="local_ssd", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def looker(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3970,7 +3971,7 @@ def looker(
     _write(xy=xy, width=width, name="looker", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def managed_service_for_microsoft_active_directory(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -3991,7 +3992,7 @@ def managed_service_for_microsoft_active_directory(
     _write(xy=xy, width=width, name="managed_service_for_microsoft_active_directory", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def mandiant(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4012,7 +4013,7 @@ def mandiant(
     _write(xy=xy, width=width, name="mandiant", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def media_translation_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4033,7 +4034,7 @@ def media_translation_api(
     _write(xy=xy, width=width, name="media_translation_api", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def memorystore(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4054,7 +4055,7 @@ def memorystore(
     _write(xy=xy, width=width, name="memorystore", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def migrate_for_anthos(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4075,7 +4076,7 @@ def migrate_for_anthos(
     _write(xy=xy, width=width, name="migrate_for_anthos", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def migrate_for_compute_engine(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4096,7 +4097,7 @@ def migrate_for_compute_engine(
     _write(xy=xy, width=width, name="migrate_for_compute_engine", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def my_cloud(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4117,7 +4118,7 @@ def my_cloud(
     _write(xy=xy, width=width, name="my_cloud", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def network_connectivity_center(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4138,7 +4139,7 @@ def network_connectivity_center(
     _write(xy=xy, width=width, name="network_connectivity_center", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def network_intelligence_center(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4159,7 +4160,7 @@ def network_intelligence_center(
     _write(xy=xy, width=width, name="network_intelligence_center", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def network_security(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4180,7 +4181,7 @@ def network_security(
     _write(xy=xy, width=width, name="network_security", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def network_tiers(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4201,7 +4202,7 @@ def network_tiers(
     _write(xy=xy, width=width, name="network_tiers", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def network_topology(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4222,7 +4223,7 @@ def network_topology(
     _write(xy=xy, width=width, name="network_topology", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def onboarding(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4243,7 +4244,7 @@ def onboarding(
     _write(xy=xy, width=width, name="onboarding", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def os_configuration_management(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4264,7 +4265,7 @@ def os_configuration_management(
     _write(xy=xy, width=width, name="os_configuration_management", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def os_inventory_management(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4285,7 +4286,7 @@ def os_inventory_management(
     _write(xy=xy, width=width, name="os_inventory_management", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def os_patch_management(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4306,7 +4307,7 @@ def os_patch_management(
     _write(xy=xy, width=width, name="os_patch_management", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def partner_interconnect(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4327,7 +4328,7 @@ def partner_interconnect(
     _write(xy=xy, width=width, name="partner_interconnect", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def partner_portal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4348,7 +4349,7 @@ def partner_portal(
     _write(xy=xy, width=width, name="partner_portal", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def performance_dashboard(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4369,7 +4370,7 @@ def performance_dashboard(
     _write(xy=xy, width=width, name="performance_dashboard", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def permissions(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4390,7 +4391,7 @@ def permissions(
     _write(xy=xy, width=width, name="permissions", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def persistent_disk(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4411,7 +4412,7 @@ def persistent_disk(
     _write(xy=xy, width=width, name="persistent_disk", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def phishing_protection(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4432,7 +4433,7 @@ def phishing_protection(
     _write(xy=xy, width=width, name="phishing_protection", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def policy_analyzer(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4453,7 +4454,7 @@ def policy_analyzer(
     _write(xy=xy, width=width, name="policy_analyzer", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def premium_network_tier(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4474,7 +4475,7 @@ def premium_network_tier(
     _write(xy=xy, width=width, name="premium_network_tier", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def private_connectivity(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4495,7 +4496,7 @@ def private_connectivity(
     _write(xy=xy, width=width, name="private_connectivity", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def private_service_connect(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4516,7 +4517,7 @@ def private_service_connect(
     _write(xy=xy, width=width, name="private_service_connect", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def producer_portal(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4537,7 +4538,7 @@ def producer_portal(
     _write(xy=xy, width=width, name="producer_portal", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def profiler(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4558,7 +4559,7 @@ def profiler(
     _write(xy=xy, width=width, name="profiler", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def project(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4579,7 +4580,7 @@ def project(
     _write(xy=xy, width=width, name="project", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def pubsub(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4600,7 +4601,7 @@ def pubsub(
     _write(xy=xy, width=width, name="pubsub", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def quantum_engine(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4621,7 +4622,7 @@ def quantum_engine(
     _write(xy=xy, width=width, name="quantum_engine", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def quotas(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4642,7 +4643,7 @@ def quotas(
     _write(xy=xy, width=width, name="quotas", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def real_world_insights(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4663,7 +4664,7 @@ def real_world_insights(
     _write(xy=xy, width=width, name="real_world_insights", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def recommendations_ai(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4684,7 +4685,7 @@ def recommendations_ai(
     _write(xy=xy, width=width, name="recommendations_ai", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def release_notes(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4705,7 +4706,7 @@ def release_notes(
     _write(xy=xy, width=width, name="release_notes", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def retail_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4726,7 +4727,7 @@ def retail_api(
     _write(xy=xy, width=width, name="retail_api", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def risk_manager(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4747,7 +4748,7 @@ def risk_manager(
     _write(xy=xy, width=width, name="risk_manager", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def runtime_config(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4768,7 +4769,7 @@ def runtime_config(
     _write(xy=xy, width=width, name="runtime_config", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def secret_manager(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4789,7 +4790,7 @@ def secret_manager(
     _write(xy=xy, width=width, name="secret_manager", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def security(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4810,7 +4811,7 @@ def security(
     _write(xy=xy, width=width, name="security", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def security_command_center(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4831,7 +4832,7 @@ def security_command_center(
     _write(xy=xy, width=width, name="security_command_center", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def security_health_advisor(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4852,7 +4853,7 @@ def security_health_advisor(
     _write(xy=xy, width=width, name="security_health_advisor", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def security_key_enforcement(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4873,7 +4874,7 @@ def security_key_enforcement(
     _write(xy=xy, width=width, name="security_key_enforcement", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def security_operations(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4894,7 +4895,7 @@ def security_operations(
     _write(xy=xy, width=width, name="security_operations", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def service_discovery(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4915,7 +4916,7 @@ def service_discovery(
     _write(xy=xy, width=width, name="service_discovery", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def speech_to_text(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4936,7 +4937,7 @@ def speech_to_text(
     _write(xy=xy, width=width, name="speech_to_text", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def stackdriver(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4957,7 +4958,7 @@ def stackdriver(
     _write(xy=xy, width=width, name="stackdriver", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def standard_network_tier(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4978,7 +4979,7 @@ def standard_network_tier(
     _write(xy=xy, width=width, name="standard_network_tier", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def stream_suite(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -4999,7 +5000,7 @@ def stream_suite(
     _write(xy=xy, width=width, name="stream_suite", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def support(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5020,7 +5021,7 @@ def support(
     _write(xy=xy, width=width, name="support", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tensorflow_enterprise(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5041,7 +5042,7 @@ def tensorflow_enterprise(
     _write(xy=xy, width=width, name="tensorflow_enterprise", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def text_to_speech(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5062,7 +5063,7 @@ def text_to_speech(
     _write(xy=xy, width=width, name="text_to_speech", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def threat_intelligence(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5083,7 +5084,7 @@ def threat_intelligence(
     _write(xy=xy, width=width, name="threat_intelligence", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def tools_for_powershell(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5104,7 +5105,7 @@ def tools_for_powershell(
     _write(xy=xy, width=width, name="tools_for_powershell", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def trace(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5125,7 +5126,7 @@ def trace(
     _write(xy=xy, width=width, name="trace", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def traffic_director(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5146,7 +5147,7 @@ def traffic_director(
     _write(xy=xy, width=width, name="traffic_director", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def transfer(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5167,7 +5168,7 @@ def transfer(
     _write(xy=xy, width=width, name="transfer", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def transfer_appliance(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5188,7 +5189,7 @@ def transfer_appliance(
     _write(xy=xy, width=width, name="transfer_appliance", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def user_preferences(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5209,7 +5210,7 @@ def user_preferences(
     _write(xy=xy, width=width, name="user_preferences", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def vertex_ai(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5230,7 +5231,7 @@ def vertex_ai(
     _write(xy=xy, width=width, name="vertex_ai", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def vertexai(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5251,7 +5252,7 @@ def vertexai(
     _write(xy=xy, width=width, name="vertexai", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def video_intelligence_api(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5272,7 +5273,7 @@ def video_intelligence_api(
     _write(xy=xy, width=width, name="video_intelligence_api", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def virtual_private_cloud(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5293,7 +5294,7 @@ def virtual_private_cloud(
     _write(xy=xy, width=width, name="virtual_private_cloud", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def visual_inspection(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5314,7 +5315,7 @@ def visual_inspection(
     _write(xy=xy, width=width, name="visual_inspection", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def vmware_engine(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5335,7 +5336,7 @@ def vmware_engine(
     _write(xy=xy, width=width, name="vmware_engine", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def vpc(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5356,7 +5357,7 @@ def vpc(
     _write(xy=xy, width=width, name="vpc", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def web_risk(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5377,7 +5378,7 @@ def web_risk(
     _write(xy=xy, width=width, name="web_risk", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def web_security_scanner(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5398,7 +5399,7 @@ def web_security_scanner(
     _write(xy=xy, width=width, name="web_security_scanner", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def workflows(
     xy: TypeCoordinate,
     width: TypePosFloat,
@@ -5419,7 +5420,7 @@ def workflows(
     _write(xy=xy, width=width, name="workflows", angle=angle, style=style)
 
 
-@guarded
+@validate_call
 def workload_identity_pool(
     xy: TypeCoordinate,
     width: TypePosFloat,

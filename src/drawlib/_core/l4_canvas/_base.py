@@ -23,8 +23,8 @@ from matplotlib.patches import (
     Polygon,
 )
 from matplotlib.path import Path
+from pydantic import ConfigDict, validate_call
 
-from drawlib._core.l1_core import guarded
 from drawlib._core.l2_models import (
     Dimage,
 )
@@ -68,7 +68,6 @@ class CanvasBase:
     DEFAULT_GRID_STYLE: Final[Style] = Style(line_width=1, line_color=Colors.Gray, line_style="dashed")
     DEFAULT_GRID_CENTERSTYLE: Final[Style] = Style(line_width=2, line_color=Colors.Gray, line_style="dashed")
 
-    @guarded
     def __init__(self) -> None:
         """Initialize Canvas instance with default parameters.
 
@@ -99,7 +98,7 @@ class CanvasBase:
         # initialize fig and ax
         self.setup()
 
-    @guarded
+    @validate_call
     def clear(self) -> None:
         """Initialize drawlib Canvas state and configuration.
 
@@ -116,7 +115,7 @@ class CanvasBase:
         pyplot.close()
         CanvasBase.__init__(self)  # noqa: PLC2801
 
-    @guarded
+    @validate_call
     def setup(  # noqa: C901
         self,
         width: TypePosInt | None = None,
@@ -231,7 +230,7 @@ class CanvasBase:
         config_background()
         config_grid()
 
-    @guarded
+    @validate_call
     def config(
         self,
         width: TypePosInt | None = None,
@@ -285,7 +284,7 @@ class CanvasBase:
     # Shape
     #
 
-    @guarded
+    @validate_call
     def polygon(
         self,
         xys: TypeCoordinates,
@@ -332,7 +331,7 @@ class CanvasBase:
             ),
         )
 
-    @guarded
+    @validate_call
     def shape(  # noqa: C901
         self,
         xy: TypeCoordinate,
@@ -486,7 +485,7 @@ class CanvasBase:
                 )
             )
 
-    @guarded
+    @validate_call
     def rectangle(
         self,
         xy: TypeCoordinate,
@@ -582,7 +581,7 @@ class CanvasBase:
         zoom = 72 / self._dpi
         return zoom
 
-    @guarded
+    @validate_call(config=ConfigDict(arbitrary_types_allowed=True))
     def get_image_zoom_from_width(
         self,
         image: str | PIL.Image.Image | Dimage,
@@ -609,7 +608,7 @@ class CanvasBase:
         zoom = 720 * width / self._width / image_width
         return zoom
 
-    @guarded
+    @validate_call
     def get_charwidth_from_fontsize(
         self,
         size: TypePosFloat,
@@ -637,7 +636,7 @@ class CanvasBase:
         width = size * 0.72 * self._width / magic_number
         return width
 
-    @guarded
+    @validate_call
     def get_fontsize_from_charwidth(
         self,
         width: TypePosFloat,

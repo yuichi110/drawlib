@@ -15,8 +15,8 @@ from typing import Literal
 
 from matplotlib.patches import ConnectionStyle, FancyArrowPatch
 from matplotlib.path import Path
+from pydantic import validate_call
 
-from drawlib._core.l1_core import guarded
 from drawlib._core.l2_types import (
     TypeAngle,
     TypeArrowHead,
@@ -39,7 +39,7 @@ class CanvasLineFeature(CanvasBase):
         """Initialize the CanvasLineFeature object."""
         super().__init__()
 
-    @guarded
+    @validate_call
     def line(
         self,
         xy1: TypeCoordinate,
@@ -68,7 +68,7 @@ class CanvasLineFeature(CanvasBase):
             style=style,
         )
 
-    @guarded
+    @validate_call
     def line_curved(
         self,
         xy1: TypeCoordinate,
@@ -103,7 +103,7 @@ class CanvasLineFeature(CanvasBase):
             )
         )
 
-    @guarded
+    @validate_call
     def line_bezier1(
         self,
         xy1: TypeCoordinate,
@@ -134,7 +134,7 @@ class CanvasLineFeature(CanvasBase):
             style=style,
         )
 
-    @guarded
+    @validate_call
     def line_bezier2(
         self,
         xy1: TypeCoordinate,
@@ -168,7 +168,7 @@ class CanvasLineFeature(CanvasBase):
             style=style,
         )
 
-    @guarded
+    @validate_call
     def line_arc(
         self,
         xy: TypeCoordinate,
@@ -232,7 +232,7 @@ class CanvasLineFeature(CanvasBase):
             style=style,
         )
 
-    @guarded
+    @validate_call
     def lines(
         self,
         xys: TypeCoordinates,
@@ -259,7 +259,7 @@ class CanvasLineFeature(CanvasBase):
             style=style,
         )
 
-    @guarded
+    @validate_call
     def lines_curved(
         self,
         xys: TypeCoordinates,
@@ -311,7 +311,7 @@ class CanvasLineFeature(CanvasBase):
             style=style,
         )
 
-    @guarded
+    @validate_call
     def lines_bezier(
         self,
         xy: TypeCoordinate,

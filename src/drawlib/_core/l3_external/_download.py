@@ -13,7 +13,7 @@ import hashlib
 import os
 import urllib.request
 
-from drawlib._core.l1_core import guarded, logger
+from drawlib._core.l1_core import logger
 from drawlib._release_assets import ReleaseAssetPackage, find_package_for_resource_path
 
 

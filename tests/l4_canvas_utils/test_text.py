@@ -27,7 +27,7 @@ class TestTextUtil:
         custom_style = Style(text_size=32.0, text_color=(255, 0, 0), text_font=FontSansSerif.LATO_REGULAR)
         formatted_obj = TextUtil.format_style(custom_style)
         assert formatted_obj.text_size == 32.0
-        assert formatted_obj.text_color == (255, 0, 0)
+        assert formatted_obj.text_color == (255, 0, 0, 1.0)
 
         # 2. Missing required text properties raises ValueError
         with pytest.raises(ValueError, match="Text drawing requires attributes"):

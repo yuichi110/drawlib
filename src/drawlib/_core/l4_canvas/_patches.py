@@ -18,8 +18,8 @@ from matplotlib.patches import (
     RegularPolygon,
     Wedge,
 )
+from pydantic import validate_call
 
-from drawlib._core.l1_core import guarded
 from drawlib._core.l2_types import (
     TypeAngle,
     TypeCoordinate,
@@ -40,7 +40,7 @@ class CanvasPatchesFeature(CanvasBase):
         """Initializes a CanvasPatchesFeature object."""
         super().__init__()
 
-    @guarded
+    @validate_call
     def arc(
         self,
         xy: TypeCoordinate,
@@ -103,7 +103,7 @@ class CanvasPatchesFeature(CanvasBase):
             ),
         )
 
-    @guarded
+    @validate_call
     def circle(
         self,
         xy: TypeCoordinate,
@@ -158,7 +158,7 @@ class CanvasPatchesFeature(CanvasBase):
             ),
         )
 
-    @guarded
+    @validate_call
     def ellipse(
         self,
         xy: TypeCoordinate,
@@ -215,7 +215,7 @@ class CanvasPatchesFeature(CanvasBase):
             ),
         )
 
-    @guarded
+    @validate_call
     def regularpolygon(
         self,
         xy: TypeCoordinate,
@@ -274,7 +274,7 @@ class CanvasPatchesFeature(CanvasBase):
             ),
         )
 
-    @guarded
+    @validate_call
     def wedge(
         self,
         xy: TypeCoordinate,
@@ -338,7 +338,7 @@ class CanvasPatchesFeature(CanvasBase):
             ),
         )
 
-    @guarded
+    @validate_call
     def donuts(
         self,
         xy: TypeCoordinate,
@@ -374,7 +374,7 @@ class CanvasPatchesFeature(CanvasBase):
             textstyle=textstyle,
         )
 
-    @guarded
+    @validate_call
     def fan(
         self,
         xy: TypeCoordinate,

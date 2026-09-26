@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Check if internal type aliases appear in @guarded function docstrings."""
+"""Check if internal type aliases appear in @validate_call function docstrings."""
 
 import ast
 import os
@@ -70,11 +70,11 @@ def _get_docstring_text(node: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> O
     return None
 
 
-def _has_guarded_decorator(node: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> bool:
-    """Check if a function has the @guarded decorator."""
+def _has_validate_call_decorator(node: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> bool:
+    """Check if a function has the @validate_call decorator."""
     return any(
-        (isinstance(dec, ast.Name) and dec.id == "guarded")
-        or (isinstance(dec, ast.Attribute) and dec.attr == "guarded")
+        (isinstance(dec, ast.Name) and dec.id == "validate_call")
+        or (isinstance(dec, ast.Attribute) and dec.attr == "validate_call")
         for dec in node.decorator_list
     )
 
@@ -101,7 +101,7 @@ def check_file(path: str) -> list[tuple[int, str, str]]:
         if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
             continue
 
-        if not _has_guarded_decorator(node):
+        if not _has_validate_call_decorator(node):
             continue
 
         doc_text = _get_docstring_text(node)
@@ -129,12 +129,12 @@ def main() -> None:
                 all_violations.extend(check_file(p))
 
     if all_violations:
-        print(f"Found {len(all_violations)} violations in docstrings of @guarded functions:")
+        print(f"Found {len(all_violations)} violations in docstrings of @validate_call functions:")
         for lineno, t, path in all_violations:
             print(f"{path}:{lineno}: Found forbidden type alias '{t}'")
         sys.exit(1)
     else:
-        print("No forbidden type aliases found in @guarded function docstrings.")
+        print("No forbidden type aliases found in @validate_call function docstrings.")
 
 
 if __name__ == "__main__":

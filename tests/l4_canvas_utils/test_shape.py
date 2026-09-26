@@ -29,10 +29,10 @@ class TestShapeUtil:
         assert s == shape_s
         assert t == text_s
 
-        # 2. Without textstyle (defaults to shape_s)
+        # 2. Without textstyle (returns None for textstyle)
         s, t = ShapeUtil.format_styles(shape_s, None)
         assert s == shape_s
-        assert t == shape_s
+        assert t is None
 
         # 3. Missing required shape properties raises ValueError
         with pytest.raises(ValueError, match="Shape drawing requires attributes"):

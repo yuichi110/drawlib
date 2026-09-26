@@ -15,7 +15,6 @@ from drawlib._core.l1_core._const import (
     ICON_DIR_PATH,
     RULES_DIR_PATH,
 )
-from drawlib._core.l1_core._decorator import guarded
 from drawlib._core.l1_core._logging import logger
 from drawlib._core.l1_core._settings import dutil_settings
 from drawlib._core.l1_core._utils import (
@@ -30,9 +29,6 @@ __all__ = [
     "FONT_ICON_DIR_PATH",
     "ICON_DIR_PATH",
     "RULES_DIR_PATH",
-
-    # _decorator.py
-    "guarded",
     # _logging.py
     "logger",
     # _settings.py

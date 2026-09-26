@@ -13,9 +13,8 @@ from __future__ import annotations
 
 from typing import Any, Generator, Self
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, validate_call
 
-from drawlib._core.l1_core import guarded
 from drawlib._core.l2_models import FontBase, FontFile
 from drawlib._core.l2_types import TypeColor
 from drawlib._core.l3_fonts import FontSourceCode
@@ -127,7 +126,7 @@ class BasePresetStyles(BaseModel):
         """
         return self.model_copy(update=kwargs)
 
-    @guarded
+    @validate_call
     def patch_font(
         self,
         regular: FontBase | FontFile | None = None,

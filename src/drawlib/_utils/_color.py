@@ -9,7 +9,8 @@
 
 """Color related utilities."""
 
-from drawlib._core.l1_core import guarded
+from pydantic import validate_call
+
 from drawlib._core.l2_types import (
     TypeAlpha,
     TypeColorRGB,
@@ -18,7 +19,7 @@ from drawlib._core.l2_types import (
 )
 
 
-@guarded
+@validate_call
 def get_rgba(
     rgb: TypeColorRGB,
     alpha: TypeAlpha,
@@ -43,7 +44,7 @@ def get_rgba(
     return (rgb[0], rgb[1], rgb[2], alpha)
 
 
-@guarded
+@validate_call
 def get_rgba_from_hexcode(
     hexcode: TypeStr,
     alpha: TypeAlpha | None = None,
@@ -88,7 +89,7 @@ def get_rgba_from_hexcode(
     return (r, g, b, a)
 
 
-@guarded
+@validate_call
 def get_rgba_from_grayscale(
     grayscale: TypeAlpha,
     alpha: TypeAlpha = 1.0,

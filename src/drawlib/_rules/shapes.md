@@ -83,7 +83,7 @@ from drawlib.shapes import (
 )
 ```
 
-Every shape function is decorated with `@guarded`, providing runtime type validation, parameter constraint verification, and uniform error reporting.
+Every shape function is decorated with `@validate_call`, providing runtime type validation, parameter constraint verification, and uniform error reporting.
 
 ---
 

@@ -42,7 +42,7 @@ PHOSPHOR_HEAD = '''# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
 
 from __future__ import annotations
 
-from drawlib._core.l1_core import guarded
+from pydantic import validate_call
 from drawlib._core.l2_types import (
     TypeAngle,
     TypeCoordinate,
@@ -54,7 +54,7 @@ from drawlib._icons.font_icons.phosphor._base import _write
 '''
 
 PHOSPHOR_FUNCTION_TEMPLATE = '''
-@guarded
+@validate_call
 def {function_name}(
     xy: TypeCoordinate,
     width: TypePosFloat,

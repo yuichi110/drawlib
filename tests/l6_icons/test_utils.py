@@ -42,7 +42,7 @@ class TestIconUtils:
         """Verify format_style retains properties and applies default_icon_style."""
         custom_style = Style(icon_color=(255, 0, 0))
         formatted = IconUtil.format_style(custom_style, default_icon_style="light")
-        assert formatted.icon_color == (255, 0, 0)
+        assert formatted.icon_color == (255, 0, 0, 1.0)
         assert formatted.icon_style == "light"
 
     def test_format_style_missing_icon_color_raises_value_error(self) -> None:

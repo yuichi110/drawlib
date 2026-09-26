@@ -11,14 +11,12 @@
 
 import os
 import shutil
-import urllib.request
 
 from drawlib._core.l1_core import (
     FONT_DIR_PATH,
     FONT_ICON_DIR_PATH,
     ICON_DIR_PATH,
     RULES_DIR_PATH,
-    guarded,
     logger,
 )
 from drawlib._release_assets import (
@@ -27,7 +25,6 @@ from drawlib._release_assets import (
 )
 
 
-@guarded
 def download_all_fonts() -> None:
     """Download all fonts from GitHub Releases."""
     for pkg in RELEASE_ASSET_PACKAGES.values():
@@ -35,7 +32,6 @@ def download_all_fonts() -> None:
             pkg.download_and_extract()
 
 
-@guarded
 def download_all_icons() -> None:
     """Download all icon fonts from GitHub Releases."""
     for pkg in RELEASE_ASSET_PACKAGES.values():
@@ -43,13 +39,11 @@ def download_all_icons() -> None:
             pkg.download_and_extract()
 
 
-@guarded
 def download_all_assets() -> None:
     """Download all fonts and icons from GitHub Releases."""
     download_all_release_assets()
 
 
-@guarded
 def purge_font_cache() -> None:
     """Delete downloaded font, icon, and rules cache."""
     for dir_path in [FONT_DIR_PATH, FONT_ICON_DIR_PATH, ICON_DIR_PATH, RULES_DIR_PATH]:

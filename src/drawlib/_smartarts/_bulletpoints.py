@@ -12,9 +12,8 @@
 
 from typing import Callable
 
-from pydantic import BaseModel
+from pydantic import BaseModel, validate_call
 
-from drawlib._core.l1_core import guarded
 from drawlib._core.l2_types import (
     TypeCoordinate,
     TypeFloat,
@@ -53,7 +52,7 @@ class BulletPoints:
         default_style (Style, optional): The default text style for the bullet points.
     """
 
-    @guarded
+    @validate_call
     def __init__(
         self,
         *,
@@ -86,11 +85,11 @@ class BulletPoints:
         self.set_bullet_style(1, circle, style1, args={"radius": 0.5})
         self.set_bullet_style(2, circle, style2, args={"radius": 0.5})
 
-    @guarded
+    @validate_call
     def set_indent(self, level: TypeInt) -> None:
         self._indent_level = level
 
-    @guarded
+    @validate_call
     def set_bullet_style(
         self,
         indent_level: TypeInt,
@@ -108,7 +107,7 @@ class BulletPoints:
 
         self._bullet_shape_map[indent_level] = item
 
-    @guarded
+    @validate_call
     def add(
         self,
         text: TypeStr,
@@ -125,7 +124,7 @@ class BulletPoints:
             )
         )
 
-    @guarded
+    @validate_call
     def draw(
         self,
         xy: TypeCoordinate,

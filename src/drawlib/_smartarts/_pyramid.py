@@ -12,9 +12,8 @@
 
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, validate_call
 
-from drawlib._core.l1_core import guarded
 from drawlib._core.l2_types import (
     TypeAngle,
     TypeCoordinate,
@@ -42,7 +41,7 @@ class Pyramid:
     adjustments.
     """
 
-    @guarded
+    @validate_call
     def __init__(
         self,
         *,
@@ -69,7 +68,7 @@ class Pyramid:
 
         self._items: list[_PyramidItem] = []
 
-    @guarded
+    @validate_call
     def add(  # noqa: C901
         self,
         text: TypeStr,
@@ -101,7 +100,7 @@ class Pyramid:
         )
         self._items.append(item)
 
-    @guarded
+    @validate_call
     def draw(
         self,
         xy: TypeCoordinate,
@@ -137,7 +136,7 @@ class Pyramid:
             order=order,
         )
 
-    @guarded
+    @validate_call
     def draw_flexible(
         self,
         xy: TypeCoordinate,

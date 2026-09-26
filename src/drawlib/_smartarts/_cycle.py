@@ -15,8 +15,9 @@ import math
 from collections.abc import Sequence
 from typing import Literal
 
+from pydantic import validate_call
+
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
-from drawlib._core.l1_core import guarded
 from drawlib._core.l2_types import (
     TypeAngle,
     TypeColor,
@@ -57,7 +58,7 @@ class _CycleItem:
 class Cycle:
     """SmartArt component for circular and cyclical process diagrams (e.g. PDCA, life cycles)."""
 
-    @guarded
+    @validate_call
     def __init__(
         self,
         *,
@@ -152,7 +153,7 @@ class Cycle:
         """Return the registered cycle items."""
         return self._items
 
-    @guarded
+    @validate_call
     def append(
         self,
         text: TypeStr,
@@ -182,7 +183,7 @@ class Cycle:
         )
         self._items.append(item)
 
-    @guarded
+    @validate_call
     def extend(
         self,
         texts: list[TypeStr],
@@ -198,7 +199,7 @@ class Cycle:
             desc = descriptions[i] if descriptions and i < len(descriptions) else ""
             self.append(text=text, description=desc)
 
-    @guarded
+    @validate_call
     def insert(
         self,
         index: int,
@@ -230,7 +231,7 @@ class Cycle:
         )
         self._items.insert(index, item)
 
-    @guarded
+    @validate_call
     def set_center(
         self,
         text: TypeStr,
@@ -261,7 +262,7 @@ class Cycle:
         if description_style is not None:
             self._center_description_style = description_style
 
-    @guarded
+    @validate_call
     def draw(
         self,
         xy: TypeCoordinate,

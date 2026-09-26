@@ -10,8 +10,9 @@
 """Canvas's text feature implementation module."""
 
 from matplotlib.text import Text
+from pydantic import validate_call
 
-from drawlib._core.l1_core import guarded, logger
+from drawlib._core.l1_core import logger
 from drawlib._core.l2_types import (
     TypeAngle,
     TypeCoordinate,
@@ -30,7 +31,7 @@ class CanvasTextFeature(CanvasBase):
         """Initializes a CanvasTextFeature object."""
         super().__init__()
 
-    @guarded
+    @validate_call
     def text(
         self,
         xy: TypeCoordinate,
@@ -70,7 +71,7 @@ class CanvasTextFeature(CanvasBase):
             )
         )
 
-    @guarded
+    @validate_call
     def text_vertical(
         self,
         xy: TypeCoordinate,

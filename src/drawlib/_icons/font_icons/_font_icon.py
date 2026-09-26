@@ -9,7 +9,8 @@
 
 """font_icon() implementation module."""
 
-from drawlib._core.l1_core import guarded
+from pydantic import validate_call
+
 from drawlib._core.l2_types import (
     TypeAngle,
     TypeCoordinate,
@@ -22,7 +23,7 @@ from drawlib._core.l4_canvas import get_fontsize_from_charwidth, text
 from drawlib._icons._utils import IconUtil
 
 
-@guarded
+@validate_call
 def font_icon(
     xy: TypeCoordinate,
     width: TypePosFloat,
