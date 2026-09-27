@@ -2,22 +2,21 @@
 
 
 Drawlib's color format is standard RGB `(0-255, 0-255, 0-255)` or RGBA `(0-255, 0-255, 0-255, 0.0-1.0)`. 
-To make color handling intuitive, Drawlib provides a first-class `Color` model as well as pre-defined Color catalogs in `drawlib.colors`:
+To make color handling intuitive, Drawlib provides a first-class `Color` model as well as pre-defined Color catalogs in `drawlib.preset_colors` (or active colors via `drawlib.styles.colors`):
 
 - `Color`: Immutable color model with `.patch()` and `.from_hex()`
 - `Colors`: Basic web 16 colors + Transparent
 - `Colors140`: Full CSS web 140 colors + Transparent
-- `DefaultStyleColors`: Colors used in preset style `default`
-- `EssentialsStyleColors`: Colors used in preset style `essentials`
-- `MonochromeStyleColors`: Grayscale colors used in preset style `monochrome`
-- `GoogleStyleColors`: Colors matching Google themes
+- `DefaultColors` (`default_colors`): Colors used in preset style `default`
+- `MonochromeColors` (`monochrome_colors`): Grayscale colors used in preset style `monochrome`
+- `GoogleColors` (`google_colors`): Colors matching Google themes
 
 Here is an image showing their relationships:
 
 
 ```drawlib fold-code 600px center
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
@@ -51,7 +50,7 @@ def draw_base():
         width=rect_width,
         height=rect_height,
         style=rect_style,
-        text="ColorsBase\n(Base Class)",
+        text="BaseColors\n(Base Class)",
         textstyle=rect_text_style,
     )
 
@@ -117,7 +116,7 @@ draw_line_arrows()
 draw_childs()
 ```
 
-As you can see, `ColorsBase` class implements the `Transparent` color and utility functions. 
+As you can see, `BaseColors` class implements the `Transparent` color and utility functions. 
 Each child class inherits these and implements its own colors. 
 
 You can create your own color class as well. 
@@ -364,7 +363,7 @@ The `ColorsMonochrome` class contains the following members:
 # Implement Your Own Colors
 
 
-We provide a base class for colors called `ColorsBase`. 
+We provide a base class for colors called `BaseColors`. 
 You can define your own color palette class by extending this base class.
 
 Suppose you are an official partner of Google, eligible to use their corporate colors. 
@@ -376,66 +375,67 @@ https://partnermarketinghub.withgoogle.com/brands/google-news/visual-identity/co
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.shapes import circle, rectangle, triangle, wedge
 from drawlib.text import text
-from drawlib.types import ColorsBase, Style
+from drawlib.types import BaseColors, Style
 from drawlib.styles import styles
 
 
 # Please define color at styling codes normally.
-class ColorsGoogle(ColorsBase):
+class ColorsGoogle(BaseColors):
     # From Official Google Color Palette
     # At Partner Marketing Hub
-    Blue = (23, 78, 166)
-    Red = (165, 14, 14)
-    Orange = (227, 116, 0)
-    Green = (32, 33, 36)
-    MediumBlue = (66, 103, 210)
-    MediumRed = (234, 67, 53)
-    Yellow = (251, 188, 4)
-    MediumGreen = (52, 168, 83)
-    LightBlue = (210, 227, 252)
-    LightRed = (250, 210, 207)
-    LightYellow = (254, 239, 195)
-    LightGreen = (206, 234, 214)
-    LightGrey = (241, 243, 244)
-    Grey = (154, 160, 166)
-    Black = (32, 33, 36)
+    Blue: tuple[int, int, int] = (23, 78, 166)
+    Red: tuple[int, int, int] = (165, 14, 14)
+    Orange: tuple[int, int, int] = (227, 116, 0)
+    Green: tuple[int, int, int] = (32, 33, 36)
+    MediumBlue: tuple[int, int, int] = (66, 103, 210)
+    MediumRed: tuple[int, int, int] = (234, 67, 53)
+    Yellow: tuple[int, int, int] = (251, 188, 4)
+    MediumGreen: tuple[int, int, int] = (52, 168, 83)
+    LightBlue: tuple[int, int, int] = (210, 227, 252)
+    LightRed: tuple[int, int, int] = (250, 210, 207)
+    LightYellow: tuple[int, int, int] = (254, 239, 195)
+    LightGreen: tuple[int, int, int] = (206, 234, 214)
+    LightGrey: tuple[int, int, int] = (241, 243, 244)
+    Grey: tuple[int, int, int] = (154, 160, 166)
+    Black: tuple[int, int, int] = (32, 33, 36)
 
+
+google_colors = ColorsGoogle()
 
 setup(width=100, height=50)
 shape_y = 30
 circle(
     (15, shape_y),
     radius=10,
-    style=styles.flat.patch(shape_fill_color=ColorsGoogle.MediumBlue),
+    style=styles.flat.patch(shape_fill_color=google_colors.MediumBlue),
 )
 triangle(
     (37.5, shape_y),
     width=20,
     height=15,
-    style=styles.flat.patch(shape_fill_color=ColorsGoogle.MediumRed),
+    style=styles.flat.patch(shape_fill_color=google_colors.MediumRed),
 )
 rectangle(
     (62.5, shape_y),
     width=18,
     height=18,
-    style=styles.flat.patch(shape_fill_color=ColorsGoogle.Yellow),
+    style=styles.flat.patch(shape_fill_color=google_colors.Yellow),
 )
 wedge(
     (85, shape_y),
     radius=10,
     width=5,
     angle_end=270,
-    style=styles.flat.patch(shape_fill_color=ColorsGoogle.MediumGreen),
+    style=styles.flat.patch(shape_fill_color=google_colors.MediumGreen),
 )
 text(
     (50, 10),
     "Google Colors",
     style=styles.primary.patch(
-        text_color=ColorsGoogle.Black,
+        text_color=google_colors.Black,
         text_size=32,
         text_font=FontRoboto.ROBOTO_REGULAR,
     ),
@@ -451,66 +451,67 @@ Here is the output:
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.shapes import circle, rectangle, triangle, wedge
 from drawlib.text import text
-from drawlib.types import ColorsBase, Style
+from drawlib.types import BaseColors, Style
 from drawlib.styles import styles
 
 
 # Please define color at styling codes normally.
-class ColorsGoogle(ColorsBase):
+class ColorsGoogle(BaseColors):
     # From Official Google Color Palette
     # At Partner Marketing Hub
-    Blue = (23, 78, 166)
-    Red = (165, 14, 14)
-    Orange = (227, 116, 0)
-    Green = (32, 33, 36)
-    MediumBlue = (66, 103, 210)
-    MediumRed = (234, 67, 53)
-    Yellow = (251, 188, 4)
-    MediumGreen = (52, 168, 83)
-    LightBlue = (210, 227, 252)
-    LightRed = (250, 210, 207)
-    LightYellow = (254, 239, 195)
-    LightGreen = (206, 234, 214)
-    LightGrey = (241, 243, 244)
-    Grey = (154, 160, 166)
-    Black = (32, 33, 36)
+    Blue: tuple[int, int, int] = (23, 78, 166)
+    Red: tuple[int, int, int] = (165, 14, 14)
+    Orange: tuple[int, int, int] = (227, 116, 0)
+    Green: tuple[int, int, int] = (32, 33, 36)
+    MediumBlue: tuple[int, int, int] = (66, 103, 210)
+    MediumRed: tuple[int, int, int] = (234, 67, 53)
+    Yellow: tuple[int, int, int] = (251, 188, 4)
+    MediumGreen: tuple[int, int, int] = (52, 168, 83)
+    LightBlue: tuple[int, int, int] = (210, 227, 252)
+    LightRed: tuple[int, int, int] = (250, 210, 207)
+    LightYellow: tuple[int, int, int] = (254, 239, 195)
+    LightGreen: tuple[int, int, int] = (206, 234, 214)
+    LightGrey: tuple[int, int, int] = (241, 243, 244)
+    Grey: tuple[int, int, int] = (154, 160, 166)
+    Black: tuple[int, int, int] = (32, 33, 36)
 
+
+google_colors = ColorsGoogle()
 
 setup(width=100, height=50)
 shape_y = 30
 circle(
     (15, shape_y),
     radius=10,
-    style=styles.flat.patch(shape_fill_color=ColorsGoogle.MediumBlue),
+    style=styles.flat.patch(shape_fill_color=google_colors.MediumBlue),
 )
 triangle(
     (37.5, shape_y),
     width=20,
     height=15,
-    style=styles.flat.patch(shape_fill_color=ColorsGoogle.MediumRed),
+    style=styles.flat.patch(shape_fill_color=google_colors.MediumRed),
 )
 rectangle(
     (62.5, shape_y),
     width=18,
     height=18,
-    style=styles.flat.patch(shape_fill_color=ColorsGoogle.Yellow),
+    style=styles.flat.patch(shape_fill_color=google_colors.Yellow),
 )
 wedge(
     (85, shape_y),
     radius=10,
     width=5,
     angle_end=270,
-    style=styles.flat.patch(shape_fill_color=ColorsGoogle.MediumGreen),
+    style=styles.flat.patch(shape_fill_color=google_colors.MediumGreen),
 )
 text(
     (50, 10),
     "Google Colors",
     style=styles.primary.patch(
-        text_color=ColorsGoogle.Black,
+        text_color=google_colors.Black,
         text_size=32,
         text_font=FontRoboto.ROBOTO_REGULAR,
     ),
@@ -520,10 +521,10 @@ text(
 
 # Color Model & Manipulation
 
-All preset colors in `drawlib.colors` are `Color` instances. The `Color` class provides `.patch()` for deriving modified colors and `Color.from_hex()` for hex strings:
+All preset colors in `drawlib.preset_colors` (and `drawlib.styles.colors`) are `Color` instances. The `Color` class provides `.patch()` for deriving modified colors and `Color.from_hex()` for hex strings:
 
 ```python
-from drawlib.colors import Color, DefaultStyleColors
+from drawlib.preset_colors import Color, default_colors
 
 # 1. Hex code to Color:
 color1 = Color.from_hex("#4285F4")         # Google Blue (66, 133, 244, 1.0)
@@ -531,7 +532,7 @@ color2 = Color("#34A85380")                # Direct initialization with hex (52,
 
 # 2. Add or modify alpha channel of an existing color via .patch():
 transparent_blue = color1.patch(alpha=0.3) # (66, 133, 244, 0.3)
-subtle_blue = DefaultStyleColors.Blue.patch(alpha=0.15)
+subtle_blue = default_colors.Blue.patch(alpha=0.15)
 
 # 3. Modify RGB channels:
 custom_red = color1.patch(r=255, g=0)

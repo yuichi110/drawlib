@@ -16,8 +16,8 @@ from PIL import Image
 
 from drawlib._core.l2_models import Dimage
 from drawlib.canvas import clear, config, save
-from drawlib.colors import Colors
 from drawlib.images import image
+from drawlib.preset_colors import Colors
 from drawlib.types import Style
 
 # ruff: noqa: F403, F405

@@ -7,39 +7,41 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Public colors module for drawlib."""
+"""Public preset colors module for drawlib."""
 
 from drawlib._core.l2_models import Color
 from drawlib._preset_colors import (
+    BaseColors,
     Colors,
+    Colors16,
     Colors140,
-    ColorsBase,
-    DefaultStyleColors,
-    EssentialsStyleColors,
-    GoogleStyleColors,
-    MonochromeStyleColors,
+    Colors140Model,
+    DefaultColors,
+    GoogleColors,
+    MonochromeColors,
+    colors_16,
+    colors_140,
+    default_colors,
+    google_colors,
+    monochrome_colors,
 )
-
-# Backward compatibility aliases
-ColorsDefault = DefaultStyleColors
-ColorsEssentials = EssentialsStyleColors
-ColorsMonochrome = MonochromeStyleColors
-ColorsGoogle = GoogleStyleColors
 
 __all__ = [
     # Color Model
     "Color",
     # Color Classes
+    "BaseColors",
+    "Colors140Model",
+    "Colors16",
+    "DefaultColors",
+    "GoogleColors",
+    "MonochromeColors",
+    # Color Instances
     "Colors",
     "Colors140",
-    "ColorsBase",
-    "DefaultStyleColors",
-    "EssentialsStyleColors",
-    "GoogleStyleColors",
-    "MonochromeStyleColors",
-    # Backward compatibility aliases
-    "ColorsDefault",
-    "ColorsEssentials",
-    "ColorsGoogle",
-    "ColorsMonochrome",
+    "colors_140",
+    "colors_16",
+    "default_colors",
+    "google_colors",
+    "monochrome_colors",
 ]

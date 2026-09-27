@@ -11,33 +11,36 @@
 
 from __future__ import annotations
 
-from typing import Final
-
 from drawlib._core.l2_models import Color
-from drawlib._core.l3_styles import ColorsBase
+from drawlib._core.l3_styles import BaseColors
 
 
-class Colors(ColorsBase):
+class Colors16(BaseColors):
     """Class representing the 16 basic web colors along with a transparent color."""
 
-    Aqua: Final[Color] = Color(0, 255, 255)
-    Black: Final[Color] = Color(0, 0, 0)
-    Blue: Final[Color] = Color(0, 0, 255)
-    Fuchsia: Final[Color] = Color(255, 0, 255)
-    Gray: Final[Color] = Color(128, 128, 128)
-    Green: Final[Color] = Color(0, 128, 0)
-    Lime: Final[Color] = Color(0, 255, 0)
-    Maroon: Final[Color] = Color(128, 0, 0)
-    Navy: Final[Color] = Color(0, 0, 128)
-    Olive: Final[Color] = Color(128, 128, 0)
-    Purple: Final[Color] = Color(128, 0, 128)
-    Red: Final[Color] = Color(255, 0, 0)
-    Silver: Final[Color] = Color(192, 192, 192)
-    Teal: Final[Color] = Color(0, 128, 128)
-    White: Final[Color] = Color(255, 255, 255)
-    Yellow: Final[Color] = Color(255, 255, 0)
+    Aqua: Color = Color(0, 255, 255)
+    Black: Color = Color(0, 0, 0)
+    Blue: Color = Color(0, 0, 255)
+    Fuchsia: Color = Color(255, 0, 255)
+    Gray: Color = Color(128, 128, 128)
+    Green: Color = Color(0, 128, 0)
+    Lime: Color = Color(0, 255, 0)
+    Maroon: Color = Color(128, 0, 0)
+    Navy: Color = Color(0, 0, 128)
+    Olive: Color = Color(128, 128, 0)
+    Purple: Color = Color(128, 0, 128)
+    Red: Color = Color(255, 0, 0)
+    Silver: Color = Color(192, 192, 192)
+    Teal: Color = Color(0, 128, 128)
+    White: Color = Color(255, 255, 255)
+    Yellow: Color = Color(255, 255, 0)
 
+
+Colors: Colors16 = Colors16()
+colors_16: Colors16 = Colors
 
 __all__ = [
     "Colors",
+    "Colors16",
+    "colors_16",
 ]

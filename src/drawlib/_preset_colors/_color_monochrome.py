@@ -7,29 +7,30 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Monochrome style colors module."""
+"""Monochrome colors module."""
 
 from __future__ import annotations
 
-from typing import Final
-
 from drawlib._core.l2_models import Color
-from drawlib._core.l3_styles import ColorsBase
-from drawlib._preset_colors._color_essentials import EssentialsStyleColors
+from drawlib._core.l3_styles import BaseColors
+from drawlib._preset_colors._color_default import default_colors
 
 
-class MonochromeStyleColors(ColorsBase):
+class MonochromeColors(BaseColors):
     """Class representing colors for monochrome preset styles along with a transparent color."""
 
-    Black: Final[Color] = EssentialsStyleColors.Black
-    Charcoal: Final[Color] = EssentialsStyleColors.Charcoal
-    Graphite: Final[Color] = EssentialsStyleColors.Graphite
-    Gray: Final[Color] = EssentialsStyleColors.Gray
-    Silver: Final[Color] = EssentialsStyleColors.Silver
-    Snow: Final[Color] = EssentialsStyleColors.Snow
-    White: Final[Color] = EssentialsStyleColors.White
+    Black: Color = default_colors.Black
+    Charcoal: Color = default_colors.Charcoal
+    Graphite: Color = default_colors.Graphite
+    Gray: Color = default_colors.Gray
+    Silver: Color = default_colors.Silver
+    Snow: Color = default_colors.Snow
+    White: Color = default_colors.White
 
+
+monochrome_colors: MonochromeColors = MonochromeColors()
 
 __all__ = [
-    "MonochromeStyleColors",
+    "MonochromeColors",
+    "monochrome_colors",
 ]

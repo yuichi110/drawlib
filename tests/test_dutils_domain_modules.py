@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Unit tests for public domain utilities in drawlib.math, drawlib.colors, and drawlib.canvas."""
+"""Unit tests for public domain utilities in drawlib.math, drawlib.preset_colors, and drawlib.canvas."""
 
 from drawlib._builder.doc_builder.exporter_html import get_default_css
 from drawlib.builder import (
@@ -16,8 +16,8 @@ from drawlib.builder import (
     build_documents,
 )
 from drawlib.canvas import initialize
-from drawlib.colors import Color, Colors
 from drawlib.math import get_angle, get_center_and_size, get_distance
+from drawlib.preset_colors import Color, Colors
 
 
 class TestDomainUtilities:

@@ -12,9 +12,9 @@
 import pytest
 
 from drawlib.canvas import clear, save
-from drawlib.colors import Colors
 from drawlib.fonts import Font
-from drawlib.preset_styles import default_styles, essentials_styles
+from drawlib.preset_colors import Colors
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import arc, circle, donuts, ellipse, fan, regularpolygon, wedge
 from drawlib.types import Style
 
@@ -64,7 +64,7 @@ class TestCanvasPatches:
         clear()
         styles = default_styles
         s_def = styles.white.patch(shape_line_color=Colors.Black, shape_line_width=1.0)
-        styles_essentials = essentials_styles
+        styles_essentials = default_styles
 
         # Simple circle
         circle(xy=(50, 50), radius=30, style=s_def)

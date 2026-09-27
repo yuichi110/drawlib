@@ -15,7 +15,7 @@ Drawlib separates visual presentation (themes, palettes, typography) from diagra
 | :--- | :--- | :--- |
 | **Primary File** | `styles.py` (or custom file via `--styles` / `-s`) | `utils.py` (or custom file via `--utils` / `-u`) |
 | **Core Exports** | `styles` (active preset styles), `colors` (active style color palette) | User-defined functions, classes, and constants |
-| **Default Fallback** | `styles = essentials_styles`, `colors = EssentialsStyleColors` | Empty container (raises actionable `AttributeError`) |
+| **Default Fallback** | `styles = default_styles`, `colors = default_colors` | Empty container (raises actionable `AttributeError`) |
 | **Typical Usage** | `from drawlib.styles import styles, colors` | `from drawlib.utils import draw_service_box, API_PORT` |
 
 ---
@@ -26,18 +26,17 @@ A `styles.py` file defines project-wide visual themes and color palettes. It is 
 
 ```python
 # styles.py
-from drawlib.colors import DefaultStyleColors
-from drawlib.preset_styles import essentials_styles
+from drawlib.preset_colors import default_colors
+from drawlib.preset_styles import default_styles
 
 # 1. Customize or replace theme presets
-# When loaded, default `styles` and `colors` are pre-populated in global scope
-styles = essentials_styles.patch(
-    primary=styles.primary.patch(
-        shape_fill_color=DefaultStyleColors.Blue.patch(alpha=0.1),
-        shape_line_color=DefaultStyleColors.Blue,
+styles = default_styles.patch(
+    primary=default_styles.primary.patch(
+        shape_fill_color=default_colors.Blue.patch(alpha=0.1),
+        shape_line_color=default_colors.Blue,
         shape_line_width=2.0,
     ),
-    bold=styles.bold.patch(
+    bold=default_styles.bold.patch(
         shape_line_width=2.5,
     ),
 )

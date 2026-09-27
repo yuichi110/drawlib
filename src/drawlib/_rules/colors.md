@@ -7,21 +7,26 @@ Drawlib enforces visual harmony across diagrams through curated theme palettes w
 
 ## 1. Imports & Core Architecture
 
-All public color classes and conversion utilities are imported from `drawlib.colors`:
+All public color classes and conversion utilities are imported from `drawlib.preset_colors` (or active theme colors from `drawlib.styles`):
 
 ```python
-from drawlib.colors import (
+from drawlib.preset_colors import (
     # First-class Color model
     Color,
 
-    # Standard Color Constant Classes
+    # Standard Color Constant Classes & Instances
     Colors,                  # 16 basic web colors + Transparent
     Colors140,               # Full CSS / W3C 140 standard named colors
-    DefaultStyleColors,      # Palette used by preset style 'default'
-    EssentialsStyleColors,   # Clean corporate palette used by 'essentials'
-    MonochromeStyleColors,   # Grayscale palette used by 'monochrome'
-    GoogleStyleColors,       # Palette used by 'google' theme
+    DefaultColors,           # Palette class used by preset style 'default'
+    default_colors,          # Singleton instance
+    MonochromeColors,        # Grayscale palette class used by 'monochrome'
+    monochrome_colors,       # Singleton instance
+    GoogleColors,            # Palette class used by 'google' theme
+    google_colors,           # Singleton instance
 )
+
+# Or access active theme colors dynamically:
+from drawlib.styles import colors
 ```
 
 ---
@@ -90,26 +95,25 @@ Colors140.SteelBlue          # (70, 130, 180)
 ### 3.3. Theme Palette Catalogs
 Curated color schemes designed to work harmoniously across complex architectures:
 
-- **`DefaultStyleColors`**: Standard palette for default themes (`Red`, `Green`, `Blue`, `Black`, `White`).
-- **`EssentialsStyleColors`**: Comprehensive 25-color palette including `Orange`, `Purple`, `Teal`, `Navy`, `Aqua`, `Silver`, `Charcoal`, and light/dark variants.
-- **`MonochromeStyleColors`**: Multi-tier grayscale tones (`Black`, `Charcoal`, `Graphite`, `Gray`, `Silver`, `Snow`, `White`) for printer-friendly publications and patent drawings.
-- **`GoogleStyleColors`**: Google Material palette matching `GoogleStyles`.
+- **`DefaultColors` (`default_colors`, `styles.colors`)**: Standard palette for default themes (`Red`, `Green`, `Blue`, `Black`, `White`, `Orange`, `Purple`, `Teal`, `Navy`, `Aqua`, `Silver`, `Charcoal`, and variants).
+- **`MonochromeColors` (`monochrome_colors`)**: Multi-tier grayscale tones (`Black`, `Charcoal`, `Graphite`, `Gray`, `Silver`, `Snow`, `White`) for printer-friendly publications and patent drawings.
+- **`GoogleColors` (`google_colors`)**: Google Material palette matching `GoogleStyles`.
 
 ---
 
 ## 4. Color Manipulation & Derivation
 
-All preset colors (`Colors`, `EssentialsStyleColors`, `DefaultStyleColors`, `MonochromeStyleColors`, `Colors140`, `GoogleStyleColors`) are `Color` instances.
+All preset colors (`Colors`, `default_colors`, `monochrome_colors`, `Colors140`, `google_colors`) are `Color` instances.
 
 ### 4.1. The `.patch()` Method
 Derives a new `Color` instance by modifying specific channels while preserving immutability (analogous to `Style.patch()`):
 
 ```python
-from drawlib.colors import Colors, EssentialsStyleColors
+from drawlib.preset_colors import Colors, default_colors
 
 # Adjust transparency (alpha)
 glass_blue = Colors.Blue.patch(alpha=0.2)  # (0, 0, 255, 0.2)
-subtle_orange = EssentialsStyleColors.Orange.patch(alpha=0.15)
+subtle_orange = default_colors.Orange.patch(alpha=0.15)
 
 # Adjust RGB channels
 custom_red = Colors.Red.patch(g=50, b=50)
@@ -119,7 +123,7 @@ custom_red = Colors.Red.patch(g=50, b=50)
 Parse hexadecimal color notation with optional alpha override:
 
 ```python
-from drawlib.colors import Color
+from drawlib.preset_colors import Color
 
 # 6-digit hex string
 c1 = Color.from_hex("#3498db")             # (52, 152, 219, 1.0)
@@ -139,7 +143,7 @@ c5 = Color("#f00")                         # (255, 0, 0, 1.0)
 `Color` instances provide read-only properties for channel inspection:
 
 ```python
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 
 c = Colors.Blue.patch(alpha=0.5)
 print(c.r)     # 0
@@ -159,23 +163,21 @@ print(c.hex)   # '#0000ff80'
 
 ```drawlib fold-code 600px center caption:"Color Palette Applied to Multi-Tier Architecture"
 from drawlib.canvas import save, setup
-from drawlib.colors import DefaultStyleColors, EssentialsStyleColors
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.types import Style
-from drawlib.styles import styles
+from drawlib.styles import colors, styles
 
 setup(width=140, height=60)
 
 # Define custom semantic styles
 cloud_style = styles.primary.patch(
-    shape_fill_color=DefaultStyleColors.Blue.patch(alpha=0.15),
-    shape_line_color=DefaultStyleColors.Blue,
+    shape_fill_color=colors.Blue.patch(alpha=0.15),
+    shape_line_color=colors.Blue,
     shape_line_width=2,
 )
 db_style = styles.primary.patch(
-    shape_fill_color=EssentialsStyleColors.Orange.patch(alpha=0.2),
-    shape_line_color=EssentialsStyleColors.Orange,
+    shape_fill_color=colors.Orange.patch(alpha=0.2),
+    shape_line_color=colors.Orange,
     shape_line_width=2,
 )
 
@@ -186,7 +188,7 @@ rectangle(
     height=50,
     style=cloud_style,
     text="Kubernetes Cluster",
-    textstyle=styles.primary.patch(text_valign="top", text_color=DefaultStyleColors.Blue),
+    textstyle=styles.primary.patch(text_valign="top", text_color=colors.Blue),
 )
 
 # Service nodes
@@ -202,17 +204,16 @@ save()
 
 ```drawlib fold-code 600px center caption:"Monochrome Architectural Print Layout"
 from drawlib.canvas import save, setup
-from drawlib.colors import MonochromeStyleColors
 from drawlib.lines import line
+from drawlib.preset_colors import monochrome_colors
 from drawlib.shapes import rectangle
-from drawlib.types import Style
 from drawlib.styles import styles
 
 setup(width=120, height=50)
 
 box_style = styles.primary.patch(
-    shape_fill_color=MonochromeStyleColors.Silver,
-    shape_line_color=MonochromeStyleColors.Black,
+    shape_fill_color=monochrome_colors.Silver,
+    shape_line_color=monochrome_colors.Black,
     shape_line_width=2,
 )
 

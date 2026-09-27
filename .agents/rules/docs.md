@@ -120,8 +120,7 @@ Avoid manually placing dozens of low-level `rectangle` and `line` primitives whe
   - `drawlib.styles` manages active preset styles and colors, supporting dynamic theme switching via `--styles`.
   - `drawlib.utils` provides a dynamic container for user-defined helper functions and constants via `--utils`.
   - **Rule (Styles vs Preset Styles)**: If styles might be customized or themed via options (e.g. CLI `--styles`), **always reference `styles` from `drawlib.styles` (`from drawlib.styles import styles`) rather than `drawlib.preset_styles`**. Because `styles` is replaceable at runtime, using `drawlib.styles` allows seamless theme switching and style patches across all diagrams without editing drawing code.
-- **Preset Naming Pattern**: `<color>_<variant>` (`style=styles.blue_flat`, `style=styles.green_outline`, `style=styles.purple_flat`, `style=styles.bold`, `textstyle=styles.white_bold`).
-- **Colors (`drawlib.colors`)**: Curated palettes (`DefaultStyleColors`, `MonochromeStyleColors`, `EssentialsStyleColors`, `Colors140`), `Color` class with `.patch(alpha=0.5)`, and `Color.from_hex("#3498db")`.
+- **Preset Colors (`drawlib.preset_colors`)**: Curated palettes (`DefaultColors`, `MonochromeColors`, `GoogleColors`, `Colors`, `Colors140`), `Color` class with `.patch(alpha=0.5)`, and `Color.from_hex("#3498db")`.
 - **Typography & Fonts (`drawlib.fonts`)**: Universal CJK+Latin `Font` (no glyph boxes), `FontRoboto` (weights), `FontMonoSpace` (code/logs), and `FontFile("brand.ttf")`.
 - **Style Models & Types (`drawlib.types`)**: `Style` dataclass (`fill_color`, `line_width`, `text_size`, etc.). Use `style.copy()` for safe derivation. Subclass `BasePresetStyles` for custom themes.
 - **Image Embedding (`drawlib.images`)**: `image((x, y), width=w, image="logo.png")` (auto aspect ratio). In-memory embedding via `canvas.get_dimage()` and `get_dimage_from_code()`.
@@ -129,7 +128,7 @@ Avoid manually placing dozens of low-level `rectangle` and `line` primitives whe
 **Related Rules**:
 - Preset Styles & Dynamic Theming: `uv run drawlib rules show styles`
 - Preset Styles & Palettes Detail: `uv run drawlib rules show preset_styles`
-- Colors & Hex Conversion: `uv run drawlib rules show colors`
+- Preset Colors & Palettes Detail: `uv run drawlib rules show colors`
 - Typography & Fonts: `uv run drawlib rules show fonts`
 - Style Models & Types: `uv run drawlib rules show types`
 - Icons Library Detail: `uv run drawlib rules show icons`
@@ -199,7 +198,7 @@ uv run drawlib rules show colors        # Colors, Colors140, palettes, hex conve
 uv run drawlib rules show fonts         # Font classes, weights, CJK/regional scripts, cache
 uv run drawlib rules show images        # Embedding images, scaling, tinting, Dimage model
 uv run drawlib rules show math          # get_angle, get_distance, get_center_and_size
-uv run drawlib rules show types         # Style model, ColorsBase, FontBase, type conventions
+uv run drawlib rules show types         # Style model, BaseColors, FontBase, type conventions
 uv run drawlib rules show smartarts     # Table, TreeNode, ChevronProcess, MindMap, Cycle
 uv run drawlib rules show diagrams      # Architecture, Flow, Sequence, State, ER, Class
 uv run drawlib rules show charts        # Bar, Line, Area, Pie, Radar, Scatter, Gantt

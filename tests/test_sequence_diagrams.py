@@ -16,7 +16,6 @@ from PIL import Image
 
 from drawlib import canvas
 from drawlib._core.l3_styles import Style
-from drawlib.colors import Colors
 from drawlib.diagrams.sequence import (
     Block,
     CustomIcon,
@@ -28,6 +27,7 @@ from drawlib.diagrams.sequence import (
     PhosphorIcon,
     SequenceDiagram,
 )
+from drawlib.preset_colors import Colors
 
 
 class TestSequenceParticipantAndMessage:

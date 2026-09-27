@@ -13,8 +13,8 @@ import os
 
 from drawlib import icons
 from drawlib.canvas import clear, save
-from drawlib.colors import Colors
 from drawlib.icons import font_icon
+from drawlib.preset_colors import Colors
 from drawlib.types import Style
 
 FONT_AWESOME_FREE = os.path.normpath(os.path.join(os.path.dirname(__file__), "../assets/fontawesome-free/brands.ttf"))

@@ -1,5 +1,5 @@
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.styles import styles
 from drawlib.shapes import rectangle
 

@@ -20,7 +20,7 @@ Drawlib treats illustrations as software artifacts governed by the same rigorous
 2. **Deterministic & Reproducible**: Geometry, spacing, palette shades, and typography are mathematically defined in code. Running the build script guarantees bit-for-bit identical visual output across all environments.
 3. **Diff-Friendly Pull Requests**: Structural changes (such as inserting an API gateway, adding a microservice, or adjusting an OAuth handshake) appear as clear, human-readable code diffs.
 4. **Programmatic Geometry & Math**: Standard Python constructs—loops, list comprehensions, math functions (`cos`, `sin`), and data structures—eliminate tedious manual positioning for repetitive grids, circular cycles, and trees.
-5. **Centralized Style Governance**: Color palettes (`DefaultStyleColors`, `MonochromeStyleColors`, `EssentialsStyleColors`) ensure that shapes, connectors, text, and icons adhere to a cohesive visual hierarchy across hundreds of figures.
+5. **Centralized Style Governance**: Color palettes (`DefaultColors`, `MonochromeColors`, `GoogleColors`, `Colors`, `Colors140`) ensure that shapes, connectors, text, and icons adhere to a cohesive visual hierarchy across hundreds of figures.
 
 ### 1.2. Programmatic Layout Patterns
 Unlike GUI tools where every coordinate is dragged by hand, Drawlib code leverages arithmetic and loops to compute perfect alignments:
@@ -214,17 +214,18 @@ save()
 
 Drawlib features a cohesive visual system comprising color catalogs, multi-language typography, strongly-typed style objects, and seamless image embedding.
 
-### 3.1. Color Models & Palettes (`drawlib.colors`)
+### 3.1. Color Models & Palettes (`drawlib.preset_colors`)
 Colors in Drawlib can be represented as `Color` objects, RGB tuples `(r, g, b)`, RGBA tuples `(r, g, b, a)`, hex strings, or constants from curated palettes:
 - **`Color` Model & Derivation**:
   - `Color(r, g, b, alpha=1.0)` or `Color("#3498db")`: Immutable 4-tuple subclass providing `.patch()`, `.r`, `.g`, `.b`, `.alpha`, and `.hex`.
   - `color.patch(alpha=0.5)`: Derives a new transparent or modified color from any existing `Color`.
   - `Color.from_hex("#3498db", alpha=0.8)`: Converts standard hex codes into validated Drawlib `Color` instances.
 - **Curated Palette Catalogs**:
-  - **`DefaultStyleColors`**: Basic corporate primary palette (`Red`, `Green`, `Blue`, `Black`, `White`).
-  - **`EssentialsStyleColors`**: Rich, modern UI palette (`Blue`, `Green`, `Red`, `Orange`, `Purple`, `Cyan`, `Yellow`, `Gray`, `LightGray`, `DarkGray`).
-  - **`MonochromeStyleColors`**: High-contrast grayscale shades (`Black`, `White`, `Gray`, `DarkGray`, `LightGray`).
+  - **`DefaultColors` (`default_colors`, `styles.colors`)**: Basic corporate primary palette (`Red`, `Green`, `Blue`, `Black`, `White`).
+  - **`MonochromeColors` (`monochrome_colors`)**: High-contrast grayscale shades (`Black`, `White`, `Gray`, `DarkGray`, `LightGray`).
+  - **`GoogleColors` (`google_colors`)**: Google brand color palette.
   - **`Colors140`**: All 140 W3C standard CSS color constants (`Tomato`, `SteelBlue`, `MediumSeaGreen`, etc.).
+  - **`Colors`**: Standard 16 web color constants (`Red`, `Blue`, `Green`, `Navy`, etc.).
 
 ### 3.2. Typography & Font System (`drawlib.fonts`)
 Drawlib ensures dependable cross-platform rendering by bundling standard open fonts and managing font caching automatically:
@@ -250,7 +251,7 @@ Every visual element in Drawlib is governed by clean, strongly-typed style objec
   - **Immutability & Safety**: Use `style.copy()` when deriving modified variants to prevent mutation side-effects.
 - **Extensible Base Classes**:
   - Subclass `BasePresetStyles` to define reusable brand style systems across a corporate team.
-  - Inherit from `ColorsBase` and `FontBase` to structure enterprise palette and typography definitions.
+  - Inherit from `BaseColors` and `FontBase` to structure enterprise palette and typography definitions.
 
 ### 3.4. Image & Media Embedding (`drawlib.images`)
 Drawlib allows seamless integration of raster and vector graphic assets into diagrams:
@@ -502,7 +503,7 @@ drawlib rules show <topic> --rebuild
 
 ### 5.7. Preset Styles & Color Palettes (`preset_styles`)
 - **Command**: `drawlib rules show preset_styles`
-- **Scope**: Systematic style naming rules (`<color>_<variant>`), built-in palettes (`DefaultStyleColors`, `MonochromeStyleColors`, `EssentialsStyleColors`), pre-defined styles for shapes, lines, and text, and custom style registration.
+- **Scope**: Systematic style naming rules (`<color>_<variant>`), built-in palettes (`DefaultColors`, `MonochromeColors`, `GoogleColors`), pre-defined styles for shapes, lines, and text, and custom style registration.
 - **Key Syntax**:
   ```python
   # Common preset styles: "blue_flat", "green_outline", "red_soft", "bold", "white_bold"
@@ -573,12 +574,12 @@ drawlib rules show <topic> --rebuild
 
 ### 5.12. Color Models, Catalogs & Palettes (`colors`)
 - **Command**: `drawlib rules show colors`
-- **Scope**: `Color` model with `.patch()`, RGB/RGBA formats, standard 16 web colors (`Colors`), 140 CSS colors (`Colors140`), and curated theme palettes (`DefaultStyleColors`, `MonochromeStyleColors`, `EssentialsStyleColors`, `GoogleStyleColors`).
+- **Scope**: `Color` model with `.patch()`, RGB/RGBA formats, standard 16 web colors (`Colors`), 140 CSS colors (`Colors140`), and curated theme palettes (`DefaultColors`, `MonochromeColors`, `GoogleColors`).
 - **Key Syntax**:
   ```python
-  from drawlib.colors import Color, Colors, DefaultStyleColors
+  from drawlib.preset_colors import Color, Colors, default_colors
   c1 = Color.from_hex("#3498db", alpha=0.8)
-  c2 = DefaultStyleColors.Blue.patch(alpha=0.2)
+  c2 = default_colors.Blue.patch(alpha=0.2)
   ```
 - **When to read**: Refer to this rule when choosing accessible color schemes, parsing brand hex values, adjusting transparency, or creating custom palette classes.
 
@@ -623,7 +624,7 @@ drawlib rules show <topic> --rebuild
 
 ### 5.16. Style Models, Base Classes & Types (`types`)
 - **Command**: `drawlib rules show types`
-- **Scope**: Strongly-typed `Style` model attributes (fill, line, typography, alignments), theme inheritance (`BasePresetStyles`), palette extension (`ColorsBase`), and Drawlib type alias conventions.
+- **Scope**: Strongly-typed `Style` model attributes (fill, line, typography, alignments), theme inheritance (`BasePresetStyles`), palette extension (`BaseColors`), and Drawlib type alias conventions.
 - **Key Syntax**:
   ```python
   from drawlib.types import BasePresetStyles, Style
@@ -731,6 +732,6 @@ Avoid manually placing dozens of low-level `rectangle`, `circle`, and `line` pri
 ### 6.4. Implementation Checklist
 
 - [ ] **Canvas Sizing**: Set explicit dimensions (`100x100`, `120x60`, `140x70`, `160x90`) appropriate for the diagram type.
-- [ ] **Palette Consistency**: Reference styles via `from drawlib.styles import styles` (e.g. `style=styles.blue_flat`, `textstyle=styles.white_bold`) or official palettes (`DefaultStyleColors`, `MonochromeStyleColors`) instead of hardcoded hex values.
+- [ ] **Palette Consistency**: Reference styles via `from drawlib.styles import styles` (e.g. `style=styles.blue_flat`, `textstyle=styles.white_bold`) or official palettes (`DefaultColors`, `MonochromeColors`) instead of hardcoded hex values.
 - [ ] **Grid Overlay Validation**: Superimpose coordinate grids (`-g`) during self-correction to eliminate guesswork.
 - [ ] **Clean Separation of Concerns**: Decouple data lists/dictionaries from drawing loops for maintainability.

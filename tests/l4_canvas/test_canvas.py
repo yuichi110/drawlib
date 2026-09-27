@@ -16,11 +16,11 @@ from matplotlib import pyplot
 
 from drawlib._core.l4_canvas import canvas
 from drawlib.canvas import clear, config, get_dimage, save, setup, show
-from drawlib.colors import (
+from drawlib.images import Dimage, image
+from drawlib.preset_colors import (
     Colors,
     Colors140,
 )
-from drawlib.images import Dimage, image
 from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle
 from drawlib.types import Style

@@ -14,7 +14,6 @@ from drawlib._core.l3_styles import Style
 from drawlib._preset_styles import (
     BasePresetStyles,
     DefaultStyles,
-    EssentialsStyles,
     GoogleStyles,
     MonochromeStyles,
     PresetStyles,

@@ -11,12 +11,10 @@ import pytest
 
 from drawlib._preset_styles import (
     DefaultStyles,
-    EssentialsStyles,
     GoogleStyles,
     MonochromeStyles,
     PresetStyles,
     default_styles,
-    essentials_styles,
     google_styles,
     monochrome_styles,
 )
@@ -27,7 +25,7 @@ from drawlib.shapes import circle
 from drawlib.text import text
 
 IMAGE_FILE = "../assets/image.png"
-OUTPUT_DIR_ESSENTIALS = "../../output_tests/preset_styles/essentials/"
+OUTPUT_DIR_DEFAULT = "../../output_tests/preset_styles/default/"
 OUTPUT_DIR_MONOCHROME = "../../output_tests/preset_styles/monochrome/"
 
 
@@ -36,9 +34,6 @@ def test_official_preset_style_generators() -> None:
     assert isinstance(default_styles, DefaultStyles)
     assert isinstance(default_styles, PresetStyles)
 
-    assert isinstance(essentials_styles, EssentialsStyles)
-    assert isinstance(essentials_styles, PresetStyles)
-
     assert isinstance(monochrome_styles, MonochromeStyles)
     assert isinstance(monochrome_styles, PresetStyles)
 
@@ -46,14 +41,14 @@ def test_official_preset_style_generators() -> None:
     assert isinstance(google_styles, PresetStyles)
 
 
-def test_essentials_fill() -> None:
-    """Integrated drawing test for essentials circle filling styles."""
-    styles = essentials_styles
+def test_default_fill_official() -> None:
+    """Integrated drawing test for default circle filling styles."""
+    styles = default_styles
     circle((25, 25), 10, style=styles.flat, text="drawlib")
     circle((25, 50), 10, style=styles.primary, text="drawlib")
     circle((25, 75), 10, style=styles.light, text="drawlib")
     circle((75, 25), 10, style=styles.bold, text="drawlib")
-    save(f"{OUTPUT_DIR_ESSENTIALS}test_fill.png")
+    save(f"{OUTPUT_DIR_DEFAULT}test_fill_official.png")
 
 
 @pytest.mark.image_threshold(97.0)

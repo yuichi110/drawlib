@@ -16,57 +16,58 @@ from __future__ import annotations
 
 import sys as _sys
 
-from drawlib._core.l2_models import StaticContainer
-from drawlib.colors import (
-    DefaultStyleColors,
-    EssentialsStyleColors,
-    GoogleStyleColors,
-    MonochromeStyleColors,
+from drawlib._core.types import Color, Style
+from drawlib.preset_colors import (
+    BaseColors,
+    DefaultColors,
+    GoogleColors,
+    MonochromeColors,
+    default_colors,
+    google_colors,
+    monochrome_colors,
 )
 from drawlib.preset_styles import (
     BasePresetStyles,
     DefaultStyles,
-    EssentialsStyles,
     GoogleStyles,
     MonochromeStyles,
-    essentials_styles,
+    default_styles,
 )
 
-# Active styles (default: essentials_styles)
-styles: EssentialsStyles = essentials_styles
+# Active styles (default: default_styles)
+styles: DefaultStyles = default_styles
 
-# Active colors matching the active theme
-colors: type[EssentialsStyleColors] = EssentialsStyleColors
+# Active colors matching the active theme (default: default_colors)
+colors: DefaultColors = default_colors
 
-_STYLE_TO_COLOR_MAP: dict[type[BasePresetStyles], type[StaticContainer]] = {
-    EssentialsStyles: EssentialsStyleColors,
-    DefaultStyles: DefaultStyleColors,
-    GoogleStyles: GoogleStyleColors,
-    MonochromeStyles: MonochromeStyleColors,
+_STYLE_TO_COLOR_MAP: dict[type[BasePresetStyles], BaseColors] = {
+    DefaultStyles: default_colors,
+    GoogleStyles: google_colors,
+    MonochromeStyles: monochrome_colors,
 }
 
 
-def _resolve_colors(style_obj: BasePresetStyles) -> type[StaticContainer]:
-    """Resolve corresponding color class for a given style object.
+def _resolve_colors(style_obj: BasePresetStyles) -> BaseColors:
+    """Resolve corresponding color instance for a given style object.
 
     Args:
         style_obj (BasePresetStyles): The style instance to inspect.
 
     Returns:
-        type[StaticContainer]: The corresponding style color class.
+        BaseColors: The corresponding style color instance.
     """
-    for style_cls, color_cls in _STYLE_TO_COLOR_MAP.items():
+    for style_cls, color_obj in _STYLE_TO_COLOR_MAP.items():
         if isinstance(style_obj, style_cls):
-            return color_cls
-    return EssentialsStyleColors
+            return color_obj
+    return default_colors
 
 
-def _set_active_styles(new_styles: BasePresetStyles, new_colors: type[StaticContainer] | None = None) -> None:
+def _set_active_styles(new_styles: BasePresetStyles, new_colors: BaseColors | None = None) -> None:
     """Set the active styles and colors.
 
     Args:
         new_styles (BasePresetStyles): The new preset style instance.
-        new_colors (type[StaticContainer] | None): Optional specific color class.
+        new_colors (BaseColors | None): Optional specific color instance.
     """
     mod = _sys.modules.get(__name__)
     if mod is None:
@@ -83,11 +84,13 @@ def _reset_styles() -> None:
     mod = _sys.modules.get(__name__)
     if mod is None:
         return
-    setattr(mod, "styles", essentials_styles)
-    setattr(mod, "colors", EssentialsStyleColors)
+    setattr(mod, "styles", default_styles)
+    setattr(mod, "colors", default_colors)
 
 
 __all__ = [
+    "Color",
+    "Style",
     "colors",
     "styles",
 ]

@@ -10,9 +10,9 @@
 """Core colors facade module."""
 
 from drawlib._core.l3_styles import (
-    ColorsBase,
+    BaseColors,
 )
 
 __all__ = [
-    "ColorsBase",
+    "BaseColors",
 ]

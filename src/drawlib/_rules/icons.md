@@ -56,14 +56,15 @@ All icon functions and modules are imported directly from `drawlib.icons`:
 from drawlib.icons import font_icon, gcp, phosphor
 
 # Supporting styling and color modules
-from drawlib.colors import (
+from drawlib.preset_colors import (
+    BaseColors,
+    Color,
     Colors,
     Colors140,
-    DefaultStyleColors,
-    EssentialsStyleColors,
-    GoogleStyleColors,
-    MonochromeStyleColors,
-    Color,
+    DefaultColors,
+    GoogleColors,
+    MonochromeColors,
+    default_colors,
 )
 from drawlib.types import Style
 ```

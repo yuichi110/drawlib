@@ -18,7 +18,6 @@ import pytest
 
 from drawlib import canvas
 from drawlib._core.l3_styles import Style
-from drawlib.colors import Colors
 from drawlib.diagrams.class_diagram import (
     AttributeInfo,
     ClassDiagram,
@@ -28,6 +27,7 @@ from drawlib.diagrams.class_diagram import (
     RelationshipType,
     Side,
 )
+from drawlib.preset_colors import Colors
 
 
 class TestClassNode:

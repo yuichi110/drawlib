@@ -14,9 +14,9 @@ import importlib
 from drawlib import icons
 from drawlib._icons.font_icons import phosphor as phosphor_internal
 from drawlib.canvas import clear, save
-from drawlib.colors import Colors
 from drawlib.icons import phosphor
-from drawlib.preset_styles import default_styles, essentials_styles
+from drawlib.preset_colors import Colors
+from drawlib.preset_styles import default_styles
 from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l6_icons/icon_phosphor/"
@@ -56,7 +56,7 @@ class TestCanvasPhosphor:
     def test_phosphor_icon_theme(self) -> None:
         """Verify Phosphor icon drawing with theme color overrides."""
         clear()
-        styles = essentials_styles
+        styles = default_styles
         phosphor.google_logo(xy=(25, 25), width=20, style=styles.blue.patch(icon_style="thin"))
         phosphor.google_logo(xy=(25, 75), width=20, style=styles.green.patch(icon_style="thin"))
         phosphor.google_logo(xy=(75, 25), width=20, style=styles.red.patch(icon_style="thin"))

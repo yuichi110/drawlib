@@ -19,7 +19,6 @@ import pytest
 
 from drawlib import canvas
 from drawlib._core.l3_styles import Style
-from drawlib.colors import Colors
 from drawlib.diagrams.state_diagram import (
     ChoiceState,
     FinalState,
@@ -30,6 +29,7 @@ from drawlib.diagrams.state_diagram import (
     StateDiagram,
     StateTransition,
 )
+from drawlib.preset_colors import Colors
 
 
 class TestStateNode:

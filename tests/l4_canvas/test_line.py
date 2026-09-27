@@ -13,8 +13,8 @@ import pytest
 
 from drawlib._core.l4_canvas._line import LineArcHelper
 from drawlib.canvas import clear, save
-from drawlib.colors import Colors
 from drawlib.lines import line, line_arc, line_bezier1, line_bezier2, line_curved, lines, lines_bezier, lines_curved
+from drawlib.preset_colors import Colors
 from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle, ellipse
 from drawlib.types import Style

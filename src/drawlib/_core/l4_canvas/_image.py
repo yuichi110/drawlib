@@ -26,7 +26,7 @@ from drawlib._core.l2_types import (
     TypeImageZoom,
     TypePosFloat,
 )
-from drawlib._core.l3_styles import ColorsBase, Style
+from drawlib._core.l3_styles import BaseColors, Style
 from drawlib._core.l4_canvas._base import CanvasBase
 from drawlib._core.l4_canvas_utils import ImageUtil
 
@@ -163,7 +163,7 @@ class CanvasImageFeature(CanvasBase):
             shape_line_style=style.image_border_style if style.image_border_style is not None else "solid",
             shape_line_width=style.image_border_width,
             shape_line_color=border_color,
-            shape_fill_color=ColorsBase.Transparent,
+            shape_fill_color=BaseColors.Transparent,
             shape_fill_alpha=style.image_alpha,
         )
         self.rectangle(xy=xy, width=width, height=height, angle=angle, style=shapestyle)

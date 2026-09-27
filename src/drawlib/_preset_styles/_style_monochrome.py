@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from drawlib._core.fonts import Font, FontSourceCode
 from drawlib._core.types import Style
-from drawlib._preset_colors import Colors, MonochromeStyleColors
+from drawlib._preset_colors import Colors, monochrome_colors
 from drawlib._preset_styles._base import BasePresetStyles
 from drawlib._preset_styles._utils import _create_style, _make_variants
 
@@ -86,13 +86,13 @@ def _create_monochrome_styles() -> MonochromeStyles:
     Returns:
         MonochromeStyles: Monochrome preset styles.
     """
-    black = MonochromeStyleColors.Black
-    charcoal = MonochromeStyleColors.Charcoal
-    graphite = MonochromeStyleColors.Graphite
-    gray = MonochromeStyleColors.Gray
-    silver = MonochromeStyleColors.Silver
-    snow = MonochromeStyleColors.Snow
-    white = MonochromeStyleColors.White
+    black = monochrome_colors.Black
+    charcoal = monochrome_colors.Charcoal
+    graphite = monochrome_colors.Graphite
+    gray = monochrome_colors.Gray
+    silver = monochrome_colors.Silver
+    snow = monochrome_colors.Snow
+    white = monochrome_colors.White
 
     k_v = _make_variants(black)
     c_v = _make_variants(charcoal)

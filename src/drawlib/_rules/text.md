@@ -14,12 +14,13 @@ All public text functions and types are imported from standard Drawlib modules:
 from drawlib.text import text, text_vertical
 
 # Style and color types
-from drawlib.colors import (
+from drawlib.preset_colors import (
     Colors,
-    DefaultStyleColors,
-    EssentialsStyleColors,
-    GoogleStyleColors,
-    MonochromeStyleColors,
+    Colors140,
+    DefaultColors,
+    GoogleColors,
+    MonochromeColors,
+    default_colors,
 )
 from drawlib.types import Style
 

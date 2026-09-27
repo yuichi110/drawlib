@@ -10,83 +10,100 @@
 """Unit tests for the color definitions module in l3_styles."""
 
 import pytest
+from pydantic import BaseModel, ValidationError
 
-from drawlib._core.l2_models import StaticContainer
-from drawlib._core.l3_styles._colors import (
-    ColorsBase,
-)
-from drawlib.colors import (
+from drawlib._core.l2_models import Color
+from drawlib.preset_colors import (
+    BaseColors,
     Colors,
+    Colors16,
     Colors140,
-    DefaultStyleColors,
-    EssentialsStyleColors,
-    GoogleStyleColors,
-    MonochromeStyleColors,
+    Colors140Model,
+    DefaultColors,
+    GoogleColors,
+    MonochromeColors,
+    default_colors,
+    google_colors,
+    monochrome_colors,
 )
 
 
 class TestColors:
-    """Test cases for Colors and color container classes."""
+    """Test cases for BaseColors and color container instances."""
 
-    def test_colors_classes(self):
-        """Test all color container classes subclass StaticContainer."""
-        classes: list[type[StaticContainer]] = [
-            ColorsBase,
-            Colors,
-            Colors140,
-            EssentialsStyleColors,
-            DefaultStyleColors,
-            GoogleStyleColors,
-            MonochromeStyleColors,
+    def test_colors_classes(self) -> None:
+        """Test all color model classes subclass BaseColors and BaseModel."""
+        classes: list[type[BaseColors]] = [
+            BaseColors,
+            Colors16,
+            Colors140Model,
+            DefaultColors,
+            GoogleColors,
+            MonochromeColors,
         ]
         for cls in classes:
-            assert issubclass(cls, StaticContainer)
+            assert issubclass(cls, BaseColors)
+            assert issubclass(cls, BaseModel)
 
-    def test_colors_static_container_instantiation_raises(self):
-        """Test that instantiating any color container class raises TypeError."""
-        classes: list[type[StaticContainer]] = [
-            ColorsBase,
+    def test_colors_instances(self) -> None:
+        """Test all color singletons are instances of BaseColors."""
+        instances: list[BaseColors] = [
             Colors,
             Colors140,
-            EssentialsStyleColors,
-            DefaultStyleColors,
-            GoogleStyleColors,
-            MonochromeStyleColors,
+            default_colors,
+            google_colors,
+            monochrome_colors,
         ]
-        for cls in classes:
-            with pytest.raises(TypeError, match="cannot be instantiated"):
-                cls()
+        for inst in instances:
+            assert isinstance(inst, BaseColors)
+            assert isinstance(inst, BaseModel)
 
-    def test_color_values(self):
+    def test_immutability(self) -> None:
+        """Test that modifying attributes on frozen instances raises ValidationError."""
+        with pytest.raises(ValidationError):
+            default_colors.Red = Color(0, 0, 0)
+
+    def test_patch(self) -> None:
+        """Test that patch() returns a new instance with updated color."""
+        patched = default_colors.patch(Red=Color(10, 20, 30))
+        assert patched.Red == (10, 20, 30)
+        assert default_colors.Red == (255, 23, 23)
+        assert isinstance(patched, DefaultColors)
+
+    def test_dict_and_iter(self) -> None:
+        """Test dictionary-like access and iteration."""
+        assert default_colors["Red"] == (255, 23, 23)
+        with pytest.raises(KeyError):
+            _ = default_colors["NonExistent"]
+
+        color_dict = dict(default_colors)
+        assert "Red" in color_dict
+        assert color_dict["Red"] == (255, 23, 23)
+
+    def test_color_values(self) -> None:
         """Test specific color constant tuple values."""
-        assert ColorsBase.Transparent == (0, 0, 0, 0.0)
+        assert BaseColors.Transparent == (0, 0, 0, 0.0)
         assert Colors.Red == (255, 0, 0)
         assert Colors.Black == (0, 0, 0)
         assert Colors.White == (255, 255, 255)
-        assert DefaultStyleColors.Red == (239, 95, 95)
-        assert EssentialsStyleColors.Charcoal == (39, 39, 39)
-        assert MonochromeStyleColors.Charcoal == (39, 39, 39)
-        assert GoogleStyleColors.Red == (255, 0, 0)
+        assert default_colors.Red == (255, 23, 23)
+        assert default_colors.Charcoal == (39, 39, 39)
+        assert monochrome_colors.Charcoal == (39, 39, 39)
+        assert google_colors.Black == (0, 0, 0)
 
-    def test_colors_attributes(self):
-        """Test that all color attributes are valid RGB or RGBA tuples."""
-        classes: list[type[StaticContainer]] = [
-            ColorsBase,
+    def test_colors_attributes(self) -> None:
+        """Test that all color attributes on instances are valid Color instances."""
+        instances: list[BaseColors] = [
             Colors,
             Colors140,
-            EssentialsStyleColors,
-            DefaultStyleColors,
-            GoogleStyleColors,
-            MonochromeStyleColors,
+            default_colors,
+            google_colors,
+            monochrome_colors,
         ]
-        for cls in classes:
-            # Get all public attributes that are color tuples
-            for attr_name in dir(cls):
-                if attr_name.startswith("_"):
-                    continue
-                val = getattr(cls, attr_name)
-                # Ensure it is a tuple representing RGB or RGBA
-                assert isinstance(val, tuple)
+        for inst in instances:
+            for field_name in inst.__class__.model_fields:
+                val = getattr(inst, field_name)
+                assert isinstance(val, Color)
                 assert len(val) in {3, 4}
                 for item in val[:3]:
                     assert isinstance(item, int)

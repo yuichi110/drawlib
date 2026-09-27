@@ -22,8 +22,8 @@ import drawlib.utils
 def _inject_shared_globals(shared_globals: Dict[str, Any]) -> None:
     """Pre-populate shared globals with standard drawlib facades and wildcard imports."""
     exec(
-        "from drawlib import (builder, canvas, charts, colors, diagrams, fonts, icons, "
-        "images, lines, math, preset_styles, shapes, smartarts, styles, text, tools, types, utils)\n"
+        "from drawlib import (builder, canvas, charts, diagrams, fonts, icons, "
+        "images, lines, math, preset_colors, preset_styles, shapes, smartarts, styles, text, tools, types, utils)\n"
         "from drawlib.canvas import *\n"
         "from drawlib.shapes import *\n"
         "from drawlib.lines import *\n"
@@ -33,11 +33,11 @@ def _inject_shared_globals(shared_globals: Dict[str, Any]) -> None:
         "from drawlib.preset_styles import *\n"
         "from drawlib.smartarts import *\n"
         "from drawlib.fonts import *\n"
-        "from drawlib.colors import *\n"
+        "from drawlib.preset_colors import *\n"
         "from drawlib.types import *\n"
         "from drawlib.math import *\n"
         "from drawlib.builder import *\n"
-        "from drawlib.styles import styles, colors\n",
+        "from drawlib.styles import styles, colors, Style, Color\n",
         shared_globals,
     )
 

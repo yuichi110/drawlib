@@ -10,9 +10,9 @@
 """Unit and integration tests for CanvasOriginalArrowFeature shapes."""
 
 from drawlib.canvas import clear, save
-from drawlib.colors import Colors
 from drawlib.fonts import Font
-from drawlib.preset_styles import default_styles, essentials_styles
+from drawlib.preset_colors import Colors
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u, ellipse
 from drawlib.text import text
 from drawlib.types import Style
@@ -116,7 +116,7 @@ class TestCanvasArrow:
 
         # Theme styles
         text((5, 80), "theme style", style=s_lbl)
-        styles_essentials = essentials_styles
+        styles_default = default_styles
         arrow(
             (40, 80),
             (90, 80),
@@ -124,9 +124,9 @@ class TestCanvasArrow:
             head_width=10,
             head_length=10,
             head="->",
-            style=styles_essentials.blue,
+            style=styles_default.blue,
             text="Hello Drawlib",
-            textstyle=styles_essentials.white.patch(text_color=Colors.White),
+            textstyle=styles_default.white.patch(text_color=Colors.White),
         )
         save(f"{OUTPUT_DIR}test_arrow.png")
 

@@ -18,8 +18,8 @@ import pytest
 
 from drawlib import canvas
 from drawlib._core.l3_styles import Style
-from drawlib.colors import Colors
 from drawlib.diagrams.er import Cardinality, ColumnInfo, Entity, ERDiagram, Relationship, Side
+from drawlib.preset_colors import Colors
 
 
 class TestEntity:

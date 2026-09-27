@@ -15,7 +15,7 @@ from drawlib.types import (
     Style,
 
     # Architectural Base Classes
-    ColorsBase,          # Base class for defining custom color palettes
+    BaseColors,          # Base class for defining custom color palettes
     FontBase,            # Base class for font representations
     BasePresetStyles,    # Base class for defining custom preset themes
     PresetStyles,        # Concrete container for theme preset styles
@@ -135,26 +135,28 @@ When reading function signatures across Drawlib modules, parameters adhere to th
 You can define cohesive organizational design systems by subclassing `BasePresetStyles`:
 
 ```python
-from drawlib.colors import ColorsBase, from_hex
+from drawlib.preset_colors import BaseColors, Color
 from drawlib.types import BasePresetStyles, Style
 
-class AcmeColors(ColorsBase):
-    BrandBlue = from_hex("#0052cc")
-    BrandOrange = from_hex("#ff5630")
-    NeutralDark = from_hex("#172b4d")
-    NeutralLight = from_hex("#f4f5f7")
+class AcmeColors(BaseColors):
+    BrandBlue: Color = Color.from_hex("#0052cc")
+    BrandOrange: Color = Color.from_hex("#ff5630")
+    NeutralDark: Color = Color.from_hex("#172b4d")
+    NeutralLight: Color = Color.from_hex("#f4f5f7")
+
+acme_colors = AcmeColors()
 
 class AcmeTheme(BasePresetStyles):
     def __init__(self) -> None:
         super().__init__()
         # Register custom shape styles
         self.shape_styles["primary"] = Style(
-            fill_color=AcmeColors.BrandBlue,
+            fill_color=acme_colors.BrandBlue,
             text_color=(255, 255, 255),
             line_width=0,
         )
         self.shape_styles["accent"] = Style(
-            fill_color=AcmeColors.BrandOrange,
+            fill_color=acme_colors.BrandOrange,
             text_color=(255, 255, 255),
             line_width=0,
         )
@@ -168,18 +170,17 @@ class AcmeTheme(BasePresetStyles):
 
 ```drawlib fold-code 600px center caption:"Encapsulated Styling with the Style Model"
 from drawlib.canvas import save, setup
-from drawlib.colors import DefaultStyleColors
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.styles import styles
+from drawlib.styles import colors, styles
 
 setup(width=140, height=60)
 
 # Base card style derived from styles.primary
 card_style = styles.primary.patch(
     shape_fill_color=(245, 247, 250),
-    shape_line_color=DefaultStyleColors.Blue,
+    shape_line_color=colors.Blue,
     shape_line_width=2,
     shape_line_style="solid",
     text_color=(30, 40, 50),
@@ -189,7 +190,7 @@ card_style = styles.primary.patch(
 
 # Active card style derived via .patch()
 active_card_style = card_style.patch(
-    shape_fill_color=DefaultStyleColors.Blue,
+    shape_fill_color=colors.Blue,
     text_color=(255, 255, 255),
 )
 

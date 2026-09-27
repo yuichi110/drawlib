@@ -10,11 +10,11 @@
 import inspect
 
 import drawlib.canvas
-import drawlib.colors
 import drawlib.fonts
 import drawlib.icons
 import drawlib.images
 import drawlib.lines
+import drawlib.preset_colors
 import drawlib.preset_styles
 import drawlib.shapes
 import drawlib.smartarts
@@ -25,11 +25,11 @@ import drawlib.types
 def test_all_doc_exist():
     modules = [
         drawlib.canvas,
-        drawlib.colors,
         drawlib.fonts,
         drawlib.icons,
         drawlib.images,
         drawlib.lines,
+        drawlib.preset_colors,
         drawlib.preset_styles,
         drawlib.shapes,
         drawlib.smartarts,

@@ -22,17 +22,17 @@ In complex technical diagrams and architectural illustrations, manually specifyi
 ```text
 ┌───────────────────────────────────────────────────────────────────────────────────┐
 │                               Public Facade API                                   │
-│       from drawlib.preset_styles import default_styles, essentials_styles, ...     │
-│       from drawlib.colors import Colors, DefaultStyleColors, EssentialsStyleColors │
+│       from drawlib.preset_styles import default_styles, monochrome_styles, ...    │
+│       from drawlib.preset_colors import Colors, default_colors, DefaultColors     │
 └────────────────────────────────────────┬──────────────────────────────────────────┘
                                          │
                     ┌────────────────────┴────────────────────┐
                     ▼                                         ▼
    ┌─────────────────────────────────┐       ┌─────────────────────────────────┐
    │       Color Collections         │       │     Official Style Catalogs     │
-   │  - DefaultStyleColors (5 colors)│       │  - DefaultStyles                │
-   │  - MonochromeStyleColors (7 clr)│       │  - MonochromeStyles             │
-   │  - EssentialsStyleColors(25 clr)│       │  - EssentialsStyles             │
+   │  - default_colors (DefaultColors)│      │  - default_styles (DefaultStyles)│
+   │  - monochrome_colors (MonoColors)│      │  - monochrome_styles (MonoStyles)│
+   │  - google_colors (GoogleColors) │       │  - google_styles (GoogleStyles) │
    │  - Colors140 (140 CSS colors)   │       │  (Base: BasePresetStyles)       │
    │  - Colors (16 basic web colors) │       │                                 │
    └────────────────┬────────────────┘       └────────────────┬────────────────┘
@@ -74,13 +74,17 @@ from drawlib.preset_styles import (
 )
 
 # Color collections and utilities
-from drawlib.colors import (
+from drawlib.preset_colors import (
+    BaseColors,
     Color,
     Colors,
     Colors140,
-    DefaultStyleColors,
-    EssentialsStyleColors,
-    MonochromeStyleColors,
+    DefaultColors,
+    GoogleColors,
+    MonochromeColors,
+    default_colors,
+    google_colors,
+    monochrome_colors,
 )
 
 # Underlying Style model
@@ -212,11 +216,11 @@ Drawlib enforces strict RGB or RGBA tuples internally for maximum precision and 
 
 | Class | Number of Colors | Base Class | Primary Purpose |
 | :--- | :--- | :--- | :--- |
-| `DefaultStyleColors` | 5 | `ColorsBase` | Core 5 colors matching the `"default"` preset catalog. |
-| `MonochromeStyleColors` | 7 | `ColorsBase` | Pure grayscale gradient from Black to White. |
-| `EssentialsStyleColors` | 25 | `ColorsBase` | Comprehensive 25-color palette for rich diagrams. |
-| `Colors140` | 140 | `ColorsBase` | Complete W3C CSS Color Module Level 3 named colors. |
-| `Colors` | 16 | `ColorsBase` | Classic 16 standard HTML/VGA web colors + Transparent. |
+| `DefaultColors` (`default_colors`) | 25 | `BaseColors` | Core palette matching the `"default"` preset catalog. |
+| `MonochromeColors` (`monochrome_colors`) | 7 | `BaseColors` | Pure grayscale gradient from Black to White. |
+| `GoogleColors` (`google_colors`) | 15 | `BaseColors` | Official Google corporate color palette. |
+| `Colors140` (`colors_140`) | 140 | `BaseColors` | Complete W3C CSS Color Module Level 3 named colors. |
+| `Colors` (`colors_16`) | 16 | `BaseColors` | Classic 16 standard HTML/VGA web colors + Transparent. |
 
 ### 4.2. Exact RGB Values of Built-In Palettes
 
@@ -840,9 +844,9 @@ Under the hood, `_officials.py` processes the string through a deterministic seq
 # s = Style(fill_color="red")
 
 # CORRECT: Pass color constant
-from drawlib.colors import DefaultStyleColors
+from drawlib.preset_colors import default_colors
 
-s = Style(fill_color=DefaultStyleColors.Red)
+s = Style(fill_color=default_colors.Red)
 
 # CORRECT: Or resolve via get_style
 s = get_style("red_flat")

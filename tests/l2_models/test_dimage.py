@@ -16,8 +16,8 @@ from PIL import Image
 
 from drawlib._core.l2_models import Dimage
 from drawlib.canvas import save
-from drawlib.colors import Colors
 from drawlib.images import image
+from drawlib.preset_colors import Colors
 
 IMAGE_FILE = "../assets/image.png"
 FONT_FILE = "../../assets/font.ttf"

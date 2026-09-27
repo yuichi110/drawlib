@@ -23,11 +23,11 @@ from drawlib._core.l4_canvas import (
 )
 from drawlib._core.l4_canvas._base import CanvasBase
 from drawlib.canvas import clear, config, save
-from drawlib.colors import (
+from drawlib.fonts import Font
+from drawlib.preset_colors import (
     Colors,
     Colors140,
 )
-from drawlib.fonts import Font
 from drawlib.preset_styles import default_styles
 from drawlib.shapes import polygon, rectangle, shape
 

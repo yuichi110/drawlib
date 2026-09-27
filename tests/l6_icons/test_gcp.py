@@ -14,8 +14,8 @@ import pytest
 from drawlib._icons.png_icons import gcp as gcp_internal
 from drawlib._icons.png_icons.gcp._base import GCP_PROVIDER
 from drawlib.canvas import clear, save
-from drawlib.colors import Colors
 from drawlib.icons import gcp
+from drawlib.preset_colors import Colors
 from drawlib.types import Style
 
 OUTPUT_DIR = "../../output_tests/l6_icons/icon_gcp/"

@@ -19,7 +19,6 @@ import pytest
 
 from drawlib import canvas
 from drawlib._core.l3_styles import Style
-from drawlib.colors import Colors
 from drawlib.diagrams.flow import (
     Data,
     Decision,
@@ -32,6 +31,7 @@ from drawlib.diagrams.flow import (
     Process,
     Start,
 )
+from drawlib.preset_colors import Colors
 
 
 class TestFlowNodes:

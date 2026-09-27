@@ -12,12 +12,10 @@
 from drawlib._preset_styles import (
     BasePresetStyles,
     DefaultStyles,
-    EssentialsStyles,
     GoogleStyles,
     MonochromeStyles,
     PresetStyles,
     default_styles,
-    essentials_styles,
     google_styles,
     monochrome_styles,
 )
@@ -25,12 +23,10 @@ from drawlib._preset_styles import (
 __all__ = [
     "BasePresetStyles",
     "DefaultStyles",
-    "EssentialsStyles",
     "GoogleStyles",
     "MonochromeStyles",
     "PresetStyles",
     "default_styles",
-    "essentials_styles",
     "google_styles",
     "monochrome_styles",
 ]

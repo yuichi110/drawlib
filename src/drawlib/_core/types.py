@@ -78,7 +78,7 @@ from drawlib._core.l2_types import (
     VAlign,
 )
 from drawlib._core.l3_styles import (
-    ColorsBase,
+    BaseColors,
     Style,
 )
 
@@ -87,13 +87,13 @@ __all__ = [
     "Angle",
     "Angle90",
     "ArrowHead",
+    "BaseColors",
     "Bend",
     "Bezier2",
     "Bezier3",
     "Color",
     "ColorRGB",
     "ColorRGBA",
-    "ColorsBase",
     "Coordinate",
     "Coordinates",
     "FilePath",

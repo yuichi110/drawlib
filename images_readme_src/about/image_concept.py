@@ -8,7 +8,7 @@
 # merchantability, fitness for a particular purpose and noninfringement.
 
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.styles import styles
 from drawlib.shapes import arrow, circle
 from drawlib.text import text

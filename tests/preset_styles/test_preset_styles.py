@@ -12,11 +12,9 @@ import pytest
 from drawlib import preset_styles
 from drawlib._preset_styles import (
     DefaultStyles,
-    EssentialsStyles,
     MonochromeStyles,
     PresetStyles,
     default_styles,
-    essentials_styles,
     monochrome_styles,
 )
 from drawlib.canvas import save
@@ -36,8 +34,6 @@ class TestPresetStylesUnit:
         """Verifies official preset style singletons are valid instances."""
         assert isinstance(default_styles, DefaultStyles)
         assert isinstance(default_styles, PresetStyles)
-        assert isinstance(essentials_styles, EssentialsStyles)
-        assert isinstance(essentials_styles, PresetStyles)
         assert isinstance(monochrome_styles, MonochromeStyles)
         assert isinstance(monochrome_styles, PresetStyles)
         assert not hasattr(preset_styles, "ThemePreset")
@@ -78,7 +74,6 @@ class TestPresetStylesUnit:
         assert new_styles.bold.text_font == FontJapanese.SANSSERIF_REGULAR
         assert new_styles.blue_bold.text_font == FontJapanese.SANSSERIF_REGULAR
         assert new_styles.light.text_font == FontJapanese.SANSSERIF_REGULAR
-        assert new_styles.blue_light.text_font == FontJapanese.SANSSERIF_REGULAR
 
         # Original styles remain unchanged
         assert default_styles.primary.text_font == original_font
@@ -102,7 +97,6 @@ class TestPresetStylesUnit:
 
         # Light styles
         assert new_styles.light.text_font == FontJapanese.SANSSERIF_LIGHT
-        assert new_styles.blue_light.text_font == FontJapanese.SANSSERIF_LIGHT
 
     def test_preset_styles_patch_font_bold_only(self) -> None:
         """Verifies that patching only bold modifies bold styles while preserving others."""
