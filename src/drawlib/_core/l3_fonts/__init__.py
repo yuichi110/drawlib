@@ -9,7 +9,7 @@
 
 """Package for font implementations."""
 
-from drawlib._core.l2_models import (
+from drawlib._core.l2_types import (
     FontBase,
     FontFile,
     FontMetadata,
@@ -33,7 +33,7 @@ from drawlib._core.l3_fonts._names import (
 from drawlib._core.l3_fonts._resources import FONT_RESOURCES
 
 __all__ = [
-    # l2_models_types
+    # l2_types
     "FontBase",
     "FontFile",
     "FontMetadata",

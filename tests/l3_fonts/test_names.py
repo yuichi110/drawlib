@@ -11,7 +11,7 @@
 
 from pydantic import BaseModel
 
-from drawlib._core.l2_models import FontBase
+from drawlib._core.l2_types import FontBase
 from drawlib._core.l3_fonts._names import (
     Font,
     FontArabic,

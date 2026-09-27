@@ -97,18 +97,6 @@ def test_core(
     _run_pytest("tests/l1_core/", cov=cov)
 
 
-@app.command("models")
-def test_models(
-    cov: bool = typer.Option(False, "--cov/--no-cov", help="Enable/disable coverage tracking."),
-) -> None:
-    """Run l2_models unit tests.
-
-    Args:
-        cov: Whether to collect coverage.
-    """
-    _run_pytest("tests/l2_models/", cov=cov)
-
-
 @app.command("types")
 def test_types(
     cov: bool = typer.Option(False, "--cov/--no-cov", help="Enable/disable coverage tracking."),

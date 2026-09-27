@@ -9,10 +9,71 @@
 
 """Font type definitions for drawlib."""
 
+import os
+from enum import Enum
 from typing import Annotated
 
-from pydantic import Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
-from drawlib._core.l2_models._font import FontBase, FontFile
+from drawlib._core.l2_types._path import FilePath
+
+
+class FontMetadata(BaseModel):
+    """Resolved font metadata with absolute path and URL."""
+
+    path: str
+    abs_path: str
+    url: str
+    md5: str
+
+
+class FontResource(BaseModel):
+    """Static font resource definition."""
+
+    path: str
+    md5: str
+
+
+class FontBase(str, Enum):
+    """Base class of all font classes."""
+
+
+class FontFile(BaseModel):
+    """A class representing a font file"""
+
+    model_config = ConfigDict(validate_assignment=True)
+
+    file: FilePath
+
+    def __init__(self, file: FilePath) -> None:
+        """Initialize the font file.
+
+        Args:
+            file (str): The path to the font file. If a relative path is provided,
+                it is resolved relative to the caller script directory.
+        """
+        super().__init__(file=file)
+
+    @field_validator("file")
+    @classmethod
+    def validate_file(cls, value: str) -> str:
+        """Validate the font file path.
+
+        Validates that the provided path exists and is a valid file path. If not,
+        raises an appropriate exception.
+
+        Args:
+            value (str): The path to the font file.
+
+        Returns:
+            str: The absolute path to the font file.
+
+        Raises:
+            FileNotFoundError: If the file does not exist at the specified path.
+        """
+        if not os.path.exists(value):
+            raise FileNotFoundError(f'font file "{value}" does not exist.')
+        return value
+
 
 Font = Annotated[FontBase | FontFile, Field()]

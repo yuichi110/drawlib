@@ -9,7 +9,7 @@
 
 """Core images facade module."""
 
-from drawlib._core.l2_models import Dimage
+from drawlib._core.l2_types import Dimage
 from drawlib._core.l4_canvas import image
 
 __all__ = [

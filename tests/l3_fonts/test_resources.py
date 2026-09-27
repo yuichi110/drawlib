@@ -9,7 +9,7 @@
 
 """Unit tests for the font resource definitions in l3_fonts."""
 
-from drawlib._core.l2_models import FontBase, FontResource
+from drawlib._core.l2_types import FontBase, FontResource
 from drawlib._core.l3_fonts._names import (
     Font,
     FontArabic,

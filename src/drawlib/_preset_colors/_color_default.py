@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from drawlib._core.l2_models import Color
+from drawlib._core.l2_types import Color
 from drawlib._core.l3_styles import BaseColors
 
 

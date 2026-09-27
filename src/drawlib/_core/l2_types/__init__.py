@@ -9,8 +9,18 @@
 
 """Package for core drawing action modules."""
 
+from drawlib._core.l2_types._color import (
+    Color,
+)
+from drawlib._core.l2_types._dimage import (
+    Dimage,
+)
 from drawlib._core.l2_types._font import (
     Font,
+    FontBase,
+    FontFile,
+    FontMetadata,
+    FontResource,
 )
 from drawlib._core.l2_types._geometry import (
     Bezier2,
@@ -42,7 +52,6 @@ from drawlib._core.l2_types._style import (
     Angle90,
     ArrowHead,
     Bend,
-    Color,
     ColorRGB,
     ColorRGBA,
     ColorType,
@@ -68,8 +77,13 @@ __all__ = [
     "ColorType",
     "Coordinate",
     "Coordinates",
+    "Dimage",
     "FilePath",
     "Font",
+    "FontBase",
+    "FontFile",
+    "FontMetadata",
+    "FontResource",
     "HAlign",
     "IconStyle",
     "ImageFormat",

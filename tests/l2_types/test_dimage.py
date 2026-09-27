@@ -14,14 +14,14 @@ from pathlib import Path
 import pytest
 from PIL import Image
 
-from drawlib._core.l2_models import Dimage
+from drawlib._core.l2_types import Dimage
 from drawlib.canvas import save
 from drawlib.images import image
 from drawlib.preset_colors import Colors
 
 IMAGE_FILE = "../assets/image.png"
 FONT_FILE = "../../assets/font.ttf"
-OUTPUT_DIR = "../../output_tests/l2_models/dimage/"
+OUTPUT_DIR = "../../output_tests/l2_types/dimage/"
 
 
 @pytest.mark.image_threshold(70.0)

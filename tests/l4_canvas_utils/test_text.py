@@ -12,7 +12,7 @@ import os
 import pytest
 from matplotlib.font_manager import FontProperties
 
-from drawlib._core.l2_models import FontFile
+from drawlib._core.l2_types import FontFile
 from drawlib._core.l3_fonts import FontSansSerif
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas_utils._text import TextUtil

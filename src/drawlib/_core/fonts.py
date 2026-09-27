@@ -9,7 +9,7 @@
 
 """Core fonts facade module."""
 
-from drawlib._core.l2_models import (
+from drawlib._core.l2_types import (
     FontBase,
     FontFile,
     FontMetadata,

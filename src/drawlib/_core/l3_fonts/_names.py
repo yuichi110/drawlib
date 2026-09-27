@@ -9,7 +9,7 @@
 
 """Font enum definitions."""
 
-from drawlib._core.l2_models import FontBase
+from drawlib._core.l2_types import FontBase
 
 
 class Font(FontBase):

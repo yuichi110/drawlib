@@ -9,7 +9,6 @@
 
 """Core types facade module."""
 
-from drawlib._core.l2_models import FontBase
 from drawlib._core.l2_types import (
     Alpha,
     Angle,
@@ -25,6 +24,7 @@ from drawlib._core.l2_types import (
     Coordinate,
     Coordinates,
     FilePath,
+    FontBase,
     HAlign,
     IconStyle,
     ImageFormat,

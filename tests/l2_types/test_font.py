@@ -9,12 +9,77 @@
 
 """Unit tests for Font in _font.py."""
 
+from enum import Enum
 from unittest.mock import patch
 
+import pytest
 from pydantic import TypeAdapter
 
-from drawlib._core.l2_models._font import FontBase, FontFile
-from drawlib._core.l2_types._font import Font
+from drawlib._core.l2_types._font import (
+    Font,
+    FontBase,
+    FontFile,
+    FontMetadata,
+    FontResource,
+)
+
+
+class TestFontMetadata:
+    """Test cases for FontMetadata."""
+
+    def test_fields(self):
+        """Test that FontMetadata fields are correctly stored and retrieved."""
+        meta = FontMetadata(
+            path="foo/bar.ttf",
+            abs_path="/abs/foo/bar.ttf",
+            url="http://example.com/font.ttf",
+            md5="abc",
+        )
+        assert meta.path == "foo/bar.ttf"
+        assert meta.abs_path == "/abs/foo/bar.ttf"
+        assert meta.url == "http://example.com/font.ttf"
+        assert meta.md5 == "abc"
+
+
+class TestFontResource:
+    """Test cases for FontResource."""
+
+    def test_fields(self):
+        """Test that FontResource fields are correctly stored and retrieved."""
+        res = FontResource(path="foo/bar.ttf", md5="xyz")
+        assert res.path == "foo/bar.ttf"
+        assert res.md5 == "xyz"
+
+
+class TestFontBase:
+    """Test cases for FontBase."""
+
+    def test_inheritance(self):
+        """Test that FontBase inherits from str and Enum."""
+        assert issubclass(FontBase, Enum)
+        assert issubclass(FontBase, str)
+
+
+class TestFontFile:
+    """Test cases for FontFile."""
+
+    def test_validation_success(self):
+        """Test that validating an existing file works."""
+        with (
+            patch("drawlib._core.l2_types._path.get_script_relative_path", return_value="/dummy/font.ttf"),
+            patch("os.path.exists", return_value=True),
+        ):
+            font = FontFile("dummy/font.ttf")
+            assert font.file == "/dummy/font.ttf"
+
+    def test_validation_failure(self):
+        """Test that validating a non-existing file raises FileNotFoundError."""
+        with (
+            patch("drawlib._core.l2_types._path.get_script_relative_path", return_value="/dummy/font.ttf"),
+            patch("os.path.exists", return_value=False),
+        ):
+            with pytest.raises(FileNotFoundError, match='font file "/dummy/font.ttf" does not exist.'):
+                FontFile("dummy/font.ttf")
 
 
 class TestFontType:

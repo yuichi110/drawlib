@@ -25,15 +25,13 @@ from matplotlib.patches import (
 from matplotlib.path import Path
 from pydantic import ConfigDict, validate_call
 
-from drawlib._core.l2_models import (
-    Dimage,
-)
 from drawlib._core.l2_types import (
     Alpha,
     Angle,
     ColorType,
     Coordinate,
     Coordinates,
+    Dimage,
     ImageZoom,
     PathPoints,
     PosFloat,

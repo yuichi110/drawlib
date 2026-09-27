@@ -18,10 +18,10 @@ from numpy.typing import NDArray
 from PIL import Image
 from pydantic import ConfigDict, validate_call
 
-from drawlib._core.l2_models import Dimage
 from drawlib._core.l2_types import (
     Angle,
     Coordinate,
+    Dimage,
     FilePath,
     ImageZoom,
     PosFloat,

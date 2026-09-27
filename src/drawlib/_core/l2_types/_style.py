@@ -13,7 +13,7 @@ from typing import Annotated, Any, Literal
 
 from pydantic import BeforeValidator, Field
 
-from drawlib._core.l2_models._color import Color
+from drawlib._core.l2_types._color import Color
 from drawlib._core.l2_types._primitive import PosFloat
 
 

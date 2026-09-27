@@ -11,7 +11,7 @@
 
 import pytest
 
-from drawlib._core.l2_models import FontBase
+from drawlib._core.l2_types import FontBase
 from drawlib._core.l3_fonts._fonts import get_font_metadata
 from drawlib._core.l3_fonts._names import Font
 

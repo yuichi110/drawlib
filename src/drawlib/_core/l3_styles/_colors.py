@@ -15,7 +15,7 @@ from typing import Any, ClassVar, Generator, Self
 
 from pydantic import BaseModel, ConfigDict
 
-from drawlib._core.l2_models import Color
+from drawlib._core.l2_types import Color
 
 
 class BaseColors(BaseModel):

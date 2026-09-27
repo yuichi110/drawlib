@@ -23,8 +23,8 @@ from drawlib._core.l1_core import (
     get_script_path,
     get_script_relative_path,
 )
-from drawlib._core.l2_models import Dimage
 from drawlib._core.l2_types import (
+    Dimage,
     ImageFormat,
 )
 from drawlib._core.l4_canvas._arrow import CanvasOriginalArrowFeature
