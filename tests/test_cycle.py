@@ -14,6 +14,8 @@ from __future__ import annotations
 import tempfile
 from pathlib import Path
 
+import pytest
+
 from drawlib import canvas
 from drawlib._core.l2_types import ColorType
 from drawlib._core.l3_styles import Style
@@ -26,8 +28,7 @@ class TestCycleUnit:
 
     def test_initialization(self) -> None:
         """Test default parameters of Cycle."""
-        styles = default_styles
-        c = Cycle(styles=styles)
+        c = Cycle()
         assert c._clockwise is True
         assert c._start_angle == 90.0
         assert c._node_shape == "circle"
@@ -38,7 +39,12 @@ class TestCycleUnit:
     def test_append_and_extend(self) -> None:
         """Test adding items via append and extend."""
         styles = default_styles
-        c = Cycle(styles=styles)
+        c = Cycle(
+            default_style=styles.solid,
+            default_textstyle=styles.white_bold,
+            default_description_style=styles.white,
+            default_arrow_style=styles.solid,
+        )
         c.append("Plan", description="Define goals")
         assert len(c.items) == 1
         assert c.items[0].text == "Plan"
@@ -56,7 +62,12 @@ class TestCycleUnit:
     def test_insert(self) -> None:
         """Test inserting item at specific index."""
         styles = default_styles
-        c = Cycle(styles=styles)
+        c = Cycle(
+            default_style=styles.solid,
+            default_textstyle=styles.white_bold,
+            default_description_style=styles.white,
+            default_arrow_style=styles.solid,
+        )
         c.append("Plan")
         c.append("Act")
         c.insert(1, "Do", description="Intermediate step")
@@ -69,12 +80,36 @@ class TestCycleUnit:
 
     def test_set_center(self) -> None:
         """Test configuring center node for Radial Cycle."""
-        styles = default_styles
-        c = Cycle(styles=styles)
+        c = Cycle()
         c.set_center(text="Core", description="Central Hub", radius=12.0)
         assert c._center_text == "Core"
         assert c._center_description == "Central Hub"
         assert c._center_radius == 12.0
+
+    def test_cycle_missing_style_raises_error(self) -> None:
+        """Verify that missing default_style, default_textstyle, etc. raises ValueError."""
+        c = Cycle()
+        with pytest.raises(ValueError, match="Neither 'default_style', 'palette', nor 'style' was provided"):
+            c.append("Plan")
+
+        styles = default_styles
+        c_no_text = Cycle(default_style=styles.solid)
+        with pytest.raises(ValueError, match="Neither 'default_textstyle' nor 'textstyle' was provided"):
+            c_no_text.append("Plan")
+
+        c_no_arrow = Cycle(default_style=styles.solid, default_textstyle=styles.white_bold)
+        with pytest.raises(ValueError, match="Neither 'default_arrow_style' nor 'arrow_style' was provided"):
+            c_no_arrow.append("Plan")
+
+        c_no_desc = Cycle(
+            default_style=styles.solid,
+            default_textstyle=styles.white_bold,
+            default_arrow_style=styles.solid,
+        )
+        with pytest.raises(
+            ValueError, match="Neither 'default_description_style' nor 'description_style' was provided"
+        ):
+            c_no_desc.append("Plan", description="Detail")
 
 
 class TestCycleRendering:
@@ -87,7 +122,12 @@ class TestCycleRendering:
             canvas.clear()
 
             styles = default_styles
-            c = Cycle(styles=styles)
+            c = Cycle(
+                default_style=styles.solid,
+                default_textstyle=styles.white_bold,
+                default_description_style=styles.white,
+                default_arrow_style=styles.solid,
+            )
             c.append("Plan", description="Define objectives")
             c.append("Do", description="Implement plan")
             c.append("Check", description="Verify outcomes")
@@ -106,7 +146,17 @@ class TestCycleRendering:
             canvas.clear()
 
             styles = default_styles
-            c = Cycle(styles=styles, center_text="PDCA", center_description="Loop", center_radius=11.0)
+            c = Cycle(
+                default_style=styles.solid,
+                default_textstyle=styles.white_bold,
+                default_arrow_style=styles.solid,
+                center_text="PDCA",
+                center_description="Loop",
+                center_radius=11.0,
+                center_style=styles.solid,
+                center_textstyle=styles.white_bold,
+                center_description_style=styles.white,
+            )
             c.extend(["Plan", "Do", "Check", "Act"])
 
             c.draw(xy=(50.0, 50.0), radius=34.0)
@@ -122,7 +172,14 @@ class TestCycleRendering:
             canvas.clear()
 
             styles = default_styles
-            c = Cycle(styles=styles, description_placement="outside", node_radius=7.0)
+            c = Cycle(
+                default_style=styles.solid,
+                default_textstyle=styles.white_bold,
+                default_description_style=styles.black,
+                default_arrow_style=styles.solid,
+                description_placement="outside",
+                node_radius=7.0,
+            )
             c.append("Stage 1", description="Discover")
             c.append("Stage 2", description="Define")
             c.append("Stage 3", description="Develop")
@@ -142,7 +199,10 @@ class TestCycleRendering:
 
             styles = default_styles
             c = Cycle(
-                styles=styles,
+                default_style=styles.solid,
+                default_textstyle=styles.white_bold,
+                default_description_style=styles.white,
+                default_arrow_style=styles.solid,
                 node_shape="rectangle",
                 node_size=(20.0, 10.0),
                 arrow_color_mode="monochrome",
@@ -166,7 +226,13 @@ class TestCycleRendering:
             canvas.clear()
 
             styles = default_styles
-            c = Cycle(styles=styles, arrow_type="line", arrow_width=2.5)
+            c = Cycle(
+                default_style=styles.solid,
+                default_textstyle=styles.white_bold,
+                default_arrow_style=styles.solid,
+                arrow_type="line",
+                arrow_width=2.5,
+            )
             c.extend(["Spring", "Summer", "Autumn", "Winter"])
 
             c.draw(xy=(50.0, 50.0), radius=30.0)
@@ -182,7 +248,12 @@ class TestCycleRendering:
             canvas.clear()
 
             styles = default_styles
-            c = Cycle(styles=styles, clockwise=False)
+            c = Cycle(
+                default_style=styles.solid,
+                default_textstyle=styles.white_bold,
+                default_arrow_style=styles.solid,
+                clockwise=False,
+            )
             c.extend(["A", "B", "C"])
 
             c.draw(xy=(50.0, 50.0), radius=28.0)
@@ -198,7 +269,12 @@ class TestCycleRendering:
             canvas.clear()
 
             styles = default_styles
-            c = Cycle(styles=styles)
+            c = Cycle(
+                default_style=styles.solid,
+                default_textstyle=styles.white_bold,
+                default_description_style=styles.white,
+                default_arrow_style=styles.solid,
+            )
             c.append("Input", description="Feedback")
             c.append("Output", description="Response")
 
@@ -215,10 +291,18 @@ class TestCycleRendering:
             canvas.clear()
 
             styles = default_styles
-            c = Cycle(styles=styles, center_text="Empty Hub")
+            c = Cycle(
+                center_text="Empty Hub",
+                center_style=styles.solid,
+                center_textstyle=styles.white_bold,
+            )
             c.draw(xy=(50.0, 50.0))
 
-            c2 = Cycle(styles=styles)
+            c2 = Cycle(
+                default_style=styles.solid,
+                default_textstyle=styles.white_bold,
+                default_arrow_style=styles.solid,
+            )
             c2.append("Solo")
             c2.draw(xy=(50.0, 50.0))
 
@@ -234,7 +318,11 @@ class TestCycleRendering:
 
             styles = default_styles
             palette: list[ColorType] = [(34, 197, 94), (59, 130, 246), (239, 68, 68)]
-            c = Cycle(styles=styles, palette=palette)
+            c = Cycle(
+                palette=palette,
+                default_textstyle=styles.white_bold,
+                default_arrow_style=styles.solid,
+            )
             c.extend(["Alpha", "Beta", "Gamma"])
 
             c.draw(xy=(10.0, 10.0), radius=30.0, align="bottom_left")

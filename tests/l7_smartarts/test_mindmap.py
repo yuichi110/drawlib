@@ -9,7 +9,8 @@
 
 """Unit and visual integration tests for MindMapNode smart art."""
 
-from drawlib._core.l3_styles import Style
+import pytest
+
 from drawlib.canvas import clear, save
 from drawlib.preset_styles import default_styles
 from drawlib.smartarts import MindMapNode
@@ -47,6 +48,7 @@ class TestMindMapNode:
             style=styles.solid,
             default_size=(18.0, 7.0),
             default_style=styles.solid,
+            default_linestyle=styles.solid,
             children=[
                 MindMapNode(
                     "CTO",
@@ -63,7 +65,7 @@ class TestMindMapNode:
                 ),
             ],
         )
-        root.draw(xy=(50.0, 85.0), branch="bottom", styles=styles)
+        root.draw(xy=(50.0, 85.0), branch="bottom")
         save(f"{OUTPUT_DIR}test_mindmap_bottom.png")
 
     def test_mindmap_vertical_top(self) -> None:
@@ -74,12 +76,14 @@ class TestMindMapNode:
             "Root",
             shape="rectangle",
             size=(20.0, 8.0),
+            default_style=styles.solid,
+            default_linestyle=styles.solid,
             children=[
                 MindMapNode("Leaf A"),
                 MindMapNode("Leaf B"),
             ],
         )
-        root.draw(xy=(50.0, 20.0), branch="top", styles=styles)
+        root.draw(xy=(50.0, 20.0), branch="top")
         save(f"{OUTPUT_DIR}test_mindmap_top.png")
 
     def test_mindmap_horizontal_right(self) -> None:
@@ -90,12 +94,14 @@ class TestMindMapNode:
             "Topic",
             shape="oval",
             size=(20.0, 10.0),
+            default_style=styles.solid,
+            default_linestyle=styles.solid,
             children=[
                 MindMapNode("Sub 1", shape="rectangle"),
                 MindMapNode("Sub 2", shape="none"),
             ],
         )
-        root.draw(xy=(20.0, 50.0), branch="right", styles=styles)
+        root.draw(xy=(20.0, 50.0), branch="right")
         save(f"{OUTPUT_DIR}test_mindmap_right.png")
 
     def test_mindmap_horizontal_left(self) -> None:
@@ -106,12 +112,14 @@ class TestMindMapNode:
             "Topic",
             shape="oval",
             size=(20.0, 10.0),
+            default_style=styles.solid,
+            default_linestyle=styles.solid,
             children=[
                 MindMapNode("Sub 1", shape="rectangle"),
                 MindMapNode("Sub 2", shape="none"),
             ],
         )
-        root.draw(xy=(80.0, 50.0), branch="left", styles=styles)
+        root.draw(xy=(80.0, 50.0), branch="left")
         save(f"{OUTPUT_DIR}test_mindmap_left.png")
 
     def test_mindmap_multidirectional_mindmap(self) -> None:
@@ -123,6 +131,8 @@ class TestMindMapNode:
             shape="oval",
             size=(26.0, 12.0),
             style=styles.bold,
+            default_style=styles.solid,
+            default_linestyle=styles.solid,
             children=[
                 # Right branch
                 MindMapNode(
@@ -162,5 +172,18 @@ class TestMindMapNode:
                 ),
             ],
         )
-        root.draw(xy=(50.0, 50.0), styles=styles)
+        root.draw(xy=(50.0, 50.0))
         save(f"{OUTPUT_DIR}test_mindmap_multi.png")
+
+    def test_mindmap_missing_style_raises_error(self) -> None:
+        """Verify that root without style/linestyle raises ValueError on draw."""
+        root_no_style = MindMapNode("Root")
+        with pytest.raises(ValueError, match='Root of MindMapNode must have "default_style" or "style" specified.'):
+            root_no_style.draw(xy=(50.0, 50.0))
+
+        styles = default_styles
+        root_no_linestyle = MindMapNode("Root", style=styles.solid)
+        with pytest.raises(
+            ValueError, match='Root of MindMapNode must have "default_linestyle" or "linestyle" specified.'
+        ):
+            root_no_linestyle.draw(xy=(50.0, 50.0))

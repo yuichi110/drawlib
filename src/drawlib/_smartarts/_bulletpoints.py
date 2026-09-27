@@ -18,7 +18,6 @@ from drawlib._core.shapes import circle
 from drawlib._core.text import text
 from drawlib._core.types import Coordinate, PosFloat, Style
 from drawlib._preset_colors import Colors
-from drawlib._preset_styles import BaseStyles
 
 
 class _BulletPointsShape(BaseModel):
@@ -41,7 +40,6 @@ class BulletPoints:
     """A class to draw a list of bullet points with customizable styles and indentation.
 
     Args:
-        styles (BaseStyles): The preset styles catalog (required).
         vertical_margin (float): The vertical space between bullet points.
         indent_width (float): The width of the indentation for each level.
         default_style (Style, optional): The default text style for the bullet points.
@@ -51,7 +49,6 @@ class BulletPoints:
     def __init__(
         self,
         *,
-        styles: BaseStyles,
         vertical_margin: PosFloat,
         indent_width: PosFloat,
         default_style: Style | None = None,
@@ -59,26 +56,30 @@ class BulletPoints:
         """Initialize BulletPoints.
 
         Args:
-            styles (BaseStyles): The preset styles catalog (required).
             vertical_margin (float): The vertical space between bullet points.
             indent_width (float): The width of the indentation for each level.
             default_style (Style, optional): The default text style for the bullet points.
         """
-        self._styles = styles
         self._vertical_margin = vertical_margin
         self._indent_width = indent_width
-        self._default_style = default_style if default_style is not None else styles.primary
+        self._default_style = default_style
 
         self._indent_level = 0
         self._bullet_texts: list[_BulletPointsText] = []
         self._bullet_shape_map: dict[int, _BulletPointsShape] = {}
 
-        # set default bullet styles
-        text_color = self._default_style.text_color
-        style1 = styles.primary.patch(shape_line_color=text_color, shape_fill_color=text_color)
-        style2 = styles.primary.patch(shape_line_color=text_color, shape_fill_color=Colors.Transparent)
-        self.set_bullet_style(1, circle, style1, args={"radius": 0.5})
-        self.set_bullet_style(2, circle, style2, args={"radius": 0.5})
+        if default_style is not None:
+            self._ensure_default_bullets(default_style)
+
+    def _ensure_default_bullets(self, ref_style: Style) -> None:
+        """Register default circle bullet shapes using text color."""
+        text_color = ref_style.text_color
+        style1 = Style(shape_line_color=text_color, shape_fill_color=text_color, shape_line_width=1.0)
+        style2 = Style(shape_line_color=text_color, shape_fill_color=Colors.Transparent, shape_line_width=1.0)
+        if 1 not in self._bullet_shape_map:
+            self.set_bullet_style(1, circle, style1, args={"radius": 0.5})
+        if 2 not in self._bullet_shape_map:
+            self.set_bullet_style(2, circle, style2, args={"radius": 0.5})
 
     @validate_call
     def set_indent(self, level: int) -> None:
@@ -109,6 +110,10 @@ class BulletPoints:
         style: Style | None = None,
     ) -> None:
         style_resolved = style if style is not None else self._default_style
+        if style_resolved is None:
+            raise ValueError(f"Neither 'default_style' nor 'style' was provided for item '{text}'.")
+
+        self._ensure_default_bullets(style_resolved)
         style_resolved = style_resolved.patch(text_halign="left", text_valign="center")
 
         self._bullet_texts.append(

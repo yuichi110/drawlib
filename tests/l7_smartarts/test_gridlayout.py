@@ -9,6 +9,8 @@
 
 """Unit and integration tests for GridLayout smart art."""
 
+import pytest
+
 from drawlib.canvas import clear, save
 from drawlib.preset_styles import default_styles
 from drawlib.smartarts import GridLayout
@@ -23,7 +25,13 @@ class TestGridLayout:
         """Verify basic GridLayout item positioning and spanned cells."""
         clear()
         styles = default_styles
-        gl = GridLayout(styles=styles, num_column=3, num_row=3, default_r=2, default_style=styles.solid)
+        gl = GridLayout(
+            num_column=3,
+            num_row=3,
+            default_r=2,
+            default_style=styles.solid,
+            default_textstyle=styles.bold,
+        )
         gl.add((0, 0), 1, 1, text="A")
         gl.add((0, 1), 1, 1, text="B")
         gl.add((0, 2), 1, 1, text="C")
@@ -36,7 +44,13 @@ class TestGridLayout:
         """Verify GridLayout cells containing rotated text."""
         clear()
         styles = default_styles
-        gl = GridLayout(styles=styles, num_column=3, num_row=3, default_r=2, default_style=styles.solid)
+        gl = GridLayout(
+            num_column=3,
+            num_row=3,
+            default_r=2,
+            default_style=styles.solid,
+            default_textstyle=styles.bold,
+        )
         gl.add((0, 0), 1, 1, text="A", textangle=270)
         gl.add((0, 1), 1, 1, text="B", textangle=90)
         gl.add((0, 2), 1, 1, text="C")
@@ -49,7 +63,13 @@ class TestGridLayout:
         """Verify GridLayout cells containing offset/shifted text positions."""
         clear()
         styles = default_styles
-        gl = GridLayout(styles=styles, num_column=3, num_row=3, default_r=2, default_style=styles.solid)
+        gl = GridLayout(
+            num_column=3,
+            num_row=3,
+            default_r=2,
+            default_style=styles.solid,
+            default_textstyle=styles.bold,
+        )
         gl.add((0, 0), 1, 1, text="A", text_xy_shift=(3, 3))
         gl.add((0, 1), 1, 1, text="B", text_xy_shift=(-3, -3))
         gl.add((0, 2), 1, 1, text="C")
@@ -62,7 +82,13 @@ class TestGridLayout:
         """Verify GridLayout drawing with solid/rounded outer frame styles."""
         clear()
         styles = default_styles
-        gl = GridLayout(styles=styles, num_column=3, num_row=3, default_r=2, default_style=styles.solid)
+        gl = GridLayout(
+            num_column=3,
+            num_row=3,
+            default_r=2,
+            default_style=styles.solid,
+            default_textstyle=styles.bold,
+        )
         gl.add((0, 0), 1, 1, text="A")
         gl.add((0, 1), 1, 1, text="B")
         gl.add((0, 2), 1, 1, text="C")
@@ -71,3 +97,14 @@ class TestGridLayout:
         gl.draw((10, 10), 30, 30, 1, outer_style=styles.solid)
         gl.draw((60, 10), 30, 30, 1, outer_r=0, outer_style=styles.solid)
         save(f"{OUTPUT_DIR}test_gridlayout_outerstyle.png")
+
+    def test_gridlayout_missing_style_raises_error(self) -> None:
+        """Verify that missing default_style or default_textstyle raises ValueError on add."""
+        gl_no_style = GridLayout(num_column=2, num_row=2)
+        with pytest.raises(ValueError, match="Neither 'default_style' nor 'style' was provided"):
+            gl_no_style.add((0, 0), 1, 1)
+
+        styles = default_styles
+        gl_no_textstyle = GridLayout(num_column=2, num_row=2, default_style=styles.solid)
+        with pytest.raises(ValueError, match="Neither 'default_textstyle' nor 'textstyle' was provided"):
+            gl_no_textstyle.add((0, 0), 1, 1, text="Test")

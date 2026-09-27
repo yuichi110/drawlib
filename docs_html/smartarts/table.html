@@ -407,7 +407,7 @@ from drawlib.smartarts import Table
 
 setup(width=70, height=45)
 
-t1 = Table(styles=styles)
+t1 = Table()
 t1.draw(
     xy=(5, 40),
     width=60,
@@ -427,13 +427,13 @@ t1.draw(
 </figure>
 <p>You can draw tables with these procedures:</p>
 <ol>
-<li>Initialize a <code>Table</code> instance with <code>styles=styles</code>.</li>
+<li>Initialize a <code>Table</code> instance (optionally passing default cell, header, or border styles).</li>
 <li>Optionally customize row, column, or cell styles.</li>
 <li>Draw the table with <code>draw()</code> providing coordinate, size, and matrix data.</li>
 </ol>
 <h1>API Specification</h1>
-<h2><code>Table(*, styles)</code></h2>
-<p>Initialize instance. Requires <code>styles</code> (e.g. <code>styles=styles</code>).</p>
+<h2><code>Table()</code></h2>
+<p>Initialize instance. Can optionally specify default styles such as <code>default_cell_style</code>, <code>default_text_style</code>, <code>header_cell_style</code>, <code>header_text_style</code>, and <code>border_style</code>.</p>
 <h2><code>clear_styles()</code></h2>
 <p>Clear all styles. No args.</p>
 <h2><code>set_predefined_style()</code></h2>

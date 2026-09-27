@@ -12,7 +12,6 @@
 
 from typing import Any, Literal
 
-from PIL.ExifTags import Base
 from pydantic import BaseModel, validate_call
 
 from drawlib._core.fonts import Font
@@ -20,7 +19,7 @@ from drawlib._core.lines import line
 from drawlib._core.shapes import rectangle
 from drawlib._core.types import ColorType, Coordinate, PosFloat, PosInt, Style
 from drawlib._preset_colors import Colors, default_colors
-from drawlib._preset_styles import BaseStyles
+from drawlib._preset_styles import default_styles
 
 
 class _CellStyleOrder(BaseModel):
@@ -50,13 +49,24 @@ class Table:
     """A class used to create and manage the style and drawing of a table."""
 
     @validate_call
-    def __init__(self, *, styles: BaseStyles) -> None:
-        """Initialize instance
+    def __init__(
+        self,
+        *,
+        default_cell_style: Style | None = None,
+        default_text_style: Style | None = None,
+        header_cell_style: Style | None = None,
+        header_text_style: Style | None = None,
+        border_style: Style | None = None,
+    ) -> None:
+        """Initialize Table instance.
 
         Args:
-            styles: The preset styles catalog (required).
+            default_cell_style: The default style for cells (using shape_fill_color for background).
+            default_text_style: The default text style for cell contents.
+            header_cell_style: The style for header cells.
+            header_text_style: The text style for header contents.
+            border_style: The style for table border lines.
         """
-        self._styles = styles
         self._bs_top: Style | None = None
         self._bs_top2: Style | None = None
         self._bs_bottom: Style | None = None
@@ -66,8 +76,42 @@ class Table:
         self._bs_between_columns: Style | None = None
         self._bs_between_rows: Style | None = None
         self._cell_style_orders: list[_CellStyleOrder] = []
+        self._default_text_style = default_text_style
 
-        self.set_predefined_style("default")
+        has_custom = False
+        if default_cell_style is not None or default_text_style is not None:
+            bg = (
+                default_cell_style.shape_fill_color
+                if default_cell_style and default_cell_style.shape_fill_color
+                else Colors.Transparent
+            )
+            txt = default_text_style or default_styles.primary
+            self.set_style_cell(background_color=bg, textstyle=txt)
+            has_custom = True
+
+        if header_cell_style is not None or header_text_style is not None:
+            bg = (
+                header_cell_style.shape_fill_color
+                if header_cell_style and header_cell_style.shape_fill_color
+                else Colors.Transparent
+            )
+            txt = header_text_style or default_styles.bold
+            self.set_style_cell_header(background_color=bg, textstyle=txt)
+            has_custom = True
+
+        if border_style is not None:
+            self.set_style_border(
+                top=border_style,
+                bottom=border_style,
+                left=border_style,
+                right=border_style,
+                between_columns=border_style,
+                between_rows=border_style,
+            )
+            has_custom = True
+
+        if not has_custom:
+            self.set_predefined_style("default")
 
     @validate_call
     def clear_styles(self) -> None:
@@ -103,80 +147,60 @@ class Table:
         self.clear_styles()
 
         if name == "default":
-            """
-            header: background light blue, bold white font
-            even_odd: even snow color, odd white color
-            border: bottom only
-            """
             self.set_style_cell_evenodd(
                 even_color=default_colors.Snow,
-                even_textstyle=self._styles.primary.patch(text_color=default_colors.Charcoal),
+                even_textstyle=default_styles.primary.patch(text_color=default_colors.Charcoal),
                 odd_color=default_colors.White,
-                odd_textstyle=self._styles.primary.patch(text_color=default_colors.Charcoal),
+                odd_textstyle=default_styles.primary.patch(text_color=default_colors.Charcoal),
             )
             self.set_style_cell_header(
                 background_color=default_colors.LightBlue,
-                textstyle=self._styles.bold.patch(
+                textstyle=default_styles.bold.patch(
                     text_color=default_colors.White, text_font=Font.SANSSERIF_BOLD
                 ),
             )
             self.set_style_border(
-                bottom=self._styles.solid.patch(line_color=default_colors.Charcoal, line_width=1),
+                bottom=default_styles.solid.patch(line_color=default_colors.Charcoal, line_width=1.0),
             )
 
         elif name == "none":
-            """
-            header: background transparent
-            even_odd: both background transparent
-            border: no border
-            """
             self.set_style_cell(
                 background_color=Colors.Transparent,
-                textstyle=self._styles.primary.patch(text_color=default_colors.Charcoal),
+                textstyle=default_styles.primary.patch(text_color=default_colors.Charcoal),
             )
 
         elif name == "monochrome":
-            """
-            header: background gray, bold font
-            even_odd: even snow color, odd white color
-            border: bottom only
-            """
             self.set_style_cell_evenodd(
                 even_color=default_colors.Snow,
-                even_textstyle=self._styles.primary.patch(text_color=default_colors.Charcoal),
+                even_textstyle=default_styles.primary.patch(text_color=default_colors.Charcoal),
                 odd_color=default_colors.White,
-                odd_textstyle=self._styles.primary.patch(text_color=default_colors.Charcoal),
+                odd_textstyle=default_styles.primary.patch(text_color=default_colors.Charcoal),
             )
             self.set_style_cell_header(
                 background_color=default_colors.Graphite,
-                textstyle=self._styles.bold.patch(
+                textstyle=default_styles.bold.patch(
                     text_color=default_colors.White, text_font=Font.SANSSERIF_BOLD
                 ),
             )
             self.set_style_border(
-                bottom=self._styles.solid.patch(line_color=default_colors.Charcoal, line_width=1),
+                bottom=default_styles.solid.patch(line_color=default_colors.Charcoal, line_width=1.0),
             )
 
         elif name == "border_simple":
-            """
-            header: background white, bold font
-            even_odd: both background white
-            border: header1, header2(light), bottom
-            """
             self.set_style_cell(
                 background_color=default_colors.White,
-                textstyle=self._styles.primary.patch(text_color=default_colors.Charcoal),
+                textstyle=default_styles.primary.patch(text_color=default_colors.Charcoal),
             )
             self.set_style_cell_header(
                 background_color=default_colors.White,
-                textstyle=self._styles.bold.patch(
+                textstyle=default_styles.bold.patch(
                     text_color=default_colors.Charcoal, text_font=Font.SANSSERIF_BOLD
                 ),
             )
             self.set_style_border(
-                top=self._styles.solid.patch(line_color=default_colors.Charcoal, line_width=1.5),
-                top2=self._styles.solid.patch(line_color=default_colors.Charcoal, line_width=0.75),
-                bottom=self._styles.solid.patch(line_color=default_colors.Charcoal, line_width=1.5),
+                top=default_styles.solid.patch(line_color=default_colors.Charcoal, line_width=1.5),
+                top2=default_styles.solid.patch(line_color=default_colors.Charcoal, line_width=0.75),
+                bottom=default_styles.solid.patch(line_color=default_colors.Charcoal, line_width=1.5),
             )
 
         else:
@@ -369,7 +393,7 @@ class Table:
             data (List[List[Any]]): The data to be displayed in the table.
         """
         # create blank matrix
-        default_textstyle = self._styles.primary
+        default_textstyle = self._default_text_style or default_styles.primary
         matrix: list[list[_CellInfo]] = []
         for row_data in data:
             row: list[_CellInfo] = []

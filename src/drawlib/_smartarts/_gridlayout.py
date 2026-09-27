@@ -14,7 +14,6 @@ from pydantic import BaseModel, validate_call
 
 from drawlib._core.shapes import rectangle
 from drawlib._core.types import Angle, Coordinate, PosFloat, PosInt, Style
-from drawlib._preset_styles import BaseStyles
 
 
 class _GridLayoutItem(BaseModel):
@@ -32,7 +31,6 @@ class GridLayout:
     """Class for rendering multiple rectangles which fit to grid.
 
     Args:
-        styles: The preset styles catalog (required).
         num_column (int): The number of columns in the grid.
         num_row (int): The number of rows in the grid.
         default_r (int, optional): The default radius for the rectangles. Defaults to 0.
@@ -46,7 +44,6 @@ class GridLayout:
     def __init__(
         self,
         *,
-        styles: BaseStyles,
         num_column: PosInt,
         num_row: PosInt,
         default_r: PosFloat = 0,
@@ -57,7 +54,6 @@ class GridLayout:
         """Initializes a GridLayout instance.
 
         Args:
-            styles: The preset styles catalog (required).
             num_column (int): The number of columns in the grid.
             num_row (int): The number of rows in the grid.
             default_r (int, optional): The default radius for the rectangles. Defaults to 0.
@@ -66,12 +62,11 @@ class GridLayout:
             default_textangle (Optional[float], optional): The default angle for the text inside the rectangles.
                 If None, no angle is applied. Defaults to None.
         """
-        self._styles = styles
         self._num_column = num_column
         self._num_row = num_row
         self._default_r = default_r
-        self._default_style = default_style if default_style is not None else styles.primary
-        self._default_textstyle = default_textstyle if default_textstyle is not None else styles.bold
+        self._default_style = default_style
+        self._default_textstyle = default_textstyle
         self._default_textangle = default_textangle
 
         self._items: list[_GridLayoutItem] = []
@@ -110,8 +105,18 @@ class GridLayout:
         if r is None:
             r = self._default_r
         resolved_style = style if style is not None else self._default_style
+        if resolved_style is None:
+            raise ValueError(f"Neither 'default_style' nor 'style' was provided for grid cell at {position}.")
         resolved_style = resolved_style.patch(text_halign="left", text_valign="bottom")
+
         resolved_textstyle = textstyle if textstyle is not None else self._default_textstyle
+        if bool(text.strip()) and resolved_textstyle is None:
+            raise ValueError(
+                "Neither 'default_textstyle' nor 'textstyle' was provided "
+                f"for text '{text}' in grid cell at {position}."
+            )
+        resolved_textstyle = resolved_textstyle or Style()
+
         if textangle is None:
             textangle = self._default_textangle
 

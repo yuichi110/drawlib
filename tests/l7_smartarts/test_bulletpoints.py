@@ -9,6 +9,8 @@
 
 """Unit and integration tests for BulletPoints smart art."""
 
+import pytest
+
 from drawlib.canvas import clear, save
 from drawlib.preset_styles import default_styles
 from drawlib.smartarts import BulletPoints
@@ -23,7 +25,7 @@ class TestBulletPoints:
         """Verify BulletPoints rendering with multi-level indents."""
         clear()
         styles = default_styles
-        b = BulletPoints(styles=styles, vertical_margin=4, indent_width=4)
+        b = BulletPoints(default_style=styles.black, vertical_margin=4, indent_width=4)
         b.add("level 0")
         b.set_indent(1)
         b.add("level 1-1")
@@ -40,7 +42,7 @@ class TestBulletPoints:
         """Verify BulletPoints rendering using Japanese text at multiple levels."""
         clear()
         styles = default_styles
-        b = BulletPoints(styles=styles, vertical_margin=4, indent_width=4)
+        b = BulletPoints(default_style=styles.black, vertical_margin=4, indent_width=4)
         b.add("レベル 0")
         b.set_indent(1)
         b.add("レベル 1-1")
@@ -52,3 +54,9 @@ class TestBulletPoints:
         b.add("レベル 1-3")
         b.draw((10, 80))
         save(f"{OUTPUT_DIR}test_bulletpoints_japanese.png")
+
+    def test_bulletpoints_missing_style_raises_error(self) -> None:
+        """Verify that missing default_style and item style raises ValueError on add."""
+        b = BulletPoints(vertical_margin=4, indent_width=4)
+        with pytest.raises(ValueError, match="Neither 'default_style' nor 'style' was provided"):
+            b.add("level 0")

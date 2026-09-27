@@ -468,10 +468,12 @@ root = MindMapNode(
             xy_shift=(0, -2),
         ),
     ],
+    default_style=styles.solid,
+    default_linestyle=styles.solid,
     default_line_length=6,
 )
 
-root.draw(xy=(75, 40), styles=styles)
+root.draw(xy=(75, 40))
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
   <img src="mindmap_images/1.png" alt="mindmap_1" style="width: 600px; max-width: 100%;" />
@@ -491,6 +493,8 @@ root = MindMapNode(
     shape=&quot;rectangle&quot;,
     size=(20, 8),
     style=styles.bold,
+    default_style=styles.solid,
+    default_linestyle=styles.solid,
     children=[
         MindMapNode(
             &quot;CTO&quot;,
@@ -508,7 +512,7 @@ root = MindMapNode(
     ],
 )
 
-root.draw(xy=(50, 50), branch=&quot;bottom&quot;, styles=styles)
+root.draw(xy=(50, 50), branch=&quot;bottom&quot;)
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
   <img src="mindmap_images/2.png" alt="mindmap_2" style="width: 600px; max-width: 100%;" />
@@ -533,13 +537,15 @@ root = MindMapNode(
     size=(24, 10),
     style=styles.bold,
     textstyle=styles.white,
+    default_style=styles.solid,
+    default_linestyle=styles.solid,
     children=[
         MindMapNode(&quot;Rectangle Box&quot;, branch=&quot;right&quot;, shape=&quot;rectangle&quot;, size=(22, 8), style=styles.solid),
         MindMapNode(&quot;Text Only Leaf&quot;, branch=&quot;right&quot;, shape=&quot;none&quot;),
     ],
 )
 
-root.draw(xy=(30, 18), branch=&quot;right&quot;, styles=styles)
+root.draw(xy=(30, 18), branch=&quot;right&quot;)
 </code></pre>
 <div class="drawlib-image" style="text-align: center;">
   <img src="mindmap_images/3.png" alt="mindmap_3" style="width: 600px; max-width: 100%;" />
@@ -590,7 +596,6 @@ root.draw(xy=(30, 18), branch=&quot;right&quot;, styles=styles)
 <ul>
 <li><code>xy</code> (Tuple[float, float]): The center coordinates (x, y) of this root node's box.</li>
 <li><code>branch</code> (Literal[&quot;bottom&quot;, &quot;top&quot;, &quot;left&quot;, &quot;right&quot;], optional): Default branch direction for children. Defaults to <code>&quot;bottom&quot;</code>.</li>
-<li><code>styles</code> (Optional[BaseStyles], optional): Preset styles catalog (optional if root node has default styles set).</li>
 </ul>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

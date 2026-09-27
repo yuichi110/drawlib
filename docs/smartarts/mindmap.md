@@ -73,10 +73,12 @@ root = MindMapNode(
             xy_shift=(0, -2),
         ),
     ],
+    default_style=styles.solid,
+    default_linestyle=styles.solid,
     default_line_length=6,
 )
 
-root.draw(xy=(75, 40), styles=styles)
+root.draw(xy=(75, 40))
 ```
 
 <div class="drawlib-image" style="text-align: center;">
@@ -107,6 +109,8 @@ root = MindMapNode(
     shape="rectangle",
     size=(20, 8),
     style=styles.bold,
+    default_style=styles.solid,
+    default_linestyle=styles.solid,
     children=[
         MindMapNode(
             "CTO",
@@ -124,7 +128,7 @@ root = MindMapNode(
     ],
 )
 
-root.draw(xy=(50, 50), branch="bottom", styles=styles)
+root.draw(xy=(50, 50), branch="bottom")
 ```
 
 <div class="drawlib-image" style="text-align: center;">
@@ -159,13 +163,15 @@ root = MindMapNode(
     size=(24, 10),
     style=styles.bold,
     textstyle=styles.white,
+    default_style=styles.solid,
+    default_linestyle=styles.solid,
     children=[
         MindMapNode("Rectangle Box", branch="right", shape="rectangle", size=(22, 8), style=styles.solid),
         MindMapNode("Text Only Leaf", branch="right", shape="none"),
     ],
 )
 
-root.draw(xy=(30, 18), branch="right", styles=styles)
+root.draw(xy=(30, 18), branch="right")
 ```
 
 <div class="drawlib-image" style="text-align: center;">
@@ -232,7 +238,6 @@ Args:
 
 - `xy` (Tuple[float, float]): The center coordinates (x, y) of this root node's box.
 - `branch` (Literal["bottom", "top", "left", "right"], optional): Default branch direction for children. Defaults to `"bottom"`.
-- `styles` (Optional[BaseStyles], optional): Preset styles catalog (optional if root node has default styles set).
 
 ---
 

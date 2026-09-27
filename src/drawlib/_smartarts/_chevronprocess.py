@@ -22,7 +22,6 @@ from drawlib._core.shapes import chevron as canvas_chevron
 from drawlib._core.shapes import polygon as canvas_polygon
 from drawlib._core.text import text as canvas_text
 from drawlib._core.types import Angle90, ColorType, Coordinate, PosFloat, Style
-from drawlib._preset_styles import BaseStyles
 
 
 class _ChevronItem:
@@ -50,37 +49,32 @@ class ChevronProcess:
     def __init__(
         self,
         *,
-        styles: BaseStyles,
-        corner_angle: Angle90 = 60.0,
-        spacing: PosFloat = 1.5,
-        flat_left_end: bool = False,
         default_style: Style | None = None,
         default_textstyle: Style | None = None,
         default_description_style: Style | None = None,
+        corner_angle: Angle90 = 60.0,
+        spacing: PosFloat = 1.5,
+        flat_left_end: bool = False,
         palette: Sequence[ColorType] | None = None,
     ) -> None:
         """Initialize ChevronProcess.
 
         Args:
-            styles: The preset styles catalog (required).
+            default_style: Default background style for chevrons. If None, colors from palette are used.
+            default_textstyle: Default style for primary step text (titles).
+            default_description_style: Default style for secondary description text.
             corner_angle: Angle of the arrowhead point in degrees (between 10.0 and 80.0). Defaults to 60.0.
             spacing: Horizontal gap between consecutive chevrons. Defaults to 1.5.
             flat_left_end: Whether the first chevron has a flat vertical left edge instead of an indent.
                 Defaults to False.
-            default_style: Default background style for chevrons. If None, colors from palette are used.
-            default_textstyle: Default style for primary step text (titles).
-            default_description_style: Default style for secondary description text.
             palette: Optional sequence of colors to automatically style consecutive steps.
         """
-        self._styles = styles
         self._corner_angle = float(corner_angle)
         self._spacing = float(spacing)
         self._flat_left_end = bool(flat_left_end)
-        self._default_style = default_style if default_style is not None else styles.primary
-        self._default_textstyle = default_textstyle if default_textstyle is not None else styles.bold
-        self._default_description_style = (
-            default_description_style if default_description_style is not None else styles.light
-        )
+        self._default_style = default_style
+        self._default_textstyle = default_textstyle
+        self._default_description_style = default_description_style
         self._palette = list(palette) if palette is not None else None
         self._items: list[_ChevronItem] = []
 
@@ -107,14 +101,14 @@ class ChevronProcess:
             textstyle: Custom Style for the title text.
             description_style: Custom Style for the description text.
         """
-        item = _ChevronItem(
+        self.insert(
+            len(self._items),
             text=text,
             description=description,
             style=style,
             textstyle=textstyle,
             description_style=description_style,
         )
-        self._items.append(item)
 
     @validate_call
     def extend(
@@ -152,6 +146,18 @@ class ChevronProcess:
             textstyle: Custom Style for the title text.
             description_style: Custom Style for the description text.
         """
+        if style is None and self._default_style is None and self._palette is None:
+            raise ValueError(f"Neither 'default_style', 'palette', nor 'style' was provided for item '{text}'.")
+
+        if textstyle is None and self._default_textstyle is None:
+            raise ValueError(f"Neither 'default_textstyle' nor 'textstyle' was provided for item '{text}'.")
+
+        if bool(description.strip()) and description_style is None and self._default_description_style is None:
+            raise ValueError(
+                "Neither 'default_description_style' nor 'description_style' was provided "
+                f"for description of item '{text}'."
+            )
+
         item = _ChevronItem(
             text=text,
             description=description,

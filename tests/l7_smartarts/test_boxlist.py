@@ -9,6 +9,8 @@
 
 """Unit and integration tests for BoxList smart art."""
 
+import pytest
+
 from drawlib.canvas import clear, save
 from drawlib.preset_styles import default_styles
 from drawlib.smartarts import BoxList
@@ -23,7 +25,7 @@ class TestBoxList:
         """Verify BoxList drawing with default horizontal alignment starting from left."""
         clear()
         styles = default_styles
-        b = BoxList(styles=styles, default_box_style=styles.solid)
+        b = BoxList(default_box_style=styles.solid, default_text_style=styles.bold)
         b.extend(["1", "2"])
         b.append("3", box_style=styles.red_solid, text_style=styles.red_bold)
         b.append("4")
@@ -34,7 +36,7 @@ class TestBoxList:
         """Verify BoxList drawing with horizontal alignment starting from right."""
         clear()
         styles = default_styles
-        b = BoxList(styles=styles, default_box_style=styles.solid)
+        b = BoxList(default_box_style=styles.solid, default_text_style=styles.bold)
         b.extend(["1", "2"])
         b.append("3", box_style=styles.red_solid, text_style=styles.red_bold)
         b.append("4")
@@ -45,7 +47,7 @@ class TestBoxList:
         """Verify BoxList drawing with vertical alignment starting from bottom."""
         clear()
         styles = default_styles
-        b = BoxList(styles=styles, default_box_style=styles.solid)
+        b = BoxList(default_box_style=styles.solid, default_text_style=styles.bold)
         b.extend(["1", "2"])
         b.append("3", box_style=styles.red_solid, text_style=styles.red_bold)
         b.append("4")
@@ -56,7 +58,7 @@ class TestBoxList:
         """Verify BoxList drawing with vertical alignment starting from top."""
         clear()
         styles = default_styles
-        b = BoxList(styles=styles, default_box_style=styles.solid)
+        b = BoxList(default_box_style=styles.solid, default_text_style=styles.bold)
         b.extend(["1", "2"])
         b.append("3", box_style=styles.red_solid, text_style=styles.red_bold)
         b.append("4")
@@ -66,7 +68,7 @@ class TestBoxList:
     def test_boxlist_item_operations(self) -> None:
         """Verify item manipulation methods (append, insert, extend) work properly."""
         styles = default_styles
-        b = BoxList(styles=styles)
+        b = BoxList(default_box_style=styles.solid, default_text_style=styles.bold)
         b.append("item1")
         assert len(b._list) == 1
         assert b._list[0].text == "item1"
@@ -77,9 +79,20 @@ class TestBoxList:
         assert b._list[1].text == "item2"
         assert b._list[2].text == "item3"
 
-        b.insert(1, "inserted", box_style=styles.red)
+        b.insert(1, "inserted", box_style=styles.red_solid, text_style=styles.red_bold)
         assert len(b._list) == 4
         assert b._list[1].text == "inserted"
         assert b._list[1].is_custom_style
         assert b._list[2].text == "item2"
         assert b._list[3].text == "item3"
+
+    def test_boxlist_missing_style_raises_error(self) -> None:
+        """Verify that missing both default and item styles raises ValueError."""
+        styles = default_styles
+        b_empty = BoxList()
+        with pytest.raises(ValueError, match="Neither 'default_box_style' nor 'box_style' was provided"):
+            b_empty.append("item1")
+
+        b_no_text = BoxList(default_box_style=styles.solid)
+        with pytest.raises(ValueError, match="Neither 'default_text_style' nor 'text_style' was provided"):
+            b_no_text.append("item1")

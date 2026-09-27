@@ -5,17 +5,24 @@ Class `Cycle` renders circular and cyclical process diagrams, perfect for contin
 
 
 ```python
-from drawlib import canvas
+from drawlib.canvas import setup
 from drawlib.smartarts import Cycle
+from drawlib.styles import styles
 
-canvas.initialize()
+setup(width=100, height=100)
 
 # Classic PDCA cycle with center topic and matching arc arrows
 cycle = Cycle(
-    styles=styles,
+    default_style=styles.solid,
+    default_textstyle=styles.white_bold,
+    default_description_style=styles.white,
+    default_arrow_style=styles.solid,
     center_text="PDCA",
     center_description="Loop",
     center_radius=11.0,
+    center_style=styles.solid,
+    center_textstyle=styles.white_bold,
+    center_description_style=styles.white,
     node_radius=9.0,
     arrow_width=2.2,
     arrow_head_width=4.8,
@@ -37,14 +44,18 @@ cycle.draw(xy=(50.0, 50.0), radius=32.0)
 
 
 ```python
-from drawlib import canvas
+from drawlib.canvas import setup
 from drawlib.smartarts import Cycle
+from drawlib.styles import styles
 
-canvas.initialize()
+setup(width=100, height=100)
 
 # Continuous product lifecycle with rounded rectangle blocks
 cycle = Cycle(
-    styles=styles,
+    default_style=styles.blue_flat,
+    default_textstyle=styles.white_bold,
+    default_description_style=styles.white,
+    default_arrow_style=styles.solid,
     node_shape="rectangle",
     node_size=(18.0, 9.0),
     arrow_width=2.0,
@@ -74,13 +85,18 @@ cycle.draw(xy=(50.0, 50.0), radius=34.0)
 Create a circular workflow diagram:
 
 ```python
-from drawlib import canvas
-from drawlib.styles import styles
+from drawlib.canvas import setup
 from drawlib.smartarts import Cycle
+from drawlib.styles import styles
 
-canvas.initialize()
+setup(width=100, height=100)
 
-cycle = Cycle(styles=styles)
+cycle = Cycle(
+    default_style=styles.solid,
+    default_textstyle=styles.white_bold,
+    default_description_style=styles.white,
+    default_arrow_style=styles.solid,
+)
 cycle.append("Plan", description="Define goals")
 cycle.append("Do", description="Implement")
 cycle.append("Check", description="Review")
@@ -98,7 +114,6 @@ cycle.draw(xy=(50.0, 50.0), radius=32.0)
 Initialize a Cycle SmartArt instance.
 
 **Args:**
-- `styles` (`BaseStyles`): Preset styles catalog (required).
 - `clockwise` (`bool`): Whether the cycle flows clockwise (`True`) or counter-clockwise (`False`). Defaults to `True`.
 - `start_angle` (`float`): Angle in degrees for the first node (`0` is right, `90` is top). Defaults to `90.0`.
 - `node_shape` (`Literal["circle", "rectangle", "none"]`): Shape of step nodes. Defaults to `"circle"`.

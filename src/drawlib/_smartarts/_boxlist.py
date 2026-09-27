@@ -18,7 +18,6 @@ from pydantic import BaseModel, validate_call
 
 from drawlib._core.shapes import rectangle
 from drawlib._core.types import Coordinate, PosFloat, Style
-from drawlib._preset_styles import BaseStyles
 
 
 class _Item(BaseModel):
@@ -37,25 +36,18 @@ class BoxList:
     def __init__(
         self,
         *,
-        styles: BaseStyles,
         default_box_style: Style | None = None,
         default_text_style: Style | None = None,
     ) -> None:
         """Initialize BoxList.
 
         Args:
-            styles: The preset styles catalog (required).
             default_box_style: The default style for the boxes.
             default_text_style: The default style for the text inside the boxes.
         """
-        self._styles = styles
-        if default_box_style is None:
-            default_box_style = styles.primary
-        default_box_style = default_box_style.patch(text_halign="center", text_valign="center")
+        if default_box_style is not None:
+            default_box_style = default_box_style.patch(text_halign="center", text_valign="center")
         self._default_box_style = default_box_style
-
-        if default_text_style is None:
-            default_text_style = styles.bold
         self._default_text_style = default_text_style
 
         self._list: list[_Item] = []
@@ -94,8 +86,19 @@ class BoxList:
         """
         is_custom_style = box_style is not None or text_style is not None
 
-        box_style_resolved = box_style if box_style is not None else self._default_box_style
-        text_style_resolved = text_style if text_style is not None else self._default_text_style
+        if box_style is not None:
+            box_style_resolved = box_style.patch(text_halign="center", text_valign="center")
+        elif self._default_box_style is not None:
+            box_style_resolved = self._default_box_style
+        else:
+            raise ValueError(f"Neither 'default_box_style' nor 'box_style' was provided for item '{text}'.")
+
+        if text_style is not None:
+            text_style_resolved = text_style
+        elif self._default_text_style is not None:
+            text_style_resolved = self._default_text_style
+        else:
+            raise ValueError(f"Neither 'default_text_style' nor 'text_style' was provided for item '{text}'.")
 
         item = _Item(
             text=text,
@@ -119,19 +122,8 @@ class BoxList:
             box_style: Style for the boxes.
             text_style: Style for the text inside the boxes.
         """
-        is_custom_style = box_style is not None or text_style is not None
-
-        box_style_resolved = box_style if box_style is not None else self._default_box_style
-        text_style_resolved = text_style if text_style is not None else self._default_text_style
-
         for text in texts:
-            item = _Item(
-                text=text,
-                box_style=box_style_resolved,
-                text_style=text_style_resolved,
-                is_custom_style=is_custom_style,
-            )
-            self._list.append(item)
+            self.insert(len(self._list), text, box_style=box_style, text_style=text_style)
 
     @validate_call
     def draw(

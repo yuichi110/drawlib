@@ -16,7 +16,6 @@ from pydantic import BaseModel, validate_call
 
 from drawlib._core.shapes import trapezoid, triangle
 from drawlib._core.types import Angle, Coordinate, PosFloat, Style
-from drawlib._preset_styles import BaseStyles
 
 
 class _PyramidItem(BaseModel):
@@ -39,7 +38,6 @@ class Pyramid:
     def __init__(
         self,
         *,
-        styles: BaseStyles,
         default_style: Style | None = None,
         default_textstyle: Style | None = None,
         default_textangle: Angle | None = None,
@@ -48,15 +46,13 @@ class Pyramid:
         """Initializes a Pyramid instance with optional default styles and settings.
 
         Args:
-            styles: The preset styles catalog (required).
             default_style: The default style for the pyramid shapes. Defaults to None.
             default_textstyle: The default text style for the pyramid shapes. Defaults to None.
             default_textangle: The default rotation angle for the text within the pyramid shapes. Defaults to None.
             default_text_xy_shift: The default x and y shift for the text within the pyramid shapes. Defaults to None.
         """
-        self._styles = styles
-        self._default_style = default_style if default_style is not None else styles.primary
-        self._default_textstyle = default_textstyle if default_textstyle is not None else styles.bold
+        self._default_style = default_style
+        self._default_textstyle = default_textstyle
         self._default_textangle = default_textangle
         self._default_text_xy_shift = default_text_xy_shift
 
@@ -72,7 +68,12 @@ class Pyramid:
         text_xy_shift: Coordinate | None = None,
     ) -> None:
         resolved_style = style if style is not None else self._default_style
+        if resolved_style is None:
+            raise ValueError(f"Neither 'default_style' nor 'style' was provided for item '{text}'.")
+
         resolved_textstyle = textstyle if textstyle is not None else self._default_textstyle
+        if resolved_textstyle is None:
+            raise ValueError(f"Neither 'default_textstyle' nor 'textstyle' was provided for item '{text}'.")
 
         if textangle is None:
             textangle = self._default_textangle

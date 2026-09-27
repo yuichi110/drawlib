@@ -11,13 +11,13 @@ from drawlib.styles import styles
 
 setup(width=100, height=50)
 
-p1 = Pyramid(styles=styles, default_textstyle=styles.white)
+p1 = Pyramid(default_style=styles.solid, default_textstyle=styles.white)
 p1.add(text="A")
 p1.add(text="B")
 p1.add(text="C")
 p1.draw((5, 5), width=40, height=40, margin=3)
 
-p2 = Pyramid(styles=styles, default_style=styles.solid, default_textangle=270)
+p2 = Pyramid(default_style=styles.solid, default_textstyle=styles.bold, default_textangle=270)
 p2.add(text="A")
 p2.add(text="B", style=styles.red_flat, textstyle=styles.white)
 p2.add(text="C")
@@ -42,7 +42,6 @@ Initialize instance.
 
 Args
 
-- styles (BaseStyles): The preset styles catalog (required).
 - default_style (Optional[Style], optional): The default style for the pyramid shapes. Defaults to None.
 - default_textstyle (Optional[Style], optional): The default text style for the pyramid shapes. Defaults to None.
 - default_textangle (Optional[float], optional): The default rotation angle for the text within the pyramid shapes. Defaults to None.

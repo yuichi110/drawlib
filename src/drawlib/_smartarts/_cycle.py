@@ -25,7 +25,6 @@ from drawlib._core.shapes import circle as canvas_circle
 from drawlib._core.shapes import rectangle as canvas_rectangle
 from drawlib._core.text import text as canvas_text
 from drawlib._core.types import Angle, ColorType, Coordinate, PosFloat, Style
-from drawlib._preset_styles import BaseStyles
 
 
 class _CycleItem:
@@ -52,10 +51,13 @@ class Cycle:
     """SmartArt component for circular and cyclical process diagrams (e.g. PDCA, life cycles)."""
 
     @validate_call
-    def __init__(
+    def __init__(  # noqa: PLR0913
         self,
         *,
-        styles: BaseStyles,
+        default_style: Style | None = None,
+        default_textstyle: Style | None = None,
+        default_description_style: Style | None = None,
+        default_arrow_style: Style | None = None,
         clockwise: bool = True,
         start_angle: Angle = 90.0,
         node_shape: Literal["circle", "rectangle", "none"] = "circle",
@@ -67,10 +69,6 @@ class Cycle:
         arrow_head_width: PosFloat = 4.5,
         arrow_color_mode: Literal["monochrome", "match_source", "match_target"] = "match_source",
         arrow_gap: PosFloat = 2.5,
-        default_style: Style | None = None,
-        default_textstyle: Style | None = None,
-        default_description_style: Style | None = None,
-        default_arrow_style: Style | None = None,
         palette: Sequence[ColorType] | None = None,
         center_text: str = "",
         center_description: str = "",
@@ -82,7 +80,10 @@ class Cycle:
         """Initialize Cycle SmartArt.
 
         Args:
-            styles: The preset styles catalog (required).
+            default_style: Default style for step nodes. If None, colors from palette are used.
+            default_textstyle: Default style for primary step text (titles).
+            default_description_style: Default style for secondary description text.
+            default_arrow_style: Default style for connecting arrows.
             clockwise: Whether the process flows clockwise (True) or counter-clockwise (False).
                 Defaults to True.
             start_angle: Angle in degrees for the first node (0 is right, 90 is top). Defaults to 90.0.
@@ -98,10 +99,6 @@ class Cycle:
             arrow_color_mode: Coloring mode for connecting arrows ("match_source", "match_target", "monochrome").
                 Defaults to "match_source".
             arrow_gap: Distance margin between arrow endpoints and step nodes. Defaults to 2.5.
-            default_style: Default style for step nodes. If None, colors from palette are used.
-            default_textstyle: Default style for primary step text (titles).
-            default_description_style: Default style for secondary description text.
-            default_arrow_style: Default style for connecting arrows.
             palette: Optional sequence of colors to automatically style consecutive steps.
             center_text: Optional title text for a center node (creating a Radial Cycle).
             center_description: Optional supporting description text for the center node.
@@ -110,7 +107,6 @@ class Cycle:
             center_textstyle: Custom style for the center node title.
             center_description_style: Custom style for the center node description text.
         """
-        self._styles = styles
         self._clockwise = bool(clockwise)
         self._start_angle = float(start_angle)
         self._node_shape = node_shape
@@ -122,22 +118,29 @@ class Cycle:
         self._arrow_head_width = float(arrow_head_width)
         self._arrow_color_mode = arrow_color_mode
         self._arrow_gap = float(arrow_gap)
-        self._default_style = default_style if default_style is not None else styles.primary
-        self._default_textstyle = default_textstyle if default_textstyle is not None else styles.bold
-        self._default_description_style = (
-            default_description_style if default_description_style is not None else styles.light
-        )
-        self._default_arrow_style = default_arrow_style if default_arrow_style is not None else styles.solid
+        self._default_style = default_style
+        self._default_textstyle = default_textstyle
+        self._default_description_style = default_description_style
+        self._default_arrow_style = default_arrow_style
         self._palette = list(palette) if palette is not None else None
 
         self._center_text = center_text
         self._center_description = center_description
         self._center_radius = float(center_radius)
-        self._center_style = center_style if center_style is not None else styles.flat
-        self._center_textstyle = center_textstyle if center_textstyle is not None else styles.bold
-        self._center_description_style = (
-            center_description_style if center_description_style is not None else styles.light
-        )
+        self._center_style = center_style or default_style
+        self._center_textstyle = center_textstyle or default_textstyle
+        self._center_description_style = center_description_style or default_description_style
+
+        if bool(center_text.strip()):
+            if self._center_style is None:
+                raise ValueError("Neither 'center_style' nor 'default_style' was provided for center node.")
+            if self._center_textstyle is None:
+                raise ValueError("Neither 'center_textstyle' nor 'default_textstyle' was provided for center node.")
+            if bool(center_description.strip()) and self._center_description_style is None:
+                raise ValueError(
+                    "Neither 'center_description_style' nor 'default_description_style' "
+                    "was provided for center node description."
+                )
 
         self._items: list[_CycleItem] = []
 
@@ -166,7 +169,8 @@ class Cycle:
             description_style: Custom Style for the description text.
             arrow_style: Custom Style for the arrow following this step.
         """
-        item = _CycleItem(
+        self.insert(
+            len(self._items),
             text=text,
             description=description,
             style=style,
@@ -174,7 +178,6 @@ class Cycle:
             description_style=description_style,
             arrow_style=arrow_style,
         )
-        self._items.append(item)
 
     @validate_call
     def extend(
@@ -214,6 +217,21 @@ class Cycle:
             description_style: Custom Style for the description text.
             arrow_style: Custom Style for the arrow following this step.
         """
+        if self._node_shape != "none" and style is None and self._default_style is None and self._palette is None:
+            raise ValueError(f"Neither 'default_style', 'palette', nor 'style' was provided for item '{text}'.")
+
+        if textstyle is None and self._default_textstyle is None:
+            raise ValueError(f"Neither 'default_textstyle' nor 'textstyle' was provided for item '{text}'.")
+
+        if bool(description.strip()) and description_style is None and self._default_description_style is None:
+            raise ValueError(
+                "Neither 'default_description_style' nor 'description_style' was provided "
+                f"for description of item '{text}'."
+            )
+
+        if self._arrow_type != "none" and arrow_style is None and self._default_arrow_style is None:
+            raise ValueError(f"Neither 'default_arrow_style' nor 'arrow_style' was provided for arrow after '{text}'.")
+
         item = _CycleItem(
             text=text,
             description=description,

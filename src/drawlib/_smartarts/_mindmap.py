@@ -20,7 +20,6 @@ from drawlib._core.shapes import ellipse, rectangle
 from drawlib._core.text import get_charwidth_from_fontsize
 from drawlib._core.types import Coordinate, Style
 from drawlib._preset_colors import Colors
-from drawlib._preset_styles import BaseStyles
 
 
 class MindMapNode:
@@ -122,8 +121,6 @@ class MindMapNode:
         self,
         xy: Coordinate,
         branch: Literal["bottom", "top", "left", "right"] = "bottom",
-        *,
-        styles: BaseStyles | None = None,
     ) -> None:
         """Draw the mindmap tree rooted at this node.
 
@@ -132,7 +129,6 @@ class MindMapNode:
         Args:
             xy: Center coordinates (x, y) of the root node.
             branch: Default branch direction for child nodes ("bottom", "top", "left", "right").
-            styles: The preset styles catalog (optional if root node has default styles set).
         """
         root_branch = self._branch or self._default_branch or branch
 
@@ -141,31 +137,26 @@ class MindMapNode:
         def_size = self._default_size or (20.0, 8.0)
         if self._default_style is not None:
             def_style = self._default_style
-        elif styles is not None:
-            def_style = styles.solid
+        elif self._style is not None:
+            def_style = self._style
         else:
-            raise ValueError(
-                'Root of MindMapNode must have "default_style" or "styles: BaseStyles" must be passed to draw().'
-            )
+            raise ValueError('Root of MindMapNode must have "default_style" or "style" specified.')
 
         def_r = 0.0 if self._default_r is None else self._default_r
 
         if self._default_textstyle is not None:
             def_textstyle = self._default_textstyle
-        elif styles is not None:
-            def_textstyle = styles.solid
+        elif self._textstyle is not None:
+            def_textstyle = self._textstyle
         else:
             def_textstyle = def_style
 
         if self._default_linestyle is not None:
             def_linestyle = self._default_linestyle
-        elif styles is not None:
-            def_linestyle = styles.solid
+        elif self._linestyle is not None:
+            def_linestyle = self._linestyle
         else:
-            raise ValueError(
-                'Root of MindMapNode must have "default_linestyle" '
-                'or "styles: BaseStyles" must be passed to draw().'
-            )
+            raise ValueError('Root of MindMapNode must have "default_linestyle" or "linestyle" specified.')
 
         def_h_margin = 4.0 if self._default_horizontal_margin is None else self._default_horizontal_margin
         def_v_margin = 4.0 if self._default_vertical_margin is None else self._default_vertical_margin

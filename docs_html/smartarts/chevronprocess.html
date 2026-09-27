@@ -402,16 +402,20 @@
             <main class="main-content">
                 <h1>ChevronProcess</h1>
 <p>Class <code>ChevronProcess</code> renders sequential chevron (arrowhead block) process diagrams, ideal for pipelines, project phases, and operational procedures.</p>
-<pre><code class="language-python">from drawlib import canvas
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.smartarts import ChevronProcess
-from drawlib.types import Style
 from drawlib.styles import styles
+from drawlib.types import Style
 
-canvas.initialize()
-canvas.setup(width=100, height=52)
+setup(width=100, height=52)
 
 # 1. Multi-phase pipeline with titles and descriptions
-cp1 = ChevronProcess(styles=styles, spacing=1.5)
+cp1 = ChevronProcess(
+    default_style=styles.solid,
+    default_textstyle=styles.white_bold,
+    default_description_style=styles.white,
+    spacing=1.5,
+)
 cp1.append(&quot;Requirements&quot;, description=&quot;Scope &amp; Specs&quot;)
 cp1.append(&quot;Architecture&quot;, description=&quot;Design &amp; ADRs&quot;)
 cp1.append(&quot;Implementation&quot;, description=&quot;Code &amp; Tests&quot;)
@@ -420,7 +424,13 @@ cp1.append(&quot;Deployment&quot;, description=&quot;Canary 100%&quot;)
 cp1.draw(xy=(5.0, 30.0), width=90.0, height=15.0)
 
 # 2. Pentagonal flat-start process with custom highlight
-cp2 = ChevronProcess(styles=styles, flat_left_end=True, corner_angle=50.0, spacing=2.0)
+cp2 = ChevronProcess(
+    default_style=styles.blue_flat,
+    default_textstyle=styles.white_bold,
+    flat_left_end=True,
+    corner_angle=50.0,
+    spacing=2.0,
+)
 cp2.append(&quot;1. Discover&quot;)
 cp2.append(&quot;2. Define&quot;)
 cp2.append(&quot;3. Develop&quot;, style=styles.primary.patch(shape_fill_color=(239, 68, 68, 1.0), shape_line_width=1.5))
@@ -434,13 +444,18 @@ cp2.draw(xy=(10.0, 10.0), width=80.0, height=12.0)
 <hr />
 <h2>1. Quick Start</h2>
 <p>Create a sequential chevron flow:</p>
-<pre><code class="language-python">from drawlib import canvas
-from drawlib.styles import styles
+<pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.smartarts import ChevronProcess
+from drawlib.styles import styles
 
-canvas.initialize()
+setup(width=100, height=52)
 
-process = ChevronProcess(styles=styles, spacing=1.5)
+process = ChevronProcess(
+    default_style=styles.solid,
+    default_textstyle=styles.white_bold,
+    default_description_style=styles.white,
+    spacing=1.5,
+)
 process.append(&quot;Phase 1&quot;, description=&quot;Planning&quot;)
 process.append(&quot;Phase 2&quot;, description=&quot;Execution&quot;)
 process.append(&quot;Phase 3&quot;, description=&quot;Review&quot;)

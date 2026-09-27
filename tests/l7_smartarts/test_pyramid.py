@@ -9,6 +9,8 @@
 
 """Unit and integration tests for Pyramid smart art."""
 
+import pytest
+
 from drawlib.canvas import clear, save
 from drawlib.preset_styles import default_styles
 from drawlib.smartarts import Pyramid
@@ -23,7 +25,7 @@ class TestPyramid:
         """Verify basic Pyramid drawing with default vertex order and reversed base-to-vertex order."""
         clear()
         styles = default_styles
-        p = Pyramid(styles=styles, default_style=styles.solid)
+        p = Pyramid(default_style=styles.solid, default_textstyle=styles.bold)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
@@ -35,7 +37,7 @@ class TestPyramid:
         """Verify Pyramid drawing aligned bottom."""
         clear()
         styles = default_styles
-        p = Pyramid(styles=styles, default_style=styles.solid)
+        p = Pyramid(default_style=styles.solid, default_textstyle=styles.bold)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
@@ -47,7 +49,7 @@ class TestPyramid:
         """Verify Pyramid drawing aligned top."""
         clear()
         styles = default_styles
-        p = Pyramid(styles=styles, default_style=styles.solid)
+        p = Pyramid(default_style=styles.solid, default_textstyle=styles.bold)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
@@ -59,7 +61,7 @@ class TestPyramid:
         """Verify Pyramid drawing aligned left."""
         clear()
         styles = default_styles
-        p = Pyramid(styles=styles, default_style=styles.solid)
+        p = Pyramid(default_style=styles.solid, default_textstyle=styles.bold)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
@@ -71,10 +73,21 @@ class TestPyramid:
         """Verify Pyramid drawing aligned right."""
         clear()
         styles = default_styles
-        p = Pyramid(styles=styles, default_style=styles.solid)
+        p = Pyramid(default_style=styles.solid, default_textstyle=styles.bold)
         p.add(text="Hello")
         p.add(text="World")
         p.add(text="A")
         p.draw((10, 10), 30, 30, 2, align="right")
         p.draw((60, 10), 30, 30, 2, align="right", order="base_to_vertex")
         save(f"{OUTPUT_DIR}test_pyramid_align_right.png")
+
+    def test_pyramid_missing_style_raises_error(self) -> None:
+        """Verify that missing default_style or default_textstyle raises ValueError on add."""
+        p_no_style = Pyramid()
+        with pytest.raises(ValueError, match="Neither 'default_style' nor 'style' was provided"):
+            p_no_style.add(text="Hello")
+
+        styles = default_styles
+        p_no_textstyle = Pyramid(default_style=styles.solid)
+        with pytest.raises(ValueError, match="Neither 'default_textstyle' nor 'textstyle' was provided"):
+            p_no_textstyle.add(text="Hello")

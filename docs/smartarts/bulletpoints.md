@@ -17,7 +17,7 @@ setup(width=100, height=48)
 
 
 def center():
-    bp = BulletPoints(styles=styles, vertical_margin=4, indent_width=4)
+    bp = BulletPoints(default_style=styles.solid, vertical_margin=4, indent_width=4)
     bp.add("Types of Drawlib Shapes")
     bp.set_indent(1)
     bp.add("Circle-like Shapes")

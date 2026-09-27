@@ -14,7 +14,7 @@ from drawlib.styles import styles
 
 setup(width=100, height=50)
 
-gl1 = GridLayout(styles=styles, num_column=7, num_row=3, default_textstyle=styles.white)
+gl1 = GridLayout(num_column=7, num_row=3, default_style=styles.solid, default_textstyle=styles.white)
 gl1.add(position=(0, 0), width=5, height=1, text="Host OS")
 gl1.add(position=(0, 1), width=5, height=1, text="Python")
 gl1.add(position=(0, 2), width=1, height=1, text="D")
@@ -27,7 +27,7 @@ gl1.add(position=(6, 2), width=1, height=1, text="b")
 gl1.draw((5, 10), width=40, height=20, margin=1)
 text((25, 5), text="Grid Layout: Column 7, Row 3.", style=styles.bold)
 
-gl2 = GridLayout(styles=styles, num_column=7, num_row=3, default_r=1, default_style=styles.solid)
+gl2 = GridLayout(num_column=7, num_row=3, default_r=1, default_style=styles.solid, default_textstyle=styles.bold)
 gl2.add(position=(0, 0), width=7, height=1, text="Host OS", style=styles.blue, textstyle=styles.white, text_xy_shift=(10, 0))
 gl2.add(position=(0, 1), width=7, height=1, text="Python", style=styles.green, textstyle=styles.white, text_xy_shift=(-10, 0))
 gl2.add(position=(0, 2), width=1, height=1, text="D")
@@ -65,7 +65,6 @@ Initializes a GridLayout instance.
 
 Args:
 
-- styles (BaseStyles): The preset styles catalog (required).
 - num_column (int): The number of columns in the grid.
 - num_row (int): The number of rows in the grid.
 - default_r (int, optional): The default radius for the rectangles. Defaults to 0.
