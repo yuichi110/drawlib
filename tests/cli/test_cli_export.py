@@ -11,7 +11,6 @@
 
 """Integration tests using subprocess to verify drawlib CLI export command and show -o option."""
 
-import os
 from pathlib import Path
 
 from tests.cli.common import run_drawlib_cli
@@ -25,7 +24,7 @@ def test_cli_export_list(tmp_path: Path) -> None:
 
 ```drawlib 400px center caption:"First Image"
 from drawlib.canvas import setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 setup(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)
@@ -33,7 +32,7 @@ circle((50, 50), radius=20, style=styles.primary)
 
 ```drawlib 500px file:custom.png
 from drawlib.canvas import setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import rectangle
 setup(width=100, height=100)
 rectangle((50, 50), width=40, height=30, style=styles.primary)
@@ -57,7 +56,7 @@ def test_cli_export_by_index_with_output(tmp_path: Path) -> None:
 
 ```drawlib
 from drawlib.canvas import setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 setup(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)
@@ -74,27 +73,25 @@ circle((50, 50), radius=20, style=styles.primary)
     assert out_file.stat().st_size > 0
 
 
-def test_cli_export_with_config(tmp_path: Path) -> None:
-    """Test export command executing code block with a Python config/setup script."""
-    config_file = tmp_path / "my_config.py"
-    config_file.write_text(
-        """# Config script setting a global variable or environment
-import os
-os.environ["DRAWLIB_TEST_CONFIG_FLAG"] = "applied"
+def test_cli_export_with_styles(tmp_path: Path) -> None:
+    """Test export command executing code block with a custom styles script."""
+    styles_file = tmp_path / "my_styles.py"
+    styles_file.write_text(
+        """from drawlib.preset_styles import monochrome_styles
+styles = monochrome_styles
 """,
         encoding="utf-8",
     )
 
     md_file = tmp_path / "doc.md"
     md_file.write_text(
-        """# Configured Document
+        """# Styled Document
 
 ```drawlib
-import os
 from drawlib.canvas import setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
-assert os.environ.get("DRAWLIB_TEST_CONFIG_FLAG") == "applied"
+assert styles.__class__.__name__ == "MonochromeStyles"
 setup(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)
 ```
@@ -102,9 +99,44 @@ circle((50, 50), radius=20, style=styles.primary)
         encoding="utf-8",
     )
 
-    out_file = tmp_path / "configured_output.png"
+    out_file = tmp_path / "styled_output.png"
     res = run_drawlib_cli(
-        ["export", str(md_file), "1", "-o", str(out_file), "--config", str(config_file)],
+        ["export", str(md_file), "1", "-o", str(out_file), "--styles", str(styles_file)],
+        cwd=str(tmp_path),
+    )
+    assert res.returncode == 0
+    assert out_file.exists()
+
+
+def test_cli_export_with_utils(tmp_path: Path) -> None:
+    """Test export command executing code block with a custom utils script."""
+    utils_file = tmp_path / "my_utils.py"
+    utils_file.write_text(
+        """def get_radius() -> float:
+    return 25.0
+""",
+        encoding="utf-8",
+    )
+
+    md_file = tmp_path / "doc.md"
+    md_file.write_text(
+        """# Utils Document
+
+```drawlib
+from drawlib.canvas import setup
+from drawlib.styles import styles
+from drawlib.utils import get_radius
+from drawlib.shapes import circle
+setup(width=100, height=100)
+circle((50, 50), radius=get_radius(), style=styles.primary)
+```
+""",
+        encoding="utf-8",
+    )
+
+    out_file = tmp_path / "utils_output.png"
+    res = run_drawlib_cli(
+        ["export", str(md_file), "1", "-o", str(out_file), "--utils", str(utils_file)],
         cwd=str(tmp_path),
     )
     assert res.returncode == 0
@@ -119,7 +151,7 @@ def test_cli_export_with_grid(tmp_path: Path) -> None:
 
 ```drawlib
 from drawlib.canvas import setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 setup(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)
@@ -140,10 +172,9 @@ def test_cli_export_python_script(tmp_path: Path) -> None:
     script_file = tmp_path / "draw_standalone.py"
     script_file.write_text(
         """from drawlib.canvas import setup
-from drawlib.preset_styles import default_styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 
-styles = default_styles
 setup(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)
 """,
@@ -164,7 +195,7 @@ def test_cli_show_with_output_option(tmp_path: Path) -> None:
 
 ```drawlib
 from drawlib.canvas import setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 setup(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)

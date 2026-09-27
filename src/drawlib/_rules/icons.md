@@ -59,11 +59,11 @@ from drawlib.icons import font_icon, gcp, phosphor
 from drawlib.colors import (
     Colors,
     Colors140,
-    ColorsDefault,
-    ColorsEssentials,
-    ColorsMonochrome,
-    from_hex,
-    with_alpha,
+    DefaultStyleColors,
+    EssentialsStyleColors,
+    GoogleStyleColors,
+    MonochromeStyleColors,
+    Color,
 )
 from drawlib.types import Style
 ```
@@ -124,7 +124,7 @@ Phosphor provides 5 visual weights for each icon glyph, controlled via `Style(ic
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=45)
 
@@ -164,7 +164,7 @@ Phosphor seamlessly maps Drawlib preset styles into appropriate icon weights and
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=40)
 
@@ -216,7 +216,7 @@ FontAwesome Free organizes glyphs across distinct font files: `brands.ttf`, `sol
 ```python
 from drawlib.canvas import save, setup
 from drawlib.colors import from_hex
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.icons import font_icon
 from drawlib.text import text
 from drawlib.types import Style
@@ -283,7 +283,7 @@ gcp.<service_name>(
 from drawlib.canvas import save, setup
 from drawlib.icons import gcp
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=45)
 
@@ -365,7 +365,7 @@ from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=45)
 
@@ -391,7 +391,7 @@ The `angle` argument rotates the icon counter-clockwise around its anchor point 
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=40)
 
@@ -486,7 +486,7 @@ To achieve typographical harmony, place the primary label at an offset of `y - (
 from drawlib.canvas import save, setup
 from drawlib.icons import gcp
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=80, height=50)
 
@@ -510,7 +510,7 @@ from drawlib.canvas import save, setup
 from drawlib.icons import gcp, phosphor
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=60)
 
@@ -547,7 +547,7 @@ from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=40)
 
@@ -594,7 +594,7 @@ from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=150, height=95)
 
@@ -674,7 +674,7 @@ from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=140, height=65)
 
@@ -728,7 +728,7 @@ from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=140, height=60)
 
@@ -778,7 +778,7 @@ from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=150, height=65)
 

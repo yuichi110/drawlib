@@ -34,7 +34,7 @@ from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=140, height=75)
 

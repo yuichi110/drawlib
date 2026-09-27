@@ -22,7 +22,7 @@ from drawlib.images import image
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=100)
 
@@ -51,7 +51,7 @@ from drawlib.images import image
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=100)
 
@@ -122,7 +122,7 @@ from drawlib.images import image
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=200, height=100)
 
@@ -180,7 +180,7 @@ from drawlib.images import image
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=100, grid=True)
 
@@ -202,7 +202,7 @@ from drawlib.images import image
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=100, grid_only=True)
 
@@ -253,7 +253,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 
@@ -294,7 +294,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 
@@ -360,7 +360,7 @@ Here's an example using phosphor:
 from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=60, grid=True)
 
@@ -382,7 +382,7 @@ This code generates the following output image:
 from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=60, grid=True)
 
@@ -421,7 +421,7 @@ Here's an example using the `image()` function:
 from drawlib.canvas import save, setup
 from drawlib.images import image
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 
@@ -443,7 +443,7 @@ Execute this code using the Python command to get image.
 ```drawlib 600px center
 from drawlib.canvas import save, setup
 from drawlib.images import image
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 
@@ -532,7 +532,7 @@ Let's explore some of these line types:
 ```python
 from drawlib.canvas import save, setup
 from drawlib.lines import line, line_curved, lines
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 
@@ -551,7 +551,7 @@ A bend value of 0.2 indicates a curved line 1.2 times longer than a straight lin
 ```drawlib 600px center
 from drawlib.canvas import save, setup
 from drawlib.lines import line, line_curved, lines
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 
@@ -581,7 +581,7 @@ Consider this example showcasing styling:
 from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 
@@ -611,7 +611,7 @@ Arrow head style is specified in function directry.
 from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 
@@ -678,7 +678,7 @@ Let's explore two examples: a circle-like shape, `star()`, and a rectangle-like 
 ```python
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle, star
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 
@@ -694,7 +694,7 @@ This code generates the following image:
 ```drawlib 600px center
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle, star
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 
@@ -725,7 +725,7 @@ Let's examine a styling example:
 from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import rectangle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 
@@ -759,7 +759,7 @@ This code generates the following output:
 from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import rectangle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 
@@ -820,7 +820,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.fonts import FontFile, FontRoboto
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 
@@ -857,7 +857,7 @@ from drawlib.canvas import setup
 from drawlib.colors import Colors
 from drawlib.fonts import FontFile, FontRoboto
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 
@@ -923,7 +923,7 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 x1 = 12
@@ -968,7 +968,7 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 x1 = 12

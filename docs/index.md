@@ -18,7 +18,7 @@ from drawlib.colors import Colors, Colors140
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=40)
 
@@ -76,7 +76,7 @@ from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=140, height=65)
 
@@ -176,7 +176,7 @@ from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=140, height=65)
 

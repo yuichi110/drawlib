@@ -47,6 +47,9 @@ from drawlib._css_templates import (
     list_pdf_css,
 )
 
+_EXCLUDED_ASSET_NAMES = {"build.sh", "styles.py", "utils.py", "style.css", "template.html.j2", "template.html"}
+_EXCLUDED_ASSET_EXTENSIONS = (".py", ".sh", ".j2")
+
 
 def _validate_markdown_images(src_abs: str, content: str) -> None:
     """Check for missing local static images referenced via ![alt](path) in markdown."""
@@ -124,7 +127,8 @@ def _compile_single_markdown_file(
     src_abs: str,
     dest_abs: str,
     image_format: str,
-    config_path: Optional[str],
+    styles_path: Optional[str] = None,
+    utils_path: Optional[str] = None,
     processor: Optional[DrawlibBlockProcessor] = None,
     progress: Optional[FileBuildProgress] = None,
     no_cache: bool = False,
@@ -148,7 +152,9 @@ def _compile_single_markdown_file(
         return processor
 
     if processor is None:
-        processor = DrawlibBlockProcessor(config_path=config_path, no_cache=no_cache, cache=cache)
+        processor = DrawlibBlockProcessor(
+            styles_path=styles_path, utils_path=utils_path, no_cache=no_cache, cache=cache
+        )
 
     src_dir = os.path.dirname(src_abs)
     output_dir = os.path.dirname(dest_abs)
@@ -187,11 +193,13 @@ def build_markdown(
     input_path: str,
     output: Optional[str] = None,
     image_format: str = "png",
-    config: Optional[str] = None,
+    styles: Optional[str] = None,
+    utils: Optional[str] = None,
     no_cache: bool = False,
     *,
     output_path: Optional[str] = None,
-    config_path: Optional[str] = None,
+    styles_path: Optional[str] = None,
+    utils_path: Optional[str] = None,
 ) -> str:
     """Compile a Markdown file or directory containing drawlib code blocks into standard rendered Markdown.
 
@@ -199,10 +207,12 @@ def build_markdown(
         input_path (str): Input Markdown (.md) file or directory path.
         output (Optional[str]): Destination file or directory path.
         image_format (str): Image output format ('png' or 'webp'). Defaults to 'png'.
-        config (Optional[str]): Optional Python configuration script path.
+        styles (Optional[str]): Optional Python styles script path.
+        utils (Optional[str]): Optional Python utils script path.
         no_cache (bool): If True, disable reading/writing the SQLite build image cache.
         output_path (Optional[str]): Alias for output.
-        config_path (Optional[str]): Alias for config.
+        styles_path (Optional[str]): Alias for styles.
+        utils_path (Optional[str]): Alias for utils.
 
     Returns:
         str: Absolute path of generated Markdown file or directory.
@@ -211,22 +221,34 @@ def build_markdown(
         ValueError: If input path does not exist, is not Markdown, or overwrites source.
     """
     output = output or output_path
-    config = config or config_path
+    styles = styles or styles_path
+    utils = utils or utils_path
     input_abs = os.path.abspath(input_path)
     if not os.path.exists(input_abs):
         raise ValueError(f'Input path "{input_abs}" does not exist.')
 
-    if not config:
+    if not styles:
         if os.path.isdir(input_abs):
-            cand = os.path.join(input_abs, "config.py")
+            cand = os.path.join(input_abs, "styles.py")
             if os.path.isfile(cand):
-                config = cand
+                styles = cand
         elif os.path.isfile(input_abs):
-            cand = os.path.join(os.path.dirname(input_abs), "config.py")
+            cand = os.path.join(os.path.dirname(input_abs), "styles.py")
             if os.path.isfile(cand):
-                config = cand
+                styles = cand
 
-    config_abs = os.path.abspath(config) if config else None
+    if not utils:
+        if os.path.isdir(input_abs):
+            cand = os.path.join(input_abs, "utils.py")
+            if os.path.isfile(cand):
+                utils = cand
+        elif os.path.isfile(input_abs):
+            cand = os.path.join(os.path.dirname(input_abs), "utils.py")
+            if os.path.isfile(cand):
+                utils = cand
+
+    styles_abs = os.path.abspath(styles) if styles else None
+    utils_abs = os.path.abspath(utils) if utils else None
 
     cache = BuildImageCache(enabled=not no_cache)
 
@@ -264,9 +286,7 @@ def build_markdown(
                         )
                     md_tasks.append((src_abs, dest_abs))
                 elif not fname.endswith((".html", ".htm")):
-                    if fname in {"build.sh", "config.py", "style.css", "template.html.j2", "template.html"} or (
-                        fname.endswith((".py", ".sh", ".j2"))
-                    ):
+                    if fname in _EXCLUDED_ASSET_NAMES or fname.endswith(_EXCLUDED_ASSET_EXTENSIONS):
                         continue
                     dest_abs = os.path.join(out_dir_abs, rel_path)
                     if src_abs != dest_abs:
@@ -291,7 +311,8 @@ def build_markdown(
                 src_abs=src_abs,
                 dest_abs=dest_abs,
                 image_format=image_format,
-                config_path=config_abs,
+                styles_path=styles_abs,
+                utils_path=utils_abs,
                 processor=processor,
                 progress=FileBuildProgress(
                     idx,
@@ -338,7 +359,8 @@ def build_markdown(
         src_abs=input_abs,
         dest_abs=dest_abs,
         image_format=image_format,
-        config_path=config_abs,
+        styles_path=styles_abs,
+        utils_path=utils_abs,
         progress=FileBuildProgress(
             1,
             1,
@@ -356,9 +378,10 @@ def _compile_single_html_file(
     src_abs: str,
     dest_abs: str,
     image_format: str,
-    config_path: Optional[str],
-    css_path: Optional[str],
-    css_href: Optional[str],
+    styles_path: Optional[str] = None,
+    utils_path: Optional[str] = None,
+    css_path: Optional[str] = None,
+    css_href: Optional[str] = None,
     nav_list: Optional[list[dict[str, str]]] = None,
     template_path: Optional[str] = None,
     processor: Optional[DrawlibBlockProcessor] = None,
@@ -384,7 +407,9 @@ def _compile_single_html_file(
         _validate_markdown_images(src_abs, content)
 
     if doc_info.has_drawlib and processor is None:
-        processor = DrawlibBlockProcessor(config_path=config_path, no_cache=no_cache, cache=cache)
+        processor = DrawlibBlockProcessor(
+            styles_path=styles_path, utils_path=utils_path, no_cache=no_cache, cache=cache
+        )
 
     src_dir = os.path.dirname(src_abs)
     output_dir = os.path.dirname(dest_abs)
@@ -400,7 +425,9 @@ def _compile_single_html_file(
 
         if doc_info.doc_type == "markdown_drawlib":
             if processor is None:
-                processor = DrawlibBlockProcessor(config_path=config_path, no_cache=no_cache, cache=cache)
+                processor = DrawlibBlockProcessor(
+                    styles_path=styles_path, utils_path=utils_path, no_cache=no_cache, cache=cache
+                )
             processed_text = processor.process_markdown(
                 content,
                 doc_base_name=doc_base_name,
@@ -415,7 +442,9 @@ def _compile_single_html_file(
             body_html = parse_markdown_to_html(content)
         elif doc_info.doc_type == "html_drawlib":
             if processor is None:
-                processor = DrawlibBlockProcessor(config_path=config_path, no_cache=no_cache, cache=cache)
+                processor = DrawlibBlockProcessor(
+                    styles_path=styles_path, utils_path=utils_path, no_cache=no_cache, cache=cache
+                )
             processed_html = processor.process_html(
                 content,
                 doc_base_name=doc_base_name,
@@ -541,12 +570,14 @@ def build_html(
     input_path: str,
     output: Optional[str] = None,
     image_format: str = "png",
-    config: Optional[str] = None,
+    styles: Optional[str] = None,
+    utils: Optional[str] = None,
     no_cache: bool = False,
     *,
     css_mode: str = "external",
     output_path: Optional[str] = None,
-    config_path: Optional[str] = None,
+    styles_path: Optional[str] = None,
+    utils_path: Optional[str] = None,
 ) -> str:
     """Compile a Markdown/HTML file or directory into HTML with external template.html and style.css.
 
@@ -554,11 +585,13 @@ def build_html(
         input_path (str): Input Markdown (.md), HTML (.html), or directory path.
         output (Optional[str]): Destination file or directory path.
         image_format (str): Image output format ('png' or 'webp'). Defaults to 'png'.
-        config (Optional[str]): Optional Python configuration script path.
+        styles (Optional[str]): Optional Python styles script path.
+        utils (Optional[str]): Optional Python utils script path.
         no_cache (bool): If True, disable reading/writing the SQLite build image cache.
         css_mode (str): CSS mode ('external' by default, or 'embed' if overridden internally).
         output_path (Optional[str]): Alias for output.
-        config_path (Optional[str]): Alias for config.
+        styles_path (Optional[str]): Alias for styles.
+        utils_path (Optional[str]): Alias for utils.
 
     Returns:
         str: Absolute path of generated HTML file or directory.
@@ -567,7 +600,8 @@ def build_html(
         ValueError: If input path does not exist, template.html/style.css are missing, or output overwrites source.
     """
     output = output or output_path
-    config = config or config_path
+    styles = styles or styles_path
+    utils = utils or utils_path
     input_abs = os.path.abspath(input_path)
     if not os.path.exists(input_abs):
         raise ValueError(f'Input path "{input_abs}" does not exist.')
@@ -575,11 +609,17 @@ def build_html(
     search_dir = input_abs if os.path.isdir(input_abs) else os.path.dirname(input_abs)
     template_file, css_file = _resolve_template_and_css(search_dir)
 
-    if not config:
-        cand = os.path.join(search_dir, "config.py")
+    if not styles:
+        cand = os.path.join(search_dir, "styles.py")
         if os.path.isfile(cand):
-            config = cand
-    config_abs = os.path.abspath(config) if config else None
+            styles = cand
+    styles_abs = os.path.abspath(styles) if styles else None
+
+    if not utils:
+        cand = os.path.join(search_dir, "utils.py")
+        if os.path.isfile(cand):
+            utils = cand
+    utils_abs = os.path.abspath(utils) if utils else None
 
     cache = BuildImageCache(enabled=not no_cache)
 
@@ -649,9 +689,7 @@ def build_html(
                         continue
                     html_tasks.append((src_abs, dest_abs, False))
                 else:
-                    if fname in {"build.sh", "config.py", "style.css", "template.html.j2", "template.html"} or (
-                        fname.endswith((".py", ".sh", ".j2"))
-                    ):
+                    if fname in _EXCLUDED_ASSET_NAMES or fname.endswith(_EXCLUDED_ASSET_EXTENSIONS):
                         continue
                     dest_abs = os.path.join(out_dir_abs, rel_path)
                     if src_abs != dest_abs:
@@ -695,7 +733,8 @@ def build_html(
                 src_abs=src_abs,
                 dest_abs=dest_abs,
                 image_format=image_format,
-                config_path=config_abs,
+                styles_path=styles_abs,
+                utils_path=utils_abs,
                 css_path=css_file,
                 css_href=rel_css_href,
                 template_path=template_file,
@@ -756,7 +795,8 @@ def build_html(
         src_abs=input_abs,
         dest_abs=dest_abs,
         image_format=image_format,
-        config_path=config_abs,
+        styles_path=styles_abs,
+        utils_path=utils_abs,
         css_path=css_file,
         css_href=rel_css_href,
         nav_list=None,
@@ -780,13 +820,15 @@ def build_pdf(
     page_break: bool = True,
     generate_index: bool = False,
     title: Optional[str] = None,
-    config: Optional[str] = None,
+    styles: Optional[str] = None,
+    utils: Optional[str] = None,
     no_cache: bool = False,
     timestamp: bool = False,
     *,
     toc: Optional[bool] = None,
     output_path: Optional[str] = None,
-    config_path: Optional[str] = None,
+    styles_path: Optional[str] = None,
+    utils_path: Optional[str] = None,
 ) -> str:
     """Merge one or more Markdown/HTML files or directories into a single HTML and export to PDF.
 
@@ -797,13 +839,15 @@ def build_pdf(
         generate_index (bool): Generate an index (Table of Contents) between the 1st and 2nd
             documents of the PDF. Defaults to False.
         title (Optional[str]): Document title override.
-        config (Optional[str]): Optional Python configuration script path.
+        styles (Optional[str]): Optional Python styles script path.
+        utils (Optional[str]): Optional Python utils script path.
         no_cache (bool): If True, disable reading/writing the SQLite build image cache.
         timestamp (bool): If True, include current build timestamp in PDF metadata.
             If False (default), normalize timestamps to ensure reproducible builds.
         toc (Optional[bool]): Backward-compatible alias for generate_index.
         output_path (Optional[str]): Alias for output.
-        config_path (Optional[str]): Alias for config.
+        styles_path (Optional[str]): Alias for styles.
+        utils_path (Optional[str]): Alias for utils.
 
     Returns:
         str: Absolute path of generated PDF file.
@@ -811,7 +855,8 @@ def build_pdf(
     if toc is not None:
         generate_index = toc
     output = output or output_path
-    config = config or config_path
+    styles = styles or styles_path
+    utils = utils or utils_path
     input_list: List[str] = [inputs] if isinstance(inputs, str) else list(inputs)
     if not input_list:
         raise ValueError("At least one input file or directory must be specified for build_pdf.")
@@ -820,26 +865,39 @@ def build_pdf(
     search_dir = first_input if os.path.isdir(first_input) else os.path.dirname(first_input)
     template_file, css_file = _resolve_template_and_css(search_dir)
 
-    if not config:
+    if not styles:
         for inp in input_list:
             inp_abs = os.path.abspath(inp)
             cand = (
-                os.path.join(inp_abs, "config.py")
+                os.path.join(inp_abs, "styles.py")
                 if os.path.isdir(inp_abs)
-                else os.path.join(os.path.dirname(inp_abs), "config.py")
+                else os.path.join(os.path.dirname(inp_abs), "styles.py")
             )
             if os.path.isfile(cand):
-                config = cand
+                styles = cand
                 break
+    styles_abs = os.path.abspath(styles) if styles else None
 
-    config_abs = os.path.abspath(config) if config else None
+    if not utils:
+        for inp in input_list:
+            inp_abs = os.path.abspath(inp)
+            cand = (
+                os.path.join(inp_abs, "utils.py")
+                if os.path.isdir(inp_abs)
+                else os.path.join(os.path.dirname(inp_abs), "utils.py")
+            )
+            if os.path.isfile(cand):
+                utils = cand
+                break
+    utils_abs = os.path.abspath(utils) if utils else None
 
     merged_html, file_list = build_merged_html(
         inputs=input_list,
         title=title,
         page_break=page_break,
         generate_index=generate_index,
-        config_path=config_abs,
+        styles_path=styles_abs,
+        utils_path=utils_abs,
         css_path=css_file,
         template_path=template_file,
         no_cache=no_cache,
@@ -871,10 +929,11 @@ def build_document(
     output_format: Optional[str] = None,
     image_format: str = "png",
     css_mode: str = "external",
-    config_path: Optional[str] = None,
+    styles_path: Optional[str] = None,
+    utils_path: Optional[str] = None,
     timestamp: bool = False,
 ) -> str:
-    """Compile input Markdown/HTML file or directory into HTML, PDF, or Markdown (backward-compatible wrapper)."""
+    """Compile input Markdown/HTML file or directory into HTML, PDF, or Markdown."""
     fmt = output_format.lower() if output_format else None
     if not fmt:
         if output_path and output_path.endswith(".pdf"):
@@ -889,20 +948,23 @@ def build_document(
             input_path=input_path,
             output=output_path,
             image_format=image_format,
-            config=config_path,
+            styles=styles_path,
+            utils=utils_path,
         )
     if fmt == "pdf":
         return build_pdf(
             inputs=[input_path],
             output=output_path,
-            config=config_path,
+            styles=styles_path,
+            utils=utils_path,
             timestamp=timestamp,
         )
     return build_html(
         input_path=input_path,
         output=output_path,
         image_format=image_format,
-        config=config_path,
+        styles=styles_path,
+        utils=utils_path,
         css_mode=css_mode,
     )
 
@@ -913,7 +975,8 @@ def build(
     output_format: Optional[str] = None,
     image_format: str = "png",
     css_mode: str = "external",
-    config_path: Optional[str] = None,
+    styles_path: Optional[str] = None,
+    utils_path: Optional[str] = None,
     timestamp: bool = False,
 ) -> str:
     """Alias for build_document."""
@@ -923,7 +986,8 @@ def build(
         output_format=output_format,
         image_format=image_format,
         css_mode=css_mode,
-        config_path=config_path,
+        styles_path=styles_path,
+        utils_path=utils_path,
         timestamp=timestamp,
     )
 
@@ -934,7 +998,8 @@ def build_documents(
     output_format: str = "html",
     image_format: str = "png",
     css_mode: str = "external",
-    config_path: Optional[str] = None,
+    styles_path: Optional[str] = None,
+    utils_path: Optional[str] = None,
     *,
     targets: Optional[Sequence[tuple[str, str]]] = None,
 ) -> List[str]:
@@ -971,7 +1036,8 @@ def build_documents(
                 src_abs=src_abs,
                 dest_abs=dest_abs,
                 image_format=image_format,
-                config_path=config_path,
+                styles_path=styles_path,
+                utils_path=utils_path,
                 css_path=css_cand,
                 css_href="style.css",
                 nav_list=nav_list,
@@ -990,7 +1056,8 @@ def build_documents(
         output_format=output_format,
         image_format=image_format,
         css_mode=css_mode,
-        config_path=config_path,
+        styles_path=styles_path,
+        utils_path=utils_path,
     )
     return [out]
 

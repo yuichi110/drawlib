@@ -33,7 +33,7 @@ Here are three examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.text import text
 
 setup(width=100, height=50)
@@ -83,7 +83,7 @@ Here are three examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.text import text, text_vertical
 
 setup(width=100, height=50)
@@ -141,7 +141,7 @@ Here are 2 examples.
 from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
 from drawlib.fonts import FontSerif
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 from drawlib.text import text
 
@@ -238,7 +238,7 @@ Here are font examples.
 ```python
 from drawlib.canvas import save, setup
 from drawlib.fonts import Font, FontJapanese, FontMonoSpace, FontRoboto, FontSansSerif, FontSerif, FontThai
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.text import text
 
 setup(width=100, height=60, grid_only=True)
@@ -290,7 +290,7 @@ Here is an examples which uses font avenger.
 ```python
 from drawlib.canvas import save, setup
 from drawlib.fonts import FontFile
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.text import text
 
 setup(width=100, height=50)
@@ -325,7 +325,7 @@ You can check the list of fonts supported by Drawlib in the Font documentation.
 # Pre-defined Text Styles
 
 
-Text in Drawlib can utilize pre-defined styles from `drawlib.config` (`from drawlib.config import styles`).
+Text in Drawlib can utilize pre-defined styles from `drawlib.styles` (`from drawlib.styles import styles`).
 
 The style syntax is: `styles.<color>_<weight>`.
 If the color and weight are default, they are not explicitly shown in the style name.
@@ -341,7 +341,7 @@ Here is an example script that demonstrates the use of pre-defined text styles:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.text import text
 
 setup(width=100, height=50)

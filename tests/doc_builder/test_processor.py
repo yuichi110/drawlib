@@ -16,7 +16,7 @@ def test_block_processor_render_block_to_file_and_data_url(tmp_path) -> None:
     """Test single drawlib block rendering into PNG and WebP files and Data URLs."""
     processor = DrawlibBlockProcessor()
 
-    code = "circle((50, 50), radius=20)"
+    code = "circle((50, 50), radius=20, style=styles.primary)"
     png_path = tmp_path / "out.png"
     processor.render_block_to_file(code, str(png_path))
     assert png_path.exists()
@@ -42,7 +42,7 @@ def test_block_processor_markdown_replacement(tmp_path) -> None:
 Hello World
 
 ```drawlib
-circle((50, 50), radius=10)
+circle((50, 50), radius=10, style=styles.primary)
 ```
 
 Footer
@@ -63,7 +63,7 @@ def test_block_processor_html_script_tag(tmp_path) -> None:
 
     html_input = """<h1>HTML Document</h1>
 <script type="text/drawlib" width="400px" align="center" caption="HTML Diagram" file="custom_diag.png">
-circle((50, 50), radius=15)
+circle((50, 50), radius=15, style=styles.primary)
 </script>
 """
     blocks = extract_code_blocks(html_input, is_html=True)
@@ -77,20 +77,22 @@ circle((50, 50), radius=15)
     assert (out_dir / "page_images" / "custom_diag.png").exists()
 
 
-def test_block_processor_with_config(tmp_path) -> None:
-    """Test that functions/variables defined in config.py are accessible in drawlib blocks."""
-    config_file = tmp_path / "config.py"
-    config_file.write_text(
+def test_block_processor_with_utils(tmp_path) -> None:
+    """Test that functions/variables defined in utils.py are accessible in drawlib blocks."""
+    utils_file = tmp_path / "utils.py"
+    utils_file.write_text(
         """
 def draw_my_node(label: str) -> None:
-    circle((50, 50), radius=15, text=label)
+    from drawlib.shapes import circle
+    from drawlib.styles import styles
+    circle((50, 50), radius=15, style=styles.primary, text=label)
 """,
         encoding="utf-8",
     )
 
     out_dir = tmp_path / "out"
     out_dir.mkdir()
-    processor = DrawlibBlockProcessor(config_path=str(config_file))
+    processor = DrawlibBlockProcessor(utils_path=str(utils_file))
 
     md_input = """
 ```drawlib
@@ -118,7 +120,7 @@ def test_block_processor_ignore_explicit_save(tmp_path) -> None:
     md_input = f"""
 ```drawlib
 from drawlib.canvas import save
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 circle((50, 50), radius=10, style=styles.primary)
 save(r"{ignored_file}")
@@ -152,7 +154,7 @@ def test_block_processor_space_separated_options(tmp_path) -> None:
     md_input = """
 ```drawlib 400px center caption:"System Architecture"
 from drawlib.shapes import circle
-circle((50, 50), radius=10)
+circle((50, 50), radius=10, style=styles.primary)
 ```
 """
     processed_md = processor.process_markdown(md_input, doc_base_name="opts_test", output_dir=str(out_dir))
@@ -171,7 +173,7 @@ def test_block_processor_code_visibility_modes(tmp_path) -> None:
     # 1. Default (no option) -> hide code
     md_default = """
 ```drawlib
-circle((50, 50), radius=10)
+circle((50, 50), radius=10, style=styles.primary)
 ```
 """
     res_default = processor.process_markdown(md_default, doc_base_name="default_doc", output_dir=str(out_dir))
@@ -182,11 +184,11 @@ circle((50, 50), radius=10)
     # 2. show-code -> show code block followed by image
     md_show = """
 ```drawlib show-code
-circle((50, 50), radius=10)
+circle((50, 50), radius=10, style=styles.primary)
 ```
 """
     res_show = processor.process_markdown(md_show, doc_base_name="show_doc", output_dir=str(out_dir))
-    assert "```python\ncircle((50, 50), radius=10)\n```" in res_show
+    assert "```python\ncircle((50, 50), radius=10, style=styles.primary)\n```" in res_show
     assert 'src="show_doc_images/1.png"' in res_show
     # Python code comes before image
     assert res_show.find("```python") < res_show.find("show_doc_images/1.png")
@@ -194,13 +196,13 @@ circle((50, 50), radius=10)
     # 3. fold-code -> image followed by details tag
     md_fold = """
 ```drawlib fold-code
-circle((50, 50), radius=10)
+circle((50, 50), radius=10, style=styles.primary)
 ```
 """
     res_fold = processor.process_markdown(md_fold, doc_base_name="fold_doc", output_dir=str(out_dir))
     assert '<details class="drawlib-code-details">' in res_fold
     assert "<summary>Source Code</summary>" in res_fold
-    assert "```python\ncircle((50, 50), radius=10)\n```" in res_fold
+    assert "```python\ncircle((50, 50), radius=10, style=styles.primary)\n```" in res_fold
     assert "</details>" in res_fold
     # Image comes before details
     assert res_fold.find("fold_doc_images/1.png") < res_fold.find("<details")
@@ -208,18 +210,19 @@ circle((50, 50), radius=10)
     # 4. HTML script tag fold-code and show-code
     html_input = """
 <script type="text/drawlib" code="fold" file="fold_img.png">
-circle((50, 50), radius=10)
+circle((50, 50), radius=10, style=styles.primary)
 </script>
 <script type="text/drawlib" code="show" file="show_img.png">
-circle((50, 50), radius=10)
+circle((50, 50), radius=10, style=styles.primary)
 </script>
 <script type="text/drawlib" file="hide_img.png">
-circle((50, 50), radius=10)
+circle((50, 50), radius=10, style=styles.primary)
 </script>
 """
     res_html = processor.process_html(html_input, doc_base_name="html_doc", output_dir=str(out_dir))
     assert '<details class="drawlib-code-details">' in res_html
-    assert '<pre><code class="language-python">circle((50, 50), radius=10)</code></pre>' in res_html
+    expected_code = '<pre><code class="language-python">circle((50, 50), radius=10, style=styles.primary)</code></pre>'
+    assert expected_code in res_html
     assert 'src="html_doc_images/fold_img.png"' in res_html
     assert 'src="html_doc_images/show_img.png"' in res_html
     assert 'src="html_doc_images/hide_img.png"' in res_html

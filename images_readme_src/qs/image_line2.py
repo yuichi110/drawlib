@@ -1,7 +1,7 @@
 from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 line((20, 7), (80, 7), style=styles.primary)

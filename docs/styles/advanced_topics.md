@@ -1,17 +1,17 @@
 # Advanced Preset Styles Topics
 
-In this section, we cover advanced topics for working with preset styles in `drawlib.preset_styles` and `drawlib.config`.
+In this section, we cover advanced topics for working with preset styles in `drawlib.preset_styles` and `drawlib.styles`.
 
-# Accessing Styles via `drawlib.config` or Official Catalogs
+# Accessing Styles via `drawlib.styles` or Official Catalogs
 
 Drawlib provides style presets as catalog objects (`BasePresetStyles`) containing strongly-typed `Style` objects for key roles and colors.
-The recommended way to access styles in drawing code is via `drawlib.config`:
+The recommended way to access styles in drawing code is via `drawlib.styles`:
 
 ```python
-from drawlib.config import styles
+from drawlib.styles import styles
 ```
 
-This provides direct access to the active project styles (defaulting to `EssentialsStyles`) and allows styles to be themed dynamically across the entire project via configuration files.
+This provides direct access to the active project styles (defaulting to `EssentialsStyles`) and allows styles to be themed dynamically across the entire project via `styles.py` files.
 
 ## Standard Style Roles
 
@@ -28,7 +28,7 @@ Example:
 
 ```python
 from drawlib.canvas import setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
@@ -58,7 +58,7 @@ You can also access color-specific styles (e.g., `styles.red_flat`, `styles.blue
 
 ```python
 from drawlib.canvas import setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
@@ -124,7 +124,7 @@ Because `Style` objects in Drawlib are immutable (`frozen=True`), styles are cus
 ```python
 from drawlib.canvas import setup
 from drawlib.colors import ColorsDefault
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.text import text
 
 custom_style = styles.blue.patch(text_size=28, text_color=ColorsDefault.Red)
@@ -151,7 +151,7 @@ When creating illustrations or documentation in Japanese, Chinese, or specialize
 You can patch all font definitions across the entire active style catalog using `styles.patch_font()`:
 
 ```python
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.fonts import FontJapanese
 
 # Patch regular and bold fonts for all styles in the active catalog
@@ -167,7 +167,7 @@ styles.patch_font(
 - **`light`** (keyword-only): Overrides all light styles (such as `styles.light`, `styles.red_light`, etc.).
 - **`sourcecode`** (keyword-only): Updates the default monospace font used by source code rendering components (`styles.sourcecode_font`).
 
-This method is commonly configured in your project's `config.py` so that all diagrams automatically render with the appropriate font.
+This method is commonly configured in your project's `styles.py` so that all diagrams automatically render with the appropriate font.
 
 ---
 

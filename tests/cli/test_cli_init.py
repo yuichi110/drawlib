@@ -64,7 +64,7 @@ def test_cli_init_simple(tmp_path: Path) -> None:
 
     # Source files inside docs_src/
     assert (dest / "docs_src" / "README.md").is_file()
-    assert (dest / "docs_src" / "config.py").is_file()
+    assert (dest / "docs_src" / "styles.py").is_file()
     assert (dest / "docs_src" / "doc.md").is_file()
 
     build_sh = dest / "docs_src" / "build.sh"
@@ -85,7 +85,7 @@ def test_cli_init_site(tmp_path: Path) -> None:
 
     # Source files inside docs_src/
     assert (dest / "docs_src" / "README.md").is_file()
-    assert (dest / "docs_src" / "config.py").is_file()
+    assert (dest / "docs_src" / "styles.py").is_file()
     assert (dest / "docs_src" / "build.sh").is_file()
     assert (dest / "docs_src" / "index.md").is_file()
     assert (dest / "docs_src" / "navbar.md").is_file()
@@ -107,7 +107,7 @@ def test_cli_init_pdf(tmp_path: Path) -> None:
     assert f"Initialized 'pdf' project in {dest}" in res.stdout
 
     assert (dest / "doc_src" / "README.md").is_file()
-    assert (dest / "doc_src" / "config.py").is_file()
+    assert (dest / "doc_src" / "styles.py").is_file()
     assert (dest / "doc_src" / "build.sh").is_file()
     assert (dest / "doc_src" / "00_cover.md").is_file()
     assert (dest / "doc_src" / "01_overview.md").is_file()
@@ -124,7 +124,7 @@ def test_cli_init_image(tmp_path: Path) -> None:
 
     # Source files inside images_src/
     assert (dest / "images_src" / "README.md").is_file()
-    assert (dest / "images_src" / "config.py").is_file()
+    assert (dest / "images_src" / "styles.py").is_file()
     assert (dest / "images_src" / "build.sh").is_file()
     assert (dest / "images_src" / "sample.py").is_file()
 
@@ -191,10 +191,10 @@ def test_cli_init_here(tmp_path: Path) -> None:
 
     # Template files deployed into repo_dir
     assert (repo_dir / "build.sh").is_file()
-    assert (repo_dir / "config.py").is_file()
+    assert (repo_dir / "styles.py").is_file()
     assert (repo_dir / "index.md").is_file()
 
-    # Second run without force fails because build.sh/config.py already exists
+    # Second run without force fails because build.sh/styles.py already exists
     res_conflict = run_drawlib_cli(["init", "site", "--here"], cwd=str(repo_dir))
     assert res_conflict.returncode == 1
     assert "already contains project files" in res_conflict.stderr
@@ -239,7 +239,7 @@ def test_cli_init_lang_ja(tmp_path: Path) -> None:
     template_content = (src_dir / "template.html").read_text(encoding="utf-8")
     assert '<html lang="ja">' in template_content
 
-    config_content = (src_dir / "config.py").read_text(encoding="utf-8")
+    config_content = (src_dir / "styles.py").read_text(encoding="utf-8")
     assert "FontJapanese" in config_content
     assert "patch_font" in config_content
 

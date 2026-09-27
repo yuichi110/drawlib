@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from typing import Final
 
-from drawlib._core.l2_types import TypeColorRGB
+from drawlib._core.l2_models import Color
 from drawlib._core.l3_styles import ColorsBase
 from drawlib._preset_colors._color_essentials import EssentialsStyleColors
 
@@ -21,13 +21,13 @@ from drawlib._preset_colors._color_essentials import EssentialsStyleColors
 class MonochromeStyleColors(ColorsBase):
     """Class representing colors for monochrome preset styles along with a transparent color."""
 
-    Black: Final[TypeColorRGB] = EssentialsStyleColors.Black
-    Charcoal: Final[TypeColorRGB] = EssentialsStyleColors.Charcoal
-    Graphite: Final[TypeColorRGB] = EssentialsStyleColors.Graphite
-    Gray: Final[TypeColorRGB] = EssentialsStyleColors.Gray
-    Silver: Final[TypeColorRGB] = EssentialsStyleColors.Silver
-    Snow: Final[TypeColorRGB] = EssentialsStyleColors.Snow
-    White: Final[TypeColorRGB] = EssentialsStyleColors.White
+    Black: Final[Color] = EssentialsStyleColors.Black
+    Charcoal: Final[Color] = EssentialsStyleColors.Charcoal
+    Graphite: Final[Color] = EssentialsStyleColors.Graphite
+    Gray: Final[Color] = EssentialsStyleColors.Gray
+    Silver: Final[Color] = EssentialsStyleColors.Silver
+    Snow: Final[Color] = EssentialsStyleColors.Snow
+    White: Final[Color] = EssentialsStyleColors.White
 
 
 __all__ = [

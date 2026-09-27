@@ -13,38 +13,38 @@ from __future__ import annotations
 
 from typing import Final
 
-from drawlib._core.l2_types import TypeColorRGB
+from drawlib._core.l2_models import Color
 from drawlib._core.l3_styles import ColorsBase
 
 
 class EssentialsStyleColors(ColorsBase):
     """Class representing colors for essentials preset styles along with a transparent color."""
 
-    Red: Final[TypeColorRGB] = (255, 23, 23)
-    LightRed: Final[TypeColorRGB] = (239, 95, 95)
-    Green: Final[TypeColorRGB] = (15, 127, 15)
-    LightGreen: Final[TypeColorRGB] = (79, 191, 79)
-    Blue: Final[TypeColorRGB] = (31, 31, 255)
-    LightBlue: Final[TypeColorRGB] = (111, 111, 239)
-    Yellow: Final[TypeColorRGB] = (239, 239, 31)
-    Purple: Final[TypeColorRGB] = (127, 31, 127)
-    Orange: Final[TypeColorRGB] = (255, 95, 31)
-    Navy: Final[TypeColorRGB] = (15, 15, 127)
-    Pink: Final[TypeColorRGB] = (239, 63, 239)
-    Charcoal: Final[TypeColorRGB] = (39, 39, 39)
-    Graphite: Final[TypeColorRGB] = (63, 63, 63)
-    Gray: Final[TypeColorRGB] = (127, 127, 127)
-    Silver: Final[TypeColorRGB] = (191, 191, 191)
-    Snow: Final[TypeColorRGB] = (239, 239, 239)
-    Teal: Final[TypeColorRGB] = (15, 127, 127)
-    Olive: Final[TypeColorRGB] = (127, 127, 31)
-    Brown: Final[TypeColorRGB] = (159, 31, 31)
-    Black: Final[TypeColorRGB] = (0, 0, 0)
-    White: Final[TypeColorRGB] = (255, 255, 255)
-    Aqua: Final[TypeColorRGB] = (47, 239, 239)
-    GreenYellow: Final[TypeColorRGB] = (127, 207, 31)
-    Ivory: Final[TypeColorRGB] = (239, 239, 207)
-    Steel: Final[TypeColorRGB] = (96, 96, 143)
+    Red: Final[Color] = Color(255, 23, 23)
+    LightRed: Final[Color] = Color(239, 95, 95)
+    Green: Final[Color] = Color(15, 127, 15)
+    LightGreen: Final[Color] = Color(79, 191, 79)
+    Blue: Final[Color] = Color(31, 31, 255)
+    LightBlue: Final[Color] = Color(111, 111, 239)
+    Yellow: Final[Color] = Color(239, 239, 31)
+    Purple: Final[Color] = Color(127, 31, 127)
+    Orange: Final[Color] = Color(255, 95, 31)
+    Navy: Final[Color] = Color(15, 15, 127)
+    Pink: Final[Color] = Color(239, 63, 239)
+    Charcoal: Final[Color] = Color(39, 39, 39)
+    Graphite: Final[Color] = Color(63, 63, 63)
+    Gray: Final[Color] = Color(127, 127, 127)
+    Silver: Final[Color] = Color(191, 191, 191)
+    Snow: Final[Color] = Color(239, 239, 239)
+    Teal: Final[Color] = Color(15, 127, 127)
+    Olive: Final[Color] = Color(127, 127, 31)
+    Brown: Final[Color] = Color(159, 31, 31)
+    Black: Final[Color] = Color(0, 0, 0)
+    White: Final[Color] = Color(255, 255, 255)
+    Aqua: Final[Color] = Color(47, 239, 239)
+    GreenYellow: Final[Color] = Color(127, 207, 31)
+    Ivory: Final[Color] = Color(239, 239, 207)
+    Steel: Final[Color] = Color(96, 96, 143)
 
 
 __all__ = [

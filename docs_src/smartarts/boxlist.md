@@ -12,7 +12,7 @@ Create a `BoxList`, append or extend items, and render them with `draw()`:
 ```drawlib show-code 650px center caption:"BoxList Layout & Custom Styling"
 from drawlib.canvas import setup
 from drawlib.smartarts import BoxList
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=45)
 

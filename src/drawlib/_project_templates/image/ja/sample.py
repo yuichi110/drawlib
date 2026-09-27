@@ -10,9 +10,9 @@
 """サンプル図面スクリプト。"""
 
 from drawlib.canvas import save, setup
-from drawlib.config import styles
 from drawlib.lines import line
 from drawlib.shapes import rectangle
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 

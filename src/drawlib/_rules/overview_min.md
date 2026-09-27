@@ -55,8 +55,8 @@ When tasked with generating or updating Drawlib diagrams, execute this self-corr
 ```python
 from drawlib.canvas import clear, save, setup
 from drawlib.lines import line
-from drawlib.config import styles
 from drawlib.shapes import rectangle
+from drawlib.styles import styles
 from drawlib.text import text
 
 setup(width=120, height=50)
@@ -103,17 +103,17 @@ Avoid manually placing dozens of low-level `rectangle` and `line` primitives whe
 
 ## 4. Visual Styles, Fonts & Media
 
-- **Dynamic Configuration & Styles (`drawlib.config`)**:
-  - `drawlib.config` manages runtime configuration, merging defaults with custom `--config` overlays.
-  - **Rule (Config vs Preset Styles)**: If styles might be customized or themed via options (e.g. CLI `--config`), **always reference `styles` from `drawlib.config` (`from drawlib.config import styles`) rather than `drawlib.preset_styles`**. Because `config` is replaceable at runtime, using `config.styles` allows seamless theme switching and style patches across all diagrams without editing drawing code.
+- **Dynamic Theming & Styles (`drawlib.styles`)**:
+  - `drawlib.styles` provides runtime theme presets (`styles`, `colors`), customizable via `styles.py` or `--styles`.
+  - **Rule (Styles vs Preset Styles)**: If styles might be customized or themed via options (e.g. CLI `--styles`), **always reference `styles` from `drawlib.styles` (`from drawlib.styles import styles, colors`) rather than `drawlib.preset_styles`**. Because `styles` is replaceable at runtime, using `drawlib.styles` allows seamless theme switching and style patches across all diagrams without editing drawing code.
 - **Preset Naming Pattern**: `<color>_<variant>` (`style=styles.blue_flat`, `style=styles.green_outline`, `style=styles.purple_flat`, `style=styles.bold`, `textstyle=styles.white_bold`).
-- **Colors (`drawlib.colors`)**: Curated palettes (`ColorsDefault`, `ColorsMonochrome`, `ColorsEssentials`, `Colors140`) and helpers (`from_hex("#3498db", alpha=0.8)`, `with_alpha(color, 0.5)`).
+- **Colors (`drawlib.colors`)**: Curated palettes (`DefaultStyleColors`, `MonochromeStyleColors`, `EssentialsStyleColors`, `Colors140`), `Color` class with `.patch(alpha=0.5)`, and `Color.from_hex("#3498db")`.
 - **Typography & Fonts (`drawlib.fonts`)**: Universal CJK+Latin `Font` (no glyph boxes), `FontRoboto` (weights), `FontMonoSpace` (code/logs), and `FontFile("brand.ttf")`.
 - **Style Models & Types (`drawlib.types`)**: `Style` dataclass (`fill_color`, `line_width`, `text_size`, etc.). Use `style.copy()` for safe derivation. Subclass `BasePresetStyles` for custom themes.
 - **Image Embedding (`drawlib.images`)**: `image((x, y), width=w, image="logo.png")` (auto aspect ratio). In-memory embedding via `canvas.get_dimage()` and `get_dimage_from_code()`.
 
 **Related Rules**:
-- Configuration & Dynamic Theming: `uv run drawlib rules show config`
+- Styles & Dynamic Theming: `uv run drawlib rules show styles`
 - Preset Styles & Palettes Detail: `uv run drawlib rules show preset_styles`
 - Colors & Hex Conversion: `uv run drawlib rules show colors`
 - Typography & Fonts: `uv run drawlib rules show fonts`
@@ -130,9 +130,9 @@ Embed illustrations in standard Markdown files (`docs_src/*.md`):
 ````markdown
 ```drawlib fold-code 600px center caption:"System Architecture"
 from drawlib.canvas import setup
-from drawlib.config import styles
 from drawlib.lines import line
 from drawlib.shapes import rectangle
+from drawlib.styles import styles
 
 setup(width=120, height=50)
 rectangle((30, 25), width=25, height=15, style=styles.blue_flat, text="Client")
@@ -153,7 +153,7 @@ Execute compilation and diagram extraction directly from Python code, CI/CD, or 
 ```python
 from drawlib.tools import build_html, export_block
 export_block("docs_src/arch.md", "1", "scratch/preview.png", grid=True)
-build_html("docs_src/", "docs_html/", config_path="docs_config.py")
+build_html("docs_src/", "docs_html/", styles_path="styles.py")
 ```
 
 **Related Rules**:

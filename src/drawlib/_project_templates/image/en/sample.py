@@ -12,9 +12,9 @@
 from __future__ import annotations
 
 from drawlib.canvas import save, setup
-from drawlib.config import styles
 from drawlib.lines import line
 from drawlib.shapes import rectangle
+from drawlib.styles import styles
 from drawlib.text import text
 
 # Setup canvas: 100 wide x 50 high

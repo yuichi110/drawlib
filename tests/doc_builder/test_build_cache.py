@@ -214,7 +214,7 @@ def test_build_image_caching_and_no_cache(tmp_path: Path, monkeypatch: pytest.Mo
     script = tmp_path / "my_draw.py"
     script.write_text(
         """from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 
 setup(width=100, height=100)

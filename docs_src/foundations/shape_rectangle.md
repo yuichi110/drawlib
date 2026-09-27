@@ -47,7 +47,7 @@ Let's explore two examples.
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import arc
 from drawlib.text import text
 
@@ -75,7 +75,7 @@ Here's an example output:
 from drawlib.canvas import save, setup
 from drawlib.shapes import arc
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 arc(xy=(25, 25), width=30, height=20, angle_start=0, angle_end=135, style=styles.primary)
@@ -121,7 +121,7 @@ Let's explore two examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import chevron
 from drawlib.text import text
 
@@ -149,7 +149,7 @@ Here is an example output:
 from drawlib.canvas import save, setup
 from drawlib.shapes import chevron
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 chevron(xy=(25, 25), width=30, height=20, corner_angle=30, style=styles.primary)
@@ -192,7 +192,7 @@ Let's explore two examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import ellipse
 from drawlib.text import text
 
@@ -209,7 +209,7 @@ Here is an example output:
 from drawlib.canvas import save, setup
 from drawlib.shapes import ellipse
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 ellipse(xy=(25, 25), width=30, height=20, style=styles.primary)
@@ -246,7 +246,7 @@ Let's explore two examples.
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import parallelogram
 from drawlib.text import text
 
@@ -271,7 +271,7 @@ Here is an example output:
 from drawlib.canvas import save, setup
 from drawlib.shapes import parallelogram
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 parallelogram(xy=(25, 25), width=20, height=15, corner_angle=30, style=styles.primary)
@@ -315,7 +315,7 @@ Let's explore two examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import rectangle
 from drawlib.text import text
 
@@ -332,7 +332,7 @@ Here is an example output:
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 rectangle(xy=(25, 25), width=30, height=20, style=styles.primary)
@@ -365,7 +365,7 @@ Let's explore two examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import rhombus
 from drawlib.text import text
 
@@ -382,7 +382,7 @@ Here is an example output:
 from drawlib.canvas import save, setup
 from drawlib.shapes import rhombus
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 rhombus(xy=(25, 25), width=20, height=40, style=styles.primary)
@@ -419,7 +419,7 @@ Let's explore two examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import trapezoid
 from drawlib.text import text
 
@@ -445,7 +445,7 @@ Here is an example output:
 from drawlib.canvas import save, setup
 from drawlib.shapes import trapezoid
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 trapezoid(xy=(25, 25), height=20, bottomedge_width=30, topedge_width=20, style=styles.primary)
@@ -490,7 +490,7 @@ Let's explore two examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import rectangle, triangle
 from drawlib.text import text
 
@@ -507,7 +507,7 @@ Here is an example output:
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle, triangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 triangle(xy=(25, 25), width=30, height=20, style=styles.primary)

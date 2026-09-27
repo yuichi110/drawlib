@@ -103,7 +103,7 @@ Here's an example of changing the aspect ratio where we halve the image height:
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, dpi=200)
 
@@ -134,7 +134,7 @@ Here is the output:
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, dpi=200)
 
@@ -172,7 +172,7 @@ Here's an example that keeps the center 50% of the image:
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, dpi=200)
 
@@ -203,7 +203,7 @@ Here is the output:
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, dpi=200)
 
@@ -240,7 +240,7 @@ Here's an example:
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, dpi=200)
 
@@ -265,7 +265,7 @@ Here is the output:
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, dpi=200)
 
@@ -300,7 +300,7 @@ Here's an example:
 from drawlib.canvas import save, setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, dpi=200)
 
@@ -325,7 +325,7 @@ Here is the output.
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, dpi=200)
 
@@ -356,7 +356,7 @@ Here's an example:
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, dpi=200)
 
@@ -377,7 +377,7 @@ Here is an output.
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, dpi=200)
 
@@ -401,7 +401,7 @@ from drawlib.canvas import setup
 from drawlib.colors import Colors, ColorsDefault
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, dpi=200, background_color=Colors.Gray)
 
@@ -441,7 +441,7 @@ from drawlib.canvas import setup
 from drawlib.colors import Colors, ColorsDefault
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, dpi=200, background_color=Colors.Gray)
 
@@ -491,7 +491,7 @@ Here's an example:
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, dpi=200)
 
@@ -512,7 +512,7 @@ Here is the output.
 from drawlib.canvas import setup
 from drawlib.images import Dimage, image
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, dpi=200)
 

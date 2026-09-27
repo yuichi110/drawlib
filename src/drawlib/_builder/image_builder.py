@@ -27,8 +27,8 @@ from pydantic import validate_call
 import drawlib._core.canvas
 import drawlib.canvas
 from drawlib._builder.doc_builder.build_cache import BuildImageCache, hash_file
-from drawlib._builder.doc_builder.config import load_config
 from drawlib._builder.doc_builder.progress import FileBuildProgress, format_duplicate_output_error
+from drawlib._builder.doc_builder.styles_utils import load_styles_and_utils
 from drawlib._core.canvas import clear
 from drawlib._core.utils import dutil_settings, get_script_relative_path, logger
 from drawlib._utils import dutil_canvas
@@ -44,7 +44,8 @@ class DrawlibExecuter:
     def __init__(
         self,
         mode: Literal["none", "auto_clear", "auto_initialize"] = "auto_clear",
-        config_path: Optional[str] = None,
+        styles_path: Optional[str] = None,
+        utils_path: Optional[str] = None,
         output_dir: Optional[str] = None,
         output_file: Optional[str] = None,
         image_format: Optional[Literal["png", "webp", "jpg", "pdf"]] = None,
@@ -60,7 +61,8 @@ class DrawlibExecuter:
                 - "none": Executes Python files without clearing canvas between executions.
                 - "auto_clear": Automatically clears the canvas between executing each Python file.
                 - "auto_initialize": Automatically initializes canvas per execution.
-            config_path (Optional[str]): Optional path to Python config script.
+            styles_path (Optional[str]): Optional path to Python styles script.
+            utils_path (Optional[str]): Optional path to Python utils script.
             output_dir (Optional[str]): Optional path to directory where images should be saved.
             output_file (Optional[str]): Optional explicit output file path when executing a single script.
             image_format (Optional[Literal["png", "webp", "jpg", "pdf"]]): Optional image format override.
@@ -74,8 +76,11 @@ class DrawlibExecuter:
         if mode not in {"none", "auto_clear", "auto_initialize"}:
             raise ValueError(f'Arg mode is "{mode}". But it must be one of ["none", "auto_clear", "auto_initialize"].')
         self._mode = mode
-        self._config_path = config_path
-        self._config_hash = hash_file(config_path)
+        self._styles_path = styles_path
+        self._utils_path = utils_path
+        s_hash = hash_file(styles_path) if styles_path else ""
+        u_hash = hash_file(utils_path) if utils_path else ""
+        self._config_hash = f"{s_hash}:{u_hash}"
         self._output_dir = output_dir
         self._output_file = output_file
         self._image_format: Optional[Literal["png", "webp", "jpg", "pdf"]] = image_format
@@ -557,7 +562,7 @@ class DrawlibExecuter:
             for file in files:
                 if file.startswith("."):
                     continue
-                if file in {"config.py", "__init__.py"}:
+                if file in {"styles.py", "utils.py", "__init__.py"}:
                     continue
                 if file.endswith(".py"):
                     file_path = os.path.join(root, file)
@@ -588,13 +593,13 @@ class DrawlibExecuter:
         return os.path.splitext(os.path.basename(file_path))[0]
 
     def _prepare_canvas_for_module(self) -> None:
-        """Reset/initialize canvas and apply optional config script before module execution."""
+        """Reset/initialize canvas and apply optional styles and utils scripts before module execution."""
         if self._mode == "auto_clear":
             clear()
         elif self._mode == "auto_initialize":
             dutil_canvas.initialize()
 
-        load_config(self._config_path)
+        load_styles_and_utils(styles_path=self._styles_path, utils_path=self._utils_path)
 
     def _exec_module(self, file_path: str) -> None:
         """Execute the specified Python module file."""
@@ -634,9 +639,9 @@ class DrawlibExecuter:
             raise
 
     @staticmethod
-    def _exec_config(config_path: str) -> None:
-        """Execute external config script before running drawing code."""
-        load_config(config_path)
+    def _exec_styles_and_utils(styles_path: Optional[str] = None, utils_path: Optional[str] = None) -> None:
+        """Execute external styles and utils scripts before running drawing code."""
+        load_styles_and_utils(styles_path=styles_path, utils_path=utils_path)
 
     @staticmethod
     def _is_module_loaded(module_path: str) -> bool:
@@ -743,11 +748,34 @@ def _resolve_execution_mode(
     return "auto_clear"
 
 
+def _find_candidate_file(raw_targets: Sequence[str], filename: str) -> Optional[str]:
+    """Search for a candidate file (e.g. 'styles.py' or 'utils.py') in target roots.
+
+    Args:
+        raw_targets (Sequence[str]): Raw input targets.
+        filename (str): Name of the candidate file to search for.
+
+    Returns:
+        Optional[str]: Absolute path to the candidate file if found, otherwise None.
+    """
+    for t in raw_targets:
+        t_abs = os.path.abspath(t)
+        cand = (
+            os.path.join(t_abs, filename)
+            if os.path.isdir(t_abs)
+            else os.path.join(os.path.dirname(t_abs), filename)
+        )
+        if os.path.isfile(cand):
+            return cand
+    return None
+
+
 def build_image(
     inputs: Union[str, Sequence[str]],
     output: Optional[str] = None,
     format: Optional[Literal["png", "webp", "jpg", "pdf"]] = None,
-    config: Optional[str] = None,
+    styles: Optional[str] = None,
+    utils: Optional[str] = None,
     grid: bool = False,
     disable_auto_clear: bool = False,
     enable_auto_initialize: bool = False,
@@ -759,7 +787,8 @@ def build_image(
         inputs (Union[str, Sequence[str]]): One or more target Python files (.py) or directories.
         output (Optional[str]): Output image file path (for single script) or output directory path.
         format (Optional[Literal["png", "webp", "jpg", "pdf"]]): Image format override ('png', 'webp', 'jpg', 'pdf').
-        config (Optional[str]): Optional path to Python config/setup script.
+        styles (Optional[str]): Optional path to Python styles script.
+        utils (Optional[str]): Optional path to Python utils script.
         grid (bool): Whether to save companion *_grid.<ext> images with coordinate grid overlaid.
         disable_auto_clear (bool): Disable clearing canvas per executing drawing code file.
         enable_auto_initialize (bool): Enable full canvas re-initialization per executing drawing code file.
@@ -775,24 +804,19 @@ def build_image(
     if not raw_targets:
         raise ValueError("No input files or directories specified for build_image.")
 
-    if config is None:
-        for t in raw_targets:
-            t_abs = os.path.abspath(t)
-            cand = (
-                os.path.join(t_abs, "config.py")
-                if os.path.isdir(t_abs)
-                else os.path.join(os.path.dirname(t_abs), "config.py")
-            )
-            if os.path.isfile(cand):
-                config = cand
-                break
+    if styles is None:
+        styles = _find_candidate_file(raw_targets, "styles.py")
+
+    if utils is None:
+        utils = _find_candidate_file(raw_targets, "utils.py")
 
     target_list, output_dir, output_file = _normalize_build_inputs_and_output(raw_targets, output)
     exec_mode = _resolve_execution_mode(disable_auto_clear, enable_auto_initialize)
     target_roots = [os.path.abspath(t) for t in target_list if os.path.isdir(t)]
     executer = DrawlibExecuter(
         mode=exec_mode,
-        config_path=config,
+        styles_path=styles,
+        utils_path=utils,
         output_dir=output_dir,
         output_file=output_file,
         image_format=format,

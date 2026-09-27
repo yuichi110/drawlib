@@ -40,7 +40,7 @@ Let's look at an example:
 ```python
 from drawlib.canvas import save, setup
 from drawlib.lines import line
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 line(xy1=(10, 10), xy2=(90, 40), style=styles.primary)
@@ -93,7 +93,7 @@ Let's check some examples:
 from drawlib.canvas import save, setup
 from drawlib.lines import line_curved
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 line_curved(xy1=(10, 20), xy2=(90, 20), bend=0.4, style=styles.primary)
@@ -147,7 +147,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line, line_bezier1
 from drawlib.shapes import circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 line_bezier1(xy1=(10, 10), cp=(10, 40), xy2=(40, 40), style=styles.primary)
@@ -207,7 +207,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line, line_bezier2
 from drawlib.shapes import circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 line_bezier2(xy1=(10, 10), cp1=(10, 40), cp2=(40, 40), xy2=(40, 10), style=styles.primary)
@@ -272,7 +272,7 @@ Here is an example code:
 ```python
 from drawlib.canvas import save, setup
 from drawlib.lines import lines
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 lines(
@@ -335,7 +335,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line, lines_bezier
 from drawlib.shapes import circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 
@@ -389,7 +389,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line, lines_bezier
 from drawlib.shapes import circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 
@@ -450,7 +450,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import lines, lines_curved
 from drawlib.shapes import circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 

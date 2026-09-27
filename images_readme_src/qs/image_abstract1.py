@@ -1,7 +1,7 @@
 from drawlib.canvas import save, setup
 from drawlib.images import image
 from drawlib.lines import line
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 from drawlib.text import text
 

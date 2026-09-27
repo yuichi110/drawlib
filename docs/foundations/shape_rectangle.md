@@ -47,7 +47,7 @@ Let's explore two examples.
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import arc
 from drawlib.text import text
 
@@ -108,7 +108,7 @@ Let's explore two examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import chevron
 from drawlib.text import text
 
@@ -166,7 +166,7 @@ Let's explore two examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import ellipse
 from drawlib.text import text
 
@@ -216,7 +216,7 @@ Let's explore two examples.
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import parallelogram
 from drawlib.text import text
 
@@ -273,7 +273,7 @@ Let's explore two examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import rectangle
 from drawlib.text import text
 
@@ -319,7 +319,7 @@ Let's explore two examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import rhombus
 from drawlib.text import text
 
@@ -369,7 +369,7 @@ Let's explore two examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import trapezoid
 from drawlib.text import text
 
@@ -427,7 +427,7 @@ Let's explore two examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import rectangle, triangle
 from drawlib.text import text
 

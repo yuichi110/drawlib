@@ -8,7 +8,7 @@ Class `GridLayout` draws smart art grid layouted rectangles.
 from drawlib.canvas import setup
 from drawlib.smartarts import GridLayout
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 

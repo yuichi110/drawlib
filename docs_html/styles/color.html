@@ -402,13 +402,15 @@
             <main class="main-content">
                 <h1>Color Classes</h1>
 <p>Drawlib's color format is standard RGB <code>(0-255, 0-255, 0-255)</code> or RGBA <code>(0-255, 0-255, 0-255, 0.0-1.0)</code>.
-To make color handling intuitive, Drawlib provides pre-defined Color classes as well as utility functions (<code>from_hex</code>, <code>from_grayscale</code>, <code>with_alpha</code>) in <code>drawlib.colors</code>:</p>
+To make color handling intuitive, Drawlib provides a first-class <code>Color</code> model as well as pre-defined Color catalogs in <code>drawlib.colors</code>:</p>
 <ul>
+<li><code>Color</code>: Immutable color model with <code>.patch()</code> and <code>.from_hex()</code></li>
 <li><code>Colors</code>: Basic web 16 colors + Transparent</li>
 <li><code>Colors140</code>: Full CSS web 140 colors + Transparent</li>
-<li><code>ColorsDefault</code>: Colors used in preset style <code>default</code></li>
-<li><code>ColorsEssentials</code>: Colors used in preset style <code>essentials</code></li>
-<li><code>ColorsMonochrome</code>: Grayscale colors used in preset style <code>monochrome</code></li>
+<li><code>DefaultStyleColors</code>: Colors used in preset style <code>default</code></li>
+<li><code>EssentialsStyleColors</code>: Colors used in preset style <code>essentials</code></li>
+<li><code>MonochromeStyleColors</code>: Grayscale colors used in preset style <code>monochrome</code></li>
+<li><code>GoogleStyleColors</code>: Colors matching Google themes</li>
 </ul>
 <p>Here is an image showing their relationships:</p>
 <div class="drawlib-image" style="text-align: center;">
@@ -422,7 +424,7 @@ from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=80)
 y1 = 70
@@ -435,13 +437,7 @@ rect_style = styles.white
 rect_text_style = styles.primary.patch(text_size=18)
 
 COLORS_BASE_TEXT = &quot;&quot;&quot;
-- Transparent = (0, 0, 0, 0.0)
-
-- get_rgba()
-
-- get_rgba_from_hexcode()
-
-- get_rgba_from_grayscale()
+- Transparent = Color(0, 0, 0, 0.0)
 &quot;&quot;&quot;.strip()
 
 COLORS_TEXT = &quot;&quot;&quot;
@@ -756,7 +752,7 @@ from drawlib.fonts import FontRoboto
 from drawlib.shapes import circle, rectangle, triangle, wedge
 from drawlib.text import text
 from drawlib.types import ColorsBase, Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 
 # Please define color at styling codes normally.
@@ -823,19 +819,20 @@ Typically, you should define your color class in a styling module and import it 
 <div class="drawlib-image" style="text-align: center;">
   <img src="color_images/2.png" alt="color_2" style="width: 600px; max-width: 100%;" />
 </div>
-<h1>Color Utilities</h1>
-<p>Drawlib provides helper functions in <code>drawlib.colors</code> for converting between hex strings, grayscales, and RGBA tuples:</p>
-<pre><code class="language-python">from drawlib.colors import from_grayscale, from_hex, with_alpha
+<h1>Color Model &amp; Manipulation</h1>
+<p>All preset colors in <code>drawlib.colors</code> are <code>Color</code> instances. The <code>Color</code> class provides <code>.patch()</code> for deriving modified colors and <code>Color.from_hex()</code> for hex strings:</p>
+<pre><code class="language-python">from drawlib.colors import Color, DefaultStyleColors
 
-# 1. Hex code to RGBA:
-color1 = from_hex(&quot;#4285F4&quot;)         # Google Blue (66, 133, 244, 1.0)
-color2 = from_hex(&quot;#34A85380&quot;)       # With alpha (52, 168, 83, 0.5)
+# 1. Hex code to Color:
+color1 = Color.from_hex(&quot;#4285F4&quot;)         # Google Blue (66, 133, 244, 1.0)
+color2 = Color(&quot;#34A85380&quot;)                # Direct initialization with hex (52, 168, 83, 0.5)
 
-# 2. Grayscale to RGBA:
-dark_gray = from_grayscale(40)       # (40, 40, 40, 1.0)
+# 2. Add or modify alpha channel of an existing color via .patch():
+transparent_blue = color1.patch(alpha=0.3) # (66, 133, 244, 0.3)
+subtle_blue = DefaultStyleColors.Blue.patch(alpha=0.15)
 
-# 3. Add or modify alpha channel of an existing color:
-transparent_blue = with_alpha(color1, 0.3)  # (66, 133, 244, 0.3)
+# 3. Modify RGB channels:
+custom_red = color1.patch(r=255, g=0)
 </code></pre>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>

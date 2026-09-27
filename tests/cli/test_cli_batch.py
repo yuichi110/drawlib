@@ -143,24 +143,23 @@ save()
     assert not (scripts_dir / "img_out.png").exists()
 
 
-def test_cli_build_image_with_config(tmp_path) -> None:
-    """Test build image command with --config script applied before drawing."""
+def test_cli_build_image_with_styles(tmp_path) -> None:
+    """Test build image command with --styles script applied before drawing."""
     scripts_dir = tmp_path / "scripts"
     scripts_dir.mkdir()
-    cfg_file = tmp_path / "custom_config.py"
-    cfg_file.write_text(
-        """from drawlib.canvas import config
-config(width=200, height=100)
+    styles_file = tmp_path / "custom_styles.py"
+    styles_file.write_text(
+        """from drawlib.preset_styles import default_styles
+styles = default_styles
 """,
         encoding="utf-8",
     )
 
     (scripts_dir / "img_cfg.py").write_text(
         """from drawlib.canvas import save
-from drawlib.preset_styles import default_styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 
-styles = default_styles
 circle((100, 50), radius=20, style=styles.primary)
 save()
 """,
@@ -168,7 +167,7 @@ save()
     )
 
     res = run_drawlib_cli(
-        ["build", "image", str(scripts_dir), "--config", str(cfg_file)],
+        ["build", "image", str(scripts_dir), "--styles", str(styles_file)],
         cwd=str(tmp_path),
     )
     assert res.returncode == 0

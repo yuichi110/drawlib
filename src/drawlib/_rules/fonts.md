@@ -96,7 +96,7 @@ Specialized typography for international technical documentation:
 To render text using an external TrueType (`.ttf`) or OpenType (`.otf`) font file:
 
 ```python
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.fonts import FontFile
 from drawlib.text import text
 from drawlib.types import Style
@@ -132,7 +132,7 @@ from drawlib.fonts import FontMonoSpace, FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=140, height=65)
 
@@ -170,7 +170,7 @@ from drawlib.canvas import save, setup
 from drawlib.fonts import Font
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=50)
 

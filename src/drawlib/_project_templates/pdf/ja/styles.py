@@ -7,8 +7,16 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Drawlib configuration file."""
+"""Drawlib styles configuration file."""
 
 from __future__ import annotations
 
-# Configure global drawing settings, custom preset styles, or fonts here.
+from drawlib.fonts import FontJapanese
+from drawlib.styles import styles
+
+# 日本語フォントをデフォルトとして適用
+styles = styles.patch_font(
+    regular=FontJapanese.SANSSERIF_REGULAR,
+    bold=FontJapanese.SANSSERIF_BOLD,
+    light=FontJapanese.SANSSERIF_LIGHT,
+)

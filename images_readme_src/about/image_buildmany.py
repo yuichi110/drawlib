@@ -12,7 +12,7 @@ from drawlib.colors import Colors, ColorsThemeEssentials
 from drawlib.fonts import FontRoboto
 from drawlib.icons import phosphor
 from drawlib.lines import line
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import arrow, rectangle
 from drawlib.text import text
 

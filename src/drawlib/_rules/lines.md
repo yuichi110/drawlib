@@ -97,7 +97,7 @@ from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=60)
 
@@ -188,7 +188,7 @@ from drawlib.lines import line_curved
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=60)
 
@@ -320,7 +320,7 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line_bezier1, line_bezier2
 from drawlib.shapes import rectangle
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=60)
 
@@ -415,7 +415,7 @@ from drawlib.colors import Colors
 from drawlib.lines import line, lines
 from drawlib.shapes import rectangle
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=60)
 
@@ -518,7 +518,7 @@ from drawlib.canvas import save, setup
 from drawlib.lines import lines_curved, lines_bezier
 from drawlib.shapes import circle
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=60)
 
@@ -610,7 +610,7 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line, line_arc
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=60)
 
@@ -687,7 +687,7 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=70)
 
@@ -788,7 +788,7 @@ from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=55)
 
@@ -908,7 +908,7 @@ Route horizontally to an alignment trunk, then step vertically into each target'
 from drawlib.canvas import save, setup
 from drawlib.lines import lines
 from drawlib.shapes import rectangle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=50)
 rectangle((20, 25), width=20, height=16, style=styles.navy_flat, text="API Gateway", textstyle=styles.white_bold)
@@ -925,7 +925,7 @@ Parallel lines maintain uniform separation and turn corners in synchronized lock
 ```drawlib show-code
 from drawlib.canvas import save, setup
 from drawlib.lines import lines_curved
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=50)
 pitch, base_r = 2.0, 4.0
@@ -944,7 +944,7 @@ A central message queue or event streaming log acts as an orthogonal trunk:
 from drawlib.canvas import save, setup
 from drawlib.lines import lines
 from drawlib.shapes import rectangle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=60)
 rectangle((60, 30), width=90, height=8, style=styles.purple_flat, text="Kafka Event Log", textstyle=styles.white_bold)
@@ -969,7 +969,7 @@ from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=50)
 line((60, 5), (60, 45), style=styles.bold.patch(line_color=Colors.Red, line_style="dashed", line_width=1.5))
@@ -1044,7 +1044,7 @@ from drawlib.canvas import save, setup
 from drawlib.lines import lines_curved
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=50)
 

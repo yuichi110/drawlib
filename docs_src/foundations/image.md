@@ -81,7 +81,7 @@ from drawlib.colors import Colors
 from drawlib.images import image
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 
@@ -131,7 +131,7 @@ from drawlib.colors import Colors
 from drawlib.images import image
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 

@@ -35,7 +35,7 @@ Let's explore two examples.
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 from drawlib.text import text
 
@@ -84,7 +84,7 @@ Let's explore two examples.
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import donuts
 from drawlib.text import text
 
@@ -139,7 +139,7 @@ Let's explore two examples.
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import fan
 from drawlib.text import text
 
@@ -200,7 +200,7 @@ Here are two examples demonstrating the use of `regularpolygon()`:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import polygon, regularpolygon
 from drawlib.text import text
 
@@ -250,7 +250,7 @@ Here are two examples demonstrating the use of `star()`:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import star
 from drawlib.text import text
 
@@ -299,7 +299,7 @@ Here is an example demonstrating the use of `wedge()`:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import wedge
 from drawlib.text import text
 

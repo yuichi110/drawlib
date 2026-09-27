@@ -57,7 +57,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=40)
 
@@ -90,7 +90,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=40)
 
@@ -147,7 +147,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 
@@ -188,7 +188,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 
@@ -241,7 +241,7 @@ Let's look at an example:
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=40)
 
@@ -273,7 +273,7 @@ Executing this code generates the following output:
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=40)
 

@@ -54,9 +54,13 @@ def cmd_build_image(
         Optional[Literal["png", "webp", "jpg", "pdf"]],
         typer.Option("-f", "--format", help="Output image format override (png, webp, jpg, pdf)."),
     ] = None,
-    config: Annotated[
+    styles: Annotated[
         Optional[str],
-        typer.Option("-c", "--config", help="Path to Python config/setup script (e.g. config.py)."),
+        typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
+    ] = None,
+    utils: Annotated[
+        Optional[str],
+        typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
     ] = None,
     grid: Annotated[
         bool,
@@ -89,7 +93,8 @@ def cmd_build_image(
             inputs=inputs,
             output=output,
             format=format,
-            config=config,
+            styles=styles,
+            utils=utils,
             grid=grid,
             disable_auto_clear=disable_auto_clear,
             enable_auto_initialize=enable_auto_initialize,
@@ -117,9 +122,13 @@ def cmd_build_markdown(
         Literal["png", "webp"],
         typer.Option("--image-format", help="Image output format for drawlib blocks: png or webp."),
     ] = "png",
-    config: Annotated[
+    styles: Annotated[
         Optional[str],
-        typer.Option("-c", "--config", help="Path to Python config/setup script (e.g. config.py)."),
+        typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
+    ] = None,
+    utils: Annotated[
+        Optional[str],
+        typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
     ] = None,
     no_cache: Annotated[
         bool,
@@ -132,7 +141,8 @@ def cmd_build_markdown(
             input_path=input_path,
             output=output,
             image_format=image_format,
-            config=config,
+            styles=styles,
+            utils=utils,
             no_cache=no_cache,
         )
         print(f"Successfully compiled Markdown document(s): {out_file}")
@@ -154,9 +164,13 @@ def cmd_build_html(
         Literal["png", "webp"],
         typer.Option("--image-format", help="Image output format for drawlib blocks: png or webp."),
     ] = "png",
-    config: Annotated[
+    styles: Annotated[
         Optional[str],
-        typer.Option("-c", "--config", help="Path to Python config/setup script (e.g. config.py)."),
+        typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
+    ] = None,
+    utils: Annotated[
+        Optional[str],
+        typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
     ] = None,
     no_cache: Annotated[
         bool,
@@ -169,7 +183,8 @@ def cmd_build_html(
             input_path=input_path,
             output=output,
             image_format=image_format,
-            config=config,
+            styles=styles,
+            utils=utils,
             no_cache=no_cache,
         )
         print(f"Successfully compiled HTML document(s): {out_file}")
@@ -206,9 +221,13 @@ def cmd_build_pdf(
         Optional[str],
         typer.Option("--title", help="Document title override for the merged PDF."),
     ] = None,
-    config: Annotated[
+    styles: Annotated[
         Optional[str],
-        typer.Option("-c", "--config", help="Path to Python config/setup script (e.g. config.py)."),
+        typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
+    ] = None,
+    utils: Annotated[
+        Optional[str],
+        typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
     ] = None,
     no_cache: Annotated[
         bool,
@@ -230,7 +249,8 @@ def cmd_build_pdf(
             page_break=page_break,
             generate_index=generate_index,
             title=title,
-            config=config,
+            styles=styles,
+            utils=utils,
             no_cache=no_cache,
             timestamp=timestamp,
         )

@@ -401,13 +401,13 @@
             </header>
             <main class="main-content">
                 <h1>Advanced Preset Styles Topics</h1>
-<p>In this section, we cover advanced topics for working with preset styles in <code>drawlib.preset_styles</code> and <code>drawlib.config</code>.</p>
-<h1>Accessing Styles via <code>drawlib.config</code> or Official Catalogs</h1>
+<p>In this section, we cover advanced topics for working with preset styles in <code>drawlib.preset_styles</code> and <code>drawlib.styles</code>.</p>
+<h1>Accessing Styles via <code>drawlib.styles</code> or Official Catalogs</h1>
 <p>Drawlib provides style presets as catalog objects (<code>BasePresetStyles</code>) containing strongly-typed <code>Style</code> objects for key roles and colors.
-The recommended way to access styles in drawing code is via <code>drawlib.config</code>:</p>
-<pre><code class="language-python">from drawlib.config import styles
+The recommended way to access styles in drawing code is via <code>drawlib.styles</code>:</p>
+<pre><code class="language-python">from drawlib.styles import styles
 </code></pre>
-<p>This provides direct access to the active project styles (defaulting to <code>EssentialsStyles</code>) and allows styles to be themed dynamically across the entire project via configuration files.</p>
+<p>This provides direct access to the active project styles (defaulting to <code>EssentialsStyles</code>) and allows styles to be themed dynamically across the entire project via <code>styles.py</code> files.</p>
 <h2>Standard Style Roles</h2>
 <p>You can access standard preset styles directly by attribute or key:</p>
 <ul>
@@ -420,7 +420,7 @@ The recommended way to access styles in drawing code is via <code>drawlib.config
 </ul>
 <p>Example:</p>
 <pre><code class="language-python">from drawlib.canvas import setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
@@ -440,7 +440,7 @@ text((50, 20), &quot;Preset Styles&quot;, style=styles.bold)
 <h2>Using Color Names and Combinations</h2>
 <p>You can also access color-specific styles (e.g., <code>styles.red_flat</code>, <code>styles.blue_solid</code>, <code>styles.red_bold</code>):</p>
 <pre><code class="language-python">from drawlib.canvas import setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
@@ -482,7 +482,7 @@ rectangle((75, 20), width=20, height=20, style=monochrome_styles.bold)
 <p>Because <code>Style</code> objects in Drawlib are immutable (<code>frozen=True</code>), styles are customized using the <code>.patch()</code> method to create new derived <code>Style</code> instances safely:</p>
 <pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.colors import ColorsDefault
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.text import text
 
 custom_style = styles.blue.patch(text_size=28, text_color=ColorsDefault.Red)
@@ -497,7 +497,7 @@ text((50, 20), &quot;Customized Style&quot;, style=custom_style)
 <h1>Patching Typography Globally with <code>styles.patch_font()</code></h1>
 <p>When creating illustrations or documentation in Japanese, Chinese, or specialized brand typefaces, setting fonts individually on each shape or text call is tedious and prone to missing glyphs (e.g. tofu boxes on bold text).</p>
 <p>You can patch all font definitions across the entire active style catalog using <code>styles.patch_font()</code>:</p>
-<pre><code class="language-python">from drawlib.config import styles
+<pre><code class="language-python">from drawlib.styles import styles
 from drawlib.fonts import FontJapanese
 
 # Patch regular and bold fonts for all styles in the active catalog
@@ -513,7 +513,7 @@ styles.patch_font(
 <li><strong><code>light</code></strong> (keyword-only): Overrides all light styles (such as <code>styles.light</code>, <code>styles.red_light</code>, etc.).</li>
 <li><strong><code>sourcecode</code></strong> (keyword-only): Updates the default monospace font used by source code rendering components (<code>styles.sourcecode_font</code>).</li>
 </ul>
-<p>This method is commonly configured in your project's <code>config.py</code> so that all diagrams automatically render with the appropriate font.</p>
+<p>This method is commonly configured in your project's <code>styles.py</code> so that all diagrams automatically render with the appropriate font.</p>
 <hr />
 <p align="center"><em>© 2026 drawlib by Yuichi Ito. Released under the Apache 2.0 License.</em></p>
 

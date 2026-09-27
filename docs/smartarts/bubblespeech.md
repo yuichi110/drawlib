@@ -9,7 +9,7 @@ Here's an example of using Bubblespeech in Drawlib:
 
 ```python
 from drawlib.canvas import setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.smartarts import bubblespeech
 
 setup(width=95, height=52)

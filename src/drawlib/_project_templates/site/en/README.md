@@ -6,7 +6,7 @@ This directory contains the source Markdown files and configurations for the doc
 
 - `__SRC_DIR__/`: Source Markdown documents and illustrations (**Source of Truth**).
   - `build.sh`: Build script to compile documents into Markdown and HTML.
-  - `config.py`: Global configuration script (themes, styles, canvas defaults).
+  - `styles.py`: Global styles script (themes, styles, font presets).
   - `README.md`: This guide.
   - `index.md`: Root landing page.
   - `navbar.md`: Navigation sidebar definition.

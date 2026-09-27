@@ -25,7 +25,7 @@ from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import arrow, circle, rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 
 setup(width=100, height=60, grid=True)
@@ -260,7 +260,7 @@ If you only require the grid illustration, you can use the `grid_only=True` opti
 ```python
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 circle((50, 25), radius=20, style=styles.primary)
@@ -293,7 +293,7 @@ Here's an example code snippet demonstrating the use of grid styles:
 from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(
     width=100,
@@ -353,7 +353,7 @@ from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=100, grid_only=True)
 circle(
@@ -387,7 +387,7 @@ Now, let's adjust the size to `setup(width=200, height=200, ...)`:
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=200, height=200, grid_only=True)
 circle(
@@ -423,7 +423,7 @@ In the following example, we set the canvas coordinate size to full HD (1920x108
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=1920, height=1080, grid_only=True)
 circle(
@@ -498,7 +498,7 @@ Let's demonstrate this with an example:
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=100, dpi=200, grid_only=True)
 circle(
@@ -560,7 +560,7 @@ Let's look at an example:
 from drawlib.canvas import save, setup
 from drawlib.colors import Colors140
 from drawlib.shapes import circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(background_color=Colors140.Orange, background_alpha=0.2)
 circle((50, 50), radius=30, style=styles.primary)
@@ -612,7 +612,7 @@ Here's an example:
 ```python
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 circle((50, 25), radius=20, style=styles.primary)
@@ -654,7 +654,7 @@ Here's an example:
 ```python
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 circle((50, 25), radius=20, style=styles.primary)

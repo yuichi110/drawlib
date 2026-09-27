@@ -51,7 +51,7 @@ Here's how you can use the FontFile class in your Python code:
 ```python
 from drawlib.canvas import setup
 from drawlib.fonts import FontFile
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.text import text
 
 
@@ -73,7 +73,7 @@ Executing this code generates the output:
 from drawlib.canvas import setup
 from drawlib.fonts import FontFile
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 text(
@@ -116,7 +116,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import Font
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 font_matrix = [
     ("SansSerif", Font.SANSSERIF_LIGHT, Font.SANSSERIF_REGULAR, Font.SANSSERIF_BOLD),
@@ -183,7 +183,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontSansSerif
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 font_matrix = [
     ("Lato", FontSansSerif.LATO_LIGHT, FontSansSerif.LATO_REGULAR, FontSansSerif.LATO_BOLD),
@@ -246,7 +246,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontSerif
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 font_matrix = [
     ("Courier", None, FontSerif.COURIER_REGULAR, FontSerif.COURIER_BOLD),
@@ -315,7 +315,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontRoboto
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 font_matrix = [
     ("Roboto", FontRoboto.ROBOTO_LIGHT, FontRoboto.ROBOTO_REGULAR, FontRoboto.ROBOTO_BOLD),
@@ -380,7 +380,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontMonoSpace
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 font_matrix = [
     ("Courier", None, FontMonoSpace.COURIER_REGULAR, FontMonoSpace.COURIER_BOLD),
@@ -437,7 +437,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontArabic
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 font_matrix = [
     ("SansSerif", FontArabic.SANSSERIF_LIGHT, FontArabic.SANSSERIF_REGULAR, FontArabic.SANSSERIF_BOLD),
@@ -512,7 +512,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontBrahmic
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 font_matrix = [
     ("Bengali SansSerif", FontBrahmic.BENGALI_SANSSERIF_LIGHT, FontBrahmic.BENGALI_SANSSERIF_REGULAR, FontBrahmic.BENGALI_SANSSERIF_BOLD, "যেহেতু মানব পরিবারের"),
@@ -582,7 +582,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontChinese
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 font_matrix = [
     ("Simplified SansSerif", FontChinese.SIMPLIFIED_SANSSERIF_LIGHT, FontChinese.SIMPLIFIED_SANSSERIF_REGULAR, FontChinese.SIMPLIFIED_SANSSERIF_BOLD),
@@ -653,7 +653,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontJapanese
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 font_matrix = [
     ("SansSerif", FontJapanese.SANSSERIF_LIGHT, FontJapanese.SANSSERIF_REGULAR, FontJapanese.SANSSERIF_BOLD),
@@ -707,7 +707,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontKorean
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 font_matrix = [
     ("SansSerif", FontKorean.SANSSERIF_LIGHT, FontKorean.SANSSERIF_REGULAR, FontKorean.SANSSERIF_BOLD),
@@ -757,7 +757,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontThai
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 font_matrix = [
     ("SansSerif", FontThai.SANSSERIF_LIGHT, FontThai.SANSSERIF_REGULAR, FontThai.SANSSERIF_BOLD),

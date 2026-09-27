@@ -20,7 +20,7 @@ Drawlib treats illustrations as software artifacts governed by the same rigorous
 2. **Deterministic & Reproducible**: Geometry, spacing, palette shades, and typography are mathematically defined in code. Running the build script guarantees bit-for-bit identical visual output across all environments.
 3. **Diff-Friendly Pull Requests**: Structural changes (such as inserting an API gateway, adding a microservice, or adjusting an OAuth handshake) appear as clear, human-readable code diffs.
 4. **Programmatic Geometry & Math**: Standard Python constructs—loops, list comprehensions, math functions (`cos`, `sin`), and data structures—eliminate tedious manual positioning for repetitive grids, circular cycles, and trees.
-5. **Centralized Style Governance**: Color palettes (`ColorsDefault`, `ColorsMonochrome`, `ColorsEssentials`) ensure that shapes, connectors, text, and icons adhere to a cohesive visual hierarchy across hundreds of figures.
+5. **Centralized Style Governance**: Color palettes (`DefaultStyleColors`, `MonochromeStyleColors`, `EssentialsStyleColors`) ensure that shapes, connectors, text, and icons adhere to a cohesive visual hierarchy across hundreds of figures.
 
 ### 1.2. Programmatic Layout Patterns
 Unlike GUI tools where every coordinate is dragged by hand, Drawlib code leverages arithmetic and loops to compute perfect alignments:
@@ -28,7 +28,7 @@ Unlike GUI tools where every coordinate is dragged by hand, Drawlib code leverag
 ```drawlib show-code
 # Pattern A: Horizontal linear distribution with computed gaps
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 
@@ -54,7 +54,7 @@ import math
 from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=100)
 center_x, center_y, radius = 50, 50, 30
@@ -160,7 +160,7 @@ When a Python script produces multiple sequential illustrations (e.g. presentati
 
 ```python
 from drawlib.canvas import clear, save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import rectangle
 
 # Figure 1: Step 1
@@ -177,7 +177,7 @@ save("stage2.png")
 ```
 
 ### 2.7. Typography & Canvas Theming
-Canvas defaults can be globally customized via `setup()` or in `docs_config.py`:
+Canvas defaults can be globally customized via `setup()` or in `styles.py`:
 - **`background_color`**: Any hex code (`"#ffffff"`, `"#1e1e1e"`), RGB tuple, or named CSS color.
 - **`dpi`**: Output resolution. Standard web images use `150`–`200`; high-resolution print or PDF exports specify `300`.
 - **`font_family`**: Base system font family or bundled open fonts (e.g. `"sans-serif"`, `"monospace"`, `"Roboto"`).
@@ -191,7 +191,7 @@ Drawlib provides built-in geometric math utilities in `drawlib.math` so develope
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.math import get_angle, get_center_and_size, get_distance
 from drawlib.shapes import circle, rectangle
 
@@ -215,15 +215,15 @@ save()
 Drawlib features a cohesive visual system comprising color catalogs, multi-language typography, strongly-typed style objects, and seamless image embedding.
 
 ### 3.1. Color Models & Palettes (`drawlib.colors`)
-Colors in Drawlib can be represented as RGB tuples `(r, g, b)`, RGBA tuples `(r, g, b, a)`, hex strings, or constants from curated palettes:
-- **Hex & Alpha Helpers**:
-  - `from_hex("#3498db", alpha=0.8)`: Converts standard hex codes into validated Drawlib RGBA tuples.
-  - `with_alpha(color, alpha=0.5)`: Derives a new transparent color from any existing RGB or RGBA color.
-  - `from_grayscale(128, alpha=1.0)`: Creates grayscale tones from 0 (black) to 255 (white).
+Colors in Drawlib can be represented as `Color` objects, RGB tuples `(r, g, b)`, RGBA tuples `(r, g, b, a)`, hex strings, or constants from curated palettes:
+- **`Color` Model & Derivation**:
+  - `Color(r, g, b, alpha=1.0)` or `Color("#3498db")`: Immutable 4-tuple subclass providing `.patch()`, `.r`, `.g`, `.b`, `.alpha`, and `.hex`.
+  - `color.patch(alpha=0.5)`: Derives a new transparent or modified color from any existing `Color`.
+  - `Color.from_hex("#3498db", alpha=0.8)`: Converts standard hex codes into validated Drawlib `Color` instances.
 - **Curated Palette Catalogs**:
-  - **`ColorsDefault`**: Basic corporate primary palette (`Red`, `Green`, `Blue`, `Black`, `White`).
-  - **`ColorsEssentials`**: Rich, modern UI palette (`Blue`, `Green`, `Red`, `Orange`, `Purple`, `Cyan`, `Yellow`, `Gray`, `LightGray`, `DarkGray`).
-  - **`ColorsMonochrome`**: High-contrast grayscale shades (`Black`, `White`, `Gray`, `DarkGray`, `LightGray`).
+  - **`DefaultStyleColors`**: Basic corporate primary palette (`Red`, `Green`, `Blue`, `Black`, `White`).
+  - **`EssentialsStyleColors`**: Rich, modern UI palette (`Blue`, `Green`, `Red`, `Orange`, `Purple`, `Cyan`, `Yellow`, `Gray`, `LightGray`, `DarkGray`).
+  - **`MonochromeStyleColors`**: High-contrast grayscale shades (`Black`, `White`, `Gray`, `DarkGray`, `LightGray`).
   - **`Colors140`**: All 140 W3C standard CSS color constants (`Tomato`, `SteelBlue`, `MediumSeaGreen`, etc.).
 
 ### 3.2. Typography & Font System (`drawlib.fonts`)
@@ -299,7 +299,8 @@ my_project/
 │   │   └── index.md
 │   └── workflow/
 │       └── index.md
-├── docs_config.py             # Global canvas defaults, custom styles, fonts
+├── styles.py                  # Global custom styles and palette theming
+├── utils.py                   # User-defined helper functions and constants
 ├── docs_build.sh              # Unified build automation script
 ├── docs/                      # [GENERATED] Rendered Markdown site for GitHub browsing
 └── docs_html/                 # [GENERATED] Responsive static HTML site with sidebar
@@ -320,7 +321,7 @@ In Markdown source files under `docs_src/`, embed illustrations using the ````dr
 ````markdown
 ```drawlib 600px center show-code caption:"System Architecture Overview"
 from drawlib.canvas import setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 
@@ -345,9 +346,9 @@ line((40, 25), (80, 25), arrowhead="->", style=styles.bold)
 ./docs_build.sh
 
 # Or compile manually via CLI:
-drawlib build html docs_src/ -o docs_html/ -c docs_config.py
-drawlib build markdown docs_src/ -o docs/ -c docs_config.py
-drawlib build pdf docs_src/index.md -o output.pdf -c docs_config.py
+drawlib build html docs_src/ -o docs_html/ -s styles.py -u utils.py
+drawlib build markdown docs_src/ -o docs/ -s styles.py -u utils.py
+drawlib build pdf docs_src/index.md -o output.pdf -s styles.py -u utils.py
 
 # Preview static HTML site locally with automatic link checking:
 drawlib serve docs_html/
@@ -374,7 +375,8 @@ image_path = export_block(
 build_html(
     input_path="docs_src/",
     output_path="docs_html/",
-    config_path="docs_config.py",
+    styles_path="styles.py",
+    utils_path="utils.py",
 )
 ```
 
@@ -442,7 +444,7 @@ drawlib rules show <topic> --rebuild
 - **Scope**: All 22 geometric shape functions including `rectangle`, `circle`, `donuts`, `ellipse`, `wedge`, `fan`, `arc`, `parallelogram`, `rhombus`, `trapezoid`, `triangle`, `regularpolygon`, `polygon`, `star`, `arrow`, `arrow_l`, `arrow_u`, `arrow_arc`, `arrow_polyline`, and `chevron`.
 - **Key Syntax**:
   ```python
-  from drawlib.config import styles
+  from drawlib.styles import styles
   from drawlib.shapes import circle, rectangle
 
   rectangle((30, 25), width=20, height=15, style=styles.blue_flat, text="Box")
@@ -457,7 +459,7 @@ drawlib rules show <topic> --rebuild
 - **Scope**: Straight lines (`line`), curved splines (`line_curved`), Bezier paths (`line_bezier1`, `line_bezier2`), multi-point chained lines (`lines`, `lines_curved`), and circular arcs (`line_arc`).
 - **Key Syntax**:
   ```python
-  from drawlib.config import styles
+  from drawlib.styles import styles
   from drawlib.lines import line, line_curved
 
   line((10, 20), (40, 20), arrowhead="->", style=styles.bold)
@@ -472,7 +474,7 @@ drawlib rules show <topic> --rebuild
 - **Scope**: Standalone labels, multi-line paragraphs, text alignment (`halign`, `valign`), rotation angles, typography options (`TextStyle`), custom fonts, and background text boxes.
 - **Key Syntax**:
   ```python
-  from drawlib.config import styles
+  from drawlib.styles import styles
   from drawlib.text import text
 
   text((50, 80), "Architecture Diagram", style=styles.title_bold, halign="center")
@@ -487,7 +489,7 @@ drawlib rules show <topic> --rebuild
 - **Scope**: Vector and PNG icons from Phosphor, FontAwesome, and Google Cloud Platform (GCP) official architecture libraries.
 - **Key Syntax**:
   ```python
-  from drawlib.config import styles
+  from drawlib.styles import styles
   from drawlib.icons import font_icon, gcp, phosphor
 
   phosphor.desktop((20, 30), width=10, style=styles.blue_flat)
@@ -500,12 +502,12 @@ drawlib rules show <topic> --rebuild
 
 ### 5.7. Preset Styles & Color Palettes (`preset_styles`)
 - **Command**: `drawlib rules show preset_styles`
-- **Scope**: Systematic style naming rules (`<color>_<variant>`), built-in palettes (`ColorsDefault`, `ColorsMonochrome`, `ColorsEssentials`), pre-defined styles for shapes, lines, and text, and custom style registration.
+- **Scope**: Systematic style naming rules (`<color>_<variant>`), built-in palettes (`DefaultStyleColors`, `MonochromeStyleColors`, `EssentialsStyleColors`), pre-defined styles for shapes, lines, and text, and custom style registration.
 - **Key Syntax**:
   ```python
   # Common preset styles: "blue_flat", "green_outline", "red_soft", "bold", "white_bold"
-  # Tip: Prefer importing styles from drawlib.config if themes might be customized via --config
-  from drawlib.config import styles
+  # Tip: Prefer importing styles from drawlib.styles if themes might be customized via --styles
+  from drawlib.styles import styles
 
   rectangle((30, 30), width=20, height=10, style=styles.purple_flat, textstyle=styles.white_bold)
   ```
@@ -571,12 +573,12 @@ drawlib rules show <topic> --rebuild
 
 ### 5.12. Color Models, Catalogs & Palettes (`colors`)
 - **Command**: `drawlib rules show colors`
-- **Scope**: RGB/RGBA formats, standard 16 web colors (`Colors`), 140 CSS colors (`Colors140`), curated theme palettes (`ColorsDefault`, `ColorsMonochrome`), and conversion utilities (`from_hex`, `from_grayscale`, `with_alpha`).
+- **Scope**: `Color` model with `.patch()`, RGB/RGBA formats, standard 16 web colors (`Colors`), 140 CSS colors (`Colors140`), and curated theme palettes (`DefaultStyleColors`, `MonochromeStyleColors`, `EssentialsStyleColors`, `GoogleStyleColors`).
 - **Key Syntax**:
   ```python
-  from drawlib.colors import Colors, ColorsDefault, from_hex, with_alpha
-  c1 = from_hex("#3498db", alpha=0.8)
-  c2 = with_alpha(ColorsDefault.Blue, 0.2)
+  from drawlib.colors import Color, Colors, DefaultStyleColors
+  c1 = Color.from_hex("#3498db", alpha=0.8)
+  c2 = DefaultStyleColors.Blue.patch(alpha=0.2)
   ```
 - **When to read**: Refer to this rule when choosing accessible color schemes, parsing brand hex values, adjusting transparency, or creating custom palette classes.
 
@@ -644,16 +646,16 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.18. Configuration Architecture & Overlays (`config`)
-- **Command**: `drawlib rules show config`
-- **Scope**: Centralized runtime configuration, dynamic default/custom merging model (Venn diagram overlay), explicit import rules (`from drawlib.config import styles`), and CLI (`--config`) / Python API integration.
+### 5.18. Dynamic Preset Styles & Utility Architecture (`styles`)
+- **Command**: `drawlib rules show styles`
+- **Scope**: Dynamic style theming and user utility injection, explicit import rules (`from drawlib.styles import styles, colors` and `from drawlib.utils import ...`), and CLI (`--styles`, `--utils`) / Python API integration.
 - **Key Syntax**:
   ```python
-  from drawlib.config import styles, PROJECT_NAME  # Dynamic runtime config
-  # Prefer config.styles over preset_styles so custom themes can be injected via --config
+  from drawlib.styles import styles, colors  # Dynamic runtime styles and colors
+  from drawlib.utils import custom_box       # User-defined helper utilities
   rectangle((30, 20), width=40, height=20, style=styles.primary)
   ```
-- **When to read**: Refer to this rule when customizing project-wide palettes or themes, injecting global constants, setting up CI/CD configuration files, or decoupling drawing scripts from hardcoded styles.
+- **When to read**: Refer to this rule when customizing project-wide palettes or themes, defining reusable helper functions, or decoupling drawing scripts from hardcoded styles.
 
 ---
 
@@ -729,6 +731,6 @@ Avoid manually placing dozens of low-level `rectangle`, `circle`, and `line` pri
 ### 6.4. Implementation Checklist
 
 - [ ] **Canvas Sizing**: Set explicit dimensions (`100x100`, `120x60`, `140x70`, `160x90`) appropriate for the diagram type.
-- [ ] **Palette Consistency**: Reference styles via `from drawlib.config import styles` (e.g. `style=styles.blue_flat`, `textstyle=styles.white_bold`) or official palettes (`ColorsDefault`, `ColorsMonochrome`) instead of hardcoded hex values.
+- [ ] **Palette Consistency**: Reference styles via `from drawlib.styles import styles` (e.g. `style=styles.blue_flat`, `textstyle=styles.white_bold`) or official palettes (`DefaultStyleColors`, `MonochromeStyleColors`) instead of hardcoded hex values.
 - [ ] **Grid Overlay Validation**: Superimpose coordinate grids (`-g`) during self-correction to eliminate guesswork.
 - [ ] **Clean Separation of Concerns**: Decouple data lists/dictionaries from drawing loops for maintainability.

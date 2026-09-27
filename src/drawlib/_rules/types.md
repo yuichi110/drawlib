@@ -98,7 +98,7 @@ In Drawlib v0.3, `Style` instances are strictly **frozen** and immutable (`froze
 To create derivative styles, always use the `.patch()` method:
 ```python
 from drawlib.colors import Colors
-from drawlib.config import styles
+from drawlib.styles import styles
 
 # Patch an existing preset to derive a new style:
 highlighted_style = styles.primary.patch(
@@ -168,18 +168,18 @@ class AcmeTheme(BasePresetStyles):
 
 ```drawlib fold-code 600px center caption:"Encapsulated Styling with the Style Model"
 from drawlib.canvas import save, setup
-from drawlib.colors import ColorsDefault
+from drawlib.colors import DefaultStyleColors
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=140, height=60)
 
 # Base card style derived from styles.primary
 card_style = styles.primary.patch(
     shape_fill_color=(245, 247, 250),
-    shape_line_color=ColorsDefault.Blue,
+    shape_line_color=DefaultStyleColors.Blue,
     shape_line_width=2,
     shape_line_style="solid",
     text_color=(30, 40, 50),
@@ -189,7 +189,7 @@ card_style = styles.primary.patch(
 
 # Active card style derived via .patch()
 active_card_style = card_style.patch(
-    shape_fill_color=ColorsDefault.Blue,
+    shape_fill_color=DefaultStyleColors.Blue,
     text_color=(255, 255, 255),
 )
 

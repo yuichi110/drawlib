@@ -46,8 +46,8 @@ from drawlib.smartarts import (
 Common auxiliary imports required for canvas setup, styling, and colors:
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, Colors140, ColorsEssentials
-from drawlib.config import styles
+from drawlib.colors import Colors, Colors140, EssentialsStyleColors
+from drawlib.styles import styles
 from drawlib.types import Style
 ```
 
@@ -124,22 +124,22 @@ table = Table()
 ### 3.3 Production Example: Microservice SLA & Availability Table
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, Colors140, ColorsEssentials
+from drawlib.colors import Colors, Colors140, EssentialsStyleColors
 from drawlib.smartarts import Table
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=65)
 
 table = Table(styles=styles)
 table.clear_styles()
 
-table.set_style_cell_header(background_color=ColorsEssentials.Graphite, textstyle=styles.white_bold)
+table.set_style_cell_header(background_color=EssentialsStyleColors.Graphite, textstyle=styles.white_bold)
 table.set_style_cell_evenodd(
-    even_color=ColorsEssentials.Snow,
-    even_textstyle=styles.primary.patch(text_color=ColorsEssentials.Charcoal, text_size=10),
-    odd_color=ColorsEssentials.White,
-    odd_textstyle=styles.primary.patch(text_color=ColorsEssentials.Charcoal, text_size=10),
+    even_color=EssentialsStyleColors.Snow,
+    even_textstyle=styles.primary.patch(text_color=EssentialsStyleColors.Charcoal, text_size=10),
+    odd_color=EssentialsStyleColors.White,
+    odd_textstyle=styles.primary.patch(text_color=EssentialsStyleColors.Charcoal, text_size=10),
 )
 # SLA highlight (Row 2, Column 3)
 table.set_style_cell(
@@ -149,9 +149,9 @@ table.set_style_cell(
     columns=[3],
 )
 table.set_style_border(
-    top=styles.primary.patch(line_color=ColorsEssentials.Charcoal, line_width=1.5),
-    top2=styles.primary.patch(line_color=ColorsEssentials.Charcoal, line_width=1.0),
-    bottom=styles.primary.patch(line_color=ColorsEssentials.Charcoal, line_width=1.5),
+    top=styles.primary.patch(line_color=EssentialsStyleColors.Charcoal, line_width=1.5),
+    top2=styles.primary.patch(line_color=EssentialsStyleColors.Charcoal, line_width=1.0),
+    bottom=styles.primary.patch(line_color=EssentialsStyleColors.Charcoal, line_width=1.5),
     between_rows=styles.primary.patch(line_color=Colors140.LightGray, line_width=0.5),
 )
 
@@ -206,17 +206,17 @@ Register icon functions (e.g. Phosphor icons) before or after node text:
 ### 4.4 Production Example: Monorepo Project Structure
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors140, ColorsEssentials
+from drawlib.colors import Colors140, EssentialsStyleColors
 from drawlib.icons import phosphor
 from drawlib.smartarts import TreeNode
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=110, height=70)
 
 TreeNode.register_drawing_item(
     name="dir_icon", location="before", padding_width=4.5, function=phosphor.folder,
-    style=styles.primary.patch(icon_color=ColorsEssentials.LightBlue), args={"width": 3.0},
+    style=styles.primary.patch(icon_color=EssentialsStyleColors.LightBlue), args={"width": 3.0},
 )
 TreeNode.register_drawing_item(
     name="py_icon", location="before", padding_width=4.5, function=phosphor.file_py,
@@ -224,13 +224,13 @@ TreeNode.register_drawing_item(
 )
 TreeNode.register_drawing_item(
     name="yaml_icon", location="before", padding_width=4.5, function=phosphor.file_code,
-    style=styles.primary.patch(icon_color=ColorsEssentials.Graphite), args={"width": 3.0},
+    style=styles.primary.patch(icon_color=EssentialsStyleColors.Graphite), args={"width": 3.0},
 )
 
 tree_root = TreeNode(
     "monorepo-root/",
     default_textstyle=styles.primary.patch(text_size=11),
-    default_linestyle=styles.primary.patch(line_color=ColorsEssentials.Gray, line_width=1.0),
+    default_linestyle=styles.primary.patch(line_color=EssentialsStyleColors.Gray, line_width=1.0),
     default_line_horizontal_margin=3.0,
     default_line_horizontal_length=3.0,
     default_line_vertical_margin=6.0,
@@ -288,16 +288,16 @@ It accepts all parameters of `MindMapNode` (`text`, `children`, `branch`, `shape
 ### 5.4 Production Example: Horizontal Service Pipeline & Status Cards
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors140, ColorsEssentials
+from drawlib.colors import Colors140, EssentialsStyleColors
 from drawlib.smartarts import BoxList
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=110, height=50)
 
 pipeline = BoxList(
     styles=styles,
-    default_box_style=styles.primary.patch(shape_fill_color=ColorsEssentials.LightBlue, shape_line_color=ColorsEssentials.Charcoal, shape_line_width=1.0),
+    default_box_style=styles.primary.patch(shape_fill_color=EssentialsStyleColors.LightBlue, shape_line_color=EssentialsStyleColors.Charcoal, shape_line_width=1.0),
     default_text_style=styles.white_bold.patch(text_size=10),
 )
 pipeline.append("1. Ingestion")
@@ -365,15 +365,15 @@ MindMapNode(
 ### 6.4 Production Example: Multi-Directional Architecture Overview
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import ColorsEssentials
+from drawlib.colors import EssentialsStyleColors
 from drawlib.fonts import Font
 from drawlib.smartarts import MindMapNode
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=220, height=110)
 
-txt_white = styles.primary.patch(text_color=ColorsEssentials.White, text_size=9, text_font=Font.SANSSERIF_BOLD)
+txt_white = styles.primary.patch(text_color=EssentialsStyleColors.White, text_size=9, text_font=Font.SANSSERIF_BOLD)
 txt_child = styles.primary.patch(text_size=8.5, text_font=Font.SANSSERIF_BOLD)
 txt_leaf = styles.primary.patch(text_size=9)
 
@@ -381,7 +381,7 @@ root = MindMapNode(
     "Core API Gateway",
     shape="oval",
     size=(28, 12),
-    style=styles.primary.patch(shape_fill_color=ColorsEssentials.Graphite, shape_line_color=ColorsEssentials.Charcoal),
+    style=styles.primary.patch(shape_fill_color=EssentialsStyleColors.Graphite, shape_line_color=EssentialsStyleColors.Charcoal),
     textstyle=txt_white,
     default_line_length=12.0,
     default_horizontal_margin=4.0,
@@ -459,10 +459,10 @@ ChevronProcess(
 ### 7.4 Production Example: Cloud CI/CD Deployment Pipeline
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors140, ColorsEssentials
+from drawlib.colors import Colors140, EssentialsStyleColors
 from drawlib.smartarts import ChevronProcess
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=130, height=45)
 
@@ -472,7 +472,7 @@ pipeline = ChevronProcess(
     spacing=2.0,
     flat_left_end=True,
     default_textstyle=styles.white_bold.patch(text_size=9.5),
-    default_description_style=styles.white.patch(text_size=8, text_color=ColorsEssentials.Snow),
+    default_description_style=styles.white.patch(text_size=8, text_color=EssentialsStyleColors.Snow),
 )
 pipeline.append("1. Commit", description="Lint / Hooks", style=styles.gray_flat)
 pipeline.append("2. Build", description="Docker Image", style=styles.blue_flat)
@@ -480,9 +480,9 @@ pipeline.append("2. Build", description="Docker Image", style=styles.blue_flat)
 pipeline.append(
     text="3. Security",
     description="SAST & CVE",
-    style=styles.primary.patch(shape_fill_color=Colors140.Crimson, shape_line_color=ColorsEssentials.Charcoal, shape_line_width=1.5),
+    style=styles.primary.patch(shape_fill_color=Colors140.Crimson, shape_line_color=EssentialsStyleColors.Charcoal, shape_line_width=1.5),
     textstyle=styles.white_bold.patch(text_size=9.5),
-    description_style=styles.white.patch(text_size=8, text_color=ColorsEssentials.Snow),
+    description_style=styles.white.patch(text_size=8, text_color=EssentialsStyleColors.Snow),
 )
 pipeline.append("4. Staging", description="Integration", style=styles.blue_flat)
 pipeline.append("5. Production", description="Canary Deploy", style=styles.green_flat)
@@ -538,10 +538,10 @@ Cycle(
 ### 8.4 Production Example: SRE Incident Response Lifecycle
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors140, ColorsEssentials
+from drawlib.colors import Colors140, EssentialsStyleColors
 from drawlib.smartarts import Cycle
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=90)
 
@@ -556,7 +556,7 @@ incident_cycle = Cycle(
     arrow_head_width=4.0,
     arrow_color_mode="match_source",
     default_textstyle=styles.white_bold.patch(text_size=9),
-    default_description_style=styles.white.patch(text_size=7, text_color=ColorsEssentials.Snow),
+    default_description_style=styles.white.patch(text_size=7, text_color=EssentialsStyleColors.Snow),
     description_placement="inside",
 )
 incident_cycle.append("1. Detect", description="Alert Fires", style=styles.red_flat)
@@ -622,10 +622,10 @@ grid.add(
 ### 9.4 Production Example: Multi-Tier Cloud Software Architecture
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors140, ColorsEssentials
+from drawlib.colors import Colors140, EssentialsStyleColors
 from drawlib.smartarts import GridLayout
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=110, height=75)
 
@@ -650,7 +650,7 @@ grid.draw(
     height=55,
     margin=1.5,
     outer_r=2.0,
-    outer_style=styles.primary.patch(shape_line_color=ColorsEssentials.Charcoal, shape_line_width=1.0, shape_fill_color=ColorsEssentials.Snow),
+    outer_style=styles.primary.patch(shape_line_color=EssentialsStyleColors.Charcoal, shape_line_width=1.0, shape_fill_color=EssentialsStyleColors.Snow),
 )
 save()
 ```
@@ -697,10 +697,10 @@ pyramid.add(
 ### 10.4 Production Example: Software Testing Pyramid
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors140, ColorsEssentials
+from drawlib.colors import Colors140, EssentialsStyleColors
 from drawlib.smartarts import Pyramid
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=65)
 
@@ -745,12 +745,12 @@ BulletPoints(
 ### 11.3 Production Example: Architecture Decision RFC Summary
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors140, ColorsEssentials
+from drawlib.colors import Colors140, EssentialsStyleColors
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
 from drawlib.smartarts import BulletPoints
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=110, height=65)
 
@@ -758,12 +758,12 @@ bp = BulletPoints(
     styles=styles,
     vertical_margin=4.5,
     indent_width=5.0,
-    default_style=styles.primary.patch(text_size=10, text_color=ColorsEssentials.Charcoal),
+    default_style=styles.primary.patch(text_size=10, text_color=EssentialsStyleColors.Charcoal),
 )
 bp.set_bullet_style(
     indent_level=1,
     function=rectangle,
-    style=styles.primary.patch(shape_fill_color=ColorsEssentials.LightBlue, shape_line_width=0),
+    style=styles.primary.patch(shape_fill_color=EssentialsStyleColors.LightBlue, shape_line_width=0),
     args={"width": 1.2, "height": 1.2},
 )
 bp.set_bullet_style(
@@ -825,7 +825,7 @@ from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.smartarts import SourceCode
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=110, height=105)
 
@@ -911,12 +911,12 @@ bubblespeech(
 ### 13.3 Production Example: Architecture Bottleneck Callout
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors140, ColorsEssentials
+from drawlib.colors import Colors140, EssentialsStyleColors
 from drawlib.fonts import Font
 from drawlib.shapes import rectangle
 from drawlib.smartarts import bubblespeech
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=110, height=60)
 
@@ -986,10 +986,10 @@ top_left_y = bottom_y + H
 ### 14.2 Multi-Component Dashboard Integration Example
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors140, ColorsEssentials
+from drawlib.colors import Colors140, EssentialsStyleColors
 from drawlib.smartarts import ChevronProcess, GridLayout, SourceCode, Table
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=80)
 

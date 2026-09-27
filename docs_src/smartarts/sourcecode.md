@@ -12,7 +12,7 @@ Here is an example of code:
 from drawlib.canvas import setup
 from drawlib.colors import Colors140
 from drawlib.fonts import FontSourceCode
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 from drawlib.smartarts import SourceCode
 
@@ -70,7 +70,7 @@ from drawlib.smartarts import SourceCode
 CODE = """
 from drawlib.canvas import setup
 from drawlib.shapes import circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=100)
 circle(xy=(50, 50), radius=30, style="blue_dashed")
@@ -123,7 +123,7 @@ from drawlib.canvas import setup
 from drawlib.fonts import FontSourceCode
 from drawlib.smartarts import SourceCode
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 CODE = """
 import math

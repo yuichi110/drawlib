@@ -51,7 +51,7 @@ Here's how you can use the FontFile class in your Python code:
 ```python
 from drawlib.canvas import setup
 from drawlib.fonts import FontFile
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.text import text
 
 

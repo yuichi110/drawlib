@@ -115,7 +115,7 @@ def test_build_html_markdown_with_external_css(tmp_path) -> None:
         """# Architecture
 
 ```drawlib
-circle((50, 50), radius=20, text="Core Engine")
+circle((50, 50), radius=20, style=styles.primary, text="Core Engine")
 ```
 """,
         encoding="utf-8",
@@ -145,7 +145,7 @@ def test_build_html_webp_format(tmp_path) -> None:
         """# WebP Test
 
 ```drawlib
-circle((50, 50), radius=20)
+circle((50, 50), radius=20, style=styles.primary)
 ```
 """,
         encoding="utf-8",
@@ -170,7 +170,7 @@ def test_build_html_from_html_drawlib(tmp_path) -> None:
 <body>
 <h1>Diagram inside HTML</h1>
 <script type="text/drawlib" file="my_fig.png">
-circle((50, 50), radius=15)
+circle((50, 50), radius=15, style=styles.primary)
 </script>
 </body>
 </html>
@@ -217,7 +217,7 @@ def test_build_markdown_format(tmp_path) -> None:
         """# Rendered MD Test
 
 ```drawlib
-line((0, 0), (100, 100))
+line((0, 0), (100, 100), style=styles.primary)
 ```
 """,
         encoding="utf-8",
@@ -326,7 +326,7 @@ def test_build_pdf_multi_document_merge(tmp_path) -> None:
         """# Introduction
 
 ```drawlib
-circle((50, 50), radius=15)
+circle((50, 50), radius=15, style=styles.primary)
 ```
 """,
         encoding="utf-8",
@@ -532,8 +532,8 @@ def test_build_html_duplicate_block_image_outputs_error(tmp_path) -> None:
     _setup_template_and_css(tmp_path)
     doc = tmp_path / "guide.md"
     doc.write_text(
-        "# Guide\n```drawlib file:same.png\ncircle((50, 50), 10)\n```\n"
-        "```drawlib file:same.png\ncircle((50, 50), 20)\n```\n",
+        "# Guide\n```drawlib file:same.png\ncircle((50, 50), 10, style=styles.primary)\n```\n"
+        "```drawlib file:same.png\ncircle((50, 50), 20, style=styles.primary)\n```\n",
         encoding="utf-8",
     )
     out = tmp_path / "guide.html"

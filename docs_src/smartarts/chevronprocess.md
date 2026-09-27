@@ -6,7 +6,7 @@ Class `ChevronProcess` renders sequential chevron (arrowhead block) process diag
 from drawlib import canvas
 from drawlib.smartarts import ChevronProcess
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 canvas.initialize()
 canvas.setup(width=100, height=52)
@@ -37,7 +37,7 @@ Create a sequential chevron flow:
 
 ```python
 from drawlib import canvas
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.smartarts import ChevronProcess
 
 canvas.initialize()

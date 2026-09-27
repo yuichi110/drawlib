@@ -21,7 +21,7 @@ Here are arrow examples:
 from drawlib.canvas import save, setup
 from drawlib.shapes import arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=100, grid_only=True)
 
@@ -80,7 +80,7 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import arrow, circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 arrow((20, 25), (80, 25), tail_width=10, head_width=20, head_length=10, style=styles.primary)
@@ -117,7 +117,7 @@ You can specify arrow direction via arg `head`.
 from drawlib.canvas import save, setup
 from drawlib.shapes import arrow
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 
@@ -170,7 +170,7 @@ Let's explore an example:
 ```python
 from drawlib.canvas import save, setup
 from drawlib.shapes import arrow
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 
@@ -194,7 +194,7 @@ Here is an example output:
 ```drawlib 600px center
 from drawlib.canvas import save, setup
 from drawlib.shapes import arrow
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 
@@ -243,7 +243,7 @@ Let's explore an example:
 from drawlib.canvas import save, setup
 from drawlib.lines import lines, lines_curved
 from drawlib.shapes import arrow_polyline, circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 arrow_polyline(
@@ -288,7 +288,7 @@ Here is an example output:
 from drawlib.canvas import save, setup
 from drawlib.lines import lines, lines_curved
 from drawlib.shapes import arrow_polyline, circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 arrow_polyline(
@@ -357,7 +357,7 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line, lines
 from drawlib.shapes import arrow_l, circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 arrow_l(
@@ -439,7 +439,7 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line, lines
 from drawlib.shapes import arrow_l, circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 arrow_l(
@@ -545,7 +545,7 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line, lines
 from drawlib.shapes import arrow_u, circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 
@@ -628,7 +628,7 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line, lines
 from drawlib.shapes import arrow_u, circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 
@@ -735,7 +735,7 @@ Let's explore an example:
 ```python
 from drawlib.canvas import save, setup
 from drawlib.lines import line
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import arc, arrow_arc, circle
 from drawlib.text import text
 
@@ -827,7 +827,7 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import arc, arrow_arc, circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 

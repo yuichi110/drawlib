@@ -61,7 +61,7 @@ setup(width=100, height=50)
 # 1. Define child drawing code
 child_code = """
 from drawlib.canvas import setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 
 setup(width=60, height=60)
@@ -111,7 +111,7 @@ setup(width=120, height=60)
 pipeline_code = """
 from drawlib.canvas import setup
 from drawlib.lines import line
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import rectangle
 
 setup(width=80, height=40)
@@ -163,7 +163,7 @@ setup(width=120, height=50)
 # Generate a high-contrast logo vector
 logo_code = """
 from drawlib.canvas import setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import star
 
 setup(width=60, height=60)

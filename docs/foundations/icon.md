@@ -26,7 +26,7 @@ Let's explore with examples using `phosphor`:
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 width = 100
 height = 50
@@ -84,7 +84,7 @@ They accept standard coordinate, width, angle, and style arguments:
 from drawlib.canvas import save, setup
 from drawlib.icons import gcp
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 width = 100
 height = 45
@@ -141,7 +141,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import gcp
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 width = 100
 height = 50
@@ -194,7 +194,7 @@ from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=60)
 
@@ -276,7 +276,7 @@ Let's explore its usage with FontAwesome Free:
 from drawlib.canvas import save, setup
 from drawlib.icons import font_icon
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 width = 100
 height = 50
@@ -356,7 +356,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 width = 100
 height = 50
@@ -409,7 +409,7 @@ Here is an example:
 ```python
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
-from drawlib.config import styles
+from drawlib.styles import styles
 
 width = 100
 height = 50

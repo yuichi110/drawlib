@@ -153,7 +153,7 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 # Configure a 140x60 canvas with a subtle light background
 setup(width=140, height=60, background_color=(248, 249, 250))
@@ -177,7 +177,7 @@ text((70, 52), "System Boundary", style=styles.bold)
 from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import rectangle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 # 0.0 alpha produces a transparent PNG background
 setup(width=80, height=30, background_alpha=0.0)
@@ -200,7 +200,7 @@ When writing standalone Python scripts producing multiple assets:
 
 ```python
 from drawlib.canvas import clear, save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle, rectangle
 
 # Image 1: Architecture

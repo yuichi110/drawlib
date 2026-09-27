@@ -470,7 +470,7 @@ The start point and end point are automatically connected.</p>
 <p>Let's explore an example:</p>
 <pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.shapes import polygon
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 polygon(xys=[(25, 20), (30, 25), (25, 45), (20, 25)], style=styles.primary)

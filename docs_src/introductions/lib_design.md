@@ -16,7 +16,7 @@ Drawlib is structured around the following APIs:
 - Fundamental classes and functions: These include essential canvas manipulation methods such as `save()` and `setup()`.
 - Drawing functions: Examples include `circle()` and `line()`.
 - Style class: The unified `Style` class defines the visual appearance of elements (lines, shapes, text, icons, images).
-- Configuration & Preset styles (`drawlib.config`, `drawlib.preset_styles`): Provides project styles (`from drawlib.config import styles`) and preset catalogs.
+- Dynamic Styles & Preset styles (`drawlib.styles`, `drawlib.preset_styles`): Provides active project styles (`from drawlib.styles import styles, colors`) and preset catalogs.
 - Advanced classes and functions: These components utilize the aforementioned APIs internally to provide extended functionality.
 
 
@@ -29,7 +29,7 @@ from drawlib.images import image
 from drawlib.lines import line, line_curved
 from drawlib.shapes import circle, rectangle, shape
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 textstyle_bold = styles.primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)
 shapetextstyle_bold = styles.primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)

@@ -2,13 +2,15 @@
 
 
 Drawlib's color format is standard RGB `(0-255, 0-255, 0-255)` or RGBA `(0-255, 0-255, 0-255, 0.0-1.0)`. 
-To make color handling intuitive, Drawlib provides pre-defined Color classes as well as utility functions (`from_hex`, `from_grayscale`, `with_alpha`) in `drawlib.colors`:
+To make color handling intuitive, Drawlib provides a first-class `Color` model as well as pre-defined Color catalogs in `drawlib.colors`:
 
+- `Color`: Immutable color model with `.patch()` and `.from_hex()`
 - `Colors`: Basic web 16 colors + Transparent
 - `Colors140`: Full CSS web 140 colors + Transparent
-- `ColorsDefault`: Colors used in preset style `default`
-- `ColorsEssentials`: Colors used in preset style `essentials`
-- `ColorsMonochrome`: Grayscale colors used in preset style `monochrome`
+- `DefaultStyleColors`: Colors used in preset style `default`
+- `EssentialsStyleColors`: Colors used in preset style `essentials`
+- `MonochromeStyleColors`: Grayscale colors used in preset style `monochrome`
+- `GoogleStyleColors`: Colors matching Google themes
 
 Here is an image showing their relationships:
 
@@ -29,7 +31,7 @@ from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=80)
 y1 = 70
@@ -42,13 +44,7 @@ rect_style = styles.white
 rect_text_style = styles.primary.patch(text_size=18)
 
 COLORS_BASE_TEXT = """
-- Transparent = (0, 0, 0, 0.0)
-
-- get_rgba()
-
-- get_rgba_from_hexcode()
-
-- get_rgba_from_grayscale()
+- Transparent = Color(0, 0, 0, 0.0)
 """.strip()
 
 COLORS_TEXT = """
@@ -398,7 +394,7 @@ from drawlib.fonts import FontRoboto
 from drawlib.shapes import circle, rectangle, triangle, wedge
 from drawlib.text import text
 from drawlib.types import ColorsBase, Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 
 # Please define color at styling codes normally.
@@ -475,22 +471,23 @@ Here is the output:
 
 
 
-# Color Utilities
+# Color Model & Manipulation
 
-Drawlib provides helper functions in `drawlib.colors` for converting between hex strings, grayscales, and RGBA tuples:
+All preset colors in `drawlib.colors` are `Color` instances. The `Color` class provides `.patch()` for deriving modified colors and `Color.from_hex()` for hex strings:
 
 ```python
-from drawlib.colors import from_grayscale, from_hex, with_alpha
+from drawlib.colors import Color, DefaultStyleColors
 
-# 1. Hex code to RGBA:
-color1 = from_hex("#4285F4")         # Google Blue (66, 133, 244, 1.0)
-color2 = from_hex("#34A85380")       # With alpha (52, 168, 83, 0.5)
+# 1. Hex code to Color:
+color1 = Color.from_hex("#4285F4")         # Google Blue (66, 133, 244, 1.0)
+color2 = Color("#34A85380")                # Direct initialization with hex (52, 168, 83, 0.5)
 
-# 2. Grayscale to RGBA:
-dark_gray = from_grayscale(40)       # (40, 40, 40, 1.0)
+# 2. Add or modify alpha channel of an existing color via .patch():
+transparent_blue = color1.patch(alpha=0.3) # (66, 133, 244, 0.3)
+subtle_blue = DefaultStyleColors.Blue.patch(alpha=0.15)
 
-# 3. Add or modify alpha channel of an existing color:
-transparent_blue = with_alpha(color1, 0.3)  # (66, 133, 244, 0.3)
+# 3. Modify RGB channels:
+custom_red = color1.patch(r=255, g=0)
 ```
 
 ---

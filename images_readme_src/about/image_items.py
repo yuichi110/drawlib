@@ -13,7 +13,7 @@ from drawlib.fonts import FontJapanese, FontSansSerif, FontSerif
 from drawlib.icons import phosphor
 from drawlib.images import Dimage, image
 from drawlib.lines import line, line_curved, lines, lines_curved
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import arrow, circle, ellipse, rectangle, star
 from drawlib.text import text
 

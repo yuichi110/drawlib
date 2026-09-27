@@ -21,7 +21,7 @@ from drawlib.colors import ColorsMonochrome
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=45)
 start_x = 11

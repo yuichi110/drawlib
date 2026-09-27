@@ -42,7 +42,7 @@ from drawlib.lines import line
 from drawlib.math import get_distance
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 
@@ -72,7 +72,7 @@ from drawlib.lines import line, line_arc
 from drawlib.math import get_angle
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=55)
 
@@ -103,7 +103,7 @@ from drawlib.canvas import setup
 from drawlib.math import get_center_and_size
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=60)
 

@@ -102,7 +102,6 @@ from drawlib import (  # noqa: E402
     canvas,
     charts,
     colors,
-    config,
     diagrams,
     fonts,
     icons,
@@ -112,9 +111,11 @@ from drawlib import (  # noqa: E402
     preset_styles,
     shapes,
     smartarts,
+    styles,
     text,
     tools,
     types,
+    utils,
 )
 
 __all__ = [
@@ -130,7 +131,6 @@ __all__ = [
     "canvas",
     "charts",
     "colors",
-    "config",
     "diagrams",
     "fonts",
     "icons",
@@ -140,7 +140,9 @@ __all__ = [
     "preset_styles",
     "shapes",
     "smartarts",
+    "styles",
     "text",
     "tools",
     "types",
+    "utils",
 ]

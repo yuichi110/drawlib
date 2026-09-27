@@ -11,20 +11,16 @@ All public color classes and conversion utilities are imported from `drawlib.col
 
 ```python
 from drawlib.colors import (
+    # First-class Color model
+    Color,
+
     # Standard Color Constant Classes
     Colors,                  # 16 basic web colors + Transparent
     Colors140,               # Full CSS / W3C 140 standard named colors
-    ColorsDefault,           # Palette used by preset style 'default'
-    ColorsEssentials,        # Clean corporate palette used by 'essentials'
-    ColorsMonochrome,        # Grayscale palette used by 'monochrome'
-    ColorsThemeDefault,      # Palette model class for default theme
-    ColorsThemeEssentials,   # Palette model class for essentials theme
-    ColorsThemeMonochrome,   # Palette model class for monochrome theme
-
-    # Conversion & Adjustment Utilities
-    from_hex,                # Parse "#RRGGBB" or "#RGB" hex string with alpha
-    from_grayscale,          # Create grayscale color from single integer/float
-    with_alpha,              # Return a color tuple updated with a new alpha value
+    DefaultStyleColors,      # Palette used by preset style 'default'
+    EssentialsStyleColors,   # Clean corporate palette used by 'essentials'
+    MonochromeStyleColors,   # Grayscale palette used by 'monochrome'
+    GoogleStyleColors,       # Palette used by 'google' theme
 )
 ```
 
@@ -32,18 +28,23 @@ from drawlib.colors import (
 
 ## 2. Color Representation Formats
 
-Drawlib accepts colors in two standard tuple formats:
+Drawlib accepts colors in multiple convenient formats:
 
-1. **RGB Tuple**: `(r, g, b)`
+1. **`Color` Model**: `Color(r, g, b, alpha=1.0)` or `Color("#3498db")`
+   - An immutable 4-tuple subclass `(r, g, b, alpha)` providing channel accessors (`.r`, `.g`, `.b`, `.alpha`, `.hex`) and the `.patch()` derivation method.
+   - Transparently satisfies standard Python tuple operations and passes seamlessly to drawing primitives.
+2. **RGB Tuple**: `(r, g, b)`
    - Integer values ranging from `0` to `255`.
    - Example: `(255, 0, 0)` is pure red; `(240, 240, 240)` is light gray.
-2. **RGBA Tuple**: `(r, g, b, alpha)`
+3. **RGBA Tuple**: `(r, g, b, alpha)`
    - `r`, `g`, `b`: Integers `0` to `255`.
    - `alpha`: Float ranging from `0.0` (completely transparent) to `1.0` (fully opaque).
    - Example: `(0, 100, 200, 0.5)` is semi-transparent blue.
+4. **Hex String**: `"#3498db"` or `"#3498db80"`
+   - 3, 4, 6, or 8-digit hexadecimal notation automatically parsed into `Color`.
 
 > **Validation Rule**:  
-> Drawlib validates color tuples strictly. Values `< 0` or `> 255` for RGB, or `< 0.0` or `> 1.0` for alpha will raise a validation `ValueError`.
+> Drawlib validates colors strictly. Values `< 0` or `> 255` for RGB channels, or `< 0.0` or `> 1.0` for alpha will raise a validation `ValueError`.
 
 ---
 
@@ -89,52 +90,65 @@ Colors140.SteelBlue          # (70, 130, 180)
 ### 3.3. Theme Palette Catalogs
 Curated color schemes designed to work harmoniously across complex architectures:
 
-- **`ColorsDefault`**: Standard palette for default themes (`Red`, `Green`, `Blue`, `Black`, `White`).
-- **`ColorsEssentials`**: Comprehensive 25-color palette including `Orange`, `Purple`, `Teal`, `Navy`, `Aqua`, `Silver`, `Charcoal`, and light/dark variants.
-- **`ColorsMonochrome`**: Multi-tier grayscale tones (`Black`, `Charcoal`, `Graphite`, `Gray`, `Silver`, `Snow`, `White`) for printer-friendly publications and patent drawings.
+- **`DefaultStyleColors`**: Standard palette for default themes (`Red`, `Green`, `Blue`, `Black`, `White`).
+- **`EssentialsStyleColors`**: Comprehensive 25-color palette including `Orange`, `Purple`, `Teal`, `Navy`, `Aqua`, `Silver`, `Charcoal`, and light/dark variants.
+- **`MonochromeStyleColors`**: Multi-tier grayscale tones (`Black`, `Charcoal`, `Graphite`, `Gray`, `Silver`, `Snow`, `White`) for printer-friendly publications and patent drawings.
+- **`GoogleStyleColors`**: Google Material palette matching `GoogleStyles`.
 
 ---
 
-## 4. Color Helper Utilities
+## 4. Color Manipulation & Derivation
 
-### 4.1. `from_hex()`
-Converts hexadecimal color notation (with optional alpha) to an RGBA tuple:
+All preset colors (`Colors`, `EssentialsStyleColors`, `DefaultStyleColors`, `MonochromeStyleColors`, `Colors140`, `GoogleStyleColors`) are `Color` instances.
+
+### 4.1. The `.patch()` Method
+Derives a new `Color` instance by modifying specific channels while preserving immutability (analogous to `Style.patch()`):
 
 ```python
-from drawlib.colors import from_hex
+from drawlib.colors import Colors, EssentialsStyleColors
+
+# Adjust transparency (alpha)
+glass_blue = Colors.Blue.patch(alpha=0.2)  # (0, 0, 255, 0.2)
+subtle_orange = EssentialsStyleColors.Orange.patch(alpha=0.15)
+
+# Adjust RGB channels
+custom_red = Colors.Red.patch(g=50, b=50)
+```
+
+### 4.2. `Color.from_hex()` & Hex Initialization
+Parse hexadecimal color notation with optional alpha override:
+
+```python
+from drawlib.colors import Color
 
 # 6-digit hex string
-c1 = from_hex("#3498db")         # (52, 152, 219, 1.0)
+c1 = Color.from_hex("#3498db")             # (52, 152, 219, 1.0)
+
+# Direct instantiation
+c2 = Color("#3498db")
 
 # With explicit alpha parameter
-c2 = from_hex("#2ecc71", alpha=0.5) # (46, 204, 113, 0.5)
+c3 = Color.from_hex("#2ecc71", alpha=0.5)  # (46, 204, 113, 0.5)
+c4 = Color("#2ecc71", alpha=0.5)
 
 # 3-digit shorthand
-c3 = from_hex("#f00")            # (255, 0, 0, 1.0)
+c5 = Color("#f00")                         # (255, 0, 0, 1.0)
 ```
 
-### 4.2. `from_grayscale()`
-Generates neutral grayscale colors from a single luminance value:
+### 4.3. Channel Properties & Conversions
+`Color` instances provide read-only properties for channel inspection:
 
 ```python
-from drawlib.colors import from_grayscale
+from drawlib.colors import Colors
 
-# Integer 0-255
-g1 = from_grayscale(240)         # (240, 240, 240, 1.0) - Off-white canvas background
-g2 = from_grayscale(50)          # (50, 50, 50, 1.0)     - Dark charcoal text
-
-# With transparency
-g3 = from_grayscale(0, alpha=0.3) # (0, 0, 0, 0.3)        - Drop shadow tint
-```
-
-### 4.3. `with_alpha()`
-Creates a copy of an existing color tuple with its opacity altered:
-
-```python
-from drawlib.colors import Colors, with_alpha
-
-# Add 20% opacity to standard Blue
-glass_blue = with_alpha(Colors.Blue, 0.2)  # (0, 0, 255, 0.2)
+c = Colors.Blue.patch(alpha=0.5)
+print(c.r)     # 0
+print(c.g)     # 0
+print(c.b)     # 255
+print(c.alpha) # 0.5 (alias: c.a)
+print(c.rgb)   # (0, 0, 255)
+print(c.rgba)  # (0, 0, 255, 0.5)
+print(c.hex)   # '#0000ff80'
 ```
 
 ---
@@ -145,23 +159,23 @@ glass_blue = with_alpha(Colors.Blue, 0.2)  # (0, 0, 255, 0.2)
 
 ```drawlib fold-code 600px center caption:"Color Palette Applied to Multi-Tier Architecture"
 from drawlib.canvas import save, setup
-from drawlib.colors import ColorsDefault, ColorsEssentials, from_hex, with_alpha
+from drawlib.colors import DefaultStyleColors, EssentialsStyleColors
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=140, height=60)
 
 # Define custom semantic styles
 cloud_style = styles.primary.patch(
-    shape_fill_color=with_alpha(ColorsDefault.Blue, 0.15),
-    shape_line_color=ColorsDefault.Blue,
+    shape_fill_color=DefaultStyleColors.Blue.patch(alpha=0.15),
+    shape_line_color=DefaultStyleColors.Blue,
     shape_line_width=2,
 )
 db_style = styles.primary.patch(
-    shape_fill_color=with_alpha(ColorsEssentials.Orange, 0.2),
-    shape_line_color=ColorsEssentials.Orange,
+    shape_fill_color=EssentialsStyleColors.Orange.patch(alpha=0.2),
+    shape_line_color=EssentialsStyleColors.Orange,
     shape_line_width=2,
 )
 
@@ -172,7 +186,7 @@ rectangle(
     height=50,
     style=cloud_style,
     text="Kubernetes Cluster",
-    textstyle=styles.primary.patch(text_valign="top", text_color=ColorsDefault.Blue),
+    textstyle=styles.primary.patch(text_valign="top", text_color=DefaultStyleColors.Blue),
 )
 
 # Service nodes
@@ -188,17 +202,17 @@ save()
 
 ```drawlib fold-code 600px center caption:"Monochrome Architectural Print Layout"
 from drawlib.canvas import save, setup
-from drawlib.colors import ColorsMonochrome
+from drawlib.colors import MonochromeStyleColors
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=50)
 
 box_style = styles.primary.patch(
-    shape_fill_color=ColorsMonochrome.Silver,
-    shape_line_color=ColorsMonochrome.Black,
+    shape_fill_color=MonochromeStyleColors.Silver,
+    shape_line_color=MonochromeStyleColors.Black,
     shape_line_width=2,
 )
 

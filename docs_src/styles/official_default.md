@@ -14,7 +14,7 @@ The `default` preset styles include 5 colors.
 ```drawlib 600px center caption:"Preset styles default color chart"
 from drawlib.canvas import setup
 from drawlib.colors import ColorsDefault
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style

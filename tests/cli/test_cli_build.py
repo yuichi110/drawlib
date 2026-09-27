@@ -47,7 +47,7 @@ def test_cli_build_html_directory_default(tmp_path) -> None:
         """# Main Index
 
 ```drawlib
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 circle((50, 50), radius=20, style=styles.primary)
 ```
@@ -90,7 +90,7 @@ def test_cli_build_html_single_file(tmp_path) -> None:
         """# Sample Page
 
 ```drawlib
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import rectangle
 rectangle((50, 50), width=40, height=20, style=styles.primary)
 ```
@@ -123,7 +123,7 @@ def test_cli_build_html_webp_format(tmp_path) -> None:
         """# WebP Test
 
 ```drawlib
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 circle((50, 50), radius=10, style=styles.primary)
 ```
@@ -150,7 +150,7 @@ def test_cli_build_markdown_single_file(tmp_path) -> None:
         """# Markdown Output
 
 ```drawlib
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 circle((50, 50), radius=10, style=styles.primary)
 ```

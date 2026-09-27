@@ -12,7 +12,7 @@ Embedded drawing code blocks in Markdown use the `drawlib` language identifier:
 ```drawlib
 from drawlib.canvas import setup
 from drawlib.shapes import circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=100)
 circle((50, 50), radius=30, style=styles.primary)

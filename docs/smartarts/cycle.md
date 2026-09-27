@@ -75,7 +75,7 @@ Create a circular workflow diagram:
 
 ```python
 from drawlib import canvas
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.smartarts import Cycle
 
 canvas.initialize()

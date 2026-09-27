@@ -414,7 +414,7 @@ It supports:</p>
 <p>Here is an example of a multi-directional mind map:</p>
 <pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.smartarts import MindMapNode
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=150, height=80)
 
@@ -482,7 +482,7 @@ root.draw(xy=(75, 40), styles=styles)
 Specifying <code>branch=&quot;bottom&quot;</code> on the root creates a standard top-down organization chart.</p>
 <pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.smartarts import MindMapNode
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=60)
 
@@ -523,7 +523,7 @@ root.draw(xy=(50, 50), branch=&quot;bottom&quot;, styles=styles)
 </ul>
 <pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.smartarts import MindMapNode
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=35)
 

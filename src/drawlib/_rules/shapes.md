@@ -293,7 +293,7 @@ setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import circle
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 # 1. Solid status node with embedded label
 circle((30, 25), radius=14, style=styles.green_flat, text="OK", textstyle=styles.white_bold.patch(text_size=14))
@@ -362,7 +362,7 @@ setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import donuts
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 # 1. Thin status indicator ring
 donuts((30, 22), radius=15, width=4, style=styles.gray_flat, text="Base")
@@ -428,7 +428,7 @@ setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import ellipse
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 # 1. Database schema entity
 ellipse((30, 22), width=36, height=20, style=styles.yellow_flat, text="users_tbl")
@@ -502,7 +502,7 @@ setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import wedge
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 # 1. Quarter gauge ring slice with thickness
 wedge((30, 22), radius=18, angle_start=0, angle_end=90, width=5, style=styles.blue_flat, text="Q1")
@@ -573,7 +573,7 @@ setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import fan
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 # 1. Radar scanner coverage cone
 fan(
@@ -645,7 +645,7 @@ setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import arc
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 # 1. Curved relationship bracket
 arc(
@@ -734,7 +734,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors140
 from drawlib.shapes import rectangle
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 
@@ -805,7 +805,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors140
 from drawlib.shapes import parallelogram
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 
@@ -872,7 +872,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors140
 from drawlib.shapes import rhombus
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 
@@ -950,7 +950,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors140
 from drawlib.shapes import trapezoid
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 
@@ -1028,7 +1028,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors140
 from drawlib.shapes import triangle
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 
@@ -1095,7 +1095,7 @@ setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import regularpolygon
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 # 1. Hexagon (Kubernetes Pod / Microservice)
 regularpolygon((30, 22), num_vertex=6, radius=18, style=styles.blue_flat, text="Pod A")
@@ -1155,7 +1155,7 @@ setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import polygon
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 # 1. Irregular network partition boundary
 polygon(
@@ -1223,7 +1223,7 @@ setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import star
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 # 1. 5-pointed award / milestone badge
 star((30, 22), num_vertex=5, radius_ext=18, radius_int=8, style=styles.yellow_flat, text="Star")
@@ -1296,7 +1296,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import shape
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 
@@ -1404,7 +1404,7 @@ setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import arrow
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 # 1. Straight transaction flow arrow with shaft text
 arrow((10, 25), (45, 25), tail_width=3, head_width=8, head_length=6, style=styles.blue_flat, text="POST /order")
@@ -1473,7 +1473,7 @@ setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import arrow_l
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 # 1. Orthogonal L-routing pipe
 arrow_l((25, 25), width=30, height=25, tail_width=3, head_width=8, head_length=6, style=styles.blue_flat)
@@ -1542,7 +1542,7 @@ setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import arrow_u
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 # 1. Feedback loop return arrow
 arrow_u((25, 25), width=25, height=30, tail_width=3, head_width=8, head_length=6, style=styles.green_flat)
@@ -1614,7 +1614,7 @@ setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import arrow_arc
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 # 1. Circular process cycle arrow (90 to 0 degrees)
 arrow_arc((30, 25), width=30, height=30, angle_start=90, angle_end=0, tail_width=3, head_width=8, style=styles.blue_flat)
@@ -1677,7 +1677,7 @@ setup(width=100, height=50)
 from drawlib.colors import Colors140
 from drawlib.shapes import arrow_polyline
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 # 1. S-curved routing channel with rounded corners
 arrow_polyline(
@@ -1747,7 +1747,7 @@ def chevron(
 from drawlib.canvas import save, setup
 from drawlib.shapes import chevron
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 
@@ -1772,7 +1772,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import arrow, circle, ellipse, rectangle
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=150, height=90)
 
@@ -1930,7 +1930,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import arrow, donuts, parallelogram, rectangle
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=140, height=65)
 
@@ -2017,7 +2017,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import arrow, arrow_polyline, circle, rectangle, trapezoid
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=150, height=55)
 
@@ -2123,7 +2123,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import arrow, circle, donuts, rectangle, rhombus
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=150, height=60)
 
@@ -2215,7 +2215,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
 from drawlib.shapes import arc, circle, rectangle
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=140, height=75)
 

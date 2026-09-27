@@ -94,7 +94,7 @@ Let's explore an example:
 ```python
 from drawlib.canvas import save, setup
 from drawlib.shapes import polygon
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 polygon(xys=[(25, 20), (30, 25), (25, 45), (20, 25)], style=styles.primary)
@@ -108,7 +108,7 @@ Here is an example output:
 ```drawlib 600px center
 from drawlib.canvas import save, setup
 from drawlib.shapes import polygon
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 polygon(xys=[(25, 20), (30, 25), (25, 45), (20, 25)], style=styles.primary)

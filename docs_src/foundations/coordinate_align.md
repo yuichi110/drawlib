@@ -18,7 +18,7 @@ Let's delve into some code examples:
 ```python
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=10, height=10, grid_only=True)
 for i in range(11):
@@ -40,7 +40,7 @@ Executing this code generates the following image:
 ```drawlib 600px center
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=10, height=10, grid_only=True)
 for i in range(11):
@@ -85,7 +85,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=100, grid_only=True)
 
@@ -117,7 +117,7 @@ from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=100, grid_only=True)
 
@@ -159,7 +159,7 @@ from drawlib.icons import phosphor
 from drawlib.images import image
 from drawlib.shapes import chevron, circle, parallelogram, rectangle, regularpolygon, star
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=100, grid_only=True)
 
@@ -201,7 +201,7 @@ from drawlib.icons import phosphor
 from drawlib.images import image
 from drawlib.shapes import chevron, circle, parallelogram, rectangle, regularpolygon, star
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=100, grid_only=True)
 

@@ -6,7 +6,7 @@ This directory contains standalone Python scripts that generate diagram images.
 
 - `__SRC_DIR__/`: Source Python illustration scripts (**Source of Truth**).
   - `build.sh`: Build script to execute drawing scripts and generate images.
-  - `config.py`: Global configuration script (themes, styles, canvas defaults).
+  - `styles.py`: Global styles script (themes, styles, font presets).
   - `README.md`: This guide.
   - `sample.py`: Example drawing script.
 - `__OUT_DIR__/`: Generated images directory (**Do not edit directly**).

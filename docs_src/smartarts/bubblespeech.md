@@ -9,7 +9,7 @@ Here's an example of using Bubblespeech in Drawlib:
 
 ```python
 from drawlib.canvas import setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.smartarts import bubblespeech
 
 setup(width=95, height=52)
@@ -33,7 +33,7 @@ This function call draws a speech bubble with a pointed tail extending from the 
 ```drawlib 600px center
 from drawlib.canvas import setup
 from drawlib.smartarts import bubblespeech
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=95, height=52)
 bubblespeech(
@@ -67,7 +67,7 @@ from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.smartarts import bubblespeech
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=95, height=52)
 

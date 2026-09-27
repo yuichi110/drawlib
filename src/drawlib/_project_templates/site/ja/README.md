@@ -6,7 +6,7 @@
 
 - `__SRC_DIR__/`: Markdown ソースドキュメントおよび図面コード (**正本**)
   - `build.sh`: Markdown および HTML サイトをビルドするスクリプト
-  - `config.py`: グローバル設定スクリプト (テーマ、スタイル、日本語フォントなど)
+  - `styles.py`: スタイル設定スクリプト (テーマ、スタイル、日本語フォントなど)
   - `style.css`: HTML サイト用スタイルシート
   - `template.html`: HTML サイト用 Jinja2 テンプレート
   - `README.md`: 本ガイド

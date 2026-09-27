@@ -1,7 +1,7 @@
 from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.fonts import FontFile, FontRoboto
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.text import text
 
 setup(width=100, height=50)

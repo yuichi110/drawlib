@@ -27,7 +27,7 @@ AVAILABLE_TOPICS: Final[tuple[str, ...]] = (
     "overview",
     "overview_min",
     "canvas",
-    "config",
+    "styles",
     "shapes",
     "lines",
     "text",
@@ -66,11 +66,11 @@ _TOPIC_ALIASES: Final[dict[str, str]] = {
     "image": "images",
     "img": "images",
     "type": "types",
-    "style": "types",
-    "styles": "types",
+    "style": "styles",
     "tool": "tools",
-    "configuration": "config",
-    "configs": "config",
+    "config": "styles",
+    "configuration": "styles",
+    "configs": "styles",
 }
 
 

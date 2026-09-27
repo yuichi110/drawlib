@@ -25,7 +25,7 @@ from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=100, grid_only=True)
 
@@ -74,7 +74,7 @@ from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=100, grid_only=True)
 
@@ -154,7 +154,7 @@ from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 width = 100
 height = 100
@@ -183,7 +183,7 @@ from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 width = 100
 height = 100
@@ -214,7 +214,7 @@ from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 width = 100
 height = 50  # <= CHANGED FROM 100 !!
@@ -242,7 +242,7 @@ from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 width = 100
 height = 50  # <= CHANGED FROM 100 !!

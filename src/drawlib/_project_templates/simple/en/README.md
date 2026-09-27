@@ -6,7 +6,7 @@ This directory contains simple Markdown documents with embedded Drawlib illustra
 
 - `__SRC_DIR__/`: Source Markdown documents (**Source of Truth**).
   - `build.sh`: Build script to compile documents into Markdown and HTML.
-  - `config.py`: Global configuration script (themes, styles, canvas defaults).
+  - `styles.py`: Global styles script (themes, styles, font presets).
   - `README.md`: This guide.
   - `doc.md`: Sample document with embedded illustrations.
 - `__OUT_DIR__/`: Compiled Markdown output (**Do not edit directly**).

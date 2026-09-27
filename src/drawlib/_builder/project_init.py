@@ -66,7 +66,8 @@ def _validate_conflicts(
     if here:
         critical_items = [
             src_path / "build.sh",
-            src_path / "config.py",
+            src_path / "styles.py",
+            src_path / "utils.py",
             src_path / "README.md",
             src_path / "style.css",
             src_path / "template.html",

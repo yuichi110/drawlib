@@ -47,7 +47,7 @@ Here are three examples:
 ```python
 from drawlib.canvas import save, setup
 from drawlib.colors import Colors, Colors140
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle, rectangle
 
 setup(width=150, height=50)
@@ -135,7 +135,7 @@ Here are three examples:
 from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.fonts import FontSansSerif, FontSerif
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import rectangle
 
 setup(width=150, height=50)
@@ -215,7 +215,7 @@ The x and y values are not absolute coordinates but are relative to the shape's 
 # Pre-defined Preset Styles
 
 
-Shapes use `Style` instances provided by `drawlib.config` (`from drawlib.config import styles`).
+Shapes use `Style` instances provided by `drawlib.styles` (`from drawlib.styles import styles`).
 
 Preset styles provide pre-defined `Style` objects as attributes on `styles`, following the naming pattern `<color>_<variant>`:
 
@@ -233,7 +233,7 @@ Here are three examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 
 setup(width=150, height=50)

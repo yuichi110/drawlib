@@ -9,6 +9,7 @@
 
 """Public colors module for drawlib."""
 
+from drawlib._core.l2_models import Color
 from drawlib._preset_colors import (
     Colors,
     Colors140,
@@ -18,17 +19,16 @@ from drawlib._preset_colors import (
     GoogleStyleColors,
     MonochromeStyleColors,
 )
-from drawlib._utils._color import (
-    get_rgba as with_alpha,
-)
-from drawlib._utils._color import (
-    get_rgba_from_grayscale as from_grayscale,
-)
-from drawlib._utils._color import (
-    get_rgba_from_hexcode as from_hex,
-)
+
+# Backward compatibility aliases
+ColorsDefault = DefaultStyleColors
+ColorsEssentials = EssentialsStyleColors
+ColorsMonochrome = MonochromeStyleColors
+ColorsGoogle = GoogleStyleColors
 
 __all__ = [
+    # Color Model
+    "Color",
     # Color Classes
     "Colors",
     "Colors140",
@@ -37,8 +37,9 @@ __all__ = [
     "EssentialsStyleColors",
     "GoogleStyleColors",
     "MonochromeStyleColors",
-    # Color Utilities
-    "from_hex",
-    "from_grayscale",
-    "with_alpha",
+    # Backward compatibility aliases
+    "ColorsDefault",
+    "ColorsEssentials",
+    "ColorsGoogle",
+    "ColorsMonochrome",
 ]

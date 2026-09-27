@@ -14,7 +14,13 @@ All public text functions and types are imported from standard Drawlib modules:
 from drawlib.text import text, text_vertical
 
 # Style and color types
-from drawlib.colors import Colors, ColorsDefault, ColorsEssentials, ColorsMonochrome
+from drawlib.colors import (
+    Colors,
+    DefaultStyleColors,
+    EssentialsStyleColors,
+    GoogleStyleColors,
+    MonochromeStyleColors,
+)
 from drawlib.types import Style
 
 # Built-in font collections
@@ -111,7 +117,7 @@ from drawlib.fonts import Font
 from drawlib.shapes import circle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=60)
 
@@ -158,7 +164,7 @@ Preset styles provide pre-configured typography, weight, and color:
 ```drawlib show-code
 from drawlib.canvas import save, setup
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=40)
 text((20, 30), "Standard Regular", style=styles.primary)
@@ -285,7 +291,7 @@ text((50, 25), "Corporate Brand Typography", style=custom_style)
 ```drawlib show-code
 from drawlib.canvas import save, setup
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=60)
 
@@ -309,7 +315,7 @@ The `angle` parameter rotates text counter-clockwise around the specified anchor
 ```drawlib show-code
 from drawlib.canvas import save, setup
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=60)
 
@@ -332,7 +338,7 @@ All shape functions (`rectangle`, `circle`, `donuts`, `chevron`, `polygon`, etc.
 ```drawlib show-code
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle, rectangle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=110, height=50)
 

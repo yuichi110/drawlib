@@ -89,7 +89,7 @@ for i in range(total_nodes):
 Align text perfectly parallel to a connecting line between points `p1` and `p2`:
 
 ```python
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.lines import line
 from drawlib.math import get_angle
 from drawlib.text import text
@@ -119,7 +119,7 @@ from drawlib.canvas import save, setup
 from drawlib.math import get_center_and_size
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=140, height=70)
 
@@ -156,7 +156,7 @@ from drawlib.lines import line
 from drawlib.math import get_angle, get_distance
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=120, height=80)
 

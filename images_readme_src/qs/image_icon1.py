@@ -1,7 +1,7 @@
 from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=60, grid=True)
 phosphor.airplane((25, 30), width=20, style=styles.primary)

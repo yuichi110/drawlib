@@ -413,7 +413,7 @@ Indented Python `with` statements naturally structure condition frames in the di
 ```drawlib show-code
 from drawlib import canvas
 from drawlib.colors import Colors
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.diagrams.sequence import GcpIcon, Participant, ParticipantGroup, PhosphorIcon, SequenceDiagram
 
 canvas.initialize()

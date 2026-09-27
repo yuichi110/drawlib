@@ -14,6 +14,7 @@ from typing import Annotated, Any, Literal
 
 from pydantic import AfterValidator, BeforeValidator, Field
 
+from drawlib._core.l2_models import Color
 from drawlib._core.l2_types_._primitive import TypePosFloat
 from drawlib._core.l2_types_._utils import validate_literal
 
@@ -98,48 +99,15 @@ def normalize_angle90(v: Any) -> float:  # noqa: ANN401
         raise ValueError(f"Angle must be a number between 0.0 and 90.0. But '{v}' is given.") from e
 
 
-def normalize_color(v: Any) -> tuple[int, int, int, float]:  # noqa: ANN401
-    """Normalize RGB/RGBA tuple, list, or Hex string to RGBA (r, g, b, a).
-
-    If RGB is provided, alpha defaults to 1.0.
-    """
+def normalize_color(v: Any) -> Color:  # noqa: ANN401
+    """Normalize RGB/RGBA tuple, list, Hex string, or Color to Color instance."""
+    if isinstance(v, Color):
+        return v
     if isinstance(v, str):
-        hex_val = v.strip()
-        if not _HEX_COLOR_PATTERN.match(hex_val):
-            raise ValueError(f"String color must be a valid hex code (e.g. '#3498db'). But '{v}' is given.")
-        hex_code = hex_val.lstrip("#")
-        r = int(hex_code[0:2], 16)
-        g = int(hex_code[2:4], 16)
-        b = int(hex_code[4:6], 16)
-        a = 1.0 if len(hex_code) == 6 else int(hex_code[6:8], 16) / 255.0
-        return (r, g, b, a)
-
+        return Color.from_hex(v)
     if isinstance(v, (tuple, list)):
-        length = len(v)
-        if length not in {3, 4}:
-            raise ValueError(f"Color tuple must be length 3 (RGB) or 4 (RGBA). But {v} is given.")
-        try:
-            r = int(v[0])
-            g = int(v[1])
-            b = int(v[2])
-        except (TypeError, ValueError) as e:
-            raise ValueError(f"RGB values must be integers between 0 and 255. But {v} is given.") from e
-
-        if not (0 <= r <= 255 and 0 <= g <= 255 and 0 <= b <= 255):
-            raise ValueError(f"RGB values must be integers between 0 and 255. But {(r, g, b)} is given.")
-
-        if length == 3:
-            return (r, g, b, 1.0)
-        else:
-            try:
-                a = float(v[3])
-            except (TypeError, ValueError) as e:
-                raise ValueError(f"Alpha value must be float between 0.0 and 1.0. But {v[3]} is given.") from e
-            if not (0.0 <= a <= 1.0):
-                raise ValueError(f"Alpha value must be float between 0.0 and 1.0. But {a} is given.")
-            return (r, g, b, a)
-
-    raise ValueError(f"Color must be RGB (r, g, b) or RGBA (r, g, b, a) tuple/list, or hex string. But {v} is given.")
+        return Color(v)
+    raise ValueError(f"Color must be Color, RGB/RGBA tuple/list, or hex string. But {v} is given.")
 
 
 def normalize_literal_str(v: Any) -> Any:  # noqa: ANN401
@@ -158,7 +126,7 @@ Bend = Annotated[float, Field(gt=-2.0, lt=2.0)]
 RGBChannel = Annotated[int, Field(ge=0, le=255)]
 ColorRGB = tuple[RGBChannel, RGBChannel, RGBChannel]
 ColorRGBA = tuple[RGBChannel, RGBChannel, RGBChannel, Alpha]
-Color = Annotated[ColorRGB | ColorRGBA | str, BeforeValidator(normalize_color)]
+TypeColor = Annotated[Color | ColorRGB | ColorRGBA | str, BeforeValidator(normalize_color)]
 
 HAlign = Annotated[
     Literal["left", "center", "right"],
@@ -197,7 +165,6 @@ TypeAlpha = Alpha
 TypeAngle = Angle
 TypeAngle90 = Angle90
 TypeBend = Bend
-TypeColor = Color
 TypeColorRGB = Annotated[tuple[int, int, int], AfterValidator(validate_color_tuple)]
 TypeColorRGBA = Annotated[tuple[int, int, int, float], AfterValidator(validate_color_tuple)]
 TypeIconStyle = IconStyle

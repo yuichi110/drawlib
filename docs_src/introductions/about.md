@@ -11,7 +11,7 @@ For instance, consider the following Python code:
 from drawlib.canvas import save
 from drawlib.colors import Colors140
 from drawlib.shapes import circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 circle(
     xy=(50, 50),
@@ -41,7 +41,7 @@ This will generate an image file:
 from drawlib.canvas import save
 from drawlib.colors import Colors140
 from drawlib.shapes import circle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 circle(
     xy=(50, 50),
@@ -84,7 +84,7 @@ from drawlib.lines import line
 from drawlib.shapes import arrow, rectangle
 from drawlib.text import text
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=60)
 

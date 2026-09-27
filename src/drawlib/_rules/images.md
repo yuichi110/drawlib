@@ -91,7 +91,7 @@ from drawlib.images import get_dimage_from_code, image
 # Draw a sub-diagram dynamically
 sub_code = """
 from drawlib.canvas import setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 setup(width=50, height=50)
 circle((25, 25), radius=20, style=styles.purple_flat, text="Pod")
@@ -113,7 +113,7 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=140, height=60)
 
@@ -141,7 +141,7 @@ save()
 from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 

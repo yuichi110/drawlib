@@ -136,7 +136,8 @@ def build_merged_html(
     title: Optional[str] = None,
     page_break: bool = True,
     generate_index: bool = False,
-    config_path: Optional[str] = None,
+    styles_path: Optional[str] = None,
+    utils_path: Optional[str] = None,
     css_path: Optional[str] = None,
     template_path: Optional[str] = None,
     no_cache: bool = False,
@@ -151,7 +152,8 @@ def build_merged_html(
         page_break (bool): Whether to insert CSS page breaks between merged documents. Defaults to True.
         generate_index (bool): Whether to generate an index (Table of Contents) and insert it
             between the 1st and 2nd documents. Defaults to False.
-        config_path (Optional[str]): Optional Python config script path.
+        styles_path (Optional[str]): Optional Python styles script path.
+        utils_path (Optional[str]): Optional Python utils script path.
         css_path (Optional[str]): Optional CSS preset name or file path.
         template_path (Optional[str]): Optional Jinja2 HTML template path.
         no_cache (bool): If True, disable reading/writing the SQLite build image cache.
@@ -184,16 +186,28 @@ def build_merged_html(
             )
         css_path = c_cand
 
-    if config_path is None:
+    if styles_path is None:
         for inp in inputs:
             inp_abs = os.path.abspath(inp)
             cand = (
-                os.path.join(inp_abs, "config.py")
+                os.path.join(inp_abs, "styles.py")
                 if os.path.isdir(inp_abs)
-                else os.path.join(os.path.dirname(inp_abs), "config.py")
+                else os.path.join(os.path.dirname(inp_abs), "styles.py")
             )
             if os.path.isfile(cand):
-                config_path = cand
+                styles_path = cand
+                break
+
+    if utils_path is None:
+        for inp in inputs:
+            inp_abs = os.path.abspath(inp)
+            cand = (
+                os.path.join(inp_abs, "utils.py")
+                if os.path.isdir(inp_abs)
+                else os.path.join(os.path.dirname(inp_abs), "utils.py")
+            )
+            if os.path.isfile(cand):
+                utils_path = cand
                 break
 
     file_list = expand_input_files(inputs)
@@ -261,7 +275,9 @@ def build_merged_html(
         toc_entries.append((anchor_id, chapter_title))
 
         if doc_info.has_drawlib and processor is None:
-            processor = DrawlibBlockProcessor(config_path=config_path, no_cache=no_cache, cache=cache)
+            processor = DrawlibBlockProcessor(
+                styles_path=styles_path, utils_path=utils_path, no_cache=no_cache, cache=cache
+            )
 
         orig_cwd = os.getcwd()
         sys_path_added = False
@@ -273,7 +289,9 @@ def build_merged_html(
 
             if doc_info.doc_type == "markdown_drawlib":
                 if processor is None:
-                    processor = DrawlibBlockProcessor(config_path=config_path, no_cache=no_cache, cache=cache)
+                    processor = DrawlibBlockProcessor(
+                        styles_path=styles_path, utils_path=utils_path, no_cache=no_cache, cache=cache
+                    )
                 processed_md = processor.process_markdown(
                     content,
                     doc_base_name=doc_base_name,
@@ -287,7 +305,9 @@ def build_merged_html(
                 chapter_body = parse_markdown_to_html(content)
             elif doc_info.doc_type == "html_drawlib":
                 if processor is None:
-                    processor = DrawlibBlockProcessor(config_path=config_path, no_cache=no_cache, cache=cache)
+                    processor = DrawlibBlockProcessor(
+                        styles_path=styles_path, utils_path=utils_path, no_cache=no_cache, cache=cache
+                    )
                 processed_html = processor.process_html(
                     content,
                     doc_base_name=doc_base_name,

@@ -35,7 +35,7 @@ Let's explore two examples.
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 from drawlib.text import text
 
@@ -54,7 +54,7 @@ Executing the above script generates the following output:
 from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 circle(xy=(25, 25), radius=15, style=styles.primary)
@@ -88,7 +88,7 @@ Let's explore two examples.
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import donuts
 from drawlib.text import text
 
@@ -106,7 +106,7 @@ Executing the above script generates donut shapes with centered text, showing th
 from drawlib.canvas import save, setup
 from drawlib.shapes import donuts
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 donuts(xy=(25, 25), radius=15, width=5, style=styles.primary)
@@ -147,7 +147,7 @@ Let's explore two examples.
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import fan
 from drawlib.text import text
 
@@ -177,7 +177,7 @@ Executing the above script generates fan shapes with centered text, showing the 
 from drawlib.canvas import save, setup
 from drawlib.shapes import fan
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 fan(xy=(25, 25), radius=15, angle_start=0, angle_end=135, style=styles.primary)
@@ -220,7 +220,7 @@ Here are two examples demonstrating the use of `regularpolygon()`:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import polygon, regularpolygon
 from drawlib.text import text
 
@@ -237,7 +237,7 @@ Executing the above script generates regular polygons with centered text, demons
 from drawlib.canvas import save, setup
 from drawlib.shapes import polygon, regularpolygon
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 regularpolygon(xy=(25, 25), radius=15, num_vertex=5, style=styles.primary)
@@ -274,7 +274,7 @@ Here are two examples demonstrating the use of `star()`:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import star
 from drawlib.text import text
 
@@ -292,7 +292,7 @@ Executing the above script generates stars with centered text, demonstrating the
 from drawlib.canvas import save, setup
 from drawlib.shapes import star
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 star(xy=(25, 25), num_vertex=5, radius_ext=15, radius_int=5, style=styles.primary)
@@ -327,7 +327,7 @@ Here is an example demonstrating the use of `wedge()`:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import wedge
 from drawlib.text import text
 
@@ -353,7 +353,7 @@ Executing the above script generates a wedge shape with centered text, demonstra
 from drawlib.canvas import save, setup
 from drawlib.shapes import wedge
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 wedge(xy=(25, 25), radius=15, width=5, angle_start=0, angle_end=135, style=styles.primary)

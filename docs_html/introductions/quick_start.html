@@ -416,7 +416,7 @@ from drawlib.images import image
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=100)
 
@@ -520,7 +520,7 @@ Common alignment options include:</p>
 from drawlib.colors import Colors
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid_only=True)
 
@@ -579,7 +579,7 @@ If you're unfamiliar with Font Icons, I recommend checking out FontAwesome first
 <pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.icons import phosphor
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=60, grid=True)
 
@@ -610,7 +610,7 @@ If you need to adjust the aspect ratio, you can utilize the <code>Dimage</code> 
 <pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.images import image
 from drawlib.types import Style
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 
@@ -673,7 +673,7 @@ If you wish to perform advanced image processing, it's advisable to do so using 
 Let's explore some of these line types:</p>
 <pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.lines import line, line_curved, lines
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 
@@ -702,7 +702,7 @@ But visual style has less meaning (CSS equivalent), then we will specify it as s
 <pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.lines import line
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 
@@ -763,7 +763,7 @@ When you use it, tasks like positioning your item at a specified xy coordinate a
 <p>Let's explore two examples: a circle-like shape, <code>star()</code>, and a rectangle-like shape, <code>rectangle()</code>.</p>
 <pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle, star
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 
@@ -792,7 +792,7 @@ Keep in mind that the <code>text_angle</code> parameter in <code>Style</code> ov
 <pre><code class="language-python">from drawlib.canvas import save, setup
 from drawlib.colors import Colors
 from drawlib.shapes import rectangle
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 
@@ -844,7 +844,7 @@ All other text parameters are defined within a <code>Style</code> object.</p>
 from drawlib.colors import Colors
 from drawlib.fonts import FontFile, FontRoboto
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 
@@ -902,7 +902,7 @@ To address this, Drawlib provides preset styles, allowing you to easily apply pr
 from drawlib.lines import line
 from drawlib.shapes import circle
 from drawlib.text import text
-from drawlib.config import styles
+from drawlib.styles import styles
 
 setup(width=100, height=50)
 x1 = 12

@@ -23,16 +23,16 @@ In complex technical diagrams and architectural illustrations, manually specifyi
 ┌───────────────────────────────────────────────────────────────────────────────────┐
 │                               Public Facade API                                   │
 │       from drawlib.preset_styles import default_styles, essentials_styles, ...     │
-│       from drawlib.colors import Colors, ColorsDefault, ColorsEssentials          │
+│       from drawlib.colors import Colors, DefaultStyleColors, EssentialsStyleColors │
 └────────────────────────────────────────┬──────────────────────────────────────────┘
                                          │
                     ┌────────────────────┴────────────────────┐
                     ▼                                         ▼
    ┌─────────────────────────────────┐       ┌─────────────────────────────────┐
    │       Color Collections         │       │     Official Style Catalogs     │
-   │  - ColorsDefault (5 colors)     │       │  - DefaultStyles                │
-   │  - ColorsMonochrome (7 colors)  │       │  - MonochromeStyles             │
-   │  - ColorsEssentials (25 colors) │       │  - EssentialsStyles             │
+   │  - DefaultStyleColors (5 colors)│       │  - DefaultStyles                │
+   │  - MonochromeStyleColors (7 clr)│       │  - MonochromeStyles             │
+   │  - EssentialsStyleColors(25 clr)│       │  - EssentialsStyles             │
    │  - Colors140 (140 CSS colors)   │       │  (Base: BasePresetStyles)       │
    │  - Colors (16 basic web colors) │       │                                 │
    └────────────────┬────────────────┘       └────────────────┬────────────────┘
@@ -75,14 +75,12 @@ from drawlib.preset_styles import (
 
 # Color collections and utilities
 from drawlib.colors import (
+    Color,
     Colors,
     Colors140,
-    ColorsDefault,
-    ColorsEssentials,
-    ColorsMonochrome,
-    from_grayscale,
-    from_hex,
-    with_alpha,
+    DefaultStyleColors,
+    EssentialsStyleColors,
+    MonochromeStyleColors,
 )
 
 # Underlying Style model
@@ -127,7 +125,7 @@ Drawlib ships with three pre-built, production-ready style catalogs. Each catalo
 
 ### 3.1. DefaultStyles (`"default"`)
 
-The standard catalog optimized for technical documentation, flowcharts, and software architecture diagrams. It uses a calming, clean light blue (`ColorsDefault.Blue`) as the primary fill and black (`ColorsDefault.Black`) for crisp border definition.
+The standard catalog optimized for technical documentation, flowcharts, and software architecture diagrams. It uses a calming, clean light blue (`DefaultStyleColors.Blue`) as the primary fill and black (`DefaultStyleColors.Black`) for crisp border definition.
 
 - **Primary Colors**: Blue (`#6F6FEF`), Black (`#000000`), White (`#FFFFFF`), Green (`#4FBF4F`), Red (`#EF5F5F`).
 - **Visual Design**:
@@ -214,22 +212,22 @@ Drawlib enforces strict RGB or RGBA tuples internally for maximum precision and 
 
 | Class | Number of Colors | Base Class | Primary Purpose |
 | :--- | :--- | :--- | :--- |
-| `ColorsDefault` | 5 | `ColorsBase` | Core 5 colors matching the `"default"` preset catalog. |
-| `ColorsMonochrome` | 7 | `ColorsBase` | Pure grayscale gradient from Black to White. |
-| `ColorsEssentials` | 25 | `ColorsBase` | Comprehensive 25-color palette for rich diagrams. |
+| `DefaultStyleColors` | 5 | `ColorsBase` | Core 5 colors matching the `"default"` preset catalog. |
+| `MonochromeStyleColors` | 7 | `ColorsBase` | Pure grayscale gradient from Black to White. |
+| `EssentialsStyleColors` | 25 | `ColorsBase` | Comprehensive 25-color palette for rich diagrams. |
 | `Colors140` | 140 | `ColorsBase` | Complete W3C CSS Color Module Level 3 named colors. |
 | `Colors` | 16 | `ColorsBase` | Classic 16 standard HTML/VGA web colors + Transparent. |
 
 ### 4.2. Exact RGB Values of Built-In Palettes
 
-#### ColorsDefault
+#### DefaultStyleColors
 - `Red`: `(239, 95, 95)`
 - `Green`: `(79, 191, 79)`
 - `Blue`: `(111, 111, 239)`
 - `Black`: `(0, 0, 0)`
 - `White`: `(255, 255, 255)`
 
-#### ColorsMonochrome
+#### MonochromeStyleColors
 - `Black`: `(0, 0, 0)`
 - `Charcoal`: `(39, 39, 39)`
 - `Graphite`: `(63, 63, 63)`
@@ -238,7 +236,7 @@ Drawlib enforces strict RGB or RGBA tuples internally for maximum precision and 
 - `Snow`: `(239, 239, 239)`
 - `White`: `(255, 255, 255)`
 
-#### ColorsEssentials
+#### EssentialsStyleColors
 | Color Name | RGB Value | Hex Equivalent | Visual Role |
 | :--- | :--- | :--- | :--- |
 | `Red` | `(255, 23, 23)` | `#FF1717` | Critical alerts, destructive actions |
@@ -267,28 +265,23 @@ Drawlib enforces strict RGB or RGBA tuples internally for maximum precision and 
 | `Snow` | `(239, 239, 239)`| `#EFEFEF` | Neutral container card backdrops |
 | `White` | `(255, 255, 255)`| `#FFFFFF` | Canvas default, card surfaces |
 
-### 4.3. Color Utilities: Hex, Grayscale, Alpha
+### 4.3. Color Manipulation: Color Model, Hex, and .patch()
 
-Drawlib provides helper functions in `drawlib.colors` to convert standard color formats into valid Drawlib RGB/RGBA tuples:
+Drawlib provides a first-class `Color` model in `drawlib.colors` with hex parsing and channel patching:
 
 ```python
-from drawlib.colors import from_grayscale, from_hex, with_alpha
+from drawlib.colors import Color, EssentialsStyleColors
 
-# 1. Parse standard 6-digit hex code
-brand_blue = from_hex("#1a73e8")  # returns (26, 115, 232)
+# 1. Parse standard hex code or initialize Color
+brand_blue = Color.from_hex("#1a73e8")  # returns Color(26, 115, 232, 1.0)
+brand_blue_direct = Color("#1a73e8")
 
 # 2. Parse 8-digit hex code with alpha channel
-semi_transparent = from_hex("#1a73e880")  # returns (26, 115, 232, 0.5)
+semi_transparent = Color.from_hex("#1a73e880")  # returns Color(26, 115, 232, 0.5)
 
-# 3. Create calibrated grayscale values
-mid_gray = from_grayscale(128)  # returns (128, 128, 128)
-light_shade = from_grayscale(240, alpha=0.8)  # returns (240, 240, 240, 0.8)
-
-# 4. Dynamically adjust transparency on existing color constants
-from drawlib.colors import ColorsEssentials
-
-backdrop_color = with_alpha(ColorsEssentials.Navy, 0.15)
-# returns (15, 15, 127, 0.15)
+# 3. Dynamically adjust transparency on existing color constants
+backdrop_color = EssentialsStyleColors.Navy.patch(alpha=0.15)
+# returns Color(15, 15, 127, 0.15)
 ```
 
 ---
@@ -310,9 +303,9 @@ Every preset style shortcut string follows a deterministic, composable three-par
 ### 5.1. Grammar Token Breakdown
 
 1. **`<color>` (Color Token)**:
-   - Any color name available in `ColorsEssentials`, `Colors140`, or `Colors`.
+   - Any color name available in `EssentialsStyleColors`, `Colors140`, or `Colors`.
    - Matching is case-insensitive (e.g. `"blue"`, `"Blue"`, `"deepskyblue"`, `"darkorange"`).
-   - If omitted, the default primary accent color (`ColorsDefault.Blue`) is used.
+   - If omitted, the default primary accent color (`DefaultStyleColors.Blue`) is used.
 
 2. **`<type>` (Structural / Fill Type)**:
    - **`(omitted / default)`**: Both fill and border outline are active. Line is solid.
@@ -604,7 +597,7 @@ The following diagram demonstrates how color and style variations distinguish us
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, ColorsEssentials
+from drawlib.colors import Colors, EssentialsStyleColors
 from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -826,7 +819,7 @@ Under the hood, `_officials.py` processes the string through a deterministic seq
 1. Check if the string matches one of the canonical pre-built role keys:
    `["primary", "light", "bold", "flat", "solid", "dashed", "solid_light", "solid_bold", "dashed_light", "dashed_bold"]`.
 2. If not an exact match, check if it ends with `_{role_key}`. If found, split into `<color_name>` and `<preset_name>`.
-3. Resolve `<color_name>` against `ColorsEssentials`, `Colors140`, and `Colors`.
+3. Resolve `<color_name>` against `EssentialsStyleColors`, `Colors140`, and `Colors`.
 4. Clone the base role template corresponding to `<preset_name>` (or `primary` if no role was appended).
 5. Mutate the cloned style:
    - Assign `text_color = color`
@@ -847,9 +840,9 @@ Under the hood, `_officials.py` processes the string through a deterministic seq
 # s = Style(fill_color="red")
 
 # CORRECT: Pass color constant
-from drawlib.colors import ColorsDefault
+from drawlib.colors import DefaultStyleColors
 
-s = Style(fill_color=ColorsDefault.Red)
+s = Style(fill_color=DefaultStyleColors.Red)
 
 # CORRECT: Or resolve via get_style
 s = get_style("red_flat")
@@ -927,7 +920,7 @@ Popular Essentials Colors:
 ```drawlib show-code
 # Standard imports
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, ColorsEssentials, from_hex, with_alpha
+from drawlib.colors import Colors, EssentialsStyleColors
 from drawlib.preset_styles import BasePresetStyles, essentials_styles, monochrome_styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text

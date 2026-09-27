@@ -27,8 +27,8 @@ from pydantic import BaseModel
 import drawlib._core.canvas
 import drawlib.canvas
 from drawlib._builder.doc_builder.build_cache import BuildImageCache, hash_file
-from drawlib._builder.doc_builder.config import load_config
 from drawlib._builder.doc_builder.detector import detect_document_type
+from drawlib._builder.doc_builder.styles_utils import load_styles_and_utils
 from drawlib._core.canvas import save
 from drawlib._core.utils import dutil_settings
 from drawlib._utils import dutil_canvas
@@ -98,24 +98,33 @@ class DrawlibBlockProcessor:
 
     def __init__(
         self,
-        config_path: Optional[str] = None,
+        styles_path: Optional[str] = None,
+        utils_path: Optional[str] = None,
         no_cache: bool = False,
         cache: Optional[BuildImageCache] = None,
     ) -> None:
         """Initialize processor with shared globals and SQLite build image cache.
 
         Args:
-            config_path (Optional[str]): Optional path to Python config script.
+            styles_path (Optional[str]): Optional path to Python styles script.
+            utils_path (Optional[str]): Optional path to Python utils script.
             no_cache (bool): If True, disable reading/writing the SQLite build image cache.
             cache (Optional[BuildImageCache]): Optional shared BuildImageCache instance.
         """
         self.shared_globals: Dict[str, Any] = {}
-        self.config_path = config_path
-        self.config_hash = hash_file(config_path)
+        self.styles_path = styles_path
+        self.utils_path = utils_path
+        s_hash = hash_file(styles_path) if styles_path else ""
+        u_hash = hash_file(utils_path) if utils_path else ""
+        self.config_hash = f"{s_hash}:{u_hash}"
         self.no_cache = no_cache
         self._cache: BuildImageCache = cache if cache is not None else BuildImageCache(enabled=not no_cache)
 
-        load_config(config_path=config_path, shared_globals=self.shared_globals)
+        load_styles_and_utils(
+            styles_path=styles_path,
+            utils_path=utils_path,
+            shared_globals=self.shared_globals,
+        )
 
     @staticmethod
     def _exec_code_block(
@@ -209,8 +218,12 @@ class DrawlibBlockProcessor:
                         gf.write(grid_bytes)
                 return
 
-        if self.config_path:
-            load_config(config_path=self.config_path, shared_globals=self.shared_globals)
+        if self.styles_path or self.utils_path:
+            load_styles_and_utils(
+                styles_path=self.styles_path,
+                utils_path=self.utils_path,
+                shared_globals=self.shared_globals,
+            )
 
         self._exec_code_block(code, source_filename=source_filename, shared_globals=self.shared_globals)
 
@@ -703,7 +716,8 @@ def _render_code_with_context(
     dest_abs: str,
     source_filename: str,
     file_dir: str,
-    config_path: Optional[str],
+    styles_path: Optional[str],
+    utils_path: Optional[str],
     grid: bool,
 ) -> None:
     """Execute code block and render directly to destination path under directory context.
@@ -713,10 +727,11 @@ def _render_code_with_context(
         dest_abs (str): Absolute destination file path.
         source_filename (str): Name used for code compilation traceback reporting.
         file_dir (str): Directory to chdir and insert into sys.path during execution.
-        config_path (Optional[str]): Optional path to config/setup Python script.
+        styles_path (Optional[str]): Optional path to styles Python script.
+        utils_path (Optional[str]): Optional path to utils Python script.
         grid (bool): Whether to overlay coordinate grid.
     """
-    processor = DrawlibBlockProcessor(config_path=config_path)
+    processor = DrawlibBlockProcessor(styles_path=styles_path, utils_path=utils_path)
     orig_cwd = os.getcwd()
     sys_path_added = False
     try:
@@ -736,7 +751,8 @@ def export_code_block(
     file_path: Optional[str] = None,
     target: Optional[str] = None,
     output_path: Optional[str] = None,
-    config_path: Optional[str] = None,
+    styles_path: Optional[str] = None,
+    utils_path: Optional[str] = None,
     grid: bool = False,
     *,
     markdown_path: Optional[str] = None,
@@ -747,7 +763,8 @@ def export_code_block(
         file_path (Optional[str]): Path to input Markdown (.md), HTML (.html), or Python script (.py).
         target (Optional[str]): Optional index or file specifier for Markdown/HTML code blocks.
         output_path (Optional[str]): Destination image path. If omitted, defaults to block filename in cwd.
-        config_path (Optional[str]): Optional path to Python setup/config script (e.g. config.py).
+        styles_path (Optional[str]): Optional path to Python styles script (e.g. styles.py).
+        utils_path (Optional[str]): Optional path to Python utils script (e.g. utils.py).
         grid (bool): Whether to overlay coordinate grid on exported image.
         markdown_path (Optional[str]): Deprecated alias for file_path for backward compatibility.
 
@@ -778,7 +795,8 @@ def export_code_block(
             dest_abs=dest_abs,
             source_filename=abs_path,
             file_dir=file_dir,
-            config_path=config_path,
+            styles_path=styles_path,
+            utils_path=utils_path,
             grid=grid,
         )
         print(f"Successfully exported Python script to: {dest_abs}")
@@ -821,7 +839,8 @@ def export_code_block(
         dest_abs=dest_abs,
         source_filename=abs_path,
         file_dir=file_dir,
-        config_path=config_path,
+        styles_path=styles_path,
+        utils_path=utils_path,
         grid=grid,
     )
     print(f"Successfully exported block #{selected_block.index} to: {dest_abs}")
@@ -831,7 +850,8 @@ def export_code_block(
 def show_code_block(
     file_path: Optional[str] = None,
     target: Optional[str] = None,
-    config_path: Optional[str] = None,
+    styles_path: Optional[str] = None,
+    utils_path: Optional[str] = None,
     grid: bool = False,
     output_path: Optional[str] = None,
     *,
@@ -842,7 +862,8 @@ def show_code_block(
     Args:
         file_path (Optional[str]): File path to input Markdown (.md), HTML (.html), or Python script (.py).
         target (Optional[str]): Optional index or file specifier for Markdown/HTML code blocks.
-        config_path (Optional[str]): Optional path to Python setup/config script.
+        styles_path (Optional[str]): Optional path to Python styles script.
+        utils_path (Optional[str]): Optional path to Python utils script.
         grid (bool): Whether to overlay coordinate grid on displayed image.
         output_path (Optional[str]): Optional destination image path. If specified, saves image without GUI display.
         markdown_path (Optional[str]): Deprecated alias for file_path for backward compatibility.
@@ -852,7 +873,8 @@ def show_code_block(
             file_path=file_path,
             target=target,
             output_path=output_path,
-            config_path=config_path,
+            styles_path=styles_path,
+            utils_path=utils_path,
             grid=grid,
             markdown_path=markdown_path,
         )
@@ -883,7 +905,8 @@ def show_code_block(
             dest_abs=tmp_path,
             source_filename=abs_file,
             file_dir=os.path.dirname(abs_file),
-            config_path=config_path,
+            styles_path=styles_path,
+            utils_path=utils_path,
             grid=grid,
         )
         display_path = grid_path if (grid and os.path.exists(grid_path)) else tmp_path
@@ -936,7 +959,8 @@ def show_code_block(
         dest_abs=tmp_path,
         source_filename=abs_doc,
         file_dir=os.path.dirname(abs_doc),
-        config_path=config_path,
+        styles_path=styles_path,
+        utils_path=utils_path,
         grid=grid,
     )
     display_path = grid_path if (grid and os.path.exists(grid_path)) else tmp_path

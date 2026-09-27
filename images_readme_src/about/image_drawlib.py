@@ -12,7 +12,7 @@ from drawlib.colors import Colors140
 from drawlib.fonts import FontRoboto, FontSourceCode
 from drawlib.icons import phosphor
 from drawlib.images import get_dimage_from_code, image
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import arrow
 from drawlib.smartarts import SourceCode
 from drawlib.text import text
@@ -20,7 +20,7 @@ from drawlib.text import text
 setup(height=60, dpi=200)
 INNER_CODE = """from drawlib.canvas import save
 from drawlib.colors import Colors140
-from drawlib.config import styles
+from drawlib.styles import styles
 from drawlib.shapes import circle
 
 circle(

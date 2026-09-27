@@ -16,7 +16,7 @@ from drawlib.builder import (
     build_documents,
 )
 from drawlib.canvas import initialize
-from drawlib.colors import Colors, from_grayscale, from_hex, with_alpha
+from drawlib.colors import Color, Colors
 from drawlib.math import get_angle, get_center_and_size, get_distance
 
 
@@ -24,11 +24,11 @@ class TestDomainUtilities:
     """Test suite for public domain utilities."""
 
     def test_colors_utilities(self) -> None:
-        """Verify colors.from_hex, colors.from_grayscale, and colors.with_alpha."""
-        assert from_hex("#FF0000") == (255, 0, 0, 1.0)
-        assert abs(from_hex("00FF0080")[3] - 0.5) < 0.01
-        assert from_grayscale(0.5, alpha=0.8) == (127, 127, 127, 0.8)
-        assert with_alpha(Colors.Red, 0.5) == (255, 0, 0, 0.5)
+        """Verify Color model, Color.from_hex, and Color.patch."""
+        assert Color.from_hex("#FF0000") == (255, 0, 0, 1.0)
+        assert abs(Color.from_hex("00FF0080")[3] - 0.5) < 0.01
+        assert Colors.Red.patch(alpha=0.5) == (255, 0, 0, 0.5)
+        assert Color(127, 127, 127, 0.8) == (127, 127, 127, 0.8)
 
     def test_math_utilities(self) -> None:
         """Verify math.get_distance, math.get_angle, and math.get_center_and_size."""

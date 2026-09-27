@@ -365,9 +365,13 @@ def register_top_commands(app: typer.Typer) -> None:
             bool,
             typer.Option("-g", "--grid", help="Show canvas with coordinate grid overlaid."),
         ] = False,
-        config: Annotated[
+        styles: Annotated[
             Optional[str],
-            typer.Option("-c", "--config", help="Path to Python config/setup script (e.g. config.py)."),
+            typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
+        ] = None,
+        utils: Annotated[
+            Optional[str],
+            typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
         ] = None,
     ) -> None:
         """Execute and display a drawlib code block from a Markdown/HTML file or Python script."""
@@ -384,7 +388,8 @@ def register_top_commands(app: typer.Typer) -> None:
             show_block(
                 file_path=file,
                 target=target,
-                config_path=config,
+                styles_path=styles,
+                utils_path=utils,
                 grid=grid,
                 output_path=output,
             )
@@ -405,9 +410,13 @@ def register_top_commands(app: typer.Typer) -> None:
             Optional[str],
             typer.Option("-o", "--output", help="Output image file or directory path."),
         ] = None,
-        config: Annotated[
+        styles: Annotated[
             Optional[str],
-            typer.Option("-c", "--config", help="Path to Python config/setup script (e.g. config.py)."),
+            typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
+        ] = None,
+        utils: Annotated[
+            Optional[str],
+            typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
         ] = None,
         grid: Annotated[
             bool,
@@ -420,7 +429,8 @@ def register_top_commands(app: typer.Typer) -> None:
                 file_path=file,
                 target=target,
                 output_path=output,
-                config_path=config,
+                styles_path=styles,
+                utils_path=utils,
                 grid=grid,
             )
         except Exception as e:
