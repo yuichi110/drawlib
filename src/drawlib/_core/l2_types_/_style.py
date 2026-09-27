@@ -100,14 +100,16 @@ def normalize_angle90(v: Any) -> float:  # noqa: ANN401
 
 
 def normalize_color(v: Any) -> Color:  # noqa: ANN401
-    """Normalize RGB/RGBA tuple, list, Hex string, or Color to Color instance."""
+    """Normalize RGB/RGBA tuple, list, Hex string, dict, or Color to Color instance."""
     if isinstance(v, Color):
         return v
     if isinstance(v, str):
         return Color.from_hex(v)
     if isinstance(v, (tuple, list)):
         return Color(v)
-    raise ValueError(f"Color must be Color, RGB/RGBA tuple/list, or hex string. But {v} is given.")
+    if isinstance(v, dict):
+        return Color(**v)
+    raise ValueError(f"Color must be Color, RGB/RGBA tuple/list, dict, or hex string. But {v} is given.")
 
 
 def normalize_literal_str(v: Any) -> Any:  # noqa: ANN401

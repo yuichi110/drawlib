@@ -65,6 +65,17 @@ class TestColorInstantiation:
         c = Color(100, 150, 200, alpha=0.3)
         assert c.alpha == 0.3
 
+    def test_init_with_dict(self) -> None:
+        """Test instantiation with dictionary."""
+        c = Color({"r": 10, "g": 20, "b": 30, "alpha": 0.5})
+        assert c.r == 10
+        assert c.g == 20
+        assert c.b == 30
+        assert c.alpha == 0.5
+
+        c2 = Color({"r": 10, "g": 20, "b": 30}, alpha=0.8)
+        assert c2.alpha == 0.8
+
     def test_init_invalid_values(self) -> None:
         """Test invalid channel values raise ValueError."""
         with pytest.raises(ValueError, match="between 0 and 255"):
@@ -110,6 +121,12 @@ class TestColorProperties:
         assert c_opaque.hex == "#ff0080"
         c_alpha = Color(255, 0, 128, 0.5)
         assert c_alpha.hex == "#ff008080"
+
+    def test_to_tuple_and_to_mplot_rgba(self) -> None:
+        """Test to_tuple and to_mplot_rgba methods."""
+        c = Color(255, 127, 0, 0.5)
+        assert c.to_tuple() == (255, 127, 0, 0.5)
+        assert c.to_mplot_rgba() == (1.0, 0.49804, 0.0, 0.5)
 
     def test_repr(self) -> None:
         """Test repr of Color."""
@@ -262,3 +279,18 @@ class TestColorPydanticIntegration:
         """Test Pydantic rejects invalid value."""
         with pytest.raises(ValidationError):
             self.Model.model_validate({"color": "invalid"})
+
+    def test_pydantic_parses_dict(self) -> None:
+        """Test Pydantic parses dictionary dumped from another Color."""
+        m = self.Model.model_validate({"color": {"r": 50, "g": 100, "b": 150, "alpha": 0.7}})
+        assert isinstance(m.color, Color)
+        assert m.color.rgb == (50, 100, 150)
+        assert m.color.alpha == 0.7
+
+    def test_pydantic_model_dump(self) -> None:
+        """Test model_dump and model_dump_json."""
+        c = Color(255, 128, 0, 0.5)
+        dump = c.model_dump()
+        assert dump == {"r": 255, "g": 128, "b": 0, "alpha": 0.5}
+        json_str = c.model_dump_json()
+        assert '"r":255' in json_str or '"r": 255' in json_str

@@ -10,6 +10,7 @@
 """Color utility module for canvas operations."""
 
 from drawlib._core.l2_models import (
+    Color,
     StaticContainer,
 )
 from drawlib._core.l2_types import (
@@ -47,6 +48,19 @@ class ColorUtil(StaticContainer):
         Returns:
             tuple[float, float, float, float]: Tuple representing matplotlib's RGBA format.
         """
+        if isinstance(rgb_or_rgba, dict):
+            rgb_or_rgba = Color(**rgb_or_rgba)
+
+        if isinstance(rgb_or_rgba, Color):
+            if alpha is not None:
+                return (
+                    round(rgb_or_rgba.r / 255.0, 5),
+                    round(rgb_or_rgba.g / 255.0, 5),
+                    round(rgb_or_rgba.b / 255.0, 5),
+                    alpha,
+                )
+            return rgb_or_rgba.to_mplot_rgba()
+
         if isinstance(rgb_or_rgba, str):
             rgba = ColorUtil.get_rgba_from_hex(rgb_or_rgba)
             r = round(rgba[0] / 255, 5)
@@ -85,6 +99,10 @@ class ColorUtil(StaticContainer):
         Raises:
             ValueError: If RGB values are out of range (0-255).
         """
+        if isinstance(rgb_or_rgba, dict):
+            rgb_or_rgba = Color(**rgb_or_rgba)
+        if isinstance(rgb_or_rgba, Color):
+            return rgb_or_rgba.hex
         if isinstance(rgb_or_rgba, str):
             return rgb_or_rgba
         r = rgb_or_rgba[0]
