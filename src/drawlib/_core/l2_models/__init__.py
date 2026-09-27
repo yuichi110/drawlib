@@ -9,9 +9,9 @@
 
 """Package for core drawing action modules."""
 
-from drawlib._core.l2_models_._color import Color
-from drawlib._core.l2_models_._dimage import Dimage
-from drawlib._core.l2_models_._font import (
+from drawlib._core.l2_models._color import Color
+from drawlib._core.l2_models._dimage import Dimage
+from drawlib._core.l2_models._font import (
     FontBase,
     FontFile,
     FontMetadata,

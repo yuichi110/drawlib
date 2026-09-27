@@ -13,8 +13,8 @@ from typing import Annotated, Any, Literal
 
 from pydantic import BeforeValidator, Field
 
-from drawlib._core.l2_models import Color
-from drawlib._core.l2_types_._primitive import PosFloat
+from drawlib._core.l2_models._color import Color
+from drawlib._core.l2_types._primitive import PosFloat
 
 
 def normalize_angle(v: Any) -> float:  # noqa: ANN401

@@ -24,16 +24,16 @@ from PIL import (
 )
 from pydantic import ConfigDict, validate_call
 
-from drawlib._core.l2_types_._image import (
+from drawlib._core.l2_types._image import (
     ImageQuality,
     ImageResample,
 )
-from drawlib._core.l2_types_._path import FilePath, resolve_file_path
-from drawlib._core.l2_types_._primitive import (
+from drawlib._core.l2_types._path import FilePath, resolve_file_path
+from drawlib._core.l2_types._primitive import (
     PosFloat,
     PosInt,
 )
-from drawlib._core.l2_types_._style import (
+from drawlib._core.l2_types._style import (
     Alpha,
     Angle,
     ColorRGB,

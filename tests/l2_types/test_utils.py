@@ -11,7 +11,7 @@
 
 import pytest
 
-from drawlib._core.l2_types_._utils import validate_literal
+from drawlib._core.l2_types._utils import validate_literal
 
 
 class TestValidateLiteral:

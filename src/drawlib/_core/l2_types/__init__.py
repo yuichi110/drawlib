@@ -9,10 +9,10 @@
 
 """Package for core drawing action modules."""
 
-from drawlib._core.l2_types_._font import (
+from drawlib._core.l2_types._font import (
     Font,
 )
-from drawlib._core.l2_types_._geometry import (
+from drawlib._core.l2_types._geometry import (
     Bezier2,
     Bezier3,
     Coordinate,
@@ -20,23 +20,23 @@ from drawlib._core.l2_types_._geometry import (
     PathPoint,
     PathPoints,
 )
-from drawlib._core.l2_types_._image import (
+from drawlib._core.l2_types._image import (
     ImageFormat,
     ImageQuality,
     ImageResample,
     ImageZoom,
 )
-from drawlib._core.l2_types_._path import (
+from drawlib._core.l2_types._path import (
     FilePath,
 )
-from drawlib._core.l2_types_._primitive import (
+from drawlib._core.l2_types._primitive import (
     NegFloat,
     NegInt,
     NumVertex,
     PosFloat,
     PosInt,
 )
-from drawlib._core.l2_types_._style import (
+from drawlib._core.l2_types._style import (
     Alpha,
     Angle,
     Angle90,

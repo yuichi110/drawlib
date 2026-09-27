@@ -12,7 +12,7 @@
 import pytest
 from pydantic import TypeAdapter, ValidationError
 
-from drawlib._core.l2_types_._primitive import (
+from drawlib._core.l2_types._primitive import (
     NegFloat,
     NegInt,
     NumVertex,

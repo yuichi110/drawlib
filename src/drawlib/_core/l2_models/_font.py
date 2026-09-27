@@ -14,7 +14,7 @@ from enum import Enum
 
 from pydantic import BaseModel, ConfigDict, field_validator
 
-from drawlib._core.l2_types_._path import FilePath
+from drawlib._core.l2_types._path import FilePath
 
 
 class FontMetadata(BaseModel):

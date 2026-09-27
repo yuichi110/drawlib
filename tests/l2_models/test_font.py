@@ -14,7 +14,7 @@ from unittest.mock import patch
 
 import pytest
 
-from drawlib._core.l2_models_._font import (
+from drawlib._core.l2_models._font import (
     FontBase,
     FontFile,
     FontMetadata,
@@ -64,7 +64,7 @@ class TestFontFile:
     def test_validation_success(self):
         """Test that validating an existing file works."""
         with (
-            patch("drawlib._core.l2_types_._path.get_script_relative_path", return_value="/dummy/font.ttf"),
+            patch("drawlib._core.l2_types._path.get_script_relative_path", return_value="/dummy/font.ttf"),
             patch("os.path.exists", return_value=True),
         ):
             font = FontFile("dummy/font.ttf")
@@ -73,7 +73,7 @@ class TestFontFile:
     def test_validation_failure(self):
         """Test that validating a non-existing file raises FileNotFoundError."""
         with (
-            patch("drawlib._core.l2_types_._path.get_script_relative_path", return_value="/dummy/font.ttf"),
+            patch("drawlib._core.l2_types._path.get_script_relative_path", return_value="/dummy/font.ttf"),
             patch("os.path.exists", return_value=False),
         ):
             with pytest.raises(FileNotFoundError, match='font file "/dummy/font.ttf" does not exist.'):

@@ -13,6 +13,6 @@ from typing import Annotated
 
 from pydantic import Field
 
-from drawlib._core.l2_models_._font import FontBase, FontFile
+from drawlib._core.l2_models._font import FontBase, FontFile
 
 Font = Annotated[FontBase | FontFile, Field()]

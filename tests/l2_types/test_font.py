@@ -13,8 +13,8 @@ from unittest.mock import patch
 
 from pydantic import TypeAdapter
 
-from drawlib._core.l2_models_._font import FontBase, FontFile
-from drawlib._core.l2_types_._font import Font
+from drawlib._core.l2_models._font import FontBase, FontFile
+from drawlib._core.l2_types._font import Font
 
 
 class TestFontType:
@@ -32,7 +32,7 @@ class TestFontType:
 
         # Validate FontFile instance
         with (
-            patch("drawlib._core.l2_types_._path.get_script_relative_path", return_value="/dummy/font.ttf"),
+            patch("drawlib._core.l2_types._path.get_script_relative_path", return_value="/dummy/font.ttf"),
             patch("os.path.exists", return_value=True),
         ):
             font_file = FontFile("dummy/font.ttf")

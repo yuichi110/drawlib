@@ -12,7 +12,7 @@
 import pytest
 from pydantic import TypeAdapter, ValidationError
 
-from drawlib._core.l2_types_._geometry import (
+from drawlib._core.l2_types._geometry import (
     Bezier2,
     Bezier3,
     Coordinate,
