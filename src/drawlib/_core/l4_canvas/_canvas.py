@@ -368,7 +368,5 @@ text = canvas.text
 text_vertical = canvas.text_vertical
 
 # dutil
-get_image_zoom_original = canvas.get_image_zoom_original
-get_image_zoom_from_width = canvas.get_image_zoom_from_width
 get_charwidth_from_fontsize = canvas.get_charwidth_from_fontsize
 get_fontsize_from_charwidth = canvas.get_fontsize_from_charwidth

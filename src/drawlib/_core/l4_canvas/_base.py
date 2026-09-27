@@ -63,6 +63,8 @@ class CanvasBase:
     DEFAULT_GRID_ONLY: Final[bool] = False
     DEFAULT_GRID_STYLE: Final[Style] = Style(line_width=1, line_color=(128, 128, 128), line_style="dashed")
     DEFAULT_GRID_CENTERSTYLE: Final[Style] = Style(line_width=2, line_color=(128, 128, 128), line_style="dashed")
+    FIGURE_WIDTH_INCHES: Final[float] = 10.0
+    POINTS_PER_INCH: Final[float] = 72.0
 
     def __init__(self) -> None:
         """Initialize Canvas instance with default parameters.
@@ -172,9 +174,9 @@ class CanvasBase:
             if dpi is not None:
                 self._dpi = dpi
 
-            # set fig size. width is always 10
-            fig_width = 10
-            fig_hight = self._height * 10 / self._width
+            # set fig size. width is always FIGURE_WIDTH_INCHES (10.0 inches)
+            fig_width = self.FIGURE_WIDTH_INCHES
+            fig_hight = self._height * self.FIGURE_WIDTH_INCHES / self._width
             self._fig = pyplot.figure(
                 figsize=(fig_width, fig_hight),
                 dpi=self._dpi,
@@ -511,47 +513,35 @@ class CanvasBase:
             textstyle=textstyle,
         )
 
-    def get_image_zoom_original(
+    def _calculate_image_zoom(
         self,
-    ) -> ImageZoom:
-        """Get the zoom factor for displaying the original image.
-
-        Returns:
-            ImageZoom: Zoom factor.
-        """
-        #
-        # calcuration
-        # 0.72 * 100 / dpi
-        #
-
-        zoom = 72 / self._dpi
-        return zoom
-
-    @validate_call(config=ConfigDict(arbitrary_types_allowed=True))
-    def get_image_zoom_from_width(
-        self,
-        image: str | PIL.Image.Image | Dimage,
+        image_width: PosFloat,
         width: PosFloat,
     ) -> ImageZoom:
-        """Get the zoom factor to fit the image width on the canvas.
+        """Calculate the Matplotlib OffsetImage zoom factor for target canvas width.
 
         Args:
-            image (str | PIL.Image.Image | Dimage): Image data.
-            width (float): Target width.
+            image_width (float): Original image width in pixels.
+            width (float): Target width on canvas logical coordinates.
 
         Returns:
-            float: Zoom factor.
+            float: Zoom factor for OffsetImage.
+
+        Notes:
+            Matplotlib OffsetImage treats input image pixels as points (1/72 inch).
+            Figure width is fixed to FIGURE_WIDTH_INCHES (10.0 inches), so total points across the canvas width
+            is POINTS_PER_INCH * FIGURE_WIDTH_INCHES (720.0 pt).
+            The target width in points is:
+                target_points = total_canvas_points * (width / self._width)
+            The required zoom factor is therefore:
+                zoom = target_points / image_width
+            Note on DPI:
+                DPI scaling is handled automatically by Matplotlib's rasterizer at save/render time
+                (1 pt = dpi / 72 px). Therefore, DPI must NOT be multiplied into zoom.
         """
-        #
-        # calcuration
-        # 0.72 * 10 * 100 * target_width / canvas_width / image_width
-        #
-
-        if not isinstance(image, Dimage):
-            image = Dimage(image)
-
-        image_width, _ = image.get_image_size()
-        zoom = 720 * width / self._width / image_width
+        total_canvas_points = self.POINTS_PER_INCH * self.FIGURE_WIDTH_INCHES
+        target_points = total_canvas_points * (width / self._width)
+        zoom = target_points / image_width
         return zoom
 
     @validate_call

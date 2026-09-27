@@ -18,8 +18,6 @@ from drawlib._core.l4_canvas import (
     canvas,
     get_charwidth_from_fontsize,
     get_fontsize_from_charwidth,
-    get_image_zoom_from_width,
-    get_image_zoom_original,
 )
 from drawlib._core.l4_canvas._base import CanvasBase
 from drawlib.canvas import clear, save, setup
@@ -200,9 +198,17 @@ class TestCanvasBase:
     def test_image_zoom(self) -> None:
         """Verify image zoom calculation utilities."""
         clear()
-        setup(dpi=100)
-        zoom = get_image_zoom_original()
-        assert abs(zoom - 0.72) < 1e-5
+        setup(width=100, height=50, dpi=100)
+        # 100px wide image, target width 20 on canvas width 100
+        # total_canvas_points = 720.0, target_points = 720 * (20 / 100) = 144.0
+        # zoom = 144.0 / 100 = 1.44
+        zoom100 = canvas._calculate_image_zoom(image_width=100, width=20)
+        assert abs(zoom100 - 1.44) < 1e-5
+
+        # DPI change does not alter zoom factor because Matplotlib handles DPI rasterization
+        setup(width=100, height=50, dpi=200)
+        zoom200 = canvas._calculate_image_zoom(image_width=100, width=20)
+        assert abs(zoom200 - 1.44) < 1e-5
 
         # Check font sizes
         assert get_charwidth_from_fontsize(12) > 0

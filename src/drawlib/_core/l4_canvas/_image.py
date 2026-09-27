@@ -70,10 +70,10 @@ class CanvasImageFeature(CanvasBase):
 
         image_width, image_height = dimg.get_image_size()
         height = image_height / image_width * width
-        zoom = self.get_image_zoom_from_width(dimg, width)
+        zoom = self._calculate_image_zoom(image_width, width)
 
         dimg, style = self._rotate_image(dimg, angle, style)
-        x, y = self._shift_xy(x, y, dimg, zoom, style)
+        x, y = self._shift_xy(x, y, width, height, style)
 
         im = self._convert_dimg_to_numpyarray(dimg)
         imagebox = offsetbox.OffsetImage(im, zoom=zoom, alpha=style.image_alpha)
@@ -101,15 +101,15 @@ class CanvasImageFeature(CanvasBase):
 
         return dimg._rotate(angle), style
 
-    def _shift_xy(self, x: float, y: float, dimg: Dimage, zoom: ImageZoom, style: Style) -> Coordinate:
+    @staticmethod
+    def _shift_xy(x: float, y: float, width: float, height: float, style: Style) -> Coordinate:
         halign = style.text_halign if style.text_halign is not None else "center"
         valign = style.text_valign if style.text_valign is not None else "center"
         if halign == "center" and valign == "center":
             return (x, y)
 
-        image_width, image_height = dimg.get_image_size()
-        x_shift = image_width * zoom * self._width / 1440
-        y_shift = image_height * zoom * self._width / 1440
+        x_shift = width / 2.0
+        y_shift = height / 2.0
 
         if halign == "left":
             x += x_shift
