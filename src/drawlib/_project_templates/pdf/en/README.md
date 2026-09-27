@@ -1,30 +1,102 @@
 # Drawlib PDF Report Project
 
-This directory contains multi-chapter documents compiled into a unified PDF report.
+This directory contains multi-chapter documents compiled into a unified, print-ready vector PDF report using Drawlib and headless Chromium.
 
-## Directory Structure
+> [!TIP]
+> **Need Comprehensive Rules & Deep Guides?**  
+> For complete architectural guidelines, drawing syntax, and developer APIs, run:
+> - `uv run drawlib rules show overview` : Full drawing manual & workflow feedback loop
+> - `uv run drawlib rules show styles`    : Dynamic theming, `styles.py`, and `utils.py`
+> - `uv run drawlib rules show docs_build`: Document structure, PDF options & cover pages
+> - `uv run drawlib rules list`          : List all available rule topics
 
-- `__SRC_DIR__/`: Source Markdown chapters (**Source of Truth**).
+---
+
+## 1. Directory Structure
+
+- `__SRC_DIR__/`: Source Markdown chapters and drawing code (**Source of Truth**).
   - `build.sh`: Build script to compile chapters into a single PDF document.
   - `styles.py`: Global styles script (themes, styles, font presets).
-  - `style.css`: PDF report stylesheet.
-  - `template.html`: Jinja2 HTML layout used for PDF compilation.
-  - `README.md`: This guide.
+  - `utils.py`: Reusable drawing helper functions, macros, and project constants.
+  - `style.css`: PDF report print stylesheet (paged media, `@page` rules).
+  - `template.html`: Jinja2 HTML layout used for PDF rendering.
+  - `README.md`: This customization guide.
   - `00_cover.md`: Report title/cover page.
   - `01_overview.md`: Overview chapter.
   - `02_design.md`: Technical design chapter.
 - `__OUT_PDF__`: Generated PDF document (**Do not edit directly**).
 
-## Building PDF
+---
 
-From the project root or from inside this directory, run:
+## 2. Building PDF
 
+### Using the Build Script
+Run the automated build script from the project root or inside this directory:
 ```bash
 ./build.sh
 ```
 
-Or run drawlib directly:
-
+### Using the Drawlib CLI Directly
 ```bash
+# Compile chapters into a unified PDF report with table of contents
 drawlib build pdf __SRC_DIR__/ -o __OUT_PDF__ --generate-index
+```
+
+---
+
+## 3. Customization Guide
+
+### 3.1. Themes & Global Styles (`styles.py`)
+Configure drawing styles, color palettes, and fonts for all embedded illustrations:
+```python
+from drawlib.fonts import FontRoboto
+from drawlib.styles import styles
+
+styles = styles.patch_font(
+    regular=FontRoboto.REGULAR,
+    bold=FontRoboto.BOLD,
+)
+```
+
+### 3.2. Reusable Helpers & Macros (`utils.py`)
+Define reusable drawing functions and constants in `utils.py`:
+```python
+from drawlib.shapes import rectangle
+from drawlib.text import text
+
+REPORT_VERSION = "v1.0.0"
+
+def chapter_banner(xy: tuple[float, float], title: str) -> None:
+    rectangle(xy, width=100, height=12, style="blue_flat")
+    text(xy, title, style="white_bold")
+```
+Consume inside embedded ````drawlib```` blocks:
+```python
+from drawlib.utils import REPORT_VERSION, chapter_banner
+chapter_banner((60, 20), f"System Design ({REPORT_VERSION})")
+```
+
+### 3.3. Document Flow & Chapters
+- Files are compiled in alphabetical order by filename (`00_cover.md`, `01_overview.md`, etc.).
+- Use page breaks where needed via `<div class="page-break"></div>` or CSS `page-break-before: always;`.
+- The `--generate-index` option automatically injects a Table of Contents based on your Markdown headings.
+
+### 3.4. Paged Media Styles (`style.css` & `template.html`)
+- **`style.css`**: Configure `@page` rules (margins, page orientation, headers, footers):
+  ```css
+  @page {
+      size: A4 portrait;
+      margin: 20mm 15mm;
+  }
+  ```
+- **`template.html`**: Customize document structure, header/footer branding, and page number displays.
+
+### 3.5. Fast Developer Verification
+Test individual drawing blocks with alignment grid (`-g`):
+```bash
+drawlib export __SRC_DIR__/01_overview.md 1 -g -o preview.png
+```
+Rebuild without cache:
+```bash
+drawlib build pdf __SRC_DIR__/ -o __OUT_PDF__ --no-cache
 ```

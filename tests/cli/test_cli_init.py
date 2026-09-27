@@ -65,6 +65,7 @@ def test_cli_init_simple(tmp_path: Path) -> None:
     # Source files inside docs_src/
     assert (dest / "docs_src" / "README.md").is_file()
     assert (dest / "docs_src" / "styles.py").is_file()
+    assert (dest / "docs_src" / "utils.py").is_file()
     assert (dest / "docs_src" / "doc.md").is_file()
 
     build_sh = dest / "docs_src" / "build.sh"
@@ -86,6 +87,7 @@ def test_cli_init_site(tmp_path: Path) -> None:
     # Source files inside docs_src/
     assert (dest / "docs_src" / "README.md").is_file()
     assert (dest / "docs_src" / "styles.py").is_file()
+    assert (dest / "docs_src" / "utils.py").is_file()
     assert (dest / "docs_src" / "build.sh").is_file()
     assert (dest / "docs_src" / "index.md").is_file()
     assert (dest / "docs_src" / "navbar.md").is_file()
@@ -108,6 +110,7 @@ def test_cli_init_pdf(tmp_path: Path) -> None:
 
     assert (dest / "doc_src" / "README.md").is_file()
     assert (dest / "doc_src" / "styles.py").is_file()
+    assert (dest / "doc_src" / "utils.py").is_file()
     assert (dest / "doc_src" / "build.sh").is_file()
     assert (dest / "doc_src" / "00_cover.md").is_file()
     assert (dest / "doc_src" / "01_overview.md").is_file()
@@ -125,6 +128,7 @@ def test_cli_init_image(tmp_path: Path) -> None:
     # Source files inside images_src/
     assert (dest / "images_src" / "README.md").is_file()
     assert (dest / "images_src" / "styles.py").is_file()
+    assert (dest / "images_src" / "utils.py").is_file()
     assert (dest / "images_src" / "build.sh").is_file()
     assert (dest / "images_src" / "sample.py").is_file()
 
