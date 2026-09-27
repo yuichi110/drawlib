@@ -14,11 +14,11 @@ from __future__ import annotations
 from drawlib._core.fonts import Font, FontSourceCode
 from drawlib._core.types import ColorType, Style
 from drawlib._preset_colors import Colors, default_colors
-from drawlib._preset_styles._base import BasePresetStyles
+from drawlib._preset_styles._base import BaseStyles
 from drawlib._preset_styles._utils import _create_style, _make_variants
 
 
-class DefaultStyles(BasePresetStyles):
+class DefaultStyles(BaseStyles):
     """Default preset styles with complete typing for IDE autocompletion."""
 
     # Semantic roles

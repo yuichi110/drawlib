@@ -403,7 +403,7 @@
                 <h1>Advanced Preset Styles Topics</h1>
 <p>In this section, we cover advanced topics for working with preset styles in <code>drawlib.preset_styles</code> and <code>drawlib.styles</code>.</p>
 <h1>Accessing Styles via <code>drawlib.styles</code> or Official Catalogs</h1>
-<p>Drawlib provides style presets as catalog objects (<code>BasePresetStyles</code>) containing strongly-typed <code>Style</code> objects for key roles and colors.
+<p>Drawlib provides style presets as catalog objects (<code>BaseStyles</code>) containing strongly-typed <code>Style</code> objects for key roles and colors.
 The recommended way to access styles in drawing code is via <code>drawlib.styles</code>:</p>
 <pre><code class="language-python">from drawlib.styles import styles
 </code></pre>
@@ -463,7 +463,7 @@ You can import them directly from <code>drawlib.preset_styles</code>:</p>
 <li><code>from drawlib.preset_styles import essentials_styles</code></li>
 <li><code>from drawlib.preset_styles import monochrome_styles</code></li>
 </ul>
-<p>Each <code>BasePresetStyles</code> instance contains <code>primary</code>, <code>light</code>, <code>bold</code>, <code>flat</code>, <code>solid</code>, and <code>dashed</code> <code>Style</code> attributes.</p>
+<p>Each <code>BaseStyles</code> instance contains <code>primary</code>, <code>light</code>, <code>bold</code>, <code>flat</code>, <code>solid</code>, and <code>dashed</code> <code>Style</code> attributes.</p>
 <p>Example:</p>
 <pre><code class="language-python">from drawlib.canvas import setup
 from drawlib.preset_styles import essentials_styles, monochrome_styles

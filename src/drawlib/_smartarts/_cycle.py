@@ -25,7 +25,7 @@ from drawlib._core.shapes import circle as canvas_circle
 from drawlib._core.shapes import rectangle as canvas_rectangle
 from drawlib._core.text import text as canvas_text
 from drawlib._core.types import Angle, ColorType, Coordinate, PosFloat, Style
-from drawlib._preset_styles import BasePresetStyles
+from drawlib._preset_styles import BaseStyles
 
 
 class _CycleItem:
@@ -55,7 +55,7 @@ class Cycle:
     def __init__(
         self,
         *,
-        styles: BasePresetStyles,
+        styles: BaseStyles,
         clockwise: bool = True,
         start_angle: Angle = 90.0,
         node_shape: Literal["circle", "rectangle", "none"] = "circle",

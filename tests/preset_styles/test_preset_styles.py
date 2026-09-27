@@ -11,9 +11,9 @@ import pytest
 
 from drawlib import preset_styles
 from drawlib._preset_styles import (
+    BaseStyles,
     DefaultStyles,
     MonochromeStyles,
-    PresetStyles,
     default_styles,
     monochrome_styles,
 )
@@ -33,13 +33,14 @@ class TestPresetStylesUnit:
     def test_preset_styles(self) -> None:
         """Verifies official preset style singletons are valid instances."""
         assert isinstance(default_styles, DefaultStyles)
-        assert isinstance(default_styles, PresetStyles)
+        assert isinstance(default_styles, BaseStyles)
         assert isinstance(monochrome_styles, MonochromeStyles)
-        assert isinstance(monochrome_styles, PresetStyles)
+        assert isinstance(monochrome_styles, BaseStyles)
         assert not hasattr(preset_styles, "ThemePreset")
+        assert not hasattr(preset_styles, "PresetStyles")
 
     def test_preset_style_attributes(self) -> None:
-        """Verifies PresetStyles provides required style attributes."""
+        """Verifies BaseStyles provides required style attributes."""
         styles = default_styles
         assert isinstance(styles.primary, Style)
         assert isinstance(styles.light, Style)

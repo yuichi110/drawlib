@@ -23,7 +23,7 @@ Preset styles unify colors, line weights, fills, and typography into intuitive s
 
 ## 3. Custom Presets & Advanced Theming
 
-- [Custom Preset Creation](./create.md): Defining and registering your own domain-specific styling themes by subclassing `BasePresetStyles`.
+- [Custom Preset Creation](./create.md): Defining and registering your own domain-specific styling themes by subclassing `BaseStyles`.
 - [Advanced Style Topics](./advanced_topics.md): Advanced style retrieval, cloning, dynamic overrides, and preset merging strategies.
 
 ---

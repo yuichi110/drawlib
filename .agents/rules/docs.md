@@ -122,7 +122,7 @@ Avoid manually placing dozens of low-level `rectangle` and `line` primitives whe
   - **Rule (Styles vs Preset Styles)**: If styles might be customized or themed via options (e.g. CLI `--styles`), **always reference `styles` from `drawlib.styles` (`from drawlib.styles import styles`) rather than `drawlib.preset_styles`**. Because `styles` is replaceable at runtime, using `drawlib.styles` allows seamless theme switching and style patches across all diagrams without editing drawing code.
 - **Preset Colors (`drawlib.preset_colors`)**: Curated palettes (`DefaultColors`, `MonochromeColors`, `GoogleColors`, `Colors`, `Colors140`), `Color` class with `.patch(alpha=0.5)`, and `Color.from_hex("#3498db")`.
 - **Typography & Fonts (`drawlib.fonts`)**: Universal CJK+Latin `Font` (no glyph boxes), `FontRoboto` (weights), `FontMonoSpace` (code/logs), and `FontFile("brand.ttf")`.
-- **Style Models & Types (`drawlib.types`)**: `Style` dataclass (`fill_color`, `line_width`, `text_size`, etc.). Use `style.copy()` for safe derivation. Subclass `BasePresetStyles` for custom themes.
+- **Style Models & Types (`drawlib.types`)**: `Style` dataclass (`fill_color`, `line_width`, `text_size`, etc.). Use `style.copy()` for safe derivation. Subclass `BaseStyles` for custom themes.
 - **Image Embedding (`drawlib.images`)**: `image((x, y), width=w, image="logo.png")` (auto aspect ratio). In-memory embedding via `canvas.get_dimage()` and `get_dimage_from_code()`.
 
 **Related Rules**:

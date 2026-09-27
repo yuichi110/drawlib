@@ -14,7 +14,7 @@ from pydantic import BaseModel, validate_call
 
 from drawlib._core.shapes import rectangle
 from drawlib._core.types import Angle, Coordinate, PosFloat, PosInt, Style
-from drawlib._preset_styles import BasePresetStyles
+from drawlib._preset_styles import BaseStyles
 
 
 class _GridLayoutItem(BaseModel):
@@ -46,7 +46,7 @@ class GridLayout:
     def __init__(
         self,
         *,
-        styles: BasePresetStyles,
+        styles: BaseStyles,
         num_column: PosInt,
         num_row: PosInt,
         default_r: PosFloat = 0,

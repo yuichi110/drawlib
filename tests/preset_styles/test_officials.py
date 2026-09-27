@@ -10,10 +10,10 @@
 import pytest
 
 from drawlib._preset_styles import (
+    BaseStyles,
     DefaultStyles,
     GoogleStyles,
     MonochromeStyles,
-    PresetStyles,
     default_styles,
     google_styles,
     monochrome_styles,
@@ -30,15 +30,15 @@ OUTPUT_DIR_MONOCHROME = "../../output_tests/preset_styles/monochrome/"
 
 
 def test_official_preset_style_generators() -> None:
-    """Verifies that all official preset style singletons are valid PresetStyles instances."""
+    """Verifies that all official preset style singletons are valid BaseStyles instances."""
     assert isinstance(default_styles, DefaultStyles)
-    assert isinstance(default_styles, PresetStyles)
+    assert isinstance(default_styles, BaseStyles)
 
     assert isinstance(monochrome_styles, MonochromeStyles)
-    assert isinstance(monochrome_styles, PresetStyles)
+    assert isinstance(monochrome_styles, BaseStyles)
 
     assert isinstance(google_styles, GoogleStyles)
-    assert isinstance(google_styles, PresetStyles)
+    assert isinstance(google_styles, BaseStyles)
 
 
 def test_default_fill_official() -> None:

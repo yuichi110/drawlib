@@ -1,12 +1,12 @@
-# Creating Custom Presets with PresetStyles
+# Creating Custom Presets with BaseStyles
 
-Drawlib provides official style presets (`default`, `essentials`, `monochrome`), but you can also define custom style presets for your project using `PresetStyles`.
+Drawlib provides official style presets (`default`, `essentials`, `monochrome`), but you can also define custom style presets for your project using `BaseStyles`.
 
-A `BasePresetStyles` (or `PresetStyles`) is a Python `@dataclass` containing `Style` objects for key style roles.
+A `BaseStyles` is a Pydantic `BaseModel` containing `Style` objects for key style roles.
 
-# PresetStyles Definition
+# BaseStyles Definition
 
-`PresetStyles` accepts common style roles as attributes:
+`BaseStyles` accepts common style roles as attributes:
 
 - `primary`: Primary style object.
 - `light`: Light style object.
@@ -19,16 +19,15 @@ A `BasePresetStyles` (or `PresetStyles`) is a Python `@dataclass` containing `St
 
 # Defining a Custom Preset
 
-You can instantiate `PresetStyles` directly with custom styles:
+You can instantiate `BaseStyles` directly with custom styles:
 
 ```python
 from drawlib.canvas import setup
-from drawlib.colors import Colors140
-from drawlib.preset_styles import PresetStyles
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import circle, rectangle
-from drawlib.types import Style
+from drawlib.types import BaseStyles, Style
 
-custom_preset = PresetStyles(
+custom_preset = BaseStyles(
     primary=Style(shape_fill_color=Colors140.Turquoise, shape_line_color=Colors140.DarkBlue, shape_line_width=2),
     light=Style(shape_fill_color=Colors140.LightCyan, shape_line_color=Colors140.DarkBlue, shape_line_width=1),
     bold=Style(shape_fill_color=Colors140.Turquoise, shape_line_color=Colors140.DarkBlue, shape_line_width=4),
@@ -53,15 +52,15 @@ Executing this code produces the following image:
 
 
 
-# Custom Subclassing with BasePresetStyles
+# Custom Subclassing with BaseStyles
 
-Because `BasePresetStyles` is a Pydantic `BaseModel`, you can define custom classes with arbitrary style names to get complete IDE autocompletion and iteration support:
+Because `BaseStyles` is a Pydantic `BaseModel`, you can define custom classes with arbitrary style names to get complete IDE autocompletion and iteration support:
 
 ```python
-from drawlib.types import BasePresetStyles, Style
+from drawlib.types import BaseStyles, Style
 
 
-class MyCloudStyles(BasePresetStyles):
+class MyCloudStyles(BaseStyles):
     vpc: Style
     subnet: Style
     gateway: Style

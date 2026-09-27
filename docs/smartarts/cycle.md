@@ -98,7 +98,7 @@ cycle.draw(xy=(50.0, 50.0), radius=32.0)
 Initialize a Cycle SmartArt instance.
 
 **Args:**
-- `styles` (`BasePresetStyles`): Preset styles catalog (required).
+- `styles` (`BaseStyles`): Preset styles catalog (required).
 - `clockwise` (`bool`): Whether the cycle flows clockwise (`True`) or counter-clockwise (`False`). Defaults to `True`.
 - `start_angle` (`float`): Angle in degrees for the first node (`0` is right, `90` is top). Defaults to `90.0`.
 - `node_shape` (`Literal["circle", "rectangle", "none"]`): Shape of step nodes. Defaults to `"circle"`.

@@ -16,7 +16,7 @@ from pydantic import BaseModel, validate_call
 
 from drawlib._core.shapes import trapezoid, triangle
 from drawlib._core.types import Angle, Coordinate, PosFloat, Style
-from drawlib._preset_styles import BasePresetStyles
+from drawlib._preset_styles import BaseStyles
 
 
 class _PyramidItem(BaseModel):
@@ -39,7 +39,7 @@ class Pyramid:
     def __init__(
         self,
         *,
-        styles: BasePresetStyles,
+        styles: BaseStyles,
         default_style: Style | None = None,
         default_textstyle: Style | None = None,
         default_textangle: Angle | None = None,

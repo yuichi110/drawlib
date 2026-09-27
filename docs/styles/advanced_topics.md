@@ -4,7 +4,7 @@ In this section, we cover advanced topics for working with preset styles in `dra
 
 # Accessing Styles via `drawlib.styles` or Official Catalogs
 
-Drawlib provides style presets as catalog objects (`BasePresetStyles`) containing strongly-typed `Style` objects for key roles and colors.
+Drawlib provides style presets as catalog objects (`BaseStyles`) containing strongly-typed `Style` objects for key roles and colors.
 The recommended way to access styles in drawing code is via `drawlib.styles`:
 
 ```python
@@ -91,7 +91,7 @@ You can import them directly from `drawlib.preset_styles`:
 - `from drawlib.preset_styles import essentials_styles`
 - `from drawlib.preset_styles import monochrome_styles`
 
-Each `BasePresetStyles` instance contains `primary`, `light`, `bold`, `flat`, `solid`, and `dashed` `Style` attributes.
+Each `BaseStyles` instance contains `primary`, `light`, `bold`, `flat`, `solid`, and `dashed` `Style` attributes.
 
 Example:
 

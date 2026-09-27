@@ -18,7 +18,7 @@ from pydantic import BaseModel, validate_call
 
 from drawlib._core.shapes import rectangle
 from drawlib._core.types import Coordinate, PosFloat, Style
-from drawlib._preset_styles import BasePresetStyles
+from drawlib._preset_styles import BaseStyles
 
 
 class _Item(BaseModel):
@@ -37,7 +37,7 @@ class BoxList:
     def __init__(
         self,
         *,
-        styles: BasePresetStyles,
+        styles: BaseStyles,
         default_box_style: Style | None = None,
         default_text_style: Style | None = None,
     ) -> None:

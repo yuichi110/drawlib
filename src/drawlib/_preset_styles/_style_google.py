@@ -16,7 +16,7 @@ from typing import Any
 from drawlib._core.fonts import Font, FontSourceCode
 from drawlib._core.types import ColorType, Style
 from drawlib._preset_colors import Colors
-from drawlib._preset_styles._base import BasePresetStyles
+from drawlib._preset_styles._base import BaseStyles
 from drawlib._preset_styles._utils import _create_style, _make_variants
 
 _DARK_GRAY_4: tuple[int, int, int, float] = (67, 67, 67, 1.0)
@@ -170,7 +170,7 @@ def _collect_colors() -> dict[str, tuple[int, int, int, float]]:
     return colors
 
 
-class GoogleStyles(BasePresetStyles):
+class GoogleStyles(BaseStyles):
     """Google Sheets preset styles with complete typing for IDE autocompletion."""
 
     # Semantic roles

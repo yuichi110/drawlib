@@ -20,7 +20,7 @@ from drawlib._core.types import ColorType, Style
 from drawlib._preset_styles._utils import _resolve_target_font
 
 
-class BasePresetStyles(BaseModel):
+class BaseStyles(BaseModel):
     """Base model for preset styles providing iteration, dictionary-like access, and autocompletion.
 
     Attributes:
@@ -140,9 +140,6 @@ class BasePresetStyles(BaseModel):
         return self.model_copy(update=updates)
 
 
-PresetStyles = BasePresetStyles
-
 __all__ = [
-    "BasePresetStyles",
-    "PresetStyles",
+    "BaseStyles",
 ]

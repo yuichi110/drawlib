@@ -12,23 +12,18 @@
 from drawlib._core.types import (
     BaseColors,
     Color,
-    FilePath,
     FontBase,
     Style,
 )
 from drawlib._preset_styles import (
-    BasePresetStyles,
-    PresetStyles,
+    BaseStyles,
 )
 
 __all__ = [
-    # Types
-    "FilePath",
     # Base Classes
     "BaseColors",
+    "BaseStyles",
     "FontBase",
-    "BasePresetStyles",
-    "PresetStyles",
     # Styling Models
     "Color",
     "Style",

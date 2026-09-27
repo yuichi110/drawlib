@@ -20,7 +20,7 @@ from drawlib._core.lines import line
 from drawlib._core.shapes import rectangle
 from drawlib._core.types import ColorType, Coordinate, PosFloat, PosInt, Style
 from drawlib._preset_colors import Colors, default_colors
-from drawlib._preset_styles import BasePresetStyles
+from drawlib._preset_styles import BaseStyles
 
 
 class _CellStyleOrder(BaseModel):
@@ -50,7 +50,7 @@ class Table:
     """A class used to create and manage the style and drawing of a table."""
 
     @validate_call
-    def __init__(self, *, styles: BasePresetStyles) -> None:
+    def __init__(self, *, styles: BaseStyles) -> None:
         """Initialize instance
 
         Args:

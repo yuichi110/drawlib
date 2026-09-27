@@ -12,16 +12,14 @@ from pydantic import BaseModel
 from drawlib._core.l3_fonts import FontSourceCode
 from drawlib._core.l3_styles import Style
 from drawlib._preset_styles import (
-    BasePresetStyles,
+    BaseStyles,
     DefaultStyles,
     GoogleStyles,
     MonochromeStyles,
-    PresetStyles,
     default_styles,
     google_styles,
 )
-from drawlib.types import BasePresetStyles as TypesBasePresetStyles
-from drawlib.types import PresetStyles as TypesPresetStyles
+from drawlib.types import BaseStyles as TypesBaseStyles
 
 
 class TestPresetStyles:
@@ -32,8 +30,7 @@ class TestPresetStyles:
         preset = default_styles
 
         assert isinstance(preset, BaseModel)
-        assert isinstance(preset, BasePresetStyles)
-        assert isinstance(preset, PresetStyles)
+        assert isinstance(preset, BaseStyles)
         assert isinstance(preset, DefaultStyles)
         assert isinstance(preset.primary, Style)
         assert isinstance(preset.light, Style)
@@ -49,8 +46,7 @@ class TestPresetStyles:
         preset = google_styles
 
         assert isinstance(preset, BaseModel)
-        assert isinstance(preset, BasePresetStyles)
-        assert isinstance(preset, PresetStyles)
+        assert isinstance(preset, BaseStyles)
         assert isinstance(preset, GoogleStyles)
         assert isinstance(preset.primary, Style)
         assert isinstance(preset.light, Style)
@@ -100,7 +96,7 @@ class TestPresetStyles:
     def test_custom_user_defined_styles(self) -> None:
         """Verifies that users can define arbitrary style fields with full autocomplete and iteration."""
 
-        class MyCloudStyles(BasePresetStyles):
+        class MyCloudStyles(BaseStyles):
             vpc: Style
             subnet: Style
             custom_note: str = "production"
@@ -127,6 +123,5 @@ class TestPresetStyles:
         assert my_styles.get("subnet") == subnet_style
 
     def test_import_from_types(self) -> None:
-        """Verifies that BasePresetStyles and PresetStyles can be imported from drawlib.types."""
-        assert TypesBasePresetStyles is BasePresetStyles
-        assert TypesPresetStyles is PresetStyles
+        """Verifies that BaseStyles can be imported from drawlib.types."""
+        assert TypesBaseStyles is BaseStyles

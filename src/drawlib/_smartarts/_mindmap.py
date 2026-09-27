@@ -20,7 +20,7 @@ from drawlib._core.shapes import ellipse, rectangle
 from drawlib._core.text import get_charwidth_from_fontsize
 from drawlib._core.types import Coordinate, Style
 from drawlib._preset_colors import Colors
-from drawlib._preset_styles import BasePresetStyles
+from drawlib._preset_styles import BaseStyles
 
 
 class MindMapNode:
@@ -123,7 +123,7 @@ class MindMapNode:
         xy: Coordinate,
         branch: Literal["bottom", "top", "left", "right"] = "bottom",
         *,
-        styles: BasePresetStyles | None = None,
+        styles: BaseStyles | None = None,
     ) -> None:
         """Draw the mindmap tree rooted at this node.
 
@@ -145,7 +145,7 @@ class MindMapNode:
             def_style = styles.solid
         else:
             raise ValueError(
-                'Root of MindMapNode must have "default_style" or "styles: BasePresetStyles" must be passed to draw().'
+                'Root of MindMapNode must have "default_style" or "styles: BaseStyles" must be passed to draw().'
             )
 
         def_r = 0.0 if self._default_r is None else self._default_r
@@ -164,7 +164,7 @@ class MindMapNode:
         else:
             raise ValueError(
                 'Root of MindMapNode must have "default_linestyle" '
-                'or "styles: BasePresetStyles" must be passed to draw().'
+                'or "styles: BaseStyles" must be passed to draw().'
             )
 
         def_h_margin = 4.0 if self._default_horizontal_margin is None else self._default_horizontal_margin

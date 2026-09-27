@@ -10,8 +10,7 @@
 """Private preset_styles package for drawlib."""
 
 from drawlib._preset_styles._base import (
-    BasePresetStyles,
-    PresetStyles,
+    BaseStyles,
 )
 from drawlib._preset_styles._style_default import (
     DefaultStyles,
@@ -27,11 +26,10 @@ from drawlib._preset_styles._style_monochrome import (
 )
 
 __all__ = [
-    "BasePresetStyles",
+    "BaseStyles",
     "DefaultStyles",
     "GoogleStyles",
     "MonochromeStyles",
-    "PresetStyles",
     "default_styles",
     "google_styles",
     "monochrome_styles",

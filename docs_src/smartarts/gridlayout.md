@@ -57,7 +57,7 @@ Initializes a GridLayout instance.
 
 Args:
 
-- styles (BasePresetStyles): The preset styles catalog (required).
+- styles (BaseStyles): The preset styles catalog (required).
 - num_column (int): The number of columns in the grid.
 - num_row (int): The number of rows in the grid.
 - default_r (int, optional): The default radius for the rectangles. Defaults to 0.

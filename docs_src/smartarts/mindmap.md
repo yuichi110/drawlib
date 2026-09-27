@@ -208,7 +208,7 @@ Args:
 
 - `xy` (Tuple[float, float]): The center coordinates (x, y) of this root node's box.
 - `branch` (Literal["bottom", "top", "left", "right"], optional): Default branch direction for children. Defaults to `"bottom"`.
-- `styles` (Optional[BasePresetStyles], optional): Preset styles catalog (optional if root node has default styles set).
+- `styles` (Optional[BaseStyles], optional): Preset styles catalog (optional if root node has default styles set).
 
 ---
 

@@ -18,7 +18,7 @@ from drawlib._core.shapes import circle
 from drawlib._core.text import text
 from drawlib._core.types import Coordinate, PosFloat, Style
 from drawlib._preset_colors import Colors
-from drawlib._preset_styles import BasePresetStyles
+from drawlib._preset_styles import BaseStyles
 
 
 class _BulletPointsShape(BaseModel):
@@ -41,7 +41,7 @@ class BulletPoints:
     """A class to draw a list of bullet points with customizable styles and indentation.
 
     Args:
-        styles (BasePresetStyles): The preset styles catalog (required).
+        styles (BaseStyles): The preset styles catalog (required).
         vertical_margin (float): The vertical space between bullet points.
         indent_width (float): The width of the indentation for each level.
         default_style (Style, optional): The default text style for the bullet points.
@@ -51,7 +51,7 @@ class BulletPoints:
     def __init__(
         self,
         *,
-        styles: BasePresetStyles,
+        styles: BaseStyles,
         vertical_margin: PosFloat,
         indent_width: PosFloat,
         default_style: Style | None = None,
@@ -59,7 +59,7 @@ class BulletPoints:
         """Initialize BulletPoints.
 
         Args:
-            styles (BasePresetStyles): The preset styles catalog (required).
+            styles (BaseStyles): The preset styles catalog (required).
             vertical_margin (float): The vertical space between bullet points.
             indent_width (float): The width of the indentation for each level.
             default_style (Style, optional): The default text style for the bullet points.

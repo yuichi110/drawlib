@@ -22,7 +22,7 @@ from drawlib._core.shapes import chevron as canvas_chevron
 from drawlib._core.shapes import polygon as canvas_polygon
 from drawlib._core.text import text as canvas_text
 from drawlib._core.types import Angle90, ColorType, Coordinate, PosFloat, Style
-from drawlib._preset_styles import BasePresetStyles
+from drawlib._preset_styles import BaseStyles
 
 
 class _ChevronItem:
@@ -50,7 +50,7 @@ class ChevronProcess:
     def __init__(
         self,
         *,
-        styles: BasePresetStyles,
+        styles: BaseStyles,
         corner_angle: Angle90 = 60.0,
         spacing: PosFloat = 1.5,
         flat_left_end: bool = False,

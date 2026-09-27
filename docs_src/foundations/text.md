@@ -328,7 +328,7 @@ save()
    Fonts
 
 To change font styles, refer to the preset styles documentation.
-You can create custom `Style` or `PresetStyles` objects to specify font settings across text elements.
+You can create custom `Style` or `BaseStyles` objects to specify font settings across text elements.
 
 
 ## Custom Font

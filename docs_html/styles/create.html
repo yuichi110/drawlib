@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creating Custom Presets with PresetStyles</title>
+    <title>Creating Custom Presets with BaseStyles</title>
     
     <link rel="stylesheet" href="../style.css">
     
@@ -396,15 +396,15 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Creating Custom Presets with PresetStyles</span>
+                    <span class="crumb active">Creating Custom Presets with BaseStyles</span>
                 </div>
             </header>
             <main class="main-content">
-                <h1>Creating Custom Presets with PresetStyles</h1>
-<p>Drawlib provides official style presets (<code>default</code>, <code>essentials</code>, <code>monochrome</code>), but you can also define custom style presets for your project using <code>PresetStyles</code>.</p>
-<p>A <code>BasePresetStyles</code> (or <code>PresetStyles</code>) is a Python <code>@dataclass</code> containing <code>Style</code> objects for key style roles.</p>
-<h1>PresetStyles Definition</h1>
-<p><code>PresetStyles</code> accepts common style roles as attributes:</p>
+                <h1>Creating Custom Presets with BaseStyles</h1>
+<p>Drawlib provides official style presets (<code>default</code>, <code>essentials</code>, <code>monochrome</code>), but you can also define custom style presets for your project using <code>BaseStyles</code>.</p>
+<p>A <code>BaseStyles</code> is a Pydantic <code>BaseModel</code> containing <code>Style</code> objects for key style roles.</p>
+<h1>BaseStyles Definition</h1>
+<p><code>BaseStyles</code> accepts common style roles as attributes:</p>
 <ul>
 <li><code>primary</code>: Primary style object.</li>
 <li><code>light</code>: Light style object.</li>
@@ -416,14 +416,13 @@
 <li><code>sourcecode_font</code> (optional): Default font for code rendering.</li>
 </ul>
 <h1>Defining a Custom Preset</h1>
-<p>You can instantiate <code>PresetStyles</code> directly with custom styles:</p>
+<p>You can instantiate <code>BaseStyles</code> directly with custom styles:</p>
 <pre><code class="language-python">from drawlib.canvas import setup
-from drawlib.colors import Colors140
-from drawlib.preset_styles import PresetStyles
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import circle, rectangle
-from drawlib.types import Style
+from drawlib.types import BaseStyles, Style
 
-custom_preset = PresetStyles(
+custom_preset = BaseStyles(
     primary=Style(shape_fill_color=Colors140.Turquoise, shape_line_color=Colors140.DarkBlue, shape_line_width=2),
     light=Style(shape_fill_color=Colors140.LightCyan, shape_line_color=Colors140.DarkBlue, shape_line_width=1),
     bold=Style(shape_fill_color=Colors140.Turquoise, shape_line_color=Colors140.DarkBlue, shape_line_width=4),
@@ -441,12 +440,12 @@ rectangle(xy=(75, 20), width=20, height=20, style=custom_preset.bold)
 <div class="drawlib-image" style="text-align: center;">
   <img src="create_images/1.png" alt="create_1" style="width: 600px; max-width: 100%;" />
 </div>
-<h1>Custom Subclassing with BasePresetStyles</h1>
-<p>Because <code>BasePresetStyles</code> is a Pydantic <code>BaseModel</code>, you can define custom classes with arbitrary style names to get complete IDE autocompletion and iteration support:</p>
-<pre><code class="language-python">from drawlib.types import BasePresetStyles, Style
+<h1>Custom Subclassing with BaseStyles</h1>
+<p>Because <code>BaseStyles</code> is a Pydantic <code>BaseModel</code>, you can define custom classes with arbitrary style names to get complete IDE autocompletion and iteration support:</p>
+<pre><code class="language-python">from drawlib.types import BaseStyles, Style
 
 
-class MyCloudStyles(BasePresetStyles):
+class MyCloudStyles(BaseStyles):
     vpc: Style
     subnet: Style
     gateway: Style

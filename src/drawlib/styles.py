@@ -27,7 +27,7 @@ from drawlib.preset_colors import (
     monochrome_colors,
 )
 from drawlib.preset_styles import (
-    BasePresetStyles,
+    BaseStyles,
     DefaultStyles,
     GoogleStyles,
     MonochromeStyles,
@@ -40,18 +40,18 @@ styles: DefaultStyles = default_styles
 # Active colors matching the active theme (default: default_colors)
 colors: DefaultColors = default_colors
 
-_STYLE_TO_COLOR_MAP: dict[type[BasePresetStyles], BaseColors] = {
+_STYLE_TO_COLOR_MAP: dict[type[BaseStyles], BaseColors] = {
     DefaultStyles: default_colors,
     GoogleStyles: google_colors,
     MonochromeStyles: monochrome_colors,
 }
 
 
-def _resolve_colors(style_obj: BasePresetStyles) -> BaseColors:
+def _resolve_colors(style_obj: BaseStyles) -> BaseColors:
     """Resolve corresponding color instance for a given style object.
 
     Args:
-        style_obj (BasePresetStyles): The style instance to inspect.
+        style_obj (BaseStyles): The style instance to inspect.
 
     Returns:
         BaseColors: The corresponding style color instance.
@@ -62,11 +62,11 @@ def _resolve_colors(style_obj: BasePresetStyles) -> BaseColors:
     return default_colors
 
 
-def _set_active_styles(new_styles: BasePresetStyles, new_colors: BaseColors | None = None) -> None:
+def _set_active_styles(new_styles: BaseStyles, new_colors: BaseColors | None = None) -> None:
     """Set the active styles and colors.
 
     Args:
-        new_styles (BasePresetStyles): The new preset style instance.
+        new_styles (BaseStyles): The new preset style instance.
         new_colors (BaseColors | None): Optional specific color instance.
     """
     mod = _sys.modules.get(__name__)

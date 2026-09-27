@@ -50,7 +50,7 @@ Initialize instance.
 
 Args
 
-- styles (BasePresetStyles): The preset styles catalog (required).
+- styles (BaseStyles): The preset styles catalog (required).
 - default_style (Optional[Style], optional): The default style for the pyramid shapes. Defaults to None.
 - default_textstyle (Optional[Style], optional): The default text style for the pyramid shapes. Defaults to None.
 - default_textangle (Optional[float], optional): The default rotation angle for the text within the pyramid shapes. Defaults to None.
