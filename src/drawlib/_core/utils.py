@@ -19,7 +19,6 @@ from drawlib._core.l1_core import (
     get_script_relative_path,
     logger,
 )
-from drawlib._core.l2_models import StaticContainer
 from drawlib._core.l3_external import (
     download_all_assets,
     download_all_fonts,
@@ -51,7 +50,6 @@ __all__ = [
     "LineUtil",
     "RULES_DIR_PATH",
     "ShapeUtil",
-    "StaticContainer",
     "TextUtil",
     "download_all_assets",
     "download_all_fonts",

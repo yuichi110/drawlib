@@ -9,18 +9,19 @@
 
 """Color utility module for canvas operations."""
 
-from drawlib._core.l2_models import (
-    Color,
-    StaticContainer,
-)
+from drawlib._core.l2_models import Color
 from drawlib._core.l2_types import (
     TypeColor,
     TypeColorRGBA,
 )
 
 
-class ColorUtil(StaticContainer):
+class ColorUtil:
     """A utility class for color conversion operations."""
+
+    def __init__(self) -> None:
+        """Raise TypeError to prevent instantiation of utility class."""
+        raise TypeError(f"'{self.__class__.__name__}' is a static utility class and cannot be instantiated.")
 
     @staticmethod
     def get_mplot_rgba(

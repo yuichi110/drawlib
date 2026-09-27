@@ -10,11 +10,14 @@
 """Icon utility module for canvas operations."""
 
 from drawlib._core.types import Style, TypeIconStyle
-from drawlib._core.utils import StaticContainer
 
 
-class IconUtil(StaticContainer):
+class IconUtil:
     """A utility class for handling icon styles."""
+
+    def __init__(self) -> None:
+        """Raise TypeError to prevent instantiation of utility class."""
+        raise TypeError(f"'{self.__class__.__name__}' is a static utility class and cannot be instantiated.")
 
     @staticmethod
     def validate_icon_style(style: Style) -> None:

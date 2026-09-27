@@ -11,7 +11,6 @@
 
 import pytest
 
-from drawlib._core.l2_models import StaticContainer
 from drawlib._core.l3_styles import Style
 from drawlib._icons._utils import IconUtil
 
@@ -19,11 +18,7 @@ from drawlib._icons._utils import IconUtil
 class TestIconUtils:
     """Tests for the IconUtil class and style formatting helper methods."""
 
-    def test_static_container_subclass(self) -> None:
-        """Verify that IconUtil inherits from StaticContainer."""
-        assert issubclass(IconUtil, StaticContainer)
-
-    def test_static_container_instantiation_raises_type_error(self) -> None:
+    def test_instantiation_raises_type_error(self) -> None:
         """Verify that instantiating IconUtil directly raises a TypeError."""
         with pytest.raises(TypeError):
             IconUtil()

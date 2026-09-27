@@ -11,15 +11,18 @@
 
 from typing import Any
 
-from drawlib._core.l2_models import StaticContainer
 from drawlib._core.l2_types import TypeArrowHead
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas_utils._colors import ColorUtil
 from drawlib._core.l4_canvas_utils._utils import get_dict_value_none_keys_removed
 
 
-class LineUtil(StaticContainer):
+class LineUtil:
     """A utility class for handling line styles and options."""
+
+    def __init__(self) -> None:
+        """Raise TypeError to prevent instantiation of utility class."""
+        raise TypeError(f"'{self.__class__.__name__}' is a static utility class and cannot be instantiated.")
 
     @staticmethod
     def _remove_consecutive_duplicates(xys: list[tuple[float, float]]) -> list[tuple[float, float]]:

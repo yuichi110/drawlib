@@ -10,7 +10,6 @@
 """Package for core drawing action modules."""
 
 from drawlib._core.l2_models_._color import Color
-from drawlib._core.l2_models_._container import StaticContainer
 from drawlib._core.l2_models_._dimage import Dimage
 from drawlib._core.l2_models_._font import (
     FontBase,
@@ -22,8 +21,6 @@ from drawlib._core.l2_models_._font import (
 __all__ = [
     # _color.py
     "Color",
-    # _container.py
-    "StaticContainer",
     # _dimage.py
     "Dimage",
     # _font.py

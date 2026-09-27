@@ -65,3 +65,8 @@ class TestColorUtil:
 
         with pytest.raises(ValueError):
             ColorUtil.get_rgba_from_hex("#ff7f00aa11")
+
+    def test_instantiation_raises_type_error(self) -> None:
+        """Verifies that instantiating ColorUtil directly raises a TypeError."""
+        with pytest.raises(TypeError):
+            ColorUtil()

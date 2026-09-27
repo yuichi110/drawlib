@@ -9,12 +9,15 @@
 
 """Image utility class for drawlib."""
 
-from drawlib._core.l2_models import StaticContainer
 from drawlib._core.l3_styles import Style
 
 
-class ImageUtil(StaticContainer):
+class ImageUtil:
     """A utility class for handling image styles."""
+
+    def __init__(self) -> None:
+        """Raise TypeError to prevent instantiation of utility class."""
+        raise TypeError(f"'{self.__class__.__name__}' is a static utility class and cannot be instantiated.")
 
     @staticmethod
     def format_style(style: Style | None = None) -> Style:

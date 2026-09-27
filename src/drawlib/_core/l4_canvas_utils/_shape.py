@@ -14,15 +14,18 @@ from typing import Any
 
 from matplotlib.text import Text
 
-from drawlib._core.l2_models import StaticContainer
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas_utils._colors import ColorUtil
 from drawlib._core.l4_canvas_utils._text import TextUtil
 from drawlib._core.l4_canvas_utils._utils import get_dict_value_none_keys_removed
 
 
-class ShapeUtil(StaticContainer):
+class ShapeUtil:
     """A utility class for handling shape styles and options."""
+
+    def __init__(self) -> None:
+        """Raise TypeError to prevent instantiation of utility class."""
+        raise TypeError(f"'{self.__class__.__name__}' is a static utility class and cannot be instantiated.")
 
     @staticmethod
     def validate_shape_style(style: Style) -> None:

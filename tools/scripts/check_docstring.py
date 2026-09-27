@@ -16,7 +16,6 @@ import sys
 from typing import Optional, Union
 
 TYPES_TO_CHECK = [
-    "StaticContainer",
     "TypeAlpha",
     "TypeAngle",
     "TypeAngle90",

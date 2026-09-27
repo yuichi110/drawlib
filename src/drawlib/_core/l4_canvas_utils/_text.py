@@ -13,7 +13,6 @@ from typing import Any
 
 from matplotlib.font_manager import FontProperties
 
-from drawlib._core.l2_models import StaticContainer
 from drawlib._core.l3_external import download_if_not_exist
 from drawlib._core.l3_fonts import (
     FontBase,
@@ -28,8 +27,12 @@ from drawlib._core.l4_canvas_utils._colors import ColorUtil
 from drawlib._core.l4_canvas_utils._utils import get_dict_value_none_keys_removed
 
 
-class TextUtil(StaticContainer):
+class TextUtil:
     """A utility class for handling text styles and options."""
+
+    def __init__(self) -> None:
+        """Raise TypeError to prevent instantiation of utility class."""
+        raise TypeError(f"'{self.__class__.__name__}' is a static utility class and cannot be instantiated.")
 
     @staticmethod
     def validate_text_style(style: Style) -> None:
