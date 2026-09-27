@@ -268,7 +268,7 @@ class TestArchitectureDiagramEndToEnd:
 
     def test_diagram_rendering_scenario_a_gcp_vpc(self) -> None:
         """Verify rendering complete GCP VPC architecture diagram on canvas."""
-        canvas.initialize()
+        canvas.clear()
 
         d = ArchitectureDiagram(title="GCP Architecture")
         vpc = d.add(NodeGroup(title="VPC Network", padding=6.0), (10.0, 10.0))
@@ -293,7 +293,7 @@ class TestArchitectureDiagramEndToEnd:
 
     def test_diagram_rendering_custom_and_phosphor_icons(self) -> None:
         """Verify rendering with Phosphor icons, CustomIcon, and custom style."""
-        canvas.initialize()
+        canvas.clear()
 
         pil_img = Image.new("RGBA", (64, 64), (100, 150, 200, 255))
         custom_icon = CustomIcon(pil_img)
@@ -324,7 +324,7 @@ class TestArchitectureDiagramEndToEnd:
 
     def test_diagram_rendering_with_edge_padding(self) -> None:
         """Verify diagram rendering with edge padding succeeds without errors."""
-        canvas.initialize()
+        canvas.clear()
         d = ArchitectureDiagram()
         n1 = d.add(Node("A", icon=PhosphorIcon.BROWSER), (20.0, 50.0))
         n2 = d.add(Node("B", icon=PhosphorIcon.DATABASE), (80.0, 50.0))

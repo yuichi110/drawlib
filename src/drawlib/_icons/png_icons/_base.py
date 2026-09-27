@@ -14,7 +14,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from drawlib._core.images import image
-from drawlib._core.types import Style, TypeAngle, TypeCoordinate, TypePosFloat, TypeStr
+from drawlib._core.types import Angle, Coordinate, PosFloat, Style
 from drawlib._release_assets import RELEASE_ASSET_PACKAGES, ReleaseAssetPackage, ensure_asset_available
 
 
@@ -77,10 +77,10 @@ class PngIconProvider:
 
     def write(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
+        xy: Coordinate,
+        width: PosFloat,
         name: str,
-        angle: TypeAngle = 0.0,
+        angle: Angle = 0.0,
         *,
         style: Style,
     ) -> None:

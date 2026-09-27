@@ -194,7 +194,7 @@ class TestSequenceDiagramRenderingEndToEnd:
 
     def test_render_full_sequence_diagram(self) -> None:
         """Verify full sequence diagram rendering to canvas and saving as PNG."""
-        canvas.initialize()
+        canvas.clear()
 
         d = SequenceDiagram(title="OAuth2 Authentication Flow", autonumber=True)
 
@@ -233,7 +233,7 @@ class TestSequenceDiagramRenderingEndToEnd:
 
     def test_render_with_custom_icon_and_groups(self) -> None:
         """Verify rendering with ParticipantGroup, CustomIcon, and custom style."""
-        canvas.initialize()
+        canvas.clear()
 
         pil_img = Image.new("RGBA", (64, 64), (80, 140, 220, 255))
         custom_icon = CustomIcon(pil_img)

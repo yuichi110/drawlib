@@ -13,19 +13,19 @@ import pytest
 from pydantic import TypeAdapter, ValidationError
 
 from drawlib._core.l2_types_._image import (
-    TypeImageFormat,
-    TypeImageQuality,
-    TypeImageResample,
-    TypeImageZoom,
+    ImageFormat,
+    ImageQuality,
+    ImageResample,
+    ImageZoom,
 )
 
 
 class TestImageTypeFormat:
-    """Test cases for TypeImageFormat validation."""
+    """Test cases for ImageFormat validation."""
 
     def test_validation(self):
         """Test valid and invalid image formats."""
-        adapter: TypeAdapter[TypeImageFormat] = TypeAdapter(TypeImageFormat)
+        adapter: TypeAdapter[ImageFormat] = TypeAdapter(ImageFormat)
         assert adapter.validate_python("png") == "png"
         assert adapter.validate_python("jpg") == "jpg"
         assert adapter.validate_python("webp") == "webp"
@@ -36,11 +36,11 @@ class TestImageTypeFormat:
 
 
 class TestImageTypeZoom:
-    """Test cases for TypeImageZoom validation."""
+    """Test cases for ImageZoom validation."""
 
     def test_validation(self):
         """Test valid and invalid zoom factors."""
-        adapter: TypeAdapter[TypeImageZoom] = TypeAdapter(TypeImageZoom)
+        adapter: TypeAdapter[ImageZoom] = TypeAdapter(ImageZoom)
         assert adapter.validate_python(1.0) == 1.0
         assert adapter.validate_python(0.1) == 0.1
 
@@ -51,11 +51,11 @@ class TestImageTypeZoom:
 
 
 class TestImageTypeQuality:
-    """Test cases for TypeImageQuality validation."""
+    """Test cases for ImageQuality validation."""
 
     def test_validation(self):
         """Test valid and invalid image qualities."""
-        adapter: TypeAdapter[TypeImageQuality] = TypeAdapter(TypeImageQuality)
+        adapter: TypeAdapter[ImageQuality] = TypeAdapter(ImageQuality)
         assert adapter.validate_python(95) == 95
         assert adapter.validate_python(0) == 0
         assert adapter.validate_python(100) == 100
@@ -67,11 +67,11 @@ class TestImageTypeQuality:
 
 
 class TestImageTypeResample:
-    """Test cases for TypeImageResample validation."""
+    """Test cases for ImageResample validation."""
 
     def test_validation(self):
         """Test valid and invalid resample options."""
-        adapter: TypeAdapter[TypeImageResample] = TypeAdapter(TypeImageResample)
+        adapter: TypeAdapter[ImageResample] = TypeAdapter(ImageResample)
         for val in ["nearest", "box", "bilinear", "hamming", "bicubic", "lanczos"]:
             assert adapter.validate_python(val) == val
 

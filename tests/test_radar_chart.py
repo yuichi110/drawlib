@@ -19,7 +19,7 @@ import pytest
 from drawlib import canvas
 from drawlib._charts.radar_chart._renderer import _format_value
 from drawlib._core.l3_styles import Style
-from drawlib.charts import RadarChart, RadarSeries, RaderChart
+from drawlib.charts import RadarChart, RadarSeries
 
 
 class TestRadarSeries:
@@ -72,10 +72,6 @@ class TestRadarChartConstruction:
         """Test that fewer than 3 categories raises ValueError."""
         with pytest.raises(ValueError, match="at least 3 categories"):
             RadarChart(categories=["Speed", "Power"])
-
-    def test_alias_rader_chart(self) -> None:
-        """Test that RaderChart alias matches RadarChart."""
-        assert RaderChart is RadarChart
 
     def test_default_construction(self) -> None:
         """Test default values of RadarChart."""
@@ -140,7 +136,7 @@ class TestRadarChartRendering:
         """Test rendering standard polygon grid radar chart to PNG."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "radar_polygon.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = RadarChart(
                 categories=["Speed", "Power", "Defense", "Agility", "Stamina"],
@@ -160,7 +156,7 @@ class TestRadarChartRendering:
         """Test rendering circular concentric grid radar chart with values."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "radar_circle.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = RadarChart(
                 categories=["Usability", "Performance", "Security", "Reliability", "Maintainability"],
@@ -184,7 +180,7 @@ class TestRadarChartRendering:
         """Test rendering radar chart with no registered series."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "radar_empty.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = RadarChart(
                 categories=["A", "B", "C", "D"],

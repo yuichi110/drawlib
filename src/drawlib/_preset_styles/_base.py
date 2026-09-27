@@ -16,7 +16,7 @@ from typing import Any, Generator, Self
 from pydantic import BaseModel, ConfigDict, validate_call
 
 from drawlib._core.fonts import FontBase, FontFile, FontSourceCode
-from drawlib._core.types import Style, TypeColor
+from drawlib._core.types import ColorType, Style
 from drawlib._preset_styles._utils import _resolve_target_font
 
 
@@ -24,7 +24,7 @@ class BasePresetStyles(BaseModel):
     """Base model for preset styles providing iteration, dictionary-like access, and autocompletion.
 
     Attributes:
-        background_color (TypeColor): Default canvas background color for this preset style.
+        background_color (ColorType): Default canvas background color for this preset style.
         sourcecode_font (FontSourceCode): Default sourcecode font for this preset style.
     """
 
@@ -34,7 +34,7 @@ class BasePresetStyles(BaseModel):
         frozen=True,
     )
 
-    background_color: TypeColor = (255, 255, 255, 1.0)
+    background_color: ColorType = (255, 255, 255, 1.0)
     sourcecode_font: FontSourceCode = FontSourceCode.SOURCECODEPRO
 
     # Core semantic roles required across all preset catalogs

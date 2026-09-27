@@ -13,18 +13,18 @@
 from pydantic import BaseModel, validate_call
 
 from drawlib._core.shapes import rectangle
-from drawlib._core.types import Style, TypeAngle, TypeCoordinate, TypePosFloat, TypePosInt, TypeStr
+from drawlib._core.types import Angle, Coordinate, PosFloat, PosInt, Style
 from drawlib._preset_styles import BasePresetStyles
 
 
 class _GridLayoutItem(BaseModel):
     """Internal class for storing grid layout item information."""
 
-    column_range: tuple[TypePosInt, TypePosInt]
-    row_range: tuple[TypePosInt, TypePosInt]
-    r: TypePosFloat
+    column_range: tuple[PosInt, PosInt]
+    row_range: tuple[PosInt, PosInt]
+    r: PosFloat
     style: Style
-    text: TypeStr
+    text: str
     textstyle: Style
 
 
@@ -47,12 +47,12 @@ class GridLayout:
         self,
         *,
         styles: BasePresetStyles,
-        num_column: TypePosInt,
-        num_row: TypePosInt,
-        default_r: TypePosFloat = 0,
+        num_column: PosInt,
+        num_row: PosInt,
+        default_r: PosFloat = 0,
         default_style: Style | None = None,
         default_textstyle: Style | None = None,
-        default_textangle: TypeAngle | None = None,
+        default_textangle: Angle | None = None,
     ) -> None:
         """Initializes a GridLayout instance.
 
@@ -79,15 +79,15 @@ class GridLayout:
     @validate_call
     def add(  # noqa: C901
         self,
-        position: tuple[TypePosInt, TypePosInt],
-        width: TypePosInt,
-        height: TypePosInt,
-        r: TypePosFloat | None = None,
+        position: tuple[PosInt, PosInt],
+        width: PosInt,
+        height: PosInt,
+        r: PosFloat | None = None,
         style: Style | None = None,
-        text: TypeStr = "",
+        text: str = "",
         textstyle: Style | None = None,
-        textangle: TypeAngle | None = None,
-        text_xy_shift: TypeCoordinate | None = None,
+        textangle: Angle | None = None,
+        text_xy_shift: Coordinate | None = None,
     ) -> None:
         if width < 1:
             raise ValueError("Grid cell must have 1+ columns")
@@ -136,11 +136,11 @@ class GridLayout:
     @validate_call
     def draw(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        height: TypePosFloat,
-        margin: TypePosFloat,
-        outer_r: TypePosFloat | None = None,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        margin: PosFloat,
+        outer_r: PosFloat | None = None,
         outer_style: Style | None = None,
     ) -> None:
         """Draw the grid layout.
@@ -177,12 +177,12 @@ class GridLayout:
     @validate_call
     def draw_flexible(  # noqa: C901
         self,
-        xy: TypeCoordinate,
-        column_widths: list[TypePosFloat],
-        column_margins: list[TypePosFloat],
-        row_heights: list[TypePosFloat],
-        row_margins: list[TypePosFloat],
-        outer_r: TypePosFloat | None = None,
+        xy: Coordinate,
+        column_widths: list[PosFloat],
+        column_margins: list[PosFloat],
+        row_heights: list[PosFloat],
+        row_margins: list[PosFloat],
+        outer_r: PosFloat | None = None,
         outer_style: Style | None = None,
     ) -> None:
         """Draw the grid layout with flexible column widths and row heights.
@@ -224,7 +224,7 @@ class GridLayout:
             )
 
         # utility
-        def get_position(column_index: int, row_index: int) -> TypeCoordinate:
+        def get_position(column_index: int, row_index: int) -> Coordinate:
             x, y = xy
             if column_index == 0:
                 new_x = x + column_margins[0]

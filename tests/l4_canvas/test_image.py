@@ -15,7 +15,7 @@ import pytest
 from PIL import Image
 
 from drawlib._core.l2_models import Dimage
-from drawlib.canvas import clear, config, save
+from drawlib.canvas import clear, save, setup
 from drawlib.images import image
 from drawlib.preset_colors import Colors
 from drawlib.types import Style
@@ -102,7 +102,7 @@ class TestCanvasImage:
         )
 
         # Alpha adjustment
-        config(grid_only=True, background_color=Colors.Gray)
+        setup(grid_only=True, background_color=Colors.Gray)
         image(
             xy=(50, 50),
             width=30,

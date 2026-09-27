@@ -18,7 +18,7 @@ from pydantic import validate_call
 from drawlib._core.lines import line
 from drawlib._core.shapes import ellipse, rectangle
 from drawlib._core.text import get_charwidth_from_fontsize
-from drawlib._core.types import Style, TypeCoordinate, TypeFloat, TypeStr
+from drawlib._core.types import Coordinate, Style
 from drawlib._preset_colors import Colors
 from drawlib._preset_styles import BasePresetStyles
 
@@ -33,45 +33,30 @@ class MindMapNode:
 
     def __init__(  # noqa: PLR0913
         self,
-        text: TypeStr,
+        text: str,
         branch: Literal["bottom", "top", "left", "right"] | None = None,
         shape: Literal["rectangle", "oval", "none"] | None = None,
-        size: tuple[TypeFloat, TypeFloat] | None = None,
+        size: tuple[float, float] | None = None,
         style: Style | None = None,
-        r: TypeFloat | None = None,
+        r: float | None = None,
         textstyle: Style | None = None,
         linestyle: Style | None = None,
-        horizontal_margin: TypeFloat | None = None,
-        vertical_margin: TypeFloat | None = None,
-        line_length: TypeFloat | None = None,
-        xy_shift: tuple[TypeFloat, TypeFloat] | None = None,
+        horizontal_margin: float | None = None,
+        vertical_margin: float | None = None,
+        line_length: float | None = None,
+        xy_shift: tuple[float, float] | None = None,
         children: list[MindMapNode] | None = None,
         # Default options inherited by descendant nodes
         default_branch: Literal["bottom", "top", "left", "right"] | None = None,
         default_shape: Literal["rectangle", "oval", "none"] | None = None,
-        default_size: tuple[TypeFloat, TypeFloat] | None = None,
+        default_size: tuple[float, float] | None = None,
         default_style: Style | None = None,
-        default_r: TypeFloat | None = None,
+        default_r: float | None = None,
         default_textstyle: Style | None = None,
         default_linestyle: Style | None = None,
-        default_horizontal_margin: TypeFloat | None = None,
-        default_vertical_margin: TypeFloat | None = None,
-        default_line_length: TypeFloat | None = None,
-        # Backward compatibility parameters
-        boxsize: tuple[TypeFloat, TypeFloat] | None = None,
-        boxstyle: Style | None = None,
-        box_r: TypeFloat | None = None,
-        box_horizontal_margin: TypeFloat | None = None,
-        box_vertical_margin: TypeFloat | None = None,
-        line_horizontal_length: TypeFloat | None = None,
-        line_vertical_length: TypeFloat | None = None,
-        default_boxsize: tuple[TypeFloat, TypeFloat] | None = None,
-        default_boxstyle: Style | None = None,
-        default_box_r: TypeFloat | None = None,
-        default_box_horizontal_margin: TypeFloat | None = None,
-        default_box_vertical_margin: TypeFloat | None = None,
-        default_line_horizontal_length: TypeFloat | None = None,
-        default_line_vertical_length: TypeFloat | None = None,
+        default_horizontal_margin: float | None = None,
+        default_vertical_margin: float | None = None,
+        default_line_length: float | None = None,
     ) -> None:
         """Initialize MindMapNode.
 
@@ -99,97 +84,32 @@ class MindMapNode:
             default_horizontal_margin: Default horizontal margin for descendant nodes.
             default_vertical_margin: Default vertical margin for descendant nodes.
             default_line_length: Default line length for descendant nodes.
-            boxsize: Backward-compatible alias for size.
-            boxstyle: Backward-compatible alias for style.
-            box_r: Backward-compatible alias for r.
-            box_horizontal_margin: Backward-compatible alias for horizontal_margin.
-            box_vertical_margin: Backward-compatible alias for vertical_margin.
-            line_horizontal_length: Backward-compatible alias for line_length.
-            line_vertical_length: Backward-compatible alias for line_length.
-            default_boxsize: Backward-compatible alias for default_size.
-            default_boxstyle: Backward-compatible alias for default_style.
-            default_box_r: Backward-compatible alias for default_r.
-            default_box_horizontal_margin: Backward-compatible alias for default_horizontal_margin.
-            default_box_vertical_margin: Backward-compatible alias for default_vertical_margin.
-            default_line_horizontal_length: Backward-compatible alias for default_line_length.
-            default_line_vertical_length: Backward-compatible alias for default_line_length.
         """
         self._text = text
         self._branch = branch
         self._shape = shape
-
-        resolved_size = size if size is not None else boxsize
-        self._size = resolved_size
-
-        resolved_style = style if style is not None else boxstyle
-        self._style = resolved_style
-
-        self._r = r if r is not None else box_r
+        self._size = size
+        self._style = style
+        self._r = r
         self._textstyle = textstyle
         self._linestyle = linestyle
-
-        self._horizontal_margin = horizontal_margin if horizontal_margin is not None else box_horizontal_margin
-        self._vertical_margin = vertical_margin if vertical_margin is not None else box_vertical_margin
-
-        resolved_line_len = line_length
-        if resolved_line_len is None:
-            resolved_line_len = line_vertical_length if line_vertical_length is not None else line_horizontal_length
-        self._line_length = resolved_line_len
-
+        self._horizontal_margin = horizontal_margin
+        self._vertical_margin = vertical_margin
+        self._line_length = line_length
         self._xy_shift = xy_shift
         self._children: list[MindMapNode] = [] if children is None else children
 
         # Default options
         self._default_branch = default_branch
         self._default_shape = default_shape
-
-        resolved_def_size = default_size if default_size is not None else default_boxsize
-        self._default_size = resolved_def_size
-
-        resolved_def_style = default_style if default_style is not None else default_boxstyle
-        self._default_style = resolved_def_style
-
-        self._default_r = default_r if default_r is not None else default_box_r
+        self._default_size = default_size
+        self._default_style = default_style
+        self._default_r = default_r
         self._default_textstyle = default_textstyle
         self._default_linestyle = default_linestyle
-
-        self._default_horizontal_margin = (
-            default_horizontal_margin if default_horizontal_margin is not None else default_box_horizontal_margin
-        )
-        self._default_vertical_margin = (
-            default_vertical_margin if default_vertical_margin is not None else default_box_vertical_margin
-        )
-
-        resolved_def_line_len = default_line_length
-        if resolved_def_line_len is None:
-            resolved_def_line_len = (
-                default_line_vertical_length
-                if default_line_vertical_length is not None
-                else default_line_horizontal_length
-            )
-        self._default_line_length = resolved_def_line_len
-
-        # Backward compatibility internal attributes
-        self._boxsize = self._size
-        self._boxstyle = self._style
-        self._box_r = self._r
-        self._box_horizontal_margin = self._horizontal_margin
-        self._box_vertical_margin = self._vertical_margin
-        self._line_horizontal_length = (
-            line_horizontal_length if line_horizontal_length is not None else self._line_length
-        )
-        self._line_vertical_length = line_vertical_length if line_vertical_length is not None else self._line_length
-        self._default_boxsize = self._default_size
-        self._default_boxstyle = self._default_style
-        self._default_box_r = self._default_r
-        self._default_box_horizontal_margin = self._default_horizontal_margin
-        self._default_box_vertical_margin = self._default_vertical_margin
-        self._default_line_horizontal_length = (
-            default_line_horizontal_length if default_line_horizontal_length is not None else self._default_line_length
-        )
-        self._default_line_vertical_length = (
-            default_line_vertical_length if default_line_vertical_length is not None else self._default_line_length
-        )
+        self._default_horizontal_margin = default_horizontal_margin
+        self._default_vertical_margin = default_vertical_margin
+        self._default_line_length = default_line_length
 
         # Internal layout computation attributes
         self._resolved_w: float = 0.0
@@ -200,12 +120,10 @@ class MindMapNode:
     @validate_call
     def draw(
         self,
-        xy: TypeCoordinate,
+        xy: Coordinate,
         branch: Literal["bottom", "top", "left", "right"] = "bottom",
         *,
         styles: BasePresetStyles | None = None,
-        orientation: Literal["horizontal", "vertical"] | None = None,
-        align: Literal["top", "bottom", "center", "left", "right"] | None = None,
     ) -> None:
         """Draw the mindmap tree rooted at this node.
 
@@ -215,10 +133,8 @@ class MindMapNode:
             xy: Center coordinates (x, y) of the root node.
             branch: Default branch direction for child nodes ("bottom", "top", "left", "right").
             styles: The preset styles catalog (optional if root node has default styles set).
-            orientation: Backward-compatible argument. Maps "horizontal" -> "right", "vertical" -> "bottom".
-            align: Backward-compatible argument for alignment.
         """
-        root_branch = self._resolve_branch(self._branch or self._default_branch or branch, orientation)
+        root_branch = self._branch or self._default_branch or branch
 
         # Baseline defaults
         def_shape: Literal["rectangle", "oval", "none"] = self._default_shape or "rectangle"
@@ -285,17 +201,6 @@ class MindMapNode:
             default_v_margin=def_v_margin,
             default_line_len=def_line_len,
         )
-
-    @staticmethod
-    def _resolve_branch(
-        branch: Literal["bottom", "top", "left", "right"],
-        orientation: Literal["horizontal", "vertical"] | None,
-    ) -> Literal["bottom", "top", "left", "right"]:
-        if orientation == "horizontal":
-            return "right"
-        if orientation == "vertical":
-            return "bottom"
-        return branch
 
     def _get_children_by_branch(
         self,

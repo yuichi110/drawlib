@@ -192,7 +192,7 @@ class TestFlowDiagramIntegration:
 
     def test_basic_flow_render(self) -> None:
         """Verify basic flow diagram rendering and file output."""
-        canvas.initialize()
+        canvas.clear()
 
         flow = FlowDiagram(title="Basic Registration Flow")
         start = flow.add(Start("Start"), xy=(50.0, 90.0))
@@ -219,7 +219,7 @@ class TestFlowDiagramIntegration:
 
     def test_swimlane_and_junction_flow_render(self) -> None:
         """Verify swimlane workflow rendering with junctions and custom styles."""
-        canvas.initialize()
+        canvas.clear()
 
         flow = FlowDiagram(
             title="Cross-Functional Approval Workflow",
@@ -258,7 +258,7 @@ class TestFlowDiagramIntegration:
 
     def test_horizontal_swimlane_render(self) -> None:
         """Verify horizontal swimlane workflow diagram."""
-        canvas.initialize()
+        canvas.clear()
 
         flow = FlowDiagram(
             title="Horizontal Order Pipeline",

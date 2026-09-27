@@ -21,12 +21,11 @@ from matplotlib.patches import (
 from pydantic import validate_call
 
 from drawlib._core.l2_types import (
-    TypeAngle,
-    TypeCoordinate,
-    TypeNumVertex,
-    TypePosFloat,
-    TypeSize,
-    TypeStr,
+    Angle,
+    Coordinate,
+    NumVertex,
+    PosFloat,
+    Size,
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
@@ -43,16 +42,16 @@ class CanvasPatchesFeature(CanvasBase):
     @validate_call
     def arc(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        height: TypePosFloat,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
         *,
         style: Style,
-        angle_start: TypeAngle = 0.0,
-        angle_end: TypeAngle = 360.0,
-        angle: TypeAngle = 0.0,
-        text: TypeStr = "",
-        textsize: TypeSize | None = None,
+        angle_start: Angle = 0.0,
+        angle_end: Angle = 360.0,
+        angle: Angle = 0.0,
+        text: str = "",
+        textsize: Size | None = None,
         textstyle: Style | None = None,
     ) -> None:
         """Draw an arc on the canvas.
@@ -106,13 +105,13 @@ class CanvasPatchesFeature(CanvasBase):
     @validate_call
     def circle(
         self,
-        xy: TypeCoordinate,
-        radius: TypePosFloat,
+        xy: Coordinate,
+        radius: PosFloat,
         *,
         style: Style,
-        angle: TypeAngle = 0.0,
-        text: TypeStr = "",
-        textsize: TypeSize | None = None,
+        angle: Angle = 0.0,
+        text: str = "",
+        textsize: Size | None = None,
         textstyle: Style | None = None,
     ) -> None:
         """Draw a circle on the canvas.
@@ -161,14 +160,14 @@ class CanvasPatchesFeature(CanvasBase):
     @validate_call
     def ellipse(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        height: TypePosFloat,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
         *,
         style: Style,
-        angle: TypeAngle = 0.0,
-        text: TypeStr = "",
-        textsize: TypeSize | None = None,
+        angle: Angle = 0.0,
+        text: str = "",
+        textsize: Size | None = None,
         textstyle: Style | None = None,
     ) -> None:
         """Draw an ellipse on the canvas.
@@ -218,14 +217,14 @@ class CanvasPatchesFeature(CanvasBase):
     @validate_call
     def regularpolygon(
         self,
-        xy: TypeCoordinate,
-        num_vertex: TypeNumVertex,
-        radius: TypePosFloat,
+        xy: Coordinate,
+        num_vertex: NumVertex,
+        radius: PosFloat,
         *,
         style: Style,
-        angle: TypeAngle = 0.0,
-        text: TypeStr = "",
-        textsize: TypeSize | None = None,
+        angle: Angle = 0.0,
+        text: str = "",
+        textsize: Size | None = None,
         textstyle: Style | None = None,
     ) -> None:
         """Draw a regular polygon on the canvas.
@@ -277,16 +276,16 @@ class CanvasPatchesFeature(CanvasBase):
     @validate_call
     def wedge(
         self,
-        xy: TypeCoordinate,
-        radius: TypePosFloat,
+        xy: Coordinate,
+        radius: PosFloat,
         *,
         style: Style,
-        width: TypePosFloat | None = None,
-        angle_start: TypeAngle = 0,
-        angle_end: TypeAngle = 360,
-        angle: TypeAngle = 0.0,
-        text: TypeStr = "",
-        textsize: TypeSize | None = None,
+        width: PosFloat | None = None,
+        angle_start: Angle = 0,
+        angle_end: Angle = 360,
+        angle: Angle = 0.0,
+        text: str = "",
+        textsize: Size | None = None,
         textstyle: Style | None = None,
     ) -> None:
         """Draw a wedge shape on the canvas.
@@ -341,14 +340,14 @@ class CanvasPatchesFeature(CanvasBase):
     @validate_call
     def donuts(
         self,
-        xy: TypeCoordinate,
-        radius: TypePosFloat,
+        xy: Coordinate,
+        radius: PosFloat,
         *,
         style: Style,
-        width: TypePosFloat | None = None,
-        angle: TypeAngle = 0.0,
-        text: TypeStr = "",
-        textsize: TypeSize | None = None,
+        width: PosFloat | None = None,
+        angle: Angle = 0.0,
+        text: str = "",
+        textsize: Size | None = None,
         textstyle: Style | None = None,
     ) -> None:
         """Draw a donut shape on the canvas.
@@ -377,15 +376,15 @@ class CanvasPatchesFeature(CanvasBase):
     @validate_call
     def fan(
         self,
-        xy: TypeCoordinate,
-        radius: TypePosFloat,
+        xy: Coordinate,
+        radius: PosFloat,
         *,
         style: Style,
-        angle_start: TypeAngle = 0,
-        angle_end: TypeAngle = 180,
-        angle: TypeAngle = 0.0,
-        text: TypeStr = "",
-        textsize: TypeSize | None = None,
+        angle_start: Angle = 0,
+        angle_end: Angle = 180,
+        angle: Angle = 0.0,
+        text: str = "",
+        textsize: Size | None = None,
         textstyle: Style | None = None,
     ) -> None:
         """Draw a fan shape on the canvas.

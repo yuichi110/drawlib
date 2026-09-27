@@ -13,15 +13,15 @@ from __future__ import annotations
 
 from pydantic import validate_call
 
-from drawlib._core.types import Style, TypeAngle, TypeCoordinate, TypePosFloat, TypeStr
+from drawlib._core.types import Angle, Coordinate, PosFloat, Style
 from drawlib._icons.font_icons.phosphor._base import _write
 
 
 @validate_call
 def acorn(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -40,9 +40,9 @@ def acorn(
 
 @validate_call
 def activity(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -61,9 +61,9 @@ def activity(
 
 @validate_call
 def address_book(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -82,9 +82,9 @@ def address_book(
 
 @validate_call
 def address_book_tabs(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -103,9 +103,9 @@ def address_book_tabs(
 
 @validate_call
 def air_traffic_control(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -124,9 +124,9 @@ def air_traffic_control(
 
 @validate_call
 def airplane(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -145,9 +145,9 @@ def airplane(
 
 @validate_call
 def airplane_in_flight(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -166,9 +166,9 @@ def airplane_in_flight(
 
 @validate_call
 def airplane_landing(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -187,9 +187,9 @@ def airplane_landing(
 
 @validate_call
 def airplane_takeoff(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -208,9 +208,9 @@ def airplane_takeoff(
 
 @validate_call
 def airplane_taxiing(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -229,9 +229,9 @@ def airplane_taxiing(
 
 @validate_call
 def airplane_tilt(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -250,9 +250,9 @@ def airplane_tilt(
 
 @validate_call
 def airplay(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -271,9 +271,9 @@ def airplay(
 
 @validate_call
 def alarm(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -292,9 +292,9 @@ def alarm(
 
 @validate_call
 def alien(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -313,9 +313,9 @@ def alien(
 
 @validate_call
 def align_bottom(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -334,9 +334,9 @@ def align_bottom(
 
 @validate_call
 def align_bottom_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -355,9 +355,9 @@ def align_bottom_simple(
 
 @validate_call
 def align_center_horizontal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -376,9 +376,9 @@ def align_center_horizontal(
 
 @validate_call
 def align_center_horizontal_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -397,9 +397,9 @@ def align_center_horizontal_simple(
 
 @validate_call
 def align_center_vertical(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -418,9 +418,9 @@ def align_center_vertical(
 
 @validate_call
 def align_center_vertical_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -439,9 +439,9 @@ def align_center_vertical_simple(
 
 @validate_call
 def align_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -460,9 +460,9 @@ def align_left(
 
 @validate_call
 def align_left_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -481,9 +481,9 @@ def align_left_simple(
 
 @validate_call
 def align_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -502,9 +502,9 @@ def align_right(
 
 @validate_call
 def align_right_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -523,9 +523,9 @@ def align_right_simple(
 
 @validate_call
 def align_top(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -544,9 +544,9 @@ def align_top(
 
 @validate_call
 def align_top_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -565,9 +565,9 @@ def align_top_simple(
 
 @validate_call
 def amazon_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -586,9 +586,9 @@ def amazon_logo(
 
 @validate_call
 def ambulance(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -607,9 +607,9 @@ def ambulance(
 
 @validate_call
 def anchor(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -628,9 +628,9 @@ def anchor(
 
 @validate_call
 def anchor_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -649,9 +649,9 @@ def anchor_simple(
 
 @validate_call
 def android_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -670,9 +670,9 @@ def android_logo(
 
 @validate_call
 def angle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -691,9 +691,9 @@ def angle(
 
 @validate_call
 def angular_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -712,9 +712,9 @@ def angular_logo(
 
 @validate_call
 def aperture(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -733,9 +733,9 @@ def aperture(
 
 @validate_call
 def app_store_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -754,9 +754,9 @@ def app_store_logo(
 
 @validate_call
 def app_window(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -775,9 +775,9 @@ def app_window(
 
 @validate_call
 def apple_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -796,9 +796,9 @@ def apple_logo(
 
 @validate_call
 def apple_podcasts_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -817,9 +817,9 @@ def apple_podcasts_logo(
 
 @validate_call
 def approximate_equals(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -838,9 +838,9 @@ def approximate_equals(
 
 @validate_call
 def archive(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -859,9 +859,9 @@ def archive(
 
 @validate_call
 def archive_box(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -880,9 +880,9 @@ def archive_box(
 
 @validate_call
 def archive_tray(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -901,9 +901,9 @@ def archive_tray(
 
 @validate_call
 def armchair(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -922,9 +922,9 @@ def armchair(
 
 @validate_call
 def arrow_arc_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -943,9 +943,9 @@ def arrow_arc_left(
 
 @validate_call
 def arrow_arc_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -964,9 +964,9 @@ def arrow_arc_right(
 
 @validate_call
 def arrow_bend_double_up_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -985,9 +985,9 @@ def arrow_bend_double_up_left(
 
 @validate_call
 def arrow_bend_double_up_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1006,9 +1006,9 @@ def arrow_bend_double_up_right(
 
 @validate_call
 def arrow_bend_down_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1027,9 +1027,9 @@ def arrow_bend_down_left(
 
 @validate_call
 def arrow_bend_down_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1048,9 +1048,9 @@ def arrow_bend_down_right(
 
 @validate_call
 def arrow_bend_left_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1069,9 +1069,9 @@ def arrow_bend_left_down(
 
 @validate_call
 def arrow_bend_left_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1090,9 +1090,9 @@ def arrow_bend_left_up(
 
 @validate_call
 def arrow_bend_right_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1111,9 +1111,9 @@ def arrow_bend_right_down(
 
 @validate_call
 def arrow_bend_right_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1132,9 +1132,9 @@ def arrow_bend_right_up(
 
 @validate_call
 def arrow_bend_up_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1153,9 +1153,9 @@ def arrow_bend_up_left(
 
 @validate_call
 def arrow_bend_up_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1174,9 +1174,9 @@ def arrow_bend_up_right(
 
 @validate_call
 def arrow_circle_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1195,9 +1195,9 @@ def arrow_circle_down(
 
 @validate_call
 def arrow_circle_down_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1216,9 +1216,9 @@ def arrow_circle_down_left(
 
 @validate_call
 def arrow_circle_down_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1237,9 +1237,9 @@ def arrow_circle_down_right(
 
 @validate_call
 def arrow_circle_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1258,9 +1258,9 @@ def arrow_circle_left(
 
 @validate_call
 def arrow_circle_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1279,9 +1279,9 @@ def arrow_circle_right(
 
 @validate_call
 def arrow_circle_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1300,9 +1300,9 @@ def arrow_circle_up(
 
 @validate_call
 def arrow_circle_up_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1321,9 +1321,9 @@ def arrow_circle_up_left(
 
 @validate_call
 def arrow_circle_up_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1342,9 +1342,9 @@ def arrow_circle_up_right(
 
 @validate_call
 def arrow_clockwise(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1363,9 +1363,9 @@ def arrow_clockwise(
 
 @validate_call
 def arrow_counter_clockwise(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1384,9 +1384,9 @@ def arrow_counter_clockwise(
 
 @validate_call
 def arrow_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1405,9 +1405,9 @@ def arrow_down(
 
 @validate_call
 def arrow_down_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1426,9 +1426,9 @@ def arrow_down_left(
 
 @validate_call
 def arrow_down_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1447,9 +1447,9 @@ def arrow_down_right(
 
 @validate_call
 def arrow_elbow_down_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1468,9 +1468,9 @@ def arrow_elbow_down_left(
 
 @validate_call
 def arrow_elbow_down_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1489,9 +1489,9 @@ def arrow_elbow_down_right(
 
 @validate_call
 def arrow_elbow_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1510,9 +1510,9 @@ def arrow_elbow_left(
 
 @validate_call
 def arrow_elbow_left_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1531,9 +1531,9 @@ def arrow_elbow_left_down(
 
 @validate_call
 def arrow_elbow_left_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1552,9 +1552,9 @@ def arrow_elbow_left_up(
 
 @validate_call
 def arrow_elbow_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1573,9 +1573,9 @@ def arrow_elbow_right(
 
 @validate_call
 def arrow_elbow_right_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1594,9 +1594,9 @@ def arrow_elbow_right_down(
 
 @validate_call
 def arrow_elbow_right_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1615,9 +1615,9 @@ def arrow_elbow_right_up(
 
 @validate_call
 def arrow_elbow_up_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1636,9 +1636,9 @@ def arrow_elbow_up_left(
 
 @validate_call
 def arrow_elbow_up_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1657,9 +1657,9 @@ def arrow_elbow_up_right(
 
 @validate_call
 def arrow_fat_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1678,9 +1678,9 @@ def arrow_fat_down(
 
 @validate_call
 def arrow_fat_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1699,9 +1699,9 @@ def arrow_fat_left(
 
 @validate_call
 def arrow_fat_line_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1720,9 +1720,9 @@ def arrow_fat_line_down(
 
 @validate_call
 def arrow_fat_line_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1741,9 +1741,9 @@ def arrow_fat_line_left(
 
 @validate_call
 def arrow_fat_line_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1762,9 +1762,9 @@ def arrow_fat_line_right(
 
 @validate_call
 def arrow_fat_line_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1783,9 +1783,9 @@ def arrow_fat_line_up(
 
 @validate_call
 def arrow_fat_lines_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1804,9 +1804,9 @@ def arrow_fat_lines_down(
 
 @validate_call
 def arrow_fat_lines_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1825,9 +1825,9 @@ def arrow_fat_lines_left(
 
 @validate_call
 def arrow_fat_lines_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1846,9 +1846,9 @@ def arrow_fat_lines_right(
 
 @validate_call
 def arrow_fat_lines_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1867,9 +1867,9 @@ def arrow_fat_lines_up(
 
 @validate_call
 def arrow_fat_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1888,9 +1888,9 @@ def arrow_fat_right(
 
 @validate_call
 def arrow_fat_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1909,9 +1909,9 @@ def arrow_fat_up(
 
 @validate_call
 def arrow_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1930,9 +1930,9 @@ def arrow_left(
 
 @validate_call
 def arrow_line_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1951,9 +1951,9 @@ def arrow_line_down(
 
 @validate_call
 def arrow_line_down_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1972,9 +1972,9 @@ def arrow_line_down_left(
 
 @validate_call
 def arrow_line_down_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1993,9 +1993,9 @@ def arrow_line_down_right(
 
 @validate_call
 def arrow_line_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2014,9 +2014,9 @@ def arrow_line_left(
 
 @validate_call
 def arrow_line_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2035,9 +2035,9 @@ def arrow_line_right(
 
 @validate_call
 def arrow_line_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2056,9 +2056,9 @@ def arrow_line_up(
 
 @validate_call
 def arrow_line_up_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2077,9 +2077,9 @@ def arrow_line_up_left(
 
 @validate_call
 def arrow_line_up_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2098,9 +2098,9 @@ def arrow_line_up_right(
 
 @validate_call
 def arrow_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2119,9 +2119,9 @@ def arrow_right(
 
 @validate_call
 def arrow_square_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2140,9 +2140,9 @@ def arrow_square_down(
 
 @validate_call
 def arrow_square_down_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2161,9 +2161,9 @@ def arrow_square_down_left(
 
 @validate_call
 def arrow_square_down_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2182,9 +2182,9 @@ def arrow_square_down_right(
 
 @validate_call
 def arrow_square_in(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2203,9 +2203,9 @@ def arrow_square_in(
 
 @validate_call
 def arrow_square_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2224,9 +2224,9 @@ def arrow_square_left(
 
 @validate_call
 def arrow_square_out(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2245,9 +2245,9 @@ def arrow_square_out(
 
 @validate_call
 def arrow_square_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2266,9 +2266,9 @@ def arrow_square_right(
 
 @validate_call
 def arrow_square_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2287,9 +2287,9 @@ def arrow_square_up(
 
 @validate_call
 def arrow_square_up_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2308,9 +2308,9 @@ def arrow_square_up_left(
 
 @validate_call
 def arrow_square_up_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2329,9 +2329,9 @@ def arrow_square_up_right(
 
 @validate_call
 def arrow_u_down_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2350,9 +2350,9 @@ def arrow_u_down_left(
 
 @validate_call
 def arrow_u_down_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2371,9 +2371,9 @@ def arrow_u_down_right(
 
 @validate_call
 def arrow_u_left_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2392,9 +2392,9 @@ def arrow_u_left_down(
 
 @validate_call
 def arrow_u_left_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2413,9 +2413,9 @@ def arrow_u_left_up(
 
 @validate_call
 def arrow_u_right_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2434,9 +2434,9 @@ def arrow_u_right_down(
 
 @validate_call
 def arrow_u_right_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2455,9 +2455,9 @@ def arrow_u_right_up(
 
 @validate_call
 def arrow_u_up_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2476,9 +2476,9 @@ def arrow_u_up_left(
 
 @validate_call
 def arrow_u_up_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2497,9 +2497,9 @@ def arrow_u_up_right(
 
 @validate_call
 def arrow_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2518,9 +2518,9 @@ def arrow_up(
 
 @validate_call
 def arrow_up_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2539,9 +2539,9 @@ def arrow_up_left(
 
 @validate_call
 def arrow_up_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2560,9 +2560,9 @@ def arrow_up_right(
 
 @validate_call
 def arrows_clockwise(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2581,9 +2581,9 @@ def arrows_clockwise(
 
 @validate_call
 def arrows_counter_clockwise(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2602,9 +2602,9 @@ def arrows_counter_clockwise(
 
 @validate_call
 def arrows_down_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2623,9 +2623,9 @@ def arrows_down_up(
 
 @validate_call
 def arrows_horizontal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2644,9 +2644,9 @@ def arrows_horizontal(
 
 @validate_call
 def arrows_in(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2665,9 +2665,9 @@ def arrows_in(
 
 @validate_call
 def arrows_in_cardinal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2686,9 +2686,9 @@ def arrows_in_cardinal(
 
 @validate_call
 def arrows_in_line_horizontal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2707,9 +2707,9 @@ def arrows_in_line_horizontal(
 
 @validate_call
 def arrows_in_line_vertical(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2728,9 +2728,9 @@ def arrows_in_line_vertical(
 
 @validate_call
 def arrows_in_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2749,9 +2749,9 @@ def arrows_in_simple(
 
 @validate_call
 def arrows_left_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2770,9 +2770,9 @@ def arrows_left_right(
 
 @validate_call
 def arrows_merge(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2791,9 +2791,9 @@ def arrows_merge(
 
 @validate_call
 def arrows_out(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2812,9 +2812,9 @@ def arrows_out(
 
 @validate_call
 def arrows_out_cardinal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2833,9 +2833,9 @@ def arrows_out_cardinal(
 
 @validate_call
 def arrows_out_line_horizontal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2854,9 +2854,9 @@ def arrows_out_line_horizontal(
 
 @validate_call
 def arrows_out_line_vertical(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2875,9 +2875,9 @@ def arrows_out_line_vertical(
 
 @validate_call
 def arrows_out_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2896,9 +2896,9 @@ def arrows_out_simple(
 
 @validate_call
 def arrows_split(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2917,9 +2917,9 @@ def arrows_split(
 
 @validate_call
 def arrows_vertical(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2938,9 +2938,9 @@ def arrows_vertical(
 
 @validate_call
 def article(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2959,9 +2959,9 @@ def article(
 
 @validate_call
 def article_medium(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2980,9 +2980,9 @@ def article_medium(
 
 @validate_call
 def article_ny_times(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3001,9 +3001,9 @@ def article_ny_times(
 
 @validate_call
 def asclepius(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3022,9 +3022,9 @@ def asclepius(
 
 @validate_call
 def asterisk(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3043,9 +3043,9 @@ def asterisk(
 
 @validate_call
 def asterisk_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3064,9 +3064,9 @@ def asterisk_simple(
 
 @validate_call
 def at(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3085,9 +3085,9 @@ def at(
 
 @validate_call
 def atom(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3106,9 +3106,9 @@ def atom(
 
 @validate_call
 def avocado(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3127,9 +3127,9 @@ def avocado(
 
 @validate_call
 def axe(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3148,9 +3148,9 @@ def axe(
 
 @validate_call
 def baby(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3169,9 +3169,9 @@ def baby(
 
 @validate_call
 def baby_carriage(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3190,9 +3190,9 @@ def baby_carriage(
 
 @validate_call
 def backpack(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3211,9 +3211,9 @@ def backpack(
 
 @validate_call
 def backspace(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3232,9 +3232,9 @@ def backspace(
 
 @validate_call
 def bag(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3253,9 +3253,9 @@ def bag(
 
 @validate_call
 def bag_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3274,9 +3274,9 @@ def bag_simple(
 
 @validate_call
 def balloon(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3295,9 +3295,9 @@ def balloon(
 
 @validate_call
 def bandaids(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3316,9 +3316,9 @@ def bandaids(
 
 @validate_call
 def bank(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3337,9 +3337,9 @@ def bank(
 
 @validate_call
 def barbell(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3358,9 +3358,9 @@ def barbell(
 
 @validate_call
 def barcode(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3379,9 +3379,9 @@ def barcode(
 
 @validate_call
 def barn(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3400,9 +3400,9 @@ def barn(
 
 @validate_call
 def barricade(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3421,9 +3421,9 @@ def barricade(
 
 @validate_call
 def baseball(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3442,9 +3442,9 @@ def baseball(
 
 @validate_call
 def baseball_cap(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3463,9 +3463,9 @@ def baseball_cap(
 
 @validate_call
 def baseball_helmet(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3484,9 +3484,9 @@ def baseball_helmet(
 
 @validate_call
 def basket(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3505,9 +3505,9 @@ def basket(
 
 @validate_call
 def basketball(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3526,9 +3526,9 @@ def basketball(
 
 @validate_call
 def bathtub(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3547,9 +3547,9 @@ def bathtub(
 
 @validate_call
 def battery_charging(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3568,9 +3568,9 @@ def battery_charging(
 
 @validate_call
 def battery_charging_vertical(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3589,9 +3589,9 @@ def battery_charging_vertical(
 
 @validate_call
 def battery_empty(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3610,9 +3610,9 @@ def battery_empty(
 
 @validate_call
 def battery_full(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3631,9 +3631,9 @@ def battery_full(
 
 @validate_call
 def battery_high(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3652,9 +3652,9 @@ def battery_high(
 
 @validate_call
 def battery_low(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3673,9 +3673,9 @@ def battery_low(
 
 @validate_call
 def battery_medium(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3694,9 +3694,9 @@ def battery_medium(
 
 @validate_call
 def battery_plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3715,9 +3715,9 @@ def battery_plus(
 
 @validate_call
 def battery_plus_vertical(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3736,9 +3736,9 @@ def battery_plus_vertical(
 
 @validate_call
 def battery_vertical_empty(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3757,9 +3757,9 @@ def battery_vertical_empty(
 
 @validate_call
 def battery_vertical_full(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3778,9 +3778,9 @@ def battery_vertical_full(
 
 @validate_call
 def battery_vertical_high(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3799,9 +3799,9 @@ def battery_vertical_high(
 
 @validate_call
 def battery_vertical_low(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3820,9 +3820,9 @@ def battery_vertical_low(
 
 @validate_call
 def battery_vertical_medium(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3841,9 +3841,9 @@ def battery_vertical_medium(
 
 @validate_call
 def battery_warning(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3862,9 +3862,9 @@ def battery_warning(
 
 @validate_call
 def battery_warning_vertical(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3883,9 +3883,9 @@ def battery_warning_vertical(
 
 @validate_call
 def beach_ball(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3904,9 +3904,9 @@ def beach_ball(
 
 @validate_call
 def beanie(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3925,9 +3925,9 @@ def beanie(
 
 @validate_call
 def bed(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3946,9 +3946,9 @@ def bed(
 
 @validate_call
 def beer_bottle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3967,9 +3967,9 @@ def beer_bottle(
 
 @validate_call
 def beer_stein(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3988,9 +3988,9 @@ def beer_stein(
 
 @validate_call
 def behance_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4009,9 +4009,9 @@ def behance_logo(
 
 @validate_call
 def bell(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4030,9 +4030,9 @@ def bell(
 
 @validate_call
 def bell_ringing(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4051,9 +4051,9 @@ def bell_ringing(
 
 @validate_call
 def bell_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4072,9 +4072,9 @@ def bell_simple(
 
 @validate_call
 def bell_simple_ringing(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4093,9 +4093,9 @@ def bell_simple_ringing(
 
 @validate_call
 def bell_simple_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4114,9 +4114,9 @@ def bell_simple_slash(
 
 @validate_call
 def bell_simple_z(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4135,9 +4135,9 @@ def bell_simple_z(
 
 @validate_call
 def bell_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4156,9 +4156,9 @@ def bell_slash(
 
 @validate_call
 def bell_z(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4177,9 +4177,9 @@ def bell_z(
 
 @validate_call
 def belt(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4198,9 +4198,9 @@ def belt(
 
 @validate_call
 def bezier_curve(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4219,9 +4219,9 @@ def bezier_curve(
 
 @validate_call
 def bicycle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4240,9 +4240,9 @@ def bicycle(
 
 @validate_call
 def binary(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4261,9 +4261,9 @@ def binary(
 
 @validate_call
 def binoculars(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4282,9 +4282,9 @@ def binoculars(
 
 @validate_call
 def biohazard(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4303,9 +4303,9 @@ def biohazard(
 
 @validate_call
 def bird(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4324,9 +4324,9 @@ def bird(
 
 @validate_call
 def blueprint(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4345,9 +4345,9 @@ def blueprint(
 
 @validate_call
 def bluetooth(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4366,9 +4366,9 @@ def bluetooth(
 
 @validate_call
 def bluetooth_connected(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4387,9 +4387,9 @@ def bluetooth_connected(
 
 @validate_call
 def bluetooth_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4408,9 +4408,9 @@ def bluetooth_slash(
 
 @validate_call
 def bluetooth_x(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4429,9 +4429,9 @@ def bluetooth_x(
 
 @validate_call
 def boat(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4450,9 +4450,9 @@ def boat(
 
 @validate_call
 def bomb(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4471,9 +4471,9 @@ def bomb(
 
 @validate_call
 def bone(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4492,9 +4492,9 @@ def bone(
 
 @validate_call
 def book(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4513,9 +4513,9 @@ def book(
 
 @validate_call
 def book_bookmark(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4534,9 +4534,9 @@ def book_bookmark(
 
 @validate_call
 def book_open(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4555,9 +4555,9 @@ def book_open(
 
 @validate_call
 def book_open_text(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4576,9 +4576,9 @@ def book_open_text(
 
 @validate_call
 def book_open_user(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4597,9 +4597,9 @@ def book_open_user(
 
 @validate_call
 def bookmark(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4618,9 +4618,9 @@ def bookmark(
 
 @validate_call
 def bookmark_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4639,9 +4639,9 @@ def bookmark_simple(
 
 @validate_call
 def bookmarks(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4660,9 +4660,9 @@ def bookmarks(
 
 @validate_call
 def bookmarks_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4681,9 +4681,9 @@ def bookmarks_simple(
 
 @validate_call
 def books(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4702,9 +4702,9 @@ def books(
 
 @validate_call
 def boot(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4723,9 +4723,9 @@ def boot(
 
 @validate_call
 def boules(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4744,9 +4744,9 @@ def boules(
 
 @validate_call
 def bounding_box(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4765,9 +4765,9 @@ def bounding_box(
 
 @validate_call
 def bowl_food(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4786,9 +4786,9 @@ def bowl_food(
 
 @validate_call
 def bowl_steam(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4807,9 +4807,9 @@ def bowl_steam(
 
 @validate_call
 def bowling_ball(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4828,9 +4828,9 @@ def bowling_ball(
 
 @validate_call
 def box_arrow_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4849,9 +4849,9 @@ def box_arrow_down(
 
 @validate_call
 def box_arrow_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4870,9 +4870,9 @@ def box_arrow_up(
 
 @validate_call
 def boxing_glove(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4891,9 +4891,9 @@ def boxing_glove(
 
 @validate_call
 def brackets_angle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4912,9 +4912,9 @@ def brackets_angle(
 
 @validate_call
 def brackets_curly(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4933,9 +4933,9 @@ def brackets_curly(
 
 @validate_call
 def brackets_round(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4954,9 +4954,9 @@ def brackets_round(
 
 @validate_call
 def brackets_square(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4975,9 +4975,9 @@ def brackets_square(
 
 @validate_call
 def brain(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4996,9 +4996,9 @@ def brain(
 
 @validate_call
 def brandy(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5017,9 +5017,9 @@ def brandy(
 
 @validate_call
 def bread(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5038,9 +5038,9 @@ def bread(
 
 @validate_call
 def bridge(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5059,9 +5059,9 @@ def bridge(
 
 @validate_call
 def briefcase(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5080,9 +5080,9 @@ def briefcase(
 
 @validate_call
 def briefcase_metal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5101,9 +5101,9 @@ def briefcase_metal(
 
 @validate_call
 def broadcast(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5122,9 +5122,9 @@ def broadcast(
 
 @validate_call
 def broom(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5143,9 +5143,9 @@ def broom(
 
 @validate_call
 def browser(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5164,9 +5164,9 @@ def browser(
 
 @validate_call
 def browsers(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5185,9 +5185,9 @@ def browsers(
 
 @validate_call
 def bug(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5206,9 +5206,9 @@ def bug(
 
 @validate_call
 def bug_beetle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5227,9 +5227,9 @@ def bug_beetle(
 
 @validate_call
 def bug_droid(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5248,9 +5248,9 @@ def bug_droid(
 
 @validate_call
 def building(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5269,9 +5269,9 @@ def building(
 
 @validate_call
 def building_apartment(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5290,9 +5290,9 @@ def building_apartment(
 
 @validate_call
 def building_office(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5311,9 +5311,9 @@ def building_office(
 
 @validate_call
 def buildings(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5332,9 +5332,9 @@ def buildings(
 
 @validate_call
 def bulldozer(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5353,9 +5353,9 @@ def bulldozer(
 
 @validate_call
 def bus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5374,9 +5374,9 @@ def bus(
 
 @validate_call
 def butterfly(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5395,9 +5395,9 @@ def butterfly(
 
 @validate_call
 def cable_car(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5416,9 +5416,9 @@ def cable_car(
 
 @validate_call
 def cactus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5437,9 +5437,9 @@ def cactus(
 
 @validate_call
 def caduceus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5458,9 +5458,9 @@ def caduceus(
 
 @validate_call
 def cake(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5479,9 +5479,9 @@ def cake(
 
 @validate_call
 def calculator(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5500,9 +5500,9 @@ def calculator(
 
 @validate_call
 def calendar(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5521,9 +5521,9 @@ def calendar(
 
 @validate_call
 def calendar_blank(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5542,9 +5542,9 @@ def calendar_blank(
 
 @validate_call
 def calendar_check(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5563,9 +5563,9 @@ def calendar_check(
 
 @validate_call
 def calendar_dot(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5584,9 +5584,9 @@ def calendar_dot(
 
 @validate_call
 def calendar_dots(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5605,9 +5605,9 @@ def calendar_dots(
 
 @validate_call
 def calendar_heart(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5626,9 +5626,9 @@ def calendar_heart(
 
 @validate_call
 def calendar_minus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5647,9 +5647,9 @@ def calendar_minus(
 
 @validate_call
 def calendar_plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5668,9 +5668,9 @@ def calendar_plus(
 
 @validate_call
 def calendar_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5689,9 +5689,9 @@ def calendar_slash(
 
 @validate_call
 def calendar_star(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5710,9 +5710,9 @@ def calendar_star(
 
 @validate_call
 def calendar_x(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5731,9 +5731,9 @@ def calendar_x(
 
 @validate_call
 def call_bell(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5752,9 +5752,9 @@ def call_bell(
 
 @validate_call
 def camera(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5773,9 +5773,9 @@ def camera(
 
 @validate_call
 def camera_plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5794,9 +5794,9 @@ def camera_plus(
 
 @validate_call
 def camera_rotate(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5815,9 +5815,9 @@ def camera_rotate(
 
 @validate_call
 def camera_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5836,9 +5836,9 @@ def camera_slash(
 
 @validate_call
 def campfire(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5857,9 +5857,9 @@ def campfire(
 
 @validate_call
 def car(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5878,9 +5878,9 @@ def car(
 
 @validate_call
 def car_battery(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5899,9 +5899,9 @@ def car_battery(
 
 @validate_call
 def car_profile(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5920,9 +5920,9 @@ def car_profile(
 
 @validate_call
 def car_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5941,9 +5941,9 @@ def car_simple(
 
 @validate_call
 def cardholder(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5962,9 +5962,9 @@ def cardholder(
 
 @validate_call
 def cards(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5983,9 +5983,9 @@ def cards(
 
 @validate_call
 def cards_three(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6004,9 +6004,9 @@ def cards_three(
 
 @validate_call
 def caret_circle_double_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6025,9 +6025,9 @@ def caret_circle_double_down(
 
 @validate_call
 def caret_circle_double_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6046,9 +6046,9 @@ def caret_circle_double_left(
 
 @validate_call
 def caret_circle_double_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6067,9 +6067,9 @@ def caret_circle_double_right(
 
 @validate_call
 def caret_circle_double_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6088,9 +6088,9 @@ def caret_circle_double_up(
 
 @validate_call
 def caret_circle_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6109,9 +6109,9 @@ def caret_circle_down(
 
 @validate_call
 def caret_circle_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6130,9 +6130,9 @@ def caret_circle_left(
 
 @validate_call
 def caret_circle_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6151,9 +6151,9 @@ def caret_circle_right(
 
 @validate_call
 def caret_circle_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6172,9 +6172,9 @@ def caret_circle_up(
 
 @validate_call
 def caret_circle_up_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6193,9 +6193,9 @@ def caret_circle_up_down(
 
 @validate_call
 def caret_double_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6214,9 +6214,9 @@ def caret_double_down(
 
 @validate_call
 def caret_double_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6235,9 +6235,9 @@ def caret_double_left(
 
 @validate_call
 def caret_double_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6256,9 +6256,9 @@ def caret_double_right(
 
 @validate_call
 def caret_double_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6277,9 +6277,9 @@ def caret_double_up(
 
 @validate_call
 def caret_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6298,9 +6298,9 @@ def caret_down(
 
 @validate_call
 def caret_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6319,9 +6319,9 @@ def caret_left(
 
 @validate_call
 def caret_line_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6340,9 +6340,9 @@ def caret_line_down(
 
 @validate_call
 def caret_line_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6361,9 +6361,9 @@ def caret_line_left(
 
 @validate_call
 def caret_line_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6382,9 +6382,9 @@ def caret_line_right(
 
 @validate_call
 def caret_line_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6403,9 +6403,9 @@ def caret_line_up(
 
 @validate_call
 def caret_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6424,9 +6424,9 @@ def caret_right(
 
 @validate_call
 def caret_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6445,9 +6445,9 @@ def caret_up(
 
 @validate_call
 def caret_up_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6466,9 +6466,9 @@ def caret_up_down(
 
 @validate_call
 def carrot(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6487,9 +6487,9 @@ def carrot(
 
 @validate_call
 def cash_register(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6508,9 +6508,9 @@ def cash_register(
 
 @validate_call
 def cassette_tape(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6529,9 +6529,9 @@ def cassette_tape(
 
 @validate_call
 def castle_turret(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6550,9 +6550,9 @@ def castle_turret(
 
 @validate_call
 def cat(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6571,9 +6571,9 @@ def cat(
 
 @validate_call
 def cell_signal_full(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6592,9 +6592,9 @@ def cell_signal_full(
 
 @validate_call
 def cell_signal_high(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6613,9 +6613,9 @@ def cell_signal_high(
 
 @validate_call
 def cell_signal_low(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6634,9 +6634,9 @@ def cell_signal_low(
 
 @validate_call
 def cell_signal_medium(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6655,9 +6655,9 @@ def cell_signal_medium(
 
 @validate_call
 def cell_signal_none(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6676,9 +6676,9 @@ def cell_signal_none(
 
 @validate_call
 def cell_signal_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6697,9 +6697,9 @@ def cell_signal_slash(
 
 @validate_call
 def cell_signal_x(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6718,9 +6718,9 @@ def cell_signal_x(
 
 @validate_call
 def cell_tower(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6739,9 +6739,9 @@ def cell_tower(
 
 @validate_call
 def certificate(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6760,9 +6760,9 @@ def certificate(
 
 @validate_call
 def chair(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6781,9 +6781,9 @@ def chair(
 
 @validate_call
 def chalkboard(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6802,9 +6802,9 @@ def chalkboard(
 
 @validate_call
 def chalkboard_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6823,9 +6823,9 @@ def chalkboard_simple(
 
 @validate_call
 def chalkboard_teacher(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6844,9 +6844,9 @@ def chalkboard_teacher(
 
 @validate_call
 def champagne(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6865,9 +6865,9 @@ def champagne(
 
 @validate_call
 def charging_station(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6886,9 +6886,9 @@ def charging_station(
 
 @validate_call
 def chart_bar(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6907,9 +6907,9 @@ def chart_bar(
 
 @validate_call
 def chart_bar_horizontal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6928,9 +6928,9 @@ def chart_bar_horizontal(
 
 @validate_call
 def chart_donut(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6949,9 +6949,9 @@ def chart_donut(
 
 @validate_call
 def chart_line(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6970,9 +6970,9 @@ def chart_line(
 
 @validate_call
 def chart_line_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -6991,9 +6991,9 @@ def chart_line_down(
 
 @validate_call
 def chart_line_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7012,9 +7012,9 @@ def chart_line_up(
 
 @validate_call
 def chart_pie(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7033,9 +7033,9 @@ def chart_pie(
 
 @validate_call
 def chart_pie_slice(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7054,9 +7054,9 @@ def chart_pie_slice(
 
 @validate_call
 def chart_polar(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7075,9 +7075,9 @@ def chart_polar(
 
 @validate_call
 def chart_scatter(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7096,9 +7096,9 @@ def chart_scatter(
 
 @validate_call
 def chat(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7117,9 +7117,9 @@ def chat(
 
 @validate_call
 def chat_centered(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7138,9 +7138,9 @@ def chat_centered(
 
 @validate_call
 def chat_centered_dots(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7159,9 +7159,9 @@ def chat_centered_dots(
 
 @validate_call
 def chat_centered_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7180,9 +7180,9 @@ def chat_centered_slash(
 
 @validate_call
 def chat_centered_text(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7201,9 +7201,9 @@ def chat_centered_text(
 
 @validate_call
 def chat_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7222,9 +7222,9 @@ def chat_circle(
 
 @validate_call
 def chat_circle_dots(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7243,9 +7243,9 @@ def chat_circle_dots(
 
 @validate_call
 def chat_circle_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7264,9 +7264,9 @@ def chat_circle_slash(
 
 @validate_call
 def chat_circle_text(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7285,9 +7285,9 @@ def chat_circle_text(
 
 @validate_call
 def chat_dots(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7306,9 +7306,9 @@ def chat_dots(
 
 @validate_call
 def chat_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7327,9 +7327,9 @@ def chat_slash(
 
 @validate_call
 def chat_teardrop(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7348,9 +7348,9 @@ def chat_teardrop(
 
 @validate_call
 def chat_teardrop_dots(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7369,9 +7369,9 @@ def chat_teardrop_dots(
 
 @validate_call
 def chat_teardrop_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7390,9 +7390,9 @@ def chat_teardrop_slash(
 
 @validate_call
 def chat_teardrop_text(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7411,9 +7411,9 @@ def chat_teardrop_text(
 
 @validate_call
 def chat_text(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7432,9 +7432,9 @@ def chat_text(
 
 @validate_call
 def chats(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7453,9 +7453,9 @@ def chats(
 
 @validate_call
 def chats_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7474,9 +7474,9 @@ def chats_circle(
 
 @validate_call
 def chats_teardrop(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7495,9 +7495,9 @@ def chats_teardrop(
 
 @validate_call
 def check(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7516,9 +7516,9 @@ def check(
 
 @validate_call
 def check_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7537,9 +7537,9 @@ def check_circle(
 
 @validate_call
 def check_fat(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7558,9 +7558,9 @@ def check_fat(
 
 @validate_call
 def check_square(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7579,9 +7579,9 @@ def check_square(
 
 @validate_call
 def check_square_offset(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7600,9 +7600,9 @@ def check_square_offset(
 
 @validate_call
 def checkerboard(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7621,9 +7621,9 @@ def checkerboard(
 
 @validate_call
 def checks(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7642,9 +7642,9 @@ def checks(
 
 @validate_call
 def cheers(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7663,9 +7663,9 @@ def cheers(
 
 @validate_call
 def cheese(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7684,9 +7684,9 @@ def cheese(
 
 @validate_call
 def chef_hat(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7705,9 +7705,9 @@ def chef_hat(
 
 @validate_call
 def cherries(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7726,9 +7726,9 @@ def cherries(
 
 @validate_call
 def church(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7747,9 +7747,9 @@ def church(
 
 @validate_call
 def cigarette(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7768,9 +7768,9 @@ def cigarette(
 
 @validate_call
 def cigarette_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7789,9 +7789,9 @@ def cigarette_slash(
 
 @validate_call
 def circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7810,9 +7810,9 @@ def circle(
 
 @validate_call
 def circle_dashed(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7831,9 +7831,9 @@ def circle_dashed(
 
 @validate_call
 def circle_half(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7852,9 +7852,9 @@ def circle_half(
 
 @validate_call
 def circle_half_tilt(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7873,9 +7873,9 @@ def circle_half_tilt(
 
 @validate_call
 def circle_notch(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7894,9 +7894,9 @@ def circle_notch(
 
 @validate_call
 def circle_wavy(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7915,9 +7915,9 @@ def circle_wavy(
 
 @validate_call
 def circle_wavy_check(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7936,9 +7936,9 @@ def circle_wavy_check(
 
 @validate_call
 def circle_wavy_question(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7957,9 +7957,9 @@ def circle_wavy_question(
 
 @validate_call
 def circle_wavy_warning(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7978,9 +7978,9 @@ def circle_wavy_warning(
 
 @validate_call
 def circles_four(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -7999,9 +7999,9 @@ def circles_four(
 
 @validate_call
 def circles_three(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8020,9 +8020,9 @@ def circles_three(
 
 @validate_call
 def circles_three_plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8041,9 +8041,9 @@ def circles_three_plus(
 
 @validate_call
 def circuitry(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8062,9 +8062,9 @@ def circuitry(
 
 @validate_call
 def city(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8083,9 +8083,9 @@ def city(
 
 @validate_call
 def clipboard(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8104,9 +8104,9 @@ def clipboard(
 
 @validate_call
 def clipboard_text(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8125,9 +8125,9 @@ def clipboard_text(
 
 @validate_call
 def clock(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8146,9 +8146,9 @@ def clock(
 
 @validate_call
 def clock_afternoon(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8167,9 +8167,9 @@ def clock_afternoon(
 
 @validate_call
 def clock_clockwise(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8188,9 +8188,9 @@ def clock_clockwise(
 
 @validate_call
 def clock_countdown(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8209,9 +8209,9 @@ def clock_countdown(
 
 @validate_call
 def clock_counter_clockwise(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8230,9 +8230,9 @@ def clock_counter_clockwise(
 
 @validate_call
 def clock_user(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8251,9 +8251,9 @@ def clock_user(
 
 @validate_call
 def closed_captioning(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8272,9 +8272,9 @@ def closed_captioning(
 
 @validate_call
 def cloud(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8293,9 +8293,9 @@ def cloud(
 
 @validate_call
 def cloud_arrow_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8314,9 +8314,9 @@ def cloud_arrow_down(
 
 @validate_call
 def cloud_arrow_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8335,9 +8335,9 @@ def cloud_arrow_up(
 
 @validate_call
 def cloud_check(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8356,9 +8356,9 @@ def cloud_check(
 
 @validate_call
 def cloud_fog(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8377,9 +8377,9 @@ def cloud_fog(
 
 @validate_call
 def cloud_lightning(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8398,9 +8398,9 @@ def cloud_lightning(
 
 @validate_call
 def cloud_moon(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8419,9 +8419,9 @@ def cloud_moon(
 
 @validate_call
 def cloud_rain(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8440,9 +8440,9 @@ def cloud_rain(
 
 @validate_call
 def cloud_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8461,9 +8461,9 @@ def cloud_slash(
 
 @validate_call
 def cloud_snow(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8482,9 +8482,9 @@ def cloud_snow(
 
 @validate_call
 def cloud_sun(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8503,9 +8503,9 @@ def cloud_sun(
 
 @validate_call
 def cloud_warning(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8524,9 +8524,9 @@ def cloud_warning(
 
 @validate_call
 def cloud_x(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8545,9 +8545,9 @@ def cloud_x(
 
 @validate_call
 def clover(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8566,9 +8566,9 @@ def clover(
 
 @validate_call
 def club(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8587,9 +8587,9 @@ def club(
 
 @validate_call
 def coat_hanger(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8608,9 +8608,9 @@ def coat_hanger(
 
 @validate_call
 def coda_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8629,9 +8629,9 @@ def coda_logo(
 
 @validate_call
 def code(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8650,9 +8650,9 @@ def code(
 
 @validate_call
 def code_block(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8671,9 +8671,9 @@ def code_block(
 
 @validate_call
 def code_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8692,9 +8692,9 @@ def code_simple(
 
 @validate_call
 def codepen_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8713,9 +8713,9 @@ def codepen_logo(
 
 @validate_call
 def codesandbox_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8734,9 +8734,9 @@ def codesandbox_logo(
 
 @validate_call
 def coffee(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8755,9 +8755,9 @@ def coffee(
 
 @validate_call
 def coffee_bean(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8776,9 +8776,9 @@ def coffee_bean(
 
 @validate_call
 def coin(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8797,9 +8797,9 @@ def coin(
 
 @validate_call
 def coin_vertical(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8818,9 +8818,9 @@ def coin_vertical(
 
 @validate_call
 def coins(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8839,9 +8839,9 @@ def coins(
 
 @validate_call
 def columns(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8860,9 +8860,9 @@ def columns(
 
 @validate_call
 def columns_plus_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8881,9 +8881,9 @@ def columns_plus_left(
 
 @validate_call
 def columns_plus_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8902,9 +8902,9 @@ def columns_plus_right(
 
 @validate_call
 def command(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8923,9 +8923,9 @@ def command(
 
 @validate_call
 def compass(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8944,9 +8944,9 @@ def compass(
 
 @validate_call
 def compass_rose(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8965,9 +8965,9 @@ def compass_rose(
 
 @validate_call
 def compass_tool(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -8986,9 +8986,9 @@ def compass_tool(
 
 @validate_call
 def computer_tower(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9007,9 +9007,9 @@ def computer_tower(
 
 @validate_call
 def confetti(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9028,9 +9028,9 @@ def confetti(
 
 @validate_call
 def contactless_payment(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9049,9 +9049,9 @@ def contactless_payment(
 
 @validate_call
 def control(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9070,9 +9070,9 @@ def control(
 
 @validate_call
 def cookie(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9091,9 +9091,9 @@ def cookie(
 
 @validate_call
 def cooking_pot(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9112,9 +9112,9 @@ def cooking_pot(
 
 @validate_call
 def copy(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9133,9 +9133,9 @@ def copy(
 
 @validate_call
 def copy_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9154,9 +9154,9 @@ def copy_simple(
 
 @validate_call
 def copyleft(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9175,9 +9175,9 @@ def copyleft(
 
 @validate_call
 def copyright(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9196,9 +9196,9 @@ def copyright(
 
 @validate_call
 def corners_in(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9217,9 +9217,9 @@ def corners_in(
 
 @validate_call
 def corners_out(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9238,9 +9238,9 @@ def corners_out(
 
 @validate_call
 def couch(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9259,9 +9259,9 @@ def couch(
 
 @validate_call
 def court_basketball(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9280,9 +9280,9 @@ def court_basketball(
 
 @validate_call
 def cow(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9301,9 +9301,9 @@ def cow(
 
 @validate_call
 def cowboy_hat(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9322,9 +9322,9 @@ def cowboy_hat(
 
 @validate_call
 def cpu(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9343,9 +9343,9 @@ def cpu(
 
 @validate_call
 def crane(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9364,9 +9364,9 @@ def crane(
 
 @validate_call
 def crane_tower(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9385,9 +9385,9 @@ def crane_tower(
 
 @validate_call
 def credit_card(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9406,9 +9406,9 @@ def credit_card(
 
 @validate_call
 def cricket(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9427,9 +9427,9 @@ def cricket(
 
 @validate_call
 def crop(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9448,9 +9448,9 @@ def crop(
 
 @validate_call
 def cross(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9469,9 +9469,9 @@ def cross(
 
 @validate_call
 def crosshair(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9490,9 +9490,9 @@ def crosshair(
 
 @validate_call
 def crosshair_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9511,9 +9511,9 @@ def crosshair_simple(
 
 @validate_call
 def crown(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9532,9 +9532,9 @@ def crown(
 
 @validate_call
 def crown_cross(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9553,9 +9553,9 @@ def crown_cross(
 
 @validate_call
 def crown_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9574,9 +9574,9 @@ def crown_simple(
 
 @validate_call
 def cube(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9595,9 +9595,9 @@ def cube(
 
 @validate_call
 def cube_focus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9616,9 +9616,9 @@ def cube_focus(
 
 @validate_call
 def cube_transparent(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9637,9 +9637,9 @@ def cube_transparent(
 
 @validate_call
 def currency_btc(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9658,9 +9658,9 @@ def currency_btc(
 
 @validate_call
 def currency_circle_dollar(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9679,9 +9679,9 @@ def currency_circle_dollar(
 
 @validate_call
 def currency_cny(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9700,9 +9700,9 @@ def currency_cny(
 
 @validate_call
 def currency_dollar(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9721,9 +9721,9 @@ def currency_dollar(
 
 @validate_call
 def currency_dollar_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9742,9 +9742,9 @@ def currency_dollar_simple(
 
 @validate_call
 def currency_eth(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9763,9 +9763,9 @@ def currency_eth(
 
 @validate_call
 def currency_eur(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9784,9 +9784,9 @@ def currency_eur(
 
 @validate_call
 def currency_gbp(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9805,9 +9805,9 @@ def currency_gbp(
 
 @validate_call
 def currency_inr(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9826,9 +9826,9 @@ def currency_inr(
 
 @validate_call
 def currency_jpy(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9847,9 +9847,9 @@ def currency_jpy(
 
 @validate_call
 def currency_krw(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9868,9 +9868,9 @@ def currency_krw(
 
 @validate_call
 def currency_kzt(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9889,9 +9889,9 @@ def currency_kzt(
 
 @validate_call
 def currency_ngn(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9910,9 +9910,9 @@ def currency_ngn(
 
 @validate_call
 def currency_rub(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9931,9 +9931,9 @@ def currency_rub(
 
 @validate_call
 def cursor(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9952,9 +9952,9 @@ def cursor(
 
 @validate_call
 def cursor_click(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9973,9 +9973,9 @@ def cursor_click(
 
 @validate_call
 def cursor_text(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -9994,9 +9994,9 @@ def cursor_text(
 
 @validate_call
 def cylinder(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10015,9 +10015,9 @@ def cylinder(
 
 @validate_call
 def database(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10036,9 +10036,9 @@ def database(
 
 @validate_call
 def desk(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10057,9 +10057,9 @@ def desk(
 
 @validate_call
 def desktop(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10078,9 +10078,9 @@ def desktop(
 
 @validate_call
 def desktop_tower(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10099,9 +10099,9 @@ def desktop_tower(
 
 @validate_call
 def detective(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10120,9 +10120,9 @@ def detective(
 
 @validate_call
 def dev_to_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10141,9 +10141,9 @@ def dev_to_logo(
 
 @validate_call
 def device_mobile(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10162,9 +10162,9 @@ def device_mobile(
 
 @validate_call
 def device_mobile_camera(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10183,9 +10183,9 @@ def device_mobile_camera(
 
 @validate_call
 def device_mobile_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10204,9 +10204,9 @@ def device_mobile_slash(
 
 @validate_call
 def device_mobile_speaker(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10225,9 +10225,9 @@ def device_mobile_speaker(
 
 @validate_call
 def device_rotate(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10246,9 +10246,9 @@ def device_rotate(
 
 @validate_call
 def device_tablet(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10267,9 +10267,9 @@ def device_tablet(
 
 @validate_call
 def device_tablet_camera(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10288,9 +10288,9 @@ def device_tablet_camera(
 
 @validate_call
 def device_tablet_speaker(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10309,9 +10309,9 @@ def device_tablet_speaker(
 
 @validate_call
 def devices(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10330,9 +10330,9 @@ def devices(
 
 @validate_call
 def diamond(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10351,9 +10351,9 @@ def diamond(
 
 @validate_call
 def diamonds_four(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10372,9 +10372,9 @@ def diamonds_four(
 
 @validate_call
 def dice_five(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10393,9 +10393,9 @@ def dice_five(
 
 @validate_call
 def dice_four(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10414,9 +10414,9 @@ def dice_four(
 
 @validate_call
 def dice_one(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10435,9 +10435,9 @@ def dice_one(
 
 @validate_call
 def dice_six(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10456,9 +10456,9 @@ def dice_six(
 
 @validate_call
 def dice_three(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10477,9 +10477,9 @@ def dice_three(
 
 @validate_call
 def dice_two(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10498,9 +10498,9 @@ def dice_two(
 
 @validate_call
 def disc(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10519,9 +10519,9 @@ def disc(
 
 @validate_call
 def disco_ball(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10540,9 +10540,9 @@ def disco_ball(
 
 @validate_call
 def discord_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10561,9 +10561,9 @@ def discord_logo(
 
 @validate_call
 def divide(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10582,9 +10582,9 @@ def divide(
 
 @validate_call
 def dna(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10603,9 +10603,9 @@ def dna(
 
 @validate_call
 def dog(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10624,9 +10624,9 @@ def dog(
 
 @validate_call
 def door(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10645,9 +10645,9 @@ def door(
 
 @validate_call
 def door_open(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10666,9 +10666,9 @@ def door_open(
 
 @validate_call
 def dot(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10687,9 +10687,9 @@ def dot(
 
 @validate_call
 def dot_outline(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10708,9 +10708,9 @@ def dot_outline(
 
 @validate_call
 def dots_nine(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10729,9 +10729,9 @@ def dots_nine(
 
 @validate_call
 def dots_six(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10750,9 +10750,9 @@ def dots_six(
 
 @validate_call
 def dots_six_vertical(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10771,9 +10771,9 @@ def dots_six_vertical(
 
 @validate_call
 def dots_three(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10792,9 +10792,9 @@ def dots_three(
 
 @validate_call
 def dots_three_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10813,9 +10813,9 @@ def dots_three_circle(
 
 @validate_call
 def dots_three_circle_vertical(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10834,9 +10834,9 @@ def dots_three_circle_vertical(
 
 @validate_call
 def dots_three_outline(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10855,9 +10855,9 @@ def dots_three_outline(
 
 @validate_call
 def dots_three_outline_vertical(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10876,9 +10876,9 @@ def dots_three_outline_vertical(
 
 @validate_call
 def dots_three_vertical(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10897,9 +10897,9 @@ def dots_three_vertical(
 
 @validate_call
 def download(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10918,9 +10918,9 @@ def download(
 
 @validate_call
 def download_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10939,9 +10939,9 @@ def download_simple(
 
 @validate_call
 def dress(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10960,9 +10960,9 @@ def dress(
 
 @validate_call
 def dresser(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -10981,9 +10981,9 @@ def dresser(
 
 @validate_call
 def dribbble_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11002,9 +11002,9 @@ def dribbble_logo(
 
 @validate_call
 def drone(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11023,9 +11023,9 @@ def drone(
 
 @validate_call
 def drop(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11044,9 +11044,9 @@ def drop(
 
 @validate_call
 def drop_half(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11065,9 +11065,9 @@ def drop_half(
 
 @validate_call
 def drop_half_bottom(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11086,9 +11086,9 @@ def drop_half_bottom(
 
 @validate_call
 def drop_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11107,9 +11107,9 @@ def drop_simple(
 
 @validate_call
 def drop_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11128,9 +11128,9 @@ def drop_slash(
 
 @validate_call
 def dropbox_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11149,9 +11149,9 @@ def dropbox_logo(
 
 @validate_call
 def ear(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11170,9 +11170,9 @@ def ear(
 
 @validate_call
 def ear_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11191,9 +11191,9 @@ def ear_slash(
 
 @validate_call
 def egg(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11212,9 +11212,9 @@ def egg(
 
 @validate_call
 def egg_crack(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11233,9 +11233,9 @@ def egg_crack(
 
 @validate_call
 def eject(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11254,9 +11254,9 @@ def eject(
 
 @validate_call
 def eject_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11275,9 +11275,9 @@ def eject_simple(
 
 @validate_call
 def elevator(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11296,9 +11296,9 @@ def elevator(
 
 @validate_call
 def empty(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11317,9 +11317,9 @@ def empty(
 
 @validate_call
 def engine(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11338,9 +11338,9 @@ def engine(
 
 @validate_call
 def envelope(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11359,9 +11359,9 @@ def envelope(
 
 @validate_call
 def envelope_open(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11380,9 +11380,9 @@ def envelope_open(
 
 @validate_call
 def envelope_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11401,9 +11401,9 @@ def envelope_simple(
 
 @validate_call
 def envelope_simple_open(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11422,9 +11422,9 @@ def envelope_simple_open(
 
 @validate_call
 def equalizer(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11443,9 +11443,9 @@ def equalizer(
 
 @validate_call
 def equals(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11464,9 +11464,9 @@ def equals(
 
 @validate_call
 def eraser(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11485,9 +11485,9 @@ def eraser(
 
 @validate_call
 def escalator_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11506,9 +11506,9 @@ def escalator_down(
 
 @validate_call
 def escalator_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11527,9 +11527,9 @@ def escalator_up(
 
 @validate_call
 def exam(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11548,9 +11548,9 @@ def exam(
 
 @validate_call
 def exclamation_mark(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11569,9 +11569,9 @@ def exclamation_mark(
 
 @validate_call
 def exclude(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11590,9 +11590,9 @@ def exclude(
 
 @validate_call
 def exclude_square(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11611,9 +11611,9 @@ def exclude_square(
 
 @validate_call
 def export(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11632,9 +11632,9 @@ def export(
 
 @validate_call
 def eye(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11653,9 +11653,9 @@ def eye(
 
 @validate_call
 def eye_closed(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11674,9 +11674,9 @@ def eye_closed(
 
 @validate_call
 def eye_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11695,9 +11695,9 @@ def eye_slash(
 
 @validate_call
 def eyedropper(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11716,9 +11716,9 @@ def eyedropper(
 
 @validate_call
 def eyedropper_sample(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11737,9 +11737,9 @@ def eyedropper_sample(
 
 @validate_call
 def eyeglasses(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11758,9 +11758,9 @@ def eyeglasses(
 
 @validate_call
 def eyes(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11779,9 +11779,9 @@ def eyes(
 
 @validate_call
 def face_mask(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11800,9 +11800,9 @@ def face_mask(
 
 @validate_call
 def facebook_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11821,9 +11821,9 @@ def facebook_logo(
 
 @validate_call
 def factory(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11842,9 +11842,9 @@ def factory(
 
 @validate_call
 def faders(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11863,9 +11863,9 @@ def faders(
 
 @validate_call
 def faders_horizontal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11884,9 +11884,9 @@ def faders_horizontal(
 
 @validate_call
 def fallout_shelter(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11905,9 +11905,9 @@ def fallout_shelter(
 
 @validate_call
 def fan(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11926,9 +11926,9 @@ def fan(
 
 @validate_call
 def farm(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11947,9 +11947,9 @@ def farm(
 
 @validate_call
 def fast_forward(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11968,9 +11968,9 @@ def fast_forward(
 
 @validate_call
 def fast_forward_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -11989,9 +11989,9 @@ def fast_forward_circle(
 
 @validate_call
 def feather(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12010,9 +12010,9 @@ def feather(
 
 @validate_call
 def fediverse_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12031,9 +12031,9 @@ def fediverse_logo(
 
 @validate_call
 def figma_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12052,9 +12052,9 @@ def figma_logo(
 
 @validate_call
 def file(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12073,9 +12073,9 @@ def file(
 
 @validate_call
 def file_archive(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12094,9 +12094,9 @@ def file_archive(
 
 @validate_call
 def file_arrow_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12115,9 +12115,9 @@ def file_arrow_down(
 
 @validate_call
 def file_arrow_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12136,9 +12136,9 @@ def file_arrow_up(
 
 @validate_call
 def file_audio(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12157,9 +12157,9 @@ def file_audio(
 
 @validate_call
 def file_c(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12178,9 +12178,9 @@ def file_c(
 
 @validate_call
 def file_c_sharp(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12199,9 +12199,9 @@ def file_c_sharp(
 
 @validate_call
 def file_cloud(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12220,9 +12220,9 @@ def file_cloud(
 
 @validate_call
 def file_code(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12241,9 +12241,9 @@ def file_code(
 
 @validate_call
 def file_cpp(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12262,9 +12262,9 @@ def file_cpp(
 
 @validate_call
 def file_css(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12283,9 +12283,9 @@ def file_css(
 
 @validate_call
 def file_csv(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12304,9 +12304,9 @@ def file_csv(
 
 @validate_call
 def file_dashed(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12325,9 +12325,9 @@ def file_dashed(
 
 @validate_call
 def file_doc(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12346,9 +12346,9 @@ def file_doc(
 
 @validate_call
 def file_dotted(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12367,9 +12367,9 @@ def file_dotted(
 
 @validate_call
 def file_html(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12388,9 +12388,9 @@ def file_html(
 
 @validate_call
 def file_image(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12409,9 +12409,9 @@ def file_image(
 
 @validate_call
 def file_ini(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12430,9 +12430,9 @@ def file_ini(
 
 @validate_call
 def file_jpg(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12451,9 +12451,9 @@ def file_jpg(
 
 @validate_call
 def file_js(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12472,9 +12472,9 @@ def file_js(
 
 @validate_call
 def file_jsx(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12493,9 +12493,9 @@ def file_jsx(
 
 @validate_call
 def file_lock(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12514,9 +12514,9 @@ def file_lock(
 
 @validate_call
 def file_magnifying_glass(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12535,9 +12535,9 @@ def file_magnifying_glass(
 
 @validate_call
 def file_md(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12556,9 +12556,9 @@ def file_md(
 
 @validate_call
 def file_minus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12577,9 +12577,9 @@ def file_minus(
 
 @validate_call
 def file_pdf(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12598,9 +12598,9 @@ def file_pdf(
 
 @validate_call
 def file_plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12619,9 +12619,9 @@ def file_plus(
 
 @validate_call
 def file_png(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12640,9 +12640,9 @@ def file_png(
 
 @validate_call
 def file_ppt(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12661,9 +12661,9 @@ def file_ppt(
 
 @validate_call
 def file_py(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12682,9 +12682,9 @@ def file_py(
 
 @validate_call
 def file_rs(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12703,9 +12703,9 @@ def file_rs(
 
 @validate_call
 def file_search(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12724,9 +12724,9 @@ def file_search(
 
 @validate_call
 def file_sql(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12745,9 +12745,9 @@ def file_sql(
 
 @validate_call
 def file_svg(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12766,9 +12766,9 @@ def file_svg(
 
 @validate_call
 def file_text(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12787,9 +12787,9 @@ def file_text(
 
 @validate_call
 def file_ts(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12808,9 +12808,9 @@ def file_ts(
 
 @validate_call
 def file_tsx(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12829,9 +12829,9 @@ def file_tsx(
 
 @validate_call
 def file_txt(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12850,9 +12850,9 @@ def file_txt(
 
 @validate_call
 def file_video(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12871,9 +12871,9 @@ def file_video(
 
 @validate_call
 def file_vue(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12892,9 +12892,9 @@ def file_vue(
 
 @validate_call
 def file_x(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12913,9 +12913,9 @@ def file_x(
 
 @validate_call
 def file_xls(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12934,9 +12934,9 @@ def file_xls(
 
 @validate_call
 def file_zip(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12955,9 +12955,9 @@ def file_zip(
 
 @validate_call
 def files(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12976,9 +12976,9 @@ def files(
 
 @validate_call
 def film_reel(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -12997,9 +12997,9 @@ def film_reel(
 
 @validate_call
 def film_script(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13018,9 +13018,9 @@ def film_script(
 
 @validate_call
 def film_slate(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13039,9 +13039,9 @@ def film_slate(
 
 @validate_call
 def film_strip(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13060,9 +13060,9 @@ def film_strip(
 
 @validate_call
 def fingerprint(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13081,9 +13081,9 @@ def fingerprint(
 
 @validate_call
 def fingerprint_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13102,9 +13102,9 @@ def fingerprint_simple(
 
 @validate_call
 def finn_the_human(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13123,9 +13123,9 @@ def finn_the_human(
 
 @validate_call
 def fire(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13144,9 +13144,9 @@ def fire(
 
 @validate_call
 def fire_extinguisher(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13165,9 +13165,9 @@ def fire_extinguisher(
 
 @validate_call
 def fire_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13186,9 +13186,9 @@ def fire_simple(
 
 @validate_call
 def fire_truck(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13207,9 +13207,9 @@ def fire_truck(
 
 @validate_call
 def first_aid(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13228,9 +13228,9 @@ def first_aid(
 
 @validate_call
 def first_aid_kit(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13249,9 +13249,9 @@ def first_aid_kit(
 
 @validate_call
 def fish(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13270,9 +13270,9 @@ def fish(
 
 @validate_call
 def fish_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13291,9 +13291,9 @@ def fish_simple(
 
 @validate_call
 def flag(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13312,9 +13312,9 @@ def flag(
 
 @validate_call
 def flag_banner(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13333,9 +13333,9 @@ def flag_banner(
 
 @validate_call
 def flag_banner_fold(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13354,9 +13354,9 @@ def flag_banner_fold(
 
 @validate_call
 def flag_checkered(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13375,9 +13375,9 @@ def flag_checkered(
 
 @validate_call
 def flag_pennant(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13396,9 +13396,9 @@ def flag_pennant(
 
 @validate_call
 def flame(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13417,9 +13417,9 @@ def flame(
 
 @validate_call
 def flashlight(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13438,9 +13438,9 @@ def flashlight(
 
 @validate_call
 def flask(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13459,9 +13459,9 @@ def flask(
 
 @validate_call
 def flip_horizontal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13480,9 +13480,9 @@ def flip_horizontal(
 
 @validate_call
 def flip_vertical(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13501,9 +13501,9 @@ def flip_vertical(
 
 @validate_call
 def floppy_disk(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13522,9 +13522,9 @@ def floppy_disk(
 
 @validate_call
 def floppy_disk_back(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13543,9 +13543,9 @@ def floppy_disk_back(
 
 @validate_call
 def flow_arrow(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13564,9 +13564,9 @@ def flow_arrow(
 
 @validate_call
 def flower(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13585,9 +13585,9 @@ def flower(
 
 @validate_call
 def flower_lotus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13606,9 +13606,9 @@ def flower_lotus(
 
 @validate_call
 def flower_tulip(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13627,9 +13627,9 @@ def flower_tulip(
 
 @validate_call
 def flying_saucer(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13648,9 +13648,9 @@ def flying_saucer(
 
 @validate_call
 def folder(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13669,9 +13669,9 @@ def folder(
 
 @validate_call
 def folder_dashed(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13690,9 +13690,9 @@ def folder_dashed(
 
 @validate_call
 def folder_dotted(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13711,9 +13711,9 @@ def folder_dotted(
 
 @validate_call
 def folder_lock(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13732,9 +13732,9 @@ def folder_lock(
 
 @validate_call
 def folder_minus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13753,9 +13753,9 @@ def folder_minus(
 
 @validate_call
 def folder_notch(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13774,9 +13774,9 @@ def folder_notch(
 
 @validate_call
 def folder_notch_minus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13795,9 +13795,9 @@ def folder_notch_minus(
 
 @validate_call
 def folder_notch_open(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13816,9 +13816,9 @@ def folder_notch_open(
 
 @validate_call
 def folder_notch_plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13837,9 +13837,9 @@ def folder_notch_plus(
 
 @validate_call
 def folder_open(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13858,9 +13858,9 @@ def folder_open(
 
 @validate_call
 def folder_plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13879,9 +13879,9 @@ def folder_plus(
 
 @validate_call
 def folder_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13900,9 +13900,9 @@ def folder_simple(
 
 @validate_call
 def folder_simple_dashed(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13921,9 +13921,9 @@ def folder_simple_dashed(
 
 @validate_call
 def folder_simple_dotted(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13942,9 +13942,9 @@ def folder_simple_dotted(
 
 @validate_call
 def folder_simple_lock(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13963,9 +13963,9 @@ def folder_simple_lock(
 
 @validate_call
 def folder_simple_minus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -13984,9 +13984,9 @@ def folder_simple_minus(
 
 @validate_call
 def folder_simple_plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14005,9 +14005,9 @@ def folder_simple_plus(
 
 @validate_call
 def folder_simple_star(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14026,9 +14026,9 @@ def folder_simple_star(
 
 @validate_call
 def folder_simple_user(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14047,9 +14047,9 @@ def folder_simple_user(
 
 @validate_call
 def folder_star(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14068,9 +14068,9 @@ def folder_star(
 
 @validate_call
 def folder_user(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14089,9 +14089,9 @@ def folder_user(
 
 @validate_call
 def folders(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14110,9 +14110,9 @@ def folders(
 
 @validate_call
 def football(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14131,9 +14131,9 @@ def football(
 
 @validate_call
 def football_helmet(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14152,9 +14152,9 @@ def football_helmet(
 
 @validate_call
 def footprints(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14173,9 +14173,9 @@ def footprints(
 
 @validate_call
 def fork_knife(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14194,9 +14194,9 @@ def fork_knife(
 
 @validate_call
 def four_k(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14215,9 +14215,9 @@ def four_k(
 
 @validate_call
 def frame_corners(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14236,9 +14236,9 @@ def frame_corners(
 
 @validate_call
 def framer_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14257,9 +14257,9 @@ def framer_logo(
 
 @validate_call
 def function(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14278,9 +14278,9 @@ def function(
 
 @validate_call
 def funnel(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14299,9 +14299,9 @@ def funnel(
 
 @validate_call
 def funnel_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14320,9 +14320,9 @@ def funnel_simple(
 
 @validate_call
 def funnel_simple_x(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14341,9 +14341,9 @@ def funnel_simple_x(
 
 @validate_call
 def funnel_x(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14362,9 +14362,9 @@ def funnel_x(
 
 @validate_call
 def game_controller(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14383,9 +14383,9 @@ def game_controller(
 
 @validate_call
 def garage(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14404,9 +14404,9 @@ def garage(
 
 @validate_call
 def gas_can(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14425,9 +14425,9 @@ def gas_can(
 
 @validate_call
 def gas_pump(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14446,9 +14446,9 @@ def gas_pump(
 
 @validate_call
 def gauge(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14467,9 +14467,9 @@ def gauge(
 
 @validate_call
 def gavel(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14488,9 +14488,9 @@ def gavel(
 
 @validate_call
 def gear(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14509,9 +14509,9 @@ def gear(
 
 @validate_call
 def gear_fine(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14530,9 +14530,9 @@ def gear_fine(
 
 @validate_call
 def gear_six(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14551,9 +14551,9 @@ def gear_six(
 
 @validate_call
 def gender_female(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14572,9 +14572,9 @@ def gender_female(
 
 @validate_call
 def gender_intersex(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14593,9 +14593,9 @@ def gender_intersex(
 
 @validate_call
 def gender_male(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14614,9 +14614,9 @@ def gender_male(
 
 @validate_call
 def gender_neuter(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14635,9 +14635,9 @@ def gender_neuter(
 
 @validate_call
 def gender_nonbinary(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14656,9 +14656,9 @@ def gender_nonbinary(
 
 @validate_call
 def gender_transgender(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14677,9 +14677,9 @@ def gender_transgender(
 
 @validate_call
 def ghost(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14698,9 +14698,9 @@ def ghost(
 
 @validate_call
 def gif(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14719,9 +14719,9 @@ def gif(
 
 @validate_call
 def gift(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14740,9 +14740,9 @@ def gift(
 
 @validate_call
 def git_branch(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14761,9 +14761,9 @@ def git_branch(
 
 @validate_call
 def git_commit(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14782,9 +14782,9 @@ def git_commit(
 
 @validate_call
 def git_diff(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14803,9 +14803,9 @@ def git_diff(
 
 @validate_call
 def git_fork(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14824,9 +14824,9 @@ def git_fork(
 
 @validate_call
 def git_merge(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14845,9 +14845,9 @@ def git_merge(
 
 @validate_call
 def git_pull_request(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14866,9 +14866,9 @@ def git_pull_request(
 
 @validate_call
 def github_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14887,9 +14887,9 @@ def github_logo(
 
 @validate_call
 def gitlab_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14908,9 +14908,9 @@ def gitlab_logo(
 
 @validate_call
 def gitlab_logo_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14929,9 +14929,9 @@ def gitlab_logo_simple(
 
 @validate_call
 def globe(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14950,9 +14950,9 @@ def globe(
 
 @validate_call
 def globe_hemisphere_east(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14971,9 +14971,9 @@ def globe_hemisphere_east(
 
 @validate_call
 def globe_hemisphere_west(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -14992,9 +14992,9 @@ def globe_hemisphere_west(
 
 @validate_call
 def globe_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15013,9 +15013,9 @@ def globe_simple(
 
 @validate_call
 def globe_simple_x(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15034,9 +15034,9 @@ def globe_simple_x(
 
 @validate_call
 def globe_stand(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15055,9 +15055,9 @@ def globe_stand(
 
 @validate_call
 def globe_x(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15076,9 +15076,9 @@ def globe_x(
 
 @validate_call
 def goggles(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15097,9 +15097,9 @@ def goggles(
 
 @validate_call
 def golf(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15118,9 +15118,9 @@ def golf(
 
 @validate_call
 def goodreads_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15139,9 +15139,9 @@ def goodreads_logo(
 
 @validate_call
 def google_cardboard_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15160,9 +15160,9 @@ def google_cardboard_logo(
 
 @validate_call
 def google_chrome_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15181,9 +15181,9 @@ def google_chrome_logo(
 
 @validate_call
 def google_drive_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15202,9 +15202,9 @@ def google_drive_logo(
 
 @validate_call
 def google_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15223,9 +15223,9 @@ def google_logo(
 
 @validate_call
 def google_photos_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15244,9 +15244,9 @@ def google_photos_logo(
 
 @validate_call
 def google_play_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15265,9 +15265,9 @@ def google_play_logo(
 
 @validate_call
 def google_podcasts_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15286,9 +15286,9 @@ def google_podcasts_logo(
 
 @validate_call
 def gps(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15307,9 +15307,9 @@ def gps(
 
 @validate_call
 def gps_fix(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15328,9 +15328,9 @@ def gps_fix(
 
 @validate_call
 def gps_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15349,9 +15349,9 @@ def gps_slash(
 
 @validate_call
 def gradient(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15370,9 +15370,9 @@ def gradient(
 
 @validate_call
 def graduation_cap(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15391,9 +15391,9 @@ def graduation_cap(
 
 @validate_call
 def grains(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15412,9 +15412,9 @@ def grains(
 
 @validate_call
 def grains_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15433,9 +15433,9 @@ def grains_slash(
 
 @validate_call
 def graph(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15454,9 +15454,9 @@ def graph(
 
 @validate_call
 def graphics_card(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15475,9 +15475,9 @@ def graphics_card(
 
 @validate_call
 def greater_than(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15496,9 +15496,9 @@ def greater_than(
 
 @validate_call
 def greater_than_or_equal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15517,9 +15517,9 @@ def greater_than_or_equal(
 
 @validate_call
 def grid_four(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15538,9 +15538,9 @@ def grid_four(
 
 @validate_call
 def grid_nine(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15559,9 +15559,9 @@ def grid_nine(
 
 @validate_call
 def guitar(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15580,9 +15580,9 @@ def guitar(
 
 @validate_call
 def hair_dryer(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15601,9 +15601,9 @@ def hair_dryer(
 
 @validate_call
 def hamburger(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15622,9 +15622,9 @@ def hamburger(
 
 @validate_call
 def hammer(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15643,9 +15643,9 @@ def hammer(
 
 @validate_call
 def hand(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15664,9 +15664,9 @@ def hand(
 
 @validate_call
 def hand_arrow_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15685,9 +15685,9 @@ def hand_arrow_down(
 
 @validate_call
 def hand_arrow_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15706,9 +15706,9 @@ def hand_arrow_up(
 
 @validate_call
 def hand_coins(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15727,9 +15727,9 @@ def hand_coins(
 
 @validate_call
 def hand_deposit(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15748,9 +15748,9 @@ def hand_deposit(
 
 @validate_call
 def hand_eye(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15769,9 +15769,9 @@ def hand_eye(
 
 @validate_call
 def hand_fist(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15790,9 +15790,9 @@ def hand_fist(
 
 @validate_call
 def hand_grabbing(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15811,9 +15811,9 @@ def hand_grabbing(
 
 @validate_call
 def hand_heart(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15832,9 +15832,9 @@ def hand_heart(
 
 @validate_call
 def hand_palm(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15853,9 +15853,9 @@ def hand_palm(
 
 @validate_call
 def hand_peace(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15874,9 +15874,9 @@ def hand_peace(
 
 @validate_call
 def hand_pointing(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15895,9 +15895,9 @@ def hand_pointing(
 
 @validate_call
 def hand_soap(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15916,9 +15916,9 @@ def hand_soap(
 
 @validate_call
 def hand_swipe_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15937,9 +15937,9 @@ def hand_swipe_left(
 
 @validate_call
 def hand_swipe_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15958,9 +15958,9 @@ def hand_swipe_right(
 
 @validate_call
 def hand_tap(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -15979,9 +15979,9 @@ def hand_tap(
 
 @validate_call
 def hand_waving(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16000,9 +16000,9 @@ def hand_waving(
 
 @validate_call
 def hand_withdraw(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16021,9 +16021,9 @@ def hand_withdraw(
 
 @validate_call
 def handbag(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16042,9 +16042,9 @@ def handbag(
 
 @validate_call
 def handbag_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16063,9 +16063,9 @@ def handbag_simple(
 
 @validate_call
 def hands_clapping(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16084,9 +16084,9 @@ def hands_clapping(
 
 @validate_call
 def hands_praying(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16105,9 +16105,9 @@ def hands_praying(
 
 @validate_call
 def handshake(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16126,9 +16126,9 @@ def handshake(
 
 @validate_call
 def hard_drive(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16147,9 +16147,9 @@ def hard_drive(
 
 @validate_call
 def hard_drives(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16168,9 +16168,9 @@ def hard_drives(
 
 @validate_call
 def hard_hat(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16189,9 +16189,9 @@ def hard_hat(
 
 @validate_call
 def hash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16210,9 +16210,9 @@ def hash(
 
 @validate_call
 def hash_straight(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16231,9 +16231,9 @@ def hash_straight(
 
 @validate_call
 def head_circuit(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16252,9 +16252,9 @@ def head_circuit(
 
 @validate_call
 def headlights(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16273,9 +16273,9 @@ def headlights(
 
 @validate_call
 def headphones(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16294,9 +16294,9 @@ def headphones(
 
 @validate_call
 def headset(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16315,9 +16315,9 @@ def headset(
 
 @validate_call
 def heart(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16336,9 +16336,9 @@ def heart(
 
 @validate_call
 def heart_break(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16357,9 +16357,9 @@ def heart_break(
 
 @validate_call
 def heart_half(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16378,9 +16378,9 @@ def heart_half(
 
 @validate_call
 def heart_straight(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16399,9 +16399,9 @@ def heart_straight(
 
 @validate_call
 def heart_straight_break(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16420,9 +16420,9 @@ def heart_straight_break(
 
 @validate_call
 def heartbeat(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16441,9 +16441,9 @@ def heartbeat(
 
 @validate_call
 def hexagon(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16462,9 +16462,9 @@ def hexagon(
 
 @validate_call
 def high_definition(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16483,9 +16483,9 @@ def high_definition(
 
 @validate_call
 def high_heel(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16504,9 +16504,9 @@ def high_heel(
 
 @validate_call
 def highlighter(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16525,9 +16525,9 @@ def highlighter(
 
 @validate_call
 def highlighter_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16546,9 +16546,9 @@ def highlighter_circle(
 
 @validate_call
 def hockey(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16567,9 +16567,9 @@ def hockey(
 
 @validate_call
 def hoodie(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16588,9 +16588,9 @@ def hoodie(
 
 @validate_call
 def horse(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16609,9 +16609,9 @@ def horse(
 
 @validate_call
 def hospital(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16630,9 +16630,9 @@ def hospital(
 
 @validate_call
 def hourglass(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16651,9 +16651,9 @@ def hourglass(
 
 @validate_call
 def hourglass_high(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16672,9 +16672,9 @@ def hourglass_high(
 
 @validate_call
 def hourglass_low(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16693,9 +16693,9 @@ def hourglass_low(
 
 @validate_call
 def hourglass_medium(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16714,9 +16714,9 @@ def hourglass_medium(
 
 @validate_call
 def hourglass_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16735,9 +16735,9 @@ def hourglass_simple(
 
 @validate_call
 def hourglass_simple_high(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16756,9 +16756,9 @@ def hourglass_simple_high(
 
 @validate_call
 def hourglass_simple_low(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16777,9 +16777,9 @@ def hourglass_simple_low(
 
 @validate_call
 def hourglass_simple_medium(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16798,9 +16798,9 @@ def hourglass_simple_medium(
 
 @validate_call
 def house(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16819,9 +16819,9 @@ def house(
 
 @validate_call
 def house_line(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16840,9 +16840,9 @@ def house_line(
 
 @validate_call
 def house_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16861,9 +16861,9 @@ def house_simple(
 
 @validate_call
 def hurricane(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16882,9 +16882,9 @@ def hurricane(
 
 @validate_call
 def ice_cream(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16903,9 +16903,9 @@ def ice_cream(
 
 @validate_call
 def identification_badge(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16924,9 +16924,9 @@ def identification_badge(
 
 @validate_call
 def identification_card(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16945,9 +16945,9 @@ def identification_card(
 
 @validate_call
 def image(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16966,9 +16966,9 @@ def image(
 
 @validate_call
 def image_broken(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -16987,9 +16987,9 @@ def image_broken(
 
 @validate_call
 def image_square(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17008,9 +17008,9 @@ def image_square(
 
 @validate_call
 def images(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17029,9 +17029,9 @@ def images(
 
 @validate_call
 def images_square(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17050,9 +17050,9 @@ def images_square(
 
 @validate_call
 def infinity(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17071,9 +17071,9 @@ def infinity(
 
 @validate_call
 def info(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17092,9 +17092,9 @@ def info(
 
 @validate_call
 def instagram_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17113,9 +17113,9 @@ def instagram_logo(
 
 @validate_call
 def intersect(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17134,9 +17134,9 @@ def intersect(
 
 @validate_call
 def intersect_square(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17155,9 +17155,9 @@ def intersect_square(
 
 @validate_call
 def intersect_three(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17176,9 +17176,9 @@ def intersect_three(
 
 @validate_call
 def intersection(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17197,9 +17197,9 @@ def intersection(
 
 @validate_call
 def invoice(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17218,9 +17218,9 @@ def invoice(
 
 @validate_call
 def island(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17239,9 +17239,9 @@ def island(
 
 @validate_call
 def jar(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17260,9 +17260,9 @@ def jar(
 
 @validate_call
 def jar_label(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17281,9 +17281,9 @@ def jar_label(
 
 @validate_call
 def jeep(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17302,9 +17302,9 @@ def jeep(
 
 @validate_call
 def joystick(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17323,9 +17323,9 @@ def joystick(
 
 @validate_call
 def kanban(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17344,9 +17344,9 @@ def kanban(
 
 @validate_call
 def key(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17365,9 +17365,9 @@ def key(
 
 @validate_call
 def key_return(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17386,9 +17386,9 @@ def key_return(
 
 @validate_call
 def keyboard(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17407,9 +17407,9 @@ def keyboard(
 
 @validate_call
 def keyhole(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17428,9 +17428,9 @@ def keyhole(
 
 @validate_call
 def knife(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17449,9 +17449,9 @@ def knife(
 
 @validate_call
 def ladder(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17470,9 +17470,9 @@ def ladder(
 
 @validate_call
 def ladder_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17491,9 +17491,9 @@ def ladder_simple(
 
 @validate_call
 def lamp(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17512,9 +17512,9 @@ def lamp(
 
 @validate_call
 def lamp_pendant(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17533,9 +17533,9 @@ def lamp_pendant(
 
 @validate_call
 def laptop(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17554,9 +17554,9 @@ def laptop(
 
 @validate_call
 def lasso(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17575,9 +17575,9 @@ def lasso(
 
 @validate_call
 def lastfm_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17596,9 +17596,9 @@ def lastfm_logo(
 
 @validate_call
 def layout(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17617,9 +17617,9 @@ def layout(
 
 @validate_call
 def leaf(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17638,9 +17638,9 @@ def leaf(
 
 @validate_call
 def lectern(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17659,9 +17659,9 @@ def lectern(
 
 @validate_call
 def lego(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17680,9 +17680,9 @@ def lego(
 
 @validate_call
 def lego_smiley(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17701,9 +17701,9 @@ def lego_smiley(
 
 @validate_call
 def lemniscate(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17722,9 +17722,9 @@ def lemniscate(
 
 @validate_call
 def less_than(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17743,9 +17743,9 @@ def less_than(
 
 @validate_call
 def less_than_or_equal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17764,9 +17764,9 @@ def less_than_or_equal(
 
 @validate_call
 def letter_circle_h(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17785,9 +17785,9 @@ def letter_circle_h(
 
 @validate_call
 def letter_circle_p(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17806,9 +17806,9 @@ def letter_circle_p(
 
 @validate_call
 def letter_circle_v(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17827,9 +17827,9 @@ def letter_circle_v(
 
 @validate_call
 def lifebuoy(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17848,9 +17848,9 @@ def lifebuoy(
 
 @validate_call
 def lightbulb(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17869,9 +17869,9 @@ def lightbulb(
 
 @validate_call
 def lightbulb_filament(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17890,9 +17890,9 @@ def lightbulb_filament(
 
 @validate_call
 def lighthouse(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17911,9 +17911,9 @@ def lighthouse(
 
 @validate_call
 def lightning(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17932,9 +17932,9 @@ def lightning(
 
 @validate_call
 def lightning_a(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17953,9 +17953,9 @@ def lightning_a(
 
 @validate_call
 def lightning_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17974,9 +17974,9 @@ def lightning_slash(
 
 @validate_call
 def line_segment(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -17995,9 +17995,9 @@ def line_segment(
 
 @validate_call
 def line_segments(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18016,9 +18016,9 @@ def line_segments(
 
 @validate_call
 def line_vertical(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18037,9 +18037,9 @@ def line_vertical(
 
 @validate_call
 def link(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18058,9 +18058,9 @@ def link(
 
 @validate_call
 def link_break(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18079,9 +18079,9 @@ def link_break(
 
 @validate_call
 def link_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18100,9 +18100,9 @@ def link_simple(
 
 @validate_call
 def link_simple_break(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18121,9 +18121,9 @@ def link_simple_break(
 
 @validate_call
 def link_simple_horizontal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18142,9 +18142,9 @@ def link_simple_horizontal(
 
 @validate_call
 def link_simple_horizontal_break(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18163,9 +18163,9 @@ def link_simple_horizontal_break(
 
 @validate_call
 def linkedin_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18184,9 +18184,9 @@ def linkedin_logo(
 
 @validate_call
 def linktree_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18205,9 +18205,9 @@ def linktree_logo(
 
 @validate_call
 def linux_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18226,9 +18226,9 @@ def linux_logo(
 
 @validate_call
 def list(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18247,9 +18247,9 @@ def list(
 
 @validate_call
 def list_bullets(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18268,9 +18268,9 @@ def list_bullets(
 
 @validate_call
 def list_checks(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18289,9 +18289,9 @@ def list_checks(
 
 @validate_call
 def list_dashes(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18310,9 +18310,9 @@ def list_dashes(
 
 @validate_call
 def list_heart(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18331,9 +18331,9 @@ def list_heart(
 
 @validate_call
 def list_magnifying_glass(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18352,9 +18352,9 @@ def list_magnifying_glass(
 
 @validate_call
 def list_numbers(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18373,9 +18373,9 @@ def list_numbers(
 
 @validate_call
 def list_plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18394,9 +18394,9 @@ def list_plus(
 
 @validate_call
 def list_star(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18415,9 +18415,9 @@ def list_star(
 
 @validate_call
 def lock(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18436,9 +18436,9 @@ def lock(
 
 @validate_call
 def lock_key(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18457,9 +18457,9 @@ def lock_key(
 
 @validate_call
 def lock_key_open(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18478,9 +18478,9 @@ def lock_key_open(
 
 @validate_call
 def lock_laminated(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18499,9 +18499,9 @@ def lock_laminated(
 
 @validate_call
 def lock_laminated_open(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18520,9 +18520,9 @@ def lock_laminated_open(
 
 @validate_call
 def lock_open(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18541,9 +18541,9 @@ def lock_open(
 
 @validate_call
 def lock_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18562,9 +18562,9 @@ def lock_simple(
 
 @validate_call
 def lock_simple_open(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18583,9 +18583,9 @@ def lock_simple_open(
 
 @validate_call
 def lockers(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18604,9 +18604,9 @@ def lockers(
 
 @validate_call
 def log(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18625,9 +18625,9 @@ def log(
 
 @validate_call
 def magic_wand(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18646,9 +18646,9 @@ def magic_wand(
 
 @validate_call
 def magnet(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18667,9 +18667,9 @@ def magnet(
 
 @validate_call
 def magnet_straight(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18688,9 +18688,9 @@ def magnet_straight(
 
 @validate_call
 def magnifying_glass(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18709,9 +18709,9 @@ def magnifying_glass(
 
 @validate_call
 def magnifying_glass_minus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18730,9 +18730,9 @@ def magnifying_glass_minus(
 
 @validate_call
 def magnifying_glass_plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18751,9 +18751,9 @@ def magnifying_glass_plus(
 
 @validate_call
 def mailbox(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18772,9 +18772,9 @@ def mailbox(
 
 @validate_call
 def map_pin(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18793,9 +18793,9 @@ def map_pin(
 
 @validate_call
 def map_pin_area(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18814,9 +18814,9 @@ def map_pin_area(
 
 @validate_call
 def map_pin_line(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18835,9 +18835,9 @@ def map_pin_line(
 
 @validate_call
 def map_pin_plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18856,9 +18856,9 @@ def map_pin_plus(
 
 @validate_call
 def map_pin_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18877,9 +18877,9 @@ def map_pin_simple(
 
 @validate_call
 def map_pin_simple_area(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18898,9 +18898,9 @@ def map_pin_simple_area(
 
 @validate_call
 def map_pin_simple_line(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18919,9 +18919,9 @@ def map_pin_simple_line(
 
 @validate_call
 def map_trifold(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18940,9 +18940,9 @@ def map_trifold(
 
 @validate_call
 def markdown_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18961,9 +18961,9 @@ def markdown_logo(
 
 @validate_call
 def marker_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -18982,9 +18982,9 @@ def marker_circle(
 
 @validate_call
 def martini(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19003,9 +19003,9 @@ def martini(
 
 @validate_call
 def mask_happy(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19024,9 +19024,9 @@ def mask_happy(
 
 @validate_call
 def mask_sad(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19045,9 +19045,9 @@ def mask_sad(
 
 @validate_call
 def mastodon_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19066,9 +19066,9 @@ def mastodon_logo(
 
 @validate_call
 def math_operations(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19087,9 +19087,9 @@ def math_operations(
 
 @validate_call
 def matrix_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19108,9 +19108,9 @@ def matrix_logo(
 
 @validate_call
 def medal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19129,9 +19129,9 @@ def medal(
 
 @validate_call
 def medal_military(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19150,9 +19150,9 @@ def medal_military(
 
 @validate_call
 def medium_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19171,9 +19171,9 @@ def medium_logo(
 
 @validate_call
 def megaphone(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19192,9 +19192,9 @@ def megaphone(
 
 @validate_call
 def megaphone_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19213,9 +19213,9 @@ def megaphone_simple(
 
 @validate_call
 def member_of(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19234,9 +19234,9 @@ def member_of(
 
 @validate_call
 def memory(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19255,9 +19255,9 @@ def memory(
 
 @validate_call
 def messenger_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19276,9 +19276,9 @@ def messenger_logo(
 
 @validate_call
 def meta_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19297,9 +19297,9 @@ def meta_logo(
 
 @validate_call
 def meteor(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19318,9 +19318,9 @@ def meteor(
 
 @validate_call
 def metronome(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19339,9 +19339,9 @@ def metronome(
 
 @validate_call
 def microphone(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19360,9 +19360,9 @@ def microphone(
 
 @validate_call
 def microphone_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19381,9 +19381,9 @@ def microphone_slash(
 
 @validate_call
 def microphone_stage(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19402,9 +19402,9 @@ def microphone_stage(
 
 @validate_call
 def microscope(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19423,9 +19423,9 @@ def microscope(
 
 @validate_call
 def microsoft_excel_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19444,9 +19444,9 @@ def microsoft_excel_logo(
 
 @validate_call
 def microsoft_outlook_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19465,9 +19465,9 @@ def microsoft_outlook_logo(
 
 @validate_call
 def microsoft_powerpoint_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19486,9 +19486,9 @@ def microsoft_powerpoint_logo(
 
 @validate_call
 def microsoft_teams_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19507,9 +19507,9 @@ def microsoft_teams_logo(
 
 @validate_call
 def microsoft_word_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19528,9 +19528,9 @@ def microsoft_word_logo(
 
 @validate_call
 def minus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19549,9 +19549,9 @@ def minus(
 
 @validate_call
 def minus_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19570,9 +19570,9 @@ def minus_circle(
 
 @validate_call
 def minus_square(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19591,9 +19591,9 @@ def minus_square(
 
 @validate_call
 def money(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19612,9 +19612,9 @@ def money(
 
 @validate_call
 def money_wavy(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19633,9 +19633,9 @@ def money_wavy(
 
 @validate_call
 def monitor(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19654,9 +19654,9 @@ def monitor(
 
 @validate_call
 def monitor_arrow_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19675,9 +19675,9 @@ def monitor_arrow_up(
 
 @validate_call
 def monitor_play(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19696,9 +19696,9 @@ def monitor_play(
 
 @validate_call
 def moon(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19717,9 +19717,9 @@ def moon(
 
 @validate_call
 def moon_stars(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19738,9 +19738,9 @@ def moon_stars(
 
 @validate_call
 def moped(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19759,9 +19759,9 @@ def moped(
 
 @validate_call
 def moped_front(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19780,9 +19780,9 @@ def moped_front(
 
 @validate_call
 def mosque(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19801,9 +19801,9 @@ def mosque(
 
 @validate_call
 def motorcycle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19822,9 +19822,9 @@ def motorcycle(
 
 @validate_call
 def mountains(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19843,9 +19843,9 @@ def mountains(
 
 @validate_call
 def mouse(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19864,9 +19864,9 @@ def mouse(
 
 @validate_call
 def mouse_left_click(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19885,9 +19885,9 @@ def mouse_left_click(
 
 @validate_call
 def mouse_middle_click(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19906,9 +19906,9 @@ def mouse_middle_click(
 
 @validate_call
 def mouse_right_click(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19927,9 +19927,9 @@ def mouse_right_click(
 
 @validate_call
 def mouse_scroll(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19948,9 +19948,9 @@ def mouse_scroll(
 
 @validate_call
 def mouse_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19969,9 +19969,9 @@ def mouse_simple(
 
 @validate_call
 def music_note(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -19990,9 +19990,9 @@ def music_note(
 
 @validate_call
 def music_note_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20011,9 +20011,9 @@ def music_note_simple(
 
 @validate_call
 def music_notes(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20032,9 +20032,9 @@ def music_notes(
 
 @validate_call
 def music_notes_minus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20053,9 +20053,9 @@ def music_notes_minus(
 
 @validate_call
 def music_notes_plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20074,9 +20074,9 @@ def music_notes_plus(
 
 @validate_call
 def music_notes_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20095,9 +20095,9 @@ def music_notes_simple(
 
 @validate_call
 def navigation_arrow(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20116,9 +20116,9 @@ def navigation_arrow(
 
 @validate_call
 def needle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20137,9 +20137,9 @@ def needle(
 
 @validate_call
 def network(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20158,9 +20158,9 @@ def network(
 
 @validate_call
 def network_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20179,9 +20179,9 @@ def network_slash(
 
 @validate_call
 def network_x(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20200,9 +20200,9 @@ def network_x(
 
 @validate_call
 def newspaper(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20221,9 +20221,9 @@ def newspaper(
 
 @validate_call
 def newspaper_clipping(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20242,9 +20242,9 @@ def newspaper_clipping(
 
 @validate_call
 def not_equals(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20263,9 +20263,9 @@ def not_equals(
 
 @validate_call
 def not_member_of(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20284,9 +20284,9 @@ def not_member_of(
 
 @validate_call
 def not_subset_of(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20305,9 +20305,9 @@ def not_subset_of(
 
 @validate_call
 def not_superset_of(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20326,9 +20326,9 @@ def not_superset_of(
 
 @validate_call
 def notches(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20347,9 +20347,9 @@ def notches(
 
 @validate_call
 def note(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20368,9 +20368,9 @@ def note(
 
 @validate_call
 def note_blank(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20389,9 +20389,9 @@ def note_blank(
 
 @validate_call
 def note_pencil(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20410,9 +20410,9 @@ def note_pencil(
 
 @validate_call
 def notebook(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20431,9 +20431,9 @@ def notebook(
 
 @validate_call
 def notepad(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20452,9 +20452,9 @@ def notepad(
 
 @validate_call
 def notification(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20473,9 +20473,9 @@ def notification(
 
 @validate_call
 def notion_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20494,9 +20494,9 @@ def notion_logo(
 
 @validate_call
 def nuclear_plant(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20515,9 +20515,9 @@ def nuclear_plant(
 
 @validate_call
 def number_circle_eight(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20536,9 +20536,9 @@ def number_circle_eight(
 
 @validate_call
 def number_circle_five(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20557,9 +20557,9 @@ def number_circle_five(
 
 @validate_call
 def number_circle_four(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20578,9 +20578,9 @@ def number_circle_four(
 
 @validate_call
 def number_circle_nine(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20599,9 +20599,9 @@ def number_circle_nine(
 
 @validate_call
 def number_circle_one(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20620,9 +20620,9 @@ def number_circle_one(
 
 @validate_call
 def number_circle_seven(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20641,9 +20641,9 @@ def number_circle_seven(
 
 @validate_call
 def number_circle_six(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20662,9 +20662,9 @@ def number_circle_six(
 
 @validate_call
 def number_circle_three(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20683,9 +20683,9 @@ def number_circle_three(
 
 @validate_call
 def number_circle_two(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20704,9 +20704,9 @@ def number_circle_two(
 
 @validate_call
 def number_circle_zero(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20725,9 +20725,9 @@ def number_circle_zero(
 
 @validate_call
 def number_eight(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20746,9 +20746,9 @@ def number_eight(
 
 @validate_call
 def number_five(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20767,9 +20767,9 @@ def number_five(
 
 @validate_call
 def number_four(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20788,9 +20788,9 @@ def number_four(
 
 @validate_call
 def number_nine(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20809,9 +20809,9 @@ def number_nine(
 
 @validate_call
 def number_one(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20830,9 +20830,9 @@ def number_one(
 
 @validate_call
 def number_seven(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20851,9 +20851,9 @@ def number_seven(
 
 @validate_call
 def number_six(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20872,9 +20872,9 @@ def number_six(
 
 @validate_call
 def number_square_eight(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20893,9 +20893,9 @@ def number_square_eight(
 
 @validate_call
 def number_square_five(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20914,9 +20914,9 @@ def number_square_five(
 
 @validate_call
 def number_square_four(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20935,9 +20935,9 @@ def number_square_four(
 
 @validate_call
 def number_square_nine(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20956,9 +20956,9 @@ def number_square_nine(
 
 @validate_call
 def number_square_one(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20977,9 +20977,9 @@ def number_square_one(
 
 @validate_call
 def number_square_seven(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -20998,9 +20998,9 @@ def number_square_seven(
 
 @validate_call
 def number_square_six(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21019,9 +21019,9 @@ def number_square_six(
 
 @validate_call
 def number_square_three(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21040,9 +21040,9 @@ def number_square_three(
 
 @validate_call
 def number_square_two(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21061,9 +21061,9 @@ def number_square_two(
 
 @validate_call
 def number_square_zero(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21082,9 +21082,9 @@ def number_square_zero(
 
 @validate_call
 def number_three(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21103,9 +21103,9 @@ def number_three(
 
 @validate_call
 def number_two(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21124,9 +21124,9 @@ def number_two(
 
 @validate_call
 def number_zero(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21145,9 +21145,9 @@ def number_zero(
 
 @validate_call
 def numpad(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21166,9 +21166,9 @@ def numpad(
 
 @validate_call
 def nut(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21187,9 +21187,9 @@ def nut(
 
 @validate_call
 def ny_times_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21208,9 +21208,9 @@ def ny_times_logo(
 
 @validate_call
 def octagon(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21229,9 +21229,9 @@ def octagon(
 
 @validate_call
 def office_chair(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21250,9 +21250,9 @@ def office_chair(
 
 @validate_call
 def onigiri(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21271,9 +21271,9 @@ def onigiri(
 
 @validate_call
 def open_ai_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21292,9 +21292,9 @@ def open_ai_logo(
 
 @validate_call
 def option(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21313,9 +21313,9 @@ def option(
 
 @validate_call
 def orange(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21334,9 +21334,9 @@ def orange(
 
 @validate_call
 def orange_slice(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21355,9 +21355,9 @@ def orange_slice(
 
 @validate_call
 def oven(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21376,9 +21376,9 @@ def oven(
 
 @validate_call
 def package(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21397,9 +21397,9 @@ def package(
 
 @validate_call
 def paint_brush(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21418,9 +21418,9 @@ def paint_brush(
 
 @validate_call
 def paint_brush_broad(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21439,9 +21439,9 @@ def paint_brush_broad(
 
 @validate_call
 def paint_brush_household(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21460,9 +21460,9 @@ def paint_brush_household(
 
 @validate_call
 def paint_bucket(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21481,9 +21481,9 @@ def paint_bucket(
 
 @validate_call
 def paint_roller(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21502,9 +21502,9 @@ def paint_roller(
 
 @validate_call
 def palette(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21523,9 +21523,9 @@ def palette(
 
 @validate_call
 def panorama(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21544,9 +21544,9 @@ def panorama(
 
 @validate_call
 def pants(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21565,9 +21565,9 @@ def pants(
 
 @validate_call
 def paper_plane(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21586,9 +21586,9 @@ def paper_plane(
 
 @validate_call
 def paper_plane_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21607,9 +21607,9 @@ def paper_plane_right(
 
 @validate_call
 def paper_plane_tilt(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21628,9 +21628,9 @@ def paper_plane_tilt(
 
 @validate_call
 def paperclip(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21649,9 +21649,9 @@ def paperclip(
 
 @validate_call
 def paperclip_horizontal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21670,9 +21670,9 @@ def paperclip_horizontal(
 
 @validate_call
 def parachute(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21691,9 +21691,9 @@ def parachute(
 
 @validate_call
 def paragraph(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21712,9 +21712,9 @@ def paragraph(
 
 @validate_call
 def parallelogram(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21733,9 +21733,9 @@ def parallelogram(
 
 @validate_call
 def park(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21754,9 +21754,9 @@ def park(
 
 @validate_call
 def password(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21775,9 +21775,9 @@ def password(
 
 @validate_call
 def path(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21796,9 +21796,9 @@ def path(
 
 @validate_call
 def patreon_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21817,9 +21817,9 @@ def patreon_logo(
 
 @validate_call
 def pause(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21838,9 +21838,9 @@ def pause(
 
 @validate_call
 def pause_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21859,9 +21859,9 @@ def pause_circle(
 
 @validate_call
 def paw_print(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21880,9 +21880,9 @@ def paw_print(
 
 @validate_call
 def paypal_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21901,9 +21901,9 @@ def paypal_logo(
 
 @validate_call
 def peace(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21922,9 +21922,9 @@ def peace(
 
 @validate_call
 def pen(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21943,9 +21943,9 @@ def pen(
 
 @validate_call
 def pen_nib(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21964,9 +21964,9 @@ def pen_nib(
 
 @validate_call
 def pen_nib_straight(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -21985,9 +21985,9 @@ def pen_nib_straight(
 
 @validate_call
 def pencil(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22006,9 +22006,9 @@ def pencil(
 
 @validate_call
 def pencil_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22027,9 +22027,9 @@ def pencil_circle(
 
 @validate_call
 def pencil_line(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22048,9 +22048,9 @@ def pencil_line(
 
 @validate_call
 def pencil_ruler(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22069,9 +22069,9 @@ def pencil_ruler(
 
 @validate_call
 def pencil_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22090,9 +22090,9 @@ def pencil_simple(
 
 @validate_call
 def pencil_simple_line(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22111,9 +22111,9 @@ def pencil_simple_line(
 
 @validate_call
 def pencil_simple_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22132,9 +22132,9 @@ def pencil_simple_slash(
 
 @validate_call
 def pencil_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22153,9 +22153,9 @@ def pencil_slash(
 
 @validate_call
 def pentagon(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22174,9 +22174,9 @@ def pentagon(
 
 @validate_call
 def pentagram(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22195,9 +22195,9 @@ def pentagram(
 
 @validate_call
 def pepper(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22216,9 +22216,9 @@ def pepper(
 
 @validate_call
 def percent(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22237,9 +22237,9 @@ def percent(
 
 @validate_call
 def person(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22258,9 +22258,9 @@ def person(
 
 @validate_call
 def person_arms_spread(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22279,9 +22279,9 @@ def person_arms_spread(
 
 @validate_call
 def person_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22300,9 +22300,9 @@ def person_simple(
 
 @validate_call
 def person_simple_bike(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22321,9 +22321,9 @@ def person_simple_bike(
 
 @validate_call
 def person_simple_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22342,9 +22342,9 @@ def person_simple_circle(
 
 @validate_call
 def person_simple_hike(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22363,9 +22363,9 @@ def person_simple_hike(
 
 @validate_call
 def person_simple_run(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22384,9 +22384,9 @@ def person_simple_run(
 
 @validate_call
 def person_simple_ski(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22405,9 +22405,9 @@ def person_simple_ski(
 
 @validate_call
 def person_simple_snowboard(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22426,9 +22426,9 @@ def person_simple_snowboard(
 
 @validate_call
 def person_simple_swim(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22447,9 +22447,9 @@ def person_simple_swim(
 
 @validate_call
 def person_simple_tai_chi(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22468,9 +22468,9 @@ def person_simple_tai_chi(
 
 @validate_call
 def person_simple_throw(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22489,9 +22489,9 @@ def person_simple_throw(
 
 @validate_call
 def person_simple_walk(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22510,9 +22510,9 @@ def person_simple_walk(
 
 @validate_call
 def perspective(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22531,9 +22531,9 @@ def perspective(
 
 @validate_call
 def phone(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22552,9 +22552,9 @@ def phone(
 
 @validate_call
 def phone_call(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22573,9 +22573,9 @@ def phone_call(
 
 @validate_call
 def phone_disconnect(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22594,9 +22594,9 @@ def phone_disconnect(
 
 @validate_call
 def phone_incoming(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22615,9 +22615,9 @@ def phone_incoming(
 
 @validate_call
 def phone_list(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22636,9 +22636,9 @@ def phone_list(
 
 @validate_call
 def phone_outgoing(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22657,9 +22657,9 @@ def phone_outgoing(
 
 @validate_call
 def phone_pause(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22678,9 +22678,9 @@ def phone_pause(
 
 @validate_call
 def phone_plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22699,9 +22699,9 @@ def phone_plus(
 
 @validate_call
 def phone_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22720,9 +22720,9 @@ def phone_slash(
 
 @validate_call
 def phone_transfer(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22741,9 +22741,9 @@ def phone_transfer(
 
 @validate_call
 def phone_x(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22762,9 +22762,9 @@ def phone_x(
 
 @validate_call
 def phosphor_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22783,9 +22783,9 @@ def phosphor_logo(
 
 @validate_call
 def pi(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22804,9 +22804,9 @@ def pi(
 
 @validate_call
 def piano_keys(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22825,9 +22825,9 @@ def piano_keys(
 
 @validate_call
 def picnic_table(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22846,9 +22846,9 @@ def picnic_table(
 
 @validate_call
 def picture_in_picture(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22867,9 +22867,9 @@ def picture_in_picture(
 
 @validate_call
 def piggy_bank(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22888,9 +22888,9 @@ def piggy_bank(
 
 @validate_call
 def pill(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22909,9 +22909,9 @@ def pill(
 
 @validate_call
 def ping_pong(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22930,9 +22930,9 @@ def ping_pong(
 
 @validate_call
 def pint_glass(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22951,9 +22951,9 @@ def pint_glass(
 
 @validate_call
 def pinterest_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22972,9 +22972,9 @@ def pinterest_logo(
 
 @validate_call
 def pinwheel(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -22993,9 +22993,9 @@ def pinwheel(
 
 @validate_call
 def pipe(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23014,9 +23014,9 @@ def pipe(
 
 @validate_call
 def pipe_wrench(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23035,9 +23035,9 @@ def pipe_wrench(
 
 @validate_call
 def pix_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23056,9 +23056,9 @@ def pix_logo(
 
 @validate_call
 def pizza(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23077,9 +23077,9 @@ def pizza(
 
 @validate_call
 def placeholder(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23098,9 +23098,9 @@ def placeholder(
 
 @validate_call
 def planet(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23119,9 +23119,9 @@ def planet(
 
 @validate_call
 def plant(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23140,9 +23140,9 @@ def plant(
 
 @validate_call
 def play(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23161,9 +23161,9 @@ def play(
 
 @validate_call
 def play_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23182,9 +23182,9 @@ def play_circle(
 
 @validate_call
 def play_pause(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23203,9 +23203,9 @@ def play_pause(
 
 @validate_call
 def playlist(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23224,9 +23224,9 @@ def playlist(
 
 @validate_call
 def plug(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23245,9 +23245,9 @@ def plug(
 
 @validate_call
 def plug_charging(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23266,9 +23266,9 @@ def plug_charging(
 
 @validate_call
 def plugs(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23287,9 +23287,9 @@ def plugs(
 
 @validate_call
 def plugs_connected(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23308,9 +23308,9 @@ def plugs_connected(
 
 @validate_call
 def plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23329,9 +23329,9 @@ def plus(
 
 @validate_call
 def plus_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23350,9 +23350,9 @@ def plus_circle(
 
 @validate_call
 def plus_minus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23371,9 +23371,9 @@ def plus_minus(
 
 @validate_call
 def plus_square(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23392,9 +23392,9 @@ def plus_square(
 
 @validate_call
 def poker_chip(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23413,9 +23413,9 @@ def poker_chip(
 
 @validate_call
 def police_car(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23434,9 +23434,9 @@ def police_car(
 
 @validate_call
 def polygon(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23455,9 +23455,9 @@ def polygon(
 
 @validate_call
 def popcorn(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23476,9 +23476,9 @@ def popcorn(
 
 @validate_call
 def popsicle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23497,9 +23497,9 @@ def popsicle(
 
 @validate_call
 def potted_plant(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23518,9 +23518,9 @@ def potted_plant(
 
 @validate_call
 def power(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23539,9 +23539,9 @@ def power(
 
 @validate_call
 def prescription(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23560,9 +23560,9 @@ def prescription(
 
 @validate_call
 def presentation(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23581,9 +23581,9 @@ def presentation(
 
 @validate_call
 def presentation_chart(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23602,9 +23602,9 @@ def presentation_chart(
 
 @validate_call
 def printer(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23623,9 +23623,9 @@ def printer(
 
 @validate_call
 def prohibit(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23644,9 +23644,9 @@ def prohibit(
 
 @validate_call
 def prohibit_inset(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23665,9 +23665,9 @@ def prohibit_inset(
 
 @validate_call
 def projector_screen(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23686,9 +23686,9 @@ def projector_screen(
 
 @validate_call
 def projector_screen_chart(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23707,9 +23707,9 @@ def projector_screen_chart(
 
 @validate_call
 def pulse(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23728,9 +23728,9 @@ def pulse(
 
 @validate_call
 def push_pin(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23749,9 +23749,9 @@ def push_pin(
 
 @validate_call
 def push_pin_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23770,9 +23770,9 @@ def push_pin_simple(
 
 @validate_call
 def push_pin_simple_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23791,9 +23791,9 @@ def push_pin_simple_slash(
 
 @validate_call
 def push_pin_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23812,9 +23812,9 @@ def push_pin_slash(
 
 @validate_call
 def puzzle_piece(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23833,9 +23833,9 @@ def puzzle_piece(
 
 @validate_call
 def qr_code(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23854,9 +23854,9 @@ def qr_code(
 
 @validate_call
 def question(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23875,9 +23875,9 @@ def question(
 
 @validate_call
 def question_mark(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23896,9 +23896,9 @@ def question_mark(
 
 @validate_call
 def queue(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23917,9 +23917,9 @@ def queue(
 
 @validate_call
 def quotes(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23938,9 +23938,9 @@ def quotes(
 
 @validate_call
 def rabbit(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23959,9 +23959,9 @@ def rabbit(
 
 @validate_call
 def racquet(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -23980,9 +23980,9 @@ def racquet(
 
 @validate_call
 def radical(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24001,9 +24001,9 @@ def radical(
 
 @validate_call
 def radio(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24022,9 +24022,9 @@ def radio(
 
 @validate_call
 def radio_button(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24043,9 +24043,9 @@ def radio_button(
 
 @validate_call
 def radioactive(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24064,9 +24064,9 @@ def radioactive(
 
 @validate_call
 def rainbow(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24085,9 +24085,9 @@ def rainbow(
 
 @validate_call
 def rainbow_cloud(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24106,9 +24106,9 @@ def rainbow_cloud(
 
 @validate_call
 def ranking(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24127,9 +24127,9 @@ def ranking(
 
 @validate_call
 def read_cv_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24148,9 +24148,9 @@ def read_cv_logo(
 
 @validate_call
 def receipt(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24169,9 +24169,9 @@ def receipt(
 
 @validate_call
 def receipt_x(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24190,9 +24190,9 @@ def receipt_x(
 
 @validate_call
 def record(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24211,9 +24211,9 @@ def record(
 
 @validate_call
 def rectangle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24232,9 +24232,9 @@ def rectangle(
 
 @validate_call
 def rectangle_dashed(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24253,9 +24253,9 @@ def rectangle_dashed(
 
 @validate_call
 def recycle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24274,9 +24274,9 @@ def recycle(
 
 @validate_call
 def reddit_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24295,9 +24295,9 @@ def reddit_logo(
 
 @validate_call
 def repeat(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24316,9 +24316,9 @@ def repeat(
 
 @validate_call
 def repeat_once(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24337,9 +24337,9 @@ def repeat_once(
 
 @validate_call
 def replit_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24358,9 +24358,9 @@ def replit_logo(
 
 @validate_call
 def resize(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24379,9 +24379,9 @@ def resize(
 
 @validate_call
 def rewind(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24400,9 +24400,9 @@ def rewind(
 
 @validate_call
 def rewind_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24421,9 +24421,9 @@ def rewind_circle(
 
 @validate_call
 def road_horizon(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24442,9 +24442,9 @@ def road_horizon(
 
 @validate_call
 def robot(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24463,9 +24463,9 @@ def robot(
 
 @validate_call
 def rocket(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24484,9 +24484,9 @@ def rocket(
 
 @validate_call
 def rocket_launch(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24505,9 +24505,9 @@ def rocket_launch(
 
 @validate_call
 def rows(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24526,9 +24526,9 @@ def rows(
 
 @validate_call
 def rows_plus_bottom(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24547,9 +24547,9 @@ def rows_plus_bottom(
 
 @validate_call
 def rows_plus_top(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24568,9 +24568,9 @@ def rows_plus_top(
 
 @validate_call
 def rss(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24589,9 +24589,9 @@ def rss(
 
 @validate_call
 def rss_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24610,9 +24610,9 @@ def rss_simple(
 
 @validate_call
 def rug(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24631,9 +24631,9 @@ def rug(
 
 @validate_call
 def ruler(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24652,9 +24652,9 @@ def ruler(
 
 @validate_call
 def sailboat(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24673,9 +24673,9 @@ def sailboat(
 
 @validate_call
 def scales(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24694,9 +24694,9 @@ def scales(
 
 @validate_call
 def scan(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24715,9 +24715,9 @@ def scan(
 
 @validate_call
 def scan_smiley(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24736,9 +24736,9 @@ def scan_smiley(
 
 @validate_call
 def scissors(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24757,9 +24757,9 @@ def scissors(
 
 @validate_call
 def scooter(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24778,9 +24778,9 @@ def scooter(
 
 @validate_call
 def screencast(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24799,9 +24799,9 @@ def screencast(
 
 @validate_call
 def screwdriver(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24820,9 +24820,9 @@ def screwdriver(
 
 @validate_call
 def scribble(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24841,9 +24841,9 @@ def scribble(
 
 @validate_call
 def scribble_loop(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24862,9 +24862,9 @@ def scribble_loop(
 
 @validate_call
 def scroll(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24883,9 +24883,9 @@ def scroll(
 
 @validate_call
 def seal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24904,9 +24904,9 @@ def seal(
 
 @validate_call
 def seal_check(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24925,9 +24925,9 @@ def seal_check(
 
 @validate_call
 def seal_percent(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24946,9 +24946,9 @@ def seal_percent(
 
 @validate_call
 def seal_question(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24967,9 +24967,9 @@ def seal_question(
 
 @validate_call
 def seal_warning(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -24988,9 +24988,9 @@ def seal_warning(
 
 @validate_call
 def seat(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25009,9 +25009,9 @@ def seat(
 
 @validate_call
 def seatbelt(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25030,9 +25030,9 @@ def seatbelt(
 
 @validate_call
 def security_camera(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25051,9 +25051,9 @@ def security_camera(
 
 @validate_call
 def selection(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25072,9 +25072,9 @@ def selection(
 
 @validate_call
 def selection_all(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25093,9 +25093,9 @@ def selection_all(
 
 @validate_call
 def selection_background(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25114,9 +25114,9 @@ def selection_background(
 
 @validate_call
 def selection_foreground(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25135,9 +25135,9 @@ def selection_foreground(
 
 @validate_call
 def selection_inverse(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25156,9 +25156,9 @@ def selection_inverse(
 
 @validate_call
 def selection_plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25177,9 +25177,9 @@ def selection_plus(
 
 @validate_call
 def selection_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25198,9 +25198,9 @@ def selection_slash(
 
 @validate_call
 def shapes(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25219,9 +25219,9 @@ def shapes(
 
 @validate_call
 def share(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25240,9 +25240,9 @@ def share(
 
 @validate_call
 def share_fat(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25261,9 +25261,9 @@ def share_fat(
 
 @validate_call
 def share_network(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25282,9 +25282,9 @@ def share_network(
 
 @validate_call
 def shield(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25303,9 +25303,9 @@ def shield(
 
 @validate_call
 def shield_check(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25324,9 +25324,9 @@ def shield_check(
 
 @validate_call
 def shield_checkered(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25345,9 +25345,9 @@ def shield_checkered(
 
 @validate_call
 def shield_chevron(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25366,9 +25366,9 @@ def shield_chevron(
 
 @validate_call
 def shield_plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25387,9 +25387,9 @@ def shield_plus(
 
 @validate_call
 def shield_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25408,9 +25408,9 @@ def shield_slash(
 
 @validate_call
 def shield_star(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25429,9 +25429,9 @@ def shield_star(
 
 @validate_call
 def shield_warning(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25450,9 +25450,9 @@ def shield_warning(
 
 @validate_call
 def shipping_container(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25471,9 +25471,9 @@ def shipping_container(
 
 @validate_call
 def shirt_folded(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25492,9 +25492,9 @@ def shirt_folded(
 
 @validate_call
 def shooting_star(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25513,9 +25513,9 @@ def shooting_star(
 
 @validate_call
 def shopping_bag(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25534,9 +25534,9 @@ def shopping_bag(
 
 @validate_call
 def shopping_bag_open(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25555,9 +25555,9 @@ def shopping_bag_open(
 
 @validate_call
 def shopping_cart(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25576,9 +25576,9 @@ def shopping_cart(
 
 @validate_call
 def shopping_cart_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25597,9 +25597,9 @@ def shopping_cart_simple(
 
 @validate_call
 def shovel(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25618,9 +25618,9 @@ def shovel(
 
 @validate_call
 def shower(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25639,9 +25639,9 @@ def shower(
 
 @validate_call
 def shrimp(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25660,9 +25660,9 @@ def shrimp(
 
 @validate_call
 def shuffle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25681,9 +25681,9 @@ def shuffle(
 
 @validate_call
 def shuffle_angular(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25702,9 +25702,9 @@ def shuffle_angular(
 
 @validate_call
 def shuffle_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25723,9 +25723,9 @@ def shuffle_simple(
 
 @validate_call
 def sidebar(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25744,9 +25744,9 @@ def sidebar(
 
 @validate_call
 def sidebar_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25765,9 +25765,9 @@ def sidebar_simple(
 
 @validate_call
 def sigma(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25786,9 +25786,9 @@ def sigma(
 
 @validate_call
 def sign_in(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25807,9 +25807,9 @@ def sign_in(
 
 @validate_call
 def sign_out(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25828,9 +25828,9 @@ def sign_out(
 
 @validate_call
 def signature(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25849,9 +25849,9 @@ def signature(
 
 @validate_call
 def signpost(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25870,9 +25870,9 @@ def signpost(
 
 @validate_call
 def sim_card(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25891,9 +25891,9 @@ def sim_card(
 
 @validate_call
 def siren(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25912,9 +25912,9 @@ def siren(
 
 @validate_call
 def sketch_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25933,9 +25933,9 @@ def sketch_logo(
 
 @validate_call
 def skip_back(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25954,9 +25954,9 @@ def skip_back(
 
 @validate_call
 def skip_back_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25975,9 +25975,9 @@ def skip_back_circle(
 
 @validate_call
 def skip_forward(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -25996,9 +25996,9 @@ def skip_forward(
 
 @validate_call
 def skip_forward_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26017,9 +26017,9 @@ def skip_forward_circle(
 
 @validate_call
 def skull(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26038,9 +26038,9 @@ def skull(
 
 @validate_call
 def skype_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26059,9 +26059,9 @@ def skype_logo(
 
 @validate_call
 def slack_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26080,9 +26080,9 @@ def slack_logo(
 
 @validate_call
 def sliders(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26101,9 +26101,9 @@ def sliders(
 
 @validate_call
 def sliders_horizontal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26122,9 +26122,9 @@ def sliders_horizontal(
 
 @validate_call
 def slideshow(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26143,9 +26143,9 @@ def slideshow(
 
 @validate_call
 def smiley(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26164,9 +26164,9 @@ def smiley(
 
 @validate_call
 def smiley_angry(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26185,9 +26185,9 @@ def smiley_angry(
 
 @validate_call
 def smiley_blank(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26206,9 +26206,9 @@ def smiley_blank(
 
 @validate_call
 def smiley_meh(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26227,9 +26227,9 @@ def smiley_meh(
 
 @validate_call
 def smiley_melting(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26248,9 +26248,9 @@ def smiley_melting(
 
 @validate_call
 def smiley_nervous(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26269,9 +26269,9 @@ def smiley_nervous(
 
 @validate_call
 def smiley_sad(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26290,9 +26290,9 @@ def smiley_sad(
 
 @validate_call
 def smiley_sticker(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26311,9 +26311,9 @@ def smiley_sticker(
 
 @validate_call
 def smiley_wink(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26332,9 +26332,9 @@ def smiley_wink(
 
 @validate_call
 def smiley_x_eyes(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26353,9 +26353,9 @@ def smiley_x_eyes(
 
 @validate_call
 def snapchat_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26374,9 +26374,9 @@ def snapchat_logo(
 
 @validate_call
 def sneaker(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26395,9 +26395,9 @@ def sneaker(
 
 @validate_call
 def sneaker_move(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26416,9 +26416,9 @@ def sneaker_move(
 
 @validate_call
 def snowflake(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26437,9 +26437,9 @@ def snowflake(
 
 @validate_call
 def soccer_ball(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26458,9 +26458,9 @@ def soccer_ball(
 
 @validate_call
 def sock(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26479,9 +26479,9 @@ def sock(
 
 @validate_call
 def solar_panel(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26500,9 +26500,9 @@ def solar_panel(
 
 @validate_call
 def solar_roof(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26521,9 +26521,9 @@ def solar_roof(
 
 @validate_call
 def sort_ascending(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26542,9 +26542,9 @@ def sort_ascending(
 
 @validate_call
 def sort_descending(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26563,9 +26563,9 @@ def sort_descending(
 
 @validate_call
 def soundcloud_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26584,9 +26584,9 @@ def soundcloud_logo(
 
 @validate_call
 def spade(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26605,9 +26605,9 @@ def spade(
 
 @validate_call
 def sparkle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26626,9 +26626,9 @@ def sparkle(
 
 @validate_call
 def speaker_hifi(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26647,9 +26647,9 @@ def speaker_hifi(
 
 @validate_call
 def speaker_high(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26668,9 +26668,9 @@ def speaker_high(
 
 @validate_call
 def speaker_low(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26689,9 +26689,9 @@ def speaker_low(
 
 @validate_call
 def speaker_none(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26710,9 +26710,9 @@ def speaker_none(
 
 @validate_call
 def speaker_simple_high(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26731,9 +26731,9 @@ def speaker_simple_high(
 
 @validate_call
 def speaker_simple_low(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26752,9 +26752,9 @@ def speaker_simple_low(
 
 @validate_call
 def speaker_simple_none(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26773,9 +26773,9 @@ def speaker_simple_none(
 
 @validate_call
 def speaker_simple_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26794,9 +26794,9 @@ def speaker_simple_slash(
 
 @validate_call
 def speaker_simple_x(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26815,9 +26815,9 @@ def speaker_simple_x(
 
 @validate_call
 def speaker_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26836,9 +26836,9 @@ def speaker_slash(
 
 @validate_call
 def speaker_x(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26857,9 +26857,9 @@ def speaker_x(
 
 @validate_call
 def speedometer(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26878,9 +26878,9 @@ def speedometer(
 
 @validate_call
 def sphere(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26899,9 +26899,9 @@ def sphere(
 
 @validate_call
 def spinner(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26920,9 +26920,9 @@ def spinner(
 
 @validate_call
 def spinner_ball(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26941,9 +26941,9 @@ def spinner_ball(
 
 @validate_call
 def spinner_gap(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26962,9 +26962,9 @@ def spinner_gap(
 
 @validate_call
 def spiral(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -26983,9 +26983,9 @@ def spiral(
 
 @validate_call
 def split_horizontal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27004,9 +27004,9 @@ def split_horizontal(
 
 @validate_call
 def split_vertical(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27025,9 +27025,9 @@ def split_vertical(
 
 @validate_call
 def spotify_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27046,9 +27046,9 @@ def spotify_logo(
 
 @validate_call
 def spray_bottle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27067,9 +27067,9 @@ def spray_bottle(
 
 @validate_call
 def square(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27088,9 +27088,9 @@ def square(
 
 @validate_call
 def square_half(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27109,9 +27109,9 @@ def square_half(
 
 @validate_call
 def square_half_bottom(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27130,9 +27130,9 @@ def square_half_bottom(
 
 @validate_call
 def square_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27151,9 +27151,9 @@ def square_logo(
 
 @validate_call
 def square_split_horizontal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27172,9 +27172,9 @@ def square_split_horizontal(
 
 @validate_call
 def square_split_vertical(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27193,9 +27193,9 @@ def square_split_vertical(
 
 @validate_call
 def squares_four(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27214,9 +27214,9 @@ def squares_four(
 
 @validate_call
 def stack(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27235,9 +27235,9 @@ def stack(
 
 @validate_call
 def stack_minus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27256,9 +27256,9 @@ def stack_minus(
 
 @validate_call
 def stack_overflow_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27277,9 +27277,9 @@ def stack_overflow_logo(
 
 @validate_call
 def stack_plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27298,9 +27298,9 @@ def stack_plus(
 
 @validate_call
 def stack_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27319,9 +27319,9 @@ def stack_simple(
 
 @validate_call
 def stairs(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27340,9 +27340,9 @@ def stairs(
 
 @validate_call
 def stamp(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27361,9 +27361,9 @@ def stamp(
 
 @validate_call
 def standard_definition(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27382,9 +27382,9 @@ def standard_definition(
 
 @validate_call
 def star(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27403,9 +27403,9 @@ def star(
 
 @validate_call
 def star_and_crescent(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27424,9 +27424,9 @@ def star_and_crescent(
 
 @validate_call
 def star_four(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27445,9 +27445,9 @@ def star_four(
 
 @validate_call
 def star_half(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27466,9 +27466,9 @@ def star_half(
 
 @validate_call
 def star_of_david(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27487,9 +27487,9 @@ def star_of_david(
 
 @validate_call
 def steam_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27508,9 +27508,9 @@ def steam_logo(
 
 @validate_call
 def steering_wheel(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27529,9 +27529,9 @@ def steering_wheel(
 
 @validate_call
 def steps(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27550,9 +27550,9 @@ def steps(
 
 @validate_call
 def stethoscope(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27571,9 +27571,9 @@ def stethoscope(
 
 @validate_call
 def sticker(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27592,9 +27592,9 @@ def sticker(
 
 @validate_call
 def stool(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27613,9 +27613,9 @@ def stool(
 
 @validate_call
 def stop(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27634,9 +27634,9 @@ def stop(
 
 @validate_call
 def stop_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27655,9 +27655,9 @@ def stop_circle(
 
 @validate_call
 def storefront(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27676,9 +27676,9 @@ def storefront(
 
 @validate_call
 def strategy(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27697,9 +27697,9 @@ def strategy(
 
 @validate_call
 def stripe_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27718,9 +27718,9 @@ def stripe_logo(
 
 @validate_call
 def student(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27739,9 +27739,9 @@ def student(
 
 @validate_call
 def subset_of(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27760,9 +27760,9 @@ def subset_of(
 
 @validate_call
 def subset_proper_of(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27781,9 +27781,9 @@ def subset_proper_of(
 
 @validate_call
 def subtitles(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27802,9 +27802,9 @@ def subtitles(
 
 @validate_call
 def subtitles_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27823,9 +27823,9 @@ def subtitles_slash(
 
 @validate_call
 def subtract(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27844,9 +27844,9 @@ def subtract(
 
 @validate_call
 def subtract_square(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27865,9 +27865,9 @@ def subtract_square(
 
 @validate_call
 def subway(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27886,9 +27886,9 @@ def subway(
 
 @validate_call
 def suitcase(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27907,9 +27907,9 @@ def suitcase(
 
 @validate_call
 def suitcase_rolling(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27928,9 +27928,9 @@ def suitcase_rolling(
 
 @validate_call
 def suitcase_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27949,9 +27949,9 @@ def suitcase_simple(
 
 @validate_call
 def sun(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27970,9 +27970,9 @@ def sun(
 
 @validate_call
 def sun_dim(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -27991,9 +27991,9 @@ def sun_dim(
 
 @validate_call
 def sun_horizon(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28012,9 +28012,9 @@ def sun_horizon(
 
 @validate_call
 def sunglasses(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28033,9 +28033,9 @@ def sunglasses(
 
 @validate_call
 def superset_of(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28054,9 +28054,9 @@ def superset_of(
 
 @validate_call
 def superset_proper_of(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28075,9 +28075,9 @@ def superset_proper_of(
 
 @validate_call
 def swap(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28096,9 +28096,9 @@ def swap(
 
 @validate_call
 def swatches(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28117,9 +28117,9 @@ def swatches(
 
 @validate_call
 def swimming_pool(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28138,9 +28138,9 @@ def swimming_pool(
 
 @validate_call
 def sword(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28159,9 +28159,9 @@ def sword(
 
 @validate_call
 def synagogue(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28180,9 +28180,9 @@ def synagogue(
 
 @validate_call
 def syringe(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28201,9 +28201,9 @@ def syringe(
 
 @validate_call
 def t_shirt(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28222,9 +28222,9 @@ def t_shirt(
 
 @validate_call
 def table(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28243,9 +28243,9 @@ def table(
 
 @validate_call
 def tabs(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28264,9 +28264,9 @@ def tabs(
 
 @validate_call
 def tag(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28285,9 +28285,9 @@ def tag(
 
 @validate_call
 def tag_chevron(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28306,9 +28306,9 @@ def tag_chevron(
 
 @validate_call
 def tag_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28327,9 +28327,9 @@ def tag_simple(
 
 @validate_call
 def target(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28348,9 +28348,9 @@ def target(
 
 @validate_call
 def taxi(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28369,9 +28369,9 @@ def taxi(
 
 @validate_call
 def tea_bag(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28390,9 +28390,9 @@ def tea_bag(
 
 @validate_call
 def telegram_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28411,9 +28411,9 @@ def telegram_logo(
 
 @validate_call
 def television(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28432,9 +28432,9 @@ def television(
 
 @validate_call
 def television_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28453,9 +28453,9 @@ def television_simple(
 
 @validate_call
 def tennis_ball(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28474,9 +28474,9 @@ def tennis_ball(
 
 @validate_call
 def tent(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28495,9 +28495,9 @@ def tent(
 
 @validate_call
 def terminal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28516,9 +28516,9 @@ def terminal(
 
 @validate_call
 def terminal_window(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28537,9 +28537,9 @@ def terminal_window(
 
 @validate_call
 def test_tube(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28558,9 +28558,9 @@ def test_tube(
 
 @validate_call
 def text_a_underline(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28579,9 +28579,9 @@ def text_a_underline(
 
 @validate_call
 def text_aa(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28600,9 +28600,9 @@ def text_aa(
 
 @validate_call
 def text_align_center(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28621,9 +28621,9 @@ def text_align_center(
 
 @validate_call
 def text_align_justify(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28642,9 +28642,9 @@ def text_align_justify(
 
 @validate_call
 def text_align_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28663,9 +28663,9 @@ def text_align_left(
 
 @validate_call
 def text_align_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28684,9 +28684,9 @@ def text_align_right(
 
 @validate_call
 def text_b(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28705,9 +28705,9 @@ def text_b(
 
 @validate_call
 def text_bolder(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28726,9 +28726,9 @@ def text_bolder(
 
 @validate_call
 def text_columns(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28747,9 +28747,9 @@ def text_columns(
 
 @validate_call
 def text_h(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28768,9 +28768,9 @@ def text_h(
 
 @validate_call
 def text_h_five(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28789,9 +28789,9 @@ def text_h_five(
 
 @validate_call
 def text_h_four(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28810,9 +28810,9 @@ def text_h_four(
 
 @validate_call
 def text_h_one(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28831,9 +28831,9 @@ def text_h_one(
 
 @validate_call
 def text_h_six(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28852,9 +28852,9 @@ def text_h_six(
 
 @validate_call
 def text_h_three(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28873,9 +28873,9 @@ def text_h_three(
 
 @validate_call
 def text_h_two(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28894,9 +28894,9 @@ def text_h_two(
 
 @validate_call
 def text_indent(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28915,9 +28915,9 @@ def text_indent(
 
 @validate_call
 def text_italic(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28936,9 +28936,9 @@ def text_italic(
 
 @validate_call
 def text_outdent(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28957,9 +28957,9 @@ def text_outdent(
 
 @validate_call
 def text_strikethrough(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28978,9 +28978,9 @@ def text_strikethrough(
 
 @validate_call
 def text_subscript(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -28999,9 +28999,9 @@ def text_subscript(
 
 @validate_call
 def text_superscript(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29020,9 +29020,9 @@ def text_superscript(
 
 @validate_call
 def text_t(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29041,9 +29041,9 @@ def text_t(
 
 @validate_call
 def text_t_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29062,9 +29062,9 @@ def text_t_slash(
 
 @validate_call
 def text_underline(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29083,9 +29083,9 @@ def text_underline(
 
 @validate_call
 def textbox(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29104,9 +29104,9 @@ def textbox(
 
 @validate_call
 def thermometer(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29125,9 +29125,9 @@ def thermometer(
 
 @validate_call
 def thermometer_cold(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29146,9 +29146,9 @@ def thermometer_cold(
 
 @validate_call
 def thermometer_hot(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29167,9 +29167,9 @@ def thermometer_hot(
 
 @validate_call
 def thermometer_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29188,9 +29188,9 @@ def thermometer_simple(
 
 @validate_call
 def threads_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29209,9 +29209,9 @@ def threads_logo(
 
 @validate_call
 def three_d(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29230,9 +29230,9 @@ def three_d(
 
 @validate_call
 def thumbs_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29251,9 +29251,9 @@ def thumbs_down(
 
 @validate_call
 def thumbs_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29272,9 +29272,9 @@ def thumbs_up(
 
 @validate_call
 def ticket(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29293,9 +29293,9 @@ def ticket(
 
 @validate_call
 def tidal_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29314,9 +29314,9 @@ def tidal_logo(
 
 @validate_call
 def tiktok_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29335,9 +29335,9 @@ def tiktok_logo(
 
 @validate_call
 def tilde(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29356,9 +29356,9 @@ def tilde(
 
 @validate_call
 def timer(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29377,9 +29377,9 @@ def timer(
 
 @validate_call
 def tip_jar(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29398,9 +29398,9 @@ def tip_jar(
 
 @validate_call
 def tipi(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29419,9 +29419,9 @@ def tipi(
 
 @validate_call
 def tire(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29440,9 +29440,9 @@ def tire(
 
 @validate_call
 def toggle_left(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29461,9 +29461,9 @@ def toggle_left(
 
 @validate_call
 def toggle_right(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29482,9 +29482,9 @@ def toggle_right(
 
 @validate_call
 def toilet(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29503,9 +29503,9 @@ def toilet(
 
 @validate_call
 def toilet_paper(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29524,9 +29524,9 @@ def toilet_paper(
 
 @validate_call
 def toolbox(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29545,9 +29545,9 @@ def toolbox(
 
 @validate_call
 def tooth(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29566,9 +29566,9 @@ def tooth(
 
 @validate_call
 def tornado(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29587,9 +29587,9 @@ def tornado(
 
 @validate_call
 def tote(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29608,9 +29608,9 @@ def tote(
 
 @validate_call
 def tote_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29629,9 +29629,9 @@ def tote_simple(
 
 @validate_call
 def towel(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29650,9 +29650,9 @@ def towel(
 
 @validate_call
 def tractor(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29671,9 +29671,9 @@ def tractor(
 
 @validate_call
 def trademark(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29692,9 +29692,9 @@ def trademark(
 
 @validate_call
 def trademark_registered(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29713,9 +29713,9 @@ def trademark_registered(
 
 @validate_call
 def traffic_cone(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29734,9 +29734,9 @@ def traffic_cone(
 
 @validate_call
 def traffic_sign(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29755,9 +29755,9 @@ def traffic_sign(
 
 @validate_call
 def traffic_signal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29776,9 +29776,9 @@ def traffic_signal(
 
 @validate_call
 def train(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29797,9 +29797,9 @@ def train(
 
 @validate_call
 def train_regional(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29818,9 +29818,9 @@ def train_regional(
 
 @validate_call
 def train_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29839,9 +29839,9 @@ def train_simple(
 
 @validate_call
 def tram(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29860,9 +29860,9 @@ def tram(
 
 @validate_call
 def translate(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29881,9 +29881,9 @@ def translate(
 
 @validate_call
 def trash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29902,9 +29902,9 @@ def trash(
 
 @validate_call
 def trash_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29923,9 +29923,9 @@ def trash_simple(
 
 @validate_call
 def tray(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29944,9 +29944,9 @@ def tray(
 
 @validate_call
 def tray_arrow_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29965,9 +29965,9 @@ def tray_arrow_down(
 
 @validate_call
 def tray_arrow_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -29986,9 +29986,9 @@ def tray_arrow_up(
 
 @validate_call
 def treasure_chest(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30007,9 +30007,9 @@ def treasure_chest(
 
 @validate_call
 def tree(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30028,9 +30028,9 @@ def tree(
 
 @validate_call
 def tree_evergreen(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30049,9 +30049,9 @@ def tree_evergreen(
 
 @validate_call
 def tree_palm(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30070,9 +30070,9 @@ def tree_palm(
 
 @validate_call
 def tree_structure(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30091,9 +30091,9 @@ def tree_structure(
 
 @validate_call
 def tree_view(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30112,9 +30112,9 @@ def tree_view(
 
 @validate_call
 def trend_down(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30133,9 +30133,9 @@ def trend_down(
 
 @validate_call
 def trend_up(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30154,9 +30154,9 @@ def trend_up(
 
 @validate_call
 def triangle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30175,9 +30175,9 @@ def triangle(
 
 @validate_call
 def triangle_dashed(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30196,9 +30196,9 @@ def triangle_dashed(
 
 @validate_call
 def trolley(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30217,9 +30217,9 @@ def trolley(
 
 @validate_call
 def trolley_suitcase(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30238,9 +30238,9 @@ def trolley_suitcase(
 
 @validate_call
 def trophy(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30259,9 +30259,9 @@ def trophy(
 
 @validate_call
 def truck(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30280,9 +30280,9 @@ def truck(
 
 @validate_call
 def truck_trailer(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30301,9 +30301,9 @@ def truck_trailer(
 
 @validate_call
 def tumblr_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30322,9 +30322,9 @@ def tumblr_logo(
 
 @validate_call
 def twitch_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30343,9 +30343,9 @@ def twitch_logo(
 
 @validate_call
 def twitter_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30364,9 +30364,9 @@ def twitter_logo(
 
 @validate_call
 def umbrella(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30385,9 +30385,9 @@ def umbrella(
 
 @validate_call
 def umbrella_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30406,9 +30406,9 @@ def umbrella_simple(
 
 @validate_call
 def union(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30427,9 +30427,9 @@ def union(
 
 @validate_call
 def unite(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30448,9 +30448,9 @@ def unite(
 
 @validate_call
 def unite_square(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30469,9 +30469,9 @@ def unite_square(
 
 @validate_call
 def upload(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30490,9 +30490,9 @@ def upload(
 
 @validate_call
 def upload_simple(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30511,9 +30511,9 @@ def upload_simple(
 
 @validate_call
 def usb(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30532,9 +30532,9 @@ def usb(
 
 @validate_call
 def user(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30553,9 +30553,9 @@ def user(
 
 @validate_call
 def user_check(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30574,9 +30574,9 @@ def user_check(
 
 @validate_call
 def user_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30595,9 +30595,9 @@ def user_circle(
 
 @validate_call
 def user_circle_check(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30616,9 +30616,9 @@ def user_circle_check(
 
 @validate_call
 def user_circle_dashed(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30637,9 +30637,9 @@ def user_circle_dashed(
 
 @validate_call
 def user_circle_gear(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30658,9 +30658,9 @@ def user_circle_gear(
 
 @validate_call
 def user_circle_minus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30679,9 +30679,9 @@ def user_circle_minus(
 
 @validate_call
 def user_circle_plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30700,9 +30700,9 @@ def user_circle_plus(
 
 @validate_call
 def user_focus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30721,9 +30721,9 @@ def user_focus(
 
 @validate_call
 def user_gear(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30742,9 +30742,9 @@ def user_gear(
 
 @validate_call
 def user_list(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30763,9 +30763,9 @@ def user_list(
 
 @validate_call
 def user_minus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30784,9 +30784,9 @@ def user_minus(
 
 @validate_call
 def user_plus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30805,9 +30805,9 @@ def user_plus(
 
 @validate_call
 def user_rectangle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30826,9 +30826,9 @@ def user_rectangle(
 
 @validate_call
 def user_sound(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30847,9 +30847,9 @@ def user_sound(
 
 @validate_call
 def user_square(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30868,9 +30868,9 @@ def user_square(
 
 @validate_call
 def user_switch(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30889,9 +30889,9 @@ def user_switch(
 
 @validate_call
 def users(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30910,9 +30910,9 @@ def users(
 
 @validate_call
 def users_four(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30931,9 +30931,9 @@ def users_four(
 
 @validate_call
 def users_three(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30952,9 +30952,9 @@ def users_three(
 
 @validate_call
 def van(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30973,9 +30973,9 @@ def van(
 
 @validate_call
 def vault(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -30994,9 +30994,9 @@ def vault(
 
 @validate_call
 def vector_three(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31015,9 +31015,9 @@ def vector_three(
 
 @validate_call
 def vector_two(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31036,9 +31036,9 @@ def vector_two(
 
 @validate_call
 def vibrate(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31057,9 +31057,9 @@ def vibrate(
 
 @validate_call
 def video(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31078,9 +31078,9 @@ def video(
 
 @validate_call
 def video_camera(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31099,9 +31099,9 @@ def video_camera(
 
 @validate_call
 def video_camera_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31120,9 +31120,9 @@ def video_camera_slash(
 
 @validate_call
 def video_conference(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31141,9 +31141,9 @@ def video_conference(
 
 @validate_call
 def vignette(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31162,9 +31162,9 @@ def vignette(
 
 @validate_call
 def vinyl_record(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31183,9 +31183,9 @@ def vinyl_record(
 
 @validate_call
 def virtual_reality(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31204,9 +31204,9 @@ def virtual_reality(
 
 @validate_call
 def virus(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31225,9 +31225,9 @@ def virus(
 
 @validate_call
 def visor(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31246,9 +31246,9 @@ def visor(
 
 @validate_call
 def voicemail(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31267,9 +31267,9 @@ def voicemail(
 
 @validate_call
 def volleyball(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31288,9 +31288,9 @@ def volleyball(
 
 @validate_call
 def wall(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31309,9 +31309,9 @@ def wall(
 
 @validate_call
 def wallet(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31330,9 +31330,9 @@ def wallet(
 
 @validate_call
 def warehouse(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31351,9 +31351,9 @@ def warehouse(
 
 @validate_call
 def warning(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31372,9 +31372,9 @@ def warning(
 
 @validate_call
 def warning_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31393,9 +31393,9 @@ def warning_circle(
 
 @validate_call
 def warning_diamond(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31414,9 +31414,9 @@ def warning_diamond(
 
 @validate_call
 def warning_octagon(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31435,9 +31435,9 @@ def warning_octagon(
 
 @validate_call
 def washing_machine(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31456,9 +31456,9 @@ def washing_machine(
 
 @validate_call
 def watch(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31477,9 +31477,9 @@ def watch(
 
 @validate_call
 def wave_sawtooth(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31498,9 +31498,9 @@ def wave_sawtooth(
 
 @validate_call
 def wave_sine(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31519,9 +31519,9 @@ def wave_sine(
 
 @validate_call
 def wave_square(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31540,9 +31540,9 @@ def wave_square(
 
 @validate_call
 def wave_triangle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31561,9 +31561,9 @@ def wave_triangle(
 
 @validate_call
 def waveform(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31582,9 +31582,9 @@ def waveform(
 
 @validate_call
 def waveform_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31603,9 +31603,9 @@ def waveform_slash(
 
 @validate_call
 def waves(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31624,9 +31624,9 @@ def waves(
 
 @validate_call
 def webcam(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31645,9 +31645,9 @@ def webcam(
 
 @validate_call
 def webcam_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31666,9 +31666,9 @@ def webcam_slash(
 
 @validate_call
 def webhooks_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31687,9 +31687,9 @@ def webhooks_logo(
 
 @validate_call
 def wechat_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31708,9 +31708,9 @@ def wechat_logo(
 
 @validate_call
 def whatsapp_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31729,9 +31729,9 @@ def whatsapp_logo(
 
 @validate_call
 def wheelchair(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31750,9 +31750,9 @@ def wheelchair(
 
 @validate_call
 def wheelchair_motion(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31771,9 +31771,9 @@ def wheelchair_motion(
 
 @validate_call
 def wifi_high(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31792,9 +31792,9 @@ def wifi_high(
 
 @validate_call
 def wifi_low(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31813,9 +31813,9 @@ def wifi_low(
 
 @validate_call
 def wifi_medium(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31834,9 +31834,9 @@ def wifi_medium(
 
 @validate_call
 def wifi_none(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31855,9 +31855,9 @@ def wifi_none(
 
 @validate_call
 def wifi_slash(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31876,9 +31876,9 @@ def wifi_slash(
 
 @validate_call
 def wifi_x(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31897,9 +31897,9 @@ def wifi_x(
 
 @validate_call
 def wind(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31918,9 +31918,9 @@ def wind(
 
 @validate_call
 def windmill(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31939,9 +31939,9 @@ def windmill(
 
 @validate_call
 def windows_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31960,9 +31960,9 @@ def windows_logo(
 
 @validate_call
 def wine(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -31981,9 +31981,9 @@ def wine(
 
 @validate_call
 def wrench(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -32002,9 +32002,9 @@ def wrench(
 
 @validate_call
 def x(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -32023,9 +32023,9 @@ def x(
 
 @validate_call
 def x_circle(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -32044,9 +32044,9 @@ def x_circle(
 
 @validate_call
 def x_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -32065,9 +32065,9 @@ def x_logo(
 
 @validate_call
 def x_square(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -32086,9 +32086,9 @@ def x_square(
 
 @validate_call
 def yarn(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -32107,9 +32107,9 @@ def yarn(
 
 @validate_call
 def yin_yang(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -32128,9 +32128,9 @@ def yin_yang(
 
 @validate_call
 def youtube_logo(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:

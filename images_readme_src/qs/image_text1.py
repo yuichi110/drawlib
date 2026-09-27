@@ -1,6 +1,6 @@
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.fonts import FontFile, FontRoboto
+from drawlib.preset_colors import Colors
 from drawlib.styles import styles
 from drawlib.text import text
 
@@ -28,4 +28,3 @@ text(
     style=styles.primary.patch(text_color=Colors.White, text_bg_fill_color=Colors.Black),
 )
 save()
-

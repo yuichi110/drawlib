@@ -1,7 +1,7 @@
 from drawlib.canvas import save, setup
 from drawlib.preset_colors import Colors
-from drawlib.styles import styles
 from drawlib.shapes import circle
+from drawlib.styles import styles
 from drawlib.text import text
 
 setup(width=100, height=50, grid_only=True)
@@ -30,4 +30,3 @@ circle(
 text((75, 10), "Align left,bottom", style=styles.primary.patch(text_color=Colors.Red))
 
 save()
-

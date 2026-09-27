@@ -15,7 +15,7 @@ from drawlib.builder import (
     build_document,
     build_documents,
 )
-from drawlib.canvas import initialize
+from drawlib.canvas import clear
 from drawlib.math import get_angle, get_center_and_size, get_distance
 from drawlib.preset_colors import Color, Colors
 
@@ -38,9 +38,9 @@ class TestDomainUtilities:
         assert center == (5.0, 10.0)
         assert size == (10.0, 20.0)
 
-    def test_canvas_initialize(self) -> None:
-        """Verify canvas.initialize executes clean environment setup without errors."""
-        initialize()
+    def test_canvas_clear(self) -> None:
+        """Verify canvas.clear executes clean environment setup without errors."""
+        clear()
 
     def test_builder_exports(self) -> None:
         """Verify drawlib.builder exports public build functions."""

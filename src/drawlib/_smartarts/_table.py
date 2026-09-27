@@ -18,7 +18,7 @@ from pydantic import BaseModel, validate_call
 from drawlib._core.fonts import Font
 from drawlib._core.lines import line
 from drawlib._core.shapes import rectangle
-from drawlib._core.types import Style, TypeColor, TypeCoordinate, TypePosFloat, TypePosInt, TypeStr
+from drawlib._core.types import ColorType, Coordinate, PosFloat, PosInt, Style
 from drawlib._preset_colors import Colors, default_colors
 from drawlib._preset_styles import BasePresetStyles
 
@@ -28,22 +28,22 @@ class _CellStyleOrder(BaseModel):
 
     order: Literal["range", "even_odd"]
     textstyle1: Style
-    background_color1: TypeColor
+    background_color1: ColorType
     textstyle2: Style | None = None
-    background_color2: TypeColor | None = None
-    rows: list[TypePosInt] | None = None
-    columns: list[TypePosInt] | None = None
+    background_color2: ColorType | None = None
+    rows: list[PosInt] | None = None
+    columns: list[PosInt] | None = None
 
 
 class _CellInfo(BaseModel):
     """Represents information about a cell."""
 
-    xy: TypeCoordinate
-    width: TypePosFloat
-    height: TypePosFloat
-    background_color: TypeColor
+    xy: Coordinate
+    width: PosFloat
+    height: PosFloat
+    background_color: ColorType
     textstyle: Style
-    text: TypeStr
+    text: str
 
 
 class Table:
@@ -187,7 +187,7 @@ class Table:
     @validate_call
     def set_style_cell_headers(
         self,
-        background_color: TypeColor,
+        background_color: ColorType,
         textstyle: Style,
     ) -> None:
         """Sets the style for both column and row headers.
@@ -202,7 +202,7 @@ class Table:
     @validate_call
     def set_style_cell_header(
         self,
-        background_color: TypeColor,
+        background_color: ColorType,
         textstyle: Style,
     ) -> None:
         """Sets the style for the column header.
@@ -220,7 +220,7 @@ class Table:
     @validate_call
     def set_style_cell_rowheader(
         self,
-        background_color: TypeColor,
+        background_color: ColorType,
         textstyle: Style,
     ) -> None:
         """Sets the style for the row header.
@@ -238,9 +238,9 @@ class Table:
     @validate_call
     def set_style_cell_evenodd(
         self,
-        even_color: TypeColor,
+        even_color: ColorType,
         even_textstyle: Style,
-        odd_color: TypeColor,
+        odd_color: ColorType,
         odd_textstyle: Style,
     ) -> None:
         """Sets alternating styles for even and odd rows.
@@ -264,10 +264,10 @@ class Table:
     @validate_call
     def set_style_cell(
         self,
-        background_color: TypeColor,
+        background_color: ColorType,
         textstyle: Style,
-        rows: list[TypePosInt] | None = None,
-        columns: list[TypePosInt] | None = None,
+        rows: list[PosInt] | None = None,
+        columns: list[PosInt] | None = None,
     ) -> None:
         """Sets the style for specific cells.
 
@@ -327,9 +327,9 @@ class Table:
     @validate_call
     def draw(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        height: TypePosFloat,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
         data: list[list[Any]],
     ) -> None:
         """Draws the table with equal-sized cells.
@@ -355,9 +355,9 @@ class Table:
     @validate_call
     def draw_flexible(
         self,
-        xy: TypeCoordinate,
-        column_widths: list[TypePosFloat],
-        row_heights: list[TypePosFloat],
+        xy: Coordinate,
+        column_widths: list[PosFloat],
+        row_heights: list[PosFloat],
         data: list[list[Any]],
     ) -> None:
         """Draws the table with flexible cell sizes.
@@ -408,9 +408,9 @@ class Table:
 
     @staticmethod
     def _update_cell_xy_size(
-        xy: TypeCoordinate,
-        column_widths: list[TypePosFloat],
-        row_heights: list[TypePosFloat],
+        xy: Coordinate,
+        column_widths: list[PosFloat],
+        row_heights: list[PosFloat],
         matrix: list[list[_CellInfo]],
     ) -> None:
         x = xy[0]
@@ -430,9 +430,9 @@ class Table:
         matrix: list[list[_CellInfo]],
     ) -> None:
         def style_even_odd(
-            even_background_color: TypeColor,
+            even_background_color: ColorType,
             even_textstyle: Style,
-            odd_background_color: TypeColor,
+            odd_background_color: ColorType,
             odd_textstyle: Style,
         ) -> None:
             for i, row in enumerate(matrix):
@@ -446,7 +446,7 @@ class Table:
                         c.textstyle = odd_textstyle
 
         def style_range(
-            background_color: TypeColor,
+            background_color: ColorType,
             textstyle: Style,
             rows: list[int] | None,
             columns: list[int] | None,
@@ -515,9 +515,9 @@ class Table:
 
     def _draw_border_lines(  # noqa: C901
         self,
-        xy: TypeCoordinate,
-        column_widths: list[TypePosFloat],
-        row_heights: list[TypePosFloat],
+        xy: Coordinate,
+        column_widths: list[PosFloat],
+        row_heights: list[PosFloat],
     ) -> None:
         bs_top1: Style | None = None
         if self._bs_top is not None:

@@ -15,7 +15,7 @@ import tempfile
 from pathlib import Path
 
 from drawlib import canvas
-from drawlib._core.l2_types import TypeColor
+from drawlib._core.l2_types import ColorType
 from drawlib._core.l3_styles import Style
 from drawlib.preset_styles import default_styles
 from drawlib.smartarts import Cycle
@@ -84,7 +84,7 @@ class TestCycleRendering:
         """Test rendering basic circular PDCA cycle with auto palette and arc arrows."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "cycle_basic.png"
-            canvas.initialize()
+            canvas.clear()
 
             styles = default_styles
             c = Cycle(styles=styles)
@@ -103,7 +103,7 @@ class TestCycleRendering:
         """Test rendering radial cycle with a prominent center topic."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "cycle_center.png"
-            canvas.initialize()
+            canvas.clear()
 
             styles = default_styles
             c = Cycle(styles=styles, center_text="PDCA", center_description="Loop", center_radius=11.0)
@@ -119,7 +119,7 @@ class TestCycleRendering:
         """Test rendering cycle with descriptions positioned radially outside nodes."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "cycle_outside.png"
-            canvas.initialize()
+            canvas.clear()
 
             styles = default_styles
             c = Cycle(styles=styles, description_placement="outside", node_radius=7.0)
@@ -138,7 +138,7 @@ class TestCycleRendering:
         """Test rendering cycle with rounded rectangle nodes."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "cycle_rect.png"
-            canvas.initialize()
+            canvas.clear()
 
             styles = default_styles
             c = Cycle(
@@ -163,7 +163,7 @@ class TestCycleRendering:
         """Test rendering cycle with minimalist line arc arrows."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "cycle_lines.png"
-            canvas.initialize()
+            canvas.clear()
 
             styles = default_styles
             c = Cycle(styles=styles, arrow_type="line", arrow_width=2.5)
@@ -179,7 +179,7 @@ class TestCycleRendering:
         """Test rendering cycle in counter-clockwise direction."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "cycle_ccw.png"
-            canvas.initialize()
+            canvas.clear()
 
             styles = default_styles
             c = Cycle(styles=styles, clockwise=False)
@@ -195,7 +195,7 @@ class TestCycleRendering:
         """Test rendering a two-step cycle."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "cycle_two.png"
-            canvas.initialize()
+            canvas.clear()
 
             styles = default_styles
             c = Cycle(styles=styles)
@@ -212,7 +212,7 @@ class TestCycleRendering:
         """Test rendering empty cycle and single-item cycle does not crash."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "cycle_empty.png"
-            canvas.initialize()
+            canvas.clear()
 
             styles = default_styles
             c = Cycle(styles=styles, center_text="Empty Hub")
@@ -230,10 +230,10 @@ class TestCycleRendering:
         """Test rendering with bottom-left bounding alignment."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "cycle_bottom_left.png"
-            canvas.initialize()
+            canvas.clear()
 
             styles = default_styles
-            palette: list[TypeColor] = [(34, 197, 94), (59, 130, 246), (239, 68, 68)]
+            palette: list[ColorType] = [(34, 197, 94), (59, 130, 246), (239, 68, 68)]
             c = Cycle(styles=styles, palette=palette)
             c.extend(["Alpha", "Beta", "Gamma"])
 

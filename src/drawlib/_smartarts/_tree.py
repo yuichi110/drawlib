@@ -18,14 +18,14 @@ from pydantic import BaseModel, validate_call
 
 from drawlib._core.lines import line
 from drawlib._core.text import text
-from drawlib._core.types import Style, TypeCoordinate, TypeFloat, TypePosFloat, TypeStr
+from drawlib._core.types import Coordinate, PosFloat, Style
 
 
 class _TreeNodeDrawingItem(BaseModel):
     """Represents a drawing item for a tree node."""
 
     location: Literal["before", "after"]
-    padding_width: TypePosFloat
+    padding_width: PosFloat
     function: Callable
     style: Style
     args: dict
@@ -43,18 +43,18 @@ class TreeNode:
 
     def __init__(
         self,
-        text: TypeStr,
+        text: str,
         textstyle: Style | None = None,
         linestyle: Style | None = None,
-        line_horizontal_margin: TypePosFloat | None = None,
-        line_horizontal_length: TypePosFloat | None = None,
-        line_vertical_margin: TypePosFloat | None = None,
+        line_horizontal_margin: PosFloat | None = None,
+        line_horizontal_length: PosFloat | None = None,
+        line_vertical_margin: PosFloat | None = None,
         children: list[TreeNode] | None = None,
         default_textstyle: Style | None = None,
         default_linestyle: Style | None = None,
-        default_line_horizontal_margin: TypePosFloat | None = None,
-        default_line_horizontal_length: TypePosFloat | None = None,
-        default_line_vertical_margin: TypePosFloat | None = None,
+        default_line_horizontal_margin: PosFloat | None = None,
+        default_line_horizontal_length: PosFloat | None = None,
+        default_line_vertical_margin: PosFloat | None = None,
     ) -> None:
         """Initializes a TreeNode instance with specific text, styles, and optional children.
 
@@ -152,7 +152,7 @@ class TreeNode:
         return self
 
     @validate_call
-    def draw(self, xy: TypeCoordinate) -> None:
+    def draw(self, xy: Coordinate) -> None:
         """Draw the tree node and its children.
 
         Args:
@@ -183,12 +183,12 @@ class TreeNode:
 
     def _draw(  # noqa: C901
         self,
-        xy: TypeCoordinate,
+        xy: Coordinate,
         default_textstyle: Style,
         default_linestyle: Style,
-        default_line_horizontal_margin: TypePosFloat,
-        default_line_horizontal_length: TypePosFloat,
-        default_line_vertical_margin: TypePosFloat,
+        default_line_horizontal_margin: PosFloat,
+        default_line_horizontal_length: PosFloat,
+        default_line_vertical_margin: PosFloat,
     ) -> float:
         """Draw the tree node and its children (internal method).
 

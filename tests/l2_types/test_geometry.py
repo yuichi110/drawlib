@@ -13,117 +13,49 @@ import pytest
 from pydantic import TypeAdapter, ValidationError
 
 from drawlib._core.l2_types_._geometry import (
-    TypeBezier2,
-    TypeBezier3,
-    TypeCoordinate,
-    TypeCoordinates,
-    TypePathPoint,
-    TypePathPoints,
-    validate_bezier2,
-    validate_bezier3,
-    validate_coordinate,
-    validate_path_point,
+    Bezier2,
+    Bezier3,
+    Coordinate,
+    Coordinates,
+    PathPoint,
+    PathPoints,
 )
-
-
-class TestCoordinateValidation:
-    """Test cases for coordinate validation functions."""
-
-    def test_validate_coordinate_valid(self):
-        """Test validate_coordinate with valid inputs."""
-        assert validate_coordinate((1.5, 2.5)) == (1.5, 2.5)
-        assert validate_coordinate([3, 4]) == (3.0, 4.0)
-
-    def test_validate_coordinate_invalid(self):
-        """Test validate_coordinate with invalid inputs."""
-        with pytest.raises(ValidationError):
-            validate_coordinate("not a coordinate")
-        with pytest.raises(ValidationError):
-            validate_coordinate((1.0,))
-        with pytest.raises(ValidationError):
-            validate_coordinate((1.0, 2.0, 3.0))
-
-
-class TestBezierValidation:
-    """Test cases for bezier validation functions."""
-
-    def test_validate_bezier2_valid(self):
-        """Test validate_bezier2 with valid inputs."""
-        assert validate_bezier2(((1, 2), (3, 4))) == ((1.0, 2.0), (3.0, 4.0))
-
-    def test_validate_bezier2_invalid(self):
-        """Test validate_bezier2 with invalid inputs."""
-        with pytest.raises(ValidationError):
-            validate_bezier2("invalid")
-        with pytest.raises(ValidationError):
-            validate_bezier2(((1, 2),))
-
-    def test_validate_bezier3_valid(self):
-        """Test validate_bezier3 with valid inputs."""
-        assert validate_bezier3(((1, 2), (3, 4), (5, 6))) == ((1.0, 2.0), (3.0, 4.0), (5.0, 6.0))
-
-    def test_validate_bezier3_invalid(self):
-        """Test validate_bezier3 with invalid inputs."""
-        with pytest.raises(ValidationError):
-            validate_bezier3("invalid")
-        with pytest.raises(ValidationError):
-            validate_bezier3(((1, 2), (3, 4)))
-
-
-class TestPathPointValidation:
-    """Test cases for path point validation function."""
-
-    def test_validate_path_point_valid(self):
-        """Test validate_path_point with valid coordinate, bezier2 and bezier3."""
-        # Coordinate dispatch
-        assert validate_path_point((1, 2)) == (1.0, 2.0)
-        # Bezier2 dispatch
-        assert validate_path_point(((1, 2), (3, 4))) == ((1.0, 2.0), (3.0, 4.0))
-        # Bezier3 dispatch
-        assert validate_path_point(((1, 2), (3, 4), (5, 6))) == ((1.0, 2.0), (3.0, 4.0), (5.0, 6.0))
-
-    def test_validate_path_point_invalid(self):
-        """Test validate_path_point with invalid inputs."""
-        with pytest.raises(ValidationError):
-            validate_path_point("invalid")
-        with pytest.raises(ValidationError):
-            validate_path_point((1, 2, 3, 4))
 
 
 class TestGeometryTypes:
     """Test cases for geometry type aliases using TypeAdapter."""
 
     def test_type_coordinate(self):
-        """Test TypeCoordinate validation."""
-        adapter: TypeAdapter[TypeCoordinate] = TypeAdapter(TypeCoordinate)
+        """Test Coordinate validation."""
+        adapter: TypeAdapter[Coordinate] = TypeAdapter(Coordinate)
         assert adapter.validate_python((1.5, 2.5)) == (1.5, 2.5)
         assert adapter.validate_python([10, 20]) == (10.0, 20.0)
         with pytest.raises(ValueError):
             adapter.validate_python((1, 2, 3))
 
     def test_type_coordinates(self):
-        """Test TypeCoordinates validation."""
-        adapter: TypeAdapter[list[TypeCoordinate]] = TypeAdapter(TypeCoordinates)
+        """Test Coordinates validation."""
+        adapter: TypeAdapter[list[Coordinate]] = TypeAdapter(Coordinates)
         assert adapter.validate_python([(1, 2), (3, 4)]) == [(1.0, 2.0), (3.0, 4.0)]
 
     def test_type_bezier2(self):
-        """Test TypeBezier2 validation."""
-        adapter: TypeAdapter[TypeBezier2] = TypeAdapter(TypeBezier2)
+        """Test Bezier2 validation."""
+        adapter: TypeAdapter[Bezier2] = TypeAdapter(Bezier2)
         assert adapter.validate_python(((1, 2), (3, 4))) == ((1.0, 2.0), (3.0, 4.0))
 
     def test_type_bezier3(self):
-        """Test TypeBezier3 validation."""
-        adapter: TypeAdapter[TypeBezier3] = TypeAdapter(TypeBezier3)
+        """Test Bezier3 validation."""
+        adapter: TypeAdapter[Bezier3] = TypeAdapter(Bezier3)
         assert adapter.validate_python(((1, 2), (3, 4), (5, 6))) == ((1.0, 2.0), (3.0, 4.0), (5.0, 6.0))
 
     def test_type_path_point(self):
-        """Test TypePathPoint validation."""
-        adapter: TypeAdapter[TypePathPoint] = TypeAdapter(TypePathPoint)
+        """Test PathPoint validation."""
+        adapter: TypeAdapter[PathPoint] = TypeAdapter(PathPoint)
         assert adapter.validate_python((1, 2)) == (1.0, 2.0)
         assert adapter.validate_python(((1, 2), (3, 4))) == ((1.0, 2.0), (3.0, 4.0))
 
     def test_type_path_points(self):
-        """Test TypePathPoints validation."""
-        adapter: TypeAdapter[list[TypePathPoint]] = TypeAdapter(TypePathPoints)
-        points: list[TypePathPoint] = [(1, 2), ((1, 2), (3, 4))]
+        """Test PathPoints validation."""
+        adapter: TypeAdapter[list[PathPoint]] = TypeAdapter(PathPoints)
+        points: list[PathPoint] = [(1, 2), ((1, 2), (3, 4))]
         assert adapter.validate_python(points) == [(1.0, 2.0), ((1.0, 2.0), (3.0, 4.0))]

@@ -17,16 +17,13 @@ from matplotlib.path import Path
 from pydantic import validate_call
 
 from drawlib._core.l2_types import (
-    TypeAngle,
-    TypeAngle90,
-    TypeBool,
-    TypeCoordinate,
-    TypeFloat,
-    TypeNumVertex,
-    TypePosFloat,
-    TypePosInt,
-    TypeSize,
-    TypeStr,
+    Angle,
+    Angle90,
+    Coordinate,
+    NumVertex,
+    PosFloat,
+    PosInt,
+    Size,
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
@@ -52,15 +49,15 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     @validate_call
     def triangle(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        height: TypePosFloat,
-        topvertex_x: TypeFloat | None = None,
-        angle: TypeAngle = 0.0,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        topvertex_x: float | None = None,
+        angle: Angle = 0.0,
         *,
         style: Style,
-        text: TypeStr = "",
-        textsize: TypeSize | None = None,
+        text: str = "",
+        textsize: Size | None = None,
         textstyle: Style | None = None,
     ) -> None:
         """Draw a triangle on the canvas.
@@ -99,15 +96,15 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     @validate_call
     def parallelogram(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        height: TypePosFloat,
-        corner_angle: TypeAngle90,
-        angle: TypeAngle = 0.0,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        corner_angle: Angle90,
+        angle: Angle = 0.0,
         *,
         style: Style,
-        text: TypeStr = "",
-        textsize: TypeSize | None = None,
+        text: str = "",
+        textsize: Size | None = None,
         textstyle: Style | None = None,
     ) -> None:
         """Draw a parallelogram on the canvas.
@@ -128,7 +125,7 @@ class CanvasOriginalPolygonFeature(CanvasBase):
             textstyle,
         )
 
-        def calculate_parallelogram_lefttop_coordinate() -> TypeCoordinate:
+        def calculate_parallelogram_lefttop_coordinate() -> Coordinate:
             angle_rad = math.radians(corner_angle)
             x = height / math.tan(angle_rad)
             return x, height
@@ -151,16 +148,16 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     @validate_call
     def trapezoid(
         self,
-        xy: TypeCoordinate,
-        height: TypePosFloat,
-        bottomedge_width: TypePosFloat,
-        topedge_width: TypePosFloat,
-        topedge_x: TypeFloat | None = None,
-        angle: TypeAngle = 0.0,
+        xy: Coordinate,
+        height: PosFloat,
+        bottomedge_width: PosFloat,
+        topedge_width: PosFloat,
+        topedge_x: float | None = None,
+        angle: Angle = 0.0,
         *,
         style: Style,
-        text: TypeStr = "",
-        textsize: TypeSize | None = None,
+        text: str = "",
+        textsize: Size | None = None,
         textstyle: Style | None = None,
     ) -> None:
         """Draw a trapezoid on the canvas.
@@ -202,14 +199,14 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     @validate_call
     def rhombus(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        height: TypePosFloat,
-        angle: TypeAngle = 0.0,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        angle: Angle = 0.0,
         *,
         style: Style,
-        text: TypeStr = "",
-        textsize: TypeSize | None = None,
+        text: str = "",
+        textsize: Size | None = None,
         textstyle: Style | None = None,
     ) -> None:
         """Draw a rhombus on the canvas.
@@ -247,16 +244,16 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     @validate_call
     def chevron(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        height: TypePosFloat,
-        corner_angle: TypeAngle90,
-        mirror: TypeBool = False,
-        angle: TypeAngle = 0.0,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        corner_angle: Angle90,
+        mirror: bool = False,
+        angle: Angle = 0.0,
         *,
         style: Style,
-        text: TypeStr = "",
-        textsize: TypeSize | None = None,
+        text: str = "",
+        textsize: Size | None = None,
         textstyle: Style | None = None,
     ) -> None:
         """Draw a chevron (arrow-head block) shape on the canvas.
@@ -278,7 +275,7 @@ class CanvasOriginalPolygonFeature(CanvasBase):
             textstyle,
         )
 
-        def calculate_p2_coordinate(h: float) -> TypeCoordinate:
+        def calculate_p2_coordinate(h: float) -> Coordinate:
             h /= 2
             angle_rad = math.radians(corner_angle)
             x = h / math.tan(angle_rad)
@@ -310,15 +307,15 @@ class CanvasOriginalPolygonFeature(CanvasBase):
     @validate_call
     def star(
         self,
-        xy: TypeCoordinate,
-        num_vertex: TypeNumVertex,
-        radius_ext: TypePosFloat,
-        radius_int: TypePosFloat,
-        angle: TypeAngle = 0.0,
+        xy: Coordinate,
+        num_vertex: NumVertex,
+        radius_ext: PosFloat,
+        radius_int: PosFloat,
+        angle: Angle = 0.0,
         *,
         style: Style,
-        text: TypeStr = "",
-        textsize: TypeSize | None = None,
+        text: str = "",
+        textsize: Size | None = None,
         textstyle: Style | None = None,
     ) -> None:
         """Draw a star shape on the canvas.
@@ -345,12 +342,12 @@ class CanvasOriginalPolygonFeature(CanvasBase):
         # helper
 
         def get_rotate_point(
-            x: TypeFloat,
-            y: TypeFloat,
-            angle: TypeFloat | None,
-            move_x: TypeFloat,
-            move_y: TypeFloat,
-        ) -> TypeCoordinate:
+            x: float,
+            y: float,
+            angle: float | None,
+            move_x: float,
+            move_y: float,
+        ) -> Coordinate:
             if angle is None:
                 angle = 0.0
             angle_rad = math.radians(angle)

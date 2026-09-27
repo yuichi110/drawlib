@@ -14,10 +14,9 @@ from pydantic import validate_call
 
 from drawlib._core.l1_core import logger
 from drawlib._core.l2_types import (
-    TypeAngle,
-    TypeCoordinate,
-    TypeSize,
-    TypeStr,
+    Angle,
+    Coordinate,
+    Size,
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
@@ -34,12 +33,12 @@ class CanvasTextFeature(CanvasBase):
     @validate_call
     def text(
         self,
-        xy: TypeCoordinate,
-        text: TypeStr,
+        xy: Coordinate,
+        text: str,
         *,
         style: Style,
-        size: TypeSize | None = None,
-        angle: TypeAngle = 0.0,
+        size: Size | None = None,
+        angle: Angle = 0.0,
     ) -> None:
         """Draw text on the canvas.
 
@@ -74,12 +73,12 @@ class CanvasTextFeature(CanvasBase):
     @validate_call
     def text_vertical(
         self,
-        xy: TypeCoordinate,
-        text: TypeStr,
+        xy: Coordinate,
+        text: str,
         *,
         style: Style,
-        size: TypeSize | None = None,
-        angle: TypeAngle = 0.0,
+        size: Size | None = None,
+        angle: Angle = 0.0,
     ) -> None:
         """Draw vertical text on the canvas.
 

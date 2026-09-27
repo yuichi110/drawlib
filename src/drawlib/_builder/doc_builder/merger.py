@@ -141,8 +141,6 @@ def build_merged_html(
     css_path: Optional[str] = None,
     template_path: Optional[str] = None,
     no_cache: bool = False,
-    *,
-    toc: Optional[bool] = None,
 ) -> tuple[str, List[str]]:
     """Compile and merge one or more Markdown/HTML inputs into a single standalone HTML document.
 
@@ -157,7 +155,6 @@ def build_merged_html(
         css_path (Optional[str]): Optional CSS preset name or file path.
         template_path (Optional[str]): Optional Jinja2 HTML template path.
         no_cache (bool): If True, disable reading/writing the SQLite build image cache.
-        toc (Optional[bool]): Backward-compatible alias for generate_index.
 
     Returns:
         tuple[str, List[str]]: (merged_full_html_string, ordered_source_files).

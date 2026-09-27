@@ -22,7 +22,7 @@ from drawlib._core.l4_canvas import (
     get_image_zoom_original,
 )
 from drawlib._core.l4_canvas._base import CanvasBase
-from drawlib.canvas import clear, config, save
+from drawlib.canvas import clear, save, setup
 from drawlib.fonts import Font
 from drawlib.preset_colors import (
     Colors,
@@ -54,7 +54,7 @@ class TestCanvasBase:
     def test_clear(self) -> None:
         """Verify that clear() resets state and configuration of the canvas."""
         clear()
-        config(width=200, height=150, dpi=150)
+        setup(width=200, height=150, dpi=150)
         assert canvas._width == 200
         assert canvas._height == 150
         assert canvas._dpi == 150
@@ -64,10 +64,10 @@ class TestCanvasBase:
         assert canvas._height == 100
         assert canvas._dpi == 100
 
-    def test_config(self) -> None:
-        """Verify config() configures canvas parameters correctly."""
+    def test_setup(self) -> None:
+        """Verify setup() configures canvas parameters correctly."""
         clear()
-        config(
+        setup(
             width=150,
             height=120,
             dpi=120,
@@ -200,7 +200,7 @@ class TestCanvasBase:
     def test_image_zoom(self) -> None:
         """Verify image zoom calculation utilities."""
         clear()
-        config(dpi=100)
+        setup(dpi=100)
         zoom = get_image_zoom_original()
         assert abs(zoom - 0.72) < 1e-5
 

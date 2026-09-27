@@ -338,7 +338,7 @@ circle((50, 50), radius=15, style=styles.primary)
     res = build_pdf(
         inputs=[str(doc1), str(doc2)],
         output_path=str(out_pdf),
-        toc=True,
+        generate_index=True,
         page_break=True,
         title="System Manual",
     )

@@ -12,22 +12,16 @@
 from drawlib._core.canvas import (
     canvas,
     clear,
-    config,
     get_dimage,
     save,
     setup,
     show,
 )
-from drawlib._utils._canvas import (
-    initialize,
-)
 
 __all__ = [
     "canvas",
     "clear",
-    "config",
     "get_dimage",
-    "initialize",
     "save",
     "setup",
     "show",

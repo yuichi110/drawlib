@@ -158,7 +158,7 @@ class TestGanttChartRendering:
         """Test rendering complete roadmap with sections, tasks, progress, milestone, marker, and dependencies."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "gantt_full.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = GanttChart(
                 columns=["Apr", "May", "Jun", "Jul", "Aug"],
@@ -192,7 +192,7 @@ class TestGanttChartRendering:
         """Test rendering GanttChart with custom task style and colors."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "gantt_custom.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = GanttChart(
                 columns=["W1", "W2", "W3", "W4"],
@@ -214,7 +214,7 @@ class TestGanttChartRendering:
         """Test rendering GanttChart with no items."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "gantt_empty.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = GanttChart(columns=["S1", "S2"])
             chart.draw(xy=(10.0, 10.0))

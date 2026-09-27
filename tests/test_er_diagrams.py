@@ -214,7 +214,7 @@ class TestERDiagramRendering:
 
     def test_render_basic_diagram(self) -> None:
         """Verify basic ER diagram rendering and image file export."""
-        canvas.initialize()
+        canvas.clear()
 
         erd = ERDiagram(title="Customer Order System")
         users = erd.add(Entity(name="users", width=25.0), xy=(25.0, 60.0))
@@ -247,7 +247,7 @@ class TestERDiagramRendering:
 
     def test_render_all_cardinalities(self) -> None:
         """Verify rendering for all supported IE Crow's foot cardinality notations."""
-        canvas.initialize()
+        canvas.clear()
 
         cardinalities: list[Cardinality] = [
             "1:*",
@@ -280,7 +280,7 @@ class TestERDiagramRendering:
 
     def test_render_with_custom_styles_and_padding(self) -> None:
         """Verify rendering with custom styles, excess height blank area, and direct routing."""
-        canvas.initialize()
+        canvas.clear()
 
         erd = ERDiagram(
             title="Styled ERD",

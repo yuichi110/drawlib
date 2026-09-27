@@ -1,7 +1,7 @@
 from drawlib.canvas import save, setup
 from drawlib.preset_colors import Colors
-from drawlib.styles import styles
 from drawlib.shapes import rectangle
+from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
 rectangle(
@@ -27,4 +27,3 @@ rectangle(
 )
 
 save()
-

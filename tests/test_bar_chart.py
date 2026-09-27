@@ -160,7 +160,7 @@ class TestBarChartRendering:
         """Test rendering vertical grouped bar chart to canvas and saving image."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "vertical_grouped.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = BarChart(
                 categories=["2021", "2022", "2023"],
@@ -182,7 +182,7 @@ class TestBarChartRendering:
         """Test rendering horizontal stacked bar chart to canvas."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "horizontal_stacked.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = BarChart(
                 categories=["Team Alpha", "Team Beta", "Team Gamma"],
@@ -207,7 +207,7 @@ class TestBarChartRendering:
         """Test rendering bar chart with logarithmic axis."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "log_scale.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = BarChart(
                 categories=["Query A", "Query B", "Query C"],
@@ -227,7 +227,7 @@ class TestBarChartRendering:
         """Test rendering with customized bar style and border radius."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "custom_style.png"
-            canvas.initialize()
+            canvas.clear()
 
             custom_style = Style(
                 shape_fill_color=(100, 200, 150, 0.8),

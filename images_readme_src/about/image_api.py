@@ -8,11 +8,11 @@
 # merchantability, fitness for a particular purpose and noninfringement.
 
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
-from drawlib.styles import styles
+from drawlib.preset_colors import Colors
 from drawlib.shapes import rectangle
+from drawlib.styles import styles
 from drawlib.text import text
 
 textstyle_bold = styles.primary.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=20)

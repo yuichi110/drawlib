@@ -1,8 +1,8 @@
 from drawlib.canvas import save, setup
 from drawlib.images import image
 from drawlib.lines import line
-from drawlib.styles import styles
 from drawlib.shapes import circle
+from drawlib.styles import styles
 from drawlib.text import text
 
 setup(width=100, height=100)
@@ -12,4 +12,3 @@ image((75, 25), width=30, image="python.png")
 text((75, 5), "Hello drawlib!", style=styles.primary)
 
 save()
-

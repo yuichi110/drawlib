@@ -16,17 +16,17 @@ from typing import Any
 from pydantic import BaseModel, ConfigDict, ValidationError
 
 from drawlib._core.l2_types import (
-    TypeAlpha,
-    TypeAngle,
-    TypeColor,
-    TypeCoordinate,
-    TypeFont,
-    TypeHAlign,
-    TypeIconStyle,
-    TypeLineStyle,
-    TypePosFloat,
-    TypeSize,
-    TypeVAlign,
+    Alpha,
+    Angle,
+    ColorType,
+    Coordinate,
+    Font,
+    HAlign,
+    IconStyle,
+    LineStyle,
+    PosFloat,
+    Size,
+    VAlign,
 )
 
 
@@ -46,88 +46,88 @@ class Style(BaseModel):
             raise ValueError(str(e)) from e
 
     # --- Shape Properties (rectangle, circle, polygon, etc.) ---
-    shape_fill_color: TypeColor | None = None
-    shape_fill_alpha: TypeAlpha | None = None
-    shape_line_color: TypeColor | None = None
-    shape_line_width: TypePosFloat | None = None
-    shape_line_style: TypeLineStyle | None = None
+    shape_fill_color: ColorType | None = None
+    shape_fill_alpha: Alpha | None = None
+    shape_line_color: ColorType | None = None
+    shape_line_width: PosFloat | None = None
+    shape_line_style: LineStyle | None = None
 
     # --- Line / Arrow Properties (line, lines, arrow, bezier, etc.) ---
-    line_color: TypeColor | None = None
-    line_width: TypePosFloat | None = None
-    line_style: TypeLineStyle | None = None
-    line_alpha: TypeAlpha | None = None
+    line_color: ColorType | None = None
+    line_width: PosFloat | None = None
+    line_style: LineStyle | None = None
+    line_alpha: Alpha | None = None
     line_arrow_head_fill: bool | None = None
-    line_arrow_head_scale: TypePosFloat | None = None
+    line_arrow_head_scale: PosFloat | None = None
 
     # --- Text Properties (text, text_vertical, embedded shape text) ---
-    text_color: TypeColor | None = None
-    text_size: TypeSize | None = None
-    text_font: TypeFont | None = None
-    text_halign: TypeHAlign | None = None
-    text_valign: TypeVAlign | None = None
-    text_angle: TypeAngle | None = None
+    text_color: ColorType | None = None
+    text_size: Size | None = None
+    text_font: Font | None = None
+    text_halign: HAlign | None = None
+    text_valign: VAlign | None = None
+    text_angle: Angle | None = None
     text_flip: bool | None = None
-    text_xy_shift: TypeCoordinate | None = None
-    text_xy_abs_shift: TypeCoordinate | None = None
-    text_bg_fill_color: TypeColor | None = None
-    text_bg_fill_alpha: TypeAlpha | None = None
-    text_bg_line_color: TypeColor | None = None
-    text_bg_line_width: TypePosFloat | None = None
-    text_bg_line_style: TypeLineStyle | None = None
+    text_xy_shift: Coordinate | None = None
+    text_xy_abs_shift: Coordinate | None = None
+    text_bg_fill_color: ColorType | None = None
+    text_bg_fill_alpha: Alpha | None = None
+    text_bg_line_color: ColorType | None = None
+    text_bg_line_width: PosFloat | None = None
+    text_bg_line_style: LineStyle | None = None
 
     # --- Icon Properties (phosphor, font_icon, gcp) ---
-    icon_color: TypeColor | None = None
-    icon_style: TypeIconStyle | None = None
+    icon_color: ColorType | None = None
+    icon_style: IconStyle | None = None
 
     # --- Image Properties (image) ---
-    image_tint_color: TypeColor | None = None
-    image_alpha: TypeAlpha | None = None
-    image_border_color: TypeColor | None = None
-    image_border_width: TypePosFloat | None = None
-    image_border_style: TypeLineStyle | None = None
+    image_tint_color: ColorType | None = None
+    image_alpha: Alpha | None = None
+    image_border_color: ColorType | None = None
+    image_border_width: PosFloat | None = None
+    image_border_style: LineStyle | None = None
 
     def patch(
         self,
         other: Style | None = None,
         *,
         # Shape Properties
-        shape_fill_color: TypeColor | None = None,
-        shape_fill_alpha: TypeAlpha | None = None,
-        shape_line_color: TypeColor | None = None,
-        shape_line_width: TypePosFloat | None = None,
-        shape_line_style: TypeLineStyle | None = None,
+        shape_fill_color: ColorType | None = None,
+        shape_fill_alpha: Alpha | None = None,
+        shape_line_color: ColorType | None = None,
+        shape_line_width: PosFloat | None = None,
+        shape_line_style: LineStyle | None = None,
         # Line Properties
-        line_color: TypeColor | None = None,
-        line_width: TypePosFloat | None = None,
-        line_style: TypeLineStyle | None = None,
-        line_alpha: TypeAlpha | None = None,
+        line_color: ColorType | None = None,
+        line_width: PosFloat | None = None,
+        line_style: LineStyle | None = None,
+        line_alpha: Alpha | None = None,
         line_arrow_head_fill: bool | None = None,
-        line_arrow_head_scale: TypePosFloat | None = None,
+        line_arrow_head_scale: PosFloat | None = None,
         # Text Properties
-        text_color: TypeColor | None = None,
-        text_size: TypeSize | None = None,
-        text_font: TypeFont | None = None,
-        text_halign: TypeHAlign | None = None,
-        text_valign: TypeVAlign | None = None,
-        text_angle: TypeAngle | None = None,
+        text_color: ColorType | None = None,
+        text_size: Size | None = None,
+        text_font: Font | None = None,
+        text_halign: HAlign | None = None,
+        text_valign: VAlign | None = None,
+        text_angle: Angle | None = None,
         text_flip: bool | None = None,
-        text_xy_shift: TypeCoordinate | None = None,
-        text_xy_abs_shift: TypeCoordinate | None = None,
-        text_bg_fill_color: TypeColor | None = None,
-        text_bg_fill_alpha: TypeAlpha | None = None,
-        text_bg_line_color: TypeColor | None = None,
-        text_bg_line_width: TypePosFloat | None = None,
-        text_bg_line_style: TypeLineStyle | None = None,
+        text_xy_shift: Coordinate | None = None,
+        text_xy_abs_shift: Coordinate | None = None,
+        text_bg_fill_color: ColorType | None = None,
+        text_bg_fill_alpha: Alpha | None = None,
+        text_bg_line_color: ColorType | None = None,
+        text_bg_line_width: PosFloat | None = None,
+        text_bg_line_style: LineStyle | None = None,
         # Icon Properties
-        icon_color: TypeColor | None = None,
-        icon_style: TypeIconStyle | None = None,
+        icon_color: ColorType | None = None,
+        icon_style: IconStyle | None = None,
         # Image Properties
-        image_tint_color: TypeColor | None = None,
-        image_alpha: TypeAlpha | None = None,
-        image_border_color: TypeColor | None = None,
-        image_border_width: TypePosFloat | None = None,
-        image_border_style: TypeLineStyle | None = None,
+        image_tint_color: ColorType | None = None,
+        image_alpha: Alpha | None = None,
+        image_border_color: ColorType | None = None,
+        image_border_width: PosFloat | None = None,
+        image_border_style: LineStyle | None = None,
     ) -> Style:
         """Return a new Style instance with updated attributes.
 

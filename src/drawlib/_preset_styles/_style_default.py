@@ -12,7 +12,7 @@
 from __future__ import annotations
 
 from drawlib._core.fonts import Font, FontSourceCode
-from drawlib._core.types import Style, TypeColor
+from drawlib._core.types import ColorType, Style
 from drawlib._preset_colors import Colors, default_colors
 from drawlib._preset_styles._base import BasePresetStyles
 from drawlib._preset_styles._utils import _create_style, _make_variants
@@ -182,7 +182,7 @@ def _create_default_styles() -> DefaultStyles:
     charcoal = default_colors.Charcoal
     lightblue = default_colors.LightBlue
 
-    def v(col: TypeColor) -> dict[str, Style]:
+    def v(col: ColorType) -> dict[str, Style]:
         return _make_variants(col)
 
     r_v = v(default_colors.Red)

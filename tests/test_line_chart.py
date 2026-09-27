@@ -77,7 +77,7 @@ class TestLineAndAreaRendering:
         """Test rendering straight multi-series line chart."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "line_straight.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = LineChart(
                 categories=["2020", "2021", "2022", "2023"],
@@ -100,7 +100,7 @@ class TestLineAndAreaRendering:
         """Test rendering smooth curved line chart."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "line_smooth.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = LineChart(
                 categories=["Mon", "Tue", "Wed", "Thu", "Fri"],
@@ -122,7 +122,7 @@ class TestLineAndAreaRendering:
         """Test rendering overlapping semi-transparent area chart."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "area_overlap.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = AreaChart(
                 categories=["00h", "06h", "12h", "18h"],
@@ -145,7 +145,7 @@ class TestLineAndAreaRendering:
         """Test rendering cumulative stacked area chart."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "area_stack.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = AreaChart(
                 categories=["Q1", "Q2", "Q3", "Q4"],
@@ -169,7 +169,7 @@ class TestLineAndAreaRendering:
         """Test LineChart with customized Style object."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "custom_style.png"
-            canvas.initialize()
+            canvas.clear()
 
             custom_style = Style(line_color=(220, 38, 38, 1.0), line_width=3.0)
             chart = LineChart(

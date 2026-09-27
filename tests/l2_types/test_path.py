@@ -16,7 +16,7 @@ from typing import Union
 import pytest
 from pydantic import TypeAdapter, ValidationError, validate_call
 
-from drawlib._core.l2_types import FilePath, TypeFilePath
+from drawlib._core.l2_types import FilePath
 
 
 class TestFilePath:
@@ -85,7 +85,3 @@ class TestFilePath:
         type_int, val_int = flexible_loader(42)
         assert type_int is int
         assert val_int == 42
-
-    def test_backward_compat_alias(self):
-        """Test that TypeFilePath is an alias of FilePath."""
-        assert TypeFilePath == FilePath

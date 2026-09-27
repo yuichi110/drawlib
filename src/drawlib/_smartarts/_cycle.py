@@ -24,7 +24,7 @@ from drawlib._core.shapes import arrow_arc as canvas_arrow_arc
 from drawlib._core.shapes import circle as canvas_circle
 from drawlib._core.shapes import rectangle as canvas_rectangle
 from drawlib._core.text import text as canvas_text
-from drawlib._core.types import Style, TypeAngle, TypeColor, TypeCoordinate, TypePosFloat, TypeStr
+from drawlib._core.types import Angle, ColorType, Coordinate, PosFloat, Style
 from drawlib._preset_styles import BasePresetStyles
 
 
@@ -57,24 +57,24 @@ class Cycle:
         *,
         styles: BasePresetStyles,
         clockwise: bool = True,
-        start_angle: TypeAngle = 90.0,
+        start_angle: Angle = 90.0,
         node_shape: Literal["circle", "rectangle", "none"] = "circle",
-        node_radius: TypePosFloat = 8.0,
-        node_size: tuple[TypePosFloat, TypePosFloat] = (18.0, 10.0),
+        node_radius: PosFloat = 8.0,
+        node_size: tuple[PosFloat, PosFloat] = (18.0, 10.0),
         description_placement: Literal["inside", "outside"] = "inside",
         arrow_type: Literal["arc", "line", "none"] = "arc",
-        arrow_width: TypePosFloat = 2.0,
-        arrow_head_width: TypePosFloat = 4.5,
+        arrow_width: PosFloat = 2.0,
+        arrow_head_width: PosFloat = 4.5,
         arrow_color_mode: Literal["monochrome", "match_source", "match_target"] = "match_source",
-        arrow_gap: TypePosFloat = 2.5,
+        arrow_gap: PosFloat = 2.5,
         default_style: Style | None = None,
         default_textstyle: Style | None = None,
         default_description_style: Style | None = None,
         default_arrow_style: Style | None = None,
-        palette: Sequence[TypeColor] | None = None,
-        center_text: TypeStr = "",
-        center_description: TypeStr = "",
-        center_radius: TypePosFloat = 10.0,
+        palette: Sequence[ColorType] | None = None,
+        center_text: str = "",
+        center_description: str = "",
+        center_radius: PosFloat = 10.0,
         center_style: Style | None = None,
         center_textstyle: Style | None = None,
         center_description_style: Style | None = None,
@@ -149,8 +149,8 @@ class Cycle:
     @validate_call
     def append(
         self,
-        text: TypeStr,
-        description: TypeStr = "",
+        text: str,
+        description: str = "",
         style: Style | None = None,
         textstyle: Style | None = None,
         description_style: Style | None = None,
@@ -179,8 +179,8 @@ class Cycle:
     @validate_call
     def extend(
         self,
-        texts: list[TypeStr],
-        descriptions: list[TypeStr] | None = None,
+        texts: list[str],
+        descriptions: list[str] | None = None,
     ) -> None:
         """Extend the cycle with multiple step titles.
 
@@ -196,8 +196,8 @@ class Cycle:
     def insert(
         self,
         index: int,
-        text: TypeStr,
-        description: TypeStr = "",
+        text: str,
+        description: str = "",
         style: Style | None = None,
         textstyle: Style | None = None,
         description_style: Style | None = None,
@@ -227,9 +227,9 @@ class Cycle:
     @validate_call
     def set_center(
         self,
-        text: TypeStr,
-        description: TypeStr = "",
-        radius: TypePosFloat | None = None,
+        text: str,
+        description: str = "",
+        radius: PosFloat | None = None,
         style: Style | None = None,
         textstyle: Style | None = None,
         description_style: Style | None = None,
@@ -258,8 +258,8 @@ class Cycle:
     @validate_call
     def draw(
         self,
-        xy: TypeCoordinate,
-        radius: TypePosFloat = 35.0,
+        xy: Coordinate,
+        radius: PosFloat = 35.0,
         align: Literal["center", "bottom_left"] = "center",
     ) -> None:
         """Draw the cycle diagram at the specified coordinate.

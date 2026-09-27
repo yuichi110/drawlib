@@ -7,22 +7,22 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Unit tests for TypeFont in _font.py."""
+"""Unit tests for Font in _font.py."""
 
 from unittest.mock import patch
 
 from pydantic import TypeAdapter
 
 from drawlib._core.l2_models_._font import FontBase, FontFile
-from drawlib._core.l2_types_._font import TypeFont
+from drawlib._core.l2_types_._font import Font
 
 
 class TestFontType:
-    """Test cases for TypeFont."""
+    """Test cases for Font."""
 
     def test_type_font_validation(self):
-        """Test TypeFont validation using TypeAdapter."""
-        adapter: TypeAdapter[TypeFont] = TypeAdapter(TypeFont)
+        """Test Font validation using TypeAdapter."""
+        adapter: TypeAdapter[Font] = TypeAdapter(Font)
 
         # Validate FontBase enum member
         class DummyFont(FontBase):

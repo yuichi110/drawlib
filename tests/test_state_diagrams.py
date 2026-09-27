@@ -286,7 +286,7 @@ class TestStateDiagramRendering:
 
     def test_render_all_state_diagram_features(self) -> None:
         """Render a comprehensive state diagram exercising all shapes, pseudo-states, and transitions."""
-        canvas.config(width=160, height=110)
+        canvas.setup(width=160, height=110)
 
         sd = StateDiagram(title="Turnstile & Auth FSM")
 

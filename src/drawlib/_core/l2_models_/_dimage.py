@@ -25,19 +25,19 @@ from PIL import (
 from pydantic import ConfigDict, validate_call
 
 from drawlib._core.l2_types_._image import (
-    TypeImageQuality,
-    TypeImageResample,
+    ImageQuality,
+    ImageResample,
 )
 from drawlib._core.l2_types_._path import FilePath, resolve_file_path
 from drawlib._core.l2_types_._primitive import (
-    TypePosFloat,
-    TypePosInt,
+    PosFloat,
+    PosInt,
 )
 from drawlib._core.l2_types_._style import (
-    TypeAlpha,
-    TypeAngle,
-    TypeColor,
-    TypeColorRGB,
+    Alpha,
+    Angle,
+    ColorRGB,
+    ColorType,
 )
 
 list_ = list
@@ -131,7 +131,7 @@ class Dimage:
         return Dimage(self)
 
     @validate_call
-    def save(self, file: FilePath, quality: TypeImageQuality = 95) -> None:
+    def save(self, file: FilePath, quality: ImageQuality = 95) -> None:
         """Save the Dimage data to a file.
 
         This method saves the image to the specified file path. If a relative path
@@ -150,7 +150,7 @@ class Dimage:
             os.makedirs(directory, exist_ok=True)
         self._pilimg.save(file, quality=quality)
 
-    def _rotate(self, angle: TypeAngle, resample: TypeImageResample = "bicubic") -> Dimage:
+    def _rotate(self, angle: Angle, resample: ImageResample = "bicubic") -> Dimage:
         """Get a new Dimage that is rotated. The original Dimage is kept unchanged.
 
         This method returns a new Dimage that is rotated by the specified angle.
@@ -179,7 +179,7 @@ class Dimage:
         )
         return Dimage(newimg)
 
-    def resize(self, width: TypePosInt, height: TypePosInt, resample: TypeImageResample = "lanczos") -> Dimage:
+    def resize(self, width: PosInt, height: PosInt, resample: ImageResample = "lanczos") -> Dimage:
         """Get a new Dimage that is resized. The original Dimage is kept unchanged.
 
         This method returns a new Dimage that is resized to the specified width and height.
@@ -207,7 +207,7 @@ class Dimage:
         )
         return Dimage(newimg)
 
-    def crop(self, x: TypePosInt, y: TypePosInt, width: TypePosInt, height: TypePosInt) -> Dimage:
+    def crop(self, x: PosInt, y: PosInt, width: PosInt, height: PosInt) -> Dimage:
         """Get a new Dimage that is cropped. The original Dimage is kept unchanged.
 
         This method returns a new Dimage that is cropped to the specified dimensions.
@@ -251,7 +251,7 @@ class Dimage:
         newimg = ImageOps.mirror(self._pilimg)
         return Dimage(newimg)
 
-    def fill(self, color: TypeColor) -> Dimage:
+    def fill(self, color: ColorType) -> Dimage:
         """Get a new Dimage with the specified color filling the transparent areas.
 
         Args:
@@ -299,7 +299,7 @@ class Dimage:
 
         return Dimage(new_image)
 
-    def alpha(self, alpha: TypeAlpha) -> Dimage:
+    def alpha(self, alpha: Alpha) -> Dimage:
         """Get a new Dimage with the specified alpha transparency while keeping the original Dimage unchanged.
 
         This method returns a new Dimage with modified alpha transparency.
@@ -361,7 +361,7 @@ class Dimage:
         newimg = self._pilimg.convert("LA")
         return Dimage(newimg)
 
-    def brightness(self, brightness: TypePosFloat = 0.5) -> Dimage:
+    def brightness(self, brightness: PosFloat = 0.5) -> Dimage:
         """Get a new Dimage with changed brightness while keeping the original Dimage unchanged.
 
         Args:
@@ -400,9 +400,9 @@ class Dimage:
 
     def colorize(
         self,
-        from_black_to: TypeColor,
-        from_white_to: TypeColor,
-        from_mid_to: TypeColor | None = None,
+        from_black_to: ColorType,
+        from_white_to: ColorType,
+        from_mid_to: ColorType | None = None,
     ) -> Dimage:
         """Get a new Dimage with a colorize effect while keeping the original Dimage unchanged.
 
@@ -439,7 +439,7 @@ class Dimage:
         colorized_image.putalpha(alpha_mask)
         return Dimage(colorized_image)
 
-    def posterize(self, num_colors: TypePosInt = 4) -> Dimage:
+    def posterize(self, num_colors: PosInt = 4) -> Dimage:
         """Get a new Dimage with a posterize effect while keeping the original Dimage unchanged.
 
         Args:
@@ -459,7 +459,7 @@ class Dimage:
         newimg = Image.merge("RGBA", (r, g, b, a))
         return Dimage(newimg)
 
-    def mosaic(self, block_size: TypePosInt = 8) -> Dimage:
+    def mosaic(self, block_size: PosInt = 8) -> Dimage:
         """Get a new Dimage with a mosaic effect while keeping the original Dimage unchanged.
 
         Args:
@@ -524,7 +524,7 @@ class Dimage:
 
     def remove_margin(
         self,
-        margin_color: str | TypeColorRGB | None,
+        margin_color: str | ColorRGB | None,
     ) -> Dimage:
         """Get a new Dimage with the margins removed while keeping the original Dimage unchanged.
 

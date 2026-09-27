@@ -25,8 +25,7 @@ from drawlib._core.l1_core import (
 )
 from drawlib._core.l2_models import Dimage
 from drawlib._core.l2_types import (
-    TypeImageFormat,
-    TypeStr,
+    ImageFormat,
 )
 from drawlib._core.l4_canvas._arrow import CanvasOriginalArrowFeature
 from drawlib._core.l4_canvas._image import CanvasImageFeature
@@ -119,8 +118,8 @@ class Canvas(
     @validate_call
     def save(
         self,
-        file: TypeStr | None = None,
-        format: TypeImageFormat | None = None,
+        file: str | None = None,
+        format: ImageFormat | None = None,
     ) -> None:
         """Save canvas illustration to file.
 
@@ -318,7 +317,6 @@ canvas = Canvas()
 
 # basics
 clear = canvas.clear
-config = canvas.config
 setup = canvas.setup
 get_dimage = canvas.get_dimage
 save = canvas.save

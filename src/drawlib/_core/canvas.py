@@ -12,7 +12,6 @@
 from drawlib._core.l4_canvas import (
     canvas,
     clear,
-    config,
     get_dimage,
     get_image_zoom_from_width,
     get_image_zoom_original,
@@ -26,7 +25,6 @@ __all__ = [
     "Canvas",
     "canvas",
     "clear",
-    "config",
     "get_dimage",
     "get_image_zoom_from_width",
     "get_image_zoom_original",

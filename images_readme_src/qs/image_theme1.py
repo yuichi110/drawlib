@@ -1,7 +1,7 @@
 from drawlib.canvas import save, setup
 from drawlib.lines import line
-from drawlib.styles import styles
 from drawlib.shapes import circle
+from drawlib.styles import styles
 from drawlib.text import text
 
 setup(width=100, height=50)
@@ -35,4 +35,3 @@ circle((x4, circle_y), radius=8, style=styles.red_flat)
 text((x4, text_y), text="styles.red_flat", style=styles.red)
 
 save()
-

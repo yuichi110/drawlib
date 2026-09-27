@@ -8,13 +8,13 @@
 # merchantability, fitness for a particular purpose and noninfringement.
 
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors140
 from drawlib.fonts import FontRoboto, FontSourceCode
 from drawlib.icons import phosphor
 from drawlib.images import get_dimage_from_code, image
-from drawlib.styles import styles
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import arrow
 from drawlib.smartarts import SourceCode
+from drawlib.styles import styles
 from drawlib.text import text
 
 setup(height=60, dpi=200)
@@ -84,4 +84,3 @@ middle()
 lower()
 
 save()
-

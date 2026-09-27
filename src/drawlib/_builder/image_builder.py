@@ -594,10 +594,8 @@ class DrawlibExecuter:
 
     def _prepare_canvas_for_module(self) -> None:
         """Reset/initialize canvas and apply optional styles and utils scripts before module execution."""
-        if self._mode == "auto_clear":
+        if self._mode in {"auto_clear", "auto_initialize"}:
             clear()
-        elif self._mode == "auto_initialize":
-            dutil_canvas.initialize()
 
         load_styles_and_utils(styles_path=self._styles_path, utils_path=self._utils_path)
 

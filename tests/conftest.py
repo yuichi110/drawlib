@@ -16,8 +16,8 @@ from typing import Optional
 
 import pytest
 
-from drawlib._utils import dutil_canvas, dutil_settings
-from drawlib.canvas import config
+from drawlib._utils import dutil_settings
+from drawlib.canvas import clear, setup
 from tests.utils import check_image_match
 
 # Paths
@@ -75,9 +75,9 @@ def _get_answers_file_path(gen_file_abs: Path, test_module_abs: Path) -> Optiona
 def preprocess():
     """Preprocess test setup and initialize drawlib canvas."""
     dutil_settings._set_suppress_warning(True)
-    config(grid_only=True)
+    setup(grid_only=True)
     yield
-    dutil_canvas.initialize()
+    clear()
 
 
 @pytest.hookimpl(hookwrapper=True)

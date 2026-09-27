@@ -31,9 +31,3 @@ ImageResample = Annotated[
     Literal["nearest", "box", "bilinear", "hamming", "bicubic", "lanczos"],
     BeforeValidator(_normalize_image_str),
 ]
-
-# Backward compatibility aliases
-TypeImageFormat = ImageFormat
-TypeImageZoom = ImageZoom
-TypeImageQuality = ImageQuality
-TypeImageResample = ImageResample

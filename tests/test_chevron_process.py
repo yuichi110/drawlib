@@ -15,7 +15,7 @@ import tempfile
 from pathlib import Path
 
 from drawlib import canvas
-from drawlib._core.l2_types import TypeColor
+from drawlib._core.l2_types import ColorType
 from drawlib._core.l3_styles import Style
 from drawlib.preset_styles import default_styles
 from drawlib.smartarts import ChevronProcess
@@ -71,7 +71,7 @@ class TestChevronProcessRendering:
         """Test rendering basic sequential chevrons with auto palette."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "chevron_basic.png"
-            canvas.initialize()
+            canvas.clear()
 
             styles = default_styles
             cp = ChevronProcess(styles=styles)
@@ -91,7 +91,7 @@ class TestChevronProcessRendering:
         """Test rendering chevrons with titles and multi-line descriptions."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "chevron_desc.png"
-            canvas.initialize()
+            canvas.clear()
 
             styles = default_styles
             cp = ChevronProcess(styles=styles, corner_angle=50.0, spacing=2.0)
@@ -109,7 +109,7 @@ class TestChevronProcessRendering:
         """Test rendering process with flat left end on the first step."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "chevron_flat.png"
-            canvas.initialize()
+            canvas.clear()
 
             styles = default_styles
             cp = ChevronProcess(styles=styles, flat_left_end=True, spacing=1.2)
@@ -125,10 +125,10 @@ class TestChevronProcessRendering:
         """Test rendering with explicit style and custom palette."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "chevron_custom.png"
-            canvas.initialize()
+            canvas.clear()
 
             styles = default_styles
-            palette: list[TypeColor] = [(59, 130, 246), (16, 185, 129), (245, 158, 11)]
+            palette: list[ColorType] = [(59, 130, 246), (16, 185, 129), (245, 158, 11)]
             cp = ChevronProcess(styles=styles, palette=palette)
             cp.append("Alpha")
             cp.append(
@@ -147,7 +147,7 @@ class TestChevronProcessRendering:
         """Test rendering an empty ChevronProcess does not raise."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "chevron_empty.png"
-            canvas.initialize()
+            canvas.clear()
 
             styles = default_styles
             cp = ChevronProcess(styles=styles)

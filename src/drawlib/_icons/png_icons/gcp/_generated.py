@@ -13,15 +13,15 @@ from __future__ import annotations
 
 from pydantic import validate_call
 
-from drawlib._core.types import Style, TypeAngle, TypeCoordinate, TypePosFloat, TypeStr
+from drawlib._core.types import Angle, Coordinate, PosFloat, Style
 from drawlib._icons.png_icons.gcp._base import _write
 
 
 @validate_call
 def access_context_manager(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -40,9 +40,9 @@ def access_context_manager(
 
 @validate_call
 def administration(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -61,9 +61,9 @@ def administration(
 
 @validate_call
 def advanced_agent_modeling(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -82,9 +82,9 @@ def advanced_agent_modeling(
 
 @validate_call
 def advanced_solutions_lab(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -103,9 +103,9 @@ def advanced_solutions_lab(
 
 @validate_call
 def agent_assist(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -124,9 +124,9 @@ def agent_assist(
 
 @validate_call
 def ai_hub(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -145,9 +145,9 @@ def ai_hub(
 
 @validate_call
 def ai_hypercomputer(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -166,9 +166,9 @@ def ai_hypercomputer(
 
 @validate_call
 def ai_platform(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -187,9 +187,9 @@ def ai_platform(
 
 @validate_call
 def ai_platform_unified(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -208,9 +208,9 @@ def ai_platform_unified(
 
 @validate_call
 def alloydb(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -229,9 +229,9 @@ def alloydb(
 
 @validate_call
 def analytics_hub(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -250,9 +250,9 @@ def analytics_hub(
 
 @validate_call
 def anthos(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -271,9 +271,9 @@ def anthos(
 
 @validate_call
 def anthos_config_management(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -292,9 +292,9 @@ def anthos_config_management(
 
 @validate_call
 def anthos_service_mesh(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -313,9 +313,9 @@ def anthos_service_mesh(
 
 @validate_call
 def api(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -334,9 +334,9 @@ def api(
 
 @validate_call
 def api_analytics(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -355,9 +355,9 @@ def api_analytics(
 
 @validate_call
 def api_monetization(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -376,9 +376,9 @@ def api_monetization(
 
 @validate_call
 def apigee(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -397,9 +397,9 @@ def apigee(
 
 @validate_call
 def apigee_api_platform(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -418,9 +418,9 @@ def apigee_api_platform(
 
 @validate_call
 def apigee_sense(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -439,9 +439,9 @@ def apigee_sense(
 
 @validate_call
 def app_engine(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -460,9 +460,9 @@ def app_engine(
 
 @validate_call
 def artifact_registry(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -481,9 +481,9 @@ def artifact_registry(
 
 @validate_call
 def asset_inventory(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -502,9 +502,9 @@ def asset_inventory(
 
 @validate_call
 def assured_workloads(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -523,9 +523,9 @@ def assured_workloads(
 
 @validate_call
 def automl(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -544,9 +544,9 @@ def automl(
 
 @validate_call
 def automl_natural_language(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -565,9 +565,9 @@ def automl_natural_language(
 
 @validate_call
 def automl_tables(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -586,9 +586,9 @@ def automl_tables(
 
 @validate_call
 def automl_translation(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -607,9 +607,9 @@ def automl_translation(
 
 @validate_call
 def automl_video_intelligence(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -628,9 +628,9 @@ def automl_video_intelligence(
 
 @validate_call
 def automl_vision(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -649,9 +649,9 @@ def automl_vision(
 
 @validate_call
 def bare_metal_solutions(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -670,9 +670,9 @@ def bare_metal_solutions(
 
 @validate_call
 def batch(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -691,9 +691,9 @@ def batch(
 
 @validate_call
 def beyondcorp(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -712,9 +712,9 @@ def beyondcorp(
 
 @validate_call
 def bigquery(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -733,9 +733,9 @@ def bigquery(
 
 @validate_call
 def bigtable(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -754,9 +754,9 @@ def bigtable(
 
 @validate_call
 def billing(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -775,9 +775,9 @@ def billing(
 
 @validate_call
 def binary_authorization(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -796,9 +796,9 @@ def binary_authorization(
 
 @validate_call
 def catalog(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -817,9 +817,9 @@ def catalog(
 
 @validate_call
 def category_agents(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -838,9 +838,9 @@ def category_agents(
 
 @validate_call
 def category_ai_machine_learning(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -859,9 +859,9 @@ def category_ai_machine_learning(
 
 @validate_call
 def category_business_intelligence(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -880,9 +880,9 @@ def category_business_intelligence(
 
 @validate_call
 def category_collaboration(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -901,9 +901,9 @@ def category_collaboration(
 
 @validate_call
 def category_compute(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -922,9 +922,9 @@ def category_compute(
 
 @validate_call
 def category_containers(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -943,9 +943,9 @@ def category_containers(
 
 @validate_call
 def category_data_analytics(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -964,9 +964,9 @@ def category_data_analytics(
 
 @validate_call
 def category_databases(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -985,9 +985,9 @@ def category_databases(
 
 @validate_call
 def category_developer_tools(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1006,9 +1006,9 @@ def category_developer_tools(
 
 @validate_call
 def category_devops(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1027,9 +1027,9 @@ def category_devops(
 
 @validate_call
 def category_hybrid_multicloud(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1048,9 +1048,9 @@ def category_hybrid_multicloud(
 
 @validate_call
 def category_integration_services(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1069,9 +1069,9 @@ def category_integration_services(
 
 @validate_call
 def category_management_tools(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1090,9 +1090,9 @@ def category_management_tools(
 
 @validate_call
 def category_maps_geospatial(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1111,9 +1111,9 @@ def category_maps_geospatial(
 
 @validate_call
 def category_marketplace(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1132,9 +1132,9 @@ def category_marketplace(
 
 @validate_call
 def category_media_services(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1153,9 +1153,9 @@ def category_media_services(
 
 @validate_call
 def category_migration(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1174,9 +1174,9 @@ def category_migration(
 
 @validate_call
 def category_mixed_reality(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1195,9 +1195,9 @@ def category_mixed_reality(
 
 @validate_call
 def category_networking(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1216,9 +1216,9 @@ def category_networking(
 
 @validate_call
 def category_observability(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1237,9 +1237,9 @@ def category_observability(
 
 @validate_call
 def category_operations(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1258,9 +1258,9 @@ def category_operations(
 
 @validate_call
 def category_security_identity(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1279,9 +1279,9 @@ def category_security_identity(
 
 @validate_call
 def category_serverless_computing(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1300,9 +1300,9 @@ def category_serverless_computing(
 
 @validate_call
 def category_storage(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1321,9 +1321,9 @@ def category_storage(
 
 @validate_call
 def category_web3(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1342,9 +1342,9 @@ def category_web3(
 
 @validate_call
 def category_web_mobile(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1363,9 +1363,9 @@ def category_web_mobile(
 
 @validate_call
 def certificate_authority_service(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1384,9 +1384,9 @@ def certificate_authority_service(
 
 @validate_call
 def certificate_manager(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1405,9 +1405,9 @@ def certificate_manager(
 
 @validate_call
 def cloud_api_gateway(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1426,9 +1426,9 @@ def cloud_api_gateway(
 
 @validate_call
 def cloud_apis(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1447,9 +1447,9 @@ def cloud_apis(
 
 @validate_call
 def cloud_armor(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1468,9 +1468,9 @@ def cloud_armor(
 
 @validate_call
 def cloud_asset_inventory(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1489,9 +1489,9 @@ def cloud_asset_inventory(
 
 @validate_call
 def cloud_audit_logs(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1510,9 +1510,9 @@ def cloud_audit_logs(
 
 @validate_call
 def cloud_build(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1531,9 +1531,9 @@ def cloud_build(
 
 @validate_call
 def cloud_cdn(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1552,9 +1552,9 @@ def cloud_cdn(
 
 @validate_call
 def cloud_code(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1573,9 +1573,9 @@ def cloud_code(
 
 @validate_call
 def cloud_composer(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1594,9 +1594,9 @@ def cloud_composer(
 
 @validate_call
 def cloud_data_fusion(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1615,9 +1615,9 @@ def cloud_data_fusion(
 
 @validate_call
 def cloud_deploy(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1636,9 +1636,9 @@ def cloud_deploy(
 
 @validate_call
 def cloud_deployment_manager(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1657,9 +1657,9 @@ def cloud_deployment_manager(
 
 @validate_call
 def cloud_dns(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1678,9 +1678,9 @@ def cloud_dns(
 
 @validate_call
 def cloud_domains(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1699,9 +1699,9 @@ def cloud_domains(
 
 @validate_call
 def cloud_ekm(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1720,9 +1720,9 @@ def cloud_ekm(
 
 @validate_call
 def cloud_endpoints(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1741,9 +1741,9 @@ def cloud_endpoints(
 
 @validate_call
 def cloud_external_ip_addresses(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1762,9 +1762,9 @@ def cloud_external_ip_addresses(
 
 @validate_call
 def cloud_firewall_rules(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1783,9 +1783,9 @@ def cloud_firewall_rules(
 
 @validate_call
 def cloud_for_marketing(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1804,9 +1804,9 @@ def cloud_for_marketing(
 
 @validate_call
 def cloud_functions(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1825,9 +1825,9 @@ def cloud_functions(
 
 @validate_call
 def cloud_generic(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1846,9 +1846,9 @@ def cloud_generic(
 
 @validate_call
 def cloud_gpu(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1867,9 +1867,9 @@ def cloud_gpu(
 
 @validate_call
 def cloud_healthcare_api(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1888,9 +1888,9 @@ def cloud_healthcare_api(
 
 @validate_call
 def cloud_healthcare_marketplace(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1909,9 +1909,9 @@ def cloud_healthcare_marketplace(
 
 @validate_call
 def cloud_hsm(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1930,9 +1930,9 @@ def cloud_hsm(
 
 @validate_call
 def cloud_ids(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1951,9 +1951,9 @@ def cloud_ids(
 
 @validate_call
 def cloud_inference_api(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1972,9 +1972,9 @@ def cloud_inference_api(
 
 @validate_call
 def cloud_interconnect(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -1993,9 +1993,9 @@ def cloud_interconnect(
 
 @validate_call
 def cloud_jobs_api(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2014,9 +2014,9 @@ def cloud_jobs_api(
 
 @validate_call
 def cloud_load_balancing(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2035,9 +2035,9 @@ def cloud_load_balancing(
 
 @validate_call
 def cloud_logging(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2056,9 +2056,9 @@ def cloud_logging(
 
 @validate_call
 def cloud_media_edge(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2077,9 +2077,9 @@ def cloud_media_edge(
 
 @validate_call
 def cloud_monitoring(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2098,9 +2098,9 @@ def cloud_monitoring(
 
 @validate_call
 def cloud_nat(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2119,9 +2119,9 @@ def cloud_nat(
 
 @validate_call
 def cloud_natural_language_api(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2140,9 +2140,9 @@ def cloud_natural_language_api(
 
 @validate_call
 def cloud_network(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2161,9 +2161,9 @@ def cloud_network(
 
 @validate_call
 def cloud_ops(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2182,9 +2182,9 @@ def cloud_ops(
 
 @validate_call
 def cloud_optimization_ai(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2203,9 +2203,9 @@ def cloud_optimization_ai(
 
 @validate_call
 def cloud_optimization_ai_fleet_routing_api(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2224,9 +2224,9 @@ def cloud_optimization_ai_fleet_routing_api(
 
 @validate_call
 def cloud_router(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2245,9 +2245,9 @@ def cloud_router(
 
 @validate_call
 def cloud_routes(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2266,9 +2266,9 @@ def cloud_routes(
 
 @validate_call
 def cloud_run(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2287,9 +2287,9 @@ def cloud_run(
 
 @validate_call
 def cloud_run_for_anthos(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2308,9 +2308,9 @@ def cloud_run_for_anthos(
 
 @validate_call
 def cloud_scheduler(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2329,9 +2329,9 @@ def cloud_scheduler(
 
 @validate_call
 def cloud_security_scanner(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2350,9 +2350,9 @@ def cloud_security_scanner(
 
 @validate_call
 def cloud_shell(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2371,9 +2371,9 @@ def cloud_shell(
 
 @validate_call
 def cloud_spanner(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2392,9 +2392,9 @@ def cloud_spanner(
 
 @validate_call
 def cloud_sql(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2413,9 +2413,9 @@ def cloud_sql(
 
 @validate_call
 def cloud_storage(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2434,9 +2434,9 @@ def cloud_storage(
 
 @validate_call
 def cloud_tasks(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2455,9 +2455,9 @@ def cloud_tasks(
 
 @validate_call
 def cloud_test_lab(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2476,9 +2476,9 @@ def cloud_test_lab(
 
 @validate_call
 def cloud_tpu(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2497,9 +2497,9 @@ def cloud_tpu(
 
 @validate_call
 def cloud_translation_api(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2518,9 +2518,9 @@ def cloud_translation_api(
 
 @validate_call
 def cloud_vision_api(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2539,9 +2539,9 @@ def cloud_vision_api(
 
 @validate_call
 def cloud_vpn(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2560,9 +2560,9 @@ def cloud_vpn(
 
 @validate_call
 def compute_engine(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2581,9 +2581,9 @@ def compute_engine(
 
 @validate_call
 def configuration_management(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2602,9 +2602,9 @@ def configuration_management(
 
 @validate_call
 def connectivity_test(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2623,9 +2623,9 @@ def connectivity_test(
 
 @validate_call
 def connectors(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2644,9 +2644,9 @@ def connectors(
 
 @validate_call
 def contact_center_ai(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2665,9 +2665,9 @@ def contact_center_ai(
 
 @validate_call
 def container_optimized_os(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2686,9 +2686,9 @@ def container_optimized_os(
 
 @validate_call
 def container_registry(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2707,9 +2707,9 @@ def container_registry(
 
 @validate_call
 def data_catalog(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2728,9 +2728,9 @@ def data_catalog(
 
 @validate_call
 def data_labeling(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2749,9 +2749,9 @@ def data_labeling(
 
 @validate_call
 def data_layers(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2770,9 +2770,9 @@ def data_layers(
 
 @validate_call
 def data_loss_prevention_api(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2791,9 +2791,9 @@ def data_loss_prevention_api(
 
 @validate_call
 def data_qna(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2812,9 +2812,9 @@ def data_qna(
 
 @validate_call
 def data_studio(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2833,9 +2833,9 @@ def data_studio(
 
 @validate_call
 def data_transfer(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2854,9 +2854,9 @@ def data_transfer(
 
 @validate_call
 def database_migration_service(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2875,9 +2875,9 @@ def database_migration_service(
 
 @validate_call
 def dataflow(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2896,9 +2896,9 @@ def dataflow(
 
 @validate_call
 def datalab(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2917,9 +2917,9 @@ def datalab(
 
 @validate_call
 def dataplex(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2938,9 +2938,9 @@ def dataplex(
 
 @validate_call
 def datapol(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2959,9 +2959,9 @@ def datapol(
 
 @validate_call
 def dataprep(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -2980,9 +2980,9 @@ def dataprep(
 
 @validate_call
 def dataproc(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3001,9 +3001,9 @@ def dataproc(
 
 @validate_call
 def dataproc_metastore(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3022,9 +3022,9 @@ def dataproc_metastore(
 
 @validate_call
 def datashare(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3043,9 +3043,9 @@ def datashare(
 
 @validate_call
 def datastore(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3064,9 +3064,9 @@ def datastore(
 
 @validate_call
 def datastream(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3085,9 +3085,9 @@ def datastream(
 
 @validate_call
 def debugger(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3106,9 +3106,9 @@ def debugger(
 
 @validate_call
 def developer_portal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3127,9 +3127,9 @@ def developer_portal(
 
 @validate_call
 def dialogflow(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3148,9 +3148,9 @@ def dialogflow(
 
 @validate_call
 def dialogflow_cx(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3169,9 +3169,9 @@ def dialogflow_cx(
 
 @validate_call
 def dialogflow_insights(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3190,9 +3190,9 @@ def dialogflow_insights(
 
 @validate_call
 def distributed_cloud(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3211,9 +3211,9 @@ def distributed_cloud(
 
 @validate_call
 def document_ai(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3232,9 +3232,9 @@ def document_ai(
 
 @validate_call
 def early_access_center(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3253,9 +3253,9 @@ def early_access_center(
 
 @validate_call
 def error_reporting(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3274,9 +3274,9 @@ def error_reporting(
 
 @validate_call
 def eventarc(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3295,9 +3295,9 @@ def eventarc(
 
 @validate_call
 def filestore(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3316,9 +3316,9 @@ def filestore(
 
 @validate_call
 def financial_services_marketplace(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3337,9 +3337,9 @@ def financial_services_marketplace(
 
 @validate_call
 def firestore(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3358,9 +3358,9 @@ def firestore(
 
 @validate_call
 def fleet_engine(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3379,9 +3379,9 @@ def fleet_engine(
 
 @validate_call
 def free_trial(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3400,9 +3400,9 @@ def free_trial(
 
 @validate_call
 def functions(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3421,9 +3421,9 @@ def functions(
 
 @validate_call
 def game_servers(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3442,9 +3442,9 @@ def game_servers(
 
 @validate_call
 def gce(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3463,9 +3463,9 @@ def gce(
 
 @validate_call
 def gce_systems_management(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3484,9 +3484,9 @@ def gce_systems_management(
 
 @validate_call
 def gcs(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3505,9 +3505,9 @@ def gcs(
 
 @validate_call
 def genomics(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3526,9 +3526,9 @@ def genomics(
 
 @validate_call
 def gke(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3547,9 +3547,9 @@ def gke(
 
 @validate_call
 def gke_on_prem(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3568,9 +3568,9 @@ def gke_on_prem(
 
 @validate_call
 def google_cloud_marketplace(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3589,9 +3589,9 @@ def google_cloud_marketplace(
 
 @validate_call
 def google_kubernetes_engine(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3610,9 +3610,9 @@ def google_kubernetes_engine(
 
 @validate_call
 def google_maps_platform(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3631,9 +3631,9 @@ def google_maps_platform(
 
 @validate_call
 def healthcare_nlp_api(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3652,9 +3652,9 @@ def healthcare_nlp_api(
 
 @validate_call
 def home(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3673,9 +3673,9 @@ def home(
 
 @validate_call
 def hyperdisk(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3694,9 +3694,9 @@ def hyperdisk(
 
 @validate_call
 def iam(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3715,9 +3715,9 @@ def iam(
 
 @validate_call
 def identity_and_access_management(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3736,9 +3736,9 @@ def identity_and_access_management(
 
 @validate_call
 def identity_aware_proxy(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3757,9 +3757,9 @@ def identity_aware_proxy(
 
 @validate_call
 def identity_platform(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3778,9 +3778,9 @@ def identity_platform(
 
 @validate_call
 def iot_core(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3799,9 +3799,9 @@ def iot_core(
 
 @validate_call
 def iot_edge(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3820,9 +3820,9 @@ def iot_edge(
 
 @validate_call
 def key_access_justifications(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3841,9 +3841,9 @@ def key_access_justifications(
 
 @validate_call
 def key_management_service(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3862,9 +3862,9 @@ def key_management_service(
 
 @validate_call
 def kms(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3883,9 +3883,9 @@ def kms(
 
 @validate_call
 def kuberun(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3904,9 +3904,9 @@ def kuberun(
 
 @validate_call
 def launcher(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3925,9 +3925,9 @@ def launcher(
 
 @validate_call
 def local_ssd(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3946,9 +3946,9 @@ def local_ssd(
 
 @validate_call
 def looker(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3967,9 +3967,9 @@ def looker(
 
 @validate_call
 def managed_service_for_microsoft_active_directory(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -3988,9 +3988,9 @@ def managed_service_for_microsoft_active_directory(
 
 @validate_call
 def mandiant(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4009,9 +4009,9 @@ def mandiant(
 
 @validate_call
 def media_translation_api(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4030,9 +4030,9 @@ def media_translation_api(
 
 @validate_call
 def memorystore(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4051,9 +4051,9 @@ def memorystore(
 
 @validate_call
 def migrate_for_anthos(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4072,9 +4072,9 @@ def migrate_for_anthos(
 
 @validate_call
 def migrate_for_compute_engine(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4093,9 +4093,9 @@ def migrate_for_compute_engine(
 
 @validate_call
 def my_cloud(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4114,9 +4114,9 @@ def my_cloud(
 
 @validate_call
 def network_connectivity_center(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4135,9 +4135,9 @@ def network_connectivity_center(
 
 @validate_call
 def network_intelligence_center(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4156,9 +4156,9 @@ def network_intelligence_center(
 
 @validate_call
 def network_security(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4177,9 +4177,9 @@ def network_security(
 
 @validate_call
 def network_tiers(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4198,9 +4198,9 @@ def network_tiers(
 
 @validate_call
 def network_topology(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4219,9 +4219,9 @@ def network_topology(
 
 @validate_call
 def onboarding(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4240,9 +4240,9 @@ def onboarding(
 
 @validate_call
 def os_configuration_management(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4261,9 +4261,9 @@ def os_configuration_management(
 
 @validate_call
 def os_inventory_management(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4282,9 +4282,9 @@ def os_inventory_management(
 
 @validate_call
 def os_patch_management(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4303,9 +4303,9 @@ def os_patch_management(
 
 @validate_call
 def partner_interconnect(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4324,9 +4324,9 @@ def partner_interconnect(
 
 @validate_call
 def partner_portal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4345,9 +4345,9 @@ def partner_portal(
 
 @validate_call
 def performance_dashboard(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4366,9 +4366,9 @@ def performance_dashboard(
 
 @validate_call
 def permissions(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4387,9 +4387,9 @@ def permissions(
 
 @validate_call
 def persistent_disk(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4408,9 +4408,9 @@ def persistent_disk(
 
 @validate_call
 def phishing_protection(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4429,9 +4429,9 @@ def phishing_protection(
 
 @validate_call
 def policy_analyzer(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4450,9 +4450,9 @@ def policy_analyzer(
 
 @validate_call
 def premium_network_tier(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4471,9 +4471,9 @@ def premium_network_tier(
 
 @validate_call
 def private_connectivity(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4492,9 +4492,9 @@ def private_connectivity(
 
 @validate_call
 def private_service_connect(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4513,9 +4513,9 @@ def private_service_connect(
 
 @validate_call
 def producer_portal(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4534,9 +4534,9 @@ def producer_portal(
 
 @validate_call
 def profiler(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4555,9 +4555,9 @@ def profiler(
 
 @validate_call
 def project(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4576,9 +4576,9 @@ def project(
 
 @validate_call
 def pubsub(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4597,9 +4597,9 @@ def pubsub(
 
 @validate_call
 def quantum_engine(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4618,9 +4618,9 @@ def quantum_engine(
 
 @validate_call
 def quotas(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4639,9 +4639,9 @@ def quotas(
 
 @validate_call
 def real_world_insights(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4660,9 +4660,9 @@ def real_world_insights(
 
 @validate_call
 def recommendations_ai(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4681,9 +4681,9 @@ def recommendations_ai(
 
 @validate_call
 def release_notes(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4702,9 +4702,9 @@ def release_notes(
 
 @validate_call
 def retail_api(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4723,9 +4723,9 @@ def retail_api(
 
 @validate_call
 def risk_manager(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4744,9 +4744,9 @@ def risk_manager(
 
 @validate_call
 def runtime_config(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4765,9 +4765,9 @@ def runtime_config(
 
 @validate_call
 def secret_manager(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4786,9 +4786,9 @@ def secret_manager(
 
 @validate_call
 def security(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4807,9 +4807,9 @@ def security(
 
 @validate_call
 def security_command_center(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4828,9 +4828,9 @@ def security_command_center(
 
 @validate_call
 def security_health_advisor(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4849,9 +4849,9 @@ def security_health_advisor(
 
 @validate_call
 def security_key_enforcement(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4870,9 +4870,9 @@ def security_key_enforcement(
 
 @validate_call
 def security_operations(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4891,9 +4891,9 @@ def security_operations(
 
 @validate_call
 def service_discovery(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4912,9 +4912,9 @@ def service_discovery(
 
 @validate_call
 def speech_to_text(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4933,9 +4933,9 @@ def speech_to_text(
 
 @validate_call
 def stackdriver(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4954,9 +4954,9 @@ def stackdriver(
 
 @validate_call
 def standard_network_tier(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4975,9 +4975,9 @@ def standard_network_tier(
 
 @validate_call
 def stream_suite(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -4996,9 +4996,9 @@ def stream_suite(
 
 @validate_call
 def support(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5017,9 +5017,9 @@ def support(
 
 @validate_call
 def tensorflow_enterprise(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5038,9 +5038,9 @@ def tensorflow_enterprise(
 
 @validate_call
 def text_to_speech(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5059,9 +5059,9 @@ def text_to_speech(
 
 @validate_call
 def threat_intelligence(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5080,9 +5080,9 @@ def threat_intelligence(
 
 @validate_call
 def tools_for_powershell(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5101,9 +5101,9 @@ def tools_for_powershell(
 
 @validate_call
 def trace(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5122,9 +5122,9 @@ def trace(
 
 @validate_call
 def traffic_director(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5143,9 +5143,9 @@ def traffic_director(
 
 @validate_call
 def transfer(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5164,9 +5164,9 @@ def transfer(
 
 @validate_call
 def transfer_appliance(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5185,9 +5185,9 @@ def transfer_appliance(
 
 @validate_call
 def user_preferences(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5206,9 +5206,9 @@ def user_preferences(
 
 @validate_call
 def vertex_ai(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5227,9 +5227,9 @@ def vertex_ai(
 
 @validate_call
 def vertexai(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5248,9 +5248,9 @@ def vertexai(
 
 @validate_call
 def video_intelligence_api(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5269,9 +5269,9 @@ def video_intelligence_api(
 
 @validate_call
 def virtual_private_cloud(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5290,9 +5290,9 @@ def virtual_private_cloud(
 
 @validate_call
 def visual_inspection(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5311,9 +5311,9 @@ def visual_inspection(
 
 @validate_call
 def vmware_engine(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5332,9 +5332,9 @@ def vmware_engine(
 
 @validate_call
 def vpc(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5353,9 +5353,9 @@ def vpc(
 
 @validate_call
 def web_risk(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5374,9 +5374,9 @@ def web_risk(
 
 @validate_call
 def web_security_scanner(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5395,9 +5395,9 @@ def web_security_scanner(
 
 @validate_call
 def workflows(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
@@ -5416,9 +5416,9 @@ def workflows(
 
 @validate_call
 def workload_identity_pool(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:

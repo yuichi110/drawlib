@@ -18,19 +18,5 @@ PosInt = Annotated[int, Field(ge=0)]
 NegInt = Annotated[int, Field(le=0)]
 NumVertex = Annotated[int, Field(ge=3)]
 
-# Floats
 PosFloat = Annotated[float, Field(ge=0.0)]
 NegFloat = Annotated[float, Field(le=0.0)]
-
-# Backward compatibility aliases
-TypeBool = bool
-TypeInt = int
-TypeNegInt = NegInt
-TypePosInt = PosInt
-TypeNumVertex = NumVertex
-
-TypeFloat = float
-TypeNegFloat = NegFloat
-TypePosFloat = PosFloat
-
-TypeStr = str

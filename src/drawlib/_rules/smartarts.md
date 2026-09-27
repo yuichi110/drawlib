@@ -9,7 +9,7 @@ The `drawlib.smartarts` module provides high-level graphical components designed
 2. [Quick Reference Matrix](#2-quick-reference-matrix)
 3. [Component 1: Table](#3-component-1-table)
 4. [Component 2: TreeNode (Directory & Hierarchy Trees)](#4-component-2-treenode-directory--hierarchy-trees)
-5. [Component 3: BoxList & BoxTreeNode](#5-component-3-boxlist--boxtreenode)
+5. [Component 3: BoxList](#5-component-3-boxlist)
 6. [Component 4: MindMapNode (Radial & Multi-Directional Trees)](#6-component-4-mindmapnode-radial--multi-directional-trees)
 7. [Component 5: ChevronProcess (Pipeline & Workflow Stages)](#7-component-5-chevronprocess-pipeline--workflow-stages)
 8. [Component 6: Cycle (Circular & Feedback Loops)](#8-component-6-cycle-circular--feedback-loops)
@@ -29,7 +29,6 @@ All SmartArts classes and helper functions are exported directly from `drawlib.s
 ```python
 from drawlib.smartarts import (
     BoxList,
-    BoxTreeNode,
     BulletPoints,
     ChevronProcess,
     Cycle,
@@ -71,7 +70,6 @@ Every SmartArt accepts either:
 | `Table` | Top-Left `(x, y)` | Downward & Rightward | `set_style_*()`, `draw()`, `draw_flexible()` | Service matrices, SLA comparisons, feature tables |
 | `TreeNode` | Top-Left `(x, y)` | Downward tree lines | `register_drawing_item()`, `draw()` | Monorepo directories, file trees, package layouts |
 | `BoxList` | Directional `(x, y)` | `"left"`, `"right"`, `"bottom"`, `"top"` | `append()`, `extend()`, `draw()` | Microservice cards, pipeline stages, status badges |
-| `BoxTreeNode` | Center `(x, y)` | Multi-directional | Alias for `MindMapNode` | Backward compatibility, hierarchical card trees |
 | `MindMapNode` | Center `(x, y)` | Radial (4 directions) | `draw(branch=...)` | Architecture overviews, decision trees, org charts |
 | `ChevronProcess` | Bottom-Left `(x, y)` | Horizontal linear | `append()`, `extend()`, `draw()` | CI/CD pipelines, ETL workflows, order lifecycles |
 | `Cycle` | Center / Bottom-Left | Radial circular | `append()`, `set_center()`, `draw()` | PDCA DevOps loops, token refresh cycles, state machines |
@@ -258,9 +256,9 @@ save()
 ```
 
 ---
-## 5. Component 3: BoxList & BoxTreeNode
+## 5. Component 3: BoxList
 
-`BoxList` draws sequential linear blocks or cards with optional individual highlight overrides, while `BoxTreeNode` is the standard alias for `MindMapNode` to maintain backward compatibility for card-based trees.
+`BoxList` draws sequential linear blocks or cards with optional individual highlight overrides.
 
 ### 5.1 BoxList Architecture & Directional Alignment
 - **Anchor**: Coordinate `xy=(x, y)` marks start point.
@@ -277,15 +275,7 @@ save()
 - `extend(texts, box_style=None, text_style=None)`: Batches multiple cards using default or uniform custom styles.
 - `draw(xy, box_width, box_height, align="left")`: Renders all cards in specified orientation.
 
-### 5.3 BoxTreeNode (MindMapNode Alias)
-`BoxTreeNode` is defined as:
-```python
-from drawlib.smartarts import BoxTreeNode, MindMapNode
-assert BoxTreeNode is MindMapNode
-```
-It accepts all parameters of `MindMapNode` (`text`, `children`, `branch`, `shape="rectangle"`, `size=(w, h)`, `style`, `r`).
-
-### 5.4 Production Example: Horizontal Service Pipeline & Status Cards
+### 5.3 Production Example: Horizontal Service Pipeline & Status Cards
 ```drawlib show-code
 from drawlib.canvas import save, setup
 from drawlib.colors import Colors140, EssentialsStyleColors

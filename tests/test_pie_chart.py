@@ -116,7 +116,7 @@ class TestPieChartRendering:
         """Test rendering standard pie chart to a PNG file."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "pie_standard.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = PieChart(radius=22.0, title="Browser Market Share")
             chart.add_slice("Chrome", 65.0)
@@ -133,7 +133,7 @@ class TestPieChartRendering:
         """Test rendering donut chart with center text badge."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "donut_badge.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = PieChart(
                 radius=25.0,
@@ -154,7 +154,7 @@ class TestPieChartRendering:
         """Test rendering slices with explode offsets."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "pie_explode.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = PieChart(radius=20.0, title="Campaign Status")
             chart.add_slice("Won", 55.0, explode=2.0)
@@ -170,7 +170,7 @@ class TestPieChartRendering:
         """Test that empty or zero-value chart does not fail."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "pie_empty.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = PieChart(radius=20.0)
             chart.draw(xy=(10.0, 10.0))

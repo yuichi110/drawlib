@@ -16,7 +16,7 @@ from pydantic import BaseModel, validate_call
 
 from drawlib._core.shapes import circle
 from drawlib._core.text import text
-from drawlib._core.types import Style, TypeCoordinate, TypeFloat, TypeInt, TypePosFloat, TypeStr
+from drawlib._core.types import Coordinate, PosFloat, Style
 from drawlib._preset_colors import Colors
 from drawlib._preset_styles import BasePresetStyles
 
@@ -32,8 +32,8 @@ class _BulletPointsShape(BaseModel):
 class _BulletPointsText(BaseModel):
     """Text settings for a specific indent level."""
 
-    indent: TypeInt
-    text: TypeStr
+    indent: int
+    text: str
     style: Style
 
 
@@ -52,8 +52,8 @@ class BulletPoints:
         self,
         *,
         styles: BasePresetStyles,
-        vertical_margin: TypePosFloat,
-        indent_width: TypePosFloat,
+        vertical_margin: PosFloat,
+        indent_width: PosFloat,
         default_style: Style | None = None,
     ) -> None:
         """Initialize BulletPoints.
@@ -81,13 +81,13 @@ class BulletPoints:
         self.set_bullet_style(2, circle, style2, args={"radius": 0.5})
 
     @validate_call
-    def set_indent(self, level: TypeInt) -> None:
+    def set_indent(self, level: int) -> None:
         self._indent_level = level
 
     @validate_call
     def set_bullet_style(
         self,
-        indent_level: TypeInt,
+        indent_level: int,
         function: Callable,
         style: Style,
         args: dict,
@@ -105,7 +105,7 @@ class BulletPoints:
     @validate_call
     def add(
         self,
-        text: TypeStr,
+        text: str,
         style: Style | None = None,
     ) -> None:
         style_resolved = style if style is not None else self._default_style
@@ -122,7 +122,7 @@ class BulletPoints:
     @validate_call
     def draw(
         self,
-        xy: TypeCoordinate,
+        xy: Coordinate,
     ) -> None:
         """Draws the list of bullet points starting from the specified location.
 

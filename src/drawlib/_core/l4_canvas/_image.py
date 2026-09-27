@@ -20,11 +20,11 @@ from pydantic import ConfigDict, validate_call
 
 from drawlib._core.l2_models import Dimage
 from drawlib._core.l2_types import (
+    Angle,
+    Coordinate,
     FilePath,
-    TypeAngle,
-    TypeCoordinate,
-    TypeImageZoom,
-    TypePosFloat,
+    ImageZoom,
+    PosFloat,
 )
 from drawlib._core.l3_styles import BaseColors, Style
 from drawlib._core.l4_canvas._base import CanvasBase
@@ -43,10 +43,10 @@ class CanvasImageFeature(CanvasBase):
     @validate_call(config=ConfigDict(arbitrary_types_allowed=True))
     def image(  # noqa: C901
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
+        xy: Coordinate,
+        width: PosFloat,
         image: FilePath | Image.Image | Dimage,
-        angle: TypeAngle = 0.0,
+        angle: Angle = 0.0,
         *,
         style: Style | None = None,
     ) -> None:
@@ -83,7 +83,7 @@ class CanvasImageFeature(CanvasBase):
         self._draw_border(xy, width, height, angle, style)
 
     @staticmethod
-    def _rotate_image(dimg: Dimage, angle: TypeAngle, style: Style) -> tuple[Dimage, Style]:
+    def _rotate_image(dimg: Dimage, angle: Angle, style: Style) -> tuple[Dimage, Style]:
         if angle == 0:
             return dimg, style
 
@@ -101,7 +101,7 @@ class CanvasImageFeature(CanvasBase):
 
         return dimg._rotate(angle), style
 
-    def _shift_xy(self, x: float, y: float, dimg: Dimage, zoom: TypeImageZoom, style: Style) -> TypeCoordinate:
+    def _shift_xy(self, x: float, y: float, dimg: Dimage, zoom: ImageZoom, style: Style) -> Coordinate:
         halign = style.text_halign if style.text_halign is not None else "center"
         valign = style.text_valign if style.text_valign is not None else "center"
         if halign == "center" and valign == "center":
@@ -147,10 +147,10 @@ class CanvasImageFeature(CanvasBase):
 
     def _draw_border(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        height: TypePosFloat,
-        angle: TypeAngle,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        angle: Angle,
         style: Style,
     ) -> None:
         if style.image_border_width is None or style.image_border_width == 0:

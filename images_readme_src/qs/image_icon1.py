@@ -1,6 +1,6 @@
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.icons import phosphor
+from drawlib.preset_colors import Colors
 from drawlib.styles import styles
 
 setup(width=100, height=60, grid=True)
@@ -13,4 +13,3 @@ phosphor.coffee(
 )
 
 save()
-

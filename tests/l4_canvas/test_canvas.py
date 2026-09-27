@@ -15,7 +15,7 @@ import pytest
 from matplotlib import pyplot
 
 from drawlib._core.l4_canvas import canvas
-from drawlib.canvas import clear, config, get_dimage, save, setup, show
+from drawlib.canvas import clear, get_dimage, save, setup, show
 from drawlib.images import Dimage, image
 from drawlib.preset_colors import (
     Colors,
@@ -79,19 +79,19 @@ class TestCanvas:
         styles = default_styles
 
         clear()
-        config(width=192, height=108, grid_only=True)
+        setup(width=192, height=108, grid_only=True)
         save(f"{OUTPUT_DIR}test_size.png")
 
         clear()
-        config(width=200, height=100, grid_only=True, grid_xpitch=10, grid_ypitch=50)
+        setup(width=200, height=100, grid_only=True, grid_xpitch=10, grid_ypitch=50)
         save(f"{OUTPUT_DIR}test_grid_pitch.png")
 
         clear()
-        config(grid_only=True, dpi=200)
+        setup(grid_only=True, dpi=200)
         save(f"{OUTPUT_DIR}test_dpi.png")
 
         clear()
-        config(
+        setup(
             background_color=Colors140.Orange,
             background_alpha=0.2,
             grid_only=True,
@@ -99,7 +99,7 @@ class TestCanvas:
         save(f"{OUTPUT_DIR}test_background.png")
 
         clear()
-        config(
+        setup(
             grid_only=True,
             grid_style=Style(
                 line_width=1,
@@ -114,7 +114,7 @@ class TestCanvas:
         save(f"{OUTPUT_DIR}test_nogrid.png")
 
         clear()
-        config(grid=True)
+        setup(grid=True)
         circle((50, 50), 30, style=styles.primary)
         save(f"{OUTPUT_DIR}test_both.png")
 
@@ -135,7 +135,7 @@ class TestCanvas:
         """Verify consecutive saves with a grid enabled work properly."""
         clear()
         styles = default_styles
-        config(grid=True)
+        setup(grid=True)
         circle((25, 25), radius=10, style=styles.primary)
         save(f"{OUTPUT_DIR}test_serial_save_grid_1.png")
         circle((25, 75), radius=10, style=styles.primary)
@@ -145,7 +145,7 @@ class TestCanvas:
         """Verify consecutive saves with only a grid enabled work properly."""
         clear()
         styles = default_styles
-        config(grid_only=True)
+        setup(grid_only=True)
         circle((25, 25), radius=10, style=styles.primary)
         save(f"{OUTPUT_DIR}test_serial_save_gridonly_1.png")
         circle((25, 75), radius=10, style=styles.primary)
@@ -162,7 +162,7 @@ class TestCanvas:
     def test_set_background(self) -> None:
         """Verify internal set_background logic with background colors and overrides."""
         clear()
-        config(background_color=Colors.Green, background_alpha=0.8)
+        setup(background_color=Colors.Green, background_alpha=0.8)
         canvas._set_background()
         assert canvas._fig.patch.get_facecolor() is not None
 
@@ -185,7 +185,7 @@ class TestCanvas:
         # Also show with grid
         show_called = False
         clear()
-        config(grid=True)
+        setup(grid=True)
         circle((50, 50), 10, style=styles.primary)
         show()
         assert show_called
@@ -194,7 +194,7 @@ class TestCanvas:
         """Verify get_dimage renders canvas illustration to a Dimage object in memory."""
         clear()
         styles = default_styles
-        config(width=100, height=100)
+        setup(width=100, height=100)
         circle((50, 50), 30, style=styles.primary)
 
         dimg = get_dimage()
@@ -219,7 +219,7 @@ class TestCanvas:
         """Verify get_dimage includes grid overlay when grid is enabled."""
         clear()
         styles = default_styles
-        config(width=100, height=100, grid=True)
+        setup(width=100, height=100, grid=True)
         circle((50, 50), 30, style=styles.primary)
 
         dimg = get_dimage()

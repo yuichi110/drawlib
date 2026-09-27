@@ -15,7 +15,7 @@ from typing import Literal
 from pydantic import BaseModel, validate_call
 
 from drawlib._core.shapes import trapezoid, triangle
-from drawlib._core.types import Style, TypeAngle, TypeCoordinate, TypePosFloat, TypeStr
+from drawlib._core.types import Angle, Coordinate, PosFloat, Style
 from drawlib._preset_styles import BasePresetStyles
 
 
@@ -23,7 +23,7 @@ class _PyramidItem(BaseModel):
     """Internal class for storing pyramid item information."""
 
     style: Style
-    text: TypeStr
+    text: str
     textstyle: Style
 
 
@@ -42,8 +42,8 @@ class Pyramid:
         styles: BasePresetStyles,
         default_style: Style | None = None,
         default_textstyle: Style | None = None,
-        default_textangle: TypeAngle | None = None,
-        default_text_xy_shift: TypeCoordinate | None = None,
+        default_textangle: Angle | None = None,
+        default_text_xy_shift: Coordinate | None = None,
     ) -> None:
         """Initializes a Pyramid instance with optional default styles and settings.
 
@@ -65,11 +65,11 @@ class Pyramid:
     @validate_call
     def add(  # noqa: C901
         self,
-        text: TypeStr,
+        text: str,
         style: Style | None = None,
         textstyle: Style | None = None,
-        textangle: TypeAngle | None = None,
-        text_xy_shift: TypeCoordinate | None = None,
+        textangle: Angle | None = None,
+        text_xy_shift: Coordinate | None = None,
     ) -> None:
         resolved_style = style if style is not None else self._default_style
         resolved_textstyle = textstyle if textstyle is not None else self._default_textstyle
@@ -97,10 +97,10 @@ class Pyramid:
     @validate_call
     def draw(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        height: TypePosFloat,
-        margin: TypePosFloat,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        margin: PosFloat,
         align: Literal["bottom", "top", "left", "right"] = "bottom",
         order: Literal["vertex_to_base", "base_to_vertex"] = "vertex_to_base",
     ) -> None:
@@ -133,10 +133,10 @@ class Pyramid:
     @validate_call
     def draw_flexible(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        item_heights: list[TypePosFloat],
-        margins: list[TypePosFloat],
+        xy: Coordinate,
+        width: PosFloat,
+        item_heights: list[PosFloat],
+        margins: list[PosFloat],
         align: Literal["bottom", "top", "left", "right"] = "bottom",
         order: Literal["vertex_to_base", "base_to_vertex"] = "vertex_to_base",
     ) -> None:
@@ -178,10 +178,10 @@ class Pyramid:
 
     @staticmethod
     def _draw_flexible_bottom(
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        item_heights: list[TypePosFloat],
-        margins: list[TypePosFloat],
+        xy: Coordinate,
+        width: PosFloat,
+        item_heights: list[PosFloat],
+        margins: list[PosFloat],
         items: list[_PyramidItem],
     ) -> None:
         x = xy[0] + width / 2
@@ -225,10 +225,10 @@ class Pyramid:
 
     @staticmethod
     def _draw_flexible_top(
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        item_heights: list[TypePosFloat],
-        margins: list[TypePosFloat],
+        xy: Coordinate,
+        width: PosFloat,
+        item_heights: list[PosFloat],
+        margins: list[PosFloat],
         items: list[_PyramidItem],
     ) -> None:
         x = xy[0] + width / 2
@@ -277,10 +277,10 @@ class Pyramid:
 
     @staticmethod
     def _draw_flexible_left(
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        item_heights: list[TypePosFloat],
-        margins: list[TypePosFloat],
+        xy: Coordinate,
+        width: PosFloat,
+        item_heights: list[PosFloat],
+        margins: list[PosFloat],
         items: list[_PyramidItem],
     ) -> None:
         y = xy[1] + width / 2
@@ -330,10 +330,10 @@ class Pyramid:
 
     @staticmethod
     def _draw_flexible_right(
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        item_heights: list[TypePosFloat],
-        margins: list[TypePosFloat],
+        xy: Coordinate,
+        width: PosFloat,
+        item_heights: list[PosFloat],
+        margins: list[PosFloat],
         items: list[_PyramidItem],
     ) -> None:
         y = xy[1] + width / 2

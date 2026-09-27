@@ -12,7 +12,7 @@
 from __future__ import annotations
 
 from drawlib._core.fonts import Font, FontBase, FontFile
-from drawlib._core.types import Style, TypeColor, TypeIconStyle, TypeLineStyle
+from drawlib._core.types import ColorType, IconStyle, LineStyle, Style
 from drawlib._preset_colors import Colors
 
 
@@ -41,17 +41,17 @@ def _resolve_target_font(
 
 
 def _create_style(
-    fill_color: TypeColor,
-    line_color: TypeColor,
+    fill_color: ColorType,
+    line_color: ColorType,
     *,
-    text_color: TypeColor | None = None,
-    icon_color: TypeColor | None = None,
+    text_color: ColorType | None = None,
+    icon_color: ColorType | None = None,
     line_width: float = 1.5,
-    line_style: TypeLineStyle = "solid",
+    line_style: LineStyle = "solid",
     shape_line_width: float | None = None,
-    shape_line_style: TypeLineStyle | None = None,
+    shape_line_style: LineStyle | None = None,
     font: Font = Font.SANSSERIF_REGULAR,
-    icon_style: TypeIconStyle = "regular",
+    icon_style: IconStyle = "regular",
 ) -> Style:
     """Helper function to create a Style instance with preset defaults.
 
@@ -96,10 +96,10 @@ def _create_style(
 
 
 def _make_variants(
-    color: TypeColor,
+    color: ColorType,
     *,
-    border_color: TypeColor | None = None,
-    default_text_color: TypeColor | None = None,
+    border_color: ColorType | None = None,
+    default_text_color: ColorType | None = None,
 ) -> dict[str, Style]:
     """Generate variant styles (normal, flat, solid, bold, light, dashed) for a specific color.
 

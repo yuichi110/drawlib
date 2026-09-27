@@ -18,14 +18,13 @@ from matplotlib.path import Path
 from pydantic import validate_call
 
 from drawlib._core.l2_types import (
-    TypeAngle,
-    TypeArrowHead,
-    TypeBend,
-    TypeCoordinate,
-    TypeCoordinates,
-    TypePathPoints,
-    TypePosFloat,
-    TypeStr,
+    Angle,
+    ArrowHead,
+    Bend,
+    Coordinate,
+    Coordinates,
+    PathPoints,
+    PosFloat,
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
@@ -42,12 +41,12 @@ class CanvasLineFeature(CanvasBase):
     @validate_call
     def line(
         self,
-        xy1: TypeCoordinate,
-        xy2: TypeCoordinate,
+        xy1: Coordinate,
+        xy2: Coordinate,
         *,
         style: Style,
-        width: TypePosFloat | None = None,
-        arrowhead: TypeArrowHead = "",
+        width: PosFloat | None = None,
+        arrowhead: ArrowHead = "",
     ) -> None:
         """Draw straight line from xy1 to xy2.
 
@@ -71,13 +70,13 @@ class CanvasLineFeature(CanvasBase):
     @validate_call
     def line_curved(
         self,
-        xy1: TypeCoordinate,
-        xy2: TypeCoordinate,
+        xy1: Coordinate,
+        xy2: Coordinate,
         *,
         style: Style,
-        bend: TypeBend = 0,
-        width: TypePosFloat | None = None,
-        arrowhead: TypeArrowHead = "",
+        bend: Bend = 0,
+        width: PosFloat | None = None,
+        arrowhead: ArrowHead = "",
     ) -> None:
         """Draw curved line from xy1 to xy2.
 
@@ -106,13 +105,13 @@ class CanvasLineFeature(CanvasBase):
     @validate_call
     def line_bezier1(
         self,
-        xy1: TypeCoordinate,
-        xy2: TypeCoordinate,
-        cp: TypeCoordinate,
+        xy1: Coordinate,
+        xy2: Coordinate,
+        cp: Coordinate,
         *,
         style: Style,
-        width: TypePosFloat | None = None,
-        arrowhead: TypeArrowHead = "",
+        width: PosFloat | None = None,
+        arrowhead: ArrowHead = "",
     ) -> None:
         """Draw Bezier line from xy1 to xy2 with 1 control point.
 
@@ -137,14 +136,14 @@ class CanvasLineFeature(CanvasBase):
     @validate_call
     def line_bezier2(
         self,
-        xy1: TypeCoordinate,
-        xy2: TypeCoordinate,
-        cp1: TypeCoordinate,
-        cp2: TypeCoordinate,
+        xy1: Coordinate,
+        xy2: Coordinate,
+        cp1: Coordinate,
+        cp2: Coordinate,
         *,
         style: Style,
-        width: TypePosFloat | None = None,
-        arrowhead: TypeArrowHead = "",
+        width: PosFloat | None = None,
+        arrowhead: ArrowHead = "",
     ) -> None:
         """Draw Bezier line from xy1 to xy2 with 2 control points.
 
@@ -171,16 +170,16 @@ class CanvasLineFeature(CanvasBase):
     @validate_call
     def line_arc(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        height: TypePosFloat,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
         *,
         style: Style,
-        angle_start: TypeAngle = 0,
-        angle_end: TypeAngle = 180,
-        angle: TypeAngle = 0,
-        linewidth: TypePosFloat | None = None,
-        arrowhead: TypeArrowHead = "",
+        angle_start: Angle = 0,
+        angle_end: Angle = 180,
+        angle: Angle = 0,
+        linewidth: PosFloat | None = None,
+        arrowhead: ArrowHead = "",
         ccw: bool = True,
     ) -> None:
         """Draw arc line on ellipse.
@@ -235,11 +234,11 @@ class CanvasLineFeature(CanvasBase):
     @validate_call
     def lines(
         self,
-        xys: TypeCoordinates,
+        xys: Coordinates,
         *,
         style: Style,
-        width: TypePosFloat | None = None,
-        arrowhead: TypeArrowHead = "",
+        width: PosFloat | None = None,
+        arrowhead: ArrowHead = "",
     ) -> None:
         """Draw multiple connected lines.
 
@@ -262,12 +261,12 @@ class CanvasLineFeature(CanvasBase):
     @validate_call
     def lines_curved(
         self,
-        xys: TypeCoordinates,
-        r: TypePosFloat,
+        xys: Coordinates,
+        r: PosFloat,
         *,
         style: Style,
-        width: TypePosFloat | None = None,
-        arrowhead: TypeArrowHead = "",
+        width: PosFloat | None = None,
+        arrowhead: ArrowHead = "",
     ) -> None:
         """Draw curved lines connecting multiple points.
 
@@ -314,12 +313,12 @@ class CanvasLineFeature(CanvasBase):
     @validate_call
     def lines_bezier(
         self,
-        xy: TypeCoordinate,
-        path_points: TypePathPoints,
+        xy: Coordinate,
+        path_points: PathPoints,
         *,
         style: Style,
-        width: TypePosFloat | None = None,
-        arrowhead: TypeArrowHead = "",
+        width: PosFloat | None = None,
+        arrowhead: ArrowHead = "",
     ) -> None:
         """Draw Bezier lines based on given path points.
 
@@ -364,7 +363,7 @@ class LineArcHelper:
     @classmethod
     def get_point_on_ellipse(
         cls,
-        xy: TypeCoordinate,
+        xy: Coordinate,
         width: float,
         height: float,
         angle: float,
@@ -379,7 +378,7 @@ class LineArcHelper:
     @classmethod
     def get_ellipse_path_points(
         cls,
-        xy: TypeCoordinate,
+        xy: Coordinate,
         width: float,
         height: float,
         angle_start: float,
@@ -418,7 +417,7 @@ class LineArcHelper:
     @classmethod
     def bezier_ellipse_arc_approximation(
         cls,
-        xy: TypeCoordinate,
+        xy: Coordinate,
         width: float,
         height: float,
         start_angle: float,

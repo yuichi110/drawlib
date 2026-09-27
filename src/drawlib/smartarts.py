@@ -11,7 +11,6 @@
 
 from drawlib._smartarts import (
     BoxList,
-    BoxTreeNode,
     BulletPoints,
     ChevronProcess,
     Cycle,
@@ -26,7 +25,6 @@ from drawlib._smartarts import (
 
 __all__ = [
     "BoxList",
-    "BoxTreeNode",
     "BulletPoints",
     "ChevronProcess",
     "Cycle",

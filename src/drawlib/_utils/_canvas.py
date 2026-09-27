@@ -16,21 +16,8 @@ from pydantic import validate_call
 from drawlib._core.canvas import clear
 from drawlib._core.utils import get_angle, get_center_and_size, get_distance
 
-
-@validate_call
-def initialize() -> None:
-    """Initialize the drawing environment by clearing the drawing canvas.
-
-    Returns:
-        None
-
-    """
-    clear()
-
-
 __all__ = [
     "get_angle",
     "get_center_and_size",
     "get_distance",
-    "initialize",
 ]

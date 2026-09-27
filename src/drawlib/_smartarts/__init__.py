@@ -10,7 +10,6 @@
 """Package for smart arts modules."""
 
 from drawlib._smartarts._boxlist import BoxList
-from drawlib._smartarts._boxtree import BoxTreeNode
 from drawlib._smartarts._bubblespeech import bubblespeech
 from drawlib._smartarts._bulletpoints import BulletPoints
 from drawlib._smartarts._chevronprocess import ChevronProcess
@@ -24,7 +23,6 @@ from drawlib._smartarts._tree import TreeNode
 
 __all__ = [
     "BoxList",
-    "BoxTreeNode",
     "BulletPoints",
     "ChevronProcess",
     "Cycle",

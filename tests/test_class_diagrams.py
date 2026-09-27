@@ -291,7 +291,7 @@ class TestClassDiagramRendering:
 
     def test_render_basic_diagram(self) -> None:
         """Verify basic class diagram rendering and image export."""
-        canvas.initialize()
+        canvas.clear()
 
         cd = ClassDiagram(title="E-Commerce Domain Model")
         user = cd.add(ClassNode(name="User", width=28.0), xy=(25.0, 65.0))
@@ -333,7 +333,7 @@ class TestClassDiagramRendering:
 
     def test_render_all_relationships_gallery(self) -> None:
         """Verify rendering all 6 UML relationship types."""
-        canvas.initialize()
+        canvas.clear()
 
         cd = ClassDiagram(title="UML Relationship Gallery")
         types: list[RelationshipType] = [
@@ -370,7 +370,7 @@ class TestClassDiagramRendering:
 
     def test_render_custom_styles_and_direct_routing(self) -> None:
         """Verify rendering with custom styles, abstract classes, and direct routing."""
-        canvas.initialize()
+        canvas.clear()
 
         cd = ClassDiagram(
             title="Payment Processing",

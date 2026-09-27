@@ -9,60 +9,12 @@
 
 """Style type definitions for drawlib."""
 
-import re
 from typing import Annotated, Any, Literal
 
-from pydantic import AfterValidator, BeforeValidator, Field
+from pydantic import BeforeValidator, Field
 
 from drawlib._core.l2_models import Color
-from drawlib._core.l2_types_._primitive import TypePosFloat
-from drawlib._core.l2_types_._utils import validate_literal
-
-_HEX_COLOR_PATTERN = re.compile(r"^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$")
-
-
-def validate_alpha(v: float) -> float:
-    """Validate alpha value."""
-    if not (0.0 <= v <= 1.0):
-        raise ValueError(f"Value must be between 0.0 and 1.0. But {v} is given.")
-    return v
-
-
-def validate_angle(v: float) -> float:
-    """Validate angle value."""
-    if not (0.0 <= v <= 360.0):
-        raise ValueError(f"Angle must be between 0.0 and 360.0. But {v} is given.")
-    return float(v)
-
-
-def validate_angle_90(v: float) -> float:
-    """Validate angle value max 90."""
-    if not (0.0 <= v <= 90.0):
-        raise ValueError(f"Value must be between 0.0 and 90.0. But {v} is given.")
-    return v
-
-
-def validate_bend(v: float) -> float:
-    """Validate bend value."""
-    if not (-2.0 < v < 2.0):
-        raise ValueError(f"Value must be between -2.0 and 2.0 (exclusive). But {v} is given.")
-    return v
-
-
-def validate_color_tuple(v: tuple[Any, ...]) -> tuple[Any, ...]:  # noqa: ANN401
-    """Validate color tuple."""
-    if len(v) not in {3, 4}:
-        raise ValueError(f"Color tuple must be length 3 (RGB) or 4 (RGBA). But {v} is given.")
-
-    for i in range(3):
-        if not isinstance(v[i], int) or not (0 <= v[i] <= 255):
-            raise ValueError(f"RGB values must be integers between 0 and 255. But {v[i]} is given.")
-
-    if len(v) == 4:
-        if not isinstance(v[3], (int, float)) or not (0.0 <= v[3] <= 1.0):
-            raise ValueError(f"Alpha value must be float between 0.0 and 1.0. But {v[3]} is given.")
-
-    return v
+from drawlib._core.l2_types_._primitive import PosFloat
 
 
 def normalize_angle(v: Any) -> float:  # noqa: ANN401
@@ -86,17 +38,6 @@ def normalize_angle(v: Any) -> float:  # noqa: ANN401
         return 0.0 if mod == 0.0 else mod
     except (TypeError, ValueError) as e:
         raise ValueError(f"Angle must be a number. But '{v}' is given.") from e
-
-
-def normalize_angle90(v: Any) -> float:  # noqa: ANN401
-    """Validate angle in degrees in range [0.0, 90.0]."""
-    try:
-        val = float(v)
-        if not (0.0 <= val <= 90.0):
-            raise ValueError(f"Value must be between 0.0 and 90.0. But {v} is given.")
-        return val
-    except (TypeError, ValueError) as e:
-        raise ValueError(f"Angle must be a number between 0.0 and 90.0. But '{v}' is given.") from e
 
 
 def normalize_color(v: Any) -> Color:  # noqa: ANN401
@@ -128,7 +69,7 @@ Bend = Annotated[float, Field(gt=-2.0, lt=2.0)]
 RGBChannel = Annotated[int, Field(ge=0, le=255)]
 ColorRGB = tuple[RGBChannel, RGBChannel, RGBChannel]
 ColorRGBA = tuple[RGBChannel, RGBChannel, RGBChannel, Alpha]
-TypeColor = Annotated[Color | ColorRGB | ColorRGBA | str, BeforeValidator(normalize_color)]
+ColorType = Annotated[Color | ColorRGB | ColorRGBA | str, BeforeValidator(normalize_color)]
 
 HAlign = Annotated[
     Literal["left", "center", "right"],
@@ -155,24 +96,9 @@ IconStyle = Annotated[
     BeforeValidator(normalize_literal_str),
 ]
 Size = (
-    TypePosFloat
+    PosFloat
     | Annotated[
         Literal["small", "medium", "large"],
         BeforeValidator(normalize_literal_str),
     ]
 )
-
-# Backward Compatibility Aliases
-TypeAlpha = Alpha
-TypeAngle = Angle
-TypeAngle90 = Angle90
-TypeBend = Bend
-TypeColorRGB = Annotated[tuple[int, int, int], AfterValidator(validate_color_tuple)]
-TypeColorRGBA = Annotated[tuple[int, int, int, float], AfterValidator(validate_color_tuple)]
-TypeIconStyle = IconStyle
-TypeHAlign = HAlign
-TypeVAlign = VAlign
-TypeLineStyle = LineStyle
-TypeArrowHead = ArrowHead
-TypeTailEdge = TailEdge
-TypeSize = Size

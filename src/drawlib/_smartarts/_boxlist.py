@@ -17,14 +17,14 @@ from typing import Literal
 from pydantic import BaseModel, validate_call
 
 from drawlib._core.shapes import rectangle
-from drawlib._core.types import Style, TypeCoordinate, TypePosFloat, TypeStr
+from drawlib._core.types import Coordinate, PosFloat, Style
 from drawlib._preset_styles import BasePresetStyles
 
 
 class _Item(BaseModel):
     """Internal item class for BoxList."""
 
-    text: TypeStr
+    text: str
     box_style: Style
     text_style: Style
     is_custom_style: bool
@@ -63,7 +63,7 @@ class BoxList:
     @validate_call
     def append(
         self,
-        text: TypeStr,
+        text: str,
         box_style: Style | None = None,
         text_style: Style | None = None,
     ) -> None:
@@ -80,7 +80,7 @@ class BoxList:
     def insert(
         self,
         index: int,
-        text: TypeStr,
+        text: str,
         box_style: Style | None = None,
         text_style: Style | None = None,
     ) -> None:
@@ -108,7 +108,7 @@ class BoxList:
     @validate_call
     def extend(
         self,
-        texts: list[TypeStr],
+        texts: list[str],
         box_style: Style | None = None,
         text_style: Style | None = None,
     ) -> None:
@@ -136,9 +136,9 @@ class BoxList:
     @validate_call
     def draw(
         self,
-        xy: TypeCoordinate,
-        box_width: TypePosFloat,
-        box_height: TypePosFloat,
+        xy: Coordinate,
+        box_width: PosFloat,
+        box_height: PosFloat,
         align: Literal["left", "right", "bottom", "top"] = "left",
     ) -> None:
         """Draw a list of boxes at the specified location.
@@ -181,11 +181,11 @@ class BoxList:
 
     @staticmethod
     def _draw_cell(
-        start_xy: TypeCoordinate,
+        start_xy: Coordinate,
         index: int,
         text: str,
-        box_width: TypePosFloat,
-        box_height: TypePosFloat,
+        box_width: PosFloat,
+        box_height: PosFloat,
         box_style: Style,
         text_style: Style,
         align: Literal["left", "right", "bottom", "top"],

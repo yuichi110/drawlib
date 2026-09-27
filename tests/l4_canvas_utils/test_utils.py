@@ -12,7 +12,7 @@ from typing import Any, cast
 
 import pytest
 
-from drawlib._core.l2_types import TypePathPoints
+from drawlib._core.l2_types import PathPoints
 from drawlib._core.l4_canvas_utils._utils import (
     get_angle,
     get_center_and_size,
@@ -43,7 +43,7 @@ class TestStandaloneUtils:
     def test_get_rotated_path_points(self) -> None:
         """Verifies rotating nested path points and bezier control coordinate structures."""
         # Mix of coordinates and control coordinate tuples
-        path: TypePathPoints = [(10.0, 0.0), ((0.0, 10.0), (10.0, 10.0))]
+        path: PathPoints = [(10.0, 0.0), ((0.0, 10.0), (10.0, 10.0))]
         center = (0.0, 0.0)
 
         rotated = get_rotated_path_points(path, center, 90.0)

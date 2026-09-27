@@ -147,7 +147,7 @@ class DrawlibBlockProcessor:
         def _no_op_save(*args: Any, **kwargs: Any) -> None:  # noqa: ANN401
             pass
 
-        dutil_canvas.initialize()
+        drawlib._core.canvas.clear()
         compiled = compile(code, filename=source_filename, mode="exec")
 
         exec_globals = shared_globals if shared_globals is not None else {}
@@ -754,8 +754,6 @@ def export_code_block(
     styles_path: Optional[str] = None,
     utils_path: Optional[str] = None,
     grid: bool = False,
-    *,
-    markdown_path: Optional[str] = None,
 ) -> str:
     """Execute target code block from Markdown, HTML, or Python file and export image to specified output path.
 
@@ -766,7 +764,6 @@ def export_code_block(
         styles_path (Optional[str]): Optional path to Python styles script (e.g. styles.py).
         utils_path (Optional[str]): Optional path to Python utils script (e.g. utils.py).
         grid (bool): Whether to overlay coordinate grid on exported image.
-        markdown_path (Optional[str]): Deprecated alias for file_path for backward compatibility.
 
     Returns:
         str: Absolute path of the exported image file, or empty string if list was displayed.
@@ -774,13 +771,13 @@ def export_code_block(
     Raises:
         ValueError: If file path is invalid or target code block cannot be found.
     """
-    target_path = file_path or markdown_path
-    if not target_path:
+    if not file_path:
         raise ValueError("No file path provided.")
 
-    if not os.path.exists(target_path):
-        raise ValueError(f"File '{target_path}' does not exist.")
+    if not os.path.exists(file_path):
+        raise ValueError(f"File '{file_path}' does not exist.")
 
+    target_path = file_path
     abs_path = os.path.abspath(target_path)
     file_dir = os.path.dirname(abs_path)
 
@@ -854,8 +851,6 @@ def show_code_block(
     utils_path: Optional[str] = None,
     grid: bool = False,
     output_path: Optional[str] = None,
-    *,
-    markdown_path: Optional[str] = None,
 ) -> None:
     """Execute target code block from Markdown/HTML file or Python drawing script and display output image.
 
@@ -866,7 +861,6 @@ def show_code_block(
         utils_path (Optional[str]): Optional path to Python utils script.
         grid (bool): Whether to overlay coordinate grid on displayed image.
         output_path (Optional[str]): Optional destination image path. If specified, saves image without GUI display.
-        markdown_path (Optional[str]): Deprecated alias for file_path for backward compatibility.
     """
     if output_path:
         export_code_block(
@@ -876,18 +870,18 @@ def show_code_block(
             styles_path=styles_path,
             utils_path=utils_path,
             grid=grid,
-            markdown_path=markdown_path,
         )
         return
 
-    target_path = file_path or markdown_path
-    if not target_path:
+    if not file_path:
         print("Error: No file path provided.", file=sys.stderr)
         sys.exit(1)
 
-    if not os.path.exists(target_path):
-        print(f"Error: File '{target_path}' does not exist.", file=sys.stderr)
+    if not os.path.exists(file_path):
+        print(f"Error: File '{file_path}' does not exist.", file=sys.stderr)
         sys.exit(1)
+
+    target_path = file_path
 
     if target_path.endswith(".py"):
         print(f"Executing Python script '{target_path}'" + (" with grid overlay..." if grid else "..."))

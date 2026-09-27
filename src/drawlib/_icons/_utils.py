@@ -9,7 +9,7 @@
 
 """Icon utility module for canvas operations."""
 
-from drawlib._core.types import Style, TypeIconStyle
+from drawlib._core.types import IconStyle, Style
 
 
 class IconUtil:
@@ -35,7 +35,7 @@ class IconUtil:
     @staticmethod
     def format_style(
         style: Style,
-        default_icon_style: TypeIconStyle | None = None,
+        default_icon_style: IconStyle | None = None,
     ) -> Style:
         """Validate and format icon style."""
         if not isinstance(style, Style):

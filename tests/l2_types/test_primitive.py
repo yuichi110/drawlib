@@ -13,24 +13,20 @@ import pytest
 from pydantic import TypeAdapter, ValidationError
 
 from drawlib._core.l2_types_._primitive import (
-    TypeBool,
-    TypeFloat,
-    TypeInt,
-    TypeNegFloat,
-    TypeNegInt,
-    TypeNumVertex,
-    TypePosFloat,
-    TypePosInt,
-    TypeStr,
+    NegFloat,
+    NegInt,
+    NumVertex,
+    PosFloat,
+    PosInt,
 )
 
 
 class TestTypeBool:
-    """Test cases for TypeBool validation."""
+    """Test cases for bool validation."""
 
     def test_validation(self):
         """Test valid and invalid boolean values."""
-        adapter: TypeAdapter[TypeBool] = TypeAdapter(TypeBool)
+        adapter: TypeAdapter[bool] = TypeAdapter(bool)
         assert adapter.validate_python(True) is True
         assert adapter.validate_python(False) is False
 
@@ -39,21 +35,21 @@ class TestTypeBool:
 
 
 class TestTypeInt:
-    """Test cases for TypeInt validation."""
+    """Test cases for int validation."""
 
     def test_validation(self):
         """Test valid and invalid integer values."""
-        adapter: TypeAdapter[TypeInt] = TypeAdapter(TypeInt)
+        adapter: TypeAdapter[int] = TypeAdapter(int)
         assert adapter.validate_python(5) == 5
         assert adapter.validate_python(-5) == -5
 
 
 class TestTypeNegInt:
-    """Test cases for TypeNegInt validation."""
+    """Test cases for NegInt validation."""
 
     def test_validation(self):
         """Test valid and invalid negative integer values."""
-        adapter: TypeAdapter[TypeNegInt] = TypeAdapter(TypeNegInt)
+        adapter: TypeAdapter[NegInt] = TypeAdapter(NegInt)
         assert adapter.validate_python(-5) == -5
         assert adapter.validate_python(0) == 0
 
@@ -62,11 +58,11 @@ class TestTypeNegInt:
 
 
 class TestTypePosInt:
-    """Test cases for TypePosInt validation."""
+    """Test cases for PosInt validation."""
 
     def test_validation(self):
         """Test valid and invalid positive integer values."""
-        adapter: TypeAdapter[TypePosInt] = TypeAdapter(TypePosInt)
+        adapter: TypeAdapter[PosInt] = TypeAdapter(PosInt)
         assert adapter.validate_python(5) == 5
         assert adapter.validate_python(0) == 0
 
@@ -75,11 +71,11 @@ class TestTypePosInt:
 
 
 class TestTypeNumVertex:
-    """Test cases for TypeNumVertex validation."""
+    """Test cases for NumVertex validation."""
 
     def test_validation(self):
         """Test valid and invalid polygon vertices count."""
-        adapter: TypeAdapter[TypeNumVertex] = TypeAdapter(TypeNumVertex)
+        adapter: TypeAdapter[NumVertex] = TypeAdapter(NumVertex)
         assert adapter.validate_python(3) == 3
         assert adapter.validate_python(5) == 5
 
@@ -90,21 +86,21 @@ class TestTypeNumVertex:
 
 
 class TestTypeFloat:
-    """Test cases for TypeFloat validation."""
+    """Test cases for float validation."""
 
     def test_validation(self):
         """Test valid float values."""
-        adapter: TypeAdapter[TypeFloat] = TypeAdapter(TypeFloat)
+        adapter: TypeAdapter[float] = TypeAdapter(float)
         assert adapter.validate_python(1.5) == 1.5
         assert adapter.validate_python(-1.5) == -1.5
 
 
 class TestTypeNegFloat:
-    """Test cases for TypeNegFloat validation."""
+    """Test cases for NegFloat validation."""
 
     def test_validation(self):
         """Test valid and invalid negative float values."""
-        adapter: TypeAdapter[TypeNegFloat] = TypeAdapter(TypeNegFloat)
+        adapter: TypeAdapter[NegFloat] = TypeAdapter(NegFloat)
         assert adapter.validate_python(-1.5) == -1.5
         assert adapter.validate_python(0.0) == 0.0
 
@@ -113,11 +109,11 @@ class TestTypeNegFloat:
 
 
 class TestTypePosFloat:
-    """Test cases for TypePosFloat validation."""
+    """Test cases for PosFloat validation."""
 
     def test_validation(self):
         """Test valid and invalid positive float values."""
-        adapter: TypeAdapter[TypePosFloat] = TypeAdapter(TypePosFloat)
+        adapter: TypeAdapter[PosFloat] = TypeAdapter(PosFloat)
         assert adapter.validate_python(1.5) == 1.5
         assert adapter.validate_python(0.0) == 0.0
 
@@ -126,9 +122,9 @@ class TestTypePosFloat:
 
 
 class TestTypeStr:
-    """Test cases for TypeStr validation."""
+    """Test cases for str validation."""
 
     def test_validation(self):
         """Test valid and invalid string values."""
-        adapter: TypeAdapter[TypeStr] = TypeAdapter(TypeStr)
+        adapter: TypeAdapter[str] = TypeAdapter(str)
         assert adapter.validate_python("hello") == "hello"

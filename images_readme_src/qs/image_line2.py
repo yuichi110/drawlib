@@ -1,6 +1,6 @@
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors
 from drawlib.lines import line
+from drawlib.preset_colors import Colors
 from drawlib.styles import styles
 
 setup(width=100, height=50, grid=True)
@@ -20,4 +20,3 @@ line(
 )
 
 save()
-

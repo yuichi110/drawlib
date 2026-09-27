@@ -17,7 +17,7 @@ from urllib.parse import urljoin
 import drawlib._assets
 from drawlib import ASSET_VERSION
 from drawlib._core.fonts import FontMetadata, FontResource
-from drawlib._core.types import Style, TypeAngle, TypeCoordinate, TypeIconStyle, TypePosFloat, TypeStr
+from drawlib._core.types import Angle, Coordinate, IconStyle, PosFloat, Style
 from drawlib._core.utils import download_if_not_exist
 from drawlib._icons._utils import IconUtil
 from drawlib._icons.font_icons._font_icon import font_icon
@@ -30,7 +30,7 @@ class FontIconProvider:
         self,
         name: str,
         font_resources: dict[str, FontResource],
-        default_style: TypeIconStyle,
+        default_style: IconStyle,
         asset_subdir: str = "fonticons",
     ) -> None:
         """Initialize FontIconProvider.
@@ -43,7 +43,7 @@ class FontIconProvider:
         """
         self.name = name
         self.font_resources = font_resources
-        self.default_style: TypeIconStyle = default_style
+        self.default_style: IconStyle = default_style
         self.asset_subdir = asset_subdir
 
     def get_font_metadata(self, font: str) -> FontMetadata:
@@ -80,10 +80,10 @@ class FontIconProvider:
 
     def write(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
+        xy: Coordinate,
+        width: PosFloat,
         code: str,
-        angle: TypeAngle = 0.0,
+        angle: Angle = 0.0,
         *,
         style: Style,
     ) -> None:

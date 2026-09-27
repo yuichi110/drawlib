@@ -11,8 +11,8 @@
 
 from drawlib._core.l2_models import Color
 from drawlib._core.l2_types import (
-    TypeColor,
-    TypeColorRGBA,
+    ColorRGBA,
+    ColorType,
 )
 
 
@@ -25,7 +25,7 @@ class ColorUtil:
 
     @staticmethod
     def get_mplot_rgba(
-        rgb_or_rgba: TypeColor,
+        rgb_or_rgba: ColorType,
         alpha: float | None = None,
     ) -> tuple[float, float, float, float]:
         """Convert 0~255 RGB/RGBA to 0.0 ~ 1.0 RGBA for matplotlib.
@@ -85,7 +85,7 @@ class ColorUtil:
 
     @staticmethod
     def get_hexrgb(
-        rgb_or_rgba: TypeColor,
+        rgb_or_rgba: ColorType,
     ) -> str:
         """Convert RGB or RGBA tuple to hexadecimal color code.
 
@@ -115,7 +115,7 @@ class ColorUtil:
         return hex_color
 
     @staticmethod
-    def get_rgba_from_hex(hex_color: str) -> TypeColorRGBA:
+    def get_rgba_from_hex(hex_color: str) -> ColorRGBA:
         """Convert a hexadecimal color code to RGBA values.
 
         Args:

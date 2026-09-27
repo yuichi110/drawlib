@@ -92,7 +92,7 @@ class TestScatterChartRendering:
         """Test rendering chart with both standalone points and named series."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "scatter_basic.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = ScatterChart(
                 width=88.0,
@@ -130,7 +130,7 @@ class TestScatterChartRendering:
         """Test rendering bubble chart with variable radius points."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "scatter_bubble.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = ScatterChart(
                 width=80.0,
@@ -159,7 +159,7 @@ class TestScatterChartRendering:
         """Test rendering points with custom styles, triangles, and squares."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "scatter_shapes.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = ScatterChart(width=70.0, height=45.0)
             c_style = Style(shape_line_width=1.5, shape_fill_color=(16, 185, 129, 0.7), shape_line_color=(0, 0, 0, 1.0))
@@ -177,7 +177,7 @@ class TestScatterChartRendering:
         """Test rendering empty ScatterChart without points does not raise."""
         with tempfile.TemporaryDirectory() as tmpdir:
             out_file = Path(tmpdir) / "scatter_empty.png"
-            canvas.initialize()
+            canvas.clear()
 
             chart = ScatterChart()
             chart.draw(xy=(10.0, 10.0))

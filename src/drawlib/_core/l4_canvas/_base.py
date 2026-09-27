@@ -29,17 +29,16 @@ from drawlib._core.l2_models import (
     Dimage,
 )
 from drawlib._core.l2_types import (
-    TypeAlpha,
-    TypeAngle,
-    TypeColor,
-    TypeCoordinate,
-    TypeCoordinates,
-    TypeImageZoom,
-    TypePathPoints,
-    TypePosFloat,
-    TypePosInt,
-    TypeSize,
-    TypeStr,
+    Alpha,
+    Angle,
+    ColorType,
+    Coordinate,
+    Coordinates,
+    ImageZoom,
+    PathPoints,
+    PosFloat,
+    PosInt,
+    Size,
 )
 from drawlib._core.l3_styles import (
     Style,
@@ -80,14 +79,14 @@ class CanvasBase:
         self._width = self.DEFAULT_WIDTH
         self._height = self.DEFAULT_HEIGHT
         self._dpi = self.DEFAULT_DPI
-        self._background_color: TypeColor | None = None
-        self._background_alpha: TypeAlpha | None = None
+        self._background_color: ColorType | None = None
+        self._background_alpha: Alpha | None = None
         self._grid = self.DEFAULT_GRID
         self._grid_only = self.DEFAULT_GRID_ONLY
         self._grid_style = self.DEFAULT_GRID_STYLE
         self._grid_centerstyle = self.DEFAULT_GRID_CENTERSTYLE
-        self._grid_xpitch: TypePosInt | None = None
-        self._grid_ypitch: TypePosInt | None = None
+        self._grid_xpitch: PosInt | None = None
+        self._grid_ypitch: PosInt | None = None
         self._artists: list[matplotlib.artist.Artist] = []
 
         # it is decleared only for typing system
@@ -117,17 +116,17 @@ class CanvasBase:
     @validate_call
     def setup(  # noqa: C901
         self,
-        width: TypePosInt | None = None,
-        height: TypePosInt | None = None,
-        dpi: TypePosInt | None = None,
-        background_color: TypeColor | None = None,
-        background_alpha: TypeAlpha | None = None,
+        width: PosInt | None = None,
+        height: PosInt | None = None,
+        dpi: PosInt | None = None,
+        background_color: ColorType | None = None,
+        background_alpha: Alpha | None = None,
         grid: bool | None = None,
         grid_only: bool | None = None,
         grid_style: Style | None = None,
         grid_centerstyle: Style | None = None,
-        grid_xpitch: TypePosInt | None = None,
-        grid_ypitch: TypePosInt | None = None,
+        grid_xpitch: PosInt | None = None,
+        grid_ypitch: PosInt | None = None,
     ) -> None:
         """Configure drawlib Canvas parameters.
 
@@ -229,56 +228,6 @@ class CanvasBase:
         config_background()
         config_grid()
 
-    @validate_call
-    def config(
-        self,
-        width: TypePosInt | None = None,
-        height: TypePosInt | None = None,
-        dpi: TypePosInt | None = None,
-        background_color: TypeColor | None = None,
-        background_alpha: TypeAlpha | None = None,
-        grid: bool | None = None,
-        grid_only: bool | None = None,
-        grid_style: Style | None = None,
-        grid_centerstyle: Style | None = None,
-        grid_xpitch: TypePosInt | None = None,
-        grid_ypitch: TypePosInt | None = None,
-    ) -> None:
-        """Configure drawlib Canvas parameters.
-
-        Deprecated alias for `setup()`. Use `setup()` instead.
-
-        Args:
-            width (int | None): Width of the canvas.
-            height (int | None): Height of the canvas.
-            dpi (int | None): Output image resolution.
-            background_color (Union[tuple[int, int, int | None, tuple[int, int, int, float]]]):
-                Background color.
-            background_alpha (float | None): Background alpha (opacity).
-            grid (bool | None): Show grid for checking coordinates.
-            grid_only (bool | None): Show grid only.
-            grid_style (Style | None): Style of grid lines.
-            grid_centerstyle (Style | None): Style of center grid lines.
-            grid_xpitch (int | None): X-axis grid pitch.
-            grid_ypitch (int | None): Y-axis grid pitch.
-
-        Returns:
-            None
-        """
-        self.setup(
-            width=width,
-            height=height,
-            dpi=dpi,
-            background_color=background_color,
-            background_alpha=background_alpha,
-            grid=grid,
-            grid_only=grid_only,
-            grid_style=grid_style,
-            grid_centerstyle=grid_centerstyle,
-            grid_xpitch=grid_xpitch,
-            grid_ypitch=grid_ypitch,
-        )
-
     #
     # Shape
     #
@@ -286,11 +235,11 @@ class CanvasBase:
     @validate_call
     def polygon(
         self,
-        xys: TypeCoordinates,
+        xys: Coordinates,
         *,
         style: Style,
-        text: TypeStr = "",
-        textsize: TypeSize | None = None,
+        text: str = "",
+        textsize: Size | None = None,
         textstyle: Style | None = None,
     ) -> None:
         """Draw a polygon on the canvas.
@@ -333,13 +282,13 @@ class CanvasBase:
     @validate_call
     def shape(  # noqa: C901
         self,
-        xy: TypeCoordinate,
-        path_points: TypePathPoints,
+        xy: Coordinate,
+        path_points: PathPoints,
         *,
         style: Style,
-        angle: TypeAngle = 0.0,
-        text: TypeStr = "",
-        textsize: TypeSize | None = None,
+        angle: Angle = 0.0,
+        text: str = "",
+        textsize: Size | None = None,
         textstyle: Style | None = None,
         is_default_center: bool = False,
     ) -> None:
@@ -365,7 +314,7 @@ class CanvasBase:
 
         # helper
 
-        def get_rotate_point(xy: TypeCoordinate, angle: float, move_x: float, move_y: float) -> TypeCoordinate:
+        def get_rotate_point(xy: Coordinate, angle: float, move_x: float, move_y: float) -> Coordinate:
             x = xy[0]
             y = xy[1]
             angle_rad = math.radians(angle)
@@ -487,15 +436,15 @@ class CanvasBase:
     @validate_call
     def rectangle(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        height: TypePosFloat,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
         *,
         style: Style,
-        r: TypePosFloat = 0.0,
-        angle: TypeAngle = 0.0,
-        text: TypeStr = "",
-        textsize: TypeSize | None = None,
+        r: PosFloat = 0.0,
+        angle: Angle = 0.0,
+        text: str = "",
+        textsize: Size | None = None,
         textstyle: Style | None = None,
     ) -> None:
         """Draw a rectangle on the canvas.
@@ -566,11 +515,11 @@ class CanvasBase:
 
     def get_image_zoom_original(
         self,
-    ) -> TypeImageZoom:
+    ) -> ImageZoom:
         """Get the zoom factor for displaying the original image.
 
         Returns:
-            TypeImageZoom: Zoom factor.
+            ImageZoom: Zoom factor.
         """
         #
         # calcuration
@@ -584,8 +533,8 @@ class CanvasBase:
     def get_image_zoom_from_width(
         self,
         image: str | PIL.Image.Image | Dimage,
-        width: TypePosFloat,
-    ) -> TypeImageZoom:
+        width: PosFloat,
+    ) -> ImageZoom:
         """Get the zoom factor to fit the image width on the canvas.
 
         Args:
@@ -610,7 +559,7 @@ class CanvasBase:
     @validate_call
     def get_charwidth_from_fontsize(
         self,
-        size: TypePosFloat,
+        size: PosFloat,
     ) -> float:
         """Calculate the character width based on the font size.
 
@@ -638,7 +587,7 @@ class CanvasBase:
     @validate_call
     def get_fontsize_from_charwidth(
         self,
-        width: TypePosFloat,
+        width: PosFloat,
     ) -> float:
         """Calculate the font size based on the character width.
 

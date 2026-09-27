@@ -13,17 +13,17 @@ from pydantic import validate_call
 
 from drawlib._core.fonts import FontFile
 from drawlib._core.text import get_fontsize_from_charwidth, text
-from drawlib._core.types import Style, TypeAngle, TypeCoordinate, TypePosFloat, TypeStr
+from drawlib._core.types import Angle, Coordinate, PosFloat, Style
 from drawlib._icons._utils import IconUtil
 
 
 @validate_call
 def font_icon(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    code: TypeStr,
-    file: TypeStr,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    code: str,
+    file: str,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:

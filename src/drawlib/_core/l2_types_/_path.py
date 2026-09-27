@@ -51,4 +51,3 @@ def resolve_file_path(v: Any) -> Any:  # noqa: ANN401
 
 
 FilePath = Annotated[str, BeforeValidator(resolve_file_path)]
-TypeFilePath = FilePath

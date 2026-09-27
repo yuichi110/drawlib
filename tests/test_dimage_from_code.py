@@ -13,7 +13,7 @@ import os
 
 import pytest
 
-from drawlib.canvas import canvas, clear, config
+from drawlib.canvas import canvas, clear, setup
 from drawlib.images import Dimage, get_dimage_from_code, image
 from drawlib.shapes import circle
 from drawlib.types import Style
@@ -25,11 +25,11 @@ class TestGetDimageFromCode:
     def test_get_dimage_from_code_basic(self) -> None:
         """Verify basic code execution returns a valid Dimage instance."""
         code = """
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.shapes import circle
 from drawlib.types import Style
 
-config(width=100, height=100)
+setup(width=100, height=100)
 style = Style(shape_fill_color=(100, 100, 200, 1.0), shape_line_color=(0, 0, 0, 1.0), shape_line_width=1.0)
 circle((50, 50), radius=30, style=style)
 """
@@ -48,11 +48,11 @@ circle((50, 50), radius=30, style=style)
             os.remove(target_file)
 
         code = f"""
-from drawlib.canvas import config, save
+from drawlib.canvas import save, setup
 from drawlib.shapes import circle
 from drawlib.types import Style
 
-config(width=50, height=50)
+setup(width=50, height=50)
 style = Style(shape_fill_color=(100, 100, 200, 1.0), shape_line_color=(0, 0, 0, 1.0), shape_line_width=1.0)
 circle((25, 25), radius=15, style=style)
 save(r"{target_file}")
@@ -64,7 +64,7 @@ save(r"{target_file}")
     def test_get_dimage_from_code_isolation(self) -> None:
         """Verify executing get_dimage_from_code leaves parent canvas state intact."""
         clear()
-        config(width=200, height=100)
+        setup(width=200, height=100)
         shape_style = Style(
             shape_fill_color=(100, 100, 200, 1.0), shape_line_color=(0, 0, 0, 1.0), shape_line_width=1.0
         )
@@ -72,11 +72,11 @@ save(r"{target_file}")
 
         # Execute code in subprocess with explicit imports
         code = """
-from drawlib.canvas import config
+from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.types import Style
 
-config(width=50, height=50)
+setup(width=50, height=50)
 style = Style(shape_fill_color=(100, 100, 200, 1.0), shape_line_color=(0, 0, 0, 1.0), shape_line_width=1.0)
 rectangle((25, 25), width=20, height=20, style=style)
 """

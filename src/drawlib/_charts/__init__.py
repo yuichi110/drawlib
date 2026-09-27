@@ -32,7 +32,7 @@ from drawlib._charts.gantt_chart import (
 )
 from drawlib._charts.line_chart import AreaChart, AreaSeries, LineChart, LineSeries
 from drawlib._charts.pie_chart import PieChart, PieSlice
-from drawlib._charts.radar_chart import RadarChart, RadarSeries, RaderChart
+from drawlib._charts.radar_chart import RadarChart, RadarSeries
 from drawlib._charts.scatter_chart import ScatterChart, ScatterPoint, ScatterSeries
 
 __all__ = [
@@ -61,7 +61,6 @@ __all__ = [
     "PointShape",
     "RadarChart",
     "RadarSeries",
-    "RaderChart",
     "ScaleType",
     "ScatterChart",
     "ScatterPoint",

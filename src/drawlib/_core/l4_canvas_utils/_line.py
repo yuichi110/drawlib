@@ -11,7 +11,7 @@
 
 from typing import Any
 
-from drawlib._core.l2_types import TypeArrowHead
+from drawlib._core.l2_types import ArrowHead
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas_utils._colors import ColorUtil
 from drawlib._core.l4_canvas_utils._utils import get_dict_value_none_keys_removed
@@ -107,7 +107,7 @@ class LineUtil:
 
     @staticmethod
     def get_fancyarrowpatch_options(
-        arrowhead: TypeArrowHead,
+        arrowhead: ArrowHead,
         style: Style,
     ) -> dict[str, Any]:
         """Convert drawlib's Style to matplotlib's FancyArrowPatch options."""

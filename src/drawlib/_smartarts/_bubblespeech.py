@@ -16,23 +16,23 @@ from matplotlib.patches import Polygon
 from pydantic import validate_call
 
 from drawlib._core.canvas import canvas
-from drawlib._core.types import Style, TypeAlpha, TypeCoordinate, TypePosFloat, TypeSize, TypeStr
+from drawlib._core.types import Alpha, Coordinate, PosFloat, Size, Style
 from drawlib._core.utils import ShapeUtil, TextUtil
 
 
 @validate_call
 def bubblespeech(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    height: TypePosFloat,
+    xy: Coordinate,
+    width: PosFloat,
+    height: PosFloat,
     tail_edge: Literal["left", "top", "right", "bottom"],
-    tail_start_ratio: TypeAlpha,
-    tail_vertex_xy: TypeCoordinate,
-    tail_end_ratio: TypeAlpha,
+    tail_start_ratio: Alpha,
+    tail_vertex_xy: Coordinate,
+    tail_end_ratio: Alpha,
     *,
     style: Style,
-    text: TypeStr = "",
-    textsize: TypeSize | None = None,
+    text: str = "",
+    textsize: Size | None = None,
     textstyle: Style | None = None,
 ) -> None:
     """Draw a bubble speech on the canvas.

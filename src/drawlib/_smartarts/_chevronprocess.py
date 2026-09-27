@@ -21,7 +21,7 @@ from drawlib._core.fonts import Font
 from drawlib._core.shapes import chevron as canvas_chevron
 from drawlib._core.shapes import polygon as canvas_polygon
 from drawlib._core.text import text as canvas_text
-from drawlib._core.types import Style, TypeAngle90, TypeColor, TypeCoordinate, TypePosFloat, TypeStr
+from drawlib._core.types import Angle90, ColorType, Coordinate, PosFloat, Style
 from drawlib._preset_styles import BasePresetStyles
 
 
@@ -51,13 +51,13 @@ class ChevronProcess:
         self,
         *,
         styles: BasePresetStyles,
-        corner_angle: TypeAngle90 = 60.0,
-        spacing: TypePosFloat = 1.5,
+        corner_angle: Angle90 = 60.0,
+        spacing: PosFloat = 1.5,
         flat_left_end: bool = False,
         default_style: Style | None = None,
         default_textstyle: Style | None = None,
         default_description_style: Style | None = None,
-        palette: Sequence[TypeColor] | None = None,
+        palette: Sequence[ColorType] | None = None,
     ) -> None:
         """Initialize ChevronProcess.
 
@@ -92,8 +92,8 @@ class ChevronProcess:
     @validate_call
     def append(
         self,
-        text: TypeStr,
-        description: TypeStr = "",
+        text: str,
+        description: str = "",
         style: Style | None = None,
         textstyle: Style | None = None,
         description_style: Style | None = None,
@@ -119,8 +119,8 @@ class ChevronProcess:
     @validate_call
     def extend(
         self,
-        texts: list[TypeStr],
-        descriptions: list[TypeStr] | None = None,
+        texts: list[str],
+        descriptions: list[str] | None = None,
     ) -> None:
         """Extend the process with multiple step titles.
 
@@ -136,8 +136,8 @@ class ChevronProcess:
     def insert(
         self,
         index: int,
-        text: TypeStr,
-        description: TypeStr = "",
+        text: str,
+        description: str = "",
         style: Style | None = None,
         textstyle: Style | None = None,
         description_style: Style | None = None,
@@ -164,10 +164,10 @@ class ChevronProcess:
     @validate_call
     def draw(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat = 90.0,
-        height: TypePosFloat = 12.0,
-        item_width: TypePosFloat | None = None,
+        xy: Coordinate,
+        width: PosFloat = 90.0,
+        height: PosFloat = 12.0,
+        item_width: PosFloat | None = None,
     ) -> None:
         """Draw the chevron process diagram at the specified location.
 

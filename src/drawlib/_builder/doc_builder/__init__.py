@@ -825,7 +825,6 @@ def build_pdf(
     no_cache: bool = False,
     timestamp: bool = False,
     *,
-    toc: Optional[bool] = None,
     output_path: Optional[str] = None,
     styles_path: Optional[str] = None,
     utils_path: Optional[str] = None,
@@ -844,7 +843,6 @@ def build_pdf(
         no_cache (bool): If True, disable reading/writing the SQLite build image cache.
         timestamp (bool): If True, include current build timestamp in PDF metadata.
             If False (default), normalize timestamps to ensure reproducible builds.
-        toc (Optional[bool]): Backward-compatible alias for generate_index.
         output_path (Optional[str]): Alias for output.
         styles_path (Optional[str]): Alias for styles.
         utils_path (Optional[str]): Alias for utils.
@@ -852,8 +850,6 @@ def build_pdf(
     Returns:
         str: Absolute path of generated PDF file.
     """
-    if toc is not None:
-        generate_index = toc
     output = output or output_path
     styles = styles or styles_path
     utils = utils or utils_path

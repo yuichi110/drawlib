@@ -14,7 +14,7 @@ from __future__ import annotations
 from typing import Any
 
 from drawlib._core.fonts import Font, FontSourceCode
-from drawlib._core.types import Style, TypeColor
+from drawlib._core.types import ColorType, Style
 from drawlib._preset_colors import Colors
 from drawlib._preset_styles._base import BasePresetStyles
 from drawlib._preset_styles._utils import _create_style, _make_variants

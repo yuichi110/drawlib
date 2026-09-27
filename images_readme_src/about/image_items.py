@@ -8,13 +8,13 @@
 # merchantability, fitness for a particular purpose and noninfringement.
 
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors, Colors140
 from drawlib.fonts import FontJapanese, FontSansSerif, FontSerif
 from drawlib.icons import phosphor
 from drawlib.images import Dimage, image
 from drawlib.lines import line, line_curved, lines, lines_curved
-from drawlib.styles import styles
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.shapes import arrow, circle, ellipse, rectangle, star
+from drawlib.styles import styles
 from drawlib.text import text
 
 x1 = 10
@@ -120,4 +120,3 @@ def draw_text():
 
 
 main()
-

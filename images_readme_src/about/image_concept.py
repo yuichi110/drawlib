@@ -9,11 +9,13 @@
 
 from drawlib.canvas import save, setup
 from drawlib.preset_colors import Colors
-from drawlib.styles import styles
 from drawlib.shapes import arrow, circle
+from drawlib.styles import styles
 from drawlib.text import text
 
 setup(width=100, height=60)
+
+
 def left():
     x = 18
     circle(
@@ -69,4 +71,3 @@ left()
 center()
 right()
 save()
-

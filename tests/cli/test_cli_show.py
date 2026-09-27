@@ -21,12 +21,12 @@ def test_cli_show_python_script_default(tmp_path: Path) -> None:
     """Test show command executing a Python script without grid overlay."""
     script = tmp_path / "drawing.py"
     script.write_text(
-        """from drawlib.canvas import config, save
+        """from drawlib.canvas import save, setup
 from drawlib.preset_styles import default_styles
 from drawlib.shapes import circle
 
 styles = default_styles
-config(width=100, height=100)
+setup(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)
 save()
 """,
@@ -45,12 +45,12 @@ def test_cli_show_python_script_with_grid_long(tmp_path: Path) -> None:
     """Test show command executing a Python script with --grid flag."""
     script = tmp_path / "drawing_grid.py"
     script.write_text(
-        """from drawlib.canvas import config, save
+        """from drawlib.canvas import save, setup
 from drawlib.preset_styles import default_styles
 from drawlib.shapes import rectangle
 
 styles = default_styles
-config(width=100, height=100)
+setup(width=100, height=100)
 rectangle((50, 50), width=40, height=30, style=styles.primary)
 save()
 """,
@@ -69,12 +69,12 @@ def test_cli_show_python_script_with_grid_short(tmp_path: Path) -> None:
     """Test show command executing a Python script with -g flag."""
     script = tmp_path / "drawing_grid_short.py"
     script.write_text(
-        """from drawlib.canvas import config, save
+        """from drawlib.canvas import save, setup
 from drawlib.preset_styles import default_styles
 from drawlib.shapes import rectangle
 
 styles = default_styles
-config(width=100, height=100)
+setup(width=100, height=100)
 rectangle((50, 50), width=40, height=30, style=styles.primary)
 save()
 """,

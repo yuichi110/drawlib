@@ -18,14 +18,13 @@ from matplotlib.path import Path
 from pydantic import validate_call
 
 from drawlib._core.l2_types import (
-    TypeAngle,
-    TypeArrowHead,
-    TypeCoordinate,
-    TypeCoordinates,
-    TypePathPoints,
-    TypePosFloat,
-    TypeSize,
-    TypeStr,
+    Angle,
+    ArrowHead,
+    Coordinate,
+    Coordinates,
+    PathPoints,
+    PosFloat,
+    Size,
 )
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas._base import CanvasBase
@@ -60,16 +59,16 @@ class CanvasOriginalArrowFeature(CanvasBase):
     @validate_call
     def arrow(
         self,
-        xy1: TypeCoordinate,
-        xy2: TypeCoordinate,
-        tail_width: TypePosFloat,
-        head_width: TypePosFloat,
-        head_length: TypePosFloat,
-        head: TypeArrowHead = "->",
+        xy1: Coordinate,
+        xy2: Coordinate,
+        tail_width: PosFloat,
+        head_width: PosFloat,
+        head_length: PosFloat,
+        head: ArrowHead = "->",
         *,
         style: Style,
-        text: TypeStr = "",
-        textsize: TypeSize | None = None,
+        text: str = "",
+        textsize: Size | None = None,
         textstyle: Style | None = None,
     ) -> None:
         """Draw a straight arrow between two coordinates.
@@ -121,7 +120,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
         p41 = (0, head_width / 2)
         p42 = (distance, head_width / 2)
 
-        points: TypePathPoints
+        points: PathPoints
         if head == "->":
             points = [p11, p12, p33, p23, p42, p24, p34]
         elif head == "<-":
@@ -144,12 +143,12 @@ class CanvasOriginalArrowFeature(CanvasBase):
     @validate_call
     def arrow_polyline(
         self,
-        xys: TypeCoordinates,
-        tail_width: TypePosFloat,
-        head_width: TypePosFloat,
-        head_length: TypePosFloat,
-        head: TypeArrowHead = "->",
-        r: TypePosFloat = 0,
+        xys: Coordinates,
+        tail_width: PosFloat,
+        head_width: PosFloat,
+        head_length: PosFloat,
+        head: ArrowHead = "->",
+        r: PosFloat = 0,
         *,
         style: Style,
     ) -> None:
@@ -169,7 +168,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
             None,
         )
 
-        def point_on_line(a: TypeCoordinate, b: TypeCoordinate, n: float) -> TypeCoordinate:
+        def point_on_line(a: Coordinate, b: Coordinate, n: float) -> Coordinate:
             ab = (b[0] - a[0], b[1] - a[1])
             ab_length = math.sqrt(ab[0] ** 2 + ab[1] ** 2)
             ab_unit = (ab[0] / ab_length, ab[1] / ab_length)
@@ -177,7 +176,7 @@ class CanvasOriginalArrowFeature(CanvasBase):
             new_point = (a[0] + scaled_vector[0], a[1] + scaled_vector[1])
             return new_point
 
-        def point_parallel_to_line(a: TypeCoordinate, b: TypeCoordinate, distance: float) -> TypeCoordinate:
+        def point_parallel_to_line(a: Coordinate, b: Coordinate, distance: float) -> Coordinate:
             ab = (b[0] - a[0], b[1] - a[1])
             ab_length = math.sqrt(ab[0] ** 2 + ab[1] ** 2)
             ab_unit = (ab[0] / ab_length, ab[1] / ab_length)
@@ -225,16 +224,16 @@ class CanvasOriginalArrowFeature(CanvasBase):
     @validate_call
     def arrow_arc(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        height: TypePosFloat,
-        tail_width: TypePosFloat,
-        head_width: TypePosFloat,
-        head_angle: TypeAngle = 10,
-        head: TypeArrowHead = "->",
-        angle_start: TypeAngle = 0,
-        angle_end: TypeAngle = 180,
-        angle: TypeAngle = 0,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        tail_width: PosFloat,
+        head_width: PosFloat,
+        head_angle: Angle = 10,
+        head: ArrowHead = "->",
+        angle_start: Angle = 0,
+        angle_end: Angle = 180,
+        angle: Angle = 0,
         *,
         style: Style,
     ) -> None:
@@ -374,15 +373,15 @@ class CanvasOriginalArrowFeature(CanvasBase):
     @validate_call
     def arrow_l(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        height: TypePosFloat,
-        tail_width: TypePosFloat,
-        head_width: TypePosFloat,
-        head_length: TypePosFloat,
-        head: TypeArrowHead = "->",
-        r: TypePosFloat = 0,
-        angle: TypeAngle = 0,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        tail_width: PosFloat,
+        head_width: PosFloat,
+        head_length: PosFloat,
+        head: ArrowHead = "->",
+        r: PosFloat = 0,
+        angle: Angle = 0,
         *,
         style: Style,
     ) -> None:
@@ -426,15 +425,15 @@ class CanvasOriginalArrowFeature(CanvasBase):
     @validate_call
     def arrow_u(
         self,
-        xy: TypeCoordinate,
-        width: TypePosFloat,
-        height: TypePosFloat,
-        tail_width: TypePosFloat,
-        head_width: TypePosFloat,
-        head_length: TypePosFloat,
-        head: TypeArrowHead = "->",
-        r: TypePosFloat = 0,
-        angle: TypeAngle = 0,
+        xy: Coordinate,
+        width: PosFloat,
+        height: PosFloat,
+        tail_width: PosFloat,
+        head_width: PosFloat,
+        head_length: PosFloat,
+        head: ArrowHead = "->",
+        r: PosFloat = 0,
+        angle: Angle = 0,
         *,
         style: Style,
     ) -> None:
@@ -518,16 +517,16 @@ class ArrowPolylineHelper:
 
     def __init__(
         self,
-        xys: TypeCoordinates,
+        xys: Coordinates,
         r: float,
         num_points: int = 100,
     ) -> None:
         """Internal function"""
 
         def get_mid_points(
-            a: TypeCoordinate,
-            b: TypeCoordinate,
-        ) -> tuple[TypeCoordinate, TypeCoordinate]:
+            a: Coordinate,
+            b: Coordinate,
+        ) -> tuple[Coordinate, Coordinate]:
             ab = [b[0] - a[0], b[1] - a[1]]
             ab_distance = math.sqrt(ab[0] ** 2 + ab[1] ** 2)
             ab_unit = [ab[0] / ab_distance, ab[1] / ab_distance]
@@ -539,8 +538,8 @@ class ArrowPolylineHelper:
             return math.comb(n, i) * (t**i) * ((1 - t) ** (n - i))
 
         def get_points(
-            bezier_points: TypeCoordinates,
-        ) -> TypeCoordinates:
+            bezier_points: Coordinates,
+        ) -> Coordinates:
             n = len(bezier_points) - 1
             curve = []
             for t in [i / (num_points - 1) for i in range(num_points)]:
@@ -555,7 +554,7 @@ class ArrowPolylineHelper:
             return
 
         points = []
-        bezier_start: TypeCoordinate = (0, 0)
+        bezier_start: Coordinate = (0, 0)
         last_i = len(xys) - 2
         # last_xy = (0, 0)
         for i in range(len(xys)):
@@ -580,16 +579,16 @@ class ArrowPolylineHelper:
 
         self._original_points = points
 
-    def get_parallel_points(self, distance: float) -> TypeCoordinates:
+    def get_parallel_points(self, distance: float) -> Coordinates:
         """Internal function"""
         if self._r == 0:
             return self._get_parallel_straight_points(distance)
         return self._get_parallel_curved_points(distance)
 
-    def _get_parallel_curved_points(self, distance: float) -> TypeCoordinates:
+    def _get_parallel_curved_points(self, distance: float) -> Coordinates:
         """Internal function"""
 
-        def get_distance(p1: TypeCoordinate, p2: TypeCoordinate) -> float:
+        def get_distance(p1: Coordinate, p2: Coordinate) -> float:
             return math.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
 
         parallel_curve_points = []
@@ -606,13 +605,13 @@ class ArrowPolylineHelper:
 
         return parallel_curve_points
 
-    def _get_parallel_straight_points(self, distance: float) -> TypeCoordinates:
+    def _get_parallel_straight_points(self, distance: float) -> Coordinates:
         """Internal function"""
 
         def get_parallel_line_xys(
-            xy1: TypeCoordinate,
-            xy2: TypeCoordinate,
-        ) -> tuple[TypeCoordinate, TypeCoordinate]:
+            xy1: Coordinate,
+            xy2: Coordinate,
+        ) -> tuple[Coordinate, Coordinate]:
             """Internal function"""
             x1, y1 = xy1
             x2, y2 = xy2
@@ -633,11 +632,11 @@ class ArrowPolylineHelper:
             return (x1_prime, y1_prime), (x2_prime, y2_prime)
 
         def find_lines_intersection(
-            xy1: TypeCoordinate,
-            xy2: TypeCoordinate,
-            xy3: TypeCoordinate,
-            xy4: TypeCoordinate,
-        ) -> TypeCoordinate:
+            xy1: Coordinate,
+            xy2: Coordinate,
+            xy3: Coordinate,
+            xy4: Coordinate,
+        ) -> Coordinate:
             """Internal function"""
             x1, y1 = xy1
             x2, y2 = xy2
@@ -677,12 +676,12 @@ class ArrowPolylineHelper:
             return (x, y)
 
         xys = self._original_points
-        parallel_lines: list[tuple[TypeCoordinate, TypeCoordinate]] = []
+        parallel_lines: list[tuple[Coordinate, Coordinate]] = []
         for i in range(len(xys) - 1):
             xy1, xy2 = get_parallel_line_xys(xys[i], xys[i + 1])
             parallel_lines.append((xy1, xy2))
 
-        points: TypeCoordinates = []
+        points: Coordinates = []
         for i in range(len(parallel_lines) - 1):
             xy1, xy2 = parallel_lines[i]
             xy3, xy4 = parallel_lines[i + 1]

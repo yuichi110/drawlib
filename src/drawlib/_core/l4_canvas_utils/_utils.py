@@ -18,14 +18,13 @@ from matplotlib.text import Text
 from pydantic import validate_call
 
 from drawlib._core.l2_types import (
-    TypeAngle,
-    TypeArrowHead,
-    TypeColor,
-    TypeColorRGBA,
-    TypeCoordinate,
-    TypeCoordinates,
-    TypeFloat,
-    TypePathPoints,
+    Angle,
+    ArrowHead,
+    ColorRGBA,
+    ColorType,
+    Coordinate,
+    Coordinates,
+    PathPoints,
 )
 from drawlib._core.l3_external import download_if_not_exist
 from drawlib._core.l3_fonts import get_font_metadata
@@ -35,10 +34,10 @@ from drawlib._core.l3_styles import (
 
 
 def get_rotated_points(
-    xys: TypeCoordinates,
-    center: TypeCoordinate,
-    angle: TypeAngle,
-) -> TypeCoordinates:
+    xys: Coordinates,
+    center: Coordinate,
+    angle: Angle,
+) -> Coordinates:
     """
     Rotate a list of points around a given center by a given angle.
 
@@ -73,10 +72,10 @@ def get_rotated_points(
 
 
 def get_rotated_path_points(
-    path_points: TypePathPoints,
-    center: TypeCoordinate,
-    angle: TypeAngle,
-) -> TypePathPoints:
+    path_points: PathPoints,
+    center: Coordinate,
+    angle: Angle,
+) -> PathPoints:
     """
     Rotate a list of points around a given center by a given angle.
 
@@ -92,7 +91,7 @@ def get_rotated_path_points(
     cos_theta = math.cos(angle)
     sin_theta = math.sin(angle)
 
-    rotated_path_points: TypePathPoints = []
+    rotated_path_points: PathPoints = []
     cx, cy = center
 
     for t in path_points:
@@ -130,7 +129,7 @@ def get_rotated_path_points(
 
 
 @validate_call
-def get_angle(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeAngle:
+def get_angle(xy1: Coordinate, xy2: Coordinate) -> Angle:
     """Calculate the angle in degrees between two points.
 
     Args:
@@ -151,7 +150,7 @@ def get_angle(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeAngle:
 
 
 @validate_call
-def get_distance(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeFloat:
+def get_distance(xy1: Coordinate, xy2: Coordinate) -> float:
     """Calculate the Euclidean distance between two points.
 
     Args:
@@ -169,8 +168,8 @@ def get_distance(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeFloat:
 
 @validate_call
 def get_center_and_size(
-    xys: TypeCoordinates,
-) -> tuple[TypeCoordinate, TypeCoordinate]:
+    xys: Coordinates,
+) -> tuple[Coordinate, Coordinate]:
     """Calculate the center coordinates and size of a group of points.
 
     Args:
@@ -197,7 +196,7 @@ def get_center_and_size(
     return ((center_x, center_y), (maxx - minx, maxy - miny))
 
 
-def plus_2points(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeCoordinate:
+def plus_2points(xy1: Coordinate, xy2: Coordinate) -> Coordinate:
     """Add two points (vectors).
 
     Args:
@@ -211,7 +210,7 @@ def plus_2points(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeCoordinate:
     return (xy1[0] + xy2[0], xy1[1] + xy2[1])
 
 
-def minus_2points(xy1: TypeCoordinate, xy2: TypeCoordinate) -> TypeCoordinate:
+def minus_2points(xy1: Coordinate, xy2: Coordinate) -> Coordinate:
     """Subtract one point (vector) from another.
 
     Args:

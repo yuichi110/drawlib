@@ -12,11 +12,7 @@
 from drawlib._charts.radar_chart._chart import RadarChart
 from drawlib._charts.radar_chart._series import RadarSeries
 
-# Alias for typo tolerance
-RaderChart = RadarChart
-
 __all__ = [
     "RadarChart",
     "RadarSeries",
-    "RaderChart",
 ]

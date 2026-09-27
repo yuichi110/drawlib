@@ -11,14 +11,14 @@
 
 from pydantic import validate_call
 
-from drawlib._core.types import TypeAlpha, TypeColorRGB, TypeColorRGBA, TypeStr
+from drawlib._core.types import Alpha, ColorRGB, ColorRGBA
 
 
 @validate_call
 def get_rgba(
-    rgb: TypeColorRGB,
-    alpha: TypeAlpha,
-) -> TypeColorRGBA:
+    rgb: ColorRGB,
+    alpha: Alpha,
+) -> ColorRGBA:
     """
     Convert an RGB color to an RGBA color by adding an alpha (transparency) channel.
 
@@ -41,9 +41,9 @@ def get_rgba(
 
 @validate_call
 def get_rgba_from_hexcode(
-    hexcode: TypeStr,
-    alpha: TypeAlpha | None = None,
-) -> TypeColorRGBA:
+    hexcode: str,
+    alpha: Alpha | None = None,
+) -> ColorRGBA:
     """
     Convert a hexadecimal color code to an RGBA color tuple.
 
@@ -86,9 +86,9 @@ def get_rgba_from_hexcode(
 
 @validate_call
 def get_rgba_from_grayscale(
-    grayscale: TypeAlpha,
-    alpha: TypeAlpha = 1.0,
-) -> TypeColorRGBA:
+    grayscale: Alpha,
+    alpha: Alpha = 1.0,
+) -> ColorRGBA:
     """
     Convert a grayscale value to an RGBA color tuple.
 
