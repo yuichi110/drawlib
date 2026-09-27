@@ -16,7 +16,6 @@ from typing import Any, cast
 import pytest
 from PIL import Image
 
-import drawlib.diagrams.architecture.icons as arch_icons
 from drawlib import canvas
 from drawlib._core.l2_types import Dimage
 from drawlib._core.l3_styles import Style
@@ -31,6 +30,7 @@ from drawlib.diagrams.architecture import (
     NodeGroup,
     PhosphorIcon,
 )
+from drawlib.diagrams.architecture import icons as arch_icons
 from drawlib.preset_colors import Colors
 
 

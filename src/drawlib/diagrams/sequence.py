@@ -7,14 +7,30 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Public icons module for architecture diagrams."""
+"""Public sequence diagrams module."""
 
 from __future__ import annotations
 
+from drawlib._diagrams.architecture import _icons as icons
 from drawlib._diagrams.architecture._icons import CustomIcon, GcpIcon, PhosphorIcon
+from drawlib._diagrams.sequence import (
+    Block,
+    Message,
+    Note,
+    Participant,
+    ParticipantGroup,
+    SequenceDiagram,
+)
 
 __all__ = [
+    "Block",
     "CustomIcon",
     "GcpIcon",
+    "Message",
+    "Note",
+    "Participant",
+    "ParticipantGroup",
     "PhosphorIcon",
+    "SequenceDiagram",
+    "icons",
 ]

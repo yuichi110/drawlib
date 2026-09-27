@@ -7,14 +7,26 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Icon re-exports for sequence diagrams."""
+"""Public architecture diagrams module."""
 
 from __future__ import annotations
 
+from drawlib._diagrams.architecture import _icons as icons
+from drawlib._diagrams.architecture._diagram import ArchitectureDiagram
+from drawlib._diagrams.architecture._edge import Edge
+from drawlib._diagrams.architecture._group import NodeGroup
 from drawlib._diagrams.architecture._icons import CustomIcon, GcpIcon, PhosphorIcon
+from drawlib._diagrams.architecture._junction import Junction
+from drawlib._diagrams.architecture._node import Node
 
 __all__ = [
+    "ArchitectureDiagram",
     "CustomIcon",
+    "Edge",
     "GcpIcon",
+    "Junction",
+    "Node",
+    "NodeGroup",
     "PhosphorIcon",
+    "icons",
 ]

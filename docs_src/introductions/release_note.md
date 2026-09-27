@@ -57,7 +57,7 @@
   - `drawlib.diagrams.er.ERDiagram`
   - `drawlib.diagrams.flow.FlowDiagram`
   - `drawlib.diagrams.sequence.SequenceDiagram`
-  - These can now also be imported directly from `drawlib.diagrams` (e.g., `from drawlib.diagrams import ArchitectureDiagram, ERDiagram, FlowDiagram, SequenceDiagram`).
+  - Submodules can also be imported from `drawlib.diagrams` (e.g., `from drawlib.diagrams import architecture, er, flow, sequence`).
 
 
 
