@@ -13,8 +13,10 @@
 from __future__ import annotations
 
 import os
-from typing import List, cast
+from collections import Counter
+from typing import List, Literal, cast
 
+import matplotlib.colors as mcolors
 from PIL import (
     Image,
     ImageChops,
@@ -24,6 +26,7 @@ from PIL import (
 )
 from pydantic import ConfigDict, validate_call
 
+from drawlib._core.l2_types._color import Color
 from drawlib._core.l2_types._image import (
     ImageQuality,
     ImageResample,
@@ -41,6 +44,74 @@ from drawlib._core.l2_types._style import (
 )
 
 list_ = list
+
+
+def _resolve_target_rgb(
+    color: str | Color | tuple[int, int, int] | tuple[int, int, int, float],
+) -> tuple[int, int, int]:
+    """Resolve color input to RGB tuple.
+
+    Args:
+        color (str | Color | tuple[int, int, int] | tuple[int, int, int, float]):
+            Target color representation.
+
+    Returns:
+        tuple[int, int, int]: Resolved RGB tuple.
+    """
+    if isinstance(color, Color):
+        return (color.r, color.g, color.b)
+    if isinstance(color, str):
+        try:
+            c = Color(color)
+            return (c.r, c.g, c.b)
+        except ValueError:
+            try:
+                rgb_float = mcolors.to_rgb(color)
+                return (
+                    int(round(rgb_float[0] * 255)),
+                    int(round(rgb_float[1] * 255)),
+                    int(round(rgb_float[2] * 255)),
+                )
+            except ValueError as e:
+                raise ValueError(f"Invalid color specification: {color}") from e
+    if isinstance(color, (tuple, list)):
+        if len(color) in {3, 4}:
+            return (int(color[0]), int(color[1]), int(color[2]))
+    raise ValueError(f"Invalid color specification: {color}")
+
+
+def _detect_corner_color(pilimg: Image.Image) -> tuple[int, int, int] | None:
+    """Detect the dominant background color or transparency from image corners.
+
+    Args:
+        pilimg (Image.Image): The PIL image to inspect.
+
+    Returns:
+        tuple[int, int, int] | None: Detected RGB color tuple, or None if corners are transparent.
+    """
+    w, h = pilimg.size
+    corners = [
+        (0, 0),
+        (max(0, w - 1), 0),
+        (0, max(0, h - 1)),
+        (max(0, w - 1), max(0, h - 1)),
+    ]
+
+    rgba_img = pilimg.convert("RGBA")
+    corner_pixels = [rgba_img.getpixel(pos) for pos in corners]
+
+    # If two or more corners are fully transparent, treat background as transparent
+    transparent_count = sum(1 for p in corner_pixels if p[3] == 0)
+    if transparent_count >= 2:
+        return None
+
+    # Otherwise, find the most common RGB color among non-transparent corners
+    rgb_pixels = [p[:3] for p in corner_pixels if p[3] > 0]
+    if not rgb_pixels:
+        return None
+    counter = Counter(rgb_pixels)
+    most_common_rgb = counter.most_common(1)[0][0]
+    return (most_common_rgb[0], most_common_rgb[1], most_common_rgb[2])
 
 
 class Dimage:
@@ -522,26 +593,108 @@ class Dimage:
         newimg = ImageOps.invert(senga_inv)
         return Dimage(newimg)
 
-    def remove_margin(
+    def trim(
         self,
-        margin_color: str | ColorRGB | None,
+        color: str | Color | tuple[int, int, int] | tuple[int, int, int, float] | None = "auto",
+        tolerance: int = 0,
     ) -> Dimage:
-        """Get a new Dimage with the margins removed while keeping the original Dimage unchanged.
+        """Get a new Dimage with background margins cropped while keeping the original unchanged.
 
         Args:
-            margin_color (str | ColorRGB | None):
-                    The color of the margin to remove. If None, removes transparent margins.
+            color (str | Color | tuple[int, int, int] | tuple[int, int, int, float] | None):
+                Target background color to crop.
+                - "auto": Automatically detects background color or transparency from image corners.
+                - None: Crops transparent margins (requires alpha channel).
+                - Color / str / tuple: Specific color to trim as margin.
+            tolerance (int): Color distance tolerance (0-255). Default is 0.
 
         Returns:
-            Dimage: A new Dimage with the margins removed.
+            Dimage: A new cropped Dimage.
 
+        Raises:
+            ValueError: If tolerance is out of range, or if trimming transparent margin on image without alpha.
         """
-        if margin_color is None:
-            if "A" not in self._pilimg.mode:
-                message = "Can't remove transparent margin from RGB image."
-                raise ValueError(message)
-            crop = self._pilimg.split()[-1].getbbox()
-            new_image = self._pilimg.crop(crop)
-            return Dimage(new_image)
+        if not (0 <= tolerance <= 255):
+            raise ValueError("Arg 'tolerance' must be between 0 and 255.")
 
-        raise NotImplementedError("Implement later")
+        target_rgb: tuple[int, int, int] | None
+        if color == "auto":
+            target_rgb = _detect_corner_color(self._pilimg)
+        elif color is None:
+            target_rgb = None
+        else:
+            target_rgb = _resolve_target_rgb(color)
+
+        if target_rgb is None:
+            if "A" not in self._pilimg.mode:
+                raise ValueError("Cannot trim transparent margin from an image without alpha channel.")
+            alpha = self._pilimg.split()[-1]
+            if tolerance > 0:
+                alpha_mask = alpha.point(lambda p: 255 if p > tolerance else 0)
+                bbox = alpha_mask.getbbox()
+            else:
+                bbox = alpha.getbbox()
+            if bbox:
+                return Dimage(self._pilimg.crop(bbox))
+            return Dimage(self._pilimg)
+
+        bg = Image.new("RGB", self._pilimg.size, target_rgb)
+        diff = ImageChops.difference(self._pilimg.convert("RGB"), bg)
+        r_diff, g_diff, b_diff = diff.split()
+        max_diff = ImageChops.lighter(ImageChops.lighter(r_diff, g_diff), b_diff)
+        content_mask = max_diff.point(lambda p: 255 if p > tolerance else 0)
+
+        if "A" in self._pilimg.mode:
+            orig_alpha = self._pilimg.split()[-1]
+            alpha_mask = orig_alpha.point(lambda p: 255 if p > tolerance else 0)
+            content_mask = ImageChops.darker(content_mask, alpha_mask)
+
+        bbox = content_mask.getbbox()
+        if bbox:
+            return Dimage(self._pilimg.crop(bbox))
+        return Dimage(self._pilimg)
+
+    def make_transparent(
+        self,
+        color: str | Color | tuple[int, int, int] | tuple[int, int, int, float] | Literal["auto"] = "auto",
+        tolerance: int = 0,
+    ) -> Dimage:
+        """Get a new Dimage with the specified background color turned transparent.
+
+        Args:
+            color (str | Color | tuple[int, int, int] | tuple[int, int, int, float] | Literal["auto"]):
+                Target color to make transparent.
+                - "auto": Automatically detects background color from corners.
+                - Color / str / tuple: Specific color to convert to transparent.
+            tolerance (int): Color distance tolerance (0-255). Default is 0.
+
+        Returns:
+            Dimage: A new Dimage in RGBA mode with background turned transparent.
+
+        Raises:
+            ValueError: If tolerance is out of range.
+        """
+        if not (0 <= tolerance <= 255):
+            raise ValueError("Arg 'tolerance' must be between 0 and 255.")
+
+        target_rgb: tuple[int, int, int] | None
+        if color == "auto":
+            target_rgb = _detect_corner_color(self._pilimg)
+            if target_rgb is None:
+                return Dimage(self._pilimg.convert("RGBA"))
+        else:
+            target_rgb = _resolve_target_rgb(color)
+
+        rgba = self._pilimg.convert("RGBA")
+        bg = Image.new("RGB", rgba.size, target_rgb)
+        diff = ImageChops.difference(rgba.convert("RGB"), bg)
+        r_diff, g_diff, b_diff = diff.split()
+        max_diff = ImageChops.lighter(ImageChops.lighter(r_diff, g_diff), b_diff)
+
+        mask = max_diff.point(lambda p: 0 if p <= tolerance else 255)
+
+        orig_alpha = rgba.split()[3]
+        new_alpha = ImageChops.darker(orig_alpha, mask)
+
+        rgba.putalpha(new_alpha)
+        return Dimage(rgba)

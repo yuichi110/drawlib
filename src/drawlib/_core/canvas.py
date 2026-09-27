@@ -19,10 +19,8 @@ from drawlib._core.l4_canvas import (
     setup,
     show,
 )
-from drawlib._core.l4_canvas._canvas import Canvas
 
 __all__ = [
-    "Canvas",
     "canvas",
     "clear",
     "get_dimage",

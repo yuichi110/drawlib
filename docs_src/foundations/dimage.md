@@ -225,6 +225,99 @@ text((75, 10), "crop()", style=styles.primary)
 
 
 
+# Trim Margins
+
+
+While `crop()` requires you to specify manual bounding coordinates, `trim()` automatically removes outer margins from an image:
+
+- `color`: Background color to remove.
+  - `"auto"` (default): Automatically detects whether margins are transparent or a solid color by inspecting the image corners.
+  - `None`: Trims transparent margins (requires alpha channel).
+  - Specific color: Provide a color name (`"white"`, `"blue"`), hex code (`"#ffffff"`), `Color` object, or RGB tuple.
+- `tolerance`: An integer (0–255, default 0) specifying color distance tolerance. Increasing tolerance is helpful when trimming images with slight compression artifacts or noisy background colors.
+
+Here is an example:
+
+
+```python
+from PIL import Image
+from drawlib.canvas import setup
+from drawlib.images import Dimage, image
+from drawlib.preset_colors import Colors
+from drawlib.styles import styles
+from drawlib.text import text
+
+setup(width=100, height=50, dpi=200)
+
+# Create an image with wide margins for demonstration
+base = Image.new("RGB", (400, 400), (255, 255, 255))
+linux_pil = Dimage("../_assets/linux.png").resize(200, 237).get_pil_image()
+base.paste(linux_pil, (100, 80), mask=linux_pil.split()[3])
+original_with_margin = Dimage(base)
+
+# Original image with border showing outer margins
+image(
+    (25, 27),
+    22,
+    original_with_margin,
+    style=styles.primary.patch(image_border_width=1, image_border_color=Colors.Red),
+)
+text((25, 10), "original (with margin)", style=styles.primary)
+
+# Automatically trim margins
+trimmed = original_with_margin.trim()
+image(
+    (75, 27),
+    22,
+    trimmed,
+    style=styles.primary.patch(image_border_width=1, image_border_color=Colors.Green),
+)
+text((75, 10), "trim()", style=styles.primary)
+```
+
+In this example, `trim()` detects the white margin around the subject automatically and crops the image to its tightly bounded content.
+
+Here is the output:
+
+
+```drawlib 600px center
+from PIL import Image
+from drawlib.canvas import setup
+from drawlib.images import Dimage, image
+from drawlib.preset_colors import Colors
+from drawlib.styles import styles
+from drawlib.text import text
+
+setup(width=100, height=50, dpi=200)
+
+# Create an image with wide margins for demonstration
+base = Image.new("RGB", (400, 400), (255, 255, 255))
+linux_pil = Dimage("../_assets/linux.png").resize(200, 237).get_pil_image()
+base.paste(linux_pil, (100, 80), mask=linux_pil.split()[3])
+original_with_margin = Dimage(base)
+
+# Original image with border showing outer margins
+image(
+    (25, 27),
+    22,
+    original_with_margin,
+    style=styles.primary.patch(image_border_width=1, image_border_color=Colors.Red),
+)
+text((25, 10), "original (with margin)", style=styles.primary)
+
+# Automatically trim margins
+trimmed = original_with_margin.trim()
+image(
+    (75, 27),
+    22,
+    trimmed,
+    style=styles.primary.patch(image_border_width=1, image_border_color=Colors.Green),
+)
+text((75, 10), "trim()", style=styles.primary)
+```
+
+
+
 # Flip Horizontally and Vertically
 
 
@@ -471,6 +564,76 @@ image(
     ),
 )
 text((80, 10), "colorize()", style=styles.white)
+```
+
+
+
+# Make Background Transparent
+
+
+If you have an illustration or icon with an unwanted solid background (such as white), `make_transparent()` turns that background color into transparent pixels (alpha = 0) in RGBA mode without changing the image dimensions:
+
+- `color`: The color to make transparent.
+  - `"auto"` (default): Automatically detects the background color from the four corners of the image.
+  - Specific color: Provide a color name (`"white"`, `"blue"`), hex code (`"#ffffff"`), `Color` object, or RGB tuple.
+- `tolerance`: An integer (0–255, default 0) specifying color distance tolerance.
+
+Here is an example placed on a colored canvas:
+
+
+```python
+from PIL import Image
+from drawlib.canvas import setup
+from drawlib.images import Dimage, image
+from drawlib.preset_colors import Colors
+from drawlib.styles import styles
+from drawlib.text import text
+
+setup(width=100, height=50, dpi=200, background_color=Colors.Gray)
+
+# Create an image with a solid white background
+base = Image.new("RGB", (400, 400), (255, 255, 255))
+linux_pil = Dimage("../_assets/linux.png").resize(200, 237).get_pil_image()
+base.paste(linux_pil, (100, 80), mask=linux_pil.split()[3])
+original_with_white_bg = Dimage(base)
+
+# Original image shows a distracting white box on colored canvas
+image((25, 27), 22, original_with_white_bg)
+text((25, 10), "original (white bg)", style=styles.white)
+
+# Automatically convert the background to transparent
+transparent_img = original_with_white_bg.make_transparent()
+image((75, 27), 22, transparent_img)
+text((75, 10), "make_transparent()", style=styles.white)
+```
+
+Here is the output:
+
+
+```drawlib 600px center
+from PIL import Image
+from drawlib.canvas import setup
+from drawlib.images import Dimage, image
+from drawlib.preset_colors import Colors
+from drawlib.styles import styles
+from drawlib.text import text
+
+setup(width=100, height=50, dpi=200, background_color=Colors.Gray)
+
+# Create an image with a solid white background
+base = Image.new("RGB", (400, 400), (255, 255, 255))
+linux_pil = Dimage("../_assets/linux.png").resize(200, 237).get_pil_image()
+base.paste(linux_pil, (100, 80), mask=linux_pil.split()[3])
+original_with_white_bg = Dimage(base)
+
+# Original image shows a distracting white box on colored canvas
+image((25, 27), 22, original_with_white_bg)
+text((25, 10), "original (white bg)", style=styles.white)
+
+# Automatically convert the background to transparent
+transparent_img = original_with_white_bg.make_transparent()
+image((75, 27), 22, transparent_img)
+text((75, 10), "make_transparent()", style=styles.white)
 ```
 
 

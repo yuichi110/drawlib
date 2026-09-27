@@ -524,6 +524,58 @@ Finally, the cropped image can be used in drawing operations with <code>image()<
 <div class="drawlib-image" style="text-align: center;">
   <img src="dimage_images/3.png" alt="dimage_3" style="width: 600px; max-width: 100%;" />
 </div>
+<h1>Trim Margins</h1>
+<p>While <code>crop()</code> requires you to specify manual bounding coordinates, <code>trim()</code> automatically removes outer margins from an image:</p>
+<ul>
+<li><code>color</code>: Background color to remove.
+<ul>
+<li><code>&quot;auto&quot;</code> (default): Automatically detects whether margins are transparent or a solid color by inspecting the image corners.</li>
+<li><code>None</code>: Trims transparent margins (requires alpha channel).</li>
+<li>Specific color: Provide a color name (<code>&quot;white&quot;</code>, <code>&quot;blue&quot;</code>), hex code (<code>&quot;#ffffff&quot;</code>), <code>Color</code> object, or RGB tuple.</li>
+</ul>
+</li>
+<li><code>tolerance</code>: An integer (0–255, default 0) specifying color distance tolerance. Increasing tolerance is helpful when trimming images with slight compression artifacts or noisy background colors.</li>
+</ul>
+<p>Here is an example:</p>
+<pre><code class="language-python">from PIL import Image
+from drawlib.canvas import setup
+from drawlib.images import Dimage, image
+from drawlib.preset_colors import Colors
+from drawlib.styles import styles
+from drawlib.text import text
+
+setup(width=100, height=50, dpi=200)
+
+# Create an image with wide margins for demonstration
+base = Image.new(&quot;RGB&quot;, (400, 400), (255, 255, 255))
+linux_pil = Dimage(&quot;../_assets/linux.png&quot;).resize(200, 237).get_pil_image()
+base.paste(linux_pil, (100, 80), mask=linux_pil.split()[3])
+original_with_margin = Dimage(base)
+
+# Original image with border showing outer margins
+image(
+    (25, 27),
+    22,
+    original_with_margin,
+    style=styles.primary.patch(image_border_width=1, image_border_color=Colors.Red),
+)
+text((25, 10), &quot;original (with margin)&quot;, style=styles.primary)
+
+# Automatically trim margins
+trimmed = original_with_margin.trim()
+image(
+    (75, 27),
+    22,
+    trimmed,
+    style=styles.primary.patch(image_border_width=1, image_border_color=Colors.Green),
+)
+text((75, 10), &quot;trim()&quot;, style=styles.primary)
+</code></pre>
+<p>In this example, <code>trim()</code> detects the white margin around the subject automatically and crops the image to its tightly bounded content.</p>
+<p>Here is the output:</p>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="dimage_images/4.png" alt="dimage_4" style="width: 600px; max-width: 100%;" />
+</div>
 <h1>Flip Horizontally and Vertically</h1>
 <p>You can easily flip an image using Dimage:</p>
 <ul>
@@ -553,7 +605,7 @@ text((80, 10), &quot;flip()&quot;, style=styles.primary)
 </code></pre>
 <p>Here is the output:</p>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="dimage_images/4.png" alt="dimage_4" style="width: 600px; max-width: 100%;" />
+  <img src="dimage_images/5.png" alt="dimage_5" style="width: 600px; max-width: 100%;" />
 </div>
 <h1>Change color</h1>
 <p>Drawlib provides several functions to modify the color of images:</p>
@@ -584,7 +636,7 @@ text((80, 10), &quot;sepia()&quot;, style=styles.primary)
 </code></pre>
 <p>Here is the output.</p>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="dimage_images/5.png" alt="dimage_5" style="width: 600px; max-width: 100%;" />
+  <img src="dimage_images/6.png" alt="dimage_6" style="width: 600px; max-width: 100%;" />
 </div>
 <ul>
 <li><code>brightness()</code>:  Adjusts the brightness of the image</li>
@@ -609,7 +661,7 @@ text((80, 10), &quot;brightness(2.0)&quot;, style=styles.primary)
 </code></pre>
 <p>Here is an output.</p>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="dimage_images/6.png" alt="dimage_6" style="width: 600px; max-width: 100%;" />
+  <img src="dimage_images/7.png" alt="dimage_7" style="width: 600px; max-width: 100%;" />
 </div>
 <ul>
 <li><code>invert()</code>: Reverses the RGB values of the image</li>
@@ -652,7 +704,47 @@ text((80, 10), &quot;colorize()&quot;, style=styles.white)
 </code></pre>
 <p>Here is the output.</p>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="dimage_images/7.png" alt="dimage_7" style="width: 600px; max-width: 100%;" />
+  <img src="dimage_images/8.png" alt="dimage_8" style="width: 600px; max-width: 100%;" />
+</div>
+<h1>Make Background Transparent</h1>
+<p>If you have an illustration or icon with an unwanted solid background (such as white), <code>make_transparent()</code> turns that background color into transparent pixels (alpha = 0) in RGBA mode without changing the image dimensions:</p>
+<ul>
+<li><code>color</code>: The color to make transparent.
+<ul>
+<li><code>&quot;auto&quot;</code> (default): Automatically detects the background color from the four corners of the image.</li>
+<li>Specific color: Provide a color name (<code>&quot;white&quot;</code>, <code>&quot;blue&quot;</code>), hex code (<code>&quot;#ffffff&quot;</code>), <code>Color</code> object, or RGB tuple.</li>
+</ul>
+</li>
+<li><code>tolerance</code>: An integer (0–255, default 0) specifying color distance tolerance.</li>
+</ul>
+<p>Here is an example placed on a colored canvas:</p>
+<pre><code class="language-python">from PIL import Image
+from drawlib.canvas import setup
+from drawlib.images import Dimage, image
+from drawlib.preset_colors import Colors
+from drawlib.styles import styles
+from drawlib.text import text
+
+setup(width=100, height=50, dpi=200, background_color=Colors.Gray)
+
+# Create an image with a solid white background
+base = Image.new(&quot;RGB&quot;, (400, 400), (255, 255, 255))
+linux_pil = Dimage(&quot;../_assets/linux.png&quot;).resize(200, 237).get_pil_image()
+base.paste(linux_pil, (100, 80), mask=linux_pil.split()[3])
+original_with_white_bg = Dimage(base)
+
+# Original image shows a distracting white box on colored canvas
+image((25, 27), 22, original_with_white_bg)
+text((25, 10), &quot;original (white bg)&quot;, style=styles.white)
+
+# Automatically convert the background to transparent
+transparent_img = original_with_white_bg.make_transparent()
+image((75, 27), 22, transparent_img)
+text((75, 10), &quot;make_transparent()&quot;, style=styles.white)
+</code></pre>
+<p>Here is the output:</p>
+<div class="drawlib-image" style="text-align: center;">
+  <img src="dimage_images/9.png" alt="dimage_9" style="width: 600px; max-width: 100%;" />
 </div>
 <h1>Apply Effects</h1>
 <p>You can apply various effects to images using Drawlib:</p>
@@ -679,7 +771,7 @@ text((80, 10), &quot;blur()&quot;, style=styles.primary)
 </code></pre>
 <p>Here is the output.</p>
 <div class="drawlib-image" style="text-align: center;">
-  <img src="dimage_images/8.png" alt="dimage_8" style="width: 600px; max-width: 100%;" />
+  <img src="dimage_images/10.png" alt="dimage_10" style="width: 600px; max-width: 100%;" />
 </div>
 <hr />
 <blockquote>

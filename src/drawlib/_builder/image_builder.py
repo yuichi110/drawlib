@@ -30,6 +30,7 @@ from drawlib._builder.doc_builder.build_cache import BuildImageCache, hash_file
 from drawlib._builder.doc_builder.progress import FileBuildProgress, format_duplicate_output_error
 from drawlib._builder.doc_builder.styles_utils import load_styles_and_utils
 from drawlib._core.canvas import clear
+from drawlib._core.l4_canvas._canvas import Canvas
 from drawlib._core.utils import dutil_settings, get_script_relative_path, logger
 from drawlib._utils import dutil_canvas
 
@@ -238,7 +239,7 @@ class DrawlibExecuter:
     def _create_wrapped_save(
         self,
         orig_canvas_save: Callable[..., None],
-        canvas_inst: drawlib._core.canvas.Canvas,
+        canvas_inst: Canvas,
     ) -> Callable[..., None]:
         """Create a wrapped save function that applies output overrides and guards against duplicate outputs."""
 

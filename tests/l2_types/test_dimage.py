@@ -174,3 +174,127 @@ class TestDimage:
         image((50, 50), 50, img)
         img.save(f"{OUTPUT_DIR}test_line_extraction_dimage.png")
         save(f"{OUTPUT_DIR}test_line_extraction.png")
+
+
+class TestDimageTrimAndTransparent:
+    """Test cases for Dimage.trim() and Dimage.make_transparent()."""
+
+    def test_trim_auto_solid_color(self) -> None:
+        """Test trim with auto detection of solid background color."""
+        # 100x100 white image with 40x40 red square in center (30..70, 30..70)
+        im = Image.new("RGB", (100, 100), (255, 255, 255))
+        for x in range(30, 70):
+            for y in range(30, 70):
+                im.putpixel((x, y), (255, 0, 0))
+
+        dimg = Dimage(im)
+        trimmed = dimg.trim()
+        assert trimmed.get_image_size() == (40, 40)
+
+    def test_trim_specific_color(self) -> None:
+        """Test trim with a specific color provided as string or tuple."""
+        im = Image.new("RGB", (100, 100), (0, 0, 255))
+        for x in range(25, 75):
+            for y in range(20, 80):
+                im.putpixel((x, y), (0, 255, 0))
+
+        dimg = Dimage(im)
+        trimmed_str = dimg.trim(color="blue")
+        assert trimmed_str.get_image_size() == (50, 60)
+
+        trimmed_tuple = dimg.trim(color=(0, 0, 255))
+        assert trimmed_tuple.get_image_size() == (50, 60)
+
+    def test_trim_transparent_margin(self) -> None:
+        """Test trim on RGBA image with transparent margin."""
+        # 100x100 transparent image with 20x20 opaque square (40..60, 40..60)
+        im = Image.new("RGBA", (100, 100), (0, 0, 0, 0))
+        for x in range(40, 60):
+            for y in range(40, 60):
+                im.putpixel((x, y), (255, 255, 0, 255))
+
+        dimg = Dimage(im)
+        # auto should detect transparent corners
+        trimmed_auto = dimg.trim(color="auto")
+        assert trimmed_auto.get_image_size() == (20, 20)
+
+        # explicit None
+        trimmed_none = dimg.trim(color=None)
+        assert trimmed_none.get_image_size() == (20, 20)
+
+    def test_trim_transparent_error_on_rgb(self) -> None:
+        """Test trim transparent margin on RGB image raises ValueError."""
+        im = Image.new("RGB", (50, 50), (255, 255, 255))
+        dimg = Dimage(im)
+        with pytest.raises(ValueError, match="Cannot trim transparent margin"):
+            dimg.trim(color=None)
+
+    def test_trim_tolerance(self) -> None:
+        """Test trim with color tolerance."""
+        # 100x100 image with corner (255, 255, 255), margin (250, 250, 250), center (0, 0, 0)
+        im = Image.new("RGB", (100, 100), (250, 250, 250))
+        im.putpixel((0, 0), (255, 255, 255))
+        im.putpixel((99, 0), (255, 255, 255))
+        im.putpixel((0, 99), (255, 255, 255))
+        im.putpixel((99, 99), (255, 255, 255))
+        for x in range(40, 60):
+            for y in range(40, 60):
+                im.putpixel((x, y), (0, 0, 0))
+
+        dimg = Dimage(im)
+        # Without tolerance, (250, 250, 250) won't match (255, 255, 255)
+        # With tolerance=10, (250, 250, 250) is treated as margin
+        trimmed = dimg.trim(tolerance=10)
+        assert trimmed.get_image_size() == (20, 20)
+
+    def test_make_transparent_auto(self) -> None:
+        """Test make_transparent with auto detection of background color."""
+        im = Image.new("RGB", (50, 50), (255, 255, 255))
+        for x in range(20, 30):
+            for y in range(20, 30):
+                im.putpixel((x, y), (255, 0, 0))
+
+        dimg = Dimage(im)
+        trans = dimg.make_transparent()
+        pil_res = trans.get_pil_image()
+        assert pil_res.mode == "RGBA"
+        assert pil_res.size == (50, 50)
+        # Corner should be transparent
+        assert pil_res.getpixel((0, 0))[3] == 0
+        # Red center should remain opaque
+        assert pil_res.getpixel((25, 25)) == (255, 0, 0, 255)
+
+    def test_make_transparent_specific_color(self) -> None:
+        """Test make_transparent with specific color."""
+        im = Image.new("RGB", (50, 50), (0, 0, 255))
+        im.putpixel((25, 25), (0, 0, 0))
+
+        dimg = Dimage(im)
+        trans = dimg.make_transparent(color="blue")
+        pil_res = trans.get_pil_image()
+        assert pil_res.getpixel((0, 0))[3] == 0
+        assert pil_res.getpixel((25, 25)) == (0, 0, 0, 255)
+
+    def test_make_transparent_tolerance(self) -> None:
+        """Test make_transparent with color tolerance."""
+        im = Image.new("RGB", (50, 50), (250, 250, 250))
+        im.putpixel((25, 25), (0, 0, 0))
+
+        dimg = Dimage(im)
+        # Target white (255, 255, 255), diff is 5
+        trans_no_tol = dimg.make_transparent(color=(255, 255, 255), tolerance=0)
+        assert trans_no_tol.get_pil_image().getpixel((0, 0))[3] == 255  # Not matched
+
+        trans_with_tol = dimg.make_transparent(color=(255, 255, 255), tolerance=10)
+        assert trans_with_tol.get_pil_image().getpixel((0, 0))[3] == 0  # Matched and made transparent
+
+    def test_invalid_tolerance(self) -> None:
+        """Test out-of-range tolerance raises ValueError."""
+        im = Image.new("RGB", (10, 10), (255, 255, 255))
+        dimg = Dimage(im)
+        with pytest.raises(ValueError, match="tolerance"):
+            dimg.trim(tolerance=-1)
+        with pytest.raises(ValueError, match="tolerance"):
+            dimg.trim(tolerance=256)
+        with pytest.raises(ValueError, match="tolerance"):
+            dimg.make_transparent(tolerance=-5)

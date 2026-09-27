@@ -122,10 +122,9 @@ class TestColorProperties:
         c_alpha = Color(255, 0, 128, 0.5)
         assert c_alpha.hex == "#ff008080"
 
-    def test_to_tuple_and_to_mplot_rgba(self) -> None:
-        """Test to_tuple and to_mplot_rgba methods."""
+    def test_to_mplot_rgba(self) -> None:
+        """Test to_mplot_rgba method."""
         c = Color(255, 127, 0, 0.5)
-        assert c.to_tuple() == (255, 127, 0, 0.5)
         assert c.to_mplot_rgba() == (1.0, 0.49804, 0.0, 0.5)
 
     def test_repr(self) -> None:

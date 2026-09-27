@@ -215,14 +215,6 @@ class Color(BaseModel):
         except ValidationError as e:
             raise ValueError(str(e)) from e
 
-    def to_tuple(self) -> tuple[int, int, int, float]:
-        """Return RGBA 4-tuple (0-255, 0-255, 0-255, 0.0-1.0).
-
-        Returns:
-            tuple[int, int, int, float]: The RGBA tuple representation.
-        """
-        return (self.r, self.g, self.b, self.alpha)
-
     def to_mplot_rgba(self) -> tuple[float, float, float, float]:
         """Return normalized RGBA tuple (0.0-1.0) for matplotlib.
 
