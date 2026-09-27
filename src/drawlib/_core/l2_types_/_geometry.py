@@ -9,66 +9,17 @@
 
 """Geometry type definitions for drawlib."""
 
-from typing import Annotated, Any
+from typing import Any
 
-from pydantic import BeforeValidator
-
-
-def normalize_coordinate(v: Any) -> tuple[float, float]:  # noqa: ANN401
-    """Normalize input coordinate to a 2-tuple of floats.
-
-    Accepts (x, y) or [x, y] with numeric elements.
-    """
-    if not isinstance(v, (tuple, list)) or len(v) != 2:
-        raise ValueError(f"Coordinate must be a tuple of 2 floats. But {v} is given.")
-    try:
-        return (float(v[0]), float(v[1]))
-    except (TypeError, ValueError) as e:
-        raise ValueError(f"Coordinate elements must be numbers. But {v} is given.") from e
-
-
-# Backwards compatibility alias
-validate_coordinate = normalize_coordinate
-
-
-def validate_bezier2(v: Any) -> tuple[tuple[float, float], tuple[float, float]]:  # noqa: ANN401
-    """Validate Bezier2 (Quadratic Bezier)."""
-    if not isinstance(v, (tuple, list)) or len(v) != 2:
-        raise ValueError(f"Bezier2 must be a tuple of 2 coordinates. But {v} is given.")
-    return (normalize_coordinate(v[0]), normalize_coordinate(v[1]))
-
-
-def validate_bezier3(v: Any) -> tuple[tuple[float, float], tuple[float, float], tuple[float, float]]:  # noqa: ANN401
-    """Validate Bezier3 (Cubic Bezier)."""
-    if not isinstance(v, (tuple, list)) or len(v) != 3:
-        raise ValueError(f"Bezier3 must be a tuple of 3 coordinates. But {v} is given.")
-    return (normalize_coordinate(v[0]), normalize_coordinate(v[1]), normalize_coordinate(v[2]))
-
-
-def validate_path_point(v: Any) -> Any:  # noqa: ANN401
-    """Validate path point (dispatch to Coord/Bezier2/Bezier3)."""
-    if not isinstance(v, (tuple, list)):
-        raise ValueError(f"PathPoint must be a tuple. But {v} is given.")
-
-    length = len(v)
-    if length == 2:
-        if isinstance(v[0], (int, float)):
-            return normalize_coordinate(v)
-        else:
-            return validate_bezier2(v)
-    elif length == 3:
-        return validate_bezier3(v)
-    else:
-        raise ValueError(f"PathPoint must be length 2 (Coord/Bezier2) or 3 (Bezier3). But {v} is given.")
-
+from pydantic import TypeAdapter
 
 # Modern type definitions
-Coordinate = Annotated[tuple[float, float], BeforeValidator(normalize_coordinate)]
+Coordinate = tuple[float, float]
 Coordinates = list[Coordinate]
 
-Bezier2 = Annotated[tuple[Coordinate, Coordinate], BeforeValidator(validate_bezier2)]
-Bezier3 = Annotated[tuple[Coordinate, Coordinate, Coordinate], BeforeValidator(validate_bezier3)]
-PathPoint = Annotated[Coordinate | Bezier2 | Bezier3, BeforeValidator(validate_path_point)]
+Bezier2 = tuple[Coordinate, Coordinate]
+Bezier3 = tuple[Coordinate, Coordinate, Coordinate]
+PathPoint = Coordinate | Bezier2 | Bezier3
 PathPoints = list[PathPoint]
 
 # Backward compatibility aliases
@@ -78,3 +29,32 @@ TypeBezier2 = Bezier2
 TypeBezier3 = Bezier3
 TypePathPoint = PathPoint
 TypePathPoints = PathPoints
+
+# Adapters and helpers for programmatic validation and normalization
+_coordinate_adapter: TypeAdapter[Coordinate] = TypeAdapter(Coordinate)
+_bezier2_adapter: TypeAdapter[Bezier2] = TypeAdapter(Bezier2)
+_bezier3_adapter: TypeAdapter[Bezier3] = TypeAdapter(Bezier3)
+_path_point_adapter: TypeAdapter[PathPoint] = TypeAdapter(PathPoint)
+
+
+def normalize_coordinate(v: Any) -> tuple[float, float]:  # noqa: ANN401
+    """Normalize input coordinate to a 2-tuple of floats using Pydantic."""
+    return _coordinate_adapter.validate_python(v)
+
+
+validate_coordinate = normalize_coordinate
+
+
+def validate_bezier2(v: Any) -> tuple[tuple[float, float], tuple[float, float]]:  # noqa: ANN401
+    """Validate Bezier2 (Quadratic Bezier) using Pydantic."""
+    return _bezier2_adapter.validate_python(v)
+
+
+def validate_bezier3(v: Any) -> tuple[tuple[float, float], tuple[float, float], tuple[float, float]]:  # noqa: ANN401
+    """Validate Bezier3 (Cubic Bezier) using Pydantic."""
+    return _bezier3_adapter.validate_python(v)
+
+
+def validate_path_point(v: Any) -> Any:  # noqa: ANN401
+    """Validate path point using Pydantic."""
+    return _path_point_adapter.validate_python(v)

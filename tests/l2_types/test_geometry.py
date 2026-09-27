@@ -10,7 +10,7 @@
 """Unit tests for geometry types and validation in _geometry.py."""
 
 import pytest
-from pydantic import TypeAdapter
+from pydantic import TypeAdapter, ValidationError
 
 from drawlib._core.l2_types_._geometry import (
     TypeBezier2,
@@ -36,11 +36,11 @@ class TestCoordinateValidation:
 
     def test_validate_coordinate_invalid(self):
         """Test validate_coordinate with invalid inputs."""
-        with pytest.raises(ValueError, match="Coordinate must be a tuple of 2 floats"):
+        with pytest.raises(ValidationError):
             validate_coordinate("not a coordinate")
-        with pytest.raises(ValueError, match="Coordinate must be a tuple of 2 floats"):
+        with pytest.raises(ValidationError):
             validate_coordinate((1.0,))
-        with pytest.raises(ValueError, match="Coordinate must be a tuple of 2 floats"):
+        with pytest.raises(ValidationError):
             validate_coordinate((1.0, 2.0, 3.0))
 
 
@@ -53,9 +53,9 @@ class TestBezierValidation:
 
     def test_validate_bezier2_invalid(self):
         """Test validate_bezier2 with invalid inputs."""
-        with pytest.raises(ValueError, match="Bezier2 must be a tuple of 2 coordinates"):
+        with pytest.raises(ValidationError):
             validate_bezier2("invalid")
-        with pytest.raises(ValueError, match="Bezier2 must be a tuple of 2 coordinates"):
+        with pytest.raises(ValidationError):
             validate_bezier2(((1, 2),))
 
     def test_validate_bezier3_valid(self):
@@ -64,9 +64,9 @@ class TestBezierValidation:
 
     def test_validate_bezier3_invalid(self):
         """Test validate_bezier3 with invalid inputs."""
-        with pytest.raises(ValueError, match="Bezier3 must be a tuple of 3 coordinates"):
+        with pytest.raises(ValidationError):
             validate_bezier3("invalid")
-        with pytest.raises(ValueError, match="Bezier3 must be a tuple of 3 coordinates"):
+        with pytest.raises(ValidationError):
             validate_bezier3(((1, 2), (3, 4)))
 
 
@@ -84,9 +84,9 @@ class TestPathPointValidation:
 
     def test_validate_path_point_invalid(self):
         """Test validate_path_point with invalid inputs."""
-        with pytest.raises(ValueError, match="PathPoint must be a tuple"):
+        with pytest.raises(ValidationError):
             validate_path_point("invalid")
-        with pytest.raises(ValueError, match="PathPoint must be length 2"):
+        with pytest.raises(ValidationError):
             validate_path_point((1, 2, 3, 4))
 
 
