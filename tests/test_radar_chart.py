@@ -19,15 +19,15 @@ import pytest
 from drawlib import canvas
 from drawlib._charts.radar_chart._renderer import _format_value
 from drawlib._core.l3_styles import Style
-from drawlib.charts.radar import RadarChart, RadarSeries
+from drawlib.charts.radar import RadarChart, Series
 
 
 class TestRadarSeries:
-    """Unit tests for RadarSeries data model."""
+    """Unit tests for Series data model in radar charts."""
 
     def test_series_initialization(self) -> None:
-        """Test default attributes of RadarSeries."""
-        s = RadarSeries("Warrior", [80.0, 90.0, 70.0, 60.0, 85.0])
+        """Test default attributes of Series."""
+        s = Series("Warrior", [80.0, 90.0, 70.0, 60.0, 85.0])
         assert s.name == "Warrior"
         assert s.values == [80.0, 90.0, 70.0, 60.0, 85.0]
         assert s.color is None
@@ -40,9 +40,9 @@ class TestRadarSeries:
         assert s.style is None
 
     def test_series_custom_attributes(self) -> None:
-        """Test customized attributes on RadarSeries."""
+        """Test customized attributes on Series."""
         custom_style = Style(line_width=3.0)
-        s = RadarSeries(
+        s = Series(
             name="Mage",
             values=[30.0, 20.0, 95.0, 80.0, 40.0],
             color=(120, 80, 220),

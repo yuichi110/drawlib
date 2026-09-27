@@ -30,7 +30,7 @@ from drawlib._preset_colors import Colors
 
 if TYPE_CHECKING:
     from drawlib._charts.radar_chart._chart import RadarChart
-    from drawlib._charts.radar_chart._series import RadarSeries
+    from drawlib._charts.radar_chart._series import Series
 
 _DEFAULT_TEXT_COLOR = (30, 41, 59, 1.0)
 _DEFAULT_MUTED_TEXT = (148, 163, 184, 1.0)
@@ -43,7 +43,7 @@ def _with_alpha(color: ColorType, alpha: float) -> tuple[int, int, int, float]:
     return (int(color[0]), int(color[1]), int(color[2]), float(alpha))
 
 
-def _resolve_series_colors(series_list: list[RadarSeries]) -> list[ColorType]:
+def _resolve_series_colors(series_list: list[Series]) -> list[ColorType]:
     """Resolve fill/stroke colors for all series."""
     colors: list[ColorType] = []
     for i, s in enumerate(series_list):

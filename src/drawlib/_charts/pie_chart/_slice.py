@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""PieSlice model representing a single sector in a pie or donut chart."""
+"""Slice model representing a single sector in a pie or donut chart."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ if TYPE_CHECKING:
     from drawlib._core.types import Style
 
 
-class PieSlice:
+class Slice:
     """Represents a single data slice in a pie or donut chart."""
 
     def __init__(
@@ -30,7 +30,7 @@ class PieSlice:
         style: Style | None = None,
         explode: float = 0.0,
     ) -> None:
-        """Initialize PieSlice.
+        """Initialize Slice.
 
         Args:
             name: Slice label displayed in legend and annotations.

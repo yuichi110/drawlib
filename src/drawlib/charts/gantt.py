@@ -12,41 +12,17 @@
 from __future__ import annotations
 
 from drawlib._charts.gantt_chart import (
+    Dependency,
     GanttChart,
-    GanttDependency,
-    GanttMarker,
-    GanttMilestone,
-    GanttSection,
-    GanttTask,
-)
-from drawlib._charts.gantt_chart import (
-    GanttChart as Chart,
-)
-from drawlib._charts.gantt_chart import (
-    GanttDependency as Dependency,
-)
-from drawlib._charts.gantt_chart import (
-    GanttMarker as Marker,
-)
-from drawlib._charts.gantt_chart import (
-    GanttMilestone as Milestone,
-)
-from drawlib._charts.gantt_chart import (
-    GanttSection as Section,
-)
-from drawlib._charts.gantt_chart import (
-    GanttTask as Task,
+    Marker,
+    Milestone,
+    Section,
+    Task,
 )
 
 __all__ = [
-    "Chart",
     "Dependency",
     "GanttChart",
-    "GanttDependency",
-    "GanttMarker",
-    "GanttMilestone",
-    "GanttSection",
-    "GanttTask",
     "Marker",
     "Milestone",
     "Section",

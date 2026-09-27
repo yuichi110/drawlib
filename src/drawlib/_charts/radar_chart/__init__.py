@@ -10,9 +10,9 @@
 """Radar chart (spider web) components."""
 
 from drawlib._charts.radar_chart._chart import RadarChart
-from drawlib._charts.radar_chart._series import RadarSeries
+from drawlib._charts.radar_chart._series import Series
 
 __all__ = [
     "RadarChart",
-    "RadarSeries",
+    "Series",
 ]

@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""BarSeries model and color palette definition."""
+"""Series model and color palette definition."""
 
 from __future__ import annotations
 
@@ -31,7 +31,7 @@ DEFAULT_CHART_PALETTE: list[ColorType] = [
 ]
 
 
-class BarSeries:
+class Series:
     """Represents a single data series in a bar chart."""
 
     def __init__(
@@ -41,7 +41,7 @@ class BarSeries:
         color: ColorType | None = None,
         style: Style | None = None,
     ) -> None:
-        """Initialize BarSeries.
+        """Initialize Series.
 
         Args:
             name: Series name shown in legend and tooltips.

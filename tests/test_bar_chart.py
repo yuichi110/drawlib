@@ -18,7 +18,7 @@ from drawlib import canvas
 from drawlib._charts._common._axis import Axis, calculate_axis_range_and_ticks, value_to_ratio
 from drawlib._charts._common._legend import get_legend_size, resolve_legend_position
 from drawlib._core.l3_styles import Style
-from drawlib.charts.bar import BarChart, BarSeries, Series
+from drawlib.charts.bar import BarChart, Series
 
 
 class TestAxisCalculation:
@@ -128,7 +128,7 @@ class TestBarChartModel:
         """Verify adding series to BarChart."""
         chart = BarChart(categories=["A", "B"])
         s1 = chart.add_series("Product 1", [10.0, 20.0], color=(50, 100, 200))
-        assert isinstance(s1, BarSeries)
+        assert isinstance(s1, Series)
         assert len(chart.series) == 1
         assert chart.series[0].name == "Product 1"
         assert chart.series[0].values == [10.0, 20.0]

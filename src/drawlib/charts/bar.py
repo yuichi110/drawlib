@@ -13,32 +13,22 @@ from __future__ import annotations
 
 from drawlib._charts._common._axis import Axis
 from drawlib._charts._common._types import (
-    BarMode,
+    BarMode as Mode,
+)
+from drawlib._charts._common._types import (
     ColorType,
     FormatterType,
     LegendPosition,
     Orientation,
 )
-from drawlib._charts._common._types import (
-    BarMode as Mode,
-)
 from drawlib._charts.bar_chart import (
     BarChart,
-    BarSeries,
-)
-from drawlib._charts.bar_chart import (
-    BarChart as Chart,
-)
-from drawlib._charts.bar_chart import (
-    BarSeries as Series,
+    Series,
 )
 
 __all__ = [
     "Axis",
     "BarChart",
-    "BarMode",
-    "BarSeries",
-    "Chart",
     "ColorType",
     "FormatterType",
     "LegendPosition",

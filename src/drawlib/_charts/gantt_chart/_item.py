@@ -19,7 +19,7 @@ if TYPE_CHECKING:
     from drawlib._core.types import Style
 
 
-class GanttTask:
+class Task:
     """Represents a scheduled task spanning a start and end time interval."""
 
     def __init__(
@@ -32,7 +32,7 @@ class GanttTask:
         style: Style | None = None,
         show_progress_text: bool = True,
     ) -> None:
-        """Initialize GanttTask.
+        """Initialize Task.
 
         Args:
             name: Label displayed on the left column.
@@ -57,7 +57,7 @@ class GanttTask:
         self._cached_row_y: float = 0.0
 
 
-class GanttSection:
+class Section:
     """Represents a category section divider row in the Gantt chart."""
 
     def __init__(
@@ -65,7 +65,7 @@ class GanttSection:
         name: str,
         style: Style | None = None,
     ) -> None:
-        """Initialize GanttSection.
+        """Initialize Section.
 
         Args:
             name: Section title displayed across the row.
@@ -78,7 +78,7 @@ class GanttSection:
         self._cached_row_y: float = 0.0
 
 
-class GanttMilestone:
+class Milestone:
     """Represents a zero-duration milestone event in time."""
 
     def __init__(
@@ -88,7 +88,7 @@ class GanttMilestone:
         color: ColorType | None = None,
         style: Style | None = None,
     ) -> None:
-        """Initialize GanttMilestone.
+        """Initialize Milestone.
 
         Args:
             name: Milestone title displayed in the label column.
@@ -106,7 +106,7 @@ class GanttMilestone:
         self._cached_row_y: float = 0.0
 
 
-class GanttMarker:
+class Marker:
     """Represents a vertical reference line across all rows (e.g. today)."""
 
     def __init__(
@@ -116,7 +116,7 @@ class GanttMarker:
         color: ColorType | None = None,
         style: Style | None = None,
     ) -> None:
-        """Initialize GanttMarker.
+        """Initialize Marker.
 
         Args:
             at: Column name or numerical time index where line is placed.
@@ -130,17 +130,17 @@ class GanttMarker:
         self.style: Style | None = style
 
 
-class GanttDependency:
+class Dependency:
     """Represents an orthogonal arrow linking two dependent tasks."""
 
     def __init__(
         self,
-        from_task: GanttTask,
-        to_task: GanttTask,
+        from_task: Task,
+        to_task: Task,
         color: ColorType | None = None,
         style: Style | None = None,
     ) -> None:
-        """Initialize GanttDependency.
+        """Initialize Dependency.
 
         Args:
             from_task: Predecessor task whose completion triggers to_task.

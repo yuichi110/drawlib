@@ -178,7 +178,7 @@ chart.draw(xy=(7.0, 5.0))
 
 ### Methods
 
-- `add_series(name: str, values: list[float], color: ColorType | None = None, style: Style | None = None) -> BarSeries`
+- `add_series(name: str, values: list[float], color: ColorType | None = None, style: Style | None = None) -> Series`
 - `configure_y_axis(...) -> Axis`
 - `configure_x_axis(...) -> Axis`
 - `draw(xy: tuple[float, float] = (0.0, 0.0)) -> None`

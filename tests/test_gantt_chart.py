@@ -20,12 +20,12 @@ from drawlib import canvas
 from drawlib._charts.gantt_chart._renderer import _resolve_point_time, _resolve_time
 from drawlib._core.l3_styles import Style
 from drawlib.charts.gantt import (
+    Dependency,
     GanttChart,
-    GanttDependency,
-    GanttMarker,
-    GanttMilestone,
-    GanttSection,
-    GanttTask,
+    Marker,
+    Milestone,
+    Section,
+    Task,
 )
 
 
@@ -33,8 +33,8 @@ class TestGanttItems:
     """Unit tests for GanttChart item models."""
 
     def test_task_initialization(self) -> None:
-        """Test default and clamped attributes of GanttTask."""
-        t1 = GanttTask("Task A", start="Apr", end="May", progress=0.6)
+        """Test default and clamped attributes of Task."""
+        t1 = Task("Task A", start="Apr", end="May", progress=0.6)
         assert t1.name == "Task A"
         assert t1.start == "Apr"
         assert t1.end == "May"
@@ -43,35 +43,35 @@ class TestGanttItems:
         assert t1.style is None
         assert t1.show_progress_text is True
 
-        t2 = GanttTask("Task B", start=0.0, end=2.0, progress=1.5)
+        t2 = Task("Task B", start=0.0, end=2.0, progress=1.5)
         assert t2.progress == 1.0  # Clamped
 
-        t3 = GanttTask("Task C", start=0.0, end=1.0, progress=-0.5)
+        t3 = Task("Task C", start=0.0, end=1.0, progress=-0.5)
         assert t3.progress == 0.0  # Clamped
 
     def test_section_initialization(self) -> None:
-        """Test attributes of GanttSection."""
-        s = GanttSection("Phase 1: Planning")
+        """Test attributes of Section."""
+        s = Section("Phase 1: Planning")
         assert s.name == "Phase 1: Planning"
         assert s.style is None
 
     def test_milestone_initialization(self) -> None:
-        """Test attributes of GanttMilestone."""
-        m = GanttMilestone("Launch", at="Jun", color=(255, 200, 0))
+        """Test attributes of Milestone."""
+        m = Milestone("Launch", at="Jun", color=(255, 200, 0))
         assert m.name == "Launch"
         assert m.at == "Jun"
         assert m.color == (255, 200, 0)
 
     def test_marker_and_dependency(self) -> None:
-        """Test attributes of GanttMarker and GanttDependency."""
-        t1 = GanttTask("T1", "W1", "W2")
-        t2 = GanttTask("T2", "W2", "W3")
-        dep = GanttDependency(from_task=t1, to_task=t2, color=(100, 100, 100))
+        """Test attributes of Marker and Dependency."""
+        t1 = Task("T1", "W1", "W2")
+        t2 = Task("T2", "W2", "W3")
+        dep = Dependency(from_task=t1, to_task=t2, color=(100, 100, 100))
         assert dep.from_task is t1
         assert dep.to_task is t2
         assert dep.color == (100, 100, 100)
 
-        marker = GanttMarker(at="W2", label="Today")
+        marker = Marker(at="W2", label="Today")
         assert marker.at == "W2"
         assert marker.label == "Today"
 

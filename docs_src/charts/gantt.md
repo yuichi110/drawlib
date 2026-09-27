@@ -100,11 +100,11 @@ chart.draw(xy=(3.0, 3.0))
 
 ### Methods
 
-- `add_task(name: str, start: str | float, end: str | float, progress=0.0, color=None, style=None, show_progress_text=True) -> GanttTask`: Add a task bar spanning start to end.
-- `add_section(name: str, style=None) -> GanttSection`: Add a full-width category section banner.
-- `add_milestone(name: str, at: str | float, color=None, style=None) -> GanttMilestone`: Add a zero-duration diamond milestone marker.
-- `add_marker(at: str | float, label="", color=None, style=None) -> GanttMarker`: Add a vertical reference line across all rows (e.g. today).
-- `add_dependency(from_task: GanttTask, to_task: GanttTask, color=None, style=None) -> GanttDependency`: Draw an orthogonal arrow linking predecessor and successor tasks.
+- `add_task(name: str, start: str | float, end: str | float, progress=0.0, color=None, style=None, show_progress_text=True) -> Task`: Add a task bar spanning start to end.
+- `add_section(name: str, style=None) -> Section`: Add a full-width category section banner.
+- `add_milestone(name: str, at: str | float, color=None, style=None) -> Milestone`: Add a zero-duration diamond milestone marker.
+- `add_marker(at: str | float, label="", color=None, style=None) -> Marker`: Add a vertical reference line across all rows (e.g. today).
+- `add_dependency(from_task: Task, to_task: Task, color=None, style=None) -> Dependency`: Draw an orthogonal arrow linking predecessor and successor tasks.
 - `get_size() -> tuple[float, float]`: Return calculated (width, height) bounding dimensions.
 - `draw(xy: tuple[float, float] = (0.0, 0.0)) -> None`: Render the Gantt chart onto the canvas.
 

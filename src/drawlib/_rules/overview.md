@@ -534,10 +534,11 @@ drawlib rules show <topic> --rebuild
 - **Scope**: Statistical and planning charts: `BarChart` (grouped, stacked, horizontal), `LineChart`, `AreaChart`, `PieChart` / donut, `RadarChart`, `ScatterChart`, and `GanttChart`.
 - **Key Syntax**:
   ```python
-  from drawlib.charts.bar import BarChart, BarSeries
-  BarChart((10, 10), width=80, height=60, categories=["Q1", "Q2", "Q3"]) \
-      .add_series(BarSeries("Revenue", [100, 140, 180], color="blue")) \
-      .draw()
+  from drawlib.charts.bar import BarChart
+
+  chart = BarChart(categories=["Q1", "Q2", "Q3"], width=80, height=60)
+  chart.add_series("Revenue", [100, 140, 180], color="blue")
+  chart.draw((10, 10))
   ```
 - **When to read**: Refer to this rule when plotting quantitative metrics, project management schedules, comparison radars, or trend analyses.
 

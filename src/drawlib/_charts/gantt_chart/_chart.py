@@ -16,11 +16,11 @@ from typing import TYPE_CHECKING
 from drawlib._charts._common._types import ColorType
 from drawlib._charts.gantt_chart import _renderer as _renderer_module
 from drawlib._charts.gantt_chart._item import (
-    GanttDependency,
-    GanttMarker,
-    GanttMilestone,
-    GanttSection,
-    GanttTask,
+    Dependency,
+    Marker,
+    Milestone,
+    Section,
+    Task,
 )
 
 if TYPE_CHECKING:
@@ -89,9 +89,9 @@ class GanttChart:
         self.show_zebra = show_zebra
         self.bar_radius = float(bar_radius)
 
-        self._items: list[GanttTask | GanttSection | GanttMilestone] = []
-        self._markers: list[GanttMarker] = []
-        self._dependencies: list[GanttDependency] = []
+        self._items: list[Task | Section | Milestone] = []
+        self._markers: list[Marker] = []
+        self._dependencies: list[Dependency] = []
 
     @property
     def columns(self) -> list[str]:
@@ -99,17 +99,17 @@ class GanttChart:
         return list(self._columns)
 
     @property
-    def items(self) -> list[GanttTask | GanttSection | GanttMilestone]:
+    def items(self) -> list[Task | Section | Milestone]:
         """List of registered rows (tasks, sections, milestones)."""
         return list(self._items)
 
     @property
-    def markers(self) -> list[GanttMarker]:
+    def markers(self) -> list[Marker]:
         """List of vertical marker lines."""
         return list(self._markers)
 
     @property
-    def dependencies(self) -> list[GanttDependency]:
+    def dependencies(self) -> list[Dependency]:
         """List of task dependency arrows."""
         return list(self._dependencies)
 
@@ -122,7 +122,7 @@ class GanttChart:
         color: ColorType | None = None,
         style: Style | None = None,
         show_progress_text: bool = True,
-    ) -> GanttTask:
+    ) -> Task:
         """Add a scheduled task to the chart.
 
         Args:
@@ -135,9 +135,9 @@ class GanttChart:
             show_progress_text: Whether to print progress percentage. Defaults to True.
 
         Returns:
-            GanttTask: The newly registered task item.
+            Task: The newly registered task item.
         """
-        task = GanttTask(
+        task = Task(
             name=name,
             start=start,
             end=end,
@@ -153,7 +153,7 @@ class GanttChart:
         self,
         name: str,
         style: Style | None = None,
-    ) -> GanttSection:
+    ) -> Section:
         """Add a category section divider row.
 
         Args:
@@ -161,9 +161,9 @@ class GanttChart:
             style: Optional Style overriding section banner appearance.
 
         Returns:
-            GanttSection: The newly registered section item.
+            Section: The newly registered section item.
         """
-        section = GanttSection(
+        section = Section(
             name=name,
             style=style or self.section_style,
         )
@@ -176,7 +176,7 @@ class GanttChart:
         at: str | float,
         color: ColorType | None = None,
         style: Style | None = None,
-    ) -> GanttMilestone:
+    ) -> Milestone:
         """Add a milestone marker event.
 
         Args:
@@ -186,9 +186,9 @@ class GanttChart:
             style: Optional Style overriding diamond appearance.
 
         Returns:
-            GanttMilestone: The newly registered milestone item.
+            Milestone: The newly registered milestone item.
         """
-        milestone = GanttMilestone(
+        milestone = Milestone(
             name=name,
             at=at,
             color=color,
@@ -203,7 +203,7 @@ class GanttChart:
         label: str = "",
         color: ColorType | None = None,
         style: Style | None = None,
-    ) -> GanttMarker:
+    ) -> Marker:
         """Add a vertical reference highlight line (e.g. today).
 
         Args:
@@ -213,9 +213,9 @@ class GanttChart:
             style: Optional Style overriding line appearance.
 
         Returns:
-            GanttMarker: The newly registered marker item.
+            Marker: The newly registered marker item.
         """
-        marker = GanttMarker(
+        marker = Marker(
             at=at,
             label=label,
             color=color,
@@ -226,11 +226,11 @@ class GanttChart:
 
     def add_dependency(
         self,
-        from_task: GanttTask,
-        to_task: GanttTask,
+        from_task: Task,
+        to_task: Task,
         color: ColorType | None = None,
         style: Style | None = None,
-    ) -> GanttDependency:
+    ) -> Dependency:
         """Add an orthogonal dependency arrow connecting two tasks.
 
         Args:
@@ -240,9 +240,9 @@ class GanttChart:
             style: Optional Style overriding arrow appearance.
 
         Returns:
-            GanttDependency: The newly registered dependency.
+            Dependency: The newly registered dependency.
         """
-        dep = GanttDependency(
+        dep = Dependency(
             from_task=from_task,
             to_task=to_task,
             color=color,

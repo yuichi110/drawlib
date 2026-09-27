@@ -16,7 +16,7 @@ from typing import TYPE_CHECKING
 from drawlib._charts._common._types import ColorType, LegendPosition, LineStyle, PointShape
 from drawlib._charts.line_chart import _renderer as _renderer_module
 from drawlib._charts.line_chart._base import CartesianChartBase
-from drawlib._charts.line_chart._series import LineSeries
+from drawlib._charts.line_chart._series import Series
 
 if TYPE_CHECKING:
     from drawlib._core.types import Style
@@ -70,11 +70,11 @@ class LineChart(CartesianChartBase):
         self.point_shape: PointShape = point_shape
         self.point_size: float = float(point_size)
         self.smooth: bool = smooth
-        self._series: list[LineSeries] = []
+        self._series: list[Series] = []
 
     @property
-    def series(self) -> list[LineSeries]:
-        """List of LineSeries registered with this chart."""
+    def series(self) -> list[Series]:
+        """List of Series registered with this chart."""
         return list(self._series)
 
     def add_series(
@@ -87,7 +87,7 @@ class LineChart(CartesianChartBase):
         line_style: LineStyle = "solid",
         point_shape: PointShape | None = None,
         point_size: float | None = None,
-    ) -> LineSeries:
+    ) -> Series:
         """Add a new line series to the chart.
 
         Args:
@@ -101,11 +101,11 @@ class LineChart(CartesianChartBase):
             point_size: Custom marker size or inherited from chart defaults.
 
         Returns:
-            LineSeries: The newly created and registered series.
+            Series: The newly created and registered series.
         """
         shape = point_shape if point_shape is not None else self.point_shape
         size = point_size if point_size is not None else self.point_size
-        s = LineSeries(
+        s = Series(
             name=name,
             values=values,
             color=color,

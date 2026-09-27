@@ -16,7 +16,7 @@ from typing import TYPE_CHECKING
 from drawlib._charts._common._axis import Axis
 from drawlib._charts._common._types import FormatterType, LegendPosition, PointShape, ScaleType
 from drawlib._charts.scatter_chart import _renderer as _renderer_module
-from drawlib._charts.scatter_chart._point import ScatterPoint, ScatterSeries
+from drawlib._charts.scatter_chart._point import Point, Series
 
 if TYPE_CHECKING:
     from drawlib._core.types import Style
@@ -60,16 +60,16 @@ class ScatterChart:
         self.x_axis: Axis = Axis()
         self.y_axis: Axis = Axis()
 
-        self._points: list[ScatterPoint] = []
-        self._series: list[ScatterSeries] = []
+        self._points: list[Point] = []
+        self._series: list[Series] = []
 
     @property
-    def points(self) -> list[ScatterPoint]:
+    def points(self) -> list[Point]:
         """List of standalone points added to this chart."""
         return list(self._points)
 
     @property
-    def series(self) -> list[ScatterSeries]:
+    def series(self) -> list[Series]:
         """List of named series added to this chart."""
         return list(self._series)
 
@@ -165,7 +165,7 @@ class ScatterChart:
         shape: PointShape | None = None,
         label: str = "",
         label_style: Style | None = None,
-    ) -> ScatterPoint:
+    ) -> Point:
         """Add a single data point to the scatter chart.
 
         Args:
@@ -177,13 +177,13 @@ class ScatterChart:
             label_style: Optional Style for the label text.
 
         Returns:
-            ScatterPoint: The newly created and registered point.
+            Point: The newly created and registered point.
         """
         resolved_style = style
         eff_radius = float(radius) if radius is not None else self.default_radius
         eff_shape = shape if shape is not None else self.default_shape
 
-        point = ScatterPoint(
+        point = Point(
             xy=xy,
             radius=eff_radius,
             style=resolved_style,
@@ -201,7 +201,7 @@ class ScatterChart:
         radius: float | None = None,
         style: Style | None = None,
         shape: PointShape | None = None,
-    ) -> ScatterSeries:
+    ) -> Series:
         """Add a named group of points to the scatter chart.
 
         Args:
@@ -212,13 +212,13 @@ class ScatterChart:
             shape: Shape for points in this series.
 
         Returns:
-            ScatterSeries: The newly created and registered series.
+            Series: The newly created and registered series.
         """
         resolved_style = style
         eff_radius = float(radius) if radius is not None else self.default_radius
         eff_shape = shape if shape is not None else self.default_shape
 
-        points: list[ScatterPoint] = []
+        points: list[Point] = []
         for item in data:
             match item:
                 case (x, y, r):
@@ -229,7 +229,7 @@ class ScatterChart:
                     continue
 
             points.append(
-                ScatterPoint(
+                Point(
                     xy=(x_val, y_val),
                     radius=pt_r,
                     style=resolved_style,
@@ -237,7 +237,7 @@ class ScatterChart:
                 )
             )
 
-        series_obj = ScatterSeries(
+        series_obj = Series(
             name=name,
             points=points,
             style=resolved_style,

@@ -104,7 +104,7 @@ chart.draw(xy=(5.0, 4.0))
 
 ### Methods
 
-- `add_slice(name: str, value: float, color=None, style=None, explode=0.0) -> PieSlice`: Add a slice segment to the chart.
+- `add_slice(name: str, value: float, color=None, style=None, explode=0.0) -> Slice`: Add a slice segment to the chart.
 - `get_size() -> tuple[float, float]`: Return the total calculated (width, height) bounding dimensions.
 - `draw(xy: tuple[float, float] = (0.0, 0.0)) -> None`: Render the chart onto the canvas.
 

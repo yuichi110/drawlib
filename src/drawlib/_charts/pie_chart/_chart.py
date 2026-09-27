@@ -15,7 +15,7 @@ from typing import TYPE_CHECKING
 
 from drawlib._charts._common._types import ColorType, FormatterType, LegendPosition
 from drawlib._charts.pie_chart import _renderer as _renderer_module
-from drawlib._charts.pie_chart._slice import PieSlice
+from drawlib._charts.pie_chart._slice import Slice
 
 if TYPE_CHECKING:
     from drawlib._core.types import Style
@@ -74,11 +74,11 @@ class PieChart:
 
         self._custom_width = float(width) if width is not None else None
         self._custom_height = float(height) if height is not None else None
-        self._slices: list[PieSlice] = []
+        self._slices: list[Slice] = []
 
     @property
-    def slices(self) -> list[PieSlice]:
-        """List of PieSlice instances registered with this chart."""
+    def slices(self) -> list[Slice]:
+        """List of Slice instances registered with this chart."""
         return list(self._slices)
 
     def add_slice(
@@ -88,7 +88,7 @@ class PieChart:
         color: ColorType | None = None,
         style: Style | None = None,
         explode: float = 0.0,
-    ) -> PieSlice:
+    ) -> Slice:
         """Add a new slice to the pie chart.
 
         Args:
@@ -99,9 +99,9 @@ class PieChart:
             explode: Outward offset distance from center. Defaults to 0.0.
 
         Returns:
-            PieSlice: The newly created and registered slice.
+            Slice: The newly created and registered slice.
         """
-        s = PieSlice(name=name, value=value, color=color, style=style, explode=explode)
+        s = Slice(name=name, value=value, color=color, style=style, explode=explode)
         self._slices.append(s)
         return s
 

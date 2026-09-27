@@ -12,10 +12,10 @@
 from __future__ import annotations
 
 from drawlib._charts.scatter_chart._chart import ScatterChart
-from drawlib._charts.scatter_chart._point import ScatterPoint, ScatterSeries
+from drawlib._charts.scatter_chart._point import Point, Series
 
 __all__ = [
+    "Point",
     "ScatterChart",
-    "ScatterPoint",
-    "ScatterSeries",
+    "Series",
 ]

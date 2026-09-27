@@ -17,15 +17,15 @@ from pathlib import Path
 from drawlib import canvas
 from drawlib._charts.pie_chart._renderer import _format_slice_label
 from drawlib._core.l3_styles import Style
-from drawlib.charts.pie import PieChart, PieSlice
+from drawlib.charts.pie import PieChart, Slice
 
 
 class TestPieSlice:
-    """Unit tests for PieSlice data model."""
+    """Unit tests for Slice data model."""
 
     def test_slice_initialization(self) -> None:
-        """Test initialization and default attributes of PieSlice."""
-        s = PieSlice("Mobile", 45.0)
+        """Test initialization and default attributes of Slice."""
+        s = Slice("Mobile", 45.0)
         assert s.name == "Mobile"
         assert s.value == 45.0
         assert s.color is None
@@ -33,9 +33,9 @@ class TestPieSlice:
         assert s.explode == 0.0
 
     def test_slice_custom_attributes(self) -> None:
-        """Test custom color, style, and explode on PieSlice."""
+        """Test custom color, style, and explode on Slice."""
         style = Style(shape_fill_color=(100, 150, 200, 1.0))
-        s = PieSlice("Desktop", 55.0, color=(200, 100, 50), style=style, explode=2.5)
+        s = Slice("Desktop", 55.0, color=(200, 100, 50), style=style, explode=2.5)
         assert s.name == "Desktop"
         assert s.value == 55.0
         assert s.color == (200, 100, 50)

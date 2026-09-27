@@ -19,7 +19,7 @@ if TYPE_CHECKING:
     from drawlib._core.types import Style
 
 
-class ScatterPoint:
+class Point:
     """Represents a single data point in a ScatterChart."""
 
     def __init__(
@@ -31,7 +31,7 @@ class ScatterPoint:
         label: str = "",
         label_style: Style | None = None,
     ) -> None:
-        """Initialize ScatterPoint.
+        """Initialize Point.
 
         Args:
             xy: Numerical data coordinate tuple (x, y).
@@ -49,28 +49,28 @@ class ScatterPoint:
         self.label_style: Style | None = label_style
 
 
-class ScatterSeries:
+class Series:
     """Represents a named group of scatter points."""
 
     def __init__(
         self,
         name: str,
-        points: list[ScatterPoint],
+        points: list[Point],
         style: Style | None = None,
         radius: float = 1.0,
         shape: PointShape = "circle",
     ) -> None:
-        """Initialize ScatterSeries.
+        """Initialize Series.
 
         Args:
             name: Group name displayed in chart legend.
-            points: List of ScatterPoint instances belonging to this series.
+            points: List of Point instances belonging to this series.
             style: Optional Style applied to points in this series.
             radius: Default radius for points in this series. Defaults to 1.0.
             shape: Default shape for points in this series. Defaults to "circle".
         """
         self.name: str = name
-        self.points: list[ScatterPoint] = points
+        self.points: list[Point] = points
         self.style: Style | None = style
         self.radius: float = float(radius)
         self.shape: PointShape = shape

@@ -21,23 +21,15 @@ from drawlib._charts._common._types import (
 )
 from drawlib._charts.line_chart import (
     LineChart,
-    LineSeries,
-)
-from drawlib._charts.line_chart import (
-    LineChart as Chart,
-)
-from drawlib._charts.line_chart import (
-    LineSeries as Series,
+    Series,
 )
 
 __all__ = [
     "Axis",
-    "Chart",
     "ColorType",
     "FormatterType",
     "LegendPosition",
     "LineChart",
-    "LineSeries",
     "LineStyle",
     "PointShape",
     "Series",

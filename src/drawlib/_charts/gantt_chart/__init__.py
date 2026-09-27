@@ -11,18 +11,18 @@
 
 from drawlib._charts.gantt_chart._chart import GanttChart
 from drawlib._charts.gantt_chart._item import (
-    GanttDependency,
-    GanttMarker,
-    GanttMilestone,
-    GanttSection,
-    GanttTask,
+    Dependency,
+    Marker,
+    Milestone,
+    Section,
+    Task,
 )
 
 __all__ = [
+    "Dependency",
     "GanttChart",
-    "GanttDependency",
-    "GanttMarker",
-    "GanttMilestone",
-    "GanttSection",
-    "GanttTask",
+    "Marker",
+    "Milestone",
+    "Section",
+    "Task",
 ]

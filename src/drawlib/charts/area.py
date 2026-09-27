@@ -13,31 +13,21 @@ from __future__ import annotations
 
 from drawlib._charts._common._axis import Axis
 from drawlib._charts._common._types import (
-    AreaMode,
+    AreaMode as Mode,
+)
+from drawlib._charts._common._types import (
     ColorType,
     FormatterType,
     LegendPosition,
 )
-from drawlib._charts._common._types import (
-    AreaMode as Mode,
-)
-from drawlib._charts.line_chart import (
+from drawlib._charts.area_chart import (
     AreaChart,
-    AreaSeries,
-)
-from drawlib._charts.line_chart import (
-    AreaChart as Chart,
-)
-from drawlib._charts.line_chart import (
-    AreaSeries as Series,
+    Series,
 )
 
 __all__ = [
     "AreaChart",
-    "AreaMode",
-    "AreaSeries",
     "Axis",
-    "Chart",
     "ColorType",
     "FormatterType",
     "LegendPosition",

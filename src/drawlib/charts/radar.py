@@ -19,22 +19,14 @@ from drawlib._charts._common._types import (
 )
 from drawlib._charts.radar_chart import (
     RadarChart,
-    RadarSeries,
-)
-from drawlib._charts.radar_chart import (
-    RadarChart as Chart,
-)
-from drawlib._charts.radar_chart import (
-    RadarSeries as Series,
+    Series,
 )
 
 __all__ = [
-    "Chart",
     "ColorType",
     "FormatterType",
     "GridShape",
     "LegendPosition",
     "RadarChart",
-    "RadarSeries",
     "Series",
 ]

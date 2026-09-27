@@ -11,29 +11,29 @@ Unlike external plotting libraries that produce isolated raster images, Drawlib 
 Drawlib charts adhere to four foundational principles:
 1. **Canvas Coexistence**: Charts are first-class canvas elements positioned at arbitrary `(x, y)` coordinates. Multiple charts, architecture diagrams, callouts, and icon annotations can share a single canvas.
 2. **Deterministic Layout**: Bounding boxes, margins, legend offsets, and tick spacing are computed deterministically from explicit dimensions (`width`, `height`), preventing rendering drift.
-3. **Pure-Python Data Models**: Series, slices, tasks, and points are defined through clean, strongly-typed data objects (`BarSeries`, `LineSeries`, `GanttTask`, `PieSlice`, `ScatterPoint`).
+3. **Pure-Python Data Models**: Series, slices, tasks, and points are defined through clean, strongly-typed data objects (`Series`, `Slice`, `Task`, `Point`).
 4. **Unified Styling Engine**: All chart elements—bars, area polygons, curves, gridlines, axes, text badges, and legends—are styled using Drawlib's `Style`, `Colors`, and `Font` models.
 
 ### 1.2 Module Structure & Imports
 All public chart types, series models, configuration classes, and enums are organized into dedicated submodules under `drawlib.charts`:
 
-- `drawlib.charts.bar`: `BarChart` (or `Chart`), `BarSeries` (or `Series`), `BarMode` (or `Mode`), `Axis`, `Orientation`, `LegendPosition`
-- `drawlib.charts.line`: `LineChart` (or `Chart`), `LineSeries` (or `Series`), `Axis`, `LineStyle`, `PointShape`, `LegendPosition`
-- `drawlib.charts.area`: `AreaChart` (or `Chart`), `AreaSeries` (or `Series`), `AreaMode` (or `Mode`), `Axis`, `LegendPosition`
-- `drawlib.charts.pie`: `PieChart` (or `Chart`), `PieSlice` (or `Slice`), `ColorType`, `FormatterType`
-- `drawlib.charts.radar`: `RadarChart` (or `Chart`), `RadarSeries` (or `Series`), `GridShape`, `LegendPosition`
-- `drawlib.charts.scatter`: `ScatterChart` (or `Chart`), `ScatterSeries` (or `Series`), `ScatterPoint` (or `Point`), `Axis`, `ScaleType`, `PointShape`, `LegendPosition`
-- `drawlib.charts.gantt`: `GanttChart` (or `Chart`), `GanttTask` (or `Task`), `GanttMilestone` (or `Milestone`), `GanttSection` (or `Section`), `GanttMarker` (or `Marker`), `GanttDependency` (or `Dependency`)
+- `drawlib.charts.bar`: `BarChart`, `Series`, `Mode`, `Axis`, `Orientation`, `LegendPosition`
+- `drawlib.charts.line`: `LineChart`, `Series`, `Axis`, `LineStyle`, `PointShape`, `LegendPosition`
+- `drawlib.charts.area`: `AreaChart`, `Series`, `Mode`, `Axis`, `LegendPosition`
+- `drawlib.charts.pie`: `PieChart`, `Slice`, `ColorType`, `FormatterType`
+- `drawlib.charts.radar`: `RadarChart`, `Series`, `GridShape`, `LegendPosition`
+- `drawlib.charts.scatter`: `ScatterChart`, `Series`, `Point`, `Axis`, `ScaleType`, `PointShape`, `LegendPosition`
+- `drawlib.charts.gantt`: `GanttChart`, `Task`, `Milestone`, `Section`, `Marker`, `Dependency`
 
 ```python
 # Import from dedicated chart submodules
-from drawlib.charts.bar import BarChart, BarSeries  # or: from drawlib.charts.bar import Chart, Series
-from drawlib.charts.line import LineChart, LineSeries
-from drawlib.charts.area import AreaChart, AreaSeries
-from drawlib.charts.pie import PieChart, PieSlice
-from drawlib.charts.radar import RadarChart, RadarSeries
-from drawlib.charts.scatter import ScatterChart, ScatterPoint
-from drawlib.charts.gantt import GanttChart, GanttTask
+from drawlib.charts.bar import BarChart, Series
+from drawlib.charts.line import LineChart, Series
+from drawlib.charts.area import AreaChart, Series
+from drawlib.charts.pie import PieChart, Slice
+from drawlib.charts.radar import RadarChart, Series
+from drawlib.charts.scatter import Point, ScatterChart, Series
+from drawlib.charts.gantt import Dependency, GanttChart, Marker, Milestone, Section, Task
 ```
 
 ### 1.3 Chart Family Taxonomy
@@ -172,12 +172,12 @@ DEFAULT_CHART_PALETTE: list[ColorType] = [
 | `legend_position` | `LegendPosition` | `"auto"` | Placement of legend (`"auto"`, `"top"`, `"bottom"`, `"right"`, `"none"`). |
 
 ### 3.3 Methods & Data Model
-- `add_series(name: str, values: list[float], color: ColorType | None = None, style: Style | None = None) -> BarSeries`
+- `add_series(name: str, values: list[float], color: ColorType | None = None, style: Style | None = None) -> Series`
 - `configure_y_axis(...) -> Axis`: Configures vertical axis (value axis for vertical, category axis for horizontal).
 - `configure_x_axis(...) -> Axis`: Configures horizontal axis (category axis for vertical, value axis for horizontal).
 - `draw(xy: tuple[float, float] = (0.0, 0.0)) -> None`: Renders chart at bottom-left position `xy`.
 
-`BarSeries` encapsulates `name: str`, `values: list[float]`, `color: ColorType | None`, and `style: Style | None`.
+`Series` encapsulates `name: str`, `values: list[float]`, `color: ColorType | None`, and `style: Style | None`.
 
 ### 3.4 Production Examples
 
@@ -288,12 +288,12 @@ chart.draw(xy=(10.0, 12.0))
 | `show_values` | `bool` | `False` | Whether to print numerical values above markers. |
 
 ### 4.3 Methods & Data Model
-- `add_series(name: str, values: list[float], color=None, style=None, line_width=2.0, line_style="solid", point_shape=None, point_size=None) -> LineSeries`
+- `add_series(name: str, values: list[float], color=None, style=None, line_width=2.0, line_style="solid", point_shape=None, point_size=None) -> Series`
 - `configure_y_axis(...) -> Axis`: Configures vertical value axis scale, ticks, and gridlines.
 - `configure_x_axis(...) -> Axis`: Configures horizontal category axis line and labels.
 - `draw(xy=(0.0, 0.0))`: Renders chart on canvas.
 
-`LineSeries` captures `name`, `values`, `color`, `style`, `line_width`, `line_style`, `point_shape`, and `point_size`.
+`Series` captures `name`, `values`, `color`, `style`, `line_width`, `line_style`, `point_shape`, and `point_size`.
 
 ### 4.4 Production Examples
 
@@ -379,12 +379,12 @@ chart.draw(xy=(10.0, 15.0))
 | `legend_position` | `LegendPosition` | `"auto"` | Position of the legend box. |
 
 ### 5.3 Methods & Data Model
-- `add_series(name: str, values: list[float], color=None, style=None, fill_alpha=None, line_width=2.0, line_style="solid", point_shape=None, point_size=None) -> AreaSeries`
+- `add_series(name: str, values: list[float], color=None, style=None, fill_alpha=None, line_width=2.0, line_style="solid", point_shape=None, point_size=None) -> Series`
 - `configure_y_axis(...) -> Axis`: Configures vertical value axis scale, ticks, and gridlines.
 - `configure_x_axis(...) -> Axis`: Configures horizontal category axis line and labels.
 - `draw(xy=(0.0, 0.0))`: Renders chart on canvas.
 
-`AreaSeries` tracks `name`, `values`, `color`, `style`, `fill_alpha`, `line_width`, `line_style`, `point_shape`, and `point_size`.
+`Series` tracks `name`, `values`, `color`, `style`, `fill_alpha`, `line_width`, `line_style`, `point_shape`, and `point_size`.
 
 ### 5.4 Production Examples
 
@@ -473,11 +473,11 @@ chart.draw(xy=(10.0, 15.0))
 | `width` / `height` | `float \| None` | `None` | Optional container dimension overrides. |
 
 ### 6.3 Methods & Data Model
-- `add_slice(name: str, value: float, color: ColorType | None = None, style: Style | None = None, explode: float = 0.0) -> PieSlice`: Adds a proportional wedge. Setting `explode > 0.0` shifts slice radially outward.
+- `add_slice(name: str, value: float, color: ColorType | None = None, style: Style | None = None, explode: float = 0.0) -> Slice`: Adds a proportional wedge. Setting `explode > 0.0` shifts slice radially outward.
 - `get_size() -> tuple[float, float]`: Computes required bounding box dimensions based on radius, title, and legend.
 - `draw(xy=(0.0, 0.0))`: Renders chart on canvas.
 
-`PieSlice` encapsulates `name: str`, `value: float`, `color: ColorType | None`, `style: Style | None`, and `explode: float`.
+`Slice` encapsulates `name: str`, `value: float`, `color: ColorType | None`, `style: Style | None`, and `explode: float`.
 
 ### 6.4 Production Examples
 
@@ -562,11 +562,11 @@ chart.draw(xy=(15.0, 10.0))
 | `value_format` | `FormatterType` | `None` | Formatter for vertex values. |
 
 ### 7.3 Methods & Data Model
-- `add_series(name: str, values: list[float], color=None, fill_alpha=0.25, line_width=2.0, line_style="solid", show_points=True, point_shape="circle", point_size=0.8, style=None) -> RadarSeries`
+- `add_series(name: str, values: list[float], color=None, fill_alpha=0.25, line_width=2.0, line_style="solid", show_points=True, point_shape="circle", point_size=0.8, style=None) -> Series`
 - `get_size() -> tuple[float, float]`: Returns total computed bounding dimensions.
 - `draw(xy=(0.0, 0.0))`: Renders radar chart on canvas.
 
-`RadarSeries` maintains `name`, `values`, `color`, `fill_alpha`, `line_width`, `line_style`, `show_points`, `point_shape`, `point_size`, and `style`.
+`Series` maintains `name`, `values`, `color`, `fill_alpha`, `line_width`, `line_style`, `show_points`, `point_shape`, `point_size`, and `style`.
 
 ### 7.4 Production Examples
 
@@ -645,14 +645,14 @@ chart.draw(xy=(15.0, 8.0))
 | `show_labels` | `bool` | `True` | Whether to display text annotation labels next to points. |
 
 ### 8.3 Methods & Data Models
-- `add(xy, radius=None, style=None, shape=None, label="", label_style=None) -> ScatterPoint`: Adds an individual standalone point.
-- `add_series(name, data, radius=None, style=None, shape=None) -> ScatterSeries`: Adds a named series of `(x, y)` or `(x, y, radius)` points.
+- `add(xy, radius=None, style=None, shape=None, label="", label_style=None) -> Point`: Adds an individual standalone point.
+- `add_series(name, data, radius=None, style=None, shape=None) -> Series`: Adds a named series of `(x, y)` or `(x, y, radius)` points.
 - `configure_x_axis(...) -> Axis`: Configures the continuous numerical horizontal axis.
 - `configure_y_axis(...) -> Axis`: Configures the continuous numerical vertical axis.
 - `get_size() -> tuple[float, float]`: Returns container dimensions.
 - `draw(xy)`: Renders scatter chart at bottom-left coordinate `xy`.
 
-`ScatterPoint` represents `xy`, `radius`, `style`, `shape`, and `label`. `ScatterSeries` groups member points under `name`.
+`Point` represents `xy`, `radius`, `style`, `shape`, and `label`. `Series` groups member points under `name`.
 
 ### 8.4 Production Examples
 
@@ -753,15 +753,15 @@ chart.draw(xy=(10.0, 15.0))
 | `bar_radius` | `float` | `0.8` | Corner rounding radius for task bars. |
 
 ### 9.3 Methods & Schedule Models
-- `add_task(name, start, end, progress=0.0, color=None, style=None, show_progress_text=True) -> GanttTask`
-- `add_section(name: str, style: Style | None = None) -> GanttSection`
-- `add_milestone(name: str, at: str | float, color=None, style=None) -> GanttMilestone`
-- `add_marker(at: str | float, label="", color=None, style=None) -> GanttMarker`
-- `add_dependency(from_task: GanttTask, to_task: GanttTask, color=None, style=None) -> GanttDependency`
+- `add_task(name, start, end, progress=0.0, color=None, style=None, show_progress_text=True) -> Task`
+- `add_section(name: str, style: Style | None = None) -> Section`
+- `add_milestone(name: str, at: str | float, color=None, style=None) -> Milestone`
+- `add_marker(at: str | float, label="", color=None, style=None) -> Marker`
+- `add_dependency(from_task: Task, to_task: Task, color=None, style=None) -> Dependency`
 - `get_size() -> tuple[float, float]`: Returns total computed dimensions.
 - `draw(xy=(0.0, 0.0))`: Renders chart on canvas.
 
-Data models include `GanttTask`, `GanttSection`, `GanttMilestone`, `GanttMarker`, and `GanttDependency`.
+Data models include `Task`, `Section`, `Milestone`, `Marker`, and `Dependency`.
 
 ### 9.4 Production Examples
 

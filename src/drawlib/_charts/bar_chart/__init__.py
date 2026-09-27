@@ -10,9 +10,9 @@
 """BarChart implementation package."""
 
 from drawlib._charts.bar_chart._chart import BarChart
-from drawlib._charts.bar_chart._series import BarSeries
+from drawlib._charts.bar_chart._series import Series
 
 __all__ = [
     "BarChart",
-    "BarSeries",
+    "Series",
 ]

@@ -17,7 +17,7 @@ from drawlib._charts._common._axis import Axis, calculate_axis_range_and_ticks, 
 from drawlib._charts._common._legend import get_legend_size, render_legend
 from drawlib._charts._common._types import ColorType, LegendPosition, PointShape
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
-from drawlib._charts.scatter_chart._point import ScatterPoint, ScatterSeries
+from drawlib._charts.scatter_chart._point import Point
 from drawlib._core.fonts import Font
 from drawlib._core.lines import line as canvas_line
 from drawlib._core.shapes import circle as canvas_circle
@@ -230,9 +230,9 @@ def _draw_point_marker(
 
 def _collect_all_points(
     chart: ScatterChart,
-) -> tuple[list[tuple[ScatterPoint, Style, PointShape]], list[ColorType]]:
+) -> tuple[list[tuple[Point, Style, PointShape]], list[ColorType]]:
     """Gather all points and series colors for plotting."""
-    all_points: list[tuple[ScatterPoint, Style, PointShape]] = []
+    all_points: list[tuple[Point, Style, PointShape]] = []
     series_colors: list[ColorType] = []
 
     # Standalone points
@@ -263,7 +263,7 @@ def _collect_all_points(
 
 
 def _draw_points_and_labels(
-    all_points: list[tuple[ScatterPoint, Style, PointShape]],
+    all_points: list[tuple[Point, Style, PointShape]],
     eff_min_x: float,
     eff_max_x: float,
     eff_min_y: float,

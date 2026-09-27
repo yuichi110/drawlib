@@ -16,8 +16,9 @@ from typing import TYPE_CHECKING
 from drawlib._charts._common._axis import Axis, calculate_axis_range_and_ticks, value_to_ratio
 from drawlib._charts._common._legend import get_legend_size, render_legend
 from drawlib._charts._common._types import ColorType, LineStyle
+from drawlib._charts.area_chart._series import Series as AreaSeries
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
-from drawlib._charts.line_chart._series import AreaSeries, LineSeries
+from drawlib._charts.line_chart._series import Series as LineSeries
 from drawlib._core.fonts import Font
 from drawlib._core.lines import line as canvas_line
 from drawlib._core.lines import lines as canvas_lines
@@ -30,7 +31,7 @@ from drawlib._core.types import Style
 from drawlib._preset_colors import Colors
 
 if TYPE_CHECKING:
-    from drawlib._charts.line_chart._area import AreaChart
+    from drawlib._charts.area_chart._chart import AreaChart
     from drawlib._charts.line_chart._line import LineChart
 
 _DEFAULT_TEXT_COLOR = (30, 41, 59, 1.0)
@@ -404,8 +405,9 @@ def _draw_overlap_areas(
 
         if len(pts) >= 2:
             poly_pts = [(pts[0][0], base_y)] + pts + [(pts[-1][0], base_y)]
+            alpha = s.fill_alpha if s.fill_alpha is not None else chart.fill_alpha
             fill_style = Style(
-                shape_fill_color=_with_alpha(color, s.fill_alpha),
+                shape_fill_color=_with_alpha(color, alpha),
                 shape_line_color=Colors.Transparent,
                 shape_line_width=0,
             )
@@ -473,8 +475,9 @@ def _draw_stacked_areas(
 
         # Closed polygon: upper curve forward, lower curve reversed
         poly_pts = pts_cur + list(reversed(pts_prev))
+        alpha = s.fill_alpha if s.fill_alpha is not None else chart.fill_alpha
         fill_style = Style(
-            shape_fill_color=_with_alpha(color, s.fill_alpha),
+            shape_fill_color=_with_alpha(color, alpha),
             shape_line_color=Colors.Transparent,
             shape_line_width=0,
         )

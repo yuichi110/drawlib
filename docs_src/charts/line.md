@@ -102,7 +102,7 @@ chart.draw(xy=(8.0, 5.0))
 
 ### Methods
 
-- `add_series(name: str, values: list[float], color=None, style=None, line_width=2.0, line_style="solid", point_shape=None, point_size=None) -> LineSeries`
+- `add_series(name: str, values: list[float], color=None, style=None, line_width=2.0, line_style="solid", point_shape=None, point_size=None) -> Series`
 - `configure_y_axis(...) -> Axis`
 - `configure_x_axis(...) -> Axis`
 - `draw(xy: tuple[float, float] = (0.0, 0.0)) -> None`

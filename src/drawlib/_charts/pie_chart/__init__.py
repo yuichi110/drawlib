@@ -10,9 +10,9 @@
 """Pie chart and donut chart components."""
 
 from drawlib._charts.pie_chart._chart import PieChart
-from drawlib._charts.pie_chart._slice import PieSlice
+from drawlib._charts.pie_chart._slice import Slice
 
 __all__ = [
     "PieChart",
-    "PieSlice",
+    "Slice",
 ]

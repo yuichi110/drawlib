@@ -7,15 +7,12 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""LineChart and AreaChart implementation package."""
+"""LineChart implementation package."""
 
-from drawlib._charts.line_chart._area import AreaChart
 from drawlib._charts.line_chart._line import LineChart
-from drawlib._charts.line_chart._series import AreaSeries, LineSeries
+from drawlib._charts.line_chart._series import Series
 
 __all__ = [
-    "AreaChart",
-    "AreaSeries",
     "LineChart",
-    "LineSeries",
+    "Series",
 ]

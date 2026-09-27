@@ -19,30 +19,18 @@ from drawlib._charts._common._types import (
     ScaleType,
 )
 from drawlib._charts.scatter_chart import (
+    Point,
     ScatterChart,
-    ScatterPoint,
-    ScatterSeries,
-)
-from drawlib._charts.scatter_chart import (
-    ScatterChart as Chart,
-)
-from drawlib._charts.scatter_chart import (
-    ScatterPoint as Point,
-)
-from drawlib._charts.scatter_chart import (
-    ScatterSeries as Series,
+    Series,
 )
 
 __all__ = [
     "Axis",
-    "Chart",
     "ColorType",
     "LegendPosition",
     "Point",
     "PointShape",
     "ScaleType",
     "ScatterChart",
-    "ScatterPoint",
-    "ScatterSeries",
     "Series",
 ]

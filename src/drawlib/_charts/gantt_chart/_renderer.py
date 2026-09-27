@@ -16,11 +16,9 @@ from typing import TYPE_CHECKING
 from drawlib._charts._common._types import ColorType
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
 from drawlib._charts.gantt_chart._item import (
-    GanttDependency,
-    GanttMarker,
-    GanttMilestone,
-    GanttSection,
-    GanttTask,
+    Milestone,
+    Section,
+    Task,
 )
 from drawlib._core.fonts import Font
 from drawlib._core.lines import line as canvas_line
@@ -165,7 +163,7 @@ def _draw_rows_and_items(
         row_cy = (row_top + row_bottom) / 2.0
 
         # Zebra striping
-        if chart.show_zebra and (k % 2 == 1) and not isinstance(item, GanttSection):
+        if chart.show_zebra and (k % 2 == 1) and not isinstance(item, Section):
             canvas_rectangle(
                 xy=((left_x + right_x) / 2.0, row_cy),
                 width=full_w,
@@ -185,20 +183,20 @@ def _draw_rows_and_items(
         )
 
         # Cache row_y
-        if isinstance(item, GanttTask):
+        if isinstance(item, Task):
             item._cached_row_y = row_cy
             _draw_task_row(chart, item, left_x, row_cy, x_tl_start, col_w, k)
-        elif isinstance(item, GanttSection):
+        elif isinstance(item, Section):
             item._cached_row_y = row_cy
             _draw_section_row(chart, item, left_x, right_x, row_cy)
-        elif isinstance(item, GanttMilestone):
+        elif isinstance(item, Milestone):
             item._cached_row_y = row_cy
             _draw_milestone_row(chart, item, left_x, row_cy, x_tl_start, col_w)
 
 
 def _draw_section_row(
     chart: GanttChart,
-    section: GanttSection,
+    section: Section,
     left_x: float,
     right_x: float,
     row_cy: float,
@@ -232,7 +230,7 @@ def _draw_section_row(
 
 def _draw_task_row(
     chart: GanttChart,
-    task: GanttTask,
+    task: Task,
     left_x: float,
     row_cy: float,
     x_tl_start: float,
@@ -346,7 +344,7 @@ def _draw_task_row(
 
 def _draw_milestone_row(
     chart: GanttChart,
-    milestone: GanttMilestone,
+    milestone: Milestone,
     left_x: float,
     row_cy: float,
     x_tl_start: float,

@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""RadarSeries model representing a single data polygon in a radar chart."""
+"""Series model representing a single data polygon in a radar chart."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ if TYPE_CHECKING:
     from drawlib._core.types import Style
 
 
-class RadarSeries:
+class Series:
     """Represents a data series (closed polygon) in a radar chart."""
 
     def __init__(
@@ -35,7 +35,7 @@ class RadarSeries:
         point_size: float = 0.8,
         style: Style | None = None,
     ) -> None:
-        """Initialize RadarSeries.
+        """Initialize Series.
 
         Args:
             name: Series label displayed in the legend.

@@ -24,13 +24,13 @@ from drawlib._core.types import Style
 
 if TYPE_CHECKING:
     from drawlib._charts.pie_chart._chart import PieChart
-    from drawlib._charts.pie_chart._slice import PieSlice
+    from drawlib._charts.pie_chart._slice import Slice
 
 _DEFAULT_TEXT_COLOR = (30, 41, 59, 1.0)
 _DEFAULT_WHITE_TEXT = (255, 255, 255, 1.0)
 
 
-def _resolve_slice_colors(slices: list[PieSlice]) -> list[ColorType]:
+def _resolve_slice_colors(slices: list[Slice]) -> list[ColorType]:
     """Resolve fill colors for all slices."""
     colors: list[ColorType] = []
     for i, s in enumerate(slices):

@@ -22,7 +22,7 @@ from drawlib._charts._common._types import (
     PointShape,
 )
 from drawlib._charts.radar_chart import _renderer as _renderer_module
-from drawlib._charts.radar_chart._series import RadarSeries
+from drawlib._charts.radar_chart._series import Series
 
 if TYPE_CHECKING:
     from drawlib._core.types import Style
@@ -102,7 +102,7 @@ class RadarChart:
 
         self._custom_width = float(width) if width is not None else None
         self._custom_height = float(height) if height is not None else None
-        self._series: list[RadarSeries] = []
+        self._series: list[Series] = []
 
     @property
     def categories(self) -> list[str]:
@@ -110,8 +110,8 @@ class RadarChart:
         return list(self._categories)
 
     @property
-    def series(self) -> list[RadarSeries]:
-        """List of registered RadarSeries."""
+    def series(self) -> list[Series]:
+        """List of registered Series."""
         return list(self._series)
 
     def add_series(
@@ -126,7 +126,7 @@ class RadarChart:
         point_shape: PointShape = "circle",
         point_size: float = 0.8,
         style: Style | None = None,
-    ) -> RadarSeries:
+    ) -> Series:
         """Add a new data series to the radar chart.
 
         Args:
@@ -142,9 +142,9 @@ class RadarChart:
             style: Optional Style overriding series appearance.
 
         Returns:
-            RadarSeries: The newly created and registered series.
+            Series: The newly created and registered series.
         """
-        s = RadarSeries(
+        s = Series(
             name=name,
             values=values,
             color=color,
