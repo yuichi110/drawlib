@@ -1,6 +1,6 @@
 # Pie & Donut Chart Guide
 
-`drawlib.charts.PieChart` provides modern 2D pie and donut charts for proportional data visualization. Slices, labels, and legends are automatically formatted and laid out with fine-grained control over center badges, exploded sectors, and typography.
+`drawlib.charts.pie.PieChart` provides modern 2D pie and donut charts for proportional data visualization. Slices, labels, and legends are automatically formatted and laid out with fine-grained control over center badges, exploded sectors, and typography.
 
 ---
 
@@ -12,9 +12,9 @@ Create a clean pie chart showing proportional breakdown with automatic percentag
 
 ```python
 from drawlib import canvas
-from drawlib.charts import PieChart
+from drawlib.charts.pie import PieChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=84, height=76)
 
 chart = PieChart(
@@ -47,9 +47,9 @@ Set `hole_ratio` (e.g. `0.6`) to turn any pie chart into a donut chart, and disp
 
 ```python
 from drawlib import canvas
-from drawlib.charts import PieChart
+from drawlib.charts.pie import PieChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=84, height=76)
 
 chart = PieChart(
@@ -82,9 +82,9 @@ Highlight important segments by setting `explode` on individual slices, and repo
 
 ```python
 from drawlib import canvas
-from drawlib.charts import PieChart
+from drawlib.charts.pie import PieChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=74, height=80)
 
 chart = PieChart(

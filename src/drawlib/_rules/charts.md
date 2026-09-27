@@ -15,44 +15,25 @@ Drawlib charts adhere to four foundational principles:
 4. **Unified Styling Engine**: All chart elements—bars, area polygons, curves, gridlines, axes, text badges, and legends—are styled using Drawlib's `Style`, `Colors`, and `Font` models.
 
 ### 1.2 Module Structure & Imports
-All public chart types, series models, configuration classes, and enums are exported directly from `drawlib.charts`:
+All public chart types, series models, configuration classes, and enums are organized into dedicated submodules under `drawlib.charts`:
+
+- `drawlib.charts.bar`: `BarChart` (or `Chart`), `BarSeries` (or `Series`), `BarMode` (or `Mode`), `Axis`, `Orientation`, `LegendPosition`
+- `drawlib.charts.line`: `LineChart` (or `Chart`), `LineSeries` (or `Series`), `Axis`, `LineStyle`, `PointShape`, `LegendPosition`
+- `drawlib.charts.area`: `AreaChart` (or `Chart`), `AreaSeries` (or `Series`), `AreaMode` (or `Mode`), `Axis`, `LegendPosition`
+- `drawlib.charts.pie`: `PieChart` (or `Chart`), `PieSlice` (or `Slice`), `ColorType`, `FormatterType`
+- `drawlib.charts.radar`: `RadarChart` (or `Chart`), `RadarSeries` (or `Series`), `GridShape`, `LegendPosition`
+- `drawlib.charts.scatter`: `ScatterChart` (or `Chart`), `ScatterSeries` (or `Series`), `ScatterPoint` (or `Point`), `Axis`, `ScaleType`, `PointShape`, `LegendPosition`
+- `drawlib.charts.gantt`: `GanttChart` (or `Chart`), `GanttTask` (or `Task`), `GanttMilestone` (or `Milestone`), `GanttSection` (or `Section`), `GanttMarker` (or `Marker`), `GanttDependency` (or `Dependency`)
 
 ```python
-from drawlib.charts import (
-    # Chart Containers
-    AreaChart,
-    BarChart,
-    GanttChart,
-    LineChart,
-    PieChart,
-    RadarChart,
-    ScatterChart,
-    # Axis & Configuration Models
-    Axis,
-    # Series & Data Models
-    AreaSeries,
-    BarSeries,
-    GanttDependency,
-    GanttMarker,
-    GanttMilestone,
-    GanttSection,
-    GanttTask,
-    LineSeries,
-    PieSlice,
-    RadarSeries,
-    ScatterPoint,
-    ScatterSeries,
-    # Enums & Type Literals
-    AreaMode,
-    BarMode,
-    ColorType,
-    FormatterType,
-    GridShape,
-    LegendPosition,
-    Orientation,
-    PointShape,
-    ScaleType,
-)
+# Import from dedicated chart submodules
+from drawlib.charts.bar import BarChart, BarSeries  # or: from drawlib.charts.bar import Chart, Series
+from drawlib.charts.line import LineChart, LineSeries
+from drawlib.charts.area import AreaChart, AreaSeries
+from drawlib.charts.pie import PieChart, PieSlice
+from drawlib.charts.radar import RadarChart, RadarSeries
+from drawlib.charts.scatter import ScatterChart, ScatterPoint
+from drawlib.charts.gantt import GanttChart, GanttTask
 ```
 
 ### 1.3 Chart Family Taxonomy
@@ -203,9 +184,9 @@ DEFAULT_CHART_PALETTE: list[ColorType] = [
 #### Example 3.4.1: Vertical Grouped Bar Chart with Value Labels
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.charts import BarChart
+from drawlib.charts.bar import BarChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=100, height=80)
 
 chart = BarChart(
@@ -230,9 +211,9 @@ chart.draw(xy=(10.0, 15.0))
 #### Example 3.4.2: Horizontal Stacked Bar Chart with Resource Breakdown
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.charts import BarChart
+from drawlib.charts.bar import BarChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=105, height=75)
 
 chart = BarChart(
@@ -258,9 +239,9 @@ chart.draw(xy=(10.0, 15.0))
 #### Example 3.4.3: Logarithmic Scale Latency Benchmark
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.charts import BarChart
+from drawlib.charts.bar import BarChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=100, height=75)
 
 chart = BarChart(
@@ -319,9 +300,9 @@ chart.draw(xy=(10.0, 12.0))
 #### Example 4.4.1: Multi-Series Active Users Comparison
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.charts import LineChart
+from drawlib.charts.line import LineChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=100, height=80)
 
 chart = LineChart(
@@ -343,9 +324,9 @@ chart.draw(xy=(10.0, 15.0))
 #### Example 4.4.2: Smooth Spline CPU Load with Custom Markers
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.charts import LineChart
+from drawlib.charts.line import LineChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=100, height=75)
 
 chart = LineChart(
@@ -410,9 +391,9 @@ chart.draw(xy=(10.0, 15.0))
 #### Example 5.4.1: Cumulative Stacked Revenue Streams
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.charts import AreaChart
+from drawlib.charts.area import AreaChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=100, height=80)
 
 chart = AreaChart(
@@ -434,9 +415,9 @@ chart.draw(xy=(10.0, 15.0))
 #### Example 5.4.2: Overlapping Network Bandwidth with Custom Alpha
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.charts import AreaChart
+from drawlib.charts.area import AreaChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=100, height=75)
 
 chart = AreaChart(
@@ -503,9 +484,9 @@ chart.draw(xy=(10.0, 15.0))
 #### Example 6.4.1: Donut Chart with Center Metric
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.charts import PieChart
+from drawlib.charts.pie import PieChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=95, height=75)
 
 chart = PieChart(
@@ -525,9 +506,9 @@ chart.draw(xy=(10.0, 10.0))
 #### Example 6.4.2: Exploded Slice Allocation
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.charts import PieChart
+from drawlib.charts.pie import PieChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=90, height=80)
 
 chart = PieChart(
@@ -592,9 +573,9 @@ chart.draw(xy=(15.0, 10.0))
 #### Example 7.4.1: Software Architecture Non-Functional Attributes
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.charts import RadarChart
+from drawlib.charts.radar import RadarChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=105, height=88)
 
 chart = RadarChart(
@@ -617,9 +598,9 @@ chart.draw(xy=(5.0, 5.0))
 #### Example 7.4.2: Circular Grid Product Evaluation
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.charts import RadarChart
+from drawlib.charts.radar import RadarChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=95, height=75)
 
 chart = RadarChart(
@@ -678,10 +659,10 @@ chart.draw(xy=(15.0, 8.0))
 #### Example 8.4.1: Benchmark Scatter with Labeled Baseline Points
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.charts import ScatterChart
+from drawlib.charts.scatter import ScatterChart
 from drawlib.types import Style
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=105, height=75)
 
 chart = ScatterChart(
@@ -711,9 +692,9 @@ chart.draw(xy=(10.0, 12.0))
 #### Example 8.4.2: Multidimensional Cloud Cost Bubble Chart
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.charts import ScatterChart
+from drawlib.charts.scatter import ScatterChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=105, height=75)
 
 chart = ScatterChart(
@@ -787,9 +768,9 @@ Data models include `GanttTask`, `GanttSection`, `GanttMilestone`, `GanttMarker`
 #### Example 9.4.1: Engineering Release Roadmap with Dependencies
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.charts import GanttChart
+from drawlib.charts.gantt import GanttChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=110, height=85)
 
 chart = GanttChart(
@@ -824,9 +805,9 @@ chart.draw(xy=(8.0, 10.0))
 #### Example 9.4.2: Agile Sprint Schedule with Custom Task Colors
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.charts import GanttChart
+from drawlib.charts.gantt import GanttChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=100, height=70)
 
 chart = GanttChart(

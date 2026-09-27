@@ -1,6 +1,6 @@
 # Bar Chart Guide
 
-`drawlib.charts.BarChart` provides flexible vertical and horizontal bar charts with support for grouping, stacking, custom ticks, and logarithmic scales.
+`drawlib.charts.bar.BarChart` provides flexible vertical and horizontal bar charts with support for grouping, stacking, custom ticks, and logarithmic scales.
 
 ---
 
@@ -10,9 +10,9 @@ A vertical grouped bar chart compares multiple series across categories:
 
 ```drawlib show-code 650px center caption:"Annual Revenue Comparison"
 from drawlib import canvas
-from drawlib.charts import BarChart
+from drawlib.charts.bar import BarChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=95, height=70)
 
 chart = BarChart(
@@ -36,9 +36,9 @@ Horizontal stacked bars are ideal for visualizing resource breakdowns, survey re
 
 ```drawlib show-code 650px center caption:"Resource Allocation"
 from drawlib import canvas
-from drawlib.charts import BarChart
+from drawlib.charts.bar import BarChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=98, height=62)
 
 chart = BarChart(
@@ -65,9 +65,9 @@ For latency measurements, algorithmic complexity, or exponential data across sev
 
 ```drawlib show-code 650px center caption:"Query Latency (Log Scale)"
 from drawlib import canvas
-from drawlib.charts import BarChart
+from drawlib.charts.bar import BarChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=95, height=70)
 
 chart = BarChart(
@@ -90,10 +90,10 @@ You can customize ticks, intervals, unit labels, and number formatting via `conf
 
 ```drawlib show-code 650px center caption:"Custom Ticks and Formatting"
 from drawlib import canvas
-from drawlib.charts import BarChart
+from drawlib.charts.bar import BarChart
 from drawlib.types import Style
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=88, height=65)
 
 chart = BarChart(

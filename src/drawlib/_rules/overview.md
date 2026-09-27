@@ -534,7 +534,7 @@ drawlib rules show <topic> --rebuild
 - **Scope**: Statistical and planning charts: `BarChart` (grouped, stacked, horizontal), `LineChart`, `AreaChart`, `PieChart` / donut, `RadarChart`, `ScatterChart`, and `GanttChart`.
 - **Key Syntax**:
   ```python
-  from drawlib.charts import BarChart, BarSeries
+  from drawlib.charts.bar import BarChart, BarSeries
   BarChart((10, 10), width=80, height=60, categories=["Q1", "Q2", "Q3"]) \
       .add_series(BarSeries("Revenue", [100, 140, 180], color="blue")) \
       .draw()

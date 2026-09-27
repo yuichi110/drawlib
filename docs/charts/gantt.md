@@ -1,6 +1,6 @@
 # Gantt Chart Guide
 
-`drawlib.charts.GanttChart` provides declarative, vector-grade Gantt schedule charts for project roadmaps, release planning, and workflow timelines.
+`drawlib.charts.gantt.GanttChart` provides declarative, vector-grade Gantt schedule charts for project roadmaps, release planning, and workflow timelines.
 
 Drawing inspiration from sequence diagrams, `GanttChart` structures timeline columns horizontally along the X-axis while sequentially stacking task rows, section banners, and milestones downwards along the Y-axis.
 
@@ -14,9 +14,9 @@ Create a multi-phase project schedule with tasks, sections, progress bars, miles
 
 ```python
 from drawlib import canvas
-from drawlib.charts import GanttChart
+from drawlib.charts.gantt import GanttChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=96, height=62)
 
 chart = GanttChart(
@@ -61,9 +61,9 @@ Specify numerical or sprint offsets, customize bar colors and corner rounding:
 
 ```python
 from drawlib import canvas
-from drawlib.charts import GanttChart
+from drawlib.charts.gantt import GanttChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=94, height=48)
 
 chart = GanttChart(

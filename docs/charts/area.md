@@ -1,6 +1,6 @@
 # Area Chart Guide
 
-`drawlib.charts.AreaChart` provides volume and trend visualization through filled polygons, supporting both **overlapping semi-transparent layers** and **cumulative stacked areas**.
+`drawlib.charts.area.AreaChart` provides volume and trend visualization through filled polygons, supporting both **overlapping semi-transparent layers** and **cumulative stacked areas**.
 
 ---
 
@@ -12,9 +12,9 @@ Cumulative stacked areas are ideal for showing how multiple segments contribute 
 
 ```python
 from drawlib import canvas
-from drawlib.charts import AreaChart
+from drawlib.charts.area import AreaChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=96, height=60)
 
 chart = AreaChart(
@@ -50,9 +50,9 @@ Overlapping areas with transparency allow comparing multiple independent magnitu
 
 ```python
 from drawlib import canvas
-from drawlib.charts import AreaChart
+from drawlib.charts.area import AreaChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=96, height=62)
 
 chart = AreaChart(

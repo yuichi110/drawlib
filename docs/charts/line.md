@@ -1,6 +1,6 @@
 # Line Chart Guide
 
-`drawlib.charts.LineChart` provides modern 2D line charts with support for multi-series comparisons, straight or smooth spline lines, custom point markers, and logarithmic scales.
+`drawlib.charts.line.LineChart` provides modern 2D line charts with support for multi-series comparisons, straight or smooth spline lines, custom point markers, and logarithmic scales.
 
 ---
 
@@ -12,9 +12,9 @@ Compare continuous metrics over categories or time intervals:
 
 ```python
 from drawlib import canvas
-from drawlib.charts import LineChart
+from drawlib.charts.line import LineChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=95, height=65)
 
 chart = LineChart(
@@ -47,9 +47,9 @@ Enable `smooth=True` for rounded, fluid curve interpolation, and customize marke
 
 ```python
 from drawlib import canvas
-from drawlib.charts import LineChart
+from drawlib.charts.line import LineChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=95, height=65)
 
 chart = LineChart(
@@ -84,9 +84,9 @@ Combine `LineChart` with `configure_y_axis(scale="log")` to track exponential gr
 
 ```python
 from drawlib import canvas
-from drawlib.charts import LineChart
+from drawlib.charts.line import LineChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=95, height=65)
 
 chart = LineChart(

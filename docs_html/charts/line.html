@@ -401,14 +401,14 @@
             </header>
             <main class="main-content">
                 <h1>Line Chart Guide</h1>
-<p><code>drawlib.charts.LineChart</code> provides modern 2D line charts with support for multi-series comparisons, straight or smooth spline lines, custom point markers, and logarithmic scales.</p>
+<p><code>drawlib.charts.line.LineChart</code> provides modern 2D line charts with support for multi-series comparisons, straight or smooth spline lines, custom point markers, and logarithmic scales.</p>
 <hr />
 <h2>1. Quick Start: Multi-Series Line Chart</h2>
 <p>Compare continuous metrics over categories or time intervals:</p>
 <pre><code class="language-python">from drawlib import canvas
-from drawlib.charts import LineChart
+from drawlib.charts.line import LineChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=95, height=65)
 
 chart = LineChart(
@@ -431,9 +431,9 @@ chart.draw(xy=(8.0, 5.0))
 <h2>2. Smooth Curves &amp; Custom Markers</h2>
 <p>Enable <code>smooth=True</code> for rounded, fluid curve interpolation, and customize marker shapes (<code>point_shape=&quot;square&quot;</code> or <code>&quot;circle&quot;</code>):</p>
 <pre><code class="language-python">from drawlib import canvas
-from drawlib.charts import LineChart
+from drawlib.charts.line import LineChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=95, height=65)
 
 chart = LineChart(
@@ -458,9 +458,9 @@ chart.draw(xy=(8.0, 5.0))
 <h2>3. Logarithmic Scale Trend</h2>
 <p>Combine <code>LineChart</code> with <code>configure_y_axis(scale=&quot;log&quot;)</code> to track exponential growth or wide dynamic ranges:</p>
 <pre><code class="language-python">from drawlib import canvas
-from drawlib.charts import LineChart
+from drawlib.charts.line import LineChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=95, height=65)
 
 chart = LineChart(

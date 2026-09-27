@@ -19,7 +19,7 @@ import pytest
 from drawlib import canvas
 from drawlib._charts.gantt_chart._renderer import _resolve_point_time, _resolve_time
 from drawlib._core.l3_styles import Style
-from drawlib.charts import (
+from drawlib.charts.gantt import (
     GanttChart,
     GanttDependency,
     GanttMarker,

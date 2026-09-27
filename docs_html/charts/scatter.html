@@ -401,15 +401,15 @@
             </header>
             <main class="main-content">
                 <h1>Scatter Chart Guide</h1>
-<p><code>drawlib.charts.ScatterChart</code> provides 2D scatter and bubble charts for exploring quantitative relationships, benchmark comparisons, and multidimensional distributions.</p>
+<p><code>drawlib.charts.scatter.ScatterChart</code> provides 2D scatter and bubble charts for exploring quantitative relationships, benchmark comparisons, and multidimensional distributions.</p>
 <hr />
 <h2>1. Quick Start: Benchmark Comparison</h2>
 <p>Plot individual data points via <code>add()</code> and grouped series via <code>add_series()</code>:</p>
 <pre><code class="language-python">from drawlib import canvas
-from drawlib.charts import ScatterChart
+from drawlib.charts.scatter import ScatterChart
 from drawlib.types import Style
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=98, height=65)
 
 chart = ScatterChart(
@@ -461,9 +461,9 @@ chart.draw(xy=(5.0, 5.0))
 <h2>2. Bubble Chart: Multidimensional Data</h2>
 <p>Pass 3-tuples <code>(x, y, radius)</code> to <code>add_series()</code> to represent a third variable using marker size:</p>
 <pre><code class="language-python">from drawlib import canvas
-from drawlib.charts import ScatterChart
+from drawlib.charts.scatter import ScatterChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=96, height=65)
 
 chart = ScatterChart(

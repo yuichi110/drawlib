@@ -19,7 +19,7 @@ import pytest
 from drawlib import canvas
 from drawlib._charts.radar_chart._renderer import _format_value
 from drawlib._core.l3_styles import Style
-from drawlib.charts import RadarChart, RadarSeries
+from drawlib.charts.radar import RadarChart, RadarSeries
 
 
 class TestRadarSeries:

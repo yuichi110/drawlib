@@ -401,14 +401,14 @@
             </header>
             <main class="main-content">
                 <h1>Pie &amp; Donut Chart Guide</h1>
-<p><code>drawlib.charts.PieChart</code> provides modern 2D pie and donut charts for proportional data visualization. Slices, labels, and legends are automatically formatted and laid out with fine-grained control over center badges, exploded sectors, and typography.</p>
+<p><code>drawlib.charts.pie.PieChart</code> provides modern 2D pie and donut charts for proportional data visualization. Slices, labels, and legends are automatically formatted and laid out with fine-grained control over center badges, exploded sectors, and typography.</p>
 <hr />
 <h2>1. Quick Start: Standard Pie Chart</h2>
 <p>Create a clean pie chart showing proportional breakdown with automatic percentage labels and legends:</p>
 <pre><code class="language-python">from drawlib import canvas
-from drawlib.charts import PieChart
+from drawlib.charts.pie import PieChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=84, height=76)
 
 chart = PieChart(
@@ -431,9 +431,9 @@ chart.draw(xy=(4.0, 3.0))
 <h2>2. Donut Chart with Center Badge</h2>
 <p>Set <code>hole_ratio</code> (e.g. <code>0.6</code>) to turn any pie chart into a donut chart, and display summary metrics or KPIs in the center with <code>center_text</code>:</p>
 <pre><code class="language-python">from drawlib import canvas
-from drawlib.charts import PieChart
+from drawlib.charts.pie import PieChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=84, height=76)
 
 chart = PieChart(
@@ -456,9 +456,9 @@ chart.draw(xy=(4.0, 3.0))
 <h2>3. Exploded Slices &amp; Custom Placement</h2>
 <p>Highlight important segments by setting <code>explode</code> on individual slices, and reposition the legend to the bottom:</p>
 <pre><code class="language-python">from drawlib import canvas
-from drawlib.charts import PieChart
+from drawlib.charts.pie import PieChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=74, height=80)
 
 chart = PieChart(

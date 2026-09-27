@@ -1,6 +1,6 @@
 # Scatter Chart Guide
 
-`drawlib.charts.ScatterChart` provides 2D scatter and bubble charts for exploring quantitative relationships, benchmark comparisons, and multidimensional distributions.
+`drawlib.charts.scatter.ScatterChart` provides 2D scatter and bubble charts for exploring quantitative relationships, benchmark comparisons, and multidimensional distributions.
 
 ---
 
@@ -10,10 +10,10 @@ Plot individual data points via `add()` and grouped series via `add_series()`:
 
 ```drawlib show-code 650px center caption:"Service Latency vs. Throughput Benchmark"
 from drawlib import canvas
-from drawlib.charts import ScatterChart
+from drawlib.charts.scatter import ScatterChart
 from drawlib.types import Style
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=98, height=65)
 
 chart = ScatterChart(
@@ -66,9 +66,9 @@ Pass 3-tuples `(x, y, radius)` to `add_series()` to represent a third variable u
 
 ```drawlib show-code 650px center caption:"Cloud Workload Performance & Cost"
 from drawlib import canvas
-from drawlib.charts import ScatterChart
+from drawlib.charts.scatter import ScatterChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=96, height=65)
 
 chart = ScatterChart(

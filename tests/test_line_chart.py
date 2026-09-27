@@ -16,7 +16,8 @@ from pathlib import Path
 
 from drawlib import canvas
 from drawlib._core.l3_styles import Style
-from drawlib.charts import AreaChart, AreaSeries, LineChart, LineSeries
+from drawlib.charts.area import AreaChart, AreaSeries
+from drawlib.charts.line import LineChart, LineSeries
 
 
 class TestLineChartModel:

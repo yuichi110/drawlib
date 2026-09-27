@@ -1,6 +1,6 @@
 # Radar Chart Guide
 
-`drawlib.charts.RadarChart` provides 2D radar (spider web) charts for multivariate performance analysis, skill evaluation, and multi-dimensional profile comparison.
+`drawlib.charts.radar.RadarChart` provides 2D radar (spider web) charts for multivariate performance analysis, skill evaluation, and multi-dimensional profile comparison.
 
 ---
 
@@ -12,9 +12,9 @@ Compare multiple profiles across symmetric radial dimensions with polygon gridli
 
 ```python
 from drawlib import canvas
-from drawlib.charts import RadarChart
+from drawlib.charts.radar import RadarChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=86, height=82)
 
 chart = RadarChart(
@@ -45,9 +45,9 @@ Use `grid_shape="circle"` for concentric circular contours, customize `line_styl
 
 ```python
 from drawlib import canvas
-from drawlib.charts import RadarChart
+from drawlib.charts.radar import RadarChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=78, height=98)
 
 chart = RadarChart(

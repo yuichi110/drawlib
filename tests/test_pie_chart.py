@@ -17,7 +17,7 @@ from pathlib import Path
 from drawlib import canvas
 from drawlib._charts.pie_chart._renderer import _format_slice_label
 from drawlib._core.l3_styles import Style
-from drawlib.charts import PieChart, PieSlice
+from drawlib.charts.pie import PieChart, PieSlice
 
 
 class TestPieSlice:

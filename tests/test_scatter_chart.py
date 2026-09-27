@@ -16,7 +16,7 @@ from pathlib import Path
 
 from drawlib import canvas
 from drawlib._core.l3_styles import Style
-from drawlib.charts import ScatterChart
+from drawlib.charts.scatter import ScatterChart
 from drawlib.preset_styles import default_styles
 
 

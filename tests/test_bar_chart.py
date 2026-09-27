@@ -18,7 +18,7 @@ from drawlib import canvas
 from drawlib._charts._common._axis import Axis, calculate_axis_range_and_ticks, value_to_ratio
 from drawlib._charts._common._legend import get_legend_size, resolve_legend_position
 from drawlib._core.l3_styles import Style
-from drawlib.charts import BarChart, BarSeries
+from drawlib.charts.bar import BarChart, BarSeries, Series
 
 
 class TestAxisCalculation:

@@ -401,15 +401,15 @@
             </header>
             <main class="main-content">
                 <h1>Gantt Chart Guide</h1>
-<p><code>drawlib.charts.GanttChart</code> provides declarative, vector-grade Gantt schedule charts for project roadmaps, release planning, and workflow timelines.</p>
+<p><code>drawlib.charts.gantt.GanttChart</code> provides declarative, vector-grade Gantt schedule charts for project roadmaps, release planning, and workflow timelines.</p>
 <p>Drawing inspiration from sequence diagrams, <code>GanttChart</code> structures timeline columns horizontally along the X-axis while sequentially stacking task rows, section banners, and milestones downwards along the Y-axis.</p>
 <hr />
 <h2>1. Quick Start: Project Roadmap</h2>
 <p>Create a multi-phase project schedule with tasks, sections, progress bars, milestones, and dependencies:</p>
 <pre><code class="language-python">from drawlib import canvas
-from drawlib.charts import GanttChart
+from drawlib.charts.gantt import GanttChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=96, height=62)
 
 chart = GanttChart(
@@ -444,9 +444,9 @@ chart.draw(xy=(3.0, 3.0))
 <h2>2. Sprint Planning &amp; Custom Colors</h2>
 <p>Specify numerical or sprint offsets, customize bar colors and corner rounding:</p>
 <pre><code class="language-python">from drawlib import canvas
-from drawlib.charts import GanttChart
+from drawlib.charts.gantt import GanttChart
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=94, height=48)
 
 chart = GanttChart(

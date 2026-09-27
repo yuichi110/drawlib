@@ -13,9 +13,9 @@
 
 ```drawlib 600px center caption:"Figure 8.1: Declarative Grouped BarChart"
 from drawlib import canvas
-from drawlib.charts import BarChart
+from drawlib.charts.bar import BarChart
 
-canvas.initialize()
+canvas.clear()
 
 chart = BarChart(
     categories=["Q1", "Q2", "Q3", "Q4"],
