@@ -298,5 +298,5 @@ def cmd_colors_show(
             console.print(
                 f"[bold yellow]Notice:[/bold yellow] No GUI display ($DISPLAY) detected in this remote environment.\n"
                 f"Rendered color chart to: [bold cyan]'{tmp_path}'[/bold cyan]\n"
-                f"[dim]Tip: You can open this file in VS Code, or use '-o <filename>' to save to your workspace.[/dim]"
+                f"[dim]Tip: Open this in VS Code, or use '-o colors_{key}.png' to save to your workspace.[/dim]"
             )

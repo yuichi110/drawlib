@@ -22,6 +22,7 @@ from drawlib._cli._colors import colors_app
 from drawlib._cli._commands import cache_app, css_app, register_top_commands
 from drawlib._cli._init import cmd_init
 from drawlib._cli._rules import rules_app
+from drawlib._cli._styles import styles_app
 from drawlib._core.utils import dutil_settings, logger
 
 app = typer.Typer(
@@ -37,6 +38,7 @@ app.add_typer(cache_app, name="cache")
 app.add_typer(colors_app, name="colors")
 app.add_typer(css_app, name="css")
 app.add_typer(rules_app, name="rules")
+app.add_typer(styles_app, name="styles")
 app.command(
     "init",
     help="Scaffold a starter drawlib project with sample illustrations and build script.",
