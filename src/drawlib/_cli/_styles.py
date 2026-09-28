@@ -94,6 +94,26 @@ def _extract_base_colors(styles: BaseStyles, filter_color: str | None = None) ->
     return base_colors
 
 
+def get_styles_page_count(
+    styles: BaseStyles,
+    *,
+    page_size: int = 25,
+    filter_color: str | None = None,
+) -> int:
+    """Calculate the total number of pages required to display a styles catalog.
+
+    Args:
+        styles (BaseStyles): BaseStyles instance.
+        page_size (int): Number of colors per page. Defaults to 25.
+        filter_color (str | None): Optional color filter. Defaults to None.
+
+    Returns:
+        int: Total number of pages (at least 1).
+    """
+    base_colors = _extract_base_colors(styles, filter_color)
+    return max(1, math.ceil(len(base_colors) / page_size))
+
+
 def _render_legend(styles: BaseStyles, legend_cx: float, legend_y: float) -> None:
     """Render the single reference legend card showing Shape, Text Style, and Line style.
 
@@ -219,31 +239,45 @@ def render_styles_matrix(
     styles: BaseStyles,
     name: str,
     *,
+    page: int = 1,
+    page_size: int = 25,
     filter_color: str | None = None,
     grid: bool = False,
 ) -> Dimage:
-    """Render an orthogonal visual matrix for any BaseStyles catalog.
+    """Render an orthogonal visual matrix for a BaseStyles catalog page.
 
     Displays a single reference legend at the top (Shape swatch, Text Style, Arrow line),
     followed by an orthogonal grid where columns represent variants (standard, flat, solid,
-    dashed, bold, light) and rows represent base colors.
+    dashed, bold, light) and rows represent base colors for the specified page.
 
     Args:
         styles (BaseStyles): BaseStyles instance containing style attributes.
         name (str): Display name for the catalog header.
+        page (int): 1-indexed page number to render. Defaults to 1.
+        page_size (int): Number of colors per page. Defaults to 25.
         filter_color (str | None): Optional substring to filter base colors. Defaults to None.
         grid (bool): Whether to overlay coordinate grid. Defaults to False.
 
     Returns:
         Dimage: Rendered in-memory image.
+
+    Raises:
+        ValueError: If page is less than 1 or exceeds total pages.
     """
     base_colors = _extract_base_colors(styles, filter_color)
+    total_pages = max(1, math.ceil(len(base_colors) / page_size))
+    if page < 1 or page > total_pages:
+        raise ValueError(f"Invalid page {page}. Available pages: 1 to {total_pages}.")
+
+    start_idx = (page - 1) * page_size
+    end_idx = min(start_idx + page_size, len(base_colors))
+    page_colors = base_colors[start_idx:end_idx]
 
     rows: list[tuple[str, list[str | None]]] = []
-    if filter_color is None or "primary" in filter_color.lower() or "theme" in filter_color.lower():
+    if page == 1 and (filter_color is None or "primary" in filter_color.lower() or "theme" in filter_color.lower()):
         rows.append(("primary (theme)", list(_THEME_KEYS)))
 
-    for b in base_colors:
+    for b in page_colors:
         row_keys: list[str | None] = [
             b if hasattr(styles, b) else None,
             f"{b}_flat" if hasattr(styles, f"{b}_flat") else None,
@@ -271,9 +305,10 @@ def render_styles_matrix(
     setup(width=canvas_w, height=canvas_h, grid=grid)
 
     title_y = canvas_h - margin_y - 4.0
+    page_suffix = f" (Page {page}/{total_pages})" if total_pages > 1 else ""
     text(
         (canvas_w / 2, title_y),
-        f"{name} Style Catalog",
+        f"{name} Style Catalog{page_suffix}",
         style=Style(text_size=17, text_font=Font.SANSSERIF_BOLD, text_color=Color(30, 30, 30)),
     )
 
@@ -316,6 +351,116 @@ def _display_dimage(dimage: Dimage) -> None:
         dimage.get_pil_image().show()
 
 
+def _export_all_pages(
+    styles: BaseStyles,
+    short_name: str,
+    total_pages: int,
+    output: str | None,
+    key: str,
+    *,
+    filter_color: str | None,
+    grid: bool,
+) -> None:
+    """Export all pages of a style catalog sequentially to separate image files.
+
+    Args:
+        styles (BaseStyles): BaseStyles instance.
+        short_name (str): Catalog short name.
+        total_pages (int): Total number of pages.
+        output (str | None): Base output filename or None for default.
+        key (str): Catalog preset key.
+        filter_color (str | None): Color filter if applied.
+        grid (bool): Whether to show coordinate grid overlay.
+    """
+    saved_paths: list[str] = []
+    for p in range(1, total_pages + 1):
+        dimage = render_styles_matrix(styles, short_name, page=p, filter_color=filter_color, grid=grid)
+        if output:
+            base, ext = os.path.splitext(output)
+            if not ext:
+                ext = ".png"
+            clean_base = base[:-2] if base.endswith("_1") else base
+            target_path = os.path.abspath(f"{clean_base}_{p}{ext}")
+        else:
+            target_path = os.path.abspath(f"styles_{key}_{p}.png")
+
+        dimage.save(target_path)
+        saved_paths.append(target_path)
+
+    console.print(f"[bold green]Success:[/bold green] Exported all {total_pages} pages:")
+    for path in saved_paths:
+        console.print(f"  - [bold cyan]'{path}'[/bold cyan]")
+
+
+def _handle_single_page_output(
+    dimage: Dimage,
+    output: str | None,
+    key: str,
+    short_name: str,
+    page: int,
+    total_pages: int,
+) -> None:
+    """Save or display single page of styles catalog.
+
+    Args:
+        dimage (Dimage): Rendered page image.
+        output (str | None): User-provided output path.
+        key (str): Catalog preset key.
+        short_name (str): Catalog short name.
+        page (int): Current page number.
+        total_pages (int): Total page count.
+    """
+    page_info = f" (Page {page}/{total_pages})" if total_pages > 1 else ""
+
+    if output:
+        dest_abs = os.path.abspath(output)
+        try:
+            dimage.save(dest_abs)
+            msg = (
+                f"[bold green]Success:[/bold green] Exported styles chart{page_info} "
+                f"to [bold cyan]'{dest_abs}'[/bold cyan]."
+            )
+            console.print(msg)
+            if total_pages > 1:
+                next_p = page + 1 if page < total_pages else 1
+                console.print(
+                    f"[dim]Tip: {short_name} has {total_pages} pages. "
+                    f"To export another page: 'drawlib styles show {key} {next_p} -o styles_{key}_{next_p}.png', "
+                    f"or use '--all' to export all pages.[/dim]"
+                )
+        except Exception as e:
+            console.print(f"[bold red]Error:[/bold red] Failed to save image to '{dest_abs}': {e}")
+            raise typer.Exit(code=1)
+    else:
+        prefix_tag = f"drawlib_styles_{key}_p{page}_" if total_pages > 1 else f"drawlib_styles_{key}_"
+        with tempfile.NamedTemporaryFile(suffix=".png", prefix=prefix_tag, delete=False) as tmp:
+            tmp_path = tmp.name
+        dimage.save(tmp_path)
+
+        has_display = bool(os.environ.get("DISPLAY")) or sys.platform in {"darwin", "win32"}
+        if has_display:
+            try:
+                _display_dimage(dimage)
+                console.print(f"Rendered successfully to temp file: [bold cyan]'{tmp_path}'[/bold cyan]")
+            except Exception:
+                has_display = False
+
+        if not has_display:
+            suggested_out = f"styles_{key}_{page}.png" if total_pages > 1 else f"styles_{key}.png"
+            console.print(
+                f"[bold yellow]Notice:[/bold yellow] No GUI display ($DISPLAY) detected in this remote environment.\n"
+                f"Rendered styles chart{page_info} to: [bold cyan]'{tmp_path}'[/bold cyan]\n"
+                f"[dim]Tip: Open this in VS Code, or use '-o {suggested_out}' to save to your workspace.[/dim]"
+            )
+            if total_pages > 1:
+                next_p = page + 1 if page < total_pages else 1
+                console.print(
+                    f"[dim]Info: {short_name} has {total_pages} pages in total (25 colors per page).\n"
+                    f"      To view another page: uv run drawlib styles show {key} {next_p}\n"
+                    f"      To export all pages:  uv run drawlib styles show {key} --all -o styles_{key}.png[/dim]"
+                )
+
+
 @styles_app.command("list")
 def cmd_styles_list() -> None:
     """List all available built-in style preset catalogs."""
@@ -343,6 +488,14 @@ def cmd_styles_show(
         str,
         typer.Argument(help="Preset name: 'default', 'monochrome', or 'google'."),
     ],
+    page: Annotated[
+        int,
+        typer.Argument(help="Page number (1-indexed, 25 colors per page). Defaults to 1."),
+    ] = 1,
+    all_pages: Annotated[
+        bool,
+        typer.Option("--all", "-a", help="Export all pages at once (e.g. styles_google_1.png, ...)."),
+    ] = False,
     output: Annotated[
         Optional[str],
         typer.Option("-o", "--output", help="Save chart to image file instead of opening GUI."),
@@ -364,37 +517,24 @@ def cmd_styles_show(
         raise typer.Exit(code=1)
 
     instance, display_name = _PRESET_MAP[key]
+    short_name = display_name.split()[0]
+
     try:
-        dimage = render_styles_matrix(instance, display_name.split()[0], filter_color=color, grid=grid)
+        total_pages = get_styles_page_count(instance, filter_color=color)
     except ValueError as e:
         console.print(f"[bold red]Error:[/bold red] {e}")
         raise typer.Exit(code=1)
 
-    if output:
-        dest_abs = os.path.abspath(output)
-        try:
-            dimage.save(dest_abs)
-            msg = f"[bold green]Success:[/bold green] Exported styles chart to [bold cyan]'{dest_abs}'[/bold cyan]."
-            console.print(msg)
-        except Exception as e:
-            console.print(f"[bold red]Error:[/bold red] Failed to save image to '{dest_abs}': {e}")
-            raise typer.Exit(code=1)
-    else:
-        with tempfile.NamedTemporaryFile(suffix=".png", prefix=f"drawlib_styles_{key}_", delete=False) as tmp:
-            tmp_path = tmp.name
-        dimage.save(tmp_path)
+    if all_pages:
+        _export_all_pages(instance, short_name, total_pages, output, key, filter_color=color, grid=grid)
+        return
 
-        has_display = bool(os.environ.get("DISPLAY")) or sys.platform in {"darwin", "win32"}
-        if has_display:
-            try:
-                _display_dimage(dimage)
-                console.print(f"Rendered successfully to temp file: [bold cyan]'{tmp_path}'[/bold cyan]")
-            except Exception:
-                has_display = False
+    if not (1 <= page <= total_pages):
+        console.print(
+            f"[bold red]Error:[/bold red] Invalid page {page} for preset '{preset}'. "
+            f"Available pages: 1 to {total_pages}."
+        )
+        raise typer.Exit(code=1)
 
-        if not has_display:
-            console.print(
-                f"[bold yellow]Notice:[/bold yellow] No GUI display ($DISPLAY) detected in this remote environment.\n"
-                f"Rendered styles chart to: [bold cyan]'{tmp_path}'[/bold cyan]\n"
-                f"[dim]Tip: Open this in VS Code, or use '-o styles_{key}.png' to save to your workspace.[/dim]"
-            )
+    dimage = render_styles_matrix(instance, short_name, page=page, filter_color=color, grid=grid)
+    _handle_single_page_output(dimage, output, key, short_name, page, total_pages)

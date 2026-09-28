@@ -82,3 +82,55 @@ def test_cli_styles_show_invalid_color_filter(tmp_path: Path) -> None:
     assert res.returncode != 0
     output = res.stderr + res.stdout
     assert "No base colors match filter" in output
+
+
+def test_cli_styles_show_pagination(tmp_path: Path) -> None:
+    """Test drawlib styles show with specific page number."""
+    out_png = tmp_path / "google_styles_p2.png"
+    res = run_drawlib_cli(
+        ["styles", "show", "google", "2", "-o", str(out_png)],
+        cwd=str(tmp_path),
+    )
+    assert res.returncode == 0
+    assert "Success" in res.stdout
+    assert "Page 2/" in res.stdout
+    assert out_png.exists()
+    assert out_png.stat().st_size > 1000
+
+
+def test_cli_styles_show_all_pages(tmp_path: Path) -> None:
+    """Test drawlib styles show with --all exports all page images."""
+    out_base = tmp_path / "google_all.png"
+    res = run_drawlib_cli(
+        ["styles", "show", "google", "--all", "-o", str(out_base)],
+        cwd=str(tmp_path),
+    )
+    assert res.returncode == 0
+    assert "Success" in res.stdout
+    # Google has 112 base colors -> ceil(112 / 25) = 5 pages
+    for p in range(1, 6):
+        page_file = tmp_path / f"google_all_{p}.png"
+        assert page_file.exists()
+        assert page_file.stat().st_size > 1000
+
+
+def test_cli_styles_show_invalid_page(tmp_path: Path) -> None:
+    """Test drawlib styles show with out-of-range page number exits with code 1."""
+    res = run_drawlib_cli(
+        ["styles", "show", "google", "99"],
+        cwd=str(tmp_path),
+    )
+    assert res.returncode != 0
+    output = res.stderr + res.stdout
+    assert "Invalid page 99" in output
+
+
+def test_cli_styles_show_headless_guidance(tmp_path: Path) -> None:
+    """Test drawlib styles show without -o displays multi-page guidance in headless mode."""
+    res = run_drawlib_cli(
+        ["styles", "show", "google"],
+        cwd=str(tmp_path),
+    )
+    assert res.returncode == 0
+    assert "pages in total" in res.stdout
+    assert "uv run drawlib styles show google 2" in res.stdout

@@ -41,6 +41,8 @@ class DefaultStyles(BaseStyles):
     light_red_flat: Style
     light_red_solid: Style
     light_red_bold: Style
+    light_red_light: Style
+    light_red_dashed: Style
 
     green: Style
     green_flat: Style
@@ -53,6 +55,8 @@ class DefaultStyles(BaseStyles):
     light_green_flat: Style
     light_green_solid: Style
     light_green_bold: Style
+    light_green_light: Style
+    light_green_dashed: Style
 
     blue: Style
     blue_flat: Style
@@ -65,78 +69,99 @@ class DefaultStyles(BaseStyles):
     light_blue_flat: Style
     light_blue_solid: Style
     light_blue_bold: Style
+    light_blue_light: Style
+    light_blue_dashed: Style
 
     yellow: Style
     yellow_flat: Style
     yellow_solid: Style
     yellow_bold: Style
+    yellow_light: Style
+    yellow_dashed: Style
 
     purple: Style
     purple_flat: Style
     purple_solid: Style
     purple_bold: Style
+    purple_light: Style
     purple_dashed: Style
 
     orange: Style
     orange_flat: Style
     orange_solid: Style
     orange_bold: Style
+    orange_light: Style
     orange_dashed: Style
 
     navy: Style
     navy_flat: Style
     navy_solid: Style
     navy_bold: Style
+    navy_light: Style
     navy_dashed: Style
 
     pink: Style
     pink_flat: Style
     pink_solid: Style
     pink_bold: Style
+    pink_light: Style
+    pink_dashed: Style
 
     charcoal: Style
     charcoal_flat: Style
     charcoal_solid: Style
     charcoal_bold: Style
+    charcoal_light: Style
     charcoal_dashed: Style
 
     graphite: Style
     graphite_flat: Style
     graphite_solid: Style
     graphite_bold: Style
+    graphite_light: Style
+    graphite_dashed: Style
 
     gray: Style
     gray_flat: Style
     gray_solid: Style
     gray_bold: Style
+    gray_light: Style
     gray_dashed: Style
 
     silver: Style
     silver_flat: Style
     silver_solid: Style
     silver_bold: Style
+    silver_light: Style
     silver_dashed: Style
 
     snow: Style
     snow_flat: Style
     snow_solid: Style
     snow_bold: Style
+    snow_light: Style
+    snow_dashed: Style
 
     teal: Style
     teal_flat: Style
     teal_solid: Style
     teal_bold: Style
+    teal_light: Style
     teal_dashed: Style
 
     olive: Style
     olive_flat: Style
     olive_solid: Style
     olive_bold: Style
+    olive_light: Style
+    olive_dashed: Style
 
     brown: Style
     brown_flat: Style
     brown_solid: Style
     brown_bold: Style
+    brown_light: Style
+    brown_dashed: Style
 
     black: Style
     black_flat: Style
@@ -156,21 +181,29 @@ class DefaultStyles(BaseStyles):
     aqua_flat: Style
     aqua_solid: Style
     aqua_bold: Style
+    aqua_light: Style
+    aqua_dashed: Style
 
     green_yellow: Style
     green_yellow_flat: Style
     green_yellow_solid: Style
     green_yellow_bold: Style
+    green_yellow_light: Style
+    green_yellow_dashed: Style
 
     ivory: Style
     ivory_flat: Style
     ivory_solid: Style
     ivory_bold: Style
+    ivory_light: Style
+    ivory_dashed: Style
 
     steel: Style
     steel_flat: Style
     steel_solid: Style
     steel_bold: Style
+    steel_light: Style
+    steel_dashed: Style
 
 
 def _create_default_styles() -> DefaultStyles:
@@ -241,6 +274,8 @@ def _create_default_styles() -> DefaultStyles:
         light_red_flat=lr_v["flat"],
         light_red_solid=lr_v["solid"],
         light_red_bold=lr_v["bold"],
+        light_red_light=lr_v["light"],
+        light_red_dashed=lr_v["dashed"],
         green=g_v["normal"],
         green_flat=g_v["flat"],
         green_solid=g_v["solid"],
@@ -251,6 +286,8 @@ def _create_default_styles() -> DefaultStyles:
         light_green_flat=lg_v["flat"],
         light_green_solid=lg_v["solid"],
         light_green_bold=lg_v["bold"],
+        light_green_light=lg_v["light"],
+        light_green_dashed=lg_v["dashed"],
         blue=b_v["normal"],
         blue_flat=b_v["flat"],
         blue_solid=b_v["solid"],
@@ -261,65 +298,86 @@ def _create_default_styles() -> DefaultStyles:
         light_blue_flat=lb_v["flat"],
         light_blue_solid=lb_v["solid"],
         light_blue_bold=lb_v["bold"],
+        light_blue_light=lb_v["light"],
+        light_blue_dashed=lb_v["dashed"],
         yellow=y_v["normal"],
         yellow_flat=y_v["flat"],
         yellow_solid=y_v["solid"],
         yellow_bold=y_v["bold"],
+        yellow_light=y_v["light"],
+        yellow_dashed=y_v["dashed"],
         purple=p_v["normal"],
         purple_flat=p_v["flat"],
         purple_solid=p_v["solid"],
         purple_bold=p_v["bold"],
+        purple_light=p_v["light"],
         purple_dashed=p_v["dashed"],
         orange=o_v["normal"],
         orange_flat=o_v["flat"],
         orange_solid=o_v["solid"],
         orange_bold=o_v["bold"],
+        orange_light=o_v["light"],
         orange_dashed=o_v["dashed"],
         navy=n_v["normal"],
         navy_flat=n_v["flat"],
         navy_solid=n_v["solid"],
         navy_bold=n_v["bold"],
+        navy_light=n_v["light"],
         navy_dashed=n_v["dashed"],
         pink=pi_v["normal"],
         pink_flat=pi_v["flat"],
         pink_solid=pi_v["solid"],
         pink_bold=pi_v["bold"],
+        pink_light=pi_v["light"],
+        pink_dashed=pi_v["dashed"],
         charcoal=c_v["normal"],
         charcoal_flat=c_v["flat"],
         charcoal_solid=c_v["solid"],
         charcoal_bold=c_v["bold"],
+        charcoal_light=c_v["light"],
         charcoal_dashed=c_v["dashed"],
         graphite=gr_v["normal"],
         graphite_flat=gr_v["flat"],
         graphite_solid=gr_v["solid"],
         graphite_bold=gr_v["bold"],
+        graphite_light=gr_v["light"],
+        graphite_dashed=gr_v["dashed"],
         gray=gy_v["normal"],
         gray_flat=gy_v["flat"],
         gray_solid=gy_v["solid"],
         gray_bold=gy_v["bold"],
+        gray_light=gy_v["light"],
         gray_dashed=gy_v["dashed"],
         silver=si_v["normal"],
         silver_flat=si_v["flat"],
         silver_solid=si_v["solid"],
         silver_bold=si_v["bold"],
+        silver_light=si_v["light"],
         silver_dashed=si_v["dashed"],
         snow=sn_v["normal"],
         snow_flat=sn_v["flat"],
         snow_solid=sn_v["solid"],
         snow_bold=sn_v["bold"],
+        snow_light=sn_v["light"],
+        snow_dashed=sn_v["dashed"],
         teal=te_v["normal"],
         teal_flat=te_v["flat"],
         teal_solid=te_v["solid"],
         teal_bold=te_v["bold"],
+        teal_light=te_v["light"],
         teal_dashed=te_v["dashed"],
         olive=ol_v["normal"],
         olive_flat=ol_v["flat"],
         olive_solid=ol_v["solid"],
         olive_bold=ol_v["bold"],
+        olive_light=ol_v["light"],
+        olive_dashed=ol_v["dashed"],
         brown=br_v["normal"],
         brown_flat=br_v["flat"],
         brown_solid=br_v["solid"],
         brown_bold=br_v["bold"],
+        brown_light=br_v["light"],
+        brown_dashed=br_v["dashed"],
         black=k_v["normal"],
         black_flat=k_v["flat"],
         black_solid=k_v["solid"],
@@ -336,18 +394,26 @@ def _create_default_styles() -> DefaultStyles:
         aqua_flat=aq_v["flat"],
         aqua_solid=aq_v["solid"],
         aqua_bold=aq_v["bold"],
+        aqua_light=aq_v["light"],
+        aqua_dashed=aq_v["dashed"],
         green_yellow=gy_yel_v["normal"],
         green_yellow_flat=gy_yel_v["flat"],
         green_yellow_solid=gy_yel_v["solid"],
         green_yellow_bold=gy_yel_v["bold"],
+        green_yellow_light=gy_yel_v["light"],
+        green_yellow_dashed=gy_yel_v["dashed"],
         ivory=iv_v["normal"],
         ivory_flat=iv_v["flat"],
         ivory_solid=iv_v["solid"],
         ivory_bold=iv_v["bold"],
+        ivory_light=iv_v["light"],
+        ivory_dashed=iv_v["dashed"],
         steel=st_v["normal"],
         steel_flat=st_v["flat"],
         steel_solid=st_v["solid"],
         steel_bold=st_v["bold"],
+        steel_light=st_v["light"],
+        steel_dashed=st_v["dashed"],
         background_color=(255, 255, 255, 1.0),
         sourcecode_font=FontSourceCode.SOURCECODEPRO,
     )

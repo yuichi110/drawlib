@@ -41,6 +41,43 @@ class TestPresetStyles:
         assert preset.background_color == (255, 255, 255, 1.0)
         assert preset.sourcecode_font == FontSourceCode.SOURCECODEPRO
 
+    def test_default_styles_completeness(self) -> None:
+        """Verifies DefaultStyles provides all 6 variants across all 25 colors without omission."""
+        preset = default_styles
+        assert len(preset.styles()) == 156
+        variants = ["flat", "solid", "dashed", "bold", "light"]
+        colors = [
+            "red",
+            "light_red",
+            "green",
+            "light_green",
+            "blue",
+            "light_blue",
+            "yellow",
+            "purple",
+            "orange",
+            "navy",
+            "pink",
+            "charcoal",
+            "graphite",
+            "gray",
+            "silver",
+            "snow",
+            "teal",
+            "olive",
+            "brown",
+            "black",
+            "white",
+            "aqua",
+            "green_yellow",
+            "ivory",
+            "steel",
+        ]
+        for c in colors:
+            assert isinstance(getattr(preset, c), Style)
+            for v in variants:
+                assert isinstance(getattr(preset, f"{c}_{v}"), Style)
+
     def test_google_styles_instantiation(self) -> None:
         """Verifies GoogleStyles provides valid styles, properties, and Google Sheets palette."""
         preset = google_styles
