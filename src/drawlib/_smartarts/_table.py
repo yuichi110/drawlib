@@ -18,8 +18,8 @@ from drawlib._core.fonts import Font
 from drawlib._core.lines import line
 from drawlib._core.shapes import rectangle
 from drawlib._core.types import ColorType, Coordinate, PosFloat, PosInt, Style
-from drawlib._preset_colors import Colors, default_colors
-from drawlib._preset_styles import default_styles
+from drawlib._preset_colors import Colors, default_colors, monochrome_colors
+from drawlib._preset_styles import default_styles, monochrome_styles
 
 
 class _CellStyleOrder(BaseModel):
@@ -148,59 +148,59 @@ class Table:
 
         if name == "default":
             self.set_style_cell_evenodd(
-                even_color=default_colors.Snow,
-                even_textstyle=default_styles.primary.patch(text_color=default_colors.Charcoal),
+                even_color=default_colors.Gray1,
+                even_textstyle=default_styles.primary.patch(text_color=default_colors.Gray5),
                 odd_color=default_colors.White,
-                odd_textstyle=default_styles.primary.patch(text_color=default_colors.Charcoal),
+                odd_textstyle=default_styles.primary.patch(text_color=default_colors.Gray5),
             )
             self.set_style_cell_header(
-                background_color=default_colors.LightBlue,
+                background_color=default_colors.Blue2,
                 textstyle=default_styles.bold.patch(
                     text_color=default_colors.White, text_font=Font.SANSSERIF_BOLD
                 ),
             )
             self.set_style_border(
-                bottom=default_styles.solid.patch(line_color=default_colors.Charcoal, line_width=1.0),
+                bottom=default_styles.solid.patch(line_color=default_colors.Gray5, line_width=1.0),
             )
 
         elif name == "none":
             self.set_style_cell(
                 background_color=Colors.Transparent,
-                textstyle=default_styles.primary.patch(text_color=default_colors.Charcoal),
+                textstyle=default_styles.primary.patch(text_color=default_colors.Gray5),
             )
 
         elif name == "monochrome":
             self.set_style_cell_evenodd(
-                even_color=default_colors.Snow,
-                even_textstyle=default_styles.primary.patch(text_color=default_colors.Charcoal),
-                odd_color=default_colors.White,
-                odd_textstyle=default_styles.primary.patch(text_color=default_colors.Charcoal),
+                even_color=monochrome_colors.Gray1,
+                even_textstyle=monochrome_styles.primary.patch(text_color=monochrome_colors.Gray5),
+                odd_color=monochrome_colors.White,
+                odd_textstyle=monochrome_styles.primary.patch(text_color=monochrome_colors.Gray5),
             )
             self.set_style_cell_header(
-                background_color=default_colors.Graphite,
-                textstyle=default_styles.bold.patch(
-                    text_color=default_colors.White, text_font=Font.SANSSERIF_BOLD
+                background_color=monochrome_colors.Gray4,
+                textstyle=monochrome_styles.bold.patch(
+                    text_color=monochrome_colors.White, text_font=Font.SANSSERIF_BOLD
                 ),
             )
             self.set_style_border(
-                bottom=default_styles.solid.patch(line_color=default_colors.Charcoal, line_width=1.0),
+                bottom=monochrome_styles.solid.patch(line_color=monochrome_colors.Gray5, line_width=1.0),
             )
 
         elif name == "border_simple":
             self.set_style_cell(
                 background_color=default_colors.White,
-                textstyle=default_styles.primary.patch(text_color=default_colors.Charcoal),
+                textstyle=default_styles.primary.patch(text_color=default_colors.Gray5),
             )
             self.set_style_cell_header(
                 background_color=default_colors.White,
                 textstyle=default_styles.bold.patch(
-                    text_color=default_colors.Charcoal, text_font=Font.SANSSERIF_BOLD
+                    text_color=default_colors.Gray5, text_font=Font.SANSSERIF_BOLD
                 ),
             )
             self.set_style_border(
-                top=default_styles.solid.patch(line_color=default_colors.Charcoal, line_width=1.5),
-                top2=default_styles.solid.patch(line_color=default_colors.Charcoal, line_width=0.75),
-                bottom=default_styles.solid.patch(line_color=default_colors.Charcoal, line_width=1.5),
+                top=default_styles.solid.patch(line_color=default_colors.Gray5, line_width=1.5),
+                top2=default_styles.solid.patch(line_color=default_colors.Gray5, line_width=0.75),
+                bottom=default_styles.solid.patch(line_color=default_colors.Gray5, line_width=1.5),
             )
 
         else:

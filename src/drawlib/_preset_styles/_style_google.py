@@ -906,8 +906,23 @@ def _create_google_styles() -> StylesGoogle:
     """
     colors = _collect_colors()
     styles: dict[str, Any] = {
+        "width": 140,
+        "height": 70,
+        "dpi": 100,
+        "colors": google_colors,
         "background_color": (255, 255, 255, 1.0),
-        "sourcecode_font": FontSourceCode.SOURCECODEPRO,
+        "canvas": Style(
+            supports={"shape"},
+            shape_fill_color=google_colors.White,
+            shape_line_color=google_colors.White,
+            shape_line_width=0.0,
+        ),
+        "canvas_flat": Style(
+            supports={"shape"},
+            shape_fill_color=google_colors.White,
+            shape_line_color=google_colors.White,
+            shape_line_width=0.0,
+        ),
     }
 
     semantic_map = {
@@ -915,6 +930,8 @@ def _create_google_styles() -> StylesGoogle:
         "secondary": google_colors.Secondary,
         "accent": google_colors.Accent,
         "muted": google_colors.Muted,
+        "light": google_colors.Light,
+        "dark": google_colors.Dark,
         "danger": google_colors.Danger,
         "success": google_colors.Success,
     }
@@ -927,6 +944,20 @@ def _create_google_styles() -> StylesGoogle:
                     border_color=google_colors.DarkGray4,
                     default_text_color=google_colors.DarkGray3,
                     line_color=google_colors.DarkGray3,
+                )
+            elif role_name == "light":
+                v = _make_variants(
+                    color,
+                    border_color=google_colors.DarkGray1,
+                    default_text_color=google_colors.DarkGray4,
+                    line_color=google_colors.DarkGray1,
+                )
+            elif role_name == "dark":
+                v = _make_variants(
+                    color,
+                    border_color=google_colors.DarkGray4,
+                    default_text_color=google_colors.White,
+                    line_color=google_colors.DarkGray4,
                 )
             else:
                 v = _make_variants(color)

@@ -13,7 +13,7 @@ from drawlib.styles import styles
 
 setup(width=100, height=50)
 
-p1 = Pyramid(default_style=styles.solid, default_textstyle=styles.white)
+p1 = Pyramid(default_style=styles.solid, default_textstyle=styles.bold)
 p1.add(text="A")
 p1.add(text="B")
 p1.add(text="C")

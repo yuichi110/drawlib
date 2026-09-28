@@ -44,34 +44,36 @@ class TestPresetStyles:
     def test_default_styles_completeness(self) -> None:
         """Verifies DefaultStyles provides all variants across all 25 colors without omission."""
         preset = default_styles
-        assert len(preset.styles()) == 416
+        assert len(preset.styles()) == 940
         variants = ["flat", "solid", "dashed", "bold", "light"]
         colors = [
             "red",
-            "light_red",
             "green",
-            "light_green",
             "blue",
-            "light_blue",
             "yellow",
             "purple",
             "orange",
             "navy",
             "pink",
-            "charcoal",
-            "graphite",
-            "gray",
-            "silver",
-            "snow",
+            "cyan",
+            "magenta",
+            "lime",
             "teal",
             "olive",
             "brown",
-            "black",
-            "white",
+            "gold",
             "aqua",
             "green_yellow",
             "ivory",
             "steel",
+            "white",
+            "gray1",
+            "gray2",
+            "gray3",
+            "gray4",
+            "gray5",
+            "gray6",
+            "black",
         ]
         for c in colors:
             assert isinstance(getattr(preset, c), Style)

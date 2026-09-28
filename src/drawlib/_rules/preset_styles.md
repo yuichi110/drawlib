@@ -64,11 +64,11 @@ All preset styling symbols and color utilities are accessed through clean, publi
 from drawlib.preset_styles import (
     BasePresetStyles,
     DefaultStyles,
-    EssentialsStyles,
+    DefaultStyles,
     MonochromeStyles,
     PresetStyles,
     default_styles,
-    essentials_styles,
+    default_styles,
     get_style,
     monochrome_styles,
 )
@@ -96,13 +96,13 @@ from drawlib.types import Style
 | Symbol | Category | Description |
 | :--- | :--- | :--- |
 | `default_styles` | Immutable Catalog | Singleton `DefaultStyles` instance providing base 5-color preset styles. |
-| `essentials_styles` | Immutable Catalog | Singleton `EssentialsStyles` instance providing 25-color preset styles. |
+| `default_styles` | Immutable Catalog | Singleton `DefaultStyles` instance providing 25-color preset styles. |
 | `monochrome_styles` | Immutable Catalog | Singleton `MonochromeStyles` instance providing grayscale preset styles. |
 | `get_style(style=None)` | Resolver Function | Resolves a style string shortcut, `Style` object, or `None` into an active `Style`. |
 | `BasePresetStyles` | Base Model | Pydantic base model providing dict-like access, iteration, and field validation. |
 | `PresetStyles` | Alias | Backward-compatible alias for `BasePresetStyles`. |
 | `DefaultStyles` | Model Class | Strongly typed model containing default style definitions. |
-| `EssentialsStyles` | Model Class | Strongly typed model containing 25-color essentials style definitions. |
+| `DefaultStyles` | Model Class | Strongly typed model containing 25-color essentials style definitions. |
 | `MonochromeStyles` | Model Class | Strongly typed model containing grayscale style definitions. |
 
 ---
@@ -183,7 +183,7 @@ text((80, 20), "Flat (Filled)", style=mono.white_bold)
 save()
 ```
 
-### 3.3. EssentialsStyles (`"essentials"`)
+### 3.3. DefaultStyles (`"essentials"`)
 
 An expressive, modern palette featuring 25 rich, coordinated colors. It is the recommended base for complex multi-tier system designs, data visualization dashboards, and cloud infrastructure diagrams where distinct subsystems require dedicated semantic colors.
 
@@ -197,13 +197,13 @@ An expressive, modern palette featuring 25 rich, coordinated colors. It is the r
   - `dashed`: Transparent fill, LightBlue dashed border (width 1.5).
 
 ```python
-from drawlib.preset_styles import essentials_styles
+from drawlib.preset_styles import default_styles
 
 # Access singleton directly
-essentials = essentials_styles
+essentials = default_styles
 
-print("Essentials Primary Text Color:", essentials.primary.text_color)
-print("Essentials Background:", essentials.background_color)
+print("Default Primary Text Color:", essentials.primary.text_color)
+print("Default Background:", essentials.background_color)
 ```
 
 ---
@@ -240,7 +240,7 @@ Drawlib enforces strict RGB or RGBA tuples internally for maximum precision and 
 - `Snow`: `(239, 239, 239)`
 - `White`: `(255, 255, 255)`
 
-#### EssentialsStyleColors
+#### DefaultColors
 | Color Name | RGB Value | Hex Equivalent | Visual Role |
 | :--- | :--- | :--- | :--- |
 | `Red` | `(255, 23, 23)` | `#FF1717` | Critical alerts, destructive actions |
@@ -274,7 +274,7 @@ Drawlib enforces strict RGB or RGBA tuples internally for maximum precision and 
 Drawlib provides a first-class `Color` model in `drawlib.preset_colors` (and `drawlib.styles.Color`) with hex parsing and channel patching:
 
 ```python
-from drawlib.preset_colors import Color, EssentialsStyleColors
+from drawlib.preset_colors import Color, DefaultColors
 
 # 1. Parse standard hex code or initialize Color
 brand_blue = Color.from_hex("#1a73e8")  # returns Color(26, 115, 232, 1.0)
@@ -284,7 +284,7 @@ brand_blue_direct = Color("#1a73e8")
 semi_transparent = Color.from_hex("#1a73e880")  # returns Color(26, 115, 232, 0.5)
 
 # 3. Dynamically adjust transparency on existing color constants
-backdrop_color = EssentialsStyleColors.Navy.patch(alpha=0.15)
+backdrop_color = DefaultColors.Navy.patch(alpha=0.15)
 # returns Color(15, 15, 127, 0.15)
 ```
 
@@ -307,7 +307,7 @@ Every preset style shortcut string follows a deterministic, composable three-par
 ### 5.1. Grammar Token Breakdown
 
 1. **`<color>` (Color Token)**:
-   - Any color name available in `EssentialsStyleColors`, `Colors140`, or `Colors`.
+   - Any color name available in `DefaultColors`, `Colors140`, or `Colors`.
    - Matching is case-insensitive (e.g. `"blue"`, `"Blue"`, `"deepskyblue"`, `"darkorange"`).
    - If omitted, the default primary accent color (`DefaultStyleColors.Blue`) is used.
 
@@ -350,12 +350,12 @@ Every preset style shortcut string follows a deterministic, composable three-par
 ```drawlib show-code
 from drawlib.canvas import save, setup
 from drawlib.lines import line
-from drawlib.preset_styles import essentials_styles
+from drawlib.preset_styles import default_styles
 from drawlib.shapes import rectangle
 from drawlib.text import text
 
 setup(width=140, height=70)
-styles = essentials_styles
+styles = default_styles
 
 # Column positions
 x_coords = [20, 50, 80, 110]
@@ -452,7 +452,7 @@ Not every visual property applies to every drawing element. For example, lines d
 
 ## 7. Creating Custom Preset Styles
 
-In enterprise projects and client presentations, you often need custom color palettes and typography rules that match specific brand guidelines. Drawlib allows you to define custom style catalogs by subclassing `BasePresetStyles`.
+In enterprise projects and client presentations, you often need custom color palettes and typography rules that match specific brand guidelines. Drawlib allows you to define custom style catalogs by subclassing `BaseStyles`.
 
 ### 7.1. Direct Instantiation of PresetStyles
 
@@ -490,15 +490,15 @@ save()
 
 ### 7.2. Domain-Driven Subclassing with Type Hints
 
-Because `BasePresetStyles` inherits from Pydantic's `BaseModel`, creating a dedicated subclass provides IDE autocompletion, type safety, field validation, and dictionary iteration:
+Because `BaseStyles` inherits from Pydantic's `BaseModel`, creating a dedicated subclass provides IDE autocompletion, type safety, field validation, and dictionary iteration:
 
 ```python
 from drawlib.preset_colors import Colors, from_hex
-from drawlib.preset_styles import BasePresetStyles
+from drawlib.preset_styles import BaseStyles
 from drawlib.types import Style
 
 
-class CloudPlatformStyles(BasePresetStyles):
+class CloudPlatformStyles(BaseStyles):
     """Custom enterprise styling catalog for cloud infrastructure diagrams."""
 
     # Canvas default overrides
@@ -568,7 +568,7 @@ def get_cloud_styles() -> CloudPlatformStyles:
 
 ### 7.3. Iteration, Serialization, and Dictionary Access
 
-`BasePresetStyles` provides robust Pythonic access patterns:
+`BaseStyles` provides robust Pythonic access patterns:
 
 ```python
 cloud_styles = get_cloud_styles()
@@ -601,15 +601,15 @@ The following diagram demonstrates how color and style variations distinguish us
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors, EssentialsStyleColors
+from drawlib.preset_colors import Colors, DefaultColors
 from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.preset_styles import essentials_styles
+from drawlib.preset_styles import default_styles
 
 setup(width=140, height=90)
-styles = essentials_styles
+styles = default_styles
 
 # Section Headers
 text((70, 84), "Enterprise E-Commerce Microservices", style=styles.bold, size=18)
@@ -671,10 +671,10 @@ from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
-from drawlib.preset_styles import essentials_styles
+from drawlib.preset_styles import default_styles
 
 setup(width=130, height=50)
-styles = essentials_styles
+styles = default_styles
 
 # Start State
 circle((15, 25), radius=5, style=styles.blue_flat)
@@ -727,10 +727,10 @@ from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
-from drawlib.preset_styles import essentials_styles
+from drawlib.preset_styles import default_styles
 
 setup(width=150, height=85)
-styles = essentials_styles
+styles = default_styles
 
 # Architecture Title & Subtitle
 text((75, 78), "Enterprise Medallion Data Lakehouse Architecture", style=styles.bold, size=18)
@@ -823,7 +823,7 @@ Under the hood, `_officials.py` processes the string through a deterministic seq
 1. Check if the string matches one of the canonical pre-built role keys:
    `["primary", "light", "bold", "flat", "solid", "dashed", "solid_light", "solid_bold", "dashed_light", "dashed_bold"]`.
 2. If not an exact match, check if it ends with `_{role_key}`. If found, split into `<color_name>` and `<preset_name>`.
-3. Resolve `<color_name>` against `EssentialsStyleColors`, `Colors140`, and `Colors`.
+3. Resolve `<color_name>` against `DefaultColors`, `Colors140`, and `Colors`.
 4. Clone the base role template corresponding to `<preset_name>` (or `primary` if no role was appended).
 5. Mutate the cloned style:
    - Assign `text_color = color`
@@ -854,7 +854,7 @@ s = get_style("red_flat")
 
 ### Pitfall 2: Attempting Direct Mutation on Frozen Catalogs
 
-Official preset style singletons (`default_styles`, `essentials_styles`, `monochrome_styles`) are immutable and frozen. Attempting to assign new attributes directly will raise a validation error:
+Official preset style singletons (`default_styles`, `google_styles`, `monochrome_styles`) are immutable and frozen. Attempting to assign new attributes directly will raise a validation error:
 
 ```python
 from drawlib.preset_styles import default_styles
@@ -894,7 +894,7 @@ Default Colors:
   blue          RGB(111, 111, 239)   black         RGB(0, 0, 0)
   white         RGB(255, 255, 255)
 
-Popular Essentials Colors:
+Popular Default Colors:
   teal          RGB(15, 127, 127)    orange        RGB(255, 95, 31)
   navy          RGB(15, 15, 127)     purple        RGB(127, 31, 127)
   charcoal      RGB(39, 39, 39)      graphite      RGB(63, 63, 63)
@@ -924,12 +924,12 @@ Popular Essentials Colors:
 ```drawlib show-code
 # Standard imports
 from drawlib.canvas import save, setup
-from drawlib.preset_colors import Colors, EssentialsStyleColors
-from drawlib.preset_styles import BasePresetStyles, essentials_styles, monochrome_styles
+from drawlib.preset_colors import Colors, DefaultColors
+from drawlib.preset_styles import BaseStyles, default_styles, monochrome_styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 
-styles = essentials_styles
+styles = default_styles
 
 # Initialize canvas with default or custom catalog
 setup(width=100, height=60)

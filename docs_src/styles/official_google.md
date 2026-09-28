@@ -60,8 +60,8 @@ Each role provides 10 orthogonal variants:
 ```drawlib 650px center caption:"Semantic Roles in Action"
 from drawlib.canvas import setup
 from drawlib.lines import line
+from drawlib.preset_styles import google_styles
 from drawlib.shapes import circle
-from drawlib.styles import styles
 from drawlib.text import text
 
 setup(width=120, height=45)
@@ -69,12 +69,12 @@ line_y = 36
 text_y = 9
 
 items = [
-    (12, "primary", styles.primary),
-    (31, "secondary", styles.secondary),
-    (50, "accent", styles.accent),
-    (69, "muted", styles.muted),
-    (88, "danger", styles.danger),
-    (107, "success", styles.success),
+    (12, "primary", google_styles.primary),
+    (31, "secondary", google_styles.secondary),
+    (50, "accent", google_styles.accent),
+    (69, "muted", google_styles.muted),
+    (88, "danger", google_styles.danger),
+    (107, "success", google_styles.success),
 ]
 
 for x, label, st in items:

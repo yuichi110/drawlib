@@ -35,14 +35,6 @@ class Colors16(BaseColors):
     White: Color = Color(255, 255, 255)
     Yellow: Color = Color(255, 255, 0)
 
-    # Semantic Colors
-    Primary: Color = Blue
-    Secondary: Color = Teal
-    Accent: Color = Red
-    Muted: Color = Silver
-    Danger: Color = Red
-    Success: Color = Green
-
 
 Colors: Colors16 = Colors16()
 colors_16: Colors16 = Colors

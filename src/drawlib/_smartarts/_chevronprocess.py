@@ -18,6 +18,7 @@ from pydantic import validate_call
 
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
 from drawlib._core.fonts import Font
+from drawlib._core.l4_canvas_utils._colors import ColorUtil
 from drawlib._core.shapes import chevron as canvas_chevron
 from drawlib._core.shapes import polygon as canvas_polygon
 from drawlib._core.text import text as canvas_text
@@ -217,7 +218,7 @@ class ChevronProcess:
                     corner_angle=self._corner_angle,
                     style=c_style,
                 )
-                self._draw_item_texts(item, cx, cy, h)
+                self._draw_item_texts(item, c_style, cx, cy, h)
         else:
             # First item is a flat-backed pentagon, subsequent items are chevrons
             for i, item in enumerate(self._items):
@@ -242,7 +243,7 @@ class ChevronProcess:
                         corner_angle=self._corner_angle,
                         style=c_style,
                     )
-                self._draw_item_texts(item, cx, cy, h)
+                self._draw_item_texts(item, c_style, cx, cy, h)
 
     def _resolve_item_style(self, item: _ChevronItem, index: int) -> Style:
         """Determine the final Style for a chevron shape."""
@@ -263,12 +264,34 @@ class ChevronProcess:
     def _draw_item_texts(
         self,
         item: _ChevronItem,
+        c_style: Style,
         cx: float,
         cy: float,
         h: float,
     ) -> None:
         """Render primary title and optional description text within the chevron."""
         has_desc = bool(item.description.strip())
+
+        fill_color = c_style.shape_fill_color
+        fill_alpha = c_style.shape_fill_alpha
+        if fill_color is None:
+            is_transparent = True
+            fill_rgba = (0.0, 0.0, 0.0, 0.0)
+        else:
+            fill_rgba = ColorUtil.get_mplot_rgba(fill_color, fill_alpha)
+            is_transparent = fill_rgba[3] < 0.3 or fill_rgba == (0.0, 0.0, 0.0, 0.0)
+
+        if is_transparent:
+            def_title_col = (40, 40, 40, 1.0)
+            def_desc_col = (80, 80, 80, 1.0)
+        else:
+            lum = 0.299 * fill_rgba[0] + 0.587 * fill_rgba[1] + 0.114 * fill_rgba[2]
+            if lum > 0.6:
+                def_title_col = (40, 40, 40, 1.0)
+                def_desc_col = (80, 80, 80, 1.0)
+            else:
+                def_title_col = (255, 255, 255, 1.0)
+                def_desc_col = (255, 255, 255, 0.9)
 
         if has_desc:
             title_y = cy + h * 0.16
@@ -280,7 +303,7 @@ class ChevronProcess:
                 or Style(
                     text_size=10.0,
                     text_font=Font.SANSSERIF_BOLD,
-                    text_color=(255, 255, 255, 1.0),
+                    text_color=def_title_col,
                     text_halign="center",
                     text_valign="center",
                 )
@@ -291,7 +314,7 @@ class ChevronProcess:
                 or Style(
                     text_size=8.0,
                     text_font=Font.SANSSERIF_REGULAR,
-                    text_color=(255, 255, 255, 0.9),
+                    text_color=def_desc_col,
                     text_halign="center",
                     text_valign="center",
                 )
@@ -305,7 +328,7 @@ class ChevronProcess:
                 or Style(
                     text_size=10.5,
                     text_font=Font.SANSSERIF_BOLD,
-                    text_color=(255, 255, 255, 1.0),
+                    text_color=def_title_col,
                     text_halign="center",
                     text_valign="center",
                 )

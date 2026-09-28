@@ -159,8 +159,11 @@ class GoogleColors(BaseColors):
     Secondary: Color = Cyan
     Accent: Color = Orange
     Muted: Color = LightGray2
+    Light: Color = White
+    Dark: Color = DarkGray4
     Danger: Color = Red
     Success: Color = Green
+    Canvas: Color = White
 
 
 google_colors: GoogleColors = GoogleColors()

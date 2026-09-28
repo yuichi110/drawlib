@@ -87,8 +87,9 @@ class TestColors:
         assert Colors.Black == (0, 0, 0)
         assert Colors.White == (255, 255, 255)
         assert default_colors.Red == (255, 23, 23)
-        assert default_colors.Charcoal == (39, 39, 39)
-        assert monochrome_colors.Charcoal == (39, 39, 39)
+        assert default_colors.Gray5 == (38, 42, 50)
+        assert default_colors.Blue2 == (111, 111, 239)
+        assert monochrome_colors.Gray5 == (75, 75, 75)
         assert google_colors.Black == (0, 0, 0)
 
     def test_colors_attributes(self) -> None:
@@ -104,7 +105,20 @@ class TestColors:
             for field_name in inst.__class__.model_fields:
                 val = getattr(inst, field_name)
                 if val is None:
-                    assert isinstance(inst, MonochromeColors) and field_name in {"Danger", "Success"}
+                    if isinstance(inst, (Colors16, Colors140Model)):
+                        assert field_name in {
+                            "Primary",
+                            "Secondary",
+                            "Accent",
+                            "Muted",
+                            "Light",
+                            "Dark",
+                            "Danger",
+                            "Success",
+                            "Canvas",
+                        }
+                    else:
+                        assert isinstance(inst, MonochromeColors) and field_name in {"Danger", "Success"}
                     continue
                 assert isinstance(val, Color)
                 assert len(val) in {3, 4}
@@ -116,16 +130,14 @@ class TestColors:
                     assert 0.0 <= val[3] <= 1.0
 
     def test_semantic_colors(self) -> None:
-        """Test that all color instances define Primary, Secondary, Accent, Muted, and optional Danger, Success."""
-        instances: list[BaseColors] = [
-            Colors,
-            Colors140,
+        """Test semantic color properties on palettes that define them."""
+        semantic_instances: list[BaseColors] = [
             default_colors,
             google_colors,
             monochrome_colors,
         ]
-        for inst in instances:
-            for sem in ("Primary", "Secondary", "Accent", "Muted"):
+        for inst in semantic_instances:
+            for sem in ("Primary", "Secondary", "Accent", "Muted", "Light", "Dark", "Canvas"):
                 val = getattr(inst, sem)
                 assert isinstance(val, Color)
                 # Lowercase property access
@@ -135,10 +147,19 @@ class TestColors:
                 assert inst[sem] == val
                 assert inst[sem.lower()] == val
 
+        # Colors and Colors140 do not define semantic colors
+        for inst in (Colors, Colors140):
+            for sem in ("Primary", "Secondary", "Accent", "Muted", "Light", "Dark", "Danger", "Success", "Canvas"):
+                assert getattr(inst, sem) is None
+                with pytest.raises(AttributeError):
+                    _ = getattr(inst, sem.lower())
+                with pytest.raises(KeyError):
+                    _ = inst[sem]
+                with pytest.raises(KeyError):
+                    _ = inst[sem.lower()]
+
         # Danger and Success on color palettes (excluding Monochrome)
         chromatic_instances: list[BaseColors] = [
-            Colors,
-            Colors140,
             default_colors,
             google_colors,
         ]

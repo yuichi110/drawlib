@@ -13,27 +13,30 @@ from __future__ import annotations
 
 from drawlib._core.l2_types import Color
 from drawlib._core.l3_styles import BaseColors
-from drawlib._preset_colors._color_default import default_colors
 
 
 class MonochromeColors(BaseColors):
     """Class representing colors for monochrome preset styles along with a transparent color."""
 
-    Black: Color = default_colors.Black
-    Charcoal: Color = default_colors.Charcoal
-    Graphite: Color = default_colors.Graphite
-    Gray: Color = default_colors.Gray
-    Silver: Color = default_colors.Silver
-    Snow: Color = default_colors.Snow
-    White: Color = default_colors.White
+    White: Color = Color(255, 255, 255)
+    Gray1: Color = Color(245, 245, 245)
+    Gray2: Color = Color(220, 220, 220)
+    Gray3: Color = Color(180, 180, 180)
+    Gray4: Color = Color(130, 130, 130)
+    Gray5: Color = Color(75, 75, 75)
+    Gray6: Color = Color(35, 35, 35)
+    Black: Color = Color(0, 0, 0)
 
     # Semantic Colors
-    Primary: Color = default_colors.White
-    Secondary: Color = default_colors.Gray
-    Accent: Color = default_colors.Black
-    Muted: Color = default_colors.Snow
+    Primary: Color = White
+    Secondary: Color = Gray2
+    Accent: Color = Black
+    Muted: Color = Gray1
+    Light: Color = White
+    Dark: Color = Gray6
     Danger: Color | None = None
     Success: Color | None = None
+    Canvas: Color = White
 
 
 monochrome_colors: MonochromeColors = MonochromeColors()

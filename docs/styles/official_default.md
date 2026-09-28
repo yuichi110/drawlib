@@ -68,7 +68,7 @@ Let's take a look at a matrix with the blue color as an example:
 As you can see, each drawing element is affected by preset style names as follows:
 
 - Shapes: Both style type (flat, solid, dashed) and width/weight (light, bold) work.
-- Icons: Line width can be controlled with weight; flat style makes it fill.
+- Icons: Line width can be controlled with weight.
 - Lines: Width has an effect; solid and dashed types work; flat style doesn't support lines.
 - Text: Only the default type is supported; weight affects font weight (light/regular/bold).
 

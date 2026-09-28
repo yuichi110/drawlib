@@ -13,8 +13,8 @@ setup(width=100, height=52)
 # 1. Multi-phase pipeline with titles and descriptions
 cp1 = ChevronProcess(
     default_style=styles.solid,
-    default_textstyle=styles.white_bold,
-    default_description_style=styles.white,
+    default_textstyle=styles.bold,
+    default_description_style=styles.light,
     spacing=1.5,
 )
 cp1.append("Requirements", description="Scope & Specs")
@@ -54,8 +54,8 @@ setup(width=100, height=52)
 
 process = ChevronProcess(
     default_style=styles.solid,
-    default_textstyle=styles.white_bold,
-    default_description_style=styles.white,
+    default_textstyle=styles.bold,
+    default_description_style=styles.light,
     spacing=1.5,
 )
 process.append("Phase 1", description="Planning")

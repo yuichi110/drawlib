@@ -698,45 +698,60 @@ Let's look at an example of creating a Google color class at end of this page.</
 <li>Black: (0, 0, 0)</li>
 <li>White: (255, 255, 255)</li>
 </ul>
-<h1>ColorsEssentials</h1>
-<p>The <code>ColorsEssentials</code> class contains the following members:</p>
+<h1>DefaultColors</h1>
+<p>The <code>DefaultColors</code> class contains the following members:</p>
 <ul>
-<li>Red:  (255, 23, 23)</li>
-<li>LightRed: (239, 95, 95)</li>
-<li>Green: (15, 127, 15)</li>
-<li>LightGreen: (79, 191, 79)</li>
-<li>Blue: (31, 31, 255)</li>
-<li>LightBlue: (111, 111, 239)</li>
-<li>Yellow: (239, 239, 31)</li>
-<li>Purple: (127, 31, 127)</li>
-<li>Orange: (255, 95, 31)</li>
-<li>Navy: (15, 15, 127)</li>
-<li>Pink: (239, 63, 239)</li>
-<li>Charcoal: (39, 39, 39)</li>
-<li>Graphite: (63, 63, 63)</li>
-<li>Gray: (127, 127, 127)</li>
-<li>Silver: (191, 191, 191)</li>
-<li>Snow: (239, 239, 239)</li>
-<li>Teal: (15, 127, 127)</li>
-<li>Olive: (127, 127, 31)</li>
-<li>Brown: (159, 31, 31)</li>
-<li>Black: (0, 0, 0)</li>
-<li>White: (255, 255, 255)</li>
-<li>Aqua: (47, 239, 239)</li>
-<li>GreenYellow: (127, 207, 31)</li>
-<li>Ivory: (239, 239, 207)</li>
-<li>Steel: (96, 96, 143)</li>
+<li>Tone Colors (1 to 4):
+<ul>
+<li>Blue1, Blue2, Blue3, Blue4</li>
+<li>Red1, Red2, Red3, Red4</li>
+<li>Green1, Green2, Green3, Green4</li>
+<li>Yellow1, Yellow2, Yellow3, Yellow4</li>
+<li>Orange1, Orange2, Orange3, Orange4</li>
+<li>Purple1, Purple2, Purple3, Purple4</li>
+<li>Teal1, Teal2, Teal3, Teal4</li>
+<li>Pink1, Pink2, Pink3, Pink4</li>
 </ul>
-<h1>ColorsMonochrome</h1>
-<p>The <code>ColorsMonochrome</code> class contains the following members:</p>
+</li>
+<li>Neutral Grays &amp; Basics:
 <ul>
-<li>Black: (0, 0, 0)</li>
-<li>Charcoal: (39, 39, 39)</li>
-<li>Graphite: (63, 63, 63)</li>
-<li>Gray: (127, 127, 127)</li>
-<li>Silver: (191, 191, 191)</li>
-<li>Snow: (239, 239, 239)</li>
 <li>White: (255, 255, 255)</li>
+<li>Gray1: (246, 248, 251)</li>
+<li>Gray2: (215, 222, 232)</li>
+<li>Gray3: (145, 158, 175)</li>
+<li>Gray4: (90, 100, 115)</li>
+<li>Gray5: (38, 42, 50)</li>
+<li>Gray6: (20, 24, 30)</li>
+<li>Black: (0, 0, 0)</li>
+</ul>
+</li>
+<li>Primaries:
+<ul>
+<li>Red, Green, Blue, Yellow, Purple, Orange, Navy, Pink, Teal, Olive, Brown, Black, White, Aqua, GreenYellow, Ivory, Steel</li>
+</ul>
+</li>
+<li>Semantic Colors:
+<ul>
+<li>Primary, Secondary, Accent, Muted, Light, Dark, Danger, Success, Canvas</li>
+</ul>
+</li>
+</ul>
+<h1>MonochromeColors</h1>
+<p>The <code>MonochromeColors</code> class contains the following members (pure neutral grayscale, R == G == B):</p>
+<ul>
+<li>White: (255, 255, 255)</li>
+<li>Gray1: (245, 245, 245)</li>
+<li>Gray2: (220, 220, 220)</li>
+<li>Gray3: (180, 180, 180)</li>
+<li>Gray4: (130, 130, 130)</li>
+<li>Gray5: (75, 75, 75)</li>
+<li>Gray6: (35, 35, 35)</li>
+<li>Black: (0, 0, 0)</li>
+<li>Semantic Colors:
+<ul>
+<li>Primary, Secondary, Accent, Muted, Light, Dark, Canvas</li>
+</ul>
+</li>
 </ul>
 <h1>Implement Your Own Colors</h1>
 <p>We provide a base class for colors called <code>BaseColors</code>.

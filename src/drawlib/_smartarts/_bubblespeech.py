@@ -91,10 +91,7 @@ def bubblespeech(
     canvas._artists.append(Polygon(xy=xys, closed=True, **options))
 
     if text:
-        effective_textstyle = textstyle if textstyle is not None else style
-        if textsize is not None:
-            effective_textstyle = effective_textstyle.patch(text_size=textsize)
-        TextUtil.validate_text_style(effective_textstyle)
+        effective_textstyle = ShapeUtil.resolve_embedded_text_style(style, textstyle, textsize)
         center_x = x + width / 2
         center_y = y + height / 2
         canvas._artists.append(

@@ -51,8 +51,11 @@ class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
     Secondary: Color | None = None
     Accent: Color | None = None
     Muted: Color | None = None
+    Light: Color | None = None
+    Dark: Color | None = None
     Danger: Color | None = None
     Success: Color | None = None
+    Canvas: Color | None = None
 
     @property
     def primary(self) -> Color:
@@ -81,6 +84,27 @@ class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
         if self.Muted is None:
             raise AttributeError(f"{self.__class__.__name__} has no Muted color.")
         return self.Muted
+
+    @property
+    def light(self) -> Color:
+        """Return light semantic color."""
+        if self.Light is None:
+            raise AttributeError(f"{self.__class__.__name__} has no Light color.")
+        return self.Light
+
+    @property
+    def dark(self) -> Color:
+        """Return dark semantic color."""
+        if self.Dark is None:
+            raise AttributeError(f"{self.__class__.__name__} has no Dark color.")
+        return self.Dark
+
+    @property
+    def canvas(self) -> Color:
+        """Return canvas semantic background color."""
+        if self.Canvas is None:
+            raise AttributeError(f"{self.__class__.__name__} has no Canvas color.")
+        return self.Canvas
 
     @property
     def danger(self) -> Color:

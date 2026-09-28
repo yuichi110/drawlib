@@ -311,51 +311,51 @@ The `ColorsDefault` class contains the following members:
 
 
 
-# ColorsEssentials
+# DefaultColors
 
 
-The `ColorsEssentials` class contains the following members:
+The `DefaultColors` class contains the following members:
 
-- Red:  (255, 23, 23)
-- LightRed: (239, 95, 95)
-- Green: (15, 127, 15)
-- LightGreen: (79, 191, 79)
-- Blue: (31, 31, 255)
-- LightBlue: (111, 111, 239)
-- Yellow: (239, 239, 31)
-- Purple: (127, 31, 127)
-- Orange: (255, 95, 31)
-- Navy: (15, 15, 127)
-- Pink: (239, 63, 239)
-- Charcoal: (39, 39, 39)
-- Graphite: (63, 63, 63)
-- Gray: (127, 127, 127)
-- Silver: (191, 191, 191)
-- Snow: (239, 239, 239)
-- Teal: (15, 127, 127)
-- Olive: (127, 127, 31)
-- Brown: (159, 31, 31)
-- Black: (0, 0, 0)
+- Tone Colors (1 to 4):
+  - Blue1, Blue2, Blue3, Blue4
+  - Red1, Red2, Red3, Red4
+  - Green1, Green2, Green3, Green4
+  - Yellow1, Yellow2, Yellow3, Yellow4
+  - Orange1, Orange2, Orange3, Orange4
+  - Purple1, Purple2, Purple3, Purple4
+  - Teal1, Teal2, Teal3, Teal4
+  - Pink1, Pink2, Pink3, Pink4
+- Neutral Grays & Basics:
+  - White: (255, 255, 255)
+  - Gray1: (246, 248, 251)
+  - Gray2: (215, 222, 232)
+  - Gray3: (145, 158, 175)
+  - Gray4: (90, 100, 115)
+  - Gray5: (38, 42, 50)
+  - Gray6: (20, 24, 30)
+  - Black: (0, 0, 0)
+- Primaries:
+  - Red, Green, Blue, Yellow, Purple, Orange, Navy, Pink, Teal, Olive, Brown, Black, White, Aqua, GreenYellow, Ivory, Steel
+- Semantic Colors:
+  - Primary, Secondary, Accent, Muted, Light, Dark, Danger, Success, Canvas
+
+
+
+# MonochromeColors
+
+
+The `MonochromeColors` class contains the following members (pure neutral grayscale, R == G == B):
+
 - White: (255, 255, 255)
-- Aqua: (47, 239, 239)
-- GreenYellow: (127, 207, 31)
-- Ivory: (239, 239, 207)
-- Steel: (96, 96, 143)
-
-
-
-# ColorsMonochrome
-
-
-The `ColorsMonochrome` class contains the following members:
-
+- Gray1: (245, 245, 245)
+- Gray2: (220, 220, 220)
+- Gray3: (180, 180, 180)
+- Gray4: (130, 130, 130)
+- Gray5: (75, 75, 75)
+- Gray6: (35, 35, 35)
 - Black: (0, 0, 0)
-- Charcoal: (39, 39, 39)
-- Graphite: (63, 63, 63)
-- Gray: (127, 127, 127)
-- Silver: (191, 191, 191)
-- Snow: (239, 239, 239)
-- White: (255, 255, 255)
+- Semantic Colors:
+  - Primary, Secondary, Accent, Muted, Light, Dark, Canvas
 
 
 

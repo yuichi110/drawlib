@@ -12,15 +12,15 @@ setup(width=100, height=100)
 # Classic PDCA cycle with center topic and matching arc arrows
 cycle = Cycle(
     default_style=styles.solid,
-    default_textstyle=styles.white_bold,
-    default_description_style=styles.white,
+    default_textstyle=styles.bold,
+    default_description_style=styles.light,
     default_arrow_style=styles.solid,
     center_text="PDCA",
     center_description="Loop",
     center_radius=11.0,
     center_style=styles.solid,
-    center_textstyle=styles.white_bold,
-    center_description_style=styles.white,
+    center_textstyle=styles.bold,
+    center_description_style=styles.light,
     node_radius=9.0,
     arrow_width=2.2,
     arrow_head_width=4.8,
@@ -75,8 +75,8 @@ setup(width=100, height=100)
 
 cycle = Cycle(
     default_style=styles.solid,
-    default_textstyle=styles.white_bold,
-    default_description_style=styles.white,
+    default_textstyle=styles.bold,
+    default_description_style=styles.light,
     default_arrow_style=styles.solid,
 )
 cycle.append("Plan", description="Define goals")

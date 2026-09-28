@@ -411,7 +411,7 @@ from drawlib.text import text
 setup(width=100, height=50)
 text(xy=(25, 15), text="Hello Drawlib.", style=styles.red)
 text(xy=(25, 35), text="Hello Drawlib.", size=12, style=styles.bold)
-text(xy=(75, 15), text="Hello Drawlib.", style=styles.light_blue)
+text(xy=(75, 15), text="Hello Drawlib.", style=styles.blue_light)
 text(xy=(75, 35), text="Hello Drawlib.", size=24, style=styles.green_bold)
 save()
 ```
@@ -427,7 +427,7 @@ from drawlib.styles import styles
 setup(width=100, height=50)
 text(xy=(25, 15), text="Hello Drawlib.", style=styles.red)
 text(xy=(25, 35), text="Hello Drawlib.", size=12, style=styles.bold)
-text(xy=(75, 15), text="Hello Drawlib.", style=styles.light_blue)
+text(xy=(75, 15), text="Hello Drawlib.", style=styles.blue_light)
 text(xy=(75, 35), text="Hello Drawlib.", size=24, style=styles.green_bold)
 save()
 ```

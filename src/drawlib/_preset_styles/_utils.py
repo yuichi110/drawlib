@@ -37,7 +37,7 @@ def _resolve_target_font(
     """
     if field_name == "bold" or field_name.endswith("_bold"):
         return bold if bold is not None else regular
-    if field_name == "light" or field_name.endswith("_light"):
+    if field_name.endswith("_light"):
         return light if light is not None else regular
     return regular
 
@@ -183,11 +183,13 @@ def _make_variants(
         icon_style="thin",
     )
     flat = Style(
-        supports={"shape"},
+        supports={"shape", "icon"},
         shape_fill_color=color,
         shape_line_color=Colors.Transparent,
         shape_line_width=0.0,
         shape_line_style="solid",
+        icon_color=color,
+        icon_style="regular",
     )
     outline_regular = Style(
         supports={"shape", "line"},

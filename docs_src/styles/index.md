@@ -6,7 +6,7 @@ The **Styles & Theming** section provides a comprehensive guide to Drawlib's des
 
 ## 1. Fundamentals: Colors & Fonts
 
-- [Color System & Utilities](./color.md): Built-in color palettes (`Colors`, `Colors140`, `ColorsEssentials`, `ColorsMonochrome`), HEX/RGB color creation, transparency, and background color settings.
+- [Color System & Utilities](./color.md): Built-in color palettes (`Colors`, `Colors140`, `DefaultColors`, `MonochromeColors`, `GoogleColors`), HEX/RGB color creation, transparency, and background color settings.
 - [Fonts System](./font.md): Default CJK/Latin typography (`Font`), specialized font families (`FontSansSerif`, `FontSerif`, `FontMonoSpace`, `FontRoboto`, local language fonts), and custom TrueType font loading via `FontFile`.
 
 ---
@@ -17,7 +17,7 @@ Preset styles unify colors, line weights, fills, and typography into intuitive s
 
 - [Official Default Preset Styles](./official_default.md): Core 5-color palette (Red, Green, Blue, Black, White) with shape and line variations.
 - [Official Google Preset Styles](./official_google.md): Modern Google Sheets & Material color palette with full semantic role support.
-- [Official Monochrome Preset Styles](./official_monochrome.md): Clean grayscale palette from Charcoal to Snow for print-friendly or minimal technical documentation.
+- [Official Monochrome Preset Styles](./official_monochrome.md): Clean grayscale palette from White to Black (pure grayscale with Gray1–Gray6) for print-friendly or minimal technical documentation.
 
 ---
 

@@ -12,7 +12,7 @@ from drawlib.styles import styles
 
 setup(width=100, height=50)
 
-gl1 = GridLayout(num_column=7, num_row=3, default_style=styles.solid, default_textstyle=styles.white)
+gl1 = GridLayout(num_column=7, num_row=3, default_style=styles.solid, default_textstyle=styles.bold)
 gl1.add(position=(0, 0), width=5, height=1, text="Host OS")
 gl1.add(position=(0, 1), width=5, height=1, text="Python")
 gl1.add(position=(0, 2), width=1, height=1, text="D")

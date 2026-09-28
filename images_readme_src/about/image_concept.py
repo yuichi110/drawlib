@@ -50,20 +50,26 @@ def center():
 
 def right():
     x = 82
-    circle((x, 49), radius=8, style=styles.primary, text="Circle", textstyle=styles.primary.patch(text_size=18))
+    circle(
+        (x, 49),
+        radius=8,
+        style=styles.primary,
+        text="Circle",
+        textstyle=styles.white.patch(text_size=18),
+    )
     circle(
         (x, 30),
         radius=8,
         text="Circle",
         style=styles.blue_flat,
-        textstyle=styles.primary.patch(text_color=Colors.White, text_size=18),
+        textstyle=styles.white.patch(text_size=18),
     )
     circle(
         (x, 11),
         radius=8,
         text="Circle",
         style=styles.red_bold,
-        textstyle=styles.primary.patch(text_color=Colors.Red, text_size=18),
+        textstyle=styles.white.patch(text_size=18),
     )
 
 

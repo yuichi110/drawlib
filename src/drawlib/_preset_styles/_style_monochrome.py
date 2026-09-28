@@ -39,85 +39,101 @@ class StylesMonochrome(BaseStyles):
     black_dashed_bold: Style
     black_dashed_light: Style
 
-    # Charcoal
-    charcoal: Style
-    charcoal_bordered: Style
-    charcoal_bold: Style
-    charcoal_light: Style
-    charcoal_flat: Style
-    charcoal_outline: Style
-    charcoal_solid: Style
-    charcoal_outline_bold: Style
-    charcoal_solid_bold: Style
-    charcoal_outline_light: Style
-    charcoal_solid_light: Style
-    charcoal_dashed: Style
-    charcoal_dashed_bold: Style
-    charcoal_dashed_light: Style
+    # Gray1
+    gray1: Style
+    gray1_bordered: Style
+    gray1_bold: Style
+    gray1_light: Style
+    gray1_flat: Style
+    gray1_outline: Style
+    gray1_solid: Style
+    gray1_outline_bold: Style
+    gray1_solid_bold: Style
+    gray1_outline_light: Style
+    gray1_solid_light: Style
+    gray1_dashed: Style
+    gray1_dashed_bold: Style
+    gray1_dashed_light: Style
 
-    # Graphite
-    graphite: Style
-    graphite_bordered: Style
-    graphite_bold: Style
-    graphite_light: Style
-    graphite_flat: Style
-    graphite_outline: Style
-    graphite_solid: Style
-    graphite_outline_bold: Style
-    graphite_solid_bold: Style
-    graphite_outline_light: Style
-    graphite_solid_light: Style
-    graphite_dashed: Style
-    graphite_dashed_bold: Style
-    graphite_dashed_light: Style
+    # Gray2
+    gray2: Style
+    gray2_bordered: Style
+    gray2_bold: Style
+    gray2_light: Style
+    gray2_flat: Style
+    gray2_outline: Style
+    gray2_solid: Style
+    gray2_outline_bold: Style
+    gray2_solid_bold: Style
+    gray2_outline_light: Style
+    gray2_solid_light: Style
+    gray2_dashed: Style
+    gray2_dashed_bold: Style
+    gray2_dashed_light: Style
 
-    # Gray
-    gray: Style
-    gray_bordered: Style
-    gray_bold: Style
-    gray_light: Style
-    gray_flat: Style
-    gray_outline: Style
-    gray_solid: Style
-    gray_outline_bold: Style
-    gray_solid_bold: Style
-    gray_outline_light: Style
-    gray_solid_light: Style
-    gray_dashed: Style
-    gray_dashed_bold: Style
-    gray_dashed_light: Style
+    # Gray3
+    gray3: Style
+    gray3_bordered: Style
+    gray3_bold: Style
+    gray3_light: Style
+    gray3_flat: Style
+    gray3_outline: Style
+    gray3_solid: Style
+    gray3_outline_bold: Style
+    gray3_solid_bold: Style
+    gray3_outline_light: Style
+    gray3_solid_light: Style
+    gray3_dashed: Style
+    gray3_dashed_bold: Style
+    gray3_dashed_light: Style
 
-    # Silver
-    silver: Style
-    silver_bordered: Style
-    silver_bold: Style
-    silver_light: Style
-    silver_flat: Style
-    silver_outline: Style
-    silver_solid: Style
-    silver_outline_bold: Style
-    silver_solid_bold: Style
-    silver_outline_light: Style
-    silver_solid_light: Style
-    silver_dashed: Style
-    silver_dashed_bold: Style
-    silver_dashed_light: Style
+    # Gray4
+    gray4: Style
+    gray4_bordered: Style
+    gray4_bold: Style
+    gray4_light: Style
+    gray4_flat: Style
+    gray4_outline: Style
+    gray4_solid: Style
+    gray4_outline_bold: Style
+    gray4_solid_bold: Style
+    gray4_outline_light: Style
+    gray4_solid_light: Style
+    gray4_dashed: Style
+    gray4_dashed_bold: Style
+    gray4_dashed_light: Style
 
-    # Snow
-    snow: Style
-    snow_bordered: Style
-    snow_bold: Style
-    snow_light: Style
-    snow_flat: Style
-    snow_outline: Style
-    snow_solid: Style
-    snow_outline_bold: Style
-    snow_solid_bold: Style
-    snow_outline_light: Style
-    snow_solid_light: Style
-    snow_dashed: Style
-    snow_dashed_bold: Style
-    snow_dashed_light: Style
+    # Gray5
+    gray5: Style
+    gray5_bordered: Style
+    gray5_bold: Style
+    gray5_light: Style
+    gray5_flat: Style
+    gray5_outline: Style
+    gray5_solid: Style
+    gray5_outline_bold: Style
+    gray5_solid_bold: Style
+    gray5_outline_light: Style
+    gray5_solid_light: Style
+    gray5_dashed: Style
+    gray5_dashed_bold: Style
+    gray5_dashed_light: Style
+
+    # Gray6
+    gray6: Style
+    gray6_bordered: Style
+    gray6_bold: Style
+    gray6_light: Style
+    gray6_flat: Style
+    gray6_outline: Style
+    gray6_solid: Style
+    gray6_outline_bold: Style
+    gray6_solid_bold: Style
+    gray6_outline_light: Style
+    gray6_solid_light: Style
+    gray6_dashed: Style
+    gray6_dashed_bold: Style
+    gray6_dashed_light: Style
 
     # White
     white: Style
@@ -134,6 +150,16 @@ class StylesMonochrome(BaseStyles):
     white_dashed: Style
     white_dashed_bold: Style
     white_dashed_light: Style
+
+    # Semantic Roles
+    primary: Style
+    secondary: Style
+    accent: Style
+    muted: Style
+    light: Style
+    dark: Style
+    canvas: Style
+    canvas_flat: Style
 
     def __getattribute__(self, name: str) -> Any:  # noqa: ANN401
         """Intercept attribute access to raise AttributeError for unsupported semantic roles.
@@ -164,11 +190,12 @@ def _create_monochrome_styles() -> StylesMonochrome:
         StylesMonochrome: Monochrome preset styles instance.
     """
     black = monochrome_colors.Black
-    charcoal = monochrome_colors.Charcoal
-    graphite = monochrome_colors.Graphite
-    gray = monochrome_colors.Gray
-    silver = monochrome_colors.Silver
-    snow = monochrome_colors.Snow
+    gray1 = monochrome_colors.Gray1
+    gray2 = monochrome_colors.Gray2
+    gray3 = monochrome_colors.Gray3
+    gray4 = monochrome_colors.Gray4
+    gray5 = monochrome_colors.Gray5
+    gray6 = monochrome_colors.Gray6
     white = monochrome_colors.White
 
     p_v = _make_variants(
@@ -186,7 +213,7 @@ def _create_monochrome_styles() -> StylesMonochrome:
     )
 
     s_v = _make_variants(
-        gray,
+        gray2,
         border_color=black,
         default_text_color=black,
         line_color=black,
@@ -200,10 +227,23 @@ def _create_monochrome_styles() -> StylesMonochrome:
     )
 
     m_v = _make_variants(
-        snow,
-        border_color=charcoal,
-        default_text_color=charcoal,
-        line_color=charcoal,
+        gray1,
+        border_color=gray5,
+        default_text_color=gray5,
+        line_color=gray5,
+    )
+
+    l_v = _make_variants(
+        white,
+        border_color=gray5,
+        default_text_color=gray5,
+        line_color=gray5,
+    )
+    d_v = _make_variants(
+        gray6,
+        border_color=black,
+        default_text_color=white,
+        line_color=black,
     )
 
     role_variants = {
@@ -211,11 +251,19 @@ def _create_monochrome_styles() -> StylesMonochrome:
         "secondary": s_v,
         "accent": a_v,
         "muted": m_v,
+        "light": l_v,
+        "dark": d_v,
     }
 
     styles_dict: dict[str, Any] = {
+        "width": 140,
+        "height": 70,
+        "dpi": 100,
+        "colors": monochrome_colors,
         "background_color": (255, 255, 255, 1.0),
         "sourcecode_font": FontSourceCode.SOURCECODEPRO,
+        "canvas": Style(supports={"shape"}, shape_fill_color=white, shape_line_color=white, shape_line_width=0.0),
+        "canvas_flat": Style(supports={"shape"}, shape_fill_color=white, shape_line_color=white, shape_line_width=0.0),
     }
 
     for role_name, v in role_variants.items():
@@ -232,13 +280,14 @@ def _create_monochrome_styles() -> StylesMonochrome:
         styles_dict[f"{role_name}_dashed_light"] = v["dashed_light"]
 
     color_variants = {
-        "black": _make_variants(black),
-        "charcoal": _make_variants(charcoal),
-        "graphite": _make_variants(graphite),
-        "gray": _make_variants(gray),
-        "silver": _make_variants(silver),
-        "snow": _make_variants(snow, border_color=charcoal, default_text_color=charcoal),
         "white": _make_variants(white, border_color=black, default_text_color=black),
+        "gray1": _make_variants(gray1, border_color=gray5, default_text_color=gray5),
+        "gray2": _make_variants(gray2, border_color=gray5, default_text_color=gray5),
+        "gray3": _make_variants(gray3, border_color=gray6, default_text_color=black),
+        "gray4": _make_variants(gray4, border_color=black, default_text_color=white),
+        "gray5": _make_variants(gray5, border_color=black, default_text_color=white),
+        "gray6": _make_variants(gray6, border_color=black, default_text_color=white),
+        "black": _make_variants(black, border_color=black, default_text_color=white),
     }
 
     for cname, v in color_variants.items():

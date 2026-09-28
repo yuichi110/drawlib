@@ -131,7 +131,7 @@ def draw_content():
                 else:
                     style_obj = base_style.patch(shape_line_width=2.25, line_width=2.25, icon_style="bold")
 
-            if style_type in ["", "flat"]:
+            if style_type == "":
                 circle((x - 4, y), 4, style=style_obj)
                 phosphor.heart((x + 4.5, y - 0.5), width=8, style=style_obj)
             else:
@@ -149,7 +149,7 @@ draw_content()
 As you can see, each drawing element is affected by preset style names as follows:
 
 - Shapes: Both style type (flat, solid, dashed) and width/weight (light, bold) work.
-- Icons: Line width can be controlled with weight; flat style makes it fill.
+- Icons: Line width can be controlled with weight.
 - Lines: Width has an effect; solid and dashed types work; flat style doesn't support lines.
 - Text: Only the default type is supported; weight affects font weight (light/regular/bold).
 

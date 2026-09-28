@@ -214,7 +214,9 @@ class TestPresetStylesUnit:
         assert new_styles.blue_bold.text_font == FontJapanese.SANSSERIF_BOLD
 
         # Light styles
-        assert new_styles.light.text_font == FontJapanese.SANSSERIF_LIGHT
+        assert new_styles.light.text_font == FontJapanese.SANSSERIF_REGULAR
+        assert new_styles.primary_light.text_font == FontJapanese.SANSSERIF_LIGHT
+        assert new_styles.light_light.text_font == FontJapanese.SANSSERIF_LIGHT
 
     def test_preset_styles_patch_font_bold_only(self) -> None:
         """Verifies that patching only bold modifies bold styles while preserving others."""
@@ -229,7 +231,9 @@ class TestPresetStylesUnit:
         assert new_styles.blue_bold.text_font == FontRoboto.ROBOTO_BOLD
 
         # Light styles remain default
-        assert new_styles.light.text_font == Font.SANSSERIF_LIGHT
+        assert new_styles.light.text_font == Font.SANSSERIF_REGULAR
+        assert new_styles.primary_light.text_font == Font.SANSSERIF_LIGHT
+        assert new_styles.light_light.text_font == Font.SANSSERIF_LIGHT
 
     def test_preset_styles_patch_font_sourcecode(self) -> None:
         """Verifies that sourcecode_font is updated properly."""

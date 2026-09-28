@@ -19,6 +19,7 @@ from pydantic import validate_call
 
 from drawlib._charts.bar_chart._series import DEFAULT_CHART_PALETTE
 from drawlib._core.fonts import Font
+from drawlib._core.l4_canvas_utils._colors import ColorUtil
 from drawlib._core.lines import line_arc as canvas_line_arc
 from drawlib._core.shapes import arrow_arc as canvas_arrow_arc
 from drawlib._core.shapes import circle as canvas_circle
@@ -337,7 +338,7 @@ class Cycle:
                 )
 
             # Render texts
-            self._draw_item_texts(item, nx, ny, ang_rad)
+            self._draw_item_texts(item, node_style, nx, ny, ang_rad)
 
     def _compute_item_angles(self, num_items: int) -> list[float]:
         """Compute angular placement for each item in degrees."""
@@ -468,19 +469,37 @@ class Cycle:
             line_style="solid",
         )
 
+    def _resolve_node_text_colors(
+        self, node_style: Style
+    ) -> tuple[tuple[int, int, int, float], tuple[int, int, int, float]]:
+        """Resolve default title and description colors based on node fill luminance."""
+        fill_color = node_style.shape_fill_color
+        fill_alpha = node_style.shape_fill_alpha
+        if fill_color is None or self._node_shape == "none":
+            is_transparent = True
+            fill_rgba = (0.0, 0.0, 0.0, 0.0)
+        else:
+            fill_rgba = ColorUtil.get_mplot_rgba(fill_color, fill_alpha)
+            is_transparent = fill_rgba[3] < 0.3 or fill_rgba == (0.0, 0.0, 0.0, 0.0)
+
+        if is_transparent:
+            return (40, 40, 40, 1.0), (80, 80, 80, 1.0)
+        lum = 0.299 * fill_rgba[0] + 0.587 * fill_rgba[1] + 0.114 * fill_rgba[2]
+        if lum > 0.6:
+            return (40, 40, 40, 1.0), (80, 80, 80, 1.0)
+        return (255, 255, 255, 1.0), (255, 255, 255, 0.92)
+
     def _draw_item_texts(
         self,
         item: _CycleItem,
+        node_style: Style,
         nx: float,
         ny: float,
         ang_rad: float,
     ) -> None:
         """Render primary title and optional description text for a step node."""
         has_desc = bool(item.description.strip())
-        is_colored = self._node_shape in {"circle", "rectangle"}
-
-        default_title_color = (255, 255, 255, 1.0) if is_colored else (40, 40, 40, 1.0)
-        default_desc_color = (255, 255, 255, 0.92) if is_colored else (80, 80, 80, 1.0)
+        default_title_color, default_desc_color = self._resolve_node_text_colors(node_style)
 
         t_style = (
             item.textstyle
@@ -575,11 +594,32 @@ class Cycle:
         )
         canvas_circle(xy=(cx, cy), radius=self._center_radius, style=c_style)
 
+        fill_color = c_style.shape_fill_color
+        fill_alpha = c_style.shape_fill_alpha
+        if fill_color is None:
+            is_transparent = True
+            fill_rgba = (0.0, 0.0, 0.0, 0.0)
+        else:
+            fill_rgba = ColorUtil.get_mplot_rgba(fill_color, fill_alpha)
+            is_transparent = fill_rgba[3] < 0.3 or fill_rgba == (0.0, 0.0, 0.0, 0.0)
+
+        if is_transparent:
+            def_center_title_col = (50, 60, 80, 1.0)
+            def_center_desc_col = (90, 100, 120, 1.0)
+        else:
+            lum = 0.299 * fill_rgba[0] + 0.587 * fill_rgba[1] + 0.114 * fill_rgba[2]
+            if lum > 0.6:
+                def_center_title_col = (50, 60, 80, 1.0)
+                def_center_desc_col = (90, 100, 120, 1.0)
+            else:
+                def_center_title_col = (255, 255, 255, 1.0)
+                def_center_desc_col = (255, 255, 255, 0.92)
+
         has_desc = bool(self._center_description.strip())
         t_style = self._center_textstyle or Style(
             text_size=11.0,
             text_font=Font.SANSSERIF_BOLD,
-            text_color=(50, 60, 80, 1.0),
+            text_color=def_center_title_col,
             text_halign="center",
             text_valign="center",
         )
@@ -592,7 +632,7 @@ class Cycle:
             d_style = self._center_description_style or Style(
                 text_size=7.5,
                 text_font=Font.SANSSERIF_REGULAR,
-                text_color=(90, 100, 120, 1.0),
+                text_color=def_center_desc_col,
                 text_halign="center",
                 text_valign="center",
             )

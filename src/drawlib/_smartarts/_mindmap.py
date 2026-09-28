@@ -146,10 +146,6 @@ class MindMapNode:
 
         if self._default_textstyle is not None:
             def_textstyle = self._default_textstyle
-        elif self._textstyle is not None:
-            def_textstyle = self._textstyle
-        elif "text" in def_style.supports:
-            def_textstyle = def_style
         else:
             def_textstyle = None
 

@@ -20,9 +20,13 @@ from drawlib._core.types import Color, Style
 from drawlib.preset_colors import (
     BaseColors,
     DefaultColors,
+    DefaultDarkColors,
+    DefaultLightColors,
     GoogleColors,
     MonochromeColors,
     default_colors,
+    default_dark_colors,
+    default_light_colors,
     google_colors,
     monochrome_colors,
 )
@@ -32,8 +36,12 @@ from drawlib.preset_styles import (
     GoogleStyles,
     MonochromeStyles,
     StylesDefault,
+    StylesDefaultDark,
+    StylesDefaultLight,
     StylesGoogle,
     StylesMonochrome,
+    default_dark_styles,
+    default_light_styles,
     default_styles,
 )
 
@@ -46,6 +54,8 @@ colors: DefaultColors = default_colors
 _STYLE_TO_COLOR_MAP: dict[type[BaseStyles], BaseColors] = {
     StylesDefault: default_colors,
     DefaultStyles: default_colors,
+    StylesDefaultLight: default_light_colors,
+    StylesDefaultDark: default_dark_colors,
     StylesGoogle: google_colors,
     GoogleStyles: google_colors,
     StylesMonochrome: monochrome_colors,
@@ -62,6 +72,9 @@ def _resolve_colors(style_obj: BaseStyles) -> BaseColors:
     Returns:
         BaseColors: The corresponding style color instance.
     """
+    if getattr(style_obj, "colors", None) is not None and isinstance(style_obj.colors, BaseColors):
+        return style_obj.colors
+
     for style_cls, color_obj in _STYLE_TO_COLOR_MAP.items():
         if isinstance(style_obj, style_cls):
             return color_obj
@@ -78,11 +91,11 @@ def _set_active_styles(new_styles: BaseStyles, new_colors: BaseColors | None = N
     mod = _sys.modules.get(__name__)
     if mod is None:
         return
+    resolved_colors = new_colors if new_colors is not None else _resolve_colors(new_styles)
+    if getattr(new_styles, "colors", None) is None:
+        new_styles = new_styles.patch(colors=resolved_colors)
     setattr(mod, "styles", new_styles)
-    if new_colors is not None:
-        setattr(mod, "colors", new_colors)
-    else:
-        setattr(mod, "colors", _resolve_colors(new_styles))
+    setattr(mod, "colors", resolved_colors)
 
 
 def _reset_styles() -> None:
