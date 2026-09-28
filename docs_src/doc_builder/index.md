@@ -26,7 +26,7 @@ Instead of relying on external documentation engines (such as Sphinx, MkDocs, or
 
 ```drawlib 700px center caption:"Drawlib Single-Source Documentation Architecture"
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import rectangle

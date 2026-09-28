@@ -30,7 +30,7 @@ All top-level CLI commands have direct 1-to-1 functional counterparts in `drawli
 
 ```drawlib 650px center caption:"Architecture: drawlib.tools as the Backend Engine"
 from drawlib.canvas import setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import rectangle

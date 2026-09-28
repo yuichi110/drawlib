@@ -22,7 +22,7 @@ from drawlib.math import (
 
 ```drawlib 650px center caption:"Visual Summary of Math & Geometry Functions"
 from drawlib.canvas import setup
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line, line_arc
 from drawlib.math import get_angle, get_center_and_size, get_distance

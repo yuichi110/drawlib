@@ -175,7 +175,7 @@ Embedded shape text rotates alongside the shape by default, maintaining its rela
 Shape styling is driven by Drawlib's core `Style` dataclass or predefined style preset strings (e.g., `"blue"`, `"green_flat"`, `"red_dashed"`).
 
 ```python
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.types import Style
 
 custom_shape_style = Style(
@@ -290,7 +290,7 @@ def circle(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import circle
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -359,7 +359,7 @@ def donuts(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import donuts
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -425,7 +425,7 @@ def ellipse(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import ellipse
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -499,7 +499,7 @@ def wedge(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import wedge
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -570,7 +570,7 @@ def fan(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import fan
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -642,7 +642,7 @@ def arc(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import arc
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -731,7 +731,7 @@ def rectangle(
 #### Code Examples
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import rectangle
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -802,7 +802,7 @@ def parallelogram(
 #### Code Examples
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import parallelogram
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -869,7 +869,7 @@ def rhombus(
 #### Code Examples
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import rhombus
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -947,7 +947,7 @@ def trapezoid(
 #### Code Examples
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import trapezoid
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1025,7 +1025,7 @@ def triangle(
 #### Code Examples
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import triangle
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1092,7 +1092,7 @@ def regularpolygon(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import regularpolygon
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1152,7 +1152,7 @@ def polygon(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import polygon
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1220,7 +1220,7 @@ def star(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import star
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1293,7 +1293,7 @@ def shape(
 #### Code Examples
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.shapes import shape
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1401,7 +1401,7 @@ def arrow(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import arrow
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1470,7 +1470,7 @@ def arrow_l(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import arrow_l
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1539,7 +1539,7 @@ def arrow_u(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import arrow_u
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1611,7 +1611,7 @@ def arrow_arc(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import arrow_arc
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1674,7 +1674,7 @@ def arrow_polyline(
 from drawlib.canvas import save, setup
 
 setup(width=100, height=50)
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import arrow_polyline
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1769,7 +1769,7 @@ This pattern illustrates a secure multi-tier virtual private cloud containing pu
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.shapes import arrow, circle, ellipse, rectangle
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -1927,7 +1927,7 @@ Demonstrates message publishers, Kafka message topic queues, consumer groups, an
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.shapes import arrow, donuts, parallelogram, rectangle
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -2014,7 +2014,7 @@ Demonstrates convolution, pooling, batch normalization, and skip residual connec
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.shapes import arrow, arrow_polyline, circle, rectangle, trapezoid
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -2120,7 +2120,7 @@ Constructs a standard UML state chart featuring initial pseudo-states, rounded c
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.shapes import arrow, circle, donuts, rectangle, rhombus
 from drawlib.types import Style
 from drawlib.styles import styles
@@ -2212,7 +2212,7 @@ Demonstrates how human designers and AI coding agents can construct crisp applic
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.shapes import arc, circle, rectangle
 from drawlib.types import Style
 from drawlib.styles import styles

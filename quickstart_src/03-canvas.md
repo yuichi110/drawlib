@@ -22,24 +22,24 @@ Drawlib provides intuitive functions for lines, circles, rectangles, polygons, a
 
 ```drawlib 580px center caption:"Figure 3.1: Fundamental Shapes and Coordinate Grid"
 from drawlib.canvas import setup
-from drawlib.config import styles
 from drawlib.lines import line
 from drawlib.shapes import arrow, circle, rectangle
+from drawlib.styles import styles
 from drawlib.text import text
 
 setup(width=100, height=50, grid=True)
 
 # Circle at (20, 28)
-circle(xy=(20, 28), radius=12, style=styles.blue)
+circle(xy=(20, 28), radius=12, style=styles.primary)
 text(xy=(20, 8), text="circle((20, 28))", style=styles.primary, size=10)
 
 # Rectangle at (50, 28)
-rectangle(xy=(50, 28), width=22, height=20, r=2, style=styles.green)
+rectangle(xy=(50, 28), width=22, height=20, r=2, style=styles.secondary)
 text(xy=(50, 8), text="rectangle((50, 28))", style=styles.primary, size=10)
 
 # Arrow and Line at (80, 28)
-arrow((70, 28), (90, 28), tail_width=4, head_width=10, head_length=6, style=styles.red)
-line((70, 18), (90, 18), arrowhead="<->", style=styles.black)
+arrow((70, 28), (90, 28), tail_width=4, head_width=10, head_length=6, style=styles.accent)
+line((70, 18), (90, 18), arrowhead="<->", style=styles.muted)
 text(xy=(80, 8), text="arrow & line", style=styles.primary, size=10)
 ```
 

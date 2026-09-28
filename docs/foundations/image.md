@@ -74,7 +74,7 @@ Here is code that specifies styles:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.images import image
 from drawlib.shapes import circle
 from drawlib.text import text

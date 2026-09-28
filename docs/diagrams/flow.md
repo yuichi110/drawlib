@@ -37,7 +37,7 @@ from drawlib.diagrams.flow import (
     Start,
 )
 
-canvas.initialize()
+canvas.clear()
 
 flow = FlowDiagram(title="User Registration Flow")
 
@@ -92,7 +92,7 @@ All nodes in `drawlib.diagrams.flow` derive from `FlowNode` and follow Drawlib's
 
 ```python
 from drawlib import canvas
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.diagrams.flow import (
     Data,
     Decision,
@@ -161,7 +161,7 @@ from drawlib.diagrams.flow import (
     Start,
 )
 
-canvas.initialize()
+canvas.clear()
 
 flow = FlowDiagram(title="Order Dispatch Routing")
 
@@ -218,7 +218,7 @@ from drawlib.diagrams.flow import (
     Start,
 )
 
-canvas.initialize()
+canvas.clear()
 
 flow = FlowDiagram(title="Expense Approval Workflow", width=100.0, height=100.0)
 

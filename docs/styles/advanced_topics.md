@@ -123,11 +123,11 @@ Because `Style` objects in Drawlib are immutable (`frozen=True`), styles are cus
 
 ```python
 from drawlib.canvas import setup
-from drawlib.colors import ColorsDefault
+from drawlib.preset_colors import DefaultColors
 from drawlib.styles import styles
 from drawlib.text import text
 
-custom_style = styles.blue.patch(text_size=28, text_color=ColorsDefault.Red)
+custom_style = styles.blue.patch(text_size=28, text_color=DefaultColors.Red)
 
 setup(width=100, height=40)
 text((50, 20), "Customized Style", style=custom_style)

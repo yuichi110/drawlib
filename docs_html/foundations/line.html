@@ -219,7 +219,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../styles/official_essentials.html" >Essentials Preset Styles</a>
+                                <a href="../styles/official_google.html" >Google Preset Styles</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -503,7 +503,7 @@ It requires four arguments (coordinates, control point, and style) and accepts t
 If you are not familiar with Bézier curves, it is recommended to research and understand the concept first.</p>
 <p>This code generates the following output:</p>
 <pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line, line_bezier1
 from drawlib.shapes import circle
 from drawlib.styles import styles
@@ -547,7 +547,7 @@ It requires five arguments (coordinates, control points, and style) and accepts 
 If you are not familiar with Bézier curves, it is recommended to research and understand the concept first.</p>
 <p>Here is an example code:</p>
 <pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line, line_bezier2
 from drawlib.shapes import circle
 from drawlib.styles import styles
@@ -637,7 +637,7 @@ Bézier curves with one control point (bezier1), or Bézier curves with two cont
 We set almost the same arguments for elements of the path_points.</p>
 <p>Let's see how it works with an example:</p>
 <pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line, lines_bezier
 from drawlib.shapes import circle
 from drawlib.styles import styles
@@ -677,7 +677,7 @@ They will create a straight line, a bezier1 line, and a bezier2 line.</p>
 </div>
 <p>This function can be used to draw curved lines from shape to shape like this:</p>
 <pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line, lines_bezier
 from drawlib.shapes import circle
 from drawlib.styles import styles
@@ -724,7 +724,7 @@ If you want to add related curves to all vertices, this function is very useful.
 </ul>
 <p>Here is an example code:</p>
 <pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import lines, lines_curved
 from drawlib.shapes import circle
 from drawlib.styles import styles

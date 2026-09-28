@@ -8,17 +8,17 @@ Drawlib bundles rich icon modules under `drawlib.icons` so you can build express
 
 ```drawlib 580px center caption:"Figure 5.1: Vector Icons from drawlib.icons.phosphor"
 from drawlib.canvas import setup
-from drawlib.config import styles
 from drawlib.icons import phosphor
+from drawlib.styles import styles
 from drawlib.text import text
 
 setup(width=100, height=42)
 
 items = [
-    (16, phosphor.desktop, "desktop", styles.blue),
-    (38, phosphor.database, "database", styles.green),
-    (60, phosphor.cloud, "cloud", styles.blue),
-    (84, phosphor.shield_check, "shield_check", styles.red),
+    (16, phosphor.desktop, "desktop", styles.accent),
+    (38, phosphor.database, "database", styles.secondary),
+    (60, phosphor.cloud, "cloud", styles.primary),
+    (84, phosphor.shield_check, "shield_check", styles.success),
 ]
 
 for x, fn, label, st in items:
@@ -32,9 +32,9 @@ for x, fn, label, st in items:
 
 ```drawlib 580px center caption:"Figure 5.2: Official Google Cloud Service Icons from drawlib.icons.gcp"
 from drawlib.canvas import setup
-from drawlib.config import styles
 from drawlib.icons import gcp
 from drawlib.lines import line
+from drawlib.styles import styles
 from drawlib.text import text
 
 setup(width=100, height=42)
@@ -51,5 +51,5 @@ for idx, (x, fn, label) in enumerate(services):
     text(xy=(x, 10), text=label, style=styles.primary, size=9)
     if idx < len(services) - 1:
         next_x = services[idx + 1][0]
-        line((x + 8, 26), (next_x - 8, 26), arrowhead="->", style=styles.blue)
+        line((x + 8, 26), (next_x - 8, 26), arrowhead="->", style=styles.primary_bold)
 ```

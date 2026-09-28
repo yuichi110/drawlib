@@ -10,7 +10,7 @@ With `SequenceDiagram`, participants and lifelines are defined as Python objects
 from drawlib import canvas
 from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
 
-canvas.initialize()
+canvas.clear()
 
 d = SequenceDiagram(title="API Gateway & Microservice Authentication")
 

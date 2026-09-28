@@ -219,7 +219,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../styles/official_essentials.html" >Essentials Preset Styles</a>
+                                <a href="../styles/official_google.html" >Google Preset Styles</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -668,7 +668,7 @@ text((80, 10), &quot;brightness(2.0)&quot;, style=styles.primary)
 <li><code>colorize()</code>: Applies colors to a grayscale image. If the image is not grayscaled, it will be automatically grayscaled before colorize.</li>
 </ul>
 <pre><code class="language-python">from drawlib.canvas import setup
-from drawlib.colors import Colors, ColorsDefault
+from drawlib.preset_colors import Colors, DefaultColors
 from drawlib.images import Dimage, image
 from drawlib.text import text
 from drawlib.styles import styles
@@ -684,8 +684,8 @@ image(
     (50, 25),
     20,
     Dimage(&quot;../_assets/linux.png&quot;).colorize(
-        from_black_to=ColorsDefault.Blue,
-        from_white_to=ColorsDefault.Red,
+        from_black_to=DefaultColors.Blue,
+        from_white_to=DefaultColors.Red,
     ),
 )
 text((50, 10), &quot;colorize()&quot;, style=styles.white)
@@ -695,9 +695,9 @@ image(
     (80, 25),
     20,
     Dimage(&quot;../_assets/linux.png&quot;).colorize(
-        from_black_to=ColorsDefault.Blue,
-        from_white_to=ColorsDefault.Red,
-        from_mid_to=ColorsDefault.Green,
+        from_black_to=DefaultColors.Blue,
+        from_white_to=DefaultColors.Red,
+        from_mid_to=DefaultColors.Green,
     ),
 )
 text((80, 10), &quot;colorize()&quot;, style=styles.white)

@@ -46,7 +46,7 @@ Here are three examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.styles import styles
 from drawlib.shapes import circle, rectangle
 
@@ -99,7 +99,7 @@ Right has alpha value.
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.shapes import circle, rectangle
 from drawlib.styles import styles
 
@@ -173,7 +173,7 @@ Here are three examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.fonts import FontSansSerif, FontSerif
 from drawlib.styles import styles
 from drawlib.shapes import rectangle
@@ -237,7 +237,7 @@ Below is a figure illustrating these styles:
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.fonts import FontSansSerif, FontSerif
 from drawlib.shapes import rectangle
 from drawlib.styles import styles

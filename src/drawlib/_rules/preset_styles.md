@@ -271,10 +271,10 @@ Drawlib enforces strict RGB or RGBA tuples internally for maximum precision and 
 
 ### 4.3. Color Manipulation: Color Model, Hex, and .patch()
 
-Drawlib provides a first-class `Color` model in `drawlib.colors` with hex parsing and channel patching:
+Drawlib provides a first-class `Color` model in `drawlib.preset_colors` (and `drawlib.styles.Color`) with hex parsing and channel patching:
 
 ```python
-from drawlib.colors import Color, EssentialsStyleColors
+from drawlib.preset_colors import Color, EssentialsStyleColors
 
 # 1. Parse standard hex code or initialize Color
 brand_blue = Color.from_hex("#1a73e8")  # returns Color(26, 115, 232, 1.0)
@@ -460,7 +460,7 @@ You can construct a one-off `PresetStyles` instance directly with custom `Style`
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors140, from_hex
+from drawlib.preset_colors import Colors140, from_hex
 from drawlib.preset_styles import PresetStyles
 from drawlib.shapes import circle, rectangle
 from drawlib.types import Style
@@ -493,7 +493,7 @@ save()
 Because `BasePresetStyles` inherits from Pydantic's `BaseModel`, creating a dedicated subclass provides IDE autocompletion, type safety, field validation, and dictionary iteration:
 
 ```python
-from drawlib.colors import Colors, from_hex
+from drawlib.preset_colors import Colors, from_hex
 from drawlib.preset_styles import BasePresetStyles
 from drawlib.types import Style
 
@@ -601,7 +601,7 @@ The following diagram demonstrates how color and style variations distinguish us
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, EssentialsStyleColors
+from drawlib.preset_colors import Colors, EssentialsStyleColors
 from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -924,7 +924,7 @@ Popular Essentials Colors:
 ```drawlib show-code
 # Standard imports
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, EssentialsStyleColors
+from drawlib.preset_colors import Colors, EssentialsStyleColors
 from drawlib.preset_styles import BasePresetStyles, essentials_styles, monochrome_styles
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text

@@ -96,7 +96,7 @@ Once a feature cycle stabilizes, an official release (e.g. `0.3.1`) is published
 
 ```drawlib fold-code 600px center
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import arrow, chevron

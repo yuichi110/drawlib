@@ -32,7 +32,7 @@ In Drawlib, message semantics are expressed through clear grammatical verbs:
 from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=92, height=86)
 
 d = SequenceDiagram(title="Client-Server Authentication Flow")
@@ -78,7 +78,7 @@ You can specify `is_async=True` to indicate non-blocking, asynchronous events (s
 from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=72, height=65)
 
 d = SequenceDiagram(title="Sync vs Async Interactions")
@@ -116,7 +116,7 @@ When two entities establish a persistent, two-way communication channel (e.g. We
 from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=52, height=65)
 
 d = SequenceDiagram(title="WebSocket Communication")
@@ -150,7 +150,7 @@ When a participant calls itself (`p.request(p, label)`), Drawlib automatically r
 from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=52, height=71)
 
 d = SequenceDiagram(title="Internal Processing")
@@ -190,7 +190,7 @@ Notes provide informative context alongside lifelines or across multiple partici
 from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=75, height=74)
 
 d = SequenceDiagram(title="Annotated Workflow")
@@ -235,7 +235,7 @@ Conditional logic, alternative flows, and loops are defined naturally using Pyth
 from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=86, height=94)
 
 d = SequenceDiagram(title="Transaction Processing Flow")
@@ -283,7 +283,7 @@ Setting `autonumber=True` on `SequenceDiagram` automatically prepends sequential
 from drawlib import canvas
 from drawlib.diagrams.sequence import SequenceDiagram, Participant, PhosphorIcon
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=72, height=85)
 
 d = SequenceDiagram(title="Order Execution Service", autonumber=True)
@@ -323,11 +323,11 @@ Here is a full production example combining participant groups (`ParticipantGrou
 
 ```python
 from drawlib import canvas
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.diagrams.sequence import SequenceDiagram, GcpIcon, Participant, ParticipantGroup, PhosphorIcon
 from drawlib.types import Style
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=106, height=128)
 
 d = SequenceDiagram(title="Microservices Cloud Processing Pipeline", autonumber=True)

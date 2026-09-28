@@ -10,7 +10,7 @@ Here is an example of code:
 
 ```python
 from drawlib.canvas import setup
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.fonts import FontSourceCode
 from drawlib.styles import styles
 from drawlib.shapes import circle

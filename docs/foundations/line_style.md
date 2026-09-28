@@ -54,7 +54,7 @@ Let's explore different line styles through examples.
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
 from drawlib.styles import styles
@@ -122,7 +122,7 @@ Let's see an example:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
 from drawlib.styles import styles

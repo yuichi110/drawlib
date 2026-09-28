@@ -98,7 +98,7 @@ You can nest a detailed sub-diagram inside a larger architectural overview witho
 
 ```python
 from drawlib.canvas import setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.images import get_dimage_from_code, image
 from drawlib.lines import line
 from drawlib.shapes import rectangle

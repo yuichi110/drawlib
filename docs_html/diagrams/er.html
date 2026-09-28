@@ -219,7 +219,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../styles/official_essentials.html" >Essentials Preset Styles</a>
+                                <a href="../styles/official_google.html" >Google Preset Styles</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -594,7 +594,7 @@ erd.draw(xy=(0.0, 0.0))
 <pre><code class="language-python">from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity, Cardinality
 
-canvas.initialize()
+canvas.clear()
 
 cardinalities: list[Cardinality] = [
     &quot;1:*&quot;,
@@ -647,7 +647,7 @@ erd.draw()
 <h2>6. Custom Styling</h2>
 <p>Entities and relationships fully integrate with Drawlib's <code>Style</code> class:</p>
 <pre><code class="language-python">from drawlib import canvas
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.diagrams.er import ERDiagram, Entity
 from drawlib.types import Style
 

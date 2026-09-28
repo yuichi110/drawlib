@@ -144,7 +144,7 @@ This code generates the following output:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line, line_bezier1
 from drawlib.shapes import circle
 from drawlib.styles import styles
@@ -204,7 +204,7 @@ Here is an example code:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line, line_bezier2
 from drawlib.shapes import circle
 from drawlib.styles import styles
@@ -332,7 +332,7 @@ Let's see how it works with an example:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line, lines_bezier
 from drawlib.shapes import circle
 from drawlib.styles import styles
@@ -386,7 +386,7 @@ This function can be used to draw curved lines from shape to shape like this:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line, lines_bezier
 from drawlib.shapes import circle
 from drawlib.styles import styles
@@ -447,7 +447,7 @@ Here is an example code:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import lines, lines_curved
 from drawlib.shapes import circle
 from drawlib.styles import styles

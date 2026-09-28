@@ -4,7 +4,7 @@ Drawlib is a pure-Python drawing library and documentation compiler crafted to f
 
 ```drawlib fold-code 600px center caption:"Code makes Illustration"
 from drawlib.canvas import setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.types import Style
@@ -46,7 +46,7 @@ Because the entire documentation workflow is unified in Python and Markdown, hum
 
 ```drawlib fold-code 700px center caption:"End-to-End Documentation System with Drawlib"
 from drawlib.canvas import setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
@@ -132,7 +132,7 @@ By placing Drawlib directly in your application or documentation repository:
 
 ```drawlib fold-code 700px center caption:"AI Coding Agents Generating Grounded Docs & Diagrams from Repository"
 from drawlib.canvas import setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle

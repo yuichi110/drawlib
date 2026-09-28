@@ -11,7 +11,7 @@ from drawlib.canvas import save, setup
 from drawlib.fonts import FontRoboto
 from drawlib.icons import phosphor
 from drawlib.lines import line
-from drawlib.preset_colors import Colors, ColorsThemeEssentials
+from drawlib.preset_colors import Colors
 from drawlib.shapes import arrow, rectangle
 from drawlib.styles import styles
 from drawlib.text import text
@@ -23,12 +23,12 @@ rect_height = 38
 
 line_thin = styles.primary.patch(line_width=0.5)
 ts_left = styles.primary.patch(text_size=12, text_halign="left")
-ts_left_red = styles.primary.patch(text_size=12, text_halign="left", text_color=ColorsThemeEssentials.Red)
+ts_left_red = styles.danger.patch(text_size=12, text_halign="left")
 icon_thin = styles.primary.patch(icon_style="thin")
-icon_thin_red = styles.primary.patch(icon_style="thin", icon_color=ColorsThemeEssentials.Red)
+icon_thin_red = styles.danger.patch(icon_style="thin")
 
 tscenter16 = styles.primary.patch(text_halign="center", text_size=16)
-tscenter16r = styles.primary.patch(text_halign="center", text_size=16, text_color=ColorsThemeEssentials.Red)
+tscenter16r = styles.danger.patch(text_halign="center", text_size=16)
 
 
 def left():

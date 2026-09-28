@@ -22,7 +22,7 @@ Drawlib is structured around the following APIs:
 
 ```drawlib fold-code 600px center
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.fonts import FontRoboto
 from drawlib.icons import font_icon, phosphor
 from drawlib.images import image

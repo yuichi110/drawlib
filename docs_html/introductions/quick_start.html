@@ -219,7 +219,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../styles/official_essentials.html" >Essentials Preset Styles</a>
+                                <a href="../styles/official_google.html" >Google Preset Styles</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -517,7 +517,7 @@ Common alignment options include:</p>
 </ul>
 <p>Let's examine these alignment options through an example:</p>
 <pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.shapes import circle
 from drawlib.text import text
 from drawlib.styles import styles
@@ -577,7 +577,7 @@ If you're unfamiliar with Font Icons, I recommend checking out FontAwesome first
 </ul>
 <p>Here's an example using phosphor:</p>
 <pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.icons import phosphor
 from drawlib.styles import styles
 
@@ -700,7 +700,7 @@ Please refer to the line documentation for details. However, they are incredibly
 But visual style has less meaning (CSS equivalent), then we will specify it as styling class <code>Style</code>.</p>
 <p>Consider this example showcasing styling:</p>
 <pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line
 from drawlib.styles import styles
 
@@ -790,7 +790,7 @@ Specifying <code>text_xy_shift</code> allows you to adjust the position of the t
 Keep in mind that the <code>text_angle</code> parameter in <code>Style</code> overrides the shape's angle for the text.</p>
 <p>Let's examine a styling example:</p>
 <pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.shapes import rectangle
 from drawlib.styles import styles
 
@@ -841,7 +841,7 @@ All other text parameters are defined within a <code>Style</code> object.</p>
 <p>With <code>Style</code>, you can configure text color, size, font, alignment, and text background options (such as <code>text_bg_fill_color</code>, <code>text_bg_line_width</code>, etc.).</p>
 <p>Let's examine some code examples:</p>
 <pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.fonts import FontFile, FontRoboto
 from drawlib.text import text
 from drawlib.styles import styles

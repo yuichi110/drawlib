@@ -23,7 +23,7 @@ Below is a domain model illustrating an e-commerce payment and order flow:
 from drawlib import canvas
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 
-canvas.initialize()
+canvas.clear()
 
 cd = ClassDiagram(title="E-Commerce Domain Model")
 
@@ -139,7 +139,7 @@ Drawlib provides intuitive verb methods on `ClassNode` to create UML relationshi
 from drawlib import canvas
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode, RelationshipType
 
-canvas.initialize()
+canvas.clear()
 
 types: list[RelationshipType] = [
     "inheritance",
@@ -218,11 +218,11 @@ Classes and relationships fully integrate with Drawlib's `Style` class:
 
 ```drawlib show-code 650px center caption:"Styled UML Class Diagram"
 from drawlib import canvas
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.types import Style
 
-canvas.initialize()
+canvas.clear()
 
 cd = ClassDiagram(
     title="Custom Styled Payment Architecture",

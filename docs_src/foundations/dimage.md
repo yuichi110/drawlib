@@ -491,7 +491,7 @@ text((80, 10), "brightness(2.0)", style=styles.primary)
 
 ```python
 from drawlib.canvas import setup
-from drawlib.colors import Colors, ColorsDefault
+from drawlib.preset_colors import Colors, DefaultColors
 from drawlib.images import Dimage, image
 from drawlib.text import text
 from drawlib.styles import styles
@@ -507,8 +507,8 @@ image(
     (50, 25),
     20,
     Dimage("../_assets/linux.png").colorize(
-        from_black_to=ColorsDefault.Blue,
-        from_white_to=ColorsDefault.Red,
+        from_black_to=DefaultColors.Blue,
+        from_white_to=DefaultColors.Red,
     ),
 )
 text((50, 10), "colorize()", style=styles.white)
@@ -518,9 +518,9 @@ image(
     (80, 25),
     20,
     Dimage("../_assets/linux.png").colorize(
-        from_black_to=ColorsDefault.Blue,
-        from_white_to=ColorsDefault.Red,
-        from_mid_to=ColorsDefault.Green,
+        from_black_to=DefaultColors.Blue,
+        from_white_to=DefaultColors.Red,
+        from_mid_to=DefaultColors.Green,
     ),
 )
 text((80, 10), "colorize()", style=styles.white)
@@ -531,7 +531,7 @@ Here is the output.
 
 ```drawlib 600px center
 from drawlib.canvas import setup
-from drawlib.colors import Colors, ColorsDefault
+from drawlib.preset_colors import Colors, DefaultColors
 from drawlib.images import Dimage, image
 from drawlib.text import text
 from drawlib.styles import styles
@@ -547,8 +547,8 @@ image(
     (50, 25),
     20,
     Dimage("../_assets/linux.png").colorize(
-        from_black_to=ColorsDefault.Blue,
-        from_white_to=ColorsDefault.Red,
+        from_black_to=DefaultColors.Blue,
+        from_white_to=DefaultColors.Red,
     ),
 )
 text((50, 10), "colorize()", style=styles.white)
@@ -558,9 +558,9 @@ image(
     (80, 25),
     20,
     Dimage("../_assets/linux.png").colorize(
-        from_black_to=ColorsDefault.Blue,
-        from_white_to=ColorsDefault.Red,
-        from_mid_to=ColorsDefault.Green,
+        from_black_to=DefaultColors.Blue,
+        from_white_to=DefaultColors.Red,
+        from_mid_to=DefaultColors.Green,
     ),
 )
 text((80, 10), "colorize()", style=styles.white)

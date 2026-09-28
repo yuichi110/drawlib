@@ -82,7 +82,7 @@ Let's examine the alignment of rectangles with an example code:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.styles import styles
@@ -114,7 +114,7 @@ The red dot represents "xy", and the inner text indicates the alignment.
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
 from drawlib.styles import styles
@@ -154,7 +154,7 @@ Here's an example of aligning items horizontally and vertically:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.icons import phosphor
 from drawlib.images import image
 from drawlib.shapes import chevron, circle, parallelogram, rectangle, regularpolygon, star
@@ -196,7 +196,7 @@ However, `(center, center)` is straightforward.
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.icons import phosphor
 from drawlib.images import image
 from drawlib.shapes import chevron, circle, parallelogram, rectangle, regularpolygon, star

@@ -28,7 +28,7 @@ from drawlib.lines import (
 Lines connect architectural elements and require styling, canvas configuration, and textual annotations:
 ```python
 from drawlib.canvas import clear, save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.shapes import rectangle, circle
 from drawlib.text import text
 from drawlib.types import Style
@@ -92,7 +92,7 @@ When computing line endpoints programmatically:
 ### 2.4. Code Example: Multi-Tier Architectural Dividers & Direct Edges
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
@@ -183,7 +183,7 @@ Because the travel direction is reversed in the second call, both lines bow outw
 ### 3.4. Code Example: Microservice Request-Response Cycle & Bypass Path
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line_curved
 from drawlib.shapes import circle, rectangle
 from drawlib.text import text
@@ -411,7 +411,7 @@ Routes around an intermediate obstacle:
 ### 5.4. Code Example: Orthogonal Bus Architecture
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line, lines
 from drawlib.shapes import rectangle
 from drawlib.types import Style
@@ -730,7 +730,7 @@ Drawlib provides two ways to style lines: declarative `Style` objects for custom
 The universal `Style` dataclass supports these line-specific attributes:
 ```python
 from drawlib.types import Style
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 
 custom_style = styles.primary.patch(
     line_color=Colors.Red,        # Stroke color (RGB/RGBA tuple, Colors.*, or hex)
@@ -784,7 +784,7 @@ Aligning visual stroke properties with architectural meanings makes diagrams ins
 ### 9.5. Code Example: Multi-Protocol Network Styling
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line
 from drawlib.text import text
 from drawlib.types import Style
@@ -856,7 +856,7 @@ $$\theta = \operatorname{atan2}(y_2 - y_1, x_2 - x_1) \times \frac{180}{\pi}$$
 ### 10.4. Code Example: Reusable Labeled Connector with Badges
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text
@@ -964,7 +964,7 @@ save()
 Security zones and perimeter firewalls traversed by distinct cross-boundary links:
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.text import text

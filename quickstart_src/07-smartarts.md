@@ -13,20 +13,20 @@
 
 ```drawlib 580px center caption:"Figure 7.1: SmartArt Pyramid Comparing Default and Custom Styled Layers"
 from drawlib.canvas import setup
-from drawlib.config import styles
 from drawlib.smartarts import Pyramid
+from drawlib.styles import styles
 
 setup(width=100, height=48)
 
-p1 = Pyramid(styles=styles)
+p1 = Pyramid(default_style=styles.primary, default_textstyle=styles.white_bold)
 p1.add(text="Strategy")
 p1.add(text="Architecture")
 p1.add(text="Implementation")
 p1.draw((6, 5), width=40, height=38, margin=2.5)
 
-p2 = Pyramid(default_style=styles.solid, styles=styles)
-p2.add(text="Vision", style=styles.blue_flat, textstyle=styles.white)
-p2.add(text="Platform", style=styles.green_flat, textstyle=styles.white)
-p2.add(text="Operations", style=styles.red_flat, textstyle=styles.white)
+p2 = Pyramid()
+p2.add(text="Vision", style=styles.primary_flat, textstyle=styles.white_bold)
+p2.add(text="Platform", style=styles.secondary_flat, textstyle=styles.white_bold)
+p2.add(text="Operations", style=styles.accent_flat, textstyle=styles.white_bold)
 p2.draw((54, 5), width=40, height=38, margin=2.5, align="left")
 ```

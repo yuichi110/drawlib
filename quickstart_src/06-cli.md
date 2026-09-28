@@ -27,10 +27,9 @@ uv run drawlib build pdf quickstart_src/ -o quickstart.pdf --generate-index
 
 ```drawlib 600px center caption:"Figure 6.1: Single-Source Documentation Compilation Pipeline"
 from drawlib.canvas import setup
-from drawlib.colors import Colors, Colors140
-from drawlib.config import styles
 from drawlib.lines import line
 from drawlib.shapes import rectangle
+from drawlib.styles import styles
 from drawlib.text import text
 
 setup(width=110, height=46)
@@ -41,13 +40,9 @@ rectangle(
     width=28,
     height=24,
     r=2,
-    style=styles.primary.patch(
-        shape_fill_color=Colors140.AliceBlue,
-        shape_line_color=Colors140.RoyalBlue,
-        shape_line_width=2,
-    ),
+    style=styles.primary_light,
 )
-text(xy=(20, 26), text="Markdown + drawlib", style=styles.primary, size=10)
+text(xy=(20, 26), text="Markdown + drawlib", style=styles.primary_bold, size=10)
 text(xy=(20, 19), text="(docs_src/)", style=styles.primary, size=9)
 
 # Compiler
@@ -56,34 +51,26 @@ rectangle(
     width=24,
     height=20,
     r=2,
-    style=styles.primary.patch(
-        shape_fill_color=Colors140.Turquoise,
-        shape_line_color=Colors.Navy,
-        shape_line_width=2,
-    ),
+    style=styles.secondary_light,
 )
-text(xy=(56, 23), text="drawlib build", style=styles.primary, size=10)
+text(xy=(56, 23), text="drawlib build", style=styles.secondary_bold, size=10)
 
-line((34, 23), (44, 23), arrowhead="->", style=styles.blue)
+line((34, 23), (44, 23), arrowhead="->", style=styles.primary_bold)
 
 # Outputs
 outputs = [
-    (36, "docs/ (Markdown)", Colors140.HoneyDew),
-    (23, "docs_html/ (Web)", Colors140.LemonChiffon),
-    (10, "quickstart.pdf (PDF)", Colors140.LavenderBlush),
+    (36, "docs/ (Markdown)", styles.accent_light),
+    (23, "docs_html/ (Web)", styles.success_light),
+    (10, "quickstart.pdf (PDF)", styles.primary_light),
 ]
-for y_pos, label, col in outputs:
-    line((68, 23), (78, y_pos), arrowhead="->", style=styles.blue)
+for y_pos, label, st in outputs:
+    line((68, 23), (78, y_pos), arrowhead="->", style=styles.secondary_bold)
     rectangle(
         xy=(93, y_pos),
         width=28,
         height=9,
         r=1.5,
-        style=styles.primary.patch(
-            shape_fill_color=col,
-            shape_line_color=Colors.Navy,
-            shape_line_width=1.5,
-        ),
+        style=st,
     )
-    text(xy=(93, y_pos), text=label, style=styles.primary, size=9)
+    text(xy=(93, y_pos), text=label, style=styles.primary_bold, size=9)
 ```

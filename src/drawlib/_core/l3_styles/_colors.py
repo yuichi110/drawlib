@@ -18,7 +18,25 @@ from pydantic import BaseModel, ConfigDict
 from drawlib._core.l2_types import Color
 
 
-class BaseColors(BaseModel):
+class _BaseColorsMeta(type(BaseModel)):
+    """Metaclass allowing class-level attribute access for color fields."""
+
+    def __getattr__(self, name: str) -> Any:  # noqa: ANN401
+        fields = self.__dict__.get("__pydantic_fields__")
+        if fields:
+            if name in fields:
+                default = fields[name].default
+                if default is not None:
+                    return default
+            cap_name = name.capitalize()
+            if cap_name in fields:
+                default = fields[cap_name].default
+                if default is not None:
+                    return default
+        raise AttributeError(f"type object '{self.__name__}' has no attribute '{name}'")
+
+
+class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
     """Base model for preset colors providing iteration, dictionary-like access, and patching."""
 
     model_config = ConfigDict(

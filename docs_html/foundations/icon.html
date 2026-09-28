@@ -219,7 +219,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../styles/official_essentials.html" >Essentials Preset Styles</a>
+                                <a href="../styles/official_google.html" >Google Preset Styles</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -502,7 +502,7 @@ You can customize them using <code>drawlib.types.Style</code>:</p>
 <li><code>image_border_color</code>, <code>image_border_width</code>, <code>image_border_style</code>: Draws an optional border outline around the icon frame.</li>
 </ul>
 <pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.icons import gcp
 from drawlib.text import text
 from drawlib.styles import styles
@@ -541,7 +541,7 @@ save()
 <h3>Cloud Architecture Diagram Example</h3>
 <p>Here is an end-to-end example demonstrating how GCP icons can be combined with shapes and connectors to build clear architecture diagrams:</p>
 <pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -671,7 +671,7 @@ Therefore, drawlib does not currently provide an icon module for it.</p>
 </ul>
 <p>Let's illustrate this with an example:</p>
 <pre><code class="language-python">from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.icons import phosphor
 from drawlib.text import text
 from drawlib.styles import styles

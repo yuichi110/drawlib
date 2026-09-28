@@ -172,7 +172,7 @@ You can customize them using `drawlib.types.Style`:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.icons import gcp
 from drawlib.text import text
 from drawlib.styles import styles
@@ -207,7 +207,7 @@ Executing this code generates the following image:
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.icons import gcp
 from drawlib.text import text
 from drawlib.styles import styles
@@ -248,7 +248,7 @@ Here is an end-to-end example demonstrating how GCP icons can be combined with s
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -302,7 +302,7 @@ Executing this code generates the following architecture diagram:
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
@@ -494,7 +494,7 @@ Let's illustrate this with an example:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.icons import phosphor
 from drawlib.text import text
 from drawlib.styles import styles
@@ -528,7 +528,7 @@ Executing this code generates the following image:
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.icons import phosphor
 from drawlib.text import text
 from drawlib.styles import styles

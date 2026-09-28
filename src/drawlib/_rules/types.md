@@ -97,7 +97,7 @@ In Drawlib v0.3, `Style` instances are strictly **frozen** and immutable (`froze
 
 To create derivative styles, always use the `.patch()` method:
 ```python
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.styles import styles
 
 # Patch an existing preset to derive a new style:

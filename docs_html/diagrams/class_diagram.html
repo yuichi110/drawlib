@@ -219,7 +219,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../styles/official_essentials.html" >Essentials Preset Styles</a>
+                                <a href="../styles/official_google.html" >Google Preset Styles</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -437,7 +437,7 @@ It supports standard UML 2.0 notations including three-compartment class cards (
 <pre><code class="language-python">from drawlib import canvas
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 
-canvas.initialize()
+canvas.clear()
 
 cd = ClassDiagram(title=&quot;E-Commerce Domain Model&quot;)
 
@@ -586,7 +586,7 @@ abstract_node = ClassNode(name=&quot;BaseEntity&quot;, is_abstract=True)
 <pre><code class="language-python">from drawlib import canvas
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode, RelationshipType
 
-canvas.initialize()
+canvas.clear()
 
 types: list[RelationshipType] = [
     &quot;inheritance&quot;,
@@ -657,11 +657,11 @@ cd.draw()
 <h2>7. Custom Styling</h2>
 <p>Classes and relationships fully integrate with Drawlib's <code>Style</code> class:</p>
 <pre><code class="language-python">from drawlib import canvas
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.types import Style
 
-canvas.initialize()
+canvas.clear()
 
 cd = ClassDiagram(
     title=&quot;Custom Styled Payment Architecture&quot;,

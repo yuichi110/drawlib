@@ -9,7 +9,7 @@ For instance, consider the following Python code:
 
 ```python
 from drawlib.canvas import save
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import circle
 from drawlib.styles import styles
 

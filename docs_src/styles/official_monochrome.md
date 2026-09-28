@@ -17,7 +17,7 @@ The `monochrome` preset styles possess 7 colors between black and white.
 
 ```drawlib 600px center caption:"Preset styles monochrome color chart"
 from drawlib.canvas import setup
-from drawlib.colors import ColorsMonochrome
+from drawlib.preset_colors import MonochromeColors
 from drawlib.shapes import rectangle
 from drawlib.text import text
 from drawlib.types import Style
@@ -31,13 +31,13 @@ text1_y = 15
 text2_y = 9
 
 colors = [
-    ("black", ColorsMonochrome.Black),
-    ("charcoal", ColorsMonochrome.Charcoal),
-    ("graphite", ColorsMonochrome.Graphite),
-    ("gray", ColorsMonochrome.Gray),
-    ("silver", ColorsMonochrome.Silver),
-    ("snow", ColorsMonochrome.Snow),
-    ("white", ColorsMonochrome.White),
+    ("black", MonochromeColors.Black),
+    ("charcoal", MonochromeColors.Charcoal),
+    ("graphite", MonochromeColors.Graphite),
+    ("gray", MonochromeColors.Gray),
+    ("silver", MonochromeColors.Silver),
+    ("snow", MonochromeColors.Snow),
+    ("white", MonochromeColors.White),
 ]
 
 for i, (color_name, color) in enumerate(colors):

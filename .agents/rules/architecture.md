@@ -8,7 +8,7 @@ This document describes the project structure and architectural principles of th
 
 ## 1. Project Root Structure
 - `src/drawlib/`: The main source code directory.
-  - Public domain modules: `canvas.py`, `shapes.py`, `lines.py`, `text.py`, `colors.py`, `preset_styles.py`, `icons.py`, `fonts.py`, `types.py`, `images.py`, `charts/`, `diagrams/`, `smartarts.py`, `math.py`, `builder.py`, `tools.py`.
+  - Public domain modules: `canvas.py`, `shapes.py`, `lines.py`, `text.py`, `preset_colors.py`, `preset_styles.py`, `styles.py`, `utils.py`, `icons.py`, `fonts.py`, `types.py`, `images.py`, `charts/`, `diagrams/`, `smartarts.py`, `math.py`, `builder.py`, `tools.py`.
   - `_core/`: Core drawing engine implementation details (`l1_core`, `l2_models`, `l2_types`, `l3_fonts`, `l3_styles`, `l4_canvas`, `l4_canvas_utils`).
   - `_preset_styles/`, `_charts/`, `_diagrams/`, `_smartarts/`, `_icons/`, `_css_templates/`, `_project_templates/`: Domain implementations and styling/template assets.
   - `_cli/`, `_builder/`, `_http_server/`: CLI entrypoint, doc & image build engines, and local preview server.
@@ -23,13 +23,13 @@ This document describes the project structure and architectural principles of th
 `drawlib` follows a modular Python package layout (`src/drawlib/`):
 - Standard Python package layout.
 - Package releases and versioning are managed via Semantic Versioning in PyPI/Git tags.
-- Public domain facades (`canvas`, `shapes`, `lines`, `colors`, `preset_styles`, etc.) re-export clean interfaces from internal modules.
+- Public domain facades (`canvas`, `shapes`, `lines`, `preset_colors`, `preset_styles`, `styles`, `utils`, etc.) re-export clean interfaces from internal modules.
 
 ## 3. Module Hierarchy (Internal Structure)
 
 ### 3.1. Public Facades
 - Located at `src/drawlib/*.py`.
-- Re-exports domain symbols intended for end-users (`canvas`, `shapes`, `lines`, `text`, `colors`, `preset_styles`, etc.).
+- Re-exports domain symbols intended for end-users (`canvas`, `shapes`, `lines`, `text`, `preset_colors`, `preset_styles`, `styles`, `utils`, etc.).
 
 ### 3.2. Core Implementation (`_core/`)
 The `_core/` directory contains internal drawing logic and is not meant to be accessed directly by users.

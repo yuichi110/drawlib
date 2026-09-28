@@ -113,7 +113,7 @@ halign  │     (x, y) anchor point      │  halign
 ### 3.2. Alignment Code Example
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.fonts import Font
 from drawlib.shapes import circle
 from drawlib.text import text
@@ -201,7 +201,7 @@ Drawlib can automatically render a padded background rectangle behind the text b
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.fonts import FontSerif
 from drawlib.text import text
 from drawlib.types import Style

@@ -9,7 +9,7 @@ For instance, consider the following Python code:
 
 ```python
 from drawlib.canvas import save
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import circle
 from drawlib.styles import styles
 
@@ -39,7 +39,7 @@ This will generate an image file:
 
 ```drawlib 450px center
 from drawlib.canvas import save
-from drawlib.colors import Colors140
+from drawlib.preset_colors import Colors140
 from drawlib.shapes import circle
 from drawlib.styles import styles
 
@@ -78,7 +78,7 @@ Here is a typical use case of Drawlib:
 
 ```drawlib 650px center
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import arrow, rectangle

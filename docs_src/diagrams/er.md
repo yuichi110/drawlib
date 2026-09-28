@@ -144,7 +144,7 @@ Drawlib provides strict type support via `Literal` for standard IE Crow's Foot c
 from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity, Cardinality
 
-canvas.initialize()
+canvas.clear()
 
 cardinalities: list[Cardinality] = [
     "1:*",
@@ -207,7 +207,7 @@ Entities and relationships fully integrate with Drawlib's `Style` class:
 
 ```drawlib show-code 650px center caption:"Custom Styled ER Diagram"
 from drawlib import canvas
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.diagrams.er import ERDiagram, Entity
 from drawlib.types import Style
 

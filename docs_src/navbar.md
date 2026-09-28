@@ -48,7 +48,7 @@
 - [Color System & Utilities](./styles/color.md)
 - [Fonts System](./styles/font.md)
 - [Default Preset Styles](./styles/official_default.md)
-- [Essentials Preset Styles](./styles/official_essentials.md)
+- [Google Preset Styles](./styles/official_google.md)
 - [Monochrome Preset Styles](./styles/official_monochrome.md)
 - [Custom Preset Creation](./styles/create.md)
 - [Advanced Style Topics](./styles/advanced_topics.md)

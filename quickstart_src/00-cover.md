@@ -6,11 +6,10 @@ Drawlib is a modern Python library for creating technical diagrams, architecture
 
 ```drawlib 620px center caption:"Drawlib: Illustration as Code in Pure Python"
 from drawlib.canvas import setup
-from drawlib.colors import Colors, Colors140
-from drawlib.config import styles
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
+from drawlib.styles import styles
 from drawlib.text import text
 
 setup(width=120, height=50)
@@ -21,33 +20,25 @@ rectangle(
     width=30,
     height=32,
     r=3,
-    style=styles.primary.patch(
-        shape_fill_color=Colors140.AliceBlue,
-        shape_line_color=Colors140.RoyalBlue,
-        shape_line_width=2,
-    ),
+    style=styles.primary_light,
 )
-phosphor.code(xy=(22, 31), width=10, style=styles.blue)
-text(xy=(22, 16), text="Python Code", style=styles.primary.patch(text_color=Colors.Navy, text_size=12))
+phosphor.code(xy=(22, 31), width=10, style=styles.primary)
+text(xy=(22, 16), text="Python Code", style=styles.primary_bold, size=12)
 
 # Arrow 1
-line((39, 25), (49, 25), arrowhead="->", style=styles.blue)
+line((39, 25), (49, 25), arrowhead="->", style=styles.primary_bold)
 
 # Center card: Drawlib Engine
 circle(
     xy=(62, 25),
     radius=14,
-    style=styles.primary.patch(
-        shape_fill_color=Colors140.Turquoise,
-        shape_line_color=Colors.Navy,
-        shape_line_width=2,
-    ),
+    style=styles.secondary_light,
 )
-text(xy=(62, 27), text="drawlib", style=styles.primary.patch(text_color=Colors.Navy, text_size=14))
-text(xy=(62, 21), text="Engine", style=styles.primary.patch(text_color=Colors.Navy, text_size=10))
+text(xy=(62, 27), text="drawlib", style=styles.secondary_bold, size=14)
+text(xy=(62, 21), text="Engine", style=styles.secondary, size=10)
 
 # Arrow 2
-line((78, 25), (88, 25), arrowhead="->", style=styles.blue)
+line((78, 25), (88, 25), arrowhead="->", style=styles.secondary_bold)
 
 # Right card: Output Formats
 rectangle(
@@ -55,14 +46,10 @@ rectangle(
     width=26,
     height=32,
     r=3,
-    style=styles.primary.patch(
-        shape_fill_color=Colors140.LavenderBlush,
-        shape_line_color=Colors140.Crimson,
-        shape_line_width=2,
-    ),
+    style=styles.accent_light,
 )
-gcp.cloud_run(xy=(102, 31), width=10, style=styles.primary)
-text(xy=(102, 16), text="PNG / HTML / PDF", style=styles.primary.patch(text_color=Colors.Navy, text_size=10))
+gcp.cloud_run(xy=(102, 31), width=10, style=styles.accent)
+text(xy=(102, 16), text="PNG / HTML / PDF", style=styles.accent_bold, size=10)
 ```
 
 ---

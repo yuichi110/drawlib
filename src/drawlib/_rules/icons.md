@@ -216,7 +216,7 @@ FontAwesome Free organizes glyphs across distinct font files: `brands.ttf`, `sol
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import from_hex
+from drawlib.preset_colors import Color
 from drawlib.styles import styles
 from drawlib.icons import font_icon
 from drawlib.text import text
@@ -361,7 +361,7 @@ text_halign  │       (x, y) Center Anchor     │ text_halign
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.text import text
@@ -427,7 +427,7 @@ Vector icons and raster GCP icons handle color customization differently:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.icons import gcp
 from drawlib.text import text
 from drawlib.types import Style
@@ -589,7 +589,7 @@ This architecture features an internet-facing Cloud Armor and Load Balancer tier
 
 ```drawlib show-code
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, from_hex
+from drawlib.preset_colors import Colors, from_hex
 from drawlib.icons import gcp, phosphor
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle

@@ -13,7 +13,7 @@ The `default` preset styles include 5 colors.
 
 ```drawlib 600px center caption:"Preset styles default color chart"
 from drawlib.canvas import setup
-from drawlib.colors import ColorsDefault
+from drawlib.preset_colors import DefaultColors
 from drawlib.styles import styles
 from drawlib.shapes import rectangle
 from drawlib.text import text
@@ -27,11 +27,11 @@ text1_y = 15
 text2_y = 9
 
 colors = [
-    ("red", ColorsDefault.Red),
-    ("green", ColorsDefault.Green),
-    ("blue", ColorsDefault.Blue),
-    ("black", ColorsDefault.Black),
-    ("white", ColorsDefault.White),
+    ("red", DefaultColors.Red),
+    ("green", DefaultColors.Green),
+    ("blue", DefaultColors.Blue),
+    ("black", DefaultColors.Black),
+    ("white", DefaultColors.White),
 ]
 
 for i, (color_name, color) in enumerate(colors):

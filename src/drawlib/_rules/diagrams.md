@@ -183,7 +183,7 @@ from drawlib.diagrams.architecture import CustomIcon, GcpIcon, PhosphorIcon
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=115, height=95)
 
 d = ArchitectureDiagram(title="Production Multi-Tier Cloud VPC")
@@ -220,7 +220,7 @@ d.draw(xy=(5.0, 5.0))
 from drawlib import canvas
 from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=105, height=75)
 
 d = ArchitectureDiagram(title="Event-Driven Message Streaming Topology")
@@ -295,7 +295,7 @@ In `FlowDiagram`, swimlanes provide a structured visual background and column/ro
 from drawlib import canvas
 from drawlib.diagrams.flow import Data, Decision, End, FlowDiagram, Process, Start
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=110, height=95)
 
 flow = FlowDiagram(title="Expense Reimbursement Approval Workflow", width=100.0, height=90.0)
@@ -336,7 +336,7 @@ flow.draw(xy=(5.0, 5.0))
 from drawlib import canvas
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process, Start
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=130, height=80)
 
 flow = FlowDiagram(title="Fulfillment Logistics Pipeline", lane_orientation="horizontal", width=115.0, height=65.0)
@@ -412,11 +412,11 @@ Indented Python `with` statements naturally structure condition frames in the di
 #### Example 5.3.1: Microservices Order Processing Pipeline
 ```drawlib show-code
 from drawlib import canvas
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.styles import styles
 from drawlib.diagrams.sequence import GcpIcon, Participant, ParticipantGroup, PhosphorIcon, SequenceDiagram
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=115, height=135)
 
 d = SequenceDiagram(title="Microservices Distributed Transaction Pipeline", autonumber=True)
@@ -467,7 +467,7 @@ d.draw(xy=(5.0, 5.0))
 from drawlib import canvas
 from drawlib.diagrams.sequence import Participant, PhosphorIcon, SequenceDiagram
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=65, height=80)
 
 d = SequenceDiagram(title="WebSocket Real-Time Live Sync")
@@ -544,7 +544,7 @@ d.draw(xy=(5.0, 5.0))
 from drawlib import canvas
 from drawlib.diagrams.state_diagram import ChoiceState, FinalState, InitialState, State, StateDiagram
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=135, height=75)
 
 sd = StateDiagram(title="User Session Lifecycle State Machine")
@@ -584,7 +584,7 @@ sd.draw(xy=(0.0, 0.0))
 from drawlib import canvas
 from drawlib.diagrams.state_diagram import FinalState, ForkJoinState, InitialState, State, StateDiagram
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=115, height=75)
 
 sd = StateDiagram(title="Concurrent Task Fork and Join")
@@ -658,7 +658,7 @@ All relationship methods support `start_multiplicity` (`"1"`, `"0..1"`), `end_mu
 from drawlib import canvas
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=110, height=85)
 
 cd = ClassDiagram(title="E-Commerce Domain Class Model")
@@ -702,7 +702,7 @@ cd.draw(xy=(0.0, 0.0))
 from drawlib import canvas
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=105, height=80)
 
 cd = ClassDiagram(title="UML Observer Design Pattern")
@@ -797,7 +797,7 @@ users.connect(
 from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=115, height=85)
 
 erd = ERDiagram(title="E-Commerce Relational Database Schema")
@@ -847,7 +847,7 @@ erd.draw(xy=(0.0, 0.0))
 from drawlib import canvas
 from drawlib.diagrams.er import ERDiagram, Entity
 
-canvas.initialize()
+canvas.clear()
 canvas.setup(width=110, height=80)
 
 erd = ERDiagram(title="Multi-Tenant RBAC Authorization Schema")

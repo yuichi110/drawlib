@@ -147,7 +147,7 @@ Here are 2 examples.
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.fonts import FontSerif
 from drawlib.styles import styles
 from drawlib.shapes import circle
@@ -189,7 +189,7 @@ Below is a figure illustrating these examples:
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.fonts import FontSerif
 from drawlib.shapes import circle
 from drawlib.text import text

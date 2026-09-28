@@ -31,7 +31,7 @@ When Drawlib lives alongside your source code:
 
 ```python
 from drawlib.canvas import setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
@@ -216,7 +216,7 @@ Modern multimodal models (such as Claude 3.7 Sonnet or Gemini 2.0 Pro) can inspe
 
 ```python
 from drawlib.canvas import setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line, lines
 from drawlib.shapes import rectangle

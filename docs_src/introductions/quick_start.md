@@ -250,7 +250,7 @@ Let's examine these alignment options through an example:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.shapes import circle
 from drawlib.text import text
 from drawlib.styles import styles
@@ -291,7 +291,7 @@ The resulting image demonstrates the effects of different alignments:
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.shapes import circle
 from drawlib.text import text
 from drawlib.styles import styles
@@ -358,7 +358,7 @@ Here's an example using phosphor:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.icons import phosphor
 from drawlib.styles import styles
 
@@ -380,7 +380,7 @@ This code generates the following output image:
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.icons import phosphor
 from drawlib.styles import styles
 
@@ -579,7 +579,7 @@ Consider this example showcasing styling:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line
 from drawlib.styles import styles
 
@@ -609,7 +609,7 @@ Arrow head style is specified in function directry.
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.lines import line
 from drawlib.styles import styles
 
@@ -723,7 +723,7 @@ Let's examine a styling example:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.shapes import rectangle
 from drawlib.styles import styles
 
@@ -757,7 +757,7 @@ This code generates the following output:
 
 ```drawlib 600px center
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.shapes import rectangle
 from drawlib.styles import styles
 
@@ -817,7 +817,7 @@ Let's examine some code examples:
 
 ```python
 from drawlib.canvas import save, setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.fonts import FontFile, FontRoboto
 from drawlib.text import text
 from drawlib.styles import styles
@@ -854,7 +854,7 @@ Executing this code yields the following image:
 
 ```drawlib 600px center
 from drawlib.canvas import setup
-from drawlib.colors import Colors
+from drawlib.preset_colors import Colors
 from drawlib.fonts import FontFile, FontRoboto
 from drawlib.text import text
 from drawlib.styles import styles

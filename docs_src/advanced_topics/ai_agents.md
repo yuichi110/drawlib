@@ -21,7 +21,7 @@ When Drawlib lives alongside your source code:
 
 ```drawlib fold-code 700px center caption:"AI Coding Agent Workflow with Drawlib"
 from drawlib.canvas import setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
@@ -192,7 +192,7 @@ Modern multimodal models (such as Claude 3.7 Sonnet or Gemini 2.0 Pro) can inspe
 
 ```drawlib fold-code 700px center caption:"Human-in-the-Loop & Autonomous AI Iteration Workflow"
 from drawlib.canvas import setup
-from drawlib.colors import Colors, Colors140
+from drawlib.preset_colors import Colors, Colors140
 from drawlib.fonts import FontRoboto
 from drawlib.lines import line, lines
 from drawlib.shapes import rectangle
