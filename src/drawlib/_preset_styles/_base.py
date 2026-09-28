@@ -86,6 +86,31 @@ class BaseStyles(BaseModel):
     muted_dashed_bold: Style
     muted_dashed_light: Style
 
+    # Extended semantic roles (10 variants each; optional for monochrome)
+    danger: Style | None = None
+    danger_bordered: Style | None = None
+    danger_bold: Style | None = None
+    danger_light: Style | None = None
+    danger_flat: Style | None = None
+    danger_outline: Style | None = None
+    danger_outline_bold: Style | None = None
+    danger_outline_light: Style | None = None
+    danger_dashed: Style | None = None
+    danger_dashed_bold: Style | None = None
+    danger_dashed_light: Style | None = None
+
+    success: Style | None = None
+    success_bordered: Style | None = None
+    success_bold: Style | None = None
+    success_light: Style | None = None
+    success_flat: Style | None = None
+    success_outline: Style | None = None
+    success_outline_bold: Style | None = None
+    success_outline_light: Style | None = None
+    success_dashed: Style | None = None
+    success_dashed_bold: Style | None = None
+    success_dashed_light: Style | None = None
+
     @property
     def light(self) -> Style:
         """Backwards compatibility alias for primary_light."""
@@ -131,6 +156,16 @@ class BaseStyles(BaseModel):
         """Backwards compatibility alias for muted_outline."""
         return self.muted_outline
 
+    @property
+    def danger_solid(self) -> Style | None:
+        """Backwards compatibility alias for danger_outline."""
+        return self.danger_outline
+
+    @property
+    def success_solid(self) -> Style | None:
+        """Backwards compatibility alias for success_outline."""
+        return self.success_outline
+
     def __iter__(self) -> Generator[tuple[str, Any], None, None]:
         """Yield (field_name, field_value) pairs for all fields in the preset style model.
 
@@ -138,7 +173,12 @@ class BaseStyles(BaseModel):
             Generator[tuple[str, Any], None, None]: Generator yielding field name and value pairs.
         """
         for field_name in self.model_fields:
-            yield field_name, getattr(self, field_name)
+            try:
+                val = getattr(self, field_name)
+            except AttributeError:
+                continue
+            if val is not None:
+                yield field_name, val
 
     def __getitem__(self, key: str) -> Any:  # noqa: ANN401
         """Allow dictionary-like item access by style name.
@@ -152,8 +192,13 @@ class BaseStyles(BaseModel):
         Raises:
             KeyError: If the specified key does not exist.
         """
-        if hasattr(self, key):
-            return getattr(self, key)
+        try:
+            if hasattr(self, key):
+                val = getattr(self, key)
+                if val is not None:
+                    return val
+        except AttributeError:
+            pass
         raise KeyError(f'Style "{key}" is not found in {self.__class__.__name__}.')
 
     def get(self, key: str, default: Any = None) -> Any:  # noqa: ANN401
@@ -166,7 +211,11 @@ class BaseStyles(BaseModel):
         Returns:
             Any: Field value or default fallback.
         """
-        return getattr(self, key, default)
+        try:
+            val = getattr(self, key, default)
+            return default if val is None else val
+        except AttributeError:
+            return default
 
     def styles(self) -> dict[str, Style]:
         """Extract only Style objects defined on this preset as a dictionary.
@@ -215,7 +264,10 @@ class BaseStyles(BaseModel):
             updates["sourcecode_font"] = sourcecode
 
         for field_name in self.model_fields:
-            val = getattr(self, field_name)
+            try:
+                val = getattr(self, field_name)
+            except AttributeError:
+                continue
             if not isinstance(val, Style):
                 continue
 

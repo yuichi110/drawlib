@@ -15,6 +15,7 @@ from drawlib._preset_styles import (
     DefaultStyles,
     MonochromeStyles,
     default_styles,
+    google_styles,
     monochrome_styles,
 )
 from drawlib.canvas import save
@@ -103,6 +104,67 @@ class TestPresetStylesUnit:
 
             dashed = getattr(default_styles, f"{c}_dashed")
             assert dashed.supports == frozenset({"shape", "line"})
+
+    def test_semantic_danger_success(self) -> None:
+        """Verifies danger and success semantic roles on DefaultStyles and GoogleStyles."""
+        for st in [default_styles, google_styles]:
+            for role in ["danger", "success"]:
+                bordered = getattr(st, role)
+                assert isinstance(bordered, Style)
+                assert getattr(st, f"{role}_bordered") == bordered
+                assert bordered.supports == frozenset({"shape", "line", "text", "icon"})
+
+                bold = getattr(st, f"{role}_bold")
+                assert isinstance(bold, Style)
+                assert bold.supports == frozenset({"shape", "line", "text", "icon"})
+
+                light = getattr(st, f"{role}_light")
+                assert isinstance(light, Style)
+                assert light.supports == frozenset({"shape", "line", "text", "icon"})
+
+                flat = getattr(st, f"{role}_flat")
+                assert isinstance(flat, Style)
+                assert flat.supports == frozenset({"shape"})
+
+                outline = getattr(st, f"{role}_outline")
+                assert isinstance(outline, Style)
+                assert outline.supports == frozenset({"shape", "line"})
+                assert getattr(st, f"{role}_solid") == outline
+
+                outline_bold = getattr(st, f"{role}_outline_bold")
+                assert isinstance(outline_bold, Style)
+                assert outline_bold.supports == frozenset({"shape", "line"})
+
+                outline_light = getattr(st, f"{role}_outline_light")
+                assert isinstance(outline_light, Style)
+                assert outline_light.supports == frozenset({"shape", "line"})
+
+                dashed = getattr(st, f"{role}_dashed")
+                assert isinstance(dashed, Style)
+                assert dashed.supports == frozenset({"shape", "line"})
+
+                dashed_bold = getattr(st, f"{role}_dashed_bold")
+                assert isinstance(dashed_bold, Style)
+                assert dashed_bold.supports == frozenset({"shape", "line"})
+
+                dashed_light = getattr(st, f"{role}_dashed_light")
+                assert isinstance(dashed_light, Style)
+                assert dashed_light.supports == frozenset({"shape", "line"})
+
+    def test_monochrome_danger_success_unsupported(self) -> None:
+        """Verifies MonochromeStyles raises AttributeError for unsupported danger and success."""
+        for role in ["danger", "success"]:
+            with pytest.raises(AttributeError):
+                _ = getattr(monochrome_styles, role)
+            with pytest.raises(AttributeError):
+                _ = getattr(monochrome_styles, f"{role}_flat")
+            with pytest.raises(AttributeError):
+                _ = getattr(monochrome_styles, f"{role}_outline")
+            with pytest.raises(KeyError):
+                _ = monochrome_styles[role]
+
+        assert "danger" not in monochrome_styles.styles()
+        assert "success" not in monochrome_styles.styles()
 
     def test_preset_styles_immutability(self) -> None:
         """Verifies that preset style singletons are frozen and immutable."""

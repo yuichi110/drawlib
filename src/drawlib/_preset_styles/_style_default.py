@@ -423,6 +423,32 @@ class StylesDefault(BaseStyles):
     steel_dashed_bold: Style
     steel_dashed_light: Style
 
+    # Danger
+    danger: Style
+    danger_bordered: Style
+    danger_bold: Style
+    danger_light: Style
+    danger_flat: Style
+    danger_outline: Style
+    danger_outline_bold: Style
+    danger_outline_light: Style
+    danger_dashed: Style
+    danger_dashed_bold: Style
+    danger_dashed_light: Style
+
+    # Success
+    success: Style
+    success_bordered: Style
+    success_bold: Style
+    success_light: Style
+    success_flat: Style
+    success_outline: Style
+    success_outline_bold: Style
+    success_outline_light: Style
+    success_dashed: Style
+    success_dashed_bold: Style
+    success_dashed_light: Style
+
 
 # Backwards compatibility alias
 DefaultStyles = StylesDefault
@@ -467,6 +493,8 @@ def _create_default_styles() -> StylesDefault:
         "secondary": default_colors.Secondary,
         "accent": default_colors.Accent,
         "muted": default_colors.Muted,
+        "danger": default_colors.Danger,
+        "success": default_colors.Success,
     }
 
     styles_dict: dict[str, Any] = {
@@ -475,18 +503,19 @@ def _create_default_styles() -> StylesDefault:
     }
 
     for role_name, color in semantic_map.items():
-        v = _make_variants(color)
-        styles_dict[role_name] = v["normal"]
-        styles_dict[f"{role_name}_bordered"] = v["bordered"]
-        styles_dict[f"{role_name}_bold"] = v["bold"]
-        styles_dict[f"{role_name}_light"] = v["light"]
-        styles_dict[f"{role_name}_flat"] = v["flat"]
-        styles_dict[f"{role_name}_outline"] = v["outline"]
-        styles_dict[f"{role_name}_outline_bold"] = v["outline_bold"]
-        styles_dict[f"{role_name}_outline_light"] = v["outline_light"]
-        styles_dict[f"{role_name}_dashed"] = v["dashed"]
-        styles_dict[f"{role_name}_dashed_bold"] = v["dashed_bold"]
-        styles_dict[f"{role_name}_dashed_light"] = v["dashed_light"]
+        if color is not None:
+            v = _make_variants(color)
+            styles_dict[role_name] = v["normal"]
+            styles_dict[f"{role_name}_bordered"] = v["bordered"]
+            styles_dict[f"{role_name}_bold"] = v["bold"]
+            styles_dict[f"{role_name}_light"] = v["light"]
+            styles_dict[f"{role_name}_flat"] = v["flat"]
+            styles_dict[f"{role_name}_outline"] = v["outline"]
+            styles_dict[f"{role_name}_outline_bold"] = v["outline_bold"]
+            styles_dict[f"{role_name}_outline_light"] = v["outline_light"]
+            styles_dict[f"{role_name}_dashed"] = v["dashed"]
+            styles_dict[f"{role_name}_dashed_bold"] = v["dashed_bold"]
+            styles_dict[f"{role_name}_dashed_light"] = v["dashed_light"]
 
     for cname, color in colors_map.items():
         v = _make_variants(color)

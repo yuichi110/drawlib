@@ -80,7 +80,7 @@ _VARIANTS = [
     "dashed_bold",
     "dashed_light",
 ]
-_SEMANTIC_ROLES = ["primary", "secondary", "accent", "muted"]
+_SEMANTIC_ROLES = ["primary", "secondary", "accent", "muted", "danger", "success"]
 _SYSTEM_FIELDS = {
     "background_color",
     "sourcecode_font",
@@ -95,28 +95,37 @@ _SYSTEM_FIELDS = {
     "secondary_solid",
     "accent_solid",
     "muted_solid",
+    "danger_solid",
+    "success_solid",
 }
 
 
 def _get_row_keys(styles: BaseStyles, base: str) -> list[str | None]:
     """Retrieve 10 style keys for a given base name across the 10 orthogonal columns."""
+
+    def _has_key(k: str) -> bool:
+        try:
+            return isinstance(getattr(styles, k, None), Style)
+        except AttributeError:
+            return False
+
     return [
-        base if hasattr(styles, base) else (f"{base}_bordered" if hasattr(styles, f"{base}_bordered") else None),
-        f"{base}_bold" if hasattr(styles, f"{base}_bold") else None,
-        f"{base}_light" if hasattr(styles, f"{base}_light") else None,
-        f"{base}_flat" if hasattr(styles, f"{base}_flat") else None,
+        base if _has_key(base) else (f"{base}_bordered" if _has_key(f"{base}_bordered") else None),
+        f"{base}_bold" if _has_key(f"{base}_bold") else None,
+        f"{base}_light" if _has_key(f"{base}_light") else None,
+        f"{base}_flat" if _has_key(f"{base}_flat") else None,
         f"{base}_outline"
-        if hasattr(styles, f"{base}_outline")
-        else (f"{base}_solid" if hasattr(styles, f"{base}_solid") else None),
+        if _has_key(f"{base}_outline")
+        else (f"{base}_solid" if _has_key(f"{base}_solid") else None),
         f"{base}_outline_bold"
-        if hasattr(styles, f"{base}_outline_bold")
-        else (f"{base}_solid_bold" if hasattr(styles, f"{base}_solid_bold") else None),
+        if _has_key(f"{base}_outline_bold")
+        else (f"{base}_solid_bold" if _has_key(f"{base}_solid_bold") else None),
         f"{base}_outline_light"
-        if hasattr(styles, f"{base}_outline_light")
-        else (f"{base}_solid_light" if hasattr(styles, f"{base}_solid_light") else None),
-        f"{base}_dashed" if hasattr(styles, f"{base}_dashed") else None,
-        f"{base}_dashed_bold" if hasattr(styles, f"{base}_dashed_bold") else None,
-        f"{base}_dashed_light" if hasattr(styles, f"{base}_dashed_light") else None,
+        if _has_key(f"{base}_outline_light")
+        else (f"{base}_solid_light" if _has_key(f"{base}_solid_light") else None),
+        f"{base}_dashed" if _has_key(f"{base}_dashed") else None,
+        f"{base}_dashed_bold" if _has_key(f"{base}_dashed_bold") else None,
+        f"{base}_dashed_light" if _has_key(f"{base}_dashed_light") else None,
     ]
 
 
@@ -287,7 +296,12 @@ def _draw_swatch(
         tile_w (float): Swatch width.
         tile_h (float): Swatch height.
     """
-    if not key or not hasattr(styles, key):
+    try:
+        st: Style | None = getattr(styles, key, None) if key else None
+    except AttributeError:
+        st = None
+
+    if key is None or st is None or not isinstance(st, Style):
         rectangle(
             (cx, cy),
             width=tile_w - 1.2,
@@ -307,8 +321,6 @@ def _draw_swatch(
             ),
         )
         return
-
-    st: Style = getattr(styles, key)
 
     if "outline" in key or "dashed" in key or "solid" in key:
         line_c = Color(st.line_color or (50, 50, 50))
@@ -332,6 +344,30 @@ def _draw_swatch(
     font_size = 4.2 if len(key) >= 22 else (4.8 if len(key) >= 17 else (5.6 if len(key) >= 13 else 6.4))
     text((cx, cy + 1.1), key, style=Style(text_color=text_c, text_size=font_size, text_font=Font.SANSSERIF_BOLD))
     text((cx, cy - 1.8), badge, style=Style(text_color=badge_c, text_size=4.8, text_font=Font.SANSSERIF_REGULAR))
+
+
+def _get_semantic_rows(styles: BaseStyles, filter_color: str | None) -> list[tuple[str, list[str | None]]]:
+    """Extract semantic role rows available in this preset style.
+
+    Args:
+        styles (BaseStyles): Preset styles instance.
+        filter_color (str | None): Optional filter string.
+
+    Returns:
+        list[tuple[str, list[str | None]]]: List of (row_label, row_keys) tuples.
+    """
+    rows: list[tuple[str, list[str | None]]] = []
+    for role in _SEMANTIC_ROLES:
+        try:
+            has_role = isinstance(getattr(styles, role, None), Style)
+        except AttributeError:
+            has_role = False
+        if not has_role:
+            continue
+        label = f"{role} (theme)" if role == "primary" else role
+        if filter_color is None or any(s in filter_color.lower() for s in (role, "theme", "semantic")):
+            rows.append((label, _get_row_keys(styles, role)))
+    return rows
 
 
 def render_styles_matrix(
@@ -374,10 +410,7 @@ def render_styles_matrix(
 
     rows: list[tuple[str, list[str | None]]] = []
     if page == 1:
-        for role in _SEMANTIC_ROLES:
-            label = f"{role} (theme)" if role == "primary" else role
-            if filter_color is None or any(s in filter_color.lower() for s in (role, "theme", "semantic")):
-                rows.append((label, _get_row_keys(styles, role)))
+        rows.extend(_get_semantic_rows(styles, filter_color))
 
     for b in page_colors:
         rows.append((b, _get_row_keys(styles, b)))

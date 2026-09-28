@@ -135,6 +135,23 @@ class StylesMonochrome(BaseStyles):
     white_dashed_bold: Style
     white_dashed_light: Style
 
+    def __getattribute__(self, name: str) -> Any:  # noqa: ANN401
+        """Intercept attribute access to raise AttributeError for unsupported semantic roles.
+
+        Args:
+            name (str): Attribute name being accessed.
+
+        Returns:
+            Any: Attribute value if defined.
+
+        Raises:
+            AttributeError: If accessing an unsupported danger or success style.
+        """
+        val = super().__getattribute__(name)
+        if (name.startswith("danger") or name.startswith("success")) and val is None:
+            raise AttributeError(f"{self.__class__.__name__} has no {name} style.")
+        return val
+
 
 # Backwards compatibility alias
 MonochromeStyles = StylesMonochrome

@@ -867,6 +867,32 @@ class StylesGoogle(BaseStyles):
     dark_magenta_light: Style
     dark_magenta_dashed: Style
 
+    # Danger
+    danger: Style
+    danger_bordered: Style
+    danger_bold: Style
+    danger_light: Style
+    danger_flat: Style
+    danger_outline: Style
+    danger_outline_bold: Style
+    danger_outline_light: Style
+    danger_dashed: Style
+    danger_dashed_bold: Style
+    danger_dashed_light: Style
+
+    # Success
+    success: Style
+    success_bordered: Style
+    success_bold: Style
+    success_light: Style
+    success_flat: Style
+    success_outline: Style
+    success_outline_bold: Style
+    success_outline_light: Style
+    success_dashed: Style
+    success_dashed_bold: Style
+    success_dashed_light: Style
+
 
 # Backwards compatibility alias
 GoogleStyles = StylesGoogle
@@ -889,21 +915,24 @@ def _create_google_styles() -> StylesGoogle:
         "secondary": google_colors.Secondary,
         "accent": google_colors.Accent,
         "muted": google_colors.Muted,
+        "danger": google_colors.Danger,
+        "success": google_colors.Success,
     }
 
     for role_name, color in semantic_map.items():
-        v = _make_variants(color)
-        styles[role_name] = v["normal"]
-        styles[f"{role_name}_bordered"] = v["bordered"]
-        styles[f"{role_name}_bold"] = v["bold"]
-        styles[f"{role_name}_light"] = v["light"]
-        styles[f"{role_name}_flat"] = v["flat"]
-        styles[f"{role_name}_outline"] = v["outline"]
-        styles[f"{role_name}_outline_bold"] = v["outline_bold"]
-        styles[f"{role_name}_outline_light"] = v["outline_light"]
-        styles[f"{role_name}_dashed"] = v["dashed"]
-        styles[f"{role_name}_dashed_bold"] = v["dashed_bold"]
-        styles[f"{role_name}_dashed_light"] = v["dashed_light"]
+        if color is not None:
+            v = _make_variants(color)
+            styles[role_name] = v["normal"]
+            styles[f"{role_name}_bordered"] = v["bordered"]
+            styles[f"{role_name}_bold"] = v["bold"]
+            styles[f"{role_name}_light"] = v["light"]
+            styles[f"{role_name}_flat"] = v["flat"]
+            styles[f"{role_name}_outline"] = v["outline"]
+            styles[f"{role_name}_outline_bold"] = v["outline_bold"]
+            styles[f"{role_name}_outline_light"] = v["outline_light"]
+            styles[f"{role_name}_dashed"] = v["dashed"]
+            styles[f"{role_name}_dashed_bold"] = v["dashed_bold"]
+            styles[f"{role_name}_dashed_light"] = v["dashed_light"]
 
     for cname, col in colors.items():
         txt_col = _get_text_color(col)
