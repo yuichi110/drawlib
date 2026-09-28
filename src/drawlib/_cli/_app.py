@@ -18,6 +18,7 @@ import typer
 import drawlib
 from drawlib._builder.rules_builder import build_rule, is_rule_cached
 from drawlib._cli._build import build_app
+from drawlib._cli._colors import colors_app
 from drawlib._cli._commands import cache_app, css_app, register_top_commands
 from drawlib._cli._init import cmd_init
 from drawlib._cli._rules import rules_app
@@ -33,6 +34,7 @@ app = typer.Typer(
 
 app.add_typer(build_app, name="build")
 app.add_typer(cache_app, name="cache")
+app.add_typer(colors_app, name="colors")
 app.add_typer(css_app, name="css")
 app.add_typer(rules_app, name="rules")
 app.command(
