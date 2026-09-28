@@ -9,10 +9,11 @@
 
 """Root package."""
 
+import importlib
 import importlib.metadata
 import re
 import sys
-from typing import Final, List
+from typing import TYPE_CHECKING, Any, Final, List
 
 LIB_NAME: Final[str] = "drawlib"
 
@@ -97,8 +98,13 @@ except ValueError as e:
     print("Abort.")
     sys.exit(1)
 
+if TYPE_CHECKING:
+    from drawlib import (
+        builder,
+        tools,
+    )
+
 from drawlib import (  # noqa: E402
-    builder,
     canvas,
     charts,
     diagrams,
@@ -113,10 +119,29 @@ from drawlib import (  # noqa: E402
     smartarts,
     styles,
     text,
-    tools,
     types,
     utils,
 )
+
+_LAZY_MODULES: dict[str, str] = {
+    "builder": "drawlib.builder",
+    "tools": "drawlib.tools",
+}
+
+
+def __getattr__(name: str) -> Any:  # noqa: ANN401
+    """Lazy-load heavy modules only when explicitly accessed."""
+    if name in _LAZY_MODULES:
+        module = importlib.import_module(_LAZY_MODULES[name])
+        globals()[name] = module
+        return module
+    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
+
+
+def __dir__() -> list[str]:
+    """Ensure lazy modules appear in dir() and REPL autocompletion."""
+    return sorted(__all__)
+
 
 __all__ = [
     "LIB_VERSION",
