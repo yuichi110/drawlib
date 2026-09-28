@@ -20,9 +20,9 @@ def test_cli_styles_list(tmp_path: Path) -> None:
     """Test drawlib styles list command displays preset catalogs."""
     res = run_drawlib_cli(["styles", "list"], cwd=str(tmp_path))
     assert res.returncode == 0
-    assert "DefaultStyles" in res.stdout
-    assert "MonochromeStyles" in res.stdout
-    assert "GoogleStyles" in res.stdout
+    assert "StylesDefault" in res.stdout
+    assert "StylesMonochrome" in res.stdout
+    assert "StylesGoogle" in res.stdout
 
 
 def test_cli_styles_show_export(tmp_path: Path) -> None:

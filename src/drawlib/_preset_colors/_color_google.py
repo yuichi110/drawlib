@@ -154,6 +154,14 @@ class GoogleColors(BaseColors):
     LightMagenta: Color = LightMagenta1
     DarkMagenta: Color = DarkMagenta1
 
+    # Semantic Colors
+    Primary: Color = CornflowerBlue
+    Secondary: Color = Cyan
+    Accent: Color = Orange
+    Muted: Color = LightGray2
+    Danger: Color = Red
+    Success: Color = Green
+
 
 google_colors: GoogleColors = GoogleColors()
 

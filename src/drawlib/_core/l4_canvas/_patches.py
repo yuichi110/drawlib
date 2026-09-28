@@ -89,10 +89,7 @@ class CanvasPatchesFeature(CanvasBase):
 
         if not text:
             return
-        effective_textstyle = textstyle if textstyle is not None else style
-        if textsize is not None:
-            effective_textstyle = effective_textstyle.patch(text_size=textsize)
-        TextUtil.validate_text_style(effective_textstyle)
+        effective_textstyle = ShapeUtil.resolve_embedded_text_style(style, textstyle, textsize)
         self._artists.append(
             ShapeUtil.get_shape_text(
                 xy=xy,
@@ -144,10 +141,7 @@ class CanvasPatchesFeature(CanvasBase):
 
         if not text:
             return
-        effective_textstyle = textstyle if textstyle is not None else style
-        if textsize is not None:
-            effective_textstyle = effective_textstyle.patch(text_size=textsize)
-        TextUtil.validate_text_style(effective_textstyle)
+        effective_textstyle = ShapeUtil.resolve_embedded_text_style(style, textstyle, textsize)
         self._artists.append(
             ShapeUtil.get_shape_text(
                 xy=xy,
@@ -201,10 +195,7 @@ class CanvasPatchesFeature(CanvasBase):
 
         if not text:
             return
-        effective_textstyle = textstyle if textstyle is not None else style
-        if textsize is not None:
-            effective_textstyle = effective_textstyle.patch(text_size=textsize)
-        TextUtil.validate_text_style(effective_textstyle)
+        effective_textstyle = ShapeUtil.resolve_embedded_text_style(style, textstyle, textsize)
         self._artists.append(
             ShapeUtil.get_shape_text(
                 xy=xy,
@@ -260,10 +251,7 @@ class CanvasPatchesFeature(CanvasBase):
 
         if not text:
             return
-        effective_textstyle = textstyle if textstyle is not None else style
-        if textsize is not None:
-            effective_textstyle = effective_textstyle.patch(text_size=textsize)
-        TextUtil.validate_text_style(effective_textstyle)
+        effective_textstyle = ShapeUtil.resolve_embedded_text_style(style, textstyle, textsize)
         self._artists.append(
             ShapeUtil.get_shape_text(
                 xy=xy,
@@ -324,10 +312,7 @@ class CanvasPatchesFeature(CanvasBase):
 
         if not text:
             return
-        effective_textstyle = textstyle if textstyle is not None else style
-        if textsize is not None:
-            effective_textstyle = effective_textstyle.patch(text_size=textsize)
-        TextUtil.validate_text_style(effective_textstyle)
+        effective_textstyle = ShapeUtil.resolve_embedded_text_style(style, textstyle, textsize)
         self._artists.append(
             ShapeUtil.get_shape_text(
                 xy=xy,

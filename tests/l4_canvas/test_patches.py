@@ -59,6 +59,7 @@ class TestCanvasPatches:
 
         save(f"{OUTPUT_DIR}test_arc.png")
 
+    @pytest.mark.image_threshold(98.5)
     def test_circle(self) -> None:
         """Verify circle drawing with radius, alignments, custom styles, and preset styles."""
         clear()

@@ -30,9 +30,19 @@ class TestTextUtil:
         assert formatted_obj.text_size == 32.0
         assert formatted_obj.text_color == (255, 0, 0, 1.0)
 
-        # 2. Missing required text properties raises ValueError
-        with pytest.raises(ValueError, match="Text drawing requires attributes"):
+        # 2. Unsupported text style raises ValueError
+        with pytest.raises(ValueError, match="Style cannot be used for text"):
             TextUtil.format_style(Style(text_size=32.0))
+
+        with pytest.raises(ValueError, match="Text drawing requires attributes"):
+            TextUtil.validate_text_style(
+                Style.model_construct(
+                    supports=frozenset({"text"}),
+                    text_color=None,
+                    text_size=None,
+                    text_font=None,
+                )
+            )
 
         # 3. Invalid types raise TypeError
         with pytest.raises(TypeError):

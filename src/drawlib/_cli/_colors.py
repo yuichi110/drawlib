@@ -94,6 +94,79 @@ def _sort_colors(items: list[tuple[str, Color]], mode: SortMode) -> list[tuple[s
     return sorted(items, key=_hsv_key)
 
 
+_SEMANTIC_KEYS: tuple[str, ...] = ("Primary", "Secondary", "Accent", "Muted", "Danger", "Success")
+
+
+def _draw_color_tile(
+    cx: float,
+    cy: float,
+    tile_w: float,
+    tile_h: float,
+    col_name: str,
+    col: Color,
+) -> None:
+    """Draw a single color swatch tile with color name and hex code.
+
+    Args:
+        cx (float): Center X coordinate.
+        cy (float): Center Y coordinate.
+        tile_w (float): Tile width.
+        tile_h (float): Tile height.
+        col_name (str): Color name label.
+        col (Color): Color instance.
+    """
+    if col.alpha == 0.0:
+        rectangle(
+            (cx, cy),
+            width=tile_w - 1.2,
+            height=tile_h - 1.2,
+            r=0.8,
+            style=Style(
+                shape_fill_color=Color(255, 255, 255),
+                shape_line_color=Color(180, 180, 180),
+                shape_line_width=1,
+                shape_line_style="dashed",
+            ),
+        )
+        text_color = Color(80, 80, 80)
+        hex_str = "Alpha 0.0"
+    else:
+        rectangle(
+            (cx, cy),
+            width=tile_w - 1.2,
+            height=tile_h - 1.2,
+            r=0.8,
+            style=Style(
+                shape_fill_color=col,
+                shape_line_color=Color(200, 200, 200, 0.6),
+                shape_line_width=1,
+            ),
+        )
+        lum = (col.r * 299 + col.g * 587 + col.b * 114) / 1000
+        text_color = Color(0, 0, 0) if lum > 140 else Color(255, 255, 255)
+        hex_str = col.hex
+
+    if len(col_name) >= 16:
+        font_size = 6.5
+    elif len(col_name) >= 13:
+        font_size = 7.5
+    elif len(col_name) >= 10:
+        font_size = 8.5
+    else:
+        font_size = 9.0
+
+    label = f"{col_name}\n{hex_str}"
+    text(
+        (cx, cy),
+        label,
+        style=Style(
+            text_color=text_color,
+            text_size=font_size,
+            text_font=Font.SANSSERIF_BOLD,
+        ),
+    )
+
+
 def render_color_chart(
     colors: BaseColors,
     name: str,
@@ -112,7 +185,10 @@ def render_color_chart(
     Returns:
         Dimage: Rendered in-memory image.
     """
-    raw_items = list(colors)
+    semantic_items = [(k, getattr(colors, k)) for k in _SEMANTIC_KEYS if getattr(colors, k, None) is not None]
+    has_semantics = len(semantic_items) > 0
+
+    raw_items = [(k, v) for k, v in colors if k not in _SEMANTIC_KEYS]
     items = _sort_colors(raw_items, sort_mode)
     n = len(items)
 
@@ -125,6 +201,8 @@ def render_color_chart(
         cols = 6
     else:
         cols = 10
+    if has_semantics:
+        cols = max(cols, len(semantic_items))
     rows = math.ceil(n / cols)
 
     tile_w = 17.0
@@ -132,9 +210,10 @@ def render_color_chart(
     margin_x = 6.0
     margin_y = 6.0
     header_h = 10.0
+    semantic_h = 17.0 if has_semantics else 0.0
 
     canvas_w = int(math.ceil(margin_x * 2 + cols * tile_w))
-    canvas_h = int(math.ceil(margin_y * 2 + rows * tile_h + header_h))
+    canvas_h = int(math.ceil(margin_y * 2 + rows * tile_h + header_h + semantic_h))
 
     # 2. Canvas setup
     clear()
@@ -152,66 +231,35 @@ def render_color_chart(
         ),
     )
 
-    # 4. Swatches
-    start_y = canvas_h - margin_y - header_h
+    # 4. Semantic Theme Row
+    if has_semantics:
+        sem_title_y = canvas_h - margin_y - header_h - 2.5
+        sem_names = ", ".join(k for k, _ in semantic_items)
+        text(
+            (canvas_w / 2, sem_title_y),
+            f"Semantic Theme Colors ({sem_names})",
+            style=Style(
+                text_size=9.5,
+                text_font=Font.SANSSERIF_BOLD,
+                text_color=Color(70, 70, 70),
+            ),
+        )
+        sem_total_w = len(semantic_items) * tile_w
+        sem_start_x = (canvas_w - sem_total_w) / 2
+        sem_cy = sem_title_y - (tile_h / 2 + 2.0)
+        for s_idx, (s_name, s_col) in enumerate(semantic_items):
+            s_cx = sem_start_x + s_idx * tile_w + tile_w / 2
+            _draw_color_tile(s_cx, sem_cy, tile_w, tile_h, s_name, s_col)
+
+    # 5. Main Palette Swatches Grid
+    start_y = canvas_h - margin_y - header_h - semantic_h
     for idx, (col_name, col) in enumerate(items):
         r_idx = idx // cols
         c_idx = idx % cols
 
         cx = margin_x + c_idx * tile_w + tile_w / 2
         cy = start_y - (r_idx * tile_h + tile_h / 2)
-
-        if col.alpha == 0.0:
-            rectangle(
-                (cx, cy),
-                width=tile_w - 1.2,
-                height=tile_h - 1.2,
-                r=0.8,
-                style=Style(
-                    shape_fill_color=Color(255, 255, 255),
-                    shape_line_color=Color(180, 180, 180),
-                    shape_line_width=1,
-                    shape_line_style="dashed",
-                ),
-            )
-            text_color = Color(80, 80, 80)
-            hex_str = "Alpha 0.0"
-        else:
-            rectangle(
-                (cx, cy),
-                width=tile_w - 1.2,
-                height=tile_h - 1.2,
-                r=0.8,
-                style=Style(
-                    shape_fill_color=col,
-                    shape_line_color=Color(200, 200, 200, 0.6),
-                    shape_line_width=1,
-                ),
-            )
-            # Automatic black/white text contrast using ITU-R BT.601 luminance
-            lum = (col.r * 299 + col.g * 587 + col.b * 114) / 1000
-            text_color = Color(0, 0, 0) if lum > 140 else Color(255, 255, 255)
-            hex_str = col.hex
-
-        if len(col_name) >= 16:
-            font_size = 6.5
-        elif len(col_name) >= 13:
-            font_size = 7.5
-        elif len(col_name) >= 10:
-            font_size = 8.5
-        else:
-            font_size = 9.0
-
-        label = f"{col_name}\n{hex_str}"
-        text(
-            (cx, cy),
-            label,
-            style=Style(
-                text_color=text_color,
-                text_size=font_size,
-                text_font=Font.SANSSERIF_BOLD,
-            ),
-        )
+        _draw_color_tile(cx, cy, tile_w, tile_h, col_name, col)
 
     return get_dimage()
 

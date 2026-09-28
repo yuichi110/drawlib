@@ -13,11 +13,11 @@ from __future__ import annotations
 
 from typing import Any
 
-from drawlib._core.fonts import Font, FontSourceCode
-from drawlib._core.types import ColorType, Style
-from drawlib._preset_colors import Colors
+from drawlib._core.fonts import FontSourceCode
+from drawlib._core.types import Style
+from drawlib._preset_colors import google_colors
 from drawlib._preset_styles._base import BaseStyles
-from drawlib._preset_styles._utils import _create_style, _make_variants
+from drawlib._preset_styles._utils import _DEFAULT_BORDER_COLOR, _make_variants
 
 _DARK_GRAY_4: tuple[int, int, int, float] = (67, 67, 67, 1.0)
 _WHITE: tuple[int, int, int, float] = (255, 255, 255, 1.0)
@@ -170,16 +170,8 @@ def _collect_colors() -> dict[str, tuple[int, int, int, float]]:
     return colors
 
 
-class GoogleStyles(BaseStyles):
+class StylesGoogle(BaseStyles):
     """Google Sheets preset styles with complete typing for IDE autocompletion."""
-
-    # Semantic roles
-    primary: Style
-    light: Style
-    bold: Style
-    flat: Style
-    solid: Style
-    dashed: Style
 
     # Greys / Neutrals
     black: Style
@@ -876,79 +868,69 @@ class GoogleStyles(BaseStyles):
     dark_magenta_dashed: Style
 
 
-def _create_google_styles() -> GoogleStyles:
+# Backwards compatibility alias
+GoogleStyles = StylesGoogle
+
+
+def _create_google_styles() -> StylesGoogle:
     """Generate Google Sheets preset styles.
 
     Returns:
-        GoogleStyles: Google Sheets preset styles.
+        StylesGoogle: Google Sheets preset styles instance.
     """
     colors = _collect_colors()
-    cornflower_blue = colors["cornflower_blue"]
     styles: dict[str, Any] = {
-        "primary": _create_style(
-            cornflower_blue,
-            _DARK_GRAY_4,
-            text_color=_DARK_GRAY_4,
-            line_width=1.5,
-            font=Font.SANSSERIF_REGULAR,
-        ),
-        "light": _create_style(
-            cornflower_blue,
-            _DARK_GRAY_4,
-            text_color=_DARK_GRAY_4,
-            line_width=0.75,
-            font=Font.SANSSERIF_LIGHT,
-            icon_style="thin",
-        ),
-        "bold": _create_style(
-            cornflower_blue,
-            _DARK_GRAY_4,
-            text_color=_DARK_GRAY_4,
-            line_width=2.25,
-            font=Font.SANSSERIF_BOLD,
-            icon_style="bold",
-        ),
-        "flat": _create_style(
-            cornflower_blue,
-            cornflower_blue,
-            text_color=_WHITE,
-            line_width=1.5,
-            shape_line_width=0.0,
-            icon_style="fill",
-        ),
-        "solid": _create_style(
-            Colors.Transparent,
-            cornflower_blue,
-            text_color=cornflower_blue,
-            line_width=1.5,
-        ),
-        "dashed": _create_style(
-            Colors.Transparent,
-            cornflower_blue,
-            text_color=cornflower_blue,
-            line_width=1.5,
-            line_style="dashed",
-            shape_line_style="dashed",
-        ),
+        "background_color": (255, 255, 255, 1.0),
+        "sourcecode_font": FontSourceCode.SOURCECODEPRO,
     }
+
+    semantic_map = {
+        "primary": google_colors.Primary,
+        "secondary": google_colors.Secondary,
+        "accent": google_colors.Accent,
+        "muted": google_colors.Muted,
+    }
+
+    for role_name, color in semantic_map.items():
+        v = _make_variants(color)
+        styles[role_name] = v["normal"]
+        styles[f"{role_name}_bordered"] = v["bordered"]
+        styles[f"{role_name}_bold"] = v["bold"]
+        styles[f"{role_name}_light"] = v["light"]
+        styles[f"{role_name}_flat"] = v["flat"]
+        styles[f"{role_name}_outline"] = v["outline"]
+        styles[f"{role_name}_outline_bold"] = v["outline_bold"]
+        styles[f"{role_name}_outline_light"] = v["outline_light"]
+        styles[f"{role_name}_dashed"] = v["dashed"]
+        styles[f"{role_name}_dashed_bold"] = v["dashed_bold"]
+        styles[f"{role_name}_dashed_light"] = v["dashed_light"]
 
     for cname, col in colors.items():
         txt_col = _get_text_color(col)
-        border_col = _DARK_GRAY_4 if cname == "white" else col
+        border_col = _DARK_GRAY_4 if cname == "white" else _DEFAULT_BORDER_COLOR
         v = _make_variants(col, border_color=border_col, default_text_color=txt_col)
         styles[cname] = v["normal"]
-        styles[f"{cname}_flat"] = v["flat"]
-        styles[f"{cname}_solid"] = v["solid"]
+        styles[f"{cname}_bordered"] = v["bordered"]
         styles[f"{cname}_bold"] = v["bold"]
         styles[f"{cname}_light"] = v["light"]
+        styles[f"{cname}_flat"] = v["flat"]
+        styles[f"{cname}_outline"] = v["outline"]
+        styles[f"{cname}_solid"] = v["solid"]
+        styles[f"{cname}_outline_bold"] = v["outline_bold"]
+        styles[f"{cname}_solid_bold"] = v["solid_bold"]
+        styles[f"{cname}_outline_light"] = v["outline_light"]
+        styles[f"{cname}_solid_light"] = v["solid_light"]
         styles[f"{cname}_dashed"] = v["dashed"]
+        styles[f"{cname}_dashed_bold"] = v["dashed_bold"]
+        styles[f"{cname}_dashed_light"] = v["dashed_light"]
 
-    return GoogleStyles(**styles)
+    return StylesGoogle(**styles)
 
 
-google_styles: GoogleStyles = _create_google_styles()
+google_styles: StylesGoogle = _create_google_styles()
 
 __all__ = [
     "GoogleStyles",
+    "StylesGoogle",
     "google_styles",
 ]

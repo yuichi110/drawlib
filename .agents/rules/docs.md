@@ -125,6 +125,22 @@ Avoid manually placing dozens of low-level `rectangle` and `line` primitives whe
 - **Style Models & Types (`drawlib.types`)**: `Style` dataclass (`fill_color`, `line_width`, `text_size`, etc.). Use `style.copy()` for safe derivation. Subclass `BaseStyles` for custom themes.
 - **Image Embedding (`drawlib.images`)**: `image((x, y), width=w, image="logo.png")` (auto aspect ratio). In-memory embedding via `canvas.get_dimage()` and `get_dimage_from_code()`.
 
+- **Preset Styles & Semantics (`drawlib.styles`)**:
+  - 4 core semantic roles across all presets: `primary` (main services), `secondary` (databases/auxiliary), `accent` (clients/gateways/entry points), `muted` (boundaries/subnets/containers).
+  - 10 orthogonal variants per color and role: `bordered`, `bold`, `light`, `flat`, `outline`, `outline_bold`, `outline_light`, `dashed`, `dashed_bold`, `dashed_light`.
+- **Diagram Styling & Semantic Best Practices**:
+  - **The 60-30-10 Rule for Diagram Colors**:
+    - **60% Neutral/Muted**: Canvas background, structural group boundaries (`styles.muted_dashed`, `styles.muted_outline`).
+    - **30% Primary/Secondary**: Main architectural flow (`styles.primary`, `styles.primary_flat`, `styles.secondary`).
+    - **10% Accent/State**: Entry points (`styles.accent`), callouts, and key milestones.
+  - **Prefer Semantic Roles over Raw Palette Colors**:
+    - Use `styles.primary` for core application components.
+    - Use `styles.secondary` for databases, caches, queues, and auxiliary services.
+    - Use `styles.muted_outline` or `styles.muted_dashed` for VPC, Subnets, and Cluster boundaries.
+    - Use `styles.accent` for Clients, Users, Gateways, and triggers.
+    - Use raw palette colors (`styles.red`, `styles.green`) strictly for specific states (danger/success) or multi-brand differentiation.
+  - **Fail-Fast `supports` Protection**: Styles strictly validate their target context (`{"shape", "line", "text", "icon"}`). Text inside shapes automatically resolves optimal luminance contrast.
+
 **Related Rules**:
 - Preset Styles & Dynamic Theming: `uv run drawlib rules show styles`
 - Preset Styles & Palettes Detail: `uv run drawlib rules show preset_styles`

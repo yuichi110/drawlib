@@ -148,8 +148,10 @@ class MindMapNode:
             def_textstyle = self._default_textstyle
         elif self._textstyle is not None:
             def_textstyle = self._textstyle
-        else:
+        elif "text" in def_style.supports:
             def_textstyle = def_style
+        else:
+            def_textstyle = None
 
         if self._default_linestyle is not None:
             def_linestyle = self._default_linestyle
@@ -311,14 +313,19 @@ class MindMapNode:
         node_style = self._style or self._default_style or default_style
         r_val = self._r if self._r is not None else (self._default_r if self._default_r is not None else default_r)
         explicit_textstyle = self._textstyle or self._default_textstyle or default_textstyle
-        text_style = explicit_textstyle or node_style
-        if (
-            shape != "none"
-            and explicit_textstyle is None
-            and node_style.shape_fill_color is not None
-            and node_style.shape_fill_color == text_style.text_color
-        ):
-            text_style = text_style.patch(text_color=Colors.White)
+        text_style: Style | None
+        if explicit_textstyle is not None:
+            text_style = explicit_textstyle
+        elif "text" in node_style.supports:
+            text_style = node_style
+            if (
+                shape != "none"
+                and node_style.shape_fill_color is not None
+                and node_style.shape_fill_color == text_style.text_color
+            ):
+                text_style = text_style.patch(text_color=Colors.White)
+        else:
+            text_style = None
         line_style = self._linestyle or self._default_linestyle or default_linestyle
 
         h_margin = self._horizontal_margin or self._default_horizontal_margin or default_h_margin

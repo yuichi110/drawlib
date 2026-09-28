@@ -42,8 +42,10 @@ class TestIconUtils:
 
     def test_format_style_missing_icon_color_raises_value_error(self) -> None:
         """Verify that style missing icon_color raises ValueError."""
-        with pytest.raises(ValueError, match="Icon drawing requires attribute 'icon_color'"):
+        with pytest.raises(ValueError, match="Style cannot be used for icons"):
             IconUtil.format_style(Style())
+        with pytest.raises(ValueError, match="Icon drawing requires attribute 'icon_color'"):
+            IconUtil.validate_icon_style(Style.model_construct(supports=frozenset({"icon"}), icon_color=None))
 
     def test_format_style_invalid_type_raises_type_error(self) -> None:
         """Verify that passing an invalid style type raises a TypeError."""

@@ -23,10 +23,12 @@ class TestStyleModelBase:
     """Test cases for core Style model behaviors: immutability, extra fields, patch."""
 
     def test_default_values(self):
-        """Test default values of Style attributes are all None."""
+        """Test default values of Style attributes: supports is frozenset(), others are None."""
         style = Style()
+        assert style.supports == frozenset()
         for field in style.model_fields:
-            assert getattr(style, field) is None
+            if field != "supports":
+                assert getattr(style, field) is None
 
     def test_extra_fields_forbidden(self):
         """Test that instantiating Style with unknown fields raises ValueError."""
@@ -59,6 +61,101 @@ class TestStyleModelBase:
         bad_patch: dict[str, Any] = {"non_existent_prop": 123}
         with pytest.raises((ValidationError, TypeError)):
             style.patch(**bad_patch)
+
+
+class TestStyleSupports:
+    """Test cases for Style.supports attribute and invariants validation."""
+
+    def test_supports_explicit_valid(self):
+        """Test explicit declaration of supports targets."""
+        s = Style(
+            supports={"shape", "line"},
+            shape_fill_color=Colors.Blue,
+            shape_line_color=Colors.Black,
+            shape_line_width=1.0,
+            line_color=Colors.Red,
+            line_width=2.0,
+        )
+        assert s.supports == frozenset({"shape", "line"})
+
+    def test_supports_invalid_target_raises_error(self):
+        """Test that unknown target names raise ValueError."""
+        with pytest.raises(ValueError):
+            Style(supports={"invalid_target"})
+
+    def test_shape_invariants_missing_attributes(self):
+        """Test that declaring shape support without required attributes raises ValueError."""
+        with pytest.raises(ValueError, match="Style declares 'shape' support, but required attributes"):
+            Style(supports={"shape"}, shape_fill_color=Colors.Red)
+
+        with pytest.raises(ValueError, match="Style declares 'shape' support, but required attributes"):
+            Style(supports={"shape"}, shape_line_color=Colors.Black, shape_line_width=1.0)
+
+    def test_line_invariants_missing_attributes(self):
+        """Test that declaring line support without required attributes raises ValueError."""
+        with pytest.raises(ValueError, match="Style declares 'line' support, but required attributes"):
+            Style(supports={"line"}, line_color=Colors.Red)
+
+        with pytest.raises(ValueError, match="Style declares 'line' support, but required attributes"):
+            Style(supports={"line"}, line_width=2.0)
+
+    def test_text_invariants_missing_attributes(self):
+        """Test that declaring text support without required attributes raises ValueError."""
+        with pytest.raises(ValueError, match="Style declares 'text' support, but required attributes"):
+            Style(supports={"text"}, text_color=Colors.Black, text_size=16)
+
+        with pytest.raises(ValueError, match="Style declares 'text' support, but required attributes"):
+            Style(supports={"text"}, text_font=Font.SANSSERIF_REGULAR)
+
+    def test_icon_invariants_missing_attributes(self):
+        """Test that declaring icon support without icon_color raises ValueError."""
+        with pytest.raises(ValueError, match="Style declares 'icon' support, but required attribute 'icon_color'"):
+            Style(supports={"icon"}, icon_style="bold")
+
+    def test_supports_auto_inference(self):
+        """Test that complete attribute sets are correctly inferred when supports is omitted."""
+        # Complete shape attributes -> inferred {"shape"}
+        s_shape = Style(shape_fill_color=Colors.Red, shape_line_color=Colors.Black, shape_line_width=1.0)
+        assert s_shape.supports == frozenset({"shape"})
+
+        # Complete line attributes -> inferred {"line"}
+        s_line = Style(line_color=Colors.Blue, line_width=1.5)
+        assert s_line.supports == frozenset({"line"})
+
+        # Complete text attributes -> inferred {"text"}
+        s_text = Style(text_color=Colors.Black, text_size=14, text_font=Font.SANSSERIF_REGULAR)
+        assert s_text.supports == frozenset({"text"})
+
+        # Partial attributes -> empty frozenset (not yet supporting the target)
+        s_partial = Style(text_color=Colors.Black, text_size=14)
+        assert s_partial.supports == frozenset()
+
+    def test_patch_supports_preservation_and_update(self):
+        """Test that patch() preserves supports and allows explicit overrides."""
+        s = Style(
+            supports={"shape"},
+            shape_fill_color=Colors.Red,
+            shape_line_color=Colors.Black,
+            shape_line_width=1.0,
+        )
+        assert s.supports == frozenset({"shape"})
+
+        # Patching shape property preserves supports
+        s2 = s.patch(shape_fill_color=Colors.Blue)
+        assert s2.supports == frozenset({"shape"})
+        assert s2.shape_fill_color == Colors.Blue
+
+        # Explicitly updating supports
+        s3 = s2.patch(
+            supports={"shape", "line"},
+            line_color=Colors.Green,
+            line_width=2.0,
+        )
+        assert s3.supports == frozenset({"shape", "line"})
+
+        # Incomplete patch with explicit support declaration fails
+        with pytest.raises(ValueError):
+            s2.patch(supports={"shape", "line"}, line_color=Colors.Green)
 
 
 class TestShapeProperties:

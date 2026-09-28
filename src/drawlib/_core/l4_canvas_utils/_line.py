@@ -72,8 +72,10 @@ class LineUtil:
             style: The Style instance to validate.
 
         Raises:
-            ValueError: If any required line property is None.
+            ValueError: If style does not support lines or any required line property is None.
         """
+        if "line" not in style.supports:
+            raise ValueError(f"Style cannot be used for lines. Declared supports: {set(style.supports)}.")
         missing: list[str] = []
         if style.line_color is None:
             missing.append("line_color")

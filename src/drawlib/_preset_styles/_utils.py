@@ -12,8 +12,10 @@
 from __future__ import annotations
 
 from drawlib._core.fonts import Font, FontBase, FontFile
-from drawlib._core.types import ColorType, IconStyle, LineStyle, Style
+from drawlib._core.types import Color, ColorType, IconStyle, LineStyle, Style
 from drawlib._preset_colors import Colors
+
+_DEFAULT_BORDER_COLOR: Color = Color(39, 39, 39)
 
 
 def _resolve_target_font(
@@ -100,40 +102,181 @@ def _make_variants(
     *,
     border_color: ColorType | None = None,
     default_text_color: ColorType | None = None,
+    line_color: ColorType | None = None,
 ) -> dict[str, Style]:
-    """Generate variant styles (normal, flat, solid, bold, light, dashed) for a specific color.
+    """Generate 10 orthogonal variant styles for a specific color.
+
+    Variants:
+        normal (bordered regular), bold, light, flat,
+        outline, outline_bold, outline_light,
+        dashed, dashed_bold, dashed_light
+        (plus 'bordered' and 'solid' aliases).
 
     Args:
         color: Base color to generate variants for.
-        border_color: Optional border color override.
+        border_color: Optional border color override (defaults to Charcoal).
         default_text_color: Optional default text color override.
+        line_color: Optional line color override.
 
     Returns:
         dict[str, Style]: Dictionary mapping variant names to Style instances.
     """
-    line_col = border_color if border_color is not None else color
-    txt_col = default_text_color if default_text_color is not None else line_col
+    line_col = border_color if border_color is not None else _DEFAULT_BORDER_COLOR
+    txt_col = default_text_color if default_text_color is not None else color
+    actual_line_col = line_color if line_color is not None else color
+
+    bordered_regular = Style(
+        supports={"shape", "line", "text", "icon"},
+        shape_fill_color=color,
+        shape_line_color=line_col,
+        shape_line_width=1.5,
+        shape_line_style="solid",
+        line_color=actual_line_col,
+        line_width=1.5,
+        line_style="solid",
+        line_arrow_head_scale=20.0,
+        line_arrow_head_fill=False,
+        text_color=txt_col,
+        text_size=16,
+        text_font=Font.SANSSERIF_REGULAR,
+        text_halign="center",
+        text_valign="center",
+        icon_color=txt_col,
+        icon_style="regular",
+    )
+    bordered_bold = Style(
+        supports={"shape", "line", "text", "icon"},
+        shape_fill_color=color,
+        shape_line_color=line_col,
+        shape_line_width=2.5,
+        shape_line_style="solid",
+        line_color=actual_line_col,
+        line_width=2.5,
+        line_style="solid",
+        line_arrow_head_scale=20.0,
+        line_arrow_head_fill=False,
+        text_color=txt_col,
+        text_size=16,
+        text_font=Font.SANSSERIF_BOLD,
+        text_halign="center",
+        text_valign="center",
+        icon_color=txt_col,
+        icon_style="bold",
+    )
+    bordered_light = Style(
+        supports={"shape", "line", "text", "icon"},
+        shape_fill_color=color,
+        shape_line_color=line_col,
+        shape_line_width=0.75,
+        shape_line_style="solid",
+        line_color=actual_line_col,
+        line_width=0.75,
+        line_style="solid",
+        line_arrow_head_scale=20.0,
+        line_arrow_head_fill=False,
+        text_color=txt_col,
+        text_size=16,
+        text_font=Font.SANSSERIF_LIGHT,
+        text_halign="center",
+        text_valign="center",
+        icon_color=txt_col,
+        icon_style="thin",
+    )
+    flat = Style(
+        supports={"shape"},
+        shape_fill_color=color,
+        shape_line_color=Colors.Transparent,
+        shape_line_width=0.0,
+        shape_line_style="solid",
+    )
+    outline_regular = Style(
+        supports={"shape", "line"},
+        shape_fill_color=Colors.Transparent,
+        shape_line_color=actual_line_col,
+        shape_line_width=1.5,
+        shape_line_style="solid",
+        line_color=actual_line_col,
+        line_width=1.5,
+        line_style="solid",
+        line_arrow_head_scale=20.0,
+        line_arrow_head_fill=False,
+    )
+    outline_bold = Style(
+        supports={"shape", "line"},
+        shape_fill_color=Colors.Transparent,
+        shape_line_color=actual_line_col,
+        shape_line_width=2.5,
+        shape_line_style="solid",
+        line_color=actual_line_col,
+        line_width=2.5,
+        line_style="solid",
+        line_arrow_head_scale=20.0,
+        line_arrow_head_fill=False,
+    )
+    outline_light = Style(
+        supports={"shape", "line"},
+        shape_fill_color=Colors.Transparent,
+        shape_line_color=actual_line_col,
+        shape_line_width=0.75,
+        shape_line_style="solid",
+        line_color=actual_line_col,
+        line_width=0.75,
+        line_style="solid",
+        line_arrow_head_scale=20.0,
+        line_arrow_head_fill=False,
+    )
+    dashed_regular = Style(
+        supports={"shape", "line"},
+        shape_fill_color=Colors.Transparent,
+        shape_line_color=actual_line_col,
+        shape_line_width=1.5,
+        shape_line_style="dashed",
+        line_color=actual_line_col,
+        line_width=1.5,
+        line_style="dashed",
+        line_arrow_head_scale=20.0,
+        line_arrow_head_fill=False,
+    )
+    dashed_bold = Style(
+        supports={"shape", "line"},
+        shape_fill_color=Colors.Transparent,
+        shape_line_color=actual_line_col,
+        shape_line_width=2.5,
+        shape_line_style="dashed",
+        line_color=actual_line_col,
+        line_width=2.5,
+        line_style="dashed",
+        line_arrow_head_scale=20.0,
+        line_arrow_head_fill=False,
+    )
+    dashed_light = Style(
+        supports={"shape", "line"},
+        shape_fill_color=Colors.Transparent,
+        shape_line_color=actual_line_col,
+        shape_line_width=0.75,
+        shape_line_style="dashed",
+        line_color=actual_line_col,
+        line_width=0.75,
+        line_style="dashed",
+        line_arrow_head_scale=20.0,
+        line_arrow_head_fill=False,
+    )
 
     return {
-        "normal": _create_style(color, line_col, text_color=txt_col, line_width=1.5, font=Font.SANSSERIF_REGULAR),
-        "flat": _create_style(
-            color, color, text_color=txt_col, line_width=1.5, shape_line_width=0.0, icon_style="fill"
-        ),
-        "solid": _create_style(Colors.Transparent, color, text_color=color, line_width=1.5),
-        "bold": _create_style(
-            color, line_col, text_color=txt_col, line_width=2.25, font=Font.SANSSERIF_BOLD, icon_style="bold"
-        ),
-        "light": _create_style(
-            color, line_col, text_color=txt_col, line_width=0.75, font=Font.SANSSERIF_LIGHT, icon_style="thin"
-        ),
-        "dashed": _create_style(
-            Colors.Transparent,
-            color,
-            text_color=color,
-            line_width=1.5,
-            line_style="dashed",
-            shape_line_style="dashed",
-        ),
+        "normal": bordered_regular,
+        "bordered": bordered_regular,
+        "bold": bordered_bold,
+        "light": bordered_light,
+        "flat": flat,
+        "outline": outline_regular,
+        "solid": outline_regular,
+        "outline_bold": outline_bold,
+        "solid_bold": outline_bold,
+        "outline_light": outline_light,
+        "solid_light": outline_light,
+        "dashed": dashed_regular,
+        "dashed_bold": dashed_bold,
+        "dashed_light": dashed_light,
     }
 
 

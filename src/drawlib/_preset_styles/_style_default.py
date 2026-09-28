@@ -11,417 +11,507 @@
 
 from __future__ import annotations
 
-from drawlib._core.fonts import Font, FontSourceCode
-from drawlib._core.types import ColorType, Style
-from drawlib._preset_colors import Colors, default_colors
+from typing import Any
+
+from drawlib._core.fonts import FontSourceCode
+from drawlib._core.types import Style
+from drawlib._preset_colors import default_colors
 from drawlib._preset_styles._base import BaseStyles
-from drawlib._preset_styles._utils import _create_style, _make_variants
+from drawlib._preset_styles._utils import _make_variants
 
 
-class DefaultStyles(BaseStyles):
+class StylesDefault(BaseStyles):
     """Default preset styles with complete typing for IDE autocompletion."""
 
-    # Semantic roles
-    primary: Style
-    light: Style
-    bold: Style
-    flat: Style
-    solid: Style
-    dashed: Style
-
-    # Colors
+    # Red
     red: Style
-    red_flat: Style
-    red_solid: Style
+    red_bordered: Style
     red_bold: Style
     red_light: Style
+    red_flat: Style
+    red_outline: Style
+    red_solid: Style
+    red_outline_bold: Style
+    red_solid_bold: Style
+    red_outline_light: Style
+    red_solid_light: Style
     red_dashed: Style
+    red_dashed_bold: Style
+    red_dashed_light: Style
 
+    # Light Red
     light_red: Style
-    light_red_flat: Style
-    light_red_solid: Style
+    light_red_bordered: Style
     light_red_bold: Style
     light_red_light: Style
+    light_red_flat: Style
+    light_red_outline: Style
+    light_red_solid: Style
+    light_red_outline_bold: Style
+    light_red_solid_bold: Style
+    light_red_outline_light: Style
+    light_red_solid_light: Style
     light_red_dashed: Style
+    light_red_dashed_bold: Style
+    light_red_dashed_light: Style
 
+    # Green
     green: Style
-    green_flat: Style
-    green_solid: Style
+    green_bordered: Style
     green_bold: Style
     green_light: Style
+    green_flat: Style
+    green_outline: Style
+    green_solid: Style
+    green_outline_bold: Style
+    green_solid_bold: Style
+    green_outline_light: Style
+    green_solid_light: Style
     green_dashed: Style
+    green_dashed_bold: Style
+    green_dashed_light: Style
 
+    # Light Green
     light_green: Style
-    light_green_flat: Style
-    light_green_solid: Style
+    light_green_bordered: Style
     light_green_bold: Style
     light_green_light: Style
+    light_green_flat: Style
+    light_green_outline: Style
+    light_green_solid: Style
+    light_green_outline_bold: Style
+    light_green_solid_bold: Style
+    light_green_outline_light: Style
+    light_green_solid_light: Style
     light_green_dashed: Style
+    light_green_dashed_bold: Style
+    light_green_dashed_light: Style
 
+    # Blue
     blue: Style
-    blue_flat: Style
-    blue_solid: Style
+    blue_bordered: Style
     blue_bold: Style
     blue_light: Style
+    blue_flat: Style
+    blue_outline: Style
+    blue_solid: Style
+    blue_outline_bold: Style
+    blue_solid_bold: Style
+    blue_outline_light: Style
+    blue_solid_light: Style
     blue_dashed: Style
+    blue_dashed_bold: Style
+    blue_dashed_light: Style
 
+    # Light Blue
     light_blue: Style
-    light_blue_flat: Style
-    light_blue_solid: Style
+    light_blue_bordered: Style
     light_blue_bold: Style
     light_blue_light: Style
+    light_blue_flat: Style
+    light_blue_outline: Style
+    light_blue_solid: Style
+    light_blue_outline_bold: Style
+    light_blue_solid_bold: Style
+    light_blue_outline_light: Style
+    light_blue_solid_light: Style
     light_blue_dashed: Style
+    light_blue_dashed_bold: Style
+    light_blue_dashed_light: Style
 
+    # Yellow
     yellow: Style
-    yellow_flat: Style
-    yellow_solid: Style
+    yellow_bordered: Style
     yellow_bold: Style
     yellow_light: Style
+    yellow_flat: Style
+    yellow_outline: Style
+    yellow_solid: Style
+    yellow_outline_bold: Style
+    yellow_solid_bold: Style
+    yellow_outline_light: Style
+    yellow_solid_light: Style
     yellow_dashed: Style
+    yellow_dashed_bold: Style
+    yellow_dashed_light: Style
 
+    # Purple
     purple: Style
-    purple_flat: Style
-    purple_solid: Style
+    purple_bordered: Style
     purple_bold: Style
     purple_light: Style
+    purple_flat: Style
+    purple_outline: Style
+    purple_solid: Style
+    purple_outline_bold: Style
+    purple_solid_bold: Style
+    purple_outline_light: Style
+    purple_solid_light: Style
     purple_dashed: Style
+    purple_dashed_bold: Style
+    purple_dashed_light: Style
 
+    # Orange
     orange: Style
-    orange_flat: Style
-    orange_solid: Style
+    orange_bordered: Style
     orange_bold: Style
     orange_light: Style
+    orange_flat: Style
+    orange_outline: Style
+    orange_solid: Style
+    orange_outline_bold: Style
+    orange_solid_bold: Style
+    orange_outline_light: Style
+    orange_solid_light: Style
     orange_dashed: Style
+    orange_dashed_bold: Style
+    orange_dashed_light: Style
 
+    # Navy
     navy: Style
-    navy_flat: Style
-    navy_solid: Style
+    navy_bordered: Style
     navy_bold: Style
     navy_light: Style
+    navy_flat: Style
+    navy_outline: Style
+    navy_solid: Style
+    navy_outline_bold: Style
+    navy_solid_bold: Style
+    navy_outline_light: Style
+    navy_solid_light: Style
     navy_dashed: Style
+    navy_dashed_bold: Style
+    navy_dashed_light: Style
 
+    # Pink
     pink: Style
-    pink_flat: Style
-    pink_solid: Style
+    pink_bordered: Style
     pink_bold: Style
     pink_light: Style
+    pink_flat: Style
+    pink_outline: Style
+    pink_solid: Style
+    pink_outline_bold: Style
+    pink_solid_bold: Style
+    pink_outline_light: Style
+    pink_solid_light: Style
     pink_dashed: Style
+    pink_dashed_bold: Style
+    pink_dashed_light: Style
 
+    # Charcoal
     charcoal: Style
-    charcoal_flat: Style
-    charcoal_solid: Style
+    charcoal_bordered: Style
     charcoal_bold: Style
     charcoal_light: Style
+    charcoal_flat: Style
+    charcoal_outline: Style
+    charcoal_solid: Style
+    charcoal_outline_bold: Style
+    charcoal_solid_bold: Style
+    charcoal_outline_light: Style
+    charcoal_solid_light: Style
     charcoal_dashed: Style
+    charcoal_dashed_bold: Style
+    charcoal_dashed_light: Style
 
+    # Graphite
     graphite: Style
-    graphite_flat: Style
-    graphite_solid: Style
+    graphite_bordered: Style
     graphite_bold: Style
     graphite_light: Style
+    graphite_flat: Style
+    graphite_outline: Style
+    graphite_solid: Style
+    graphite_outline_bold: Style
+    graphite_solid_bold: Style
+    graphite_outline_light: Style
+    graphite_solid_light: Style
     graphite_dashed: Style
+    graphite_dashed_bold: Style
+    graphite_dashed_light: Style
 
+    # Gray
     gray: Style
-    gray_flat: Style
-    gray_solid: Style
+    gray_bordered: Style
     gray_bold: Style
     gray_light: Style
+    gray_flat: Style
+    gray_outline: Style
+    gray_solid: Style
+    gray_outline_bold: Style
+    gray_solid_bold: Style
+    gray_outline_light: Style
+    gray_solid_light: Style
     gray_dashed: Style
+    gray_dashed_bold: Style
+    gray_dashed_light: Style
 
+    # Silver
     silver: Style
-    silver_flat: Style
-    silver_solid: Style
+    silver_bordered: Style
     silver_bold: Style
     silver_light: Style
+    silver_flat: Style
+    silver_outline: Style
+    silver_solid: Style
+    silver_outline_bold: Style
+    silver_solid_bold: Style
+    silver_outline_light: Style
+    silver_solid_light: Style
     silver_dashed: Style
+    silver_dashed_bold: Style
+    silver_dashed_light: Style
 
+    # Snow
     snow: Style
-    snow_flat: Style
-    snow_solid: Style
+    snow_bordered: Style
     snow_bold: Style
     snow_light: Style
+    snow_flat: Style
+    snow_outline: Style
+    snow_solid: Style
+    snow_outline_bold: Style
+    snow_solid_bold: Style
+    snow_outline_light: Style
+    snow_solid_light: Style
     snow_dashed: Style
+    snow_dashed_bold: Style
+    snow_dashed_light: Style
 
+    # Teal
     teal: Style
-    teal_flat: Style
-    teal_solid: Style
+    teal_bordered: Style
     teal_bold: Style
     teal_light: Style
+    teal_flat: Style
+    teal_outline: Style
+    teal_solid: Style
+    teal_outline_bold: Style
+    teal_solid_bold: Style
+    teal_outline_light: Style
+    teal_solid_light: Style
     teal_dashed: Style
+    teal_dashed_bold: Style
+    teal_dashed_light: Style
 
+    # Olive
     olive: Style
-    olive_flat: Style
-    olive_solid: Style
+    olive_bordered: Style
     olive_bold: Style
     olive_light: Style
+    olive_flat: Style
+    olive_outline: Style
+    olive_solid: Style
+    olive_outline_bold: Style
+    olive_solid_bold: Style
+    olive_outline_light: Style
+    olive_solid_light: Style
     olive_dashed: Style
+    olive_dashed_bold: Style
+    olive_dashed_light: Style
 
+    # Brown
     brown: Style
-    brown_flat: Style
-    brown_solid: Style
+    brown_bordered: Style
     brown_bold: Style
     brown_light: Style
+    brown_flat: Style
+    brown_outline: Style
+    brown_solid: Style
+    brown_outline_bold: Style
+    brown_solid_bold: Style
+    brown_outline_light: Style
+    brown_solid_light: Style
     brown_dashed: Style
+    brown_dashed_bold: Style
+    brown_dashed_light: Style
 
+    # Black
     black: Style
-    black_flat: Style
-    black_solid: Style
+    black_bordered: Style
     black_bold: Style
     black_light: Style
+    black_flat: Style
+    black_outline: Style
+    black_solid: Style
+    black_outline_bold: Style
+    black_solid_bold: Style
+    black_outline_light: Style
+    black_solid_light: Style
     black_dashed: Style
+    black_dashed_bold: Style
+    black_dashed_light: Style
 
+    # White
     white: Style
-    white_flat: Style
-    white_solid: Style
+    white_bordered: Style
     white_bold: Style
     white_light: Style
+    white_flat: Style
+    white_outline: Style
+    white_solid: Style
+    white_outline_bold: Style
+    white_solid_bold: Style
+    white_outline_light: Style
+    white_solid_light: Style
     white_dashed: Style
+    white_dashed_bold: Style
+    white_dashed_light: Style
 
+    # Aqua
     aqua: Style
-    aqua_flat: Style
-    aqua_solid: Style
+    aqua_bordered: Style
     aqua_bold: Style
     aqua_light: Style
+    aqua_flat: Style
+    aqua_outline: Style
+    aqua_solid: Style
+    aqua_outline_bold: Style
+    aqua_solid_bold: Style
+    aqua_outline_light: Style
+    aqua_solid_light: Style
     aqua_dashed: Style
+    aqua_dashed_bold: Style
+    aqua_dashed_light: Style
 
+    # Green Yellow
     green_yellow: Style
-    green_yellow_flat: Style
-    green_yellow_solid: Style
+    green_yellow_bordered: Style
     green_yellow_bold: Style
     green_yellow_light: Style
+    green_yellow_flat: Style
+    green_yellow_outline: Style
+    green_yellow_solid: Style
+    green_yellow_outline_bold: Style
+    green_yellow_solid_bold: Style
+    green_yellow_outline_light: Style
+    green_yellow_solid_light: Style
     green_yellow_dashed: Style
+    green_yellow_dashed_bold: Style
+    green_yellow_dashed_light: Style
 
+    # Ivory
     ivory: Style
-    ivory_flat: Style
-    ivory_solid: Style
+    ivory_bordered: Style
     ivory_bold: Style
     ivory_light: Style
+    ivory_flat: Style
+    ivory_outline: Style
+    ivory_solid: Style
+    ivory_outline_bold: Style
+    ivory_solid_bold: Style
+    ivory_outline_light: Style
+    ivory_solid_light: Style
     ivory_dashed: Style
+    ivory_dashed_bold: Style
+    ivory_dashed_light: Style
 
+    # Steel
     steel: Style
-    steel_flat: Style
-    steel_solid: Style
+    steel_bordered: Style
     steel_bold: Style
     steel_light: Style
+    steel_flat: Style
+    steel_outline: Style
+    steel_solid: Style
+    steel_outline_bold: Style
+    steel_solid_bold: Style
+    steel_outline_light: Style
+    steel_solid_light: Style
     steel_dashed: Style
+    steel_dashed_bold: Style
+    steel_dashed_light: Style
 
 
-def _create_default_styles() -> DefaultStyles:
+# Backwards compatibility alias
+DefaultStyles = StylesDefault
+
+
+def _create_default_styles() -> StylesDefault:
     """Generate default preset styles.
 
     Returns:
-        DefaultStyles: Default preset styles.
+        StylesDefault: Default preset styles instance.
     """
-    charcoal = default_colors.Charcoal
-    lightblue = default_colors.LightBlue
+    colors_map = {
+        "red": default_colors.Red,
+        "light_red": default_colors.LightRed,
+        "green": default_colors.Green,
+        "light_green": default_colors.LightGreen,
+        "blue": default_colors.Blue,
+        "light_blue": default_colors.LightBlue,
+        "yellow": default_colors.Yellow,
+        "purple": default_colors.Purple,
+        "orange": default_colors.Orange,
+        "navy": default_colors.Navy,
+        "pink": default_colors.Pink,
+        "charcoal": default_colors.Charcoal,
+        "graphite": default_colors.Graphite,
+        "gray": default_colors.Gray,
+        "silver": default_colors.Silver,
+        "snow": default_colors.Snow,
+        "teal": default_colors.Teal,
+        "olive": default_colors.Olive,
+        "brown": default_colors.Brown,
+        "black": default_colors.Black,
+        "white": default_colors.White,
+        "aqua": default_colors.Aqua,
+        "green_yellow": default_colors.GreenYellow,
+        "ivory": default_colors.Ivory,
+        "steel": default_colors.Steel,
+    }
 
-    def v(col: ColorType) -> dict[str, Style]:
-        return _make_variants(col)
+    semantic_map = {
+        "primary": default_colors.Primary,
+        "secondary": default_colors.Secondary,
+        "accent": default_colors.Accent,
+        "muted": default_colors.Muted,
+    }
 
-    r_v = v(default_colors.Red)
-    lr_v = v(default_colors.LightRed)
-    g_v = v(default_colors.Green)
-    lg_v = v(default_colors.LightGreen)
-    b_v = v(default_colors.Blue)
-    lb_v = v(default_colors.LightBlue)
-    y_v = v(default_colors.Yellow)
-    p_v = v(default_colors.Purple)
-    o_v = v(default_colors.Orange)
-    n_v = v(default_colors.Navy)
-    pi_v = v(default_colors.Pink)
-    c_v = v(default_colors.Charcoal)
-    gr_v = v(default_colors.Graphite)
-    gy_v = v(default_colors.Gray)
-    si_v = v(default_colors.Silver)
-    sn_v = v(default_colors.Snow)
-    te_v = v(default_colors.Teal)
-    ol_v = v(default_colors.Olive)
-    br_v = v(default_colors.Brown)
-    k_v = v(default_colors.Black)
-    w_v = _make_variants(default_colors.White, border_color=charcoal, default_text_color=charcoal)
-    aq_v = v(default_colors.Aqua)
-    gy_yel_v = v(default_colors.GreenYellow)
-    iv_v = v(default_colors.Ivory)
-    st_v = v(default_colors.Steel)
+    styles_dict: dict[str, Any] = {
+        "background_color": (255, 255, 255, 1.0),
+        "sourcecode_font": FontSourceCode.SOURCECODEPRO,
+    }
 
-    return DefaultStyles(
-        primary=_create_style(lightblue, charcoal, text_color=charcoal, line_width=1.5, font=Font.SANSSERIF_REGULAR),
-        light=_create_style(
-            lightblue, charcoal, text_color=charcoal, line_width=0.75, font=Font.SANSSERIF_LIGHT, icon_style="thin"
-        ),
-        bold=_create_style(
-            lightblue, charcoal, text_color=charcoal, line_width=2.25, font=Font.SANSSERIF_BOLD, icon_style="bold"
-        ),
-        flat=_create_style(
-            lightblue, lightblue, text_color=charcoal, line_width=1.5, shape_line_width=0.0, icon_style="fill"
-        ),
-        solid=_create_style(Colors.Transparent, lightblue, text_color=lightblue, line_width=1.5),
-        dashed=_create_style(
-            Colors.Transparent,
-            lightblue,
-            text_color=lightblue,
-            line_width=1.5,
-            line_style="dashed",
-            shape_line_style="dashed",
-        ),
-        red=r_v["normal"],
-        red_flat=r_v["flat"],
-        red_solid=r_v["solid"],
-        red_bold=r_v["bold"],
-        red_light=r_v["light"],
-        red_dashed=r_v["dashed"],
-        light_red=lr_v["normal"],
-        light_red_flat=lr_v["flat"],
-        light_red_solid=lr_v["solid"],
-        light_red_bold=lr_v["bold"],
-        light_red_light=lr_v["light"],
-        light_red_dashed=lr_v["dashed"],
-        green=g_v["normal"],
-        green_flat=g_v["flat"],
-        green_solid=g_v["solid"],
-        green_bold=g_v["bold"],
-        green_light=g_v["light"],
-        green_dashed=g_v["dashed"],
-        light_green=lg_v["normal"],
-        light_green_flat=lg_v["flat"],
-        light_green_solid=lg_v["solid"],
-        light_green_bold=lg_v["bold"],
-        light_green_light=lg_v["light"],
-        light_green_dashed=lg_v["dashed"],
-        blue=b_v["normal"],
-        blue_flat=b_v["flat"],
-        blue_solid=b_v["solid"],
-        blue_bold=b_v["bold"],
-        blue_light=b_v["light"],
-        blue_dashed=b_v["dashed"],
-        light_blue=lb_v["normal"],
-        light_blue_flat=lb_v["flat"],
-        light_blue_solid=lb_v["solid"],
-        light_blue_bold=lb_v["bold"],
-        light_blue_light=lb_v["light"],
-        light_blue_dashed=lb_v["dashed"],
-        yellow=y_v["normal"],
-        yellow_flat=y_v["flat"],
-        yellow_solid=y_v["solid"],
-        yellow_bold=y_v["bold"],
-        yellow_light=y_v["light"],
-        yellow_dashed=y_v["dashed"],
-        purple=p_v["normal"],
-        purple_flat=p_v["flat"],
-        purple_solid=p_v["solid"],
-        purple_bold=p_v["bold"],
-        purple_light=p_v["light"],
-        purple_dashed=p_v["dashed"],
-        orange=o_v["normal"],
-        orange_flat=o_v["flat"],
-        orange_solid=o_v["solid"],
-        orange_bold=o_v["bold"],
-        orange_light=o_v["light"],
-        orange_dashed=o_v["dashed"],
-        navy=n_v["normal"],
-        navy_flat=n_v["flat"],
-        navy_solid=n_v["solid"],
-        navy_bold=n_v["bold"],
-        navy_light=n_v["light"],
-        navy_dashed=n_v["dashed"],
-        pink=pi_v["normal"],
-        pink_flat=pi_v["flat"],
-        pink_solid=pi_v["solid"],
-        pink_bold=pi_v["bold"],
-        pink_light=pi_v["light"],
-        pink_dashed=pi_v["dashed"],
-        charcoal=c_v["normal"],
-        charcoal_flat=c_v["flat"],
-        charcoal_solid=c_v["solid"],
-        charcoal_bold=c_v["bold"],
-        charcoal_light=c_v["light"],
-        charcoal_dashed=c_v["dashed"],
-        graphite=gr_v["normal"],
-        graphite_flat=gr_v["flat"],
-        graphite_solid=gr_v["solid"],
-        graphite_bold=gr_v["bold"],
-        graphite_light=gr_v["light"],
-        graphite_dashed=gr_v["dashed"],
-        gray=gy_v["normal"],
-        gray_flat=gy_v["flat"],
-        gray_solid=gy_v["solid"],
-        gray_bold=gy_v["bold"],
-        gray_light=gy_v["light"],
-        gray_dashed=gy_v["dashed"],
-        silver=si_v["normal"],
-        silver_flat=si_v["flat"],
-        silver_solid=si_v["solid"],
-        silver_bold=si_v["bold"],
-        silver_light=si_v["light"],
-        silver_dashed=si_v["dashed"],
-        snow=sn_v["normal"],
-        snow_flat=sn_v["flat"],
-        snow_solid=sn_v["solid"],
-        snow_bold=sn_v["bold"],
-        snow_light=sn_v["light"],
-        snow_dashed=sn_v["dashed"],
-        teal=te_v["normal"],
-        teal_flat=te_v["flat"],
-        teal_solid=te_v["solid"],
-        teal_bold=te_v["bold"],
-        teal_light=te_v["light"],
-        teal_dashed=te_v["dashed"],
-        olive=ol_v["normal"],
-        olive_flat=ol_v["flat"],
-        olive_solid=ol_v["solid"],
-        olive_bold=ol_v["bold"],
-        olive_light=ol_v["light"],
-        olive_dashed=ol_v["dashed"],
-        brown=br_v["normal"],
-        brown_flat=br_v["flat"],
-        brown_solid=br_v["solid"],
-        brown_bold=br_v["bold"],
-        brown_light=br_v["light"],
-        brown_dashed=br_v["dashed"],
-        black=k_v["normal"],
-        black_flat=k_v["flat"],
-        black_solid=k_v["solid"],
-        black_bold=k_v["bold"],
-        black_light=k_v["light"],
-        black_dashed=k_v["dashed"],
-        white=w_v["normal"],
-        white_flat=w_v["flat"],
-        white_solid=w_v["solid"],
-        white_bold=w_v["bold"],
-        white_light=w_v["light"],
-        white_dashed=w_v["dashed"],
-        aqua=aq_v["normal"],
-        aqua_flat=aq_v["flat"],
-        aqua_solid=aq_v["solid"],
-        aqua_bold=aq_v["bold"],
-        aqua_light=aq_v["light"],
-        aqua_dashed=aq_v["dashed"],
-        green_yellow=gy_yel_v["normal"],
-        green_yellow_flat=gy_yel_v["flat"],
-        green_yellow_solid=gy_yel_v["solid"],
-        green_yellow_bold=gy_yel_v["bold"],
-        green_yellow_light=gy_yel_v["light"],
-        green_yellow_dashed=gy_yel_v["dashed"],
-        ivory=iv_v["normal"],
-        ivory_flat=iv_v["flat"],
-        ivory_solid=iv_v["solid"],
-        ivory_bold=iv_v["bold"],
-        ivory_light=iv_v["light"],
-        ivory_dashed=iv_v["dashed"],
-        steel=st_v["normal"],
-        steel_flat=st_v["flat"],
-        steel_solid=st_v["solid"],
-        steel_bold=st_v["bold"],
-        steel_light=st_v["light"],
-        steel_dashed=st_v["dashed"],
-        background_color=(255, 255, 255, 1.0),
-        sourcecode_font=FontSourceCode.SOURCECODEPRO,
-    )
+    for role_name, color in semantic_map.items():
+        v = _make_variants(color)
+        styles_dict[role_name] = v["normal"]
+        styles_dict[f"{role_name}_bordered"] = v["bordered"]
+        styles_dict[f"{role_name}_bold"] = v["bold"]
+        styles_dict[f"{role_name}_light"] = v["light"]
+        styles_dict[f"{role_name}_flat"] = v["flat"]
+        styles_dict[f"{role_name}_outline"] = v["outline"]
+        styles_dict[f"{role_name}_outline_bold"] = v["outline_bold"]
+        styles_dict[f"{role_name}_outline_light"] = v["outline_light"]
+        styles_dict[f"{role_name}_dashed"] = v["dashed"]
+        styles_dict[f"{role_name}_dashed_bold"] = v["dashed_bold"]
+        styles_dict[f"{role_name}_dashed_light"] = v["dashed_light"]
+
+    for cname, color in colors_map.items():
+        v = _make_variants(color)
+        styles_dict[cname] = v["normal"]
+        styles_dict[f"{cname}_bordered"] = v["bordered"]
+        styles_dict[f"{cname}_bold"] = v["bold"]
+        styles_dict[f"{cname}_light"] = v["light"]
+        styles_dict[f"{cname}_flat"] = v["flat"]
+        styles_dict[f"{cname}_outline"] = v["outline"]
+        styles_dict[f"{cname}_solid"] = v["solid"]
+        styles_dict[f"{cname}_outline_bold"] = v["outline_bold"]
+        styles_dict[f"{cname}_solid_bold"] = v["solid_bold"]
+        styles_dict[f"{cname}_outline_light"] = v["outline_light"]
+        styles_dict[f"{cname}_solid_light"] = v["solid_light"]
+        styles_dict[f"{cname}_dashed"] = v["dashed"]
+        styles_dict[f"{cname}_dashed_bold"] = v["dashed_bold"]
+        styles_dict[f"{cname}_dashed_light"] = v["dashed_light"]
+
+    return StylesDefault(**styles_dict)
 
 
-default_styles: DefaultStyles = _create_default_styles()
+default_styles: StylesDefault = _create_default_styles()
 
 __all__ = [
     "DefaultStyles",
+    "StylesDefault",
     "default_styles",
 ]

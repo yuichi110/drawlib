@@ -29,6 +29,55 @@ class BaseColors(BaseModel):
 
     Transparent: ClassVar[Color] = Color(0, 0, 0, 0.0)
 
+    Primary: Color | None = None
+    Secondary: Color | None = None
+    Accent: Color | None = None
+    Muted: Color | None = None
+    Danger: Color | None = None
+    Success: Color | None = None
+
+    @property
+    def primary(self) -> Color:
+        """Return primary semantic color."""
+        if self.Primary is None:
+            raise AttributeError(f"{self.__class__.__name__} has no Primary color.")
+        return self.Primary
+
+    @property
+    def secondary(self) -> Color:
+        """Return secondary semantic color."""
+        if self.Secondary is None:
+            raise AttributeError(f"{self.__class__.__name__} has no Secondary color.")
+        return self.Secondary
+
+    @property
+    def accent(self) -> Color:
+        """Return accent semantic color."""
+        if self.Accent is None:
+            raise AttributeError(f"{self.__class__.__name__} has no Accent color.")
+        return self.Accent
+
+    @property
+    def muted(self) -> Color:
+        """Return muted semantic color."""
+        if self.Muted is None:
+            raise AttributeError(f"{self.__class__.__name__} has no Muted color.")
+        return self.Muted
+
+    @property
+    def danger(self) -> Color:
+        """Return danger semantic color."""
+        if self.Danger is None:
+            raise AttributeError(f"{self.__class__.__name__} has no Danger color.")
+        return self.Danger
+
+    @property
+    def success(self) -> Color:
+        """Return success semantic color."""
+        if self.Success is None:
+            raise AttributeError(f"{self.__class__.__name__} has no Success color.")
+        return self.Success
+
     def __iter__(self) -> Generator[tuple[str, Color], None, None]:
         """Yield (field_name, field_value) pairs for all color fields in the preset color model.
 
@@ -54,6 +103,11 @@ class BaseColors(BaseModel):
         """
         if hasattr(self, key):
             val = getattr(self, key)
+            if isinstance(val, Color):
+                return val
+        cap_key = key.capitalize()
+        if hasattr(self, cap_key):
+            val = getattr(self, cap_key)
             if isinstance(val, Color):
                 return val
         raise KeyError(f'Color "{key}" is not found in {self.__class__.__name__}.')

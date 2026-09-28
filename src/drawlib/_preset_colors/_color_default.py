@@ -44,6 +44,14 @@ class DefaultColors(BaseColors):
     Ivory: Color = Color(239, 239, 207)
     Steel: Color = Color(96, 96, 143)
 
+    # Semantic Colors
+    Primary: Color = LightBlue
+    Secondary: Color = Teal
+    Accent: Color = Orange
+    Muted: Color = Snow
+    Danger: Color = Red
+    Success: Color = Green
+
 
 default_colors: DefaultColors = DefaultColors()
 

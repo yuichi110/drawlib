@@ -11,80 +11,140 @@
 
 from __future__ import annotations
 
-from drawlib._core.fonts import Font, FontSourceCode
+from typing import Any
+
+from drawlib._core.fonts import FontSourceCode
 from drawlib._core.types import Style
 from drawlib._preset_colors import Colors, monochrome_colors
 from drawlib._preset_styles._base import BaseStyles
-from drawlib._preset_styles._utils import _create_style, _make_variants
+from drawlib._preset_styles._utils import _make_variants
 
 
-class MonochromeStyles(BaseStyles):
+class StylesMonochrome(BaseStyles):
     """Monochrome preset styles with complete typing for IDE autocompletion."""
 
-    # Semantic roles
-    primary: Style
-    light: Style
-    bold: Style
-    flat: Style
-    solid: Style
-    dashed: Style
-
-    # Colors: black, charcoal, graphite, gray, silver, snow, white
+    # Black
     black: Style
-    black_flat: Style
-    black_solid: Style
+    black_bordered: Style
     black_bold: Style
     black_light: Style
+    black_flat: Style
+    black_outline: Style
+    black_solid: Style
+    black_outline_bold: Style
+    black_solid_bold: Style
+    black_outline_light: Style
+    black_solid_light: Style
     black_dashed: Style
+    black_dashed_bold: Style
+    black_dashed_light: Style
 
+    # Charcoal
     charcoal: Style
-    charcoal_flat: Style
-    charcoal_solid: Style
+    charcoal_bordered: Style
     charcoal_bold: Style
     charcoal_light: Style
+    charcoal_flat: Style
+    charcoal_outline: Style
+    charcoal_solid: Style
+    charcoal_outline_bold: Style
+    charcoal_solid_bold: Style
+    charcoal_outline_light: Style
+    charcoal_solid_light: Style
     charcoal_dashed: Style
+    charcoal_dashed_bold: Style
+    charcoal_dashed_light: Style
 
+    # Graphite
     graphite: Style
-    graphite_flat: Style
-    graphite_solid: Style
+    graphite_bordered: Style
     graphite_bold: Style
     graphite_light: Style
+    graphite_flat: Style
+    graphite_outline: Style
+    graphite_solid: Style
+    graphite_outline_bold: Style
+    graphite_solid_bold: Style
+    graphite_outline_light: Style
+    graphite_solid_light: Style
     graphite_dashed: Style
+    graphite_dashed_bold: Style
+    graphite_dashed_light: Style
 
+    # Gray
     gray: Style
-    gray_flat: Style
-    gray_solid: Style
+    gray_bordered: Style
     gray_bold: Style
     gray_light: Style
+    gray_flat: Style
+    gray_outline: Style
+    gray_solid: Style
+    gray_outline_bold: Style
+    gray_solid_bold: Style
+    gray_outline_light: Style
+    gray_solid_light: Style
     gray_dashed: Style
+    gray_dashed_bold: Style
+    gray_dashed_light: Style
 
+    # Silver
     silver: Style
-    silver_flat: Style
-    silver_solid: Style
+    silver_bordered: Style
     silver_bold: Style
     silver_light: Style
+    silver_flat: Style
+    silver_outline: Style
+    silver_solid: Style
+    silver_outline_bold: Style
+    silver_solid_bold: Style
+    silver_outline_light: Style
+    silver_solid_light: Style
     silver_dashed: Style
+    silver_dashed_bold: Style
+    silver_dashed_light: Style
 
+    # Snow
     snow: Style
-    snow_flat: Style
-    snow_solid: Style
+    snow_bordered: Style
     snow_bold: Style
     snow_light: Style
+    snow_flat: Style
+    snow_outline: Style
+    snow_solid: Style
+    snow_outline_bold: Style
+    snow_solid_bold: Style
+    snow_outline_light: Style
+    snow_solid_light: Style
     snow_dashed: Style
+    snow_dashed_bold: Style
+    snow_dashed_light: Style
 
+    # White
     white: Style
-    white_flat: Style
-    white_solid: Style
+    white_bordered: Style
     white_bold: Style
     white_light: Style
+    white_flat: Style
+    white_outline: Style
+    white_solid: Style
+    white_outline_bold: Style
+    white_solid_bold: Style
+    white_outline_light: Style
+    white_solid_light: Style
     white_dashed: Style
+    white_dashed_bold: Style
+    white_dashed_light: Style
 
 
-def _create_monochrome_styles() -> MonochromeStyles:
+# Backwards compatibility alias
+MonochromeStyles = StylesMonochrome
+
+
+def _create_monochrome_styles() -> StylesMonochrome:
     """Generate monochrome preset styles.
 
     Returns:
-        MonochromeStyles: Monochrome preset styles.
+        StylesMonochrome: Monochrome preset styles instance.
     """
     black = monochrome_colors.Black
     charcoal = monochrome_colors.Charcoal
@@ -94,82 +154,99 @@ def _create_monochrome_styles() -> MonochromeStyles:
     snow = monochrome_colors.Snow
     white = monochrome_colors.White
 
-    k_v = _make_variants(black)
-    c_v = _make_variants(charcoal)
-    g_v = _make_variants(graphite)
-    y_v = _make_variants(gray)
-    s_v = _make_variants(silver)
-    n_v = _make_variants(snow, border_color=charcoal, default_text_color=charcoal)
-    w_v = _make_variants(white, border_color=black, default_text_color=black)
-
-    return MonochromeStyles(
-        primary=_create_style(white, black, text_color=black, line_width=1.5, font=Font.SANSSERIF_REGULAR),
-        light=_create_style(
-            white, black, text_color=black, line_width=0.75, font=Font.SANSSERIF_LIGHT, icon_style="thin"
-        ),
-        bold=_create_style(
-            white, black, text_color=black, line_width=2.25, font=Font.SANSSERIF_BOLD, icon_style="bold"
-        ),
-        flat=_create_style(black, black, text_color=white, line_width=1.5, shape_line_width=0.0, icon_style="fill"),
-        solid=_create_style(Colors.Transparent, black, text_color=black, line_width=1.5),
-        dashed=_create_style(
-            Colors.Transparent,
-            black,
-            text_color=black,
-            line_width=1.5,
-            line_style="dashed",
-            shape_line_style="dashed",
-        ),
-        black=k_v["normal"],
-        black_flat=k_v["flat"],
-        black_solid=k_v["solid"],
-        black_bold=k_v["bold"],
-        black_light=k_v["light"],
-        black_dashed=k_v["dashed"],
-        charcoal=c_v["normal"],
-        charcoal_flat=c_v["flat"],
-        charcoal_solid=c_v["solid"],
-        charcoal_bold=c_v["bold"],
-        charcoal_light=c_v["light"],
-        charcoal_dashed=c_v["dashed"],
-        graphite=g_v["normal"],
-        graphite_flat=g_v["flat"],
-        graphite_solid=g_v["solid"],
-        graphite_bold=g_v["bold"],
-        graphite_light=g_v["light"],
-        graphite_dashed=g_v["dashed"],
-        gray=y_v["normal"],
-        gray_flat=y_v["flat"],
-        gray_solid=y_v["solid"],
-        gray_bold=y_v["bold"],
-        gray_light=y_v["light"],
-        gray_dashed=y_v["dashed"],
-        silver=s_v["normal"],
-        silver_flat=s_v["flat"],
-        silver_solid=s_v["solid"],
-        silver_bold=s_v["bold"],
-        silver_light=s_v["light"],
-        silver_dashed=s_v["dashed"],
-        snow=n_v["normal"],
-        snow_flat=n_v["flat"],
-        snow_solid=n_v["solid"],
-        snow_bold=n_v["bold"],
-        snow_light=n_v["light"],
-        snow_dashed=n_v["dashed"],
-        white=w_v["normal"],
-        white_flat=w_v["flat"],
-        white_solid=w_v["solid"],
-        white_bold=w_v["bold"],
-        white_light=w_v["light"],
-        white_dashed=w_v["dashed"],
-        background_color=(255, 255, 255, 1.0),
-        sourcecode_font=FontSourceCode.SOURCECODEPRO,
+    p_v = _make_variants(
+        white,
+        border_color=black,
+        default_text_color=black,
+        line_color=black,
+    )
+    p_v["flat"] = Style(
+        supports={"shape"},
+        shape_fill_color=black,
+        shape_line_color=Colors.Transparent,
+        shape_line_width=0.0,
+        shape_line_style="solid",
     )
 
+    s_v = _make_variants(
+        gray,
+        border_color=black,
+        default_text_color=black,
+        line_color=black,
+    )
 
-monochrome_styles: MonochromeStyles = _create_monochrome_styles()
+    a_v = _make_variants(
+        black,
+        border_color=black,
+        default_text_color=white,
+        line_color=black,
+    )
+
+    m_v = _make_variants(
+        snow,
+        border_color=charcoal,
+        default_text_color=charcoal,
+        line_color=charcoal,
+    )
+
+    role_variants = {
+        "primary": p_v,
+        "secondary": s_v,
+        "accent": a_v,
+        "muted": m_v,
+    }
+
+    styles_dict: dict[str, Any] = {
+        "background_color": (255, 255, 255, 1.0),
+        "sourcecode_font": FontSourceCode.SOURCECODEPRO,
+    }
+
+    for role_name, v in role_variants.items():
+        styles_dict[role_name] = v["normal"]
+        styles_dict[f"{role_name}_bordered"] = v["bordered"]
+        styles_dict[f"{role_name}_bold"] = v["bold"]
+        styles_dict[f"{role_name}_light"] = v["light"]
+        styles_dict[f"{role_name}_flat"] = v["flat"]
+        styles_dict[f"{role_name}_outline"] = v["outline"]
+        styles_dict[f"{role_name}_outline_bold"] = v["outline_bold"]
+        styles_dict[f"{role_name}_outline_light"] = v["outline_light"]
+        styles_dict[f"{role_name}_dashed"] = v["dashed"]
+        styles_dict[f"{role_name}_dashed_bold"] = v["dashed_bold"]
+        styles_dict[f"{role_name}_dashed_light"] = v["dashed_light"]
+
+    color_variants = {
+        "black": _make_variants(black),
+        "charcoal": _make_variants(charcoal),
+        "graphite": _make_variants(graphite),
+        "gray": _make_variants(gray),
+        "silver": _make_variants(silver),
+        "snow": _make_variants(snow, border_color=charcoal, default_text_color=charcoal),
+        "white": _make_variants(white, border_color=black, default_text_color=black),
+    }
+
+    for cname, v in color_variants.items():
+        styles_dict[cname] = v["normal"]
+        styles_dict[f"{cname}_bordered"] = v["bordered"]
+        styles_dict[f"{cname}_bold"] = v["bold"]
+        styles_dict[f"{cname}_light"] = v["light"]
+        styles_dict[f"{cname}_flat"] = v["flat"]
+        styles_dict[f"{cname}_outline"] = v["outline"]
+        styles_dict[f"{cname}_solid"] = v["solid"]
+        styles_dict[f"{cname}_outline_bold"] = v["outline_bold"]
+        styles_dict[f"{cname}_solid_bold"] = v["solid_bold"]
+        styles_dict[f"{cname}_outline_light"] = v["outline_light"]
+        styles_dict[f"{cname}_solid_light"] = v["solid_light"]
+        styles_dict[f"{cname}_dashed"] = v["dashed"]
+        styles_dict[f"{cname}_dashed_bold"] = v["dashed_bold"]
+        styles_dict[f"{cname}_dashed_light"] = v["dashed_light"]
+
+    return StylesMonochrome(**styles_dict)
+
+
+monochrome_styles: StylesMonochrome = _create_monochrome_styles()
 
 __all__ = [
     "MonochromeStyles",
+    "StylesMonochrome",
     "monochrome_styles",
 ]

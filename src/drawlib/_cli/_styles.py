@@ -46,17 +46,94 @@ styles_app = typer.Typer(
 )
 
 _PRESET_MAP: dict[str, tuple[BaseStyles, str]] = {
-    "default": (default_styles, "DefaultStyles (Drawlib Standard Styles)"),
-    "def": (default_styles, "DefaultStyles (Drawlib Standard Styles)"),
-    "monochrome": (monochrome_styles, "MonochromeStyles (Grayscale / B&W Styles)"),
-    "mono": (monochrome_styles, "MonochromeStyles (Grayscale / B&W Styles)"),
-    "google": (google_styles, "GoogleStyles (Google Sheets Palette Styles)"),
+    "default": (default_styles, "StylesDefault (Drawlib Standard Styles)"),
+    "def": (default_styles, "StylesDefault (Drawlib Standard Styles)"),
+    "monochrome": (monochrome_styles, "StylesMonochrome (Grayscale / B&W Styles)"),
+    "mono": (monochrome_styles, "StylesMonochrome (Grayscale / B&W Styles)"),
+    "google": (google_styles, "StylesGoogle (Google Sheets Palette Styles)"),
 }
 
-_COL_HEADERS = ["standard", "flat", "solid", "dashed", "bold", "light"]
-_VARIANTS = ["flat", "solid", "dashed", "bold", "light"]
-_THEME_KEYS = ["primary", "flat", "solid", "dashed", "bold", "light"]
-_SYSTEM_FIELDS = {"primary", "flat", "solid", "dashed", "bold", "light", "background_color", "sourcecode_font"}
+_COL_HEADERS = [
+    "bordered",
+    "bold",
+    "light",
+    "flat",
+    "outline",
+    "outline_bold",
+    "outline_light",
+    "dashed",
+    "dashed_bold",
+    "dashed_light",
+]
+_VARIANTS = [
+    "bordered",
+    "bold",
+    "light",
+    "flat",
+    "outline",
+    "solid",
+    "outline_bold",
+    "solid_bold",
+    "outline_light",
+    "solid_light",
+    "dashed",
+    "dashed_bold",
+    "dashed_light",
+]
+_SEMANTIC_ROLES = ["primary", "secondary", "accent", "muted"]
+_SYSTEM_FIELDS = {
+    "background_color",
+    "sourcecode_font",
+    *_SEMANTIC_ROLES,
+    *(f"{role}_{v}" for role in _SEMANTIC_ROLES for v in _VARIANTS),
+    "light",
+    "bold",
+    "flat",
+    "solid",
+    "dashed",
+    "primary_solid",
+    "secondary_solid",
+    "accent_solid",
+    "muted_solid",
+}
+
+
+def _get_row_keys(styles: BaseStyles, base: str) -> list[str | None]:
+    """Retrieve 10 style keys for a given base name across the 10 orthogonal columns."""
+    return [
+        base if hasattr(styles, base) else (f"{base}_bordered" if hasattr(styles, f"{base}_bordered") else None),
+        f"{base}_bold" if hasattr(styles, f"{base}_bold") else None,
+        f"{base}_light" if hasattr(styles, f"{base}_light") else None,
+        f"{base}_flat" if hasattr(styles, f"{base}_flat") else None,
+        f"{base}_outline"
+        if hasattr(styles, f"{base}_outline")
+        else (f"{base}_solid" if hasattr(styles, f"{base}_solid") else None),
+        f"{base}_outline_bold"
+        if hasattr(styles, f"{base}_outline_bold")
+        else (f"{base}_solid_bold" if hasattr(styles, f"{base}_solid_bold") else None),
+        f"{base}_outline_light"
+        if hasattr(styles, f"{base}_outline_light")
+        else (f"{base}_solid_light" if hasattr(styles, f"{base}_solid_light") else None),
+        f"{base}_dashed" if hasattr(styles, f"{base}_dashed") else None,
+        f"{base}_dashed_bold" if hasattr(styles, f"{base}_dashed_bold") else None,
+        f"{base}_dashed_light" if hasattr(styles, f"{base}_dashed_light") else None,
+    ]
+
+
+def _format_supports_badge(supports: frozenset[str]) -> str:
+    """Format a compact badge showing supported drawing targets."""
+    tags: list[str] = []
+    if "shape" in supports:
+        tags.append("S")
+    if "line" in supports:
+        tags.append("L")
+    if "text" in supports:
+        tags.append("T")
+    if "icon" in supports:
+        tags.append("I")
+    if "image" in supports:
+        tags.append("M")
+    return f"[{' '.join(tags)}]"
 
 
 def _extract_base_colors(styles: BaseStyles, filter_color: str | None = None) -> list[str]:
@@ -73,11 +150,12 @@ def _extract_base_colors(styles: BaseStyles, filter_color: str | None = None) ->
         ValueError: If filter_color is specified but matches no colors.
     """
     base_colors: list[str] = []
+    sorted_variants = sorted(_VARIANTS, key=len, reverse=True)
     for field_name in type(styles).model_fields:
         if field_name in _SYSTEM_FIELDS:
             continue
         base = field_name
-        for v in _VARIANTS:
+        for v in sorted_variants:
             if field_name.endswith(f"_{v}"):
                 base = field_name[: -len(f"_{v}")]
                 break
@@ -115,14 +193,14 @@ def get_styles_page_count(
 
 
 def _render_legend(styles: BaseStyles, legend_cx: float, legend_y: float) -> None:
-    """Render the single reference legend card showing Shape, Text Style, and Line style.
+    """Render the single reference legend card showing Shape, Text Style, Line style, and badges.
 
     Args:
         styles (BaseStyles): Active BaseStyles instance.
         legend_cx (float): Center X coordinate of legend card.
         legend_y (float): Center Y coordinate of legend card.
     """
-    legend_w = 88.0
+    legend_w = 130.0
     legend_h = 7.0
     rectangle(
         (legend_cx, legend_y),
@@ -136,7 +214,7 @@ def _render_legend(styles: BaseStyles, legend_cx: float, legend_y: float) -> Non
         ),
     )
     text(
-        (legend_cx - 36.0, legend_y),
+        (legend_cx - 55.0, legend_y),
         "Legend:",
         style=Style(text_size=8.5, text_font=Font.SANSSERIF_BOLD, text_color=Color(80, 80, 80)),
     )
@@ -146,9 +224,19 @@ def _render_legend(styles: BaseStyles, legend_cx: float, legend_y: float) -> Non
     lum = (fill_c.r * 299 + fill_c.g * 587 + fill_c.b * 114) / 1000
     legend_text_color = Color(0, 0, 0) if lum > 140 else Color(255, 255, 255)
 
+    txt_c = Color(st_sample.text_color or (40, 40, 40))
+    txt_lum = (txt_c.r * 299 + txt_c.g * 587 + txt_c.b * 114) / 1000
+    legend_txt_sample_color = Color(40, 40, 40) if txt_lum > 200 else txt_c
+
+    line_c = Color(st_sample.line_color or (40, 40, 40))
+    line_lum = (line_c.r * 299 + line_c.g * 587 + line_c.b * 114) / 1000
+    legend_arrow_style = (
+        Style(line_color=Color(40, 40, 40), line_width=1.5) if line_lum > 200 else st_sample
+    )
+
     rectangle(
-        (legend_cx - 20.0, legend_y),
-        width=14.0,
+        (legend_cx - 40.0, legend_y),
+        width=13.0,
         height=4.6,
         r=0.6,
         style=st_sample,
@@ -156,19 +244,28 @@ def _render_legend(styles: BaseStyles, legend_cx: float, legend_y: float) -> Non
         textstyle=Style(text_size=7.2, text_font=Font.SANSSERIF_BOLD, text_color=legend_text_color),
     )
     text(
-        (legend_cx + 2.0, legend_y),
+        (legend_cx - 21.0, legend_y),
         "Text Style",
         style=Style(
             text_size=8.5,
             text_font=Font.SANSSERIF_BOLD,
-            text_color=Color(st_sample.text_color or (40, 40, 40)),
+            text_color=legend_txt_sample_color,
         ),
     )
     line(
-        (legend_cx + 18.0, legend_y),
-        (legend_cx + 36.0, legend_y),
+        (legend_cx - 8.0, legend_y),
+        (legend_cx + 8.0, legend_y),
         arrowhead="->",
-        style=st_sample,
+        style=legend_arrow_style,
+    )
+    text(
+        (legend_cx + 36.0, legend_y),
+        "Badges: [S]hape  [L]ine  [T]ext  [I]con",
+        style=Style(
+            text_size=7.5,
+            text_font=Font.SANSSERIF_REGULAR,
+            text_color=Color(90, 90, 90),
+        ),
     )
 
 
@@ -213,7 +310,7 @@ def _draw_swatch(
 
     st: Style = getattr(styles, key)
 
-    if "solid" in key or "dashed" in key:
+    if "outline" in key or "dashed" in key or "solid" in key:
         line_c = Color(st.line_color or (50, 50, 50))
         l_lum = (line_c.r * 299 + line_c.g * 587 + line_c.b * 114) / 1000
         text_c = line_c if l_lum < 160 else Color(40, 40, 40)
@@ -222,17 +319,19 @@ def _draw_swatch(
         f_lum = (fill_color.r * 299 + fill_color.g * 587 + fill_color.b * 114) / 1000
         text_c = Color(0, 0, 0) if f_lum > 140 else Color(255, 255, 255)
 
-    font_size = 6.4 if len(key) >= 16 else 7.2
-    t_style = Style(text_color=text_c, text_size=font_size, text_font=Font.SANSSERIF_BOLD)
     rectangle(
         (cx, cy),
         width=tile_w - 1.2,
         height=tile_h - 1.0,
         r=0.6,
         style=st,
-        text=key,
-        textstyle=t_style,
     )
+
+    badge = _format_supports_badge(st.supports)
+    badge_c = text_c.patch(alpha=0.75) if hasattr(text_c, "patch") else text_c
+    font_size = 4.2 if len(key) >= 22 else (4.8 if len(key) >= 17 else (5.6 if len(key) >= 13 else 6.4))
+    text((cx, cy + 1.1), key, style=Style(text_color=text_c, text_size=font_size, text_font=Font.SANSSERIF_BOLD))
+    text((cx, cy - 1.8), badge, style=Style(text_color=badge_c, text_size=4.8, text_font=Font.SANSSERIF_REGULAR))
 
 
 def render_styles_matrix(
@@ -246,9 +345,9 @@ def render_styles_matrix(
 ) -> Dimage:
     """Render an orthogonal visual matrix for a BaseStyles catalog page.
 
-    Displays a single reference legend at the top (Shape swatch, Text Style, Arrow line),
-    followed by an orthogonal grid where columns represent variants (standard, flat, solid,
-    dashed, bold, light) and rows represent base colors for the specified page.
+    Displays a single reference legend at the top, followed by 4 core semantic roles,
+    and then an orthogonal grid where columns represent 10 variants and rows represent
+    base colors for the specified page.
 
     Args:
         styles (BaseStyles): BaseStyles instance containing style attributes.
@@ -274,24 +373,19 @@ def render_styles_matrix(
     page_colors = base_colors[start_idx:end_idx]
 
     rows: list[tuple[str, list[str | None]]] = []
-    if page == 1 and (filter_color is None or "primary" in filter_color.lower() or "theme" in filter_color.lower()):
-        rows.append(("primary (theme)", list(_THEME_KEYS)))
+    if page == 1:
+        for role in _SEMANTIC_ROLES:
+            label = f"{role} (theme)" if role == "primary" else role
+            if filter_color is None or any(s in filter_color.lower() for s in (role, "theme", "semantic")):
+                rows.append((label, _get_row_keys(styles, role)))
 
     for b in page_colors:
-        row_keys: list[str | None] = [
-            b if hasattr(styles, b) else None,
-            f"{b}_flat" if hasattr(styles, f"{b}_flat") else None,
-            f"{b}_solid" if hasattr(styles, f"{b}_solid") else None,
-            f"{b}_dashed" if hasattr(styles, f"{b}_dashed") else None,
-            f"{b}_bold" if hasattr(styles, f"{b}_bold") else None,
-            f"{b}_light" if hasattr(styles, f"{b}_light") else None,
-        ]
-        rows.append((b, row_keys))
+        rows.append((b, _get_row_keys(styles, b)))
 
     cols = len(_COL_HEADERS)
     n_rows = len(rows)
 
-    tile_w = 22.0
+    tile_w = 20.0
     tile_h = 7.5
     margin_x = 24.0
     margin_y = 6.0
@@ -321,7 +415,7 @@ def render_styles_matrix(
         text(
             (cx, col_start_y),
             h,
-            style=Style(text_size=9.5, text_font=Font.SANSSERIF_BOLD, text_color=Color(50, 50, 50)),
+            style=Style(text_size=7.5, text_font=Font.SANSSERIF_BOLD, text_color=Color(50, 50, 50)),
         )
 
     matrix_start_y = col_start_y - 2.5

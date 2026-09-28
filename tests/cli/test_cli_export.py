@@ -91,7 +91,7 @@ styles = monochrome_styles
 from drawlib.canvas import setup
 from drawlib.styles import styles
 from drawlib.shapes import circle
-assert styles.__class__.__name__ == "MonochromeStyles"
+assert styles.__class__.__name__ in ("StylesMonochrome", "MonochromeStyles")
 setup(width=100, height=100)
 circle((50, 50), radius=20, style=styles.primary)
 ```

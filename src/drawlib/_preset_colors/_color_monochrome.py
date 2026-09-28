@@ -27,6 +27,14 @@ class MonochromeColors(BaseColors):
     Snow: Color = default_colors.Snow
     White: Color = default_colors.White
 
+    # Semantic Colors
+    Primary: Color = default_colors.White
+    Secondary: Color = default_colors.Gray
+    Accent: Color = default_colors.Black
+    Muted: Color = default_colors.Snow
+    Danger: Color | None = None
+    Success: Color | None = None
+
 
 monochrome_colors: MonochromeColors = MonochromeColors()
 

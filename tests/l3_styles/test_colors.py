@@ -103,6 +103,9 @@ class TestColors:
         for inst in instances:
             for field_name in inst.__class__.model_fields:
                 val = getattr(inst, field_name)
+                if val is None:
+                    assert isinstance(inst, MonochromeColors) and field_name in {"Danger", "Success"}
+                    continue
                 assert isinstance(val, Color)
                 assert len(val) in {3, 4}
                 for item in val[:3]:
@@ -111,3 +114,51 @@ class TestColors:
                 if len(val) == 4:
                     assert isinstance(val[3], float)
                     assert 0.0 <= val[3] <= 1.0
+
+    def test_semantic_colors(self) -> None:
+        """Test that all color instances define Primary, Secondary, Accent, Muted, and optional Danger, Success."""
+        instances: list[BaseColors] = [
+            Colors,
+            Colors140,
+            default_colors,
+            google_colors,
+            monochrome_colors,
+        ]
+        for inst in instances:
+            for sem in ("Primary", "Secondary", "Accent", "Muted"):
+                val = getattr(inst, sem)
+                assert isinstance(val, Color)
+                # Lowercase property access
+                lower_val = getattr(inst, sem.lower())
+                assert lower_val == val
+                # Dictionary item access (both cases)
+                assert inst[sem] == val
+                assert inst[sem.lower()] == val
+
+        # Danger and Success on color palettes (excluding Monochrome)
+        chromatic_instances: list[BaseColors] = [
+            Colors,
+            Colors140,
+            default_colors,
+            google_colors,
+        ]
+        for inst in chromatic_instances:
+            for sem in ("Danger", "Success"):
+                val = getattr(inst, sem)
+                assert isinstance(val, Color)
+                lower_val = getattr(inst, sem.lower())
+                assert lower_val == val
+                assert inst[sem] == val
+                assert inst[sem.lower()] == val
+
+        # Monochrome intentionally leaves Danger and Success as None
+        assert monochrome_colors.Danger is None
+        assert monochrome_colors.Success is None
+        with pytest.raises(AttributeError):
+            _ = monochrome_colors.danger
+        with pytest.raises(AttributeError):
+            _ = monochrome_colors.success
+        with pytest.raises(KeyError):
+            _ = monochrome_colors["Danger"]
+        with pytest.raises(KeyError):
+            _ = monochrome_colors["danger"]

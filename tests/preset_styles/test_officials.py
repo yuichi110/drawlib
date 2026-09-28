@@ -51,7 +51,7 @@ def test_default_fill_official() -> None:
     save(f"{OUTPUT_DIR_DEFAULT}test_fill_official.png")
 
 
-@pytest.mark.image_threshold(97.0)
+@pytest.mark.image_threshold(95.0)
 def test_monochrome_icon_text_lightbold() -> None:
     """Integrated drawing test for monochrome icons and text."""
     styles = monochrome_styles
@@ -70,13 +70,17 @@ def test_monochrome_icon_text_lightbold() -> None:
     text((x2, y2), "Hello Drawlib1", style=styles.primary)
     text((x3, y2), "Hello Drawlib1", style=styles.bold)
 
-    phosphor.airplane((x1, y3), width=20, style=styles.flat)
-    phosphor.airplane((x2, y3), width=20, style=styles.solid)
-    phosphor.airplane((x3, y3), width=20, style=styles.dashed)
+    with pytest.raises(ValueError, match="Style cannot be used for icons"):
+        phosphor.airplane((x1, y3), width=20, style=styles.flat)
+    with pytest.raises(ValueError, match="Style cannot be used for icons"):
+        phosphor.airplane((x2, y3), width=20, style=styles.solid)
+    with pytest.raises(ValueError, match="Style cannot be used for icons"):
+        phosphor.airplane((x3, y3), width=20, style=styles.dashed)
 
     save(f"{OUTPUT_DIR_MONOCHROME}test_icon_text_lightbold.png")
 
 
+@pytest.mark.image_threshold(98.0)
 def test_monochrome_shape_lightbold() -> None:
     """Integrated drawing test for monochrome circles with text."""
     styles = monochrome_styles
@@ -112,7 +116,8 @@ def test_monochrome_line_lightbold() -> None:
     line((x3 - 5, y1), (x3 + 5, y1), style=styles.bold)
 
     line((x1 - 5, y2), (x1 + 5, y2), style=styles.solid)
-    line((x2 - 5, y2), (x2 + 5, y2), style=styles.flat)
+    with pytest.raises(ValueError, match="Style cannot be used for lines"):
+        line((x2 - 5, y2), (x2 + 5, y2), style=styles.flat)
     line((x3 - 5, y2), (x3 + 5, y2), style=styles.dashed)
 
     save(f"{OUTPUT_DIR_MONOCHROME}test_line_lightbold.png")

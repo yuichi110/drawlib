@@ -265,10 +265,7 @@ class CanvasBase:
 
         if not text:
             return
-        effective_textstyle = textstyle if textstyle is not None else style
-        if textsize is not None:
-            effective_textstyle = effective_textstyle.patch(text_size=textsize)
-        TextUtil.validate_text_style(effective_textstyle)
+        effective_textstyle = ShapeUtil.resolve_embedded_text_style(style, textstyle, textsize)
         center, (_, _) = get_center_and_size(xys)
         self._artists.append(
             ShapeUtil.get_shape_text(
@@ -420,10 +417,7 @@ class CanvasBase:
         # create Text
 
         if text:
-            effective_textstyle = textstyle if textstyle is not None else style
-            if textsize is not None:
-                effective_textstyle = effective_textstyle.patch(text_size=textsize)
-            TextUtil.validate_text_style(effective_textstyle)
+            effective_textstyle = ShapeUtil.resolve_embedded_text_style(style, textstyle, textsize)
             self._artists.append(
                 ShapeUtil.get_shape_text(
                     xy=(cx, cy),

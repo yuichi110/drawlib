@@ -37,13 +37,99 @@ class BaseStyles(BaseModel):
     background_color: ColorType = (255, 255, 255, 1.0)
     sourcecode_font: FontSourceCode = FontSourceCode.SOURCECODEPRO
 
-    # Core semantic roles required across all preset catalogs
+    # 4 Core semantic roles required across all preset catalogs (10 variants each)
     primary: Style
-    light: Style
-    bold: Style
-    flat: Style
-    solid: Style
-    dashed: Style
+    primary_bordered: Style
+    primary_bold: Style
+    primary_light: Style
+    primary_flat: Style
+    primary_outline: Style
+    primary_outline_bold: Style
+    primary_outline_light: Style
+    primary_dashed: Style
+    primary_dashed_bold: Style
+    primary_dashed_light: Style
+
+    secondary: Style
+    secondary_bordered: Style
+    secondary_bold: Style
+    secondary_light: Style
+    secondary_flat: Style
+    secondary_outline: Style
+    secondary_outline_bold: Style
+    secondary_outline_light: Style
+    secondary_dashed: Style
+    secondary_dashed_bold: Style
+    secondary_dashed_light: Style
+
+    accent: Style
+    accent_bordered: Style
+    accent_bold: Style
+    accent_light: Style
+    accent_flat: Style
+    accent_outline: Style
+    accent_outline_bold: Style
+    accent_outline_light: Style
+    accent_dashed: Style
+    accent_dashed_bold: Style
+    accent_dashed_light: Style
+
+    muted: Style
+    muted_bordered: Style
+    muted_bold: Style
+    muted_light: Style
+    muted_flat: Style
+    muted_outline: Style
+    muted_outline_bold: Style
+    muted_outline_light: Style
+    muted_dashed: Style
+    muted_dashed_bold: Style
+    muted_dashed_light: Style
+
+    @property
+    def light(self) -> Style:
+        """Backwards compatibility alias for primary_light."""
+        return self.primary_light
+
+    @property
+    def bold(self) -> Style:
+        """Backwards compatibility alias for primary_bold."""
+        return self.primary_bold
+
+    @property
+    def flat(self) -> Style:
+        """Backwards compatibility alias for primary_flat."""
+        return self.primary_flat
+
+    @property
+    def solid(self) -> Style:
+        """Backwards compatibility alias for primary_outline."""
+        return self.primary_outline
+
+    @property
+    def dashed(self) -> Style:
+        """Backwards compatibility alias for primary_dashed."""
+        return self.primary_dashed
+
+    @property
+    def primary_solid(self) -> Style:
+        """Backwards compatibility alias for primary_outline."""
+        return self.primary_outline
+
+    @property
+    def secondary_solid(self) -> Style:
+        """Backwards compatibility alias for secondary_outline."""
+        return self.secondary_outline
+
+    @property
+    def accent_solid(self) -> Style:
+        """Backwards compatibility alias for accent_outline."""
+        return self.accent_outline
+
+    @property
+    def muted_solid(self) -> Style:
+        """Backwards compatibility alias for muted_outline."""
+        return self.muted_outline
 
     def __iter__(self) -> Generator[tuple[str, Any], None, None]:
         """Yield (field_name, field_value) pairs for all fields in the preset style model.

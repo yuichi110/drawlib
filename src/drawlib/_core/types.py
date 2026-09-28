@@ -44,11 +44,14 @@ from drawlib._core.l2_types import (
     VAlign,
 )
 from drawlib._core.l3_styles import (
+    ALL_SUPPORTS,
     BaseColors,
     Style,
+    SupportType,
 )
 
 __all__ = [
+    "ALL_SUPPORTS",
     "Alpha",
     "Angle",
     "Angle90",
@@ -81,6 +84,7 @@ __all__ = [
     "PosInt",
     "Size",
     "Style",
+    "SupportType",
     "TailEdge",
     "VAlign",
 ]

@@ -14,6 +14,8 @@ from typing import Any
 
 from matplotlib.text import Text
 
+from drawlib._core.l2_types import Size
+from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas_utils._colors import ColorUtil
 from drawlib._core.l4_canvas_utils._text import TextUtil
@@ -35,8 +37,10 @@ class ShapeUtil:
             style: The Style instance to validate.
 
         Raises:
-            ValueError: If any required shape property is None.
+            ValueError: If style does not support shapes or any required shape property is None.
         """
+        if "shape" not in style.supports:
+            raise ValueError(f"Style cannot be used for shapes. Declared supports: {set(style.supports)}.")
         missing: list[str] = []
         if style.shape_fill_color is None:
             missing.append("shape_fill_color")
@@ -49,6 +53,72 @@ class ShapeUtil:
             raise ValueError(
                 f"Shape drawing requires attributes {missing}, but they are None in the provided Style."
             )
+
+    @staticmethod
+    def resolve_embedded_text_style(
+        shape_style: Style,
+        textstyle: Style | None = None,
+        textsize: Size | None = None,
+    ) -> Style:
+        """Resolve effective text style for embedded text in shapes with automatic contrast.
+
+        Args:
+            shape_style: The container shape's Style instance.
+            textstyle: Optional explicit textstyle provided by the caller.
+            textsize: Optional font size override.
+
+        Returns:
+            Style: Validated, complete text style for drawing embedded text.
+        """
+        if textstyle is not None:
+            if not isinstance(textstyle, Style):
+                raise TypeError(f'Arg "textstyle" must be Style, but {type(textstyle)} given.')
+            effective = textstyle
+            if textsize is not None:
+                effective = effective.patch(text_size=textsize)
+            TextUtil.validate_text_style(effective)
+            return effective
+
+        # Automatic contrast resolution
+        fill_color = shape_style.shape_fill_color
+        fill_alpha = shape_style.shape_fill_alpha
+
+        if fill_color is None:
+            is_transparent = True
+            fill_rgba = (0.0, 0.0, 0.0, 0.0)
+        else:
+            fill_rgba = ColorUtil.get_mplot_rgba(fill_color, fill_alpha)
+            is_transparent = fill_rgba[3] < 0.3 or fill_rgba == (0.0, 0.0, 0.0, 0.0)
+
+        if is_transparent:
+            if shape_style.shape_line_color is not None:
+                text_col = shape_style.shape_line_color
+            else:
+                text_col = (40, 40, 40, 1.0)
+        else:
+            luminance = 0.299 * fill_rgba[0] + 0.587 * fill_rgba[1] + 0.114 * fill_rgba[2]
+            if luminance > 0.6:
+                text_col = (40, 40, 40, 1.0)
+            else:
+                text_col = (255, 255, 255, 1.0)
+
+        size = (
+            textsize
+            if textsize is not None
+            else (shape_style.text_size if shape_style.text_size is not None else 16)
+        )
+        font = shape_style.text_font if shape_style.text_font is not None else Font.SANSSERIF_REGULAR
+        halign = shape_style.text_halign if shape_style.text_halign is not None else "center"
+        valign = shape_style.text_valign if shape_style.text_valign is not None else "center"
+
+        return Style(
+            supports={"text"},
+            text_color=text_col,
+            text_size=size,
+            text_font=font,
+            text_halign=halign,
+            text_valign=valign,
+        )
 
     @staticmethod
     def format_styles(

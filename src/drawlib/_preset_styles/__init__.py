@@ -14,14 +14,17 @@ from drawlib._preset_styles._base import (
 )
 from drawlib._preset_styles._style_default import (
     DefaultStyles,
+    StylesDefault,
     default_styles,
 )
 from drawlib._preset_styles._style_google import (
     GoogleStyles,
+    StylesGoogle,
     google_styles,
 )
 from drawlib._preset_styles._style_monochrome import (
     MonochromeStyles,
+    StylesMonochrome,
     monochrome_styles,
 )
 
@@ -30,6 +33,9 @@ __all__ = [
     "DefaultStyles",
     "GoogleStyles",
     "MonochromeStyles",
+    "StylesDefault",
+    "StylesGoogle",
+    "StylesMonochrome",
     "default_styles",
     "google_styles",
     "monochrome_styles",

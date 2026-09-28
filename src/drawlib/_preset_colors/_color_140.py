@@ -160,6 +160,14 @@ class Colors140Model(BaseColors):
     Yellow: Color = Color(255, 255, 0)
     YellowGreen: Color = Color(154, 205, 50)
 
+    # Semantic Colors
+    Primary: Color = Color(30, 144, 255)
+    Secondary: Color = Color(32, 178, 170)
+    Accent: Color = Color(255, 69, 0)
+    Muted: Color = Color(245, 245, 245)
+    Danger: Color = Red
+    Success: Color = Green
+
 
 Colors140: Colors140Model = Colors140Model()
 colors_140: Colors140Model = Colors140

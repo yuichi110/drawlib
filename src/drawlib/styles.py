@@ -31,18 +31,24 @@ from drawlib.preset_styles import (
     DefaultStyles,
     GoogleStyles,
     MonochromeStyles,
+    StylesDefault,
+    StylesGoogle,
+    StylesMonochrome,
     default_styles,
 )
 
 # Active styles (default: default_styles)
-styles: DefaultStyles = default_styles
+styles: StylesDefault = default_styles
 
 # Active colors matching the active theme (default: default_colors)
 colors: DefaultColors = default_colors
 
 _STYLE_TO_COLOR_MAP: dict[type[BaseStyles], BaseColors] = {
+    StylesDefault: default_colors,
     DefaultStyles: default_colors,
+    StylesGoogle: google_colors,
     GoogleStyles: google_colors,
+    StylesMonochrome: monochrome_colors,
     MonochromeStyles: monochrome_colors,
 }
 

@@ -49,6 +49,61 @@ class TestPresetStylesUnit:
         assert isinstance(styles.solid, Style)
         assert isinstance(styles.dashed, Style)
 
+    def test_semantic_roles_10_variants(self) -> None:
+        """Verifies 4 core semantic roles provide all 10 orthogonal variants with proper supports."""
+        roles = ["primary", "secondary", "accent", "muted"]
+        presets = [default_styles, monochrome_styles]
+        for st in presets:
+            for role in roles:
+                bordered = getattr(st, role)
+                assert getattr(st, f"{role}_bordered") == bordered
+                assert bordered.supports == frozenset({"shape", "line", "text", "icon"})
+
+                bold = getattr(st, f"{role}_bold")
+                assert bold.supports == frozenset({"shape", "line", "text", "icon"})
+
+                light = getattr(st, f"{role}_light")
+                assert light.supports == frozenset({"shape", "line", "text", "icon"})
+
+                flat = getattr(st, f"{role}_flat")
+                assert flat.supports == frozenset({"shape"})
+
+                outline = getattr(st, f"{role}_outline")
+                assert outline.supports == frozenset({"shape", "line"})
+
+                outline_bold = getattr(st, f"{role}_outline_bold")
+                assert outline_bold.supports == frozenset({"shape", "line"})
+
+                outline_light = getattr(st, f"{role}_outline_light")
+                assert outline_light.supports == frozenset({"shape", "line"})
+
+                dashed = getattr(st, f"{role}_dashed")
+                assert dashed.supports == frozenset({"shape", "line"})
+
+                dashed_bold = getattr(st, f"{role}_dashed_bold")
+                assert dashed_bold.supports == frozenset({"shape", "line"})
+
+                dashed_light = getattr(st, f"{role}_dashed_light")
+                assert dashed_light.supports == frozenset({"shape", "line"})
+
+    def test_palette_colors_10_variants(self) -> None:
+        """Verifies palette colors provide 10 variants with accurate supports declaration."""
+        colors = ["red", "blue", "green", "white", "black"]
+        for c in colors:
+            normal = getattr(default_styles, c)
+            assert getattr(default_styles, f"{c}_bordered") == normal
+            assert normal.supports == frozenset({"shape", "line", "text", "icon"})
+
+            flat = getattr(default_styles, f"{c}_flat")
+            assert flat.supports == frozenset({"shape"})
+
+            outline = getattr(default_styles, f"{c}_outline")
+            assert outline.supports == frozenset({"shape", "line"})
+            assert getattr(default_styles, f"{c}_solid") == outline
+
+            dashed = getattr(default_styles, f"{c}_dashed")
+            assert dashed.supports == frozenset({"shape", "line"})
+
     def test_preset_styles_immutability(self) -> None:
         """Verifies that preset style singletons are frozen and immutable."""
         with pytest.raises(Exception):

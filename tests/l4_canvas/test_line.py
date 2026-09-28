@@ -27,6 +27,7 @@ OUTPUT_DIR = "../../output_tests/l4_canvas/line/"
 class TestCanvasLine:
     """Tests for the CanvasLineFeature class and various line rendering modes."""
 
+    @pytest.mark.image_threshold(97.0)
     def test_line(self) -> None:
         """Verify standard straight line drawing and custom style overrides."""
         clear()

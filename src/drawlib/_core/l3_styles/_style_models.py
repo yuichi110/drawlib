@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, ValidationError
 
@@ -29,9 +29,45 @@ from drawlib._core.l2_types import (
     VAlign,
 )
 
+SupportType = Literal["shape", "line", "text", "icon", "image"]
+ALL_SUPPORTS: frozenset[SupportType] = frozenset({"shape", "line", "text", "icon", "image"})
+
+
+def _infer_supports(data: dict[str, Any]) -> frozenset[SupportType]:
+    """Infer supported targets based on populated attributes in data.
+
+    Only targets whose mandatory attributes are all provided will be included.
+
+    Args:
+        data: Attribute dictionary for Style.
+
+    Returns:
+        frozenset[SupportType]: Inferred set of supported targets.
+    """
+    supports: set[SupportType] = set()
+    if (
+        data.get("shape_fill_color") is not None
+        and data.get("shape_line_color") is not None
+        and data.get("shape_line_width") is not None
+    ):
+        supports.add("shape")
+    if data.get("line_color") is not None and data.get("line_width") is not None:
+        supports.add("line")
+    if (
+        data.get("text_color") is not None
+        and data.get("text_size") is not None
+        and data.get("text_font") is not None
+    ):
+        supports.add("text")
+    if data.get("icon_color") is not None:
+        supports.add("icon")
+    if any(k.startswith("image_") and data.get(k) is not None for k in data):
+        supports.add("image")
+    return frozenset(supports)
+
 
 class Style(BaseModel):
-    """Immutable universal style model for drawlib."""
+    """Immutable universal style model with explicit target support declaration."""
 
     model_config = ConfigDict(
         frozen=True,
@@ -39,11 +75,65 @@ class Style(BaseModel):
         validate_assignment=True,
     )
 
+    # --- Target Declaration ---
+    supports: frozenset[SupportType] = frozenset()
+
     def __init__(self, **data: Any) -> None:  # noqa: ANN401
+        if "supports" not in data or data["supports"] is None:
+            data["supports"] = _infer_supports(data)
+        elif not isinstance(data["supports"], frozenset):
+            data["supports"] = frozenset(data["supports"])
         try:
             super().__init__(**data)
         except ValidationError as e:
             raise ValueError(str(e)) from e
+
+        self._validate_invariants()
+
+    def _validate_invariants(self) -> None:
+        """Validate that all targets declared in supports have required attributes populated.
+
+        Raises:
+            ValueError: If a declared target lacks mandatory attributes.
+        """
+        if "shape" in self.supports:
+            missing = [
+                k
+                for k in ("shape_fill_color", "shape_line_color", "shape_line_width")
+                if getattr(self, k) is None
+            ]
+            if missing:
+                raise ValueError(
+                    f"Style declares 'shape' support, but required attributes {missing} are None."
+                )
+
+        if "line" in self.supports:
+            missing = [
+                k
+                for k in ("line_color", "line_width")
+                if getattr(self, k) is None
+            ]
+            if missing:
+                raise ValueError(
+                    f"Style declares 'line' support, but required attributes {missing} are None."
+                )
+
+        if "text" in self.supports:
+            missing = [
+                k
+                for k in ("text_color", "text_size", "text_font")
+                if getattr(self, k) is None
+            ]
+            if missing:
+                raise ValueError(
+                    f"Style declares 'text' support, but required attributes {missing} are None."
+                )
+
+        if "icon" in self.supports:
+            if self.icon_color is None:
+                raise ValueError(
+                    "Style declares 'icon' support, but required attribute 'icon_color' is None."
+                )
 
     # --- Shape Properties (rectangle, circle, polygon, etc.) ---
     shape_fill_color: ColorType | None = None
@@ -91,6 +181,7 @@ class Style(BaseModel):
         self,
         other: Style | None = None,
         *,
+        supports: frozenset[SupportType] | set[SupportType] | list[SupportType] | None = None,
         # Shape Properties
         shape_fill_color: ColorType | None = None,
         shape_fill_alpha: Alpha | None = None,
@@ -133,6 +224,7 @@ class Style(BaseModel):
 
         Args:
             other: Another Style whose non-None attributes will be applied first.
+            supports: Supported target declaration (shape, line, text, icon, image).
             shape_fill_color: Fill color for shapes.
             shape_fill_alpha: Alpha transparency for shape fill.
             shape_line_color: Border line color for shapes.
@@ -180,4 +272,22 @@ class Style(BaseModel):
             }
         )
         merged = {**self.__dict__, **updates}
-        return Style.model_validate(merged)
+        if supports is not None:
+            merged["supports"] = frozenset(supports)
+        else:
+            inferred = _infer_supports(merged)
+            combined = set(self.supports)
+            if other is not None and other.supports:
+                combined.update(other.supports)
+            if combined & inferred:
+                merged["supports"] = frozenset(combined & inferred)
+            else:
+                merged["supports"] = inferred
+        return Style(**merged)
+
+
+__all__ = [
+    "ALL_SUPPORTS",
+    "Style",
+    "SupportType",
+]

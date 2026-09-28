@@ -34,13 +34,63 @@ class TestShapeUtil:
         assert s == shape_s
         assert t is None
 
-        # 3. Missing required shape properties raises ValueError
-        with pytest.raises(ValueError, match="Shape drawing requires attributes"):
+        # 3. Unsupported shape style raises ValueError
+        with pytest.raises(ValueError, match="Style cannot be used for shapes"):
             ShapeUtil.format_styles(Style(shape_fill_color=(255, 0, 0)))
+
+        with pytest.raises(ValueError, match="Shape drawing requires attributes"):
+            ShapeUtil.validate_shape_style(
+                Style.model_construct(
+                    supports=frozenset({"shape"}),
+                    shape_fill_color=None,
+                    shape_line_color=None,
+                    shape_line_width=None,
+                )
+            )
 
         # 4. Invalid types raise TypeError
         with pytest.raises(TypeError):
             ShapeUtil.format_styles("primary")  # type: ignore
+
+    def test_resolve_embedded_text_style(self) -> None:
+        """Verifies resolve_embedded_text_style contrast resolution and overrides."""
+        # 1. Light shape fill -> dark text
+        light_style = Style(
+            supports={"shape"},
+            shape_fill_color=(240, 240, 240),
+            shape_line_color=(0, 0, 0),
+            shape_line_width=1.0,
+        )
+        resolved_light = ShapeUtil.resolve_embedded_text_style(light_style)
+        assert resolved_light.supports == frozenset({"text"})
+        assert resolved_light.text_color == (40, 40, 40, 1.0)
+
+        # 2. Dark shape fill -> white text
+        dark_style = Style(
+            supports={"shape"},
+            shape_fill_color=(20, 20, 50),
+            shape_line_color=(0, 0, 0),
+            shape_line_width=1.0,
+        )
+        resolved_dark = ShapeUtil.resolve_embedded_text_style(dark_style)
+        assert resolved_dark.supports == frozenset({"text"})
+        assert resolved_dark.text_color == (255, 255, 255, 1.0)
+
+        # 3. Transparent shape -> border color
+        trans_style = Style(
+            supports={"shape"},
+            shape_fill_color=(0, 0, 0, 0.0),
+            shape_line_color=(255, 0, 0),
+            shape_line_width=1.0,
+        )
+        resolved_trans = ShapeUtil.resolve_embedded_text_style(trans_style)
+        assert resolved_trans.text_color == (255, 0, 0)
+
+        # 4. Explicit textstyle override
+        explicit_text = Style(text_color=(0, 255, 0), text_size=20, text_font=Font.SANSSERIF_BOLD)
+        resolved_explicit = ShapeUtil.resolve_embedded_text_style(dark_style, textstyle=explicit_text)
+        assert resolved_explicit.text_color == (0, 255, 0)
+        assert resolved_explicit.text_size == 20
 
     def test_apply_alignment(self) -> None:
         """Verifies alignment shifting logic for all horizontal and vertical alignment settings."""

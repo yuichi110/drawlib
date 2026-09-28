@@ -27,8 +27,10 @@ class IconUtil:
             style: The Style instance to validate.
 
         Raises:
-            ValueError: If icon_color is None.
+            ValueError: If style does not support icons or icon_color is None.
         """
+        if "icon" not in style.supports:
+            raise ValueError(f"Style cannot be used for icons. Declared supports: {set(style.supports)}.")
         if style.icon_color is None:
             raise ValueError("Icon drawing requires attribute 'icon_color', but it is None in the provided Style.")
 
