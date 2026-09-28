@@ -67,7 +67,7 @@ class TestPresetStylesUnit:
                 assert light.supports == frozenset({"shape", "line", "text", "icon"})
 
                 flat = getattr(st, f"{role}_flat")
-                assert flat.supports == frozenset({"shape"})
+                assert flat.supports == frozenset({"shape", "icon"})
 
                 outline = getattr(st, f"{role}_outline")
                 assert outline.supports == frozenset({"shape", "line"})
@@ -96,7 +96,7 @@ class TestPresetStylesUnit:
             assert normal.supports == frozenset({"shape", "line", "text", "icon"})
 
             flat = getattr(default_styles, f"{c}_flat")
-            assert flat.supports == frozenset({"shape"})
+            assert flat.supports == frozenset({"shape", "icon"})
 
             outline = getattr(default_styles, f"{c}_outline")
             assert outline.supports == frozenset({"shape", "line"})
@@ -124,7 +124,7 @@ class TestPresetStylesUnit:
 
                 flat = getattr(st, f"{role}_flat")
                 assert isinstance(flat, Style)
-                assert flat.supports == frozenset({"shape"})
+                assert flat.supports == frozenset({"shape", "icon"})
 
                 outline = getattr(st, f"{role}_outline")
                 assert isinstance(outline, Style)

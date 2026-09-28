@@ -205,11 +205,13 @@ def _create_monochrome_styles() -> StylesMonochrome:
         line_color=black,
     )
     p_v["flat"] = Style(
-        supports={"shape"},
+        supports={"shape", "icon"},
         shape_fill_color=black,
         shape_line_color=Colors.Transparent,
         shape_line_width=0.0,
         shape_line_style="solid",
+        icon_color=black,
+        icon_style="regular",
     )
 
     s_v = _make_variants(

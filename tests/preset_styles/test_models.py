@@ -99,14 +99,14 @@ class TestPresetStyles:
         # Verify Google palette colors & variants
         assert isinstance(preset.cornflower_blue, Style)
         assert isinstance(preset.cornflower_blue_flat, Style)
-        assert isinstance(preset.light_blue_3, Style)
-        assert isinstance(preset.light_blue_3_flat, Style)
-        assert isinstance(preset.dark_green_2, Style)
+        assert isinstance(preset.blue1, Style)
+        assert isinstance(preset.blue1_flat, Style)
+        assert isinstance(preset.green5, Style)
         assert isinstance(preset.red_berry, Style)
-        assert isinstance(preset.dark_gray_4, Style)
-        assert isinstance(preset.dark_grey_4, Style)
-        assert isinstance(preset.light_blue, Style)
-        assert isinstance(preset.dark_blue, Style)
+        assert isinstance(preset.gray8, Style)
+        assert isinstance(preset.google_blue, Style)
+        assert isinstance(preset.teal, Style)
+        assert isinstance(preset.cornflower_blue3, Style)
 
     def test_iteration_and_dict_access(self) -> None:
         """Verifies iteration, dictionary access, and styles helper on preset style models."""

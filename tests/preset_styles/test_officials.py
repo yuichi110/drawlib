@@ -71,8 +71,6 @@ def test_monochrome_icon_text_lightbold() -> None:
     text((x3, y2), "Hello Drawlib1", style=styles.bold)
 
     with pytest.raises(ValueError, match="Style cannot be used for icons"):
-        phosphor.airplane((x1, y3), width=20, style=styles.flat)
-    with pytest.raises(ValueError, match="Style cannot be used for icons"):
         phosphor.airplane((x2, y3), width=20, style=styles.solid)
     with pytest.raises(ValueError, match="Style cannot be used for icons"):
         phosphor.airplane((x3, y3), width=20, style=styles.dashed)
