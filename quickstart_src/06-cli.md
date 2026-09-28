@@ -40,7 +40,7 @@ rectangle(
     width=28,
     height=24,
     r=2,
-    style=styles.primary_light,
+    style=styles.primary_outline,
 )
 text(xy=(20, 26), text="Markdown + drawlib", style=styles.primary_bold, size=10)
 text(xy=(20, 19), text="(docs_src/)", style=styles.primary, size=9)
@@ -51,7 +51,7 @@ rectangle(
     width=24,
     height=20,
     r=2,
-    style=styles.secondary_light,
+    style=styles.secondary_outline,
 )
 text(xy=(56, 23), text="drawlib build", style=styles.secondary_bold, size=10)
 
@@ -59,9 +59,9 @@ line((34, 23), (44, 23), arrowhead="->", style=styles.primary_bold)
 
 # Outputs
 outputs = [
-    (36, "docs/ (Markdown)", styles.accent_light),
-    (23, "docs_html/ (Web)", styles.success_light),
-    (10, "quickstart.pdf (PDF)", styles.primary_light),
+    (36, "docs/ (Markdown)", styles.accent),
+    (23, "docs_html/ (Web)", styles.success),
+    (10, "quickstart.pdf (PDF)", styles.primary),
 ]
 for y_pos, label, st in outputs:
     line((68, 23), (78, y_pos), arrowhead="->", style=styles.secondary_bold)
@@ -71,6 +71,7 @@ for y_pos, label, st in outputs:
         height=9,
         r=1.5,
         style=st,
+        text=label,
+        textstyle=styles.white_bold,
     )
-    text(xy=(93, y_pos), text=label, style=styles.primary_bold, size=9)
 ```

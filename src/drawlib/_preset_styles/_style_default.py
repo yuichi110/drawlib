@@ -504,7 +504,15 @@ def _create_default_styles() -> StylesDefault:
 
     for role_name, color in semantic_map.items():
         if color is not None:
-            v = _make_variants(color)
+            if role_name == "muted":
+                v = _make_variants(
+                    color,
+                    border_color=default_colors.Charcoal,
+                    default_text_color=default_colors.Graphite,
+                    line_color=default_colors.Graphite,
+                )
+            else:
+                v = _make_variants(color)
             styles_dict[role_name] = v["normal"]
             styles_dict[f"{role_name}_bordered"] = v["bordered"]
             styles_dict[f"{role_name}_bold"] = v["bold"]

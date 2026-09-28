@@ -40,7 +40,8 @@ setup(width=100, height=50)
 circle(
     xy=(50, 25),
     radius=18,
-    style=styles.primary_light,
+    style=styles.primary,
+    text="Hello drawlib!",
+    textstyle=styles.white_bold,
 )
-text(xy=(50, 25), text="Hello drawlib!", style=styles.primary_bold, size=14)
 ```

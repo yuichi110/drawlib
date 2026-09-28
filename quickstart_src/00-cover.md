@@ -20,7 +20,7 @@ rectangle(
     width=30,
     height=32,
     r=3,
-    style=styles.primary_light,
+    style=styles.primary_outline,
 )
 phosphor.code(xy=(22, 31), width=10, style=styles.primary)
 text(xy=(22, 16), text="Python Code", style=styles.primary_bold, size=12)
@@ -32,7 +32,7 @@ line((39, 25), (49, 25), arrowhead="->", style=styles.primary_bold)
 circle(
     xy=(62, 25),
     radius=14,
-    style=styles.secondary_light,
+    style=styles.secondary_outline,
 )
 text(xy=(62, 27), text="drawlib", style=styles.secondary_bold, size=14)
 text(xy=(62, 21), text="Engine", style=styles.secondary, size=10)
@@ -46,7 +46,7 @@ rectangle(
     width=26,
     height=32,
     r=3,
-    style=styles.accent_light,
+    style=styles.accent_outline,
 )
 gcp.cloud_run(xy=(102, 31), width=10, style=styles.accent)
 text(xy=(102, 16), text="PNG / HTML / PDF", style=styles.accent_bold, size=10)

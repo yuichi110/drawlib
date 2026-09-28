@@ -921,7 +921,15 @@ def _create_google_styles() -> StylesGoogle:
 
     for role_name, color in semantic_map.items():
         if color is not None:
-            v = _make_variants(color)
+            if role_name == "muted":
+                v = _make_variants(
+                    color,
+                    border_color=google_colors.DarkGray4,
+                    default_text_color=google_colors.DarkGray3,
+                    line_color=google_colors.DarkGray3,
+                )
+            else:
+                v = _make_variants(color)
             styles[role_name] = v["normal"]
             styles[f"{role_name}_bordered"] = v["bordered"]
             styles[f"{role_name}_bold"] = v["bold"]
