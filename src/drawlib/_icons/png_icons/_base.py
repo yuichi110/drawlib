@@ -13,6 +13,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from pydantic import validate_call
+
 from drawlib._core.images import image
 from drawlib._core.types import Angle, Coordinate, PosFloat, Style
 from drawlib._release_assets import RELEASE_ASSET_PACKAGES, ReleaseAssetPackage, ensure_asset_available
@@ -75,6 +77,7 @@ class PngIconProvider:
 
         return str(icon_path.resolve())
 
+    @validate_call
     def write(
         self,
         xy: Coordinate,

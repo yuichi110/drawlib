@@ -14,6 +14,8 @@ from __future__ import annotations
 import os
 from urllib.parse import urljoin
 
+from pydantic import validate_call
+
 import drawlib._assets
 from drawlib import ASSET_VERSION
 from drawlib._core.fonts import FontMetadata, FontResource
@@ -78,6 +80,7 @@ class FontIconProvider:
             md5=resource.md5,
         )
 
+    @validate_call
     def write(
         self,
         xy: Coordinate,

@@ -39,23 +39,15 @@ GCP_HEAD = '''# Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
 
 from __future__ import annotations
 
-from pydantic import validate_call
-from drawlib._core.l2_types import (
-    TypeAngle,
-    TypeCoordinate,
-    TypePosFloat,
-    TypeStr,
-)
-from drawlib._core.l3_styles import Style
+from drawlib._core.types import Angle, Coordinate, PosFloat, Style
 from drawlib._icons.png_icons.gcp._base import _write
 '''
 
 GCP_FUNCTION_TEMPLATE = '''
-@validate_call
 def {function_name}(
-    xy: TypeCoordinate,
-    width: TypePosFloat,
-    angle: TypeAngle = 0.0,
+    xy: Coordinate,
+    width: PosFloat,
+    angle: Angle = 0.0,
     *,
     style: Style,
 ) -> None:
