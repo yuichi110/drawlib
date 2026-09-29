@@ -159,3 +159,50 @@ def test_cli_show_rules_fallback() -> None:
     res_tools = run_drawlib_cli(["show", "tools"])
     assert res_tools.returncode == 0
     assert "# Drawlib Tools Guidelines" in res_tools.stdout
+
+
+@pytest.mark.parametrize(
+    "cmd_args",
+    [
+        ["--help"],
+        ["init", "--help"],
+        ["serve", "--help"],
+        ["show", "--help"],
+        ["build", "--help"],
+        ["build", "image", "--help"],
+        ["build", "markdown", "--help"],
+        ["build", "html", "--help"],
+        ["build", "pdf", "--help"],
+        ["cache", "--help"],
+        ["cache", "clear", "--help"],
+        ["cache", "list", "--help"],
+        ["cache", "download", "--help"],
+        ["colors", "--help"],
+        ["colors", "list", "--help"],
+        ["colors", "show", "--help"],
+        ["css", "--help"],
+        ["css", "export", "--help"],
+        ["css", "html", "--help"],
+        ["css", "html", "list", "--help"],
+        ["css", "html", "export", "--help"],
+        ["css", "pdf", "--help"],
+        ["css", "pdf", "list", "--help"],
+        ["css", "pdf", "export", "--help"],
+        ["rules", "--help"],
+        ["rules", "show", "--help"],
+        ["rules", "build", "--help"],
+        ["rules", "clean", "--help"],
+        ["rules", "list", "--help"],
+        ["styles", "--help"],
+        ["styles", "list", "--help"],
+        ["styles", "show", "--help"],
+    ],
+)
+def test_cli_help_shows_ai_instructions(cmd_args: list[str]) -> None:
+    """Test that all CLI commands display the AI Instructions epilog in their help text."""
+    res = run_drawlib_cli(cmd_args)
+    assert res.returncode == 0
+    assert "AI Instructions:" in res.stdout
+    assert "drawlib rules show cli" in res.stdout
+    assert "drawlib rules show overview" in res.stdout
+    assert "drawlib rules list" in res.stdout

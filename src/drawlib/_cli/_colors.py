@@ -22,6 +22,7 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
+from drawlib._cli._help import HELP_EPILOG
 from drawlib._core.fonts import Font
 from drawlib._core.images import Dimage
 from drawlib._core.styles import BaseColors, Color, Style
@@ -41,6 +42,7 @@ _HELP_CTX = {"help_option_names": ["-h", "--help"]}
 colors_app = typer.Typer(
     name="colors",
     help="Inspect and visualize preset color catalogs.",
+    epilog=HELP_EPILOG,
     no_args_is_help=True,
     context_settings=_HELP_CTX,
 )
@@ -266,7 +268,7 @@ def _display_dimage(dimage: Dimage) -> None:
         dimage.get_pil_image().show()
 
 
-@colors_app.command("list")
+@colors_app.command("list", epilog=HELP_EPILOG)
 def cmd_colors_list() -> None:
     """List all available built-in color presets."""
     table = Table(title="Drawlib Preset Colors", header_style="bold cyan")
@@ -287,7 +289,7 @@ def cmd_colors_list() -> None:
     console.print(table)
 
 
-@colors_app.command("show")
+@colors_app.command("show", epilog=HELP_EPILOG)
 def cmd_colors_show(
     preset: Annotated[
         str,

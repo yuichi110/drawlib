@@ -20,6 +20,7 @@ from drawlib._builder.rules_builder import build_rule, is_rule_cached
 from drawlib._cli._build import build_app
 from drawlib._cli._colors import colors_app
 from drawlib._cli._commands import cache_app, css_app, register_top_commands
+from drawlib._cli._help import HELP_EPILOG
 from drawlib._cli._init import cmd_init
 from drawlib._cli._rules import rules_app
 from drawlib._cli._styles import styles_app
@@ -28,6 +29,7 @@ from drawlib._core.utils import dutil_settings, logger
 app = typer.Typer(
     name="drawlib",
     help="Python drawing library. Illustration as Code.",
+    epilog=HELP_EPILOG,
     no_args_is_help=True,
     add_completion=False,
     context_settings={"help_option_names": ["-h", "--help"]},
@@ -42,6 +44,7 @@ app.add_typer(styles_app, name="styles")
 app.command(
     "init",
     help="Scaffold a starter drawlib project with sample illustrations and build script.",
+    epilog=HELP_EPILOG,
 )(cmd_init)
 register_top_commands(app)
 

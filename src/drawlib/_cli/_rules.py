@@ -24,10 +24,12 @@ from drawlib._builder.rules_builder import (
     get_rule_markdown,
     is_rule_cached,
 )
+from drawlib._cli._help import HELP_EPILOG
 
 rules_app = typer.Typer(
     name="rules",
     help="Display drawing guidelines, API rules, and code examples for AI coding agents.",
+    epilog=HELP_EPILOG,
     no_args_is_help=False,
     context_settings={"help_option_names": ["-h", "--help"]},
 )
@@ -56,7 +58,7 @@ TOPIC_DESCRIPTIONS: Final[dict[str, str]] = {
 }
 
 
-@rules_app.command("show")
+@rules_app.command("show", epilog=HELP_EPILOG)
 def cmd_rules_show(
     topic: Annotated[
         Optional[str],
@@ -116,7 +118,7 @@ def cmd_rules_show(
         raise typer.Exit(code=1) from exc
 
 
-@rules_app.command("build")
+@rules_app.command("build", epilog=HELP_EPILOG)
 def cmd_rules_build(
     topic: Annotated[
         Optional[str],
@@ -166,7 +168,7 @@ def cmd_rules_build(
         raise typer.Exit(code=1) from exc
 
 
-@rules_app.command("clean")
+@rules_app.command("clean", epilog=HELP_EPILOG)
 def cmd_rules_clean() -> None:
     """Delete all cached rule documents and generated illustration images in _assets/rules/."""
     try:
@@ -177,7 +179,7 @@ def cmd_rules_clean() -> None:
         raise typer.Exit(code=1) from exc
 
 
-@rules_app.command("list")
+@rules_app.command("list", epilog=HELP_EPILOG)
 def cmd_rules_list() -> None:
     """List all available rule topics, their descriptions, and cache status."""
     print("Available Drawlib Rule Topics:\n")

@@ -21,6 +21,7 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
+from drawlib._cli._help import HELP_EPILOG
 from drawlib._core.fonts import Font
 from drawlib._core.images import Dimage
 from drawlib._core.styles import Color, Style
@@ -41,6 +42,7 @@ _HELP_CTX = {"help_option_names": ["-h", "--help"]}
 styles_app = typer.Typer(
     name="styles",
     help="Inspect and visualize preset style catalogs.",
+    epilog=HELP_EPILOG,
     no_args_is_help=True,
     context_settings=_HELP_CTX,
 )
@@ -596,7 +598,7 @@ def _handle_single_page_output(
                 )
 
 
-@styles_app.command("list")
+@styles_app.command("list", epilog=HELP_EPILOG)
 def cmd_styles_list() -> None:
     """List all available built-in style preset catalogs."""
     table = Table(title="Drawlib Preset Styles", header_style="bold cyan")
@@ -617,7 +619,7 @@ def cmd_styles_list() -> None:
     console.print(table)
 
 
-@styles_app.command("show")
+@styles_app.command("show", epilog=HELP_EPILOG)
 def cmd_styles_show(
     preset: Annotated[
         str,

@@ -23,6 +23,7 @@ from rich.table import Table
 from drawlib._builder.cache_manager import clear_cache, download_cache, list_cache
 from drawlib._builder.doc_builder import show_code_block as show_block
 from drawlib._builder.rules_builder import _normalize_topic
+from drawlib._cli._help import HELP_EPILOG
 from drawlib._cli._rules import cmd_rules_show
 from drawlib._core.utils import dutil_settings
 from drawlib._css_templates import export_css, list_css
@@ -35,6 +36,7 @@ _HELP_CTX = {"help_option_names": ["-h", "--help"]}
 cache_app = typer.Typer(
     name="cache",
     help="Manage cached font and icon assets.",
+    epilog=HELP_EPILOG,
     no_args_is_help=True,
     context_settings=_HELP_CTX,
 )
@@ -42,6 +44,7 @@ cache_app = typer.Typer(
 css_app = typer.Typer(
     name="css",
     help="Manage built-in CSS style presets for HTML and PDF.",
+    epilog=HELP_EPILOG,
     no_args_is_help=True,
     context_settings=_HELP_CTX,
 )
@@ -58,7 +61,7 @@ def _handle_cmd_error(prefix: str, exc: Exception) -> None:
 # ---------------------------------------------------------------------------
 # drawlib cache {clear, list, download}
 # ---------------------------------------------------------------------------
-@cache_app.command("clear")
+@cache_app.command("clear", epilog=HELP_EPILOG)
 def cmd_cache_clear() -> None:
     """Delete all locally cached font and icon files."""
     try:
@@ -68,13 +71,13 @@ def cmd_cache_clear() -> None:
         _handle_cmd_error("Cache Error", e)
 
 
-@cache_app.command("purge", hidden=True)
+@cache_app.command("purge", hidden=True, epilog=HELP_EPILOG)
 def cmd_cache_purge() -> None:
     """Alias for `drawlib cache clear`."""
     cmd_cache_clear()
 
 
-@cache_app.command("list")
+@cache_app.command("list", epilog=HELP_EPILOG)
 def cmd_cache_list() -> None:
     """List all downloadable font and icon packages and local cache status."""
     try:
@@ -113,7 +116,7 @@ def cmd_cache_list() -> None:
         _handle_cmd_error("Cache Error", e)
 
 
-@cache_app.command("download")
+@cache_app.command("download", epilog=HELP_EPILOG)
 def cmd_cache_download(
     all_assets: Annotated[
         bool,
@@ -142,12 +145,14 @@ def cmd_cache_download(
 css_html_app = typer.Typer(
     name="html",
     help="List or export built-in HTML CSS presets (html_css).",
+    epilog=HELP_EPILOG,
     no_args_is_help=True,
     context_settings=_HELP_CTX,
 )
 css_pdf_app = typer.Typer(
     name="pdf",
     help="List or export built-in PDF CSS presets (pdf_css).",
+    epilog=HELP_EPILOG,
     no_args_is_help=True,
     context_settings=_HELP_CTX,
 )
@@ -167,13 +172,13 @@ def _run_css_list(target: Literal["html", "pdf"]) -> None:
     console.print(table)
 
 
-@css_html_app.command("list")
+@css_html_app.command("list", epilog=HELP_EPILOG)
 def cmd_css_html_list() -> None:
     """List available built-in HTML CSS presets (default, google, google-dark, google-auto, etc.)."""
     _run_css_list("html")
 
 
-@css_pdf_app.command("list")
+@css_pdf_app.command("list", epilog=HELP_EPILOG)
 def cmd_css_pdf_list() -> None:
     """List available built-in PDF CSS presets (default, google, default-dark, google-dark, etc.)."""
     _run_css_list("pdf")
@@ -199,7 +204,7 @@ def _run_css_export(
         raise typer.Exit(code=1)
 
 
-@css_html_app.command("export")
+@css_html_app.command("export", epilog=HELP_EPILOG)
 def cmd_css_html_export(
     preset: Annotated[
         str,
@@ -228,7 +233,7 @@ def cmd_css_html_export(
     _run_css_export("html", preset, output, force)
 
 
-@css_pdf_app.command("export")
+@css_pdf_app.command("export", epilog=HELP_EPILOG)
 def cmd_css_pdf_export(
     preset: Annotated[
         str,
@@ -257,7 +262,7 @@ def cmd_css_pdf_export(
     _run_css_export("pdf", preset, output, force)
 
 
-@css_app.command("export")
+@css_app.command("export", epilog=HELP_EPILOG)
 def cmd_css_export(
     preset: Annotated[
         str,
@@ -307,7 +312,7 @@ def cmd_css_export(
 def register_top_commands(app: typer.Typer) -> None:
     """Register top-level commands (`serve`, `show`) onto the main Typer app."""
 
-    @app.command("serve")
+    @app.command("serve", epilog=HELP_EPILOG)
     def cmd_serve(
         directory: Annotated[
             Optional[str],
@@ -346,7 +351,7 @@ def register_top_commands(app: typer.Typer) -> None:
         except Exception as e:
             _handle_cmd_error("Serve Error", e)
 
-    @app.command("show")
+    @app.command("show", epilog=HELP_EPILOG)
     def cmd_show(
         file: Annotated[
             str,

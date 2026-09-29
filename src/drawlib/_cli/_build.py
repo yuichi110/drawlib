@@ -20,11 +20,13 @@ from rich.console import Console
 
 from drawlib._builder.doc_builder import build_html, build_markdown, build_pdf
 from drawlib._builder.image_builder import build_image
+from drawlib._cli._help import HELP_EPILOG
 from drawlib._core.utils import dutil_settings
 
 build_app = typer.Typer(
     name="build",
     help="Compile Python scripts or Markdown/HTML documents into images, Markdown, HTML, or PDF.",
+    epilog=HELP_EPILOG,
     no_args_is_help=True,
     context_settings={"help_option_names": ["-h", "--help"]},
 )
@@ -40,7 +42,7 @@ def _handle_build_error(prefix: str, exc: Exception) -> None:
     raise typer.Exit(code=1)
 
 
-@build_app.command("image")
+@build_app.command("image", epilog=HELP_EPILOG)
 def cmd_build_image(
     inputs: Annotated[
         List[str],
@@ -105,10 +107,10 @@ def cmd_build_image(
         _handle_build_error("Build Image Error", e)
 
 
-build_app.command("images", help="Alias for 'build image'.")(cmd_build_image)
+build_app.command("images", help="Alias for 'build image'.", epilog=HELP_EPILOG)(cmd_build_image)
 
 
-@build_app.command("markdown")
+@build_app.command("markdown", epilog=HELP_EPILOG)
 def cmd_build_markdown(
     input_path: Annotated[
         str,
@@ -150,7 +152,7 @@ def cmd_build_markdown(
         _handle_build_error("Build Markdown Error", e)
 
 
-@build_app.command("html")
+@build_app.command("html", epilog=HELP_EPILOG)
 def cmd_build_html(
     input_path: Annotated[
         str,
@@ -192,7 +194,7 @@ def cmd_build_html(
         _handle_build_error("Build HTML Error", e)
 
 
-@build_app.command("pdf")
+@build_app.command("pdf", epilog=HELP_EPILOG)
 def cmd_build_pdf(
     inputs: Annotated[
         List[str],
