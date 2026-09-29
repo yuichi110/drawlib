@@ -77,7 +77,7 @@ drawlib build
 ├── html       Compile Markdown/HTML documents into static HTML sites or single pages
 ├── markdown   Compile Markdown files with embedded drawlib blocks into GitHub-ready Markdown
 ├── pdf        Merge Markdown/HTML files into a cohesive vector PDF via headless Chromium
-└── image(s)   Batch execute standalone Python scripts to generate image files
+└── image      Batch execute standalone Python scripts to generate image files
 ```
 
 Common build behavior:
@@ -104,7 +104,7 @@ drawlib build html <INPUT> [OPTIONS]
 | :--- | :--- | :--- | :--- | :--- |
 | `--output` | `-o` | `<path>` | `<input_dir>` or `<name>.html` | Destination HTML file path or output directory path. |
 | `--config` | `-c` | `<path>` | `None` | Path to Python configuration script executed before blocks (e.g. `docs_config.py`). |
-| `--image-format` | | `png \| webp` | `png` | Image output format for embedded `drawlib` blocks. |
+| `--format` | `-f` | `png \| webp` | `png` | Image output format for embedded `drawlib` blocks. |
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite image build cache (forces clean re-rendering). |
 
 > **Mandatory Files**: `template.html` and `style.css` must exist in the target directory (or parent directory of a single file). Run `drawlib init` to scaffold them.
@@ -153,7 +153,7 @@ drawlib build markdown <INPUT> [OPTIONS]
 | :--- | :--- | :--- | :--- | :--- |
 | `--output` | `-o` | `<path>` | `<stem>.rendered.md` or directory | Output destination file or directory path. |
 | `--config` | `-c` | `<path>` | `None` | Path to Python configuration script executed before blocks. |
-| `--image-format` | | `png \| webp` | `png` | Image output format for rendered blocks. |
+| `--format` | `-f` | `png \| webp` | `png` | Image output format for rendered blocks. |
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite image build cache. |
 
 #### Overwrite Protection:
@@ -173,7 +173,7 @@ drawlib build markdown docs_src/ -o docs/
 drawlib build markdown docs_src/architecture.md -o docs/architecture.md -c docs_config.py
 
 # Export images as modern WebP format:
-drawlib build markdown docs_src/ -o docs/ --image-format webp
+drawlib build markdown docs_src/ -o docs/ -f webp
 ```
 
 ---
@@ -184,11 +184,11 @@ Merges one or more Markdown or HTML documents into a single document and compile
 
 #### Syntax:
 ```bash
-drawlib build pdf <INPUTS...> [OPTIONS]
+drawlib build pdf <INPUT> [OPTIONS]
 ```
 
 #### Arguments:
-- `<INPUTS...>`: One or more Markdown (`.md`) files, HTML (`.html`) files, or directory paths to merge into the final PDF.
+- `<INPUT>`: Markdown (`.md`) file, HTML (`.html`) file, or directory path to export to PDF.
 
 #### Options:
 | Option | Shorthand | Type | Default | Description |
@@ -201,7 +201,7 @@ drawlib build pdf <INPUTS...> [OPTIONS]
 | `--no-cache` | | flag | `False` | Force clean diagram generation ignoring SQLite cache. |
 | `--timestamp` | | flag | `False` | Include current build timestamp in PDF metadata instead of normalizing for deterministic builds. |
 
-> **Mandatory Files**: `template.html` and `style.css` must exist in the target directory (or parent directory of the first input file). Run `drawlib init` to scaffold them.
+> **Mandatory Files**: `template.html` and `style.css` must exist in the target directory (or parent directory of the input file). Run `drawlib init` to scaffold them.
 
 #### Headless PDF Engine Mechanics:
 Drawlib renders PDFs using Playwright and a headless Chromium browser instance (`page.pdf()`). This guarantees identical layout across all operating systems, accurate web font loading, and background CSS rendering.
@@ -215,11 +215,7 @@ Prerequisites:
 # Compile single document to vector PDF:
 drawlib build pdf doc.md -o output.pdf
 
-# Compile multi-chapter book with Table of Contents and cover page:
-drawlib build pdf docs_src/00_cover.md docs_src/01_intro.md docs_src/02_arch.md \
-  -o architecture_handbook.pdf --toc
-
-# Merge an entire directory of chapters into a single PDF:
+# Merge an entire directory of chapters into a single PDF with Table of Contents:
 drawlib build pdf docs_src/ -o comprehensive_guide.pdf --page-break --toc
 ```
 
@@ -231,11 +227,11 @@ Executes one or more standalone Python drawing scripts (`.py`) or directories co
 
 #### Syntax:
 ```bash
-drawlib build image <INPUTS...> [OPTIONS]
+drawlib build image <INPUT> [OPTIONS]
 ```
 
 #### Arguments:
-- `<INPUTS...>`: Python script file paths (`.py`) or directory paths containing Python scripts.
+- `<INPUT>`: Python script file path (`.py`) or directory path containing Python scripts.
 
 #### Options:
 | Option | Shorthand | Type | Default | Description |
@@ -280,10 +276,11 @@ Bootstraps new documentation projects with production-ready file layouts, sample
 ### Syntax:
 ```bash
 drawlib init [TYPE] [DESTINATION] [OPTIONS]
+drawlib init list
 ```
 
 ### Arguments:
-- `[TYPE]`: Starter project template type (`site`, `simple`, `pdf`, `image`).
+- `[TYPE]`: Starter project template type (`site`, `simple`, `pdf`, `image`) or `list` to view available types.
 - `[DESTINATION]`: Target directory path (defaults to current working directory).
 
 ### Options:
@@ -294,7 +291,6 @@ drawlib init [TYPE] [DESTINATION] [OPTIONS]
 | `--lang` | | `en \| ja` | `en` | Starter content and font configuration language (`en` or `ja`). |
 | `--here` | | flag | `False` | Initialize directly into current directory without creating a subfolder. |
 | `--no-build` | | flag | `False` | Skip initial compilation after scaffolding files. |
-| `--list` | `-l` | flag | `False` | List all available starter project types and their descriptions. |
 | `--force` | `-f` | flag | `False` | Overwrite existing files if destination directory is not empty. |
 
 ---
@@ -360,7 +356,7 @@ images/
 
 ### Scaffolding Examples:
 ```bash
-drawlib init --list                  # List available project types
+drawlib init list                    # List available project types
 drawlib init site my_docs/           # Scaffold a multi-page documentation website
 drawlib init site --css google       # Scaffold site using Google CSS theme preset
 drawlib init site --lang ja          # Scaffold site with Japanese starter content & fonts

@@ -275,7 +275,7 @@ Drawlib integrates a complete, standalone documentation compilation pipeline (`d
 
 ```bash
 # List available starter templates:
-drawlib init --list
+drawlib init list
 
 # Scaffold a multi-page documentation website in the current repository:
 drawlib init site --here

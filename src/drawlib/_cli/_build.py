@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import sys
 import traceback
-from typing import Annotated, List, Literal, Optional
+from typing import Annotated, Literal, Optional
 
 import typer
 from rich.console import Console
@@ -44,9 +44,9 @@ def _handle_build_error(prefix: str, exc: Exception) -> None:
 
 @build_app.command("image", epilog=HELP_EPILOG)
 def cmd_build_image(
-    inputs: Annotated[
-        List[str],
-        typer.Argument(help="Target Python file(s) (.py) or directory containing Python drawing code."),
+    input_path: Annotated[
+        str,
+        typer.Argument(metavar="INPUT", help="Target Python file (.py) or directory containing Python drawing code."),
     ],
     output: Annotated[
         Optional[str],
@@ -89,10 +89,10 @@ def cmd_build_image(
         typer.Option("--no-cache", help="Disable reading and writing the SQLite build image cache."),
     ] = False,
 ) -> None:
-    """Execute one or more Python drawing scripts (.py) or package directories to generate images."""
+    """Execute a Python drawing script (.py) or directory containing scripts to generate images."""
     try:
         executed = build_image(
-            inputs=inputs,
+            inputs=input_path,
             output=output,
             format=format,
             styles=styles,
@@ -117,9 +117,9 @@ def cmd_build_markdown(
         Optional[str],
         typer.Option("-o", "--output", help="Output Markdown file or directory path."),
     ] = None,
-    image_format: Annotated[
+    format: Annotated[
         Literal["png", "webp"],
-        typer.Option("--image-format", help="Image output format for drawlib blocks: png or webp."),
+        typer.Option("-f", "--format", help="Image output format for drawlib blocks: png or webp."),
     ] = "png",
     styles: Annotated[
         Optional[str],
@@ -139,7 +139,7 @@ def cmd_build_markdown(
         out_file = build_markdown(
             input_path=input_path,
             output=output,
-            image_format=image_format,
+            image_format=format,
             styles=styles,
             utils=utils,
             no_cache=no_cache,
@@ -159,9 +159,9 @@ def cmd_build_html(
         Optional[str],
         typer.Option("-o", "--output", help="Output HTML file or directory path."),
     ] = None,
-    image_format: Annotated[
+    format: Annotated[
         Literal["png", "webp"],
-        typer.Option("--image-format", help="Image output format for drawlib blocks: png or webp."),
+        typer.Option("-f", "--format", help="Image output format for drawlib blocks: png or webp."),
     ] = "png",
     styles: Annotated[
         Optional[str],
@@ -181,7 +181,7 @@ def cmd_build_html(
         out_file = build_html(
             input_path=input_path,
             output=output,
-            image_format=image_format,
+            image_format=format,
             styles=styles,
             utils=utils,
             no_cache=no_cache,
@@ -193,11 +193,11 @@ def cmd_build_html(
 
 @build_app.command("pdf", epilog=HELP_EPILOG)
 def cmd_build_pdf(
-    inputs: Annotated[
-        List[str],
+    input_path: Annotated[
+        str,
         typer.Argument(
-            metavar="INPUTS...",
-            help="One or more input Markdown (.md), HTML (.html) files, or directories to merge into PDF.",
+            metavar="INPUT",
+            help="Input Markdown (.md), HTML (.html) file, or directory to export to PDF.",
         ),
     ],
     output: Annotated[
@@ -240,10 +240,10 @@ def cmd_build_pdf(
         ),
     ] = False,
 ) -> None:
-    """Merge one or more Markdown/HTML files or directories into a single HTML and export to PDF."""
+    """Merge a Markdown/HTML file or directory into a single HTML and export to PDF."""
     try:
         out_file = build_pdf(
-            inputs=inputs,
+            inputs=input_path,
             output=output,
             page_break=page_break,
             generate_index=generate_index,

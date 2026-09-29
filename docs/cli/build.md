@@ -16,10 +16,10 @@ drawlib build <subcommand> [TARGET] [OPTIONS]
 
 | Subcommand | Purpose | Primary Output |
 | :--- | :--- | :--- |
-| **`image`** (alias: `images`) | Executes one or more Python scripts (`.py`) or directories to generate image files. | PNG, WebP, JPG, SVG images |
+| **`image`** | Executes a Python script (`.py`) or directory to generate image files. | PNG, WebP, JPG, PDF images |
 | **`markdown`** | Compiles Markdown documents containing `drawlib` code blocks into rendered Markdown for GitHub. | `.md` files + `*_images/` |
 | **`html`** | Compiles a single file or an entire directory into a static HTML page or responsive website. | `.html` files + `style.css` + `*_images/` |
-| **`pdf`** | Compiles one or more Markdown/HTML files into a unified vector PDF via headless Chromium. | `.pdf` file |
+| **`pdf`** | Compiles a Markdown/HTML file or directory into a unified vector PDF via headless Chromium. | `.pdf` file |
 
 ---
 
@@ -43,8 +43,7 @@ drawlib build html docs_src/ -o docs_html/ -c config.py
 ### Options:
 - `-o`, `--output <path>`: Output file or destination directory path.
 - `-c`, `--config <path>`: Path to a Python setup script executed before illustrations (e.g. `config.py`).
-- `--image-format <png|svg|inline_svg|webp>`: Output image format for rendered illustrations (default: `png`).
-- `--css-mode <auto|embed|external>`: CSS embedding strategy (default: `auto`).
+- `-f`, `--format <png|webp>`: Output image format for rendered illustrations (default: `png`).
 
 ---
 
@@ -110,9 +109,9 @@ drawlib build pdf doc_src/ -o doc.pdf --timestamp
 
 ---
 
-## 5. `drawlib build image` (or `images`)
+## 5. `drawlib build image`
 
-Executes standalone Python drawing scripts to generate standalone images.
+Executes a standalone Python drawing script or directory containing scripts to generate images.
 
 ```bash
 # Run a single drawing script:

@@ -11,7 +11,7 @@ Drawlib provides a built-in document builder engine that compiles Markdown docum
 
 ```bash
 # List available starter templates:
-drawlib init --list
+drawlib init list
 
 # Scaffold a multi-page documentation site directly in current project/repository:
 drawlib init site --here

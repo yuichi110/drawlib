@@ -408,9 +408,10 @@
 <hr />
 <h2>1. Syntax Overview</h2>
 <pre><code class="language-bash">drawlib init [TYPE] [DESTINATION] [OPTIONS]
+drawlib init list
 </code></pre>
 <ul>
-<li><code>TYPE</code>: Starter template name (<code>site</code>, <code>simple</code>, <code>pdf</code>, or <code>image</code>).</li>
+<li><code>TYPE</code>: Starter template name (<code>site</code>, <code>simple</code>, <code>pdf</code>, or <code>image</code>), or <code>list</code> to view available types.</li>
 <li><code>DESTINATION</code>: Target directory path (defaults to current working directory).</li>
 </ul>
 <hr />
@@ -447,7 +448,7 @@
 </tbody>
 </table>
 <h3>Listing Available Templates</h3>
-<pre><code class="language-bash">drawlib init --list
+<pre><code class="language-bash">drawlib init list
 </code></pre>
 <hr />
 <h2>3. Command Options</h2>
@@ -460,11 +461,6 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left"><code>--list</code></td>
-<td style="text-align:left"><code>-l</code></td>
-<td style="text-align:left">Lists all available starter project types and exits.</td>
-</tr>
 <tr>
 <td style="text-align:left"><code>--lang</code></td>
 <td style="text-align:left"></td>

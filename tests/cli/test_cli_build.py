@@ -108,7 +108,7 @@ rectangle((50, 50), width=40, height=20, style=Styles.primary)
 
 
 def test_cli_build_html_webp_format(tmp_path) -> None:
-    """Test CLI build html with --image-format webp."""
+    """Test CLI build html with -f webp."""
     (tmp_path / "template.html").write_text(
         '<!DOCTYPE html><html><head>{% if css_href %}<link rel="stylesheet" href="{{ css_href }}">'
         "{% endif %}</head><body>{{ body }}</body></html>",
@@ -132,7 +132,7 @@ circle((50, 50), radius=10, style=Styles.primary)
     )
 
     res = run_drawlib_cli(
-        ["build", "html", str(input_md), "-o", str(output_html), "--image-format", "webp"],
+        ["build", "html", str(input_md), "-o", str(output_html), "-f", "webp"],
         cwd=str(tmp_path),
     )
 
@@ -140,6 +140,13 @@ circle((50, 50), radius=10, style=Styles.primary)
     content = output_html.read_text(encoding="utf-8")
     assert "sample_images/1.webp" in content
     assert (tmp_path / "sample_images" / "1.webp").exists()
+
+    # Verify deprecated --image-format is rejected
+    res_err = run_drawlib_cli(
+        ["build", "html", str(input_md), "-o", str(output_html), "--image-format", "webp"],
+        cwd=str(tmp_path),
+    )
+    assert res_err.returncode != 0
 
 
 def test_cli_build_markdown_single_file(tmp_path) -> None:
@@ -319,3 +326,27 @@ def test_cli_build_pdf_timestamp_flag(tmp_path) -> None:
     data = out_pdf.read_bytes()
     assert b"/CreationDate (D:" in data
     assert b"D:20260101000000+00'00'" not in data
+
+
+def test_cli_build_multiple_inputs_rejected(tmp_path) -> None:
+    """Test that all build commands reject multiple input arguments."""
+    file1 = tmp_path / "a.py"
+    file2 = tmp_path / "b.py"
+    file1.touch()
+    file2.touch()
+
+    # image
+    res_img = run_drawlib_cli(["build", "image", str(file1), str(file2)], cwd=str(tmp_path))
+    assert res_img.returncode != 0
+
+    # markdown
+    res_md = run_drawlib_cli(["build", "markdown", str(file1), str(file2)], cwd=str(tmp_path))
+    assert res_md.returncode != 0
+
+    # html
+    res_html = run_drawlib_cli(["build", "html", str(file1), str(file2)], cwd=str(tmp_path))
+    assert res_html.returncode != 0
+
+    # pdf
+    res_pdf = run_drawlib_cli(["build", "pdf", str(file1), str(file2)], cwd=str(tmp_path))
+    assert res_pdf.returncode != 0

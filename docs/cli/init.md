@@ -10,9 +10,10 @@ The `drawlib init` command bootstraps new documentation and illustration project
 
 ```bash
 drawlib init [TYPE] [DESTINATION] [OPTIONS]
+drawlib init list
 ```
 
-- `TYPE`: Starter template name (`site`, `simple`, `pdf`, or `image`).
+- `TYPE`: Starter template name (`site`, `simple`, `pdf`, or `image`), or `list` to view available types.
 - `DESTINATION`: Target directory path (defaults to current working directory).
 
 ---
@@ -28,7 +29,7 @@ drawlib init [TYPE] [DESTINATION] [OPTIONS]
 
 ### Listing Available Templates
 ```bash
-drawlib init --list
+drawlib init list
 ```
 
 ---
@@ -37,7 +38,6 @@ drawlib init --list
 
 | Option | Flag | Description |
 | :--- | :--- | :--- |
-| `--list` | `-l` | Lists all available starter project types and exits. |
 | `--lang` | | Target language for starter content and font configuration (`en` [default] or `ja`). |
 | `--css` | | Built-in CSS theme preset (`google`, `github`, `minimal`, `monochrome`, etc.) or stylesheet path. |
 | `--output` | `-o` | Base project/artifact name (e.g. `-o mybook` produces `mybook_src/`, `mybook.pdf`, etc.). |

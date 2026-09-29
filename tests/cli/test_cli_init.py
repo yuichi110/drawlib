@@ -25,8 +25,8 @@ from tests.cli.common import run_drawlib_cli
 
 
 def test_cli_init_list(tmp_path: Path) -> None:
-    """Test `drawlib init --list` and `-l` display available project types."""
-    res1 = run_drawlib_cli(["init", "--list"], cwd=str(tmp_path))
+    """Test `drawlib init list` displays available project types and `-l`/`--list` are rejected."""
+    res1 = run_drawlib_cli(["init", "list"], cwd=str(tmp_path))
     assert res1.returncode == 0
     assert "Available Drawlib Project Types:" in res1.stdout
     assert "simple" in res1.stdout
@@ -34,10 +34,12 @@ def test_cli_init_list(tmp_path: Path) -> None:
     assert "pdf" in res1.stdout
     assert "image" in res1.stdout
 
-    res2 = run_drawlib_cli(["init", "-l"], cwd=str(tmp_path))
-    assert res2.returncode == 0
-    assert "simple" in res2.stdout
-    assert "image" in res2.stdout
+    # Verify -l and --list are rejected
+    res2 = run_drawlib_cli(["init", "--list"], cwd=str(tmp_path))
+    assert res2.returncode != 0
+
+    res3 = run_drawlib_cli(["init", "-l"], cwd=str(tmp_path))
+    assert res3.returncode != 0
 
 
 def test_cli_init_missing_type(tmp_path: Path) -> None:
@@ -46,6 +48,7 @@ def test_cli_init_missing_type(tmp_path: Path) -> None:
     assert res.returncode == 1
     assert "Error: Missing project type." in res.stderr
     assert "simple" in res.stderr
+    assert "drawlib init list" in res.stderr
 
 
 def test_cli_init_unknown_type(tmp_path: Path) -> None:
@@ -53,6 +56,7 @@ def test_cli_init_unknown_type(tmp_path: Path) -> None:
     res = run_drawlib_cli(["init", "unknown"], cwd=str(tmp_path))
     assert res.returncode == 1
     assert "Error: Unknown project type 'unknown'." in res.stderr
+    assert "drawlib init list" in res.stderr
 
 
 def test_cli_init_simple(tmp_path: Path) -> None:

@@ -420,9 +420,9 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><strong><code>image</code></strong> (alias: <code>images</code>)</td>
-<td style="text-align:left">Executes one or more Python scripts (<code>.py</code>) or directories to generate image files.</td>
-<td style="text-align:left">PNG, WebP, JPG, SVG images</td>
+<td style="text-align:left"><strong><code>image</code></strong></td>
+<td style="text-align:left">Executes a Python script (<code>.py</code>) or directory to generate image files.</td>
+<td style="text-align:left">PNG, WebP, JPG, PDF images</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>markdown</code></strong></td>
@@ -436,7 +436,7 @@
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>pdf</code></strong></td>
-<td style="text-align:left">Compiles one or more Markdown/HTML files into a unified vector PDF via headless Chromium.</td>
+<td style="text-align:left">Compiles a Markdown/HTML file or directory into a unified vector PDF via headless Chromium.</td>
 <td style="text-align:left"><code>.pdf</code> file</td>
 </tr>
 </tbody>
@@ -460,8 +460,7 @@ drawlib build html docs_src/ -o docs_html/ -c config.py
 <ul>
 <li><code>-o</code>, <code>--output &lt;path&gt;</code>: Output file or destination directory path.</li>
 <li><code>-c</code>, <code>--config &lt;path&gt;</code>: Path to a Python setup script executed before illustrations (e.g. <code>config.py</code>).</li>
-<li><code>--image-format &lt;png|svg|inline_svg|webp&gt;</code>: Output image format for rendered illustrations (default: <code>png</code>).</li>
-<li><code>--css-mode &lt;auto|embed|external&gt;</code>: CSS embedding strategy (default: <code>auto</code>).</li>
+<li><code>-f</code>, <code>--format &lt;png|webp&gt;</code>: Output image format for rendered illustrations (default: <code>png</code>).</li>
 </ul>
 <hr />
 <h2>3. <code>drawlib build markdown</code></h2>
@@ -508,8 +507,8 @@ drawlib build pdf doc_src/ -o doc.pdf --timestamp
 <li>Suppresses folded dropdown code elements to produce clean, executive-ready documentation.</li>
 </ul>
 <hr />
-<h2>5. <code>drawlib build image</code> (or <code>images</code>)</h2>
-<p>Executes standalone Python drawing scripts to generate standalone images.</p>
+<h2>5. <code>drawlib build image</code></h2>
+<p>Executes a standalone Python drawing script or directory containing scripts to generate images.</p>
 <pre><code class="language-bash"># Run a single drawing script:
 drawlib build image my_chart.py
 

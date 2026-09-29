@@ -21,7 +21,7 @@ Drawlib includes four official starter project types:
 
 ### 2.1 List Available Templates
 ```bash
-drawlib init --list
+drawlib init list
 ```
 
 ### 2.2 Scaffolding a New Project Directory

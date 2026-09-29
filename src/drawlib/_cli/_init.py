@@ -26,7 +26,7 @@ def _print_types_list(types: dict[str, str]) -> None:
     max_len = max(len(t) for t in types)
     for name, desc in types.items():
         print(f"  - {name:<{max_len}} : {desc}")
-    print("\nUsage:\n  drawlib init <type> [destination]\n  drawlib init <type> --here")
+    print("\nUsage:\n  drawlib init <type> [destination]\n  drawlib init <type> --here\n  drawlib init list")
 
 
 def _validate_type_or_exit(project_type: Optional[str], types: dict[str, str]) -> str:
@@ -53,7 +53,7 @@ def _validate_type_or_exit(project_type: Optional[str], types: dict[str, str]) -
     print("Available types:", file=sys.stderr)
     for name, desc in types.items():
         print(f"  - {name:<10}: {desc}", file=sys.stderr)
-    print("\nRun `drawlib init --list` to view descriptions.", file=sys.stderr)
+    print("\nRun `drawlib init list` to view descriptions.", file=sys.stderr)
     raise typer.Exit(code=1)
 
 
@@ -136,7 +136,7 @@ def cmd_init(
         Optional[str],
         typer.Argument(
             metavar="TYPE",
-            help="Starter project type ('site', 'simple', 'pdf', 'image').",
+            help="Starter project type ('site', 'simple', 'pdf', 'image') or 'list' to view available types.",
         ),
     ] = None,
     destination: Annotated[
@@ -182,14 +182,6 @@ def cmd_init(
             help="CSS preset theme ('default', 'google', 'github', 'minimal', 'monochrome', etc.) or file path.",
         ),
     ] = None,
-    list_types: Annotated[
-        bool,
-        typer.Option(
-            "-l",
-            "--list",
-            help="List all available starter project types and exit.",
-        ),
-    ] = False,
     force: Annotated[
         bool,
         typer.Option(
@@ -202,18 +194,17 @@ def cmd_init(
     """Scaffold a starter drawlib project with sample illustrations and build script.
 
     Args:
-        project_type: Starter project type ('site', 'simple', 'pdf', 'image').
+        project_type: Starter project type ('site', 'simple', 'pdf', 'image') or 'list'.
         destination: Target directory path (defaults to current directory).
         output: Output project/artifact name.
         here: If True, initialize directly into current directory.
         no_build: If True, skip running initial build.
         lang: Starter template language ('en' or 'ja').
         css: CSS theme preset name or custom stylesheet file path.
-        list_types: If True, list available project types and exit.
         force: If True, overwrite existing files in destination directory.
     """
     types = list_project_types()
-    if list_types:
+    if project_type and project_type.strip().lower() == "list":
         _print_types_list(types)
         return
 
